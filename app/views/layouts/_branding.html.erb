@@ -101,6 +101,11 @@
                   <%= link_to(_('Usage'), usage_index_path) %>
                 </li>
               <% end %>
+              <% if current_user.can_super_admin? %>
+                <li <%= 'class=active' if isActivePage(super_admin_static_pages_path) %>>
+                  <%= link_to _('Static pages'), super_admin_static_pages_path %>
+                </li>
+              <% end %>
             </ul>
           </li>
         <% end %> <!-- if org admin -->

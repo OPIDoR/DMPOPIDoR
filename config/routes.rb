@@ -1,5 +1,4 @@
 Rails.application.routes.draw do
-  resources :static_pages
   namespace :admin do
     resources :users,              only: [:new, :create, :edit, :update, :index, :show]
     resources :orgs,               only: [:new, :create, :edit, :update, :index, :show]
@@ -316,5 +315,6 @@ resources :token_permission_types, only: [:new, :create, :edit, :update, :index,
       resources :orgs, only: [:index, :new, :create, :edit, :update, :destroy]
       resources :themes, only: [:index, :new, :create, :edit, :update, :destroy]
       resources :users, only: [:edit, :update]
+      resources :static_pages
     end
 end

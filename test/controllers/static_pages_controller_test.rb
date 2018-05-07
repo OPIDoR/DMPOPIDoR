@@ -21,7 +21,7 @@ class StaticPagesControllerTest < ActionController::TestCase
       post :create, static_page: { name: @static_page.name, url: @static_page.url }
     end
 
-    assert_redirected_to static_page_path(assigns(:static_page))
+    assert_redirected_to super_admin_static_page_path(assigns(:static_page))
   end
 
   test "should show static_page" do
@@ -36,7 +36,7 @@ class StaticPagesControllerTest < ActionController::TestCase
 
   test "should update static_page" do
     patch :update, id: @static_page, static_page: { name: @static_page.name, url: @static_page.url }
-    assert_redirected_to static_page_path(assigns(:static_page))
+    assert_redirected_to super_admin_static_page_path(assigns(:static_page))
   end
 
   test "should destroy static_page" do
