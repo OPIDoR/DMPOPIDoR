@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  resources :static_pages
   namespace :admin do
     resources :users,              only: [:new, :create, :edit, :update, :index, :show]
     resources :orgs,               only: [:new, :create, :edit, :update, :index, :show]

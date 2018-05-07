@@ -11,8 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180315161757) do
-
+ActiveRecord::Schema.define(version: 20180507130530) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -325,6 +324,23 @@ ActiveRecord::Schema.define(version: 20180315161757) do
     t.string   "destination"
     t.datetime "created_at",  null: false
     t.datetime "updated_at",  null: false
+
+  create_table "static_page_contents", force: :cascade do |t|
+    t.text     "content",        limit: 65535
+    t.integer  "static_page_id", limit: 4      null: false
+    t.integer  "language_id",    limit: 4      null: false
+    t.datetime "created_at",                   null: false
+    t.datetime "updated_at",                   null: false
+  end
+
+  add_index "static_page_contents", ["language_id"], name: "index_static_page_contents_on_language_id", using: :btree
+  add_index "static_page_contents", ["static_page_id"], name: "index_static_page_contents_on_static_page_id", using: :btree
+
+  create_table "static_pages", force: :cascade do |t|
+    t.string   "name",       limit: 255
+    t.string   "url",        limit: 255
+    t.datetime "created_at",             null: false
+    t.datetime "updated_at",             null: false
   end
 
   create_table "templates", force: :cascade do |t|
@@ -455,6 +471,8 @@ ActiveRecord::Schema.define(version: 20180315161757) do
   add_foreign_key "roles", "plans"
   add_foreign_key "roles", "users"
   add_foreign_key "sections", "phases"
+  add_foreign_key "static_page_contents", "languages"
+  add_foreign_key "static_page_contents", "static_pages"
   add_foreign_key "templates", "orgs"
   add_foreign_key "themes_in_guidance", "guidances"
   add_foreign_key "themes_in_guidance", "themes"

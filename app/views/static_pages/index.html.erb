@@ -1,0 +1,29 @@
+<p id="notice"><%= notice %></p>
+
+<h1>Listing Static Pages</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Url</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @static_pages.each do |static_page| %>
+      <tr>
+        <td><%= static_page.name %></td>
+        <td><%= static_page.url %></td>
+        <td><%= link_to 'Show', static_page %></td>
+        <td><%= link_to 'Edit', edit_static_page_path(static_page) %></td>
+        <td><%= link_to 'Destroy', static_page, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Static page', new_static_page_path %>
