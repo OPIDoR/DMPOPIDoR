@@ -1,11 +1,13 @@
 module SuperAdmin
   class StaticPagesController < ApplicationController
     before_action :set_static_page, only: %i[show edit update destroy]
+    before_action :set_static_pages, only: :index
 
     # GET /static_pages
     # GET /static_pages.json
     def index
-      @static_pages = StaticPage.all
+      authorize(StaticPage)
+      render(:index, locals: { static_pages: @static_pages.page(1) })
     end
 
     # GET /static_pages/1
@@ -65,6 +67,11 @@ module SuperAdmin
     # Use callbacks to share common setup or constraints between actions.
     def set_static_page
       @static_page = StaticPage.find(params[:id])
+    end
+
+    # Use callbacks to share common setup or constraints between actions.
+    def set_static_pages
+      @static_pages = StaticPage.all
     end
 
     # Never trust parameters from the scary internet, only allow the white list through.

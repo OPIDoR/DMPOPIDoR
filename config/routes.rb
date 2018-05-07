@@ -287,6 +287,10 @@ resources :token_permission_types, only: [:new, :create, :edit, :update, :index,
       resources :guidance_groups, only: [] do
         get 'index/:page', action: :index, on: :collection, as: :index
       end
+      # Paginable actions for static pages
+      resources :static_pages, only: [] do
+        get 'index/:page', action: :index, on: :collection, as: :index
+      end
     end
 
     # ORG ADMIN specific pages

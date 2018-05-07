@@ -1,29 +1,21 @@
-<p id="notice"><%= notice %></p>
-
-<h1>Listing Static Pages</h1>
-
-<table>
-  <thead>
-    <tr>
-      <th>Name</th>
-      <th>Url</th>
-      <th colspan="3"></th>
-    </tr>
-  </thead>
-
-  <tbody>
-    <% @static_pages.each do |static_page| %>
-      <tr>
-        <td><%= static_page.name %></td>
-        <td><%= static_page.url %></td>
-        <td><%= link_to 'Show', static_page %></td>
-        <td><%= link_to 'Edit', edit_super_admin_static_page_path(static_page) %></td>
-        <td><%= link_to 'Destroy', static_page, method: :delete, data: { confirm: 'Are you sure?' } %></td>
-      </tr>
-    <% end %>
-  </tbody>
-</table>
-
-<br>
-
-<%= link_to 'New Static page', new_super_admin_static_page_path %>
+<div class="row">
+  <div class="col-xs-12">
+    <h2><%= _('Static pages') %></h2>
+  </div>
+</div>
+<div class="row">
+  <div class="col-xs-12">
+    <div class="pull-right">
+      <%= link_to _('Add New Static page'), new_super_admin_static_page_path, class: 'btn btn-default', role: 'button' %>
+    </div>
+    <div class="table-responsive">
+      <%= paginable_renderise(
+        partial: '/paginable/static_pages/index',
+        controller: 'paginable/static_pages',
+        action: 'index',
+        scope: static_pages,
+        query_params: { sort_field: 'static_pages.name', sort_direction: 'desc' }
+      ) %>
+    </div>
+  </div>
+</div>

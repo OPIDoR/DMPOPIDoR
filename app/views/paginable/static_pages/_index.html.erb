@@ -1,0 +1,25 @@
+<table class="table table-hover">
+  <thead>
+    <tr>
+      <th>
+        <%= _('Name') %>&nbsp;<%= paginable_sort_link('Name') %>
+        <%= _('URL') %>&nbsp;<%= paginable_sort_link('URL') %>
+      </th>
+    </tr>
+  </thead>
+  <tbody>
+    <% scope.each do |static_page| %>
+      <tr>
+        <td>
+          <%= link_to static_page.name, edit_super_admin_static_page_path(static_page) %>
+        </td>
+        <td>
+          <%= static_page.title %>
+        </td>
+        <td>
+          <%= static_page.url %>
+        </td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
