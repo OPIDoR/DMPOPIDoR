@@ -1,13 +1,23 @@
-<%= semantic_form_for @static_page do |f| %>
-  <%= f.inputs do %>
+<%
+url = if @static_page.new_record?
+  super_admin_static_pages_path
+else
+  super_admin_static_page_path(@static_page)
+end
+%>
 
-    <%= f.input :name %>
+<%= form_for @static_page, url: url do |f| %>
+  <div class="row">
+    <!-- Name field -->
+    <div class="form-group">
+      <%= f.label :name, _('Name'), class: 'control-label' %>
+      <%= f.text_field :name, class: 'form-control', value: @static_page.name, "aria-required": true %>
+    </div>
 
-    <%= f.input :url %>
-
-  <% end %>
-
-  <%= f.actions do %>
-    <%= f.action :submit, :as => :input %>
-  <% end %>
+    <!-- URL field -->
+    <div class="form-group">
+      <%= f.label :url, _('URL'), class: 'control-label' %>
+      <%= f.text_field :url, class: 'form-control', value: @static_page.url, "aria-required": true %>
+    </div>
+  </div>
 <% end %>
