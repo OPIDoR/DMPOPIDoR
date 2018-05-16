@@ -19,5 +19,30 @@ end
       <%= f.label :url, _('URL'), class: 'control-label' %>
       <%= f.text_field :url, class: 'form-control', value: @static_page.url, "aria-required": true %>
     </div>
+
+    <%= f.label _('Content') %>
+
+    <!-- Tabs for content language -->
+    <ul class="nav nav-tabs">
+      <% Language.all.each do |l| %>
+      <li>
+        <a data-toggle="tab" href="#<%= l.abbreviation %>"><%= l.name %></a>
+      </li>
+      <% end %>
+    </ul>
+
+    <!-- Tabs content for content language -->
+    <div class="tab-content">
+      <%= f.fields_for :static_page_contents do |ff| %>
+      <div id="<%= ff.object.language.abbreviation %>" class="tab-pane fade">
+        <%= ff.text_area :content, class: "tinymce" %>
+      </div>
+      <% end %>
+    </div>
+
+    <!-- Buttons -->
+    <div class="pull-right">
+      <%= f.button _('Save'), class: 'btn btn-default', type: 'submit' %>
+    </div>
   </div>
 <% end %>

@@ -17,6 +17,9 @@ module SuperAdmin
     # GET /static_pages/new
     def new
       @static_page = StaticPage.new
+      Language.all.each do |l|
+        @static_page.static_page_contents << StaticPageContent.new(content: '', language: l)
+      end
     end
 
     # GET /static_pages/1/edit
