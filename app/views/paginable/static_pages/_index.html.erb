@@ -3,6 +3,8 @@
     <tr>
       <th>
         <%= _('Name') %>&nbsp;<%= paginable_sort_link('Name') %>
+      </th>
+      <th>
         <%= _('URL') %>&nbsp;<%= paginable_sort_link('URL') %>
       </th>
     </tr>
@@ -12,9 +14,6 @@
       <tr>
         <td>
           <%= link_to static_page.name, edit_super_admin_static_page_path(static_page) %>
-        </td>
-        <td>
-          <%= static_page.title %>
         </td>
         <td>
           <%= static_page.url %>
