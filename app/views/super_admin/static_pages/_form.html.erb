@@ -35,7 +35,8 @@ end
     <div class="tab-content">
       <%= f.fields_for :static_page_contents do |ff| %>
       <div id="<%= ff.object.language.abbreviation %>" class="tab-pane fade">
-        <%= ff.text_area :content, class: "tinymce" %>
+        <%= ff.hidden_field :language_id, value: ff.object.language.id %>
+        <%= ff.text_area :content, value: ff.object.content, class: "tinymce" %>
       </div>
       <% end %>
     </div>
@@ -43,7 +44,7 @@ end
     <!-- Buttons -->
     <div class="pull-right">
       <%= f.button _('Save'), class: 'btn btn-default', type: 'submit' %>
-      <%= link_to _('Cancel'), super_admin_static_pages_path, class: 'btn btn-default', role: 'button' %>
+      <%= link_to _('Cancel'), super_admin_static_pages_path, class: 'btn btn-default' %>
     </div>
   </div>
 <% end %>
