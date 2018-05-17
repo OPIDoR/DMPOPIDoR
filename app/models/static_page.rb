@@ -6,4 +6,8 @@ class StaticPage < ActiveRecord::Base
   validates :name, :url, presence: true, uniqueness: true
 
   alias contents static_page_contents
+
+  def content(locale)
+    contents.find_by(language: Language.find_by(abbreviation: locale)).content
+  end
 end

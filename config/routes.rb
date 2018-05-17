@@ -321,4 +321,9 @@ resources :token_permission_types, only: [:new, :create, :edit, :update, :index,
       resources :users, only: [:edit, :update]
       resources :static_pages
     end
+
+    # Static pages
+    namespace :static do
+        get ':name', to: 'static_pages#template'
+    end
 end
