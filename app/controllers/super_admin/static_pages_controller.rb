@@ -62,11 +62,16 @@ module SuperAdmin
     # DELETE /static_pages/1
     # DELETE /static_pages/1.json
     def destroy
-      @static_page.destroy
-      respond_to do |format|
-        format.html { redirect_to static_pages_url, notice: 'Static page was successfully destroyed.' }
-        format.json { head :no_content }
+      authorize(StaticPage)
+
+      begin
+        @static_page.destroy
+        flash[:notice] = _('Successfully destroyed your Static Page')
+      rescue ActiveRecord::RecordNotDestroyed
+        flash[:alert] = _('The Static Page with id %{id} could not be destroyed') % { id: params[:id] }
       end
+
+      redirect_to action: :index
     end
 
     private

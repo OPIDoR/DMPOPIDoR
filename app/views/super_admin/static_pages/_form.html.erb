@@ -44,6 +44,13 @@ end
     <!-- Buttons -->
     <div class="pull-right">
       <%= f.button _('Save'), class: 'btn btn-default', type: 'submit' %>
+      <%= link_to(
+        _('Delete'),
+        super_admin_static_page_path(@static_page),
+        class: 'btn btn-default',
+        method: :delete,
+        data: { confirm: _('Are you sure you want to delete the Static Page "%{name}"') % { name: @static_page.name }}
+      ) unless @static_page.new_record? %>
       <%= link_to _('Cancel'), super_admin_static_pages_path, class: 'btn btn-default' %>
     </div>
   </div>
