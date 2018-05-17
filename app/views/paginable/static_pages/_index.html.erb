@@ -16,7 +16,7 @@
           <%= link_to static_page.name, edit_super_admin_static_page_path(static_page) %>
         </td>
         <td>
-          <%= static_page.url %>
+          <%= link_to static_page.url, static_path(static_page.url) %>
         </td>
       </tr>
     <% end %>
