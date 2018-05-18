@@ -15,10 +15,7 @@ module SuperAdmin
     def new
       authorize(StaticPage)
       @static_page = StaticPage.new
-
-      @languages.each do |l|
-        @static_page.contents.new(language: l)
-      end
+      @static_page.build_contents
     end
 
     # GET /static_pages/1/edit
