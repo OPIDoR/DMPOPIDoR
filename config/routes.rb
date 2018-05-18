@@ -81,10 +81,6 @@ resources :token_permission_types, only: [:new, :create, :edit, :update, :index,
   patch 'locale/:locale' => 'application#set_locale_session', as: 'locale'
 
   root :to => 'home#index'
-    get "about_us" => 'static_pages#about_us'
-    get "help" => 'static_pages#help'
-    get "roadmap" => 'static_pages#roadmap'
-    get "terms" => 'static_pages#termsuse'
     get "public_plans" => 'public_pages#plan_index'
     get "public_templates" => 'public_pages#template_index'
     get "template_export/:id" => 'public_pages#template_export', as: 'template_export'
@@ -326,4 +322,10 @@ resources :token_permission_types, only: [:new, :create, :edit, :update, :index,
     namespace :static do
         get ':name', to: 'static_pages#template'
     end
+
+    # Old static page aliases
+    get 'about_us', to: 'static/static_pages#about_us', name: 'about_us'
+    get 'help', to: 'static/static_pages#template', name: 'help'
+    get 'roadmap', to: 'static/static_pages#roadmap', name: 'roadmap'
+    get 'terms', to: 'static/static_pages#termsuse', name: 'termsuse'
 end
