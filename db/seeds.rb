@@ -822,8 +822,21 @@ answers = [
 answers.map{ |a| Answer.create!(a) if Answer.where(plan: a[:plan], user: a[:user], question: a[:question]).empty? }
 =end
 
+# Default Static Pages and contents
+# ------------------------------------------------------------------------------
 l = Language.find_by(default_language: true)
+c1 = File.read("#{Rails.root.join}/public/help.html")
+c2 = File.read("#{Rails.root.join}/public/about_us.html")
+c3 = File.read("#{Rails.root.join}/public/termsuse.html")
 
-StaticPage.create(name: 'Help', url: 'help').contents.create(content: File.read("#{Rails.root.join}/public/help.html"), language: l)
-StaticPage.create(name: 'About Us', url: 'about_us').contents.create(content: File.read("#{Rails.root.join}/public/about_us.html"), language: l)
-StaticPage.create(name: 'Terms of use', url: 'termsuse').contents.create(content: File.read("#{Rails.root.join}/public/termsuse.html"), language: l)
+sp1 = StaticPage.create(name: 'Help', url: 'help')
+sp1.contents.create(content: c1, language: l)
+sp1.build_contents
+
+sp2 = StaticPage.create(name: 'About Us', url: 'about_us')
+sp2.contents.create(content: c2, language: l)
+sp2.build_contents
+
+sp3 = StaticPage.create(name: 'Terms of use', url: 'termsuse')
+sp3.contents.create(content: c3, language: l)
+sp3.build_contents
