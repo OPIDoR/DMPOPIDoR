@@ -25,7 +25,7 @@ end
     <!-- Tabs for content language -->
     <ul class="nav nav-tabs">
       <% Language.all.each do |l| %>
-      <li>
+      <li class="<%= active_tab?(l.abbreviation) %>">
         <a data-toggle="tab" href="#<%= l.abbreviation %>"><%= l.name %></a>
       </li>
       <% end %>
@@ -34,9 +34,9 @@ end
     <!-- Tabs content for content language -->
     <div class="tab-content">
       <%= f.fields_for :static_page_contents do |ff| %>
-      <div id="<%= ff.object.language.abbreviation %>" class="tab-pane fade">
+      <div id="<%= ff.object.language.abbreviation %>" class="tab-pane fade <%= active_tab?(ff.object.language.abbreviation, true) %>">
         <%= ff.hidden_field :language_id, value: ff.object.language.id %>
-        <%= ff.text_area :content, value: ff.object.content, class: "tinymce" %>
+        <%= ff.text_area :content, value: ff.object.content, class: 'content-editor' %>
       </div>
       <% end %>
     </div>
