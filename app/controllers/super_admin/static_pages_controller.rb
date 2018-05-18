@@ -2,6 +2,7 @@ module SuperAdmin
   class StaticPagesController < ApplicationController
     before_action :set_static_page, only: %i[edit update destroy]
     before_action :set_static_pages, only: :index
+    before_action :set_languages, only: %i[new edit]
 
     # GET /static_pages
     # GET /static_pages.json
@@ -15,7 +16,7 @@ module SuperAdmin
       authorize(StaticPage)
       @static_page = StaticPage.new
 
-      Language.all.each do |l|
+      @languages.each do |l|
         @static_page.contents.new(language: l)
       end
     end
@@ -84,6 +85,11 @@ module SuperAdmin
     # Use callbacks to share common setup or constraints between actions.
     def set_static_pages
       @static_pages = StaticPage.all
+    end
+
+    # Use callbacks to share common setup or constraints between actions.
+    def set_languages
+      @languages = Language.order(default_language: :desc)
     end
 
     # Never trust parameters from the scary internet, only allow the white list through.

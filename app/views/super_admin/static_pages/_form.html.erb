@@ -24,7 +24,7 @@ end
 
     <!-- Tabs for content language -->
     <ul class="nav nav-tabs">
-      <% Language.all.each do |l| %>
+      <% @languages.each do |l| %>
       <li class="<%= active_tab?(l.abbreviation) %>">
         <a data-toggle="tab" href="#<%= l.abbreviation %>"><%= l.name %></a>
       </li>
