@@ -15,7 +15,6 @@ module SuperAdmin
     def new
       authorize(StaticPage)
       @static_page = StaticPage.new
-      @static_page.build_contents
     end
 
     # GET /static_pages/1/edit
