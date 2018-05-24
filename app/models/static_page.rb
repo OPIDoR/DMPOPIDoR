@@ -20,7 +20,7 @@ class StaticPage < ActiveRecord::Base
   # After initialization, also initialize Static Page Contents
   after_initialize if: :new_record? do
     (Language.all.to_a - contents.map(&:language)).each do |l|
-      contents.new(language: l)
+      contents.new(language: l, content: '')
     end
   end
 
