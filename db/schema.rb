@@ -324,23 +324,24 @@ ActiveRecord::Schema.define(version: 20180507130530) do
     t.string   "destination"
     t.datetime "created_at",  null: false
     t.datetime "updated_at",  null: false
+  end
 
   create_table "static_page_contents", force: :cascade do |t|
-    t.text     "content",        limit: 65535
-    t.integer  "static_page_id", limit: 4      null: false
-    t.integer  "language_id",    limit: 4      null: false
-    t.datetime "created_at",                   null: false
-    t.datetime "updated_at",                   null: false
+    t.text     "content"
+    t.integer  "static_page_id",    null: false
+    t.integer  "language_id",       null: false
+    t.datetime "created_at",        null: false
+    t.datetime "updated_at",        null: false
   end
 
   add_index "static_page_contents", ["language_id"], name: "index_static_page_contents_on_language_id", using: :btree
   add_index "static_page_contents", ["static_page_id"], name: "index_static_page_contents_on_static_page_id", using: :btree
 
   create_table "static_pages", force: :cascade do |t|
-    t.string   "name",       limit: 255
-    t.string   "url",        limit: 255
-    t.datetime "created_at",             null: false
-    t.datetime "updated_at",             null: false
+    t.string   "name"
+    t.string   "url"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "templates", force: :cascade do |t|
