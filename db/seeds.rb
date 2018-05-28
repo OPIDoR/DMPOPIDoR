@@ -824,4 +824,4 @@ answers.map{ |a| Answer.create!(a) if Answer.where(plan: a[:plan], user: a[:user
 
 # Default Static Pages and contents
 # ------------------------------------------------------------------------------
-StaticPage.create(name: 'Help', url: 'help').contents.from_file("#{Rails.root}/public/help_default.html")
+StaticPage.where(name: 'Help').first_or_create(name: 'Help', url: 'help').contents.from_file("#{Rails.root}/public/help_default.html")
