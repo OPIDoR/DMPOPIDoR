@@ -27,7 +27,7 @@ class StaticPage < ActiveRecord::Base
   # Get Static Page content for specified locale
   # @param locale requested locale for page content
   # @return [String] the localized Static Page Content
-  def content(locale)
+  def content(locale = Language.default.abbreviation)
     spc = contents.find_by(language: Language.find_by(abbreviation: locale))
 
     spc ? spc.content : nil
