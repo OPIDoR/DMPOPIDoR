@@ -55,6 +55,21 @@
         <li <%= 'class=active' if isActivePage(help_path, true) %>>
           <%= link_to _('Help'), help_path %>
         </li>
+        <% unless @static_pages.empty? %>
+        <li>
+          <a href="#" class="dropdown-toggle" role="button" id="static-pages-menu" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            <%= _('More') %>
+            <span class="caret"></span>
+          </a>
+          <ul class="dropdown-menu inverse-dropdown" aria-labelledby="static-pages-menu">
+            <% @static_pages.each do |sp| %>
+            <li <%= 'class=active' if isActivePage("/static/#{sp.url}") %>>
+              <%= link_to _("#{sp.name}"), "/static/#{sp.url}" %>
+            </li>
+            <% end %>
+          </ul>
+        </li>
+        <% end %>
       </ul>
       <ul class="nav navbar-nav navbar-right">
           <%= render "layouts/signin_signout" %>
@@ -66,5 +81,3 @@
     </div><!-- /.navbar-collapse -->
   </div><!-- /.container-fluid -->
 </nav>
-
-
