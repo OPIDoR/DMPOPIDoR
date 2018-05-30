@@ -340,6 +340,7 @@ ActiveRecord::Schema.define(version: 20180507130530) do
   create_table "static_pages", force: :cascade do |t|
     t.string   "name"
     t.string   "url"
+    t.boolean  "in_navigation",             default: true
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end

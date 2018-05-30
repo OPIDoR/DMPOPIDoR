@@ -24,7 +24,7 @@ class StaticPage < ActiveRecord::Base
     end
   end
 
-  scope :not_help, -> { StaticPage.where('name != ?', 'Help') }
+  scope :navigable, -> { StaticPage.where('in_navigation = ?', true) }
 
   # Get Static Page content for specified locale
   # @param locale requested locale for page content

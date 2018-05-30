@@ -93,6 +93,7 @@ module SuperAdmin
       params.require(:static_page).permit(
         :name,
         :url,
+        :in_navigation,
         static_page_contents_attributes: [%i[id language_id content]]
       )
     end

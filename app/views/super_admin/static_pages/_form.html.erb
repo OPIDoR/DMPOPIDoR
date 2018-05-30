@@ -20,6 +20,12 @@ end
       <%= f.text_field :url, class: 'form-control', value: @static_page.url, "aria-required": true, data: { toggle: 'tooltip' }, title: _('Suffix only (e.g. for /about page, type "about")') %>
     </div>
 
+    <!-- Navigation dropdown checkbox -->
+    <div class="form-group">
+      <%= f.label :in_navigation, _('Show in navigation'), class: 'control-label' %>
+      <%= f.check_box :in_navigation, value: @static_page.in_navigation %>
+    </div>
+
     <%= f.label _('Content') %>
 
     <!-- Tabs for content language -->
