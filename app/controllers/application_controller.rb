@@ -5,7 +5,7 @@ class ApplicationController < ActionController::Base
   before_filter :prepend_view_paths
 
   # Set Static Pages to use in navigation
-  before_filter :set_static_pages
+  before_filter :set_nav_static_pages
 
   include GlobalHelpers
   include Pundit
@@ -159,7 +159,7 @@ class ApplicationController < ActionController::Base
     end
 
     # Set Static Pages collection to use in navigation
-    def set_static_pages
-      @static_pages = StaticPage.not_help
+    def set_nav_static_pages
+      @nav_static_pages = StaticPage.not_help
     end
 end
