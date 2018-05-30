@@ -327,6 +327,7 @@ ActiveRecord::Schema.define(version: 20180507130530) do
   end
 
   create_table "static_page_contents", force: :cascade do |t|
+    t.string   "title"
     t.text     "content"
     t.integer  "static_page_id",    null: false
     t.integer  "language_id",       null: false

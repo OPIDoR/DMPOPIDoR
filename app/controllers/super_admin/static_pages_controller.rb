@@ -94,7 +94,7 @@ module SuperAdmin
         :name,
         :url,
         :in_navigation,
-        static_page_contents_attributes: [%i[id language_id content]]
+        static_page_contents_attributes: [%i[id language_id title content]]
       )
     end
   end
