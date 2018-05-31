@@ -58,13 +58,14 @@
         <% unless @nav_static_pages.empty? %>
         <li>
           <a href="#" class="dropdown-toggle" role="button" id="static-pages-menu" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            <span class="fa fa-question-circle"></span>
             <%= _('More') %>
             <span class="caret"></span>
           </a>
           <ul class="dropdown-menu inverse-dropdown" aria-labelledby="static-pages-menu">
             <% @nav_static_pages.each do |sp| %>
-            <li <%= 'class=active' if isActivePage("/static/#{sp.url}") %>>
-              <%= link_to _("#{sp.name}"), "/static/#{sp.url}" %>
+            <li <%= 'class=active' if isActivePage(static_path(sp.url)) %>>
+              <%= link_to _("#{sp.name}"), static_path(sp.url) %>
             </li>
             <% end %>
           </ul>

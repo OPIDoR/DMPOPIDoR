@@ -1,9 +1,9 @@
 module Static
   class StaticPagesController < ApplicationController
-    before_action :set_static_page, only: :template
+    before_action :set_static_page, only: :show
 
     # GET /static/:name
-    def template; end
+    def show; end
 
     private
 

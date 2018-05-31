@@ -320,12 +320,12 @@ resources :token_permission_types, only: [:new, :create, :edit, :update, :index,
 
     # Static pages
     namespace :static do
-        get ':name', to: 'static_pages#template'
+        get ':name', to: 'static_pages#show'
     end
 
     # Old static page aliases
-    get 'about_us', to: 'static/static_pages#about_us', name: 'about_us'
-    get 'help', to: 'static/static_pages#template', name: 'help'
-    get 'roadmap', to: 'static/static_pages#roadmap', name: 'roadmap'
-    get 'terms', to: 'static/static_pages#termsuse', name: 'termsuse'
+    get 'about_us', to: 'static/static_pages#show', name: 'about_us'
+    get 'help', to: 'static/static_pages#show', name: 'help'
+    get 'roadmap', to: 'static/static_pages#show', name: 'roadmap'
+    get 'terms', to: 'static/static_pages#show', name: 'termsuse'
 end
