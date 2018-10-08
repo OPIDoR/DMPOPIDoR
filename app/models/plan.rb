@@ -10,11 +10,13 @@ class Plan < ActiveRecord::Base
   has_many :sections, through: :phases
   has_many :questions, through: :sections
   has_many :themes, through: :questions
-  has_many :answers, dependent: :destroy
+  # has_many :answers, dependent: :destroy
+  has_many :answers, through: :datasets
   has_many :notes, through: :answers
   has_many :roles, dependent: :destroy
   has_many :users, through: :roles
   has_and_belongs_to_many :guidance_groups, join_table: :plans_guidance_groups
+  has_many :datasets, dependent: :destroy
 
   accepts_nested_attributes_for :template
   has_many :exported_plans
