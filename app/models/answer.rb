@@ -17,14 +17,21 @@ class Answer < ActiveRecord::Base
   # Associations
 	belongs_to :question
 	belongs_to :user
-	belongs_to :plan
+  belongs_to :plan
   belongs_to :dataset
   has_many :notes, dependent: :destroy
   has_and_belongs_to_many :question_options, join_table: "answers_question_options"
 
-  has_many :notes
+  # Overrides belongs_to plan to be conditional on the presence of datasets
+  def plan
+    dataset.plan
+  rescue
+    Plan.find(plan_id)
+  end
 
   attr_accessible :dataset
+
+  has_many :notes
 
   ##
   # Possibly needed for active_admin

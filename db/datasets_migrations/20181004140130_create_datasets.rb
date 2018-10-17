@@ -1,5 +1,5 @@
 class CreateDatasets < ActiveRecord::Migration
-  def change
+  def up
     create_table :datasets do |t|
       t.string :name
       t.integer :order
@@ -9,5 +9,9 @@ class CreateDatasets < ActiveRecord::Migration
 
       t.timestamps null: false
     end
+  end
+
+  def down
+    drop_table :datasets
   end
 end
