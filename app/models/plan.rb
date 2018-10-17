@@ -771,6 +771,18 @@ class Plan < ActiveRecord::Base
     return num_questions == num_answers
   end
 
+  # Get plan's default dataset
+  # @return [Dataset] the plan's default dataset
+  def default_dataset
+    datasets.find_by(is_default: true)
+  end
+
+  # Does the plan has a dataset?
+  # @return [Boolean] whether or not the plan has a dataset
+  def has_datasets?
+    !default_dataset.nil?
+  end
+
   private
 
   # Returns whether or not the user has the specified role for the plan

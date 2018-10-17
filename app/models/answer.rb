@@ -24,6 +24,8 @@ class Answer < ActiveRecord::Base
 
   has_many :notes
 
+  attr_accessible :dataset
+
   ##
   # Possibly needed for active_admin
   #   -relies on protected_attributes gem as syntax depricated in rails 4.2
