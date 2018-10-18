@@ -1,8 +1,28 @@
 # frozen_string_literal: true
 
-# TODO: improve to source all migrations from the dir and execute in order (reversed to down)
-require Rails.root.join('db/datasets_migrations/20181004140130_create_datasets.rb')
-require Rails.root.join('db/datasets_migrations/20181004141146_add_dataset_to_answers.rb')
+# Migration(s) for datasets
+class DatasetsMigration < ActiveRecord::Migration
+  def up
+    create_table :datasets do |t|
+      t.string :name
+      t.integer :order
+      t.text :description
+      t.boolean :is_default, default: false
+      t.belongs_to :plan, index: true, foreign_key: true
+
+      t.timestamps null: false
+    end
+
+    add_reference :answers, :dataset, index: true, foreign_key: true
+  end
+
+  def down
+    remove_foreign_key :answers, :datasets
+    remove_reference :answers, :dataset
+
+    drop_table :datasets
+  end
+end
 
 namespace :datasets do
   # Migrates the database to use datasets
@@ -11,8 +31,8 @@ namespace :datasets do
   # - Moves all plans' answers to their new default dataset
   desc 'Migrate the database to use datasets'
   task enable: :environment do
-    CreateDatasets.new.up # Create Dataset table
-    AddDatasetToAnswers.new.up # Adds Dataset <-> Answer foreign key
+    # Apply migration
+    DatasetsMigration.new.up
 
     # Create datasets and move answers
     Plan.all.each do |plan|
@@ -32,7 +52,7 @@ namespace :datasets do
     # Destroy all datasets which are not defaut datasets and their answers
     Dataset.where(is_default: false).destroy_all
 
-    AddDatasetToAnswers.new.down # Remove Dataset <-> Answer foreign key
-    CreateDatasets.new.down # Remove dataset table
+    # Rollback migration
+    DatasetsMigration.new.down
   end
 end
