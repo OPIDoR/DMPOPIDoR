@@ -39,6 +39,12 @@ class PlansController < ApplicationController
   # -------------------------------------------------------------------
   def create
     @plan = Plan.new
+
+    # Add default dataset if possible
+    begin
+      @plan.datasets.new(is_default: false)
+    rescue; end
+
     authorize @plan
 
     # We set these ids to -1 on the page to trick ariatiseForm into allowing the autocomplete to be blank if
