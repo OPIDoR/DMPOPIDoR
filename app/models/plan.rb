@@ -780,7 +780,7 @@ class Plan < ActiveRecord::Base
   # Get plan's default dataset
   # @return [Dataset] the plan's default dataset
   def default_dataset
-    datasets.find_by(is_default: true)
+    datasets&.find_by(is_default: true) || nil
   end
 
   # Does the plan has a dataset?
