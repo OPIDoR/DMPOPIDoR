@@ -48,6 +48,4 @@ Rails.application.configure do
   config.assets.debug = false
   config.assets.compile = false
   config.assets.quiet = true
-
-  config.middleware.insert_after Rack::Lock, Rack::LiveReload
 end
