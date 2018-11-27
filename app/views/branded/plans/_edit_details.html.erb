@@ -144,6 +144,20 @@
           </div>
         </div>
       </fieldset>
+
+      <%# Datasets category %>
+      <fieldset class="project-details">
+        <legend class="project-details"><%= _('Datasets') %></legend>
+        <div id='datasets'>
+          <%= f.fields_for :datasets do |dataset| %>
+            <%= render 'dataset_fields', f: dataset unless dataset.object.is_default? %>
+          <% end %>
+          <div class='links'>
+            <%= link_to_add_association _('Add a dataset'), f, :datasets, class: 'btn btn-default' %>
+          </div>
+        </div>
+      </fieldset>
+
       <%= f.button(_('Submit'), class: "btn btn-default", type: "submit") %>
     </div>
     <div class="col-md-5 guidance-configuration">
@@ -190,6 +204,5 @@
         </div>
       </div>
     </div>
-
   <% end %>
 </div>

@@ -1,0 +1,14 @@
+<div class='nested-fields'>
+  <div class='field'>
+    <%= f.label :name, class: 'control-label' %>
+    <%= f.text_field :name, class: 'form-control', "aria-required": true %>
+  </div>
+  <div class='field'>
+    <%= f.label :description, class: 'control-label' %>
+    <%= f.text_field :description, class: 'form-control' %>
+  </div>
+  <div>
+    <%= link_to_remove_association _('Delete this dataset'), f %>
+  </div>
+  <hr>
+</div>

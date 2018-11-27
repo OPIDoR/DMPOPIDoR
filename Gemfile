@@ -85,3 +85,5 @@ group :development do
   gem 'web-console'
   gem 'rack-mini-profiler'
 end
+
+gem 'cocoon', path: File.join(File.dirname(__FILE__), '/vendor/gems/cocoon-1.2.12')
