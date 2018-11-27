@@ -15,7 +15,20 @@ class Plan < ActiveRecord::Base
   has_many :roles, dependent: :destroy
   has_many :users, through: :roles
   has_and_belongs_to_many :guidance_groups, join_table: :plans_guidance_groups
-  has_many :datasets, dependent: :destroy
+
+  has_many :datasets, dependent: :destroy, inverse_of: :plan do
+    def toggle_default
+      if count > 1
+        default = find_by(is_default: true)
+        default&.update(name: 'Default dataset') if default&.name.nil?
+        default&.update(is_default: false)
+      else
+        last.update(is_default: true)
+      end
+    end
+  end
+  accepts_nested_attributes_for :datasets, reject_if: :all_blank, allow_destroy: true
+  attr_accessible :datasets_attributes
 
   # Overrides has_many answer to be conditional on the presence of datasets
   def answers

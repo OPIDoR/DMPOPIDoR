@@ -201,6 +201,7 @@ class PlansController < ApplicationController
         @plan.save
 
         if @plan.update_attributes(attrs)
+          @plan.datasets.toggle_default
           format.html { redirect_to overview_plan_path(@plan), notice: success_message(_('plan'), _('saved')) }
           format.json {render json: {code: 1, msg: success_message(_('plan'), _('saved'))}}
         else
@@ -209,7 +210,7 @@ class PlansController < ApplicationController
           format.json {render json: {code: 0, msg: flash[:alert]}}
         end
 
-      rescue Exception
+      rescue StandardError
         flash[:alert] = failed_update_error(@plan, _('plan'))
         format.html { render action: "edit" }
         format.json {render json: {code: 0, msg: flash[:alert]}}
@@ -400,7 +401,7 @@ class PlansController < ApplicationController
     params.require(:plan).permit(:org_id, :org_name, :funder_id, :funder_name, :template_id, :title, :visibility,
                                  :grant_number, :description, :identifier, :principal_investigator,
                                  :principal_investigator_email, :principal_investigator_identifier,
-                                 :data_contact, :data_contact_email, :data_contact_phone, :guidance_group_ids)
+                                 :data_contact, :data_contact_email, :data_contact_phone, :guidance_group_ids, datasets_attributes: %i[id name description _destroy])
   end
 
 
