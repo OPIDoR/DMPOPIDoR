@@ -146,17 +146,11 @@
       </fieldset>
 
       <%# Datasets category %>
-      <fieldset class="project-details">
-        <legend class="project-details"><%= _('Datasets') %></legend>
-        <div id='datasets'>
-          <%= f.fields_for :datasets do |dataset| %>
-            <%= render 'dataset_fields', f: dataset unless dataset.object.is_default? %>
-          <% end %>
-          <div class='links'>
-            <%= link_to_add_association _('Add a dataset'), f, :datasets, class: 'btn btn-default' %>
-          </div>
-        </div>
-      </fieldset>
+      <% begin %>
+        <%= render 'datasets_form', f: f %>
+      <% rescue ActionView::Template::Error => e %>
+        <%# Do nothing, in case datasets are simply not enabled %>
+      <% end %>
 
       <%= f.button(_('Submit'), class: "btn btn-default", type: "submit") %>
     </div>

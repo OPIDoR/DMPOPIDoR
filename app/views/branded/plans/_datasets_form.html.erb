@@ -1,0 +1,11 @@
+<fieldset class="project-details">
+  <legend class="project-details"><%= _('Datasets') %></legend>
+  <div id='datasets'>
+    <%= f.fields_for :datasets do |d| %>
+      <%= render 'dataset_fields', f: d unless d.object.is_default? %>
+    <% end %>
+    <div class='links'>
+      <%= link_to_add_association _('Add a dataset'), f, :datasets, class: 'btn btn-default' %>
+    </div>
+  </div>
+</fieldset>
