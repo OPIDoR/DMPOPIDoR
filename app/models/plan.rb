@@ -10,32 +10,33 @@ class Plan < ActiveRecord::Base
   has_many :sections, through: :phases
   has_many :questions, through: :sections
   has_many :themes, through: :questions
-  has_many :answers
+  has_many :answers, dependent: :destroy
   has_many :notes, through: :answers
   has_many :roles, dependent: :destroy
   has_many :users, through: :roles
   has_and_belongs_to_many :guidance_groups, join_table: :plans_guidance_groups
 
   has_many :datasets, dependent: :destroy, inverse_of: :plan do
+    # Returns the default dataset
+    def default
+      find_by(is_default: true)
+    end
+
+    # Toggles the default dataset between default and normal
+    # Uses the 'is_default' flag:
+    # - Removes it if there are more than one dataset
+    # - Adds it back is there's only one dataset left
     def toggle_default
-      if count > 1
-        default = find_by(is_default: true)
-        default&.update(name: 'Default dataset') if default&.name.nil?
-        default&.update(is_default: false)
+      if count > 1 && !default.nil?
+        default.update(name: 'Default dataset') if default.name.nil?
+        default.update(is_default: false)
       else
-        last.update(is_default: true)
+        last&.update(is_default: true)
       end
     end
   end
   accepts_nested_attributes_for :datasets, reject_if: :all_blank, allow_destroy: true
   attr_accessible :datasets_attributes
-
-  # Overrides has_many answer to be conditional on the presence of datasets
-  def answers
-    Answer.where('dataset_id in (?)', datasets.pluck(:id))
-  rescue
-    Answer.where(plan_id: id)
-  end
 
   accepts_nested_attributes_for :template
   has_many :exported_plans
@@ -788,18 +789,6 @@ class Plan < ActiveRecord::Base
       m
     end
     return num_questions == num_answers
-  end
-
-  # Get plan's default dataset
-  # @return [Dataset] the plan's default dataset
-  def default_dataset
-    datasets&.find_by(is_default: true) || nil
-  end
-
-  # Does the plan has a dataset?
-  # @return [Boolean] whether or not the plan has a dataset
-  def has_datasets?
-    !default_dataset.nil?
   end
 
   private

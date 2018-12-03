@@ -35,11 +35,9 @@ namespace :datasets do
     DatasetsMigration.new.up
 
     # Create datasets and move answers
-    Plan.all.each do |plan|
-      plan.datasets.create(is_default: true) unless plan.has_datasets?
-      Answer.where(plan_id: plan.id).each do |answer|
-        answer.update_column(:dataset_id, plan.default_dataset.id)
-      end
+    Plan.all.each do |p|
+      dataset = p.datasets.create(is_default: true) if p.datasets.empty?
+      p.answers.each { |a| a.update_column(:dataset_id, dataset.id) }
     end
   end
 

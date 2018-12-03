@@ -22,15 +22,6 @@ class Answer < ActiveRecord::Base
   has_many :notes, dependent: :destroy
   has_and_belongs_to_many :question_options, join_table: "answers_question_options"
 
-  # Overrides belongs_to plan to be conditional on the presence of datasets
-  def plan
-    dataset.plan
-  rescue
-    Plan.find(plan_id)
-  end
-
-  attr_accessible :dataset
-
   has_many :notes
 
   ##
