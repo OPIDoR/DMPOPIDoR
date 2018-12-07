@@ -84,7 +84,7 @@ class AnswersController < ApplicationController
 
   private
     def permitted_params
-      permitted = params.require(:answer).permit(:id, :text, :plan_id, :user_id, :question_id, :lock_version, :question_option_ids => [])
+      permitted = params.require(:answer).permit(:id, :text, :plan_id, :user_id, :question_id, :lock_version, :dataset_id, :question_option_ids => [])
       if !params[:answer][:question_option_ids].nil? && !permitted[:question_option_ids].present? #If question_option_ids has been filtered out because it was a scalar value (e.g. radiobutton answer)
         permitted[:question_option_ids] = [params[:answer][:question_option_ids]] # then convert to an Array
       end
