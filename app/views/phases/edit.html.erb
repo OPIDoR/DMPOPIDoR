@@ -8,6 +8,10 @@
 
 <div class="row">
   <div class="col-md-12">
-    <%= render partial: 'phases/edit_plan_answers', layout: 'plans/navigation', locals: local_assigns %>
+    <% if Dataset.table_exists? %>
+      <%= render partial: 'phases/edit_plan_answers_datasets', layout: 'plans/navigation', locals: local_assigns %>
+    <% else %>
+      <%= render partial: 'phases/edit_plan_answers', layout: 'plans/navigation', locals: local_assigns %>
+    <% end %>
   </div>
 </div>
