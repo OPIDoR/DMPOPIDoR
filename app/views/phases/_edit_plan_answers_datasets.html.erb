@@ -16,78 +16,83 @@ DATASET EDITION
           </div>
           <div class="col-md-4">
             <% if plan.present? && phase.present? %>
-              <div class="progress">
-                <%= render :partial => "/plans/progress", locals: { plan: plan, current_phase: phase } %>
-              </div>
+            <div class="progress">
+              <%= render :partial => "/plans/progress", locals: { plan: plan, current_phase: phase } %>
+            </div>
             <% end %>
           </div>
         </div>
       </div>
     </div>
     <div class="panel-group" id="sections-accordion" role="tablist" aria-multiselectable="true">
-    <% phase.sections.each do |section| %>
+      <% phase.sections.each do |section| %>
       <% sectionid = section.id %>
       <div class="panel panel-default">
         <div class="heading-button" role="button" data-toggle="collapse"
-             data-parent="sections-accordion" 
-             href="#collapse-<%= sectionid %>"
-             aria-expanded="false" 
-             aria-controls="collapse-<%= sectionid %>">
+        data-parent="sections-accordion" 
+        href="#collapse-<%= sectionid %>"
+        aria-expanded="false" 
+        aria-controls="collapse-<%= sectionid %>">
 
-          <div class="panel-heading" role="tab" id="heading-<%= sectionid %>">
-            <div class="panel-title pull-left">
-              <%= section.title %> 
-              <% if plan.present? %>
-                  <span class="section-progress-<%= sectionid %>">
-                    <%= render :partial => "/org_admin/sections/progress", locals: { section: section, plan: plan } %>
-                  </span>
-              <% end %>
-            </div>
-            <i class="fa fa-plus pull-right" aria-hidden="true"></i>
-            <div class="clearfix"></div>
+        <div class="panel-heading" role="tab" id="heading-<%= sectionid %>">
+          <div class="panel-title pull-left">
+            <%= section.title %> 
+            <% if plan.present? %>
+            <span class="section-progress-<%= sectionid %>">
+              <%= render :partial => "/org_admin/sections/progress", locals: { section: section, plan: plan } %>
+            </span>
+            <% end %>
           </div>
+          <i class="fa fa-plus pull-right" aria-hidden="true"></i>
+          <div class="clearfix"></div>
+        </div>
         </div>
         <div id="collapse-<%= sectionid %>" class="panel-collapse collapse" role="tabpanel" aria-labelledby="heading-<%= sectionid %>">
           <div class="panel-body"><!-- accordion body -->
             <ul class="nav nav-tabs">
               <% plan.datasets.each do |dataset| %>
-                <li><a data-toggle="tab" href="#dataset_<%= dataset.id %>"><%= dataset.name %></a></li>
-              <% end %>
+              <li>
+                <a
+                data-toggle="tab"
+                href="#dataset_<%= dataset.id %>"
+                ><%= dataset.name %></a>
+              </li>
+              <% end if plan.datasets.count > 1 %>
             </ul>
             <% plan.datasets.each do |dataset| %>
-              <div id="dataset_<%= dataset.id %>" class="tab-pane fade in">
-            <div class="section-description"><%= raw section.description %></div>
+            <div id="dataset_<%= dataset.id %>" class="tab-pane fade in">
+              <div class="section-description"><%= raw section.description %></div>
               <!-- the section body -->
               <% section.questions.each_with_index do |question, i| %>
-                <% # Load the answer or create a new one
-                  answer = dataset.answers.find_by(question: question) if plan.present?
-                  answer ||= dataset.answers.new({ plan: plan, question: question })
-                %>
-                <div class="row">
-                  <div class="col-md-8">
-                    <!-- Answer Section -->
-                    <div class="question-form">
-                      <div id="<%= "answer-locking-#{question.id}" %>" class="answer-locking"></div>
-                      <div id="<%= "answer-form-#{question.id}" %>" class="answer-form"> 
-                        <%= render(partial: '/answers/new_edit', locals: { template: phase.template, question: question, answer: answer, readonly: readonly, locking: false, base_template_org: base_template_org }) %>
-                      </div>
-                      <div id="<%= "answer-status-#{question.id}" %>" class="mt-10">
-                        <%= render(partial: '/answers/status', locals: { answer: answer }) %>
-                      </div>
+              <% # Load the answer or create a new one
+              answer = dataset.answers.find_by(question: question) if plan.present?
+              answer ||= dataset.answers.new({ plan: plan, question: question })
+              %>
+              <div class="row">
+                <div class="col-md-8">
+                  <!-- Answer Section -->
+                  <div class="question-form">
+                    <div id="<%= "answer-locking-#{question.id}" %>" class="answer-locking"></div>
+                    <div id="<%= "answer-form-#{question.id}" %>" class="answer-form"> 
+                      <%= render(partial: '/answers/new_edit', locals: { template: phase.template, question: question, answer: answer, readonly: readonly, locking: false, base_template_org: base_template_org }) %>
+                    </div>
+                    <div id="<%= "answer-status-#{question.id}" %>" class="mt-10">
+                      <%= render(partial: '/answers/status', locals: { answer: answer }) %>
                     </div>
                   </div>
-                  <div class="col-md-4">
-                    <!-- Guidances and notes partial view -->
-                    <%= render partial: '/phases/guidances_notes', locals: { plan: plan, template: phase.template, question: question, answer: answer, question_guidance: question_guidance, guidance_groups: guidance_groups, base_template_org: base_template_org } %>
-                  </div>
                 </div>
-                <%= raw('<hr />') if i != section.questions.length - 1 %>
-              <% end %> <!-- section.questions.each do -->
+                <div class="col-md-4">
+                  <!-- Guidances and notes partial view -->
+                  <%= render partial: '/phases/guidances_notes', locals: { plan: plan, template: phase.template, question: question, answer: answer, question_guidance: question_guidance, guidance_groups: guidance_groups, base_template_org: base_template_org } %>
+                </div>
               </div>
+              <%= raw('<hr />') if i != section.questions.length - 1 %>
+              <% end %> <!-- section.questions.each do -->
+            </div>
             <% end %>
-            </div> <!-- panel-body -->
-          </div> <!-- panel-collapse -->
-        </div> <!-- panel panel-default -->
+          </div> <!-- panel-body -->
+        </div> <!-- panel-collapse -->
+      </div> <!-- panel panel-default -->
       <% end %>   <!-- phase.sections.order(:number).each do -->
     </div>   <!-- panel-group -->
   </div> <!-- tab panel -->
