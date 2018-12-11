@@ -55,12 +55,13 @@ DATASET EDITION
                 <a
                 data-toggle="tab"
                 href="#dataset_<%= dataset.id %>"
+                class="<%= dataset == plan.datasets.first ? 'active' : '' %>"
                 ><%= dataset.name %></a>
               </li>
               <% end if plan.datasets.count > 1 %>
             </ul>
             <% plan.datasets.each do |dataset| %>
-            <div id="dataset_<%= dataset.id %>" class="tab-pane fade in">
+              <div id="dataset_<%= dataset.id %>" class="tab-pane fade in <%= dataset == plan.datasets.first ? 'active' : '' %>">
               <div class="section-description"><%= raw section.description %></div>
               <!-- the section body -->
               <% section.questions.each_with_index do |question, i| %>
