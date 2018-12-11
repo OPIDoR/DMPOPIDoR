@@ -22,7 +22,11 @@ class AnswersController < ApplicationController
 
     Answer.transaction do
       begin
-        @answer = Answer.find_by!({ plan_id: p_params[:plan_id], question_id: p_params[:question_id] })
+        if Dataset.table_exists?
+          @answer = Answer.find_by!({ plan_id: p_params[:plan_id], question_id: p_params[:question_id], dataset_id: p_params[:dataset_id] })
+        else
+          @answer = Answer.find_by!({ plan_id: p_params[:plan_id], question_id: p_params[:question_id] })
+        end
         authorize @answer
         @answer.update(p_params.merge({ user_id: current_user.id }))
         if p_params[:question_option_ids].present?
