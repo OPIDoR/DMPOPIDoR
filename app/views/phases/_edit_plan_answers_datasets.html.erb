@@ -48,6 +48,9 @@
         </div>
         <div id="collapse-<%= sectionid %>" class="panel-collapse collapse" role="tabpanel" aria-labelledby="heading-<%= sectionid %>">
           <div class="panel-body"><!-- accordion body -->
+            <% if plan.datasets.count > 1 %>
+              <input type="checkbox"><%= _('This section\'s answers are common to all datasets') %><br>
+            <% end %>
             <ul class="nav nav-tabs">
               <% plan.datasets.each_with_index do |dataset, i| %>
                 <li class="<%= 'active' if i == 0 %>">

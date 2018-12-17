@@ -49,7 +49,10 @@
     <%= f.hidden_field :plan_id %>
     <%= f.hidden_field :question_id %>
     <%= f.hidden_field :lock_version %>
-    <%= f.hidden_field :dataset_id %>
+    <% if Dataset.table_exists? %>
+      <%= f.hidden_field :dataset_id %>
+      <%= f.hidden_field :is_common %>
+    <% end %>
     <% if q_format.rda_metadata? %>
       <%= hidden_field_tag :standards, answer_hash['standards'].to_json %>
     <% end %>
