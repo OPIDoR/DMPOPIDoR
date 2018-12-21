@@ -48,12 +48,9 @@
         </div>
         <div id="collapse-<%= sectionid %>" class="panel-collapse collapse" role="tabpanel" aria-labelledby="heading-<%= sectionid %>">
           <div class="panel-body"><!-- accordion body -->
-            <% if plan.datasets.count > 1 %>
-              <input type="checkbox"><%= _('This section\'s answers are common to all datasets') %><br>
-            <% end %>
             <ul class="nav nav-tabs">
               <% plan.datasets.each_with_index do |dataset, i| %>
-                <li class="<%= 'active' if i == 0 %>">
+                <li class="<%= 'active' if dataset.main? %>">
                 <a
                 data-toggle="tab"
                 href="#dataset_<%= dataset.id %>"
@@ -63,13 +60,19 @@
             </ul>
             <div class="tab-content">
               <% plan.datasets.each_with_index do |dataset, i| %>
-              <div id="dataset_<%= dataset.id %>" class="tab-pane fade <%= 'in active' if i == 0 %>">
+                <div id="dataset_<%= dataset.id %>" class="tab-pane fade <%= 'in active' if dataset.main? %> <%= 'main_dataset' if dataset.main? %>">
+                <% if dataset.main? %>
+                  <p>
+                    <input type="checkbox" class="is_common_cb" checked="<%= 'checked' if !dataset.answers.where(is_common: true).empty? %>"><%= _('This section\'s answers are common to all datasets') %>
+                  </p>
+                <% end %>
                 <div class="section-description"><%= raw section.description %></div>
                 <!-- the section body -->
                 <% section.questions.each_with_index do |question, i| %>
                 <% # Load the answer or create a new one
                 answer = dataset.answers.find_by(question: question) if plan.present?
                 answer ||= dataset.answers.new({ plan: plan, question: question })
+                p answer.id
                 %>
                 <div class="row">
                   <div class="col-md-8">

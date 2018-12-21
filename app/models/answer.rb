@@ -31,7 +31,7 @@ class Answer < ActiveRecord::Base
                   :question, :user, :plan, :question_options, :notes, :note_ids, :id,
                   :as => [:default, :admin]
 
-  attr_accessible :dataset_id
+  attr_accessible :dataset_id, :is_common
 
   ##
   # Validations
