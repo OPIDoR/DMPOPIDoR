@@ -63,7 +63,7 @@
                 <div id="dataset_<%= dataset.id %>" class="tab-pane fade <%= 'in active' if dataset.main? %> <%= 'main_dataset' if dataset.main? %>">
                 <% if dataset.main? %>
                   <p>
-                    <input type="checkbox" class="is_common_cb" checked="<%= 'checked' if !dataset.answers.where(is_common: true).empty? %>"><%= _('This section\'s answers are common to all datasets') %>
+                    <input type="checkbox" class="is_common_cb" <%= 'checked=""' unless dataset.answers.where(is_common: true).empty? %>><%= _('This section\'s answers are common to all datasets') %>
                   </p>
                 <% end %>
                 <div class="section-description"><%= raw section.description %></div>
