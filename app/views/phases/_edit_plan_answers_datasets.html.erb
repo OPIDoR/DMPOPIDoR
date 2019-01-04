@@ -49,8 +49,9 @@
         <div id="collapse-<%= sectionid %>" class="panel-collapse collapse" role="tabpanel" aria-labelledby="heading-<%= sectionid %>">
           <div class="panel-body"><!-- accordion body -->
             <ul class="nav nav-tabs">
+              <% common_answers = !section.questions.flat_map(&:answers).select(&:is_common?).empty? %>
               <% plan.datasets.each_with_index do |dataset, i| %>
-                <li class="<%= 'active' if dataset.main? %>">
+                <li class="<%= 'active' if dataset.main? %> <%= 'disabled' if common_answers %>">
                 <a
                 data-toggle="tab"
                 href="#dataset_<%= dataset.id %>"
@@ -63,7 +64,7 @@
                 <div id="dataset_<%= dataset.id %>" class="tab-pane fade <%= 'in active' if dataset.main? %> <%= 'main_dataset' if dataset.main? %>">
                 <% if dataset.main? %>
                   <p>
-                    <input type="checkbox" class="is_common_cb" <%= 'checked=""' unless dataset.answers.where(is_common: true).empty? %>><%= _('This section\'s answers are common to all datasets') %>
+                    <input type="checkbox" class="is_common_cb" <%= 'checked=""' if common_answers %>><%= _('This section\'s answers are common to all datasets') %>
                   </p>
                 <% end %>
                 <div class="section-description"><%= raw section.description %></div>
