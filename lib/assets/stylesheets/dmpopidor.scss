@@ -575,3 +575,8 @@ $light-yellow: #fff9e5;
   left: 50%;
   transform: translate(-50%, -50%);
 }
+
+// TODO: move to a cleaner place
+.nav-tabs li.disabled a {
+  pointer-events: none;
+}
