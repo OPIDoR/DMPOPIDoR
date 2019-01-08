@@ -576,7 +576,12 @@ $light-yellow: #fff9e5;
   transform: translate(-50%, -50%);
 }
 
-// TODO: move to a cleaner place
-.nav-tabs li.disabled a {
-  pointer-events: none;
+/*
+  Datasets
+*/
+.nav-tabs li.disabled {
+  cursor: not-allowed;
+  a {
+    pointer-events: none;
+  }
 }

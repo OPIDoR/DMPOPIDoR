@@ -73,7 +73,6 @@
                 <% # Load the answer or create a new one
                 answer = dataset.answers.find_by(question: question) if plan.present?
                 answer ||= dataset.answers.new({ plan: plan, question: question })
-                p answer.id
                 %>
                 <div class="row">
                   <div class="col-md-8">
