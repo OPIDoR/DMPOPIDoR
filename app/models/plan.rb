@@ -27,9 +27,11 @@ class Plan < ActiveRecord::Base
     # - Removes it if there are more than one dataset
     # - Adds it back is there's only one dataset left
     def toggle_default
-      if count > 1 && !default.nil?
-        default.update(name: 'Default dataset') if default.name.nil?
-        default.update(is_default: false)
+      if count > 1
+        unless default.nil?
+          default.update(name: 'Default dataset') if default.name.nil?
+          default.update(is_default: false)
+        end
       else
         last&.update(is_default: true)
       end
