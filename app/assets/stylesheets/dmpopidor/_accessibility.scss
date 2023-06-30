@@ -5,3 +5,48 @@ button {
     display: none;
   }
 }
+
+
+/** tooltips */
+.tooltip {
+  .tooltip-arrow {
+    color: $blue;
+    border-bottom-color: $blue;
+  }
+
+  .tooltip-inner {
+    background-color: $blue;
+    font-size: 14px;
+    font-weight: 600;
+    text-align: center;
+    min-width: initial;
+  }
+}
+
+.label-info {
+  background-color: $blue;
+}
+
+/** Focus outline required for accessibility */
+input,
+select,
+.form-control {
+
+  &:focus,
+  &:hover,
+  &:active {
+    outline-style: solid !important;
+    outline-color: $blue !important;
+    outline-width: 2px !important;
+  }
+}
+
+
+input.btn[type="button"] {
+
+  &:focus,
+  &:hover,
+  &:active {
+    outline-width: 0 !important;
+  }
+}

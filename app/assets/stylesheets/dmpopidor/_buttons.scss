@@ -58,7 +58,20 @@
     color: $blue;
   }
 
+  /*
+    ADMIN AREA
+  */
+
   &.org-admin {
+
+    h1,
+    h2 {
+      color: $rust;
+    }
+
+    a {
+      color: $rust;
+    }
 
     .btn-primary,
     .btn-primary:hover,
@@ -95,6 +108,11 @@
   }
 
   &.super-admin {
+
+    a {
+      color: $black;
+      text-decoration: underline;
+    }
 
     /* 
             BUTTONS

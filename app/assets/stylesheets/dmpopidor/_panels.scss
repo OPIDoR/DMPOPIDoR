@@ -1,0 +1,18 @@
+// main border
+.panel-default {
+    border: none;
+}
+
+.org-admin {
+
+    // main border
+    .panel-default {
+        border-color: $rust;
+    }
+
+    // Sections & Phases
+    .heading-button>.panel-heading,
+    .panel-default>.panel-heading {
+        background-color: $rust;
+    }
+}

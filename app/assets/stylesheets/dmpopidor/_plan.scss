@@ -622,3 +622,31 @@
     color: $blue;
   }
 }
+
+/* 
+    PLAN EDIT
+*/
+
+// Progress bar 
+.progress-bar {
+  background-color: $blue;
+}
+
+// example answer
+.example-answer {
+  overflow: auto;
+
+  .example-answer-link {
+    cursor: pointer;
+    background-color: $blue;
+    display: block;
+  }
+}
+
+// PLAN DOWNLOAD
+
+#download_form {
+  #json-formatting {
+    display: none;
+  }
+}

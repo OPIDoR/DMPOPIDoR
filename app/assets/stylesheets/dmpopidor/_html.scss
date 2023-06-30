@@ -1,8 +1,41 @@
 @use './colours' as *;
 
-body{
+html {
+  scrollbar-color: $dark-blue $white;
+  scrollbar-width: thin;
+}
+
+::-webkit-scrollbar {
+  width: 8px;
+  background-color: $white;
+}
+
+::-webkit-scrollbar-thumb {
+  background-color: $dark-blue;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  html {
+    scroll-behavior: smooth;
+  }
+}
+
+
+body {  
+  display: flex;
+  flex-direction: column;
+  padding-bottom: 0;
   color: $dark-blue;
   font-size: 16px;
+}
+
+body div a.btn {
+  text-decoration: none;
+}
+
+main {
+  margin-top: -60px;
+  z-index: 1;
 }
 
 h1 {
@@ -24,4 +57,14 @@ h3,
 
 a {
   color: $dark-blue;
+  text-decoration: none;
+}
+
+/* 
+  LEGEND
+*/
+
+legend.legend-label {
+  font-size: 14px;
+  border-bottom: none;
 }
