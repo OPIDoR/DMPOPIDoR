@@ -83,8 +83,11 @@
       &:not(:first-of-type) {
         span {
           text-align: left;
-          margin: auto;
           width: 100%;
+
+          &:not(.footer-col-title) {
+            margin: auto;
+          }
         }
       }
     }
