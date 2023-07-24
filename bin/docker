@@ -73,7 +73,7 @@ chdir APP_ROOT do
     "s/^db_username:(.*)$/\db_username:\s#{ENV["DB_USERNAME"] || db_username[params] || db_username['postgres']}/",
     "s/^db_password:(.*)$/\db_password:\s#{ENV["DB_PASSWORD"] || ''}/",
     "s/^secret_key:(.*)$/\\secret_key:\s#{ENV["SECRET_KEY"] || 'my_secret_key'}/",
-    "s/^devise_pepper:(.*)$/\devise_pepper:\s#{ENV["DEVISE_PEPPER"] || 'my_secret_key'}/",
+    "s/^devise_pepper:(.*)$/\devise_pepper:\s#{ENV["DEVISE_PEPPER"] || 'my_pepper'}/",
     "s/^dragonfly_secret:(.*)$/\dragonfly_secret:\s#{ENV["DRAGON_FLY_SECRET"] || 'my_secret_key'}/",
     "s/^[\s]+site_key:(.*)$/\  site_key:\s#{ENV["RECAPTCHA_SITE_KEY"] || '11111'}/",
     "s/^[\s]+secret_key:(.*)$/\  secret_key:\s#{ENV["RECAPTCHA_SECRET_KEY"] || '22222'}/",
