@@ -14,7 +14,7 @@ module DMPRoadmap
   # DMPRoadmap application
   class Application < Rails::Application
     # Initialize configuration defaults for originally generated Rails version.
-    config.load_defaults 7.0
+    config.load_defaults ENV.fetch('RAILS_LOAD_DEFAULTS', 7.0)
 
     # Settings in config/environments/* take precedence over those specified here.
     # Application configuration can go into files in config/initializers
@@ -44,7 +44,7 @@ module DMPRoadmap
     config.filter_parameters += [:password]
 
     # Enable escaping HTML in JSON.
-    config.active_support.escape_html_entities_in_json = true
+    config.active_support.escape_html_entities_in_json = ENV.fetch('ESCAPE_HTML_ENTITIES_IN_JSON', true)
 
     # Allow controllers to access view helpers
     # TODO: We should see what methods specifically are used by the controllers

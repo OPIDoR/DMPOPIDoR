@@ -7,18 +7,18 @@ ContactUs.setup do |config|
   # If emails must be sent from a verified email address you may set it here.
   # Example:
   # config.mailer_from = "contact@please-change-me.com"
-  config.mailer_from = nil
+  config.mailer_from = ENV.fetch('MAILER_FROM', nil)
 
   # Configure the e-mail address which should receive the contact form email notifications.
-  config.mailer_to = "example@email.address"
+  config.mailer_to = ENV.fetch('MAILER_TO', 'example@email.address')
 
   # ==> Form Configuration
 
   # Configure the form to ask for the users name.
-  config.require_name = true
+  config.require_name = ENV.fetch('MAILER_REQUIRE_NAME', true) == 'true'
 
   # Configure the form to ask for a subject.
-  config.require_subject = true
+  config.require_subject = ENV.fetch('MAILER_REQUIRE_SUBJECT', true) == 'true'
 
   # Configure the form gem to use.
   # Example:

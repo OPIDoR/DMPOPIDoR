@@ -10,7 +10,7 @@ Devise.setup do |config|
   # Configure the e-mail address which will be shown in Devise::Mailer,
   # note that it will be overwritten if you use your own mailer class with
   # default "from" parameter.
-  config.mailer_sender = 'dmp.opidor@inist.fr'
+  config.mailer_sender = ENV.fetch('MAILER_SENDER', 'dmp.opidor@inist.fr')
 
   # Configure the class responsible to send e-mails.
   # config.mailer = "Devise::Mailer"
@@ -65,7 +65,7 @@ Devise.setup do |config|
   # config.http_authenticatable = false
 
   # If http headers should be returned for AJAX requests. True by default.
-  config.http_authenticatable_on_xhr = false
+  config.http_authenticatable_on_xhr = ENV.fetch('HTTP_AUTHENTICATABLE_ON_XHR', false) == 'true'
 
   # The realm used in Http Basic Authentication. "Application" by default.
   # config.http_authentication_realm = "Application"
@@ -144,7 +144,7 @@ Devise.setup do |config|
   # initial account confirmation) to be applied. Requires additional unconfirmed_email
   # db field (see migrations). Until confirmed new email is stored in
   # unconfirmed email column, and copied to email column on successful confirmation.
-  config.reconfirmable = false
+  config.reconfirmable = ENV.fetch('RENCONFIRMABLE', false) == 'false'
 
   # Defines which key will be used when confirming an account
   # config.confirmation_keys = [ :email ]

@@ -9,7 +9,7 @@
 SUPPORTED_LOCALES = %w[en-GB fr-FR].freeze
 # You can define a subset of the locales for your instance's version of Translation.io if applicable
 CLIENT_LOCALES = %w[en-GB fr-FR].freeze
-DEFAULT_LOCALE = 'fr-FR'
+DEFAULT_LOCALE = ENV.fetch('DEFAULT_LOCALE', 'fr-FR')
 
 # Here we define the translation domains for the Roadmap application, `app` will
 # contain translations from the open-source repository and ignore the contents
