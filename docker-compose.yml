@@ -8,6 +8,7 @@ services:
         - DB_ADAPTER=${DB_ADAPTER:-postgres}
         - DB_USERNAME=${DB_USERNAME:-postgres}
         - DB_PASSWORD=${DB_PASSWORD:-changeme}
+        - NODE_MAJOR=${NODE_MAJOR:-18}
     profiles: ["prod", "dev"]
     depends_on:
       postgres:
@@ -41,7 +42,10 @@ services:
       - DRAGON_FLY_SECRET=${DRAGON_FLY_SECRET:-my_secret_key}
       - RECAPTCHA_SITE_KEY=${RECAPTCHA_SITE_KEY:-11111}
       - RECAPTCHA_SECRET_KEY=${RECAPTCHA_SECRET_KEY:-22222}
-      - REDIS_URL=${REDIS_URL:-redis://redis:6379/1}
+      - REDIS_HOST=${REDIS_HOST:-redis}
+      - REDIS_PORT=${REDIS_PORT:-6379}
+      - REDIS_USERNAME=${REDIS_USERNAME:-default}
+      - REDIS_PASSWORD=${REDIS_PASSWORD:-changeme}
       - AWS_REGION
       - AWS_BUCKET_NAME
       - BUNDLE_GEMFILE
@@ -109,19 +113,17 @@ services:
 
   redis:
     image: redis:7.2.1-alpine3.18
-    # command: "redis-server /etc/redis/redis.conf"
+    command: redis-server --requirepass ${REDIS_PASSWORD:-changeme}
     profiles: ["prod", "dev"]
-    ports:
-      - 6379:6379
     volumes:
       - ./redis/sysctl.conf:/etc/sysctl.conf
       - ./redis/redis.conf:/etc/redis/redis.conf
     healthcheck:
-      test: ["CMD", "redis-cli","ping"]
-      interval: ${DMPOPIDOR_HEALTHCHECK_INTERVAL:-30s}
-      timeout: ${DMPOPIDOR_HEALTHCHECK_TIMEOUT:-30s}
-      retries: ${DMPOPIDOR_HEALTHCHECK_RETRIES:-3}
-      start_period: ${POSTGRES_HEALTHCHECK_START_PERIOD:-0s}
+      test: ["CMD-SHELL", "redis-cli --pass ${REDIS_PASSWORD:-changeme} ping | grep PONG"]
+      interval: ${REDIS_HEALTHCHECK_INTERVAL:-30s}
+      timeout: ${REDIS_HEALTHCHECK_TIMEOUT:-30s}
+      retries: ${REDIS_HEALTHCHECK_RETRIES:-3}
+      start_period: ${REDIS_HEALTHCHECK_START_PERIOD:-0s}
     networks:
       - dmpopidor_network
 

@@ -47,7 +47,17 @@ Rails.application.configure do
 
   # settings for mailcatcher
   config.action_mailer.delivery_method = :smtp
-  config.action_mailer.smtp_settings = { address: ENV.fetch('ACTION_MAILER_SMTP_HOST', 'mailcatcher'), port: ENV.fetch('ACTION_MAILER_SMTP_PORT', 1025)  }
+  config.action_mailer.smtp_settings = {
+    address: ENV.fetch('ACTION_MAILER_SMTP_HOST', 'mailcatcher'),
+    port: ENV.fetch('ACTION_MAILER_SMTP_PORT', 1025)
+  }
+
+  ActionMailer::Base.default :from => ENV.fetch('MAILER_FROM', 'dmp.opidor@inist.fr')
+  ActionMailer::Base.delivery_method = :smtp
+  ActionMailer::Base.smtp_settings = {
+    address: ENV.fetch('ACTION_MAILER_SMTP_HOST', 'mailcatcher'),
+    port: ENV.fetch('ACTION_MAILER_SMTP_PORT', 1025)
+  }
 
   # Print deprecation notices to the Rails logger.
   config.active_support.deprecation = :log
@@ -60,7 +70,7 @@ Rails.application.configure do
   config.active_support.disallowed_deprecation = :raise
 
   # Tell Active Support which deprecation messages to disallow.
-  config.active_support.disallowed_deprecation_warnings = ENV.fetch('ACTIVE_SUPPORT_DISALLOWED_DEPRECATION_WARNINGS', [].to_json)
+  config.active_support.disallowed_deprecation_warnings = JSON.parse(ENV.fetch('ACTIVE_SUPPORT_DISALLOWED_DEPRECATION_WARNINGS', [].to_json))
 
   # Raise an error on page load if there are pending migrations.
   config.active_record.migration_error = :page_load

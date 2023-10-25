@@ -15,13 +15,14 @@
 - [Cache](#cache)
 - [Request](#request)
 - [Database](#database)
+- [Devise (OminiAuth)](#devise-ominiauth)
 - [DMP OPIDoR](#dmp-opidor)
 - [DMP Roadmap](#dmp-roadmap)
 - [DOI](#doi)
 - [Shibboleth](#shibboleth)
 - [Locale & Internationalisation (i18n)](#locale--internationalisation-i18n)
 - [MADMP Codebase](#madmp-codebase)
-- [Mailer](#mailer)
+- [Piwik](#piwik)
 - [OpenAire](#openaire)
 - [ORCID](#orcid)
 - [Organisation](#organisation)
@@ -71,6 +72,13 @@
 | ACTION_MAILER_RAISE_DELIVERY_ERRORS | Boolean | Enables action mailer delivery error raising ``(default: false)`` |
 | ACTION_MAILER_SMTP_HOST | String | Action mailer SMTP host ``(default: mailcatcher)`` |
 | ACTION_MAILER_SMTP_PORT | Integer | Action mailer SMTP port ``(default: 1025)`` |
+| ACTION_MAILER_DEFAULT_URL_OPTIONS_PROTOCOL | String | Action mailer protocol ``(default https)`` |
+| MAILER_FROM | String | Email address of the email sender ``(default: dmp.opidor@inist.fr)`` |
+| MAILER_REQUIRE_NAME | Boolean | Require sender name in emails ``(default: true)`` |
+| MAILER_REQUIRE_SUBJECT | Boolean | Require subject in emails ``(default: true)`` |
+| MAILER_SENDER | String | Default sender email address ``(default: dmp.opidor@inist.fr)`` |
+| MAILER_TO | String | Default destination email address ``(default: example@email.address)`` |
+| MAILER_LOCALIZE_ROUTES | Boolean | Localize routes ``(default: true)`` |
 
 ### Action View
 
@@ -122,7 +130,7 @@
 | HTTP_AUTHENTICATABLE_ON_XHR | Boolean | HTTP authentication on XHR for the application ``(default: false)`` |
 | RENCONFIRMABLE | Boolean | Renconfirmable for the application ``(default: false)`` |
 | REQUIRE_MASTER_KEY | Boolean | Require master key for the application ``(default: true)`` |
-| RESULST_PER_PAGE | Integer | Results per page for the application ``(default: 5)`` |
+| RESULTS_PER_PAGE | Integer | Results per page for the application ``(default: 5)`` |
 | KAMINARI_PARAMS_ON_FIRST_PAGE | Boolean | Kaminari params on the first page for the application ``(default: true)`` |
 | RACK_ATTACK_ENABLED | Boolean | Rack Attack enabled for the application ``(default: true)`` |
 | MAX_NUMBER_LINKS_FUNDER | Integer | Maximum number of links per funder ``(default: 5)`` |
@@ -130,7 +138,6 @@
 | MAX_NUMBER_THEMES_PER_COLUMN | Integer | Maximum number of themes per column ``(default: 5)`` |
 | SECRET_KEY_BASE | String | Secret key base ``(default: my_secret_key)`` |
 | SECRET_KEY | String | Secret key ``(default: my_secret_key)`` |
-| DEVISE_PEPPER | String | Devise pepper ``(default: my_pepper)`` |
 
 ### Assets
 
@@ -159,6 +166,22 @@
 | DRAGONFLY_AWS | Boolean | Enable Dragonfly AWS |
 | DRAGON_FLY_SECRET | String | Dragonfly secret key ``(default: my_secret_key)`` |
 
+### Devise (OminiAuth)
+
+| Name | Type | Description |
+| ---- | ---- | ----------- |
+| DEVISE_PEPPER | String | Devise pepper ``(default: my_pepper)`` |
+| DEVISE_SIGN_OUT_VIA | Symbol | The default HTTP method used to sign out a resource ``(default: :delete)`` |
+| DEVISE_FULL_HOST | String | OmniAuth host URL``(default: https://my_service.hostname)`` |
+| DEVISE_ALLOWED_REQUEST_METHODS | Symbol | OmniAuth allowed request methods ``(default: :post)`` |
+| DEVISE_OMNIAUTH_PATH_PREFIX | String | OmniAuth path prefix``(default: /users/auth)`` |
+| DEVISE_ORCID_CLIENT_ID | String | OminiAuth ORCID Client id ``(default: client_id)`` |
+| DEVISE_ORCID_CLIENT_SECRET | String | OminiAuth ORCID Client secret ``(default: client_secret)`` |
+| DEVISE_ORCID_CONFIG | Hash | OmniAuth ORCID configuration ``(default: {})`` |
+| DEVISE_SHIBBOLETH_REQUEST_TYPE | Smymbol | OmniAuth shibboleth request type``(default: :header)`` |
+| DEVISE_SHIBBOLETH_CONFIG | Hash | OmniAuth shibboleth config ``(default: {})`` |
+| DEVISE_SHIBBOLETH_EXTRA_FIELDS | Array<Symbol> | OmniAuth shibboleth extra fields ``(default: [:schacHomeOrganization])`` |
+
 ### Bullet
 
 | Name | Type | Description |
@@ -173,8 +196,8 @@
 | Name | Type | Description |
 | ---- | ---- | ----------- |
 | CACHE_CLASSES | Boolean | Cache classes ``(default: false)`` |
-| CACHE_ORG_SELECTION_EXPIRATION | Integer | Cache expiration time for organization selection ``(default: 86,400 seconds)`` |
-| CACHE_RESEARCH_PROJECTS_EXPIRATION | Integer | Cache expiration time for research projects ``(default: 86,400 seconds)``|
+| CACHE_ORG_SELECTION_EXPIRATION | Integer | Cache expiration time for organization selection ``(default: 86400)`` |
+| CACHE_RESEARCH_PROJECTS_EXPIRATION | Integer | Cache expiration time for research projects ``(default: 86400)``|
 
 ### Request
 
@@ -206,9 +229,7 @@
 
 | Name | Type | Description |
 | ---- | ---- | ----------- |
-| DMPROADMAP_HOST | String | DMP Roadmap host ``(default: dmp.opidor.fr)`` |
 | DMPROADMAP_HOST | String | DMP Roadmap host ``(default: dmpopidor)`` |
-| DMPROADMAP_HOST | String | DMP Roadmap host ``(default: localhost:3000)`` |
 
 ### DOI
 
@@ -263,15 +284,13 @@
 | MADMP_PREFERRED_LICENSES | Array | MADMP preferred licenses ``(default: [CC-BY-%{latest}, CC-BY-SA-%{latest}, CC-BY-NC-%{latest}, CC-BY-NC-SA-%{latest}, CC-BY-ND-%{latest}, CC-BY-NC-ND-%{latest}, CC0-%{latest}])`` |
 | MADMP_PREFERRED_LICENSES_GUIDANCE_URL | String | MADMP preferred licenses guidance URL ``(default: https://creativecommons.org/about/cclicenses/)`` |
 
-### Mailer
+### Piwik
 
 | Name | Type | Description |
 | ---- | ---- | ----------- |
-| MAILER_FROM | Object | Email address of the email sender ``(default: nil)`` |
-| MAILER_REQUIRE_NAME | Boolean | Require sender name in emails ``(default: true)`` |
-| MAILER_REQUIRE_SUBJECT | Boolean | Require subject in emails ``(default: true)`` |
-| MAILER_SENDER | String | Default sender email address ``(default: dmp.opidor@inist.fr)`` |
-| MAILER_TO | String | Default destination email address ``(default: example@email.address)`` |
+| PIWIK_ENABLED | Boolean | Enable Piwik ``(default: false)`` |
+| PIWIK_BASE_URL | String | Piwik base URL ``(default: ')`` |
+| PIWIK_SITE_ID | Integer | Piwik base URL ``(default: 0)`` |
 
 ### OpenAire
 
@@ -378,8 +397,10 @@
 
 | Name | Type | Description |
 | ---- | ---- | ----------- |
-| REDIS_URL | String | Redis URL ``(default: localhost)`` |
-| REDIS_URL | String | Redis URL ``(default: redis://redis:6379/1)`` |
+| REDIS_HOST | String | Redis host ``(default: localhost)`` |
+| REDIS_PORT | Integer | Redis port ``(default: 6379)`` |
+| REDIS_USERNAME | String | Redis username ``(default: default)`` |
+| REDIS_PASSWORD | String | Redis password ``(default: changeme)`` |
 
 ### Rollbar
 

@@ -7,7 +7,7 @@ ContactUs.setup do |config|
   # If emails must be sent from a verified email address you may set it here.
   # Example:
   # config.mailer_from = "contact@please-change-me.com"
-  config.mailer_from = ENV.fetch('MAILER_FROM', nil)
+  config.mailer_from = ENV.fetch('MAILER_FROM', 'dmp.opidor@inist.fr')
 
   # Configure the e-mail address which should receive the contact form email notifications.
   config.mailer_to = ENV.fetch('MAILER_TO', 'example@email.address')
@@ -24,5 +24,5 @@ ContactUs.setup do |config|
   # Example:
   # config.form_gem = 'formtastic
   # config.form_gem = 'formtastic'
-
+  config.localize_routes = ENV.fetch('MAILER_LOCALIZE_ROUTES', true) == 'true'
 end

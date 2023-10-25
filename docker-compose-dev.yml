@@ -5,6 +5,8 @@ services:
     build:
       context: .
       target: dev
+      args:
+        - NODE_MAJOR=${NODE_MAJOR:-18}
     profiles: ["dev"]
     depends_on:
       postgres:

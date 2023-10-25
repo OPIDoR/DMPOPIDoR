@@ -1,10 +1,12 @@
 # frozen_string_literal: true
 
+require 'json'
+
 # Use this hook to configure devise mailer, warden hooks and so forth.
 # Many of these configuration options can be set straight in your model.
 # rubocop:disable Metrics/BlockLength
 Devise.setup do |config|
-  config.secret_key = Rails.application.credentials.secret_key
+  config.secret_key = ENV.fetch('DEVISE_SECRET_KEY', Rails.application.credentials.secret_key)
 
   # ==> Mailer Configuration
   # Configure the e-mail address which will be shown in Devise::Mailer,
@@ -97,7 +99,7 @@ Devise.setup do |config|
   # export RAILS_MASTER_KEY=xxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
   # and then editing the credentials file with
   # EDITOR=your_fave_editor rails credentials:edit
-  config.pepper = Rails.application.credentials.devise_pepper
+  config.pepper = ENV.fetch('DEVISE_PEPPER', Rails.application.credentials.devise_pepper)
 
   # ==> Configuration for :invitable
   # The period the generated invitation token is valid, after
@@ -250,7 +252,7 @@ Devise.setup do |config|
   config.navigational_formats = ['*/*', :html, :js]
 
   # The default HTTP method used to sign out a resource. Default is :delete.
-  config.sign_out_via = :delete
+  config.sign_out_via = ENV.fetch('DEVISE_SIGN_OUT_VIA', :delete)&.to_sym
 
   # ==> OmniAuth
   # Add a new OmniAuth provider. Check the wiki for more information on setting
@@ -259,27 +261,30 @@ Devise.setup do |config|
 
   # Any entries here MUST match a corresponding entry in the identifier_schemes table as
   # well as an identifier_schemes.schemes section in each locale file!
-  OmniAuth.config.full_host = 'https://my_service.hostname'
-  OmniAuth.config.allowed_request_methods = [:post]
+  OmniAuth.config.full_host = ENV.fetch('DEVISE_FULL_HOST', 'https://my_service.hostname')
+  OmniAuth.config.allowed_request_methods = [ENV.fetch('DEVISE_ALLOWED_REQUEST_METHODS', :post)&.to_sym]
 
-  config.omniauth :orcid,
-                  'client_id', 'client_secret',
-                  {
-                    # member: false,
-                  }
+  config.omniauth :orcid, ENV.fetch('DEVISE_ORCID_CLIENT_ID', 'client_id'), ENV.fetch('DEVISE_ORCID_CLIENT_SECRET', 'client_secret'), { sandbox: true, 'scope': '/authenticate' }
 
-  config.omniauth :shibboleth,
-                  {
-                    # debug: true,
-                    # uid_field:                 "HTTP_REMOTE_USER",
-                    # shib_application_id_field: "HTTP_SHIB_APPLICATION_ID",
-                    # shib_session_id_field:     "HTTP_SHIB_SESSION_ID",
-                    fields: [],
-                    info_fields: {
-                      # affiliation: "HTTP_AFFILIATION",
-                    },
-                    extra_fields: []
-                  }
+  shibboleth_request_type = ENV.fetch('DEVISE_SHIBBOLETH_REQUEST_TYPE', :header).to_sym
+  shibboleth_config = ENV['EVISE_SHIBBOLETH_CONFIG']&.present? ? JSON.parse(ENV['EVISE_SHIBBOLETH_CONFIG'], { symbolize_names: true }) : {
+    info_fields: {
+      uid: "uid",
+      eppn: "eppn",
+      email: "mail",
+      name: "displayName",
+      last_name: "sn",
+      first_name: "givenName",
+      identity_provider: "shib_identity_provider"
+    },
+    debug: false
+  }
+  shibboleth_extra_fields = JSON.parse(ENV.fetch('DEVISE_SHIBBOLETH_EXTRA_FIELDS', [:schacHomeOrganization]&.to_json)).map(&:to_sym)
+  config.omniauth :shibboleth, {
+    request_type: shibboleth_request_type,
+    **shibboleth_config,
+    extra_fields: shibboleth_extra_fields
+  }
 
   # ==> Warden configuration
   # If you want to use other strategies, that are not supported by Devise, or
@@ -302,7 +307,7 @@ Devise.setup do |config|
   #
   # When using omniauth, Devise cannot automatically set Omniauth path,
   # so you need to do it manually. For the users scope, it would be:
-  config.omniauth_path_prefix = '/users/auth'
+  config.omniauth_path_prefix = ENV.fetch('DEVISE_OMNIAUTH_PATH_PREFIX', '/users/auth')
 
   config.warden do |manager|
     manager.failure_app = CustomFailure

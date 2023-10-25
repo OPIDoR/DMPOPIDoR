@@ -54,7 +54,7 @@ Rails.application.configure do
   config.active_support.disallowed_deprecation = :raise
 
   # Tell Active Support which deprecation messages to disallow.
-  config.active_support.disallowed_deprecation_warnings = ENV.fetch('ACTIVE_SUPPORT_DISALLOWED_DEPRECATION_WARNINGS', [].to_json)
+  config.active_support.disallowed_deprecation_warnings = JSON.parse(ENV.fetch('ACTIVE_SUPPORT_DISALLOWED_DEPRECATION_WARNINGS', [].to_json))
 
   # Raises error for missing translations.
   # config.i18n.raise_on_missing_translations = ENV.fetch('I18N_RAISE_ON_MISSING_TRANSLATIONS', true) == 'true'

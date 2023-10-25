@@ -184,7 +184,7 @@ module DMPRoadmap
     # updates a template question or guidance
     config.x.max_number_themes_per_column = ENV.fetch('MAX_NUMBER_THEMES_PER_COLUMN', 5)&.to_i
     # default results per page
-    config.x.results_per_page = ENV.fetch('RESULST_PER_PAGE', 5)&.to_i
+    config.x.results_per_page = ENV.fetch('RESULTS_PER_PAGE', 5)&.to_i
 
     # ------------- #
     # PLAN DEFAULTS #

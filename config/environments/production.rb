@@ -69,6 +69,24 @@ Rails.application.configure do
 
   config.action_mailer.perform_caching = ENV.fetch('ACTION_MAILER_PERFORM_CACHING', false) == 'true'
 
+  # settings for mailcatcher
+  config.action_mailer.default_url_options = {
+    :host => ENV.fetch('DMPROADMAP_HOST', 'dmp.opidor.fr'),
+    :protocol => ENV.fetch('ACTION_MAILER_DEFAULT_URL_OPTIONS_PROTOCOL', 'https')
+  }
+  config.action_mailer.delivery_method = :smtp
+  config.action_mailer.smtp_settings = {
+    address: ENV.fetch('ACTION_MAILER_SMTP_HOST', 'mailcatcher'),
+    port: ENV.fetch('ACTION_MAILER_SMTP_PORT', 1025)
+  }
+
+  ActionMailer::Base.default :from => ENV.fetch('MAILER_FROM', 'dmp.opidor@inist.fr')
+  ActionMailer::Base.delivery_method = :smtp
+  ActionMailer::Base.smtp_settings = {
+    address: ENV.fetch('ACTION_MAILER_SMTP_HOST', 'mailcatcher'),
+    port: ENV.fetch('ACTION_MAILER_SMTP_PORT', 1025)
+  }
+
   # Ignore bad email addresses and do not raise email delivery errors.
   # Set this to true and configure the email server for immediate delivery to raise delivery errors.
   # config.action_mailer.raise_delivery_errors = ENV.fetch('ACTION_MAILER_RAISE_DELIVERY_ERRORS', false) == 'true'
@@ -84,7 +102,7 @@ Rails.application.configure do
   config.active_support.disallowed_deprecation = :log
 
   # Tell Active Support which deprecation messages to disallow.
-  config.active_support.disallowed_deprecation_warnings = ENV.fetch('ACTIVE_SUPPORT_DISALLOWED_DEPRECATION_WARNINGS', [].to_json)
+  config.active_support.disallowed_deprecation_warnings = JSON.parse(ENV.fetch('ACTIVE_SUPPORT_DISALLOWED_DEPRECATION_WARNINGS', [].to_json))
 
   # Use default logging formatter so that PID and timestamp are not suppressed.
   config.log_formatter = Logger::Formatter.new
@@ -129,10 +147,7 @@ Rails.application.configure do
   # This allows us to define the hostname and add it to the whitelist. If you attempt
   # to access the site and receive a 'Blocked host' error then you will need to
   # set this environment variable
-  config.hosts = [
-    'localhost', # The localhost reserved domain.
-    ENV.fetch('DMPROADMAP_HOST', 'dmpopidor') # Additional comma-separated hosts for development.
-  ]
+  config.hosts << ENV.fetch('DMPROADMAP_HOST', 'dmpopidor') # Additional comma-separated hosts for development.
 end
 # Used by Rails' routes url_helpers (typically when including a link in an email)
 Rails.application.routes.default_url_options[:host] = ENV.fetch('DMPROADMAP_HOST', 'dmp.opidor.fr')

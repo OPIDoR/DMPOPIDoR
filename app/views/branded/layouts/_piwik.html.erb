@@ -1,0 +1,36 @@
+<% if ENV.fetch('PIWIK_ENABLED', false) == 'true' %>
+  <!-- Piwik -->
+  <script type="text/javascript">
+    const _paq = _paq || [];
+    _paq.push(function() {
+      const self = this;
+      function getOriginalVisitorCookieTimeout() {
+        const now = new Date();
+        const nowTs = Math.round(now.getTime() / 1000);
+        const visitorInfo = self.getVisitorInfo();
+        const createTs = parseInt(visitorInfo[2]);
+        const cookieTimeout = 33696000;
+        return createTs + cookieTimeout - nowTs;
+      }
+      this.setVisitorCookieTimeout(getOriginalVisitorCookieTimeout());
+    });
+    _paq.push(['trackPageView']);
+    _paq.push(['enableLinkTracking']);
+    (function() {
+      const baseUrl = '<%= ENV.fetch('PIWIK_BASE_URL', '') %>';
+      const u = baseUrl + 'piwik.js';
+      _paq.push(['setTrackerUrl', baseUrl + 'piwik.php']);
+      _paq.push(['setSiteId', <%= ENV.fetch('PIWIK_SITE_ID', 0) %>]);
+      const d = document;
+      const g = d.createElement('script');
+      const s = d.getElementsByTagName('script')[0];
+      g.type = 'text/javascript';
+      g.async = true;
+      g.defer = true;
+      g.src = u;
+      s.parentNode.insertBefore(g, s);
+    })();
+  </script>
+  <img src="<%= ENV.fetch('PIWIK_BASE_URL', '') %>piwik.php?idsite=<%= ENV.fetch('PIWIK_SITE_ID', 0) %>&rec=1" style="border:0" alt="" />
+  <!-- End Piwik Code -->
+<% end %>
