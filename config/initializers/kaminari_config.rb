@@ -9,5 +9,5 @@ Kaminari.configure do |config|
   # config.right = 0
   # config.page_method_name = :page
   # config.param_name = :page
-  config.params_on_first_page = ENV.fetch('KAMINARI_PARAMS_ON_FIRST_PAGE', true) == 'true'
+  config.params_on_first_page = ENV.fetch('KAMINARI_PARAMS_ON_FIRST_PAGE', true).to_s.casecmp('true').zero?
 end

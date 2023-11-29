@@ -24,8 +24,8 @@ if defined?(Rollbar)
     config.person_id_method = ENV.fetch('ROLLBAR_PERSON_ID_METHOD', 'id')
 
     # Read GDPR guidelines here: https://docs.rollbar.com/docs/ruby#section-gdpr-hipaa
-    config.collect_user_ip = ENV.fetch('ROLLBAR_COLLECT_USER_IP', true) == 'true'
-    config.anonymize_user_ip = ENV.fetch('ROLLBAR_ANONYMIZE_USER_IP', true) == 'true'
+    config.collect_user_ip = ENV.fetch('ROLLBAR_COLLECT_USER_IP', true).to_s.casecmp('true').zero?
+    config.anonymize_user_ip = ENV.fetch('ROLLBAR_ANONYMIZE_USER_IP', true).to_s.casecmp('true').zero?
 
     # Additionally, you may specify the following:
     # config.person_username_method = "name"

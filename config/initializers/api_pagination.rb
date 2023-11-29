@@ -25,5 +25,5 @@ ApiPagination.configure do |config|
   # Optional: Include the total and last_page link header
   # By default, this is set to true
   # Note: When using kaminari, this prevents the count call to the database
-  config.include_total = ENV.fetch('PAGINATION_INCLUDE_TOTAL', true) == 'true'
+  config.include_total = ENV.fetch('PAGINATION_INCLUDE_TOTAL', true).to_s.casecmp('true').zero?
 end

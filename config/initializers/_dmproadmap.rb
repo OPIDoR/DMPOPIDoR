@@ -133,11 +133,11 @@ module DMPRoadmap
     }.to_json))
 
     # Setting to only take orgs from local and not allow on-the-fly creation
-    config.x.application.restrict_orgs = ENV.fetch('APPLICATION_RESTRICT_ORGS', false)  == 'true'
+    config.x.application.restrict_orgs = ENV.fetch('APPLICATION_RESTRICT_ORGS', false) .to_s.casecmp('true').zero?
 
     # Defines if Guidances/Comments in toggleable & if it's opened by default
-    config.x.application.guidance_comments_toggleable = ENV.fetch('APPLICATION_GUIDANCE_COMMENTS_TOGGLEABLE', true)  == 'true'
-    config.x.application.guidance_comments_opened_by_default = ENV.fetch('APPLICATION_GUIDANCE_COMMENTS_OPENED_BY_DEFAULT', false)  == 'true'
+    config.x.application.guidance_comments_toggleable = ENV.fetch('APPLICATION_GUIDANCE_COMMENTS_TOGGLEABLE', true) .to_s.casecmp('true').zero?
+    config.x.application.guidance_comments_opened_by_default = ENV.fetch('APPLICATION_GUIDANCE_COMMENTS_OPENED_BY_DEFAULT', false) .to_s.casecmp('true').zero?
 
     # ------------------- #
     # SHIBBOLETH SETTINGS #
@@ -146,7 +146,7 @@ module DMPRoadmap
     # Enable shibboleth as an alternative authentication method
     # Requires server configuration and omniauth shibboleth provider configuration
     # See config/initializers/devise.rb
-    config.x.shibboleth.enabled = ENV.fetch('ENABLE_SHIBBOLETH', false) == 'true'
+    config.x.shibboleth.enabled = ENV.fetch('ENABLE_SHIBBOLETH', false).to_s.casecmp('true').zero?
 
     # Relative path to Shibboleth SSO Logouts
     config.x.shibboleth.login_url = ENV.fetch('SHIBBOLETH_LOGIN_URL', '/Shibboleth.sso/Login')
@@ -157,7 +157,7 @@ module DMPRoadmap
     # will be driven out to your federation's discovery service
     #
     # A super admin will also be able to associate orgs with their shibboleth entityIds if this is set to true
-    config.x.shibboleth.use_filtered_discovery_service = ENV.fetch('SHIBBOLETH_USE_FILTERED_DISCOVERY_SERVICE', false) == 'true'
+    config.x.shibboleth.use_filtered_discovery_service = ENV.fetch('SHIBBOLETH_USE_FILTERED_DISCOVERY_SERVICE', false).to_s.casecmp('true').zero?
 
     # ------- #
     # LOCALES #
@@ -202,13 +202,13 @@ module DMPRoadmap
 
     # Whether or not Super adminis can read all of the user's plans regardless of
     # the plans visibility and whether or not the plan has been shared
-    config.x.plans.org_admins_read_all = ENV.fetch('PLANS_ORG_ADMIN_READ_ALL', true) == 'true'
+    config.x.plans.org_admins_read_all = ENV.fetch('PLANS_ORG_ADMIN_READ_ALL', true).to_s.casecmp('true').zero?
     # Whether or not Organisational administrators can read all of the user's plans
     # regardless of the plans visibility and whether or not the plan has been shared
-    config.x.plans.super_admins_read_all = ENV.fetch('PLANS_SUPER_ADMINS_READ_ALL', true) == 'true'
+    config.x.plans.super_admins_read_all = ENV.fetch('PLANS_SUPER_ADMINS_READ_ALL', true).to_s.casecmp('true').zero?
 
     # Check download of a plan coversheet tickbox
-    config.x.plans.download_coversheet_tickbox_checked = ENV.fetch('PLANS_DOWNLOAD_COVERSHEET_TICKBOX_CHECKED', false) == 'true'
+    config.x.plans.download_coversheet_tickbox_checked = ENV.fetch('PLANS_DOWNLOAD_COVERSHEET_TICKBOX_CHECKED', false).to_s.casecmp('true').zero?
 
     # ---------------------------------------------------- #
     # CACHING - all values are in seconds (86400 == 1 Day) #
@@ -228,29 +228,29 @@ module DMPRoadmap
     # ------------------------------------------------------------------------ #
     # reCAPTCHA - recaptcha appears on the create account and contact us forms #
     # ------------------------------------------------------------------------ #
-    config.x.recaptcha.enabled = ENV.fetch('RECAPTCHA_ENABLED', true) == 'true'
+    config.x.recaptcha.enabled = ENV.fetch('RECAPTCHA_ENABLED', true).to_s.casecmp('true').zero?
 
     # --------------------------------------------------- #
     # Machine Actionable / Networked DMP Features (maDMP) #
     # --------------------------------------------------- #
     # Enable/disable functionality on the Project Details tab
-    config.x.madmp.enable_ethical_issues = ENV.fetch('MADMP_ENABLE_ETHICAL_ISSUES', true) == 'true'
-    config.x.madmp.enable_research_domain = ENV.fetch('MADMP_ENABLE_RESEARCH_DOMAIN', true) == 'true'
+    config.x.madmp.enable_ethical_issues = ENV.fetch('MADMP_ENABLE_ETHICAL_ISSUES', true).to_s.casecmp('true').zero?
+    config.x.madmp.enable_research_domain = ENV.fetch('MADMP_ENABLE_RESEARCH_DOMAIN', true).to_s.casecmp('true').zero?
 
     # This flag will enable/disable the entire Research Outputs tab. The others below will
     # just enable/disable specific functionality on the Research Outputs tab
-    config.x.madmp.enable_research_outputs = ENV.fetch('MADMP_ENABLE_RESEARCH_OUTPUTS', true) == 'true'
-    config.x.madmp.enable_license_selection = ENV.fetch('MADMP_ENABLE_LICENSE_SELECTION', true) == 'true'
-    config.x.madmp.enable_metadata_standard_selection = ENV.fetch('MADMP_ENABLE_METADATA_STANDARD_SELECTION', true) == 'true'
-    config.x.madmp.enable_repository_selection = ENV.fetch('MADMP_ENABLE_REPOSITORY_SELECTION', true) == 'true'
+    config.x.madmp.enable_research_outputs = ENV.fetch('MADMP_ENABLE_RESEARCH_OUTPUTS', true).to_s.casecmp('true').zero?
+    config.x.madmp.enable_license_selection = ENV.fetch('MADMP_ENABLE_LICENSE_SELECTION', true).to_s.casecmp('true').zero?
+    config.x.madmp.enable_metadata_standard_selection = ENV.fetch('MADMP_ENABLE_METADATA_STANDARD_SELECTION', true).to_s.casecmp('true').zero?
+    config.x.madmp.enable_repository_selection = ENV.fetch('MADMP_ENABLE_REPOSITORY_SELECTION', true).to_s.casecmp('true').zero?
 
     # The following flags will allow the system to include the question and answer in the JSON output
     #   - questions with a theme equal to 'Preservation'
-    config.x.madmp.extract_preservation_statements_from_themed_questions = ENV.fetch('MADMP_EXTRACT_PRESERVATION_STATEMENTS_FROM_THEMED_QUESTIONS', false) == 'true'
+    config.x.madmp.extract_preservation_statements_from_themed_questions = ENV.fetch('MADMP_EXTRACT_PRESERVATION_STATEMENTS_FROM_THEMED_QUESTIONS', false).to_s.casecmp('true').zero?
     #   - questions with a theme equal to 'Data Collection'
-    config.x.madmp.extract_data_quality_statements_from_themed_questions = ENV.fetch('MADMP_EXTRACT_DATA_QUALITY_STATEMENTS_FROM_THEMED_QUESTIONS', false) == 'true'
+    config.x.madmp.extract_data_quality_statements_from_themed_questions = ENV.fetch('MADMP_EXTRACT_DATA_QUALITY_STATEMENTS_FROM_THEMED_QUESTIONS', false).to_s.casecmp('true').zero?
     #   - questions with a theme equal to 'Ethics & privacy' or 'Storage & security'
-    config.x.madmp.extract_security_privacy_statements_from_themed_questions = ENV.fetch('MADMP_EXTRACT_SECURITY_PRIVACY_STATEMENTS_FROM_THEMED_QUESTIONS', false) == 'true'
+    config.x.madmp.extract_security_privacy_statements_from_themed_questions = ENV.fetch('MADMP_EXTRACT_SECURITY_PRIVACY_STATEMENTS_FROM_THEMED_QUESTIONS', false).to_s.casecmp('true').zero?
 
     # Specify a list of the preferred licenses types. These licenses will appear in a select
     # box on the 'Research Outputs' tab when editing a plan along with the option to select
@@ -276,7 +276,7 @@ module DMPRoadmap
     # --------------------------------------------------- #
     # DMP OPIDoR Features #
     # --------------------------------------------------- #
-    config.x.dmpopidor.enable_research_structure_template = ENV.fetch('DMPOPIDOR_ENABLE_RESEARCH_STRUCTURE_TEMPLATE', true) == 'true'
-    config.x.dmpopidor.enable_research_outputs_uuid = ENV.fetch('DMPOPIDOR_ENABLE_RESEARCH_OUTPUTS_UUID', true) == 'true'
+    config.x.dmpopidor.enable_research_structure_template = ENV.fetch('DMPOPIDOR_ENABLE_RESEARCH_STRUCTURE_TEMPLATE', true).to_s.casecmp('true').zero?
+    config.x.dmpopidor.enable_research_outputs_uuid = ENV.fetch('DMPOPIDOR_ENABLE_RESEARCH_OUTPUTS_UUID', true).to_s.casecmp('true').zero?
   end
 end

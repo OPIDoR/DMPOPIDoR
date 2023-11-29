@@ -11,4 +11,4 @@ Rails.configuration.x.doi.api_base_url = ENV.fetch('DOI_API_BASE_URL', 'https://
 Rails.configuration.x.doi.auth_path = ENV.fetch('DOI_AUTH_PATH', 'auth_path')
 Rails.configuration.x.doi.heartbeat_path = ENV.fetch('DOI_HEARTBEAT_PATH', 'heartbeat')
 Rails.configuration.x.doi.mint_path = ENV.fetch('DOI_MINT_PATH', 'doi')
-Rails.configuration.x.doi.active = ENV.fetch('DOI_ACTIVE', false) == 'true'
+Rails.configuration.x.doi.active = ENV.fetch('DOI_ACTIVE', false).to_s.casecmp('true').zero?

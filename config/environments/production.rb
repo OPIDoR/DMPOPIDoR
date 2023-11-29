@@ -7,21 +7,21 @@ Rails.application.configure do
   # Settings specified here will take precedence over those in config/application.rb.
 
   # Code is not reloaded between requests.
-  config.cache_classes = ENV.fetch('CACHE_CLASSES', false) == 'true'
+  config.cache_classes = ENV.fetch('CACHE_CLASSES', false).to_s.casecmp('true').zero?
 
   # Eager load code on boot. This eager loads most of Rails and
   # your application in memory, allowing both threaded web servers
   # and those relying on copy on write to perform better.
   # Rake tasks automatically ignore this option for performance.
-  config.eager_load = ENV.fetch('EAGER_LOAD', false) == 'true'
+  config.eager_load = ENV.fetch('EAGER_LOAD', false).to_s.casecmp('true').zero?
 
   # Full error reports are disabled and caching is turned on.
-  config.consider_all_requests_local = ENV.fetch('CONSIDER_ALL_REQUESTS_LOCAL', false) == 'true'
-  config.action_controller.perform_caching = ENV.fetch('ACTION_CONTROLLER_PERFORM_CACHING', true) == 'true'
+  config.consider_all_requests_local = ENV.fetch('CONSIDER_ALL_REQUESTS_LOCAL', false).to_s.casecmp('true').zero?
+  config.action_controller.perform_caching = ENV.fetch('ACTION_CONTROLLER_PERFORM_CACHING', true).to_s.casecmp('true').zero?
 
   # Ensures that a master key has been made available in either ENV["RAILS_MASTER_KEY"]
   # or in config/master.key. This key is used to decrypt credentials (and other encrypted files).
-  config.require_master_key = ENV.fetch('REQUIRE_MASTER_KEY', true) == 'true'
+  config.require_master_key = ENV.fetch('REQUIRE_MASTER_KEY', true).to_s.casecmp('true').zero?
 
   # Disable serving static files from the `/public` folder by default since
   # Apache or NGINX already handles this.
@@ -31,7 +31,7 @@ Rails.application.configure do
   # config.assets.css_compressor = :sass
 
   # Do not fallback to assets pipeline if a precompiled asset is missed.
-  config.assets.compile = ENV.fetch('ASSETS_COMPILE', false) == 'true'
+  config.assets.compile = ENV.fetch('ASSETS_COMPILE', false).to_s.casecmp('true').zero?
 
   # `config.assets.precompile` and `config.assets.version` have moved to
   # config/initializers/assets.rb
@@ -51,7 +51,7 @@ Rails.application.configure do
   # config.action_cable.allowed_request_origins = JSON.parse(ENV.fetch('ACTION_CABLE_ALLOWRD_REQUEST_ORIGINS', [ 'http://example.com', /http:\/\/example.*/ ].to_json))
 
   # Force all access to the app over SSL, use Strict-Transport-Security, and use secure cookies.
-  # config.force_ssl = ENV.fetch('FORCE_SSL', true) == 'true'
+  # config.force_ssl = ENV.fetch('FORCE_SSL', true).to_s.casecmp('true').zero?
 
   # Use the lowest log level to ensure availability of diagnostic information
   # when problems arise.
@@ -67,7 +67,7 @@ Rails.application.configure do
   # config.active_job.queue_adapter     = :resque
   # config.active_job.queue_name_prefix = ENV.fetch('ACTIVE_JOB_QUEUE_NAME_PREFIX', 'dmp_roadmap_#{Rails.env}')
 
-  config.action_mailer.perform_caching = ENV.fetch('ACTION_MAILER_PERFORM_CACHING', false) == 'true'
+  config.action_mailer.perform_caching = ENV.fetch('ACTION_MAILER_PERFORM_CACHING', false).to_s.casecmp('true').zero?
 
   # settings for mailcatcher
   config.action_mailer.default_url_options = {
@@ -89,7 +89,7 @@ Rails.application.configure do
 
   # Ignore bad email addresses and do not raise email delivery errors.
   # Set this to true and configure the email server for immediate delivery to raise delivery errors.
-  # config.action_mailer.raise_delivery_errors = ENV.fetch('ACTION_MAILER_RAISE_DELIVERY_ERRORS', false) == 'true'
+  # config.action_mailer.raise_delivery_errors = ENV.fetch('ACTION_MAILER_RAISE_DELIVERY_ERRORS', false).to_s.casecmp('true').zero?
 
   # Enable locale fallbacks for I18n (makes lookups for any locale fall back to
   # the I18n.default_locale when a translation cannot be found).
@@ -118,7 +118,7 @@ Rails.application.configure do
   end
 
   # Do not dump schema after migrations.
-  config.active_record.dump_schema_after_migration = ENV.fetch('ACTIVE_RECORD_DUMP_SCHEMA_AFTER_MIGRATION', false) == 'true'
+  config.active_record.dump_schema_after_migration = ENV.fetch('ACTIVE_RECORD_DUMP_SCHEMA_AFTER_MIGRATION', false).to_s.casecmp('true').zero?
 
   # Inserts middleware to perform automatic connection switching.
   # The `database_selector` hash is used to pass options to the DatabaseSelector

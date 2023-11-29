@@ -1,4 +1,4 @@
-<% if ENV.fetch('PIWIK_ENABLED', false) == 'true' %>
+<% if ENV.fetch('PIWIK_ENABLED', false).to_s.casecmp('true').zero? %>
   <!-- Piwik -->
   <script type="text/javascript">
     const _paq = _paq || [];

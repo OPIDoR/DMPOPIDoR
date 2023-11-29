@@ -67,7 +67,7 @@ Devise.setup do |config|
   # config.http_authenticatable = false
 
   # If http headers should be returned for AJAX requests. True by default.
-  config.http_authenticatable_on_xhr = ENV.fetch('HTTP_AUTHENTICATABLE_ON_XHR', false) == 'true'
+  config.http_authenticatable_on_xhr = ENV.fetch('HTTP_AUTHENTICATABLE_ON_XHR', false).to_s.casecmp('true').zero?
 
   # The realm used in Http Basic Authentication. "Application" by default.
   # config.http_authentication_realm = "Application"

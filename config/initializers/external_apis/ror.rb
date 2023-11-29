@@ -11,4 +11,4 @@ Rails.configuration.x.ror.search_path = ENV.fetch('ROR_SEARCH_PATH', 'organizati
 Rails.configuration.x.ror.max_pages = ENV.fetch('ROR_MAX_PAGES', 2)&.to_i
 Rails.configuration.x.ror.max_results_per_page = ENV.fetch('ROR_RESULTS_PER_PAGE', 20)&.to_i
 Rails.configuration.x.ror.max_redirects = ENV.fetch('ROR_MAX_REDIRECTS', 3)&.to_i
-Rails.configuration.x.ror.active = ENV.fetch('ROR_ACTIVE', true) == 'true'
+Rails.configuration.x.ror.active = ENV.fetch('ROR_ACTIVE', true).to_s.casecmp('true').zero?

@@ -15,14 +15,14 @@ ContactUs.setup do |config|
   # ==> Form Configuration
 
   # Configure the form to ask for the users name.
-  config.require_name = ENV.fetch('MAILER_REQUIRE_NAME', true) == 'true'
+  config.require_name = ENV.fetch('MAILER_REQUIRE_NAME', true).to_s.casecmp('true').zero?
 
   # Configure the form to ask for a subject.
-  config.require_subject = ENV.fetch('MAILER_REQUIRE_SUBJECT', true) == 'true'
+  config.require_subject = ENV.fetch('MAILER_REQUIRE_SUBJECT', true).to_s.casecmp('true').zero?
 
   # Configure the form gem to use.
   # Example:
   # config.form_gem = 'formtastic
   # config.form_gem = 'formtastic'
-  config.localize_routes = ENV.fetch('MAILER_LOCALIZE_ROUTES', true) == 'true'
+  config.localize_routes = ENV.fetch('MAILER_LOCALIZE_ROUTES', true).to_s.casecmp('true').zero?
 end
