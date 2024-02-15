@@ -20,7 +20,7 @@ DEFAULT_LOCALE = ENV.fetch('DEFAULT_LOCALE', 'fr-FR')
 #
 # When generating the translations, the rake:tasks will need to be run with each
 # domain specified in order to generate both sets of translation keys.
-if !ENV['DOMAIN'] || ENV['DOMAIN'] == 'app'
+if !ENV['DOMAIN'] || ENV.fetch('DOMAIN', 'app') == 'app'
   TranslationIO.configure do |config|
     config.api_key              = ENV.fetch('TRANSLATION_API_ROADMAP', nil)
     config.source_locale        = 'en'
@@ -35,9 +35,9 @@ if !ENV['DOMAIN'] || ENV['DOMAIN'] == 'app'
                                      end
     config.locales_path         = Rails.root.join('config', 'locale')
   end
-elsif ENV['DOMAIN'] == 'client'
+elsif ENV.fetch('DOMAIN', 'client') == 'client'
   TranslationIO.configure do |config|
-    config.api_key              = ENV.fetch('TRANSLATION_API_CLIENT', nil)
+    config.api_key              = ENV.fetch('TRANSLATION_API_CLIENT', Rails.application.credentials.tranlation_io.translation_api_key)
     config.source_locale        = 'en'
     config.target_locales       = CLIENT_LOCALES
     config.text_domain          = 'client'

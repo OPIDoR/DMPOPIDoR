@@ -25,7 +25,6 @@ require 'jsonpath'
 # Object that represents a madmp_fragment
 class MadmpFragment < ApplicationRecord
   include ValidationMessages
-  include DynamicFormHelper
   include FragmentImport
   include ActionView::Helpers::NumberHelper
 
@@ -90,7 +89,6 @@ class MadmpFragment < ApplicationRecord
   before_save   :set_defaults
   after_create  :update_parent_references
   after_destroy :update_parent_references
-  after_save    :update_research_output_parameters
 
   # =====================
   # = Nested Attributes =
@@ -194,15 +192,24 @@ class MadmpFragment < ApplicationRecord
     parent.update_children_references
   end
 
-  def update_research_output_parameters
+  def update_research_output_parameters(skip_broadcast = false)
+    return unless plan.template.structured?
+
     case classname
     when 'research_output_description'
       ro_fragment = parent
       new_additional_info = ro_fragment.additional_info.merge(
         hasPersonalData: %w[Oui Yes].include?(data['containsPersonalData'])
       )
+      research_output.update(
+        title: data['title']
+      )
       ro_fragment.update(additional_info: new_additional_info)
-      ResearchOutputChannel.broadcast_to(research_output, research_output.serialize_infobox_data)
+      PlanChannel.broadcast_to(research_output.plan, {
+        target: "research_output_infobox",
+        research_output_id: research_output.id,
+        payload: research_output.serialize_infobox_data
+      }) unless skip_broadcast
     else
       return
     end
@@ -349,7 +356,7 @@ class MadmpFragment < ApplicationRecord
   def instantiate
     save! if id.nil?
 
-    new_data = data
+    new_data = data || {}
     madmp_schema.properties.each do |key, prop|
       next unless prop['type'].eql?('object') && prop['schema_id'].present?
 
@@ -377,56 +384,6 @@ class MadmpFragment < ApplicationRecord
   def handle_defaults(defaults)
     raw_import(defaults, madmp_schema) # if defaults.any?
   end
-
-  # rubocop:disable Metrics/AbcSize, Metrics/MethodLength
-  # rubocop:disable Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
-  def save_form_fragment(param_data, schema)
-    fragmented_data = {}
-    return if param_data.nil?
-
-    # rubocop:disable Metrics/BlockLength
-    param_data.each do |prop, content|
-      schema_prop = schema.properties[prop]
-
-      next if schema_prop&.dig('type').nil?
-
-      if schema_prop['type'].eql?('object') &&
-         schema_prop['schema_id'].present?
-        sub_data = content # TMP: for readability
-        sub_schema = MadmpSchema.find(schema_prop['schema_id'])
-        instantiate unless data[prop].present?
-
-        if schema_prop&.dig('inputType').eql?('pickOrCreate')
-          fragmented_data[prop] = content
-        elsif schema_prop['overridable'].present? &&
-              param_data.dig(prop, 'custom_value').present?
-          # if the property is overridable & value is custom, take the value as is
-          sub_fragment = MadmpFragment.find(data[prop]['dbid'])
-          additional_info = if param_data.dig(prop, 'custom_value').eql?('__DELETED__')
-                              {}
-                            else
-                              sub_fragment.additional_info.merge(sub_data)
-                            end
-          sub_fragment.update(
-            data: {},
-            additional_info:
-          )
-        elsif data.dig(prop, 'dbid')
-          sub_fragment = MadmpFragment.find(data[prop]['dbid'])
-          sub_fragment.save_form_fragment(sub_data, sub_schema)
-        end
-      else
-        fragmented_data[prop] = content
-      end
-    end
-    # rubocop:enable Metrics/BlockLength
-    update!(
-      data: data.merge(fragmented_data),
-      additional_info: additional_info.except!('custom_value')
-    )
-  end
-  # rubocop:enable Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
-  # rubocop:enable Metrics/AbcSize, Metrics/MethodLength
 
   def get_property(property_name)
     return if data.empty? || data[property_name].nil?

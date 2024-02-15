@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 Kaminari.configure do |config|
-  config.default_per_page = Rails.configuration.x.results_per_page
+  config.default_per_page = ENV.fetch('KAMINARI_DEFAULT_PER_PAGE', Rails.configuration.x.results_per_page)
   # config.max_per_page = nil
   # config.window = 4
   # config.outer_window = 0

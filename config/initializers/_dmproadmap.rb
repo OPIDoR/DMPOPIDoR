@@ -86,7 +86,9 @@ module DMPRoadmap
     # for example `jane.doe@uni.edu` becomes `1234@removed_accounts-example.org`
     config.x.application.archived_accounts_email_suffix = ENV.fetch('APPLICATION_ARCHIVED_ACCOUNTS_EMAIL_SUFFIX', '@removed_accounts-opidor.fr')
     # Available CSV separators, the default is ','
-    config.x.application.csv_separators = [',', '|', '#']
+    csv_separators = ENV.fetch('APPLICATON_CSV_SEPARATORS', [',', '|', '#'])
+    csv_separators = csv_separators.split(" ") unless csv_separators.kind_of?(Array)
+    config.x.application.csv_separators = csv_separators
     # The largest page size allowed in requests to the API (all versions)
     config.x.application.api_max_page_size = ENV.fetch('APPLICATION_API_MAX_PAGE_SIZE', 100)
     # The link to the API documentation - used in emails about the API

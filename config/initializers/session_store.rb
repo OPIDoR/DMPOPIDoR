@@ -3,4 +3,4 @@
 # Be sure to restart your server when you modify this file.
 
 Rails.application.config.session_store :cookie_store, key: ENV.fetch('SESSION_STORE_KEY', '_dmp_roadmap_session'),
-                                                      same_site: :lax
+                                                      same_site: ENV.fetch('SESSTION_STORE_SAME_SITE', :lax)&.to_sym

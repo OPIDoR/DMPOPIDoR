@@ -17,6 +17,8 @@
     border-color: $blue;
     background-color: $blue;
     color: $white;
+    outline: none;
+    margin-top: 5px;
     margin-bottom: 10px;
   }
 
@@ -28,8 +30,10 @@
   .btn-default:active:hover,
   .btn-default.active:hover {
     border-color: $blue;
-    background-color: $blue;
-    color: $white;
+    background-color: $white;
+    color: $blue;
+    outline: none;
+    margin-top: 5px;
     margin-bottom: 10px;
   }
 
@@ -70,7 +74,6 @@
       border-color: $rust;
       background-color: $rust;
       color: $white;
-      margin-bottom: 10px;
     }
 
     .btn-default,
@@ -83,7 +86,6 @@
       border-color: $rust;
       background-color: $rust;
       color: $white;
-      margin-bottom: 10px;
     }
 
     .combobox-clear-button,

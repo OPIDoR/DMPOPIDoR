@@ -9,6 +9,7 @@
   background-color: transparent;
   margin-top: -100px;
   z-index: 5;
+  border-bottom: none;
 
   &>li {
     display: flex;
@@ -32,7 +33,7 @@
       font-size: large;
 
       border-radius: 20px;
-      box-shadow: 5px 5px 5px $light-grey;
+      // box-shadow: 5px 5px 5px $light-grey;
 
       &>.active-text {
         transition: opacity 0.5s ease-out;
@@ -77,7 +78,7 @@
   &>li>a:hover {
     color: white;
     background-color: $dark-blue;
-    border-color: $dark-blue;
+    border-color: white;
     box-shadow: none;
   }
 
@@ -119,22 +120,6 @@
 
   .project-meta {
     @include dmpopidor-accordion-large;
-  }
-
-  .madmp-fragment {
-    position: relative;
-
-    .answer-save-zone {
-      display: flex;
-      flex-direction: column;
-      padding: 5px;
-
-      .answer-save-button {
-        color: $white;
-        background-color: $rust !important;
-      }
-
-    }
   }
 
   .guidance-configuration {
@@ -274,6 +259,7 @@
           .edit,
           .readonly {
             flex: 3;
+            justify-content: space-between;
           }
 
           .action {
@@ -283,6 +269,12 @@
 
           &.form-group {
             flex-direction: column;
+          }
+          select {
+            width: 90%;
+          }
+          .contributor-link {
+            align-self: center;
           }
         }
 

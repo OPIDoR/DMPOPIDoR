@@ -123,7 +123,7 @@ class Question < ApplicationRecord
     copy = dup
     copy.modifiable = options.fetch(:modifiable, modifiable)
     copy.section_id = options.fetch(:section_id, nil)
-    copy.save!(validate: false)  if options.fetch(:save, false)
+    copy.save!(validate: false) if options.fetch(:save, false)
     options[:question_id] = copy.id
     question_options.each { |qo| copy.question_options << qo.deep_copy(**options) }
     annotations.each do |annotation|
@@ -213,7 +213,7 @@ class Question < ApplicationRecord
     conditions.destroy_all
     return unless param_conditions.present?
 
-    param_conditions.each do |_key, value|
+    param_conditions.each_value do |value|
       save_condition(value, old_to_new_opts, question_id_map)
     end
   end

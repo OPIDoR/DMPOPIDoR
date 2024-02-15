@@ -28,7 +28,7 @@ Rails.application.configure do
   config.public_file_server.enabled = ENV['RAILS_SERVE_STATIC_FILES'].present?
 
   # Compress JavaScripts and CSS.
-  # config.assets.css_compressor = :sass
+  # config.assets.css_compressor = ENV.fetch('ASSETS_CSS_COMPRESSOR', :sass)&.to_sym
 
   # Do not fallback to assets pipeline if a precompiled asset is missed.
   config.assets.compile = ENV.fetch('ASSETS_COMPILE', false).to_s.casecmp('true').zero?
@@ -43,7 +43,7 @@ Rails.application.configure do
   # config.action_dispatch.x_sendfile_header = ENV.fetch('ACTION_DISPACTH_X_SENDFILE_HEADER', 'X-Sendfile') # 'X-Sendfile' for Apache / 'X-Accel-Redirect' # for NGINX
 
   # Store uploaded files on the local file system (see config/storage.yml for options)
-  config.active_storage.service = :local
+  config.active_storage.service = ENV.fetch('ACTION_STORAGE_SERVICE', :local)&.to_sym
 
   # Mount Action Cable outside main process or domain
   # config.action_cable.mount_path = ENV.fetch('ACTION_CABLE_MOUNT_PATH', nil)
@@ -55,10 +55,10 @@ Rails.application.configure do
 
   # Use the lowest log level to ensure availability of diagnostic information
   # when problems arise.
-  config.log_level = ENV['RAILS_LOG_LEVEL']&.to_sym || :info
+  config.log_level = ENV.fetch('RAILS_LOG_LEVEL', :info)&.to_sym
 
   # Prepend all log lines with the following tags.
-  config.log_tags = [:request_id]
+  config.log_tags = [ENV.fetch('LOG_TAGS', :request_id)&.to_sym]
 
   # Use a different cache store in production.
   config.cache_store = :redis_cache_store, { url: ENV.fetch('REDIS_URL', 'localhost') }
@@ -74,14 +74,14 @@ Rails.application.configure do
     :host => ENV.fetch('DMPROADMAP_HOST', 'dmp.opidor.fr'),
     :protocol => ENV.fetch('ACTION_MAILER_DEFAULT_URL_OPTIONS_PROTOCOL', 'https')
   }
-  config.action_mailer.delivery_method = :smtp
+  config.action_mailer.delivery_method = ENV.fetch('ACTION_MAILER_DELIVERY_METHOD', :smtp)&.to_sym
   config.action_mailer.smtp_settings = {
     address: ENV.fetch('ACTION_MAILER_SMTP_HOST', 'mailcatcher'),
     port: ENV.fetch('ACTION_MAILER_SMTP_PORT', 1025)
   }
 
   ActionMailer::Base.default :from => ENV.fetch('MAILER_FROM', 'dmp.opidor@inist.fr')
-  ActionMailer::Base.delivery_method = :smtp
+  ActionMailer::Base.delivery_method = ENV.fetch('ACTION_MAILER_DELIVERY_METHOD', :smtp)&.to_sym
   ActionMailer::Base.smtp_settings = {
     address: ENV.fetch('ACTION_MAILER_SMTP_HOST', 'mailcatcher'),
     port: ENV.fetch('ACTION_MAILER_SMTP_PORT', 1025)
@@ -93,13 +93,13 @@ Rails.application.configure do
 
   # Enable locale fallbacks for I18n (makes lookups for any locale fall back to
   # the I18n.default_locale when a translation cannot be found).
-  config.i18n.fallbacks = true
+  config.i18n.fallbacks = ENV.fetch('I18N_FALLBACKS', true).to_s.casecmp('true').zero?
 
   # Send deprecation notices to registered listeners.
-  config.active_support.deprecation = :notify
+  config.active_support.deprecation = ENV.fetch('ACTIVE_SUPPORT_DEPRECATION', :notify)&.to_sym
 
   # Log disallowed deprecations.
-  config.active_support.disallowed_deprecation = :log
+  config.active_support.disallowed_deprecation = ENV.fetch('ACTIVE_SUPPORT_DISALLOWED_DEPRECATION', :log)&.to_sym
 
   # Tell Active Support which deprecation messages to disallow.
   config.active_support.disallowed_deprecation_warnings = JSON.parse(ENV.fetch('ACTIVE_SUPPORT_DISALLOWED_DEPRECATION_WARNINGS', [].to_json))

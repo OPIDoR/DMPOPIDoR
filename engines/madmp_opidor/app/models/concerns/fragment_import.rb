@@ -23,7 +23,7 @@ module FragmentImport
         sub_schema = MadmpSchema.find(schema_prop['schema_id'])
         # For persons, we need to check if the person exists and set manually
         # the dbid in the parent fragment
-        if schema_prop['inputType'].eql?('pickOrCreate')
+        if schema_prop['inputType'].eql?('pickOrCreate') || sub_schema.classname.eql?('person')
           sub_fragment = MadmpFragment.fragment_exists?(sub_data, sub_schema, dmp.id, parent_id)
           if sub_fragment.eql?(false)
             sub_fragment = MadmpFragment.new(
@@ -195,7 +195,7 @@ module FragmentImport
         ####################################
         # OBJECT FIELDS
         ####################################
-        next if sub_data['action'].nil?
+        next if sub_data&.dig('action').nil?
 
         sub_fragment_id = sub_data['dbid'] || sub_data['id']
         sub_fragment_data = sub_data['data'] || sub_data
@@ -213,9 +213,12 @@ module FragmentImport
           sub_fragment.classname = sub_schema.classname
           sub_fragment.save!
           created_frag = sub_fragment.import_with_instructions(sub_fragment_data, sub_schema)
-        elsif sub_fragment_id.present? || sub_data['action'].eql?('update')
+        elsif sub_fragment_id.present? && sub_data['action'].eql?('update')
           sub_fragment = MadmpFragment.find(sub_fragment_id)
           sub_fragment.import_with_instructions(sub_fragment_data, sub_schema)
+        elsif sub_fragment_id.present? && sub_data['action'].eql?('delete')
+          sub_fragment = MadmpFragment.find(sub_fragment_id)
+          sub_fragment.destroy!
         end
         # If sub_data is a Person, we need to set the dbid manually, since Person has no parent
         # and update_references function is not triggered

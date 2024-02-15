@@ -30,6 +30,8 @@ module Dmpopidor
 
         @plan.template = ::Template.find(plan_params[:template_id])
 
+        @plan.org = current_user.org
+
         @plan.title = if current_user.firstname.blank?
                         format(_('My Plan (%{title})'), title: @plan.template.title)
                       else
@@ -37,7 +39,7 @@ module Dmpopidor
                       end
         if @plan.save
           # pre-select org's guidance and the default org's guidance
-          ids = (::Org.default_orgs.pluck(:id) << @plan.org_id).flatten.uniq
+          ids = (::Org.default_orgs.pluck(:id) << current_user.org_id).flatten.uniq
           ggs = ::GuidanceGroup.where(org_id: ids, optional_subset: false, published: true)
 
           @plan.guidance_groups << ggs unless ggs.empty?
@@ -68,8 +70,8 @@ module Dmpopidor
 
           # Add default research output if possible
           created_ro = @plan.research_outputs.create!(
-            abbreviation: 'Default',
-            title: 'Default research output',
+            abbreviation: "#{_('RO')} 1",
+            title: "#{_('Research output')} 1",
             is_default: true,
             display_order: 1
           )
@@ -173,7 +175,7 @@ module Dmpopidor
 
     end
 
-    # GET /plans/:id/guidance_groups
+    # GET /plans/:id/budget
     def budget
       @plan = ::Plan.find(params[:id])
       dmp_fragment = @plan.json_fragment
@@ -187,7 +189,7 @@ module Dmpopidor
       render json: {
         status: 200,
         message: 'Guidance groups',
-        guidance_groups: @all_ggs_grouped_by_org,
+        data: @all_ggs_grouped_by_org,
       },status: :ok
     end
 
@@ -385,7 +387,8 @@ module Dmpopidor
               {
                 answer_id: a.id,
                 question_id: a.question_id,
-                fragment_id: a.madmp_fragment.id
+                fragment_id: a.madmp_fragment.id,
+                madmp_schema_id: a.madmp_fragment.madmp_schema_id
               }
             end
           }
@@ -397,6 +400,32 @@ module Dmpopidor
       }
     end
     # rubocop:enable Metrics/MethodLength, Metrics/AbcSize
+
+    # GET AJAX /plans/:id/contributors_data
+    def contributors_data
+      plan = ::Plan.find(params[:id])
+      authorize plan
+
+      dmp_fragment = plan.json_fragment
+      contributors = dmp_fragment.persons.order(
+        Arel.sql("data->>'lastName', data->>'firstName'")
+      )
+      schema = MadmpSchema.find_by(name: "PersonStandard")
+      render json: {
+        dmp_id: plan.json_fragment.id,
+        contributors: contributors.map do |contributor|
+          {
+            id: contributor.id,
+            data: contributor.data,
+            roles: contributor.roles
+          }
+        end,
+        template: {
+          id: schema.id,
+          schema: schema.schema
+        }
+      } 
+    end
 
     private
 
@@ -458,12 +487,12 @@ module Dmpopidor
 
       @default_orgs = ::Org.default_orgs
 
-      @all_ggs_grouped_by_org.map do |key, value|
+      @all_ggs_grouped_by_org.map do |key, group|
         {
           name: key.name,
           id: key.id,
-          important: @default_orgs.include?(key) || value.any? { |item| @selected_guidance_groups.include?(item.id) },
-          guidances: value.map do |item|
+          important: @default_orgs.include?(key) || group.any? { |item| @selected_guidance_groups.include?(item.id) },
+          guidance_groups: group.map do |item|
             {
               id: item.id,
               name: item.name,

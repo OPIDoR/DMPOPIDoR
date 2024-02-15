@@ -24,8 +24,7 @@ module DMPRoadmap
     # --------------------------------- #
     # OVERRIDES TO DEFAULT RAILS CONFIG #
     # --------------------------------- #
-    # Ensure that Zeitwerk knows to load our classes in the lib directory
-    config.eager_load_paths << config.root.join('lib')
+    config.autoload_lib(ignore: %w[tasks])
 
     # CVE-2022-32224: add some compatibility with YAML.safe_load
     # Rails 5,6,7 are using YAML.safe_load as the default YAML deserializer
@@ -41,16 +40,16 @@ module DMPRoadmap
     ]
 
     # Configure sensitive parameters which will be filtered from the log file.
-    config.filter_parameters += [:password]
+    config.filter_parameters += [ENV.fetch('APPLICATION_FILTER_PARAMETERS', :password)&.to_sym]
 
     # Enable escaping HTML in JSON.
-    config.active_support.escape_html_entities_in_json = ENV.fetch('ESCAPE_HTML_ENTITIES_IN_JSON', true)
+    config.active_support.escape_html_entities_in_json = ENV.fetch('ESCAPE_HTML_ENTITIES_IN_JSON', true).to_s.casecmp('true').zero?
 
     # Allow controllers to access view helpers
     # TODO: We should see what methods specifically are used by the controllers
     #       and include them specifically in the controllers. We should also consider
     #       moving our helper methods into Presenters if it makes sense
-    config.action_controller.include_all_helpers = true
+    config.action_controller.include_all_helpers = ENV.fetch('ACTION_CONTROLLER_INCLUDE_ALL_HELPERS', true).to_s.casecmp('true').zero?
 
     # Set the default host for mailer URLs
     config.action_mailer.default_url_options = { host: Socket.gethostname.to_s }

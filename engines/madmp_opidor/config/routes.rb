@@ -12,23 +12,15 @@ Rails.application.routes.draw do
   end
 
   resources :madmp_fragments, only: %i[show create update destroy] do
-    get 'load_new_form', action: :load_form, on: :collection
-    get 'load_form/:id', action: :load_form, on: :collection
-    get 'change_form/:id', action: :change_form, on: :collection
-    get 'new_edit_linked', on: :collection, constraints: { format: [:js] }
-    get 'show_linked', on: :collection, constraints: { format: [:js] }
-    get 'create_from_registry', action: :create_from_registry_value, on: :collection
-    get 'create_contributor', action: :create_contributor, on: :collection
-    delete 'destroy_contributor', action: :destroy_contributor, on: :collection
     get 'load_fragments', action: :load_fragments, on: :collection
-    post 'update_json/:id', action: :update_json, on: :collection, constraints: { format: [:json] }
-    post 'create_json', action: :create_json, on: :collection, constraints: { format: [:json] }
+    get 'change_form/:id', action: :change_form, on: :collection, constraints: { format: [:json] }
+    delete 'destroy_contributor', action: :destroy_contributor, on: :collection, constraints: { format: [:json] }
   end
 
-  resources :madmp_schemas, only: %i[show]
+  resources :madmp_schemas, only: %i[index show]
 
   get '/codebase/run', to: 'madmp_codebase#run', constraints: { format: [:json] }
-  get '/codebase/anr_search', to: 'madmp_codebase#anr_search', constraints: { format: [:json] }
+  get '/codebase/project_search', to: 'madmp_codebase#project_search', constraints: { format: [:json] }
 
   resources :registries, only: %i[show] do
     get 'load_values', action: :load_values, on: :collection
@@ -37,7 +29,9 @@ Rails.application.routes.draw do
 
   resources :api_client_roles, only: %i[create update destroy]
 
-  resources :templates, only: %i[show], constraints: { format: [:json] }
+  resources :templates, only: %i[show], constraints: { format: [:json] } do 
+    post 'set_recommended', action: :set_recommended
+  end
 
   namespace :api, defaults: { format: :json } do
     namespace :v0 do
@@ -66,6 +60,8 @@ Rails.application.routes.draw do
           resources :items, only: %i[ror orcid]
           get 'ror', action: :ror, on: :collection, as: :ror
           get 'orcid', action: :orcid, on: :collection, as: :orcid
+          get 'loterre/*path', action: :loterre, on: :collection, as: :loterre
+          get 'metadore', action: :metadore, on: :collection, as: :metadore
         end
       end
     end

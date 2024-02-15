@@ -16,7 +16,7 @@ Rails.application.configure do
   # Do not eager load code on boot. This avoids loading your whole application
   # just for the purpose of running a single test. If you are using a tool that
   # preloads Rails for running tests, you may have to set it to true.
-  config.eager_load = ENV["CI"].present?
+  config.eager_load = ENV.fetch('CI', false).to_s.casecmp('true').zero?
 
   # Configure public file server for tests with Cache-Control for performance.
   config.public_file_server.enabled = ENV.fetch('PUBLIC_FILE_SERVER_ENABLED', true).to_s.casecmp('true').zero?
@@ -25,7 +25,7 @@ Rails.application.configure do
   }.to_json))
 
   # Disable fragment caching used in ExternalApis and OrgSelection services
-  config.cache_store = :null_store
+  config.cache_store = ENV.fetch('CACHE_STORE', :null_store)&.to_sym
 
   # Show full error reports and disable caching.
   config.consider_all_requests_local = ENV.fetch('CONSIDER_ALL_REQUESTS_LOCAL', true).to_s.casecmp('true').zero?
@@ -38,20 +38,20 @@ Rails.application.configure do
   config.action_controller.allow_forgery_protection = ENV.fetch('ACTION_CONTROLLER_ALLOW_FORGERY_PROTECTION', false) .to_s.casecmp('true').zero?
 
   # Store uploaded files on the local file system in a temporary directory
-  config.active_storage.service = :test
+  config.active_storage.service = ENV.fetch('ACTIVE_STORAGE_SERVICE', :test)&.to_sym
 
   config.action_mailer.perform_caching = ENV.fetch('ACTION_MAILER_PERFORM_CACHING', false).to_s.casecmp('true').zero?
 
   # Tell Action Mailer not to deliver emails to the real world.
   # The :test delivery method accumulates sent emails in the
   # ActionMailer::Base.deliveries array.
-  config.action_mailer.delivery_method = :test
+  config.action_mailer.delivery_method = ENV.fetch('ACTION_MAILER_DELIVERY_METHOD', :test)&.to_sym
 
   # Print deprecation notices to the stderr.
-  config.active_support.deprecation = :stderr
+  config.active_support.deprecation = ENV.fetch('ACTIVE_SUPPORT_DEPRECATION', :stderr)&.to_sym
 
   # Raise exceptions for disallowed deprecations.
-  config.active_support.disallowed_deprecation = :raise
+  config.active_support.disallowed_deprecation =  ENV.fetch('ACTIVE_SUPPORT_DISALLOWED_DEPRECATION', :raise)&.to_sym
 
   # Tell Active Support which deprecation messages to disallow.
   config.active_support.disallowed_deprecation_warnings = JSON.parse(ENV.fetch('ACTIVE_SUPPORT_DISALLOWED_DEPRECATION_WARNINGS', [].to_json))

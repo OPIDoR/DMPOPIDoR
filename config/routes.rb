@@ -2,9 +2,9 @@
 
 # rubocop:disable Metrics/BlockLength
 Rails.application.routes.draw do
-  mount ActionCable.server => "/cable"
-  mount Rswag::Ui::Engine => '/api-docs'
-  mount Rswag::Api::Engine => '/api-docs'
+  mount ActionCable.server => ENV.fetch('ACTON_CABLE_SERVER', '/cable')
+  mount Rswag::Ui::Engine => ENV.fetch('RSWAG_UI', '/api-docs')
+  mount Rswag::Api::Engine => ENV.fetch('RSWAG_API', '/api-docs')
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
 
   devise_for(:users, controllers: {
@@ -161,7 +161,8 @@ Rails.application.routes.draw do
       get 'guidance_groups', constraints: { format: [:json] }
       post 'guidance_groups', action: :select_guidance_groups, constraints: { format: [:json] }
       get 'guidances', action: :question_guidances, constraints: { format: [:json] }
-      get 'answers_data'
+      get 'answers_data', constraints: { format: [:json] }
+      get 'contributors_data', constraints: { format: [:json] }
       post 'duplicate'
       post 'visibility', constraints: { format: [:json] }
       post 'set_test', constraints: { format: [:json] }
@@ -341,6 +342,7 @@ Rails.application.routes.draw do
 
   resources :template_options, only: [:index], constraints: { format: /json/ } do
     get 'default', action: :default, on: :collection, as: :default
+    get 'recommend', action: :recommend, on: :collection, as: :recommend
   end
 
   # ORG ADMIN specific pages

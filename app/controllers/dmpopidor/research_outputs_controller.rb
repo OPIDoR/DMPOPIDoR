@@ -7,6 +7,7 @@ module Dmpopidor
     def index
       @plan = ::Plan.find(params[:plan_id])
       @research_outputs = @plan.research_outputs
+      @persons = @plan.json_fragment.persons
       authorize @plan
       render('plans/research_outputs', locals: { plan: @plan, research_outputs: @research_outputs })
     rescue ActiveRecord::RecordNotFound
@@ -18,8 +19,8 @@ module Dmpopidor
     def create
       max_order = @plan.research_outputs.maximum('display_order') + 1
       created_ro = @plan.research_outputs.create(
-        abbreviation: params[:abbreviation] || "Research Output #{max_order}",
-        title: params[:title] || "New research output #{max_order}",
+        abbreviation: params[:abbreviation] || "#{_('RO')} #{max_order}",
+        title: params[:title] || "#{_('Research output')} #{max_order}",
         output_type_description: params[:type],
         is_default: false,
         display_order: max_order
@@ -54,15 +55,26 @@ module Dmpopidor
 
     def update
       @research_output = ::ResearchOutput.find(params[:id])
+      plan =  @research_output.plan
       attrs = research_output_params
 
       authorize @research_output
 
       research_output_description = @research_output.json_fragment.research_output_description
 
-      I18n.with_locale @research_output.plan.template.locale do
-        updated_data = research_output_description.data.merge({ type: params[:type], containsPersonalData: params[:configuration][:hasPersonalData] ? _('Yes') : _('No') })
+      I18n.with_locale plan.template.locale do
+        updated_data = research_output_description.data.merge({
+          title: params[:title],
+          type: params[:type],
+          containsPersonalData: params[:configuration][:hasPersonalData] ? _('Yes') : _('No')
+        })
         research_output_description.update(data: updated_data)
+        research_output_description.update_research_output_parameters(true)
+        PlanChannel.broadcast_to(plan, {
+          target: "dynamic_form",
+          fragment_id: research_output_description.id,
+          payload: research_output_description.get_full_fragment
+        })
       end
 
       research_outputs = ::ResearchOutput.where(plan_id: params[:plan_id])
@@ -133,10 +145,11 @@ module Dmpopidor
 
     def create_remote
       @plan = ::Plan.find(params[:plan_id])
+      @persons = @plan.json_fragment.persons
       max_order = @plan.research_outputs.maximum('display_order') + 1
       created_ro = @plan.research_outputs.create(
-        abbreviation: "Research Output #{max_order}",
-        title: "New research output #{max_order}",
+        abbreviation: "RO #{max_order}",
+        title: "Research output #{max_order}",
         is_default: false,
         display_order: max_order
       )
@@ -156,10 +169,12 @@ module Dmpopidor
     def destroy_remote
       @plan = ::Plan.find(params[:plan_id])
       @research_output = ::ResearchOutput.find(params[:id])
-      research_output_fragment = @research_output.json_fragment
+      p "##################################################"
+      p @research_output
+      p "##################################################"
+      @persons = @plan.json_fragment.persons
       authorize @plan
       if @research_output.destroy
-        research_output_fragment.destroy!
         flash[:notice] = success_message(@research_output, _('deleted'))
       else
         flash[:alert] = failure_message(@research_output, _('delete'))
@@ -172,21 +187,21 @@ module Dmpopidor
     def update_remote
       @plan = ::Plan.find(params[:plan_id])
       @research_output = ::ResearchOutput.find(params[:id])
+      @persons = @plan.json_fragment.persons
       attrs = research_output_params
       contact_id = params[:contact_id]
 
       authorize @plan
       if @research_output.update(attrs)
         @research_output.create_json_fragments
-        unless @plan.template.structured?
-          research_output_description = @research_output.json_fragment.research_output_description
-          research_output_description.contact.update(
-            data: {
-              'person' => contact_id.present? ? { 'dbid' => contact_id } : nil,
-              'role' => _('Data contact')
-            }
-          )
-        end
+        research_output_description = @research_output.json_fragment.research_output_description
+        research_output_description.instantiate
+        research_output_description.contact.update(
+          data: {
+            'person' => contact_id.present? ? { 'dbid' => contact_id } : nil,
+            'role' => _('Data contact')
+          }
+        )
         render json: {
           'html' => render_to_string(partial: 'research_outputs/list', locals:
             {

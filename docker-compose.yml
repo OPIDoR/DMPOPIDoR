@@ -8,8 +8,8 @@ services:
         - DB_ADAPTER=${DB_ADAPTER:-postgres}
         - DB_USERNAME=${DB_USERNAME:-postgres}
         - DB_PASSWORD=${DB_PASSWORD:-changeme}
-        - NODE_MAJOR=${NODE_MAJOR:-18}
-    profiles: ["prod", "dev"]
+        - NODE_MAJOR=${NODE_MAJOR:-20}
+    profiles: ["prod"]
     depends_on:
       postgres:
         condition: service_healthy
@@ -55,6 +55,13 @@ services:
       - RAILS_RELATIVE_URL_ROOT
       - TRANSLATION_API_ROADMAP
       - TRANSLATION_API_CLIENT
+      # MetaDoRe API
+      - METADORE_LANDING_PAGE_URL
+      - METADORE_API_BASE_URL
+      - METADORE_SEARCH_PATH
+      - METADORE_ENABLED
+      - METADORE_SEARCH_SIZE
+      - METADORE_API_KEY
     working_dir: /app
     volumes:
       - ./log:/app/log
@@ -68,10 +75,9 @@ services:
       - dmpopidor_network
 
   nginx:
-    image: nginx:1.23.4-alpine-slim
+    image: nginx:1.25.3-alpine-slim
     ports:
       - ${NGINX_PORT:-8080}:80
-    profiles: ["prod", "dev"]
     depends_on:
       dmpopidor:
         condition: service_healthy
@@ -91,8 +97,7 @@ services:
       - dmpopidor_network
 
   postgres:
-    image: postgres:15.4-alpine3.18
-    profiles: ["prod", "dev"]
+    image: postgres:15.5-alpine3.19
     environment:
       - POSTGRES_USER=${DB_USERNAME:-postgres}
       - POSTGRES_PASSWORD=${DB_PASSWORD:-changeme}
@@ -112,9 +117,10 @@ services:
       - dmpopidor_network
 
   redis:
-    image: redis:7.2.1-alpine3.18
-    command: redis-server --requirepass ${REDIS_PASSWORD:-changeme}
-    profiles: ["prod", "dev"]
+    image: redis:7.2.4-alpine3.19
+    # command: "redis-server /etc/redis/redis.conf"
+    ports:
+      - 6379:6379
     volumes:
       - ./redis/sysctl.conf:/etc/sysctl.conf
       - ./redis/redis.conf:/etc/redis/redis.conf

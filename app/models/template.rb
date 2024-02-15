@@ -62,7 +62,7 @@ class Template < ApplicationRecord
   # access to structured forms when adding a new question.
   self.inheritance_column = nil
   enum type: %i[classic structured]
-  # Context describes if the DMP is for a Research Project ou a Research Structure
+  # Context describes if the DMP is for a Research Project ou a Research Entity
   # The Project Form is replaced by a Structure Form in the General information tab.
   # New features might be added in the future
   enum context: %i[research_project research_entity]
@@ -77,7 +77,7 @@ class Template < ApplicationRecord
   # The links is validated against custom validator allocated at
   # validators/template_links_validator.rb
   attribute :links, :text, default: { funder: [], sample_plan: [] }
-  serialize :links, JSON
+  serialize :links, coder: JSON
 
   attribute :published, :boolean, default: false
   attribute :archived, :boolean, default: false
@@ -255,6 +255,10 @@ class Template < ApplicationRecord
     where(is_default: true, published: true).last
   end
 
+  def self.recommend(context: 'research_project', locale: 'fr-FR')
+    where(is_recommended: true, published: true, context: , locale:).last
+  end
+
   def self.current(family_id)
     unarchived.where(family_id: family_id).order(version: :desc).first
   end
@@ -309,7 +313,7 @@ class Template < ApplicationRecord
     copy = dup
     if attributes.respond_to?(:each_pair)
       attributes.each_pair do |attribute, value|
-        copy.send("#{attribute}=".to_sym, value) if copy.respond_to?("#{attribute}=".to_sym)
+        copy.send(:"#{attribute}=", value) if copy.respond_to?(:"#{attribute}=")
       end
     end
     copy.save! if options.fetch(:save, false)

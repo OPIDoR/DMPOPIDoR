@@ -27,18 +27,18 @@ Rails.application.configure do
     config.action_controller.perform_caching = ENV.fetch('ACTION_CONTROLLER_PERFORM_CACHING', true).to_s.casecmp('true').zero?
     config.action_controller.enable_fragment_cache_logging = ENV.fetch('ACTION_CONTROLLER_ENABLE_FRAGMENT_CACHE_LOGGING', true).to_s.casecmp('true').zero?
 
-    config.cache_store = :memory_store
+    config.cache_store = ENV.fetch('CACHE_STORE', :memory_store)&.to_sym
     config.public_file_server.headers = JSON.parse(ENV.fetch('PUBLIC_FILE_SERVER_HEADERS', {
       'Cache-Control' => "public, max-age=#{2.days.to_i}"
     }.to_json))
   else
     config.action_controller.perform_caching = ENV.fetch('ACTION_CONTROLLER_PERFORM_CACHING', false).to_s.casecmp('true').zero?
 
-    config.cache_store = :null_store
+    config.cache_store = ENV.fetch('CACHE_STORE', :null_store)&.to_sym
   end
 
   # Store uploaded files on the local file system (see config/storage.yml for options)
-  config.active_storage.service = :local
+  config.active_storage.service = ENV.fetch('ACTIVE_STORAGE_SERVICE', :local)&.to_sym
 
   # Don't care if the mailer can't send.
   config.action_mailer.raise_delivery_errors = ENV.fetch('ACTION_MAILER_RAISE_DELIVERY_ERRORS', false).to_s.casecmp('true').zero?
@@ -46,34 +46,34 @@ Rails.application.configure do
   config.action_mailer.perform_caching = ENV.fetch('ACTION_MAILER_PERFORM_CACHING', false).to_s.casecmp('true').zero?
 
   # settings for mailcatcher
-  config.action_mailer.delivery_method = :smtp
+  config.action_mailer.delivery_method = ENV.fetch('ACTION_MAILER_DELIVERY_METHOD', :smtp)&.to_sym
   config.action_mailer.smtp_settings = {
     address: ENV.fetch('ACTION_MAILER_SMTP_HOST', 'mailcatcher'),
     port: ENV.fetch('ACTION_MAILER_SMTP_PORT', 1025)
   }
 
   ActionMailer::Base.default :from => ENV.fetch('MAILER_FROM', 'dmp.opidor@inist.fr')
-  ActionMailer::Base.delivery_method = :smtp
+  ActionMailer::Base.delivery_method = ENV.fetch('ACTION_MAILER_DELIVERY_METHOD', :smtp)&.to_sym
   ActionMailer::Base.smtp_settings = {
     address: ENV.fetch('ACTION_MAILER_SMTP_HOST', 'mailcatcher'),
     port: ENV.fetch('ACTION_MAILER_SMTP_PORT', 1025)
   }
 
   # Print deprecation notices to the Rails logger.
-  config.active_support.deprecation = :log
+  config.active_support.deprecation = ENV.fetch('ACTIVE_SUPPORT_DEPRECATION', :log)&.to_sym
 
   # Use the lowest log level to ensure availability of diagnostic information
   # when problems arise.
-  config.log_level = ENV['RAILS_LOG_LEVEL']&.to_sym || :debug
+  config.log_level = ENV.fetch('RAILS_LOG_LEVEL', :debug)&.to_sym
 
   # Raise exceptions for disallowed deprecations.
-  config.active_support.disallowed_deprecation = :raise
+  config.active_support.disallowed_deprecation = ENV.fetch('ACTIVE_SUPPORT_DISALLOWED_DEPRECATION', :raise)&.to_sym
 
   # Tell Active Support which deprecation messages to disallow.
   config.active_support.disallowed_deprecation_warnings = JSON.parse(ENV.fetch('ACTIVE_SUPPORT_DISALLOWED_DEPRECATION_WARNINGS', [].to_json))
 
   # Raise an error on page load if there are pending migrations.
-  config.active_record.migration_error = :page_load
+  config.active_record.migration_error = ENV.fetch('ACTIVE_RECORD_MIGRATION_ERROR', :page_load)&.to_sym
 
   # Highlight code that triggered database queries in logs.
   config.active_record.verbose_query_logs = ENV.fetch('ACTIVE_RECORD_VERBOSE_QUERY_LOGS', true).to_s.casecmp('true').zero?
