@@ -19,7 +19,7 @@ import 'tinymce/plugins/advlist';
 import 'tinymce/plugins/autolink';
 
 // Other dependencies
-import { isObject, isString, isUndefined } from './isType';
+import { isObject, isString } from './isType';
 
 // // Configuration extracted from
 // // https://www.tinymce.com/docs/advanced/usage-with-module-loaders/
@@ -61,10 +61,9 @@ export const defaultOptions = {
  */
 const isTinymceEditor = (editor) => {
   if (isObject(editor)) {
-    return editor.hasOwnProperty('id') && typeof editor.getContainer === 'function';
-  } else {
-    return false;
+    return Object.prototype.hasOwnProperty.call(editor, 'id') && typeof editor.getContainer === 'function';
   }
+  return false;
 };
 
 /*
@@ -78,7 +77,8 @@ const attachLabelToIframe = (editor) => {
     const iframe = editor.getContainer().querySelector('iframe');
     const lbl = document.querySelector(`label[for="${editor.id}"]`);
 
-    // If the iframe and label could be found, then set the label's 'for' attribute to the id of the iframe
+    // If the iframe and label could be found,
+    // then set the label's 'for' attribute to the id of the iframe
     if (isObject(iframe) && isObject(lbl)) {
       lbl.setAttribute('for', iframe.getAttribute('id'));
     }
@@ -100,6 +100,7 @@ export const Tinymce = {
 
     tinymce.init(opts).then((editors) => {
       if (editors.length > 0) {
+        // eslint-disable-next-line no-restricted-syntax
         for (const editor of editors) {
           // auto-resize the editor and connect the form label to the TinyMCE iframe
           editor.execCommand('mceAutoResize');
@@ -118,10 +119,9 @@ export const Tinymce = {
   findEditorsByClassName(className) {
     if (isString(className)) {
       const elements = Array.from(document.getElementsByClassName(className));
-      // Fetch the textarea elements and then return the TinyMCE editors associated with the element ids
-      return elements.map((el) => {
-        return Tinymce.findEditorById(el.getAttribute('id'));
-      });
+      // Fetch the textarea elements and then
+      // return the TinyMCE editors associated with the element ids
+      return elements.map((el) => Tinymce.findEditorById(el.getAttribute('id')));
     }
     return [];
   },
@@ -148,6 +148,7 @@ export const Tinymce = {
     const editors = this.findEditorsByClassName(className);
     if (editors.length > 0) {
       /* editors.forEach(ed => ed.destroy(false)); */
+      // eslint-disable-next-line no-restricted-syntax
       for (const editor of editors) {
         if (isTinymceEditor(editor)) {
           editor.destroy(false);

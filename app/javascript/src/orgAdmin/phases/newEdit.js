@@ -64,10 +64,10 @@ $(() => {
       // For some reason the toolbar options are retained after the call to Tinymce.init() on
       // the views/notifications/edit.js file. Tried 'Object.assign' instead of '$.extend' but it
       // made no difference
-      const prefix = 'collapseSection'
+      const prefix = 'collapseSection';
       let sectionId = selector;
       if (sectionId.startsWith(prefix)) {
-        sectionId = `sc_${sectionId.replace(prefix, '')}_section_description`
+        sectionId = `sc_${sectionId.replace(prefix, '')}_section_description`;
       }
 
       Tinymce.init({

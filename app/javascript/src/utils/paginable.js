@@ -9,9 +9,12 @@ $(() => {
   // search form submitted. Note the presence of a selector for on (e.g. a[data-remote="true"])
   // so that descendant elements from .paginable-results that are added in future are also
   // automatically handled.
-  $('body').on('ajax:success',
+  $('body').on(
+    'ajax:success',
     'form.paginable-action[data-remote="true"], a.paginable-action[data-remote="true"]',
-    onAjaxSuccessHandler);
+    onAjaxSuccessHandler,
+  );
 });
 
+// eslint-disable-next-line no-restricted-exports
 export { paginableSelector as default };

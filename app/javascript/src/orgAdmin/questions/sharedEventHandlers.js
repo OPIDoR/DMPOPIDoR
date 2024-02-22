@@ -55,4 +55,5 @@ export const onChangeQuestionClassname = (e) => {
   $(source).closest('form').find(`select.question_schema option[data-classname!="${selected}"]`).hide();
 };
 
+// eslint-disable-next-line no-restricted-exports
 export { onChangeQuestionFormat as default };

@@ -1,6 +1,7 @@
 document.addEventListener('DOMContentLoaded', () => {
-  window.addEventListener('scroll', (event) => {
+  window.addEventListener('scroll', () => {
     const scrollY = window.scrollY;
+    // eslint-disable-next-line no-restricted-globals
     const width = screen.width;
     const body = document.querySelector('body');
 

@@ -1,11 +1,12 @@
+/* eslint-disable import/no-relative-packages */
 import { define } from 'remount';
-import NewsPageLayout from './dmp_opidor_react/src/components/news/NewsPageLayout.jsx';
 
-import Comment from './dmp_opidor_react/src/components/Shared/Comment.jsx';
-import ContributorsTabLayout from './dmp_opidor_react/src/components/ContributorsTab/ContributorsTabLayout.jsx';
-import GeneralInfoLayout from './dmp_opidor_react/src/components/GeneralInfo/GeneralInfoLayout.jsx';
-import PlanCreationLayout from './dmp_opidor_react/src/components/PlanCreation/PlanCreationLayout.jsx';
-import WritePlanLayout from './dmp_opidor_react/src/components/WritePlan/WritePlanLayout.jsx';
+import NewsPageLayout from './dmp_opidor_react/src/components/news/NewsPageLayout';
+import Comment from './dmp_opidor_react/src/components/Shared/Comment';
+import ContributorsTabLayout from './dmp_opidor_react/src/components/ContributorsTab/ContributorsTabLayout';
+import GeneralInfoLayout from './dmp_opidor_react/src/components/GeneralInfo/GeneralInfoLayout';
+import PlanCreationLayout from './dmp_opidor_react/src/components/PlanCreation/PlanCreationLayout';
+import WritePlanLayout from './dmp_opidor_react/src/components/WritePlan/WritePlanLayout';
 
 define({
   'dmp-news-page': NewsPageLayout,

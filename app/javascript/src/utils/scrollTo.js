@@ -13,4 +13,5 @@ export const scrollTo = (selector, duration) => {
   }
 };
 
+// eslint-disable-next-line no-restricted-exports
 export { scrollTo as default };

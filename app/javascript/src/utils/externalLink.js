@@ -4,7 +4,7 @@ import getConstant from './constants';
 $(() => {
   $('body').click('a[href^="http"]', (e) => {
     const link = $(e.target);
-    const protocol = new RegExp('^https?');
+    const protocol = /^https?/;
     const regex = new RegExp(`^https?://${getConstant('HOST')}`);
     const exceptions = {
       ids: ['connect-orcid-button', 'view-all-templates', 'create-plan-link'],
@@ -25,7 +25,7 @@ $(() => {
 
   $('a[href^="http"]').each((index, value) => {
     const link = $(value);
-    const protocol = new RegExp('^https?');
+    const protocol = /^https?/;
     const regex = new RegExp(`^https?://${getConstant('HOST')}`);
     const exceptions = {
       ids: ['connect-orcid-button', 'view-all-templates', 'create-plan-link'],

@@ -21,8 +21,10 @@ $(() => {
     });
   };
   // Needs to re-apply sortable function after ajax paginable call
-  $('body').on('ajax:success',
+  $('body').on(
+    'ajax:success',
     'a.paginable-action[data-remote="true"]',
-    sortableRegistryValues);
+    sortableRegistryValues,
+  );
   sortableRegistryValues();
 });

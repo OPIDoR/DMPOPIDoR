@@ -6,10 +6,12 @@ $(() => {
     const editingUserEmail = $('#superadmin_user_email').val();
     const chosenUserEmail = userSelect.find('option:selected').text();
     const submitButton = userSelect.closest('form').find(':submit');
-    submitButton.attr('data-confirm',
+    submitButton.attr(
+      'data-confirm',
       `Confirm Account Merge: The account for ${editingUserEmail} will be merged with ${chosenUserEmail}.
       All plans and account information for ${chosenUserEmail} will now be accessible via ${editingUserEmail}.
-      The account for ${chosenUserEmail} will then be destroyed.`);
+      The account for ${chosenUserEmail} will then be destroyed.`,
+    );
   };
 
   $('#merge_form').on('ajax:success', (e) => {
