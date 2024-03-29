@@ -6,7 +6,7 @@ class MadmpSchemasController < ApplicationController
 
   def index
     authorize(MadmpSchema)
-    render json: MadmpSchema.where(classname: params[:by_classname]).select(%w[id label schema])
+    render json: MadmpSchema.where(classname: params[:by_classname]).select(%w[id name label schema])
   end
   def show
     authorize(MadmpSchema)
@@ -31,6 +31,7 @@ class MadmpSchemasController < ApplicationController
   def serialize_json_response(schema) 
     {
       id: schema.id,
+      name: schema.name,
       schema: schema.schema,
       api_client: if schema.api_client.present?
         {

@@ -43,6 +43,7 @@ class MadmpFragmentsController < ApplicationController
       'answer_id' => @fragment.answer_id,
       'template' => {
         id: @fragment.madmp_schema_id,
+        name: madmp_schema.name,
         schema: madmp_schema.schema,
         api_client: if madmp_schema.api_client.present?
           {
@@ -61,7 +62,8 @@ class MadmpFragmentsController < ApplicationController
     render json: {
       'fragment' => @fragment.get_full_fragment(with_ids: true),
       'template' => {
-        id:madmp_schema.id,
+        id: madmp_schema.id,
+        name: madmp_schema.name,
         schema: madmp_schema.schema,
         api_client: if madmp_schema.api_client.present?
           {
@@ -163,7 +165,7 @@ class MadmpFragmentsController < ApplicationController
 
   def change_form
     @fragment = MadmpFragment.find(params[:id])
-    target_schema = MadmpSchema.find(params[:schema_id])
+    target_schema = MadmpSchema.find_by!(name: params[:template_name])
 
     authorize @fragment
 
