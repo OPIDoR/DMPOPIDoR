@@ -202,9 +202,9 @@ class MadmpFragmentsController < ApplicationController
 
       next if schema_prop&.dig('type').nil?
       next if schema_prop['type'].eql?('object') &&
-              schema_prop['schema_id'].present?
+              schema_prop['template_name'].present?
       next if schema_prop['type'].eql?('array') &&
-              schema_prop['items']['schema_id'].present?
+              schema_prop['items']['template_name'].present?
 
       stale_data[prop] = content
     end
