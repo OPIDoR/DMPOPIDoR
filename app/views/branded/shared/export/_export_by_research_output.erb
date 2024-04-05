@@ -21,6 +21,9 @@
       <% blank = answer.present? ? answer.blank? : true %>
       <% options = answer.present? ? answer.question_options : [] %>
       <% fragment = answer.present? ? answer.madmp_fragment : nil %>
+      
+      <% next if  @plan.template.structured? && should_hide_question(question, research_output) %>
+
       <%  unless @show_unanswered == false && blank  %>
         <div class="question">
           <% if !@public_plan && @show_sections_questions%>
@@ -54,7 +57,8 @@
             <% end %>
             <p><%= sanitize ah['text'] %></p>
             <br/>
-          <% elsif question[:format].structured? && fragment.present? %>
+          <% end %>
+          <% if @plan.template.structured? && fragment.present? %>
             <%= render partial: 'shared/export/display_madmp_fragment', 
                         locals: {
                             fragment: fragment,

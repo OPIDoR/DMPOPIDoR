@@ -4,7 +4,6 @@ module Dmpopidor
   # rubocop:disable Metrics/ModuleLength
   # Customized code for Plan model
   module Plan
-    include DynamicFormHelper
 
     # CHANGES : ADDED RESEARCH OUTPUT SUPPORT
     # rubocop:disable Metrics/AbcSize, Style/OptionalBooleanParameter
@@ -94,7 +93,7 @@ module Dmpopidor
           },
           dmp_id: dmp_fragment.id,
           parent_id: nil,
-          madmp_schema: MadmpSchema.find_by(name: 'DMPCoordinator'),
+          madmp_schema: MadmpSchema.find_by(name: 'ContributorStandard'),
           additional_info: { property_name: 'contact' }
         )
 
@@ -140,7 +139,7 @@ module Dmpopidor
         },
         dmp_id: dmp_id,
         parent_id: nil,
-        madmp_schema: MadmpSchema.find_by(name: 'PrincipalInvestigator'),
+        madmp_schema: MadmpSchema.find_by(name: 'ContributorStandard'),
         additional_info: { property_name: 'principalInvestigator' }
       )
 
@@ -206,6 +205,10 @@ module Dmpopidor
         read: true,
         api_client_id: api_client.id
       )
+    end
+    
+    def grant_identifier
+      json_fragment.project.fundings.pluck(Arel.sql("data->'grantId'")).join(', ')
     end
   end
   # rubocop:enable Metrics/ModuleLength
