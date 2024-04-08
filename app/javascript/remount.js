@@ -7,6 +7,7 @@ import GeneralInfoLayout from './dmp_opidor_react/src/components/GeneralInfo/Gen
 import PlanCreationLayout from './dmp_opidor_react/src/components/PlanCreation/PlanCreationLayout.jsx';
 import WritePlanLayout from './dmp_opidor_react/src/components/WritePlan/WritePlanLayout.jsx';
 import HelpLayout from './dmp_opidor_react/src/components/Help/HelpLayout.jsx';
+import GlossaryLayout from './dmp_opidor_react/src/components/Glossary/GlossaryLayout.jsx';
 
 define({
   'dmp-news-page': NewsPageLayout,
@@ -16,4 +17,5 @@ define({
   'dmp-comment': Comment,
   'dmp-contributors-tab': ContributorsTabLayout,
   'dmp-help-page': HelpLayout,
+  'glossary-page': GlossaryLayout,
 });

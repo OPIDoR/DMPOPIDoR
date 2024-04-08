@@ -8,6 +8,8 @@ module Dmpopidor
 
     def help; end
 
+    def glossary; end
+
     # Added Tutorials Page
     def tutorials; end
 
