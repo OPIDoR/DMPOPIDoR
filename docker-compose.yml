@@ -93,7 +93,7 @@ services:
       - DB_DATABASE=${DIRECTUS_DATABASE:-directus}
       - PUBLIC_URL=http://${DMP_SERVER_NAME:-0.0.0.0}:${NGINX_PORT:-8080}/directus
     volumes:
-      - ./directus/data/uploads:/directus/uploads
+      - directus_uploads:/directus/uploads
     healthcheck:
       test: [ "CMD-SHELL", "wget --no-verbose --tries=1 --spider http://localhost:8055/server/health || exit 1" ]
       interval: ${DIRECTUS_HEALTHCHECK_INTERVAL:-10s}
@@ -165,3 +165,6 @@ services:
 networks:
   dmpopidor_network:
     driver: "bridge"
+
+volumes:
+  directus_uploads:
