@@ -8,3 +8,4 @@
 - Les liens des pages statiques sont désormais soulignés (#10797)
 - Ajout du mode lecture seule dans l'onglet contributeurs (#10800)
 - Correction du problème d'affichage des icones Commentaires/Recommandations (#10794)
+- Correction du démarrage automatique de la visite guidée, attente du rendu des composants de la page avant de la lancer.
