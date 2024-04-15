@@ -98,3 +98,5 @@ app/javascript/dmp_opidor_react/src/__tests__
 app/javascript/dmp_opidor_react/src/data
 
 puma.pid
+
+!directus/**/*
