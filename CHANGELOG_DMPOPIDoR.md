@@ -2,6 +2,13 @@
 
 **Attention** Cette liste de changements concerne les déploiements sur nos serveurs de test en interne.
 
+# 16/04/2024
+
+- Correction du problème d'affichage de l'onglet Informations Générales
+- Correction du problème de copie des plans classiques (#10815)
+- Export PDF/DOCX : Ajout d'une vérification du format des données utilisées lors de l'affichage d'un tableau de chaines de caractère (problème d'affichage de documentationSoftware dans DocumentationQualityStandard suite à une incompatibilité entre les schemas V3 et V4) (#10818)
+- Mise à jour de TinyMCE (éditeur de texte)
+
 # 12/04/2024
 
 - Désactivation de la création d'organisme depuis RoR dans la création de compte (#10798)
