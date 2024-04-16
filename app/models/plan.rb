@@ -348,6 +348,7 @@ class Plan < ApplicationRecord
       research_output_copy.title = research_output.title || "Copy of #{research_output.abbreviation}"
       research_output_copy.plan_id = plan_copy.id
       research_output_copy.save!
+      research_output_copy.create_json_fragments
 
       research_output_description = research_output.json_fragment.research_output_description
       research_output_copy.json_fragment.research_output_description.raw_import(
