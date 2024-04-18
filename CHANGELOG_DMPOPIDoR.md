@@ -2,6 +2,12 @@
 
 **Attention** Cette liste de changements concerne les déploiements sur nos serveurs de test en interne.
 
+# 18/04/2024
+
+- Correction du problème de suppression des valeurs dans les référentiels simples à choix multiples, ex: DocumentationQualityStandard.documentationSoftware (#10831)
+- Augmentation du nombre de caractères (100 caractères) des titres des DMP affichés en visibilité Privé, Organisme & Administrateur
+- Augmentation de la durée de la session de connexion de 90 minutes à 24h.
+
 # 16/04/2024
 
 - Correction du problème d'affichage de l'onglet Informations Générales
