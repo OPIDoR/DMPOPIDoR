@@ -10,7 +10,7 @@
     </div>
   </div>
   <div class="row">
-    <dmp-news-page props-json='{ "locale": "<%= locale %>" } '/>
+    <%= react("NewsPageLayout", props: { locale: locale }) %>
   </div>
 </div>
 <div class="modal fade" id="dmpVisitModal" tabindex="-1" role="dialog" aria-labelledby="dmpVisitModal" aria-hidden="true">
@@ -22,7 +22,7 @@
         </button>        
         <!-- 16:9 aspect ratio -->
         <div class="embed-responsive embed-responsive-16by9">
-          <iframe class="embed-responsive-item" src="https://www.canal-u.tv/chaines/callisto/embed/115986?t=0" id="video"  allowscriptaccess="always" allow="autoplay"></iframe>
+          <iframe class="embed-responsive-item" src="https://www.canal-u.tv/chaines/inist-cnrs/embed/152543?t=0" id="video"  allowscriptaccess="always" allow="autoplay"></iframe>
         </div>
       </div>
     </div>
