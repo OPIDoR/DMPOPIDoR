@@ -108,6 +108,9 @@
         <li <%= 'class=active' if active_page?(super_admin_registries_path) %>>
           <%= link_to _('Registries'), super_admin_registries_path+"#content" %>
         </li>
+        <li <%= 'class=active' if active_page?(super_admin_template_mappings_path) %>>
+          <%= link_to _('Mappings'), super_admin_template_mappings_path+"#content" %>
+        </li>
         </ul>
         </div>
       <% end %>
