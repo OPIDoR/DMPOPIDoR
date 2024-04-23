@@ -166,11 +166,12 @@ module OrgAdmin
     # SEE MODULE
     def new
       authorize Template
-      @template = current_org.templates.new
       # --------------------------------
       # Start DMP OPIDoR Customization
       # CHANGES : Added Locales list
+      # CHANGES : Added Type param
       # --------------------------------
+      @template = current_org.templates.new(type: params[:type])
       @locales = Language.all
       # --------------------------------
       # End DMP OPIDoR Customization
