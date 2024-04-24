@@ -77,7 +77,9 @@ module Dmpopidor
 
     def reduce_translations(translations, field)
       translations.reduce({}) do |result, translation|
-        result.merge({ I18n.locale => translation[field] })
+        result.merge(
+          translation['languages_code']['code'] => translation[field]
+        )
       end
     end
   end

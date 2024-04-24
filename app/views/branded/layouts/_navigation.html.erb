@@ -82,9 +82,9 @@
 
           <ul class="dropdown-menu dmpopidor-dropdown" aria-labelledby="static-pages-menu">
             <% @nav_static_pages.each do |sp| %>
-              <li <%= 'class="active"' if active_page?(static_path(sp['path'])) %>>
+              <li <%= 'class="active"' if active_page?("/static/#{sp['path']}") %>>
                 <a href="<%= "/static/#{sp['path']}#content" %>">
-                  <%= sp['title'][I18n.locale] %>
+                  <%= sp['title'][I18n.locale.to_s] %>
                 </a>
               </li>
               <li role="separator" class="divider"></li>
