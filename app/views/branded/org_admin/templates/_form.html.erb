@@ -39,13 +39,16 @@
 
 <div class="form-group col-xs-8">
   <%= f.label(:type, _('Type'), class: "control-label") %>
-    <p class="form-control-static">
-      <% if f.object.structured? %>
-        <%= _('Structured') %>
-      <% else %>
-        <%= _('Classic') %>
-      <% end %>
-    </p>
+  <%= f.hidden_field :type, id: nil %>
+  <p class="form-control-static">
+    <% if f.object.structured? %>
+      <%= _('Structured') %>
+    <% elsif f.object.module? %>
+      <%= _('Module') %>
+    <% else %>
+      <%= _('Classic') %>
+    <% end %>
+  </p>
 </div>
 
 <div class="form-group col-xs-8">
@@ -56,6 +59,7 @@
           [["Research Project", "research_project"], ["Research Entity", "research_entity"]],
           f.object.context
         ),
+        disabled: f.object.module?,
         class: "form-control",
         name: 'template[context]') %>
   <% else %>
@@ -68,6 +72,29 @@
     </p>
   <% end %>
 </div>
+
+<% if f.object.module? %>
+  <div class="form-group col-xs-8">
+    <%= f.label(:data_type, _('Data type'), class: "control-label") %>
+    <% if f.object.new_record? %>
+      <%= select_tag(:data_type,
+          options_for_select(
+            [[_("None"), "none"], [_("Software"), "software"]],
+            f.object.data_type
+          ),
+          class: "form-control",
+          name: 'template[data_type]') %>
+      <% else %>
+        <p class="form-control-static">
+          <% if f.object.data_type.eql?('software') %>
+            <%= _("Software") %>
+          <% else %>
+            <%= _("None") %>
+          <% end %>
+        </p>
+      <% end %>
+  </div>
+<% end %>
 
 <div class="form-group col-xs-8">
   <%= label_tag(:status, _('Status'), class: "control-label") %>

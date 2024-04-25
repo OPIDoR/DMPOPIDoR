@@ -401,9 +401,9 @@ module OrgAdmin
       # the template: :links context.
       # --------------------------------
       # Start DMP OPIDoR Customization
-      # CHANGES : Added Locale, Type & Context
+      # CHANGES : Added Locale, Type, Context & DataType
       # --------------------------------
-      params.require(:template).permit(:title, :description, :visibility, :links, :locale, :type, :context)
+      params.require(:template).permit(:title, :description, :visibility, :links, :locale, :type, :context, :data_type)
       # --------------------------------
       # End DMP OPIDoR Customization
       # --------------------------------
