@@ -2,6 +2,12 @@
 
 **Attention** Cette liste de changements concerne les déploiements sur nos serveurs de test en interne.
 
+## 26/04/2024
+
+- Correction de l'envoie d'un commentaire vide.
+- Intégration d'un service ``metadore`` (miroir interne de DataCite, moissonnage automatique journalier)
+- Création d'un composant ``metadore`` qui est à l'identique de ``ror`` et ``orcid`` sur le principe de fonctionnement.
+
 ### Modification de la création/ajout des modèles de DMP
 
 - Le bouton Créer un modèle permet de créer un modèle structuré
