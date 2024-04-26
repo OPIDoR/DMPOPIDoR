@@ -252,7 +252,7 @@ class Template < ApplicationRecord
   end
 
   def self.recommend(context: 'research_project', locale: 'fr-FR')
-    where(is_recommended: true, published: true, context: , locale:).last
+    where(is_recommended: true, published: true, type: 'structured', context: , locale:).last
   end
 
   def self.current(family_id)
