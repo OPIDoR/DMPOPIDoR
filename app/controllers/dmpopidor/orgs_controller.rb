@@ -15,7 +15,8 @@ module Dmpopidor
                                     archived: false,
                                     is_recommended: false,
                                     context: params[:context],
-                                    locale: params[:locale]  
+                                    locale: params[:locale] ,
+                                    type: ['classic', 'structured']
                                   }
                                )
       @orgs = if params[:type] == 'org'

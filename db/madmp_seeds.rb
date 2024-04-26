@@ -14,7 +14,7 @@ question_formats = [
     title: "Structured",
     description: "Structured",
     option_based: false,
-    formattype: 7,
+    formattype: 9,
     structured: true
   }
 ]

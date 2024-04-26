@@ -56,4 +56,15 @@ module TemplateHelper
   end
   # rubocop:enable Metrics/AbcSize, Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
   # rubocop:enable Style/OptionalBooleanParameter
+
+  # Method that determines if an admin can add a phase to a template
+  # Returns true for classic templates
+  # Returns true for structured & module templates if there is no phase
+  def can_add_phase?(template)
+    return true if template.classic?
+
+    return true if template.phases.length == 0
+
+  end
+
 end

@@ -13,6 +13,15 @@
       <div class="form-group">
         <%= f.label(:name, _('Classname'), class: 'control-label') %>
         <%= f.text_field(:classname, class: "form-control", spellcheck: true, "aria-required": true) %>
+      <div class="form-group">
+        <%= f.label(:data_type, _('Data type'), class: 'control-label') %>
+        <%= select_tag(:data_type,
+            options_for_select(
+              [[_("None"), "none"], [_("Software"), "software"]],
+              f.object.data_type
+            ),
+            class: "form-control",
+            name: 'madmp_schema[data_type]') %>
       </div>
       <div class="form-group">
         <%= f.label(:version, _('Version'), class: 'control-label') %>
