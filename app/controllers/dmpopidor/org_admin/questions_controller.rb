@@ -40,9 +40,7 @@ module Dmpopidor
                                 number: nbr.present? ? nbr + 1 : 1)
         question_formats = allowed_question_formats
         @available_classnames = Settings::Question::AVAILABLE_CLASSNAMES[template.data_type]
-        p "####################"
-        p Settings::Question::AVAILABLE_CLASSNAMES
-        p "####################"
+
         @madmp_schemas = MadmpSchema.where(classname: @available_classnames, data_type: template.data_type)
         authorize question
         render json: { html: render_to_string(partial: 'form', locals: {
