@@ -21,7 +21,7 @@ module Dmpopidor
       authorize @plan
       I18n.with_locale @plan.template.locale do
         begin
-          max_order = @plan.research_outputs.maximum('display_order') + 1
+          max_order = @plan.research_outputs.empty? ? 1 : @plan.research_outputs.maximum('display_order') + 1
           created_ro = @plan.research_outputs.create!(
             abbreviation: params[:abbreviation] || "#{_('RO')} #{max_order}",
             title: params[:title] || "#{_('Research output')} #{max_order}",
@@ -72,18 +72,17 @@ module Dmpopidor
         begin
           research_output_description = @research_output.json_fragment.research_output_description
 
-            updated_data = research_output_description.data.merge({
-              title: params[:title],
-              type: params[:type],
-              containsPersonalData: params[:configuration][:hasPersonalData] ? _('Yes') : _('No')
-            })
-            research_output_description.update(data: updated_data)
-            research_output_description.update_research_output_parameters(true)
-            PlanChannel.broadcast_to(plan, {
-              target: "dynamic_form",
-              fragment_id: research_output_description.id,
-              payload: research_output_description.get_full_fragment(with_ids: true)
-            })
+          updated_data = research_output_description.data.merge({
+            title: params[:title],
+            containsPersonalData: params[:configuration][:hasPersonalData] ? _('Yes') : _('No')
+          })
+          research_output_description.update(data: updated_data)
+          research_output_description.update_research_output_parameters(true)
+          PlanChannel.broadcast_to(plan, {
+            target: "dynamic_form",
+            fragment_id: research_output_description.id,
+            payload: research_output_description.get_full_fragment(with_ids: true)
+          })
 
           research_outputs = ::ResearchOutput.where(plan_id: params[:plan_id])
 
