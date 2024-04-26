@@ -4,19 +4,26 @@
 #
 # Table name: madmp_schemas
 #
-#  id         :integer          not null, primary key
-#  label      :string
-#  name       :string
-#  version    :integer
-#  schema     :json
-#  org_id     :integer
-#  classname  :string
-#  created_at :datetime         not null
-#  updated_at :datetime         not null
+#  id            :integer          not null, primary key
+#  classname     :string
+#  label         :string
+#  name          :string
+#  schema        :json
+#  version       :integer
+#  created_at    :datetime         not null
+#  updated_at    :datetime         not null
+#  api_client_id :bigint(8)
+#  org_id        :integer
 #
 # Indexes
 #
-#  index_madmp_schemas_on_org_id  (org_id)
+#  index_madmp_schemas_on_api_client_id  (api_client_id)
+#  index_madmp_schemas_on_org_id         (org_id)
+#
+# Foreign Keys
+#
+#  fk_rails_...  (api_client_id => api_clients.id)
+#  fk_rails_...  (org_id => orgs.id)
 #
 
 # Object that represents a madmp_schema
@@ -99,13 +106,13 @@ class MadmpSchema < ApplicationRecord
   end
 
   def sub_schemas
-    path = JsonPath.new('$..schema_id')
-    ids = path.on(schema)
-    MadmpSchema.where(id: ids).to_h { |s| [s.id, s] }
+    path = JsonPath.new('$..template_name')
+    names = path.on(schema)
+    MadmpSchema.where(name: names).to_h { |s| [s.id, s] }
   end
 
   def sub_schemas_ids
-    path = JsonPath.new('$..schema_id')
+    path = JsonPath.new('$..template_name')
     path.on(schema)
   end
 
@@ -114,14 +121,14 @@ class MadmpSchema < ApplicationRecord
   def generate_strong_params(flat: false)
     parameters = []
     properties.each do |key, prop|
-      if prop['type'] == 'object' && prop['schema_id'].present?
+      if prop['type'] == 'object' && prop['template_name'].present?
         if prop['inputType'].eql?('pickOrCreate')
           parameters.append(key)
         elsif prop['registry_id'].present?
           parameters.append(key)
           parameters.append("#{key}_custom") if prop['overridable'].present?
         else
-          sub_schema = MadmpSchema.find(prop['schema_id'])
+          sub_schema = MadmpSchema.find_by(name: prop['template_name'])
           parameters.append(key => sub_schema.generate_strong_params(flat: false))
         end
       elsif prop['type'].eql?('array') && !flat
@@ -163,15 +170,5 @@ class MadmpSchema < ApplicationRecord
       const_data[key] = prop["const@#{locale}"]
     end
     const_data
-  end
-
-  # Substitute 'template_name' key/values for their 'schema_id' equivalent in the JSON
-  # and 'registry_name' key/values for their 'registry_id' equivalent in the JSON
-  def self.substitute_names(json_schema)
-    json_schema = JsonPath.for(json_schema).gsub('$..template_name') do |name|
-      MadmpSchema.find_by!(name:).id
-    end.to_json.gsub('template_name', 'schema_id')
-
-    JSON.parse(json_schema)
   end
 end
