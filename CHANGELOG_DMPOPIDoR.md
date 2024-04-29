@@ -10,6 +10,7 @@
 - Possibilité de supprimer le premier produit de recherche
 - Le "type" de produit de recherche est rendu obligatoire
 - Il est impossible de modifier le type de produit de recherche
+- Creation d'une page de glossaire en ReactJS, les données sont gérées par Directus.
 
 ## 26/04/2024
 
