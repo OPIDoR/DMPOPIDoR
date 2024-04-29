@@ -11,6 +11,7 @@ module Dmpopidor
         query {
           static_pages(filter: { status: { _eq: "published" } }) {
             path,
+            inMenu,
             translations {
               languages_code {
                 code
@@ -37,6 +38,7 @@ module Dmpopidor
         page_translation = page['translations']
         category = {
           'path' => page['path'],
+          'inMenu' => page['inMenu'],
           'title' => reduce_translations(page_translation, 'title')
         }
       end
