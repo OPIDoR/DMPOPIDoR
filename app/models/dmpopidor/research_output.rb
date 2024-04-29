@@ -44,6 +44,7 @@ module Dmpopidor
         fragment = json_fragment
         dmp_fragment = plan.json_fragment
         contact_person = dmp_fragment.persons.first
+        data_type = configuration[:dataType]
         if fragment.nil?
           # Fetch the first question linked with a ResearchOutputDescription schema
           description_question = plan.questions.joins(:madmp_schema)
@@ -56,14 +57,14 @@ module Dmpopidor
             data: {
               'research_output_id' => id
             },
-            madmp_schema: MadmpSchema.find_by(classname: 'research_output'),
+            madmp_schema: MadmpSchema.find_by(classname: 'research_output', data_type: data_type || 'none'),
             dmp_id: dmp_fragment.id,
             parent_id: dmp_fragment.id,
             additional_info: {
               property_name: 'researchOutput',
               hasPersonalData: configuration[:hasPersonalData] || false,
-              dataType: configuration[:dataType] || 'other',
-              moduleId: ::Template.module(data_type: configuration[:dataType])&.id
+              dataType: data_type || 'none',
+              moduleId: ::Template.module(data_type:)&.id
             }
           )
           fragment_description = Fragment::ResearchOutputDescription.new(
@@ -76,7 +77,7 @@ module Dmpopidor
             madmp_schema: MadmpSchema.find_by(name: 'ResearchOutputDescriptionStandard'),
             dmp_id: dmp_fragment.id,
             parent_id: fragment.id,
-            additional_info: { property_name: 'researchOutputDescription' }
+            additional_info: { property_name: dataTypeToResearchOutputPropertyName(data_type) }
           )
           fragment_description.instantiate
           fragment_description.contact.update(
@@ -126,6 +127,18 @@ module Dmpopidor
 
     def has_personal_data
       json_fragment.additional_info['hasPersonalData'] || false
+    end
+
+    private
+
+
+    def dataTypeToResearchOutputPropertyName(data_type)
+      case data_type
+      when 'software'
+        'softwareDescription'
+      else
+        'researchOutputDescription'
+      end
     end
   end
 end
