@@ -30,7 +30,7 @@ CREATE TABLE public.directus_activity (
     "user" uuid,
     "timestamp" timestamp with time zone DEFAULT CURRENT_TIMESTAMP NOT NULL,
     ip character varying(50),
-    user_agent character varying(255),
+    user_agent text,
     collection character varying(64) NOT NULL,
     item character varying(255) NOT NULL,
     comment text,
@@ -538,7 +538,7 @@ CREATE TABLE public.directus_sessions (
     "user" uuid,
     expires timestamp with time zone NOT NULL,
     ip character varying(255),
-    user_agent character varying(255),
+    user_agent text,
     share uuid,
     origin character varying(255)
 );
@@ -576,7 +576,10 @@ CREATE TABLE public.directus_settings (
     default_theme_light character varying(255),
     theme_light_overrides json,
     default_theme_dark character varying(255),
-    theme_dark_overrides json
+    theme_dark_overrides json,
+    report_error_url character varying(255),
+    report_bug_url character varying(255),
+    report_feature_url character varying(255)
 );
 
 
@@ -709,7 +712,9 @@ CREATE TABLE public.directus_webhooks (
     data boolean DEFAULT true NOT NULL,
     actions character varying(100) NOT NULL,
     collections character varying(255) NOT NULL,
-    headers json
+    headers json,
+    was_active_before_deprecation boolean DEFAULT false NOT NULL,
+    migrated_flow uuid
 );
 
 
@@ -869,6 +874,60 @@ ALTER SEQUENCE public.faq_content_translations_id_seq OWNED BY public.faq_conten
 
 
 --
+-- Name: glossary; Type: TABLE; Schema: public; Owner: postgres
+--
+
+CREATE TABLE public.glossary (
+    id uuid NOT NULL,
+    status character varying(255) DEFAULT 'draft'::character varying NOT NULL,
+    sort integer,
+    user_created uuid,
+    date_created timestamp with time zone,
+    user_updated uuid,
+    date_updated timestamp with time zone
+);
+
+
+ALTER TABLE public.glossary OWNER TO postgres;
+
+--
+-- Name: glossary_translations; Type: TABLE; Schema: public; Owner: postgres
+--
+
+CREATE TABLE public.glossary_translations (
+    id integer NOT NULL,
+    glossary_id uuid,
+    languages_code character varying(255),
+    term character varying(255),
+    description text
+);
+
+
+ALTER TABLE public.glossary_translations OWNER TO postgres;
+
+--
+-- Name: glossary_translations_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
+--
+
+CREATE SEQUENCE public.glossary_translations_id_seq
+    AS integer
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.glossary_translations_id_seq OWNER TO postgres;
+
+--
+-- Name: glossary_translations_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
+--
+
+ALTER SEQUENCE public.glossary_translations_id_seq OWNED BY public.glossary_translations.id;
+
+
+--
 -- Name: languages; Type: TABLE; Schema: public; Owner: postgres
 --
 
@@ -880,6 +939,62 @@ CREATE TABLE public.languages (
 
 
 ALTER TABLE public.languages OWNER TO postgres;
+
+--
+-- Name: static_pages; Type: TABLE; Schema: public; Owner: postgres
+--
+
+CREATE TABLE public.static_pages (
+    id uuid NOT NULL,
+    status character varying(255) DEFAULT 'draft'::character varying NOT NULL,
+    sort integer,
+    user_created uuid,
+    date_created timestamp with time zone,
+    user_updated uuid,
+    date_updated timestamp with time zone,
+    path character varying(255),
+    "inMenu" boolean DEFAULT true
+);
+
+
+ALTER TABLE public.static_pages OWNER TO postgres;
+
+--
+-- Name: static_pages_translations; Type: TABLE; Schema: public; Owner: postgres
+--
+
+CREATE TABLE public.static_pages_translations (
+    id integer NOT NULL,
+    static_pages_id uuid,
+    languages_code character varying(255),
+    title character varying(255),
+    content text
+);
+
+
+ALTER TABLE public.static_pages_translations OWNER TO postgres;
+
+--
+-- Name: static_pages_translations_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
+--
+
+CREATE SEQUENCE public.static_pages_translations_id_seq
+    AS integer
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.static_pages_translations_id_seq OWNER TO postgres;
+
+--
+-- Name: static_pages_translations_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
+--
+
+ALTER SEQUENCE public.static_pages_translations_id_seq OWNED BY public.static_pages_translations.id;
+
 
 --
 -- Name: directus_activity id; Type: DEFAULT; Schema: public; Owner: postgres
@@ -963,6 +1078,20 @@ ALTER TABLE ONLY public.faq_content ALTER COLUMN id SET DEFAULT nextval('public.
 --
 
 ALTER TABLE ONLY public.faq_content_translations ALTER COLUMN id SET DEFAULT nextval('public.faq_content_translations_id_seq'::regclass);
+
+
+--
+-- Name: glossary_translations id; Type: DEFAULT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.glossary_translations ALTER COLUMN id SET DEFAULT nextval('public.glossary_translations_id_seq'::regclass);
+
+
+--
+-- Name: static_pages_translations id; Type: DEFAULT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.static_pages_translations ALTER COLUMN id SET DEFAULT nextval('public.static_pages_translations_id_seq'::regclass);
 
 
 --
@@ -1095,6 +1224,7 @@ COPY public.directus_activity (id, action, "user", "timestamp", ip, user_agent, 
 119	create	daa1631c-ab80-409e-9e08-f73f54a3d3fe	2023-12-07 12:50:03.18+00	172.16.99.62	Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/119.0.0.0 Safari/537.36	directus_permissions	27	\N	http://vtopidor.intra.inist.fr:8055
 122	create	daa1631c-ab80-409e-9e08-f73f54a3d3fe	2023-12-07 12:50:03.187+00	172.16.99.62	Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/119.0.0.0 Safari/537.36	directus_permissions	28	\N	http://vtopidor.intra.inist.fr:8055
 123	create	daa1631c-ab80-409e-9e08-f73f54a3d3fe	2023-12-07 12:50:03.192+00	172.16.99.62	Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/119.0.0.0 Safari/537.36	directus_permissions	29	\N	http://vtopidor.intra.inist.fr:8055
+328	update	daa1631c-ab80-409e-9e08-f73f54a3d3fe	2024-04-29 12:08:47.711+00	172.19.0.1	Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:125.0) Gecko/20100101 Firefox/125.0	directus_fields	40	\N	http://localhost:8080
 128	create	daa1631c-ab80-409e-9e08-f73f54a3d3fe	2023-12-07 12:50:57.133+00	10.2.5.26	Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/119.0.0.0 Safari/537.36	directus_files	e53cfad0-d4a8-4158-bc32-b5f41b24c73e	\N	http://vtopidor.intra.inist.fr:8055
 129	delete	daa1631c-ab80-409e-9e08-f73f54a3d3fe	2023-12-07 12:50:57.144+00	10.2.5.26	Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/119.0.0.0 Safari/537.36	directus_files	e53cfad0-d4a8-4158-bc32-b5f41b24c73e	\N	http://vtopidor.intra.inist.fr:8055
 132	create	624fb2f6-29df-4e7f-836b-4e9eb64f235e	2023-12-07 12:51:10.158+00	172.16.99.63	Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/119.0.0.0 Safari/537.36	faq_categories	e71ff11c-c405-475c-ab08-66512c596500	\N	http://vtopidor.intra.inist.fr:8055
@@ -1259,6 +1389,88 @@ COPY public.directus_activity (id, action, "user", "timestamp", ip, user_agent, 
 293	delete	daa1631c-ab80-409e-9e08-f73f54a3d3fe	2024-03-25 12:21:05.537+00	172.19.0.1	Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:124.0) Gecko/20100101 Firefox/124.0	directus_flows	dd0af7be-3ff0-424a-9687-7d4b6c1c0b5a	\N	http://localhost:8080
 294	delete	daa1631c-ab80-409e-9e08-f73f54a3d3fe	2024-03-25 12:21:10.37+00	172.19.0.1	Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:124.0) Gecko/20100101 Firefox/124.0	directus_extensions	5270bb94-9425-4e60-a4dd-65f4c0a0921c	\N	http://localhost:8080
 295	login	daa1631c-ab80-409e-9e08-f73f54a3d3fe	2024-03-25 12:31:58.514+00	172.19.0.1	Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:124.0) Gecko/20100101 Firefox/124.0	directus_users	daa1631c-ab80-409e-9e08-f73f54a3d3fe	\N	http://localhost:8080
+296	login	daa1631c-ab80-409e-9e08-f73f54a3d3fe	2024-04-29 12:00:08.621+00	172.19.0.1	Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:125.0) Gecko/20100101 Firefox/125.0	directus_users	daa1631c-ab80-409e-9e08-f73f54a3d3fe	\N	http://localhost:8080
+297	create	daa1631c-ab80-409e-9e08-f73f54a3d3fe	2024-04-29 12:03:06.381+00	172.19.0.1	Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:125.0) Gecko/20100101 Firefox/125.0	directus_fields	40	\N	http://localhost:8080
+298	create	daa1631c-ab80-409e-9e08-f73f54a3d3fe	2024-04-29 12:03:06.393+00	172.19.0.1	Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:125.0) Gecko/20100101 Firefox/125.0	directus_fields	41	\N	http://localhost:8080
+299	create	daa1631c-ab80-409e-9e08-f73f54a3d3fe	2024-04-29 12:03:06.403+00	172.19.0.1	Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:125.0) Gecko/20100101 Firefox/125.0	directus_fields	42	\N	http://localhost:8080
+300	create	daa1631c-ab80-409e-9e08-f73f54a3d3fe	2024-04-29 12:03:06.411+00	172.19.0.1	Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:125.0) Gecko/20100101 Firefox/125.0	directus_fields	43	\N	http://localhost:8080
+301	create	daa1631c-ab80-409e-9e08-f73f54a3d3fe	2024-04-29 12:03:06.42+00	172.19.0.1	Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:125.0) Gecko/20100101 Firefox/125.0	directus_fields	44	\N	http://localhost:8080
+302	create	daa1631c-ab80-409e-9e08-f73f54a3d3fe	2024-04-29 12:03:06.427+00	172.19.0.1	Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:125.0) Gecko/20100101 Firefox/125.0	directus_fields	45	\N	http://localhost:8080
+303	create	daa1631c-ab80-409e-9e08-f73f54a3d3fe	2024-04-29 12:03:06.436+00	172.19.0.1	Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:125.0) Gecko/20100101 Firefox/125.0	directus_fields	46	\N	http://localhost:8080
+304	create	daa1631c-ab80-409e-9e08-f73f54a3d3fe	2024-04-29 12:03:06.442+00	172.19.0.1	Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:125.0) Gecko/20100101 Firefox/125.0	directus_collections	static_pages	\N	http://localhost:8080
+305	create	daa1631c-ab80-409e-9e08-f73f54a3d3fe	2024-04-29 12:03:44.074+00	172.19.0.1	Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:125.0) Gecko/20100101 Firefox/125.0	directus_fields	47	\N	http://localhost:8080
+306	create	daa1631c-ab80-409e-9e08-f73f54a3d3fe	2024-04-29 12:03:44.17+00	172.19.0.1	Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:125.0) Gecko/20100101 Firefox/125.0	directus_fields	48	\N	http://localhost:8080
+307	create	daa1631c-ab80-409e-9e08-f73f54a3d3fe	2024-04-29 12:03:44.176+00	172.19.0.1	Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:125.0) Gecko/20100101 Firefox/125.0	directus_collections	static_pages_translations	\N	http://localhost:8080
+308	create	daa1631c-ab80-409e-9e08-f73f54a3d3fe	2024-04-29 12:03:44.237+00	172.19.0.1	Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:125.0) Gecko/20100101 Firefox/125.0	directus_fields	49	\N	http://localhost:8080
+309	create	daa1631c-ab80-409e-9e08-f73f54a3d3fe	2024-04-29 12:03:44.316+00	172.19.0.1	Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:125.0) Gecko/20100101 Firefox/125.0	directus_fields	50	\N	http://localhost:8080
+310	update	daa1631c-ab80-409e-9e08-f73f54a3d3fe	2024-04-29 12:03:48.759+00	172.19.0.1	Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:125.0) Gecko/20100101 Firefox/125.0	directus_collections	static_pages_translations	\N	http://localhost:8080
+311	update	daa1631c-ab80-409e-9e08-f73f54a3d3fe	2024-04-29 12:03:48.761+00	172.19.0.1	Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:125.0) Gecko/20100101 Firefox/125.0	directus_collections	faq_categories	\N	http://localhost:8080
+312	update	daa1631c-ab80-409e-9e08-f73f54a3d3fe	2024-04-29 12:03:48.827+00	172.19.0.1	Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:125.0) Gecko/20100101 Firefox/125.0	directus_collections	faq_content	\N	http://localhost:8080
+313	update	daa1631c-ab80-409e-9e08-f73f54a3d3fe	2024-04-29 12:03:48.844+00	172.19.0.1	Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:125.0) Gecko/20100101 Firefox/125.0	directus_collections	languages	\N	http://localhost:8080
+314	update	daa1631c-ab80-409e-9e08-f73f54a3d3fe	2024-04-29 12:03:48.859+00	172.19.0.1	Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:125.0) Gecko/20100101 Firefox/125.0	directus_collections	static_pages	\N	http://localhost:8080
+315	update	daa1631c-ab80-409e-9e08-f73f54a3d3fe	2024-04-29 12:03:51.603+00	172.19.0.1	Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:125.0) Gecko/20100101 Firefox/125.0	directus_collections	faq_categories	\N	http://localhost:8080
+316	update	daa1631c-ab80-409e-9e08-f73f54a3d3fe	2024-04-29 12:03:51.61+00	172.19.0.1	Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:125.0) Gecko/20100101 Firefox/125.0	directus_collections	faq_content	\N	http://localhost:8080
+317	update	daa1631c-ab80-409e-9e08-f73f54a3d3fe	2024-04-29 12:03:51.618+00	172.19.0.1	Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:125.0) Gecko/20100101 Firefox/125.0	directus_collections	static_pages	\N	http://localhost:8080
+318	update	daa1631c-ab80-409e-9e08-f73f54a3d3fe	2024-04-29 12:03:51.625+00	172.19.0.1	Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:125.0) Gecko/20100101 Firefox/125.0	directus_collections	languages	\N	http://localhost:8080
+319	create	daa1631c-ab80-409e-9e08-f73f54a3d3fe	2024-04-29 12:04:00.254+00	172.19.0.1	Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:125.0) Gecko/20100101 Firefox/125.0	directus_fields	51	\N	http://localhost:8080
+320	create	daa1631c-ab80-409e-9e08-f73f54a3d3fe	2024-04-29 12:04:06.752+00	172.19.0.1	Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:125.0) Gecko/20100101 Firefox/125.0	directus_fields	52	\N	http://localhost:8080
+321	create	daa1631c-ab80-409e-9e08-f73f54a3d3fe	2024-04-29 12:04:17.01+00	172.19.0.1	Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:125.0) Gecko/20100101 Firefox/125.0	directus_permissions	45	\N	http://localhost:8080
+322	create	daa1631c-ab80-409e-9e08-f73f54a3d3fe	2024-04-29 12:04:18.744+00	172.19.0.1	Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:125.0) Gecko/20100101 Firefox/125.0	directus_permissions	46	\N	http://localhost:8080
+323	create	daa1631c-ab80-409e-9e08-f73f54a3d3fe	2024-04-29 12:07:56.952+00	172.19.0.1	Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:125.0) Gecko/20100101 Firefox/125.0	static_pages_translations	1	\N	http://localhost:8080
+324	create	daa1631c-ab80-409e-9e08-f73f54a3d3fe	2024-04-29 12:07:56.959+00	172.19.0.1	Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:125.0) Gecko/20100101 Firefox/125.0	static_pages_translations	2	\N	http://localhost:8080
+325	create	daa1631c-ab80-409e-9e08-f73f54a3d3fe	2024-04-29 12:07:56.967+00	172.19.0.1	Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:125.0) Gecko/20100101 Firefox/125.0	static_pages	0cdb0ec7-98cf-4c86-b147-86f2858b47e2	\N	http://localhost:8080
+326	create	daa1631c-ab80-409e-9e08-f73f54a3d3fe	2024-04-29 12:08:06.359+00	172.19.0.1	Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:125.0) Gecko/20100101 Firefox/125.0	directus_fields	53	\N	http://localhost:8080
+327	update	daa1631c-ab80-409e-9e08-f73f54a3d3fe	2024-04-29 12:08:20.526+00	172.19.0.1	Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:125.0) Gecko/20100101 Firefox/125.0	static_pages	0cdb0ec7-98cf-4c86-b147-86f2858b47e2	\N	http://localhost:8080
+329	update	daa1631c-ab80-409e-9e08-f73f54a3d3fe	2024-04-29 12:08:47.728+00	172.19.0.1	Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:125.0) Gecko/20100101 Firefox/125.0	directus_fields	41	\N	http://localhost:8080
+330	update	daa1631c-ab80-409e-9e08-f73f54a3d3fe	2024-04-29 12:08:47.752+00	172.19.0.1	Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:125.0) Gecko/20100101 Firefox/125.0	directus_fields	42	\N	http://localhost:8080
+331	update	daa1631c-ab80-409e-9e08-f73f54a3d3fe	2024-04-29 12:08:47.76+00	172.19.0.1	Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:125.0) Gecko/20100101 Firefox/125.0	directus_fields	43	\N	http://localhost:8080
+332	update	daa1631c-ab80-409e-9e08-f73f54a3d3fe	2024-04-29 12:08:47.77+00	172.19.0.1	Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:125.0) Gecko/20100101 Firefox/125.0	directus_fields	44	\N	http://localhost:8080
+333	update	daa1631c-ab80-409e-9e08-f73f54a3d3fe	2024-04-29 12:08:47.778+00	172.19.0.1	Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:125.0) Gecko/20100101 Firefox/125.0	directus_fields	45	\N	http://localhost:8080
+334	update	daa1631c-ab80-409e-9e08-f73f54a3d3fe	2024-04-29 12:08:47.789+00	172.19.0.1	Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:125.0) Gecko/20100101 Firefox/125.0	directus_fields	46	\N	http://localhost:8080
+335	update	daa1631c-ab80-409e-9e08-f73f54a3d3fe	2024-04-29 12:08:47.797+00	172.19.0.1	Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:125.0) Gecko/20100101 Firefox/125.0	directus_fields	53	\N	http://localhost:8080
+336	update	daa1631c-ab80-409e-9e08-f73f54a3d3fe	2024-04-29 12:08:47.807+00	172.19.0.1	Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:125.0) Gecko/20100101 Firefox/125.0	directus_fields	47	\N	http://localhost:8080
+337	update	daa1631c-ab80-409e-9e08-f73f54a3d3fe	2024-04-29 12:09:27.053+00	172.19.0.1	Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:125.0) Gecko/20100101 Firefox/125.0	static_pages	0cdb0ec7-98cf-4c86-b147-86f2858b47e2	\N	http://localhost:8080
+338	update	daa1631c-ab80-409e-9e08-f73f54a3d3fe	2024-04-29 12:13:58.845+00	172.19.0.1	Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:125.0) Gecko/20100101 Firefox/125.0	static_pages	0cdb0ec7-98cf-4c86-b147-86f2858b47e2	\N	http://localhost:8080
+339	create	daa1631c-ab80-409e-9e08-f73f54a3d3fe	2024-04-29 12:15:18.358+00	172.19.0.1	Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:125.0) Gecko/20100101 Firefox/125.0	directus_fields	54	\N	http://localhost:8080
+340	update	daa1631c-ab80-409e-9e08-f73f54a3d3fe	2024-04-29 12:15:22.055+00	172.19.0.1	Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:125.0) Gecko/20100101 Firefox/125.0	directus_fields	40	\N	http://localhost:8080
+341	update	daa1631c-ab80-409e-9e08-f73f54a3d3fe	2024-04-29 12:15:22.073+00	172.19.0.1	Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:125.0) Gecko/20100101 Firefox/125.0	directus_fields	41	\N	http://localhost:8080
+342	update	daa1631c-ab80-409e-9e08-f73f54a3d3fe	2024-04-29 12:15:22.083+00	172.19.0.1	Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:125.0) Gecko/20100101 Firefox/125.0	directus_fields	42	\N	http://localhost:8080
+343	update	daa1631c-ab80-409e-9e08-f73f54a3d3fe	2024-04-29 12:15:22.091+00	172.19.0.1	Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:125.0) Gecko/20100101 Firefox/125.0	directus_fields	43	\N	http://localhost:8080
+344	update	daa1631c-ab80-409e-9e08-f73f54a3d3fe	2024-04-29 12:15:22.1+00	172.19.0.1	Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:125.0) Gecko/20100101 Firefox/125.0	directus_fields	44	\N	http://localhost:8080
+345	update	daa1631c-ab80-409e-9e08-f73f54a3d3fe	2024-04-29 12:15:22.109+00	172.19.0.1	Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:125.0) Gecko/20100101 Firefox/125.0	directus_fields	45	\N	http://localhost:8080
+346	update	daa1631c-ab80-409e-9e08-f73f54a3d3fe	2024-04-29 12:15:22.119+00	172.19.0.1	Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:125.0) Gecko/20100101 Firefox/125.0	directus_fields	46	\N	http://localhost:8080
+347	update	daa1631c-ab80-409e-9e08-f73f54a3d3fe	2024-04-29 12:15:22.127+00	172.19.0.1	Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:125.0) Gecko/20100101 Firefox/125.0	directus_fields	53	\N	http://localhost:8080
+348	update	daa1631c-ab80-409e-9e08-f73f54a3d3fe	2024-04-29 12:15:22.135+00	172.19.0.1	Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:125.0) Gecko/20100101 Firefox/125.0	directus_fields	54	\N	http://localhost:8080
+349	update	daa1631c-ab80-409e-9e08-f73f54a3d3fe	2024-04-29 12:15:22.144+00	172.19.0.1	Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:125.0) Gecko/20100101 Firefox/125.0	directus_fields	47	\N	http://localhost:8080
+350	update	daa1631c-ab80-409e-9e08-f73f54a3d3fe	2024-04-29 12:16:12.478+00	172.19.0.1	Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:125.0) Gecko/20100101 Firefox/125.0	static_pages	0cdb0ec7-98cf-4c86-b147-86f2858b47e2	\N	http://localhost:8080
+351	create	daa1631c-ab80-409e-9e08-f73f54a3d3fe	2024-04-29 12:18:49.628+00	172.19.0.1	Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:125.0) Gecko/20100101 Firefox/125.0	directus_fields	55	\N	http://localhost:8080
+352	create	daa1631c-ab80-409e-9e08-f73f54a3d3fe	2024-04-29 12:18:49.637+00	172.19.0.1	Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:125.0) Gecko/20100101 Firefox/125.0	directus_fields	56	\N	http://localhost:8080
+353	create	daa1631c-ab80-409e-9e08-f73f54a3d3fe	2024-04-29 12:18:49.645+00	172.19.0.1	Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:125.0) Gecko/20100101 Firefox/125.0	directus_fields	57	\N	http://localhost:8080
+354	create	daa1631c-ab80-409e-9e08-f73f54a3d3fe	2024-04-29 12:18:49.652+00	172.19.0.1	Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:125.0) Gecko/20100101 Firefox/125.0	directus_fields	58	\N	http://localhost:8080
+355	create	daa1631c-ab80-409e-9e08-f73f54a3d3fe	2024-04-29 12:18:49.658+00	172.19.0.1	Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:125.0) Gecko/20100101 Firefox/125.0	directus_fields	59	\N	http://localhost:8080
+356	create	daa1631c-ab80-409e-9e08-f73f54a3d3fe	2024-04-29 12:18:49.665+00	172.19.0.1	Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:125.0) Gecko/20100101 Firefox/125.0	directus_fields	60	\N	http://localhost:8080
+357	create	daa1631c-ab80-409e-9e08-f73f54a3d3fe	2024-04-29 12:18:49.671+00	172.19.0.1	Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:125.0) Gecko/20100101 Firefox/125.0	directus_fields	61	\N	http://localhost:8080
+358	create	daa1631c-ab80-409e-9e08-f73f54a3d3fe	2024-04-29 12:18:49.678+00	172.19.0.1	Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:125.0) Gecko/20100101 Firefox/125.0	directus_collections	glossary	\N	http://localhost:8080
+359	create	daa1631c-ab80-409e-9e08-f73f54a3d3fe	2024-04-29 12:19:01.253+00	172.19.0.1	Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:125.0) Gecko/20100101 Firefox/125.0	directus_fields	62	\N	http://localhost:8080
+360	create	daa1631c-ab80-409e-9e08-f73f54a3d3fe	2024-04-29 12:19:01.366+00	172.19.0.1	Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:125.0) Gecko/20100101 Firefox/125.0	directus_fields	63	\N	http://localhost:8080
+361	create	daa1631c-ab80-409e-9e08-f73f54a3d3fe	2024-04-29 12:19:01.373+00	172.19.0.1	Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:125.0) Gecko/20100101 Firefox/125.0	directus_collections	glossary_translations	\N	http://localhost:8080
+362	create	daa1631c-ab80-409e-9e08-f73f54a3d3fe	2024-04-29 12:19:01.435+00	172.19.0.1	Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:125.0) Gecko/20100101 Firefox/125.0	directus_fields	64	\N	http://localhost:8080
+363	create	daa1631c-ab80-409e-9e08-f73f54a3d3fe	2024-04-29 12:19:01.516+00	172.19.0.1	Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:125.0) Gecko/20100101 Firefox/125.0	directus_fields	65	\N	http://localhost:8080
+364	update	daa1631c-ab80-409e-9e08-f73f54a3d3fe	2024-04-29 12:19:05.553+00	172.19.0.1	Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:125.0) Gecko/20100101 Firefox/125.0	directus_collections	glossary_translations	\N	http://localhost:8080
+365	update	daa1631c-ab80-409e-9e08-f73f54a3d3fe	2024-04-29 12:19:05.554+00	172.19.0.1	Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:125.0) Gecko/20100101 Firefox/125.0	directus_collections	faq_categories	\N	http://localhost:8080
+366	update	daa1631c-ab80-409e-9e08-f73f54a3d3fe	2024-04-29 12:19:05.564+00	172.19.0.1	Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:125.0) Gecko/20100101 Firefox/125.0	directus_collections	faq_content	\N	http://localhost:8080
+367	update	daa1631c-ab80-409e-9e08-f73f54a3d3fe	2024-04-29 12:19:05.573+00	172.19.0.1	Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:125.0) Gecko/20100101 Firefox/125.0	directus_collections	static_pages	\N	http://localhost:8080
+368	update	daa1631c-ab80-409e-9e08-f73f54a3d3fe	2024-04-29 12:19:05.584+00	172.19.0.1	Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:125.0) Gecko/20100101 Firefox/125.0	directus_collections	languages	\N	http://localhost:8080
+369	update	daa1631c-ab80-409e-9e08-f73f54a3d3fe	2024-04-29 12:19:05.6+00	172.19.0.1	Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:125.0) Gecko/20100101 Firefox/125.0	directus_collections	glossary	\N	http://localhost:8080
+370	update	daa1631c-ab80-409e-9e08-f73f54a3d3fe	2024-04-29 12:19:07.476+00	172.19.0.1	Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:125.0) Gecko/20100101 Firefox/125.0	directus_collections	faq_categories	\N	http://localhost:8080
+371	update	daa1631c-ab80-409e-9e08-f73f54a3d3fe	2024-04-29 12:19:07.488+00	172.19.0.1	Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:125.0) Gecko/20100101 Firefox/125.0	directus_collections	faq_content	\N	http://localhost:8080
+372	update	daa1631c-ab80-409e-9e08-f73f54a3d3fe	2024-04-29 12:19:07.5+00	172.19.0.1	Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:125.0) Gecko/20100101 Firefox/125.0	directus_collections	glossary	\N	http://localhost:8080
+373	update	daa1631c-ab80-409e-9e08-f73f54a3d3fe	2024-04-29 12:19:07.509+00	172.19.0.1	Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:125.0) Gecko/20100101 Firefox/125.0	directus_collections	static_pages	\N	http://localhost:8080
+374	update	daa1631c-ab80-409e-9e08-f73f54a3d3fe	2024-04-29 12:19:07.518+00	172.19.0.1	Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:125.0) Gecko/20100101 Firefox/125.0	directus_collections	languages	\N	http://localhost:8080
+375	create	daa1631c-ab80-409e-9e08-f73f54a3d3fe	2024-04-29 12:19:21.999+00	172.19.0.1	Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:125.0) Gecko/20100101 Firefox/125.0	directus_fields	66	\N	http://localhost:8080
+376	create	daa1631c-ab80-409e-9e08-f73f54a3d3fe	2024-04-29 12:19:28.826+00	172.19.0.1	Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:125.0) Gecko/20100101 Firefox/125.0	directus_fields	67	\N	http://localhost:8080
+377	create	daa1631c-ab80-409e-9e08-f73f54a3d3fe	2024-04-29 12:19:40.668+00	172.19.0.1	Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:125.0) Gecko/20100101 Firefox/125.0	directus_permissions	47	\N	http://localhost:8080
+378	create	daa1631c-ab80-409e-9e08-f73f54a3d3fe	2024-04-29 12:19:42.216+00	172.19.0.1	Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:125.0) Gecko/20100101 Firefox/125.0	directus_permissions	48	\N	http://localhost:8080
 \.
 
 
@@ -1269,9 +1481,13 @@ COPY public.directus_activity (id, action, "user", "timestamp", ip, user_agent, 
 COPY public.directus_collections (collection, icon, note, display_template, hidden, singleton, translations, archive_field, archive_app_filter, archive_value, unarchive_value, sort_field, accountability, color, item_duplication_fields, sort, "group", collapse, preview_url, versioning) FROM stdin;
 faq_content_translations	import_export	\N	\N	t	f	\N	\N	t	\N	\N	\N	all	\N	\N	1	faq_content	open	\N	f
 faq_categories_translations	import_export	\N	\N	t	f	\N	\N	t	\N	\N	\N	all	\N	\N	1	faq_categories	open	\N	f
-languages	\N	\N	\N	f	f	\N	\N	t	\N	\N	\N	all	\N	\N	3	\N	open	\N	f
-faq_content	\N	\N	\N	f	f	\N	\N	t	\N	\N	sort	all	\N	\N	2	\N	open	\N	t
+static_pages_translations	import_export	\N	\N	t	f	\N	\N	t	\N	\N	\N	all	\N	\N	1	static_pages	open	\N	f
+glossary_translations	import_export	\N	\N	t	f	\N	\N	t	\N	\N	\N	all	\N	\N	1	glossary	open	\N	f
 faq_categories	\N	\N	\N	f	f	\N	\N	t	\N	\N	sort	all	\N	[]	1	\N	locked	{{questions}}	t
+faq_content	\N	\N	\N	f	f	\N	\N	t	\N	\N	sort	all	\N	\N	2	\N	open	\N	t
+glossary	\N	\N	\N	f	f	\N	status	t	archived	draft	sort	all	\N	\N	3	\N	open	\N	f
+static_pages	\N	\N	\N	f	f	\N	status	t	archived	draft	sort	all	\N	\N	4	\N	open	\N	f
+languages	\N	\N	\N	f	f	\N	\N	t	\N	\N	\N	all	\N	\N	5	\N	open	\N	f
 \.
 
 
@@ -1327,6 +1543,34 @@ COPY public.directus_fields (id, collection, field, special, interface, options,
 39	faq_categories	questions	o2m	list-o2m	\N	related-values	{"template":"{{translations.question}}"}	f	f	10	full	\N	\N	\N	f	\N	\N	\N
 30	faq_content	category	m2o	select-dropdown-m2o	{"template":"{{translations.title}}"}	related-values	{"template":"{{translations.title}}"}	f	f	9	full	\N	\N	\N	f	\N	\N	\N
 33	faq_categories	translations	translations	translations	{"defaultLanguage":"fr-FR"}	translations	{"template":"{{title}}"}	f	f	7	full	\N	\N	\N	f	\N	\N	\N
+48	static_pages_translations	id	\N	\N	\N	\N	\N	f	t	1	full	\N	\N	\N	f	\N	\N	\N
+49	static_pages_translations	static_pages_id	\N	\N	\N	\N	\N	f	t	2	full	\N	\N	\N	f	\N	\N	\N
+50	static_pages_translations	languages_code	\N	\N	\N	\N	\N	f	t	3	full	\N	\N	\N	f	\N	\N	\N
+51	static_pages_translations	title	\N	input	\N	\N	\N	f	f	4	full	\N	\N	\N	f	\N	\N	\N
+52	static_pages_translations	content	\N	input-rich-text-html	\N	\N	\N	f	f	5	full	\N	\N	\N	f	\N	\N	\N
+42	static_pages	sort	\N	input	\N	\N	\N	f	t	3	full	\N	\N	\N	f	\N	\N	\N
+43	static_pages	user_created	user-created	select-dropdown-m2o	{"template":"{{avatar.$thumbnail}} {{first_name}} {{last_name}}"}	user	\N	t	t	4	half	\N	\N	\N	f	\N	\N	\N
+54	static_pages	inMenu	cast-boolean	boolean	{"label":"Afficher dans le menu ?"}	\N	\N	f	f	9	full	\N	\N	\N	f	\N	\N	\N
+47	static_pages	translations	translations	translations	{"defaultLanguage":"fr-FR","defaultOpenSplitView":true}	\N	\N	f	f	10	full	\N	\N	\N	f	\N	\N	\N
+55	glossary	id	uuid	input	\N	\N	\N	t	t	1	full	\N	\N	\N	f	\N	\N	\N
+56	glossary	status	\N	select-dropdown	{"choices":[{"text":"$t:published","value":"published","color":"var(--theme--primary)"},{"text":"$t:draft","value":"draft","color":"var(--theme--foreground)"},{"text":"$t:archived","value":"archived","color":"var(--theme--warning)"}]}	labels	{"showAsDot":true,"choices":[{"text":"$t:published","value":"published","color":"var(--theme--primary)","foreground":"var(--theme--primary)","background":"var(--theme--primary-background)"},{"text":"$t:draft","value":"draft","color":"var(--theme--foreground)","foreground":"var(--theme--foreground)","background":"var(--theme--background-normal)"},{"text":"$t:archived","value":"archived","color":"var(--theme--warning)","foreground":"var(--theme--warning)","background":"var(--theme--warning-background)"}]}	f	f	2	full	\N	\N	\N	f	\N	\N	\N
+57	glossary	sort	\N	input	\N	\N	\N	f	t	3	full	\N	\N	\N	f	\N	\N	\N
+40	static_pages	id	uuid	input	\N	\N	\N	t	t	1	full	\N	\N	\N	f	\N	\N	\N
+41	static_pages	status	\N	select-dropdown	{"choices":[{"text":"$t:published","value":"published","color":"var(--theme--primary)"},{"text":"$t:draft","value":"draft","color":"var(--theme--foreground)"},{"text":"$t:archived","value":"archived","color":"var(--theme--warning)"}]}	labels	{"showAsDot":true,"choices":[{"text":"$t:published","value":"published","color":"var(--theme--primary)","foreground":"var(--theme--primary)","background":"var(--theme--primary-background)"},{"text":"$t:draft","value":"draft","color":"var(--theme--foreground)","foreground":"var(--theme--foreground)","background":"var(--theme--background-normal)"},{"text":"$t:archived","value":"archived","color":"var(--theme--warning)","foreground":"var(--theme--warning)","background":"var(--theme--warning-background)"}]}	f	f	2	full	\N	\N	\N	f	\N	\N	\N
+44	static_pages	date_created	date-created	datetime	\N	datetime	{"relative":true}	t	t	5	half	\N	\N	\N	f	\N	\N	\N
+45	static_pages	user_updated	user-updated	select-dropdown-m2o	{"template":"{{avatar.$thumbnail}} {{first_name}} {{last_name}}"}	user	\N	t	t	6	half	\N	\N	\N	f	\N	\N	\N
+46	static_pages	date_updated	date-updated	datetime	\N	datetime	{"relative":true}	t	t	7	half	\N	\N	\N	f	\N	\N	\N
+53	static_pages	path	\N	input	\N	\N	\N	f	f	8	full	\N	\N	\N	f	\N	\N	\N
+58	glossary	user_created	user-created	select-dropdown-m2o	{"template":"{{avatar.$thumbnail}} {{first_name}} {{last_name}}"}	user	\N	t	t	4	half	\N	\N	\N	f	\N	\N	\N
+59	glossary	date_created	date-created	datetime	\N	datetime	{"relative":true}	t	t	5	half	\N	\N	\N	f	\N	\N	\N
+60	glossary	user_updated	user-updated	select-dropdown-m2o	{"template":"{{avatar.$thumbnail}} {{first_name}} {{last_name}}"}	user	\N	t	t	6	half	\N	\N	\N	f	\N	\N	\N
+61	glossary	date_updated	date-updated	datetime	\N	datetime	{"relative":true}	t	t	7	half	\N	\N	\N	f	\N	\N	\N
+62	glossary	translations	translations	translations	{"defaultLanguage":"fr-FR"}	\N	\N	f	f	8	full	\N	\N	\N	f	\N	\N	\N
+63	glossary_translations	id	\N	\N	\N	\N	\N	f	t	1	full	\N	\N	\N	f	\N	\N	\N
+64	glossary_translations	glossary_id	\N	\N	\N	\N	\N	f	t	2	full	\N	\N	\N	f	\N	\N	\N
+65	glossary_translations	languages_code	\N	\N	\N	\N	\N	f	t	3	full	\N	\N	\N	f	\N	\N	\N
+66	glossary_translations	term	\N	input	\N	\N	\N	f	f	4	full	\N	\N	\N	f	\N	\N	\N
+67	glossary_translations	description	\N	input-rich-text-html	\N	\N	\N	f	f	5	full	\N	\N	\N	f	\N	\N	\N
 \.
 
 
@@ -1435,6 +1679,9 @@ COPY public.directus_migrations (version, name, "timestamp") FROM stdin;
 20231010A	Add Extensions	2023-12-07 12:42:27.557705+00
 20231215A	Add Focalpoints	2024-03-21 09:25:02.084451+00
 20240204A	Marketplace	2024-03-21 09:25:02.122303+00
+20240122A	Add Report URL Fields	2024-04-26 13:27:12.493743+00
+20240305A	Change Useragent Type	2024-04-26 13:27:12.513288+00
+20240311A	Deprecate Webhooks	2024-04-26 13:27:12.534328+00
 \.
 
 
@@ -1498,6 +1745,10 @@ COPY public.directus_permissions (id, role, collection, action, permissions, val
 37	19467255-1682-415f-b26a-77b5c5268d27	faq_categories_translations	share	{}	{}	\N	*
 38	19467255-1682-415f-b26a-77b5c5268d27	faq_categories_translations	delete	{}	{}	\N	*
 44	\N	languages	read	{}	{}	\N	*
+45	\N	static_pages_translations	read	{}	{}	\N	*
+46	\N	static_pages	read	{}	{}	\N	*
+47	\N	glossary_translations	read	{}	{}	\N	*
+48	\N	glossary	read	{}	{}	\N	*
 \.
 
 
@@ -1510,6 +1761,8 @@ COPY public.directus_presets (id, bookmark, "user", role, collection, search, la
 14	\N	daa1631c-ab80-409e-9e08-f73f54a3d3fe	\N	faq_content	\N	\N	{"tabular":{"page":1}}	\N	\N	\N	bookmark	\N
 12	\N	daa1631c-ab80-409e-9e08-f73f54a3d3fe	\N	languages	\N	tabular	{"tabular":{"page":1}}	\N	\N	\N	bookmark	\N
 15	\N	daa1631c-ab80-409e-9e08-f73f54a3d3fe	\N	directus_files	\N	cards	{"cards":{"sort":["-uploaded_on"],"page":1}}	{"cards":{"icon":"insert_drive_file","title":"{{ title }}","subtitle":"{{ type }} • {{ filesize }}","size":4,"imageFit":"crop"}}	\N	\N	bookmark	\N
+17	\N	daa1631c-ab80-409e-9e08-f73f54a3d3fe	\N	faq_categories	\N	\N	{"tabular":{"page":1}}	\N	\N	\N	bookmark	\N
+16	\N	daa1631c-ab80-409e-9e08-f73f54a3d3fe	\N	static_pages	\N	\N	{"tabular":{"page":1}}	\N	\N	\N	bookmark	\N
 \.
 
 
@@ -1528,6 +1781,14 @@ COPY public.directus_relations (id, many_collection, many_field, one_collection,
 12	faq_categories_translations	languages_code	languages	\N	\N	\N	faq_categories_id	\N	nullify
 13	faq_categories_translations	faq_categories_id	faq_categories	translations	\N	\N	languages_code	\N	nullify
 10	faq_content	category	faq_categories	questions	\N	\N	\N	\N	nullify
+15	static_pages	user_created	directus_users	\N	\N	\N	\N	\N	nullify
+16	static_pages	user_updated	directus_users	\N	\N	\N	\N	\N	nullify
+17	static_pages_translations	languages_code	languages	\N	\N	\N	static_pages_id	\N	nullify
+18	static_pages_translations	static_pages_id	static_pages	translations	\N	\N	languages_code	\N	nullify
+19	glossary	user_created	directus_users	\N	\N	\N	\N	\N	nullify
+20	glossary	user_updated	directus_users	\N	\N	\N	\N	\N	nullify
+21	glossary_translations	languages_code	languages	\N	\N	\N	glossary_id	\N	nullify
+22	glossary_translations	glossary_id	glossary	translations	\N	\N	languages_code	\N	nullify
 \.
 
 
@@ -1776,8 +2037,90 @@ COPY public.directus_revisions (id, activity, collection, item, data, delta, par
 244	287	directus_extensions	5270bb94-9425-4e60-a4dd-65f4c0a0921c	{"id":"5270bb94-9425-4e60-a4dd-65f4c0a0921c","enabled":true,"folder":"e4f291d4-6c57-48b2-b328-1da8f8e24979","source":"registry","bundle":null}	{"id":"5270bb94-9425-4e60-a4dd-65f4c0a0921c","enabled":true,"folder":"e4f291d4-6c57-48b2-b328-1da8f8e24979","source":"registry","bundle":null}	\N	\N
 245	288	directus_extensions	5270bb94-9425-4e60-a4dd-65f4c0a0921c	{"enabled":false,"id":"5270bb94-9425-4e60-a4dd-65f4c0a0921c","folder":"e4f291d4-6c57-48b2-b328-1da8f8e24979","source":"registry","bundle":null}	{"enabled":false}	\N	\N
 246	289	directus_extensions	5270bb94-9425-4e60-a4dd-65f4c0a0921c	{"enabled":true,"id":"5270bb94-9425-4e60-a4dd-65f4c0a0921c","folder":"e4f291d4-6c57-48b2-b328-1da8f8e24979","source":"registry","bundle":null}	{"enabled":true}	\N	\N
+327	375	directus_fields	66	{"sort":4,"interface":"input","special":null,"collection":"glossary_translations","field":"term"}	{"sort":4,"interface":"input","special":null,"collection":"glossary_translations","field":"term"}	\N	\N
 247	290	directus_flows	2fd35489-ab21-403a-87a5-39bc1ded0de9	{"name":"Test","icon":"bolt","color":null,"description":null,"status":"active","accountability":"all","trigger":"manual","options":{"collections":["faq_categories","faq_categories_translations","faq_content","faq_content_translations","languages"],"async":true,"requireConfirmation":true}}	{"name":"Test","icon":"bolt","color":null,"description":null,"status":"active","accountability":"all","trigger":"manual","options":{"collections":["faq_categories","faq_categories_translations","faq_content","faq_content_translations","languages"],"async":true,"requireConfirmation":true}}	\N	\N
 248	292	directus_flows	dd0af7be-3ff0-424a-9687-7d4b6c1c0b5a	{"name":"Test","icon":"bolt","color":null,"description":null,"status":"active","accountability":"all","trigger":"schedule","options":{"cron":"* * 1 * * *"}}	{"name":"Test","icon":"bolt","color":null,"description":null,"status":"active","accountability":"all","trigger":"schedule","options":{"cron":"* * 1 * * *"}}	\N	\N
+249	297	directus_fields	40	{"sort":1,"hidden":true,"readonly":true,"interface":"input","special":["uuid"],"field":"id","collection":"static_pages"}	{"sort":1,"hidden":true,"readonly":true,"interface":"input","special":["uuid"],"field":"id","collection":"static_pages"}	\N	\N
+250	298	directus_fields	41	{"sort":2,"width":"full","options":{"choices":[{"text":"$t:published","value":"published","color":"var(--theme--primary)"},{"text":"$t:draft","value":"draft","color":"var(--theme--foreground)"},{"text":"$t:archived","value":"archived","color":"var(--theme--warning)"}]},"interface":"select-dropdown","display":"labels","display_options":{"showAsDot":true,"choices":[{"text":"$t:published","value":"published","color":"var(--theme--primary)","foreground":"var(--theme--primary)","background":"var(--theme--primary-background)"},{"text":"$t:draft","value":"draft","color":"var(--theme--foreground)","foreground":"var(--theme--foreground)","background":"var(--theme--background-normal)"},{"text":"$t:archived","value":"archived","color":"var(--theme--warning)","foreground":"var(--theme--warning)","background":"var(--theme--warning-background)"}]},"field":"status","collection":"static_pages"}	{"sort":2,"width":"full","options":{"choices":[{"text":"$t:published","value":"published","color":"var(--theme--primary)"},{"text":"$t:draft","value":"draft","color":"var(--theme--foreground)"},{"text":"$t:archived","value":"archived","color":"var(--theme--warning)"}]},"interface":"select-dropdown","display":"labels","display_options":{"showAsDot":true,"choices":[{"text":"$t:published","value":"published","color":"var(--theme--primary)","foreground":"var(--theme--primary)","background":"var(--theme--primary-background)"},{"text":"$t:draft","value":"draft","color":"var(--theme--foreground)","foreground":"var(--theme--foreground)","background":"var(--theme--background-normal)"},{"text":"$t:archived","value":"archived","color":"var(--theme--warning)","foreground":"var(--theme--warning)","background":"var(--theme--warning-background)"}]},"field":"status","collection":"static_pages"}	\N	\N
+251	299	directus_fields	42	{"sort":3,"interface":"input","hidden":true,"field":"sort","collection":"static_pages"}	{"sort":3,"interface":"input","hidden":true,"field":"sort","collection":"static_pages"}	\N	\N
+252	300	directus_fields	43	{"sort":4,"special":["user-created"],"interface":"select-dropdown-m2o","options":{"template":"{{avatar.$thumbnail}} {{first_name}} {{last_name}}"},"display":"user","readonly":true,"hidden":true,"width":"half","field":"user_created","collection":"static_pages"}	{"sort":4,"special":["user-created"],"interface":"select-dropdown-m2o","options":{"template":"{{avatar.$thumbnail}} {{first_name}} {{last_name}}"},"display":"user","readonly":true,"hidden":true,"width":"half","field":"user_created","collection":"static_pages"}	\N	\N
+253	301	directus_fields	44	{"sort":5,"special":["date-created"],"interface":"datetime","readonly":true,"hidden":true,"width":"half","display":"datetime","display_options":{"relative":true},"field":"date_created","collection":"static_pages"}	{"sort":5,"special":["date-created"],"interface":"datetime","readonly":true,"hidden":true,"width":"half","display":"datetime","display_options":{"relative":true},"field":"date_created","collection":"static_pages"}	\N	\N
+254	302	directus_fields	45	{"sort":6,"special":["user-updated"],"interface":"select-dropdown-m2o","options":{"template":"{{avatar.$thumbnail}} {{first_name}} {{last_name}}"},"display":"user","readonly":true,"hidden":true,"width":"half","field":"user_updated","collection":"static_pages"}	{"sort":6,"special":["user-updated"],"interface":"select-dropdown-m2o","options":{"template":"{{avatar.$thumbnail}} {{first_name}} {{last_name}}"},"display":"user","readonly":true,"hidden":true,"width":"half","field":"user_updated","collection":"static_pages"}	\N	\N
+255	303	directus_fields	46	{"sort":7,"special":["date-updated"],"interface":"datetime","readonly":true,"hidden":true,"width":"half","display":"datetime","display_options":{"relative":true},"field":"date_updated","collection":"static_pages"}	{"sort":7,"special":["date-updated"],"interface":"datetime","readonly":true,"hidden":true,"width":"half","display":"datetime","display_options":{"relative":true},"field":"date_updated","collection":"static_pages"}	\N	\N
+256	304	directus_collections	static_pages	{"sort_field":"sort","archive_field":"status","archive_value":"archived","unarchive_value":"draft","singleton":false,"collection":"static_pages"}	{"sort_field":"sort","archive_field":"status","archive_value":"archived","unarchive_value":"draft","singleton":false,"collection":"static_pages"}	\N	\N
+257	305	directus_fields	47	{"sort":8,"interface":"translations","special":["translations"],"options":{"defaultLanguage":"fr-FR","defaultOpenSplitView":true},"collection":"static_pages","field":"translations"}	{"sort":8,"interface":"translations","special":["translations"],"options":{"defaultLanguage":"fr-FR","defaultOpenSplitView":true},"collection":"static_pages","field":"translations"}	\N	\N
+258	306	directus_fields	48	{"sort":1,"hidden":true,"field":"id","collection":"static_pages_translations"}	{"sort":1,"hidden":true,"field":"id","collection":"static_pages_translations"}	\N	\N
+259	307	directus_collections	static_pages_translations	{"hidden":true,"icon":"import_export","collection":"static_pages_translations"}	{"hidden":true,"icon":"import_export","collection":"static_pages_translations"}	\N	\N
+260	308	directus_fields	49	{"sort":2,"hidden":true,"collection":"static_pages_translations","field":"static_pages_id"}	{"sort":2,"hidden":true,"collection":"static_pages_translations","field":"static_pages_id"}	\N	\N
+261	309	directus_fields	50	{"sort":3,"hidden":true,"collection":"static_pages_translations","field":"languages_code"}	{"sort":3,"hidden":true,"collection":"static_pages_translations","field":"languages_code"}	\N	\N
+262	310	directus_collections	static_pages_translations	{"collection":"static_pages_translations","icon":"import_export","note":null,"display_template":null,"hidden":true,"singleton":false,"translations":null,"archive_field":null,"archive_app_filter":true,"archive_value":null,"unarchive_value":null,"sort_field":null,"accountability":"all","color":null,"item_duplication_fields":null,"sort":1,"group":"static_pages","collapse":"open","preview_url":null,"versioning":false}	{"sort":1,"group":"static_pages"}	\N	\N
+263	311	directus_collections	faq_categories	{"collection":"faq_categories","icon":null,"note":null,"display_template":null,"hidden":false,"singleton":false,"translations":null,"archive_field":null,"archive_app_filter":true,"archive_value":null,"unarchive_value":null,"sort_field":"sort","accountability":"all","color":null,"item_duplication_fields":[],"sort":1,"group":null,"collapse":"locked","preview_url":"{{questions}}","versioning":true}	{"sort":1,"group":null}	\N	\N
+264	312	directus_collections	faq_content	{"collection":"faq_content","icon":null,"note":null,"display_template":null,"hidden":false,"singleton":false,"translations":null,"archive_field":null,"archive_app_filter":true,"archive_value":null,"unarchive_value":null,"sort_field":"sort","accountability":"all","color":null,"item_duplication_fields":null,"sort":2,"group":null,"collapse":"open","preview_url":null,"versioning":true}	{"sort":2,"group":null}	\N	\N
+265	313	directus_collections	languages	{"collection":"languages","icon":null,"note":null,"display_template":null,"hidden":false,"singleton":false,"translations":null,"archive_field":null,"archive_app_filter":true,"archive_value":null,"unarchive_value":null,"sort_field":null,"accountability":"all","color":null,"item_duplication_fields":null,"sort":3,"group":null,"collapse":"open","preview_url":null,"versioning":false}	{"sort":3,"group":null}	\N	\N
+266	314	directus_collections	static_pages	{"collection":"static_pages","icon":null,"note":null,"display_template":null,"hidden":false,"singleton":false,"translations":null,"archive_field":"status","archive_app_filter":true,"archive_value":"archived","unarchive_value":"draft","sort_field":"sort","accountability":"all","color":null,"item_duplication_fields":null,"sort":4,"group":null,"collapse":"open","preview_url":null,"versioning":false}	{"sort":4,"group":null}	\N	\N
+267	315	directus_collections	faq_categories	{"collection":"faq_categories","icon":null,"note":null,"display_template":null,"hidden":false,"singleton":false,"translations":null,"archive_field":null,"archive_app_filter":true,"archive_value":null,"unarchive_value":null,"sort_field":"sort","accountability":"all","color":null,"item_duplication_fields":[],"sort":1,"group":null,"collapse":"locked","preview_url":"{{questions}}","versioning":true}	{"sort":1,"group":null}	\N	\N
+268	316	directus_collections	faq_content	{"collection":"faq_content","icon":null,"note":null,"display_template":null,"hidden":false,"singleton":false,"translations":null,"archive_field":null,"archive_app_filter":true,"archive_value":null,"unarchive_value":null,"sort_field":"sort","accountability":"all","color":null,"item_duplication_fields":null,"sort":2,"group":null,"collapse":"open","preview_url":null,"versioning":true}	{"sort":2,"group":null}	\N	\N
+269	317	directus_collections	static_pages	{"collection":"static_pages","icon":null,"note":null,"display_template":null,"hidden":false,"singleton":false,"translations":null,"archive_field":"status","archive_app_filter":true,"archive_value":"archived","unarchive_value":"draft","sort_field":"sort","accountability":"all","color":null,"item_duplication_fields":null,"sort":3,"group":null,"collapse":"open","preview_url":null,"versioning":false}	{"sort":3,"group":null}	\N	\N
+270	318	directus_collections	languages	{"collection":"languages","icon":null,"note":null,"display_template":null,"hidden":false,"singleton":false,"translations":null,"archive_field":null,"archive_app_filter":true,"archive_value":null,"unarchive_value":null,"sort_field":null,"accountability":"all","color":null,"item_duplication_fields":null,"sort":4,"group":null,"collapse":"open","preview_url":null,"versioning":false}	{"sort":4,"group":null}	\N	\N
+271	319	directus_fields	51	{"sort":4,"interface":"input","special":null,"collection":"static_pages_translations","field":"title"}	{"sort":4,"interface":"input","special":null,"collection":"static_pages_translations","field":"title"}	\N	\N
+272	320	directus_fields	52	{"sort":5,"interface":"input-rich-text-html","special":null,"collection":"static_pages_translations","field":"content"}	{"sort":5,"interface":"input-rich-text-html","special":null,"collection":"static_pages_translations","field":"content"}	\N	\N
+273	321	directus_permissions	45	{"role":null,"collection":"static_pages_translations","action":"read","fields":["*"],"permissions":{},"validation":{}}	{"role":null,"collection":"static_pages_translations","action":"read","fields":["*"],"permissions":{},"validation":{}}	\N	\N
+274	322	directus_permissions	46	{"role":null,"collection":"static_pages","action":"read","fields":["*"],"permissions":{},"validation":{}}	{"role":null,"collection":"static_pages","action":"read","fields":["*"],"permissions":{},"validation":{}}	\N	\N
+277	325	static_pages	0cdb0ec7-98cf-4c86-b147-86f2858b47e2	{"status":"published","translations":{"create":[{"title":"A propos","languages_code":{"code":"fr-FR"},"content":"<p>A propos</p>"},{"title":"About us","languages_code":{"code":"en-GB"},"content":"<p>About us</p>"}],"update":[],"delete":[]}}	{"status":"published","translations":{"create":[{"title":"A propos","languages_code":{"code":"fr-FR"},"content":"<p>A propos</p>"},{"title":"About us","languages_code":{"code":"en-GB"},"content":"<p>About us</p>"}],"update":[],"delete":[]}}	\N	\N
+275	323	static_pages_translations	1	{"title":"A propos","languages_code":{"code":"fr-FR"},"content":"<p>A propos</p>","static_pages_id":"0cdb0ec7-98cf-4c86-b147-86f2858b47e2"}	{"title":"A propos","languages_code":{"code":"fr-FR"},"content":"<p>A propos</p>","static_pages_id":"0cdb0ec7-98cf-4c86-b147-86f2858b47e2"}	277	\N
+276	324	static_pages_translations	2	{"title":"About us","languages_code":{"code":"en-GB"},"content":"<p>About us</p>","static_pages_id":"0cdb0ec7-98cf-4c86-b147-86f2858b47e2"}	{"title":"About us","languages_code":{"code":"en-GB"},"content":"<p>About us</p>","static_pages_id":"0cdb0ec7-98cf-4c86-b147-86f2858b47e2"}	277	\N
+278	326	directus_fields	53	{"sort":9,"interface":"input","special":null,"collection":"static_pages","field":"path"}	{"sort":9,"interface":"input","special":null,"collection":"static_pages","field":"path"}	\N	\N
+279	327	static_pages	0cdb0ec7-98cf-4c86-b147-86f2858b47e2	{"id":"0cdb0ec7-98cf-4c86-b147-86f2858b47e2","status":"published","sort":null,"user_created":"daa1631c-ab80-409e-9e08-f73f54a3d3fe","date_created":"2024-04-29T12:07:56.946Z","user_updated":"daa1631c-ab80-409e-9e08-f73f54a3d3fe","date_updated":"2024-04-29T12:08:20.523Z","path":"about_us","translations":[1,2]}	{"path":"about_us","user_updated":"daa1631c-ab80-409e-9e08-f73f54a3d3fe","date_updated":"2024-04-29T12:08:20.523Z"}	\N	\N
+328	376	directus_fields	67	{"sort":5,"interface":"input-rich-text-html","special":null,"collection":"glossary_translations","field":"description"}	{"sort":5,"interface":"input-rich-text-html","special":null,"collection":"glossary_translations","field":"description"}	\N	\N
+329	377	directus_permissions	47	{"role":null,"collection":"glossary_translations","action":"read","fields":["*"],"permissions":{},"validation":{}}	{"role":null,"collection":"glossary_translations","action":"read","fields":["*"],"permissions":{},"validation":{}}	\N	\N
+330	378	directus_permissions	48	{"role":null,"collection":"glossary","action":"read","fields":["*"],"permissions":{},"validation":{}}	{"role":null,"collection":"glossary","action":"read","fields":["*"],"permissions":{},"validation":{}}	\N	\N
+280	328	directus_fields	40	{"id":40,"collection":"static_pages","field":"id","special":["uuid"],"interface":"input","options":null,"display":null,"display_options":null,"readonly":true,"hidden":true,"sort":1,"width":"full","translations":null,"note":null,"conditions":null,"required":false,"group":null,"validation":null,"validation_message":null}	{"collection":"static_pages","field":"id","sort":1,"group":null}	\N	\N
+281	329	directus_fields	41	{"id":41,"collection":"static_pages","field":"status","special":null,"interface":"select-dropdown","options":{"choices":[{"text":"$t:published","value":"published","color":"var(--theme--primary)"},{"text":"$t:draft","value":"draft","color":"var(--theme--foreground)"},{"text":"$t:archived","value":"archived","color":"var(--theme--warning)"}]},"display":"labels","display_options":{"showAsDot":true,"choices":[{"text":"$t:published","value":"published","color":"var(--theme--primary)","foreground":"var(--theme--primary)","background":"var(--theme--primary-background)"},{"text":"$t:draft","value":"draft","color":"var(--theme--foreground)","foreground":"var(--theme--foreground)","background":"var(--theme--background-normal)"},{"text":"$t:archived","value":"archived","color":"var(--theme--warning)","foreground":"var(--theme--warning)","background":"var(--theme--warning-background)"}]},"readonly":false,"hidden":false,"sort":2,"width":"full","translations":null,"note":null,"conditions":null,"required":false,"group":null,"validation":null,"validation_message":null}	{"collection":"static_pages","field":"status","sort":2,"group":null}	\N	\N
+282	330	directus_fields	42	{"id":42,"collection":"static_pages","field":"sort","special":null,"interface":"input","options":null,"display":null,"display_options":null,"readonly":false,"hidden":true,"sort":3,"width":"full","translations":null,"note":null,"conditions":null,"required":false,"group":null,"validation":null,"validation_message":null}	{"collection":"static_pages","field":"sort","sort":3,"group":null}	\N	\N
+283	331	directus_fields	43	{"id":43,"collection":"static_pages","field":"user_created","special":["user-created"],"interface":"select-dropdown-m2o","options":{"template":"{{avatar.$thumbnail}} {{first_name}} {{last_name}}"},"display":"user","display_options":null,"readonly":true,"hidden":true,"sort":4,"width":"half","translations":null,"note":null,"conditions":null,"required":false,"group":null,"validation":null,"validation_message":null}	{"collection":"static_pages","field":"user_created","sort":4,"group":null}	\N	\N
+284	332	directus_fields	44	{"id":44,"collection":"static_pages","field":"date_created","special":["date-created"],"interface":"datetime","options":null,"display":"datetime","display_options":{"relative":true},"readonly":true,"hidden":true,"sort":5,"width":"half","translations":null,"note":null,"conditions":null,"required":false,"group":null,"validation":null,"validation_message":null}	{"collection":"static_pages","field":"date_created","sort":5,"group":null}	\N	\N
+285	333	directus_fields	45	{"id":45,"collection":"static_pages","field":"user_updated","special":["user-updated"],"interface":"select-dropdown-m2o","options":{"template":"{{avatar.$thumbnail}} {{first_name}} {{last_name}}"},"display":"user","display_options":null,"readonly":true,"hidden":true,"sort":6,"width":"half","translations":null,"note":null,"conditions":null,"required":false,"group":null,"validation":null,"validation_message":null}	{"collection":"static_pages","field":"user_updated","sort":6,"group":null}	\N	\N
+286	334	directus_fields	46	{"id":46,"collection":"static_pages","field":"date_updated","special":["date-updated"],"interface":"datetime","options":null,"display":"datetime","display_options":{"relative":true},"readonly":true,"hidden":true,"sort":7,"width":"half","translations":null,"note":null,"conditions":null,"required":false,"group":null,"validation":null,"validation_message":null}	{"collection":"static_pages","field":"date_updated","sort":7,"group":null}	\N	\N
+287	335	directus_fields	53	{"id":53,"collection":"static_pages","field":"path","special":null,"interface":"input","options":null,"display":null,"display_options":null,"readonly":false,"hidden":false,"sort":8,"width":"full","translations":null,"note":null,"conditions":null,"required":false,"group":null,"validation":null,"validation_message":null}	{"collection":"static_pages","field":"path","sort":8,"group":null}	\N	\N
+288	336	directus_fields	47	{"id":47,"collection":"static_pages","field":"translations","special":["translations"],"interface":"translations","options":{"defaultLanguage":"fr-FR","defaultOpenSplitView":true},"display":null,"display_options":null,"readonly":false,"hidden":false,"sort":9,"width":"full","translations":null,"note":null,"conditions":null,"required":false,"group":null,"validation":null,"validation_message":null}	{"collection":"static_pages","field":"translations","sort":9,"group":null}	\N	\N
+289	337	static_pages	0cdb0ec7-98cf-4c86-b147-86f2858b47e2	{"id":"0cdb0ec7-98cf-4c86-b147-86f2858b47e2","status":"published","sort":null,"user_created":"daa1631c-ab80-409e-9e08-f73f54a3d3fe","date_created":"2024-04-29T12:07:56.946Z","user_updated":"daa1631c-ab80-409e-9e08-f73f54a3d3fe","date_updated":"2024-04-29T12:09:27.050Z","path":"about","translations":[1,2]}	{"path":"about","user_updated":"daa1631c-ab80-409e-9e08-f73f54a3d3fe","date_updated":"2024-04-29T12:09:27.050Z"}	\N	\N
+290	338	static_pages	0cdb0ec7-98cf-4c86-b147-86f2858b47e2	{"id":"0cdb0ec7-98cf-4c86-b147-86f2858b47e2","status":"published","sort":null,"user_created":"daa1631c-ab80-409e-9e08-f73f54a3d3fe","date_created":"2024-04-29T12:07:56.946Z","user_updated":"daa1631c-ab80-409e-9e08-f73f54a3d3fe","date_updated":"2024-04-29T12:13:58.843Z","path":"about_us","translations":[1,2]}	{"path":"about_us","user_updated":"daa1631c-ab80-409e-9e08-f73f54a3d3fe","date_updated":"2024-04-29T12:13:58.843Z"}	\N	\N
+291	339	directus_fields	54	{"sort":10,"interface":"boolean","special":["cast-boolean"],"options":{"label":"Afficher dans le menu ?"},"collection":"static_pages","field":"inMenu"}	{"sort":10,"interface":"boolean","special":["cast-boolean"],"options":{"label":"Afficher dans le menu ?"},"collection":"static_pages","field":"inMenu"}	\N	\N
+292	340	directus_fields	40	{"id":40,"collection":"static_pages","field":"id","special":["uuid"],"interface":"input","options":null,"display":null,"display_options":null,"readonly":true,"hidden":true,"sort":1,"width":"full","translations":null,"note":null,"conditions":null,"required":false,"group":null,"validation":null,"validation_message":null}	{"collection":"static_pages","field":"id","sort":1,"group":null}	\N	\N
+306	354	directus_fields	58	{"sort":4,"special":["user-created"],"interface":"select-dropdown-m2o","options":{"template":"{{avatar.$thumbnail}} {{first_name}} {{last_name}}"},"display":"user","readonly":true,"hidden":true,"width":"half","field":"user_created","collection":"glossary"}	{"sort":4,"special":["user-created"],"interface":"select-dropdown-m2o","options":{"template":"{{avatar.$thumbnail}} {{first_name}} {{last_name}}"},"display":"user","readonly":true,"hidden":true,"width":"half","field":"user_created","collection":"glossary"}	\N	\N
+307	355	directus_fields	59	{"sort":5,"special":["date-created"],"interface":"datetime","readonly":true,"hidden":true,"width":"half","display":"datetime","display_options":{"relative":true},"field":"date_created","collection":"glossary"}	{"sort":5,"special":["date-created"],"interface":"datetime","readonly":true,"hidden":true,"width":"half","display":"datetime","display_options":{"relative":true},"field":"date_created","collection":"glossary"}	\N	\N
+293	341	directus_fields	41	{"id":41,"collection":"static_pages","field":"status","special":null,"interface":"select-dropdown","options":{"choices":[{"text":"$t:published","value":"published","color":"var(--theme--primary)"},{"text":"$t:draft","value":"draft","color":"var(--theme--foreground)"},{"text":"$t:archived","value":"archived","color":"var(--theme--warning)"}]},"display":"labels","display_options":{"showAsDot":true,"choices":[{"text":"$t:published","value":"published","color":"var(--theme--primary)","foreground":"var(--theme--primary)","background":"var(--theme--primary-background)"},{"text":"$t:draft","value":"draft","color":"var(--theme--foreground)","foreground":"var(--theme--foreground)","background":"var(--theme--background-normal)"},{"text":"$t:archived","value":"archived","color":"var(--theme--warning)","foreground":"var(--theme--warning)","background":"var(--theme--warning-background)"}]},"readonly":false,"hidden":false,"sort":2,"width":"full","translations":null,"note":null,"conditions":null,"required":false,"group":null,"validation":null,"validation_message":null}	{"collection":"static_pages","field":"status","sort":2,"group":null}	\N	\N
+294	342	directus_fields	42	{"id":42,"collection":"static_pages","field":"sort","special":null,"interface":"input","options":null,"display":null,"display_options":null,"readonly":false,"hidden":true,"sort":3,"width":"full","translations":null,"note":null,"conditions":null,"required":false,"group":null,"validation":null,"validation_message":null}	{"collection":"static_pages","field":"sort","sort":3,"group":null}	\N	\N
+295	343	directus_fields	43	{"id":43,"collection":"static_pages","field":"user_created","special":["user-created"],"interface":"select-dropdown-m2o","options":{"template":"{{avatar.$thumbnail}} {{first_name}} {{last_name}}"},"display":"user","display_options":null,"readonly":true,"hidden":true,"sort":4,"width":"half","translations":null,"note":null,"conditions":null,"required":false,"group":null,"validation":null,"validation_message":null}	{"collection":"static_pages","field":"user_created","sort":4,"group":null}	\N	\N
+296	344	directus_fields	44	{"id":44,"collection":"static_pages","field":"date_created","special":["date-created"],"interface":"datetime","options":null,"display":"datetime","display_options":{"relative":true},"readonly":true,"hidden":true,"sort":5,"width":"half","translations":null,"note":null,"conditions":null,"required":false,"group":null,"validation":null,"validation_message":null}	{"collection":"static_pages","field":"date_created","sort":5,"group":null}	\N	\N
+297	345	directus_fields	45	{"id":45,"collection":"static_pages","field":"user_updated","special":["user-updated"],"interface":"select-dropdown-m2o","options":{"template":"{{avatar.$thumbnail}} {{first_name}} {{last_name}}"},"display":"user","display_options":null,"readonly":true,"hidden":true,"sort":6,"width":"half","translations":null,"note":null,"conditions":null,"required":false,"group":null,"validation":null,"validation_message":null}	{"collection":"static_pages","field":"user_updated","sort":6,"group":null}	\N	\N
+298	346	directus_fields	46	{"id":46,"collection":"static_pages","field":"date_updated","special":["date-updated"],"interface":"datetime","options":null,"display":"datetime","display_options":{"relative":true},"readonly":true,"hidden":true,"sort":7,"width":"half","translations":null,"note":null,"conditions":null,"required":false,"group":null,"validation":null,"validation_message":null}	{"collection":"static_pages","field":"date_updated","sort":7,"group":null}	\N	\N
+299	347	directus_fields	53	{"id":53,"collection":"static_pages","field":"path","special":null,"interface":"input","options":null,"display":null,"display_options":null,"readonly":false,"hidden":false,"sort":8,"width":"full","translations":null,"note":null,"conditions":null,"required":false,"group":null,"validation":null,"validation_message":null}	{"collection":"static_pages","field":"path","sort":8,"group":null}	\N	\N
+300	348	directus_fields	54	{"id":54,"collection":"static_pages","field":"inMenu","special":["cast-boolean"],"interface":"boolean","options":{"label":"Afficher dans le menu ?"},"display":null,"display_options":null,"readonly":false,"hidden":false,"sort":9,"width":"full","translations":null,"note":null,"conditions":null,"required":false,"group":null,"validation":null,"validation_message":null}	{"collection":"static_pages","field":"inMenu","sort":9,"group":null}	\N	\N
+301	349	directus_fields	47	{"id":47,"collection":"static_pages","field":"translations","special":["translations"],"interface":"translations","options":{"defaultLanguage":"fr-FR","defaultOpenSplitView":true},"display":null,"display_options":null,"readonly":false,"hidden":false,"sort":10,"width":"full","translations":null,"note":null,"conditions":null,"required":false,"group":null,"validation":null,"validation_message":null}	{"collection":"static_pages","field":"translations","sort":10,"group":null}	\N	\N
+302	350	static_pages	0cdb0ec7-98cf-4c86-b147-86f2858b47e2	{"id":"0cdb0ec7-98cf-4c86-b147-86f2858b47e2","status":"published","sort":null,"user_created":"daa1631c-ab80-409e-9e08-f73f54a3d3fe","date_created":"2024-04-29T12:07:56.946Z","user_updated":"daa1631c-ab80-409e-9e08-f73f54a3d3fe","date_updated":"2024-04-29T12:16:12.476Z","path":"about_us","inMenu":false,"translations":[1,2]}	{"inMenu":false,"user_updated":"daa1631c-ab80-409e-9e08-f73f54a3d3fe","date_updated":"2024-04-29T12:16:12.476Z"}	\N	\N
+303	351	directus_fields	55	{"sort":1,"hidden":true,"readonly":true,"interface":"input","special":["uuid"],"field":"id","collection":"glossary"}	{"sort":1,"hidden":true,"readonly":true,"interface":"input","special":["uuid"],"field":"id","collection":"glossary"}	\N	\N
+304	352	directus_fields	56	{"sort":2,"width":"full","options":{"choices":[{"text":"$t:published","value":"published","color":"var(--theme--primary)"},{"text":"$t:draft","value":"draft","color":"var(--theme--foreground)"},{"text":"$t:archived","value":"archived","color":"var(--theme--warning)"}]},"interface":"select-dropdown","display":"labels","display_options":{"showAsDot":true,"choices":[{"text":"$t:published","value":"published","color":"var(--theme--primary)","foreground":"var(--theme--primary)","background":"var(--theme--primary-background)"},{"text":"$t:draft","value":"draft","color":"var(--theme--foreground)","foreground":"var(--theme--foreground)","background":"var(--theme--background-normal)"},{"text":"$t:archived","value":"archived","color":"var(--theme--warning)","foreground":"var(--theme--warning)","background":"var(--theme--warning-background)"}]},"field":"status","collection":"glossary"}	{"sort":2,"width":"full","options":{"choices":[{"text":"$t:published","value":"published","color":"var(--theme--primary)"},{"text":"$t:draft","value":"draft","color":"var(--theme--foreground)"},{"text":"$t:archived","value":"archived","color":"var(--theme--warning)"}]},"interface":"select-dropdown","display":"labels","display_options":{"showAsDot":true,"choices":[{"text":"$t:published","value":"published","color":"var(--theme--primary)","foreground":"var(--theme--primary)","background":"var(--theme--primary-background)"},{"text":"$t:draft","value":"draft","color":"var(--theme--foreground)","foreground":"var(--theme--foreground)","background":"var(--theme--background-normal)"},{"text":"$t:archived","value":"archived","color":"var(--theme--warning)","foreground":"var(--theme--warning)","background":"var(--theme--warning-background)"}]},"field":"status","collection":"glossary"}	\N	\N
+305	353	directus_fields	57	{"sort":3,"interface":"input","hidden":true,"field":"sort","collection":"glossary"}	{"sort":3,"interface":"input","hidden":true,"field":"sort","collection":"glossary"}	\N	\N
+308	356	directus_fields	60	{"sort":6,"special":["user-updated"],"interface":"select-dropdown-m2o","options":{"template":"{{avatar.$thumbnail}} {{first_name}} {{last_name}}"},"display":"user","readonly":true,"hidden":true,"width":"half","field":"user_updated","collection":"glossary"}	{"sort":6,"special":["user-updated"],"interface":"select-dropdown-m2o","options":{"template":"{{avatar.$thumbnail}} {{first_name}} {{last_name}}"},"display":"user","readonly":true,"hidden":true,"width":"half","field":"user_updated","collection":"glossary"}	\N	\N
+309	357	directus_fields	61	{"sort":7,"special":["date-updated"],"interface":"datetime","readonly":true,"hidden":true,"width":"half","display":"datetime","display_options":{"relative":true},"field":"date_updated","collection":"glossary"}	{"sort":7,"special":["date-updated"],"interface":"datetime","readonly":true,"hidden":true,"width":"half","display":"datetime","display_options":{"relative":true},"field":"date_updated","collection":"glossary"}	\N	\N
+310	358	directus_collections	glossary	{"sort_field":"sort","archive_field":"status","archive_value":"archived","unarchive_value":"draft","singleton":false,"collection":"glossary"}	{"sort_field":"sort","archive_field":"status","archive_value":"archived","unarchive_value":"draft","singleton":false,"collection":"glossary"}	\N	\N
+311	359	directus_fields	62	{"sort":8,"interface":"translations","special":["translations"],"options":{"defaultLanguage":"fr-FR"},"collection":"glossary","field":"translations"}	{"sort":8,"interface":"translations","special":["translations"],"options":{"defaultLanguage":"fr-FR"},"collection":"glossary","field":"translations"}	\N	\N
+312	360	directus_fields	63	{"sort":1,"hidden":true,"field":"id","collection":"glossary_translations"}	{"sort":1,"hidden":true,"field":"id","collection":"glossary_translations"}	\N	\N
+313	361	directus_collections	glossary_translations	{"hidden":true,"icon":"import_export","collection":"glossary_translations"}	{"hidden":true,"icon":"import_export","collection":"glossary_translations"}	\N	\N
+314	362	directus_fields	64	{"sort":2,"hidden":true,"collection":"glossary_translations","field":"glossary_id"}	{"sort":2,"hidden":true,"collection":"glossary_translations","field":"glossary_id"}	\N	\N
+315	363	directus_fields	65	{"sort":3,"hidden":true,"collection":"glossary_translations","field":"languages_code"}	{"sort":3,"hidden":true,"collection":"glossary_translations","field":"languages_code"}	\N	\N
+316	364	directus_collections	glossary_translations	{"collection":"glossary_translations","icon":"import_export","note":null,"display_template":null,"hidden":true,"singleton":false,"translations":null,"archive_field":null,"archive_app_filter":true,"archive_value":null,"unarchive_value":null,"sort_field":null,"accountability":"all","color":null,"item_duplication_fields":null,"sort":1,"group":"glossary","collapse":"open","preview_url":null,"versioning":false}	{"sort":1,"group":"glossary"}	\N	\N
+317	365	directus_collections	faq_categories	{"collection":"faq_categories","icon":null,"note":null,"display_template":null,"hidden":false,"singleton":false,"translations":null,"archive_field":null,"archive_app_filter":true,"archive_value":null,"unarchive_value":null,"sort_field":"sort","accountability":"all","color":null,"item_duplication_fields":[],"sort":1,"group":null,"collapse":"locked","preview_url":"{{questions}}","versioning":true}	{"sort":1,"group":null}	\N	\N
+318	366	directus_collections	faq_content	{"collection":"faq_content","icon":null,"note":null,"display_template":null,"hidden":false,"singleton":false,"translations":null,"archive_field":null,"archive_app_filter":true,"archive_value":null,"unarchive_value":null,"sort_field":"sort","accountability":"all","color":null,"item_duplication_fields":null,"sort":2,"group":null,"collapse":"open","preview_url":null,"versioning":true}	{"sort":2,"group":null}	\N	\N
+319	367	directus_collections	static_pages	{"collection":"static_pages","icon":null,"note":null,"display_template":null,"hidden":false,"singleton":false,"translations":null,"archive_field":"status","archive_app_filter":true,"archive_value":"archived","unarchive_value":"draft","sort_field":"sort","accountability":"all","color":null,"item_duplication_fields":null,"sort":3,"group":null,"collapse":"open","preview_url":null,"versioning":false}	{"sort":3,"group":null}	\N	\N
+320	368	directus_collections	languages	{"collection":"languages","icon":null,"note":null,"display_template":null,"hidden":false,"singleton":false,"translations":null,"archive_field":null,"archive_app_filter":true,"archive_value":null,"unarchive_value":null,"sort_field":null,"accountability":"all","color":null,"item_duplication_fields":null,"sort":4,"group":null,"collapse":"open","preview_url":null,"versioning":false}	{"sort":4,"group":null}	\N	\N
+321	369	directus_collections	glossary	{"collection":"glossary","icon":null,"note":null,"display_template":null,"hidden":false,"singleton":false,"translations":null,"archive_field":"status","archive_app_filter":true,"archive_value":"archived","unarchive_value":"draft","sort_field":"sort","accountability":"all","color":null,"item_duplication_fields":null,"sort":5,"group":null,"collapse":"open","preview_url":null,"versioning":false}	{"sort":5,"group":null}	\N	\N
+322	370	directus_collections	faq_categories	{"collection":"faq_categories","icon":null,"note":null,"display_template":null,"hidden":false,"singleton":false,"translations":null,"archive_field":null,"archive_app_filter":true,"archive_value":null,"unarchive_value":null,"sort_field":"sort","accountability":"all","color":null,"item_duplication_fields":[],"sort":1,"group":null,"collapse":"locked","preview_url":"{{questions}}","versioning":true}	{"sort":1,"group":null}	\N	\N
+323	371	directus_collections	faq_content	{"collection":"faq_content","icon":null,"note":null,"display_template":null,"hidden":false,"singleton":false,"translations":null,"archive_field":null,"archive_app_filter":true,"archive_value":null,"unarchive_value":null,"sort_field":"sort","accountability":"all","color":null,"item_duplication_fields":null,"sort":2,"group":null,"collapse":"open","preview_url":null,"versioning":true}	{"sort":2,"group":null}	\N	\N
+324	372	directus_collections	glossary	{"collection":"glossary","icon":null,"note":null,"display_template":null,"hidden":false,"singleton":false,"translations":null,"archive_field":"status","archive_app_filter":true,"archive_value":"archived","unarchive_value":"draft","sort_field":"sort","accountability":"all","color":null,"item_duplication_fields":null,"sort":3,"group":null,"collapse":"open","preview_url":null,"versioning":false}	{"sort":3,"group":null}	\N	\N
+325	373	directus_collections	static_pages	{"collection":"static_pages","icon":null,"note":null,"display_template":null,"hidden":false,"singleton":false,"translations":null,"archive_field":"status","archive_app_filter":true,"archive_value":"archived","unarchive_value":"draft","sort_field":"sort","accountability":"all","color":null,"item_duplication_fields":null,"sort":4,"group":null,"collapse":"open","preview_url":null,"versioning":false}	{"sort":4,"group":null}	\N	\N
+326	374	directus_collections	languages	{"collection":"languages","icon":null,"note":null,"display_template":null,"hidden":false,"singleton":false,"translations":null,"archive_field":null,"archive_app_filter":true,"archive_value":null,"unarchive_value":null,"sort_field":null,"accountability":"all","color":null,"item_duplication_fields":null,"sort":5,"group":null,"collapse":"open","preview_url":null,"versioning":false}	{"sort":5,"group":null}	\N	\N
 \.
 
 
@@ -1796,10 +2139,7 @@ COPY public.directus_roles (id, name, icon, description, ip_access, enforce_tfa,
 --
 
 COPY public.directus_sessions (token, "user", expires, ip, user_agent, share, origin) FROM stdin;
-ELFxRBuoAVdEZxLKWEL7Yf6ATK4ALsyertPUaFY15R68ga1KbEqDZTMdnkhf1zFl	daa1631c-ab80-409e-9e08-f73f54a3d3fe	2024-03-26 15:57:48.237+00	172.16.99.62	Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:124.0) Gecko/20100101 Firefox/124.0	\N	http://vtopidor.intra.inist.fr:8055
-5VBJHRfObQD0EPWVx15O6JTDLMMlfLgizp78EZydtmyEuDElXI_IgoSokvyx6Ay-	daa1631c-ab80-409e-9e08-f73f54a3d3fe	2024-03-29 10:41:37.922+00	172.19.0.1	Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:124.0) Gecko/20100101 Firefox/124.0	\N	http://localhost:8055
-jHUyvJaF5qFT3nS6H8hoJRj8jkXd3XHUboC1hMFm9voeBbaRNunUv8V2m5yRrYr9	daa1631c-ab80-409e-9e08-f73f54a3d3fe	2024-04-01 12:31:48.723+00	172.19.0.1	Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:124.0) Gecko/20100101 Firefox/124.0	\N	http://localhost:8080
-2vcjyFDSw89VFA81yK-xswBUWT-T7tCZ5a9iBUt4VzUsxnGrD9fLQtaAKOBmeLDI	daa1631c-ab80-409e-9e08-f73f54a3d3fe	2024-04-01 12:33:25.985+00	172.19.0.1	Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:124.0) Gecko/20100101 Firefox/124.0	\N	http://localhost:8080
+H1vrRfgwRBk3QAmVqobeqvdOedpMHQQVi6OxP1sxwv4xMaUe7m5SR2UyBJhbcgLD	daa1631c-ab80-409e-9e08-f73f54a3d3fe	2024-05-06 12:23:19.837+00	172.19.0.1	Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:125.0) Gecko/20100101 Firefox/125.0	\N	http://localhost:8080
 \.
 
 
@@ -1807,7 +2147,7 @@ jHUyvJaF5qFT3nS6H8hoJRj8jkXd3XHUboC1hMFm9voeBbaRNunUv8V2m5yRrYr9	daa1631c-ab80-4
 -- Data for Name: directus_settings; Type: TABLE DATA; Schema: public; Owner: postgres
 --
 
-COPY public.directus_settings (id, project_name, project_url, project_color, project_logo, public_foreground, public_background, public_note, auth_login_attempts, auth_password_policy, storage_asset_transform, storage_asset_presets, custom_css, storage_default_folder, basemaps, mapbox_key, module_bar, project_descriptor, default_language, custom_aspect_ratios, public_favicon, default_appearance, default_theme_light, theme_light_overrides, default_theme_dark, theme_dark_overrides) FROM stdin;
+COPY public.directus_settings (id, project_name, project_url, project_color, project_logo, public_foreground, public_background, public_note, auth_login_attempts, auth_password_policy, storage_asset_transform, storage_asset_presets, custom_css, storage_default_folder, basemaps, mapbox_key, module_bar, project_descriptor, default_language, custom_aspect_ratios, public_favicon, default_appearance, default_theme_light, theme_light_overrides, default_theme_dark, theme_dark_overrides, report_error_url, report_bug_url, report_feature_url) FROM stdin;
 \.
 
 
@@ -1832,7 +2172,7 @@ COPY public.directus_translations (id, language, key, value) FROM stdin;
 --
 
 COPY public.directus_users (id, first_name, last_name, email, password, location, title, description, tags, avatar, language, tfa_secret, status, role, token, last_access, last_page, provider, external_identifier, auth_data, email_notifications, appearance, theme_dark, theme_light, theme_light_overrides, theme_dark_overrides) FROM stdin;
-daa1631c-ab80-409e-9e08-f73f54a3d3fe	Admin	User	admin@example.com	$argon2id$v=19$m=65536,t=3,p=4$EBP0XqkjbQygdJRV6blhmA$Ut7wpRwZnTRDF0OnQemDQ3m72V/iCI4r3ZHo7T/5CaU	\N	\N	\N	\N	\N	\N	\N	active	1d82af5b-8e27-4d24-8f83-3a0669f68855	\N	2024-03-25 12:33:25.991+00	/files/folders/e07a884b-cfa0-4ec1-ba2a-7288050e39fd	default	\N	\N	t	\N	\N	\N	\N	\N
+daa1631c-ab80-409e-9e08-f73f54a3d3fe	Admin	User	admin@example.com	$argon2id$v=19$m=65536,t=3,p=4$EBP0XqkjbQygdJRV6blhmA$Ut7wpRwZnTRDF0OnQemDQ3m72V/iCI4r3ZHo7T/5CaU	\N	\N	\N	\N	\N	\N	\N	active	1d82af5b-8e27-4d24-8f83-3a0669f68855	\N	2024-04-29 12:23:19.847+00	/settings/data-model	default	\N	\N	t	\N	\N	\N	\N	\N
 \.
 
 
@@ -1848,7 +2188,7 @@ COPY public.directus_versions (id, key, name, collection, item, hash, date_creat
 -- Data for Name: directus_webhooks; Type: TABLE DATA; Schema: public; Owner: postgres
 --
 
-COPY public.directus_webhooks (id, name, method, url, status, data, actions, collections, headers) FROM stdin;
+COPY public.directus_webhooks (id, name, method, url, status, data, actions, collections, headers, was_active_before_deprecation, migrated_flow) FROM stdin;
 \.
 
 
@@ -1899,6 +2239,22 @@ COPY public.faq_content_translations (id, faq_content_id, languages_code, questi
 
 
 --
+-- Data for Name: glossary; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+COPY public.glossary (id, status, sort, user_created, date_created, user_updated, date_updated) FROM stdin;
+\.
+
+
+--
+-- Data for Name: glossary_translations; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+COPY public.glossary_translations (id, glossary_id, languages_code, term, description) FROM stdin;
+\.
+
+
+--
 -- Data for Name: languages; Type: TABLE DATA; Schema: public; Owner: postgres
 --
 
@@ -1909,17 +2265,36 @@ en-GB	Engish (UK)	ltr
 
 
 --
+-- Data for Name: static_pages; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+COPY public.static_pages (id, status, sort, user_created, date_created, user_updated, date_updated, path, "inMenu") FROM stdin;
+0cdb0ec7-98cf-4c86-b147-86f2858b47e2	published	\N	daa1631c-ab80-409e-9e08-f73f54a3d3fe	2024-04-29 12:07:56.946+00	daa1631c-ab80-409e-9e08-f73f54a3d3fe	2024-04-29 12:16:12.476+00	about_us	f
+\.
+
+
+--
+-- Data for Name: static_pages_translations; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+COPY public.static_pages_translations (id, static_pages_id, languages_code, title, content) FROM stdin;
+1	0cdb0ec7-98cf-4c86-b147-86f2858b47e2	fr-FR	A propos	<p>A propos</p>
+2	0cdb0ec7-98cf-4c86-b147-86f2858b47e2	en-GB	About us	<p>About us</p>
+\.
+
+
+--
 -- Name: directus_activity_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
 
-SELECT pg_catalog.setval('public.directus_activity_id_seq', 295, true);
+SELECT pg_catalog.setval('public.directus_activity_id_seq', 378, true);
 
 
 --
 -- Name: directus_fields_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
 
-SELECT pg_catalog.setval('public.directus_fields_id_seq', 39, true);
+SELECT pg_catalog.setval('public.directus_fields_id_seq', 67, true);
 
 
 --
@@ -1933,28 +2308,28 @@ SELECT pg_catalog.setval('public.directus_notifications_id_seq', 1, false);
 -- Name: directus_permissions_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
 
-SELECT pg_catalog.setval('public.directus_permissions_id_seq', 44, true);
+SELECT pg_catalog.setval('public.directus_permissions_id_seq', 48, true);
 
 
 --
 -- Name: directus_presets_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
 
-SELECT pg_catalog.setval('public.directus_presets_id_seq', 15, true);
+SELECT pg_catalog.setval('public.directus_presets_id_seq', 17, true);
 
 
 --
 -- Name: directus_relations_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
 
-SELECT pg_catalog.setval('public.directus_relations_id_seq', 14, true);
+SELECT pg_catalog.setval('public.directus_relations_id_seq', 22, true);
 
 
 --
 -- Name: directus_revisions_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
 
-SELECT pg_catalog.setval('public.directus_revisions_id_seq', 248, true);
+SELECT pg_catalog.setval('public.directus_revisions_id_seq', 330, true);
 
 
 --
@@ -1990,6 +2365,20 @@ SELECT pg_catalog.setval('public.faq_content_id_seq', 4, true);
 --
 
 SELECT pg_catalog.setval('public.faq_content_translations_id_seq', 7, true);
+
+
+--
+-- Name: glossary_translations_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
+--
+
+SELECT pg_catalog.setval('public.glossary_translations_id_seq', 1, false);
+
+
+--
+-- Name: static_pages_translations_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
+--
+
+SELECT pg_catalog.setval('public.static_pages_translations_id_seq', 2, true);
 
 
 --
@@ -2265,11 +2654,43 @@ ALTER TABLE ONLY public.faq_content_translations
 
 
 --
+-- Name: glossary glossary_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.glossary
+    ADD CONSTRAINT glossary_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: glossary_translations glossary_translations_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.glossary_translations
+    ADD CONSTRAINT glossary_translations_pkey PRIMARY KEY (id);
+
+
+--
 -- Name: languages languages_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
 --
 
 ALTER TABLE ONLY public.languages
     ADD CONSTRAINT languages_pkey PRIMARY KEY (code);
+
+
+--
+-- Name: static_pages static_pages_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.static_pages
+    ADD CONSTRAINT static_pages_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: static_pages_translations static_pages_translations_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.static_pages_translations
+    ADD CONSTRAINT static_pages_translations_pkey PRIMARY KEY (id);
 
 
 --
@@ -2553,6 +2974,14 @@ ALTER TABLE ONLY public.directus_versions
 
 
 --
+-- Name: directus_webhooks directus_webhooks_migrated_flow_foreign; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.directus_webhooks
+    ADD CONSTRAINT directus_webhooks_migrated_flow_foreign FOREIGN KEY (migrated_flow) REFERENCES public.directus_flows(id) ON DELETE SET NULL;
+
+
+--
 -- Name: faq_categories faq_categories_icon_foreign; Type: FK CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -2630,6 +3059,70 @@ ALTER TABLE ONLY public.faq_content
 
 ALTER TABLE ONLY public.faq_content
     ADD CONSTRAINT faq_content_user_updated_foreign FOREIGN KEY (user_updated) REFERENCES public.directus_users(id);
+
+
+--
+-- Name: glossary_translations glossary_translations_glossary_id_foreign; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.glossary_translations
+    ADD CONSTRAINT glossary_translations_glossary_id_foreign FOREIGN KEY (glossary_id) REFERENCES public.glossary(id) ON DELETE SET NULL;
+
+
+--
+-- Name: glossary_translations glossary_translations_languages_code_foreign; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.glossary_translations
+    ADD CONSTRAINT glossary_translations_languages_code_foreign FOREIGN KEY (languages_code) REFERENCES public.languages(code) ON DELETE SET NULL;
+
+
+--
+-- Name: glossary glossary_user_created_foreign; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.glossary
+    ADD CONSTRAINT glossary_user_created_foreign FOREIGN KEY (user_created) REFERENCES public.directus_users(id);
+
+
+--
+-- Name: glossary glossary_user_updated_foreign; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.glossary
+    ADD CONSTRAINT glossary_user_updated_foreign FOREIGN KEY (user_updated) REFERENCES public.directus_users(id);
+
+
+--
+-- Name: static_pages_translations static_pages_translations_languages_code_foreign; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.static_pages_translations
+    ADD CONSTRAINT static_pages_translations_languages_code_foreign FOREIGN KEY (languages_code) REFERENCES public.languages(code) ON DELETE SET NULL;
+
+
+--
+-- Name: static_pages_translations static_pages_translations_static_pages_id_foreign; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.static_pages_translations
+    ADD CONSTRAINT static_pages_translations_static_pages_id_foreign FOREIGN KEY (static_pages_id) REFERENCES public.static_pages(id) ON DELETE SET NULL;
+
+
+--
+-- Name: static_pages static_pages_user_created_foreign; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.static_pages
+    ADD CONSTRAINT static_pages_user_created_foreign FOREIGN KEY (user_created) REFERENCES public.directus_users(id);
+
+
+--
+-- Name: static_pages static_pages_user_updated_foreign; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.static_pages
+    ADD CONSTRAINT static_pages_user_updated_foreign FOREIGN KEY (user_updated) REFERENCES public.directus_users(id);
 
 
 --
