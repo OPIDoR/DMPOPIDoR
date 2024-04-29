@@ -45,12 +45,20 @@ module Dmpopidor
         # If the no funder was specified OR the funder matches the org
         if funder.blank? || funder.id == org&.id
           # Retrieve the Org's templates
-          @templates << ::Template.published.where(org_id: org&.id, context: template_context).to_a
+          @templates << ::Template.published.where(
+            org_id: org&.id,
+            context: template_context,
+            type: ['classic', 'structured']
+          ).to_a
         end
 
       else
         @templates = ::Template.published
-                               .where(org_id: current_user.org.id, context: template_context).to_a
+                               .where(
+                                  org_id: current_user.org.id,
+                                  context: template_context,
+                                  type: ['classic', 'structured']
+                                ).to_a
       end
 
       @templates = @templates.flatten.uniq

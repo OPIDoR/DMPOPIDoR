@@ -166,11 +166,12 @@ module OrgAdmin
     # SEE MODULE
     def new
       authorize Template
-      @template = current_org.templates.new
       # --------------------------------
       # Start DMP OPIDoR Customization
       # CHANGES : Added Locales list
+      # CHANGES : Added Type param
       # --------------------------------
+      @template = current_org.templates.new(type: params[:type])
       @locales = Language.all
       # --------------------------------
       # End DMP OPIDoR Customization
@@ -400,9 +401,9 @@ module OrgAdmin
       # the template: :links context.
       # --------------------------------
       # Start DMP OPIDoR Customization
-      # CHANGES : Added Locale, Type & Context
+      # CHANGES : Added Locale, Type, Context & DataType
       # --------------------------------
-      params.require(:template).permit(:title, :description, :visibility, :links, :locale, :type, :context)
+      params.require(:template).permit(:title, :description, :visibility, :links, :locale, :type, :context, :data_type)
       # --------------------------------
       # End DMP OPIDoR Customization
       # --------------------------------

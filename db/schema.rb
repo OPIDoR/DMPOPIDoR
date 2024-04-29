@@ -10,9 +10,10 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2024_02_09_135011) do
+ActiveRecord::Schema[7.1].define(version: 2024_04_23_141629) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+  enable_extension "unaccent"
 
   create_table "annotations", id: :serial, force: :cascade do |t|
     t.integer "question_id"
@@ -225,6 +226,7 @@ ActiveRecord::Schema[7.1].define(version: 2024_02_09_135011) do
     t.datetime "created_at", precision: nil, null: false
     t.datetime "updated_at", precision: nil, null: false
     t.bigint "api_client_id"
+    t.string "data_type", default: "none", null: false
     t.index ["api_client_id"], name: "index_madmp_schemas_on_api_client_id"
     t.index ["org_id"], name: "index_madmp_schemas_on_org_id"
   end
@@ -593,6 +595,7 @@ ActiveRecord::Schema[7.1].define(version: 2024_02_09_135011) do
     t.integer "type", default: 0, null: false
     t.integer "context", default: 0, null: false
     t.boolean "is_recommended", default: false
+    t.string "data_type", default: "none", null: false
     t.index ["customization_of", "version", "org_id"], name: "templates_customization_of_version_org_id_key", unique: true
     t.index ["family_id", "version"], name: "templates_family_id_version_key", unique: true
     t.index ["org_id"], name: "templates_org_id_idx"

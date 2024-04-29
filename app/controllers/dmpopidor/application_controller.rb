@@ -27,7 +27,8 @@ module Dmpopidor
       )
 
       unless resp.present? && resp.code == 200
-        return []
+        @nav_static_pages = []
+        return @nav_static_pages
       end
 
       resp = JSON.parse(resp.body)
@@ -38,6 +39,11 @@ module Dmpopidor
           'path' => page['path'],
           'title' => reduce_translations(page_translation, 'title')
         }
+      end
+
+      if pages.nil?
+        @nav_static_pages = []
+        return @nav_static_pages
       end
 
       @nav_static_pages = pages
