@@ -59,6 +59,8 @@ services:
       - METADORE_ENABLED
       - METADORE_SEARCH_SIZE
       - METADORE_API_KEY
+      - DIRECTUS_URL
+      - DIRECTUS_PUBLIC_URL=http://${DMP_SERVER_NAME:-0.0.0.0}:${NGINX_PORT:-8080}/directus
     working_dir: /app
     volumes:
       - ./log:/app/log
@@ -92,6 +94,9 @@ services:
       - DB_PASSWORD=${DB_PASSWORD:-changeme}
       - DB_DATABASE=${DIRECTUS_DATABASE:-directus}
       - PUBLIC_URL=http://${DMP_SERVER_NAME:-0.0.0.0}:${NGINX_PORT:-8080}/directus
+      - CORS_ENABLED=true
+      - CORS_ORIGIN=true
+      - CORS_METHODS=GET,POST
     volumes:
       - directus_uploads:/directus/uploads
     healthcheck:

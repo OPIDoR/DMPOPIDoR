@@ -1,3 +1,4 @@
 <%= react("GlossaryLayout", props: {
-  locale: LocaleService.to_gettext(locale: locale)
+  locale: LocaleService.to_gettext(locale: locale),
+  directusUrl: Rails.configuration.x.directus.public_url
 }) %>

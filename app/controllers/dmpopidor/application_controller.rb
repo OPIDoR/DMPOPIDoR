@@ -22,7 +22,7 @@ module Dmpopidor
         }
       '
 
-      resp = HTTParty.post('http://directus:8055/graphql',
+      resp = HTTParty.post("#{Rails.configuration.x.directus.url}/graphql",
         body: { query: query }.to_json,
         headers: { 'Content-Type' => 'application/json' }
       )
