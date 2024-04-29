@@ -62,6 +62,7 @@ Rails.application.routes.draw do
   get 'about_registries', to: 'static/static_pages#show', name: 'about_registries'
 
   get 'help', to: 'static_pages#help'
+  get 'glossary', to: 'static_pages#glossary'
   get 'tutorials', to: 'static_pages#tutorials'
   get 'news_feed', to: 'static_pages#news_feed'
   get 'optout', to: 'static_pages#optout'
