@@ -2,6 +2,15 @@
 
 **Attention** Cette liste de changements concerne les déploiements sur nos serveurs de test en interne.
 
+## 29/04/2024
+
+- Le produit de recherche par défaut n'est plus créé à la création du plan
+  - Une variable d'environnement est mise en place pour réactiver la fonctionnalité
+  - Après la création du plan, une fenêtre indique que le plan ne posséde pas de produit de recherche, un formulaire s'affiche pour en créer un
+- Possibilité de supprimer le premier produit de recherche
+- Le "type" de produit de recherche est rendu obligatoire
+- Il est impossible de modifier le type de produit de recherche
+
 ## 26/04/2024
 
 - Correction de l'envoie d'un commentaire vide.
