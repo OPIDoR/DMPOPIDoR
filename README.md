@@ -66,6 +66,13 @@ docker compose exec -it postgres sh -c "psql -U ${DB_USERNAME:-postgres} ${DIREC
 ```bash
 # Dump directus database
 docker compose exec -it postgres sh -c "pg_dump -U ${DB_USERNAME:-postgres} ${DIRECTUS_DATABASE:-directus}" > directus/dump.sql
+
+# Apply new dump
+
+# Drop database
+docker compose exec -it postgres sh -c "psql -U ${DB_USERNAME:-postgres} -c 'drop database ${DIRECTUS_DATABASE:-directus};'"
+
+# Repeat the steps for creating and adding the Directus database (see above)
 ```
 
 ##### Development mode
