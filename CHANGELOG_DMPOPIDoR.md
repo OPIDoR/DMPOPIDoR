@@ -11,6 +11,8 @@
 - Le "type" de produit de recherche est rendu obligatoire
 - Il est impossible de modifier le type de produit de recherche
 - Creation d'une page de glossaire en ReactJS, les données sont gérées par Directus.
+- Modification de la collection des pages statiques dans Directus pour afficher ou non les pages dans le menu.
+  - Modification du router pour la redirection
 
 ## 26/04/2024
 
