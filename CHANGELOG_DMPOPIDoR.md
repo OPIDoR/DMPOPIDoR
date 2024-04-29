@@ -2,6 +2,10 @@
 
 **Attention** Cette liste de changements concerne les déploiements sur nos serveurs de test en interne.
 
+# 29/04/2024
+
+- Creation d'une page de glossaire en ReactJS, les données sont gérées par Directus.
+
 ## 26/04/2024
 
 - Correction de l'envoie d'un commentaire vide.
