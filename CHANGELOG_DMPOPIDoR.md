@@ -2,6 +2,10 @@
 
 **Attention** Cette liste de changements concerne les déploiements sur nos serveurs de test en interne.
 
+# 29/04/2024
+
+- Creation d'une page de glossaire en ReactJS, les données sont gérées par Directus.
+
 # 18/04/2024
 
 - Correction du problème de suppression des valeurs dans les référentiels simples à choix multiples, ex: DocumentationQualityStandard.documentationSoftware (#10831)
