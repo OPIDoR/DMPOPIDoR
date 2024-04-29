@@ -276,5 +276,6 @@ module DMPRoadmap
     # --------------------------------------------------- #
     config.x.dmpopidor.enable_research_outputs_uuid = true
     config.x.dmpopidor.enable_third_party_form = ENV.fetch('ENABLE_THIRD_PARTY_FORM', false)
+    config.x.create_first_research_output = ENV.fetch('CREATE_FIRST_RESEARCH_OUTPUT', false)
   end
 end

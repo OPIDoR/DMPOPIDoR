@@ -71,13 +71,15 @@ module Dmpopidor
             @plan.create_plan_fragments
 
             # Add default research output if possible
-            created_ro = @plan.research_outputs.create!(
-              abbreviation: "#{_('RO')} 1",
-              title: "#{_('Research output')} 1",
-              is_default: true,
-              display_order: 1
-            )
-            created_ro.create_json_fragments
+            if Rails.configuration.x.create_first_research_output
+              created_ro = @plan.research_outputs.create!(
+                abbreviation: "#{_('RO')} 1",
+                title: "#{_('Research output')} 1",
+                is_default: true,
+                display_order: 1
+              )
+              created_ro.create_json_fragments
+            end
 
             flash[:notice] = msg
             render json: {
