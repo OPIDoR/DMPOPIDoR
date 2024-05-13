@@ -503,7 +503,8 @@ module Dmpopidor
             {
               id: item.id,
               name: item.name,
-              selected: @selected_guidance_groups.include?(item.id)
+              selected: @selected_guidance_groups.include?(item.id),
+              description: item.description,
             }
           end
         }

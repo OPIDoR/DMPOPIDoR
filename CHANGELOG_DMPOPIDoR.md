@@ -2,6 +2,13 @@
 
 **Attention** Cette liste de changements concerne les déploiements sur nos serveurs de test en interne.
 
+## 02/05/2024
+
+- Ajout de la colonne (en base de données) ``locale`` dans la table ``guidances`` (par défaut ``fr-FR``)
+- Ajout d'un select dans le formulaire d'édition/création d'une recommendation afin de sélectionner la langue (par défaut ``fr-FR``)
+- Ajout d'une colonne dans l'affichage des recommendations pour afficher la langue
+- Affichage des recommendations dans la langue du plan
+
 ## 29/04/2024
 
 - Le produit de recherche par défaut n'est plus créé à la création du plan
