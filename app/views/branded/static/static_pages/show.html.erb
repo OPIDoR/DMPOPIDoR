@@ -1,4 +1,5 @@
 <%= react("StaticPagesLayout", props: { 
   locale: LocaleService.to_gettext(locale: locale),
-  page: @page
+  page: @page,
+  directusUrl: Rails.configuration.x.directus.public_url
 }) %>

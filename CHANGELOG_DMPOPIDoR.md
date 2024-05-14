@@ -2,6 +2,14 @@
 
 **Attention** Cette liste de changements concerne les déploiements sur nos serveurs de test en interne.
 
+## 14/05/2024
+
+- Ajout de la colonne (en base de données) ``locale`` dans la table ``guidances`` (par défaut ``fr-FR``)
+- Ajout d'un select dans le formulaire d'édition/création d'une recommendation afin de sélectionner la langue (par défaut ``fr-FR``)
+- Ajout d'une colonne dans l'affichage des recommendations pour afficher la langue
+- Affichage des recommendations dans la langue du plan
+- Correction d'un problème  provoquant le blocage de l'import ANR/CORDIS
+
 ## 29/04/2024
 
 - Le produit de recherche par défaut n'est plus créé à la création du plan
@@ -11,6 +19,16 @@
 - Le "type" de produit de recherche est rendu obligatoire
 - Il est impossible de modifier le type de produit de recherche
 - Creation d'une page de glossaire en ReactJS, les données sont gérées par Directus.
+- Modification de la collection des pages statiques dans Directus pour afficher ou non les pages dans le menu.
+  - Modification du router pour la redirection
+- Ajout de variables d'environnement au service dmpopidor:
+  - ``DIRECTUS_URL``: URL interne de directus (ex: conteneur Docker), utilisé par le backend
+  - ``DIRECTUS_PUBLIC_URL``: URL externe de directus, utilisé par le frontend
+- Ajout de variables d'environnement au service Directus:
+  - ``CORS_ENABLED=true``
+  - ``CORS_ORIGIN=true``
+  - ``CORS_METHODS=GET,POST``
+
 
 ## 26/04/2024
 

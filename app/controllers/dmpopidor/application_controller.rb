@@ -7,10 +7,13 @@ module Dmpopidor
   module ApplicationController
     # Set Static Pages collection to use in navigation
     def set_nav_static_pages
+      @nav_static_pages = []
+
       query = '
         query {
           static_pages(filter: { status: { _eq: "published" } }) {
             path,
+            inMenu,
             translations {
               languages_code {
                 code
@@ -21,13 +24,16 @@ module Dmpopidor
         }
       '
 
-      resp = HTTParty.post('http://directus:8055/graphql',
-        body: { query: query }.to_json,
-        headers: { 'Content-Type' => 'application/json' }
-      )
+      begin
+        resp = HTTParty.post("#{Rails.configuration.x.directus.url}/graphql",
+          body: { query: query }.to_json,
+          headers: { 'Content-Type' => 'application/json' }
+        )
+      rescue
+        return @nav_static_pages
+      end
 
       unless resp.present? && resp.code == 200
-        @nav_static_pages = []
         return @nav_static_pages
       end
 
@@ -37,12 +43,12 @@ module Dmpopidor
         page_translation = page['translations']
         category = {
           'path' => page['path'],
+          'inMenu' => page['inMenu'],
           'title' => reduce_translations(page_translation, 'title')
         }
       end
 
       if pages.nil?
-        @nav_static_pages = []
         return @nav_static_pages
       end
 

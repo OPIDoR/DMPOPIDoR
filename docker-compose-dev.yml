@@ -26,9 +26,17 @@ services:
     networks:
       - dmpopidor_network
 
+  directus:
+    ports:
+      - ${DIRECTUS_PORT:-8055}:8055
+    networks:
+      - dmpopidor_network
+
   postgres:
     ports:
       - ${POSTGRES_PORT:-5432}:5432
+    networks:
+      - dmpopidor_network
 
 networks:
   dmpopidor_network:
