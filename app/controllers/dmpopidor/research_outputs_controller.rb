@@ -41,8 +41,8 @@ module Dmpopidor
                 abbreviation: ro.abbreviation,
                 title: ro.title,
                 order: ro.display_order,
-                hasPersonalData: ro.has_personal_data,
                 type: ro.json_fragment.research_output_description['data']['type'],
+                configuration: ro.json_fragment.additional_info,
                 answers: ro.answers.map do |a|
                   {
                     answer_id: a.id,
@@ -97,8 +97,8 @@ module Dmpopidor
                 abbreviation: ro.abbreviation,
                 title: ro.title,
                 order: ro.display_order,
-                hasPersonalData: ro.has_personal_data,
                 type: ro.json_fragment.research_output_description['data']['type'],
+                configuration: ro.json_fragment.additional_info,
                 answers: ro.answers.map do |a|
                   {
                     answer_id: a.id,
@@ -133,8 +133,8 @@ module Dmpopidor
               abbreviation: ro.abbreviation,
               title: ro.title,
               order: ro.display_order,
-              hasPersonalData: ro.has_personal_data,
               type: ro.json_fragment.research_output_description['data']['type'],
+              configuration: ro.json_fragment.additional_info,
               answers: ro.answers.map do |a|
                 {
                   answer_id: a.id,

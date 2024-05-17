@@ -2,6 +2,8 @@
 
 **Attention** Cette liste de changements concerne les déploiements sur nos serveurs de test en interne.
 
+- Ajout du support du Produit de Recherche Logiciel.
+
 ## 14/05/2024
 
 - Ajout de la colonne (en base de données) ``locale`` dans la table ``guidances`` (par défaut ``fr-FR``)

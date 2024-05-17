@@ -255,6 +255,12 @@ class Template < ApplicationRecord
     where(is_recommended: true, published: true, type: 'structured', context: , locale:).last
   end
 
+  def self.module(data_type: nil, context: 'research_project', locale: 'fr-FR')
+    return nil if data_type.nil?
+  
+    where(published: true, type: 'module', data_type:, context: , locale:).last
+  end
+
   def self.current(family_id)
     unarchived.where(family_id: family_id).order(version: :desc).first
   end

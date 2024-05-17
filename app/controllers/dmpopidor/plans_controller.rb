@@ -389,7 +389,7 @@ module Dmpopidor
             title: ro.title,
             order: ro.display_order,
             type: ro.json_fragment.research_output_description['data']['type'] || nil,
-            hasPersonalData: ro.has_personal_data,
+            configuration: ro.json_fragment.additional_info,
             answers: ro.answers.map do |a|
               {
                 answer_id: a.id,
