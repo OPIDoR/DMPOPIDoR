@@ -46,10 +46,11 @@ module Dmpopidor
         contact_person = dmp_fragment.persons.first
         data_type = configuration[:dataType]
         if fragment.nil?
+          description_prop_name, description_classname, description_schema = dataTypeToSchemaData(data_type)
           # Fetch the first question linked with a ResearchOutputDescription schema
           description_question = plan.questions.joins(:madmp_schema)
                                      .find_by(
-                                       madmp_schemas: { classname: 'research_output_description' }
+                                       madmp_schemas: { classname: description_classname }
                                      )
 
           # Creates the main ResearchOutput fragment
@@ -67,20 +68,21 @@ module Dmpopidor
               moduleId: ::Template.module(data_type:)&.id
             }
           )
-          fragment_description = Fragment::ResearchOutputDescription.new(
+          fragment_description = MadmpFragment.new(
             data: {
               'title' => title,
               'datasetId' => pid,
               'type' => output_type_description,
               'containsPersonalData' => configuration[:hasPersonalData] ? _('Yes') : _('No')
             },
-            madmp_schema: MadmpSchema.find_by(name: 'ResearchOutputDescriptionStandard'),
+            madmp_schema: description_schema,
+            classname: description_schema.classname,
             dmp_id: dmp_fragment.id,
             parent_id: fragment.id,
-            additional_info: { property_name: dataTypeToResearchOutputPropertyName(data_type) }
+            additional_info: { property_name: description_prop_name }
           )
           fragment_description.instantiate
-          fragment_description.contact.update(
+          Fragment::Contributor.find_by(parent_id: fragment_description.id).update(
             data: {
               'person' => contact_person.present? ? { 'dbid' => contact_person.id } : nil,
               'role' => _('Contact Person')
@@ -132,12 +134,19 @@ module Dmpopidor
     private
 
 
-    def dataTypeToResearchOutputPropertyName(data_type)
-      case data_type
-      when 'software'
-        'softwareDescription'
+    def dataTypeToSchemaData(data_type)
+      if data_type.eql?('software') && MadmpSchema.exists?(name: 'SoftwareDescriptionStandard')
+        [
+          'softwareDescription',
+          'software_description',
+          MadmpSchema.find_by(name: 'SoftwareDescriptionStandard')
+        ]
       else
-        'researchOutputDescription'
+        [
+          'researchOutputDescription',
+          'research_output_description',
+          MadmpSchema.find_by(name: 'ResearchOutputDescriptionStandard')
+        ]
       end
     end
   end
