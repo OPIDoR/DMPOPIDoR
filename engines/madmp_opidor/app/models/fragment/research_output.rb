@@ -44,7 +44,12 @@ module Fragment
   # ResearchOutput STI model
   class ResearchOutput < MadmpFragment
     def research_output_description
-      Fragment::ResearchOutputDescription.where(parent_id: id).first
+      data_type = additional_info['dataType']
+      if data_type.eql?('software')
+        Fragment::SoftwareDescription.where(parent_id: id).first
+      else
+        Fragment::ResearchOutputDescription.where(parent_id: id).first
+      end
     end
 
     def reuse

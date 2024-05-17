@@ -87,6 +87,9 @@ class MadmpFragment < ApplicationRecord
   scope :reused_datas, -> { where(classname: 'reused_data') }
   scope :specific_datas, -> { where(classname: 'specific_data') }
   scope :technical_resources, -> { where(classname: 'technical_resource') }
+  
+  # = Software specific classes =
+  scope :software_descriptions, -> { where(classname: 'software_description') }
 
   # =============
   # = Callbacks =
