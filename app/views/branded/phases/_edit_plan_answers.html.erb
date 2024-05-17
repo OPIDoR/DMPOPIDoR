@@ -53,7 +53,6 @@
           <ul class="nav nav-tabs research-outputs-tabs">
             <% section_has_common_answers = plan.research_outputs.first.common_answers?(section.id) %>
             <% plan.research_outputs.each_with_index do |research_output, i| %>
-              <% research_output_fragment = research_output.json_fragment.research_output_description %>
               <li class="research-outputs-tab <%= 'active' if research_output.main? %> <%= 'disabled' if section_has_common_answers %>">
                 <a href="#section-panel-<%= section.id %>" data-toggle="tab" 
                                   data-research-output="<%= research_output.id %>" 
