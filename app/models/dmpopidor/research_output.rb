@@ -46,12 +46,7 @@ module Dmpopidor
         contact_person = dmp_fragment.persons.first
         data_type = configuration[:dataType]
         if fragment.nil?
-          description_prop_name, description_classname, description_schema = dataTypeToSchemaData(data_type)
-          # Fetch the first question linked with a ResearchOutputDescription schema
-          description_question = plan.questions.joins(:madmp_schema)
-                                     .find_by(
-                                       madmp_schemas: { classname: description_classname }
-                                     )
+          description_prop_name, description_question, description_schema = dataTypeToSchemaData(data_type)
 
           # Creates the main ResearchOutput fragment
           fragment = Fragment::ResearchOutput.create(
@@ -133,18 +128,21 @@ module Dmpopidor
 
     private
 
-
+    #####
+    # Returns an array containing the property name, description question & the madmpschema according to the
+    # data_type in parameters
+    #####
     def dataTypeToSchemaData(data_type)
       if data_type.eql?('software') && MadmpSchema.exists?(name: 'SoftwareDescriptionStandard')
         [
           'softwareDescription',
-          'software_description',
+          ::Template.module(data_type:).questions.joins(:madmp_schema).find_by(madmp_schemas: { classname: 'software_description' }),
           MadmpSchema.find_by(name: 'SoftwareDescriptionStandard')
         ]
       else
         [
           'researchOutputDescription',
-          'research_output_description',
+          plan.questions.joins(:madmp_schema).find_by(madmp_schemas: { classname: 'research_output_description' }),
           MadmpSchema.find_by(name: 'ResearchOutputDescriptionStandard')
         ]
       end
