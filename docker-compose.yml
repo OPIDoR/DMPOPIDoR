@@ -75,7 +75,7 @@ services:
 
   directus:
     container_name: directus_app
-    image: directus/directus:${DIRECTUS_VERSION:-10.10.5}
+    image: directus/directus:${DIRECTUS_VERSION:-10.11.0}
     restart: always
     depends_on:
       postgres:
@@ -107,7 +107,7 @@ services:
       - dmpopidor_network
 
   nginx:
-    image: nginx:1.25.4-alpine-slim
+    image: nginx:1.25.5-alpine-slim
     ports:
       - ${NGINX_PORT:-8080}:80
     depends_on:
@@ -129,7 +129,7 @@ services:
       - dmpopidor_network
 
   postgres:
-    image: postgres:15.6-alpine3.19
+    image: postgres:15.7-alpine3.19
     environment:
       - POSTGRES_USER=${DB_USERNAME:-postgres}
       - POSTGRES_PASSWORD=${DB_PASSWORD:-changeme}
