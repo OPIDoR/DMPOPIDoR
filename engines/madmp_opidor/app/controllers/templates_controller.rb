@@ -12,16 +12,18 @@ class TemplatesController < ApplicationController
   def index
     templates = ::Template.all
 
-    if params[:type] && VALID_TYPES.includes(params[:type])
+    if params[:type] && VALID_TYPES.include?(params[:type])
       templates = templates.where(type: params[:type])
     end
 
-    if params[:context] && VALID_CONTEXES.includes(params[:context])
+    if params[:context] && VALID_CONTEXES.include?(params[:context])
       templates = templates.where(context: params[:context])
     end
 
+    authorize templates
     render json: templates.as_json(only: %i[id title])
   end
+
 
 
 
