@@ -4,6 +4,27 @@
 class TemplatesController < ApplicationController
   after_action :verify_authorized
 
+  VALID_TYPES = %w[structured classic].freeze
+  VALID_CONTEXES = %w[research_project research_entity].freeze
+
+
+  # GET /templates
+  def index
+    templates = ::Template.all
+
+    if params[:type] && VALID_TYPES.includes(params[:type])
+      templates = templates.where(type: params[:type])
+    end
+
+    if params[:context] && VALID_CONTEXES.includes(params[:context])
+      templates = templates.where(context: params[:context])
+    end
+
+    render json: templates.as_json(only: %i[id title])
+  end
+
+
+
   def show
     template = ::Template.includes(
       { sections: :questions }
