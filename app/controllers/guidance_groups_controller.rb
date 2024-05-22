@@ -102,6 +102,6 @@ class GuidanceGroupsController < ApplicationController
   private
 
   def guidance_group_params
-    params.require(:guidance_group).permit(:org_id, :name, :published, :optional_subset)
+    params.require(:guidance_group).permit(:org_id, :name, :description, :published, :optional_subset)
   end
 end

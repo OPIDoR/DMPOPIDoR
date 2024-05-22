@@ -6,6 +6,7 @@ module OrgAdmin
     include AllowedQuestionFormats
     include Versionable
     include ConditionsHelper
+    prepend Dmpopidor::OrgAdmin::QuestionsController
 
     respond_to :html
     after_action :verify_authorized
@@ -48,28 +49,7 @@ module OrgAdmin
                                    section: { phase: :template })
                          .find(params[:id])
 
-      # --------------------------------
-      # Start DMP OPIDoR Customization
-      # CHANGES : Added  MadmpSchema list
-      # --------------------------------
-      @available_classnames = %w[
-        research_output_description
-        data_reuse
-        personal_data_issues
-        legal_issues
-        ethical_issues
-        data_collection
-        data_processing
-        data_storage
-        documentation_quality
-        quality_assurance_method
-        data_sharing
-        data_preservation
-      ]
-      @madmp_schemas = MadmpSchema.where(classname: @available_classnames)
-      # --------------------------------
-      # End DMP OPIDoR Customization
-      # --------------------------------
+
       authorize question
       render json: { html: render_to_string(partial: 'edit', locals: {
                                               template: question.section.phase.template,
@@ -92,28 +72,7 @@ module OrgAdmin
                               question_format: question_format,
                               number: nbr.present? ? nbr + 1 : 1)
       question_formats = allowed_question_formats
-      # --------------------------------
-      # Start DMP OPIDoR Customization
-      # CHANGES : Added  MadmpSchema list
-      # --------------------------------
-      @available_classnames = %w[
-        research_output_description
-        data_reuse
-        personal_data_issues
-        legal_issues
-        ethical_issues
-        data_collection
-        data_processing
-        data_storage
-        documentation_quality
-        quality_assurance_method
-        data_sharing
-        data_preservation
-      ]
-      @madmp_schemas = MadmpSchema.where(classname: @available_classnames)
-      # --------------------------------
-      # End DMP OPIDoR Customization
-      # --------------------------------
+
       authorize question
       render json: { html: render_to_string(partial: 'form', locals: {
                                               template: section.phase.template,

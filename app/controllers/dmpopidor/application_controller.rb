@@ -1,11 +1,58 @@
 # frozen_string_literal: true
 
+require 'httparty'
+
 module Dmpopidor
   # Customized code for ApplicationController
   module ApplicationController
     # Set Static Pages collection to use in navigation
     def set_nav_static_pages
-      @nav_static_pages = StaticPage.navigable
+      @nav_static_pages = []
+
+      query = '
+        query {
+          static_pages(filter: { status: { _eq: "published" } }) {
+            path,
+            inMenu,
+            translations {
+              languages_code {
+                code
+              }
+              title
+            }
+          }
+        }
+      '
+
+      begin
+        resp = HTTParty.post("#{Rails.configuration.x.directus.url}/graphql",
+          body: { query: query }.to_json,
+          headers: { 'Content-Type' => 'application/json' }
+        )
+      rescue
+        return @nav_static_pages
+      end
+
+      unless resp.present? && resp.code == 200
+        return @nav_static_pages
+      end
+
+      resp = JSON.parse(resp.body)
+
+      pages = resp['data']['static_pages']&.map do |page|
+        page_translation = page['translations']
+        category = {
+          'path' => page['path'],
+          'inMenu' => page['inMenu'],
+          'title' => reduce_translations(page_translation, 'title')
+        }
+      end
+
+      if pages.nil?
+        return @nav_static_pages
+      end
+
+      @nav_static_pages = pages
     end
 
     # Added Research output Support
@@ -36,6 +83,16 @@ module Dmpopidor
 
     def after_sign_in_path_for(_resource)
       plans_path(anchor: 'content')
+    end
+
+    private
+
+    def reduce_translations(translations, field)
+      translations.reduce({}) do |result, translation|
+        result.merge(
+          translation['languages_code']['code'] => translation[field]
+        )
+      end
     end
   end
 end

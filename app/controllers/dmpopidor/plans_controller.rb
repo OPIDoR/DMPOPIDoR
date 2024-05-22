@@ -71,13 +71,15 @@ module Dmpopidor
             @plan.create_plan_fragments
 
             # Add default research output if possible
-            created_ro = @plan.research_outputs.create!(
-              abbreviation: "#{_('RO')} 1",
-              title: "#{_('Research output')} 1",
-              is_default: true,
-              display_order: 1
-            )
-            created_ro.create_json_fragments
+            if Rails.configuration.x.create_first_research_output || @plan.template.structured? == false
+              created_ro = @plan.research_outputs.create!(
+                abbreviation: "#{_('RO')} 1",
+                title: "#{_('Research output')} 1",
+                is_default: true,
+                display_order: 1
+              )
+              created_ro.create_json_fragments
+            end
 
             flash[:notice] = msg
             render json: {
@@ -387,7 +389,7 @@ module Dmpopidor
             title: ro.title,
             order: ro.display_order,
             type: ro.json_fragment.research_output_description['data']['type'] || nil,
-            hasPersonalData: ro.has_personal_data,
+            configuration: ro.json_fragment.additional_info,
             answers: ro.answers.map do |a|
               {
                 answer_id: a.id,
@@ -501,7 +503,8 @@ module Dmpopidor
             {
               id: item.id,
               name: item.name,
-              selected: @selected_guidance_groups.include?(item.id)
+              selected: @selected_guidance_groups.include?(item.id),
+              description: item.description,
             }
           end
         }

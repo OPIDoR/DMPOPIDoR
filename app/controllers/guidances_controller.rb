@@ -25,6 +25,7 @@ class GuidancesController < ApplicationController
   def admin_new
     @guidance = Guidance.new
     authorize @guidance
+    @locales = Language.all
     render :new_edit
   end
 
@@ -33,6 +34,9 @@ class GuidancesController < ApplicationController
     @guidance = Guidance.eager_load(:themes, :guidance_group)
                         .find(params[:id])
     authorize @guidance
+
+    @locales = Language.all
+
     render :new_edit
   end
 
@@ -41,6 +45,8 @@ class GuidancesController < ApplicationController
   def admin_create
     @guidance = Guidance.new(guidance_params)
     authorize @guidance
+
+    @locales = Language.all
 
     if @guidance.save
       if @guidance.published?
@@ -63,6 +69,8 @@ class GuidancesController < ApplicationController
   def admin_update
     @guidance = Guidance.find(params[:id])
     authorize @guidance
+
+    @locales = Language.all
 
     if @guidance.update(guidance_params)
       if @guidance.published?
@@ -136,7 +144,7 @@ class GuidancesController < ApplicationController
   private
 
   def guidance_params
-    params.require(:guidance).permit(:guidance_group_id, :text, :published, theme_ids: [])
+    params.require(:guidance).permit(:guidance_group_id, :text, :published, :locale, theme_ids: [])
   end
 
   def ensure_default_group(org)

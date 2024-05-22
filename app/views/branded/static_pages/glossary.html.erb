@@ -1,5 +1,4 @@
-<%= react("StaticPagesLayout", props: { 
+<%= react("GlossaryLayout", props: {
   locale: LocaleService.to_gettext(locale: locale),
-  page: @page,
   directusUrl: Rails.configuration.x.directus.public_url
 }) %>
