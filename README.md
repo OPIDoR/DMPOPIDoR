@@ -79,36 +79,47 @@ docker compose exec -it postgres sh -c "psql -U ${DB_USERNAME:-postgres} -c 'dro
 
 ```bash
 # build image
-docker compose -f docker-compose.yml -f docker-compose-dev.yml --profile dev build dmpopidor
+docker compose -f docker-compose.yml -f docker-compose-dev.yml build dmpopidor
 
 # Configure database connection for postgres (change postgres by mysql)
-docker compose -f docker-compose.yml -f docker-compose-dev.yml --profile dev run --rm dmpopidor sh -c 'ruby bin/docker postgres'
+docker compose -f docker-compose.yml -f docker-compose-dev.yml run --rm dmpopidor sh -c 'ruby bin/docker postgres'
 
 # Setup database
-docker compose -f docker-compose.yml -f docker-compose-dev.yml --profile dev run --rm dmpopidor sh -c 'bin/rails db:environment:set RAILS_ENV=development; ruby bin/docker db:setup'
+docker compose -f docker-compose.yml -f docker-compose-dev.yml run --rm dmpopidor sh -c 'bin/rails db:environment:set RAILS_ENV=development; ruby bin/docker db:setup'
 
 # Run all services
-docker compose -f docker-compose.yml -f docker-compose-dev.yml --profile dev up -d
+docker compose -f docker-compose.yml -f docker-compose-dev.yml up -d
 ```
+
+###### Volumes
+
+The volumes are named volumes, so they are not in the current project folder.
+
+To delete them, do : ``docker compose -f docker-compose.yml -f docker-compose-dev.yml down -v``
 
 #### Production mode
 
 ```bash
 # build image
-docker compose --profile prod build dmpopidor
+docker compose build dmpopidor
 
 # Configure database connection for postgres (change postgres by mysql)
-docker compose --profile prod run --rm dmpopidor sh -c 'ruby bin/docker postgres'
+docker compose run --rm dmpopidor sh -c 'ruby bin/docker postgres'
 
 # Setup database
-docker compose --profile prod run --rm dmpopidor sh -c 'ruby bin/docker db:setup'
+docker compose run --rm dmpopidor sh -c 'ruby bin/docker db:setup'
 
 # Run all services
-docker compose --profile prod up -d
+docker compose up -d
 ```
 
-
 The rails server is launched via puma behind a niginx, it is accessible at the url ``http://localhost:8080``
+
+###### Volumes
+
+The volumes are named volumes, so they are not in the current project folder.
+
+To delete them, do : ``docker compose down -v``
 
 #### Tests & Swagger/OpenAPI
 The tests are run by [rswag](https://github.com/rswag/rswag), which generates OpenAPI documentation based on these tests.
@@ -118,7 +129,7 @@ An **rswag** command is defined in the ``Procfile.dev`` file to generate the Ope
 You can generate the OpenAPI file and run the tests with the following command:
 
 ```bash
-docker compose -f docker-compose.yml -f docker-compose-dev.yml --profile dev exec dmpopidor sh -c "RAILS_ENV=test rails rswag"
+docker compose -f docker-compose.yml -f docker-compose-dev.yml exec dmpopidor sh -c "RAILS_ENV=test rails rswag"
 ```
 
 #### Troubleshooting
