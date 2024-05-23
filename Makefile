@@ -1,8 +1,8 @@
 SHELL := /bin/bash
-DOCKER_COMPOSE := $(shell command -v docker-compose 2>/dev/null || echo "docker compose")
+DOCKER_COMPOSE := $(shell command -v docker-compose 2> /dev/null || echo "docker compose")
 COMPOSE_FILE_PROD := docker-compose.yml
 COMPOSE_FILE_DEV := docker-compose-dev.yml
-COMPOSE_FILE := $(if $(filter prod,$(env)),$(COMPOSE_FILE_PROD),$(if $(filter dev,$(env)),$(COMPOSE_FILE_DEV) -f $(COMPOSE_FILE_PROD)))
+COMPOSE_FILE := $(if $(filter prod,$(env)),$(COMPOSE_FILE_PROD),$(if $(filter dev,$(env)),$(COMPOSE_FILE_PROD) -f $(COMPOSE_FILE_DEV)))
 
 help:
 	@grep -E '^[a-zA-Z_-]+:.*?## .*$$' $(MAKEFILE_LIST) | sort | awk 'BEGIN {FS = ":.*?## "}; {printf "\033[36m%-30s\033[0m %s\n", $$1, $$2}'
@@ -29,7 +29,7 @@ ifeq ($(strip $(DOCKER_COMPOSE)),)
 endif
 
 define docker_action
-	$(DOCKER_COMPOSE) -f $(COMPOSE_FILE) --profile $(env) $(1)
+	$(DOCKER_COMPOSE) -f $(COMPOSE_FILE) $(1)
 endef
 
 setup: check_env check_adapter check_docker_compose ## Setup DMPOPIDoR configuration (env: prod or dev, adapter: postgres or mysql)
@@ -44,5 +44,13 @@ run: check_env check_docker_compose ## Run services (env: prod or dev)
 
 stop: check_env check_docker_compose ## Stop services (env: prod or dev)
 	$(call docker_action,stop)
+
+directus_setup: check_env check_docker_compose ## Setup Directus database
+	$(call docker_action,up -d postgres)
+	$(call docker_action,exec -it postgres sh -c "psql -U $${DB_USERNAME:-postgres} -c 'drop database $${DIRECTUS_DATABASE:-directus};'")
+	$(call docker_action,exec -it postgres sh -c "psql -U $${DB_USERNAME:-postgres} -c 'create database $${DIRECTUS_DATABASE:-directus};'")
+	$(call docker_action,cp ./directus/dump.sql postgres:/directus.sql)
+	$(call docker_action,exec -it postgres sh -c "psql -U $${DB_USERNAME:-postgres} $${DIRECTUS_DATABASE:-directus} < directus.sql")
+
 
 .PHONY: help check_env check_adapter check_docker_compose setup build run stop
