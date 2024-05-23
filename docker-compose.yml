@@ -8,7 +8,6 @@ services:
         - DB_ADAPTER=${DB_ADAPTER:-postgres}
         - DB_USERNAME=${DB_USERNAME:-postgres}
         - DB_PASSWORD=${DB_PASSWORD:-changeme}
-    profiles: ["prod"]
     depends_on:
       postgres:
         condition: service_healthy
@@ -135,7 +134,7 @@ services:
       - LC_CTYPE=fr_FR.utf8
       - LANG=fr_FR.utf8
     volumes:
-      - ./data/postgres:/var/lib/postgresql/data
+      - pg-data:/var/lib/postgresql/data
     healthcheck:
       test: ["CMD-SHELL", "pg_isready -q -U ${POSTGRES_USER:-postgres} -h localhost -p 5432"]
       interval: ${POSTGRES_HEALTHCHECK_INTERVAL:-30s}
@@ -165,3 +164,7 @@ services:
 networks:
   dmpopidor_network:
     driver: "bridge"
+
+volumes:
+  directus_uploads:
+  pg-data:
