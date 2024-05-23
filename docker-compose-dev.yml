@@ -5,7 +5,6 @@ services:
     build:
       context: .
       target: dev
-    profiles: ["dev"]
     depends_on:
       postgres:
         condition: service_healthy
