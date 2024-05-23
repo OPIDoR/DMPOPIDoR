@@ -4,8 +4,15 @@ COMPOSE_FILE_PROD := docker-compose.yml
 COMPOSE_FILE_DEV := docker-compose-dev.yml
 COMPOSE_FILE := $(if $(filter prod,$(env)),$(COMPOSE_FILE_PROD),$(if $(filter dev,$(env)),$(COMPOSE_FILE_PROD) -f $(COMPOSE_FILE_DEV)))
 
-help:
-	@grep -E '^[a-zA-Z_-]+:.*?## .*$$' $(MAKEFILE_LIST) | sort | awk 'BEGIN {FS = ":.*?## "}; {printf "\033[36m%-30s\033[0m %s\n", $$1, $$2}'
+help: ## Command help
+	@echo "Usage: make [COMMAND] [OPTIONS]"
+	@echo ""
+	@echo "Commands:"
+	@grep -E '^[a-zA-Z_-]+:.*?## .*$$' $(MAKEFILE_LIST) | sort | awk 'BEGIN {FS = ":.*?## "}; {printf "  \033[36m%-30s\033[0m %s\n", $$1, $$2}'
+	@echo ""
+	@echo "Options:"
+	@echo "  env                            Application environment: prod or dev (e.g env=prod)"
+	@echo "  adapter                        Database adapter: postgres or mysql (e.g adapter=postgres)"
 
 check_env:
 ifndef env
