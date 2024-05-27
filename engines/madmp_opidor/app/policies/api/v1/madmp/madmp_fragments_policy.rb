@@ -23,7 +23,8 @@ module Api
             plan = @fragment.plan
             plan.readable_by?(@client.id)
           else
-            true
+            plan = @fragment.plan
+            plan.readable_by_client?(@client.id)
           end
         end
 
@@ -32,7 +33,8 @@ module Api
             plan = @fragment.plan
             plan.readable_by?(@client.id)
           else
-            true
+            plan = @fragment.plan
+            plan.readable_by_client?(@client.id)
           end
         end
 
@@ -41,7 +43,7 @@ module Api
             plan = @fragment.plan
             plan.editable_by?(@client.id)
           else
-            true
+            false
           end
         end
       end
