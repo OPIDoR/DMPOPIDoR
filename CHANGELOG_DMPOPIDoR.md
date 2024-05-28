@@ -2,6 +2,11 @@
 
 **Attention** Cette liste de changements concerne les déploiements sur nos serveurs de test en interne.
 
+## 23/05/2024
+
+- Ajout des traduction dans les groupes de recommendations (via un champs)
+- Récupération des groupes de recommendations selon la locale du plan (par défaut: fr-FR)
+
 - Ajout du support du Produit de Recherche Logiciel.
 
 ## 14/05/2024
