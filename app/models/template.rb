@@ -89,6 +89,8 @@ class Template < ApplicationRecord
 
   belongs_to :org
 
+  belongs_to :dmp_mapping
+
   has_many :plans
 
   has_many :phases, dependent: :destroy
@@ -515,6 +517,10 @@ class Template < ApplicationRecord
     end
   end
 
+  def dmp_mappings
+    DmpMapping.where(source_id: id).first
+  end
+
   private
 
   # ============================
@@ -555,5 +561,6 @@ class Template < ApplicationRecord
     question1.section.number < question2.section.number ||
       (question1.section.number == question2.section.number && question1.number < question2.number)
   end
+
 end
 # rubocop:enable Metrics/ClassLength

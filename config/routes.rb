@@ -2,6 +2,11 @@
 
 # rubocop:disable Metrics/BlockLength
 Rails.application.routes.draw do
+  get 'dmp_mapping/show'
+  get 'dmp_mapping/create'
+  get 'dmp_mapping/edit'
+  get 'dmp_mapping/update'
+  get 'dmp_mapping/delete'
   mount ActionCable.server => "/cable"
   mount Rswag::Ui::Engine => '/api-docs'
   mount Rswag::Api::Engine => '/api-docs'
@@ -439,6 +444,11 @@ Rails.application.routes.draw do
                                    controller: 'research_projects',
                                    constraints: { format: 'json' }
 
+  resources :dmp_mapping, only: [:index, :show, :create, :edit, :delete] do
+    collection do
+      get ':id', action: :show, as: :show
+    end
+  end
   # mount MadmpOpidor::Engine => '/madmp_opidor', as: 'madmp_opidor'
 end
 # rubocop:enable Metrics/BlockLength

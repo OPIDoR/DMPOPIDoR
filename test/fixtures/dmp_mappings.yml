@@ -1,0 +1,15 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  id: 1
+  type: 1
+  source_id: 1
+  target_id: 1
+  mapping: 
+
+two:
+  id: 1
+  type: 1
+  source_id: 1
+  target_id: 1
+  mapping: 
