@@ -2,11 +2,6 @@
 
 # rubocop:disable Metrics/BlockLength
 Rails.application.routes.draw do
-  get 'dmp_mapping/show'
-  get 'dmp_mapping/create'
-  get 'dmp_mapping/edit'
-  get 'dmp_mapping/update'
-  get 'dmp_mapping/delete'
   mount ActionCable.server => "/cable"
   mount Rswag::Ui::Engine => '/api-docs'
   mount Rswag::Api::Engine => '/api-docs'
