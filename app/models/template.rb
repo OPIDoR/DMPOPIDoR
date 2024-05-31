@@ -89,8 +89,6 @@ class Template < ApplicationRecord
 
   belongs_to :org
 
-  belongs_to :dmp_mapping
-
   has_many :plans
 
   has_many :phases, dependent: :destroy
@@ -515,10 +513,6 @@ class Template < ApplicationRecord
       random = rand 2_147_483_647
       break random unless Template.exists?(family_id: random)
     end
-  end
-
-  def dmp_mappings
-    DmpMapping.where(source_id: id).first
   end
 
   private
