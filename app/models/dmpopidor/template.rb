@@ -1,0 +1,27 @@
+# frozen_string_literal: true
+
+module Dmpopidor
+  # Customized code for Org model
+  module Template
+    def serialize_json
+      section_data = sections.as_json(
+        include: {
+          questions: {
+            only: %w[id text number default_value question_format_id],
+            include: { madmp_schema: { only: %w[id classname] } }
+          }
+        }
+      )
+      return {
+        id: id,
+        locale: locale,
+        title: title,
+        version: version,
+        org: org.name,
+        structured: structured?,
+        publishedDate: updated_at.to_date,
+        sections: section_data
+      }
+    end
+  end
+end
