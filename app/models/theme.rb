@@ -4,13 +4,13 @@
 #
 # Table name: themes
 #
-#  id          :integer          not null, primary key
-#  description :text
-#  locale      :string
-#  slug        :string
-#  title       :string
-#  created_at  :datetime         not null
-#  updated_at  :datetime         not null
+#  id           :integer          not null, primary key
+#  description  :text
+#  translations :json
+#  slug         :string
+#  title        :string
+#  created_at   :datetime         not null
+#  updated_at   :datetime         not null
 #
 
 # Object that represents a question/guidance theme
