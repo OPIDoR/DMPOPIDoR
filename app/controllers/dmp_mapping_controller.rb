@@ -7,55 +7,54 @@ class DmpMappingController < ApplicationController
   respond_to :json
   skip_before_action :verify_authenticity_token, only: [:create] # TODO: Not a good practice, CSRF issues may arise
 
-  # GET /dmp_mappings
+  # GET /dmp_mapping
   def index
     mappings = DmpMapping.all
-    render json: { status: 200, message: 'DMPOPDIoR mappings', data: mappings }
+    render json: { message: 'DMPOPDIoR mappings', data: mappings }, status: :ok
   end
 
-  # GET /dmp_mappings/:id
+  # GET /dmp_mapping/:id
   def show
     mapping = DmpMapping.find_by(id: params[:id])
     if mapping
-      render json: { status: 200, message: "DMPOPDIoR mapping for [#{params[:id]}]", data: mapping }
+      render json: { message: "DMPOPDIoR mapping for [#{params[:id]}]", data: mapping }, status: :ok
     else
-      render json: { status: 404, message: 'Mapping not found' }
+      render json: { message: 'Mapping not found' }, status: :not_found
     end
   end
 
-  # POST /dmp_mappings
+  # POST /dmp_mapping
   def create
     mapping = DmpMapping.new(mapping_params)
     if mapping.save
-      render json: { status: 201, message: 'Mapping created', data: mapping }
+      render json: { message: 'Mapping created', data: mapping }, status: :created
     else
-      render json: { status: 400, message: 'Error creating mapping', errors: mapping.errors.full_messages }
+      render json: { message: 'Error creating mapping', errors: mapping.errors.full_messages }, status: :bad_request
     end
   end
 
-  # PATCH/PUT /dmp_mappings/:id
+  # PATCH/PUT /dmp_mapping/:id
   def update
     mapping = DmpMapping.find_by(id: params[:id])
     if mapping&.update(mapping_params)
-      render json: { status: 200, message: 'Mapping updated', data: mapping }
+      render json: { message: 'Mapping updated', data: mapping }, status: :ok
     else
-      render json: { status: 400, message: 'Error updating mapping', errors: mapping.errors.full_messages }
+      render json: { message: 'Error updating mapping', errors: mapping.errors.full_messages }, status: :bad_request
     end
   end
 
-  # DELETE /dmp_mappings/:id
+  # DELETE /dmp_mapping/:id
   def delete
     mapping = DmpMapping.find_by(id: params[:id])
     if mapping&.destroy
-      render json: { status: 200, message: 'Mapping deleted' }
+      render json: { message: 'Mapping deleted' }, status: :ok
     else
-      render json: { status: 400, message: 'Error deleting mapping' }
+      render json: { message: 'Error deleting mapping' }, status: :bad_request
     end
   end
 
   private
 
-  # Only allow a list of trusted parameters through.
   def mapping_params
     params.require(:dmp_mapping).permit(:type_mapping, :source_id, :target_id, mapping: {})
   end
