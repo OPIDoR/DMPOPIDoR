@@ -2,7 +2,10 @@
 
 **Attention** Cette liste de changements concerne les déploiements sur nos serveurs de test en interne.
 
-- Ajout du support du Produit de Recherche Logiciel.
+- Amélioration de l'affichage lors du changement entre différents types de produits de recherche.
+- Retrait de l'initialisation des données d'un formulaire à la première ouverture d'une question: des données vides ne seront plus créées dans la base lorsque l'on ouvre une question pour la première fois. Un formulaire vide est affiché, les données sont initialisées dans la base lors de la première sauvegarde.
+- Les Clients API ne peuvent désormais plus accéder au fragments liés au plans auquels ils n'ont pas accès.
+- Retrait de la possibilité de mise à jour des fragments par les cliens API.
 
 ## 14/05/2024
 
