@@ -59,5 +59,4 @@ directus_setup: check_env check_docker_compose ## Setup Directus database
 	$(call docker_action,cp ./directus/dump.sql postgres:/directus.sql)
 	$(call docker_action,exec -it postgres sh -c "psql -U $${DB_USERNAME:-postgres} $${DIRECTUS_DATABASE:-directus} < directus.sql")
 
-
 .PHONY: help check_env check_adapter check_docker_compose setup build run stop
