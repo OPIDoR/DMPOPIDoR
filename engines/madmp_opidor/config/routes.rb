@@ -9,7 +9,7 @@ Rails.application.routes.draw do
     end
     resources :registry_values, only: %i[edit update destroy]
     resources :madmp_schemas, only: %i[index new create edit update destroy]
-    resources :template_mappings, only: %i[index new]
+    resources :template_mappings, only: %i[index new edit]
   end
 
   resources :madmp_fragments, only: %i[show create update destroy] do
@@ -37,7 +37,7 @@ Rails.application.routes.draw do
 
   resources :api_client_roles, only: %i[create update destroy]
 
-  resources :templates, only: %i[index show], constraints: { format: [:json] } do 
+  resources :templates, only: %i[index show], constraints: { format: [:json] } do
     post 'set_recommended', action: :set_recommended
   end
 

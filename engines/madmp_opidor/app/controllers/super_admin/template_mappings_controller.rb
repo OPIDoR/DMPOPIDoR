@@ -8,5 +8,9 @@ module SuperAdmin
 
     def new
     end
+
+    def edit
+      # @template_mapping = TemplateMapping.find(params[:id])
+    end
   end
 end
