@@ -63,7 +63,7 @@ class MadmpFragmentsController < ApplicationController
       @fragment.update_meta_fragment
       @fragment.update_research_output_parameters
       render json: {
-        fragment: @fragment.get_full_fragment(with_ids: true),
+        fragment: @fragment.get_full_fragment(with_ids: true, with_template_name: true),
         plan_title: (@fragment.dmp.meta.data['title'] if %w[dmp project entity].include?( @fragment.classname)),
         message: _('Form saved successfully.')
       }, status: :ok
@@ -165,7 +165,7 @@ class MadmpFragmentsController < ApplicationController
 
   def render_fragment_json(fragment, madmp_schema) 
     {
-      'fragment' => fragment.get_full_fragment(with_ids: true),
+      'fragment' => fragment.get_full_fragment(with_ids: true, with_template_name: true),
       'answer_id' => fragment.answer_id,
       'template' => {
         id: fragment.madmp_schema_id,
