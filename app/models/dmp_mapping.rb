@@ -19,14 +19,23 @@
 #
 
 class DmpMapping < ApplicationRecord
-  belongs_to :source_id, class_name: 'Template', foreign_key: 'template_source_id'
-  belongs_to :target_id, class_name: 'Template', foreign_key: 'template_target_id', optional: true
-  enum type_mapping: %i[form json]
+  belongs_to :source, class_name: 'Template', foreign_key: 'source_id'
+  belongs_to :target, class_name: 'Template', foreign_key: 'target_id', optional: true
+  enum type_mapping: { form: 0, json: 1 }
 
   validates :target_id, presence: true, if: :is_form?
   validates :mapping, presence: true
 
   def is_form?
-    type.form?
+    type_mapping == 'form'
   end
 end
+
+# class DmpMapping < ApplicationRecord
+#   belongs_to :source, class_name: 'Template', foreign_key: 'source_id'
+#   belongs_to :target, class_name: 'Template', foreign_key: 'target_id', optional: true
+#   enum type_mapping: { form: 0, json: 1 }
+
+#   validates :target_id, presence: true, if: :is_form?
+#   validates :mapping, presence: true
+# end

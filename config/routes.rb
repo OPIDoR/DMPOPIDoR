@@ -172,7 +172,7 @@ Rails.application.routes.draw do
     resources :research_outputs, only: %i[index update destroy], controller: 'research_outputs'
   end
 
-  resources :research_outputs, only: [:index, :create, :destroy, :update], constraints: { format: [:json] } do
+  resources :research_outputs, only: %i[index create destroy update], constraints: { format: [:json] } do
     get 'create_remote', on: :collection
     delete 'destroy_remote', on: :collection
     patch 'update_remote', on: :collection
@@ -439,7 +439,7 @@ Rails.application.routes.draw do
                                    controller: 'research_projects',
                                    constraints: { format: 'json' }
 
-  resources :dmp_mapping, only: [:index, :show, :create, :edit, :delete] do
+  resources :dmp_mapping, only: %i[index show create edit delete] do
     collection do
       get ':id', action: :show, as: :show
     end
