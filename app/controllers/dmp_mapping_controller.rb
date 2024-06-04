@@ -10,14 +10,14 @@ class DmpMappingController < ApplicationController
   # GET /dmp_mapping
   def index
     mappings = DmpMapping.all
-    render json: { message: 'DMPOPDIoR mappings', data: mappings }, status: :ok
+    render json: { message: 'DMPOPIDoR mappings', mappings: mappings }, status: :ok
   end
 
   # GET /dmp_mapping/:id
   def show
     mapping = DmpMapping.find_by(id: params[:id])
     if mapping
-      render json: { message: "DMPOPDIoR mapping for [#{params[:id]}]", mapping_data: mapping }, status: :ok
+      render json: { message: "DMPOPDIoR mapping for [#{params[:id]}]", **mapping.as_json }, status: :ok
     else
       render json: { message: 'Mapping not found' }, status: :not_found
     end
@@ -27,7 +27,7 @@ class DmpMappingController < ApplicationController
   def create
     mapping = DmpMapping.new(mapping_params)
     if mapping.save
-      render json: { message: 'Mapping created', mapping_data: mapping }, status: :created
+      render json: { message: 'Mapping created', **mapping.as_json }, status: :created
     else
       render json: { message: 'Error creating mapping', errors: mapping.errors.full_messages }, status: :bad_request
     end
@@ -37,7 +37,7 @@ class DmpMappingController < ApplicationController
   def update
     mapping = DmpMapping.find_by(id: params[:id])
     if mapping&.update(mapping_params)
-      render json: { message: 'Mapping updated', mapping_data: mapping }, status: :ok
+      render json: { message: 'Mapping updated', **mapping.as_json }, status: :ok
     else
       render json: { message: 'Error updating mapping', errors: mapping.errors.full_messages }, status: :bad_request
     end
