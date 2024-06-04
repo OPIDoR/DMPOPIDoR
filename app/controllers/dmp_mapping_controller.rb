@@ -5,7 +5,7 @@ require 'jsonpath'
 class DmpMappingController < ApplicationController
   include Dmpopidor::ErrorHelper
   respond_to :json
-  skip_before_action :verify_authenticity_token, only: %i[create update] # TODO: Not a good practice, CSRF issues may arise
+  skip_before_action :verify_authenticity_token, only: %i[create update destroy] # TODO: Not a good practice, CSRF issues may arise
 
   # GET /dmp_mapping
   def index
@@ -44,7 +44,7 @@ class DmpMappingController < ApplicationController
   end
 
   # DELETE /dmp_mapping/:id
-  def delete
+  def destroy
     mapping = DmpMapping.find_by(id: params[:id])
     if mapping&.destroy
       render json: { message: 'Mapping deleted' }, status: :ok

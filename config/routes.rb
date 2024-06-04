@@ -439,7 +439,7 @@ Rails.application.routes.draw do
                                    controller: 'research_projects',
                                    constraints: { format: 'json' }
 
-  resources :dmp_mapping, only: %i[index show create update delete] do
+  resources :dmp_mapping, only: %i[index show create update destroy] do
     collection do
       get ':id', action: :show, as: :show
     end
