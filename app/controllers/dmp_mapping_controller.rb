@@ -5,7 +5,7 @@ require 'jsonpath'
 class DmpMappingController < ApplicationController
   include Dmpopidor::ErrorHelper
   respond_to :json
-  skip_before_action :verify_authenticity_token, only: [:create] # TODO: Not a good practice, CSRF issues may arise
+  skip_before_action :verify_authenticity_token, only: %i[create update] # TODO: Not a good practice, CSRF issues may arise
 
   # GET /dmp_mapping
   def index
