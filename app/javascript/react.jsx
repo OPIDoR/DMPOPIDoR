@@ -9,6 +9,7 @@ import PlanCreationLayout from './dmp_opidor_react/src/components/PlanCreation/P
 import WritePlanLayout from './dmp_opidor_react/src/components/WritePlan/WritePlanLayout.jsx';
 import HelpLayout from './dmp_opidor_react/src/components/Help/HelpLayout.jsx';
 import TemplateMappingLayout from './dmp_opidor_react/src/components/TemplateMapping/TemplateMappingLayout.jsx';
+import TemplateMappingsListLayout from './dmp_opidor_react/src/components/TemplateMapping/TemplateMappingsListLayout.jsx';
 import StaticPagesLayout from './dmp_opidor_react/src/components/StaticPages/StaticPagesLayout.jsx';
 import GlossaryLayout from './dmp_opidor_react/src/components/Glossary/GlossaryLayout.jsx';
 
@@ -45,6 +46,7 @@ mount({
   ContributorsTabLayout,
   HelpLayout,
   TemplateMappingLayout,
+  TemplateMappingsListLayout,
   StaticPagesLayout,
   GlossaryLayout,
 });
