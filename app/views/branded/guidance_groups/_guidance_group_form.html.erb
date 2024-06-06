@@ -17,6 +17,17 @@ description_text_tooltip =  _('Enter your description here. You can include link
   <%= form.text_area :description, rows: 10, class: "form-control", spellcheck: true, aria: { required: true } %>
 </div>
 
+<div class="form-group col-xs-12">
+  <% locale = LocaleService.to_gettext(locale: locale).gsub!('_', '-') %>
+  <%= form.label(:locale, _('Locale'), for: :locale, class: "control-label") %>
+  <%= select_tag(:locale,
+      options_from_collection_for_select(@locales, "id", "name", @guidance_group.language_id || locale),
+      include_blank: false,
+      aria: { required: true },
+      class: "form-control",
+      name: 'guidance_group[language_id]') %>
+</div>
+
 <div class='form-input col-xs-8'>
   <%= form.check_box :published, data: { toggle: 'tooltip' }, title: published_tip %>
   <%= form.label(:published, _("Published"), class: "control-label") %>

@@ -6,17 +6,20 @@ module SuperAdmin
     helper PaginableHelper
     def index
       authorize(Theme)
+      @locales = Language::all
       render(:index, locals: { themes: Theme.all.page(1) })
     end
 
     def new
       authorize(Theme)
+      @locales = Language::where.not(abbreviation: 'fr-FR')
       @theme = Theme.new
     end
 
     def create
       authorize(Theme)
       @theme = Theme.new(permitted_params)
+      @locales = Language::where.not(abbreviation: 'fr-FR')
       if @theme.save
         flash.now[:notice] = success_message(@theme, _('created'))
         render :edit
@@ -28,6 +31,7 @@ module SuperAdmin
 
     def edit
       authorize(Theme)
+      @locales = Language::where.not(abbreviation: 'fr-FR')
       @theme = Theme.find(params[:id])
     end
 
@@ -35,6 +39,8 @@ module SuperAdmin
     def update
       authorize(Theme)
       @theme = Theme.find(params[:id])
+      @locales = Language::where.not(abbreviation: 'fr-FR')
+
       if @theme.update(permitted_params)
         flash.now[:notice] = success_message(@theme, _('updated'))
       else
@@ -60,7 +66,17 @@ module SuperAdmin
     private
 
     def permitted_params
-      params.require(:theme).permit(:title, :description)
+      permitted = params.require(:theme).permit(
+        :title,
+        :description,
+        translations: {}
+      )
+
+      permitted[:translations]&.each do |locale, translation|
+        permitted[:translations].delete(locale) if translation['title'].blank?
+      end
+
+      permitted
     end
   end
 end
