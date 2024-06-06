@@ -2,6 +2,9 @@
 
 **Attention** Cette liste de changements concerne les déploiements sur nos serveurs de test en interne.
 
+
+- Les sous-fragments constants sont désormais supprimables (#10910)
+
 # 18/04/2024
 
 - Correction du problème de suppression des valeurs dans les référentiels simples à choix multiples, ex: DocumentationQualityStandard.documentationSoftware (#10831)
