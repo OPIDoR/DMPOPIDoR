@@ -382,7 +382,7 @@ module Dmpopidor
     # rubocop:enable Metrics/MethodLength, Metrics/AbcSize
 
     # rubocop:disable Metrics/MethodLength, Metrics/AbcSize
-    def answers_data
+    def research_outputs_data
       plan = ::Plan.find(params[:id])
       authorize plan
 
@@ -405,7 +405,10 @@ module Dmpopidor
                 fragment_id: a.madmp_fragment.id,
                 madmp_schema_id: a.madmp_fragment.madmp_schema_id
               }
-            end
+            end,
+            template: ro.json_fragment.additional_info['moduleId'] ? 
+                      ::Template.find(ro.json_fragment.additional_info['moduleId']).serialize_json :
+                      plan.template.serialize_json
           }
         end,
         questions_with_guidance: plan.template.questions.select do |q|

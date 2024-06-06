@@ -38,41 +38,14 @@ class MadmpFragmentsController < ApplicationController
     @fragment.instantiate
     @fragment.handle_defaults(defaults)
 
-    render json: {
-      'fragment' => @fragment.get_full_fragment(with_ids: true),
-      'answer_id' => @fragment.answer_id,
-      'template' => {
-        id: @fragment.madmp_schema_id,
-        name: madmp_schema.name,
-        schema: madmp_schema.schema,
-        api_client: if madmp_schema.api_client.present?
-          {
-            id: madmp_schema.api_client_id,
-            name: madmp_schema.api_client.name
-          } 
-        end
-      }
-    }
+    render json: render_fragment_json(@fragment, madmp_schema)
   end
 
   def show
     @fragment = MadmpFragment.find(params[:id])
     madmp_schema = @fragment.madmp_schema
     authorize @fragment
-    render json: {
-      'fragment' => @fragment.get_full_fragment(with_ids: true),
-      'template' => {
-        id: madmp_schema.id,
-        name: madmp_schema.name,
-        schema: madmp_schema.schema,
-        api_client: if madmp_schema.api_client.present?
-          {
-            id: madmp_schema.api_client_id,
-            name: madmp_schema.api_client.name
-          } 
-        end
-      }
-    }
+    render json: render_fragment_json(@fragment, madmp_schema)
   end
 
   # Needs some rework
@@ -90,7 +63,7 @@ class MadmpFragmentsController < ApplicationController
       @fragment.update_meta_fragment
       @fragment.update_research_output_parameters
       render json: {
-        fragment: @fragment.get_full_fragment(with_ids: true),
+        fragment: @fragment.get_full_fragment(with_ids: true, with_template_name: true),
         plan_title: (@fragment.dmp.meta.data['title'] if %w[dmp project entity].include?( @fragment.classname)),
         message: _('Form saved successfully.')
       }, status: :ok
@@ -189,6 +162,24 @@ class MadmpFragmentsController < ApplicationController
 
 
   private
+
+  def render_fragment_json(fragment, madmp_schema) 
+    {
+      'fragment' => fragment.get_full_fragment(with_ids: true, with_template_name: true),
+      'answer_id' => fragment.answer_id,
+      'template' => {
+        id: fragment.madmp_schema_id,
+        name: madmp_schema.name,
+        schema: madmp_schema.schema,
+        api_client: if madmp_schema.api_client.present?
+          {
+            id: madmp_schema.api_client_id,
+            name: madmp_schema.api_client.name
+          } 
+        end
+      }
+    }
+  end
 
   # Since the StaleObjectError is triggered on the Answer we need to recover the
   # MadmpFragment data from the form, because the stale MadmpFragment has not yet been modified

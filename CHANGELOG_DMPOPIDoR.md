@@ -2,12 +2,19 @@
 
 **Attention** Cette liste de changements concerne les déploiements sur nos serveurs de test en interne.
 
+## 06/06/2024
+- Amélioration de l'affichage lors du changement entre différents types de produits de recherche.
+- Retrait de l'initialisation des données d'un formulaire à la première ouverture d'une question: des données vides ne seront plus créées dans la base lorsque l'on ouvre une question pour la première fois. Un formulaire vide est affiché, les données sont initialisées dans la base lors de la première sauvegarde.
+- Les Clients API ne peuvent désormais plus accéder au fragments liés au plans auquels ils n'ont pas accès.
+- Retrait de la possibilité de mise à jour des fragments par les cliens API.
+- Traduction des thèmes.
+
 ## 23/05/2024
 
 - Ajout des traduction dans les groupes de recommendations (via un champs)
 - Récupération des groupes de recommendations selon la locale du plan (par défaut: fr-FR)
-
 - Ajout du support du Produit de Recherche Logiciel.
+
 
 ## 14/05/2024
 
