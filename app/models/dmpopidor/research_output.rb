@@ -122,6 +122,42 @@ module Dmpopidor
 
     end
 
+    def serialize_json(with_questions_with_guidance = false)
+      ro_fragment = json_fragment()
+      module_id = ro_fragment.additional_info['moduleId']
+      template = module_id ? ::Template.find(module_id) :  plan.template
+
+      questions_with_guidance = []
+
+      if with_questions_with_guidance
+        guidance_presenter = ::GuidancePresenter.new(plan)
+        questions_with_guidance = template.questions.select do |q|
+          question = ::Question.find(q.id)
+          guidance_presenter.any?(question:)
+        end.pluck(:id)
+      end
+
+      return {
+        id: id,
+        abbreviation: abbreviation,
+        title: title,
+        order: display_order,
+        type: ro_fragment.research_output_description['data']['type'] || nil,
+        configuration: ro_fragment.additional_info,
+        answers: answers.map do |a|
+          {
+            answer_id: a.id,
+            question_id: a.question_id,
+            fragment_id: a.madmp_fragment.id,
+            madmp_schema_id: a.madmp_fragment.madmp_schema_id
+          }
+        end,
+        questions_with_guidance:,
+        template: template.serialize_json
+      }
+
+    end
+
     def has_personal_data
       json_fragment.additional_info['hasPersonalData'] || false
     end

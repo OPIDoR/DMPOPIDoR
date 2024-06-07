@@ -391,25 +391,7 @@ module Dmpopidor
         id: plan.id,
         dmp_id: plan.json_fragment.id,
         research_outputs: plan.research_outputs.order(:display_order).map do |ro|
-          {
-            id: ro.id,
-            abbreviation: ro.abbreviation,
-            title: ro.title,
-            order: ro.display_order,
-            type: ro.json_fragment.research_output_description['data']['type'] || nil,
-            configuration: ro.json_fragment.additional_info,
-            answers: ro.answers.map do |a|
-              {
-                answer_id: a.id,
-                question_id: a.question_id,
-                fragment_id: a.madmp_fragment.id,
-                madmp_schema_id: a.madmp_fragment.madmp_schema_id
-              }
-            end,
-            template: ro.json_fragment.additional_info['moduleId'] ? 
-                      ::Template.find(ro.json_fragment.additional_info['moduleId']).serialize_json :
-                      plan.template.serialize_json
-          }
+          ro.serialize_json
         end,
         questions_with_guidance: plan.template.questions.select do |q|
           question = ::Question.find(q.id)

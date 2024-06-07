@@ -26,28 +26,7 @@ module Dmpopidor
       ro_fragment = @research_output.json_fragment
       module_id = ro_fragment.additional_info['moduleId']
 
-      guidance_presenter = ::GuidancePresenter.new(plan)
-      render json: {
-        id: @research_output.id,
-        abbreviation: @research_output.abbreviation,
-        title: @research_output.title,
-        order: @research_output.display_order,
-        type: ro_fragment.research_output_description['data']['type'] || nil,
-        configuration: ro_fragment.additional_info,
-        answers: @research_output.answers.map do |a|
-          {
-            answer_id: a.id,
-            question_id: a.question_id,
-            fragment_id: a.madmp_fragment.id,
-            madmp_schema_id: a.madmp_fragment.madmp_schema_id
-          }
-        end,
-        questions_with_guidance: plan.template.questions.select do |q|
-          question = ::Question.find(q.id)
-          guidance_presenter.any?(question:)
-        end.pluck(:id),
-        template: module_id ? ::Template.find(module_id).serialize_json :  plan.template.serialize_json
-      }
+      render json: @research_output.serialize_json(with_questions_with_guidance = true)
     end
     # rubocop:enable Metrics/MethodLength, Metrics/AbcSize
 
@@ -65,27 +44,15 @@ module Dmpopidor
             display_order: max_order
           )
           created_ro.create_json_fragments(params[:configuration])
+          ro_fragment = created_ro.json_fragment
+          module_id = ro_fragment.additional_info['moduleId']
 
           render json: {
             id: @plan.id,
             created_ro_id: created_ro.id,
             dmp_id: @plan.json_fragment.id,
             research_outputs: @plan.research_outputs.order(:display_order).map do |ro|
-              {
-                id: ro.id,
-                abbreviation: ro.abbreviation,
-                title: ro.title,
-                order: ro.display_order,
-                type: ro.json_fragment.research_output_description['data']['type'],
-                configuration: ro.json_fragment.additional_info,
-                answers: ro.answers.map do |a|
-                  {
-                    answer_id: a.id,
-                    question_id: a.question_id,
-                    fragment_id: a.madmp_fragment.id
-                  }
-                end
-              }
+              ro.serialize_json
             end
           }
         rescue ActiveRecord::RecordInvalid  => e
@@ -127,21 +94,7 @@ module Dmpopidor
             status: 200,
             message: 'Research output updated',
             research_outputs: research_outputs.order(:display_order).map do |ro|
-              {
-                id: ro.id,
-                abbreviation: ro.abbreviation,
-                title: ro.title,
-                order: ro.display_order,
-                type: ro.json_fragment.research_output_description['data']['type'],
-                configuration: ro.json_fragment.additional_info,
-                answers: ro.answers.map do |a|
-                  {
-                    answer_id: a.id,
-                    question_id: a.question_id,
-                    fragment_id: a.madmp_fragment.id
-                  }
-                end
-              }
+              ro.serialize_json
             end
           },
           status: :ok
@@ -163,21 +116,7 @@ module Dmpopidor
           id: @plan.id,
           dmp_id: @plan.json_fragment.id,
           research_outputs: @plan.research_outputs.order(:display_order).map do |ro|
-            {
-              id: ro.id,
-              abbreviation: ro.abbreviation,
-              title: ro.title,
-              order: ro.display_order,
-              type: ro.json_fragment.research_output_description['data']['type'],
-              configuration: ro.json_fragment.additional_info,
-              answers: ro.answers.map do |a|
-                {
-                  answer_id: a.id,
-                  question_id: a.question_id,
-                  fragment_id: a.madmp_fragment.id
-                }
-              end
-            }
+            ro.serialize_json
           end
         }
       else
