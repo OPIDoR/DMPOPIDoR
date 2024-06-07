@@ -25,7 +25,6 @@ class DmpMapping < ApplicationRecord
   enum type_mapping: { form: 0, json: 1 }
 
   validates :target_id, presence: true, if: :is_form?
-  validates :mapping, presence: true
   validates :name, presence: true
 
   def is_form?

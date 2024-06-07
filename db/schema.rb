@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2024_06_07_120042) do
+ActiveRecord::Schema[7.1].define(version: 2024_06_07_131538) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
   enable_extension "unaccent"
@@ -144,9 +144,9 @@ ActiveRecord::Schema[7.1].define(version: 2024_06_07_120042) do
     t.bigint "source_id"
     t.bigint "target_id"
     t.json "mapping"
+    t.string "name"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.string "name"
     t.index ["source_id"], name: "index_dmp_mappings_on_source_id"
     t.index ["target_id"], name: "index_dmp_mappings_on_target_id"
   end
@@ -946,6 +946,8 @@ ActiveRecord::Schema[7.1].define(version: 2024_06_07_120042) do
   add_foreign_key "answers_question_options", "answers", deferrable: :deferred
   add_foreign_key "answers_question_options", "question_options", deferrable: :deferred
   add_foreign_key "conditions", "questions"
+  add_foreign_key "dmp_mappings", "templates", column: "source_id"
+  add_foreign_key "dmp_mappings", "templates", column: "target_id"
   add_foreign_key "guidance_groups", "orgs", deferrable: :deferred
   add_foreign_key "guidances", "guidance_groups", deferrable: :deferred
   add_foreign_key "guided_tours", "users"
