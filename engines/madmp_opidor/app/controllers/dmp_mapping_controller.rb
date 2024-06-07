@@ -10,7 +10,8 @@ class DmpMappingController < ApplicationController
   # GET /dmp_mapping
   def index
     mappings = DmpMapping.all
-    render json: { message: 'DMPOPIDoR mappings', mappings: mappings }, status: :ok
+    render json: { message: 'DMPOPIDoR mappings', mappings: }, # .as_json(only: %i[id type_mapping source_id target_id mapping name])
+           status: :ok
   end
 
   # GET /dmp_mapping/:id
@@ -56,6 +57,6 @@ class DmpMappingController < ApplicationController
   private
 
   def mapping_params
-    params.require(:dmp_mapping).permit(:type_mapping, :source_id, :target_id, mapping: {})
+    params.require(:dmp_mapping).permit(:type_mapping, :source_id, :target_id, :name, mapping: {})
   end
 end
