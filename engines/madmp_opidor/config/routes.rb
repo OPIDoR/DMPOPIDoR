@@ -9,7 +9,7 @@ Rails.application.routes.draw do
     end
     resources :registry_values, only: %i[edit update destroy]
     resources :madmp_schemas, only: %i[index new create edit update destroy]
-    resources :template_mappings, only: %i[index show create update destroy]
+    resources :template_mappings, only: %i[index new edit show create update destroy]
   end
 
   resources :madmp_fragments, only: %i[show create update destroy] do
@@ -89,7 +89,5 @@ Rails.application.routes.draw do
       get ':id/index/:page', action: :index, on: :collection, as: :index
     end
   end
-
-  # resources :dmp_mapping, only: %i[index show create update destroy]
 end
 # rubocop:enable Metrics/BlockLength
