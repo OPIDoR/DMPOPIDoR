@@ -439,7 +439,6 @@ Rails.application.routes.draw do
                                    controller: 'research_projects',
                                    constraints: { format: 'json' }
 
-  resources :dmp_mapping, only: %i[index show create update destroy]
   # mount MadmpOpidor::Engine => '/madmp_opidor', as: 'madmp_opidor'
 end
 # rubocop:enable Metrics/BlockLength

@@ -89,5 +89,7 @@ Rails.application.routes.draw do
       get ':id/index/:page', action: :index, on: :collection, as: :index
     end
   end
+
+  resources :dmp_mapping, only: %i[index show create update destroy]
 end
 # rubocop:enable Metrics/BlockLength
