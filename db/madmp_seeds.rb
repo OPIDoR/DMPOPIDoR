@@ -44,6 +44,7 @@ templates = [
     locale: "fr-FR",
     is_default: true,
     type: 'structured',
+    is_recommended: true,
     version: 0,
     visibility: Template.visibilities[:organisationally_visible],
     links: { "funder": [], "sample_plan": [] },
@@ -70,6 +71,7 @@ templates = [
     locale: "en-GB",
     is_default: false,
     type: 'structured',
+    is_recommended: true,
     version: 0,
     visibility: Template.visibilities[:organisationally_visible],
     links: { "funder": [], "sample_plan": [] },
@@ -88,6 +90,32 @@ templates = [
       <p>Recommendations are provided to help researchers fill this model and ensure that all relevant aspects of data management are effectively covered.</p>
       <p>* Acronym for Findable, Accessible, Interoperable, Reusable.</p>
     DESCRIPTION
+  },
+  {
+    title: "Module template for Software research outputs",
+    published: true,
+    org: Org.find_by(abbreviation: "Science Europe"),
+    locale: "en-GB",
+    is_default: false,
+    type: 'module',
+    data_type: 'software',
+    version: 0,
+    visibility: Template.visibilities[:organisationally_visible],
+    links: { "funder": [], "sample_plan": [] },
+    description: "<p>Module template for Software research outputs.</p>"
+  },
+  {
+    title: "Modèle module pour les produits de recherche Logiciel",
+    published: true,
+    org: Org.find_by(abbreviation: "Science Europe"),
+    locale: "fr-FR",
+    is_default: false,
+    type: 'module',
+    data_type: 'software',
+    version: 0,
+    visibility: Template.visibilities[:organisationally_visible],
+    links: { "funder": [], "sample_plan": [] },
+    description: "<p>Modèle module pour les produits de recherche Logiciel.</p>"
   }
 ]
 # Template creation calls defaults handler which sets is_default and
@@ -107,6 +135,18 @@ phases = [
     number: 1,
     modifiable: true,
     template: Template.find_by(title: "Science Europe: structured template")
+  },
+  {
+    title: "Module phase for Software research outputs",
+    number: 1,
+    modifiable: true,
+    template: Template.find_by(title: "Module template for Software research outputs")
+  },
+  {
+    title: "Phase module pour les produits de recherche Logiciel",
+    number: 1,
+    modifiable: true,
+    template: Template.find_by(title: "Modèle module pour les produits de recherche Logiciel")
   }
 ]
 
@@ -119,6 +159,14 @@ se_standard_phase_fr = Phase.find_by(
 se_standard_phase_en = Phase.find_by(
   title: "Structured DMP",
   template: Template.find_by(title: "Science Europe: structured template")
+)
+se_software_module_phase_en = Phase.find_by(
+  title: "Module phase for Software research outputs",
+  template: Template.find_by(title: "Module template for Software research outputs")
+)
+se_software_module_phase_fr = Phase.find_by(
+  title: "Phase module pour les produits de recherche Logiciel",
+  template: Template.find_by(title: "Modèle module pour les produits de recherche Logiciel")
 )
 
 # Create sections for SE detailed phase
@@ -197,10 +245,31 @@ sections = [
     modifiable: true,
     phase: se_standard_phase_en
   },
-  {    title: "Data sharing and long-term preservation",
+  {
+    title: "Data sharing and long-term preservation",
     number: 6,
     modifiable: true,
     phase: se_standard_phase_en
+  },
+  # Module template for Software research outputs
+  ####################################################
+  ##################### ENGLISH ######################
+  ####################################################
+  {
+    title: "Section for Software research outputs",
+    number: 1,
+    modifiable: true,
+    phase: se_software_module_phase_en
+  },
+  # Modèle module pour les produits de recherche Logiciel
+  ####################################################
+  ##################### FRENCH #######################
+  ####################################################
+  {
+    title: "Section pour produit de recherches Logiciel",
+    number: 1,
+    modifiable: true,
+    phase: se_software_module_phase_fr
   }
 ]
 sections.map { |s| Section.create!(s) }
@@ -504,12 +573,39 @@ questions = [
     madmp_schema: MadmpSchema.find_by(name: "DataPreservationStandard"),
     modifiable: true,
     themes: [Theme.find_by(title: "Data Description")]
-  }
+  },
+  # Questions for "Section for Software research outputs" Phase,
+  ####################################################
+  ##################### ENGLISH #######################
+  ####################################################
+  {
+    text: "Software Description",
+    number: 1,
+    section: Section.find_by(
+      title: "Section for Software research outputs",
+      phase: se_software_module_phase_en
+    ),
+    question_format: structured,
+    madmp_schema: MadmpSchema.find_by(name: "SoftwareDescriptionStandard"),
+    modifiable: true,
+    themes: [Theme.find_by(title: "Data Description")]
+  },
+  # Questions for "Section pour produit de recherches Logiciel" Phase,
+  ####################################################
+  ##################### FRENCH #######################
+  ####################################################
+  {
+    text: "Description du Logiciel",
+    number: 1,
+    section: Section.find_by(
+      title: "Section pour produit de recherches Logiciel",
+      phase: se_software_module_phase_fr
+    ),
+    question_format: structured,
+    madmp_schema: MadmpSchema.find_by(name: "SoftwareDescriptionStandard"),
+    modifiable: true,
+    themes: [Theme.find_by(title: "Data Description")]
+  },
 ]
 questions.map { |q| Question.create!(q) }
-# questions.each do |q|
-#   question = Question.create(q)
-#   p question.errors
 
-#   return
-# end

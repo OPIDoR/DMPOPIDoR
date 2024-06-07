@@ -170,6 +170,8 @@ namespace :madmpopidor do
     p 'Seeding database...'
     Rake::Task['madmpopidor:load_registries'].execute
     Rake::Task['madmpopidor:load_templates'].execute
+    ENV['type'] = 'software'
+    Rake::Task['madmpopidor:load_templates'].execute
     load(Rails.root.join('db', 'madmp_seeds.rb'))
     Rake::Task['madmpopidor:initialize_plan_fragments'].execute
   end
@@ -178,14 +180,20 @@ namespace :madmpopidor do
   desc 'Load JSON templates for structured questions in the database'
   task load_templates: :environment do
     p 'Loading maDMP Templates...'
+    path = 'engines/madmp_opidor/config/templates'
+    data_type = 'none'
+    if ENV['type'].eql?('software')
+      path = 'engines/madmp_opidor/config/templates/software'
+      data_type = 'software'
+    end
     # Read and parse index.json file
-    index_path = Rails.root.join('engines/madmp_opidor/config/templates/index.json')
+    index_path = Rails.root.join("#{path}/index.json")
     schemas_index = JSON.parse(File.read(index_path))
 
     # Iterate over the schemas of the index.json file
     schemas_index.each do |schema_desc|
       # Read, parse and extract useful data from the JSON schema
-      schema_path = Rails.root.join("engines/madmp_opidor/config/templates/#{schema_desc['path']}")
+      schema_path = Rails.root.join("#{path}/#{schema_desc['path']}")
       json_schema = JSON.parse(File.read(schema_path))
       title = json_schema['title']
       classname = schema_desc['classname']
@@ -197,6 +205,7 @@ namespace :madmpopidor do
           s.version = 1
           s.org_id = Org.first.id
           s.classname = classname
+          s.data_type = data_type
         end
         schema.update(schema: json_schema)
         p "#{schema.name} loaded"

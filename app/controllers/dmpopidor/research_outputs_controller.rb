@@ -22,9 +22,6 @@ module Dmpopidor
       @research_output = ::ResearchOutput.find(params[:id])
       plan = @research_output.plan
       authorize @research_output
-      
-      ro_fragment = @research_output.json_fragment
-      module_id = ro_fragment.additional_info['moduleId']
 
       render json: @research_output.serialize_json(with_questions_with_guidance = true)
     end
@@ -44,8 +41,6 @@ module Dmpopidor
             display_order: max_order
           )
           created_ro.create_json_fragments(params[:configuration])
-          ro_fragment = created_ro.json_fragment
-          module_id = ro_fragment.additional_info['moduleId']
 
           render json: {
             id: @plan.id,
