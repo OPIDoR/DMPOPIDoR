@@ -2,6 +2,9 @@
 
 **Attention** Cette liste de changements concerne les déploiements sur nos serveurs de test en interne.
 
+## 07/06/2024
+- Correction du problème d'accès à l'onglet Rédiger.
+
 ## 06/06/2024
 - Amélioration de l'affichage lors du changement entre différents types de produits de recherche.
 - Retrait de l'initialisation des données d'un formulaire à la première ouverture d'une question: des données vides ne seront plus créées dans la base lorsque l'on ouvre une question pour la première fois. Un formulaire vide est affiché, les données sont initialisées dans la base lors de la première sauvegarde.
