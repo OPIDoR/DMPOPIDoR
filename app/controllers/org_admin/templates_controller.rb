@@ -71,7 +71,16 @@ module OrgAdmin
       authorize Template
       customizations = Template.latest_customized_version_per_org(current_user.org.id)
                                .where(org_id: current_user.org.id)
-      funder_templates = Template.latest_customizable.includes(:org)
+                               
+      # --------------------------------
+      # Start DMP OPIDoR Customization
+      # CHANGES
+      #  - Removed structured templates from customizable templates list
+      # --------------------------------
+      funder_templates = Template.latest_customizable.includes(:org).where(type: Template.types['classic'])
+      # --------------------------------
+      # End DMP OPIDoR Customization
+      # --------------------------------
       # We use this to validate the counts below in the event that a template was
       # customized but the base template org is no longer a funder
       funder_template_families = funder_templates.collect(&:family_id)
