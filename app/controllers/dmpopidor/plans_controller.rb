@@ -6,6 +6,31 @@ module Dmpopidor
   module PlansController
     include Dmpopidor::ErrorHelper
 
+    def index
+      authorize ::Plan
+      @plans = ::Plan.includes(:roles).active(current_user)
+      @organisationally_or_publicly_visible = if current_user.org.is_other?
+                                                []
+                                              else
+                                                ::Plan.organisationally_or_publicly_visible(current_user).page(1)
+                                              end
+
+      respond_to do |format|
+        format.html
+        format.json do
+          plans = @plans.zip(@organisationally_or_publicly_visible).flatten.compact
+          plans = plans.map do | plan |
+            {
+              id: plan.id,
+              title: plan.title,
+              research_outputs: plan.research_outputs
+            }
+          end
+          render json: { plans: plans }
+        end
+      end
+    end
+
     # CHANGES:
     # - Emptied method as logic is now handled by ReactJS
     def new

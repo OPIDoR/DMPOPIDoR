@@ -203,6 +203,17 @@ module Dmpopidor
     end
     # rubocop:enable Metrics/AbcSize,Metrics/MethodLength
 
+    def import
+      p "============== IMPORT"
+      # body = request.body.read
+      # json = JSON.parse(body);
+      # plan = ::Plan.find(json.plan_id)
+      # research_output = ::ResearchOutput.find(json.uuid)
+      # authorize plan
+
+      render json: { plan: 'TOTO' }
+    end
+
     def sort
       @plan = ::Plan.find(params[:plan_id])
       authorize @plan
