@@ -7,6 +7,7 @@ module SuperAdmin
     include Dmpopidor::ErrorHelper
     respond_to :json, :html
     skip_before_action :verify_authenticity_token, only: %i[create update destroy] # TODO: Not a good practice, CSRF issues may arise
+    # protect_from_forgery with: :null_session, only: %i[create update destroy]
 
     # GET /super_admin/template_mappings
     def index
@@ -15,7 +16,7 @@ module SuperAdmin
         format.html # index.html.erb
         format.json do
           render json: { message: 'DMPOPIDoR mappings',
-                         mappings: @mappings.as_json(only: %i[id type_mapping source_id target_id mapping name]) }
+                         mappings: @mappings.as_json }
         end
       end
     end
@@ -43,20 +44,28 @@ module SuperAdmin
     # PATCH/PUT /super_admin/template_mappings/:id
     def update
       mapping = DmpMapping.find_by(id: params[:id])
-      if mapping&.update(mapping_params)
-        render json: { message: 'Mapping updated', **mapping.as_json }, status: :ok
+      if mapping
+        if mapping.update(mapping_params)
+          render json: { message: 'Mapping updated', **mapping.as_json }, status: :ok
+        else
+          render json: { message: 'Error updating mapping', errors: mapping.errors.full_messages }, status: :bad_request
+        end
       else
-        render json: { message: 'Error updating mapping', errors: mapping.errors.full_messages }, status: :bad_request
+        render json: { message: 'Mapping not found' }, status: :not_found
       end
     end
 
     # DELETE /super_admin/template_mappings/:id
     def destroy
       mapping = DmpMapping.find_by(id: params[:id])
-      if mapping&.destroy
-        render json: { message: 'Mapping deleted' }, status: :ok
+      if mapping
+        if mapping.destroy
+          render json: { message: 'Mapping deleted', **mapping.as_json }, status: :ok
+        else
+          render json: { message: 'Error deleting mapping', errors: mapping.errors.full_messages }, status: :bad_request
+        end
       else
-        render json: { message: 'Error deleting mapping' }, status: :bad_request
+        render json: { message: 'Mapping not found' }, status: :not_found
       end
     end
 
