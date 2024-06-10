@@ -13,6 +13,14 @@ module SuperAdmin
       authorize @user
       @departments = @user.org.departments.order(:name)
       @plans = Plan.active(@user).page(1)
+      # Start DMP OPIDoR Customization
+      # CHANGES :
+      #   - SuperAdmin should be able to change any org for a user
+      # --------------------------------
+      @orgs = Org.includes(identifiers: [:identifier_scheme]).all
+      # --------------------------------
+      # End DMP OPIDoR Customization
+      # --------------------------------
       render 'super_admin/users/edit',
              locals: { user: @user,
                        departments: @departments,
