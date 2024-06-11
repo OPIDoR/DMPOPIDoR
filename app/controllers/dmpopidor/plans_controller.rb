@@ -304,13 +304,20 @@ module Dmpopidor
         return
       end
 
-      new_groups = {}
-      groups = guidances[0][:groups]
-      groups.each_key do |g|
-        title = g.translations[@plan.template.locale].present? ? g.translations['en-GB']['title'] : g.title
-        new_groups[title] = groups[g]
+      guidances = guidances.map do |guidance|
+        {
+          name: guidance[:name],
+          groups: guidance[:groups].to_a[0][1],
+        }
       end
-      guidances[0][:groups] = new_groups
+
+      # new_groups = {}
+      # groups = guidances[0][:groups]
+      # groups.each_key do |g|
+      #   title = g.translations[@plan.template.locale].present? ? g.translations['en-GB']['title'] : g.title
+      #   new_groups[title] = groups[g]
+      # end
+      # guidances[0][:groups] = new_groups
 
       render json: { status: 200, message: "Guidances for plan [#{plan_id}] and question [#{question_id}]", guidances: guidances }, status: :ok
     end
