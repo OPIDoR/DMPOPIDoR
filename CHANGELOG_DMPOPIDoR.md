@@ -4,6 +4,10 @@
 
 
 - Les sous-fragments constants sont désormais supprimables (#10910)
+- Ajout de la description des sections dans l'onglet Rédiger (#10903)
+- Retrait des modèles structurés de la liste des modèles personnalisables (#11039)
+- Retrait des organismes non gérés de la création de compte et modification de profil (hors super admin) (#11056)
+- La vérification d'unicité d'un élément ne prend plus en compte les propriétés vides (#10435)
 
 # 18/04/2024
 
