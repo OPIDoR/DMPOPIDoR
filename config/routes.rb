@@ -94,6 +94,7 @@ Rails.application.routes.draw do
   #       resources :guidances, except: %i[show]
   #     end
   resources :guidances, path: 'org/admin/guidance', only: [] do
+    post 'render_themes', on: :collection, constraints: { format: [:json] }
     member do
       get 'admin_index'
       get 'admin_edit'

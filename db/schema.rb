@@ -10,10 +10,14 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2024_05_23_120949) do
+ActiveRecord::Schema[7.1].define(version: 2024_05_31_083744) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
   enable_extension "unaccent"
+
+  # Custom types defined in this database.
+  # Note that some types may not work with other database engines. Be careful if changing database.
+  create_enum "mapping_type", ["json", "form"]
 
   create_table "admin_users", id: :serial, force: :cascade do |t|
     t.string "email", default: "", null: false
@@ -133,6 +137,17 @@ ActiveRecord::Schema[7.1].define(version: 2024_05_23_120949) do
     t.datetime "created_at", precision: nil, null: false
     t.datetime "updated_at", precision: nil, null: false
     t.index ["org_id"], name: "index_departments_on_org_id"
+  end
+
+  create_table "dmp_mappings", force: :cascade do |t|
+    t.integer "type_mapping", default: 0
+    t.bigint "source_id"
+    t.bigint "target_id"
+    t.json "mapping"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["source_id"], name: "index_dmp_mappings_on_source_id"
+    t.index ["target_id"], name: "index_dmp_mappings_on_target_id"
   end
 
   create_table "dmptemplates", id: :serial, force: :cascade do |t|
@@ -785,8 +800,8 @@ ActiveRecord::Schema[7.1].define(version: 2024_05_23_120949) do
     t.text "description"
     t.datetime "created_at", precision: nil, null: false
     t.datetime "updated_at", precision: nil, null: false
-    t.string "locale"
     t.string "slug"
+    t.json "translations", default: {}
   end
 
   create_table "themes_in_guidance", id: false, force: :cascade do |t|

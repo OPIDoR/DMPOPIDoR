@@ -39,7 +39,7 @@
               <% end %>
             </td>
             <td><%= if guidance.locale.present?
-                      Language.find_by(abbreviation: guidance.locale)&.name || 'N/C'
+                      Language.find_by(id: guidance.guidance_group.language_id)&.name || 'N/C'
                     else
                       'N/C'
                     end %>

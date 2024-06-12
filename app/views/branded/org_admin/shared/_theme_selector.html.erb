@@ -28,12 +28,12 @@
           <div class="checkbox">
             <% namespace = f.object.class.name.downcase %>
             <% id = f.object.id.present? ? f.object.id : 'new' %>
-            <input id="<%= id %>_<%= namespace %>_theme_ids_<%= theme.id %>"
+            <input id="<%= id %>_<%= namespace %>_theme_ids_<%= theme[:id] %>"
                    name="<%= namespace %>[theme_ids][]"
                    type="<%= as_radio ? 'radio' : 'checkbox' %>"
                    <%= required && (theme == all_themes.first ? ' aria-required=true ' : '') %>
-                   value="<%= theme.id %>"<%= f.object.themes.include?(theme) ? ' checked="checked"' : '' %>>
-            <%= theme.title %>
+                   value="<%= theme[:id] %>"<%= f.object.themes.include?(theme) ? ' checked="checked"' : '' %>>
+            <%= theme[:title] %>
           </div>
           <% cntr += 1 %>
         <% end %>
