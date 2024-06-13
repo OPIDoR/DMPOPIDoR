@@ -221,7 +221,7 @@ themes = [
   {title: 'Budget'},
   {title: 'Related Policies'}
 ]
-themes.each { |t| Theme.find_or_create_by(t.merge(locale: default_locale)) }
+themes.each { |t| Theme.find_or_create_by(t) }
 
 # Token Permission Types
 # -------------------------------------------------------
