@@ -148,7 +148,7 @@ services:
       - dmpopidor_network
 
   redis:
-    image: redis:7.2.4-alpine3.19
+    image: valkey/valkey:7.2-alpine3.19
     # command: "redis-server /etc/redis/redis.conf"
     ports:
       - 6379:6379
