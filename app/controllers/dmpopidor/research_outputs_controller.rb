@@ -104,13 +104,14 @@ module Dmpopidor
     def destroy
       @research_output = ::ResearchOutput.find(params[:id])
       research_output_fragment = @research_output.json_fragment
-      authorize @plan
+      plan = @research_output.plan
+      authorize @research_output
       if @research_output.destroy
         research_output_fragment.destroy!
         render json: {
-          id: @plan.id,
-          dmp_id: @plan.json_fragment.id,
-          research_outputs: @plan.research_outputs.order(:display_order).map do |ro|
+          id: plan.id,
+          dmp_id: plan.json_fragment.id,
+          research_outputs: plan.research_outputs.order(:display_order).map do |ro|
             ro.serialize_json
           end
         }
