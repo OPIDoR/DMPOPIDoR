@@ -11,7 +11,7 @@ module SuperAdmin
 
     # GET /super_admin/template_mappings
     def index
-      @mappings = DmpMapping.all
+      @mappings = TemplateMapping.all
       respond_to do |format|
         format.html # index.html.erb
         format.json do
@@ -23,7 +23,7 @@ module SuperAdmin
 
     # GET /super_admin/template_mappings/:id
     def show
-      mapping = DmpMapping.find_by(id: params[:id])
+      mapping = TemplateMapping.find_by(id: params[:id])
       if mapping
         render json: { message: "DMPOPDIoR mapping for [#{params[:id]}]", **mapping.as_json }, status: :ok
       else
@@ -33,7 +33,7 @@ module SuperAdmin
 
     # POST /super_admin/template_mappings
     def create
-      mapping = DmpMapping.new(mapping_params)
+      mapping = TemplateMapping.new(mapping_params)
       if mapping.save
         render json: { message: 'Mapping created', **mapping.as_json }, status: :created
       else
@@ -43,7 +43,7 @@ module SuperAdmin
 
     # PATCH/PUT /super_admin/template_mappings/:id
     def update
-      mapping = DmpMapping.find_by(id: params[:id])
+      mapping = TemplateMapping.find_by(id: params[:id])
       if mapping
         if mapping.update(mapping_params)
           render json: { message: 'Mapping updated', **mapping.as_json }, status: :ok
@@ -57,7 +57,7 @@ module SuperAdmin
 
     # DELETE /super_admin/template_mappings/:id
     def destroy
-      mapping = DmpMapping.find_by(id: params[:id])
+      mapping = TemplateMapping.find_by(id: params[:id])
       if mapping
         if mapping.destroy
           render json: { message: 'Mapping deleted', **mapping.as_json }, status: :ok
@@ -72,7 +72,7 @@ module SuperAdmin
     private
 
     def mapping_params
-      params.require(:dmp_mapping).permit(:type_mapping, :source_id, :target_id, :name, mapping: {})
+      params.require(:template_mapping).permit(:type_mapping, :source_id, :target_id, :name, mapping: {})
     end
   end
 end

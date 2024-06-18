@@ -2,7 +2,7 @@
 
 # == Schema Information
 #
-# Table name: dmp_mapping
+# Table name: template_mapping
 #
 #  id         :integer          not null, primary key
 #  type_mapping       :enum             not null, default(form)
@@ -19,7 +19,7 @@
 #  fk_rails_...  (target_id => template.id)
 #
 
-class DmpMapping < ApplicationRecord
+class TemplateMapping < ApplicationRecord
   belongs_to :source, class_name: 'Template', foreign_key: 'source_id'
   belongs_to :target, class_name: 'Template', foreign_key: 'target_id', optional: true
   enum type_mapping: { form: 0, json: 1 }

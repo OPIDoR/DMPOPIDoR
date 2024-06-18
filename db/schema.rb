@@ -139,7 +139,7 @@ ActiveRecord::Schema[7.1].define(version: 2024_06_07_131538) do
     t.index ["org_id"], name: "index_departments_on_org_id"
   end
 
-  create_table "dmp_mappings", force: :cascade do |t|
+  create_table "template_mappings", force: :cascade do |t|
     t.integer "type_mapping", default: 0
     t.bigint "source_id"
     t.bigint "target_id"
@@ -147,8 +147,8 @@ ActiveRecord::Schema[7.1].define(version: 2024_06_07_131538) do
     t.string "name"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["source_id"], name: "index_dmp_mappings_on_source_id"
-    t.index ["target_id"], name: "index_dmp_mappings_on_target_id"
+    t.index ["source_id"], name: "index_template_mappings_on_source_id"
+    t.index ["target_id"], name: "index_template_mappings_on_target_id"
   end
 
   create_table "dmptemplates", id: :serial, force: :cascade do |t|
@@ -946,8 +946,8 @@ ActiveRecord::Schema[7.1].define(version: 2024_06_07_131538) do
   add_foreign_key "answers_question_options", "answers", deferrable: :deferred
   add_foreign_key "answers_question_options", "question_options", deferrable: :deferred
   add_foreign_key "conditions", "questions"
-  add_foreign_key "dmp_mappings", "templates", column: "source_id"
-  add_foreign_key "dmp_mappings", "templates", column: "target_id"
+  add_foreign_key "template_mappings", "templates", column: "source_id"
+  add_foreign_key "template_mappings", "templates", column: "target_id"
   add_foreign_key "guidance_groups", "orgs", deferrable: :deferred
   add_foreign_key "guidances", "guidance_groups", deferrable: :deferred
   add_foreign_key "guided_tours", "users"
