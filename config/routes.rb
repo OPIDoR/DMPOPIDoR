@@ -147,6 +147,7 @@ Rails.application.routes.draw do
     get 'import', action: :import, on: :collection
     post 'import', action: :import_plan, on: :collection
     resource :export, only: [:show], controller: 'plan_exports'
+    get :export_with_mapping, action: :export_with_mapping, controller: 'plan_exports'
 
     resources :contributors, except: %i[show]
 

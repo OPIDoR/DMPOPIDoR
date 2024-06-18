@@ -438,6 +438,7 @@ class PlansController < ApplicationController
     # Start DMP OPIDoR Customization
     # --------------------------------
     @research_outputs = @plan.research_outputs
+    @template_mappings = TemplateMapping.where(source_id: @plan.template_id)
     # --------------------------------
     # End DMP OPIDoR Customization
     # --------------------------------

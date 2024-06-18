@@ -210,3 +210,21 @@
       class: "btn btn-primary",
       type: "submit") %>
 <% end %>
+
+<% if @plan.template.structured? && @template_mappings.any? %>
+  <%= form_tag(plan_export_with_mapping_path(@plan), method: :get, target: '_blank', id: 'download_form') do |f| %>
+    <h2><%= _('Export with mapping')%></h2>
+    <p><%= _('Export your plan according to one of the selected mappings.') %></p>
+    <%= select_tag("mapping_id",
+                    options_from_collection_for_select(@template_mappings, "id", "name"),
+                    include_blank: true,
+                    data: { toggle: "tooltip", html: true },
+                    class: "form-control") %>
+    
+
+    <%= button_tag(sanitize(_("Export Plan") % { open_in_new_window_text: _('Opens in new window') },
+          tags: %w{ span em }),
+        class: "btn btn-primary",
+        type: "submit") %>               
+  <% end %>
+<% end %>

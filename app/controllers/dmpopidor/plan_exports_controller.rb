@@ -98,6 +98,19 @@ module Dmpopidor
                                    selected_research_outputs: selected_research_outputs
                                  }), filename: "#{file_name}_#{json_format}.json"
     end
+    
+    def export_with_mapping
+      plan = ::Plan.find(params[:plan_id])
+      mapping = ::TemplateMapping.find(params[:mapping_id])
+      authorize plan
+
+      p "#################"
+      p plan
+      p mapping
+      p "#################"
+
+    end
+
 
     def export_params
       params.fetch(:export, {})

@@ -66,5 +66,9 @@ module Dmpopidor
     def contributors_data?
       @record.readable_by?(@user.id)
     end
+
+    def export_with_mapping?
+      @record.readable_by?(@user.id)
+    end
   end
 end
