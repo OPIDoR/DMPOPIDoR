@@ -6,11 +6,11 @@ module SuperAdmin
   class TemplateMappingsController < ApplicationController
     include Dmpopidor::ErrorHelper
     respond_to :json, :html
-    skip_before_action :verify_authenticity_token, only: %i[create update destroy] # TODO: Not a good practice, CSRF issues may arise
-    # protect_from_forgery with: :null_session, only: %i[create update destroy]
+    protect_from_forgery with: :null_session, only: %i[create update destroy] # use with: :exception instead of :null_session ?
 
     # GET /super_admin/template_mappings
     def index
+      authorize(TemplateMapping)
       @mappings = TemplateMapping.all
       respond_to do |format|
         format.html # index.html.erb
@@ -23,6 +23,7 @@ module SuperAdmin
 
     # GET /super_admin/template_mappings/:id
     def show
+      authorize(TemplateMapping)
       mapping = TemplateMapping.find_by(id: params[:id])
       if mapping
         render json: { message: "DMPOPDIoR mapping for [#{params[:id]}]", **mapping.as_json }, status: :ok
@@ -33,6 +34,7 @@ module SuperAdmin
 
     # POST /super_admin/template_mappings
     def create
+      # authorize(TemplateMapping) # Not working
       mapping = TemplateMapping.new(mapping_params)
       if mapping.save
         render json: { message: 'Mapping created', **mapping.as_json }, status: :created
@@ -43,6 +45,7 @@ module SuperAdmin
 
     # PATCH/PUT /super_admin/template_mappings/:id
     def update
+      # authorize(TemplateMapping) # Not working
       mapping = TemplateMapping.find_by(id: params[:id])
       if mapping
         if mapping.update(mapping_params)
@@ -57,6 +60,7 @@ module SuperAdmin
 
     # DELETE /super_admin/template_mappings/:id
     def destroy
+      # authorize(TemplateMapping) # Not working
       mapping = TemplateMapping.find_by(id: params[:id])
       if mapping
         if mapping.destroy
