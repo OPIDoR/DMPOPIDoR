@@ -71,7 +71,7 @@ module DMPRoadmap
     # Used throughout the system via ApplicationService.application_name
     config.x.application.name = ENV.fetch('APPLICATION_NAME', 'DMP OPIDoR')
     # App version, displayed in the footer
-    config.x.application.version = ENV.fetch('APPLICATION_VERSION', 'V4.0.0')
+    config.x.application.version = ENV.fetch('APPLICATION_VERSION', 'V4.0.2')
     # App Github URL, displayed in the footer
     config.x.application.url = ENV.fetch('APPLICATION_URL', 'https://github.com/OPIDoR/DMPOPIDoR')
     config.x.application.release_notes_url = ENV.fetch('APPLICATION_RELEASE_NOTES_URL', 'https://github.com/OPIDoR/DMPOPIDoR/wiki/Releases')
@@ -119,7 +119,7 @@ module DMPRoadmap
     config.x.application.preferences = JSON.parse(ENV.fetch('APPLICATION_PREFERENCES', {
       email: {
         users: {
-          new_comment: false,
+          new_comment: true,
           admin_privileges: true,
           added_as_coowner: true,
           feedback_requested: true,
@@ -135,7 +135,7 @@ module DMPRoadmap
     }.to_json))
 
     # Setting to only take orgs from local and not allow on-the-fly creation
-    config.x.application.restrict_orgs = ENV.fetch('APPLICATION_RESTRICT_ORGS', false) .to_s.casecmp('true').zero?
+    config.x.application.restrict_orgs = ENV.fetch('APPLICATION_RESTRICT_ORGS', true) .to_s.casecmp('true').zero?
 
     # Defines if Guidances/Comments in toggleable & if it's opened by default
     config.x.application.guidance_comments_toggleable = ENV.fetch('APPLICATION_GUIDANCE_COMMENTS_TOGGLEABLE', true) .to_s.casecmp('true').zero?
@@ -186,7 +186,7 @@ module DMPRoadmap
     # updates a template question or guidance
     config.x.max_number_themes_per_column = ENV.fetch('MAX_NUMBER_THEMES_PER_COLUMN', 5)&.to_i
     # default results per page
-    config.x.results_per_page = ENV.fetch('RESULTS_PER_PAGE', 5)&.to_i
+    config.x.results_per_page = ENV.fetch('RESULTS_PER_PAGE', 10)&.to_i
 
     # ------------- #
     # PLAN DEFAULTS #
@@ -280,5 +280,9 @@ module DMPRoadmap
     # --------------------------------------------------- #
     config.x.dmpopidor.enable_research_structure_template = ENV.fetch('DMPOPIDOR_ENABLE_RESEARCH_STRUCTURE_TEMPLATE', true).to_s.casecmp('true').zero?
     config.x.dmpopidor.enable_research_outputs_uuid = ENV.fetch('DMPOPIDOR_ENABLE_RESEARCH_OUTPUTS_UUID', true).to_s.casecmp('true').zero?
+    config.x.create_first_research_output = ENV.fetch('CREATE_FIRST_RESEARCH_OUTPUT', false).to_s.casecmp('true').zero?
+    config.x.directus.url = ENV.fetch('DIRECTUS_URL', 'http://directus:8055')
+    config.x.directus.public_url = ENV.fetch('DIRECTUS_PUBLIC_URL', 'http://localhost:8080/directus')
+    config.x.dmpopidor.enable_third_party_form = ENV.fetch('ENABLE_THIRD_PARTY_FORM', false)
   end
 end

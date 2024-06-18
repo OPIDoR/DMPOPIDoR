@@ -7,7 +7,6 @@ services:
       target: dev
       args:
         - NODE_MAJOR=${NODE_MAJOR:-18}
-    profiles: ["dev"]
     depends_on:
       postgres:
         condition: service_healthy
@@ -28,9 +27,17 @@ services:
     networks:
       - dmpopidor_network
 
+  directus:
+    ports:
+      - ${DIRECTUS_PORT:-8055}:8055
+    networks:
+      - dmpopidor_network
+
   postgres:
     ports:
       - ${POSTGRES_PORT:-5432}:5432
+    networks:
+      - dmpopidor_network
 
 networks:
   dmpopidor_network:

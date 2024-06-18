@@ -1,1 +1,95 @@
-.gitignore
+# Ignore rbenv files
+.ruby-version
+
+# Ignore bundler config
+/.bundle
+
+# Ignore all logfiles, tempfiles, public assets,
+/log/*.log
+/tmp
+
+# Ignore PO/POT backups
+*.po.bak
+*.pot.bak
+
+# Ignore branded content
+#app/views/branded/*
+#app/assets
+#config/locales/static_pages/*.yml
+
+# Ignore db schema.rb
+# db/schema.rb
+
+# Ignore seed DBs
+db/data.yml
+
+# Ignore the test DB
+db/test.sqlite3
+db/test.sqlite3-journal
+
+# Ingore DB dump files
+*.sql
+*.psql
+*.sql.gz
+*.psql.gz
+
+# Ignore the SimpleCov output
+coverage
+
+# ignore IDE files
+.idea/*
+.vscode
+
+# Ignore MAC files
+.DS_Store
+
+# ignore yard doc files
+.yardoc/*
+
+# ignore yard generated documents
+/doc/*
+!/doc/README_FOR_APP
+
+# ignore auto-generated gettext files when running gettext:find
+config/locale/*/app.edit.po
+config/locale/*/app.po.time_stamp
+
+# Front-end related
+!.keep
+.byebug_history
+lib/data_cleanup/rules/org/fix_blank_abbreviation.yml
+.rspec
+
+.env
+.env.sample
+package-lock.json
+node_modules
+/public/packs
+/public/packs-test
+/public/tinymce
+/public/fonts
+/public/locales
+
+spec/examples.txt
+.postcssrc.yml
+reset.sh
+
+# Ignore master key for decrypting credentials and more.
+/config/master.key
+/config/credentials.yml.enc
+/config/database.yml
+
+yarn-error.log
+yarn-debug.log*
+.yarn-integrity
+/app/assets/builds/*
+!/app/assets/builds/.keep
+
+# Ignore briley AWS cloud9 script to start the application
+cloud9-start.sh
+
+puma.pid
+
+!/directus/**/*
+
+.git

@@ -1,53 +1,72 @@
 # Liste des changements
 
-**Attention** Cette liste de changements concerne les déploiements sur nos serveurs de test en interne. 
+**Attention** Cette liste de changements concerne les déploiements sur nos serveurs de test en interne.
 
-## 15/01/2024
-- Correction du problème engendrant la création de plusieurs contributeurs lors de l'ajout d'une personne dans un formulaire contenant plusieurs listes de contributeurs différentes (plans entité)
-- Correction d'un problème faisant disparaître la liste des contributeurs après la mise à jour d'un contributeur.
+## 07/06/2024
+- Correction du problème d'accès à l'onglet Rédiger.
 
-## 11/01/2024
-- Correction d'un problème d'export des plans entités au format JSON
-- Correction du problème d'affichage des listes d'organismes dans la création de plan, causé par l'absence de financeur.
+## 06/06/2024
+- Amélioration de l'affichage lors du changement entre différents types de produits de recherche.
+- Retrait de l'initialisation des données d'un formulaire à la première ouverture d'une question: des données vides ne seront plus créées dans la base lorsque l'on ouvre une question pour la première fois. Un formulaire vide est affiché, les données sont initialisées dans la base lors de la première sauvegarde.
+- Les Clients API ne peuvent désormais plus accéder au fragments liés au plans auquels ils n'ont pas accès.
+- Retrait de la possibilité de mise à jour des fragments par les cliens API.
+- Traduction des thèmes.
 
-## 10/01/2024
-- Correction du comportement des boutons dans les formulaires
-- Correction du problème d'export des plans pour les entités de recherche
-- Retrait du format d'export JSON RDA pour les plans pour les entités de recherche
-- Création de plan : la liste des financeurs prend désormais en compte le contexte
+## 23/05/2024
 
-## 17/11/2023
-- Correction de l'affichage du choix des recommandations (Carte KB #9917)
-- La recherche d'organisme n'est plus sensible aux accents (Carte KB #9844)
-- Mise à jour vers Ruby 3.2 & Rails 7.1
+- Ajout des traduction dans les groupes de recommendations (via un champs)
+- Récupération des groupes de recommendations selon la locale du plan (par défaut: fr-FR)
+- Ajout du support du Produit de Recherche Logiciel.
 
-## 29/09/2023
-- Correction du problème de bande blanche sous le pied de page (ce problème venait d'une image ajoutée dans par le code Matomo, a voir si retirer cette image a une conséquence sur l'habilité de Matomo suivre les utilsateurs)
-- La recherche d'organisme lors de la création de compte ou dans le profil utilisateur peut désormas se faire sans accent.
-- Correction de l'adresse mail d'envoi du formulaire de contact.
-- Correction du titre par défaut des plans (présence de 's à la fin du titre)
 
-## 29/08/2023
-- Correction d'un problème de fusion des comptes utilisateurs (issue gitbucket 514)
-- Correction d'un problème de génération des statistiques d'utilisation (ajout de la gem ruby-progressbar)
+## 14/05/2024
 
-## 24/07/2023
-- Correction d'un problème de copier/coller du formatage dans les éditeurs TinyMCE (issue gitbucket 510)
+- Ajout de la colonne (en base de données) ``locale`` dans la table ``guidances`` (par défaut ``fr-FR``)
+- Ajout d'un select dans le formulaire d'édition/création d'une recommendation afin de sélectionner la langue (par défaut ``fr-FR``)
+- Ajout d'une colonne dans l'affichage des recommendations pour afficher la langue
+- Affichage des recommendations dans la langue du plan
+- Correction d'un problème  provoquant le blocage de l'import ANR/CORDIS
 
-## 18/07/2023
-- Mise à jour de FontAwesome (librairie d'icônes) vers la version 6
-- Amélioration du support des plans pour les entités de recherche
-  - Renommage des fichiers de "research structure" vers "research entity"
-  - Utilisation d'un template DMPResearchEntity pointant sur ResearchEntityStandard à la place de ProjectStandard
+## 29/04/2024
 
-## 30/06/2023
-- Changement des textes référençant "Structure de recherche/Research Structure" en "Entité de Recherche/Research Entity"
-- Ajout du Domaine de Recherche dans le tableau des DMPs Publics
-- Désactivation des UUID des produits de recherche par défaut (changement visible lors de la mise en production)
-- Correction d'un problème de fermeture de la bannière contenant le message des cookies
-- Correction d'un problème d'accès des plans présents dans l'interface administrateur par les administrateurs d'organisme (issue gitbucket 489)
+- Le produit de recherche par défaut n'est plus créé à la création du plan
+  - Une variable d'environnement est mise en place pour réactiver la fonctionnalité
+  - Après la création du plan, une fenêtre indique que le plan ne posséde pas de produit de recherche, un formulaire s'affiche pour en créer un
+- Possibilité de supprimer le premier produit de recherche
+- Le "type" de produit de recherche est rendu obligatoire
+- Il est impossible de modifier le type de produit de recherche
+- Creation d'une page de glossaire en ReactJS, les données sont gérées par Directus.
+- Modification de la collection des pages statiques dans Directus pour afficher ou non les pages dans le menu.
+  - Modification du router pour la redirection
+- Ajout de variables d'environnement au service dmpopidor:
+  - ``DIRECTUS_URL``: URL interne de directus (ex: conteneur Docker), utilisé par le backend
+  - ``DIRECTUS_PUBLIC_URL``: URL externe de directus, utilisé par le frontend
+- Ajout de variables d'environnement au service Directus:
+  - ``CORS_ENABLED=true``
+  - ``CORS_ORIGIN=true``
+  - ``CORS_METHODS=GET,POST``
 
-## 23/06/2023
-- Mise à jour de la configuration de l'éditeur des Pages Statiques (le bouton Upgrade n'est plus affiché)
-- Mise à jour du texte des liens dans le pied de page
-- Mise à jour vers Rails 7 et Ruby 3.1 : Rien à tester, il faut seulement surveiller d'éventuels bugs inhabituels.
+
+## 26/04/2024
+
+- Correction de l'envoie d'un commentaire vide.
+- Intégration d'un service ``metadore`` (miroir interne de DataCite, moissonnage automatique journalier)
+- Création d'un composant ``metadore`` qui est à l'identique de ``ror`` et ``orcid`` sur le principe de fonctionnement.
+
+### Modification de la création/ajout des modèles de DMP
+
+- Le bouton Créer un modèle permet de créer un modèle structuré
+- Ajout d'un bouton Créer un modèle classique
+- Le type de modèle n'est plus modifiable
+- Le contexte du modèle n'est plus modifiable après sa création
+- Les modèles structurés ne peuvent désormais avoir qu'une seule phase
+
+### Ajout d'un nouveau type de modèle de DMP, appelé Module.
+
+Un module est un modèle ne comportant qu'une phase. On ne peut pas créer de plan à partir d'un module mais un plan peut utiliser les sections et les questions du module en fonction des paramètres d'un de ses produits de recherche.
+
+- Ajout d'un champ data_type permettant de définir le type de produit de recherche utilisant ce module.
+- Ajout du champ data_type à madmp_schemas
+- On ne peut pas créer de phase (une seule présente)
+- L'ajout de questions et de sections est identique à l'existant
+- Les formulaires proposés dans l'ajout d'une question sont ceux qui concernent le data_type du modèle.

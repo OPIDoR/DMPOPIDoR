@@ -13,9 +13,9 @@ class ResearchOutputsController < ApplicationController
 
   helper PaginableHelper
 
-  before_action :fetch_plan, except: %i[select_output_type select_license repository_search
+  before_action :fetch_plan, except: %i[show destroy select_output_type select_license repository_search
                                         metadata_standard_search]
-  before_action :fetch_research_output, only: %i[edit update destroy]
+  before_action :fetch_research_output, only: %i[edit update]
 
   after_action :verify_authorized
 

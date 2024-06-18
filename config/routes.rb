@@ -55,13 +55,14 @@ Rails.application.routes.draw do
   root to: 'home#index'
   get 'login', to: 'home#login'
   get 'about_us', to: 'static/static_pages#show', name: 'about_us'
-  get 'help', to: 'static/static_pages#show', name: 'help'
-  get 'roadmap', to: 'static/static_pages#show', name: 'roadmap'
   get 'terms', to: 'static/static_pages#show', name: 'termsuse'
   get 'privacy', to: 'static/static_pages#show', name: 'privacy'
+  get 'roadmap', to: 'static/static_pages#show', name: 'roadmap'
   get 'research_output_types', to: 'static/static_pages#show', name: 'research_output_types'
   get 'about_registries', to: 'static/static_pages#show', name: 'about_registries'
 
+  get 'help', to: 'static_pages#help'
+  get 'glossary', to: 'static_pages#glossary'
   get 'tutorials', to: 'static_pages#tutorials'
   get 'news_feed', to: 'static_pages#news_feed'
   get 'optout', to: 'static_pages#optout'
@@ -93,6 +94,7 @@ Rails.application.routes.draw do
   #       resources :guidances, except: %i[show]
   #     end
   resources :guidances, path: 'org/admin/guidance', only: [] do
+    post 'render_themes', on: :collection, constraints: { format: [:json] }
     member do
       get 'admin_index'
       get 'admin_edit'
@@ -161,7 +163,7 @@ Rails.application.routes.draw do
       get 'guidance_groups', constraints: { format: [:json] }
       post 'guidance_groups', action: :select_guidance_groups, constraints: { format: [:json] }
       get 'guidances', action: :question_guidances, constraints: { format: [:json] }
-      get 'answers_data', constraints: { format: [:json] }
+      get 'research_outputs_data', constraints: { format: [:json] }
       get 'contributors_data', constraints: { format: [:json] }
       post 'duplicate'
       post 'visibility', constraints: { format: [:json] }
@@ -171,7 +173,7 @@ Rails.application.routes.draw do
     resources :research_outputs, only: %i[index update destroy], controller: 'research_outputs'
   end
 
-  resources :research_outputs, only: [:index, :create, :destroy, :update], constraints: { format: [:json] } do
+  resources :research_outputs, only: [:index, :show, :create, :destroy, :update], constraints: { format: [:json] } do
     get 'create_remote', on: :collection
     delete 'destroy_remote', on: :collection
     patch 'update_remote', on: :collection
@@ -256,14 +258,6 @@ Rails.application.routes.draw do
           get 'extract', to: 'themes#extract'
         end
       end
-    end
-
-    namespace :v1 do
-      get :heartbeat, controller: 'base_api'
-      post :authenticate, controller: 'authentication'
-
-      resources :plans, only: %i[create show index]
-      resources :templates, only: [:index]
     end
   end
 

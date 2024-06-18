@@ -44,43 +44,43 @@ module Dmpopidor
         fragment = json_fragment
         dmp_fragment = plan.json_fragment
         contact_person = dmp_fragment.persons.first
+        data_type = configuration[:dataType]
         if fragment.nil?
-          # Fetch the first question linked with a ResearchOutputDescription schema
-          description_question = plan.questions.joins(:madmp_schema)
-                                     .find_by(
-                                       madmp_schemas: { classname: 'research_output_description' }
-                                     )
+          description_prop_name, description_question, description_schema = dataTypeToSchemaData(data_type)
 
           # Creates the main ResearchOutput fragment
           fragment = Fragment::ResearchOutput.create(
             data: {
               'research_output_id' => id
             },
-            madmp_schema: MadmpSchema.find_by(classname: 'research_output'),
+            madmp_schema: MadmpSchema.find_by(classname: 'research_output', data_type: data_type || 'none'),
             dmp_id: dmp_fragment.id,
             parent_id: dmp_fragment.id,
-            additional_info: { 
+            additional_info: {
               property_name: 'researchOutput',
-              hasPersonalData: configuration[:hasPersonalData] || false
+              hasPersonalData: configuration[:hasPersonalData] || false,
+              dataType: data_type || 'none',
+              moduleId: ::Template.module(data_type:)&.id
             }
           )
-          fragment_description = Fragment::ResearchOutputDescription.new(
+          fragment_description = MadmpFragment.new(
             data: {
               'title' => title,
               'datasetId' => pid,
               'type' => output_type_description,
               'containsPersonalData' => configuration[:hasPersonalData] ? _('Yes') : _('No')
             },
-            madmp_schema: MadmpSchema.find_by(name: 'ResearchOutputDescriptionStandard'),
+            madmp_schema: description_schema,
+            classname: description_schema.classname,
             dmp_id: dmp_fragment.id,
             parent_id: fragment.id,
-            additional_info: { property_name: 'researchOutputDescription' }
+            additional_info: { property_name: description_prop_name }
           )
           fragment_description.instantiate
-          fragment_description.contact.update(
+          Fragment::Contributor.find_by(parent_id: fragment_description.id).update(
             data: {
               'person' => contact_person.present? ? { 'dbid' => contact_person.id } : nil,
-              'role' => _('Data contact')
+              'role' => _('Contact Person')
             }
           )
 
@@ -122,8 +122,66 @@ module Dmpopidor
 
     end
 
+    def serialize_json(with_questions_with_guidance = false)
+      ro_fragment = json_fragment()
+      module_id = ro_fragment.additional_info['moduleId']
+      template = module_id ? ::Template.find(module_id) :  plan.template
+
+      questions_with_guidance = []
+
+      if with_questions_with_guidance
+        guidance_presenter = ::GuidancePresenter.new(plan)
+        questions_with_guidance = template.questions.select do |q|
+          question = ::Question.find(q.id)
+          guidance_presenter.any?(question:)
+        end.pluck(:id)
+      end
+
+      return {
+        id: id,
+        abbreviation: abbreviation,
+        title: title,
+        order: display_order,
+        type: ro_fragment.research_output_description['data']['type'] || nil,
+        configuration: ro_fragment.additional_info,
+        answers: answers.map do |a|
+          {
+            answer_id: a.id,
+            question_id: a.question_id,
+            fragment_id: a.madmp_fragment.id,
+            madmp_schema_id: a.madmp_fragment.madmp_schema_id
+          }
+        end,
+        questions_with_guidance:,
+        template: template.serialize_json
+      }
+
+    end
+
     def has_personal_data
       json_fragment.additional_info['hasPersonalData'] || false
+    end
+
+    private
+
+    #####
+    # Returns an array containing the property name, description question & the madmpschema according to the
+    # data_type in parameters
+    #####
+    def dataTypeToSchemaData(data_type)
+      if data_type.eql?('software') && MadmpSchema.exists?(name: 'SoftwareDescriptionStandard')
+        [
+          'softwareDescription',
+          ::Template.module(data_type:).questions.joins(:madmp_schema).find_by(madmp_schemas: { classname: 'software_description' }),
+          MadmpSchema.find_by(name: 'SoftwareDescriptionStandard')
+        ]
+      else
+        [
+          'researchOutputDescription',
+          plan.questions.joins(:madmp_schema).find_by(madmp_schemas: { classname: 'research_output_description' }),
+          MadmpSchema.find_by(name: 'ResearchOutputDescriptionStandard')
+        ]
+      end
     end
   end
 end

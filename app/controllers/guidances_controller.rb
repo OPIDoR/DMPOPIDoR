@@ -25,6 +25,7 @@ class GuidancesController < ApplicationController
   def admin_new
     @guidance = Guidance.new
     authorize @guidance
+    @locales = Language.all
     render :new_edit
   end
 
@@ -33,6 +34,9 @@ class GuidancesController < ApplicationController
     @guidance = Guidance.eager_load(:themes, :guidance_group)
                         .find(params[:id])
     authorize @guidance
+
+    @locales = Language.all
+
     render :new_edit
   end
 
@@ -41,6 +45,8 @@ class GuidancesController < ApplicationController
   def admin_create
     @guidance = Guidance.new(guidance_params)
     authorize @guidance
+
+    @locales = Language.all
 
     if @guidance.save
       if @guidance.published?
@@ -58,11 +64,44 @@ class GuidancesController < ApplicationController
   end
   # rubocop:enable Metrics/AbcSize
 
+  def render_themes
+    authorize Guidance
+    guidance_group = GuidanceGroup.find(params[:guidance_group_id])
+    language = Language.find_by(id: guidance_group.language_id)
+    guidance = Guidance.eager_load(:themes, :guidance_group)
+                       .find(params[:guidance_id])
+
+    locale = language&.abbreviation || 'fr-FR'
+
+    themes = Theme.all.order("title").map do |theme|
+      translation = theme.translations&.[](locale)
+      {
+        id: theme.id,
+        title: translation&.dig('title') || theme.title
+      }
+    end
+
+    render partial: 'branded/org_admin/shared/theme_selector', locals: {
+      f: form_builder_for(guidance || Guidance.new),
+      all_themes: themes,
+      as_radio: true,
+      required: true,
+      in_error: false,
+      popover_message: _('Select one or more themes that are relevant to this guidance. This will display your generic organisation-level guidance, or any Schools/Departments for which you create guidance groups, across all templates that have questions with the corresponding theme tags.')
+    }
+  end
+
+  def form_builder_for(object)
+    ActionView::Helpers::FormBuilder.new(:guidance, object, self, {})
+  end
+
   # PUT /org/admin/guidance/:id/admin_update
   # rubocop:disable Metrics/AbcSize
   def admin_update
     @guidance = Guidance.find(params[:id])
     authorize @guidance
+
+    @locales = Language.all
 
     if @guidance.update(guidance_params)
       if @guidance.published?

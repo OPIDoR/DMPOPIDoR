@@ -9,7 +9,6 @@ services:
         - DB_USERNAME=${DB_USERNAME:-postgres}
         - DB_PASSWORD=${DB_PASSWORD:-changeme}
         - NODE_MAJOR=${NODE_MAJOR:-20}
-    profiles: ["prod"]
     depends_on:
       postgres:
         condition: service_healthy
@@ -32,6 +31,7 @@ services:
       - RAILS_LOG_TO_STDOUT=${RAILS_LOG_TO_STDOUT:-true}
       - DOMAIN=${DOMAIN:-app}
       - ENABLE_SHIBBOLETH=${ENABLE_SHIBBOLETH:-false}
+      - ENABLE_THIRD_PARTY_FORM=${ENABLE_THIRD_PARTY_FORM:-false}
       - WEB_CONCURRENCY=${WEB_CONCURRENCY:-2}
       - RAILS_MAX_THREADS=${RAILS_MAX_THREADS:-5}
       - WICKED_PDF_PATH=${WICKED_PDF_PATH:-/usr/local/bin/wkhtmltopdf}
@@ -62,6 +62,8 @@ services:
       - METADORE_ENABLED
       - METADORE_SEARCH_SIZE
       - METADORE_API_KEY
+      - DIRECTUS_URL=http://directus:8055
+      - DIRECTUS_PUBLIC_URL=http://${DMP_SERVER_NAME:-0.0.0.0}:${NGINX_PORT:-8080}/directus
     working_dir: /app
     volumes:
       - ./log:/app/log
@@ -74,8 +76,41 @@ services:
     networks:
       - dmpopidor_network
 
+  directus:
+    container_name: directus_app
+    image: directus/directus:${DIRECTUS_VERSION:-10.11.0}
+    restart: always
+    depends_on:
+      postgres:
+        condition: service_healthy
+    environment:
+      - KEY=${DIRECTUS_KEY:-255d861b-5ea1-5996-9aa3-922530ec40b1}
+      - SECRET=${DIRECTUS_SECRET:-6116487b-cda1-52c2-b5b5-c8022c45e263}
+      - ADMIN_EMAIL=${DIRECTUS_ADMIN_EMAIL:-admin@example.com}
+      - ADMIN_PASSWORD=${DIRECTUS_ADMIN_PASSWORD:-changeme}
+      - DB_CLIENT=pg
+      - DB_HOST=${DB_HOST:-postgres}
+      - DB_PORT=${DB_PORT:-5432}
+      - DB_USER=${DB_USERNAME:-postgres}
+      - DB_PASSWORD=${DB_PASSWORD:-changeme}
+      - DB_DATABASE=${DIRECTUS_DATABASE:-directus}
+      - PUBLIC_URL=http://${DMP_SERVER_NAME:-0.0.0.0}:${NGINX_PORT:-8080}/directus
+      - CORS_ENABLED=true
+      - CORS_ORIGIN=true
+      - CORS_METHODS=GET,POST
+    volumes:
+      - directus_uploads:/directus/uploads
+    healthcheck:
+      test: [ "CMD-SHELL", "wget --no-verbose --tries=1 --spider http://localhost:8055/server/ping || exit 0" ]
+      interval: ${DIRECTUS_HEALTHCHECK_INTERVAL:-10s}
+      timeout: ${DIRECTUS_HEALTHCHECK_TIMEOUT:-30s}
+      retries: ${DIRECTUS_HEALTHCHECK_RETRIES:-5}
+      start_period: ${DIRECTUS_HEALTHCHECK_START_PERIOD:-30s}
+    networks:
+      - dmpopidor_network
+
   nginx:
-    image: nginx:1.25.3-alpine-slim
+    image: nginx:1.25.5-alpine-slim
     ports:
       - ${NGINX_PORT:-8080}:80
     depends_on:
@@ -92,12 +127,12 @@ services:
       interval: ${NGINX_HEALTHCHECK_INTERVAL:-30s}
       timeout: ${NGINX_HEALTHCHECK_TIMEOUT:-30s}
       retries: ${NGINX_HEALTHCHECK_RETRIES:-3}
-      start_period: ${POSTGRES_HEALTHCHECK_START_PERIOD:-0s}
+      start_period: ${NGINX_HEALTHCHECK_START_PERIOD:-0s}
     networks:
       - dmpopidor_network
 
   postgres:
-    image: postgres:15.5-alpine3.19
+    image: postgres:15.7-alpine3.19
     environment:
       - POSTGRES_USER=${DB_USERNAME:-postgres}
       - POSTGRES_PASSWORD=${DB_PASSWORD:-changeme}
@@ -106,7 +141,7 @@ services:
       - LC_CTYPE=fr_FR.utf8
       - LANG=fr_FR.utf8
     volumes:
-      - ./data:/var/lib/postgresql/data
+      - pg-data:/var/lib/postgresql/data
     healthcheck:
       test: ["CMD-SHELL", "pg_isready -q -U ${POSTGRES_USER:-postgres} -h localhost -p 5432"]
       interval: ${POSTGRES_HEALTHCHECK_INTERVAL:-30s}
@@ -117,7 +152,7 @@ services:
       - dmpopidor_network
 
   redis:
-    image: redis:7.2.4-alpine3.19
+    image: valkey/valkey:7.2-alpine3.19
     # command: "redis-server /etc/redis/redis.conf"
     ports:
       - 6379:6379
@@ -136,3 +171,7 @@ services:
 networks:
   dmpopidor_network:
     driver: "bridge"
+
+volumes:
+  directus_uploads:
+  pg-data:

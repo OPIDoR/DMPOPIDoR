@@ -342,7 +342,7 @@ header.dmpopidor-branding {
         }
 
         a img {
-          width: 70px;
+          height: 60px;
         }
       }
 
@@ -351,9 +351,9 @@ header.dmpopidor-branding {
         align-items: center;
         height: inherit;
 
-        div.navbar-header a img {
-          width: 250px;
-          height: auto !important;
+        div.navbar-header a img.app-logo {
+          width: auto;
+          height: 100px;
         }
       }
     }
@@ -526,8 +526,9 @@ header.dmpopidor-branding {
 
       .homepage-h1 {
         color: white;
-        font-size: 60px;
+        font-size: 55px;
         font-weight: bold;
+        text-align: center;
 
         @media (max-width: 767px) {
           font-size: 28pt;
@@ -536,8 +537,9 @@ header.dmpopidor-branding {
 
       .homepage-h2 {
         color: white;
-        width: 75%;
-        font-size: 35px;
+        font-size: 32px;
+        text-align: center;
+        margin-top: 20px;
 
         @media (max-width: 767px) {
           font-size: 18pt;
@@ -552,6 +554,7 @@ header.dmpopidor-branding {
     // #####################################################
 
     .notification {
+      display: flex;
       border-radius: 15px;
       font-size: large;
 
@@ -566,8 +569,8 @@ header.dmpopidor-branding {
       }
 
       &.alert-warning {
-        background-color: #5D4A27;
-        color: white;
+        background-color: #ddcf96;
+        color: #5D4A27;
 
         a {
           color: white;
@@ -584,6 +587,13 @@ header.dmpopidor-branding {
           text-decoration: underline;
         }
       }
+      .fas {
+        align-self: center;
+        padding-right: 10px;
+      }
+      p {
+        margin: 0;
+      }
     }
 
     #notification-area {
@@ -599,8 +609,11 @@ header.dmpopidor-branding {
     div.main-nav {
       height: 60px;
       div.navbar-header a img.app-logo {
-        width: 170px !important;
-        transition: width 500ms ease-in-out;
+        height: 60px !important;
+        transition: height 200ms ease-in-out;
+      }
+      div.navbar-collapse {
+        padding: 0;
       }
     }
   }

@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: app 1.0\n"
 "Report-Msgid-Bugs-To: contact@translation.io\n"
-"POT-Creation-Date: 2024-02-06 08:47+0100\n"
-"PO-Revision-Date: 2024-02-06 08:47+0100\n"
+"POT-Creation-Date: 2024-04-02 09:17+0200\n"
+"PO-Revision-Date: 2024-04-02 09:17+0200\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: French\n"
 "Language: fr_FR\n"
@@ -117,9 +117,9 @@ msgid "added"
 msgstr "ajouté"
 
 #: ../../app/controllers/contributors_controller.rb:79
-#: ../../app/controllers/dmpopidor/orgs_controller.rb:99
-#: ../../app/controllers/dmpopidor/plans_controller.rb:133
+#: ../../app/controllers/dmpopidor/orgs_controller.rb:105
 #: ../../app/controllers/dmpopidor/plans_controller.rb:136
+#: ../../app/controllers/dmpopidor/plans_controller.rb:139
 #: ../../app/controllers/guidance_groups_controller.rb:55
 #: ../../app/controllers/guidances_controller.rb:75
 #: ../../app/controllers/notes_controller.rb:103
@@ -138,11 +138,11 @@ msgstr "enregistré"
 
 #: ../../app/controllers/contributors_controller.rb:81
 #: ../../app/controllers/dmpopidor/notes_controller.rb:205
-#: ../../app/controllers/dmpopidor/orgs_controller.rb:101
-#: ../../app/controllers/dmpopidor/plans_controller.rb:142
+#: ../../app/controllers/dmpopidor/orgs_controller.rb:107
 #: ../../app/controllers/dmpopidor/plans_controller.rb:145
-#: ../../app/controllers/dmpopidor/plans_controller.rb:149
+#: ../../app/controllers/dmpopidor/plans_controller.rb:148
 #: ../../app/controllers/dmpopidor/plans_controller.rb:152
+#: ../../app/controllers/dmpopidor/plans_controller.rb:155
 #: ../../app/controllers/guidance_groups_controller.rb:57
 #: ../../app/controllers/guidances_controller.rb:77
 #: ../../app/controllers/notes_controller.rb:121
@@ -161,8 +161,8 @@ msgstr "enregistrer"
 #: ../../app/controllers/dmpopidor/notes_controller.rb:237
 #: ../../app/controllers/notes_controller.rb:153
 #: ../../app/controllers/research_outputs_controller.rb:83
-#: ../../engines/madmp_opidor/app/controllers/madmp_fragments_controller.rb:133
-#: ../../engines/madmp_opidor/app/controllers/madmp_fragments_controller.rb:153
+#: ../../engines/madmp_opidor/app/controllers/madmp_fragments_controller.rb:134
+#: ../../engines/madmp_opidor/app/controllers/madmp_fragments_controller.rb:154
 msgid "removed"
 msgstr "supprimé(e)"
 
@@ -170,8 +170,8 @@ msgstr "supprimé(e)"
 #: ../../app/controllers/dmpopidor/notes_controller.rb:241
 #: ../../app/controllers/notes_controller.rb:171
 #: ../../app/controllers/research_outputs_controller.rb:86
-#: ../../engines/madmp_opidor/app/controllers/madmp_fragments_controller.rb:137
-#: ../../engines/madmp_opidor/app/controllers/madmp_fragments_controller.rb:157
+#: ../../engines/madmp_opidor/app/controllers/madmp_fragments_controller.rb:138
+#: ../../engines/madmp_opidor/app/controllers/madmp_fragments_controller.rb:158
 msgid "remove"
 msgstr "supprimer"
 
@@ -205,7 +205,7 @@ msgid "registry value"
 msgstr "valeur de référentiel"
 
 #: ../../app/controllers/dmpopidor/notes_controller.rb:99
-#: ../../app/controllers/dmpopidor/plans_controller.rb:49
+#: ../../app/controllers/dmpopidor/plans_controller.rb:51
 #: ../../app/controllers/guidance_groups_controller.rb:31
 #: ../../app/controllers/guidances_controller.rb:53
 #: ../../app/controllers/notes_controller.rb:54
@@ -216,8 +216,8 @@ msgid "created"
 msgstr "créé"
 
 #: ../../app/controllers/dmpopidor/notes_controller.rb:114
-#: ../../app/controllers/dmpopidor/plans_controller.rb:88
-#: ../../app/controllers/dmpopidor/plans_controller.rb:350
+#: ../../app/controllers/dmpopidor/plans_controller.rb:90
+#: ../../app/controllers/dmpopidor/plans_controller.rb:354
 #: ../../app/controllers/guidance_groups_controller.rb:34
 #: ../../app/controllers/guidances_controller.rb:55
 #: ../../app/controllers/notes_controller.rb:73
@@ -242,32 +242,33 @@ msgstr ""
 msgid "Unable to identify a suitable template for your plan."
 msgstr "Impossible d'identifier un modèle approprié à votre plan."
 
-#: ../../app/controllers/dmpopidor/plans_controller.rb:36
+#: ../../app/controllers/dmpopidor/plans_controller.rb:38
 #: ../../app/controllers/plans_controller.rb:103
 msgid "My Plan (%{title})"
 msgstr "Mon plan (%{title})"
 
-#: ../../app/controllers/dmpopidor/plans_controller.rb:38
-#: ../../engines/madmp_opidor/app/controllers/api/v1/madmp/plans_controller.rb:74
-msgid "%{user_name} Plan"
+#: ../../app/controllers/dmpopidor/plans_controller.rb:40
+#: ../../app/controllers/dmpopidor/plans_controller.rb:342
+#: ../../app/controllers/plans_controller.rb:105
+msgid "%{user_name}'s Plan"
 msgstr "Plan de %{user_name}"
 
-#: ../../app/controllers/dmpopidor/plans_controller.rb:53
+#: ../../app/controllers/dmpopidor/plans_controller.rb:55
 #: ../../app/controllers/plans_controller.rb:143
 msgid "This plan is based on the default template."
 msgstr "Ce plan est basé sur le modèle par défaut."
 
-#: ../../app/controllers/dmpopidor/plans_controller.rb:58
+#: ../../app/controllers/dmpopidor/plans_controller.rb:60
 #: ../../app/controllers/plans_controller.rb:148
 msgid "This plan is based on the"
 msgstr "Ce plan est basé sur le"
 
-#: ../../app/controllers/dmpopidor/plans_controller.rb:58
+#: ../../app/controllers/dmpopidor/plans_controller.rb:60
 #: ../../app/controllers/plans_controller.rb:148
 msgid "template with customisations by the"
 msgstr "modèle personnalisé par"
 
-#: ../../app/controllers/dmpopidor/plans_controller.rb:62
+#: ../../app/controllers/dmpopidor/plans_controller.rb:64
 #: ../../app/controllers/plans_controller.rb:156
 #: ../../app/views/branded/phases/_edit_plan_answers.html.erb:9
 msgid ""
@@ -275,51 +276,47 @@ msgid ""
 "."
 msgstr "Ce plan est basé sur le modèle  \"%{template_title}\" fourni par %{org_name}."
 
-#: ../../app/controllers/dmpopidor/plans_controller.rb:73
-#: ../../app/controllers/dmpopidor/research_outputs_controller.rb:22
-#: ../../engines/madmp_opidor/app/services/import/plan_import_service.rb:27
+#: ../../app/controllers/dmpopidor/plans_controller.rb:75
+#: ../../app/controllers/dmpopidor/research_outputs_controller.rb:26
+#: ../../app/controllers/dmpopidor/research_outputs_controller.rb:165
+#: ../../engines/madmp_opidor/app/services/import/plan_import_service.rb:28
 msgid "RO"
 msgstr "PR"
 
-#: ../../app/controllers/dmpopidor/plans_controller.rb:74
-#: ../../app/controllers/dmpopidor/research_outputs_controller.rb:23
+#: ../../app/controllers/dmpopidor/plans_controller.rb:76
+#: ../../app/controllers/dmpopidor/research_outputs_controller.rb:27
+#: ../../app/controllers/dmpopidor/research_outputs_controller.rb:166
 msgid "Research output"
-msgstr ""
-"Produit de recherche\n"
+msgstr "Produit de recherche"
 
-#: ../../app/controllers/dmpopidor/plans_controller.rb:338
-#: ../../app/controllers/plans_controller.rb:105
-msgid "%{user_name}'s Plan"
-msgstr "Plan de %{user_name}"
-
-#: ../../app/controllers/dmpopidor/plans_controller.rb:348
+#: ../../app/controllers/dmpopidor/plans_controller.rb:352
 msgid "imported"
 msgstr "importé"
 
-#: ../../app/controllers/dmpopidor/plans_controller.rb:354
+#: ../../app/controllers/dmpopidor/plans_controller.rb:358
 msgid "Unvalid file"
 msgstr "Fichier non valide"
 
-#: ../../app/controllers/dmpopidor/plans_controller.rb:356
+#: ../../app/controllers/dmpopidor/plans_controller.rb:360
 msgid "File should contain JSON"
 msgstr "Le fichier doit contenir du JSON"
 
-#: ../../app/controllers/dmpopidor/plans_controller.rb:359
-#: ../../engines/madmp_opidor/app/controllers/madmp_codebase_controller.rb:61
-#: ../../engines/madmp_opidor/app/controllers/madmp_codebase_controller.rb:135
+#: ../../app/controllers/dmpopidor/plans_controller.rb:363
+#: ../../engines/madmp_opidor/app/controllers/madmp_codebase_controller.rb:63
+#: ../../engines/madmp_opidor/app/controllers/madmp_codebase_controller.rb:141
 msgid "An error has occured: "
 msgstr "Une erreur s'est produite :"
 
-#: ../../app/controllers/dmpopidor/plans_controller.rb:438
+#: ../../app/controllers/dmpopidor/plans_controller.rb:443
 msgid "Invalid JSON: "
 msgstr "JSON non valide :"
 
-#: ../../app/controllers/dmpopidor/research_outputs_controller.rb:14
+#: ../../app/controllers/dmpopidor/research_outputs_controller.rb:15
 #: ../../app/controllers/plans_controller.rb:529
 msgid "There is no plan associated with id %{id}"
 msgstr "Il n'existe aucun plan associé à l'identifiant %{id}"
 
-#: ../../app/controllers/dmpopidor/research_outputs_controller.rb:68
+#: ../../app/controllers/dmpopidor/research_outputs_controller.rb:78
 #: ../../app/models/dmpopidor/research_output.rb:72
 #: ../../app/views/branded/paginable/orgs/_index.html.erb:25
 #: ../../app/views/branded/paginable/plans/_administrator_visible.html.erb:36
@@ -332,7 +329,7 @@ msgstr "Il n'existe aucun plan associé à l'identifiant %{id}"
 msgid "Yes"
 msgstr "Oui"
 
-#: ../../app/controllers/dmpopidor/research_outputs_controller.rb:68
+#: ../../app/controllers/dmpopidor/research_outputs_controller.rb:78
 #: ../../app/models/dmpopidor/research_output.rb:72
 #: ../../app/views/branded/paginable/orgs/_index.html.erb:25
 #: ../../app/views/branded/paginable/plans/_administrator_visible.html.erb:36
@@ -345,8 +342,8 @@ msgstr "Oui"
 msgid "No"
 msgstr "Non"
 
-#: ../../app/controllers/dmpopidor/research_outputs_controller.rb:131
-#: ../../app/controllers/dmpopidor/research_outputs_controller.rb:173
+#: ../../app/controllers/dmpopidor/research_outputs_controller.rb:151
+#: ../../app/controllers/dmpopidor/research_outputs_controller.rb:192
 #: ../../app/controllers/guidance_groups_controller.rb:97
 #: ../../app/controllers/guidances_controller.rb:96
 #: ../../app/controllers/plans_controller.rb:405
@@ -356,7 +353,7 @@ msgstr "Non"
 msgid "delete"
 msgstr "effacer"
 
-#: ../../app/controllers/dmpopidor/research_outputs_controller.rb:171
+#: ../../app/controllers/dmpopidor/research_outputs_controller.rb:190
 #: ../../app/controllers/guidance_groups_controller.rb:95
 #: ../../app/controllers/guidances_controller.rb:94
 #: ../../app/controllers/plans_controller.rb:400
@@ -366,12 +363,11 @@ msgstr "effacer"
 msgid "deleted"
 msgstr "supprimé"
 
-#: ../../app/controllers/dmpopidor/research_outputs_controller.rb:195
-#: ../../app/models/dmpopidor/research_output.rb:83
+#: ../../app/controllers/dmpopidor/research_outputs_controller.rb:214
 msgid "Data contact"
 msgstr "Personne contact pour les données"
 
-#: ../../app/controllers/dmpopidor/research_outputs_controller.rb:207
+#: ../../app/controllers/dmpopidor/research_outputs_controller.rb:226
 #: ../../app/controllers/plans_controller.rb:486
 #: ../../engines/madmp_opidor/app/controllers/super_admin/madmp_schemas_controller.rb:47
 #: ../../engines/madmp_opidor/app/controllers/super_admin/registries_controller.rb:52
@@ -604,7 +600,7 @@ msgstr "Le mot de passe et sa confirmation doivent correspondre"
 
 #: ../../app/controllers/research_outputs_controller.rb:226
 msgid "research output not found"
-msgstr "résultat de la recherche introuvable"
+msgstr "Produit de recherche introuvable"
 
 #: ../../app/controllers/roles_controller.rb:26
 msgid ""
@@ -656,7 +652,7 @@ msgstr ""
 "ar mail"
 
 #: ../../app/controllers/roles_controller.rb:107
-#: ../../engines/madmp_opidor/app/controllers/api_client_roles_controller.rb:55
+#: ../../engines/madmp_opidor/app/controllers/api_client_roles_controller.rb:56
 msgid "Access removed"
 msgstr "Accès retiré"
 
@@ -878,7 +874,6 @@ msgstr "Examiner les plans organisationnels"
 #: ../../app/views/branded/paginable/plans/_administrator_visible.html.erb:9
 #: ../../app/views/branded/paginable/plans/_organisationally_or_publicly_visible.html.erb:16
 #: ../../app/views/branded/paginable/plans/_privately_visible.html.erb:9
-#: ../../app/views/branded/paginable/plans/_publicly_visible.html.erb:9
 msgid "Owner"
 msgstr "Propriétaire"
 
@@ -989,8 +984,7 @@ msgid "Your ORCID"
 msgstr "Votre ORCID"
 
 #: ../../app/helpers/template_helper.rb:48
-#: ../../app/views/branded/layouts/_navigation.html.erb:31
-#: ../../app/views/branded/paginable/templates/_publicly_visible.html.erb:11
+#: ../../app/views/branded/layouts/_navigation.html.erb:34
 #: ../../app/views/branded/plans/index.html.erb:27
 msgid "Create plan"
 msgstr "Créer un plan"
@@ -1015,57 +1009,64 @@ msgstr "9 derniers mois"
 msgid "Last 12 months"
 msgstr "12 derniers mois"
 
-#: ../../app/mailers/dmpopidor/user_mailer.rb:37
+#: ../../app/mailers/dmpopidor/user_mailer.rb:40
 msgid "%{tool_name}: A new comment was added to %{plan_title}"
 msgstr "%{tool_name}: Un nouveau commentaire a été ajouté à %{plan_title}"
 
-#: ../../app/mailers/dmpopidor/user_mailer.rb:58 ../../app/models/user.rb:404
+#: ../../app/mailers/dmpopidor/user_mailer.rb:61 ../../app/models/user.rb:405
 msgid "%{user_name} has shared a Data Management Plan with you in %{tool_name}"
 msgstr ""
 "%{user_name} a partagé un plan de gestion des données avec vous dans %{tool_na"
 "me}"
 
-#: ../../app/mailers/dmpopidor/user_mailer.rb:79
+#: ../../app/mailers/dmpopidor/user_mailer.rb:82
 #: ../../app/mailers/user_mailer.rb:82
 msgid "Changed permissions on a Data Management Plan in %{tool_name}"
 msgstr "Modification des autorisations sur un plan de %{tool_name}"
 
-#: ../../app/mailers/dmpopidor/user_mailer.rb:96
+#: ../../app/mailers/dmpopidor/user_mailer.rb:99
 #: ../../app/mailers/user_mailer.rb:98
 msgid "Permissions removed on a DMP in %{tool_name}"
 msgstr "Autorisations retirées d'un plan de %{tool_name}"
 
-#: ../../app/mailers/dmpopidor/user_mailer.rb:115
+#: ../../app/mailers/dmpopidor/user_mailer.rb:118
 #: ../../app/mailers/user_mailer.rb:117
 msgid "%{user_name} has requested feedback on a %{tool_name} plan"
 msgstr "%{user_name} a demandé une assistance conseil pour un plan %{tool_name}"
 
-#: ../../app/mailers/dmpopidor/user_mailer.rb:141
+#: ../../app/mailers/dmpopidor/user_mailer.rb:144
 #: ../../app/mailers/user_mailer.rb:143
 msgid "%{tool_name}: Expert feedback has been provided for %{plan_title}"
 msgstr "%{tool_name} : Une assistance conseil a été fournie pour %{plan_title}"
 
-#: ../../app/mailers/dmpopidor/user_mailer.rb:161
+#: ../../app/mailers/dmpopidor/user_mailer.rb:164
 #: ../../app/mailers/user_mailer.rb:164
 msgid "DMP Visibility Changed: %{plan_title}"
 msgstr "Changement de visibilité d'un plan : %{plan_title}"
 
-#: ../../app/mailers/dmpopidor/user_mailer.rb:177
+#: ../../app/mailers/dmpopidor/user_mailer.rb:180
 #: ../../app/mailers/user_mailer.rb:217
 msgid "Administrator privileges granted in %{tool_name}"
 msgstr "Droits administrateur attribués dans %{tool_name}"
 
-#: ../../app/mailers/dmpopidor/user_mailer.rb:194
+#: ../../app/mailers/dmpopidor/user_mailer.rb:197
 msgid "%{tool_name} API client created/updated"
 msgstr "Création/Modification du client API %{tool_name}"
 
-#: ../../app/mailers/dmpopidor/user_mailer.rb:208
+#: ../../app/mailers/dmpopidor/user_mailer.rb:211
 msgid "Account expiration in %{tool_name}"
 msgstr "Expiration du compte dans %{tool_name}"
 
-#: ../../app/mailers/dmpopidor/user_mailer.rb:217
+#: ../../app/mailers/dmpopidor/user_mailer.rb:220
 msgid "Account expired in %{tool_name}"
 msgstr "Compte %{tool_name} expiré"
+
+#: ../../app/mailers/dmpopidor/user_mailer.rb:245
+#: ../../app/views/branded/user_mailer/client_sharing_notification.html.erb:5
+msgid "%{username} has granted access to their Data Management Plan in %{tool_name}"
+msgstr ""
+"%{username} a accordé l'accès à son plan de gestion des données dans %{tool_na"
+"me}"
 
 #: ../../app/mailers/user_mailer.rb:18
 msgid "Query or feedback related to %{tool_name}"
@@ -1108,13 +1109,17 @@ msgid "DMP manager"
 msgstr "Responsable du plan"
 
 #: ../../app/models/dmpopidor/plan.rb:111
-#: ../../engines/madmp_opidor/app/models/madmp_fragment.rb:418
+#: ../../engines/madmp_opidor/app/models/madmp_fragment.rb:424
 msgid "\"%{project_title}\" project DMP"
 msgstr "DMP du projet \"%{project_title}\""
 
 #: ../../app/models/dmpopidor/plan.rb:138
 msgid "Project coordinator"
-msgstr "Coordinateur de projet"
+msgstr "Coordinateur du projet"
+
+#: ../../app/models/dmpopidor/research_output.rb:83
+msgid "Contact Person"
+msgstr "Personne contact"
 
 #: ../../app/models/exported_plan.rb:116 ../../app/models/exported_plan.rb:119
 msgid "Section"
@@ -1312,7 +1317,7 @@ msgstr "Merci de patienter, les standards sont en cours de chargement"
 #: ../../app/views/branded/orgs/_profile_form.html.erb:157
 #: ../../app/views/branded/plans/_guidance_selection.html.erb:23
 #: ../../app/views/branded/plans/_share_form.html.erb:112
-#: ../../app/views/branded/plans/_share_third_party.html.erb:93
+#: ../../app/views/branded/plans/_share_third_party.html.erb:92
 #: ../../app/views/branded/research_outputs/_list.html.erb:82
 #: ../../app/views/branded/super_admin/api_clients/_form.html.erb:67
 #: ../../app/views/branded/super_admin/static_pages/_form.html.erb:59
@@ -1359,9 +1364,9 @@ msgid "This answer triggers email(s) to "
 msgstr "Cette réponse déclenche l'envoi d'un mail à "
 
 #: ../../app/views/branded/answers/_status.html.erb:26
-#: ../../app/views/branded/shared/export/_export_by_question.erb:69
-#: ../../app/views/branded/shared/export/_export_by_research_output.erb:72
-#: ../../app/views/branded/shared/export/_export_by_section.erb:68
+#: ../../app/views/branded/shared/export/_export_by_question.erb:70
+#: ../../app/views/branded/shared/export/_export_by_research_output.erb:73
+#: ../../app/views/branded/shared/export/_export_by_section.erb:69
 msgid "Question not answered."
 msgstr "Question sans réponse."
 
@@ -1389,8 +1394,8 @@ msgstr "Nom"
 #: ../../app/views/branded/paginable/users/_index.html.erb:21
 #: ../../app/views/branded/plans/_share_form.html.erb:76
 #: ../../app/views/branded/shared/_create_account_form.html.erb:12
-#: ../../app/views/branded/shared/_sign_in_form.html.erb:19
-#: ../../app/views/branded/shared/_sign_in_form_header.html.erb:19
+#: ../../app/views/branded/shared/_sign_in_form.html.erb:22
+#: ../../app/views/branded/shared/_sign_in_form_header.html.erb:22
 msgid "Email"
 msgstr "Courriel"
 
@@ -1417,13 +1422,13 @@ msgstr "Assistance téléphonique"
 
 #: ../../app/views/branded/contact_us/contacts/new.html.erb:1
 #: ../../app/views/branded/layouts/_contact_icons.html.erb:10
-#: ../../app/views/branded/layouts/_footer.html.erb:28
+#: ../../app/views/branded/layouts/_footer.html.erb:27
 msgid "Contact Us"
 msgstr "Contact"
 
 #: ../../app/views/branded/contact_us/contacts/new.html.erb:5
 msgid "Contact technical support"
-msgstr ""
+msgstr "Contacter le support technique"
 
 #: ../../app/views/branded/contact_us/contacts/new.html.erb:8
 msgid ""
@@ -1440,20 +1445,20 @@ msgstr ""
 
 #: ../../app/views/branded/contact_us/contacts/new.html.erb:12
 #: ../../app/views/branded/layouts/_branding.html.erb:35
-#: ../../app/views/branded/layouts/_footer.html.erb:24
+#: ../../app/views/branded/layouts/_footer.html.erb:23
 #: ../../app/views/branded/layouts/_footer.html.erb:36
-#: ../../app/views/branded/layouts/_footer.html.erb:45
-#: ../../app/views/branded/layouts/_footer.html.erb:55
-#: ../../app/views/branded/layouts/_footer.html.erb:64
-#: ../../app/views/branded/layouts/_footer.html.erb:69
-#: ../../app/views/branded/layouts/_footer.html.erb:74
-#: ../../app/views/branded/layouts/_footer.html.erb:79
+#: ../../app/views/branded/layouts/_footer.html.erb:44
+#: ../../app/views/branded/layouts/_footer.html.erb:54
+#: ../../app/views/branded/layouts/_footer.html.erb:63
+#: ../../app/views/branded/layouts/_footer.html.erb:68
+#: ../../app/views/branded/layouts/_footer.html.erb:73
+#: ../../app/views/branded/layouts/_navigation.html.erb:11
 #: ../../app/views/branded/paginable/plans/_organisationally_or_publicly_visible.html.erb:36
-#: ../../app/views/branded/paginable/plans/_publicly_visible.html.erb:33
+#: ../../app/views/branded/paginable/plans/_publicly_visible.html.erb:31
 #: ../../app/views/branded/paginable/templates/_history.html.erb:25
 #: ../../app/views/branded/paginable/templates/_history.html.erb:31
 #: ../../app/views/branded/paginable/templates/_organisational.html.erb:89
-#: ../../app/views/branded/plans/_download_form.html.erb:200
+#: ../../app/views/branded/plans/_download_form.html.erb:208
 msgid "Opens in new window"
 msgstr "Ouvre dans une nouvelle fenêtre"
 
@@ -1528,6 +1533,49 @@ msgstr ""
 msgid "Create account"
 msgstr "Créer un compte"
 
+#: ../../app/views/branded/devise/registrations/_api_token.html.erb:6
+msgid "Access token"
+msgstr "Jeton d'accès"
+
+#: ../../app/views/branded/devise/registrations/_api_token.html.erb:10
+msgid "Click the button below to generate an API token"
+msgstr "Cliquez sur le bouton ci-dessous pour générer un jeton API"
+
+#: ../../app/views/branded/devise/registrations/_api_token.html.erb:14
+msgid "Documentation"
+msgstr "Documentation"
+
+#: ../../app/views/branded/devise/registrations/_api_token.html.erb:16
+msgid ""
+"See the <a href=\"%{api_v0_wiki}\">documentation for v0</a> for more details on "
+"the API endpoints which include access to the list of all viewable DMP templat"
+"es, or your organisation’s guidance or statistics."
+msgstr ""
+"Consultez la <a href=\"%{api_v0_wiki}\">documentation de la v0</a> pour plus de "
+"détails sur les API qui incluent l'accès à la liste des modèles de DMP ou, aux"
+" recommandations ou statistiques de  votre organisation.\n"
+"\n"
+
+#: ../../app/views/branded/devise/registrations/_api_token.html.erb:18
+msgid ""
+"See the <a href=\"%{api_v1_wiki}\">documentation for v1</a> for more details on "
+"the API endpoints which enable the reuse of information structured in complian"
+"ce with the common DMP OPIDoR or <a href=\"%{rda_standard_url}\">RDA DMP Common "
+"standard</a> schemas. These include access to the schemas, registries, plans ("
+"whole DMP, DMP for a single research product) or information fragments, to whi"
+"ch the user has access."
+msgstr ""
+"Consultez la <a href=\"%{api_v1_wiki}\">documentation de la v1</a> pour plus de "
+"détails sur les API qui permettent la réutilisation des informations structuré"
+"es selon les schémas du modèle commun de DMP OPIDoR ou du modèle <a href=\"%{rd"
+"a_standard_url}\">RDA DMP Common standard</a>. Elles incluent l'accès aux schém"
+"as, référentiels, plans (PGD entier ou pour un produit de recherche), fragment"
+"s d'information, aux utilisateurs disposant des droits nécessaires.\n"
+
+#: ../../app/views/branded/devise/registrations/_api_token.html.erb:21
+msgid "Regenerate token"
+msgstr "Régénérer le jeton"
+
 #: ../../app/views/branded/devise/registrations/_personal_details.html.erb:3
 msgid ""
 "Please note that your email address is used as your username. If you change th"
@@ -1598,8 +1646,8 @@ msgstr "Renseignements"
 
 #: ../../app/views/branded/devise/registrations/edit.html.erb:44
 #: ../../app/views/branded/shared/_create_account_form.html.erb:25
-#: ../../app/views/branded/shared/_sign_in_form.html.erb:23
-#: ../../app/views/branded/shared/_sign_in_form_header.html.erb:23
+#: ../../app/views/branded/shared/_sign_in_form.html.erb:26
+#: ../../app/views/branded/shared/_sign_in_form_header.html.erb:26
 msgid "Password"
 msgstr "Mot de passe"
 
@@ -1688,17 +1736,24 @@ msgid "Cancel"
 msgstr "Annuler"
 
 #: ../../app/views/branded/home/_welcome.html.erb:4
-#: ../../app/views/branded/layouts/_footer.html.erb:22
+#: ../../app/views/branded/layouts/_footer.html.erb:21
 msgid "News"
 msgstr "Actualités"
 
+#: ../../app/views/branded/home/_welcome.html.erb:7
+msgid "First time visiting?"
+msgstr "Première visite chez nous ?"
+
+#: ../../app/views/branded/home/_welcome.html.erb:8
+msgid "Discover DMP OPIDoR in three minutes!"
+msgstr "Découvrez DMP OPIDoR en 180 secondes !"
+
 #: ../../app/views/branded/layouts/_contact_icons.html.erb:15
 msgid "Technical Support"
-msgstr ""
-"Support technique\n"
+msgstr "Support technique"
 
 #: ../../app/views/branded/layouts/_footer.html.erb:11
-#: ../../app/views/branded/layouts/_navigation.html.erb:11
+#: ../../app/views/branded/layouts/_navigation.html.erb:14
 #: ../../app/views/branded/orgs/_profile_form.html.erb:46
 msgid "logo"
 msgstr "logo"
@@ -1706,41 +1761,37 @@ msgstr "logo"
 #: ../../app/views/branded/layouts/_footer.html.erb:14
 msgid ""
 "%{tool_name} guides you through the drafting and implementation into practice "
-"of data or software management plans."
+"of data, software and other products management plan."
 msgstr ""
-"%{tool_name} vous accompagne à travers l’élaboration et la mise  en pratique d"
-"e plans de gestion de données et de logiciels."
+"%{tool_name} vous guide dans la rédaction et l'implémentation d'un plan de ges"
+"tion de données, logiciels ou autres produits"
 
 #: ../../app/views/branded/layouts/_footer.html.erb:18
 msgid "Navigation"
-msgstr ""
-"Navigation\n"
+msgstr "Navigation"
 
 #: ../../app/views/branded/layouts/_footer.html.erb:19
-#: ../../app/views/branded/layouts/_navigation.html.erb:45
+#: ../../app/views/branded/layouts/_navigation.html.erb:48
 msgid "Help"
 msgstr "Aide"
 
 #: ../../app/views/branded/layouts/_footer.html.erb:20
-#: ../../app/views/branded/layouts/_navigation.html.erb:68
+#: ../../app/views/branded/layouts/_navigation.html.erb:71
 #: ../../app/views/branded/public_pages/template_index.html.erb:1
 #: ../../app/views/branded/public_pages/template_index.html.erb:5
 msgid "DMP Templates"
 msgstr "Modèles de DMP"
 
-#: ../../app/views/branded/layouts/_footer.html.erb:21
-#: ../../app/views/branded/layouts/_navigation.html.erb:84
-#: ../../app/views/branded/layouts/application.html.erb:71
-msgid "Learn more"
-msgstr "En savoir plus"
-
-#: ../../app/views/branded/layouts/_footer.html.erb:25
+#: ../../app/views/branded/layouts/_footer.html.erb:24
 msgid "FAQ"
 msgstr "FAQ"
 
+#: ../../app/views/branded/layouts/_footer.html.erb:28
+msgid "API Documentation"
+msgstr "Documentation API"
+
 #: ../../app/views/branded/layouts/_footer.html.erb:31
 #: ../../app/views/branded/layouts/_footer.html.erb:32
-#: ../../app/views/branded/layouts/_footer.html.erb:43
 msgid "About"
 msgstr "A propos"
 
@@ -1750,41 +1801,35 @@ msgstr "Conditions générales d'utilisation"
 
 #: ../../app/views/branded/layouts/_footer.html.erb:34
 msgid "Privacy statement"
-msgstr "Déclaration de confidentialité"
+msgstr "Politique de confidentialité"
 
 #: ../../app/views/branded/layouts/_footer.html.erb:42
 msgid "Ecosystem"
-msgstr ""
-"Écosystème\n"
-"\n"
+msgstr "Écosystème"
 
-#: ../../app/views/branded/layouts/_footer.html.erb:45
+#: ../../app/views/branded/layouts/_footer.html.erb:44
 msgid "OPIDoR website"
-msgstr ""
-"Site web OPIDoR\n"
+msgstr "Site web OPIDoR"
 
-#: ../../app/views/branded/layouts/_footer.html.erb:55
+#: ../../app/views/branded/layouts/_footer.html.erb:54
 msgid "INIST website"
 msgstr "Site INIST"
 
-#: ../../app/views/branded/layouts/_footer.html.erb:69
+#: ../../app/views/branded/layouts/_footer.html.erb:68
 msgid "Mailing list"
 msgstr "Liste de diffusion"
 
-#: ../../app/views/branded/layouts/_footer.html.erb:74
-msgid "CNRS website"
-msgstr "Site CNRS"
-
 #: ../../app/views/branded/layouts/_header.html.erb:18
-msgid "Research data management"
-msgstr "Plan de gestion de données"
+msgid "Effectively describing the life of your data to ensure its future"
+msgstr "Bien décrire la vie de vos données pour leur assurer un futur"
 
 #: ../../app/views/branded/layouts/_header.html.erb:19
-msgid "A key element in keeping good management practices and making your data FAIR."
+msgid ""
+"DMP OPIDoR – an active support tool to help plan your data management in harmo"
+"ny with your community’s practices"
 msgstr ""
-"Un élément clé pour faciliter la gestion, des données et autres produits de re"
-"cherche, en conformité avec les pratiques de votre communauté et les principes"
-" FAIR"
+"DMP OPIDoR, un outil et un accompagnement actifs pour planifier la gestion de "
+"vos données en harmonie avec les pratiques de votre communauté"
 
 #: ../../app/views/branded/layouts/_header.html.erb:28
 msgid "Error:"
@@ -1794,18 +1839,21 @@ msgstr "Erreur:"
 msgid "Notice:"
 msgstr "Avis:"
 
-#: ../../app/views/branded/layouts/_navigation.html.erb:23
-msgid "My plans"
-msgstr ""
-"Mes plans\n"
+#: ../../app/views/branded/layouts/_navigation.html.erb:11
+msgid "CNRS website"
+msgstr "Site CNRS"
 
-#: ../../app/views/branded/layouts/_navigation.html.erb:27
+#: ../../app/views/branded/layouts/_navigation.html.erb:26
+msgid "My plans"
+msgstr "Mes plans"
+
+#: ../../app/views/branded/layouts/_navigation.html.erb:30
 #: ../../app/views/branded/plans/index.html.erb:1
 #: ../../app/views/branded/plans/index.html.erb:3
 msgid "My Dashboard"
 msgstr "Tableau de bord"
 
-#: ../../app/views/branded/layouts/_navigation.html.erb:35
+#: ../../app/views/branded/layouts/_navigation.html.erb:38
 #: ../../app/views/branded/plans/_form.html.erb:147
 #: ../../app/views/branded/plans/_form.html.erb:148
 #: ../../app/views/branded/plans/import.html.erb:1
@@ -1813,16 +1861,20 @@ msgstr "Tableau de bord"
 msgid "Import DMP"
 msgstr "Importer un plan"
 
-#: ../../app/views/branded/layouts/_navigation.html.erb:57
+#: ../../app/views/branded/layouts/_navigation.html.erb:60
 msgid "Plans & Templates"
-msgstr ""
-"PGD & Modèles\n"
+msgstr "PGD & Modèles"
 
-#: ../../app/views/branded/layouts/_navigation.html.erb:62
+#: ../../app/views/branded/layouts/_navigation.html.erb:65
 #: ../../app/views/branded/public_pages/plan_index.html.erb:1
 #: ../../app/views/branded/public_pages/plan_index.html.erb:5
 msgid "Public DMPs"
 msgstr "DMP publics"
+
+#: ../../app/views/branded/layouts/_navigation.html.erb:87
+#: ../../app/views/branded/layouts/application.html.erb:71
+msgid "Learn more"
+msgstr "En savoir plus"
 
 #: ../../app/views/branded/layouts/_signin_signout.html.erb:37
 msgid "Logout"
@@ -1897,9 +1949,7 @@ msgstr "Référentiels"
 
 #: ../../app/views/branded/layouts/_signin_signout.html.erb:117
 msgid "My Account"
-msgstr ""
-"Mon espace\n"
-"\n"
+msgstr "Mon espace"
 
 #: ../../app/views/branded/layouts/application.html.erb:32
 msgid "%{application_name}"
@@ -2223,8 +2273,7 @@ msgstr "Supprimer"
 msgid "You are about to delete question #%{question_number}. Are you sure?"
 msgstr ""
 "Vous êtes sur le point de supprimer la question #%{question_number}. En êtes-v"
-"\"\n"
-"\"ous sûr ?"
+"ous sûr ?"
 
 #: ../../app/views/branded/org_admin/questions/_show.html.erb:14
 msgid "Question number"
@@ -2265,8 +2314,7 @@ msgid ""
 msgstr ""
 "Cliquez sur les liens ci-dessous pour afficher les directives organisationnell"
 "es.\n"
-"\n"
-"                        liées aux thèmes associés à cette question."
+"                        liées aux thèmes associés à cette question."
 
 #: ../../app/views/branded/org_admin/questions/_show.html.erb:178
 msgid ""
@@ -2274,10 +2322,10 @@ msgid ""
 "            Users then have the ability to hide/display the guidance when edit"
 "ing their plan."
 msgstr ""
-"Remarque: Les nouveaux plans afficheront automatiquement ce guidage.\n"
+"Remarque: Les nouveaux plans afficheront automatiquement cette recommandation."
 "\n"
-"            Les utilisateurs ont ensuite la possibilité de masquer / afficher "
-"les conseils lors de la modification de leur plan."
+"            Les utilisateurs ont ensuite la possibilité de masquer / afficher "
+"des recommandations lors de la modification de leur plan."
 
 #: ../../app/views/branded/org_admin/questions/_show.html.erb:181
 msgid ""
@@ -2447,7 +2495,7 @@ msgstr "Modèle recommandé"
 #: ../../app/views/branded/org_admin/templates/_row.html.erb:34
 #: ../../app/views/branded/paginable/templates/_index.html.erb:9
 msgid "Recommended"
-msgstr "Récommadé"
+msgstr "Recommandé"
 
 #: ../../app/views/branded/org_admin/users/edit.html.erb:4
 msgid "Editing profile for %{username}"
@@ -2688,7 +2736,7 @@ msgstr "Partager"
 #: ../../app/views/branded/paginable/plans/_organisationally_or_publicly_visible.html.erb:21
 #: ../../app/views/branded/paginable/plans/_privately_visible.html.erb:72
 #: ../../app/views/branded/paginable/plans/_privately_visible.html.erb:78
-#: ../../app/views/branded/paginable/plans/_publicly_visible.html.erb:14
+#: ../../app/views/branded/paginable/plans/_publicly_visible.html.erb:13
 #: ../../app/views/branded/paginable/templates/_history.html.erb:6
 #: ../../app/views/branded/paginable/templates/_organisational.html.erb:2
 #: ../../app/views/branded/paginable/templates/_publicly_visible.html.erb:10
@@ -2733,7 +2781,6 @@ msgstr "Mis à jour"
 
 #:
 #: ../../app/views/branded/paginable/plans/_organisationally_or_publicly_visible.html.erb:31
-#: ../../app/views/branded/paginable/plans/_publicly_visible.html.erb:26
 #: ../../app/views/research_outputs/repositories/_search_result.html.erb:47
 #: ../../app/views/research_outputs/repositories/_search_result.html.erb:52
 #: ../../app/views/research_outputs/repositories/_search_result.html.erb:55
@@ -2747,12 +2794,12 @@ msgstr "Inconnu"
 
 #:
 #: ../../app/views/branded/paginable/plans/_organisationally_or_publicly_visible.html.erb:38
-#: ../../app/views/branded/paginable/plans/_publicly_visible.html.erb:32
+#: ../../app/views/branded/paginable/plans/_publicly_visible.html.erb:30
 #: ../../app/views/branded/paginable/templates/_history.html.erb:27
 #: ../../app/views/branded/paginable/templates/_history.html.erb:33
 #: ../../app/views/branded/paginable/templates/_organisational.html.erb:88
-#: ../../app/views/branded/paginable/templates/_publicly_visible.html.erb:31
-#: ../../app/views/branded/paginable/templates/_publicly_visible.html.erb:35
+#: ../../app/views/branded/paginable/templates/_publicly_visible.html.erb:30
+#: ../../app/views/branded/paginable/templates/_publicly_visible.html.erb:34
 msgid "(new window)"
 msgstr "(nouvelle fenêtre)"
 
@@ -2769,12 +2816,12 @@ msgstr "Plan test ?"
 msgid "Research Domains"
 msgstr "Domaines de recherche"
 
-#: ../../app/views/branded/paginable/plans/_publicly_visible.html.erb:11
+#: ../../app/views/branded/paginable/plans/_publicly_visible.html.erb:10
 #: ../../app/views/branded/paginable/templates/_publicly_visible.html.erb:9
 msgid "Last Updated"
 msgstr "Dernière mise à jour"
 
-#: ../../app/views/branded/paginable/plans/_publicly_visible.html.erb:25
+#: ../../app/views/branded/paginable/plans/_publicly_visible.html.erb:24
 msgid "Not Applicable"
 msgstr "Non applicable"
 
@@ -2859,19 +2906,11 @@ msgstr "Nom de l'organisme"
 msgid "Organisation Type"
 msgstr "Type d'organisme"
 
-#: ../../app/views/branded/paginable/templates/_publicly_visible.html.erb:21
+#: ../../app/views/branded/paginable/templates/_publicly_visible.html.erb:20
 #: ../../app/views/branded/phases/_edit_plan_answers.html.erb:3
 #: ../../app/views/branded/shared/export/_plan_coversheet.erb:10
 msgid "Customized"
 msgstr "Personnalisé"
-
-#: ../../app/views/branded/paginable/templates/_publicly_visible.html.erb:41
-msgid "Copy link to create a new plan"
-msgstr "Copier le lien pour créer un nouveau plan"
-
-#: ../../app/views/branded/paginable/templates/_publicly_visible.html.erb:43
-msgid "Requires login"
-msgstr "Connexion requise"
 
 #: ../../app/views/branded/paginable/users/_index.html.erb:4
 msgid ""
@@ -2885,18 +2924,15 @@ msgid ""
 msgstr ""
 "Les données du tableau de bord d'utilisation sont de nature historique. Ce\n"
 "la signifie que le nombre d'enregistrements ci-dessous peut ne pas\n"
-"\n"
 "    correspondent au nombre indiqué sur le tableau de bord d'utilisation. Par "
 "\n"
 "exemple, si l'un de vos utilisateurs s'est joint en octobre, puis\n"
-"\n"
 "    déplacé vers une autre organisation ou désactivé leur compte, ils auraient"
 "\n"
 "été inclus dans l'utilisation\n"
-"\n"
 "    total du tableau de bord pour octobre mais n'apparaîtra pas dans la liste "
 "\n"
-"ci-dessous.\n"
+"ci-dessous."
 
 #: ../../app/views/branded/paginable/users/_index.html.erb:13
 msgid ""
@@ -2962,8 +2998,7 @@ msgstr "Runs"
 
 #: ../../app/views/branded/phases/_research_outputs_tabs.html.erb:12
 msgid "Outputs"
-msgstr ""
-"Produits de recherche\n"
+msgstr "Produits de recherche"
 
 #: ../../app/views/branded/plans/_download_form.html.erb:2
 msgid "Download settings"
@@ -3015,64 +3050,68 @@ msgid "unanswered questions"
 msgstr "questions sans réponse"
 
 #: ../../app/views/branded/plans/_download_form.html.erb:92
+msgid "export complete data"
+msgstr "exporter des données complètes"
+
+#: ../../app/views/branded/plans/_download_form.html.erb:100
 msgid "supplementary section(s) not requested by funding organisation"
 msgstr "section(s) supplémentaire(s) non requise(s) par l'organisme financeur"
 
-#: ../../app/views/branded/plans/_download_form.html.erb:98
+#: ../../app/views/branded/plans/_download_form.html.erb:106
 #: ../../app/views/branded/plans/import.html.erb:10
 msgid "Format"
 msgstr "Format"
 
-#: ../../app/views/branded/plans/_download_form.html.erb:114
+#: ../../app/views/branded/plans/_download_form.html.erb:122
 msgid "JSON format"
 msgstr "Format JSON"
 
-#: ../../app/views/branded/plans/_download_form.html.erb:119
+#: ../../app/views/branded/plans/_download_form.html.erb:127
 msgid "Default export"
 msgstr "Export par défaut"
 
-#: ../../app/views/branded/plans/_download_form.html.erb:127
+#: ../../app/views/branded/plans/_download_form.html.erb:135
 #: ../../app/views/branded/plans/import.html.erb:23
 msgid "RDA Common Standard"
 msgstr "RDA Common Standard"
 
-#: ../../app/views/branded/plans/_download_form.html.erb:135
+#: ../../app/views/branded/plans/_download_form.html.erb:143
 msgid "PDF formatting"
 msgstr "Formatage PDF"
 
-#: ../../app/views/branded/plans/_download_form.html.erb:138
+#: ../../app/views/branded/plans/_download_form.html.erb:146
 msgid "Font"
 msgstr "Police de caractère"
 
-#: ../../app/views/branded/plans/_download_form.html.erb:141
+#: ../../app/views/branded/plans/_download_form.html.erb:149
 msgid "Margin (mm)"
 msgstr "Marge (mm)"
 
-#: ../../app/views/branded/plans/_download_form.html.erb:146
+#: ../../app/views/branded/plans/_download_form.html.erb:154
 msgid "Face"
 msgstr "Face"
 
-#: ../../app/views/branded/plans/_download_form.html.erb:154
+#: ../../app/views/branded/plans/_download_form.html.erb:162
 msgid "Size"
 msgstr "Taille"
 
-#: ../../app/views/branded/plans/_download_form.html.erb:162
+#: ../../app/views/branded/plans/_download_form.html.erb:170
 msgid "Top"
 msgstr "Haut"
 
-#: ../../app/views/branded/plans/_download_form.html.erb:171
+#: ../../app/views/branded/plans/_download_form.html.erb:179
 msgid "Bottom"
 msgstr "Bas"
 
-#: ../../app/views/branded/plans/_download_form.html.erb:180
+#: ../../app/views/branded/plans/_download_form.html.erb:188
 msgid "Left"
 msgstr "Gauche"
 
-#: ../../app/views/branded/plans/_download_form.html.erb:189
+#: ../../app/views/branded/plans/_download_form.html.erb:197
 msgid "Right"
 msgstr "Droite"
 
-#: ../../app/views/branded/plans/_download_form.html.erb:200
+#: ../../app/views/branded/plans/_download_form.html.erb:208
 msgid "Download Plan"
 msgstr "Télécharger le plan"
 
@@ -3086,7 +3125,7 @@ msgstr "Produits de recherche"
 #: ../../app/views/branded/plans/_edit_research_outputs.html.erb:5
 #: ../../app/views/branded/plans/_show_research_outputs.html.erb:4
 msgid "Dataset, software, workflow, sample, protocol..."
-msgstr ""
+msgstr "Jeu de données, logiciel, workflow, échantillon, protocole..."
 
 #: ../../app/views/branded/plans/_edit_research_outputs.html.erb:7
 msgid ""
@@ -3260,7 +3299,7 @@ msgid "Write Plan"
 msgstr "Rédiger"
 
 #: ../../app/views/branded/plans/_navigation.html.erb:53
-#: ../../app/views/branded/shared/export/_plan_coversheet.erb:103
+#: ../../app/views/branded/shared/export/_plan_coversheet.erb:109
 msgid "Budget"
 msgstr "Budget"
 
@@ -3318,7 +3357,7 @@ msgstr "Courriel"
 #: ../../app/views/branded/plans/_share_form.html.erb:18
 #: ../../app/views/branded/plans/_share_form.html.erb:91
 #: ../../app/views/branded/plans/_share_third_party.html.erb:33
-#: ../../app/views/branded/plans/_share_third_party.html.erb:84
+#: ../../app/views/branded/plans/_share_third_party.html.erb:83
 msgid "Permissions"
 msgstr "Permissions"
 
@@ -3434,15 +3473,15 @@ msgstr "Service externe"
 msgid "Purpose"
 msgstr "Finalité"
 
-#: ../../app/views/branded/plans/_share_third_party.html.erb:60
+#: ../../app/views/branded/plans/_share_third_party.html.erb:59
 msgid "Authorize third party applications"
 msgstr "Autoriser des applications tierces"
 
-#: ../../app/views/branded/plans/_share_third_party.html.erb:67
+#: ../../app/views/branded/plans/_share_third_party.html.erb:66
 msgid "Application"
 msgstr "Application"
 
-#: ../../app/views/branded/plans/_share_third_party.html.erb:89
+#: ../../app/views/branded/plans/_share_third_party.html.erb:88
 msgid "Read only: can read the content of the dmp"
 msgstr "Lecture seule : peut lire le contenu du plan"
 
@@ -3455,28 +3494,32 @@ msgstr ""
 "ffectue dans l'onglet \"Rédiger\"."
 
 #: ../../app/views/branded/plans/budget.html.erb:15
-#: ../../app/views/branded/shared/export/_plan_coversheet.erb:107
+#: ../../app/views/branded/shared/export/_plan_coversheet.erb:113
 msgid "Cost type (Title)"
 msgstr "Type de coût (Titre)"
 
 #: ../../app/views/branded/plans/budget.html.erb:16
-#: ../../app/views/branded/shared/export/_plan_coversheet.erb:108
+#: ../../app/views/branded/shared/export/_plan_coversheet.erb:114
 msgid "Amount"
 msgstr "Montant"
 
 #: ../../app/views/branded/plans/budget.html.erb:17
-#: ../../app/views/branded/shared/export/_plan_coversheet.erb:109
+#: ../../app/views/branded/shared/export/_plan_coversheet.erb:115
 msgid "Lifecycle stage"
 msgstr "Etape du cycle de vie"
 
 #: ../../app/views/branded/plans/budget.html.erb:36
-#: ../../app/views/branded/shared/export/_plan_coversheet.erb:130
+#: ../../app/views/branded/shared/export/_plan_coversheet.erb:136
 msgid "General Budget"
 msgstr "Budget général"
 
 #: ../../app/views/branded/plans/import.html.erb:6
-msgid "This feature is only available for structured templates."
-msgstr "Cette fonctionnalité n'est disponible que pour les modèles structurés."
+msgid ""
+"This feature is currently only available for structured DMPs created in the co"
+"ntext of a research project."
+msgstr ""
+"Cette fonctionnalité n'est actuellement disponible que pour les plans de gesti"
+"on structurés créés dans le contexte d’un projet de recherche. \n"
 
 #: ../../app/views/branded/plans/import.html.erb:19
 msgid "Standard"
@@ -3607,11 +3650,13 @@ msgstr "Titre du produit de recherche"
 #: ../../app/views/branded/research_outputs/_list.html.erb:46
 #: ../../app/views/research_outputs/_form.html.erb:27
 msgid "Research output type"
-msgstr "Type de résultat de la recherche"
+msgstr "Type de produit de recherche"
 
 #: ../../app/views/branded/research_outputs/_list.html.erb:69
 msgid "Add a person in the Contributors tab. Please save before clicking on +"
 msgstr ""
+"Ajoutez une personne dans l'onglet Contributeurs. Merci de sauvegarder avant d"
+"e cliquer sur +"
 
 #: ../../app/views/branded/research_outputs/_list.html.erb:76
 msgid "Persistent Identifier"
@@ -3707,19 +3752,25 @@ msgstr "Se connecter"
 msgid "Individual Access"
 msgstr "Accès individuel"
 
-#: ../../app/views/branded/shared/_sign_in_form.html.erb:27
-#: ../../app/views/branded/shared/_sign_in_form_header.html.erb:27
-msgid "Forgot password?"
-msgstr "Mot de passe oublié ?"
+#: ../../app/views/branded/shared/_sign_in_form.html.erb:19
+#: ../../app/views/branded/shared/_sign_in_form_header.html.erb:19
+msgid "Not registered yet?"
+msgstr "Pas encore inscrit ?"
+
+#: ../../app/views/branded/shared/_sign_in_form.html.erb:19
+#: ../../app/views/branded/shared/_sign_in_form_header.html.erb:19
+msgid "Create my account"
+msgstr "Créer mon compte"
 
 #: ../../app/views/branded/shared/_sign_in_form.html.erb:32
 #: ../../app/views/branded/shared/_sign_in_form_header.html.erb:32
-msgid "Remember email"
-msgstr "Se souvenir de l'adresse"
+msgid "Remember me"
+msgstr "Se souvenir de moi"
 
-#: ../../app/views/branded/shared/_sign_in_form_header.html.erb:36
-msgid "Create account?"
-msgstr "Créer un compte ?"
+#: ../../app/views/branded/shared/_sign_in_form.html.erb:37
+#: ../../app/views/branded/shared/_sign_in_form_header.html.erb:37
+msgid "Forgot password?"
+msgstr "Mot de passe oublié ?"
 
 #: ../../app/views/branded/shared/export/_plan_coversheet.erb:15
 msgid ""
@@ -3749,11 +3800,11 @@ msgstr "Affiliation"
 msgid "Roles"
 msgstr "Rôles"
 
-#: ../../app/views/branded/shared/export/_plan_coversheet.erb:140
+#: ../../app/views/branded/shared/export/_plan_coversheet.erb:146
 msgid "Copyright information:"
 msgstr "Droits d'auteur :"
 
-#: ../../app/views/branded/shared/export/_plan_coversheet.erb:143
+#: ../../app/views/branded/shared/export/_plan_coversheet.erb:149
 msgid ""
 " The above plan creator(s) have agreed that others may use as much of the text"
 " of this plan as they would like in their own plans, and customise it as neces"
@@ -3908,6 +3959,7 @@ msgstr ""
 "API %{tool_name}."
 
 #: ../../app/views/branded/user_mailer/api_credentials.html.erb:23
+#: ../../app/views/branded/user_mailer/client_sharing_notification.html.erb:21
 msgid "Please refer to the API documentation at: %{api_documentation_url}"
 msgstr ""
 "Veuillez consulter la documentation de l'API à l'adresse: %{api_documentation_"
@@ -3933,6 +3985,43 @@ msgstr ""
 "le renouvellement de vos informations d'identification, veuillez nous contacte"
 "r à %{helpdesk_email}"
 
+#: ../../app/views/branded/user_mailer/client_sharing_notification.html.erb:2
+msgid "Hello %{contact_name}"
+msgstr "Bonjour %{contact_name}"
+
+#: ../../app/views/branded/user_mailer/client_sharing_notification.html.erb:11
+msgid "The DMP can be accessed through the API at the following url : %{link}"
+msgstr "Le plan est accessible via l'API à l'url suivante : %{link}"
+
+#: ../../app/views/branded/user_mailer/client_sharing_notification.html.erb:16
+msgid "The following grant id has been added to the project description : %{grant_id}"
+msgstr ""
+"Le code de décision suivant a été ajouté à la description du projet : %{grant_"
+"id}"
+
+#: ../../app/views/branded/user_mailer/feedback_complete.html.erb:6
+msgid ""
+"%{commenter} has finished providing feedback on the plan  \"%{link_html}\". Comm"
+"ents can be found in the 'Write plan' tab by clicking on the Comments icon."
+msgstr ""
+"%{commenter} a clôturé la demande d'assistance conseil pour le plan \"%{link_ht"
+"ml}\". Les commentaires se trouvent dans l'onglet \"Rédiger\" en cliquant sur l'i"
+"cône Commentaires. "
+
+#: ../../app/views/branded/user_mailer/feedback_complete.html.erb:7
+msgid ""
+"%{commenter} has finished providing feedback on the plan  \"%{link_html}\". Comm"
+"ents can be found in the 'Write plan' tab on the right side of the page (Guida"
+"nce/Comments)."
+msgstr ""
+"%{commenter} a clôturé la demande d'assistance conseil pour le plan \"%{link_ht"
+"ml}\". Les commentaires se trouvent dans l'onglet \"Rédiger\" situé à droite de l"
+"a page (Recommandations / Commentaires)."
+
+#: ../../app/views/branded/user_mailer/feedback_complete.html.erb:11
+msgid "Hello %{recipient_name}"
+msgstr "Bonjour %{recipient_name}"
+
 #: ../../app/views/branded/user_mailer/feedback_notification.html.erb:2
 msgid "Hello %{user_name},"
 msgstr "Bonjour %{user_name},"
@@ -3951,11 +4040,27 @@ msgstr ""
 msgid "Alternatively, you can click the link below:"
 msgstr "Vous pouvez également cliquer sur le lien ci-dessous :"
 
-#: ../../app/views/branded/user_mailer/new_comment.html.erb:2
+#: ../../app/views/branded/user_mailer/new_comment.html.erb:3
+msgid ""
+"Comments can be found in the 'Write plan' tab by clicking on the Comments icon"
+"."
+msgstr ""
+"Les commentaires se trouvent dans l'onglet \"Rédiger\" en cliquant sur l'icône C"
+"ommentaires."
+
+#: ../../app/views/branded/user_mailer/new_comment.html.erb:4
+msgid ""
+"Comments can be found in the 'Write plan' tab on the right side of the page (G"
+"uidance/Comments)."
+msgstr ""
+"Les commentaires se trouvent dans l'onglet \"Rédiger\" situé à droite de la page"
+" (Recommandations / Commentaires)."
+
+#: ../../app/views/branded/user_mailer/new_comment.html.erb:9
 msgid "Hello %{user_name}"
 msgstr "Bonjour %{user_name}"
 
-#: ../../app/views/branded/user_mailer/new_comment.html.erb:5
+#: ../../app/views/branded/user_mailer/new_comment.html.erb:12
 msgid ""
 "%{commenter_name} has commented on your plan %{plan_title}. To view the commen"
 "ts, follow the link to the DMP below, or navigate to the plan via My Dashboard"
@@ -3965,33 +4070,25 @@ msgstr ""
 "ntaires, suivez le lien vers le DMP ci-dessous ou accédez au plan via la page "
 "Mon tableau de bord dans %{tool_name}."
 
-#: ../../app/views/branded/user_mailer/new_comment.html.erb:10
+#: ../../app/views/branded/user_mailer/new_comment.html.erb:17
 msgid "Below the question, research output and section where the comment is located."
 msgstr ""
 "Vous trouverez ci-dessous la question, le produit de recherche et la section o"
 "ù le commentaire se trouve."
 
-#: ../../app/views/branded/user_mailer/new_comment.html.erb:11
-msgid ""
-"You can see the comments in the right-hand panel, adjacent to the guidance for"
-" each question."
-msgstr ""
-"Vous pouvez voir les commentaires dans le panneau de droite, à côté des recomm"
-"andations pour chaque question."
-
-#: ../../app/views/branded/user_mailer/new_comment.html.erb:15
+#: ../../app/views/branded/user_mailer/new_comment.html.erb:21
 msgid "DMP: %{phase_link}"
 msgstr "DMP: %{phase_link}"
 
-#: ../../app/views/branded/user_mailer/new_comment.html.erb:18
+#: ../../app/views/branded/user_mailer/new_comment.html.erb:24
 msgid "Section name: %{section_title}"
 msgstr "Nom de section: %{section_title}"
 
-#: ../../app/views/branded/user_mailer/new_comment.html.erb:21
+#: ../../app/views/branded/user_mailer/new_comment.html.erb:27
 msgid "Research output name: %{research_output_name}"
 msgstr "Nom du produit de recherche : %{research_output_name}"
 
-#: ../../app/views/branded/user_mailer/new_comment.html.erb:24
+#: ../../app/views/branded/user_mailer/new_comment.html.erb:30
 msgid "Question: %{question_number}"
 msgstr "Question: %{question_number}"
 
@@ -4094,7 +4191,8 @@ msgid ""
 "        sort the data by each field."
 msgstr ""
 "Vous trouverez ci-dessous une liste des utilisateurs enregistrés pour votre or"
-"ganisme. Vous pouvez trier les données par champ."
+"ganisme.\n"
+"        Vous pouvez trier les données par champ."
 
 #: ../../app/views/branded/users/admin_index.html.erb:25
 msgid "Download users"
@@ -4198,7 +4296,7 @@ msgstr "Édition %{research_output_title}"
 #: ../../app/views/research_outputs/edit.html.erb:13
 #: ../../app/views/research_outputs/new.html.erb:13
 msgid "View all research outputs"
-msgstr "Voir tous les résultats de la recherche"
+msgstr "Voir tous les produits de recherche"
 
 #: ../../app/views/research_outputs/index.html.erb:14
 msgid "Please list your anticipated research output(s)."
@@ -4317,6 +4415,11 @@ msgstr ""
 "teur existant comme contact"
 
 #:
+#: ../../engines/madmp_opidor/app/controllers/api/v1/madmp/plans_controller.rb:74
+msgid "%{user_name} Plan"
+msgstr "Plan de %{user_name}"
+
+#:
 #: ../../engines/madmp_opidor/app/controllers/api/v1/madmp/plans_controller.rb:84
 #: ../../engines/madmp_opidor/app/controllers/api/v1/madmp/plans_controller.rb:87
 msgid "Invalid JSON"
@@ -4331,51 +4434,51 @@ msgstr "Référentiel introuvable"
 msgid "Plan is already shared with %{api_client}."
 msgstr "Le plan est déjà partagé avec %{api_client}."
 
-#: ../../engines/madmp_opidor/app/controllers/api_client_roles_controller.rb:22
+#: ../../engines/madmp_opidor/app/controllers/api_client_roles_controller.rb:23
 msgid "Plan shared with \"%{api_client}\" application successfully."
 msgstr "Plan partagé avec l'application \"%{api_client}\" avec succès."
 
-#: ../../engines/madmp_opidor/app/controllers/api_client_roles_controller.rb:25
+#: ../../engines/madmp_opidor/app/controllers/api_client_roles_controller.rb:26
 msgid "An error has occured while sharing the plan with \"%{api_client}\"."
 msgstr "Une erreur s'est produite lors du partage du plan avec \"%{api_client}\"."
 
-#: ../../engines/madmp_opidor/app/controllers/api_client_roles_controller.rb:29
+#: ../../engines/madmp_opidor/app/controllers/api_client_roles_controller.rb:30
 msgid "Please select an application in the list"
 msgstr "Veuillez sélectionner une application dans la liste"
 
-#: ../../engines/madmp_opidor/app/controllers/api_client_roles_controller.rb:43
+#: ../../engines/madmp_opidor/app/controllers/api_client_roles_controller.rb:44
 msgid "Successfully changed the permissions for %{api_client}."
 msgstr "Autorisations pour %{api_client} modifiées avec succès."
 
-#: ../../engines/madmp_opidor/app/controllers/madmp_codebase_controller.rb:47
+#: ../../engines/madmp_opidor/app/controllers/madmp_codebase_controller.rb:49
 msgid "Notification has been sent"
 msgstr "La notification a été envoyée"
 
-#: ../../engines/madmp_opidor/app/controllers/madmp_codebase_controller.rb:129
+#: ../../engines/madmp_opidor/app/controllers/madmp_codebase_controller.rb:135
 msgid "Project data have successfully been imported."
 msgstr "Les données concernant le projet ont été importées avec succès"
 
-#: ../../engines/madmp_opidor/app/controllers/madmp_fragments_controller.rb:92
+#: ../../engines/madmp_opidor/app/controllers/madmp_fragments_controller.rb:93
 msgid "Form saved successfully."
-msgstr ""
+msgstr "Formulaire enregistré avec succès."
 
-#: ../../engines/madmp_opidor/app/controllers/madmp_fragments_controller.rb:96
+#: ../../engines/madmp_opidor/app/controllers/madmp_fragments_controller.rb:97
 msgid "Error when saving form."
-msgstr ""
+msgstr "Erreur lors de l'enregistrement du formulaire."
 
 #: ../../engines/madmp_opidor/app/controllers/templates_controller.rb:47
 msgid "Unable to change the template's recommended status"
 msgstr "Impossible de changer le statut \"recommandé\" du modèle"
 
-#: ../../engines/madmp_opidor/app/services/import/plan_import_service.rb:92
+#: ../../engines/madmp_opidor/app/services/import/plan_import_service.rb:97
 msgid "Invalid JSON data"
 msgstr "Données JSON invalides"
 
-#: ../../engines/madmp_opidor/app/services/import/plan_import_service.rb:93
+#: ../../engines/madmp_opidor/app/services/import/plan_import_service.rb:98
 msgid "Invalid format"
 msgstr "Format invalide"
 
-#: ../../engines/madmp_opidor/app/services/import/plan_import_service.rb:97
+#: ../../engines/madmp_opidor/app/services/import/plan_import_service.rb:102
 msgid "File should begin with :dmp property"
 msgstr "Le fichier doit commencer par la propriété :dmp"
 

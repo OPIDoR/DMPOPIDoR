@@ -10,9 +10,29 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2024_01_23_152636) do
+ActiveRecord::Schema[7.1].define(version: 2024_05_31_083744) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+  enable_extension "unaccent"
+
+  # Custom types defined in this database.
+  # Note that some types may not work with other database engines. Be careful if changing database.
+  create_enum "mapping_type", ["json", "form"]
+
+  create_table "admin_users", id: :serial, force: :cascade do |t|
+    t.string "email", default: "", null: false
+    t.string "encrypted_password", default: "", null: false
+    t.string "reset_password_token"
+    t.datetime "reset_password_sent_at", precision: nil
+    t.datetime "remember_created_at", precision: nil
+    t.integer "sign_in_count", default: 0
+    t.datetime "current_sign_in_at", precision: nil
+    t.datetime "last_sign_in_at", precision: nil
+    t.string "current_sign_in_ip"
+    t.string "last_sign_in_ip"
+    t.datetime "created_at", precision: nil
+    t.datetime "updated_at", precision: nil
+  end
 
   create_table "annotations", id: :serial, force: :cascade do |t|
     t.integer "question_id"
@@ -41,6 +61,12 @@ ActiveRecord::Schema[7.1].define(version: 2024_01_23_152636) do
     t.index ["question_id"], name: "answers_question_id_idx"
     t.index ["research_output_id"], name: "index_answers_on_research_output_id"
     t.index ["user_id"], name: "answers_user_id_idx"
+  end
+
+  create_table "answers_options", id: false, force: :cascade do |t|
+    t.integer "answer_id", null: false
+    t.integer "option_id", null: false
+    t.index ["answer_id", "option_id"], name: "index_answers_options_on_answer_id_and_option_id"
   end
 
   create_table "answers_question_options", id: false, force: :cascade do |t|
@@ -113,6 +139,29 @@ ActiveRecord::Schema[7.1].define(version: 2024_01_23_152636) do
     t.index ["org_id"], name: "index_departments_on_org_id"
   end
 
+  create_table "dmp_mappings", force: :cascade do |t|
+    t.integer "type_mapping", default: 0
+    t.bigint "source_id"
+    t.bigint "target_id"
+    t.json "mapping"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["source_id"], name: "index_dmp_mappings_on_source_id"
+    t.index ["target_id"], name: "index_dmp_mappings_on_target_id"
+  end
+
+  create_table "dmptemplates", id: :serial, force: :cascade do |t|
+    t.string "title"
+    t.text "description"
+    t.boolean "published"
+    t.integer "user_id"
+    t.integer "organisation_id"
+    t.datetime "created_at", precision: nil
+    t.datetime "updated_at", precision: nil
+    t.string "locale"
+    t.boolean "is_default"
+  end
+
   create_table "exported_plans", id: :serial, force: :cascade do |t|
     t.integer "plan_id"
     t.integer "user_id"
@@ -122,6 +171,37 @@ ActiveRecord::Schema[7.1].define(version: 2024_01_23_152636) do
     t.integer "phase_id"
   end
 
+  create_table "file_types", id: :serial, force: :cascade do |t|
+    t.string "name"
+    t.string "icon_name"
+    t.integer "icon_size"
+    t.string "icon_location"
+    t.datetime "created_at", precision: nil
+    t.datetime "updated_at", precision: nil
+  end
+
+  create_table "file_uploads", id: :serial, force: :cascade do |t|
+    t.string "name"
+    t.string "title"
+    t.text "description"
+    t.integer "size"
+    t.boolean "published"
+    t.string "location"
+    t.integer "file_type_id"
+    t.datetime "created_at", precision: nil
+    t.datetime "updated_at", precision: nil
+  end
+
+  create_table "friendly_id_slugs", id: :serial, force: :cascade do |t|
+    t.string "slug", null: false
+    t.integer "sluggable_id", null: false
+    t.string "sluggable_type", limit: 40
+    t.datetime "created_at", precision: nil
+    t.index ["slug", "sluggable_type"], name: "index_friendly_id_slugs_on_slug_and_sluggable_type", unique: true
+    t.index ["sluggable_id"], name: "index_friendly_id_slugs_on_sluggable_id"
+    t.index ["sluggable_type"], name: "index_friendly_id_slugs_on_sluggable_type"
+  end
+
   create_table "guidance_groups", id: :serial, force: :cascade do |t|
     t.string "name"
     t.integer "org_id"
@@ -129,7 +209,15 @@ ActiveRecord::Schema[7.1].define(version: 2024_01_23_152636) do
     t.datetime "updated_at", precision: nil, null: false
     t.boolean "optional_subset", default: false, null: false
     t.boolean "published", default: false, null: false
+    t.string "description"
+    t.integer "language_id", default: 0
     t.index ["org_id"], name: "guidance_groups_org_id_idx"
+  end
+
+  create_table "guidance_in_group", id: false, force: :cascade do |t|
+    t.integer "guidance_id", null: false
+    t.integer "guidance_group_id", null: false
+    t.index ["guidance_id", "guidance_group_id"], name: "index_guidance_in_group_on_guidance_id_and_guidance_group_id"
   end
 
   create_table "guidances", id: :serial, force: :cascade do |t|
@@ -138,7 +226,17 @@ ActiveRecord::Schema[7.1].define(version: 2024_01_23_152636) do
     t.datetime "created_at", precision: nil, null: false
     t.datetime "updated_at", precision: nil, null: false
     t.boolean "published"
+    t.string "locale", default: "fr-FR"
     t.index ["guidance_group_id"], name: "guidances_guidance_group_id_idx"
+  end
+
+  create_table "guided_tours", force: :cascade do |t|
+    t.bigint "user_id"
+    t.string "tour"
+    t.boolean "ended", default: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["user_id"], name: "index_guided_tours_on_user_id"
   end
 
   create_table "homepage_messages", id: :serial, force: :cascade do |t|
@@ -216,6 +314,7 @@ ActiveRecord::Schema[7.1].define(version: 2024_01_23_152636) do
     t.datetime "created_at", precision: nil, null: false
     t.datetime "updated_at", precision: nil, null: false
     t.bigint "api_client_id"
+    t.string "data_type", default: "none", null: false
     t.index ["api_client_id"], name: "index_madmp_schemas_on_api_client_id"
     t.index ["org_id"], name: "index_madmp_schemas_on_org_id"
   end
@@ -272,6 +371,23 @@ ActiveRecord::Schema[7.1].define(version: 2024_01_23_152636) do
     t.boolean "enabled", default: true
   end
 
+  create_table "option_warnings", id: :serial, force: :cascade do |t|
+    t.integer "organisation_id"
+    t.integer "option_id"
+    t.text "text"
+    t.datetime "created_at", precision: nil
+    t.datetime "updated_at", precision: nil
+  end
+
+  create_table "options", id: :serial, force: :cascade do |t|
+    t.integer "question_id"
+    t.string "text"
+    t.integer "number"
+    t.boolean "is_default"
+    t.datetime "created_at", precision: nil
+    t.datetime "updated_at", precision: nil
+  end
+
   create_table "org_token_permissions", id: :serial, force: :cascade do |t|
     t.integer "org_id"
     t.integer "token_permission_type_id"
@@ -279,6 +395,30 @@ ActiveRecord::Schema[7.1].define(version: 2024_01_23_152636) do
     t.datetime "updated_at", precision: nil
     t.index ["org_id"], name: "org_token_permissions_org_id_idx"
     t.index ["token_permission_type_id"], name: "org_token_permissions_token_permission_type_id_idx"
+  end
+
+  create_table "organisation_types", id: :serial, force: :cascade do |t|
+    t.string "name"
+    t.text "description"
+    t.datetime "created_at", precision: nil
+    t.datetime "updated_at", precision: nil
+  end
+
+  create_table "organisations", id: :serial, force: :cascade do |t|
+    t.string "name"
+    t.string "abbreviation"
+    t.text "description"
+    t.string "target_url"
+    t.integer "logo_file_id"
+    t.integer "banner_file_id"
+    t.integer "organisation_type_id"
+    t.string "domain"
+    t.integer "wayfless_entity"
+    t.integer "stylesheet_file_id"
+    t.datetime "created_at", precision: nil
+    t.datetime "updated_at", precision: nil
+    t.integer "parent_id"
+    t.boolean "is_other"
   end
 
   create_table "orgs", id: :serial, force: :cascade do |t|
@@ -306,6 +446,20 @@ ActiveRecord::Schema[7.1].define(version: 2024_01_23_152636) do
     t.index ["region_id"], name: "orgs_region_id_idx"
   end
 
+  create_table "pages", id: :serial, force: :cascade do |t|
+    t.string "title"
+    t.text "body_text"
+    t.string "slug"
+    t.integer "menu"
+    t.integer "menu_position"
+    t.string "target_url"
+    t.string "location"
+    t.boolean "public"
+    t.integer "organisation_id"
+    t.datetime "created_at", precision: nil
+    t.datetime "updated_at", precision: nil
+  end
+
   create_table "perms", id: :serial, force: :cascade do |t|
     t.string "name"
     t.datetime "created_at", precision: nil, null: false
@@ -323,6 +477,15 @@ ActiveRecord::Schema[7.1].define(version: 2024_01_23_152636) do
     t.string "versionable_id", limit: 36
     t.index ["template_id"], name: "phases_template_id_idx"
     t.index ["versionable_id"], name: "index_phases_on_versionable_id"
+  end
+
+  create_table "plan_sections", id: :serial, force: :cascade do |t|
+    t.integer "user_id"
+    t.integer "section_id"
+    t.integer "plan_id"
+    t.datetime "created_at", precision: nil
+    t.datetime "updated_at", precision: nil
+    t.datetime "release_time", precision: nil
   end
 
   create_table "plans", id: :serial, force: :cascade do |t|
@@ -364,6 +527,40 @@ ActiveRecord::Schema[7.1].define(version: 2024_01_23_152636) do
   create_table "prefs", id: :serial, force: :cascade do |t|
     t.text "settings"
     t.integer "user_id"
+  end
+
+  create_table "project_groups", id: :serial, force: :cascade do |t|
+    t.boolean "project_creator"
+    t.boolean "project_editor"
+    t.integer "user_id"
+    t.integer "project_id"
+    t.datetime "created_at", precision: nil
+    t.datetime "updated_at", precision: nil
+    t.boolean "project_administrator"
+  end
+
+  create_table "project_guidance", id: false, force: :cascade do |t|
+    t.integer "project_id", null: false
+    t.integer "guidance_group_id", null: false
+    t.index ["project_id", "guidance_group_id"], name: "index_project_guidance_on_project_id_and_guidance_group_id"
+  end
+
+  create_table "projects", id: :serial, force: :cascade do |t|
+    t.string "title"
+    t.text "note"
+    t.boolean "locked"
+    t.integer "dmptemplate_id"
+    t.datetime "created_at", precision: nil
+    t.datetime "updated_at", precision: nil
+    t.string "slug"
+    t.integer "organisation_id"
+    t.string "grant_number"
+    t.string "identifier"
+    t.string "description"
+    t.string "principal_investigator"
+    t.string "principal_investigator_identifier"
+    t.string "data_contact"
+    t.index ["slug"], name: "index_projects_on_slug", unique: true
   end
 
   create_table "question_formats", id: :serial, force: :cascade do |t|
@@ -566,6 +763,14 @@ ActiveRecord::Schema[7.1].define(version: 2024_01_23_152636) do
     t.boolean "filtered", default: false
   end
 
+  create_table "suggested_answers", id: :serial, force: :cascade do |t|
+    t.integer "question_id"
+    t.integer "organisation_id"
+    t.text "text"
+    t.datetime "created_at", precision: nil
+    t.datetime "updated_at", precision: nil
+  end
+
   create_table "templates", id: :serial, force: :cascade do |t|
     t.string "title"
     t.text "description"
@@ -584,6 +789,7 @@ ActiveRecord::Schema[7.1].define(version: 2024_01_23_152636) do
     t.integer "type", default: 0, null: false
     t.integer "context", default: 0, null: false
     t.boolean "is_recommended", default: false
+    t.string "data_type", default: "none", null: false
     t.index ["customization_of", "version", "org_id"], name: "templates_customization_of_version_org_id_key", unique: true
     t.index ["family_id", "version"], name: "templates_family_id_version_key", unique: true
     t.index ["org_id"], name: "templates_org_id_idx"
@@ -594,8 +800,8 @@ ActiveRecord::Schema[7.1].define(version: 2024_01_23_152636) do
     t.text "description"
     t.datetime "created_at", precision: nil, null: false
     t.datetime "updated_at", precision: nil, null: false
-    t.string "locale"
     t.string "slug"
+    t.json "translations", default: {}
   end
 
   create_table "themes_in_guidance", id: false, force: :cascade do |t|
@@ -618,6 +824,35 @@ ActiveRecord::Schema[7.1].define(version: 2024_01_23_152636) do
     t.datetime "created_at", precision: nil, null: false
     t.datetime "updated_at", precision: nil, null: false
     t.index ["org_id"], name: "index_trackers_on_org_id"
+  end
+
+  create_table "user_org_roles", id: :serial, force: :cascade do |t|
+    t.integer "user_id"
+    t.integer "organisation_id"
+    t.integer "user_role_type_id"
+    t.datetime "created_at", precision: nil
+    t.datetime "updated_at", precision: nil
+  end
+
+  create_table "user_role_types", id: :serial, force: :cascade do |t|
+    t.string "name"
+    t.text "description"
+    t.datetime "created_at", precision: nil
+    t.datetime "updated_at", precision: nil
+  end
+
+  create_table "user_statuses", id: :serial, force: :cascade do |t|
+    t.string "name"
+    t.text "description"
+    t.datetime "created_at", precision: nil
+    t.datetime "updated_at", precision: nil
+  end
+
+  create_table "user_types", id: :serial, force: :cascade do |t|
+    t.string "name"
+    t.text "description"
+    t.datetime "created_at", precision: nil
+    t.datetime "updated_at", precision: nil
   end
 
   create_table "users", id: :serial, force: :cascade do |t|
@@ -666,6 +901,23 @@ ActiveRecord::Schema[7.1].define(version: 2024_01_23_152636) do
     t.index ["user_id"], name: "users_perms_user_id_idx"
   end
 
+  create_table "users_roles", id: false, force: :cascade do |t|
+    t.integer "user_id"
+    t.integer "role_id"
+    t.index ["user_id", "role_id"], name: "index_users_roles_on_user_id_and_role_id"
+  end
+
+  create_table "versions", id: :serial, force: :cascade do |t|
+    t.string "title"
+    t.text "description"
+    t.integer "published"
+    t.integer "number"
+    t.integer "phase_id"
+    t.datetime "created_at", precision: nil
+    t.datetime "updated_at", precision: nil
+    t.index ["phase_id"], name: "index_versions_on_phase_id"
+  end
+
   add_foreign_key "annotations", "orgs", deferrable: :deferred
   add_foreign_key "annotations", "questions", deferrable: :deferred
   add_foreign_key "answers", "plans", deferrable: :deferred
@@ -677,6 +929,7 @@ ActiveRecord::Schema[7.1].define(version: 2024_01_23_152636) do
   add_foreign_key "conditions", "questions"
   add_foreign_key "guidance_groups", "orgs", deferrable: :deferred
   add_foreign_key "guidances", "guidance_groups", deferrable: :deferred
+  add_foreign_key "guided_tours", "users"
   add_foreign_key "madmp_fragments", "answers"
   add_foreign_key "madmp_fragments", "madmp_schemas"
   add_foreign_key "madmp_schemas", "api_clients"

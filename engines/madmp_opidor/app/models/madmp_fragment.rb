@@ -4,20 +4,26 @@
 #
 # Table name: madmp_fragments
 #
-#  id                        :integer          not null, primary key
-#  data                      :json
-#  answer_id                 :integer
+#  id              :integer          not null, primary key
+#  additional_info :json
+#  classname       :string
+#  data            :json
+#  created_at      :datetime         not null
+#  updated_at      :datetime         not null
+#  answer_id       :integer
+#  dmp_id          :integer
 #  madmp_schema_id :integer
-#  created_at                :datetime         not null
-#  updated_at                :datetime         not null
-#  classname                 :string
-#  dmp_id                    :integer
-#  parent_id                 :integer
+#  parent_id       :integer
 #
 # Indexes
 #
-#  index_madmp_fragments_on_answer_id                  (answer_id)
+#  index_madmp_fragments_on_answer_id        (answer_id)
 #  index_madmp_fragments_on_madmp_schema_id  (madmp_schema_id)
+#
+# Foreign Keys
+#
+#  fk_rails_...  (answer_id => answers.id)
+#  fk_rails_...  (madmp_schema_id => madmp_schemas.id)
 #
 require 'jsonpath'
 
@@ -81,6 +87,9 @@ class MadmpFragment < ApplicationRecord
   scope :reused_datas, -> { where(classname: 'reused_data') }
   scope :specific_datas, -> { where(classname: 'specific_data') }
   scope :technical_resources, -> { where(classname: 'technical_resource') }
+  
+  # = Software specific classes =
+  scope :software_descriptions, -> { where(classname: 'software_description') }
 
   # =============
   # = Callbacks =
@@ -172,7 +181,7 @@ class MadmpFragment < ApplicationRecord
           updated_data[key] = classified_children[key].map { |c| { 'dbid' => c.id } }
           next
         end
-      elsif prop['type'].eql?('object') && prop['schema_id'].present?
+      elsif prop['type'].eql?('object') && prop['template_name'].present?
         # dbid doesn't need to be regenerated for "person" properties
         # Person fragment don't have a parent_id set because they are used in multiple contributors
         # without this instruction, the app would set the dbid for the person prop as nil
@@ -197,6 +206,7 @@ class MadmpFragment < ApplicationRecord
 
     case classname
     when 'research_output_description'
+    when 'software_description'
       ro_fragment = parent
       new_additional_info = ro_fragment.additional_info.merge(
         hasPersonalData: %w[Oui Yes].include?(data['containsPersonalData'])
@@ -303,7 +313,7 @@ class MadmpFragment < ApplicationRecord
         if target_prop['items']['type'].eql?('object')
           next if converted_data[key].empty? || converted_data[key].first.nil?
 
-          target_sub_schema = MadmpSchema.find(target_prop['items']['schema_id'])
+          target_sub_schema = MadmpSchema.find_by(name: target_prop['items']['template_name'])
           converted_data[key].map { |v| MadmpFragment.find(v['dbid']).schema_conversion(target_sub_schema, locale) }
         end
       elsif origin_prop['type'].eql?('object')
@@ -311,11 +321,11 @@ class MadmpFragment < ApplicationRecord
         next if origin_prop['inputType'].present? && origin_prop['inputType'].eql?('pickOrCreate')
 
         sub_fragment = MadmpFragment.find(data[key]['dbid'])
-        target_sub_schema = MadmpSchema.find(target_prop['schema_id'])
+        target_sub_schema = MadmpSchema.find_by(name: target_prop['template_name'])
         sub_fragment.schema_conversion(target_sub_schema, locale)
       elsif origin_prop['type'].eql?('array')
         if target_prop['type'].eql?('object')
-          target_sub_schema = MadmpSchema.find(target_prop['schema_id'])
+          target_sub_schema = MadmpSchema.find_by(name: target_prop['template_name'])
           data[key] = [] if data[key].nil?
           if data[key].empty?
             sub_fragment = MadmpFragment.new(
@@ -358,9 +368,9 @@ class MadmpFragment < ApplicationRecord
 
     new_data = data || {}
     madmp_schema.properties.each do |key, prop|
-      next unless prop['type'].eql?('object') && prop['schema_id'].present?
+      next unless prop['type'].eql?('object') && prop['template_name'].present?
 
-      sub_schema = MadmpSchema.find(prop['schema_id'])
+      sub_schema = MadmpSchema.find_by(name: prop['template_name'])
 
       next if sub_schema.classname.eql?('person') || new_data[key].present?
 
@@ -479,9 +489,9 @@ class MadmpFragment < ApplicationRecord
     ).where.not(id: current_fragment_id)
 
     dmp_fragments.each do |fragment|
-      filtered_db_data = fragment.data.slice(*unicity_properties).compact
-      filtered_incoming_data = data.to_h.slice(*unicity_properties).compact
-      next if filtered_db_data.empty?
+      filtered_db_data = fragment.data.slice(*unicity_properties).compact!
+      filtered_incoming_data = data.to_h.slice(*unicity_properties).compact!
+      next if filtered_db_data.nil? || filtered_db_data.empty?
 
       return fragment if filtered_db_data.eql?(filtered_incoming_data)
     end

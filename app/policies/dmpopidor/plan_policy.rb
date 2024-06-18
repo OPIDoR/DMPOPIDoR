@@ -59,7 +59,7 @@ module Dmpopidor
       @user.present?
     end
 
-    def answers_data?
+    def research_outputs_data?
       @record.readable_by?(@user.id)
     end
 

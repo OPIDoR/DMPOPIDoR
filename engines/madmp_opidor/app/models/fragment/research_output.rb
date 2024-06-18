@@ -3,6 +3,28 @@
 # == Schema Information
 #
 # Table name: madmp_fragments
+#
+#  id              :integer          not null, primary key
+#  additional_info :json
+#  classname       :string
+#  data            :json
+#  created_at      :datetime         not null
+#  updated_at      :datetime         not null
+#  answer_id       :integer
+#  dmp_id          :integer
+#  madmp_schema_id :integer
+#  parent_id       :integer
+#
+# Indexes
+#
+#  index_madmp_fragments_on_answer_id        (answer_id)
+#  index_madmp_fragments_on_madmp_schema_id  (madmp_schema_id)
+#
+# Foreign Keys
+#
+#  fk_rails_...  (answer_id => answers.id)
+#  fk_rails_...  (madmp_schema_id => madmp_schemas.id)
+#
 
 #  id                        :integer          not null, primary key
 #  data                      :json
@@ -22,7 +44,12 @@ module Fragment
   # ResearchOutput STI model
   class ResearchOutput < MadmpFragment
     def research_output_description
-      Fragment::ResearchOutputDescription.where(parent_id: id).first
+      data_type = additional_info['dataType']
+      if data_type.eql?('software')
+        Fragment::SoftwareDescription.where(parent_id: id).first
+      else
+        Fragment::ResearchOutputDescription.where(parent_id: id).first
+      end
     end
 
     def reuse

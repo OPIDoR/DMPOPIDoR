@@ -16,6 +16,7 @@ class GuidanceGroupsController < ApplicationController
     @guidance_groups = GuidanceGroup.where(org_id: current_user.org.id)
     @guidance_group = GuidanceGroup.new(org_id: current_user.org.id)
     authorize @guidance_group
+    @locales = Language.all
   end
 
   # POST /org/admin/guidancegroup/:id/admin_create
@@ -26,6 +27,7 @@ class GuidanceGroupsController < ApplicationController
     @guidance_groups = GuidanceGroup.where(org_id: current_user.org.id)
     @guidance_group = GuidanceGroup.new(args)
     authorize @guidance_group
+    @locales = Language.all
 
     if @guidance_group.save
       flash.now[:notice] = success_message(@guidance_group, _('created'))
@@ -42,6 +44,7 @@ class GuidanceGroupsController < ApplicationController
     @guidance_groups = GuidanceGroup.where(org_id: current_user.org.id)
     @guidance_group = GuidanceGroup.find(params[:id])
     authorize @guidance_group
+    @locales = Language.all
   end
 
   # PUT /org/admin/guidancegroup/:id/admin_update
@@ -50,6 +53,7 @@ class GuidanceGroupsController < ApplicationController
     @guidance_groups = GuidanceGroup.where(org_id: current_user.org.id)
     @guidance_group = GuidanceGroup.find(params[:id])
     authorize @guidance_group
+    @locales = Language.all
 
     if @guidance_group.update(guidance_group_params)
       flash.now[:notice] = success_message(@guidance_group, _('saved'))
@@ -64,6 +68,7 @@ class GuidanceGroupsController < ApplicationController
   def admin_update_publish
     @guidance_group = GuidanceGroup.find(params[:id])
     authorize @guidance_group
+    @locales = Language.all
 
     if @guidance_group.update(published: true)
       flash[:notice] = _('Your guidance group has been published and is now available to users.')
@@ -78,6 +83,7 @@ class GuidanceGroupsController < ApplicationController
   def admin_update_unpublish
     @guidance_group = GuidanceGroup.find(params[:id])
     authorize @guidance_group
+    @locales = Language.all
 
     if @guidance_group.update(published: false)
       flash[:notice] = _('Your guidance group is no longer published and will not be available to users.')
@@ -90,6 +96,7 @@ class GuidanceGroupsController < ApplicationController
   # DELETE /org/admin/guidancegroup/:id/admin_destroy
   def admin_destroy
     @guidance_group = GuidanceGroup.find(params[:id])
+    @locales = Language.all
     authorize @guidance_group
     if @guidance_group.destroy
       flash[:notice] = success_message(@guidance_group, _('deleted'))
@@ -102,6 +109,6 @@ class GuidanceGroupsController < ApplicationController
   private
 
   def guidance_group_params
-    params.require(:guidance_group).permit(:org_id, :name, :published, :optional_subset)
+    params.require(:guidance_group).permit(:org_id, :name, :description, :published, :optional_subset, :language_id)
   end
 end

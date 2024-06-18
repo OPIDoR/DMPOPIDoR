@@ -6,13 +6,16 @@
 #
 #  id               :integer          not null, primary key
 #  archived         :boolean
+#  context          :integer          default("research_project"), not null
 #  customization_of :integer
 #  description      :text
 #  is_default       :boolean
+#  is_recommended   :boolean          default(FALSE)
 #  links            :text
 #  locale           :string
 #  published        :boolean
 #  title            :string
+#  type             :integer          default("classic"), not null
 #  version          :integer
 #  visibility       :integer
 #  created_at       :datetime
@@ -22,10 +25,9 @@
 #
 # Indexes
 #
-#  index_templates_on_family_id              (family_id)
-#  index_templates_on_family_id_and_version  (family_id,version) UNIQUE
-#  index_templates_on_org_id                 (org_id)
-#  template_organisation_dmptemplate_index   (org_id,family_id)
+#  templates_customization_of_version_org_id_key  (customization_of,version,org_id) UNIQUE
+#  templates_family_id_version_key                (family_id,version) UNIQUE
+#  templates_org_id_idx                           (org_id)
 #
 # Foreign Keys
 #
@@ -39,8 +41,9 @@ class Template < ApplicationRecord
   extend UniqueRandom
   # --------------------------------
   # Start DMP OPIDoR Customization
+  # SEE app/models/dmpopidor/template.rb
   # --------------------------------
-  # prepend Dmpopidor::Template
+  prepend Dmpopidor::Template
   # --------------------------------
   # End DMP OPIDoR Customization
   # --------------------------------
@@ -56,12 +59,13 @@ class Template < ApplicationRecord
   # --------------------------------
   # Start DMP OPIDoR Customization
   # --------------------------------
-  # A standard template will have access to question types such as text, textarea
+  # A classic template will have access to question types such as text, textarea
   # date, number ...
   # For structured templates, question types will be restricted to structured, with
   # access to structured forms when adding a new question.
+  # Module templates can only have one phase, have a data_type & can't be used by a plan
   self.inheritance_column = nil
-  enum type: %i[classic structured]
+  enum type: %i[classic structured module]
   # Context describes if the DMP is for a Research Project ou a Research Entity
   # The Project Form is replaced by a Structure Form in the General information tab.
   # New features might be added in the future
@@ -256,7 +260,13 @@ class Template < ApplicationRecord
   end
 
   def self.recommend(context: 'research_project', locale: 'fr-FR')
-    where(is_recommended: true, published: true, context: , locale:).last
+    where(is_recommended: true, published: true, type: 'structured', context: , locale:).last
+  end
+
+  def self.module(data_type: nil, context: 'research_project', locale: 'fr-FR')
+    return nil if data_type.nil?
+  
+    where(published: true, type: 'module', data_type:, context: , locale:).last
   end
 
   def self.current(family_id)
