@@ -3,6 +3,14 @@
 **Attention** Cette liste de changements concerne les déploiements sur nos serveurs de test en interne.
 
 
+# 18/06/2024
+
+- Correction du problème d'accès à l'API api/v1/madmp/fragments/{id} (#11318)
+- Correction du problème d'affichage des recommandations sur les plans en lecture seule (#11324)
+- Retrait de la zone de choix des recommandations des plans en lecture seule (#11324)
+
+# 12/06/2024
+
 - Les sous-fragments constants sont désormais supprimables (#10910)
 - Ajout de la description des sections dans l'onglet Rédiger (#10903)
 - Retrait des modèles structurés de la liste des modèles personnalisables (#11039)
