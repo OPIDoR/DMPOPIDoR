@@ -12,7 +12,7 @@ services:
     depends_on:
       postgres:
         condition: service_healthy
-      redis:
+      valkey:
         condition: service_healthy
     environment:
       - RAILS_ENV=production
@@ -42,7 +42,8 @@ services:
       - DRAGON_FLY_SECRET=${DRAGON_FLY_SECRET:-my_secret_key}
       - RECAPTCHA_SITE_KEY=${RECAPTCHA_SITE_KEY:-11111}
       - RECAPTCHA_SECRET_KEY=${RECAPTCHA_SECRET_KEY:-22222}
-      - REDIS_HOST=${REDIS_HOST:-redis}
+      - REDIS_URL=redis://${REDIS_USERNAME:-default}:${REDIS_PASSWORD:-changeme}@${REDIS_HOST:-valkey}:${REDIS_PORT:-6379}
+      - REDIS_HOST=${REDIS_HOST:-valkey}
       - REDIS_PORT=${REDIS_PORT:-6379}
       - REDIS_USERNAME=${REDIS_USERNAME:-default}
       - REDIS_PASSWORD=${REDIS_PASSWORD:-changeme}
@@ -151,14 +152,14 @@ services:
     networks:
       - dmpopidor_network
 
-  redis:
-    image: valkey/valkey:7.2-alpine3.19
-    # command: "redis-server /etc/redis/redis.conf"
+  valkey:
+    image: valkey/valkey:7.2.5-alpine3.19
+    command: "redis-server /etc/redis/redis.conf --requirepass ${REDIS_PASSWORD:-changeme}"
     ports:
       - 6379:6379
     volumes:
-      - ./redis/sysctl.conf:/etc/sysctl.conf
-      - ./redis/redis.conf:/etc/redis/redis.conf
+      - ./redis/sysctl.conf:/etc/sysctl.conf:ro
+      - ./redis/redis.conf:/etc/redis/redis.conf:ro
     healthcheck:
       test: ["CMD-SHELL", "redis-cli --pass ${REDIS_PASSWORD:-changeme} ping | grep PONG"]
       interval: ${REDIS_HEALTHCHECK_INTERVAL:-30s}

@@ -1,6 +1,6 @@
-.default: &default
+default: &default
   adapter: redis
-  url: "redis://<%= ENV.fetch('REDIS_USERNAME', 'default') %>:<%= ENV.fetch('REDIS_PASSWORD', 'changeme') %>@<%= ENV.fetch('REDIS_HOST', 'localhost') %>:<%= ENV.fetch('REDIS_PORT', 6379) %>/1"
+  url: <%= Rails.configuration.x.dmpopidor.redis_url%>
 
 development:
   <<: *default
