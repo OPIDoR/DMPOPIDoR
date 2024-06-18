@@ -124,7 +124,7 @@
   </div>
 <% end %>
 
-<% if f.object.org.funder? %>
+<% if !f.object.module? && f.object.org.funder? %>
   <div class="col-xs-8">
     <%= render(partial: '/shared/links',
     locals: {

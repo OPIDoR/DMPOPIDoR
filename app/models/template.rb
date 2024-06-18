@@ -95,7 +95,7 @@ class Template < ApplicationRecord
   # = Associations =
   # ================
 
-  belongs_to :org
+  belongs_to :org, optional: true
 
   has_many :plans
 
@@ -117,7 +117,7 @@ class Template < ApplicationRecord
 
   validates :title, presence: { message: PRESENCE_MESSAGE }
 
-  validates :org, presence: { message: PRESENCE_MESSAGE }
+  validates :org, presence: { message: PRESENCE_MESSAGE }, unless: Proc.new { |t| t.module? }
 
   validates :locale, presence: { message: PRESENCE_MESSAGE }
 
@@ -248,8 +248,6 @@ class Template < ApplicationRecord
   has_settings :export, class_name: 'Settings::Template' do |s|
     s.key :export, defaults: Settings::Template::DEFAULT_SETTINGS
   end
-
-  validates :org, :title, presence: { message: _("can't be blank") }
 
   # =================
   # = Class Methods =
