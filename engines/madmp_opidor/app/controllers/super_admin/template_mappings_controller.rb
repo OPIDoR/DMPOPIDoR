@@ -76,7 +76,7 @@ module SuperAdmin
     private
 
     def mapping_params
-      params.require(:template_mapping).permit(:type_mapping, :source_id, :target_id, :name, mapping: {})
+      params.permit(:type_mapping, :source_id, :target_id, :name, mapping: {})
     end
   end
 end
