@@ -122,11 +122,16 @@ module Dmpopidor
       target_template = mapping.target_id
       mapping_data = mapping.mapping
 
+      res = ''
       # Préparation des données avec mapping
       # mapped_data = map_plan_to_template(plan, mapping)
 
+      mapping_data.each do |key, value|
+        res += "#{key} #{value} \n\n"
+      end
+
       respond_to do |format|
-        format.html { render html: mapping_data }
+        format.html { render html: res }
       end
     end
 
