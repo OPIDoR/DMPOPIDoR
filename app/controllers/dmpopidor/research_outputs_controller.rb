@@ -199,6 +199,44 @@ module Dmpopidor
     end
     # rubocop:enable Metrics/AbcSize,Metrics/MethodLength
 
+    def import
+      body = JSON.parse(request.body.string)
+      research_output = ::ResearchOutput.find_by(uuid: body["uuid"])
+
+      authorize research_output
+
+      target_plan = ::Plan.find(params[:plan_id])
+      pos = target_plan.research_outputs.length + 1
+
+      research_output_copy = ::ResearchOutput.deep_copy(research_output)
+      research_output_copy.title = "#{pos} [Import]  #{research_output.title}"
+      research_output_copy.abbreviation = "#{pos}-Import-#{research_output.abbreviation}"
+      research_output_copy.plan_id = target_plan.id
+      research_output_copy.save!
+      research_output_copy.create_json_fragments
+
+      research_output_description = research_output.json_fragment.research_output_description
+      research_output_copy.json_fragment.research_output_description.raw_import(
+        research_output_description.get_full_fragment,
+        research_output_description.madmp_schema
+      )
+
+      module_id = research_output.json_fragment.additional_info['moduleId']
+      template = module_id ? ::Template.find(module_id) : target_plan.template
+
+      research_outputs = (target_plan.research_outputs << research_output_copy).map do |ro|
+        ro.attributes.merge(
+          configuration: ro.json_fragment.additional_info,
+          template: template.serialize_json
+        )
+      end
+
+      render json: { statusCode: 201, message: _('Research output imported'), data: {
+        research_outputs: research_outputs,
+        current_research_output: research_output_copy.id,
+      } }
+    end
+
     def sort
       @plan = ::Plan.find(params[:plan_id])
       authorize @plan

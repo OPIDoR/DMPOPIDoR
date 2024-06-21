@@ -178,6 +178,7 @@ Rails.application.routes.draw do
     delete 'destroy_remote', on: :collection
     patch 'update_remote', on: :collection
     post 'sort', on: :collection
+    post 'import', on: :collection, constraints: { format: [:json] }
   end
 
   resources :research_outputs, only: [] do
