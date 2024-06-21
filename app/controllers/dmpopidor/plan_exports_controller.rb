@@ -114,47 +114,23 @@ module Dmpopidor
     # end
 
     def export_with_mapping
-      plan = ::Plan.includes(:answers, :research_outputs, {
-                               template: { phases: { sections: :questions } }
-                             }).find(params[:plan_id])
+      plan = ::Plan.find(params[:plan_id])
       mapping = ::TemplateMapping.find(params[:mapping_id])
       authorize plan
 
+      source_template = mapping.source_id
+      target_template = mapping.target_id
+      mapping_data = mapping.mapping
+
       # Préparation des données avec mapping
-      mapped_data = map_plan_to_template(plan, mapping)
+      # mapped_data = map_plan_to_template(plan, mapping)
 
       respond_to do |format|
-        format.html { render html: mapped_data }
+        format.html { render html: mapping_data }
       end
     end
 
     private
-
-    def map_plan_to_template(plan, mapping)
-      mapping_data = begin
-        JSON.parse(mapping.mapping)
-      rescue StandardError
-        []
-      end
-      mapped_questions = {}
-
-      plan.template.phases.each do |phase|
-        phase.sections.each do |section|
-          section.questions.each do |question|
-            # Trouver la correspondance dans le mapping JSON
-            mapping_entry = mapping_data.find { |m| m['source_question_id'].to_i == question.id }
-            next unless mapping_entry
-
-            target_question = Question.find_by(id: mapping_entry['target_question_id'])
-            if target_question
-              target_question_text = target_question.text
-              mapped_questions[target_question_text] = plan.answers.find_by(question_id: question.id)&.text
-            end
-          end
-        end
-      end
-      mapped_questions
-    end
 
     def export_params
       params.fetch(:export, {})
