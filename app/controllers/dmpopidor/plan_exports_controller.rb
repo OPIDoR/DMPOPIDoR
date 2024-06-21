@@ -98,19 +98,55 @@ module Dmpopidor
                                    selected_research_outputs: selected_research_outputs
                                  }), filename: "#{file_name}_#{json_format}.json"
     end
-    
+
+    # def export_with_mapping
+    #   plan = ::Plan.find(params[:plan_id])
+    #   mapping = ::TemplateMapping.find(params[:mapping_id])
+    #   authorize plan
+
+    #   p '#################'
+    #   p plan
+    #   p mapping
+    #   p '#################'
+
+    #   @mapped_plan = apply_mapping(plan, mapping)
+    #   render layout: false
+    # end
+
     def export_with_mapping
-      plan = ::Plan.find(params[:plan_id])
+      plan = ::Plan.includes(:answers, :research_outputs, {
+                               template: { phases: { sections: :questions } }
+                             }).find(params[:plan_id])
       mapping = ::TemplateMapping.find(params[:mapping_id])
       authorize plan
 
-      p "#################"
-      p plan
-      p mapping
-      p "#################"
+      # Préparation des données avec mapping
+      mapped_data = map_plan_to_template(plan, mapping)
 
+      respond_to do |format|
+        format.html { render html: mapped_data }
+      end
     end
 
+    private
+
+    def map_plan_to_template(plan, mapping)
+      # Création d'une nouvelle structure de données basée sur le mapping JSON
+      mapped_questions = {}
+      plan.template.phases.each do |phase|
+        phase.sections.each do |section|
+          section.questions.each do |question|
+            # Trouver la correspondance dans le mapping JSON
+            mapping_entry = mapping.mapping.find { |m| m['source_question_id'] == question.id }
+            if mapping_entry
+              target_question_text = Question.find(mapping_entry['target_question_id']).text
+              mapped_questions[target_question_text] = plan.answers.find_by(question_id: question.id)&.text
+            end
+          end
+        end
+      end
+      mapped_questions
+    end
 
     def export_params
       params.fetch(:export, {})
