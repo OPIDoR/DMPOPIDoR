@@ -7,13 +7,13 @@ Dragonfly.app.configure do
   plugin :imagemagick
 
   # set in credentials file
-  secret Rails.application.credentials.dragonfly_secret
+  secret ENV.fetch('DRAGON_FLY_SECRET', Rails.application.credentials.dragonfly_secret)
 
-  url_format '/media/:job/:name'
+  url_format ENV.fetch('DRAGONFLY_URL_FORMAT', '/media/:job/:name')
 
   # If the DRAGONFLY_AWS environment variable is set to 'true', configure the app to
   # use Amazon S3 for storage:
-  if ENV['DRAGONFLY_AWS'] == 'true'
+  if ENV.fetch('DRAGONFLY_AWS', true).to_s.casecmp('true').zero? == 'true'
     require 'dragonfly/s3_data_store'
     datastore(:s3, {
                 bucket_name: ENV.fetch('AWS_BUCKET_NAME', nil),
