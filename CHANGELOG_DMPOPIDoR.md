@@ -3,6 +3,12 @@
 **Attention** Cette liste de changements concerne les déploiements sur nos serveurs de test en interne.
 
 
+# 21/06/2024
+
+- Correction du format des données retournées par l'API api/v1/madmp/schemas (#11319)
+- Correction du problème d'édition des contributeurs lors de l'utilisation de la pagination (#11346)
+- Correction du problème de vérification de l'unicité lors de la création d'un nouveau contributeur
+
 # 18/06/2024
 
 - Correction du problème d'accès à l'API api/v1/madmp/fragments/{id} (#11318)
