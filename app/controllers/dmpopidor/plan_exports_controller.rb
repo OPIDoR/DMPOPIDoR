@@ -131,15 +131,23 @@ module Dmpopidor
     private
 
     def map_plan_to_template(plan, mapping)
-      # Création d'une nouvelle structure de données basée sur le mapping JSON
+      mapping_data = begin
+        JSON.parse(mapping.mapping)
+      rescue StandardError
+        []
+      end
       mapped_questions = {}
+
       plan.template.phases.each do |phase|
         phase.sections.each do |section|
           section.questions.each do |question|
             # Trouver la correspondance dans le mapping JSON
-            mapping_entry = mapping.mapping.find { |m| m['source_question_id'] == question.id }
-            if mapping_entry
-              target_question_text = Question.find(mapping_entry['target_question_id']).text
+            mapping_entry = mapping_data.find { |m| m['source_question_id'].to_i == question.id }
+            next unless mapping_entry
+
+            target_question = Question.find_by(id: mapping_entry['target_question_id'])
+            if target_question
+              target_question_text = target_question.text
               mapped_questions[target_question_text] = plan.answers.find_by(question_id: question.id)&.text
             end
           end
