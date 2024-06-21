@@ -17,6 +17,10 @@ class TemplatePolicy < ApplicationPolicy
     @user.can_modify_templates?
   end
 
+  def modules?
+    @user.can_modify_templates?
+  end
+
   def new?
     @user.can_super_admin? || @user.can_modify_templates?
   end

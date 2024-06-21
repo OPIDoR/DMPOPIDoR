@@ -4,6 +4,7 @@ module OrgAdmin
   # Controller that handles templates
   # rubocop:disable Metrics/ClassLength
   class TemplatesController < ApplicationController
+    prepend Dmpopidor::OrgAdmin::TemplatesController
     include Paginable
     include Versionable
     include TemplateMethods
@@ -163,15 +164,19 @@ module OrgAdmin
     # rubocop:enable Metrics/AbcSize, Metrics/MethodLength
 
     # GET /org_admin/templates/new
-    # SEE MODULE
     def new
       authorize Template
       # --------------------------------
       # Start DMP OPIDoR Customization
       # CHANGES : Added Locales list
       # CHANGES : Added Type param
+      # CHANGES : Removed org if type is module
       # --------------------------------
-      @template = current_org.templates.new(type: params[:type])
+      @template = if params[:type].eql?('module')
+                    Template.new(type: params[:type])
+                  else
+                    current_org.templates.new(type: params[:type])
+                  end
       @locales = Language.all
       # --------------------------------
       # End DMP OPIDoR Customization
@@ -192,7 +197,16 @@ module OrgAdmin
 
       # creates a new template with version 0 and new family_id
       @template = Template.new(args)
-      @template.org_id = current_user.org.id
+      # --------------------------------
+      # Start DMP OPIDoR Customization
+      # CHANGES : Added Locales list
+      # CHANGES : Removed org if type is module
+      # --------------------------------
+      @locales = Language.all
+      @template.org_id = current_user.org.id unless @template.module?
+      # --------------------------------
+      # End DMP OPIDoR Customization
+      # --------------------------------
       @template.locale = current_org.language.abbreviation
       @template.links = if params['template-links'].present?
                           ActiveSupport::JSON.decode(params['template-links'])

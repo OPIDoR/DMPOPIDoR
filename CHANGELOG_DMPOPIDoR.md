@@ -2,6 +2,9 @@
 
 **Attention** Cette liste de changements concerne les déploiements sur nos serveurs de test en interne.
 
+- Les modèles Module ne sont désormais plus reliés à un organisme.
+- Ajout d'un onglet dédié aux Modules dans la liste des Modèles accessibles à l'org admin & super admin
+
 ## 07/06/2024
 - Correction du problème d'accès à l'onglet Rédiger.
 
