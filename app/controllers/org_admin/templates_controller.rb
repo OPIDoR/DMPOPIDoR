@@ -4,6 +4,7 @@ module OrgAdmin
   # Controller that handles templates
   # rubocop:disable Metrics/ClassLength
   class TemplatesController < ApplicationController
+    prepend Dmpopidor::OrgAdmin::TemplatesController
     include Paginable
     include Versionable
     include TemplateMethods

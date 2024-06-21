@@ -166,6 +166,14 @@ class Template < ApplicationRecord
               SQL
   }
 
+  scope :latest_module_version, lambda { |family_id = nil|
+    unarchived.where(type: 'module').from(latest_version_per_family(family_id), :current)
+              .joins(<<~SQL)
+                INNER JOIN templates ON current.version = templates.version
+                  AND current.family_id = templates.family_id
+              SQL
+  }
+
   # Retrieves the latest customized versions, i.e. those with maximum version
   # associated for a set of family_id and an org
   scope :latest_customized_version, lambda { |family_id = nil, org_id = nil|
@@ -400,10 +408,17 @@ class Template < ApplicationRecord
     !published && !Template.published(family_id).empty?
   end
 
+  # --------------------------------
+  # Start DMP OPIDoR Customization
+  # SEE app/models/dmpopidor/template.rb
+  # --------------------------------
   def removable?
     versions = Template.includes(:plans).where(family_id: family_id)
     versions.reject { |version| version.plans.empty? }.empty?
   end
+  # --------------------------------
+  # End DMP OPIDoR Customization
+  # --------------------------------
 
   # Returns a new unpublished copy of self with a new family_id, version = zero
   # for the specified org
