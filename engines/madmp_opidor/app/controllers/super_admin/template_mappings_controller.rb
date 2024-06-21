@@ -41,6 +41,8 @@ module SuperAdmin
       else
         render json: { message: 'Error creating mapping', errors: mapping.errors.full_messages }, status: :bad_request
       end
+    rescue Pundit::NotAuthorizedError
+      render json: { message: 'Not authorized' }, status: :forbidden
     end
 
     # PATCH/PUT /super_admin/template_mappings/:id
@@ -56,6 +58,8 @@ module SuperAdmin
       else
         render json: { message: 'Mapping not found' }, status: :not_found
       end
+    rescue Pundit::NotAuthorizedError
+      render json: { message: 'Not authorized' }, status: :forbidden
     end
 
     # DELETE /super_admin/template_mappings/:id
@@ -71,6 +75,8 @@ module SuperAdmin
       else
         render json: { message: 'Mapping not found' }, status: :not_found
       end
+    rescue Pundit::NotAuthorizedError
+      render json: { message: 'Not authorized' }, status: :forbidden
     end
 
     private
