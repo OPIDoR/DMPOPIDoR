@@ -13,8 +13,6 @@
   <div class="form-group col-xs-12">
     <%= label_tag(:api_information, _('Documentation'), class: 'control-label') %>
     <br>
-    <%= _('See the <a href="%{api_v0_wiki}">documentation for v0</a> for more details on the API endpoints which include access to the list of all viewable DMP templates, or your organisation’s guidance or statistics.').html_safe % { api_v0_wiki: api_wikis[:v0] } %></a>
-    <br><br>
     <%= _('See the <a href="%{api_v1_wiki}">documentation for v1</a> for more details on the API endpoints which enable the reuse of information structured in compliance with the common DMP OPIDoR or <a href="%{rda_standard_url}">RDA DMP Common standard</a> schemas. These include access to the schemas, registries, plans (whole DMP, DMP for a single research product) or information fragments, to which the user has access.').html_safe % { api_v1_wiki: api_wikis[:v1], rda_standard_url: 'https://github.com/RDA-DMP-Common/RDA-DMP-Common-Standard' } %></a>
   </div>
   <div class="form-group col-xs-8">
