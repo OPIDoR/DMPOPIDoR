@@ -123,6 +123,53 @@ module Dmpopidor
     end
     # rubocop:enable Metrics/AbcSize
 
+    def import
+      body = JSON.parse(request.body.string)
+      research_output = ::ResearchOutput.find_by(uuid: body["uuid"])
+      research_output_fragment = research_output.json_fragment
+
+      authorize research_output
+
+      target_plan = ::Plan.find(params[:plan_id])
+      pos = target_plan.research_outputs.length + 1
+
+      research_output_copy = target_plan.research_outputs.create!(
+        abbreviation: "#{pos}-Import-#{research_output.abbreviation}",
+        title: "#{pos} [Import]  #{research_output.title}",
+        display_order: pos
+      )
+      # Creates the main ResearchOutput fragment
+      research_output_copy_fragment = Fragment::ResearchOutput.create(
+        data: {
+          'research_output_id' => research_output_copy.id
+        },
+        madmp_schema: research_output_fragment.madmp_schema,
+        dmp_id: target_plan.json_fragment.id,
+        parent_id: target_plan.json_fragment.id,
+        additional_info: research_output_fragment.additional_info
+      )
+
+      research_output.answers.each do |answer|
+        answer_copy = Answer.deep_copy(answer)
+        answer_copy.plan_id = target_plan.id
+        answer_copy.research_output_id = research_output_copy.id
+        answer_copy.save!
+        MadmpFragment.deep_copy(answer.madmp_fragment, answer_copy.id, research_output_copy_fragment)
+      end
+
+      module_id = research_output_copy_fragment.additional_info['moduleId']
+      template = module_id ? ::Template.find(module_id) : target_plan.template
+      
+      render json: {
+        id: target_plan.id,
+        created_ro_id: research_output_copy.id,
+        dmp_id: target_plan.json_fragment.id,
+        research_outputs: target_plan.research_outputs.order(:display_order).map do |ro|
+          ro.serialize_json
+        end
+      }
+    end
+
 
     # DELETE AFTER V4 ?
 
@@ -198,44 +245,6 @@ module Dmpopidor
       end
     end
     # rubocop:enable Metrics/AbcSize,Metrics/MethodLength
-
-    def import
-      body = JSON.parse(request.body.string)
-      research_output = ::ResearchOutput.find_by(uuid: body["uuid"])
-
-      authorize research_output
-
-      target_plan = ::Plan.find(params[:plan_id])
-      pos = target_plan.research_outputs.length + 1
-
-      research_output_copy = ::ResearchOutput.deep_copy(research_output)
-      research_output_copy.title = "#{pos} [Import]  #{research_output.title}"
-      research_output_copy.abbreviation = "#{pos}-Import-#{research_output.abbreviation}"
-      research_output_copy.plan_id = target_plan.id
-      research_output_copy.save!
-      research_output_copy.create_json_fragments
-
-      research_output_description = research_output.json_fragment.research_output_description
-      research_output_copy.json_fragment.research_output_description.raw_import(
-        research_output_description.get_full_fragment,
-        research_output_description.madmp_schema
-      )
-
-      module_id = research_output.json_fragment.additional_info['moduleId']
-      template = module_id ? ::Template.find(module_id) : target_plan.template
-
-      research_outputs = (target_plan.research_outputs << research_output_copy).map do |ro|
-        ro.attributes.merge(
-          configuration: ro.json_fragment.additional_info,
-          template: template.serialize_json
-        )
-      end
-
-      render json: { statusCode: 201, message: _('Research output imported'), data: {
-        research_outputs: research_outputs,
-        current_research_output: research_output_copy.id,
-      } }
-    end
 
     def sort
       @plan = ::Plan.find(params[:plan_id])
