@@ -6,6 +6,7 @@
 - Ajout de l'import du produit de recherche
 - Les modèles Module ne sont désormais plus reliés à un organisme.
 - Ajout d'un onglet dédié aux Modules dans la liste des Modèles accessibles à l'org admin & super admin
+- Intégration des corrections de la V4.0.3 (https://github.com/OPIDoR/DMPOPIDoR/blob/hotfix/4.0.3/CHANGELOG_DMPOPIDoR.md)
 
 ## 07/06/2024
 - Correction du problème d'accès à l'onglet Rédiger.
