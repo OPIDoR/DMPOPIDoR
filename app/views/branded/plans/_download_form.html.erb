@@ -106,7 +106,7 @@
   <h2><%= _('Format') %></h2>
   <div class="row">
     <div class="form-group col-xs-2">
-      <% 
+      <%
         valid_formats = if @plan.template.structured?
                     Settings::Template::VALID_FORMATS
                   else
@@ -124,7 +124,7 @@
       <li class="checkbox">
         <%= label_tag do %>
           <%= radio_button_tag("json_format", "default", true) %>
-          <%= _('Default export') %>
+          <%= _('DMP OPIDoR format') %>
         <% end %>
       </li>
 
@@ -132,13 +132,13 @@
         <li class="checkbox">
           <%= label_tag do %>
             <%= radio_button_tag("json_format", "rda", false) %>
-            <%= _('RDA Common Standard') %>
+            <%= _('RDA DMP Common Standard format') %>
           <% end %>
         </li>
       <% end %>
     </ul>
   </fieldset>
-  
+
   <div id="pdf-formatting">
     <h2><%= _('PDF formatting') %></h2>
     <div class="row">
