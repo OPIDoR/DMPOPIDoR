@@ -74,7 +74,7 @@ services:
 
   directus:
     container_name: directus_app
-    image: directus/directus:${DIRECTUS_VERSION:-10.11.0}
+    image: directus/directus:${DIRECTUS_VERSION:-10.12}
     restart: always
     depends_on:
       postgres:
