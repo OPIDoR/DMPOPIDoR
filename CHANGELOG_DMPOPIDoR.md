@@ -2,7 +2,7 @@
 
 **Attention** Cette liste de changements concerne les déploiements sur nos serveurs de test en interne.
 
-## 21/06/2024
+## 24/06/2024
 - Ajout de l'import du produit de recherche
 - Les modèles Module ne sont désormais plus reliés à un organisme.
 - Ajout d'un onglet dédié aux Modules dans la liste des Modèles accessibles à l'org admin & super admin
