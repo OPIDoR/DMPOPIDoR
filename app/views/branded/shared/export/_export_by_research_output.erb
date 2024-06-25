@@ -22,7 +22,7 @@
       <% options = answer.present? ? answer.question_options : [] %>
       <% fragment = answer.present? ? answer.madmp_fragment : nil %>
       
-      <% next if  @plan.template.structured? && should_hide_question(question, research_output) %>
+      <% next if  @template.structured? && should_hide_question(question, research_output) %>
 
       <%  unless @show_unanswered == false && blank  %>
         <div class="question">
@@ -58,13 +58,13 @@
             <p><%= sanitize ah['text'] %></p>
             <br/>
           <% end %>
-          <% if @plan.template.structured? && fragment.present? %>
+          <% if @template.structured? && fragment.present? %>
             <%= render partial: 'shared/export/display_madmp_fragment', 
                         locals: {
                             fragment: fragment,
                             schema: fragment.madmp_schema,
                             classname: fragment.classname,
-                            locale: LocaleService.to_gettext(locale: @plan.template.locale),
+                            locale: LocaleService.to_gettext(locale: @template.locale),
                             table_header: nil
                         } %>
           <%# case for displaying comments OR text %>
