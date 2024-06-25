@@ -13,8 +13,8 @@
   <% end %>
   <% questions.each do |question| %>
     <% answer = section_has_common_answers ? 
-          @plan.answer(question[:id], false, research_output.main().id) : 
-          @plan.answer(question[:id], false, research_output[:id]) %>
+          @plan.answer(question[:id], @template_mapping.present?, research_output.main().id, @template_mapping) : 
+          @plan.answer(question[:id], @template_mapping.present?, research_output[:id], @template_mapping) %>
     <% blank = answer.present? ? answer.blank? : true %>
     <% options = answer.present? ? answer.question_options : [] %>
     <% fragment = answer.present? ? answer.madmp_fragment : nil %>
