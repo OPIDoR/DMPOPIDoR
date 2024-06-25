@@ -19,6 +19,8 @@
 #  fk_rails_...  (target_id => template.id)
 #
 
+require 'jsonpath'
+
 class TemplateMapping < ApplicationRecord
   belongs_to :source, class_name: 'Template', foreign_key: 'source_id'
   belongs_to :target, class_name: 'Template', foreign_key: 'target_id', optional: true
@@ -29,5 +31,15 @@ class TemplateMapping < ApplicationRecord
 
   def is_form?
     type_mapping == 'form'
+  end
+
+  def apply_mapping(json_dmp, question_id)
+    regex = %r{<samp json-path="([^"]*)"></samp>}mi
+
+    mapping[question_id].to_s.gsub(regex) do |match|
+      path = Regexp.last_match(1)
+      result = JsonPath.new(path).on(json_dmp).first
+      result || ''
+    end
   end
 end

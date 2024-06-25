@@ -10,13 +10,22 @@ module Dmpopidor
     def answer(qid, create_if_missing = true, roid = nil, template_mapping = nil)
       answer = answers.select { |a| a.question_id == qid && a.research_output_id == roid }
                       .max_by(&:created_at)
+
+      p '=============='
+      p answer
       if answer.nil? && create_if_missing
-        question           = ::Question.find(qid)
+        question = ::Question.find(qid)
+
         answer             = Answer.new
         answer.plan_id     = id
         answer.question_id = qid
-        answer.text        = template_mapping ? template_mapping.apply_mapping({}, qid.to_s) : question.default_value
-        default_options    = []
+        answer.text        = if template_mapping
+                               template_mapping.apply_mapping({}, # question.answer.madmp_fragment.data
+                                                              qid.to_s)
+                             else
+                               question.default_value
+                             end
+        default_options = []
         question.question_options.each do |option|
           default_options << option if option.is_default
         end
