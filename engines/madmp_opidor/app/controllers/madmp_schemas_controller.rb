@@ -32,6 +32,7 @@ class MadmpSchemasController < ApplicationController
     {
       id: schema.id,
       name: schema.name,
+      property_name: schema.property_name_from_classname,
       schema: schema.schema,
       api_client: if schema.api_client.present?
         {
