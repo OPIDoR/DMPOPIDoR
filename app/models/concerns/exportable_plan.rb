@@ -9,8 +9,12 @@ module ExportablePlan
   include ConditionsHelper
 
   # rubocop:disable Style/OptionalBooleanParameter
-  def as_pdf(user, coversheet = false)
-    prepare(user, coversheet)
+  def as_pdf(user, coversheet = false, mapping_template_id = nil)
+    template = Template.includes(phases: { sections: { questions: :question_format } })
+                       .joins(phases: { sections: { questions: :question_format } })
+                       .where(id: mapping_template_id || template_id)
+                       .order('sections.number', 'questions.number').first
+    prepare(template, user, coversheet)
   end
   # rubocop:enable Style/OptionalBooleanParameter
 
@@ -65,12 +69,8 @@ module ExportablePlan
 
   # rubocop:disable Metrics/MethodLength, Metrics/AbcSize
   # rubocop:disable Style/OptionalBooleanParameter
-  def prepare(user, coversheet = false)
+  def prepare(template, user, coversheet = false)
     hash = coversheet ? prepare_coversheet : {}
-    template = Template.includes(phases: { sections: { questions: :question_format } })
-                       .joins(phases: { sections: { questions: :question_format } })
-                       .where(id: template_id)
-                       .order('sections.number', 'questions.number').first
     hash[:customization] = template.customization_of.present?
     hash[:title] = title
     hash[:answers] = answers

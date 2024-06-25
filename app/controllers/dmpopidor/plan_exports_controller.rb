@@ -34,6 +34,7 @@ module Dmpopidor
         raise Pundit::NotAuthorizedError
       end
 
+      @template       = @plan.template
       @hash           = @plan.as_pdf(current_user, @show_coversheet)
       @formatting     = export_params[:formatting] || @plan.settings(:export).formatting
       @research_output_export_mode = export_params[:research_output_mode] || 'by_section'
@@ -99,39 +100,36 @@ module Dmpopidor
                                  }), filename: "#{file_name}_#{json_format}.json"
     end
 
-    # def export_with_mapping
-    #   plan = ::Plan.find(params[:plan_id])
-    #   mapping = ::TemplateMapping.find(params[:mapping_id])
-    #   authorize plan
-
-    #   p '#################'
-    #   p plan
-    #   p mapping
-    #   p '#################'
-
-    #   @mapped_plan = apply_mapping(plan, mapping)
-    #   render layout: false
-    # end
-
     def export_with_mapping
-      plan = ::Plan.find(params[:plan_id])
+      @plan = ::Plan.includes(:answers, :research_outputs, {
+        template: { phases: { sections: :questions } }
+      }).find(params[:plan_id])
       mapping = ::TemplateMapping.find(params[:mapping_id])
-      authorize plan
+      @template = mapping.target
+      
+      @show_coversheet         = true
+      @show_sections_questions = true
+      @show_unanswered         = true
+      @show_custom_sections    = true
+      @show_research_outputs   = @plan.research_outputs&.any? || false
 
-      source_template = mapping.source_id
-      target_template = mapping.target_id
-      mapping_data = mapping.mapping
+      if privately_authorized?
+        skip_authorization
+        @public_plan             = false
 
-      res = ''
-      # Préparation des données avec mapping
-      # mapped_data = map_plan_to_template(plan, mapping)
-
-      mapping_data.each do |key, value|
-        res += "#{key} #{value} \n\n"
+      elsif publicly_authorized?
+        skip_authorization
+        @public_plan             = true
+      else
+        raise Pundit::NotAuthorizedError
       end
 
+      @hash           = @plan.as_pdf(current_user, @show_coversheet, @template.id)
+      @formatting     = export_params[:formatting] || @plan.settings(:export).formatting
+      @research_output_export_mode = export_params[:research_output_mode] || 'by_section'
+
       respond_to do |format|
-        format.html { render html: res }
+        format.html { render "show", layout: false }
       end
     end
 
