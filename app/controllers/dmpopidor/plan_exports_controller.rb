@@ -104,8 +104,8 @@ module Dmpopidor
       @plan = ::Plan.includes(:answers, :research_outputs, {
         template: { phases: { sections: :questions } }
       }).find(params[:plan_id])
-      mapping = ::TemplateMapping.find(params[:mapping_id])
-      @template = mapping.target
+      @template_mapping = ::TemplateMapping.find(params[:mapping_id])
+      @template = @template_mapping.target
       
       @show_coversheet         = true
       @show_sections_questions = true

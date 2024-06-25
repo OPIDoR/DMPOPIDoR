@@ -8,7 +8,7 @@ module Dmpopidor
     # CHANGES : ADDED RESEARCH OUTPUT SUPPORT
     # rubocop:disable Metrics/AbcSize, Style/OptionalBooleanParameter
     # rubocop:disable Metrics/CyclomaticComplexity
-    def answer(qid, create_if_missing = true, roid = nil)
+    def answer(qid, create_if_missing = true, roid = nil, template_mapping = nil)
       answer = answers.select { |a| a.question_id == qid && a.research_output_id == roid }
                       .max_by(&:created_at)
       if answer.nil? && create_if_missing
@@ -16,7 +16,7 @@ module Dmpopidor
         answer             = Answer.new
         answer.plan_id     = id
         answer.question_id = qid
-        answer.text        = question.default_value
+        answer.text        = template_mapping ? template_mapping.apply_mapping({}, qid.to_s) : question.default_value
         default_options    = []
         question.question_options.each do |option|
           default_options << option if option.is_default

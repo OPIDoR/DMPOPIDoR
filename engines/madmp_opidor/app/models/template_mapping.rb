@@ -30,4 +30,8 @@ class TemplateMapping < ApplicationRecord
   def is_form?
     type_mapping == 'form'
   end
+
+  def apply_mapping(json_dmp, question_id)
+    mapping[question_id]
+  end
 end
