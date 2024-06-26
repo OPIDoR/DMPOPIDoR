@@ -421,7 +421,7 @@ module Dmpopidor
         contributors: contributors.map do |contributor|
           {
             id: contributor.id,
-            data: contributor.data,
+            data: contributor.get_full_fragment(with_ids: true),
             roles: contributor.roles
           }
         end,
