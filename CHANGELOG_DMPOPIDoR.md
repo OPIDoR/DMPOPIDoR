@@ -3,6 +3,11 @@
 **Attention** Cette liste de changements concerne les déploiements sur nos serveurs de test en interne.
 
 
+# 26/06/2024
+
+- Ajout de l'option `name` utilisée par l'exécution de scripts à la route api/v1/madmp/schemas
+- Correction d'un problème de mise à jour des contributeurs dans l'onglet Contributeurs
+
 # 21/06/2024
 
 - Correction du format des données retournées par l'API api/v1/madmp/schemas (#11319)
