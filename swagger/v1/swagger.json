@@ -70,7 +70,7 @@
           "tags": [
             "Plans"
           ],
-          "summary": "Returns a user's plan as JSON in the OPIDoR Standard (Science Europe compliant and structured information) or RDA DMP Common Standard compliant format",
+          "summary": "Returns a user's plan as JSON in the DMP OPIDoR Standard format (Science Europe compliant and structured information) or RDA DMP Common Standard compliant format. The latter is provided only if the plan is created in the context of a research project",
           "security":[
             {
               "bearerAuth": []
@@ -108,55 +108,12 @@
             }
         }
       },
-      "/api/v1/madmp/plans/research_outputs/{uuid}": {
-        "get": {
-          "tags": [
-            "Plans"
-          ],
-          "summary": "Returns a user's plan for a given research output as JSON document, in a OPIDoR standard or RDA DMP Common Standard compliant format",
-          "security":[
-            {
-              "bearerAuth": []
-            }],
-          "parameters": [
-            {
-              "name": "uuid",
-              "in": "path",
-              "description": "ResearchOutput UUID provided by the application",
-              "required": true,
-              "schema": {
-                "type": "string"
-              }
-            },
-            {
-              "name": "export_format",
-              "in": "query",
-              "description": "Export format (standard/rda)",
-              "required": true,
-              "schema": {
-                "type": "string",
-                "default": "standard",
-                "enum": [
-                  "standard",
-                  "rda"
-                ]
-              }
-            }
-          ],
-          "responses": {
-            "200": {
-              "description": "successful",
-              "content": {}
-            }
-            }
-        }
-     },
       "/api/v1/madmp/plans/import": {
         "post": {
           "tags": [
             "Plans"
           ],
-          "summary": "Allows for the import and creation of a new plan based on a OPIDoR standard or RDA DMP Common Standard, format-compliant DMP",
+          "summary": "Allows for the import and creation of a new plan based on a DMP OPIDoR standard or RDA DMP Common Standard formats. Currently, only applicable if the plan is created in the context of a research project",
           "security":[
             {
               "bearerAuth": []
@@ -411,14 +368,7 @@
         "description" : "Enter the access_token value without \" "
       }
 
-    },
-
-    "responses":{
-
-      },
-    "schemas" :{
-
-  }
+    }
 
 }
   }

@@ -33,28 +33,7 @@ RSpec.configure do |config|
         }
       },
       paths: {}
-    },
-    'v0/swagger.json' => {
-      openapi: '3.0.1',
-      info: {
-        title: 'DMP OPIDoR API v0',
-        # rubocop:disable Layout/LineLength
-        description: 'Please use the /authenticate route before using the API. You can paste the generated token in the prompt displayed by clicking on the "Authorize" button',
-        # rubocop:enable Layout/LineLength
-        version: 'v0'
-      },
-      paths: {},
-      securityDefinitions: {
-        "ApiKeyAuth": {
-          description: 'JWT',
-          type: :apiKey,
-          name: 'Authorization',
-          in: :header
-        }
-      }
-
-
-  }
+    }
 
   # Specify the format of the output Swagger file when running 'rswag:specs:swaggerize'.
   # The swagger_docs configuration option has the filename including format in
