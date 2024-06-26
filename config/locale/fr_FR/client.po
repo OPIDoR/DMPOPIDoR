@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: app 1.0\n"
 "Report-Msgid-Bugs-To: contact@translation.io\n"
-"POT-Creation-Date: 2024-04-02 09:17+0200\n"
-"PO-Revision-Date: 2024-04-02 09:17+0200\n"
+"POT-Creation-Date: 2024-06-26 11:31+0200\n"
+"PO-Revision-Date: 2024-06-26 11:31+0200\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: French\n"
 "Language: fr_FR\n"
@@ -126,10 +126,10 @@ msgstr "ajouté"
 #: ../../app/controllers/orgs_controller.rb:99
 #: ../../app/controllers/plans_controller.rb:321
 #: ../../app/controllers/plans_controller.rb:324
-#: ../../app/controllers/registrations_controller.rb:261
-#: ../../app/controllers/registrations_controller.rb:265
-#: ../../app/controllers/registrations_controller.rb:292
-#: ../../app/controllers/registrations_controller.rb:296
+#: ../../app/controllers/registrations_controller.rb:263
+#: ../../app/controllers/registrations_controller.rb:267
+#: ../../app/controllers/registrations_controller.rb:294
+#: ../../app/controllers/registrations_controller.rb:298
 #: ../../app/controllers/research_outputs_controller.rb:69
 #: ../../app/controllers/users_controller.rb:118
 #: ../../app/controllers/users_controller.rb:146
@@ -151,8 +151,8 @@ msgstr "enregistré"
 #: ../../app/controllers/plans_controller.rb:333
 #: ../../app/controllers/plans_controller.rb:337
 #: ../../app/controllers/plans_controller.rb:340
-#: ../../app/controllers/registrations_controller.rb:268
-#: ../../app/controllers/registrations_controller.rb:299
+#: ../../app/controllers/registrations_controller.rb:270
+#: ../../app/controllers/registrations_controller.rb:301
 #: ../../app/controllers/research_outputs_controller.rb:72
 msgid "save"
 msgstr "enregistrer"
@@ -508,7 +508,7 @@ msgstr "Modèle créé avec %{application_name}. Dernière modification %{date}"
 msgid "Unable to download the DMP Template at this time."
 msgstr "Impossible de télécharger le modèle de DMP pour le moment."
 
-#: ../../app/controllers/registrations_controller.rb:45
+#: ../../app/controllers/registrations_controller.rb:47
 msgid ""
 "Please make a choice below. After linking your\n"
 "                       details to a %{application_name} account,\n"
@@ -520,21 +520,21 @@ msgstr ""
 "                       vous pourrez vous connecter avec vos\n"
 "                       identifiants institutionnels."
 
-#: ../../app/controllers/registrations_controller.rb:69
+#: ../../app/controllers/registrations_controller.rb:71
 msgid "You must accept the terms and conditions to register."
 msgstr ""
 "Vous devez accepter les conditions générales d'utilisation pour vous enregistr"
 "er."
 
-#: ../../app/controllers/registrations_controller.rb:72
+#: ../../app/controllers/registrations_controller.rb:74
 msgid "Please select an organisation from the list, or choose Other."
 msgstr "Veuillez sélectionner un organisme dans la liste ou choisissez Autre."
 
-#: ../../app/controllers/registrations_controller.rb:85
+#: ../../app/controllers/registrations_controller.rb:87
 msgid "That email address is already registered."
 msgstr "Ce courriel est déjà enregistrée."
 
-#: ../../app/controllers/registrations_controller.rb:126
+#: ../../app/controllers/registrations_controller.rb:128
 msgid ""
 "Welcome! You have signed up successfully with your\n"
 "                                  institutional credentials. You will now be a"
@@ -544,23 +544,23 @@ msgstr ""
 "Bienvenue ! Vous êtes connecté avec vous identifiants institutionnels. Vous po"
 "uvez à présent accéder à votre compte en les utilisant."
 
-#: ../../app/controllers/registrations_controller.rb:185
+#: ../../app/controllers/registrations_controller.rb:187
 msgid "Save Unsuccessful. "
 msgstr "Échec de l'enregistrement."
 
-#: ../../app/controllers/registrations_controller.rb:189
+#: ../../app/controllers/registrations_controller.rb:191
 msgid "Please enter an email address. "
 msgstr "Veuillez entrer une adresse courriel."
 
-#: ../../app/controllers/registrations_controller.rb:193
+#: ../../app/controllers/registrations_controller.rb:195
 msgid "Please enter a First name. "
 msgstr "S'il vous plaît entrer un prénom."
 
-#: ../../app/controllers/registrations_controller.rb:197
+#: ../../app/controllers/registrations_controller.rb:199
 msgid "Please enter a Last name. "
 msgstr "S'il vous plaît entrer un nom de famille."
 
-#: ../../app/controllers/registrations_controller.rb:201
+#: ../../app/controllers/registrations_controller.rb:203
 msgid ""
 "Please select an organisation from the list, or enter your organisation's name"
 "."
@@ -568,11 +568,11 @@ msgstr ""
 "Merci de sélectionner un organisme de la liste, ou de saisir le nom de votre o"
 "rganisme."
 
-#: ../../app/controllers/registrations_controller.rb:224
+#: ../../app/controllers/registrations_controller.rb:226
 msgid "Please enter your password to change email address."
 msgstr "Veuillez saisir votre mot de passe pour changer le courriel."
 
-#: ../../app/controllers/registrations_controller.rb:230
+#: ../../app/controllers/registrations_controller.rb:232
 msgid ""
 "Save unsuccessful. \\\n"
 "                That email address is already registered. \\\n"
@@ -582,19 +582,19 @@ msgstr ""
 "                Cette adresse électronique est déjà enregistrée. \\\n"
 "                Vous devez renseigner une adresse unique."
 
-#: ../../app/controllers/registrations_controller.rb:236
+#: ../../app/controllers/registrations_controller.rb:238
 msgid "Invalid password"
 msgstr "Mot de passe incorrect"
 
-#: ../../app/controllers/registrations_controller.rb:280
+#: ../../app/controllers/registrations_controller.rb:282
 msgid "Please enter your current password"
 msgstr "Veuillez entrer votre mot de passe actuel"
 
-#: ../../app/controllers/registrations_controller.rb:282
+#: ../../app/controllers/registrations_controller.rb:284
 msgid "Please enter a password confirmation"
 msgstr "Veuillez confirmer votre mot de passe"
 
-#: ../../app/controllers/registrations_controller.rb:284
+#: ../../app/controllers/registrations_controller.rb:286
 msgid "Password and comfirmation must match"
 msgstr "Le mot de passe et sa confirmation doivent correspondre"
 
@@ -908,7 +908,7 @@ msgstr "Organisme"
 msgid "Public"
 msgstr "Public"
 
-#: ../../app/helpers/plans_helper.rb:41 ../../app/models/plan.rb:77
+#: ../../app/helpers/plans_helper.rb:41 ../../app/models/plan.rb:79
 msgid "Administrator"
 msgstr "Administrateur"
 
@@ -1013,7 +1013,7 @@ msgstr "12 derniers mois"
 msgid "%{tool_name}: A new comment was added to %{plan_title}"
 msgstr "%{tool_name}: Un nouveau commentaire a été ajouté à %{plan_title}"
 
-#: ../../app/mailers/dmpopidor/user_mailer.rb:61 ../../app/models/user.rb:405
+#: ../../app/mailers/dmpopidor/user_mailer.rb:61 ../../app/models/user.rb:406
 msgid "%{user_name} has shared a Data Management Plan with you in %{tool_name}"
 msgstr ""
 "%{user_name} a partagé un plan de gestion des données avec vous dans %{tool_na"
@@ -1084,19 +1084,19 @@ msgstr "Un plan de gestion de données a été partagé avec vous sur %{tool_nam
 msgid "%{tool_name} API changes"
 msgstr "Modifications de l'API %{tool_name}"
 
-#: ../../app/models/contributor.rb:56
+#: ../../app/models/contributor.rb:52
 msgid "You must specify at least one role."
 msgstr "Vous devez spécifier au moins un rôle."
 
-#: ../../app/models/contributor.rb:132 ../../app/models/contributor.rb:135
+#: ../../app/models/contributor.rb:128 ../../app/models/contributor.rb:131
 msgid "can't be blank."
 msgstr "ne peut pas être vide."
 
-#: ../../app/models/contributor.rb:139
+#: ../../app/models/contributor.rb:135
 msgid "can't be blank if no email is provided."
 msgstr "ne peut pas être vide si aucun courriel n'est fourni."
 
-#: ../../app/models/contributor.rb:140
+#: ../../app/models/contributor.rb:136
 msgid "can't be blank if no name is provided."
 msgstr "ne peut pas être vide si aucun nom n'est fourni."
 
@@ -1109,7 +1109,7 @@ msgid "DMP manager"
 msgstr "Responsable du plan"
 
 #: ../../app/models/dmpopidor/plan.rb:111
-#: ../../engines/madmp_opidor/app/models/madmp_fragment.rb:424
+#: ../../engines/madmp_opidor/app/models/madmp_fragment.rb:430
 msgid "\"%{project_title}\" project DMP"
 msgstr "DMP du projet \"%{project_title}\""
 
@@ -1153,116 +1153,116 @@ msgstr "Détails"
 msgid "Question not answered.\\n"
 msgstr "Question sans réponse"
 
-#: ../../app/models/identifier.rb:134
+#: ../../app/models/identifier.rb:136
 msgid "must be unique"
 msgstr "doit être unique"
 
-#: ../../app/models/identifier.rb:141
+#: ../../app/models/identifier.rb:143
 msgid "already assigned a value"
 msgstr "a déjà une valeur attribuée"
 
-#: ../../app/models/org.rb:55
+#: ../../app/models/org.rb:60
 msgid "Feedback email message"
 msgstr "Message du mail de l'assistance conseil"
 
-#: ../../app/models/org.rb:141
+#: ../../app/models/org.rb:146
 msgid "must be one of the following formats: jpeg, jpg, png, gif, bmp"
 msgstr "doit être dans l'un des formats suivants : jpeg, jpg, png, gif, bmp"
 
-#: ../../app/models/org.rb:146
+#: ../../app/models/org.rb:151
 msgid "can't be larger than 500KB"
 msgstr "ne peut peser plus de 500ko"
 
-#: ../../app/models/plan.rb:70
+#: ../../app/models/plan.rb:72
 msgid "organisational"
 msgstr "organisme"
 
-#: ../../app/models/plan.rb:71
+#: ../../app/models/plan.rb:73
 msgid "public"
 msgstr "public"
 
-#: ../../app/models/plan.rb:72
+#: ../../app/models/plan.rb:74
 msgid "test"
 msgstr "test"
 
-#: ../../app/models/plan.rb:81
+#: ../../app/models/plan.rb:83
 msgid "private"
 msgstr "privé"
 
-#: ../../app/models/plan.rb:85
+#: ../../app/models/plan.rb:87
 msgid "Planned"
 msgstr "Planifié"
 
-#: ../../app/models/plan.rb:86
+#: ../../app/models/plan.rb:88
 msgid "Funded"
 msgstr "Financé"
 
-#: ../../app/models/plan.rb:87
+#: ../../app/models/plan.rb:89
 msgid "Denied"
 msgstr "Refusé"
 
-#: ../../app/models/plan.rb:812
+#: ../../app/models/plan.rb:815
 msgid "must be after the start date"
 msgstr "doit être postérieur à la date de début"
 
-#: ../../app/models/question.rb:156
+#: ../../app/models/question.rb:158
 msgid "guidance on"
 msgstr "recommandation concernant"
 
 #: ../../app/models/role.rb:64
-#: ../../engines/madmp_opidor/app/models/api_client_role.rb:35
+#: ../../engines/madmp_opidor/app/models/api_client_role.rb:53
 msgid "can't be less than zero"
 msgstr "ne peut être inférieur à zéro"
 
-#: ../../app/models/template.rb:248
+#: ../../app/models/template.rb:250
 msgid "can't be blank"
 msgstr "ne peut être vide"
 
-#: ../../app/models/template.rb:280
+#: ../../app/models/template.rb:282
 msgid "A historical template cannot be retrieved for being modified"
 msgstr "Un modèle historisé ne peut être extrait pour modification"
 
-#: ../../app/models/template.rb:404
+#: ../../app/models/template.rb:406
 msgid "generate_copy! requires an organisation target"
 msgstr "generate_copy! nécessite un organisme cible"
 
-#: ../../app/models/template.rb:413
+#: ../../app/models/template.rb:415
 msgid "Copy of %{template}"
 msgstr "Copie de %{template}"
 
-#: ../../app/models/template.rb:421
+#: ../../app/models/template.rb:423
 msgid "generate_version! requires a published template"
 msgstr "generate_version! nécessite un modèle publie"
 
-#: ../../app/models/template.rb:436
+#: ../../app/models/template.rb:438
 msgid "customize! requires an organisation target"
 msgstr "customize! nécessite un organisme cible"
 
-#: ../../app/models/template.rb:439
+#: ../../app/models/template.rb:441
 msgid "customize! requires a template from a funder"
 msgstr "customize! nécessite le modèle d'un financeur"
 
-#: ../../app/models/template.rb:476
+#: ../../app/models/template.rb:478
 msgid "You can not publish a published template.  "
 msgstr "Vous ne pouvez pas publier un modèle publié."
 
-#: ../../app/models/template.rb:480
+#: ../../app/models/template.rb:482
 msgid "You can not publish a historical version of this template.  "
 msgstr "Vous ne pouvez pas publier une ancienne version de ce modèle."
 
-#: ../../app/models/template.rb:485
+#: ../../app/models/template.rb:487
 msgid "You can not publish a template without phases.  "
 msgstr "Vous ne pouvez pas publier un modèle sans phases."
 
-#: ../../app/models/template.rb:490
+#: ../../app/models/template.rb:492
 msgid "You can not publish a template without sections in a phase.  "
 msgstr "Vous ne pouvez pas publier un modèle sans sections dans une phase."
 
-#: ../../app/models/template.rb:495
+#: ../../app/models/template.rb:497
 msgid "You can not publish a template without questions in a section.  "
 msgstr "Vous ne pouvez pas publier un modèle sans questions dans une section."
 
-#: ../../app/models/template.rb:499
+#: ../../app/models/template.rb:501
 msgid "Conditions in the template refer backwards"
 msgstr ""
 "Les conditions du modèle s'appliquent à une question positionnée avant celle-c"
@@ -1321,6 +1321,7 @@ msgstr "Merci de patienter, les standards sont en cours de chargement"
 #: ../../app/views/branded/research_outputs/_list.html.erb:82
 #: ../../app/views/branded/super_admin/api_clients/_form.html.erb:67
 #: ../../app/views/branded/super_admin/static_pages/_form.html.erb:59
+#: ../../app/views/branded/super_admin/users/edit.html.erb:62
 #: ../../app/views/branded/users/_notification_preferences.html.erb:47
 #: ../../app/views/research_outputs/_form.html.erb:178
 #: ../../engines/madmp_opidor/app/views/super_admin/madmp_schemas/_form.html.erb:33
@@ -1364,9 +1365,9 @@ msgid "This answer triggers email(s) to "
 msgstr "Cette réponse déclenche l'envoi d'un mail à "
 
 #: ../../app/views/branded/answers/_status.html.erb:26
-#: ../../app/views/branded/shared/export/_export_by_question.erb:70
-#: ../../app/views/branded/shared/export/_export_by_research_output.erb:73
-#: ../../app/views/branded/shared/export/_export_by_section.erb:69
+#: ../../app/views/branded/shared/export/_export_by_question.erb:76
+#: ../../app/views/branded/shared/export/_export_by_research_output.erb:76
+#: ../../app/views/branded/shared/export/_export_by_section.erb:71
 msgid "Question not answered."
 msgstr "Question sans réponse."
 
@@ -1396,6 +1397,8 @@ msgstr "Nom"
 #: ../../app/views/branded/shared/_create_account_form.html.erb:12
 #: ../../app/views/branded/shared/_sign_in_form.html.erb:22
 #: ../../app/views/branded/shared/_sign_in_form_header.html.erb:22
+#: ../../app/views/branded/super_admin/users/edit.html.erb:15
+#: ../../app/views/branded/super_admin/users/edit.html.erb:94
 msgid "Email"
 msgstr "Courriel"
 
@@ -1511,11 +1514,13 @@ msgid "Password confirmation"
 msgstr "Confirmation du mot de passe"
 
 #: ../../app/views/branded/devise/invitations/edit.html.erb:23
+#: ../../app/views/branded/super_admin/users/edit.html.erb:20
 msgid "First name"
 msgstr "Prénom"
 
 #: ../../app/views/branded/devise/invitations/edit.html.erb:28
 #: ../../app/views/branded/devise/registrations/_personal_details.html.erb:21
+#: ../../app/views/branded/super_admin/users/edit.html.erb:25
 msgid "Last name"
 msgstr "Nom de famille"
 
@@ -1547,17 +1552,6 @@ msgstr "Documentation"
 
 #: ../../app/views/branded/devise/registrations/_api_token.html.erb:16
 msgid ""
-"See the <a href=\"%{api_v0_wiki}\">documentation for v0</a> for more details on "
-"the API endpoints which include access to the list of all viewable DMP templat"
-"es, or your organisation’s guidance or statistics."
-msgstr ""
-"Consultez la <a href=\"%{api_v0_wiki}\">documentation de la v0</a> pour plus de "
-"détails sur les API qui incluent l'accès à la liste des modèles de DMP ou, aux"
-" recommandations ou statistiques de  votre organisation.\n"
-"\n"
-
-#: ../../app/views/branded/devise/registrations/_api_token.html.erb:18
-msgid ""
 "See the <a href=\"%{api_v1_wiki}\">documentation for v1</a> for more details on "
 "the API endpoints which enable the reuse of information structured in complian"
 "ce with the common DMP OPIDoR or <a href=\"%{rda_standard_url}\">RDA DMP Common "
@@ -1572,7 +1566,7 @@ msgstr ""
 "as, référentiels, plans (PGD entier ou pour un produit de recherche), fragment"
 "s d'information, aux utilisateurs disposant des droits nécessaires.\n"
 
-#: ../../app/views/branded/devise/registrations/_api_token.html.erb:21
+#: ../../app/views/branded/devise/registrations/_api_token.html.erb:19
 msgid "Regenerate token"
 msgstr "Régénérer le jeton"
 
@@ -1614,6 +1608,7 @@ msgstr "Structure"
 
 #: ../../app/views/branded/devise/registrations/_personal_details.html.erb:60
 #: ../../app/views/branded/org_admin/users/edit.html.erb:44
+#: ../../app/views/branded/super_admin/users/edit.html.erb:54
 msgid "Language"
 msgstr "Langue"
 
@@ -1887,6 +1882,7 @@ msgstr "Administration"
 #: ../../app/views/branded/layouts/_signin_signout.html.erb:46
 #: ../../app/views/branded/org_admin/users/edit.html.erb:64
 #: ../../app/views/branded/paginable/users/_index.html.erb:26
+#: ../../app/views/branded/super_admin/users/edit.html.erb:106
 msgid "Plans"
 msgstr "Plans"
 
@@ -2498,10 +2494,13 @@ msgid "Recommended"
 msgstr "Recommandé"
 
 #: ../../app/views/branded/org_admin/users/edit.html.erb:4
+#: ../../app/views/branded/super_admin/users/edit.html.erb:1
+#: ../../app/views/branded/super_admin/users/edit.html.erb:5
 msgid "Editing profile for %{username}"
 msgstr "Edition du profil de %{username}"
 
 #: ../../app/views/branded/org_admin/users/edit.html.erb:5
+#: ../../app/views/branded/super_admin/users/edit.html.erb:6
 msgid "View all users"
 msgstr "Voir tous les utilisateurs"
 
@@ -3067,13 +3066,12 @@ msgid "JSON format"
 msgstr "Format JSON"
 
 #: ../../app/views/branded/plans/_download_form.html.erb:127
-msgid "Default export"
-msgstr "Export par défaut"
+msgid "DMP OPIDoR format"
+msgstr "Format DMP OPIDoR"
 
 #: ../../app/views/branded/plans/_download_form.html.erb:135
-#: ../../app/views/branded/plans/import.html.erb:23
-msgid "RDA Common Standard"
-msgstr "RDA Common Standard"
+msgid "RDA DMP Common Standard format"
+msgstr "Format RDA DMP Common Standard"
 
 #: ../../app/views/branded/plans/_download_form.html.erb:143
 msgid "PDF formatting"
@@ -3525,6 +3523,10 @@ msgstr ""
 msgid "Standard"
 msgstr "Standard"
 
+#: ../../app/views/branded/plans/import.html.erb:23
+msgid "RDA Common Standard"
+msgstr "RDA Common Standard"
+
 #: ../../app/views/branded/plans/import.html.erb:27
 msgid ""
 "After using the import, you will have to set the role for each contributor cre"
@@ -3700,7 +3702,7 @@ msgstr "Aucun élément disponible."
 
 #: ../../app/views/branded/shared/_create_account_form.html.erb:39
 msgid "I accept the"
-msgstr "J'accepte le"
+msgstr "J'accepte les"
 
 #: ../../app/views/branded/shared/_create_account_form.html.erb:40
 msgid "terms and conditions"
@@ -3891,6 +3893,38 @@ msgstr "+ Ajouter une nouvelle Page Statique"
 #: ../../app/views/branded/super_admin/static_pages/new.html.erb:1
 msgid "New Static Page"
 msgstr "Nouvelle page statique"
+
+#: ../../app/views/branded/super_admin/users/edit.html.erb:42
+msgid "Department or school"
+msgstr "Département ou école"
+
+#: ../../app/views/branded/super_admin/users/edit.html.erb:64
+msgid "Archive"
+msgstr "Archiver"
+
+#: ../../app/views/branded/super_admin/users/edit.html.erb:65
+msgid ""
+"You are about to archive %{user_name}.  This will remove their personal inform"
+"ation, but retain their plans, answers, and comments.  They will be unable to "
+"sign-in. Are you sure?"
+msgstr ""
+"Vous êtes sur le point d'archiver %{user_name}. Cela supprimera ses informatio"
+"ns personnelles, mais conservera ses plans, réponses et commentaires. Ils ne p"
+"ourront pas se connecter. Êtes-vous sûr?"
+
+#: ../../app/views/branded/super_admin/users/edit.html.erb:82
+msgid "Merge Accounts"
+msgstr "Fusionner les comptes"
+
+#: ../../app/views/branded/super_admin/users/edit.html.erb:86
+msgid "First, search for a user by email, then select them from the list."
+msgstr ""
+"Commencez par rechercher un utilisateur par courriel, puis sélectionnez-le dan"
+"s la liste."
+
+#: ../../app/views/branded/super_admin/users/edit.html.erb:97
+msgid "Search"
+msgstr "Rechercher"
 
 #: ../../app/views/branded/user_mailer/_light_email_signature.html.erb:2
 msgid "All the best"
