@@ -221,6 +221,7 @@ class Question < ApplicationRecord
   end
 
   # rubocop:disable Metrics/MethodLength, Metrics/AbcSize
+  # rubocop:disable Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
   def save_condition(value, opt_map, question_id_map)
     c = conditions.build
     c.action_type = value['action_type']
@@ -228,21 +229,19 @@ class Question < ApplicationRecord
     # question options may have changed so rewrite them
     c.option_list = value['question_option']
     unless opt_map.blank?
-      new_question_options = []
-      c.option_list.each do |qopt|
-        new_question_options << opt_map[qopt]
+      new_question_options = c.option_list.map do |qopt|
+        opt_map[qopt]
       end
-      c.option_list = new_question_options
+      c.option_list = new_question_options || []
     end
 
     if value['action_type'] == 'remove'
       c.remove_data = value['remove_question_id']
       unless question_id_map.blank?
-        new_question_ids = []
-        c.remove_data.each do |qid|
-          new_question_ids << question_id_map[qid]
+        new_question_ids = c.remove_data.each do |qid|
+          question_id_map[qid]
         end
-        c.remove_data = new_question_ids
+        c.remove_data = new_question_ids || []
       end
     else
       c.webhook_data = {
@@ -254,6 +253,7 @@ class Question < ApplicationRecord
     end
     c.save
   end
+  # rubocop:enable Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
   # rubocop:enable Metrics/MethodLength, Metrics/AbcSize
 
   private
