@@ -8,7 +8,7 @@
           <%= @template_context.eql?(::Template.contexts[:research_entity]) ? _('Creating a research entity DMP: ') : _('Creating a research project DMP: ') %>
           <%= _('Choose a template') %>
         </h1>
-        <p class="left-indent">
+        <p class="start-indent">
             <%= _('You can either choose a template provided by your organisation, another organisation or a funder template. The default template is ') %>
             <strong><%= @default_template.title + "." %></strong>
             <br/>
