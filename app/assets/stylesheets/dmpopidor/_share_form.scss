@@ -9,13 +9,13 @@
     display: flex;
     flex-direction: column;
 
-    .panel-heading {
-        background-color: $white;
+    .card-heading {
+        background-color: #fff;
         color: $rust;
         border-bottom: 2px solid $rust;
         border-right: 2px solid $rust;
 
-        .panel-title {
+        .card-title {
             color: $rust;
             font-weight: bold;
         }

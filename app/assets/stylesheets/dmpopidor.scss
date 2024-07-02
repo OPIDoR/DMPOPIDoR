@@ -106,12 +106,12 @@ body div a.btn {
   /** tooltips */
   .tooltip {
     .tooltip-arrow {
-      color: $blue;
-      border-bottom-color: $blue;
+      color: $dmpopidor-blue;
+      border-bottom-color: $dmpopidor-blue;
     }
 
     .tooltip-inner {
-      background-color: $blue;
+      background-color: $dmpopidor-blue;
       font-size: 14px;
       font-weight: 600;
       text-align: center;
@@ -120,7 +120,7 @@ body div a.btn {
   }
 
   .label-info {
-    background-color: $blue;
+    background-color: $dmpopidor-blue;
   }
 
   /** Focus outline required for accessibility */
@@ -132,7 +132,7 @@ body div a.btn {
   //   &:hover,
   //   &:active {
   //     outline-style: solid !important;
-  //     outline-color: $blue !important;
+  //     outline-color: $dmpopidor-blue !important;
   //     outline-width: 2px !important;
   //   }
   // }
@@ -176,7 +176,7 @@ body div a.btn {
     */
   // Progress bar 
   .progress-bar {
-    background-color: $blue;
+    background-color: $dmpopidor-blue;
   }
 
   // example answer
@@ -185,13 +185,13 @@ body div a.btn {
 
     .example-answer-link {
       cursor: pointer;
-      background-color: $blue;
+      background-color: $dmpopidor-blue;
       display: block;
     }
   }
 
   // main border
-  .plan-content.panel-default {
+  .plan-content.card-default {
     border: none;
     box-shadow: none;
   }
@@ -236,19 +236,19 @@ body div a.btn {
   &.super-admin {
 
     a {
-      color: $black;
+      color: #000;
       text-decoration: underline;
     }
 
     .combobox-clear-button,
     .combobox-clear-button:hover,
     .combobox-clear-button:focus {
-      color: $yellow;
+      color: $dmpopidor-yellow;
     }
 
 
     .btn-link {
-      color: $black;
+      color: #000;
       text-decoration: underline;
     }
 

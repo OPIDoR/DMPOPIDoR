@@ -6,11 +6,12 @@
 
 #maincontent {
   padding: 0 50px 50px 50px;
-  background-color: $white;
+  background-color: #fff;
   display: flex;
   flex-direction: column;
   justify-content: center;
 
+  max-width: none;
   width: 90%;
 
   &> :first-child:not(#plan-navigation) {

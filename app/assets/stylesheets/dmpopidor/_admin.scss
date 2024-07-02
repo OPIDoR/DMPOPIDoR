@@ -13,13 +13,13 @@
 
 
   // main border
-  .panel-default {
+  .card-default {
     border-color: $rust;
   }
 
   // Sections & Phases
-  .heading-button>.panel-heading,
-  .panel-default>.panel-heading {
+  .heading-button>.card-heading,
+  .card-default>.card-heading {
     background-color: $rust;
   }
 

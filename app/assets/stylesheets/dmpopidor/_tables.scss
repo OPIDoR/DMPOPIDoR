@@ -118,7 +118,7 @@
 
   .paginable {
     .paginable-pagination a {
-      color: $blue;
+      color: $dmpopidor-blue;
     }
   }
 
@@ -150,7 +150,7 @@
         padding: 15px;
         border: none;
         color: white;
-        border-left: 1px solid $white;
+        border-left: 1px solid #fff;
       }
     }
 
@@ -178,14 +178,14 @@
         color: black;
 
         &:not(:last-child) {
-          border-right: 1px solid $yellow;
+          border-right: 1px solid $dmpopidor-yellow;
         }
       }
 
       // Cells hovering
       &.table-hover tbody tr:hover td,
       &.table-hover tbody tr:hover th {
-        background-color: $yellow;
+        background-color: $dmpopidor-yellow;
         color: black;
 
         a,
@@ -198,11 +198,11 @@
 
       // Header cells background
       thead>tr>th {
-        background-color: $yellow;
+        background-color: $dmpopidor-yellow;
         padding: 15px;
         border: none;
         color: black;
-        border-left: 1px solid $white;
+        border-left: 1px solid #fff;
       }
 
     }
@@ -229,7 +229,7 @@
         a:visited,
         a:focus {
           color: $dark-blue !important;
-          background-color: $white !important;
+          background-color: #fff !important;
         }
       }
     }
