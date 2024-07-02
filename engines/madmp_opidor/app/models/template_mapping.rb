@@ -33,13 +33,20 @@ class TemplateMapping < ApplicationRecord
     type_mapping == 'form'
   end
 
-  def apply_mapping(json_dmp, question_id)
+  def apply_mapping(json_ro, question_id)
     regex = %r{<samp json-path="([^"]*)"></samp>}mi
 
     mapping[question_id].to_s.gsub(regex) do |match|
       path = Regexp.last_match(1)
-      result = JsonPath.new(path).on(json_dmp).first
-      result || ''
+      result = JsonPath.new(path).on(json_ro)
+      case result.length
+      when 0
+        ''
+      when 1
+        result.first.to_s
+      else
+        "<ul>#{result.map { |res| "<li>#{res}</li>"}.join('')}</ul>"
+      end
     end
   end
 end

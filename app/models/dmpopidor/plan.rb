@@ -11,16 +11,15 @@ module Dmpopidor
       answer = answers.select { |a| a.question_id == qid && a.research_output_id == roid }
                       .max_by(&:created_at)
 
-      p '=============='
-      p answer
       if answer.nil? && create_if_missing
         question = ::Question.find(qid)
+        research_output = ::ResearchOutput.find(roid)
 
         answer             = Answer.new
         answer.plan_id     = id
         answer.question_id = qid
         answer.text        = if template_mapping
-                               template_mapping.apply_mapping({}, # question.answer.madmp_fragment.data
+                               template_mapping.apply_mapping(research_output.json_fragment.get_full_fragment, # question.answer.madmp_fragment.data
                                                               qid.to_s)
                              else
                                question.default_value
