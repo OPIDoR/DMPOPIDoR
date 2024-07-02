@@ -14,11 +14,11 @@
     <div class="col-md-12">
       <div id="import-format">
         <ul>
-          <li class="checkbox">
+          <li class="form-check">
             <%= f.radio_button "import[format]", "standard", checked: true %>
             <%= f.label 'import[format]', _('Standard'), value: "standard" %>
           </li>
-          <li class="checkbox">
+          <li class="form-check">
             <%= f.radio_button "import[format]", "rda"%>
             <%= f.label 'import[format]', _('RDA Common Standard'), value: "rda" %>
           </li>
@@ -30,7 +30,7 @@
 
   <h2><%= _('Structured template') %></h2>
   <div class="row">
-    <div class="form-group col-md-6">
+    <div class="form-control mb-3 col-md-6">
       <%= f.select "import[template_id]",
           options_from_collection_for_select(@templates, "id", "title"),
           {},
@@ -40,12 +40,12 @@
 
   <h2><%= _('File') %></h2>
   <div class="row">
-    <div class="form-group col-md-6">
+    <div class="form-control mb-3 col-md-6">
         <%= f.file_field "import[json_file]", accept: 'application/json' %>
     </div>
   </div>
 
-  <div class="form-group col-xs-8">
-    <%= f.submit _('Import'), class: 'btn btn-default plan-import', role: "button" %>
+  <div class="form-control mb-3 col-xs-8">
+    <%= f.submit _('Import'), class: 'btn btn-secondary plan-import', role: "button" %>
   </div>
 <% end %>

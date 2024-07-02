@@ -12,7 +12,7 @@
     <div class="panel-title pull-left">
       <%= _("External services") %>
     </div>
-    <i class="fas fa-chevron-right pull-right" aria-hidden="true"></i>
+    <i class="fas fa-chevron-right float-end" aria-hidden="true"></i>
     <div class="clearfix"></div>
   </div>
 </div>
@@ -60,10 +60,10 @@
       <% new_client_role = ApiClientRole.new %>
       <% new_client_role.plan = @plan %>
       <%= form_for new_client_role, url: {controller: :api_client_roles, action: :create }, html: {method: :post} do |f| %>
-        <div class="form-group col-xs-8">
+        <div class="form-control mb-3 col-xs-8">
           <%= f.hidden_field :plan_id %>
           <%= f.fields_for :api_client, new_client_role.api_client do |api_client| %>
-              <%= api_client.label :api_client_id, _('Application'), class: 'control-label'%>
+              <%= api_client.label :api_client_id, _('Application'), class: 'form-label'%>
               <em class="sr-only"><%= client_tooltip %></em>
               <%= select_tag("api_client_role[api_client_id]",
                   options_from_collection_for_select(@api_clients, "id", "name"),
@@ -81,8 +81,8 @@
                         title: client_permissions_tooltip,
                         'data-placement':'right' do %>
           <%= content_tag :legend , _('Permissions') %>
-          <div class="form-group">
-            <div class="radio">
+          <div class="form-control mb-3">
+            <div class="form-check">
               <%= f.label :commenter_access do %>
                 <%= f.radio_button :access, client_reader.access, checked: true, id: "client_role_commenter_access" %>
                 <%= _('Read only: can read the content of the dmp') %>
