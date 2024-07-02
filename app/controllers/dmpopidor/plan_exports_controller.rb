@@ -102,11 +102,11 @@ module Dmpopidor
 
     def export_with_mapping
       @plan = ::Plan.includes(:answers, :research_outputs, {
-        template: { phases: { sections: :questions } }
-      }).find(params[:plan_id])
+                                template: { phases: { sections: :questions } }
+                              }).find(params[:plan_id])
       @template_mapping = ::TemplateMapping.find(params[:mapping_id])
       @template = @template_mapping.target
-      
+
       @show_coversheet         = true
       @show_sections_questions = true
       @show_unanswered         = true
@@ -115,11 +115,11 @@ module Dmpopidor
 
       if privately_authorized?
         skip_authorization
-        @public_plan             = false
+        @public_plan = false
 
       elsif publicly_authorized?
         skip_authorization
-        @public_plan             = true
+        @public_plan = true
       else
         raise Pundit::NotAuthorizedError
       end
@@ -129,7 +129,7 @@ module Dmpopidor
       @research_output_export_mode = export_params[:research_output_mode] || 'by_section'
 
       respond_to do |format|
-        format.html { render "show", layout: false }
+        format.html { render 'show', layout: false }
       end
     end
 
