@@ -2,6 +2,9 @@
 
 **Attention** Cette liste de changements concerne les déploiements sur nos serveurs de test en interne.
 
+## 03/07/2024
+- Ajout de l'import dans l'onglet rédiger si le plan ne possède aucun produit de recherche
+
 ## 24/06/2024
 - Ajout de l'import du produit de recherche
 - Les modèles Module ne sont désormais plus reliés à un organisme.
