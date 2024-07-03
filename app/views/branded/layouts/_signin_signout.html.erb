@@ -1,7 +1,7 @@
 <!-- language dropdown -->
 <% if Language.many? %>
   <li class="dropdown nav-item" id="change-language">
-    <a href="#" class="dropdown-toggle nav-link" role="button" id="language-menu" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+    <a href="#" class="dropdown-toggle nav-link" role="button" id="language-menu" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
     <i class="fa fa-language" aria-hidden="true"></i> <%= I18n.locale.to_s.split('-')[0] %> <i class="fa fa-chevron-down" aria-hidden="true"></i>
     </a>
     <ul class="dropdown-menu dropdown-menu-end dmpopidor-dropdown"
@@ -23,7 +23,7 @@
 <!-- Sign in / out -->
 <li class="dropdown nav-item" id="signin-signout">
   <% if user_signed_in? %>
-  <a href="#" class="dropdown-toggle nav-link" role="button" id="user-menu" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+  <a href="#" class="dropdown-toggle nav-link" role="button" id="user-menu" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
   <%= current_user.name(false) %>
   <i class="fa fa-chevron-down" aria-hidden="true"></i>
 </a>
@@ -120,8 +120,8 @@
     <div class="sign-in">
       <div class="tab-content">
         <div id="sign-in-form-menu" role="tabpanel" class="tab-pane active">
-          <div class="panel panel-default">
-            <div class="panel-body" style="width: 400px">
+          <div class="card card-default">
+            <div class="card-body" style="width: 400px">
               <%= render :partial => 'shared/sign_in_form_header' %>
             </div>
           </div>

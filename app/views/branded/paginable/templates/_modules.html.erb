@@ -57,7 +57,7 @@
           <% if action_name != 'index' && current_user.can_super_admin? %>
             <td>
               <div class="dropdown">
-                <button class="btn btn-link dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+                <button class="btn btn-link dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
                   <%= _('Actions') %><span class="caret"></span>
                 </button>
                 <ul class="dropdown-menu">
@@ -95,7 +95,7 @@
                   </li>
                   <li>
                     <%= direct_link(template, true) %>
-                    <a href="" class="copy-link" data-toggle="modal" data-target="#link-modal"><%= _('Copy link') %></a>
+                    <a href="" class="copy-link" data-bs-toggle="modal" data-bs-target="#link-modal"><%= _('Copy link') %></a>
                   </li>
                 </ul>
               </div>

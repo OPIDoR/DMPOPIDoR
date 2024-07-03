@@ -78,8 +78,8 @@
       <% if annotation.present? && annotation.org.present? && annotation.text.present? %>
         <div class="card card-default example-answer">
           <span class="badge bg-secondary example-answer-link" 
-                data-toggle="collapse" 
-                data-target="<%= "#example-#{question.id}-research-output-#{research_output.id}"  %>">
+                data-bs-toggle="collapse" 
+                data-bs-target="<%= "#example-#{question.id}-research-output-#{research_output.id}"  %>">
             <%="#{annotation.org.abbreviation} "%> <%=_('example answer')%>
             <i class="more-less fas fa-plus small"></i>
           </span>

@@ -41,7 +41,7 @@
           <div class="row">
             <div class="col-md-8">
               <div id="accordion-controls">
-                <div class="accordion-controls px-1" data-parent="questions-accordion-<%= section.id %>">
+                <div class="accordion-controls px-1" data-bs-parent="questions-accordion-<%= section.id %>">
                   <a href="#" data-toggle-direction="show"><%= _('expand all') %></a>
                   <span>|</span>
                   <a href="#" data-toggle-direction="hide"><%= _('collapse all') %></a>
@@ -54,9 +54,9 @@
             <% section_has_common_answers = plan.research_outputs.first.common_answers?(section.id) %>
             <% plan.research_outputs.each_with_index do |research_output, i| %>
               <li class="research-outputs-tab <%= 'active' if research_output.main? %> <%= 'disabled' if section_has_common_answers %>">
-                <a href="#section-panel-<%= section.id %>" data-toggle="tab" 
+                <a href="#section-panel-<%= section.id %>" data-bs-toggle="tab" 
                                   data-research-output="<%= research_output.id %>" 
-                                  data-target="#research_output_<%= research_output.id %>_section_<%= section.id %>"
+                                  data-bs-target="#research_output_<%= research_output.id %>_section_<%= section.id %>"
                 >
                   <%= research_output.abbreviation %>
                 </a>
@@ -64,7 +64,7 @@
             <% end if plan.research_outputs.count > 1 %>
           </ul>
           <% multiple_ro_class = plan.research_outputs.count > 1 ? "multiple-research-output" : "single-research-output" %>
-          <div id="questions-accordion-<%= section.id %>" class="tab-content panel-body research-output-content <%= multiple_ro_class %>">
+          <div id="questions-accordion-<%= section.id %>" class="tab-content card-body research-output-content <%= multiple_ro_class %>">
             <% plan.research_outputs.each_with_index do |research_output, i| %>
               <div id="research_output_<%= research_output.id %>_section_<%= section.id %>" 
                    class="card research-output-panel tab-pane fade <%= 'in active' if research_output.main? %> <%= 'main_research_output' if research_output.main? %>">
@@ -75,7 +75,7 @@
                           title="<%= _("Please click to indicate that this section\'s answers are common to all research outputs" ) %>"
                           <%= 'checked=""' if section_has_common_answers %>> <%= _('This section\'s answers are common to all research outputs') %>
                   </p>
-                  <span class="common_changed label label-info" style="display:none"><%= _('Changes saved.')%></span>
+                  <span class="common_changed bg bg-info" style="display:none"><%= _('Changes saved.')%></span>
                 <% end %>
                 <!-- the section body -->
                 <% section.questions.each_with_index do |question, i| %>

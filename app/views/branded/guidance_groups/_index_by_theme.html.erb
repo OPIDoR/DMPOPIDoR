@@ -6,7 +6,7 @@
     <%# Do not show expand/collapse all links if there is only one item in theme_hash %>
     <% if theme_hash.length > 1 %>
   <div id="guidance-accordion-controls">
-      <div class="accordion-controls px-1" data-parent="<%= parent_id %>">
+      <div class="accordion-controls px-1" data-bs-parent="<%= parent_id %>">
         <a href="#" data-toggle-direction="show"><%= _('expand all') %></a>
           <span>|</span>
         <a href="#" data-toggle-direction="hide"><%= _('collapse all') %></a>

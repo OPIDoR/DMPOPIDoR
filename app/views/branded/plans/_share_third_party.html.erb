@@ -3,13 +3,13 @@
 <% client_tooltip = _('Select a service you would like to share your plan with.') %>
 <% client_permissions_tooltip = '' %>
 
-<div class="heading-button" role="button" data-toggle="collapse"
-      data-parent="share-form"
+<div class="heading-button" role="button" data-bs-toggle="collapse"
+      data-bs-parent="share-form"
       href="#api_client_roles"
       aria-expanded="false"
       aria-controls="api_client_roles">
-  <div class="panel-heading" role="tab" id="heading-api-client-roles">
-    <div class="panel-title pull-left">
+  <div class="card-heading" role="tab" id="heading-api-client-roles">
+    <div class="card-title pull-left">
       <%= _("External services") %>
     </div>
     <i class="fas fa-chevron-right float-end" aria-hidden="true"></i>
@@ -17,8 +17,8 @@
   </div>
 </div>
 
-<div id="api_client_roles" class="panel-collapse collapse <%= 'in' if @plan_client_roles.any? %> plan-details-content" role="tabpanel" aria-labelledby="heading-api-client-roles">
-  <div class="panel-body">
+<div id="api_client_roles" class="card-collapse collapse <%= 'in' if @plan_client_roles.any? %> plan-details-content" role="tabpanel" aria-labelledby="heading-api-client-roles">
+  <div class="card-body">
     <p><%= _('An "external service" can be provided by an organisation, a platform or a data infrastructure. These services are allowed (by DMP OPIDoR team) to automatically collect information that is being captured in data management plan, once you have given them the authorization, in order to offer you some services.') %></p>
     <% if @plan_client_roles.any? then %>
       <h2><%= _('Manage external services')%></h2>

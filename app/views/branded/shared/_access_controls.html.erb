@@ -2,8 +2,8 @@
   <div class="tab-content">
     <% if request.query_parameters[:place] == "signin" %>
       <div id="sign-in-form" role="tabpanel" class="active">
-        <div class="panel panel-default">
-          <div class="panel-body">
+        <div class="card card-default">
+          <div class="card-body">
             <h1><%= _('Sign in') %></h1>
             <%= render partial: 'shared/sign_in_form' %>
           </div>
@@ -13,8 +13,8 @@
 
     <% if request.query_parameters[:place] == "signup" %>
       <div id="sign-in-form" role="tabpanel" class="active">
-        <div class="panel panel-default">
-          <div class="panel-body">
+        <div class="card card-default">
+          <div class="card-body">
             <h1><%= _('Create account') %></h1>
             <%= render partial: 'shared/create_account_form', locals: { orgs: orgs, org_partial: org_partial } %>
           </div>
