@@ -2,6 +2,11 @@
 
 **Attention** Cette liste de changements concerne les déploiements sur nos serveurs de test en interne.
 
+## 03/07/2024
+- Modification de la création de plan avec l'implémentation de l'import de plan.
+- Affichage d'un message pour indiquer que le plan ne possède aucun produit de recherche et un bouton de redirection vers l'ongler rédiger.
+- Correction de l'affichage des thèmes de la partie administration.
+
 ## 24/06/2024
 - Ajout de l'import du produit de recherche
 - Les modèles Module ne sont désormais plus reliés à un organisme.
