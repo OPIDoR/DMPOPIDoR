@@ -69,7 +69,7 @@ class GuidancesController < ApplicationController
     guidance_group = GuidanceGroup.find(params[:guidance_group_id])
     language = Language.find_by(id: guidance_group.language_id)
     guidance = Guidance.eager_load(:themes, :guidance_group)
-                       .find(params[:guidance_id])
+                       .find(params[:guidance_group_id])
 
     locale = language&.abbreviation || 'fr-FR'
 
