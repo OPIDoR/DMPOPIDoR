@@ -2,15 +2,15 @@
 <% if Language.many? %>
   <li class="dropdown nav-item" id="change-language">
     <a href="#" class="dropdown-toggle nav-link" role="button" id="language-menu" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-    <i class="fa fa-language" aria-hidden="true"></i> <%= I18n.locale.to_s.split('-')[0] %> <i class="fa fa-chevron-down" aria-hidden="true"></i>
+    <i class="fa fa-language" aria-hidden="true"></i> <%= I18n.locale.to_s.split('-')[0] %></i>
     </a>
-    <ul class="dropdown-menu dropdown-menu-end dmpopidor-dropdown"
+    <ul class="dropdown-menu dmpopidor-dropdown"
         data-bs-popper="static" aria-labelledby="language-menu">
       <li class="nav-item <%= ' active' if I18n.locale.to_s == 'fr-FR' %>">
         <%= link_to 'Français', locale_path('fr-FR'), method: :patch, class: 'nav-link' %>
       </li>
 
-      <li role="separator" class="divider"></li>
+      <li><hr class="dropdown-divider"></li>
       
       <li class="nav-item <%= ' active' if I18n.locale.to_s == 'en-GB' %>">
         <%= link_to 'English (GB)', locale_path('en-GB'), method: :patch, class: 'nav-link' %>
@@ -25,11 +25,10 @@
   <% if user_signed_in? %>
   <a href="#" class="dropdown-toggle nav-link" role="button" id="user-menu" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
   <%= current_user.name(false) %>
-  <i class="fa fa-chevron-down" aria-hidden="true"></i>
 </a>
-  <div class="dropdown-menu dropdown-menu-end dmpopidor-dropdown" aria-labelledby="user-menu">
+  <div class="dropdown-menu dmpopidor-dropdown" aria-labelledby="user-menu">
   <div>
-  <h5 class="dropdown-header">Utilisateur</h5>
+  <h6 class="dropdown-header">Utilisateur</h6>
     <ul>
       <li class="nav-item">
         <%= link_to _('Edit profile'), edit_user_registration_path+"#content", class: 'nav-link' %>
@@ -41,7 +40,7 @@
   </div>
   <% if current_user.can_org_admin? %>
     <div>
-      <h5 class="dropdown-header"><%= _('Admin') %></h5>
+      <h6 class="dropdown-header"><%= _('Admin') %></h6>
       <ul>
           <li class="nav-item <%= ' active' if active_page?(org_admin_plans_path) %>">
             <%= link_to _('Plans'), org_admin_plans_path+"#content", class: 'nav-link' %>
@@ -70,12 +69,12 @@
         <% end %>
         <% if current_user.can_grant_permissions? %>
           <li class="nav-item <%= ' active' if active_page?(admin_index_users_path) %>">
-            <%= link_to _('Users'), admin_index_users_path+"#content", class: 'main_nav_last_li dropdown-item  px-3' %>
+            <%= link_to _('Users'), admin_index_users_path+"#content", class: 'dropdown-item  px-3' %>
           </li>
         <% end %>
         <% if current_user.can_org_admin? || current_user.can_super_admin? %>
           <li class="nav-item <%= ' active' if active_page?(usage_index_path) %>">
-            <%= link_to _('Usage'), usage_index_path+"#content", class: 'active dropdown-item  px-3' %>
+            <%= link_to _('Usage'), usage_index_path+"#content", class: 'dropdown-item  px-3' %>
           </li>
         <% end %> 
       </ul>
@@ -84,7 +83,7 @@
   
       <% if current_user.can_super_admin? %>
       <div>
-        <h5 class="dropdown-header"><%= _('Super Admin') %></h5>
+        <h6 class="dropdown-header"><%= _('Super Admin') %></h6>
         <ul>
         <li class="nav-item <%= ' active' if active_page?(super_admin_themes_path) %>">
           <%= link_to _('Themes'), super_admin_themes_path+"#content" , class: 'nav-link' %>
@@ -101,7 +100,7 @@
         </ul>
         </div>
         <div>
-        <h5 class="dropdown-header"><%= _('maDMP Features') %></h5>
+        <h6 class="dropdown-header"><%= _('maDMP Features') %></h6>
         <ul>
         <li class="nav-item <%= ' active' if active_page?(super_admin_madmp_schemas_path) %>">
           <%= link_to _('Schemas'), super_admin_madmp_schemas_path+"#content", class: 'nav-link' %>

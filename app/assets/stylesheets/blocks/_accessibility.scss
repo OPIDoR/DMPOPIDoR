@@ -60,15 +60,6 @@ ul.header-links li {
       padding: 0;
   }
 }
-
-ul.header-links li {
-  a {
-    &:hover,
-    &:active {
-      background-color: $dark-blue;
-    }
-  }
-}
   
   /** button outline-width increased for better visibility of outline */
   // button {

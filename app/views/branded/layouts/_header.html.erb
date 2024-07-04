@@ -7,8 +7,6 @@
   <%= render partial: "layouts/navigation" %>
 </div>
 
-<!-- <%= image_tag("header_banner.png", alt: "header banner", class: "header-banner-img") %> -->
-
 <div class="header-banner">
   <%= render "layouts/notifications", notifications: Notification.active_per_user(current_user) %>
   <div class="org-branding">

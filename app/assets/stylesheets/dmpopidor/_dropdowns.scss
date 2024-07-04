@@ -2,6 +2,10 @@
 
 @mixin dmpopidor-dropdown {
   .dmpopidor-dropdown {
+    z-index: 1;
+    box-shadow: rgba(0, 0, 0, 0.3) 0px 2px 5px;
+    border: none;
+
     li a[rel="nofollow"][data-method="patch"] {
 
       &:first-of-type,
@@ -51,6 +55,9 @@
       color: $dark-blue;
       font-weight: bold;
       text-align: center;
+    }
+    hr.dropdown-divider {
+      margin: 0;
     }
   }
 }
