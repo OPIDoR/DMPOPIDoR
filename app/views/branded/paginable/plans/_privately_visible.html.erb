@@ -70,7 +70,7 @@
                 <% end %>
 
                 <li class="nav-item"><%= link_to _('Download'), download_plan_path(plan), class: 'dropdown-item  px-3' %></li>
-                <li class="copy-plan nav-item"><%= link_to(_('Copy'), duplicate_plan_path(plan), data: { method: :post }), class: 'dropdown-item  px-3' %></li>
+                <li class="copy-plan nav-item"><%= link_to(_('Copy'), duplicate_plan_path(plan), data: { method: :post }, class: 'dropdown-item  px-3') %></li>
               <% else %>
                 <li class="nav-item"><%= link_to _('View'), plan_path(plan), class: 'dropdown-item  px-3' %></li>
 
