@@ -2,6 +2,10 @@
 
 **Attention** Cette liste de changements concerne les déploiements sur nos serveurs de test en interne.
 
+# 08/07/2024
+
+- Correction du problème d'affichage du rôle choisi lors de la modification d'un contributeur dans l'onglet Rédiger (#11453)
+- Correction du problème de la valeur enregistrée dans les référentiels simples contenant un attribut `value` et un libellé avec langue (#11466)
 
 # 26/06/2024
 
