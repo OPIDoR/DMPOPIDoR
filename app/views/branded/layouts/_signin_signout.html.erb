@@ -69,12 +69,12 @@
             <% end %>
             <% if current_user.can_grant_permissions? %>
               <li class="nav-item <%= ' active' if active_page?(admin_index_users_path) %>">
-                <%= link_to _('Users'), admin_index_users_path+"#content", class: 'dropdown-item  px-3' %>
+                <%= link_to _('Users'), admin_index_users_path+"#content", class: 'nav-link' %>
               </li>
             <% end %>
             <% if current_user.can_org_admin? || current_user.can_super_admin? %>
               <li class="nav-item <%= ' active' if active_page?(usage_index_path) %>">
-                <%= link_to _('Usage'), usage_index_path+"#content", class: 'dropdown-item  px-3' %>
+                <%= link_to _('Usage'), usage_index_path+"#content", class: 'nav-link' %>
               </li>
             <% end %> 
           </ul>

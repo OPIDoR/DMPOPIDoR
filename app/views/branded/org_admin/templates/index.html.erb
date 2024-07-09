@@ -61,14 +61,14 @@
         <li role="presentation"
             class="<%= action_name == 'customisable' ? 'nav-item active' : 'nav-item'  %>">
           <%= link_to(_('Customisable Templates'),
-              customisable_org_admin_templates_path, { role: 'tab' }) %>
+              customisable_org_admin_templates_path, { role: 'tab', class: 'nav-link' }) %>
         </li>
       <% end %>
 
       <li role="presentation"
           class="<%= action_name == 'modules' ? 'nav-item active' : 'nav-item'  %>">
 
-        <%= link_to(modules_org_admin_templates_path, { role: 'tab' }) do %>
+        <%= link_to(modules_org_admin_templates_path, { role: 'tab', class: 'nav-link' }) do %>
             <% _('Module Templates') %>
         <% end %>
 
