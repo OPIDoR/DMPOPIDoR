@@ -57,5 +57,5 @@
   <p><%= raw _("You have the right of access, of correction, of portability, or of removal of this data, or of a limitation of their processing. You can oppose the processing of the data that concerns you and you have the right to withdraw your agreement at any time, by contacting: <a href='mailto:%{contact_url}'>%{contact_url}</a>. You can also direct a complaint at a controlling body.") % { contact_url: Rails.configuration.x.organisation.email } %></p>
   </div>
 
-  <%= f.button(_('Create account'), class: "btn btn-default", type: "submit") %>
+  <%= f.button(_('Create account'), class: "btn btn-secondary", type: "submit") %>
 <% end %>
