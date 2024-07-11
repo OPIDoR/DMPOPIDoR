@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: app 1.0\n"
 "Report-Msgid-Bugs-To: contact@translation.io\n"
-"POT-Creation-Date: 2024-06-26 11:31+0200\n"
-"PO-Revision-Date: 2024-06-26 11:31+0200\n"
+"POT-Creation-Date: 2024-07-11 10:11+0200\n"
+"PO-Revision-Date: 2024-07-11 10:11+0200\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: French\n"
 "Language: fr_FR\n"
@@ -506,7 +506,7 @@ msgstr "Modèle créé avec %{application_name}. Dernière modification %{date}"
 
 #: ../../app/controllers/public_pages_controller.rb:92
 msgid "Unable to download the DMP Template at this time."
-msgstr "Impossible de télécharger le modèle de DMP pour le moment."
+msgstr "Impossible de télécharger le modèle de PGD pour le moment."
 
 #: ../../app/controllers/registrations_controller.rb:47
 msgid ""
@@ -1111,7 +1111,7 @@ msgstr "Responsable du plan"
 #: ../../app/models/dmpopidor/plan.rb:111
 #: ../../engines/madmp_opidor/app/models/madmp_fragment.rb:430
 msgid "\"%{project_title}\" project DMP"
-msgstr "DMP du projet \"%{project_title}\""
+msgstr "PGD du projet \"%{project_title}\""
 
 #: ../../app/models/dmpopidor/plan.rb:138
 msgid "Project coordinator"
@@ -1503,7 +1503,7 @@ msgid ""
 "the data management plan (DMP)."
 msgstr ""
 "Vous devrez créer un compte afin d'accepter l'invitation à consulter le plan ("
-"DMP)."
+"PGD)."
 
 #: ../../app/views/branded/devise/invitations/edit.html.erb:15
 msgid "New password"
@@ -1775,7 +1775,7 @@ msgstr "Aide"
 #: ../../app/views/branded/public_pages/template_index.html.erb:1
 #: ../../app/views/branded/public_pages/template_index.html.erb:5
 msgid "DMP Templates"
-msgstr "Modèles de DMP"
+msgstr "Modèles de PGD"
 
 #: ../../app/views/branded/layouts/_footer.html.erb:24
 msgid "FAQ"
@@ -1864,7 +1864,7 @@ msgstr "PGD & Modèles"
 #: ../../app/views/branded/public_pages/plan_index.html.erb:1
 #: ../../app/views/branded/public_pages/plan_index.html.erb:5
 msgid "Public DMPs"
-msgstr "DMP publics"
+msgstr "PGD publics"
 
 #: ../../app/views/branded/layouts/_navigation.html.erb:87
 #: ../../app/views/branded/layouts/application.html.erb:71
@@ -2762,7 +2762,7 @@ msgid ""
 " Public DMPs page but any collaborators will still be able to access it."
 msgstr ""
 "Souhaitez-vous vraiment supprimer ce plan public? Il sera supprimé de la page "
-"DMPs publics mais vos collaborateurs continueront à pouvoir y accéder."
+"PGD publics mais vos collaborateurs continueront à pouvoir y accéder."
 
 #: ../../app/views/branded/paginable/plans/_administrator_visible.html.erb:75
 #: ../../app/views/branded/paginable/plans/_privately_visible.html.erb:82
@@ -3420,7 +3420,7 @@ msgid ""
 "fill the different sections. Do you confirm and then update your choice?"
 msgstr ""
 "Vous avez choisi de rendre votre plan public. Avant de confirmer, assurez-vous"
-" que la version de ce plan est complète. Ce DMP peut servir d'exemple pour d'a"
+" que la version de ce plan est complète. Ce PGD peut servir d'exemple pour d'a"
 "utres, veillez à remplir les différentes sections. Vous confirmez puis merci d"
 "e mettre à jour votre choix ?"
 
@@ -3563,7 +3563,7 @@ msgstr "Bienvenue"
 
 #: ../../app/views/branded/plans/index.html.erb:10
 msgid "You are now ready to create your first DMP."
-msgstr "Vous êtes maintenant prêt à créer votre premier DMP."
+msgstr "Vous êtes maintenant prêt à créer votre premier PGD."
 
 #: ../../app/views/branded/plans/index.html.erb:11
 msgid "Click the 'Create plan' button below to begin."
@@ -3599,23 +3599,22 @@ msgid ""
 " publicly by their owners. They are not vetted for quality, completeness, or a"
 "dherence to funder guidelines."
 msgstr ""
-"Les DMPs publics sont créés à l'aide de %{application_name} et partagés publiq"
-"uement par leurs propriétaires. Ils n'ont pas été vérifiés pour leur qualité, "
-"leur exhaustivité ou leur adhésion aux lignes directrices des financeurs."
+"Les PGD publics sont créés à l'aide de %{application_name} et partagés publiqu"
+"ement par leurs propriétaires. Ils n'ont pas été vérifiés pour leur qualité, l"
+"eur exhaustivité ou leur adhésion aux lignes directrices des financeurs."
 
 #: ../../app/views/branded/public_pages/plan_index.html.erb:14
 msgid "There are currently no public DMPs."
-msgstr "Pas de DMP public."
+msgstr "Pas de PGD public."
 
 #: ../../app/views/branded/public_pages/template_index.html.erb:8
 msgid ""
 "DMP templates provided by a funder or research organisations, available on DMP"
-" OPIDoR. You can download these templates and related guidances, create a plan"
-" from these templates."
+" OPIDoR. You can download these templates and related guidances."
 msgstr ""
 "Modèles de DMP proposés par les financeurs ou par les organismes de recherche,"
 " disponibles dans DMP OPIDoR. Vous pouvez télécharger ces modèles et les recom"
-"mandations associées, créer un plan à partir de ces modèles."
+"mandations associées."
 
 #: ../../app/views/branded/public_pages/template_index.html.erb:10
 msgid "There are currently no public Templates."
@@ -4101,7 +4100,7 @@ msgid ""
 " page in %{tool_name}."
 msgstr ""
 "%{commenter_name} a commenté votre plan %{plan_title}. Pour afficher les comme"
-"ntaires, suivez le lien vers le DMP ci-dessous ou accédez au plan via la page "
+"ntaires, suivez le lien vers le PGD ci-dessous ou accédez au plan via la page "
 "Mon tableau de bord dans %{tool_name}."
 
 #: ../../app/views/branded/user_mailer/new_comment.html.erb:17
@@ -4112,7 +4111,7 @@ msgstr ""
 
 #: ../../app/views/branded/user_mailer/new_comment.html.erb:21
 msgid "DMP: %{phase_link}"
-msgstr "DMP: %{phase_link}"
+msgstr "PGD : %{phase_link}"
 
 #: ../../app/views/branded/user_mailer/new_comment.html.erb:24
 msgid "Section name: %{section_title}"
@@ -4184,7 +4183,7 @@ msgstr "Tous les utilisateurs"
 
 #: ../../app/views/branded/users/_notification_preferences.html.erb:13
 msgid "A new comment has been added to my DMP"
-msgstr "Un nouveau commentaire a été ajouté à mon DMP"
+msgstr "Un nouveau commentaire a été ajouté à mon PGD"
 
 #: ../../app/views/branded/users/_notification_preferences.html.erb:18
 msgid "A plan has been shared with me"
@@ -4196,11 +4195,11 @@ msgstr "Droits administrateur qui me sont attribués"
 
 #: ../../app/views/branded/users/_notification_preferences.html.erb:29
 msgid "Feedback has been requested for my DMP"
-msgstr "Une assistance conseil a été demandée pour mon DMP"
+msgstr "Une assistance conseil a été demandée pour mon PGD"
 
 #: ../../app/views/branded/users/_notification_preferences.html.erb:34
 msgid "Feedback has been provided for my DMP"
-msgstr "Une assistance conseil a été donnée pour mon DMP"
+msgstr "Une assistance conseil a été donnée pour mon PGD"
 
 #: ../../app/views/branded/users/_notification_preferences.html.erb:39
 msgid "DMP owners and co-owners"
@@ -4208,7 +4207,7 @@ msgstr "Propriétaires et co-propriétaires de plans"
 
 #: ../../app/views/branded/users/_notification_preferences.html.erb:43
 msgid "My DMP's visibility has changed"
-msgstr "La visibilité de mon DMP a changé"
+msgstr "La visibilité de mon PGD a changé"
 
 #: ../../app/views/branded/users/admin_index.html.erb:1
 #: ../../app/views/branded/users/admin_index.html.erb:5
@@ -4445,7 +4444,7 @@ msgid ""
 "Unable to determine owner of the DMP, please specify an existing user as the c"
 "ontact"
 msgstr ""
-"Impossible de déterminer le propriétaire du DMP, veuillez spécifier un utilisa"
+"Impossible de déterminer le propriétaire du PGD, veuillez spécifier un utilisa"
 "teur existant comme contact"
 
 #:
