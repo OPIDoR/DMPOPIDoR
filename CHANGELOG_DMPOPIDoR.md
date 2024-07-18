@@ -2,6 +2,10 @@
 
 **Attention** Cette liste de changements concerne les déploiements sur nos serveurs de test en interne.
 
+## 18/07/2024
+- Correction du problème d'accès  à la modification des phases, sections et questions dans les modèles "modules"
+- Correction du problème survenant dans l'onglet Rédiger lors du clic sur le lien 'tout développer'. Ce problème était provoqué par l'affichage des recommandations lors de la création du premier produit de recherche.
+
 ## 03/07/2024
 - Modification de la création de plan avec l'implémentation de l'import de plan.
 - Affichage d'un message pour indiquer que le plan ne possède aucun produit de recherche et un bouton de redirection vers l'ongler rédiger.
