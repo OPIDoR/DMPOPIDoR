@@ -35,5 +35,16 @@ module Dmpopidor
         versions.reject { |version| version.plans.empty? }.empty?
       end
     end
+      
+    #
+    # CHANGES : Added mpdule template support
+    #
+    def latest?
+      if module?
+        id == ::Template.latest_module_version(family_id).pluck('templates.id').first
+      else
+        id == ::Template.latest_version(family_id).pluck('templates.id').first
+      end
+    end
   end
 end
