@@ -67,7 +67,7 @@
       border-top: 1px solid $dark-blue;
     }
 
-    tbody>tr:nth-child(odd) {
+    tbody>tr:nth-child(odd) td {
       background: $very-light-blue;
       color: $dark-blue;
 
@@ -77,7 +77,7 @@
       }
     }
 
-    tbody>tr:nth-child(even) {
+    tbody>tr:nth-child(even) td {
       background: #FFF;
     }
 
@@ -102,7 +102,7 @@
     &#my-plans {
 
       // Every table header cell except the first two
-      thead>tr>th:not(:nth-child(-n + 2)) {
+      thead>tr>th:not(:nth-child(-n + 2)) td {
         background-color: $dark-blue;
       }
 
@@ -115,6 +115,9 @@
 
           span {
             font-size: x-large;
+          }
+          &::after {
+            display: none;
           }
         }
       }
