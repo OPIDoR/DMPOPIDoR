@@ -1,24 +1,48 @@
 FROM ruby:3.2.4-slim AS base
+
 WORKDIR /app
-RUN apt update -y && apt install -y \
-    build-essential \
-    ca-certificates  \
+
+# Install necessary dependencies
+RUN apt-get update -y && \
+    apt-get install -y --no-install-recommends \
     curl \
-    gnupg \
-    wget \
+    gnupg2 && \
+    curl -fsSL https://dl.yarnpkg.com/debian/pubkey.gpg | apt-key add - && \
+    echo "deb https://dl.yarnpkg.com/debian/ stable main" | tee /etc/apt/sources.list.d/yarn.list && \
+    curl -fsSL https://dl-ssl.google.com/linux/linux_signing_key.pub | apt-key add - && \
+    sh -c 'echo "deb [arch=amd64] http://dl.google.com/linux/chrome/deb/ stable main" >> /etc/apt/sources.list.d/google.list' && \
+    apt-get update -y && \
+    apt-get install -y --no-install-recommends \
+    build-essential \
+    ca-certificates \
     libpq-dev \
     wkhtmltopdf \
     imagemagick \
     tzdata \
-    gnupg2 && \
-  wget -qO- https://dl.yarnpkg.com/debian/pubkey.gpg | apt-key add - && \
-  echo "deb https://dl.yarnpkg.com/debian/ stable main" | tee /etc/apt/sources.list.d/yarn.list && \
-  apt update -y && apt install -y yarn && \
-  apt clean && \
-  rm -rf /var/lib/apt/lists/* && \
-  ln -sf /usr/share/zoneinfo/Europe/Paris /etc/localtime && \
-  ln -sf /usr/bin/wkhtmltopdf /usr/local/bin/wkhtmltopdf && \
-  chmod +x /usr/local/bin/wkhtmltopdf
+    fonts-ipafont-gothic \
+    fonts-wqy-zenhei \
+    fonts-thai-tlwg \
+    fonts-kacst \
+    fonts-freefont-ttf \
+    libxss1 \
+    yarn \
+    google-chrome-stable && \
+    ln -sf /usr/share/zoneinfo/Europe/Paris /etc/localtime && \
+    ln -sf /usr/bin/wkhtmltopdf /usr/local/bin/wkhtmltopdf && \
+    chmod +x /usr/local/bin/wkhtmltopdf && \
+    apt-get clean && \
+    rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
+
+# Add and set up dumb-init
+ADD https://github.com/Yelp/dumb-init/releases/download/v1.2.2/dumb-init_1.2.2_x86_64 /usr/local/bin/dumb-init
+RUN chmod +x /usr/local/bin/dumb-init
+
+# Environment variables for Puppeteer
+ENV PUPPETEER_SKIP_CHROMIUM_DOWNLOAD=true \
+    GROVER_NO_SANDBOX=true
+
+# Set entrypoint
+ENTRYPOINT ["dumb-init", "--"]
 
 FROM base AS dev
 COPY . .

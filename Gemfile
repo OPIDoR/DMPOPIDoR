@@ -369,6 +369,8 @@ end
 
 gem 'net-smtp'
 
+gem 'foreman'
+
 # ======================#
 # MADMP OPIDOR FEATURES #
 # ===================== #
@@ -377,3 +379,5 @@ gem 'madmp_opidor', path: 'engines/madmp_opidor' # , git: 'https://github.com/OP
 group :build do
   gem 'activerecord-nulldb-adapter'
 end
+
+gem "grover", "~> 1.1"
