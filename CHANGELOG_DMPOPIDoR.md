@@ -7,6 +7,7 @@
   - Le thème change de traduction et garde sa valeur cochée au changement de groupe
   - Le thème est traduit quand on édite la recommandation
 - Duplication d'un produit de recherche via un bouton "Dupliquer" présent dans l'infobox
+- Correction import ``ROR``, mapping: ``"ror": { "name.fr": "name", "ror": "orgId", "acronyms[0]": "acronym", "type": "idType" }``
 
 ## 18/07/2024
 - Correction du problème d'accès  à la modification des phases, sections et questions dans les modèles "modules"
