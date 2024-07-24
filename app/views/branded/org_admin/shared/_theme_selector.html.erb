@@ -32,8 +32,9 @@
                    name="<%= namespace %>[theme_ids][]"
                    type="<%= as_radio ? 'radio' : 'checkbox' %>"
                    <%= required && (theme == all_themes.first ? ' aria-required=true ' : '') %>
-                   value="<%= theme[:id] %>"<%= f.object.themes.include?(theme) ? ' checked="checked"' : '' %>>
-            <%= theme[:title] %>
+                   value="<%= theme[:id] %>"<%= f.object.themes.include?(selected_theme) ? ' checked="checked"' : '' %>>
+            <% locale = Language.find_by(id: locale_id) %>
+            <%= theme&.translations&.dig(locale&.abbreviation, 'title') || theme&.title %>
           </div>
           <% cntr += 1 %>
         <% end %>

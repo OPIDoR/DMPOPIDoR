@@ -71,22 +71,14 @@ class GuidancesController < ApplicationController
     guidance = Guidance.eager_load(:themes, :guidance_group)
                        .find(params[:guidance_group_id])
 
-    locale = language&.abbreviation || 'fr-FR'
-
-    themes = Theme.all.order("title").map do |theme|
-      translation = theme.translations&.[](locale)
-      {
-        id: theme.id,
-        title: translation&.dig('title') || theme.title
-      }
-    end
-
     render partial: 'branded/org_admin/shared/theme_selector', locals: {
       f: form_builder_for(guidance || Guidance.new),
-      all_themes: themes,
+      all_themes: Theme.all.order("title"),
       as_radio: true,
       required: true,
       in_error: false,
+      selected_theme: guidance.themes[0],
+      locale_id: language.id,
       popover_message: _('Select one or more themes that are relevant to this guidance. This will display your generic organisation-level guidance, or any Schools/Departments for which you create guidance groups, across all templates that have questions with the corresponding theme tags.')
     }
   end
