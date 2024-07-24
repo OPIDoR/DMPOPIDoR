@@ -16,7 +16,6 @@ module Dmpopidor
       redirect_to(controller: 'plans', action: 'index')
     end
 
-    
     # rubocop:disable Metrics/MethodLength, Metrics/AbcSize
     def show
       @research_output = ::ResearchOutput.find(params[:id])
@@ -159,7 +158,7 @@ module Dmpopidor
 
       module_id = research_output_copy_fragment.additional_info['moduleId']
       template = module_id ? ::Template.find(module_id) : target_plan.template
-      
+
       render json: {
         id: target_plan.id,
         created_ro_id: research_output_copy.id,

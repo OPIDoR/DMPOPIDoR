@@ -139,6 +139,7 @@ module Dmpopidor
 
       return {
         id: id,
+        uuid: uuid,
         abbreviation: abbreviation,
         title: title,
         order: display_order,
