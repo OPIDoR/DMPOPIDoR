@@ -28,13 +28,14 @@
           <div class="checkbox">
             <% namespace = f.object.class.name.downcase %>
             <% id = f.object.id.present? ? f.object.id : 'new' %>
+            <% locale = Language.find_by(id: locale_id) %>
+            <% title_theme = theme&.translations&.dig(locale&.abbreviation, 'title') || theme&.title %>
             <input id="<%= id %>_<%= namespace %>_theme_ids_<%= theme[:id] %>"
                    name="<%= namespace %>[theme_ids][]"
                    type="<%= as_radio ? 'radio' : 'checkbox' %>"
                    <%= required && (theme == all_themes.first ? ' aria-required=true ' : '') %>
-                   value="<%= theme[:id] %>"<%= f.object.themes.include?(selected_theme) ? ' checked="checked"' : '' %>>
-            <% locale = Language.find_by(id: locale_id) %>
-            <%= theme&.translations&.dig(locale&.abbreviation, 'title') || theme&.title %>
+                   value="<%= theme[:id] %>"<%= title_theme.eql?(selected_theme) ? ' checked="checked"' : '' %>>
+            <%= title_theme %>
           </div>
           <% cntr += 1 %>
         <% end %>
