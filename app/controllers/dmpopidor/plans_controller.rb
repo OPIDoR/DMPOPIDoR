@@ -332,7 +332,8 @@ module Dmpopidor
       guidances = guidances.map do |guidance|
         {
           name: guidance[:name],
-          groups: guidance[:groups].to_a[0][1],
+          groups: guidance[:groups].to_a,
+          annotations: guidance[:annotations]
         }
       end
 
