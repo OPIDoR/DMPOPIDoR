@@ -275,8 +275,8 @@ module DMPRoadmap
     # DMP OPIDoR Features #
     # --------------------------------------------------- #
     config.x.dmpopidor.enable_research_outputs_uuid = true
-    config.x.dmpopidor.enable_third_party_form = ENV.fetch('ENABLE_THIRD_PARTY_FORM', false)
-    config.x.create_first_research_output = ENV.fetch('CREATE_FIRST_RESEARCH_OUTPUT', false)
+    config.x.dmpopidor.enable_third_party_form = ENV.fetch('ENABLE_THIRD_PARTY_FORM', false).to_s.casecmp('true').zero?
+    config.x.create_first_research_output = ENV.fetch('CREATE_FIRST_RESEARCH_OUTPUT', false).to_s.casecmp('true').zero?
     config.x.directus.url = ENV.fetch('DIRECTUS_URL', 'http://directus:8055')
     config.x.directus.public_url = ENV.fetch('DIRECTUS_PUBLIC_URL', 'http://localhost:8080/directus')
   end
