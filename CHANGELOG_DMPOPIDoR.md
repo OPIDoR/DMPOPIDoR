@@ -3,13 +3,13 @@
 **Attention** Cette liste de changements concerne les déploiements sur nos serveurs de test en interne.
 
 ## 31/07/2024
-
 - Modification du nom abrégé et nom du produit de recheche (import/duplication) par ``PR X [Copie de Produit de recherche Y]``
 - Ajout d'une validation de duplication du produit de recherche
 - Suppression des plans sans produit de recherche à l'import
 - Affichage du thème en anglais dans le tableau des recommandations
 - Affichage de la langue hérité par la recommandation (création/édition recommandation)
 - Import PGD Entité
+- Ajout d'une phrase explicative pour la gestion des données personnelles dans l'infobox d'un produit de recherche
 
 ## 30/07/2024
 - Correction de l'affichage des recommandations dans la partie rédiger
