@@ -19,11 +19,12 @@ end
 </div>
 <div class="row">
   <div class="col-xs-12">
+    <% guidance_groups = GuidanceGroup.where(org_id: current_user.org_id).order("name ASC") %>
     <%= form_for(@guidance, url: url, html: { method: method , id: 'new_edit_guidance'}) do |f| %>
       <div class="form-group">
         <%= f.label _('Guidance group'), for: :guidance_group_id, class: 'control-label' %>
         <%= f.collection_select(:guidance_group_id,
-                                GuidanceGroup.where(org_id: current_user.org_id).order("name ASC"),
+                                guidance_groups,
                                 :id, :name,
                                 {prompt: false},
                                 {multiple: false,
@@ -33,6 +34,11 @@ end
                                  'aria-required': true,
                                  onchange: "updateLocale(this, #{@guidance.id})"}) %>
 
+      </div>
+
+      <div class="form-group">
+        <label><%= _('Locale') %></label>
+        <input id="locale" type="text" class="form-control" value="<%= Language.find_by(id: @guidance&.guidance_group&.language_id || guidance_groups[0]&.language_id)&.name %>" disabled readonly />
       </div>
 
       <div class="form-group" data-toggle="tooltip" title="<%= guidance_text_tooltip %>">
@@ -75,7 +81,11 @@ end
         guidance_group_id: e.value,
         guidance_id: guidance_id,
       },
-      success: (response) => $('#theme-selector').html(response),
+      success: ({ data }) => {
+        const { partial, locale } = data;
+        $('#theme-selector').html(partial);
+        $('#locale').val(locale);
+      },
       error: (xhr, status, error) => {}
     });
   }
