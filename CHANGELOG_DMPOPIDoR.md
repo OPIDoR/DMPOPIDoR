@@ -10,6 +10,7 @@
 - Affichage de la langue hérité par la recommandation (création/édition recommandation)
 - Import PGD Entité
 - Ajout d'une phrase explicative pour la gestion des données personnelles dans l'infobox d'un produit de recherche
+- Liens soulignés dans les pages statiques et dans les recommandations
 
 ## 30/07/2024
 - Correction de l'affichage des recommandations dans la partie rédiger

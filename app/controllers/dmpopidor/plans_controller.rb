@@ -320,8 +320,9 @@ module Dmpopidor
       end
 
       begin
+        locale_id = Language.find_by(abbreviation: @plan.template.locale)&.id
         guidance_presenter = ::GuidancePresenter.new(@plan)
-        guidances = guidance_presenter.tablist(question)
+        guidances = guidance_presenter.tablist(question, locale_id)
       rescue StandardError => e
         Rails.logger.error("Cannot create guidance presenter")
         Rails.logger.error(e.backtrace.join("\n"))
@@ -333,17 +334,9 @@ module Dmpopidor
         {
           name: guidance[:name],
           groups: guidance[:groups].to_a,
-          annotations: guidance[:annotations]
+          annotations: guidance[:annotations],
         }
       end
-
-      # new_groups = {}
-      # groups = guidances[0][:groups]
-      # groups.each_key do |g|
-      #   title = g.translations[@plan.template.locale].present? ? g.translations['en-GB']['title'] : g.title
-      #   new_groups[title] = groups[g]
-      # end
-      # guidances[0][:groups] = new_groups
 
       render json: { status: 200, message: "Guidances for plan [#{plan_id}] and question [#{question_id}]", guidances: guidances }, status: :ok
     end
