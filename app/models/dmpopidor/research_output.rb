@@ -143,7 +143,7 @@ module Dmpopidor
         abbreviation: abbreviation,
         title: title,
         order: display_order,
-        type: ro_fragment.research_output_description['data']['type'] || nil,
+        # type: ro_fragment.research_output_description['data']['type'] || nil,
         configuration: ro_fragment.additional_info,
         answers: answers.map do |a|
           {

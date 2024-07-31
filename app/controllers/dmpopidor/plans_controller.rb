@@ -25,7 +25,7 @@ module Dmpopidor
               title: plan.title,
               research_outputs: plan.research_outputs
             }
-          end
+          end.reject { |plan| plan[:research_outputs].empty? }
           render json: { plans: plans }
         end
       end
@@ -377,10 +377,11 @@ module Dmpopidor
             end
             errs = Import::PlanImportService.validate(json_data, import_params[:format], locale: @plan.template.locale)
             if errs.any?
-              format.html { redirect_to import_plans_path, alert: import_errors(errs) }
+              format.json do
+                bad_request(import_errors(errs))
+              end
             else
               @plan.visibility = Rails.configuration.x.plans.default_visibility
-
 
               @plan.title = format(_("%{user_name}'s Plan"), user_name: current_user.firstname)
               @plan.org = current_user.org
@@ -392,20 +393,28 @@ module Dmpopidor
 
                 Import::PlanImportService.import(@plan, json_data, import_params[:format])
 
-                format.html { redirect_to plan_path(@plan), notice: success_message(@plan, _('imported')) }
+                format.json do
+                  render json: { status: 201, message: _('imported'), data: { planId: @plan.id } }, status: :created
+                end
               else
-                format.html { redirect_to import_plans_path, alert: failure_message(@plan, _('create')) }
+                format.json do
+                  bad_request(failure_message(@plan, _('create')))
+                end
               end
             end
           rescue IOError
-            format.html { redirect_to import_plans_path, alert: _('Unvalid file') }
+            format.json do
+              bad_request(_('Unvalid file'))
+            end
           rescue JSON::ParserError
-            msg = _('File should contain JSON')
-            format.html { redirect_to import_plans_path, alert: msg }
+            format.json do
+              bad_request(_('File should contain JSON'))
+            end
           rescue StandardError => e
-            msg = "#{_('An error has occured: ')} #{e.message}"
             Rails.logger.error e.backtrace
-            format.html { redirect_to import_plans_path, alert: msg }
+            format.json do
+              bad_request("#{_('An error has occured: ')} #{e.message}")
+            end
           end
         end
       end
