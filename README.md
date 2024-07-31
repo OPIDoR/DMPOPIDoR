@@ -51,6 +51,9 @@ git clone https://github.com/OPIDoR/dmp_opidor_react.git app/javascript/dmp_opid
 Default credentials: ``admin@example.com`` / ``changeme``
 
 ```bash
+# Run postgres
+docker compose up -d postgres
+
 # Create directus database
 docker compose exec -it postgres sh -c "psql -U ${DB_USERNAME:-postgres} -c 'create database ${DIRECTUS_DATABASE:-directus};'"
 
@@ -66,8 +69,6 @@ docker compose exec -it postgres sh -c "psql -U ${DB_USERNAME:-postgres} ${DIREC
 ```bash
 # Dump directus database
 docker compose exec -it postgres sh -c "pg_dump -U ${DB_USERNAME:-postgres} ${DIRECTUS_DATABASE:-directus}" > directus/dump.sql
-
-# Apply new dump
 
 # Drop database
 docker compose exec -it postgres sh -c "psql -U ${DB_USERNAME:-postgres} -c 'drop database ${DIRECTUS_DATABASE:-directus};'"
