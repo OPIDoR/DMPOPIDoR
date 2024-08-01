@@ -119,7 +119,6 @@ module Dmpopidor
         type: description_fragment.data['type'],
         hasPersonalData: has_personal_data
       }
-
     end
 
     def serialize_json(with_questions_with_guidance = false)
@@ -143,8 +142,11 @@ module Dmpopidor
         abbreviation: abbreviation,
         title: title,
         order: display_order,
-        # type: ro_fragment.research_output_description['data']['type'] || nil,
-        configuration: ro_fragment.additional_info,
+        type: ro_fragment.research_output_description['data']['type'] || nil,
+        configuration: {
+          **ro_fragment.additional_info,
+          hasPersonalData: ro_fragment.research_output_description['data']['containsPersonalData'] == _('Yes'),
+        },
         answers: answers.map do |a|
           {
             answer_id: a.id,
