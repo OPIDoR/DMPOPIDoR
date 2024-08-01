@@ -2,6 +2,11 @@
 
 **Attention** Cette liste de changements concerne les déploiements sur nos serveurs de test en interne.
 
+## 01/08/2024
+- Correction de la question sur les données personnelles : modification possible via "Oui" ou "Non"
+- L'import des produits de recherche n'affiche plus de plan par défaut. Les produits de recherche n'apparaissent que lorsqu'un plan est sélectionné.
+- Réduction des espaces entre libéllés et le boutons "ajouter un élément"
+
 ## 31/07/2024
 - Modification du nom abrégé et nom du produit de recheche (import/duplication) par ``PR X [Copie de Produit de recherche Y]``
 - Ajout d'une validation de duplication du produit de recherche
