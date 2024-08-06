@@ -382,7 +382,7 @@ module Dmpopidor
               if @plan.save
                 @plan.add_user!(current_user.id, :creator)
                 @plan.save
-                @plan.create_plan_fragments
+                @plan.create_plan_fragments(json_data)
 
                 Import::PlanImportService.import(@plan, json_data, import_params[:format])
 

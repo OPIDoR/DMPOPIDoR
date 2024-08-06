@@ -56,7 +56,7 @@ module Dmpopidor
     end
 
     # rubocop:disable Metrics/AbcSize, Metrics/MethodLength
-    def create_plan_fragments
+    def create_plan_fragments(json_data = nil)
       template_locale = template.locale.eql?('en-GB') ? 'eng' : 'fra'
       dmp_template_name = template.research_entity? ? 'DMPResearchEntity' : 'DMPResearchProject'
       # rubocop:disable Metrics/BlockLength
@@ -101,7 +101,7 @@ module Dmpopidor
         # META & PROJECT FRAGMENTS
         #################################
         if template.research_entity?
-          handle_research_entity(dmp_fragment.id)
+          handle_research_entity(dmp_fragment.id, json_data.present? ? json_data['research_entity'] : nil)
         else
           handle_research_project(dmp_fragment.id, person)
         end
@@ -159,10 +159,10 @@ module Dmpopidor
     end
     # rubocop:enable Metrics/MethodLength
 
-    def handle_research_entity(dmp_id)
+    def handle_research_entity(dmp_id, research_entity = nil)
       entity_schema = MadmpSchema.find_by(name: 'ResearchEntityStandard')
       entity = Fragment::ResearchEntity.create!(
-        data: {
+        data: research_entity.present? ? research_entity : {
           'title' => title,
           'description' => description
         },
