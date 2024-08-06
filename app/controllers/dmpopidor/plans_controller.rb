@@ -25,7 +25,10 @@ module Dmpopidor
               title: plan.title,
               research_outputs: plan.research_outputs
             }
-          end.reject { |plan| plan[:research_outputs].empty? }
+          end.reject { |plan|
+            plan[:research_outputs].empty? ||
+              plan[:research_outputs].all? { |output| output[:title].nil? || output[:title].strip.empty? }
+          }
           render json: { plans: plans }
         end
       end

@@ -2,6 +2,11 @@
 
 **Attention** Cette liste de changements concerne les déploiements sur nos serveurs de test en interne.
 
+## 06/08/2024
+- Correction de l'import du plan de gestion entité
+- Affichage du choix du plan puis du produit de recherche quand un plan est sasie
+- Retrait des plans avec produit de recherche sans titres
+
 ## 01/08/2024
 - Correction de la question sur les données personnelles : modification possible via "Oui" ou "Non"
 - L'import des produits de recherche n'affiche plus de plan par défaut. Les produits de recherche n'apparaissent que lorsqu'un plan est sélectionné.
