@@ -12,7 +12,7 @@ module Dmpopidor
       @organisationally_or_publicly_visible = if current_user.org.is_other?
                                                 []
                                               else
-                                                ::Plan.organisationally_or_publicly_visible(current_user).page(1)
+                                                ::Plan.organisationally_or_publicly_visible(current_user)
                                               end
 
       respond_to do |format|
