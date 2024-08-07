@@ -228,6 +228,7 @@ GEM
     fog-xml (0.1.4)
       fog-core
       nokogiri (>= 1.5.11, < 2.0.0)
+    foreman (0.88.1)
     formatador (1.1.0)
     forwardable (1.3.3)
     fuubar (2.5.1)
@@ -654,6 +655,7 @@ DEPENDENCIES
   factory_bot_rails
   faker
   flag_shih_tzu
+  foreman (~> 0.88.1)
   fuubar
   guard
   htmltoword
