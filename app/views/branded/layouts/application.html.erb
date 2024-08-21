@@ -108,9 +108,8 @@
         <%= render "layouts/footer" %>
       </footer>
 
-      <div class="back-to-top-wrapper">
-        <a href="#" class="back-to-top-link" aria-label="Scroll to Top"><i class="fa fa-chevron-circle-up" aria-hidden="true"></i></a>
-      </div>
+      <!-- Back to top button -->
+      <%= react("BackToTop", props: {}) %>
 
       <!-- Cookie Consent -->
       <%= react("CookieConsent", props: {}) %>
