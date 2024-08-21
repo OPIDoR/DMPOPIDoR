@@ -10,6 +10,7 @@ import WritePlanLayout from './dmp_opidor_react/src/components/WritePlan/WritePl
 import HelpLayout from './dmp_opidor_react/src/components/Help/HelpLayout.jsx';
 import StaticPagesLayout from './dmp_opidor_react/src/components/StaticPages/StaticPagesLayout.jsx';
 import GlossaryLayout from './dmp_opidor_react/src/components/Glossary/GlossaryLayout.jsx';
+import CookieConsent from './dmp_opidor_react/src/components/CookieConsent';
 
 export default function mount(components) {
   document.addEventListener('DOMContentLoaded', () => {
@@ -45,4 +46,5 @@ mount({
   HelpLayout,
   StaticPagesLayout,
   GlossaryLayout,
+  CookieConsent,
 });
