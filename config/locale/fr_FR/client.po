@@ -1689,17 +1689,8 @@ msgid "View all guidance"
 msgstr "Voir toutes les recommandations"
 
 #: ../../app/views/branded/guidances/new_edit.html.erb:32
-msgid ""
-"Select one or more themes that are relevant to this guidance. This will displa"
-"y your generic organisation-level guidance, or any Schools/Departments for whi"
-"ch you create guidance groups, across all templates that have questions with t"
-"he corresponding theme tags."
-msgstr ""
-"Sélectionnez un ou plusieurs thèmes pertinents pour cette recommandation. Cela"
-" affichera votre recommandation générique au niveau de l'organisme, ou tout ét"
-"ablissement / service pour lequel vous créez des groupes de recommandations, p"
-"armi tous les modèles comportant des questions avec les thèmes correspondants."
-" "
+msgid "Select one theme that is relevant to this guidance."
+msgstr "Sélectionnez un thème pertinent pour cette recommandation."
 
 #: ../../app/views/branded/guidances/new_edit.html.erb:34
 msgid "Guidance group"
@@ -1707,7 +1698,7 @@ msgstr "Groupe de recommandations"
 
 #: ../../app/views/branded/guidances/new_edit.html.erb:37
 msgid "Select which group this guidance relates to."
-msgstr "Sélectionnez le groupe auxquel ces recommandations sont liés."
+msgstr "Sélectionnez le groupe auxquel ces recommandations sont liées."
 
 #: ../../app/views/branded/guidances/new_edit.html.erb:44
 msgid "Check this box when you are ready for this guidance to appear on user's plans."
