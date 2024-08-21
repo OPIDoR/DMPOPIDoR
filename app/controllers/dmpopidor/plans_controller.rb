@@ -381,6 +381,9 @@ module Dmpopidor
               @plan.visibility = Rails.configuration.x.plans.default_visibility
 
               @plan.title = format(_("%{user_name}'s Plan"), user_name: current_user.firstname)
+              if json_data.dig('meta', 'title')
+                @plan.title = json_data['meta']['title']
+              end
               @plan.org = current_user.org
 
               if @plan.save
