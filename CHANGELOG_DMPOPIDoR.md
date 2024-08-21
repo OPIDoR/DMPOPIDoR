@@ -2,6 +2,15 @@
 
 **Attention** Cette liste de changements concerne les déploiements sur nos serveurs de test en interne.
 
+## 21/08/2024
+- Mise en conformité RGPD des cookies
+  - Ajout d'un bouton avec tooltip pour modifier les paramètres
+  - Mise à jour de la view piwik pour utiliser des variables d'environnement et permettre de supprimer les cookies d'analyse
+- Création du premier produit de recherche par défaut (activé par variable d'environnement)
+- Uniformisation du bouton "back to top" avec celui des cookies
+- Correction de traductions
+- Affichage de la modale de recommendations pour une question non répondue
+
 ## 06/08/2024
 - Correction de l'import du plan de gestion entité
 - Affichage du choix du plan puis du produit de recherche quand un plan est sasie
