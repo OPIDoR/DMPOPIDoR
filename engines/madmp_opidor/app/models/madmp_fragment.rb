@@ -488,13 +488,15 @@ class MadmpFragment < ApplicationRecord
       classname:
     ).where.not(id: current_fragment_id)
 
+    filtered_incoming_data = data.to_h.slice(*unicity_properties)
+
     dmp_fragments.each do |fragment|
-      filtered_db_data = fragment.data.slice(*unicity_properties).compact!
-      filtered_incoming_data = data.to_h.slice(*unicity_properties).compact!
+      filtered_db_data = fragment.data.slice(*unicity_properties)
       next if filtered_db_data.nil? || filtered_db_data.empty?
 
       return fragment if filtered_db_data.eql?(filtered_incoming_data)
     end
+
     false
   end
   # rubocop:enable Metrics/AbcSize
