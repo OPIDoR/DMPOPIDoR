@@ -88,7 +88,7 @@ module Dmpopidor
             # Create a new answer for the ResearchOutputDescription Question
             # This answer will be displayed in the Write Plan tab,
             # pre filled with the ResearchOutputDescription info
-            fragment_description.answer = Answer.create(
+            fragment_description.answer = ::Answer.create(
               question_id: description_question.id,
               research_output_id: id,
               plan_id: plan.id,
