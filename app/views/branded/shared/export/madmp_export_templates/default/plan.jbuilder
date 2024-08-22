@@ -9,7 +9,7 @@ json.prettify!
 json.meta meta.get_full_fragment
 
 if plan.template.research_entity?
-  json.research_entity dmp.research_entity.get_full_fragment
+  json.researchEntity dmp.research_entity.get_full_fragment
 else
   json.project dmp.project.get_full_fragment
 end
