@@ -2,6 +2,13 @@
 
 **Attention** Cette liste de changements concerne les déploiements sur nos serveurs de test en interne.
 
+## 22/08/2024
+- Mise à jour des traductions
+- Correction de l'import plan de gestion entité
+  - Import des contributeurs, ils ne sont plus dupliqués dans l'onglet contributeur
+    => La modification des contributeurs est fonctionnelle suite à la correction de l'import
+  - Ajout/modification de tutelles, les données sont désormais bien sauvegardées
+
 ## 21/08/2024
 - Mise en conformité RGPD des cookies
   - Ajout d'un bouton avec tooltip pour modifier les paramètres
