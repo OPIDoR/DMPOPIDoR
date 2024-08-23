@@ -2,6 +2,9 @@
 
 **Attention** Cette liste de changements concerne les déploiements sur nos serveurs de test en interne.
 
+## 23/08/2024
+- Ajout de la possibilité de laisser un commentaire dans une question non répondue (KB #11739)
+
 ## 22/08/2024
 - Mise à jour des traductions
 - Correction de l'import plan de gestion entité

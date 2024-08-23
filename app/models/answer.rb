@@ -32,6 +32,14 @@
 
 # Object that represents an Answer to a Plan question
 class Answer < ApplicationRecord
+  # --------------------------------
+  # Start DMP OPIDoR Customization
+  # SEE app/models/dmpopidor/answer.rb
+  # --------------------------------
+  prepend Dmpopidor::Answer
+  # --------------------------------
+  # End DMP OPIDoR Customization
+  # --------------------------------
   # ================
   # = Associations =
   # ================
