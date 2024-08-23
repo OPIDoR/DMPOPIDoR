@@ -152,7 +152,7 @@ module Dmpopidor
         )
 
         research_output.answers.each do |answer|
-          answer_copy = Answer.deep_copy(answer)
+          answer_copy = ::Answer.deep_copy(answer)
           answer_copy.plan_id = target_plan.id
           answer_copy.research_output_id = research_output_copy.id
           answer_copy.save!
