@@ -2,6 +2,11 @@
 
 **Attention** Cette liste de changements concerne les déploiements sur nos serveurs de test en interne.
 
+## 26/08/2024
+- Désactivation du produit de recherche Logiciel (ajout d'une option de configuration)
+- Activation de l'édition du type de produit de recherche (ajout d'une option de configuration) (KB #11749)
+
+
 ## 23/08/2024
 - Ajout de la possibilité de laisser un commentaire dans une question non répondue (KB #11739)
 
