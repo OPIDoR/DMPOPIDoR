@@ -59,4 +59,10 @@ directus_setup: check_env check_docker_compose ## Setup Directus database
 	$(call docker_action,cp ./directus/dump.sql postgres:/directus.sql)
 	$(call docker_action,exec -it postgres sh -c "psql -U $${DB_USERNAME:-postgres} $${DIRECTUS_DATABASE:-directus} < directus.sql")
 
+push_translations: check_env check_docker_compose ## Push translations onto transaltion.io
+	$(call docker_action,exec -it dmpopidor sh -c "DOMAIN=client rails translation:sync_and_show_purgeable")
+
+pull_translations: check_env check_docker_compose ## Pull translations from transaltion.io
+	$(call docker_action,exec -it dmpopidor sh -c "DOMAIN=client rails translation:sync_and_purge")
+
 .PHONY: help check_env check_adapter check_docker_compose setup build run stop
