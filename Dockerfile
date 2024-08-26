@@ -1,4 +1,4 @@
-FROM ruby:3.2.4-slim AS base
+FROM ruby:3.2.5-slim AS base
 WORKDIR /app
 RUN apt update -y && apt install -y \
     build-essential \
