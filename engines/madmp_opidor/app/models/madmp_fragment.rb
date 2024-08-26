@@ -205,8 +205,7 @@ class MadmpFragment < ApplicationRecord
     return unless plan.template.structured?
 
     case classname
-    when 'research_output_description'
-    when 'software_description'
+    when 'research_output_description', 'software_description'
       ro_fragment = parent
       new_additional_info = ro_fragment.additional_info.merge(
         hasPersonalData: %w[Oui Yes].include?(data['containsPersonalData'])
