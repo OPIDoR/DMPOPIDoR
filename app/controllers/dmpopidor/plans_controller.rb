@@ -100,7 +100,7 @@ module Dmpopidor
             @plan.create_plan_fragments
 
             # Add default research output if possible
-            if Rails.configuration.x.create_first_research_output || @plan.template.structured? == false
+            if Rails.configuration.x.dmpopidor.create_first_research_output || @plan.template.structured? == false
               created_ro = @plan.research_outputs.create!(
                 abbreviation: "#{_('RO')} 1",
                 title: "#{_('Research output')} 1",

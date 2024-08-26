@@ -70,6 +70,7 @@ module Dmpopidor
 
           updated_data = research_output_description.data.merge({
             title: params[:title],
+            type: params[:type],
             containsPersonalData: params[:configuration][:hasPersonalData] ? _('Yes') : _('No')
           })
           research_output_description.update(data: updated_data)
