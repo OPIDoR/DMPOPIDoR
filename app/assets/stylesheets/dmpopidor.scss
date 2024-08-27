@@ -28,7 +28,6 @@
 
 @use './dmpopidor/font_size' as *;
 @use './dmpopidor/signin_form' as *;
-@use './dmpopidor/back_to_top' as *;
 @use './dmpopidor/contact_us' as *;
 @use './dmpopidor/cookiebanner' as *;
 @use './dmpopidor/share_form' as *;
@@ -255,5 +254,11 @@ body div a.btn {
     .registry-value-actions a {
       text-decoration: none;
     }
+  }
+}
+
+.static_pages {
+  a {
+    text-decoration: underline;
   }
 }

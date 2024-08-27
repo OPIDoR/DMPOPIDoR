@@ -13,9 +13,11 @@ class RegistrationsController < Devise::RegistrationsController
     # Start DMP OPIDoR Customization
     # CHANGES :
     #   - Excluded funder orgs from registrations
+    #   - Excluded unmanaged orgs from registrations
     #   - Excluded unactive IdentifierSchemes from registrations
     # --------------------------------
     @orgs = Org.where(active: true).where.not('org_type = 2').order('name')
+    @orgs = @orgs.where(managed: true) if !@user.can_super_admin?
     @other_organisations = Org.where(is_other: true).pluck(:id)
     @identifier_schemes = IdentifierScheme.for_users.where(active: true).order(:name)
     # --------------------------------

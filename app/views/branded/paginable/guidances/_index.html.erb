@@ -20,7 +20,9 @@
             <% if guidance.themes.present? %>
               <td>
                 <% guidance.themes.each do |th| %>
-                  <%= th.title %>
+                  <% theme = Theme.find_by(title: th.title) %>
+                  <% local_abbreviation = Language.find_by(id: guidance.guidance_group.language_id)&.abbreviation %>
+                  <%= theme&.translations[local_abbreviation]&.fetch("title", nil) || th&.title %>
                 <% end %>
               </td>
             <% else %>

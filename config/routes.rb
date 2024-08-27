@@ -178,6 +178,7 @@ Rails.application.routes.draw do
     delete 'destroy_remote', on: :collection
     patch 'update_remote', on: :collection
     post 'sort', on: :collection
+    post 'import', on: :collection, constraints: { format: [:json] }
   end
 
   resources :research_outputs, only: [] do
@@ -308,6 +309,7 @@ Rails.application.routes.draw do
       get 'index/:page', action: :index, on: :collection, as: :index
       get 'customisable/:page', action: :customisable, on: :collection, as: :customisable
       get 'organisational/:page', action: :organisational, on: :collection, as: :organisational
+      get 'modules/:page', action: :modules, on: :collection, as: :modules
       get 'publicly_visible/:page', action: :publicly_visible,
                                     on: :collection, as: :publicly_visible
       get ':id/history/:page', action: :history, on: :collection, as: :history
@@ -381,6 +383,7 @@ Rails.application.routes.draw do
       collection do
         get 'organisational'
         get 'customisable'
+        get 'modules'
       end
 
       resources :phases, except: [:index] do

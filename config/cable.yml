@@ -1,6 +1,6 @@
 default: &default
   adapter: redis
-  url: <%= Rails.configuration.x.dmpopidor.redis_url%>
+  url: <%= Rails.configuration.x.dmpopidor.redis_url %>
 
 development:
   <<: *default

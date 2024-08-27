@@ -64,6 +64,15 @@
               customisable_org_admin_templates_path, { role: 'tab' }) %>
         </li>
       <% end %>
+
+      <li role="presentation"
+          class="<%= action_name == 'modules' ? 'active' : '' %>">
+
+        <%= link_to(modules_org_admin_templates_path, { role: 'tab' }) do %>
+            <% _('Module Templates') %>
+        <% end %>
+
+      </li>
     </ul>
 
     <div class="tab-content">

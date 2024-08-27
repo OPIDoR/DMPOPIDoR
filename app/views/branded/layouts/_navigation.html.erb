@@ -33,10 +33,6 @@
             <li <%= 'class=active' if active_page?(new_plan_path, true) %>>
               <%= link_to _('Create plan'), new_plan_path+"#content" %>
             </li>
-            <li role="separator" class="divider"></li>
-            <li <%='class=active' if active_page?(import_plans_path, true) %>>
-              <%= link_to _('Import DMP'), import_plans_path+"#content" %>
-            </li>
           </ul>
         </li>
         <li class="delimiter">&#x25cf;</li>

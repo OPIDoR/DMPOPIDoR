@@ -205,8 +205,7 @@ class MadmpFragment < ApplicationRecord
     return unless plan.template.structured?
 
     case classname
-    when 'research_output_description'
-    when 'software_description'
+    when 'research_output_description', 'software_description'
       ro_fragment = parent
       new_additional_info = ro_fragment.additional_info.merge(
         hasPersonalData: %w[Oui Yes].include?(data['containsPersonalData'])
@@ -488,13 +487,15 @@ class MadmpFragment < ApplicationRecord
       classname:
     ).where.not(id: current_fragment_id)
 
+    filtered_incoming_data = data.to_h.slice(*unicity_properties)
+
     dmp_fragments.each do |fragment|
-      filtered_db_data = fragment.data.slice(*unicity_properties).compact!
-      filtered_incoming_data = data.to_h.slice(*unicity_properties).compact!
+      filtered_db_data = fragment.data.slice(*unicity_properties)
       next if filtered_db_data.nil? || filtered_db_data.empty?
 
       return fragment if filtered_db_data.eql?(filtered_incoming_data)
     end
+
     false
   end
   # rubocop:enable Metrics/AbcSize

@@ -70,8 +70,10 @@ module DMPRoadmap
 
     # Used throughout the system via ApplicationService.application_name
     config.x.application.name = ENV.fetch('APPLICATION_NAME', 'DMP OPIDoR')
+
     # App version, displayed in the footer
-    config.x.application.version = ENV.fetch('APPLICATION_VERSION', 'V4.0.2')
+    config.x.application.version = ENV.fetch('APPLICATION_VERSION', 'V4.1.0')
+
     # App Github URL, displayed in the footer
     config.x.application.url = ENV.fetch('APPLICATION_URL', 'https://github.com/OPIDoR/DMPOPIDoR')
     config.x.application.release_notes_url = ENV.fetch('APPLICATION_RELEASE_NOTES_URL', 'https://github.com/OPIDoR/DMPOPIDoR/wiki/Releases')
@@ -280,7 +282,13 @@ module DMPRoadmap
     # --------------------------------------------------- #
     config.x.dmpopidor.enable_research_structure_template = ENV.fetch('DMPOPIDOR_ENABLE_RESEARCH_STRUCTURE_TEMPLATE', true).to_s.casecmp('true').zero?
     config.x.dmpopidor.enable_research_outputs_uuid = ENV.fetch('DMPOPIDOR_ENABLE_RESEARCH_OUTPUTS_UUID', true).to_s.casecmp('true').zero?
-    config.x.create_first_research_output = ENV.fetch('CREATE_FIRST_RESEARCH_OUTPUT', false).to_s.casecmp('true').zero?
+    config.x.dmpopidor.enable_research_outputs_uuid = true
+    config.x.dmpopidor.enable_third_party_form = ENV.fetch('ENABLE_THIRD_PARTY_FORM', false).to_s.casecmp('true').zero?
+    config.x.dmpopidor.create_first_research_output = ENV.fetch('CREATE_FIRST_RESEARCH_OUTPUT', false).to_s.casecmp('true').zero?
+    config.x.dmpopidor.front = {
+      enableResearchOutputTypeChange: ENV.fetch('ENABLE_RESEARCH_OUTPUT_TYPE_CHANGE', true).to_s.casecmp('true').zero?,
+      enableSoftwareResearchOutput: ENV.fetch('ENABLE_SOFTWARE_RESEARCH_OUTPUT', false).to_s.casecmp('true').zero?,
+    }
     config.x.directus.url = ENV.fetch('DIRECTUS_URL', 'http://directus:8055')
     config.x.directus.public_url = ENV.fetch('DIRECTUS_PUBLIC_URL', 'http://localhost:8080/directus')
     config.x.dmpopidor.enable_third_party_form = ENV.fetch('ENABLE_THIRD_PARTY_FORM', false)

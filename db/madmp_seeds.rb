@@ -94,7 +94,6 @@ templates = [
   {
     title: "Module template for Software research outputs",
     published: true,
-    org: Org.find_by(abbreviation: "Science Europe"),
     locale: "en-GB",
     is_default: false,
     type: 'module',
@@ -107,7 +106,6 @@ templates = [
   {
     title: "Modèle module pour les produits de recherche Logiciel",
     published: true,
-    org: Org.find_by(abbreviation: "Science Europe"),
     locale: "fr-FR",
     is_default: false,
     type: 'module',

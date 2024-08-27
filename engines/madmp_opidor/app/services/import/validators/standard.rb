@@ -11,8 +11,11 @@ module Import
         BAD_CONTACT_MSG = _(':contact is required with a valid :mbox').freeze
 
         def plan_valid?(json:)
-          json.present? && json['meta'].present? && json['project'].present? &&
-            json['researchOutput'].present?
+          if json.present? && json['researchEntity'].present?
+            json['meta'].present? && json['researchOutput'].present?
+          else
+            json.present? && json['meta'].present? && json['project'].present? && json['researchOutput'].present?
+          end
         end
 
         def research_output_valid?(json:)

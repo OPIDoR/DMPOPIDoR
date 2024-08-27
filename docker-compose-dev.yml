@@ -23,7 +23,7 @@ services:
       - -c
       - |
         rm -f /app/tmp/pids/server.pid
-        bin/dev
+        bin/run
     networks:
       - dmpopidor_network
 
@@ -36,6 +36,12 @@ services:
   postgres:
     ports:
       - ${POSTGRES_PORT:-5432}:5432
+    networks:
+      - dmpopidor_network
+
+  valkey:
+    ports:
+      - ${VALKEY_PORT:-6379}:6379
     networks:
       - dmpopidor_network
 

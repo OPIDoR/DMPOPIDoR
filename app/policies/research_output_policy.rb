@@ -2,6 +2,14 @@
 
 # Security policies for research outputs
 class ResearchOutputPolicy < ApplicationPolicy
+  # --------------------------------
+  # Start DMP OPIDoR Customization
+  # --------------------------------
+  prepend Dmpopidor::ResearchOutputPolicy
+  # --------------------------------
+  # End DMP OPIDoR Customization
+  # --------------------------------
+
   attr_reader :user, :research_output
 
   def initialize(user, research_output)

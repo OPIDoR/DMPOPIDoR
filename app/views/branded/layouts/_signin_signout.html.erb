@@ -88,8 +88,11 @@
         <li <%= 'class=active' if active_page?(super_admin_themes_path) %>>
           <%= link_to(_('Themes'), super_admin_themes_path+"#content") %>
         </li>
-        <li <%= 'class=active' if active_page?(super_admin_static_pages_path) %>>
+        <!-- <li <%= 'class=active' if active_page?(super_admin_static_pages_path) %>>
           <%= link_to _('Static pages'), super_admin_static_pages_path+"#content" %>
+        </li> -->
+        <li>
+          <a href="/directus/" target="_blank">Directus</a>
         </li>
         <li <%= 'class=active' if active_page?(super_admin_api_clients_path) %>>
           <%= link_to(_('Api Clients'), super_admin_api_clients_path+"#content") %>

@@ -88,7 +88,7 @@ module Dmpopidor
             # Create a new answer for the ResearchOutputDescription Question
             # This answer will be displayed in the Write Plan tab,
             # pre filled with the ResearchOutputDescription info
-            fragment_description.answer = Answer.create(
+            fragment_description.answer = ::Answer.create(
               question_id: description_question.id,
               research_output_id: id,
               plan_id: plan.id,
@@ -119,7 +119,6 @@ module Dmpopidor
         type: description_fragment.data['type'],
         hasPersonalData: has_personal_data
       }
-
     end
 
     def serialize_json(with_questions_with_guidance = false)
@@ -139,11 +138,15 @@ module Dmpopidor
 
       return {
         id: id,
+        uuid: uuid,
         abbreviation: abbreviation,
         title: title,
         order: display_order,
         type: ro_fragment.research_output_description['data']['type'] || nil,
-        configuration: ro_fragment.additional_info,
+        configuration: {
+          **ro_fragment.additional_info,
+          hasPersonalData: ro_fragment.research_output_description['data']['containsPersonalData'] == _('Yes'),
+        },
         answers: answers.map do |a|
           {
             answer_id: a.id,

@@ -95,7 +95,7 @@ class Template < ApplicationRecord
   # = Associations =
   # ================
 
-  belongs_to :org
+  belongs_to :org, optional: true
 
   has_many :plans
 
@@ -117,7 +117,7 @@ class Template < ApplicationRecord
 
   validates :title, presence: { message: PRESENCE_MESSAGE }
 
-  validates :org, presence: { message: PRESENCE_MESSAGE }
+  validates :org, presence: { message: PRESENCE_MESSAGE }, unless: Proc.new { |t| t.module? }
 
   validates :locale, presence: { message: PRESENCE_MESSAGE }
 
@@ -163,6 +163,14 @@ class Template < ApplicationRecord
                 INNER JOIN templates ON current.version = templates.version
                   AND current.family_id = templates.family_id
                 INNER JOIN orgs ON orgs.id = templates.org_id
+              SQL
+  }
+
+  scope :latest_module_version, lambda { |family_id = nil|
+    unarchived.where(type: 'module').from(latest_version_per_family(family_id), :current)
+              .joins(<<~SQL)
+                INNER JOIN templates ON current.version = templates.version
+                  AND current.family_id = templates.family_id
               SQL
   }
 
@@ -248,8 +256,6 @@ class Template < ApplicationRecord
   has_settings :export, class_name: 'Settings::Template' do |s|
     s.key :export, defaults: Settings::Template::DEFAULT_SETTINGS
   end
-
-  validates :org, :title, presence: { message: _("can't be blank") }
 
   # =================
   # = Class Methods =
@@ -367,9 +373,16 @@ class Template < ApplicationRecord
   # Is this the latest version of the current Template's family?
   #
   # Returns Boolean
+  # --------------------------------
+  # Start DMP OPIDoR Customization
+  # SEE app/models/dmpopidor/template.rb
+  # --------------------------------
   def latest?
     id == Template.latest_version(family_id).pluck('templates.id').first
   end
+  # --------------------------------
+  # End DMP OPIDoR Customization
+  # --------------------------------
 
   # Determines whether or not a new version should be generated
   def generate_version?
@@ -402,10 +415,17 @@ class Template < ApplicationRecord
     !published && !Template.published(family_id).empty?
   end
 
+  # --------------------------------
+  # Start DMP OPIDoR Customization
+  # SEE app/models/dmpopidor/template.rb
+  # --------------------------------
   def removable?
     versions = Template.includes(:plans).where(family_id: family_id)
     versions.reject { |version| version.plans.empty? }.empty?
   end
+  # --------------------------------
+  # End DMP OPIDoR Customization
+  # --------------------------------
 
   # Returns a new unpublished copy of self with a new family_id, version = zero
   # for the specified org

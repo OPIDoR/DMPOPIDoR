@@ -3,6 +3,13 @@
 # Security rules for template sections
 # Note the method names here correspond with controller actions
 class SectionPolicy < ApplicationPolicy
+  # --------------------------------
+  # Start DMP OPIDoR Customization
+  # --------------------------------
+  prepend Dmpopidor::SectionPolicy
+  # --------------------------------
+  # End DMP OPIDoR Customization
+  # --------------------------------
   # NOTE: @user is the signed_in_user and @record is an instance of Section
 
   ##

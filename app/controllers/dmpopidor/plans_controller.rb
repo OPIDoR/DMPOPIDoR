@@ -6,6 +6,35 @@ module Dmpopidor
   module PlansController
     include Dmpopidor::ErrorHelper
 
+    def index
+      authorize ::Plan
+      @plans = ::Plan.includes(:roles).active(current_user)
+      @organisationally_or_publicly_visible = if current_user.org.is_other?
+                                                []
+                                              else
+                                                ::Plan.organisationally_or_publicly_visible(current_user)
+                                              end
+
+      respond_to do |format|
+        format.html
+        format.json do
+          plans = @plans.zip(@organisationally_or_publicly_visible).flatten.compact
+          plans = plans.map do | plan |
+            {
+              id: plan.id,
+              title: plan.title,
+              research_outputs: plan.research_outputs
+            }
+          end.reject { |plan|
+            plan[:research_outputs].empty? ||
+              plan[:research_outputs].all? { |output| output[:title].nil? || output[:title].strip.empty? } ||
+                plan[:research_outputs].all? { |output| output[:output_type	].nil? || output[:output_type	].strip.empty? }
+          }
+          render json: { plans: plans }
+        end
+      end
+    end
+
     # CHANGES:
     # - Emptied method as logic is now handled by ReactJS
     def new
@@ -71,7 +100,7 @@ module Dmpopidor
             @plan.create_plan_fragments
 
             # Add default research output if possible
-            if Rails.configuration.x.create_first_research_output || @plan.template.structured? == false
+            if Rails.configuration.x.dmpopidor.create_first_research_output || @plan.template.structured? == false
               created_ro = @plan.research_outputs.create!(
                 abbreviation: "#{_('RO')} 1",
                 title: "#{_('Research output')} 1",
@@ -295,8 +324,9 @@ module Dmpopidor
       end
 
       begin
+        locale_id = Language.find_by(abbreviation: @plan.template.locale)&.id
         guidance_presenter = ::GuidancePresenter.new(@plan)
-        guidances = guidance_presenter.tablist(question)
+        guidances = guidance_presenter.tablist(question, locale_id)
       rescue StandardError => e
         Rails.logger.error("Cannot create guidance presenter")
         Rails.logger.error(e.backtrace.join("\n"))
@@ -307,17 +337,10 @@ module Dmpopidor
       guidances = guidances.map do |guidance|
         {
           name: guidance[:name],
-          groups: guidance[:groups].to_a[0][1],
+          groups: guidance[:groups].to_a,
+          annotations: guidance[:annotations],
         }
       end
-
-      # new_groups = {}
-      # groups = guidances[0][:groups]
-      # groups.each_key do |g|
-      #   title = g.translations[@plan.template.locale].present? ? g.translations['en-GB']['title'] : g.title
-      #   new_groups[title] = groups[g]
-      # end
-      # guidances[0][:groups] = new_groups
 
       render json: { status: 200, message: "Guidances for plan [#{plan_id}] and question [#{question_id}]", guidances: guidances }, status: :ok
     end
@@ -351,35 +374,47 @@ module Dmpopidor
             end
             errs = Import::PlanImportService.validate(json_data, import_params[:format], locale: @plan.template.locale)
             if errs.any?
-              format.html { redirect_to import_plans_path, alert: import_errors(errs) }
+              format.json do
+                bad_request(import_errors(errs))
+              end
             else
               @plan.visibility = Rails.configuration.x.plans.default_visibility
 
-
               @plan.title = format(_("%{user_name}'s Plan"), user_name: current_user.firstname)
+              if json_data.dig('meta', 'title')
+                @plan.title = json_data['meta']['title']
+              end
               @plan.org = current_user.org
 
               if @plan.save
                 @plan.add_user!(current_user.id, :creator)
                 @plan.save
-                @plan.create_plan_fragments
+                @plan.create_plan_fragments(json_data)
 
                 Import::PlanImportService.import(@plan, json_data, import_params[:format])
 
-                format.html { redirect_to plan_path(@plan), notice: success_message(@plan, _('imported')) }
+                format.json do
+                  render json: { status: 201, message: _('imported'), data: { planId: @plan.id } }, status: :created
+                end
               else
-                format.html { redirect_to import_plans_path, alert: failure_message(@plan, _('create')) }
+                format.json do
+                  bad_request(failure_message(@plan, _('create')))
+                end
               end
             end
           rescue IOError
-            format.html { redirect_to import_plans_path, alert: _('Unvalid file') }
+            format.json do
+              bad_request(_('Unvalid file'))
+            end
           rescue JSON::ParserError
-            msg = _('File should contain JSON')
-            format.html { redirect_to import_plans_path, alert: msg }
+            format.json do
+              bad_request(_('File should contain JSON'))
+            end
           rescue StandardError => e
-            msg = "#{_('An error has occured: ')} #{e.message}"
             Rails.logger.error e.backtrace
-            format.html { redirect_to import_plans_path, alert: msg }
+            format.json do
+              bad_request("#{_('An error has occured: ')} #{e.message}")
+            end
           end
         end
       end
