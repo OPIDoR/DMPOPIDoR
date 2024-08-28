@@ -3876,8 +3876,7 @@ msgstr "Pas de PGD public."
 #: ../../app/views/branded/public_pages/template_index.html.erb:8
 msgid ""
 "DMP templates provided by a funder or research organisations, available on DMP"
-" OPIDoR. You can download these templates and related guidances, create a plan"
-" from these templates."
+" OPIDoR. You can download these templates and related guidances."
 msgstr ""
 
 #: ../../app/views/branded/public_pages/template_index.html.erb:10

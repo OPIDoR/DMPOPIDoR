@@ -9,8 +9,14 @@ module Api
 
         # GET /api/v1/madmp/schemas
         def index
-          schemas = MadmpSchema.all.select(:id, :name)
+          schemas = if params[:name].present?
+            MadmpSchema.find_by!(name: params[:name]).schema
+          else
+            MadmpSchema.all.select(:id, :name)
+          end
           respond_with schemas
+        rescue ActiveRecord::RecordNotFound
+          render_error(errors: [_('Schema not found')], status: :not_found)
         end
 
         # GET /api/v1/madmp/schemas

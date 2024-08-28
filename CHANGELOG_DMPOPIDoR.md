@@ -26,6 +26,16 @@
 - Correction de traductions
 - Affichage de la modale de recommendations pour une question non répondue
 
+# 08/07/2024
+
+- Correction du problème d'affichage du rôle choisi lors de la modification d'un contributeur dans l'onglet Rédiger (#11453)
+- Correction du problème de la valeur enregistrée dans les référentiels simples contenant un attribut `value` et un libellé avec langue (#11466)
+
+# 26/06/2024
+
+- Ajout de l'option `name` utilisée par l'exécution de scripts à la route api/v1/madmp/schemas
+- Correction d'un problème de mise à jour des contributeurs dans l'onglet Contributeurs
+
 ## 06/08/2024
 - Correction de l'import du plan de gestion entité
 - Affichage du choix du plan puis du produit de recherche quand un plan est sasie
