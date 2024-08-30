@@ -34,6 +34,7 @@ class GuidanceGroup < ApplicationRecord
   # ================
 
   belongs_to :org
+  belongs_to :language
 
   has_many :guidances, dependent: :destroy
 
