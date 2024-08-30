@@ -1,15 +1,11 @@
-FROM ruby:3.2.5-slim AS base
+FROM ruby:3.2.4-slim AS base
+
 WORKDIR /app
-RUN apt update -y && apt-get install -y --no-install-recommends \
+
+# Install necessary dependencies
+RUN apt-get update -y && \
+    apt-get install -y --no-install-recommends \
     curl \
-    build-essential \
-    ca-certificates  \
-    gnupg \
-    wget \
-    libpq-dev \
-    wkhtmltopdf \
-    imagemagick \
-    tzdata \
     gnupg2 && \
     curl -fsSL https://dl.yarnpkg.com/debian/pubkey.gpg | apt-key add - && \
     echo "deb https://dl.yarnpkg.com/debian/ stable main" | tee /etc/apt/sources.list.d/yarn.list && \
@@ -17,15 +13,12 @@ RUN apt update -y && apt-get install -y --no-install-recommends \
     sh -c 'echo "deb [arch=amd64] http://dl.google.com/linux/chrome/deb/ stable main" >> /etc/apt/sources.list.d/google.list' && \
     apt-get update -y && \
     apt-get install -y --no-install-recommends \
-    gnupg2 && \
-    wget -qO- https://dl.yarnpkg.com/debian/pubkey.gpg | apt-key add - && \
-    echo "deb https://dl.yarnpkg.com/debian/ stable main" | tee /etc/apt/sources.list.d/yarn.list && \
-    apt update -y && apt install -y yarn && \
-    apt clean && \
-    rm -rf /var/lib/apt/lists/* && \
-    ln -sf /usr/share/zoneinfo/Europe/Paris /etc/localtime && \
-    ln -sf /usr/bin/wkhtmltopdf /usr/local/bin/wkhtmltopdf && \
-    chmod +x /usr/local/bin/wkhtmltopdf\
+    build-essential \
+    ca-certificates \
+    libpq-dev \
+    wkhtmltopdf \
+    imagemagick \
+    tzdata \
     fonts-ipafont-gothic \
     fonts-wqy-zenhei \
     fonts-thai-tlwg \
@@ -51,7 +44,6 @@ ENV PUPPETEER_SKIP_CHROMIUM_DOWNLOAD=true \
 # Set entrypoint
 ENTRYPOINT ["dumb-init", "--"]
 
-
 FROM base AS dev
 COPY . .
 ENV NODE_MAJOR=20
@@ -73,12 +65,15 @@ RUN bin/docker ${DB_ADAPTER:-postgres} && \
   rm -rf node_modules && \
   bundle config set --local without 'mysql thin test ci aws development build' && \
   bundle install
+RUN mkdir -p .ssl && \
+    openssl req -new -newkey rsa:2048 -sha1 -subj "/CN=`hostname`" -days 730 -nodes -x509 -keyout ./.ssl/cert.key -out ./.ssl/cert.crt
 
 FROM base AS production
 COPY . .
 COPY --from=production-builder /app/public ./public
 COPY --from=production-builder /app/config ./config
 COPY --from=production-builder /usr/local/bundle /usr/local/bundle
+COPY --from=production-builder /app/.ssl ./.ssl
 EXPOSE 3000
-RUN chmod a+x /app/bin/run
-CMD [ "/app/bin/run" ]
+RUN chmod a+x /app/bin/prod
+CMD [ "/app/bin/prod" ]
