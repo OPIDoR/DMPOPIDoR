@@ -45,13 +45,13 @@ module FragmentImport
           next
         end
         if data[prop].nil?
-          sub_fragment = MadmpFragment.new(
+          sub_fragment = MadmpFragment.create!(
             dmp_id: dmp.id,
             parent_id:,
             madmp_schema_id: sub_schema.id,
+            classname: sub_schema.classname,
             additional_info: { property_name: prop }
           )
-          sub_fragment.classname = sub_schema.classname
           sub_fragment.instantiate
         else
           sub_fragment = MadmpFragment.find(data[prop]['dbid'])
@@ -72,13 +72,13 @@ module FragmentImport
           sub_schema = MadmpSchema.find_by(name: schema_prop['items']['template_name'])
           sub_fragment = MadmpFragment.fragment_exists?(sub_fragment_data, sub_schema, dmp.id, parent_id)
           if sub_fragment.eql?(false)
-            sub_fragment = MadmpFragment.new(
+            sub_fragment = MadmpFragment.create!(
               dmp_id: dmp.id,
               parent_id:,
               madmp_schema_id: sub_schema.id,
+              classname: sub_schema.classname,
               additional_info: { property_name: prop }
             )
-            sub_fragment.classname = sub_schema.classname
             sub_fragment.instantiate
 
           end
@@ -90,13 +90,14 @@ module FragmentImport
     end
     # rubocop:enable Metrics/BlockLength
 
+    # Object needs reloading after being modified by update_parent_references
+    self.reload
     fragmented_data.try(:permit!)
     update!(
       data: data.merge(fragmented_data),
       additional_info: additional_info.except!('custom_value')
     )
 
-    update_children_references
     self # return self
   end
   # rubocop:enable Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
@@ -123,13 +124,13 @@ module FragmentImport
           # else
           #   next if MadmpFragment.fragment_exists?(sub_data, sub_schema, dmp.id, id)
 
-          #   api_fragment = MadmpFragment.new(
+          #   api_fragment = MadmpFragment.create!(
           #     dmp_id: dmp.id,
           #     parent_id: id,
+          #     classname: sub_schema.classname,
           #     madmp_schema_id: sub_schema.id,
           #     additional_info: { property_name: prop }
           #   )
-          #   api_fragment.classname = sub_schema.classname
           #   api_fragment.instantiate
           #   created_frag = api_fragment.import_with_ids(sub_data, sub_schema)
           #   # If sub_data is a Person, we need to set the dbid manually, since Person has no parent
@@ -152,13 +153,13 @@ module FragmentImport
           else
             next if MadmpFragment.fragment_exists?(sub_fragment_data, sub_schema, dmp.id, id)
 
-            api_fragment = MadmpFragment.new(
+            api_fragment = MadmpFragment.create!(
               dmp_id: dmp.id,
               parent_id: id,
+              classname: sub_schema.classname,
               madmp_schema_id: sub_schema.id,
               additional_info: { property_name: prop }
             )
-            api_fragment.classname = sub_schema.classname
             api_fragment.instantiate
             api_fragment.import_with_ids(sub_fragment_data, sub_schema)
           end
@@ -169,11 +170,12 @@ module FragmentImport
     end
     # rubocop:enable Metrics/BlockLength
 
+    # Object needs reloading after being modified by update_parent_references
+    self.reload
     update!(
       data: data.merge(fragmented_data),
       additional_info: additional_info.except!('custom_value')
     )
-    update_children_references
     self # return self
   end
   # rubocop:enable Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
@@ -204,15 +206,15 @@ module FragmentImport
         if sub_data['action'].eql?('create')
           next if MadmpFragment.fragment_exists?(sub_fragment_data, sub_schema, dmp.id, id)
 
-          sub_fragment = MadmpFragment.new(
+          sub_fragment = MadmpFragment.create!(
             dmp_id: dmp.id,
             parent_id: id,
+            classname: sub_schema.classname,
             madmp_schema_id: sub_schema.id,
             additional_info: { property_name: prop }
           )
-          sub_fragment.classname = sub_schema.classname
-          sub_fragment.save!
-          created_frag = sub_fragment.import_with_instructions(sub_fragment_data, sub_schema)
+          sub_fragment.instantiate
+          sub_fragment.import_with_instructions(sub_fragment_data, sub_schema)
         elsif sub_fragment_id.present? && sub_data['action'].eql?('update')
           sub_fragment = MadmpFragment.find(sub_fragment_id)
           sub_fragment.import_with_instructions(sub_fragment_data, sub_schema)
@@ -229,24 +231,24 @@ module FragmentImport
         # ARRAY FIELDS
         ####################################
         data_list = sub_data # TMP: for readability
+        sub_schema = MadmpSchema.find_by(name: schema_prop['items']['template_name'])
         data_list.each do |cb_data|
           next if cb_data['action'].nil?
 
           sub_fragment_id = cb_data['dbid'] || cb_data['id']
           sub_data = cb_data['data'] || cb_data
-          sub_schema = MadmpSchema.find_by(name: schema_prop['items']['template_name'])
           if cb_data['action'].eql?('create')
             next if MadmpFragment.fragment_exists?(sub_data, sub_schema, dmp.id, id)
 
-            sub_fragment = MadmpFragment.new(
+            sub_fragment = MadmpFragment.create!(
               dmp_id: dmp.id,
               parent_id: id,
+              classname: sub_schema.classname,
               madmp_schema_id: sub_schema.id,
               additional_info: { property_name: prop }
             )
-            sub_fragment.classname = sub_schema.classname
-            sub_fragment.save!
-            created_frag = sub_fragment.import_with_instructions(sub_data, sub_schema)
+            sub_fragment.instantiate
+            sub_fragment.import_with_instructions(sub_data, sub_schema)
           elsif cb_data['action'].eql?('update') && sub_fragment_id
             sub_fragment = MadmpFragment.find(sub_fragment_id)
             sub_fragment.import_with_instructions(sub_data, sub_schema)
@@ -261,11 +263,12 @@ module FragmentImport
     end
     # rubocop:enable Metrics/BlockLength
 
+    # Object needs reloading after being modified by update_parent_references
+    self.reload
     update!(
       data: data.merge(fragmented_data),
       additional_info: additional_info.except!('custom_value')
     )
-    update_children_references
     self # return self
   end
   # rubocop:enable Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity

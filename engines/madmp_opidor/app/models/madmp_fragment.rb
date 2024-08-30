@@ -373,15 +373,15 @@ class MadmpFragment < ApplicationRecord
 
       next if sub_schema.classname.eql?('person') || new_data[key].present?
 
-      sub_fragment = MadmpFragment.new(
+      sub_fragment = MadmpFragment.create!(
         data: {},
         answer_id: nil,
         dmp_id: dmp.id,
         parent_id: id,
         madmp_schema: sub_schema,
+        classname: sub_schema.classname,
         additional_info: { property_name: key }
       )
-      sub_fragment.assign_attributes(classname: sub_schema.classname)
       sub_fragment.instantiate
 
       new_data[key] = { 'dbid' => sub_fragment.id }
