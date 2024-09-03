@@ -2,7 +2,7 @@ import React from 'react';
 import ReactDOM from 'react-dom/client';
 
 import NewsPageLayout from './dmp_opidor_react/src/components/news/NewsPageLayout.jsx';
-import Comment from './dmp_opidor_react/src/components/Shared/Comment.jsx';
+import CommentList from './dmp_opidor_react/src/components/Shared/CommentList.jsx';
 import ContributorsTabLayout from './dmp_opidor_react/src/components/ContributorsTab/ContributorsTabLayout.jsx';
 import GeneralInfoLayout from './dmp_opidor_react/src/components/GeneralInfo/GeneralInfoLayout.jsx';
 import PlanCreationLayout from './dmp_opidor_react/src/components/PlanCreation/PlanCreationLayout.jsx';
@@ -42,7 +42,7 @@ mount({
   GeneralInfoLayout,
   PlanCreationLayout,
   WritePlanLayout,
-  Comment,
+  CommentList,
   ContributorsTabLayout,
   HelpLayout,
   StaticPagesLayout,
