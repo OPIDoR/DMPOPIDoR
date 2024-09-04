@@ -2,6 +2,11 @@
 
 **Attention** Cette liste de changements concerne les déploiements sur nos serveurs de test en interne.
 
+- Correction d'un problème d'affichage des commentaires et questions en mode Lecture Seule
+- Ajout du support des exemples dans les formulaires structurés
+- Ajout de l'affichage des tooltips pour les libellés des sous formulaires (ex: DataReuseMasa/archeoOperation/geoLocationBox)
+
+
 ## 30/08/2024
 - Correction d'un problème d'affichage des sous fragments lors de la première sauvegarde d'un formulaire (KB #11750)
 - Correction du problème d'affichage des commentaires ajoutés (KB #11752)
