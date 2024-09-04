@@ -9,7 +9,26 @@
   <body>
 
 
-    <h1><%= "#{@guidance_group.name}" %></h1>
+     <h1><%= "#{@guidance_group.org}: #{@guidance_group.name} (#{@guidance_group.language.name})" %></h1>
+    <% language= @guidance_group.language.abbreviation%>
+    <% t_list= ['description-des-donnees', collecte-des-donnees', 'droit-de-propriete-intellectuelle', 'data-format', 'data-reuse', 'budget'] %>
+    <% guidances= @guidance_group.guidances %>
+    <% for theme in t_list %>
+      <% for guidance in guidances   %>
+        <% if guidance.themes[0].slug == theme %>
+          <% theme= guidance.themes[0] %>
+          <% if language == "fr-FR" %>
+            <h3><%= theme.title  %></h3>
+          <% elsif language == "en-GB" %>
+            <h3><%= theme.translations.dig('en-GB', 'title')  %></h3>
+
+          <% end %>
+
+          <p><%= sanitize guidance.text.chomp.strip %></p>
+        <% end %>
+      <% end %>
+    <% end %>
+
 
   </body>
 </html>
