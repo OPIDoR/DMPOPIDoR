@@ -2,6 +2,8 @@
 
 **Attention** Cette liste de changements concerne les déploiements sur nos serveurs de test en interne.
 
+## 04/09/2024
+
 - Correction d'un problème d'affichage des commentaires et questions en mode Lecture Seule
 - Ajout du support des exemples dans les formulaires structurés
 - Ajout de l'affichage des tooltips pour les libellés des sous formulaires (ex: DataReuseMasa/archeoOperation/geoLocationBox)
