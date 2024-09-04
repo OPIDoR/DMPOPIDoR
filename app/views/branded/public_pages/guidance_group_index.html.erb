@@ -1,0 +1,24 @@
+<% title _('Guidance groups') %>
+<div class="row">
+  <div class="col-md-12">
+    <h1><%= _('Guidance groups') %></h1>
+    <% if @guidance_groups.count > 0 %>
+      <p class="left-indent"><%= _('Guidances are provided by a funder, an organisation, or a trusted party.') %></p>
+    <% else %>
+      <p class="left-indent"><%= _('There are currently no public guidances.')%></p>
+    <% end %>
+  </div>
+</div>
+<div class="row">
+  <div class="col-md-12">
+    <% if @guidance_groups.count > 0 %>
+      <%= paginable_renderise(
+        partial: '/paginable/guidance_groups/publicly_visible',
+        controller: 'public_pages/guidance_group_export',
+        action: 'publicly_visible',
+        remote: false,
+        scope: @guidance_groups,
+        query_params: @guidance_groups_query_params) %>
+    <% end %>
+  </div>
+</div>
