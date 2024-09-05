@@ -5,6 +5,7 @@
 ## 05/09/2024
 
 - Correction du problème de changement de type lors de l'édition d'un produit de recherche
+- Correction de conversion des données lors d'un changement de formulaire (plantage formulaires Masa)
 
 ## 04/09/2024
 
