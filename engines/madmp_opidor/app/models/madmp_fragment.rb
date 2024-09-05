@@ -308,7 +308,13 @@ class MadmpFragment < ApplicationRecord
       next if origin_prop.nil?
 
       if target_prop['type'].eql?('array')
-        converted_data[key] = data[key].is_a?(Array) ? data[key] : [data[key]]
+        converted_data[key] = if data[key].nil?
+                                []
+                              elsif data[key].is_a?(Array)
+                                data[key]
+                              else
+                                [data[key]]
+                              end
         if target_prop['items']['type'].eql?('object')
           next if converted_data[key].empty? || converted_data[key].first.nil?
 
