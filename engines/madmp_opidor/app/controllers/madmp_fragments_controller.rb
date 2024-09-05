@@ -15,10 +15,11 @@ class MadmpFragmentsController < ApplicationController
     defaults = madmp_schema.defaults(plan.template.locale)
     classname = madmp_schema.classname
     @fragment = MadmpFragment.new(
-      data: body["data"],
+      data: {},
       parent_id: research_output.present? ? research_output.json_fragment.id : nil,
       dmp_id: dmp.id,
       madmp_schema: madmp_schema,
+      classname:,
       additional_info: {
         'property_name' => madmp_schema.property_name_from_classname
       }
@@ -37,6 +38,7 @@ class MadmpFragmentsController < ApplicationController
     end
     @fragment.instantiate
     @fragment.handle_defaults(defaults)
+    @fragment.import_with_instructions(body["data"], madmp_schema)
 
     render json: render_fragment_json(@fragment, madmp_schema)
   end
@@ -105,7 +107,6 @@ class MadmpFragmentsController < ApplicationController
 
     authorize @fragment
     if @fragment.destroy
-      MadmpFragment.find(parent_id).update_children_references if parent_id.present?
       @fragment = success_message(@fragment, _('removed'))
       render json: { status: 200, message: 'Fragment removed successfully', fragment: @fragment }, status: :ok
 

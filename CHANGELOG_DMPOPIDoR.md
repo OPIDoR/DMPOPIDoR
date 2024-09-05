@@ -2,6 +2,17 @@
 
 **Attention** Cette liste de changements concerne les déploiements sur nos serveurs de test en interne.
 
+## 04/09/2024
+
+- Correction d'un problème d'affichage des commentaires et questions en mode Lecture Seule
+- Ajout du support des exemples dans les formulaires structurés
+- Ajout de l'affichage des tooltips pour les libellés des sous formulaires (ex: DataReuseMasa/archeoOperation/geoLocationBox)
+
+
+## 30/08/2024
+- Correction d'un problème d'affichage des sous fragments lors de la première sauvegarde d'un formulaire (KB #11750)
+- Correction du problème d'affichage des commentaires ajoutés (KB #11752)
+
 ## 26/08/2024
 - Désactivation du produit de recherche Logiciel (ajout d'une option de configuration)
 - Activation de l'édition du type de produit de recherche (ajout d'une option de configuration) (KB #11749)
