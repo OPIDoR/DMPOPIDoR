@@ -2,6 +2,10 @@
 
 **Attention** Cette liste de changements concerne les déploiements sur nos serveurs de test en interne.
 
+## 05/09/2024
+
+- Correction du problème de changement de type lors de l'édition d'un produit de recherche
+
 ## 04/09/2024
 
 - Correction d'un problème d'affichage des commentaires et questions en mode Lecture Seule
