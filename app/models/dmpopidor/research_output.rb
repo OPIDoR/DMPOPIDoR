@@ -117,7 +117,9 @@ module Dmpopidor
         abbreviation: abbreviation,
         title: description_fragment.data['title'],
         type: description_fragment.data['type'],
-        hasPersonalData: has_personal_data
+        configuration: {
+          hasPersonalData: has_personal_data,
+        },
       }
     end
 
