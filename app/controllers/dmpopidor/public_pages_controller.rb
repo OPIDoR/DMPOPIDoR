@@ -32,13 +32,15 @@ module Dmpopidor
         sort_direction: paginable_params.fetch(:sort_direction, 'asc')
       }
 
-      guidance_groups = ::GuidanceGroup.published.pluck(:id)
+      guidance_groups =  GuidanceGroup.where(published: true).pluck(:id)
+
       @guidance_groups = ::GuidanceGroup.includes(:org)
                                         .where(id: guidance_groups.uniq.flatten).order('orgs.name asc').page(1)
     end
 
     def guidance_group_export
       @guidance_group = GuidanceGroup.includes(guidances: :themes).find(params[:id])
+      @formatting = Settings::Template::DEFAULT_SETTINGS[:formatting]
       html = render_to_string({
                                 partial: 'branded/guidance_group_exports/guidance_group_export',
                                 locals: { guidance_group: @guidance_group },
@@ -48,7 +50,8 @@ module Dmpopidor
       respond_to do |format|
         format.html do
           pdf = Grover.new(html).to_pdf
-          send_data(pdf, disposition: 'inline', filename: "#{file_name}.pdf", type: 'application/pdf')
+          send_data(pdf, disposition: 'inline', filename: "#{file_name}.pdf",
+                         type: 'application/pdf')
         end
       end
     end
