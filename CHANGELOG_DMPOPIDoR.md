@@ -2,6 +2,11 @@
 
 **Attention** Cette liste de changements concerne les déploiements sur nos serveurs de test en interne.
 
+## 09/09/2024
+
+- Correction d'un problème d'affichage d'un référentiel complexe avec création lorsqu'aucune valeur n'a été sélectionnée
+- Correction d'un problème d'affichage des référentiels complexes à choi uniques
+
 ## 06/09/2024
 
 - Correction du problème de mise à jour de la valeur Données Personnelles dans l'infobox des produits de recherche (KB #11818)
