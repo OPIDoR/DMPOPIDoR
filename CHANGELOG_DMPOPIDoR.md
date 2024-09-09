@@ -2,6 +2,22 @@
 
 **Attention** Cette liste de changements concerne les déploiements sur nos serveurs de test en interne.
 
+## 09/09/2024
+
+- Correction d'un problème d'affichage d'un référentiel complexe avec création lorsqu'aucune valeur n'a été sélectionnée
+- Correction d'un problème d'affichage des référentiels complexes à choi uniques
+
+## 06/09/2024
+
+- Correction du problème de mise à jour de la valeur Données Personnelles dans l'infobox des produits de recherche (KB #11818)
+- Correction du problème d'affichage de valeurs personnalisées dans les référentiels simples (KB #11720)
+- Ajout d'une condition empêchant de sauvegarder une pop-up vide (KB #11545)
+
+## 05/09/2024
+
+- Correction du problème de changement de type lors de l'édition d'un produit de recherche
+- Correction de conversion des données lors d'un changement de formulaire (plantage formulaires Masa)
+
 ## 04/09/2024
 
 - Correction d'un problème d'affichage des commentaires et questions en mode Lecture Seule
