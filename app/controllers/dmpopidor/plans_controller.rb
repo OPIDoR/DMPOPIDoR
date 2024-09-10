@@ -324,9 +324,8 @@ module Dmpopidor
       end
 
       begin
-        locale_id = Language.find_by(abbreviation: @plan.template.locale)&.id
         guidance_presenter = ::GuidancePresenter.new(@plan)
-        guidances = guidance_presenter.tablist(question, locale_id)
+        guidances = guidance_presenter.tablist(question)
       rescue StandardError => e
         Rails.logger.error("Cannot create guidance presenter")
         Rails.logger.error(e.backtrace.join("\n"))
