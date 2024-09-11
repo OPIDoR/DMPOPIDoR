@@ -43,9 +43,13 @@ class GuidancePresenter
     # start with orgs
     # filter into hash with annotation_presence, main_group presence, and
     display_tabs = []
+    locale = Language.find_by(abbreviation: plan.template.locale)
     orgs.each do |org|
       annotations = guidance_annotations(org: org, question: question)
       groups = guidance_groups_by_theme(org: org, question: question)
+      if locale != nil
+        groups = groups.reject { |group| group.language_id != locale.id }
+      end
       main_groups = groups.select { |group| group.optional_subset == false }
       subsets = groups.reject { |group| group.optional_subset == false }
       if annotations.present? || main_groups.present? # annotations and main group
