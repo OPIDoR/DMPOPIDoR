@@ -2,10 +2,17 @@
 
 **Attention** Cette liste de changements concerne les déploiements sur nos serveurs de test en interne.
 
+## 11/09/2024
+
+- Ajout de la description de la section à l'export PDF/DOCX d'un plan
+- Suppression de la page blanche présente lors de l'export d'un modèle de plan.
+- Les données personnelles sont désormais à "Oui" par défaut lors de la création d'un produit de recherche (KB #11817)
+- Affichage des thèmes des recommandations dans la langue du plan (KB #11747)
+
 ## 09/09/2024
 
 - Correction d'un problème d'affichage d'un référentiel complexe avec création lorsqu'aucune valeur n'a été sélectionnée
-- Correction d'un problème d'affichage des référentiels complexes à choi uniques
+- Correction d'un problème d'affichage des référentiels complexes à choix uniques
 
 ## 06/09/2024
 
