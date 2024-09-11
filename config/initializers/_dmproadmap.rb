@@ -280,6 +280,7 @@ module DMPRoadmap
     config.x.dmpopidor.front = {
       enableResearchOutputTypeChange: ENV.fetch('ENABLE_RESEARCH_OUTPUT_TYPE_CHANGE', true).to_s.casecmp('true').zero?,
       enableSoftwareResearchOutput: ENV.fetch('ENABLE_SOFTWARE_RESEARCH_OUTPUT', false).to_s.casecmp('true').zero?,
+      enableHasPersonalData: ENV.fetch('ENABLE_HAS_PERSONAL_DATA', true).to_s.casecmp('true').zero?,
     }
     config.x.directus.url = ENV.fetch('DIRECTUS_URL', 'http://directus:8055')
     config.x.directus.public_url = ENV.fetch('DIRECTUS_PUBLIC_URL', 'http://localhost:8080/directus')
