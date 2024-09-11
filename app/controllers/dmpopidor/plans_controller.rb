@@ -105,9 +105,11 @@ module Dmpopidor
                 abbreviation: "#{_('RO')} 1",
                 title: "#{_('Research output')} 1",
                 is_default: true,
-                display_order: 1
+                display_order: 1,
               )
-              created_ro.create_json_fragments
+              created_ro.create_json_fragments({
+                hasPersonalData: Rails.configuration.x.dmpopidor.front[:enableHasPersonalData],
+              })
             end
 
             flash[:notice] = msg
