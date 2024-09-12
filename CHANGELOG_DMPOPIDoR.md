@@ -2,6 +2,10 @@
 
 **Attention** Cette liste de changements concerne les déploiements sur nos serveurs de test en interne.
 
+## 12/09/2024
+
+- Correction du problème d'affichage de la description d'une section dans les exports PDF/DOCX  (KB #11835)
+
 ## 11/09/2024
 
 - Ajout de la description de la section à l'export PDF/DOCX d'un plan
