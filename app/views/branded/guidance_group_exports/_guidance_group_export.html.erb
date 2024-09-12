@@ -51,14 +51,14 @@
   <body>
 
     <h1><%= "#{@guidance_group.org}: #{@guidance_group.name} (#{@guidance_group.language.name})" %></h1>
-    <% language= @guidance_group.language.abbreviation%>
-    <% t_list= ['description-des-donnees', 'reutilisation-de-donnees', 'collecte-des-donnees', 'metadonnees-documentation', 'qualite-scientifique-des-donnees', 'donnees-personnelles', 'droits-de-propriete-intellectuelle', 'ethique', 'traitement-analyse-des-donnees', 'stockage-securite', 'partage-des-donnees', 'conservation-a-long-terme'] %>
-    <% guidances= @guidance_group.guidances %>
-    <% for theme in t_list %>
+    <% language = @guidance_group.language.abbreviation%>
+    <% s_list= ['description-des-donnees', 'reutilisation-de-donnees', 'collecte-des-donnees', 'metadonnees-documentation', 'qualite-scientifique-des-donnees', 'donnees-personnelles', 'droits-de-propriete-intellectuelle', 'ethique', 'traitement-analyse-des-donnees', 'stockage-securite', 'partage-des-donnees', 'conservation-a-long-terme'] %>
+    <% guidances = @guidance_group.guidances %>
+    <% for slug in s_list %>
       <% for guidance in guidances   %>
         <% if guidance.published? %>
-          <% if guidance.themes[0].slug == theme %>
-            <% theme= guidance.themes[0] %>
+          <% if guidance.themes[0].slug == slug %>
+            <% theme = guidance.themes[0] %>
             <% if language == "fr-FR" %>
               <h2><%= theme.title  %></h2>
             <% elsif language == "en-GB" %>
