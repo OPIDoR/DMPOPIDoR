@@ -33,7 +33,7 @@
                 <% if @show_sections_questions %>
                   <br/>
                   <h2><%= section[:title] %></h2>
-                  <p><%= section[:description] %></p>
+                  <p><%= sanitize section[:description].to_s %></p>
                   <br/>
                 <% end %>
                 <% if @research_output_export_mode == "by_section" || @hash[:research_outputs].length == 1 %>
