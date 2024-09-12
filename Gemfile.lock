@@ -139,6 +139,9 @@ GEM
       open4 (~> 1.3)
     coderay (1.1.3)
     colored2 (3.1.2)
+    combine_pdf (1.0.26)
+      matrix
+      ruby-rc4 (>= 0.1.5)
     concurrent-ruby (1.3.4)
     connection_pool (2.4.1)
     contact_us (1.2.0)
@@ -245,6 +248,9 @@ GEM
       rchardet (~> 1.8)
     globalid (1.2.1)
       activesupport (>= 6.1)
+    grover (1.1.9)
+      combine_pdf (~> 1.0)
+      nokogiri (~> 1.0)
     guard (2.18.1)
       formatador (>= 0.2.4)
       listen (>= 2.7, < 4.0)
@@ -546,6 +552,7 @@ GEM
       rubocop (>= 1.48.1, < 2.0)
       rubocop-ast (>= 1.31.1, < 2.0)
     ruby-progressbar (1.13.0)
+    ruby-rc4 (0.1.5)
     ruby2_keywords (0.0.5)
     ruby_dig (0.0.2)
     rubyzip (2.3.2)
@@ -658,6 +665,7 @@ DEPENDENCIES
   flag_shih_tzu
   foreman (~> 0.88.1)
   fuubar
+  grover (~> 1.1)
   guard
   htmltoword
   httparty
