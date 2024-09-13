@@ -2,6 +2,10 @@
 
 **Attention** Cette liste de changements concerne les déploiements sur nos serveurs de test en interne.
 
+## 13/09/2024
+
+- Correction d'un problème d'actualisation des éditeurs de texte lors d'un changement de produit de recherche  (KB #11771)
+
 ## 12/09/2024
 
 - Correction du problème d'affichage de la description d'une section dans les exports PDF/DOCX  (KB #11835)
