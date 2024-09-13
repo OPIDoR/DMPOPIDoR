@@ -90,6 +90,15 @@ class MadmpFragment < ApplicationRecord
   
   # = Software specific classes =
   scope :software_descriptions, -> { where(classname: 'software_description') }
+  scope :software_development_managements, -> { where(classname: 'software_development_management') }
+  scope :software_documentations, -> { where(classname: 'software_documentation') }
+  scope :software_runtime_environments, -> { where(classname: 'software_runtime_environment') }
+  scope :software_archivings, -> { where(classname: 'software_archiving') }
+  scope :software_sharings, -> { where(classname: 'software_sharing') }
+  scope :software_legal_issues, -> { where(classname: 'software_legal_issues') }
+  scope :programming_languages, -> { where(classname: 'programming_language') }
+  scope :dependency_references, -> { where(classname: 'dependency_reference') }
+  scope :software_resource_references, -> { where(classname: 'software_resource_reference') }
 
   # =============
   # = Callbacks =
