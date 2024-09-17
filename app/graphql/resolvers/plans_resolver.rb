@@ -25,6 +25,10 @@ module Resolvers
         plans = filter_by_grant_id(plans, filter.grantId)
       end
 
+      if filter.fieldName.present? && filter.value.present?
+        plans = filter_by_fieldName(plans, filter.fieldName, filter.value)
+      end
+
       plans
     end
 
@@ -33,6 +37,16 @@ module Resolvers
       grant_ids = grant_ids.compact.uniq
 
       MadmpFragment.where("data->>'type' IN (?)", grant_ids).map do |fragment|
+        {
+          id: fragment.plan.id,
+          title: fragment.plan.title,
+          fragments: fragment.plan.json_fragment.get_full_fragment
+        }
+      end
+    end
+
+    def filter_by_fieldName(plans, field_name, value)
+      MadmpFragment.where("data->>? = ?", field_name, value).map do |fragment|
         {
           id: fragment.plan.id,
           title: fragment.plan.title,
