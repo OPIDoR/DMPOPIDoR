@@ -74,7 +74,7 @@ services:
 
   directus:
     container_name: directus_app
-    image: directus/directus:${DIRECTUS_VERSION:-10.12}
+    image: directus/directus:${DIRECTUS_VERSION:-11.0}
     restart: always
     depends_on:
       postgres:
@@ -106,7 +106,7 @@ services:
       - dmpopidor_network
 
   nginx:
-    image: nginx:1.25.5-alpine-slim
+    image: nginx:1.27.1-alpine-slim
     ports:
       - ${NGINX_PORT:-8080}:80
     depends_on:
@@ -128,7 +128,7 @@ services:
       - dmpopidor_network
 
   postgres:
-    image: postgres:15.7-alpine3.19
+    image: postgres:15.8-alpine3.20
     environment:
       - POSTGRES_USER=${DB_USERNAME:-postgres}
       - POSTGRES_PASSWORD=${DB_PASSWORD:-changeme}
@@ -148,7 +148,7 @@ services:
       - dmpopidor_network
 
   redis:
-    image: valkey/valkey:7.2-alpine3.19
+    image: valkey/valkey:7.2-alpine3.20
     # command: "redis-server /etc/redis/redis.conf"
     ports:
       - 6379:6379

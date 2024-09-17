@@ -275,8 +275,14 @@ module DMPRoadmap
     # DMP OPIDoR Features #
     # --------------------------------------------------- #
     config.x.dmpopidor.enable_research_outputs_uuid = true
-    config.x.dmpopidor.enable_third_party_form = ENV.fetch('ENABLE_THIRD_PARTY_FORM', false)
-    config.x.create_first_research_output = ENV.fetch('CREATE_FIRST_RESEARCH_OUTPUT', false)
+    config.x.dmpopidor.enable_third_party_form = ENV.fetch('ENABLE_THIRD_PARTY_FORM', false).to_s.casecmp('true').zero?
+    config.x.dmpopidor.create_first_research_output = ENV.fetch('CREATE_FIRST_RESEARCH_OUTPUT', false).to_s.casecmp('true').zero?
+    config.x.dmpopidor.front = {
+      enableResearchOutputTypeChange: ENV.fetch('ENABLE_RESEARCH_OUTPUT_TYPE_CHANGE', true).to_s.casecmp('true').zero?,
+      enableSoftwareResearchOutput: ENV.fetch('ENABLE_SOFTWARE_RESEARCH_OUTPUT', false).to_s.casecmp('true').zero?,
+      enableHasPersonalData: ENV.fetch('ENABLE_HAS_PERSONAL_DATA', true).to_s.casecmp('true').zero?,
+      enableImportResearchOutput: ENV.fetch('ENABLE_IMPORT_RESEARCH_OUTPUT', false).to_s.casecmp('true').zero?,
+    }
     config.x.directus.url = ENV.fetch('DIRECTUS_URL', 'http://directus:8055')
     config.x.directus.public_url = ENV.fetch('DIRECTUS_PUBLIC_URL', 'http://localhost:8080/directus')
   end

@@ -63,6 +63,9 @@ module Dmpopidor
               moduleId: ::Template.module(data_type:)&.id
             }
           )
+          p "-------------------"
+          p configuration[:hasPersonalData] ? _('Yes') : _('No')
+          p "-------------------"
           fragment_description = MadmpFragment.new(
             data: {
               'title' => title,
@@ -88,7 +91,7 @@ module Dmpopidor
             # Create a new answer for the ResearchOutputDescription Question
             # This answer will be displayed in the Write Plan tab,
             # pre filled with the ResearchOutputDescription info
-            fragment_description.answer = Answer.create(
+            fragment_description.answer = ::Answer.create(
               question_id: description_question.id,
               research_output_id: id,
               plan_id: plan.id,
@@ -117,9 +120,10 @@ module Dmpopidor
         abbreviation: abbreviation,
         title: description_fragment.data['title'],
         type: description_fragment.data['type'],
-        hasPersonalData: has_personal_data
+        configuration: {
+          hasPersonalData: has_personal_data,
+        },
       }
-
     end
 
     def serialize_json(with_questions_with_guidance = false)
@@ -137,26 +141,30 @@ module Dmpopidor
         end.pluck(:id)
       end
 
-      return {
-        id: id,
-        uuid: uuid,
-        abbreviation: abbreviation,
-        title: title,
-        order: display_order,
-        type: ro_fragment.research_output_description['data']['type'] || nil,
-        configuration: ro_fragment.additional_info,
-        answers: answers.map do |a|
-          {
-            answer_id: a.id,
-            question_id: a.question_id,
-            fragment_id: a.madmp_fragment.id,
-            madmp_schema_id: a.madmp_fragment.madmp_schema_id
-          }
-        end,
-        questions_with_guidance:,
-        template: template.serialize_json
-      }
-
+      I18n.with_locale plan.template.locale do
+        return {
+          id: id,
+          uuid: uuid,
+          abbreviation: abbreviation,
+          title: title,
+          order: display_order,
+          type: ro_fragment.research_output_description['data']['type'] || nil,
+          configuration: {
+            **ro_fragment.additional_info,
+            hasPersonalData: ro_fragment.research_output_description['data']['containsPersonalData'] == _('Yes'),
+          },
+          answers: answers.map do |a|
+            {
+              answer_id: a.id,
+              question_id: a.question_id,
+              fragment_id: a.madmp_fragment.id,
+              madmp_schema_id: a.madmp_fragment.madmp_schema_id
+            }
+          end,
+          questions_with_guidance:,
+          template: template.serialize_json
+        }
+      end
     end
 
     def has_personal_data

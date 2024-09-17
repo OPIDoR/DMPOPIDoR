@@ -90,6 +90,15 @@ class MadmpFragment < ApplicationRecord
   
   # = Software specific classes =
   scope :software_descriptions, -> { where(classname: 'software_description') }
+  scope :software_development_managements, -> { where(classname: 'software_development_management') }
+  scope :software_documentations, -> { where(classname: 'software_documentation') }
+  scope :software_runtime_environments, -> { where(classname: 'software_runtime_environment') }
+  scope :software_archivings, -> { where(classname: 'software_archiving') }
+  scope :software_sharings, -> { where(classname: 'software_sharing') }
+  scope :software_legal_issues, -> { where(classname: 'software_legal_issues') }
+  scope :programming_languages, -> { where(classname: 'programming_language') }
+  scope :dependency_references, -> { where(classname: 'dependency_reference') }
+  scope :software_resource_references, -> { where(classname: 'software_resource_reference') }
 
   # =============
   # = Callbacks =
@@ -205,8 +214,7 @@ class MadmpFragment < ApplicationRecord
     return unless plan.template.structured?
 
     case classname
-    when 'research_output_description'
-    when 'software_description'
+    when 'research_output_description', 'software_description'
       ro_fragment = parent
       new_additional_info = ro_fragment.additional_info.merge(
         hasPersonalData: %w[Oui Yes].include?(data['containsPersonalData'])
@@ -309,7 +317,13 @@ class MadmpFragment < ApplicationRecord
       next if origin_prop.nil?
 
       if target_prop['type'].eql?('array')
-        converted_data[key] = data[key].is_a?(Array) ? data[key] : [data[key]]
+        converted_data[key] = if data[key].nil?
+                                []
+                              elsif data[key].is_a?(Array)
+                                data[key]
+                              else
+                                [data[key]]
+                              end
         if target_prop['items']['type'].eql?('object')
           next if converted_data[key].empty? || converted_data[key].first.nil?
 
@@ -374,15 +388,15 @@ class MadmpFragment < ApplicationRecord
 
       next if sub_schema.classname.eql?('person') || new_data[key].present?
 
-      sub_fragment = MadmpFragment.new(
+      sub_fragment = MadmpFragment.create!(
         data: {},
         answer_id: nil,
         dmp_id: dmp.id,
         parent_id: id,
         madmp_schema: sub_schema,
+        classname: sub_schema.classname,
         additional_info: { property_name: key }
       )
-      sub_fragment.assign_attributes(classname: sub_schema.classname)
       sub_fragment.instantiate
 
       new_data[key] = { 'dbid' => sub_fragment.id }
@@ -488,13 +502,15 @@ class MadmpFragment < ApplicationRecord
       classname:
     ).where.not(id: current_fragment_id)
 
+    filtered_incoming_data = data.to_h.slice(*unicity_properties)
+
     dmp_fragments.each do |fragment|
-      filtered_db_data = fragment.data.slice(*unicity_properties).compact!
-      filtered_incoming_data = data.to_h.slice(*unicity_properties).compact!
+      filtered_db_data = fragment.data.slice(*unicity_properties)
       next if filtered_db_data.nil? || filtered_db_data.empty?
 
       return fragment if filtered_db_data.eql?(filtered_incoming_data)
     end
+
     false
   end
   # rubocop:enable Metrics/AbcSize
