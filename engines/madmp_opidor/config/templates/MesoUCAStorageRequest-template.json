@@ -8,7 +8,7 @@
     "properties": {
         "agentType": {
             "type": "string",
-            "description": "Classification des utilisateurs du Mésocentre Clermont Auvergne",
+            "description": "Classification des utilisateurs du Mésocentre Clermont-Auvergne",
             "inputType": "dropdown",
             "label@fr_FR": "Agents",
             "label@en_GB": "Agents",
@@ -26,8 +26,6 @@
             "label@fr_FR": "Justification",
             "label@en_GB": "justification",
             "tooltip": null,
-            "example@fr_FR": "Demande d'espace de stockage de 10 To pour 3 ans",
-            "example@en_GB": "Request for 10 TB storage space for 3 years",
             "form_label@fr_FR": "Justification de la demande de ressource",
             "form_label@en_GB": "Justification for resource request"
         },
@@ -36,7 +34,8 @@
             "description": "Volume des données pour le stockage",
             "label@fr_FR": "Taille des données pour le stockage",
             "label@en_GB": "Data size for storage",
-            "tooltip": null,
+            "tooltip@fr_FR": "Ex : Demande d'espace de stockage de 10 To pour 3 ans",
+            "tooltip@en_GB": "Ex: Request for 10 TB storage space for 3 years",
             "form_label@fr_FR": "Volume de stockage (en To)",
             "form_label@en_GB": "Storage volum (in Tb)"
         },

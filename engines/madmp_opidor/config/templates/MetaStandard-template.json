@@ -130,10 +130,9 @@
             "description": "Identifiant pérenne attribué au plan de gestion de données",
             "label@fr_FR": "Identifiant",
             "label@en_GB": "Identifier",
-            "tooltip@fr_FR": "Indiquer l’identifiant du plan après son éventuelle publication ou dépôt dans une archive",
-            "tooltip@en_GB": "Provide the plan ID after possible publishing or deposit in an archive",
-            "form_label@fr_FR": "Identifiant du plan",
-            "form_label@en_GB": "Plan identifier"
+            "tooltip": null,
+            "form_label@fr_FR": "Identifiant du plan (à compléter après publication ou dépôt dans une archive)",
+            "form_label@en_GB": "Plan identifier (to fill in after publishing or deposit in an archive)"
         },
         "idType": {
             "type": "string",
@@ -213,13 +212,13 @@
                     "dbid"
                 ]
             },
-            "description": "Autres plans de gestion de données en lien avec le projet, rédigés par exemple pour être autorisé à utiliser une resourceTechniques",
-            "label@fr_FR": "Plans de gestion en lien avec le projet",
-            "label@en_GB": "Management plans related to the project",
-            "tooltip@fr_FR": "Indiquer les plans de gestion de données en lien avec le projet",
-            "tooltip@en_GB": "Provide the other DMPs associated with the project",
-            "form_label@fr_FR": "Lister les autres plans de gestion en lien avec le projet",
-            "form_label@en_GB": "List the other management plans related to the project"
+            "description": "Autres plans de gestion de données en lien avec le projet ou l'activité de l'entité",
+            "label@fr_FR": "Plans de gestion en lien avec le projet ou l'activité de l'entité",
+            "label@en_GB": "Management plans related to the project or the entity's activity",
+            "tooltip@fr_FR": "Indiquer les plans de gestion de données en lien avec le projet ou avec l'activité de l'entité",
+            "tooltip@en_GB": "Provide the other DMPs associated with the project or the entity's activity",
+            "form_label@fr_FR": "Lister les autres plans de gestion en lien avec le projet ou avec l'activité de l'entité",
+            "form_label@en_GB": "List the other management plans related to the project or the entity's activity"
         }
     },
     "required": [

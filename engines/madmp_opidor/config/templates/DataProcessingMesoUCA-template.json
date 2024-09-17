@@ -80,13 +80,23 @@
                 ]
             },
             "minItems": 1,
-            "description": "Informations requises pour une demande d'heures de calcul auprès du Mésocentre Clermont Auvergne (une par type de calcul)",
-            "label@fr_FR": "Demande d'heures de calcul auprès du Mésocentre Clermont Auvergne",
-            "label@en_GB": "Request for coumputing time from Mésocentre Clermont Auvergne",
-            "tooltip@fr_FR": "Toute demande d'heures de calcul inclut un espace de stockage. Si vous souhaitez plus d'espace de stockage, merci de compléter le formulaire \"Demande d'espace de stockage auprès du Mésocentre Clermont Auvergne\"",
-            "tooltip@en_GB": "Any request for computing hours includes a storage space. If you would like more storage space, please complete the form \"Storage space request from Mésocentre Clermont Auvergne\"",
-            "form_label@fr_FR": "Demande d'heures de calcul auprès du Mésocentre Clermont Auvergne",
-            "form_label@en_GB": "Request for coumputing time from Mésocentre Clermont Auvergne"
+            "description": "Informations requises pour une demande d'heures de calcul auprès du Mésocentre Clermont-Auvergne (une par type de calcul)",
+            "label@fr_FR": "Demande d'heures de calcul auprès du Mésocentre Clermont-Auvergne",
+            "label@en_GB": "Request for coumputing time from Mésocentre Clermont-Auvergne",
+            "tooltip@fr_FR": "Toute demande d'heures de calcul inclut un espace de stockage. Si vous souhaitez plus d'espace de stockage, merci de compléter le formulaire \"Demande d'espace de stockage auprès du Mésocentre Clermont-Auvergne\"",
+            "tooltip@en_GB": "Any request for computing hours includes a storage space. If you would like more storage space, please complete the form \"Storage space request from Mésocentre Clermont-Auvergne\"",
+            "form_label@fr_FR": "Demande d'heures de calcul auprès du Mésocentre Clermont-Auvergne",
+            "form_label@en_GB": "Request for coumputing time from Mésocentre Clermont-Auvergne"
+        },
+        "securityMeasures": {
+            "type": "string",
+            "description": "Description des mesures prises pour assurer la sécurité des données",
+            "label@fr_FR": "Mesures de sécurité",
+            "label@en_GB": "Security measures",
+            "tooltip": null,
+            "isConst": true,
+            "form_label@fr_FR": "Mesures de sécurité du Mésocentre Clermont-Auvergne",
+            "form_label@en_GB": "Mesocentre Clermont-Auvergne security measures"
         },
         "contributor": {
             "type": "array",
@@ -106,11 +116,11 @@
                 ]
             },
             "description": "Personnes impliquées dans le traitement des données",
-            "label@fr_FR": "Responsables du traitement et de l’analyse des données",
+            "label@fr_FR": "Personnes impliquées dans le traitement et l’analyse des données",
             "label@en_GB": "Research staff processing and analysing data",
             "tooltip@fr_FR": "Le responsable peut être une personne, une équipe, un service",
             "tooltip@en_GB": "Person in charge can be a person, a team, a department",
-            "form_label@fr_FR": "Responsables du traitement et de l’analyse des données",
+            "form_label@fr_FR": "Personnes impliquées dans le traitement et l’analyse des données",
             "form_label@en_GB": "Research staff processing and analysing data"
         },
         "cost": {
@@ -134,8 +144,8 @@
             "label@fr_FR": "Coûts",
             "label@en_GB": "Costs",
             "tooltip": null,
-            "form_label@fr_FR": "Coûts liés au traitement/analyse des données",
-            "form_label@en_GB": "Data treatment/analysis associated costs"
+            "form_label@fr_FR": "Coût total de traitement/calcul : calcul automatique et notification au Mésocentre Clermont-Auvergne avec les « outils » (roue crantée à droite de la question)",
+            "form_label@en_GB": "Total cost of processing/calculation: automatic calculation and notification to the Clermont-Auvergne Mesocentre using the “tools” (star wheel to the right of the question)"
         }
     },
     "required": [
@@ -157,10 +167,10 @@
             "script_id": 0,
             "name": "MesoUcaComputingNotifyer",
             "owner": "superadmin",
-            "label@fr_FR": "Notifier Mésocentre Clermont Auvergne",
-            "label@en_GB": "Notify Mesocentre Clermont Auvergne",
-            "tooltip@fr_FR": "Envoie une demande d'heures de calcul au mésocentre Clermont Auvergne",
-            "tooltip@en_GB": "Send a request for computing hours to the Clermont Auvergne mesocenter ",
+            "label@fr_FR": "Notifier Mésocentre Clermont-Auvergne",
+            "label@en_GB": "Notify Clermont-Auvergne Mesocentre",
+            "tooltip@fr_FR": "Envoie une demande d'heures de calcul au Mésocentre Clermont-Auvergne",
+            "tooltip@en_GB": "Send a request for computing hours to the Clermont-Auvergne Mesocentre ",
             "params": {
                 "recipients": [
                     "francoise.cosserat@inist.fr",
@@ -171,9 +181,10 @@
     ],
     "default": {
         "fr_FR": {
+            "securityMeasures": "La politique de sécurité du Mésocentre Clermont-Auvergne applique celle de l'établissement Université Clermont Auvergne, notamment en terme de filtrage des flux réseaux, d'authentification et d'usage (Charte d'utilisation du Mésocentre : https://mesocentre.uca.fr/charte-mesocentre-clermont-auvergne). Les comptes sont nominatifs et rattachés à une structure (établissement, laboratoire de recherche ...). Des mesures de sécurité supplémentaires spécifiques aux projets peuvent être ajoutées. Le Mésocentre Clermont-Auvergne n'est pas accrédité pour héberger des données patients.",
             "facility": [
                 {
-                    "title": "Mésocentre Clermont Auvergne",
+                    "title": "Mésocentre Clermont-Auvergne",
                     "technicalResourceId": "https://cat.opidor.fr/index.php/Mésocentre_Clermont_Auvergne",
                     "idType": "URL",
                     "serviceContact": "https://hub.mesocentre.uca.fr/",
@@ -182,9 +193,10 @@
             ]
         },
         "en_GB": {
+            "securityMeasures": "The security policy of the Clermont-Auvergne  Mesocentre applies that the Clermont Auvergne University, particularly in terms of filtering network flows, authentication and use (Mesocentre user charter : https://mesocentre.uca.fr/charte-mesocentre-clermont-auvergne). The accounts are nominative and attached to a structure (establishment, research laboratory, etc.). Additional project-specific security measures can be added. The Clermont-Auvergne Mesocentre is not accredited to host patient data.",
             "facility": [
                 {
-                    "title": "Mesocentre Clermont Auvergne",
+                    "title": "Mésocentre Clermont-Auvergne",
                     "technicalResourceId": "https://cat.opidor.fr/index.php/Mésocentre_Clermont_Auvergne",
                     "idType": "URL",
                     "serviceContact": "https://hub.mesocentre.uca.fr/",

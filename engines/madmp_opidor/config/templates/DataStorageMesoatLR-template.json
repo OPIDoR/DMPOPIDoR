@@ -10,6 +10,8 @@
             "type": "string",
             "description": "Description des besoins de stockage",
             "inputType": "textarea",
+            "label@fr_FR": "Description",
+            "label@en_GB": "Description",
             "tooltip": null,
             "form_label@fr_FR": "Description",
             "form_label@en_GB": "Description"
@@ -31,6 +33,8 @@
                 ]
             },
             "description": "Ressource/équipement utilisé pour le stockage et sauvegarde des données",
+            "label@fr_FR": "Identification de la ressource",
+            "label@en_GB": "Resource identification",
             "tooltip": null,
             "isConst": true,
             "form_label@fr_FR": "Identification de MESO@LR",
@@ -49,6 +53,8 @@
                 "dbid"
             ],
             "description": "Informations requises pour une demande de ressources de stockage et calcul auprès du MESO@LR",
+            "label@fr_FR": "Demande de ressources de stockage et calcul à MESO@LR (en To)",
+            "label@en_GB": "Request for storage and compute resources from MESO@LR (in TB)",
             "tooltip": null,
             "form_label@fr_FR": "Demande de ressources de stockage et calcul à MESO@LR (en To)",
             "form_label@en_GB": "Request for storage and compute resources from MESO@LR (in TB)"
@@ -70,6 +76,8 @@
                 ]
             },
             "description": "Informations relatives à la politique de sauvegarde",
+            "label@fr_FR": "Politique de sauvegarde",
+            "label@en_GB": "Backup policy",
             "tooltip": null,
             "isConst": true,
             "form_label@fr_FR": "Politique de sauvegarde de MESO@LR",
@@ -78,33 +86,12 @@
         "securityMeasures": {
             "type": "string",
             "description": "Description des mesures prises pour assurer la sécurité des données",
+            "label@fr_FR": "Mesures de sécurité",
+            "label@en_GB": "Security measures",
             "tooltip": null,
-            "inputType": "textarea",
             "isConst": true,
             "form_label@fr_FR": "Mesures de sécurité",
             "form_label@en_GB": "Security measures"
-        },
-        "cost": {
-            "type": "array",
-            "table_header@fr_FR": "Type de coût : montant",
-            "table_header@en_GB": "Cost type: amount",
-            "items": {
-                "type": "object",
-                "class": "CostStandard",
-                "properties": {
-                    "dbid": {
-                        "type": "number"
-                    }
-                },
-                "template_name": "CostMesoatLR",
-                "required": [
-                    "dbid"
-                ]
-            },
-            "description": "Coût total des données stockées à MESO@LR",
-            "tooltip": null,
-            "form_label@fr_FR": "Coût total de stockage (coût calculé automatiquement)",
-            "form_label@en_GB": "Total cost of storage (Automatic calculation)"
         },
         "contributor": {
             "type": "array",
@@ -124,9 +111,35 @@
                 ]
             },
             "description": "Personne(s) responsable(s) du suivi du stockage des données",
+            "label@fr_FR": "Personnes impliquées dans le stockage des données",
+            "label@en_GB": "Persons in charge of data storage",
             "tooltip": null,
-            "form_label@fr_FR": "Personne en charge de la gestion du stockage des données",
-            "form_label@en_GB": "Person in charge of  data storage management"
+            "form_label@fr_FR": "Personnes impliquées dans le stockage des données",
+            "form_label@en_GB": "Persons in charge of data storage"
+        },
+        "cost": {
+            "type": "array",
+            "table_header@fr_FR": "Type de coût : montant",
+            "table_header@en_GB": "Cost type: amount",
+            "items": {
+                "type": "object",
+                "class": "CostStandard",
+                "properties": {
+                    "dbid": {
+                        "type": "number"
+                    }
+                },
+                "template_name": "CostMesoatLR",
+                "required": [
+                    "dbid"
+                ]
+            },
+            "description": "Coût total des données stockées à MESO@LR",
+            "label@fr_FR": "Coût total de stockage et/ou calcul (coût calculé automatiquement)",
+            "label@en_GB": "Total cost of storage and/or computation (automatically calculated cost)",
+            "tooltip": null,
+            "form_label@fr_FR": "Coût total de stockage (coût calculé automatiquement)",
+            "form_label@en_GB": "Total cost of storage (Automatic calculation)"
         }
     },
     "required": [
