@@ -1,4 +1,4 @@
-FROM ruby:3.2.4-slim as base
+FROM ruby:3.2.5-slim AS base
 WORKDIR /app
 RUN apt update -y && apt install -y \
     build-essential \
@@ -20,7 +20,7 @@ RUN apt update -y && apt install -y \
   ln -sf /usr/bin/wkhtmltopdf /usr/local/bin/wkhtmltopdf && \
   chmod +x /usr/local/bin/wkhtmltopdf
 
-FROM base as dev
+FROM base AS dev
 COPY . .
 ENV NODE_MAJOR=20
 RUN mkdir -p /etc/apt/keyrings && \
@@ -32,7 +32,7 @@ RUN mkdir -p /etc/apt/keyrings && \
   bundle install && \
   yarn install && yarn --cwd app/javascript/dmp_opidor_react install
 
-FROM dev as production-builder
+FROM dev AS production-builder
 ARG DB_ADAPTER \
   DB_USERNAME \
   DB_PASSWORD
@@ -41,15 +41,12 @@ RUN bin/docker ${DB_ADAPTER:-postgres} && \
   rm -rf node_modules && \
   bundle config set --local without 'mysql thin test ci aws development build' && \
   bundle install
-RUN mkdir -p .ssl && \
-    openssl req -new -newkey rsa:2048 -sha1 -subj "/CN=`hostname`" -days 730 -nodes -x509 -keyout ./.ssl/cert.key -out ./.ssl/cert.crt
 
-FROM base as production
+FROM base AS production
 COPY . .
 COPY --from=production-builder /app/public ./public
 COPY --from=production-builder /app/config ./config
 COPY --from=production-builder /usr/local/bundle /usr/local/bundle
-COPY --from=production-builder /app/.ssl ./.ssl
 EXPOSE 3000
-RUN chmod a+x /app/bin/prod
-CMD [ "/app/bin/prod" ]
+RUN chmod a+x /app/bin/run
+CMD [ "/app/bin/run" ]

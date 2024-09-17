@@ -58,8 +58,10 @@
     </style>
   </head>
   <body>
-    <% @template.phases.each do |phase| %>
-      <div style="page-break-before:always;"></div> <!-- Page break before each phase -->
+    <% @template.phases.each_with_index do |phase, idx| %>
+      <% unless idx.eql?(0) %>
+        <div style="page-break-before:always;"></div> <!-- Page break before each phase -->
+      <% end %>
       <h1><%= "#{@template.org.name}: #{@template.title}" %><%= @template.phases.length > 1 ? " - #{phase.title}" : "" %></h1>
       <% phase.sections.order(:number).each do |section| %>
         <h2><%= section.title %></h2>

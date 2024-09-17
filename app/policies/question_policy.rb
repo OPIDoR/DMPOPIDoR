@@ -3,6 +3,13 @@
 # Security rules for questions
 # Note the method names here correspond with controller actions
 class QuestionPolicy < ApplicationPolicy
+  # --------------------------------
+  # Start DMP OPIDoR Customization
+  # --------------------------------
+  prepend Dmpopidor::QuestionPolicy
+  # --------------------------------
+  # End DMP OPIDoR Customization
+  # --------------------------------
   # NOTE: @user is the signed_in_user and @record is an instance of Question
 
   ##

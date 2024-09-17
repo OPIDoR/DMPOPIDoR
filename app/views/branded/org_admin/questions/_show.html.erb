@@ -69,31 +69,34 @@
              <%= raw condition_to_text(conditions) %>
           <% end %>
 
-          <!-- Suggested answer or Example-->
-          <% if !question.section.phase.template.org.funder? %>
-            <% example_answer = question.example_answers(template.base_org.id).first %>
-              <% if example_answer.present?  && example_answer.text.present?  %>
-                  <dt><%= _('example answer')%></dt>
-                  <dd>
-                    <% if q_format && q_format.textarea?  %>
-                      <div class="display-readonly-textarea-content">
+
+          <% if question.section.phase.template.org.present? %>
+            <!-- Suggested answer or Example-->
+            <% if !question.section.phase.template.org.funder? %>
+              <% example_answer = question.example_answers(template.base_org.id).first %>
+                <% if example_answer.present?  && example_answer.text.present?  %>
+                    <dt><%= _('example answer')%></dt>
+                    <dd>
+                      <% if q_format && q_format.textarea?  %>
+                        <div class="display-readonly-textarea-content">
+                          <%= sanitize example_answer.text %>
+                        </div>
+                      <% else %>
                         <%= sanitize example_answer.text %>
-                      </div>
-                    <% else %>
-                       <%= sanitize example_answer.text %>
-                    <% end %>
-                  </dd>
-              <% end %>
-          <% end %>
-          <!-- Guidance linked to this question -->
-          <% guidance = question.guidance_annotation(template.base_org.id) %>
-          <% if guidance.present?  %>
-            <dt><%= _('Guidance')%></dt>
-            <dd>
-              <div class="display-readonly-textarea-content">
-                <%= sanitize guidance.text %>
-              </div>
-            </dd>
+                      <% end %>
+                    </dd>
+                <% end %>
+            <% end %>
+            <!-- Guidance linked to this question -->
+            <% guidance = question.guidance_annotation(template.base_org.id) %>
+            <% if guidance.present?  %>
+              <dt><%= _('Guidance')%></dt>
+              <dd>
+                <div class="display-readonly-textarea-content">
+                  <%= sanitize guidance.text %>
+                </div>
+              </dd>
+            <% end %>
           <% end %>
           <!-- Themes -->
           <% themes_q = question.themes %>

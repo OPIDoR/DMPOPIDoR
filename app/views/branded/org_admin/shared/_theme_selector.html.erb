@@ -38,7 +38,31 @@
             </div>
             <% cntr += 1 %>
           <% end %>
-        </div>
+          <div class="form-check">
+            <% namespace = f.object.class.name.downcase %>
+            <% id = f.object.id.present? ? f.object.id : 'new' %>
+            <% locale = if defined?(locale_id) && locale_id.present?
+                          Language.find_by(id: locale_id) || Language.find_by(abbreviation: 'fr-FR')
+                        else
+                          Language.find_by(abbreviation: 'fr-FR')
+                        end %>
+            <% title_theme = theme&.translations&.dig(locale&.abbreviation, 'title') || theme&.title %>
+            <% checked_value = if defined?(selected_theme) && selected_theme && title_theme.eql?(selected_theme)
+                     ' checked="checked"'
+                   elsif f.object.themes.include?(theme)
+                     ' checked="checked"'
+                   else
+                     ''
+                   end %>
+            <input id="<%= id %>_<%= namespace %>_theme_ids_<%= theme[:id] %>"
+                   name="<%= namespace %>[theme_ids][]"
+                   type="<%= as_radio ? 'radio' : 'checkbox' %>"
+                   <%= required && (theme == all_themes.first ? ' aria-required=true ' : '') %>
+                   value="<%= theme[:id] %>"<%= checked_value %>>
+            <%= title_theme %>
+          </div>
+          <% cntr += 1 %>
+        <% end %>
       </div>
     </fieldset>
   <% else %>

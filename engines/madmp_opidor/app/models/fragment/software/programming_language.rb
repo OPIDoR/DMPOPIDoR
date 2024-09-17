@@ -40,19 +40,11 @@
 
 #  index_madmp_fragments_on_answer_id                  (answer_id)
 #  index_madmp_fragments_on_madmp_schema_id  (madmp_schema_id)
-module Fragment
+module Fragment::Software
   # ResearchOutputDescription STI model
-  class SoftwareDescription < MadmpFragment
-    def contact
-      Fragment::Contributor.where(parent_id: id).first
-    end
-
-    def properties
-      'contact'
-    end
-
+  class ProgrammingLanguage < MadmpFragment
     def self.sti_name
-      'software_description'
+      'programming_language'
     end
   end
 end

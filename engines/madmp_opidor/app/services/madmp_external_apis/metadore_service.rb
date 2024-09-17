@@ -43,7 +43,7 @@ module MadmpExternalApis
       def search(query_params: {})
         return [] unless active?
 
-        target = "#{api_base_url}#{search_path}?#{URI.encode_www_form(query_params)}"
+        target = "#{api_base_url}/#{search_path}?#{URI.encode_www_form(query_params)}"
 
         resp = http_get(
           uri: target,

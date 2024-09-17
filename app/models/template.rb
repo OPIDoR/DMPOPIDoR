@@ -373,9 +373,16 @@ class Template < ApplicationRecord
   # Is this the latest version of the current Template's family?
   #
   # Returns Boolean
+  # --------------------------------
+  # Start DMP OPIDoR Customization
+  # SEE app/models/dmpopidor/template.rb
+  # --------------------------------
   def latest?
     id == Template.latest_version(family_id).pluck('templates.id').first
   end
+  # --------------------------------
+  # End DMP OPIDoR Customization
+  # --------------------------------
 
   # Determines whether or not a new version should be generated
   def generate_version?

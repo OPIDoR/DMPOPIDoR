@@ -2,6 +2,124 @@
 
 **Attention** Cette liste de changements concerne les déploiements sur nos serveurs de test en interne.
 
+## 13/09/2024
+
+- Correction d'un problème d'actualisation des éditeurs de texte lors d'un changement de produit de recherche  (KB #11771)
+
+## 12/09/2024
+
+- Correction du problème d'affichage de la description d'une section dans les exports PDF/DOCX  (KB #11835)
+
+## 11/09/2024
+
+- Ajout de la description de la section à l'export PDF/DOCX d'un plan
+- Suppression de la page blanche présente lors de l'export d'un modèle de plan.
+- Les données personnelles sont désormais à "Oui" par défaut lors de la création d'un produit de recherche (KB #11817)
+- Affichage des thèmes des recommandations dans la langue du plan (KB #11747)
+
+## 09/09/2024
+
+- Correction d'un problème d'affichage d'un référentiel complexe avec création lorsqu'aucune valeur n'a été sélectionnée
+- Correction d'un problème d'affichage des référentiels complexes à choix uniques
+
+## 06/09/2024
+
+- Correction du problème de mise à jour de la valeur Données Personnelles dans l'infobox des produits de recherche (KB #11818)
+- Correction du problème d'affichage de valeurs personnalisées dans les référentiels simples (KB #11720)
+- Ajout d'une condition empêchant de sauvegarder une pop-up vide (KB #11545)
+
+## 05/09/2024
+
+- Correction du problème de changement de type lors de l'édition d'un produit de recherche
+- Correction de conversion des données lors d'un changement de formulaire (plantage formulaires Masa)
+
+## 04/09/2024
+
+- Correction d'un problème d'affichage des commentaires et questions en mode Lecture Seule
+- Ajout du support des exemples dans les formulaires structurés
+- Ajout de l'affichage des tooltips pour les libellés des sous formulaires (ex: DataReuseMasa/archeoOperation/geoLocationBox)
+
+
+## 30/08/2024
+- Correction d'un problème d'affichage des sous fragments lors de la première sauvegarde d'un formulaire (KB #11750)
+- Correction du problème d'affichage des commentaires ajoutés (KB #11752)
+
+## 26/08/2024
+- Désactivation du produit de recherche Logiciel (ajout d'une option de configuration)
+- Activation de l'édition du type de produit de recherche (ajout d'une option de configuration) (KB #11749)
+
+
+## 23/08/2024
+- Ajout de la possibilité de laisser un commentaire dans une question non répondue (KB #11739)
+
+## 22/08/2024
+- Mise à jour des traductions
+- Correction de l'import plan de gestion entité
+  - Import des contributeurs, ils ne sont plus dupliqués dans l'onglet contributeur
+    => La modification des contributeurs est fonctionnelle suite à la correction de l'import
+  - Ajout/modification de tutelles, les données sont désormais bien sauvegardées
+
+## 21/08/2024
+- Mise en conformité RGPD des cookies
+  - Ajout d'un bouton avec tooltip pour modifier les paramètres
+  - Mise à jour de la view piwik pour utiliser des variables d'environnement et permettre de supprimer les cookies d'analyse
+- Création du premier produit de recherche par défaut (activé par variable d'environnement)
+- Uniformisation du bouton "back to top" avec celui des cookies
+- Correction de traductions
+- Affichage de la modale de recommendations pour une question non répondue
+
+# 08/07/2024
+
+- Correction du problème d'affichage du rôle choisi lors de la modification d'un contributeur dans l'onglet Rédiger (#11453)
+- Correction du problème de la valeur enregistrée dans les référentiels simples contenant un attribut `value` et un libellé avec langue (#11466)
+
+# 26/06/2024
+
+- Ajout de l'option `name` utilisée par l'exécution de scripts à la route api/v1/madmp/schemas
+- Correction d'un problème de mise à jour des contributeurs dans l'onglet Contributeurs
+
+## 06/08/2024
+- Correction de l'import du plan de gestion entité
+- Affichage du choix du plan puis du produit de recherche quand un plan est sasie
+- Retrait des plans avec produit de recherche sans titres
+
+## 01/08/2024
+- Correction de la question sur les données personnelles : modification possible via "Oui" ou "Non"
+- L'import des produits de recherche n'affiche plus de plan par défaut. Les produits de recherche n'apparaissent que lorsqu'un plan est sélectionné.
+- Réduction des espaces entre libéllés et le boutons "ajouter un élément"
+
+## 31/07/2024
+- Modification du nom abrégé et nom du produit de recheche (import/duplication) par ``PR X [Copie de Produit de recherche Y]``
+- Ajout d'une validation de duplication du produit de recherche
+- Suppression des plans sans produit de recherche à l'import
+- Affichage du thème en anglais dans le tableau des recommandations
+- Affichage de la langue hérité par la recommandation (création/édition recommandation)
+- Import PGD Entité
+- Ajout d'une phrase explicative pour la gestion des données personnelles dans l'infobox d'un produit de recherche
+- Liens soulignés dans les pages statiques et dans les recommandations
+
+## 30/07/2024
+- Correction de l'affichage des recommandations dans la partie rédiger
+- Correction du choix du thème pour une recommandation (annotation d'un template)
+- Modification de l'emplacement du tooltip sur le nom des groupes de recommandations (choix des recommandations, partie rédiger)
+
+## 24/07/2024
+- Correction de l'affichage des thèmes dans l'édition des recommandations:
+  - Le thème change de traduction et garde sa valeur cochée au changement de groupe
+  - Le thème est traduit quand on édite la recommandation
+- Duplication d'un produit de recherche via un bouton "Dupliquer" présent dans l'infobox
+- Correction import ``ROR``, mapping: ``"ror": { "name.fr": "name", "ror": "orgId", "acronyms[0]": "acronym", "type": "idType" }``
+
+## 18/07/2024
+- Correction du problème d'accès  à la modification des phases, sections et questions dans les modèles "modules"
+- Correction du problème survenant dans l'onglet Rédiger lors du clic sur le lien 'tout développer'. Ce problème était provoqué par l'affichage des recommandations lors de la création du premier produit de recherche.
+
+## 03/07/2024
+- Modification de la création de plan avec l'implémentation de l'import de plan.
+- Affichage d'un message pour indiquer que le plan ne possède aucun produit de recherche et un bouton de redirection vers l'ongler rédiger.
+- Correction de l'affichage des thèmes de la partie administration.
+- Ajout de l'import dans l'onglet rédiger si le plan ne possède aucun produit de recherche
+
 ## 24/06/2024
 - Ajout de l'import du produit de recherche
 - Les modèles Module ne sont désormais plus reliés à un organisme.

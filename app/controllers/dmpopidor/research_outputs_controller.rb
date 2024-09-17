@@ -16,7 +16,6 @@ module Dmpopidor
       redirect_to(controller: 'plans', action: 'index')
     end
 
-    
     # rubocop:disable Metrics/MethodLength, Metrics/AbcSize
     def show
       @research_output = ::ResearchOutput.find(params[:id])
@@ -71,6 +70,7 @@ module Dmpopidor
 
           updated_data = research_output_description.data.merge({
             title: params[:title],
+            type: params[:type],
             containsPersonalData: params[:configuration][:hasPersonalData] ? _('Yes') : _('No')
           })
           research_output_description.update(data: updated_data)
@@ -131,43 +131,47 @@ module Dmpopidor
       authorize research_output
 
       target_plan = ::Plan.find(params[:plan_id])
-      pos = target_plan.research_outputs.length + 1
 
-      research_output_copy = target_plan.research_outputs.create!(
-        abbreviation: "#{pos}-Import-#{research_output.abbreviation}",
-        title: "#{pos} [Import]  #{research_output.title}",
-        display_order: pos
-      )
-      # Creates the main ResearchOutput fragment
-      research_output_copy_fragment = Fragment::ResearchOutput.create(
-        data: {
-          'research_output_id' => research_output_copy.id
-        },
-        madmp_schema: research_output_fragment.madmp_schema,
-        dmp_id: target_plan.json_fragment.id,
-        parent_id: target_plan.json_fragment.id,
-        additional_info: research_output_fragment.additional_info
-      )
+      I18n.with_locale target_plan.template.locale do
+        pos = target_plan.research_outputs.length + 1
 
-      research_output.answers.each do |answer|
-        answer_copy = Answer.deep_copy(answer)
-        answer_copy.plan_id = target_plan.id
-        answer_copy.research_output_id = research_output_copy.id
-        answer_copy.save!
-        MadmpFragment.deep_copy(answer.madmp_fragment, answer_copy.id, research_output_copy_fragment)
-      end
+        research_output_copy = target_plan.research_outputs.create!(
+          abbreviation: "#{_('RO')} #{pos} [#{_('Copy of')} #{research_output.abbreviation}]",
+          title: "#{_('Research output')} #{pos} [#{_('Copy of')} #{research_output.title}]",
+          display_order: pos
+        )
 
-      module_id = research_output_copy_fragment.additional_info['moduleId']
-      template = module_id ? ::Template.find(module_id) : target_plan.template
-      
-      render json: {
-        id: target_plan.id,
-        created_ro_id: research_output_copy.id,
-        dmp_id: target_plan.json_fragment.id,
-        research_outputs: target_plan.research_outputs.order(:display_order).map do |ro|
-          ro.serialize_json
+        # Creates the main ResearchOutput fragment
+        research_output_copy_fragment = Fragment::ResearchOutput.create(
+          data: {
+            'research_output_id' => research_output_copy.id
+          },
+          madmp_schema: research_output_fragment.madmp_schema,
+          dmp_id: target_plan.json_fragment.id,
+          parent_id: target_plan.json_fragment.id,
+          additional_info: research_output_fragment.additional_info
+        )
+
+        research_output.answers.each do |answer|
+          answer_copy = ::Answer.deep_copy(answer)
+          answer_copy.plan_id = target_plan.id
+          answer_copy.research_output_id = research_output_copy.id
+          answer_copy.save!
+          MadmpFragment.deep_copy(answer.madmp_fragment, answer_copy.id, research_output_copy_fragment)
         end
-      }
+
+        module_id = research_output_copy_fragment.additional_info['moduleId']
+        template = module_id ? ::Template.find(module_id) : target_plan.template
+
+        render json: {
+          id: target_plan.id,
+          created_ro_id: research_output_copy.id,
+          dmp_id: target_plan.json_fragment.id,
+          research_outputs: target_plan.research_outputs.order(:display_order).map do |ro|
+            ro.serialize_json
+          end
+        }
+      end
     end
 
 

@@ -21,7 +21,7 @@ services:
       - -c
       - |
         rm -f /app/tmp/pids/server.pid
-        bin/dev
+        bin/run
     networks:
       - dmpopidor_network
 

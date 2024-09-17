@@ -379,3 +379,5 @@ gem 'madmp_opidor', path: 'engines/madmp_opidor' # , git: 'https://github.com/OP
 group :build do
   gem 'activerecord-nulldb-adapter'
 end
+
+gem "foreman", "~> 0.88.1"

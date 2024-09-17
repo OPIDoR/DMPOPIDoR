@@ -3,6 +3,13 @@
 # Security rules for template phases
 # Note the method names here correspond with controller actions
 class PhasePolicy < ApplicationPolicy
+  # --------------------------------
+  # Start DMP OPIDoR Customization
+  # --------------------------------
+  prepend Dmpopidor::PhasePolicy
+  # --------------------------------
+  # End DMP OPIDoR Customization
+  # --------------------------------
   # NOTE: @user is the signed_in_user and @record is an instance of Phase
 
   ##

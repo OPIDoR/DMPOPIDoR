@@ -1,0 +1,36 @@
+<% if ENV.has_key?('PIWIK_BASE_URL') %>
+  <script type="text/plain" data-category="analytics" data-service="DMPOPIDoR Analytics">
+    const _paq = window._paq || [];
+
+    _paq.push(function() {
+      const self = this;
+      const getOriginalVisitorCookieTimeout = () => {
+        const nowTs = Math.round(Date.now() / 1000);
+        const [,, createTs] = self.getVisitorInfo();
+        const cookieTimeout = 33696000;
+        return (parseInt(createTs) + cookieTimeout) - nowTs;
+      };
+      this.setVisitorCookieTimeout(getOriginalVisitorCookieTimeout());
+    });
+
+    _paq.push(['trackPageView']);
+    _paq.push(['enableLinkTracking']);
+
+    (function() {
+      const piwkiUrl = '<%= ENV.fetch('PIWIK_BASE_URL', '') %>';
+      const siteId = '<%= ENV.fetch('PIWIK_SITE_ID', 0) %>';
+      _paq.push(['setTrackerUrl', `${piwkiUrl}/piwik.php`]);
+      _paq.push(['setSiteId', siteId]);
+
+      const d = document;
+      const g = d.createElement('script');
+      const s = d.getElementsByTagName('script')[0];
+
+      g.type = 'text/javascript';
+      g.async = true;
+      g.defer = true;
+      g.src = `${piwkiUrl}/piwik.js`;
+      s.parentNode.insertBefore(g, s);
+    })();
+  </script>
+<% end %>

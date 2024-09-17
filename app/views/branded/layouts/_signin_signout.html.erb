@@ -91,6 +91,9 @@
             <li class="nav-item <%= ' active' if active_page?(super_admin_static_pages_path) %>">
               <%= link_to _('Static pages'), super_admin_static_pages_path+"#content", class: 'nav-link' %>
             </li>
+            <li class="nav-item">
+              <a href="/directus/" class="nav-link" target="_blank">Directus</a>
+            </li>
             <li class="nav-item <%= ' active' if active_page?(super_admin_api_clients_path) %>">
               <%= link_to _('Api Clients'), super_admin_api_clients_path+"#content" , class: 'nav-link' %>
             </li>
