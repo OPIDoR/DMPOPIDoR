@@ -9,6 +9,9 @@ module Resolvers
         if filter.abbreviation.present?
           languages = languages.where(abbreviation: filter.abbreviation)
         end
+        if filter.name.present?
+          languages = languages.where(name: filter.name)
+        end
       end
       languages
     end
