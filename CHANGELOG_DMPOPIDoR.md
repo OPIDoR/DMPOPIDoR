@@ -2,6 +2,10 @@
 
 **Attention** Cette liste de changements concerne les déploiements sur nos serveurs de test en interne.
 
+## 18/09/2024
+
+- Correction d'un problème d'affichage de la langue des recommendations dans l'espace Admin
+
 ## 13/09/2024
 
 - Correction d'un problème d'actualisation des éditeurs de texte lors d'un changement de produit de recherche  (KB #11771)
