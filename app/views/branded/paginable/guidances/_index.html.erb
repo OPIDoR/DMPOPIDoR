@@ -40,11 +40,7 @@
                 <%= _('Published')%>
               <% end %>
             </td>
-            <td><%= if guidance.locale.present?
-                      Language.find_by(id: guidance.guidance_group.language_id)&.name || 'N/C'
-                    else
-                      'N/C'
-                    end %>
+            <td><%= guidance.guidance_group.language&.name || 'N/C' %>
             </td>
             <td>
               <%= l guidance.updated_at.to_date, formats: :short %>
