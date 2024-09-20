@@ -63,10 +63,7 @@ module Dmpopidor
               moduleId: ::Template.module(data_type:)&.id
             }
           )
-          p "-------------------"
-          p configuration[:hasPersonalData] ? _('Yes') : _('No')
-          p "-------------------"
-          fragment_description = MadmpFragment.new(
+          fragment_description = MadmpFragment.create!(
             data: {
               'title' => title,
               'datasetId' => pid,

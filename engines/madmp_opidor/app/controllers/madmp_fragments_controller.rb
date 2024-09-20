@@ -36,7 +36,6 @@ class MadmpFragmentsController < ApplicationController
       research_output = ::ResearchOutput.find(body["research_output_id"])
       @fragment.parent_id = research_output.json_fragment.id
     end
-    @fragment.instantiate
     @fragment.handle_defaults(defaults)
     @fragment.import_with_instructions(body["data"], madmp_schema)
 
