@@ -2,6 +2,13 @@
 
 **Attention** Cette liste de changements concerne les déploiements sur nos serveurs de test en interne.
 
+## 20/09/2024
+
+- Correction du problème de sauvegarde de l'enregistrement d'une valeur sélectionnée dans un référentiel complex (Licence, Financeur) (KB #11890)
+- Correction du problème d'actualisation des champs texte lors d'un changement de produit de recherche (KB #11771)
+- Correction du problème d'affichage des recommandations liées aux questions lors de l'ouverture de la modale des recommandations. 
+- Amélioration de la fenêtre des cookies
+
 ## 18/09/2024
 
 - Correction d'un problème d'affichage de la langue des recommendations dans l'espace Admin
