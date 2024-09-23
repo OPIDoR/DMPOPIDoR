@@ -5,6 +5,8 @@ services:
     build:
       context: .
       target: dev
+      args:
+        - NODE_MAJOR=${NODE_MAJOR:-18}
     depends_on:
       postgres:
         condition: service_healthy
@@ -34,6 +36,12 @@ services:
   postgres:
     ports:
       - ${POSTGRES_PORT:-5432}:5432
+    networks:
+      - dmpopidor_network
+
+  valkey:
+    ports:
+      - ${VALKEY_PORT:-6379}:6379
     networks:
       - dmpopidor_network
 
