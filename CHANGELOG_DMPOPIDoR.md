@@ -2,6 +2,11 @@
 
 **Attention** Cette liste de changements concerne les déploiements sur nos serveurs de test en interne.
 
+## 24/09/2024
+
+- Ajout de l'import Metadore (KB #10078)
+- Correction du problème d'actualisation des champs tableaux de chaine de caractères (ex: mots clés non controllés) lors d'un changement de produit de recherche (KB #11771)
+
 ## 20/09/2024
 
 - Correction du problème de sauvegarde de l'enregistrement d'une valeur sélectionnée dans un référentiel complex (Licence, Financeur) (KB #11890)
