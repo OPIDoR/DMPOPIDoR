@@ -2,6 +2,10 @@
 
 **Attention** Cette liste de changements concerne les déploiements sur nos serveurs de test en interne.
 
+## 25/09/2024
+
+- Sélection du type de produit de recherche par défaut (modal de création)
+
 ## 24/09/2024
 
 - Ajout de l'import Metadore (KB #10078)
