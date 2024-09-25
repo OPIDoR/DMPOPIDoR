@@ -99,6 +99,9 @@ module Dmpopidor
             # Initialize Meta & Project
             @plan.create_plan_fragments
 
+            registry_values = Registry.find_by(name:"ResearchDataType").registry_values
+            registry = registry_values.find { |entry| entry['data']['en_GB'] == "Dataset" }
+
             # Add default research output if possible
             if Rails.configuration.x.dmpopidor.create_first_research_output || @plan.template.structured? == false
               created_ro = @plan.research_outputs.create!(
@@ -106,6 +109,7 @@ module Dmpopidor
                 title: "#{_('Research output')} 1",
                 is_default: true,
                 display_order: 1,
+                output_type_description: registry['data'][@plan.template.locale.gsub('-', '_')],
               )
               created_ro.create_json_fragments({
                 hasPersonalData: Rails.configuration.x.dmpopidor.front[:enableHasPersonalData],
