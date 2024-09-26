@@ -2,6 +2,10 @@
 
 **Attention** Cette liste de changements concerne les déploiements sur nos serveurs de test en interne.
 
+## 26/09/2024
+
+- Suppréssion des recommandations qui ne sont pas basées sur la langue du plan
+
 ## 25/09/2024
 
 - Sélection du type de produit de recherche par défaut (modal de création)
