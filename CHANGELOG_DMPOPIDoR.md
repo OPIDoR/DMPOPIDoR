@@ -4,7 +4,8 @@
 
 ## 26/09/2024
 
-- Suppréssion des recommandations qui ne sont pas basées sur la langue du plan
+- Suppression des recommandations qui ne sont pas basées sur la langue du plan
+- Amélioration du choix de formulaire personnalisé (KB #11872 #11873)
 
 ## 25/09/2024
 
