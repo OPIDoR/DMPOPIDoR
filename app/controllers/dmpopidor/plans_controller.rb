@@ -71,7 +71,10 @@ module Dmpopidor
           if @plan.save
             # pre-select org's guidance and the default org's guidance
             ids = (::Org.default_orgs.pluck(:id) << current_user.org_id).flatten.uniq
-            ggs = ::GuidanceGroup.where(org_id: ids, optional_subset: false, published: true)
+
+            language = Language.find_by(abbreviation: @plan.template.locale)
+
+            ggs = ::GuidanceGroup.where(org_id: ids, optional_subset: false, published: true, language_id: language.id)
 
             @plan.guidance_groups << ggs unless ggs.empty?
 
