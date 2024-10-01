@@ -10,12 +10,16 @@ services:
     depends_on:
       postgres:
         condition: service_healthy
+      maildev:
+        condition: service_healthy
     working_dir: /app
     environment:
       - RAILS_ENV=development
       - RAKE_ENV=development
       - NODE_ENV=development
       - RAILS_SERVE_STATIC_FILES=${RAILS_SERVE_STATIC_FILES:-false}
+      - ACTION_MAILER_SMTP_HOST=maildev
+      - RECAPTCHA_ENABLED=false
     volumes:
       - ./:/app
     command:
@@ -42,6 +46,22 @@ services:
   valkey:
     ports:
       - ${VALKEY_PORT:-6379}:6379
+    networks:
+      - dmpopidor_network
+
+  maildev:
+    image: maildev/maildev:2.1.0
+    ports:
+      - 1080:1080
+    healthcheck:
+      test:
+        [
+          "CMD-SHELL",
+          "wget -q -S -O - http://0.0.0.0:1080 2>&1 | grep 'HTTP/1.1 200 OK'"
+        ]
+      interval: ${MAILDEV_HEALTHCHECK_INTERVAL:-30s}
+      timeout: ${MAILDEV_HEALTHCHECK_TIMEOUT:-10s}
+      retries: ${MAILDEV_HEALTHCHECK_RETRIES:-5}
     networks:
       - dmpopidor_network
 
