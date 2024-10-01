@@ -6,6 +6,8 @@ require 'rails/all'
 
 require 'csv'
 
+require 'json'
+
 # Require the gems listed in Gemfile, including any gems
 # you've limited to :test, :development, or :production.
 Bundler.require(*Rails.groups)
@@ -51,7 +53,128 @@ module DMPRoadmap
     #       moving our helper methods into Presenters if it makes sense
     config.action_controller.include_all_helpers = ENV.fetch('ACTION_CONTROLLER_INCLUDE_ALL_HELPERS', true).to_s.casecmp('true').zero?
 
+    smtp_setting = {
+      address: ENV.fetch('ACTION_MAILER_SMTP_HOST', 'mailcatcher'),
+      port: ENV.fetch('ACTION_MAILER_SMTP_PORT', 1025)
+    }
+
     # Set the default host for mailer URLs
-    config.action_mailer.default_url_options = { host: Socket.gethostname.to_s }
+    # config.action_mailer.default_url_options = { host: Socket.gethostname.to_s }
+    config.action_mailer.default_url_options = {
+      :host => ENV.fetch('DMPROADMAP_HOST', 'dmpopidor'),
+      :protocol => ENV.fetch('ACTION_MAILER_DEFAULT_URL_OPTIONS_PROTOCOL', 'https')
+    }
+    config.action_mailer.smtp_settings = smtp_setting
+    config.action_mailer.default_options = { :from => ENV.fetch('MAILER_FROM', 'no-reply@email.address') }
+
+    ActionMailer::Base.default :from => ENV.fetch('MAILER_FROM', 'no-reply@email.address')
+    ActionMailer::Base.delivery_method = ENV.fetch('ACTION_MAILER_DELIVERY_METHOD', :smtp)&.to_sym
+    ActionMailer::Base.smtp_settings = smtp_setting
+
+    # Ensures that a master key has been made available in either ENV["RAILS_MASTER_KEY"]
+    # or in config/master.key. This key is used to decrypt credentials (and other encrypted files).
+    config.require_master_key = ENV.fetch('REQUIRE_MASTER_KEY', true).to_s.casecmp('true').zero?
+
+    config.eager_load = ENV.fetch('EAGER_LOAD', false).to_s.casecmp('true').zero?
+
+    config.cache_classes = ENV.fetch('CACHE_CLASSES', false).to_s.casecmp('true').zero?
+
+    config.action_view.cache_template_loading = ENV.fetch('ACTION_VIEW_CACHE_TEMPLATE_LOADING', true).to_s.casecmp('true').zero?
+
+    config.public_file_server.enabled = ENV.fetch('PUBLIC_FILE_SERVER_ENABLED', true).to_s.casecmp('true').zero?
+
+    # Disable fragment caching used in ExternalApis and OrgSelection services
+    config.cache_store = ENV.fetch('CACHE_STORE', :null_store)&.to_sym
+    config.public_file_server.headers = JSON.parse(ENV.fetch('PUBLIC_FILE_SERVER_HEADERS', {
+      'Cache-Control' => "public, max-age=#{1.year.to_i}"
+    }.to_json))
+
+    # Full error reports are disabled and caching is turned on.
+    config.consider_all_requests_local = ENV.fetch('CONSIDER_ALL_REQUESTS_LOCAL', false).to_s.casecmp('true').zero?
+
+    # Enable/disable caching. By default caching is disabled.
+    # Run rails dev:cache to toggle caching.
+    if Rails.root.join('tmp', 'caching-dev.txt').exist?
+      config.action_controller.perform_caching = ENV.fetch('ACTION_CONTROLLER_PERFORM_CACHING', true).to_s.casecmp('true').zero?
+      config.action_controller.enable_fragment_cache_logging = ENV.fetch('ACTION_CONTROLLER_ENABLE_FRAGMENT_CACHE_LOGGING', true).to_s.casecmp('true').zero?
+    else
+      config.action_controller.perform_caching = ENV.fetch('ACTION_CONTROLLER_PERFORM_CACHING', false).to_s.casecmp('true').zero?
+    end
+
+    # Raise exceptions instead of rendering exception templates.
+    config.action_dispatch.show_exceptions = ENV.fetch('ACTION_DISPATCH_SHOW_EXCEPTIONS', false) .to_s.casecmp('true').zero?
+
+    config.action_controller.allow_forgery_protection = ENV.fetch('ACTION_CONTROLLER_ALLOW_FORGERY_PROTECTION', false) .to_s.casecmp('true').zero?
+
+    # Store uploaded files on the local file system (see config/storage.yml for options)
+    config.active_storage.service = ENV.fetch('ACTIVE_STORAGE_SERVICE', :local)&.to_sym
+
+    config.action_mailer.perform_caching = ENV.fetch('ACTION_MAILER_PERFORM_CACHING', false).to_s.casecmp('true').zero?
+
+    config.action_mailer.delivery_method = ENV.fetch('ACTION_MAILER_DELIVERY_METHOD', :smtp)&.to_sym
+
+    # Send deprecation notices to registered listeners.
+    config.active_support.deprecation = ENV.fetch('ACTIVE_SUPPORT_DEPRECATION', :notify)&.to_sym
+
+    # Log disallowed deprecations.
+    config.active_support.disallowed_deprecation = ENV.fetch('ACTIVE_SUPPORT_DISALLOWED_DEPRECATION', :log)&.to_sym
+
+    # Tell Active Support which deprecation messages to disallow.
+    config.active_support.disallowed_deprecation_warnings = JSON.parse(ENV.fetch('ACTIVE_SUPPORT_DISALLOWED_DEPRECATION_WARNINGS', [].to_json))
+
+    # Do not fallback to assets pipeline if a precompiled asset is missed.
+    config.assets.compile = ENV.fetch('ASSETS_COMPILE', false).to_s.casecmp('true').zero?
+
+    # Use the lowest log level to ensure availability of diagnostic information
+    # when problems arise.
+    config.log_level = ENV.fetch('RAILS_LOG_LEVEL', :info)&.to_sym
+
+    # Prepend all log lines with the following tags.
+    config.log_tags = [ENV.fetch('LOG_TAGS', :request_id)&.to_sym]
+
+    # Enable locale fallbacks for I18n (makes lookups for any locale fall back to
+    # the I18n.default_locale when a translation cannot be found).
+    config.i18n.fallbacks = ENV.fetch('I18N_FALLBACKS', true).to_s.casecmp('true').zero?
+    config.i18n.enforce_available_locales = ENV.fetch('I18N_ENFORCE_AVAILABLE_LOCALES', true).to_s.casecmp('true').zero?
+
+    # Do not dump schema after migrations.
+    config.active_record.dump_schema_after_migration = ENV.fetch('ACTIVE_RECORD_DUMP_SCHEMA_AFTER_MIGRATION', false).to_s.casecmp('true').zero?
+
+    # Ignore bad email addresses and do not raise email delivery errors.
+    # Set this to true and configure the email server for immediate delivery to raise delivery errors.
+    config.action_mailer.raise_delivery_errors = ENV.fetch('ACTION_MAILER_RAISE_DELIVERY_ERRORS', true).to_s.casecmp('true').zero?
+
+    # Mount Action Cable outside main process or domain
+    config.action_cable.url = "wss://#{ENV.fetch('DMPROADMAP_HOST', 'dmpopidor')}/cable"
+    config.action_cable.allowed_request_origins = [ ENV.fetch('DMPROADMAP_HOST', 'dmpopidor') ]
+
+    # Use default logging formatter so that PID and timestamp are not suppressed.
+    config.log_formatter = Logger::Formatter.new
+
+    if ENV['RAILS_LOG_TO_STDOUT'].present?
+      logger           = ActiveSupport::Logger.new($stdout, shift_age = 'daily')
+      logger.formatter = config.log_formatter
+      config.logger    = ActiveSupport::TaggedLogging.new(logger)
+    end
+
+    # Error notifications by email
+    if ENV['ERROR_NOTIFICATION_EMAIL'].present?
+      config.middleware.use ExceptionNotification::Rack, :email => {
+        :email_prefix => ENV.fetch('ERROR_NOTIFICATION_EMAIL_PREFIX', '[DMPOPIDoR ERROR]'),
+        :sender_address => ENV.fetch('ERROR_NOTIFICATION_SENDER_ADDRESS', %{"No-reply" <noreply@example.com>}),
+        :exception_recipients => ENV.fetch('ERROR_NOTIFICATION_EXCEPTION_RECIPIENTS', %w{exception-recipients@email.address})
+      }
+    end
+
+    # Rails 6+ adds middleware to prevent DNS rebinding attacks:
+    #    https://guides.rubyonrails.org/configuring.html#actiondispatch-hostauthorization
+    #
+    # This allows us to define the hostname and add it to the whitelist. If you attempt
+    # to access the site and receive a 'Blocked host' error then you will need to
+    # set this environment variable
+    config.hosts << ENV.fetch('DMPROADMAP_HOST', 'dmpopidor')
   end
 end
+
+# Used by Rails' routes url_helpers (typically when including a link in an email)
+Rails.application.routes.default_url_options[:host] = ENV.fetch('DMPROADMAP_HOST', 'dmpopidor')
