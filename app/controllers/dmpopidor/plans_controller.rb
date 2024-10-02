@@ -370,6 +370,16 @@ module Dmpopidor
       # rubocop:disable Metrics/BlockLength
       ::Plan.transaction do
         @plan.template = ::Template.find(import_params[:template_id])
+
+        # pre-select org's guidance and the default org's guidance
+        ids = (::Org.default_orgs.pluck(:id) << current_user.org_id).flatten.uniq
+
+        language = Language.find_by(abbreviation: @plan.template.locale)
+
+        ggs = ::GuidanceGroup.where(org_id: ids, optional_subset: false, published: true, language_id: language.id)
+
+        @plan.guidance_groups << ggs unless ggs.empty?
+
         I18n.with_locale @plan.template.locale do
           respond_to do |format|
             json_file = import_params[:json_file]

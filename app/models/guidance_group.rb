@@ -131,7 +131,8 @@ class GuidanceGroup < ApplicationRecord
     GuidanceGroup.create!(
       name: org.abbreviation? ? org.abbreviation : org.name,
       org: org,
-      optional_subset: false
+      optional_subset: false,
+      language_id: 1,
     )
   end
 
