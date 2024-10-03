@@ -64,6 +64,7 @@ lib/data_cleanup/rules/org/fix_blank_abbreviation.yml
 .env.sample
 package-lock.json
 node_modules
+/public/files
 /public/packs
 /public/packs-test
 /public/tinymce
