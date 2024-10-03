@@ -2,6 +2,13 @@
 
 **Attention** Cette liste de changements concerne les déploiements sur nos serveurs de test en interne.
 
+## 03/10/2024
+
+- Correction du problème de la recherche RoR
+- Correction du problème de sélection d'une valeur dans la recherche Metadore (KB #10078)
+- Correction du bug d'affichage des commentaires dans les plans en lecture seule (KB #11901)
+- Mise à jour des traductions
+
 ## 26/09/2024
 
 - Suppression des recommandations qui ne sont pas basées sur la langue du plan
