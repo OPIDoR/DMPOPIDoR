@@ -2,6 +2,11 @@
 
 **Attention** Cette liste de changements concerne les déploiements sur nos serveurs de test en interne.
 
+## 08/10/2024
+
+- Correction du problème d'affichage des valeurs par défaut lors du choix d'un formulaire
+- Correction du problème d'affichage de la modale de choix des formulaires (KB #11873)
+
 ## 03/10/2024
 
 - Correction du problème de la recherche RoR
