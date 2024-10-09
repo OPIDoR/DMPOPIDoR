@@ -146,10 +146,7 @@ module Dmpopidor
           title: title,
           order: display_order,
           type: ro_fragment.research_output_description['data']['type'] || nil,
-          configuration: {
-            **ro_fragment.additional_info,
-            hasPersonalData: ro_fragment.research_output_description['data']['containsPersonalData'] == _('Yes'),
-          },
+          configuration: ro_fragment.additional_info,
           answers: answers.map do |a|
             {
               answer_id: a.id,
