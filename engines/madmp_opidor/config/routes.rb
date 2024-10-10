@@ -2,10 +2,6 @@
 
 # rubocop:disable Metrics/BlockLength
 Rails.application.routes.draw do
-  if Rails.env.development?
-    mount GraphiQL::Rails::Engine, at: "/graphiql", graphql_path: "/api/graphql"
-  end
-
   namespace :super_admin do
     resources :registries do
       post 'sort_values', on: :collection
@@ -42,6 +38,8 @@ Rails.application.routes.draw do
   resources :templates, only: %i[show], constraints: { format: [:json] } do 
     post 'set_recommended', action: :set_recommended
   end
+
+  mount GraphiQL::Rails::Engine, at: "/api/graphiql", graphql_path: "/api/graphql"
 
   namespace :api, defaults: { format: :json } do
     post '/graphql', to: 'graphql#execute'
