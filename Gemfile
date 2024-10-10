@@ -378,4 +378,7 @@ group :build do
   gem 'activerecord-nulldb-adapter'
 end
 
+gem "graphql", "~> 2.3"
+gem "graphiql-rails", "~> 1.10"
+
 gem "foreman", "~> 0.88.1"
