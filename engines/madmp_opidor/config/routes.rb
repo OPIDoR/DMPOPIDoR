@@ -39,7 +39,9 @@ Rails.application.routes.draw do
     post 'set_recommended', action: :set_recommended
   end
 
-  mount GraphiQL::Rails::Engine, at: "/api/graphiql", graphql_path: "/api/graphql"
+  if Rails.env.development? || ENF.fetch('ENABLE_GRAPHIQL', false).to_s.casecmp('true').zero?
+    mount GraphiQL::Rails::Engine, at: '/api/graphiql', graphql_path: '/api/graphql'
+  end
 
   namespace :api, defaults: { format: :json } do
     post '/graphql', to: 'graphql#execute'
