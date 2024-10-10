@@ -247,6 +247,10 @@ GEM
       rchardet (~> 1.8)
     globalid (1.2.1)
       activesupport (>= 6.1)
+    graphiql-rails (1.10.0)
+      railties
+    graphql (2.3.10)
+      base64
     guard (2.18.1)
       formatador (>= 0.2.4)
       listen (>= 2.7, < 4.0)
@@ -656,6 +660,8 @@ DEPENDENCIES
   flag_shih_tzu
   foreman (~> 0.88.1)
   fuubar
+  graphiql-rails (~> 1.10)
+  graphql (~> 2.3)
   guard
   htmltoword
   httparty

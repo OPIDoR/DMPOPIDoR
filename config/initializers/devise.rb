@@ -12,7 +12,7 @@ Devise.setup do |config|
   # Configure the e-mail address which will be shown in Devise::Mailer,
   # note that it will be overwritten if you use your own mailer class with
   # default "from" parameter.
-  config.mailer_sender = ENV.fetch('MAILER_SENDER', 'dmp.opidor@inist.fr')
+  config.mailer_sender = ENV.fetch('MAILER_FROM', 'no-reply@email.address')
 
   # Configure the class responsible to send e-mails.
   # config.mailer = "Devise::Mailer"
@@ -164,7 +164,7 @@ Devise.setup do |config|
 
   # ==> Configuration for :validatable
   # Range for password length. Default is 8..128.
-  config.password_length = 8..128
+  config.password_length = (ENV['PASSWORD_LENGTH'] || '8..128').split('..').map(&:to_i).then { |min, max| min..max }
 
   # Email regex used to validate email formats. It simply asserts that
   # one (and only one) @ exists in the given string. This is mainly
@@ -173,8 +173,8 @@ Devise.setup do |config|
 
   # ==> Configuration for :timeoutable
   # The time you want to timeout the user session without activity. After this
-  # time the user will be asked for credentials again. Default is 30 minutes.
-  config.timeout_in = 3.hours
+  # time the user will be asked for credentials again. Default is 3 hours.
+  config.timeout_in = ENV.fetch('TIMEOUT_IN', 3.hours).to_i
 
   # If true, expires auth token on session timeout.
   # config.expire_auth_token_on_timeout = false
@@ -210,7 +210,7 @@ Devise.setup do |config|
   # Time interval you can reset your password with a reset password key.
   # Don't put a too small interval or your users won't have the time to
   # change their passwords.
-  config.reset_password_within = 6.hours
+  config.reset_password_within = ENV.fetch('RESET_PASSWORD_WITHIN', 6.hours).to_i
 
   # ==> Configuration for :encryptable
   # Allow you to use another encryption algorithm besides bcrypt (default). You can use
@@ -261,7 +261,7 @@ Devise.setup do |config|
 
   # Any entries here MUST match a corresponding entry in the identifier_schemes table as
   # well as an identifier_schemes.schemes section in each locale file!
-  OmniAuth.config.full_host = ENV.fetch('DEVISE_FULL_HOST', 'https://my_service.hostname')
+  OmniAuth.config.full_host = ENV.fetch('DMPROADMAP_HOST', 'https://my_service.hostname')
   OmniAuth.config.allowed_request_methods = [ENV.fetch('DEVISE_ALLOWED_REQUEST_METHODS', :post)&.to_sym]
 
   config.omniauth :orcid, ENV.fetch('DEVISE_ORCID_CLIENT_ID', 'client_id'), ENV.fetch('DEVISE_ORCID_CLIENT_SECRET', 'client_secret'), { sandbox: true, 'scope': '/authenticate' }

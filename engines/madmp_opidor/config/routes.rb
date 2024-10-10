@@ -39,7 +39,13 @@ Rails.application.routes.draw do
     post 'set_recommended', action: :set_recommended
   end
 
+  if Rails.env.development? || ENF.fetch('ENABLE_GRAPHIQL', false).to_s.casecmp('true').zero?
+    mount GraphiQL::Rails::Engine, at: '/api/graphiql', graphql_path: '/api/graphql'
+  end
+
   namespace :api, defaults: { format: :json } do
+    post '/graphql', to: 'graphql#execute'
+
     namespace :v0 do
       namespace :madmp do
         get 'dmp_fragments/:id', controller: "madmp_fragments", action: 'dmp_fragments'
