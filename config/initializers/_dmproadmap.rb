@@ -137,11 +137,11 @@ module DMPRoadmap
     }.to_json))
 
     # Setting to only take orgs from local and not allow on-the-fly creation
-    config.x.application.restrict_orgs = ENV.fetch('APPLICATION_RESTRICT_ORGS', true) .to_s.casecmp('true').zero?
+    config.x.application.restrict_orgs = ENV.fetch('APPLICATION_RESTRICT_ORGS', true).to_s.casecmp('true').zero?
 
     # Defines if Guidances/Comments in toggleable & if it's opened by default
-    config.x.application.guidance_comments_toggleable = ENV.fetch('APPLICATION_GUIDANCE_COMMENTS_TOGGLEABLE', true) .to_s.casecmp('true').zero?
-    config.x.application.guidance_comments_opened_by_default = ENV.fetch('APPLICATION_GUIDANCE_COMMENTS_OPENED_BY_DEFAULT', false) .to_s.casecmp('true').zero?
+    config.x.application.guidance_comments_toggleable = ENV.fetch('APPLICATION_GUIDANCE_COMMENTS_TOGGLEABLE', true).to_s.casecmp('true').zero?
+    config.x.application.guidance_comments_opened_by_default = ENV.fetch('APPLICATION_GUIDANCE_COMMENTS_OPENED_BY_DEFAULT', false).to_s.casecmp('true').zero?
 
     # ------------------- #
     # SHIBBOLETH SETTINGS #
