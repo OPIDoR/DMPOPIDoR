@@ -2,6 +2,11 @@
 
 **Attention** Cette liste de changements concerne les déploiements sur nos serveurs de test en interne.
 
+## 10/10/2024
+
+- Ajout de la date de publication et du type de données DataCite
+- Modification des traduction d'import des données DataCite
+
 ## 08/10/2024
 
 - Correction du problème d'affichage des valeurs par défaut lors du choix d'un formulaire
