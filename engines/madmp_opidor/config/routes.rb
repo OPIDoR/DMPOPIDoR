@@ -39,7 +39,7 @@ Rails.application.routes.draw do
     post 'set_recommended', action: :set_recommended
   end
 
-  if Rails.env.development? || ENF.fetch('ENABLE_GRAPHIQL', false).to_s.casecmp('true').zero?
+  if Rails.env.development? || ENV.fetch('ENABLE_GRAPHIQL', false).to_s.casecmp('true').zero?
     mount GraphiQL::Rails::Engine, at: '/api/graphiql', graphql_path: '/api/graphql'
   end
 
