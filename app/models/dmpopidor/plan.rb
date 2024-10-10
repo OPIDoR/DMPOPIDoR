@@ -120,7 +120,6 @@ module Dmpopidor
           madmp_schema: MadmpSchema.find_by(name: 'MetaStandard'),
           additional_info: { property_name: 'meta' }
         )
-        meta.instantiate
 
         dmp_coordinator.update(parent_id: meta.id)
       end
@@ -154,7 +153,6 @@ module Dmpopidor
         madmp_schema: project_schema,
         additional_info: { property_name: 'project' }
       )
-      project.instantiate
       project_coordinator.update(parent_id: project.id)
     end
     # rubocop:enable Metrics/MethodLength
@@ -171,7 +169,6 @@ module Dmpopidor
         madmp_schema: entity_schema,
         additional_info: { property_name: 'researchEntity' }
       )
-      entity.instantiate
     end
 
     # rubocop:disable Metrics/AbcSize

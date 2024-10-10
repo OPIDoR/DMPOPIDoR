@@ -22,10 +22,6 @@ class MadmpFragmentPolicy < ApplicationPolicy
     @record.plan.editable_by?(@user.id) || @user == @record.plan.owner
   end
 
-  def change_form?
-    @record.plan.editable_by?(@user.id) || @user == @record.plan.owner
-  end
-
   def load_fragments?
     @record.plan.readable_by?(@user.id) || @user == @record.plan.owner
   end

@@ -63,12 +63,12 @@
         "fr_FR": {
             "costType": "Stockage",
             "currency": "EUR",
-            "title": "Estimation du coût de stockage auprès du Mésocentre Clermont Auvergne"
+            "title": "Estimation du coût de stockage auprès du Mésocentre Clermont-Auvergne"
         },
         "en_GB": {
             "costType": "Storage",
             "currency": "EUR",
-            "title": "Estimated storage cost at Clermont Auvergne Mesocentre"
+            "title": "Estimated storage cost at Clermont-Auvergne Mesocentre"
         }
     }
 }

@@ -2,6 +2,48 @@
 
 **Attention** Cette liste de changements concerne les déploiements sur nos serveurs de test en interne.
 
+## 10/10/2024
+
+- Ajout de la date de publication et du type de données DataCite
+- Modification des traduction d'import des données DataCite
+
+## 08/10/2024
+
+- Correction du problème d'affichage des valeurs par défaut lors du choix d'un formulaire
+- Correction du problème d'affichage de la modale de choix des formulaires (KB #11873)
+
+## 03/10/2024
+
+- Correction du problème de la recherche RoR
+- Correction du problème de sélection d'une valeur dans la recherche Metadore (KB #10078)
+- Correction du bug d'affichage des commentaires dans les plans en lecture seule (KB #11901)
+- Mise à jour des traductions
+
+## 26/09/2024
+
+- Suppression des recommandations qui ne sont pas basées sur la langue du plan
+- Amélioration du choix de formulaire personnalisé (KB #11872 #11873)
+
+## 25/09/2024
+
+- Sélection du type de produit de recherche par défaut (modal de création)
+
+## 24/09/2024
+
+- Ajout de l'import Metadore (KB #10078)
+- Correction du problème d'actualisation des champs tableaux de chaine de caractères (ex: mots clés non controllés) lors d'un changement de produit de recherche (KB #11771)
+
+## 20/09/2024
+
+- Correction du problème de sauvegarde de l'enregistrement d'une valeur sélectionnée dans un référentiel complex (Licence, Financeur) (KB #11890)
+- Correction du problème d'actualisation des champs texte lors d'un changement de produit de recherche (KB #11771)
+- Correction du problème d'affichage des recommandations liées aux questions lors de l'ouverture de la modale des recommandations. 
+- Amélioration de la fenêtre des cookies
+
+## 18/09/2024
+
+- Correction d'un problème d'affichage de la langue des recommendations dans l'espace Admin
+
 ## 13/09/2024
 
 - Correction d'un problème d'actualisation des éditeurs de texte lors d'un changement de produit de recherche  (KB #11771)
