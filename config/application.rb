@@ -87,7 +87,7 @@ module DMPRoadmap
     config.cache_store = ENV.fetch('CACHE_STORE', :null_store)&.to_sym
     config.public_file_server.headers = JSON.parse(ENV.fetch('PUBLIC_FILE_SERVER_HEADERS', {
       'Cache-Control' => "public, max-age=#{1.year.to_i}"
-    }.to_json))
+    }.to_json), symbolize_names: true)
 
     # Full error reports are disabled and caching is turned on.
     config.consider_all_requests_local = ENV.fetch('CONSIDER_ALL_REQUESTS_LOCAL', false).to_s.casecmp('true').zero?
@@ -120,7 +120,7 @@ module DMPRoadmap
     config.active_support.disallowed_deprecation = ENV.fetch('ACTIVE_SUPPORT_DISALLOWED_DEPRECATION', :log)&.to_sym
 
     # Tell Active Support which deprecation messages to disallow.
-    config.active_support.disallowed_deprecation_warnings = JSON.parse(ENV.fetch('ACTIVE_SUPPORT_DISALLOWED_DEPRECATION_WARNINGS', [].to_json))
+    config.active_support.disallowed_deprecation_warnings = JSON.parse(ENV.fetch('ACTIVE_SUPPORT_DISALLOWED_DEPRECATION_WARNINGS', [].to_json), symbolize_names: true)
 
     # Do not fallback to assets pipeline if a precompiled asset is missed.
     config.assets.compile = ENV.fetch('ASSETS_COMPILE', false).to_s.casecmp('true').zero?
