@@ -8,6 +8,9 @@
 - Modification des traduction d'import des données DataCite
 - Correction du problème d'affichage des formulaires en mode lecture seule
 - Ajout de l'icône et URL canal-u en bas de page
+- Correction d'un problème de lecture de la configuration provoquant le plantage du profil utilisateur.
+- Correction d'un problème d'affichage de l'adresse dans la page de Contact
+- Ajout de l'API GraphQL permettant l'interrogation des plans
 
 ## 08/10/2024
 
