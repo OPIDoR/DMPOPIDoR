@@ -110,7 +110,6 @@ Rails.application.configure do
     IPAddr.new('0.0.0.0/0'), # All IPv4 addresses.
     IPAddr.new('::/0'), # All IPv6 addresses.
     'localhost', # The localhost reserved domain.
-    'p-wilmouth.ads.intra.inist.fr',
     ENV.fetch('DMPROADMAP_HOST', 'dmpopidor') # Additional comma-separated hosts for development.
   ]
 end
