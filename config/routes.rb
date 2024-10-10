@@ -5,10 +5,7 @@ Rails.application.routes.draw do
   mount ActionCable.server => ENV.fetch('ACTON_CABLE_SERVER', '/cable')
   mount Rswag::Ui::Engine => ENV.fetch('RSWAG_UI', '/api-docs')
   mount Rswag::Api::Engine => ENV.fetch('RSWAG_API', '/api-docs')
-  if Rails.env.development?
-    mount GraphiQL::Rails::Engine, at: "/graphiql", graphql_path: "/graphql"
-  end
-  post "/graphql", to: "graphql#execute"
+
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
 
   devise_for(:users, controllers: {

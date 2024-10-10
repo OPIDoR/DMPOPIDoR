@@ -2,6 +2,10 @@
 
 # rubocop:disable Metrics/BlockLength
 Rails.application.routes.draw do
+  if Rails.env.development?
+    mount GraphiQL::Rails::Engine, at: "/graphiql", graphql_path: "/api/graphql"
+  end
+
   namespace :super_admin do
     resources :registries do
       post 'sort_values', on: :collection
@@ -40,6 +44,8 @@ Rails.application.routes.draw do
   end
 
   namespace :api, defaults: { format: :json } do
+    post '/graphql', to: 'graphql#execute'
+
     namespace :v0 do
       namespace :madmp do
         get 'dmp_fragments/:id', controller: "madmp_fragments", action: 'dmp_fragments'

@@ -9,6 +9,13 @@ module Resolvers
     #   fragments
     # }
 
+
+    # plans(filter: { fieldName: "": value: "" }) {
+    #   id
+    #   title
+    #   fragments
+    # }
+
     def resolve(filter: nil)
       plans = Plan.all
 
@@ -36,7 +43,7 @@ module Resolvers
       grant_ids = [grant_ids] unless grant_ids.is_a?(Array)
       grant_ids = grant_ids.compact.uniq
 
-      MadmpFragment.where("data->>'type' IN (?)", grant_ids).map do |fragment|
+      MadmpFragment.where("data->>'grantId' IN (?)", grant_ids).map do |fragment|
         {
           id: fragment.plan.id,
           title: fragment.plan.title,
