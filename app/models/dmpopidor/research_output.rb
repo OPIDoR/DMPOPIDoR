@@ -149,7 +149,7 @@ module Dmpopidor
           configuration: ro_fragment.additional_info,
           answers: answers.map do |a|
             {
-              answer_id: a.id,
+              id: a.id,
               question_id: a.question_id,
               fragment_id: a.madmp_fragment.id,
               madmp_schema_id: a.madmp_fragment.madmp_schema_id
