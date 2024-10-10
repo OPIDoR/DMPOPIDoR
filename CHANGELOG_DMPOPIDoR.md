@@ -7,6 +7,7 @@
 - Ajout de la date de publication et du type de données DataCite
 - Modification des traduction d'import des données DataCite
 - Correction du problème d'affichage des formulaires en mode lecture seule
+- Ajout de l'icône et URL canal-u en bas de page
 
 ## 08/10/2024
 
