@@ -48,7 +48,7 @@ module DMPRoadmap
       line_3: '54519 Vandoeuvre-lès-Nancy',
       # line_4: "Polar Vortex, ABC-345",
       country: 'FRANCE'
-    }.to_json))
+    }.to_json), symbolize_names: true)
     # rubocop:enable Naming/VariableNumber
 
     # The Google maps link to your organisation's location - used to display the
@@ -97,7 +97,7 @@ module DMPRoadmap
     config.x.application.api_documentation_urls = JSON.parse(ENV.fetch('APPLICATION_API_DOCUMENTATIONS_URLS', {
       v0: 'https://github.com/DMPRoadmap/roadmap/wiki/API-V0-Documentation',
       v1: 'https://github.com/OPIDoR/DMPOPIDoR/wiki/API-DMP-OPIDoR'
-    }.to_json))
+    }.to_json), symbolize_names: true)
     # The links that appear on the home page. Add any number of links
     # config.x.application.welcome_links = [
     #   {
@@ -134,7 +134,7 @@ module DMPRoadmap
           feedback_requested: true
         }
       }
-    }.to_json))
+    }.to_json), symbolize_names: true)
 
     # Setting to only take orgs from local and not allow on-the-fly creation
     config.x.application.restrict_orgs = ENV.fetch('APPLICATION_RESTRICT_ORGS', true).to_s.casecmp('true').zero?
@@ -272,7 +272,7 @@ module DMPRoadmap
       'CC-BY-ND-%{latest}',
       'CC-BY-NC-ND-%{latest}',
       'CC0-%{latest}'
-    ].to_json))
+    ].to_json), symbolize_names: true)
     # Link to external guidance about selecting one of the preferred licenses. A default
     # URL will be displayed if none is provided here. See app/views/research_outputs/licenses/_form
     config.x.madmp.preferred_licenses_guidance_url = ENV.fetch('MADMP_PREFERRED_LICENSES_GUIDANCE_URL', 'https://creativecommons.org/about/cclicenses/')

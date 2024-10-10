@@ -7,7 +7,7 @@ ContactUs.setup do |config|
   # If emails must be sent from a verified email address you may set it here.
   # Example:
   # config.mailer_from = "contact@please-change-me.com"
-  config.mailer_from = ENV.fetch('MAILER_FROM', 'example@email.address')
+  config.mailer_from = ENV.fetch('MAILER_FROM', 'no-reply@email.address')
 
   # Configure the e-mail address which should receive the contact form email notifications.
   config.mailer_to = ENV.fetch('MAILER_TO', 'example@email.address')
