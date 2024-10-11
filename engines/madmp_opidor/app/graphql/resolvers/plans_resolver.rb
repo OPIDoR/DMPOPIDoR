@@ -3,19 +3,6 @@ module Resolvers
     type [Types::PlanType], null: true
     argument :filter, Types::PlanFilterInputType, required: false
 
-    # plans(filter: { grantId: ["XXXX", "YYYY"] }) {
-    #   id
-    #   title
-    #   fragments
-    # }
-
-
-    # plans(filter: { fieldName: "": value: "" }) {
-    #   id
-    #   title
-    #   fragments
-    # }
-
     def resolve(filter: nil)
       plans = Plan.all
 
@@ -25,8 +12,9 @@ module Resolvers
     end
 
     def apply_filters(plans, filter)
-      plans = plans.where(id: filter.id) if filter.id.present?
-      plans = plans.where(title: filter.title) if filter.title.present?
+      if filter.id.present?
+        plans = filter_by_id(plans, filter.id)
+      end
 
       if filter.grantId.present?
         plans = filter_by_grant_id(plans, filter.grantId)
@@ -39,17 +27,39 @@ module Resolvers
       plans
     end
 
-    def filter_by_grant_id(plans, grant_ids)
-      grant_ids = [grant_ids] unless grant_ids.is_a?(Array)
-      grant_ids = grant_ids.compact.uniq
+    private
 
-      MadmpFragment.where("data->>'grantId' IN (?)", grant_ids).map do |fragment|
+    def filter_by_id(plans, id)
+      plans.where(id: id).map do |plan|
         {
-          id: fragment.plan.id,
-          title: fragment.plan.title,
-          fragments: fragment.plan.json_fragment.get_full_fragment
+          id: plan.id,
+          title: plan.title,
+          fragments: plan.json_fragment.get_full_fragment
         }
       end
+    end
+
+    def filter_by_grant_id(plans, grant_ids)
+      if grant_ids.is_a?(Hash) && grant_ids["regex"].present?
+        regex = grant_ids["regex"].gsub(/\A\/|\/\z/, '')
+        plans = MadmpFragment.where("data->>'grantId' ~* ?", regex).map do |fragment|
+          {
+            id: fragment.plan.id,
+            title: fragment.plan.title,
+            fragments: fragment.plan.json_fragment.get_full_fragment
+          }
+        end
+      elsif grant_ids.is_a?(Array)
+        grant_ids = grant_ids.compact.uniq
+        plans = MadmpFragment.where("data->>'grantId' IN (?)", grant_ids).map do |fragment|
+          {
+            id: fragment.plan.id,
+            title: fragment.plan.title,
+            fragments: fragment.plan.json_fragment.get_full_fragment
+          }
+        end
+      end
+      plans
     end
 
     def filter_by_fieldName(plans, field_name, value)
