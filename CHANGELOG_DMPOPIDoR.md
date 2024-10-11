@@ -2,6 +2,13 @@
 
 **Attention** Cette liste de changements concerne les déploiements sur nos serveurs de test en interne.
 
+## 11/10/2024
+
+- Mise à jour du message de la fenetre de changement de formulaires (KB #11997)
+- Correction du problème d'affichage du DOI dans l'import Metadore
+- Correction du problème de mise à jour du role des contributeurs (KB #12000)
+- Correction du problème de suppression & mise à jour des listes de sous fragment.
+
 ## 10/10/2024
 
 - Ajout de la date de publication et du type de données DataCite
