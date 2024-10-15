@@ -20,19 +20,19 @@ if defined?(Rollbar)
     # By default, Rollbar will try to call the `current_user` controller method
     # to fetch the logged-in user object, and then call that object's `id`
     # method to fetch this property. To customize:
-    config.person_method = 'current_user'
-    config.person_id_method = 'id'
+    config.person_method = ENV.fetch('ROLLBAR_PERSON_METHOD', 'current_user')
+    config.person_id_method = ENV.fetch('ROLLBAR_PERSON_ID_METHOD', 'id')
 
     # Read GDPR guidelines here: https://docs.rollbar.com/docs/ruby#section-gdpr-hipaa
-    config.collect_user_ip = true
-    config.anonymize_user_ip = true
+    config.collect_user_ip = ENV.fetch('ROLLBAR_COLLECT_USER_IP', true).to_s.casecmp('true').zero?
+    config.anonymize_user_ip = ENV.fetch('ROLLBAR_ANONYMIZE_USER_IP', true).to_s.casecmp('true').zero?
 
     # Additionally, you may specify the following:
     # config.person_username_method = "name"
     # config.person_email_method = "email"
 
     # Additionally, you may specify the following:
-    config.person_username_method = 'name'
+    config.person_username_method = ENV.fetch('ROLLBAR_PERSON_USERNALE_METHOD', 'name')
     # config.person_email_method = "email"
 
     # If you want to attach custom data to all exception and message reports,

@@ -120,11 +120,11 @@
             },
             "description": "Personne(s) responsable(s) du suivi du stockage des données",
             "label@fr_FR": "Personnes impliquées dans le stockage des données",
-            "label@en_GB": "Persons in charge of storage",
+            "label@en_GB": "Persons in charge of data storage",
             "tooltip@fr_FR": "Le responsable peut être une personne, une équipe, un service",
             "tooltip@en_GB": "Person in charge can be a person, a team, a department",
             "form_label@fr_FR": "Personnes impliquées dans le stockage des données",
-            "form_label@en_GB": "Persons in charge of storage"
+            "form_label@en_GB": "Persons in charge of data storage"
         },
         "cost": {
             "type": "array",

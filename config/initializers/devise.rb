@@ -1,16 +1,18 @@
 # frozen_string_literal: true
 
+require 'json'
+
 # Use this hook to configure devise mailer, warden hooks and so forth.
 # Many of these configuration options can be set straight in your model.
 # rubocop:disable Metrics/BlockLength
 Devise.setup do |config|
-  config.secret_key = Rails.application.credentials.secret_key
+  config.secret_key = ENV.fetch('DEVISE_SECRET_KEY', Rails.application.credentials.secret_key)
 
   # ==> Mailer Configuration
   # Configure the e-mail address which will be shown in Devise::Mailer,
   # note that it will be overwritten if you use your own mailer class with
   # default "from" parameter.
-  config.mailer_sender = 'dmp.opidor@inist.fr'
+  config.mailer_sender = ENV.fetch('MAILER_FROM', 'no-reply@email.address')
 
   # Configure the class responsible to send e-mails.
   # config.mailer = "Devise::Mailer"
@@ -41,12 +43,12 @@ Devise.setup do |config|
   # Configure which authentication keys should be case-insensitive.
   # These keys will be downcased upon creating or modifying a user and when used
   # to authenticate or find a user. Default is :email.
-  config.case_insensitive_keys = [:email]
+  config.case_insensitive_keys = [ENV.fetch('DEVISE_CASE_INSENSITIVE_KEYS', :email)&.to_sym]
 
   # Configure which authentication keys should have whitespace stripped.
   # These keys will have whitespace before and after removed upon creating or
   # modifying a user and when used to authenticate or find a user. Default is :email.
-  config.strip_whitespace_keys = [:email]
+  config.strip_whitespace_keys = [ENV.fetch('DEVISE_STRIP_WITHESPACE_KEYS', :email)&.to_sym]
 
   # Tell if authentication through request.params is enabled. True by default.
   # It can be set to an array that will enable params authentication only for the
@@ -65,7 +67,7 @@ Devise.setup do |config|
   # config.http_authenticatable = false
 
   # If http headers should be returned for AJAX requests. True by default.
-  config.http_authenticatable_on_xhr = false
+  config.http_authenticatable_on_xhr = ENV.fetch('HTTP_AUTHENTICATABLE_ON_XHR', false).to_s.casecmp('true').zero?
 
   # The realm used in Http Basic Authentication. "Application" by default.
   # config.http_authentication_realm = "Application"
@@ -80,7 +82,7 @@ Devise.setup do |config|
   # Notice that if you are skipping storage for all authentication paths, you
   # may want to disable generating routes to Devise's sessions controller by
   # passing :skip => :sessions to `devise_for` in your config/routes.rb
-  config.skip_session_storage = [:http_auth]
+  config.skip_session_storage = [ENV.fetch('DEVISE_SKIP_SESSION_STORAGE', :http_auth)&.to_sym]
 
   # ==> Configuration for :database_authenticatable
   # For bcrypt, this is the cost for hashing the password and defaults to 10. If
@@ -97,7 +99,7 @@ Devise.setup do |config|
   # export RAILS_MASTER_KEY=xxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
   # and then editing the credentials file with
   # EDITOR=your_fave_editor rails credentials:edit
-  config.pepper = Rails.application.credentials.devise_pepper
+  config.pepper = ENV.fetch('DEVISE_PEPPER', Rails.application.credentials.devise_pepper)
 
   # ==> Configuration for :invitable
   # The period the generated invitation token is valid, after
@@ -144,7 +146,7 @@ Devise.setup do |config|
   # initial account confirmation) to be applied. Requires additional unconfirmed_email
   # db field (see migrations). Until confirmed new email is stored in
   # unconfirmed email column, and copied to email column on successful confirmation.
-  config.reconfirmable = false
+  config.reconfirmable = ENV.fetch('RENCONFIRMABLE', false) == 'false'
 
   # Defines which key will be used when confirming an account
   # config.confirmation_keys = [ :email ]
@@ -162,7 +164,7 @@ Devise.setup do |config|
 
   # ==> Configuration for :validatable
   # Range for password length. Default is 8..128.
-  config.password_length = 8..128
+  config.password_length = (ENV['PASSWORD_LENGTH'] || '8..128').split('..').map(&:to_i).then { |min, max| min..max }
 
   # Email regex used to validate email formats. It simply asserts that
   # one (and only one) @ exists in the given string. This is mainly
@@ -171,8 +173,8 @@ Devise.setup do |config|
 
   # ==> Configuration for :timeoutable
   # The time you want to timeout the user session without activity. After this
-  # time the user will be asked for credentials again. Default is 30 minutes.
-  config.timeout_in = 3.hours
+  # time the user will be asked for credentials again. Default is 3 hours.
+  config.timeout_in = ENV.fetch('TIMEOUT_IN', 3.hours).to_i
 
   # If true, expires auth token on session timeout.
   # config.expire_auth_token_on_timeout = false
@@ -208,7 +210,7 @@ Devise.setup do |config|
   # Time interval you can reset your password with a reset password key.
   # Don't put a too small interval or your users won't have the time to
   # change their passwords.
-  config.reset_password_within = 6.hours
+  config.reset_password_within = ENV.fetch('RESET_PASSWORD_WITHIN', 6.hours).to_i
 
   # ==> Configuration for :encryptable
   # Allow you to use another encryption algorithm besides bcrypt (default). You can use
@@ -250,7 +252,7 @@ Devise.setup do |config|
   config.navigational_formats = ['*/*', :html, :js]
 
   # The default HTTP method used to sign out a resource. Default is :delete.
-  config.sign_out_via = :delete
+  config.sign_out_via = ENV.fetch('DEVISE_SIGN_OUT_VIA', :delete)&.to_sym
 
   # ==> OmniAuth
   # Add a new OmniAuth provider. Check the wiki for more information on setting
@@ -259,27 +261,30 @@ Devise.setup do |config|
 
   # Any entries here MUST match a corresponding entry in the identifier_schemes table as
   # well as an identifier_schemes.schemes section in each locale file!
-  OmniAuth.config.full_host = 'https://my_service.hostname'
-  OmniAuth.config.allowed_request_methods = [:post]
+  OmniAuth.config.full_host = ENV.fetch('DMPROADMAP_HOST', 'https://my_service.hostname')
+  OmniAuth.config.allowed_request_methods = [ENV.fetch('DEVISE_ALLOWED_REQUEST_METHODS', :post)&.to_sym]
 
-  config.omniauth :orcid,
-                  'client_id', 'client_secret',
-                  {
-                    # member: false,
-                  }
+  config.omniauth :orcid, ENV.fetch('DEVISE_ORCID_CLIENT_ID', 'client_id'), ENV.fetch('DEVISE_ORCID_CLIENT_SECRET', 'client_secret'), { sandbox: true, 'scope': '/authenticate' }
 
-  config.omniauth :shibboleth,
-                  {
-                    # debug: true,
-                    # uid_field:                 "HTTP_REMOTE_USER",
-                    # shib_application_id_field: "HTTP_SHIB_APPLICATION_ID",
-                    # shib_session_id_field:     "HTTP_SHIB_SESSION_ID",
-                    fields: [],
-                    info_fields: {
-                      # affiliation: "HTTP_AFFILIATION",
-                    },
-                    extra_fields: []
-                  }
+  shibboleth_request_type = ENV.fetch('DEVISE_SHIBBOLETH_REQUEST_TYPE', :header).to_sym
+  shibboleth_config = ENV['EVISE_SHIBBOLETH_CONFIG']&.present? ? JSON.parse(ENV['EVISE_SHIBBOLETH_CONFIG'], { symbolize_names: true }) : {
+    info_fields: {
+      uid: "uid",
+      eppn: "eppn",
+      email: "mail",
+      name: "displayName",
+      last_name: "sn",
+      first_name: "givenName",
+      identity_provider: "shib_identity_provider"
+    },
+    debug: false
+  }
+  shibboleth_extra_fields = JSON.parse(ENV.fetch('DEVISE_SHIBBOLETH_EXTRA_FIELDS', [:schacHomeOrganization]&.to_json)).map(&:to_sym)
+  config.omniauth :shibboleth, {
+    request_type: shibboleth_request_type,
+    **shibboleth_config,
+    extra_fields: shibboleth_extra_fields
+  }
 
   # ==> Warden configuration
   # If you want to use other strategies, that are not supported by Devise, or
@@ -302,7 +307,7 @@ Devise.setup do |config|
   #
   # When using omniauth, Devise cannot automatically set Omniauth path,
   # so you need to do it manually. For the users scope, it would be:
-  config.omniauth_path_prefix = '/users/auth'
+  config.omniauth_path_prefix = ENV.fetch('DEVISE_OMNIAUTH_PATH_PREFIX', '/users/auth')
 
   config.warden do |manager|
     manager.failure_app = CustomFailure

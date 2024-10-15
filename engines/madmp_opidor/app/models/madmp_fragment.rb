@@ -90,6 +90,15 @@ class MadmpFragment < ApplicationRecord
   
   # = Software specific classes =
   scope :software_descriptions, -> { where(classname: 'software_description') }
+  scope :software_development_managements, -> { where(classname: 'software_development_management') }
+  scope :software_documentations, -> { where(classname: 'software_documentation') }
+  scope :software_runtime_environments, -> { where(classname: 'software_runtime_environment') }
+  scope :software_archivings, -> { where(classname: 'software_archiving') }
+  scope :software_sharings, -> { where(classname: 'software_sharing') }
+  scope :software_legal_issues, -> { where(classname: 'software_legal_issues') }
+  scope :programming_languages, -> { where(classname: 'programming_language') }
+  scope :dependency_references, -> { where(classname: 'dependency_reference') }
+  scope :software_resource_references, -> { where(classname: 'software_resource_reference') }
 
   # =============
   # = Callbacks =
@@ -373,24 +382,27 @@ class MadmpFragment < ApplicationRecord
 
     new_data = data || {}
     madmp_schema.properties.each do |key, prop|
-      next unless prop['type'].eql?('object') && prop['template_name'].present?
+      if prop['type'].eql?('object') && prop['template_name'].present?
 
-      sub_schema = MadmpSchema.find_by(name: prop['template_name'])
+        sub_schema = MadmpSchema.find_by(name: prop['template_name'])
 
-      next if sub_schema.classname.eql?('person') || new_data[key].present?
+        next if sub_schema.classname.eql?('person') || new_data[key].present?
 
-      sub_fragment = MadmpFragment.create!(
-        data: {},
-        answer_id: nil,
-        dmp_id: dmp.id,
-        parent_id: id,
-        madmp_schema: sub_schema,
-        classname: sub_schema.classname,
-        additional_info: { property_name: key }
-      )
-      sub_fragment.instantiate
+        sub_fragment = MadmpFragment.create!(
+          data: {},
+          answer_id: nil,
+          dmp_id: dmp.id,
+          parent_id: id,
+          madmp_schema: sub_schema,
+          classname: sub_schema.classname,
+          additional_info: { property_name: key }
+        )
+        sub_fragment.instantiate
 
-      new_data[key] = { 'dbid' => sub_fragment.id }
+        new_data[key] = { 'dbid' => sub_fragment.id }
+      elsif prop['type'].eql?('array') && prop['items']['type'].eql?('string')
+        new_data[key] = []
+      end
     end
     update!(data: new_data)
   end

@@ -36,6 +36,8 @@ class GuidanceGroup < ApplicationRecord
   belongs_to :org
   belongs_to :language
 
+  belongs_to :language
+
   has_many :guidances, dependent: :destroy
 
   has_and_belongs_to_many :plans, join_table: :plans_guidance_groups
@@ -131,7 +133,8 @@ class GuidanceGroup < ApplicationRecord
       name: org.abbreviation? ? org.abbreviation : org.name,
       language_id: Language.find_by(abbreviation: 'fr-FR').id,
       org: org,
-      optional_subset: false
+      optional_subset: false,
+      language_id: 1,
     )
   end
 

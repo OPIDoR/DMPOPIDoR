@@ -111,7 +111,7 @@ module Dmpopidor
             ),
             answer_created: @answer.previously_new_record?,
             answer: {
-              answer_id: @answer.id,
+              id: @answer.id,
               question_id: @answer.question_id,
               fragment_id: @madmp_schema_id,
               # madmp_schema_id: a.madmp_fragment.madmp_schema_id

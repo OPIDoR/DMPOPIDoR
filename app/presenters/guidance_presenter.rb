@@ -39,15 +39,16 @@ class GuidancePresenter
   #
   # Returns an array of tab hashes.  These
   # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize
-  def tablist(question, locale_id = -1)
+  def tablist(question)
     # start with orgs
     # filter into hash with annotation_presence, main_group presence, and
     display_tabs = []
+    locale = Language.find_by(abbreviation: plan.template.locale)
     orgs.each do |org|
       annotations = guidance_annotations(org: org, question: question)
       groups = guidance_groups_by_theme(org: org, question: question)
-      if locale_id != -1
-        groups = groups.reject { |group| p group.language_id != locale_id }
+      if locale != nil
+        groups = groups.reject { |group| group.language_id != locale.id }
       end
       main_groups = groups.select { |group| group.optional_subset == false }
       subsets = groups.reject { |group| group.optional_subset == false }
@@ -128,7 +129,8 @@ class GuidancePresenter
       filtered_gg = hashified_guidance_groups[org][gg].each_key.with_object({}) do |theme, ac|
         next unless question.themes.include?(theme)
 
-        ac[theme] = hashified_guidance_groups[org][gg][theme]
+        theme_title = theme&.translations&.dig(plan.template.locale, 'title') || theme.title
+        ac[theme_title] = hashified_guidance_groups[org][gg][theme]
       end
       acc[gg] = filtered_gg if filtered_gg.present?
     end

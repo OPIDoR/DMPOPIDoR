@@ -33,10 +33,8 @@ class MadmpFragmentsController < ApplicationController
         question_id: body["question_id"],
         user_id: current_user.id
       )
-      research_output = ::ResearchOutput.find(body["research_output_id"])
-      @fragment.parent_id = research_output.json_fragment.id
     end
-    @fragment.instantiate
+    @fragment.save!
     @fragment.handle_defaults(defaults)
     @fragment.import_with_instructions(body["data"], madmp_schema)
 
@@ -136,29 +134,6 @@ class MadmpFragmentsController < ApplicationController
     end
   end
   # rubocop:enable Metrics/AbcSize
-
-  def change_form
-    @fragment = MadmpFragment.find(params[:id])
-    target_schema = MadmpSchema.find_by!(name: params[:template_name])
-
-    authorize @fragment
-
-    return unless @fragment.present? && @fragment.schema_conversion(target_schema, params[:locale])
-
-    render json: {
-      'fragment' => @fragment.get_full_fragment(with_ids: true),
-      'template' => {
-        id: target_schema.id,
-        schema: target_schema.schema,
-        api_client: if target_schema.api_client.present? 
-          {
-            id: target_schema.api_client_id,
-            name: target_schema.api_client.name
-          } 
-        end
-      }
-    }
-  end
 
 
 

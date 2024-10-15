@@ -8,10 +8,11 @@ services:
         - DB_ADAPTER=${DB_ADAPTER:-postgres}
         - DB_USERNAME=${DB_USERNAME:-postgres}
         - DB_PASSWORD=${DB_PASSWORD:-changeme}
+        - NODE_MAJOR=${NODE_MAJOR:-20}
     depends_on:
       postgres:
         condition: service_healthy
-      redis:
+      valkey:
         condition: service_healthy
     environment:
       - RAILS_ENV=production
@@ -41,7 +42,11 @@ services:
       - DRAGON_FLY_SECRET=${DRAGON_FLY_SECRET:-my_secret_key}
       - RECAPTCHA_SITE_KEY=${RECAPTCHA_SITE_KEY:-11111}
       - RECAPTCHA_SECRET_KEY=${RECAPTCHA_SECRET_KEY:-22222}
-      - REDIS_URL=${REDIS_URL:-redis://redis:6379/1}
+      - REDIS_URL=redis://${REDIS_USERNAME:-default}:${REDIS_PASSWORD:-changeme}@${REDIS_HOST:-valkey}:${REDIS_PORT:-6379}
+      - REDIS_HOST=${REDIS_HOST:-valkey}
+      - REDIS_PORT=${REDIS_PORT:-6379}
+      - REDIS_USERNAME=${REDIS_USERNAME:-default}
+      - REDIS_PASSWORD=${REDIS_PASSWORD:-changeme}
       - AWS_REGION
       - AWS_BUCKET_NAME
       - BUNDLE_GEMFILE
@@ -60,11 +65,12 @@ services:
       - METADORE_API_KEY
       - DIRECTUS_URL=http://directus:8055
       - DIRECTUS_PUBLIC_URL=http://${DMP_SERVER_NAME:-0.0.0.0}:${NGINX_PORT:-8080}/directus
+      - ENABLE_GRAPHIQL=true
     working_dir: /app
     volumes:
       - ./log:/app/log
     healthcheck:
-      test: ["CMD-SHELL", "curl -s -v -o - http://localhost:3000 2>&1 | grep 'HTTP/1.1 200 OK'"]
+      test: ["CMD-SHELL", "wget -q -S -O - http://localhost:3000 2>&1 | grep 'HTTP/1.1 200 OK'"]
       interval: ${DMPOPIDOR_HEALTHCHECK_INTERVAL:-30s}
       timeout: ${DMPOPIDOR_HEALTHCHECK_TIMEOUT:-30s}
       retries: ${DMPOPIDOR_HEALTHCHECK_RETRIES:-3}
@@ -119,7 +125,7 @@ services:
       - ./nginx/default.template:/etc/nginx/templates/default.conf.template:ro
       - ./public/:/var/www/html/public
     healthcheck:
-      test: ["CMD-SHELL", "wget --no-verbose --tries=1 --spider http://localhost:80/health || exit 1"]
+      test: ["CMD-SHELL", "wget -q -S -O - http://localhost:80 2>&1 | grep 'HTTP/1.1 200 OK'"]
       interval: ${NGINX_HEALTHCHECK_INTERVAL:-30s}
       timeout: ${NGINX_HEALTHCHECK_TIMEOUT:-30s}
       retries: ${NGINX_HEALTHCHECK_RETRIES:-3}
@@ -147,20 +153,18 @@ services:
     networks:
       - dmpopidor_network
 
-  redis:
-    image: valkey/valkey:7.2-alpine3.20
-    # command: "redis-server /etc/redis/redis.conf"
-    ports:
-      - 6379:6379
+  valkey:
+    image: valkey/valkey:7.2.6-alpine3.20
+    command: "redis-server /etc/redis/redis.conf --requirepass ${REDIS_PASSWORD:-changeme}"
     volumes:
-      - ./redis/sysctl.conf:/etc/sysctl.conf
-      - ./redis/redis.conf:/etc/redis/redis.conf
+      - ./redis/sysctl.conf:/etc/sysctl.conf:ro
+      - ./redis/redis.conf:/etc/redis/redis.conf:ro
     healthcheck:
-      test: ["CMD", "redis-cli","ping"]
-      interval: ${DMPOPIDOR_HEALTHCHECK_INTERVAL:-30s}
-      timeout: ${DMPOPIDOR_HEALTHCHECK_TIMEOUT:-30s}
-      retries: ${DMPOPIDOR_HEALTHCHECK_RETRIES:-3}
-      start_period: ${POSTGRES_HEALTHCHECK_START_PERIOD:-0s}
+      test: ["CMD-SHELL", "redis-cli --pass ${REDIS_PASSWORD:-changeme} ping | grep PONG"]
+      interval: ${REDIS_HEALTHCHECK_INTERVAL:-30s}
+      timeout: ${REDIS_HEALTHCHECK_TIMEOUT:-30s}
+      retries: ${REDIS_HEALTHCHECK_RETRIES:-3}
+      start_period: ${REDIS_HEALTHCHECK_START_PERIOD:-0s}
     networks:
       - dmpopidor_network
 

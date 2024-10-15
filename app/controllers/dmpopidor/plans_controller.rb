@@ -71,7 +71,10 @@ module Dmpopidor
           if @plan.save
             # pre-select org's guidance and the default org's guidance
             ids = (::Org.default_orgs.pluck(:id) << current_user.org_id).flatten.uniq
-            ggs = ::GuidanceGroup.where(org_id: ids, optional_subset: false, published: true)
+
+            language = Language.find_by(abbreviation: @plan.template.locale)
+
+            ggs = ::GuidanceGroup.where(org_id: ids, optional_subset: false, published: true, language_id: language.id)
 
             @plan.guidance_groups << ggs unless ggs.empty?
 
@@ -99,15 +102,21 @@ module Dmpopidor
             # Initialize Meta & Project
             @plan.create_plan_fragments
 
+            registry_values = Registry.find_by(name:"ResearchDataType").registry_values
+            registry = registry_values.find { |entry| entry['data']['en_GB'] == "Dataset" }
+
             # Add default research output if possible
             if Rails.configuration.x.dmpopidor.create_first_research_output || @plan.template.structured? == false
               created_ro = @plan.research_outputs.create!(
                 abbreviation: "#{_('RO')} 1",
                 title: "#{_('Research output')} 1",
                 is_default: true,
-                display_order: 1
+                display_order: 1,
+                output_type_description: registry['data'][@plan.template.locale.gsub('-', '_')],
               )
-              created_ro.create_json_fragments
+              created_ro.create_json_fragments({
+                hasPersonalData: Rails.configuration.x.dmpopidor.front[:enableHasPersonalData],
+              })
             end
 
             flash[:notice] = msg
@@ -324,9 +333,8 @@ module Dmpopidor
       end
 
       begin
-        locale_id = Language.find_by(abbreviation: @plan.template.locale)&.id
         guidance_presenter = ::GuidancePresenter.new(@plan)
-        guidances = guidance_presenter.tablist(question, locale_id)
+        guidances = guidance_presenter.tablist(question)
       rescue StandardError => e
         Rails.logger.error("Cannot create guidance presenter")
         Rails.logger.error(e.backtrace.join("\n"))
@@ -362,6 +370,16 @@ module Dmpopidor
       # rubocop:disable Metrics/BlockLength
       ::Plan.transaction do
         @plan.template = ::Template.find(import_params[:template_id])
+
+        # pre-select org's guidance and the default org's guidance
+        ids = (::Org.default_orgs.pluck(:id) << current_user.org_id).flatten.uniq
+
+        language = Language.find_by(abbreviation: @plan.template.locale)
+
+        ggs = ::GuidanceGroup.where(org_id: ids, optional_subset: false, published: true, language_id: language.id)
+
+        @plan.guidance_groups << ggs unless ggs.empty?
+
         I18n.with_locale @plan.template.locale do
           respond_to do |format|
             json_file = import_params[:json_file]

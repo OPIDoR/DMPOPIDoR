@@ -89,6 +89,7 @@ module ExportablePlan
       phase.sections.each do |section|
         sctn = { id: section.id,
                  title: section.title,
+                 description: section.description,
                  number: section.number,
                  questions: [],
                  modifiable: section.modifiable }

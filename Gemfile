@@ -368,7 +368,6 @@ group :development do
 end
 
 gem 'net-smtp'
-gem "foreman", "~> 0.88.1"
 # ======================#
 # MADMP OPIDOR FEATURES #
 # ===================== #
@@ -378,3 +377,8 @@ group :build do
   gem 'activerecord-nulldb-adapter'
 end
 gem 'grover', '~> 1.1'
+
+gem "graphql", "~> 2.3"
+gem "graphiql-rails", "~> 1.10"
+
+gem "foreman", "~> 0.88.1"

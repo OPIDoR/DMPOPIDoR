@@ -63,7 +63,7 @@ module Dmpopidor
               moduleId: ::Template.module(data_type:)&.id
             }
           )
-          fragment_description = MadmpFragment.new(
+          fragment_description = MadmpFragment.create!(
             data: {
               'title' => title,
               'datasetId' => pid,
@@ -138,29 +138,27 @@ module Dmpopidor
         end.pluck(:id)
       end
 
-      return {
-        id: id,
-        uuid: uuid,
-        abbreviation: abbreviation,
-        title: title,
-        order: display_order,
-        type: ro_fragment.research_output_description['data']['type'] || nil,
-        configuration: {
-          **ro_fragment.additional_info,
-          hasPersonalData: ro_fragment.research_output_description['data']['containsPersonalData'] == _('Yes'),
-        },
-        answers: answers.map do |a|
-          {
-            answer_id: a.id,
-            question_id: a.question_id,
-            fragment_id: a.madmp_fragment.id,
-            madmp_schema_id: a.madmp_fragment.madmp_schema_id
-          }
-        end,
-        questions_with_guidance:,
-        template: template.serialize_json
-      }
-
+      I18n.with_locale plan.template.locale do
+        return {
+          id: id,
+          uuid: uuid,
+          abbreviation: abbreviation,
+          title: title,
+          order: display_order,
+          type: ro_fragment.research_output_description['data']['type'] || nil,
+          configuration: ro_fragment.additional_info,
+          answers: answers.map do |a|
+            {
+              id: a.id,
+              question_id: a.question_id,
+              fragment_id: a.madmp_fragment.id,
+              madmp_schema_id: a.madmp_fragment.madmp_schema_id
+            }
+          end,
+          questions_with_guidance:,
+          template: template.serialize_json
+        }
+      end
     end
 
     def has_personal_data

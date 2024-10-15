@@ -2,10 +2,83 @@
 
 **Attention** Cette liste de changements concerne les déploiements sur nos serveurs de test en interne.
 
+## 14/10/2024
+
+- Correction d'un problème de sauvegarde de sous formulaires et des formulaires dans une popup (KB #12003 & #12004)
+
+## 11/10/2024
+
+- Mise à jour du message de la fenetre de changement de formulaires (KB #11997)
+- Correction du problème d'affichage du DOI dans l'import Metadore
+- Correction du problème de mise à jour du role des contributeurs (KB #12000)
+- Correction du problème de suppression & mise à jour des listes de sous fragment.
+
+## 10/10/2024
+
+- Ajout de la date de publication et du type de données DataCite
+- Modification des traduction d'import des données DataCite
+- Correction du problème d'affichage des formulaires en mode lecture seule
+- Ajout de l'icône et URL canal-u en bas de page
+- Correction d'un problème de lecture de la configuration provoquant le plantage du profil utilisateur.
+- Correction d'un problème d'affichage de l'adresse dans la page de Contact
+- Ajout de l'API GraphQL permettant l'interrogation des plans
+
+## 08/10/2024
+
+- Correction du problème d'affichage des valeurs par défaut lors du choix d'un formulaire
+- Correction du problème d'affichage de la modale de choix des formulaires (KB #11873)
+
+## 03/10/2024
+
+- Correction du problème de la recherche RoR
+- Correction du problème de sélection d'une valeur dans la recherche Metadore (KB #10078)
+- Correction du bug d'affichage des commentaires dans les plans en lecture seule (KB #11901)
+- Mise à jour des traductions
+
+## 26/09/2024
+
+- Suppression des recommandations qui ne sont pas basées sur la langue du plan
+- Amélioration du choix de formulaire personnalisé (KB #11872 #11873)
+
+## 25/09/2024
+
+- Sélection du type de produit de recherche par défaut (modal de création)
+
+## 24/09/2024
+
+- Ajout de l'import Metadore (KB #10078)
+- Correction du problème d'actualisation des champs tableaux de chaine de caractères (ex: mots clés non controllés) lors d'un changement de produit de recherche (KB #11771)
+
+## 20/09/2024
+
+- Correction du problème de sauvegarde de l'enregistrement d'une valeur sélectionnée dans un référentiel complex (Licence, Financeur) (KB #11890)
+- Correction du problème d'actualisation des champs texte lors d'un changement de produit de recherche (KB #11771)
+- Correction du problème d'affichage des recommandations liées aux questions lors de l'ouverture de la modale des recommandations. 
+- Amélioration de la fenêtre des cookies
+
+## 18/09/2024
+
+- Correction d'un problème d'affichage de la langue des recommendations dans l'espace Admin
+
+## 13/09/2024
+
+- Correction d'un problème d'actualisation des éditeurs de texte lors d'un changement de produit de recherche  (KB #11771)
+
+## 12/09/2024
+
+- Correction du problème d'affichage de la description d'une section dans les exports PDF/DOCX  (KB #11835)
+
+## 11/09/2024
+
+- Ajout de la description de la section à l'export PDF/DOCX d'un plan
+- Suppression de la page blanche présente lors de l'export d'un modèle de plan.
+- Les données personnelles sont désormais à "Oui" par défaut lors de la création d'un produit de recherche (KB #11817)
+- Affichage des thèmes des recommandations dans la langue du plan (KB #11747)
+
 ## 09/09/2024
 
 - Correction d'un problème d'affichage d'un référentiel complexe avec création lorsqu'aucune valeur n'a été sélectionnée
-- Correction d'un problème d'affichage des référentiels complexes à choi uniques
+- Correction d'un problème d'affichage des référentiels complexes à choix uniques
 
 ## 06/09/2024
 

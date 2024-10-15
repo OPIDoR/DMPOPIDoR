@@ -19,8 +19,8 @@
                 "dbid"
             ],
             "description": "Source (agence) de financement",
-            "label@fr_FR": "Financeurs",
-            "label@en_GB": "Funders",
+            "label@fr_FR": "Financeur",
+            "label@en_GB": "Funder",
             "inputType": "dropdown",
             "registries": [
                 "Funders"
@@ -28,8 +28,8 @@
             "overridable": true,
             "tooltip@fr_FR": "Liste interne en cours d'élaboration",
             "tooltip@en_GB": "Internal list in progress",
-            "form_label@fr_FR": "Financeurs",
-            "form_label@en_GB": "Funders"
+            "form_label@fr_FR": "Financeur",
+            "form_label@en_GB": "Funder"
         },
         "grantId": {
             "type": "string",
