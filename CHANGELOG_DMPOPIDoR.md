@@ -2,6 +2,10 @@
 
 **Attention** Cette liste de changements concerne les déploiements sur nos serveurs de test en interne.
 
+## 14/10/2024
+
+- Correction d'un problème de sauvegarde de sous formulaires et des formulaires dans une popup (KB #12003 & #12004)
+
 ## 11/10/2024
 
 - Mise à jour du message de la fenetre de changement de formulaires (KB #11997)
