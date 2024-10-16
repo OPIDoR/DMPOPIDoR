@@ -145,7 +145,7 @@ module DMPRoadmap
     config.action_mailer.raise_delivery_errors = ENV.fetch('ACTION_MAILER_RAISE_DELIVERY_ERRORS', true).to_s.casecmp('true').zero?
 
     # Mount Action Cable outside main process or domain
-    config.action_cable.url = "wss://#{ENV.fetch('DMPROADMAP_HOST', 'dmpopidor')}/cable"
+    config.action_cable.url = "wss://#{ENV.fetch('DMPROADMAP_WEBSOCKET_HOST', 'localhost:8080')}/cable"
     config.action_cable.allowed_request_origins = [ ENV.fetch('DMPROADMAP_HOST', 'dmpopidor') ]
 
     # Use default logging formatter so that PID and timestamp are not suppressed.
