@@ -4,7 +4,7 @@ module Resolvers
     argument :filter, Types::PlanFilterInputType, required: false
 
     def resolve(filter: nil)
-      plans = Plan.all
+      plans = Api::V1::PlansPolicy::Scope.new(context[:current_user], Plan).resolve
 
       plans = apply_filters(plans, filter) if filter.present?
 
