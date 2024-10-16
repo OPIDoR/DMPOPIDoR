@@ -5,6 +5,8 @@
 ## 16/10/2024
 
 - Ajout du client (API) afin de récupérer les plans de l'utilisateur authentifié
+- Ajout du filtre de rechercher par type pour les données DataCite.
+- Correction de l'URL des WebSockets (env. var.)
 
 ## 14/10/2024
 
