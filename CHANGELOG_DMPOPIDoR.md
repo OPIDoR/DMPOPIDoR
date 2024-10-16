@@ -2,6 +2,10 @@
 
 **Attention** Cette liste de changements concerne les déploiements sur nos serveurs de test en interne.
 
+## 16/10/2024
+
+- Ajout du client (API) afin de récupérer les plans de l'utilisateur authentifié
+
 ## 14/10/2024
 
 - Correction d'un problème de sauvegarde de sous formulaires et des formulaires dans une popup (KB #12003 & #12004)
