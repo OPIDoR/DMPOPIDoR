@@ -32,18 +32,19 @@ module Dmpopidor
         sort_direction: paginable_params.fetch(:sort_direction, 'asc')
       }
 
-      guidance_groups =  GuidanceGroup.where(published: true).pluck(:id)
+      guidance_groups =  ::GuidanceGroup.where(published: true).pluck(:id)
 
       @guidance_groups = ::GuidanceGroup.includes(:org)
                                         .where(id: guidance_groups.uniq.flatten).order('orgs.name asc').page(1)
     end
 
     def guidance_group_export
-      @guidance_group = GuidanceGroup.includes(guidances: :themes).find(params[:id])
+      @guidance_group = ::GuidanceGroup.includes(guidances: :themes).find(params[:id])
+      @guidances = @guidance_group.guidances.joins(:themes).all
+      @themes = ::Theme.all.order(:number)
       @formatting = Settings::Template::DEFAULT_SETTINGS[:formatting]
       html = render_to_string({
-                                partial: 'branded/guidance_group_exports/guidance_group_export',
-                                locals: { guidance_group: @guidance_group },
+                                template: 'guidance_group_exports/guidance_group_export',
                                 layout: false
                               })
       file_name = @guidance_group.name.gsub(/[^a-zA-Z\d\s]/, '').tr(' ', '_')

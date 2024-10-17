@@ -5,7 +5,7 @@
     <title>
       <%= @guidance_group.name %>
     </title>
-        <style>
+    <style>
       html {
         font-family: <%= @formatting[:font_face].tr('"', '') -%>;
         font-size: <%= @formatting[:font_size] -%>pt;
@@ -25,7 +25,7 @@
       h3 {
         font-size: <%= @formatting[:font_size] + 1 -%>pt;
         font-face:bold;
-        padding: 1;
+        padding: 0;
         margin: 1em 0 0 0;
       }
       h2 + div.question > h3 {
@@ -44,29 +44,30 @@
       p {
         margin: 0.25em 0;
       }
-
+      .question {
+        margin-top: 15px;
+        margin-bottom: 10px;
+      }
+      .question:first-child {
+        margin-top: 0;
+      }
+      .annotations {
+        margin-left: 15px;
+        margin-bottom: 10px;
+      }
     </style>
-
   </head>
   <body>
-
     <h1><%= "#{@guidance_group.org}: #{@guidance_group.name} (#{@guidance_group.language.name})" %></h1>
-    <% language = @guidance_group.language.abbreviation%>
-    <% s_list= ['description-des-donnees', 'reutilisation-de-donnees', 'collecte-des-donnees', 'metadonnees-documentation', 'qualite-scientifique-des-donnees', 'donnees-personnelles', 'droits-de-propriete-intellectuelle', 'ethique', 'traitement-analyse-des-donnees', 'stockage-securite', 'partage-des-donnees', 'conservation-a-long-terme'] %>
-    <% guidances = @guidance_group.guidances %>
-    <% for slug in s_list %>
-      <% for guidance in guidances   %>
-        <% if guidance.published? %>
-          <% if guidance.themes[0].slug == slug %>
-            <% theme = guidance.themes[0] %>
-            <% if language == "fr-FR" %>
-              <h2><%= theme.title  %></h2>
-            <% elsif language == "en-GB" %>
-              <h2><%= theme.translations.dig('en-GB', 'title')  %></h2>
-            <% end%>
-              <p><%= sanitize guidance.text.chomp.strip %></p>
-          <% end %>
-        <% end %>
+    <% language = @guidance_group.language.abbreviation %>
+    <% for theme in @themes %>
+      <% for guidance in @guidances.where(published: true, themes: { id: theme.id } )  %>
+        <% if language == "fr-FR" %>
+          <h2><%= theme.title  %></h2>
+        <% elsif language == "en-GB" %>
+          <h2><%= theme.translations.dig('en-GB', 'title')  %></h2>
+        <% end%>
+        <p><%= sanitize guidance.text %></p>
       <% end %>
     <% end %>
   </body>
