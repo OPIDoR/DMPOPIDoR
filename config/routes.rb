@@ -415,7 +415,9 @@ Rails.application.routes.draw do
       end
     end
 
-    resources :themes, only: %i[index new create edit update destroy]
+    resources :themes, only: %i[index new create edit update destroy] do
+        post 'sort', on: :collection
+    end
     resources :users, only: %i[edit update] do
       member do
         put :merge

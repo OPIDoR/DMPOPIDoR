@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2024_05_31_083744) do
+ActiveRecord::Schema[7.1].define(version: 2024_10_15_133454) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
   enable_extension "unaccent"
@@ -802,6 +802,7 @@ ActiveRecord::Schema[7.1].define(version: 2024_05_31_083744) do
     t.datetime "updated_at", precision: nil, null: false
     t.string "slug"
     t.json "translations", default: {}
+    t.integer "number"
   end
 
   create_table "themes_in_guidance", id: false, force: :cascade do |t|
