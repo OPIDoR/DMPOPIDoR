@@ -70,7 +70,9 @@ Rails.application.routes.draw do
   get 'public_plans' => 'public_pages#plan_index'
   get 'public_templates' => 'public_pages#template_index'
   get 'template_export/:id' => 'public_pages#template_export', as: 'template_export'
-
+  get 'public_guidance_groups' => 'public_pages#guidance_group_index'
+  # Guidance group export
+  get 'guidance_group_export/:id', to: 'public_pages#guidance_group_export', as: 'guidance_group_export'
   # Static pages
   namespace :static do
     get ':name', to: 'static_pages#show'
@@ -174,7 +176,7 @@ Rails.application.routes.draw do
     resources :research_outputs, only: %i[index update destroy], controller: 'research_outputs'
   end
 
-  resources :research_outputs, only: [:index, :show, :create, :destroy, :update], constraints: { format: [:json] } do
+  resources :research_outputs, only: %i[index show create destroy update], constraints: { format: [:json] } do
     get 'create_remote', on: :collection
     delete 'destroy_remote', on: :collection
     patch 'update_remote', on: :collection
@@ -326,6 +328,7 @@ Rails.application.routes.draw do
     # Paginable actions for static pages
     resources :static_pages, only: [] do
       get 'index/:page', action: :index, on: :collection, as: :index
+      get 'publicly_visible/:page', action: :publicly_visible, on: :collection, as: :publicly_visible
     end
     # Paginable actions for departments
     resources :departments, only: [] do
@@ -412,7 +415,9 @@ Rails.application.routes.draw do
       end
     end
 
-    resources :themes, only: %i[index new create edit update destroy]
+    resources :themes, only: %i[index new create edit update destroy] do
+        post 'sort', on: :collection
+    end
     resources :users, only: %i[edit update] do
       member do
         put :merge

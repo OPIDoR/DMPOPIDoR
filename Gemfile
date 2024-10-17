@@ -44,7 +44,7 @@ gem 'propshaft'
 # (https://github.com/redis/redis-rb)
 gem "redis"
 
-# redis-actionpack provides a session store for ActionPack, specifically for ActionDispatch. 
+# redis-actionpack provides a session store for ActionPack, specifically for ActionDispatch.
 # (https://github.com/redis-store/redis-actionpack)
 gem 'redis-actionpack'
 # Use Active Model has_secure_password
@@ -368,7 +368,6 @@ group :development do
 end
 
 gem 'net-smtp'
-
 # ======================#
 # MADMP OPIDOR FEATURES #
 # ===================== #
@@ -377,6 +376,7 @@ gem 'madmp_opidor', path: 'engines/madmp_opidor' # , git: 'https://github.com/OP
 group :build do
   gem 'activerecord-nulldb-adapter'
 end
+gem 'grover', '~> 1.1'
 
 gem "graphql", "~> 2.3"
 gem "graphiql-rails", "~> 1.10"

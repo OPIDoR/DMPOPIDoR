@@ -7,7 +7,7 @@ module SuperAdmin
     def index
       authorize(Theme)
       @locales = Language::all
-      render(:index, locals: { themes: Theme.all.page(1) })
+      render(:index, locals: { themes: Theme.all.order(:number).page(1) })
     end
 
     def new
@@ -61,6 +61,16 @@ module SuperAdmin
         render :edit
       end
     end
+
+    
+    def sort
+      authorize(Theme)
+      params[:updated_order].each_with_index do |id, index|
+        ::Theme.find(id).update(number: index + 1)
+      end
+      head :ok
+    end
+
     # Private instance methods
 
     private
