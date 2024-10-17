@@ -1,4 +1,4 @@
-FROM ruby:3.2.4-slim AS base
+FROM ruby:3.2.5-slim AS base
 
 WORKDIR /app
 
@@ -34,7 +34,7 @@ RUN apt-get update -y && \
     rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
 
 # Add and set up dumb-init
-ADD https://github.com/Yelp/dumb-init/releases/download/v1.2.2/dumb-init_1.2.2_x86_64 /usr/local/bin/dumb-init
+ADD https://github.com/Yelp/dumb-init/releases/download/v1.2.5/dumb-init_1.2.5_x86_64 /usr/local/bin/dumb-init
 RUN chmod +x /usr/local/bin/dumb-init
 
 # Environment variables for Puppeteer
