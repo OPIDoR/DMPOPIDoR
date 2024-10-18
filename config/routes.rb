@@ -130,6 +130,7 @@ Rails.application.routes.draw do
     post 'create_or_update', on: :collection
     post 'set_answers_as_common', on: :collection
     get 'notes', constraints: { format: [:json] }
+    get 'get_form', on: :collection, constraints: { format: [:json] }
   end
 
   # Question Formats controller, currently just the one action

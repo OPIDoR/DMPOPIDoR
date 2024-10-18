@@ -6,6 +6,29 @@ module Dmpopidor
   module AnswersController
     include Dmpopidor::ErrorHelper
 
+
+    def get_form
+      begin
+        research_output = ::ResearchOutput.includes(:plan).find( params[:research_output_id])
+        question = Question.includes(:madmp_schema).find(params[:question_id]);
+        answer = ::Answer.includes(:madmp_fragment).find_by!(
+          question_id: question.id,
+          research_output_id: research_output.id
+        )
+        
+        authorize answer
+        fragment = answer.madmp_fragment
+        render json: MadmpFragment.render_fragment_json(fragment, fragment.madmp_schema)
+        return
+      rescue ActiveRecord::RecordNotFound
+        authorize ::Answer.new(plan_id: research_output.plan_id)
+        render json: {
+          template: MadmpSchema.serialize_json_response(question.madmp_schema)
+        }
+        return
+      end
+    end
+
     # Added Research outputs support
     # rubocop:disable Metrics/AbcSize, Metrics/MethodLength
     # rubocop:disable Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
