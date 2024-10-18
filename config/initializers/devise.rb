@@ -267,7 +267,7 @@ Devise.setup do |config|
   config.omniauth :orcid, ENV.fetch('DEVISE_ORCID_CLIENT_ID', 'client_id'), ENV.fetch('DEVISE_ORCID_CLIENT_SECRET', 'client_secret'), { sandbox: true, 'scope': '/authenticate' }
 
   shibboleth_request_type = ENV.fetch('DEVISE_SHIBBOLETH_REQUEST_TYPE', :header).to_sym
-  shibboleth_config = ENV['EVISE_SHIBBOLETH_CONFIG']&.present? ? JSON.parse(ENV['EVISE_SHIBBOLETH_CONFIG'], { symbolize_names: true }) : {
+  shibboleth_config = ENV['DEVISE_SHIBBOLETH_CONFIG']&.present? ? JSON.parse(ENV['DEVISE_SHIBBOLETH_CONFIG'], { symbolize_names: true }) : {
     info_fields: {
       uid: "uid",
       eppn: "eppn",
