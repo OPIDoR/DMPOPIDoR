@@ -145,8 +145,13 @@ module DMPRoadmap
     config.action_mailer.raise_delivery_errors = ENV.fetch('ACTION_MAILER_RAISE_DELIVERY_ERRORS', true).to_s.casecmp('true').zero?
 
     # Mount Action Cable outside main process or domain
-    config.action_cable.url = "wss://#{ENV.fetch('DMPROADMAP_WEBSOCKET_HOST', 'localhost:8080')}/cable"
-    config.action_cable.allowed_request_origins = [ ENV.fetch('DMPROADMAP_HOST', 'dmpopidor') ]
+    config.action_cable.url = ENV.fetch('ACTION_CABLE_URL', 'ws://localhost:8080/cable')
+    config.action_cable.mount_path = ENV.fetch('ACTION_CABLE_MOUNT_PATH', '/cable')
+    config.action_cable.allowed_request_origins = JSON.parse(ENV.fetch('ACTION_CABLE_ALLOWED_REQUEST_ORIGINS', '[ "http://example.com", "/http:\/\/example.*/" ]'))
+    config.action_cable.disable_request_forgery_protection = ENV.fetch('ACTION_CABLE_DISABLE_REQUEST_FORGERY_PROTECTION', true).to_s.casecmp('true').zero?
+
+    allowed_origins = ENV.fetch('ALLOWED_HOSTS', 'dmpopidor').split(',')
+    config.action_cable.allowed_request_origins = allowed_origins.is_a?(Array) ? allowed_origins : [allowed_origins]
 
     # Use default logging formatter so that PID and timestamp are not suppressed.
     config.log_formatter = Logger::Formatter.new
@@ -172,7 +177,7 @@ module DMPRoadmap
     # This allows us to define the hostname and add it to the whitelist. If you attempt
     # to access the site and receive a 'Blocked host' error then you will need to
     # set this environment variable
-    config.hosts << ENV.fetch('DMPROADMAP_HOST', 'dmpopidor')
+    config.hosts << ENV.fetch('ALLOWED_HOSTS', 'dmpopidor')
   end
 end
 
