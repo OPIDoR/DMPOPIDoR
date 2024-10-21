@@ -6,6 +6,28 @@ module Dmpopidor
   module AnswersController
     include Dmpopidor::ErrorHelper
 
+    # rubocop:disable Metrics/AbcSize
+    def new_form
+      research_output = ::ResearchOutput.includes(:plan).find(params[:research_output_id])
+      question = Question.includes(:madmp_schema).find(params[:question_id])
+      answer = ::Answer.includes(:madmp_fragment).find_by!(
+        question_id: question.id,
+        research_output_id: research_output.id
+      )
+
+      authorize answer
+      fragment = answer.madmp_fragment
+      render json: MadmpFragment.render_fragment_json(fragment, fragment.madmp_schema)
+      nil
+    rescue ActiveRecord::RecordNotFound
+      authorize ::Answer.new(plan_id: research_output.plan_id)
+      render json: {
+        template: MadmpSchema.serialize_json_response(question.madmp_schema)
+      }
+      nil
+    end
+    # rubocop:enable Metrics/AbcSize
+
     # Added Research outputs support
     # rubocop:disable Metrics/AbcSize, Metrics/MethodLength
     # rubocop:disable Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
@@ -200,6 +222,7 @@ module Dmpopidor
     #   GET /answers/:answer_id/notes
     #
     #   Returns a JSON response with the notes and associated user information.
+    # rubocop:disable Metrics/AbcSize, Metrics/MethodLength
     def notes
       answer_id = params[:answer_id]
 
@@ -240,16 +263,16 @@ module Dmpopidor
 
       notes_with_users = begin
         @answer.notes
-          .where(archived: false)
-          .order(created_at: :desc)
-          .includes(:user)
-          .as_json(
-            include: {
-              user: {
-                only: %w[id surname firstname]
-              }
-            }
-          )
+               .where(archived: false)
+               .order(created_at: :desc)
+               .includes(:user)
+               .as_json(
+                 include: {
+                   user: {
+                     only: %w[id surname firstname]
+                   }
+                 }
+               )
       rescue StandardError => e
         Rails.logger.error('An error occurred while rendering response')
         Rails.logger.error(e.backtrace.join("\n"))
@@ -259,6 +282,7 @@ module Dmpopidor
 
       render json: { status: 200, message: "#{notes_with_users.length} notes found", notes: notes_with_users }
     end
+    # rubocop:enable Metrics/AbcSize, Metrics/MethodLength
 
     private
 

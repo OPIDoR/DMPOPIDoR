@@ -539,6 +539,26 @@ class MadmpFragment < ApplicationRecord
     self
   end
 
+  
+
+  def self.render_fragment_json(fragment, madmp_schema) 
+    {
+      'fragment' => fragment.get_full_fragment(with_ids: true, with_template_name: true),
+      'answer_id' => fragment.answer_id,
+      'template' => {
+        id: fragment.madmp_schema_id,
+        name: madmp_schema.name,
+        schema: madmp_schema.schema,
+        api_client: if madmp_schema.api_client.present?
+          {
+            id: madmp_schema.api_client_id,
+            name: madmp_schema.api_client.name
+          } 
+        end
+      }
+    }
+  end
+
   private
 
   # Initialize the data field

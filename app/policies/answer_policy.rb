@@ -14,4 +14,8 @@ class AnswerPolicy < ApplicationPolicy
   def notes?
     @record.plan.readable_by?(@user.id)
   end
+
+  def new_form?
+    @record.plan.readable_by?(@user.id)
+  end
 end
