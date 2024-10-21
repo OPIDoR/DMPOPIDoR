@@ -200,6 +200,7 @@ module Dmpopidor
     #   GET /answers/:answer_id/notes
     #
     #   Returns a JSON response with the notes and associated user information.
+    # rubocop:disable Metrics/AbcSize, Metrics/MethodLength
     def notes
       answer_id = params[:answer_id]
 
@@ -240,25 +241,26 @@ module Dmpopidor
 
       notes_with_users = begin
         @answer.notes
-          .where(archived: false)
-          .order(created_at: :desc)
-          .includes(:user)
-          .as_json(
-            include: {
-              user: {
-                only: %w[id surname firstname]
-              }
-            }
-          )
+               .where(archived: false)
+               .order(created_at: :desc)
+               .includes(:user)
+               .as_json(
+                 include: {
+                   user: {
+                     only: %w[id surname firstname]
+                   }
+                 }
+               )
       rescue StandardError => e
         Rails.logger.error('An error occurred while rendering response')
         Rails.logger.error(e.backtrace.join("\n"))
         internal_server_error(e.message)
-        return
+        nil
       end
 
       render json: { status: 200, message: "#{notes_with_users.length} notes found", notes: notes_with_users }
     end
+    # rubocop:enable Metrics/AbcSize, Metrics/MethodLength
 
     private
 

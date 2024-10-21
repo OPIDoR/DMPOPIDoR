@@ -81,7 +81,7 @@ m = Module.new do
   end
 
   def load_bundler!
-    ENV.fetch("BUNDLE_GEMFILE", nil) ||= gemfile
+    ENV.fetch("BUNDLE_GEMFILE", gemfile)
 
     activate_bundler
   end

@@ -8,6 +8,7 @@ class MadmpSchemasController < ApplicationController
     authorize(MadmpSchema)
     render json: MadmpSchema.where(classname: params[:by_classname]).select(%w[id name label schema])
   end
+
   def show
     authorize(MadmpSchema)
     @schema = MadmpSchema.find(params[:id])
@@ -22,23 +23,23 @@ class MadmpSchemasController < ApplicationController
       render json: serialize_json_response(@schema)
     else
       render status: :not_found,
-             json: { message: _('%{template_name} form is unavailable.' % { template_name: params[:name] }) }
+             json: { message: _(format('%{template_name} form is unavailable.', template_name: params[:name])) }
     end
   end
 
   private
 
-  def serialize_json_response(schema) 
+  def serialize_json_response(schema)
     {
       id: schema.id,
       name: schema.name,
       schema: schema.schema,
       api_client: if schema.api_client.present?
-        {
-          id: schema.api_client_id,
-          name: schema.api_client.name
-        } 
-      end
+                    {
+                      id: schema.api_client_id,
+                      name: schema.api_client.name
+                    }
+                  end
     }
   end
 end

@@ -51,6 +51,8 @@ class Registry < ApplicationRecord
           search_pattern, search_pattern)
   }
 
+  # rubocop:disable Metrics/AbcSize, Metrics/MethodLength
+  # rubocop:disable Metrics/PerceivedComplexity
   def self.load_values(values_file, registry)
     return if values_file.nil?
 

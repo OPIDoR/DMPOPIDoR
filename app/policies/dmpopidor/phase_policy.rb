@@ -18,7 +18,7 @@ module Dmpopidor
         @user.can_modify_templates? && (@record.template.org_id == @user.org_id)
       end
     end
-  
+
     def update?
       if @record.template.module?
         @user.can_super_admin?
@@ -26,7 +26,7 @@ module Dmpopidor
         @user.can_modify_templates? && (@record.template.org_id == @user.org_id)
       end
     end
-  
+
     def new?
       if @record.template.module?
         @user.can_super_admin?
@@ -34,7 +34,7 @@ module Dmpopidor
         @user.can_modify_templates? && (@record.template.org_id == @user.org_id)
       end
     end
-  
+
     def create?
       if @record.template.module?
         @user.can_super_admin?
@@ -42,7 +42,7 @@ module Dmpopidor
         @user.can_modify_templates? && (@record.template.org_id == @user.org_id)
       end
     end
-  
+
     def destroy?
       if @record.template.module?
         @user.can_super_admin?

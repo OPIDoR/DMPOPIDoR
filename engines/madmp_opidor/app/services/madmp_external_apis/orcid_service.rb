@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 require 'cgi'
 
 module MadmpExternalApis
@@ -63,12 +64,14 @@ module MadmpExternalApis
         return [] unless resp&.code == 200
 
         JSON.parse(resp.body)
-      rescue StandardError => e
+      rescue StandardError
         handle_http_failure(method: 'ORCiD search', http_response: resp)
         []
       end
 
       # Convert the JSON items into a hash
+      # rubocop:disable Metrics/AbcSize
+      # rubocop:disable Metrics/PerceivedComplexity, Metrics/CyclomaticComplexity
       def parse_expanded_result(json:, term:)
         return [] unless json['expanded-result']&.any?
 
@@ -77,15 +80,17 @@ module MadmpExternalApis
 
         data = data.select { |item| regex.match(term) ? item['orcid-id'] == term : true }
 
-        data.map do |item|
+        data.filter_map do |item|
           {
-            orcid: "#{landing_page_url}#{item&.dig('orcid-id').to_s}",
+            orcid: "#{landing_page_url}#{item&.dig('orcid-id')}",
             givenNames: item&.dig('given-names').to_s,
             familyNames: item&.dig('family-names').to_s,
             institutionName: item&.dig('institution-name') || []
           }
         end&.compact
       end
+      # rubocop:enable Metrics/PerceivedComplexity, Metrics/CyclomaticComplexity
+      # rubocop:enable Metrics/AbcSize
     end
   end
 end
