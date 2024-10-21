@@ -2,14 +2,14 @@
 
 source 'https://rubygems.org'
 
-ruby '>= 3.2'
+ruby '>= 3.3'
 
 # ===========#
 # CORE RAILS #
 # ===========#
 
 # Full-stack web application framework. (http://rubyonrails.org)
-gem 'rails', '~> 7.1'
+gem 'rails',  '~> 7.2'
 
 # TODO: Remove this once Rails addresses the issue with its dependency on mimemagic. Mimemagic had
 #       an MIT license but was using some incompatible GPL license code.
@@ -375,7 +375,9 @@ gem 'net-smtp'
 gem 'madmp_opidor', path: 'engines/madmp_opidor' # , git: 'https://github.com/OPIDoR/madmp_opidor.git'
 
 group :build do
-  gem 'activerecord-nulldb-adapter'
+  # TEMP : fork added support to rails 7.2. Need update when main repo releases a new version
+  # Git needs to be removed from Dockerfile
+  gem 'activerecord-nulldb-adapter', git: 'https://github.com/taylorthurlow/nulldb', branch: 'fix/activerecord72-register-adapter'
 end
 
 gem "graphql", "~> 2.3"
