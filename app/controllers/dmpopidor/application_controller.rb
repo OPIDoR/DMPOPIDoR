@@ -39,7 +39,7 @@ module Dmpopidor
 
       pages = resp['data']['static_pages']&.map do |page|
         page_translation = page['translations']
-        category = {
+        {
           'path' => page['path'],
           'inMenu' => page['inMenu'],
           'title' => reduce_translations(page_translation, 'title')
