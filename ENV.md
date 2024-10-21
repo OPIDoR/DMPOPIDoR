@@ -43,7 +43,7 @@
 
 | Name | Type | Description |
 | ---- | ---- | ----------- |
-| ACTION_CABLE_ALLOWRD_REQUEST_ORIGINS | Array | Allows requests from allowed origins ``(default: [ 'http://example.com', /http:\/\/example.*/ ])`` |
+| ACTION_CABLE_ALLOWED_REQUEST_ORIGINS | Array | Allows requests from allowed origins ``(default: [ 'http://example.com', /http:\/\/example.*/ ])`` |
 | ACTION_CABLE_DISABLE_REQUEST_FORGERY_PROTECTION | Boolean | Disables request forgery protection ``(default: true)`` |
 | ACTION_CABLE_MOUNT_PATH | String | Action cable mount path ``(default: nil)`` |
 | ACTION_CABLE_URL | String | Action cable URL ``(default: wss://example.com/cable)`` |

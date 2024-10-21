@@ -26,7 +26,8 @@ services:
       - ACTIVE_SUPPORT_DISALLOWED_DEPRECATION=raise
       - RAILS_LOG_LEVEL=debug
       - MAILER_FROM=dmp.opidor@inist.fr
-      - DMPROADMAP_HOST=dmpopidor,0.0.0.0,localhost
+      - DMPROADMAP_HOST=localhost:8080
+      - ALLOWED_HOSTS=dmpopidor,0.0.0.0,localhost
       - ACTION_MAILER_RAISE_DELIVERY_ERRORS=false
       - MADMP_ENABLE_RESEARCH_OUTPUTS=false
       - MADMP_ENABLE_LICENSE_SELECTION=false
