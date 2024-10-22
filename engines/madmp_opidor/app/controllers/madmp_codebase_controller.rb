@@ -120,7 +120,7 @@ class MadmpCodebaseController < ApplicationController
                                   # dmp_id: fragment.dmp_id,
                                   # research_output_id: fragment.research_output_fragment&.id,
                                   # params: params.merge({ ro_uuid: fragment.research_output&.uuid })
-                                }, params: {})
+                                })
 
       if response['return_code'].eql?(0)
         dmp_fragment.raw_import(response['data'], dmp_fragment.madmp_schema)
