@@ -1,3 +1,6 @@
+# frozen_string_literal: true
+
+# Pln action cable channel
 class PlanChannel < ApplicationCable::Channel
   def subscribed
     stop_all_streams

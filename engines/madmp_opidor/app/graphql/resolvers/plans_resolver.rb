@@ -1,4 +1,7 @@
+# frozen_string_literal: true
+
 module Resolvers
+  # PlansResolver
   class PlansResolver < BaseResolver
     type [Types::PlanType], null: true
     argument :filter, Types::PlanFilterInputType, required: false
@@ -12,16 +15,12 @@ module Resolvers
     end
 
     def apply_filters(plans, filter)
-      if filter.id.present?
-        plans = filter_by_id(plans, filter.id)
-      end
+      plans = filter_by_id(plans, filter.id) if filter.id.present?
 
-      if filter.grantId.present?
-        plans = filter_by_grant_id(plans, filter.grantId)
-      end
+      plans = filter_by_grant_id(plans, filter.grantId) if filter.grantId.present?
 
       if filter.fieldName.present? && filter.value.present?
-        plans = filter_by_fieldName(plans, filter.fieldName, filter.value)
+        plans = filter_by_field_name(plans, filter.fieldName, filter.value)
       end
 
       plans
@@ -39,9 +38,10 @@ module Resolvers
       end
     end
 
+    # rubocop:disable Metrics/AbcSize
     def filter_by_grant_id(plans, grant_ids)
-      if grant_ids.is_a?(Hash) && grant_ids["regex"].present?
-        regex = grant_ids["regex"].gsub(/\A\/|\/\z/, '')
+      if grant_ids.is_a?(Hash) && grant_ids['regex'].present?
+        regex = grant_ids['regex'].gsub(%r{\A/|/\z}, '')
         plans = MadmpFragment.where("data->>'grantId' ~* ?", regex).map do |fragment|
           {
             id: fragment.plan.id,
@@ -61,9 +61,10 @@ module Resolvers
       end
       plans
     end
+    # rubocop:enable Metrics/AbcSize
 
-    def filter_by_fieldName(plans, field_name, value)
-      MadmpFragment.where("data->>? = ?", field_name, value).map do |fragment|
+    def filter_by_field_name(_plans, field_name, value)
+      MadmpFragment.where('data->>? = ?', field_name, value).map do |fragment|
         {
           id: fragment.plan.id,
           title: fragment.plan.title,

@@ -2,6 +2,8 @@
 
 **Attention** Cette liste de changements concerne les déploiements sur nos serveurs de test en interne.
 
+## 22/10/2024
+
 - Amélioration du chargement des formulaires des questions non répondues afin d'éviter les réponses en double. Lors de la première ouverture d'une question, on vérifie qu'une réponse n'est pas déjà associée à la question et au produit de recherche.
 
 ## 16/10/2024

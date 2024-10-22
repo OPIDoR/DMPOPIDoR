@@ -10,14 +10,14 @@ module Dmpopidor
       orgs_with_context = ::Org.joins(:templates).managed
                                .where(
                                  active: true,
-                                 templates: { 
-                                    published: true,
-                                    archived: false,
-                                    is_recommended: false,
-                                    context: params[:context],
-                                    locale: params[:locale] ,
-                                    type: ['classic', 'structured']
-                                  }
+                                 templates: {
+                                   published: true,
+                                   archived: false,
+                                   is_recommended: false,
+                                   context: params[:context],
+                                   locale: params[:locale],
+                                   type: %w[classic structured]
+                                 }
                                )
       @orgs = if params[:type] == 'org'
                 (orgs_with_context.organisation + orgs_with_context.institution + orgs_with_context.default_orgs)

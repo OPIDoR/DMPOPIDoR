@@ -264,22 +264,29 @@ Devise.setup do |config|
   OmniAuth.config.full_host = ENV.fetch('DMPROADMAP_HOST', 'https://my_service.hostname')
   OmniAuth.config.allowed_request_methods = [ENV.fetch('DEVISE_ALLOWED_REQUEST_METHODS', :post)&.to_sym]
 
-  config.omniauth :orcid, ENV.fetch('DEVISE_ORCID_CLIENT_ID', 'client_id'), ENV.fetch('DEVISE_ORCID_CLIENT_SECRET', 'client_secret'), { sandbox: true, 'scope': '/authenticate' }
+  config.omniauth :orcid, ENV.fetch('DEVISE_ORCID_CLIENT_ID', 'client_id'),
+                  ENV.fetch('DEVISE_ORCID_CLIENT_SECRET', 'client_secret'), { sandbox: true, scope: '/authenticate' }
 
   shibboleth_request_type = ENV.fetch('DEVISE_SHIBBOLETH_REQUEST_TYPE', :header).to_sym
-  shibboleth_config = ENV['DEVISE_SHIBBOLETH_CONFIG']&.present? ? JSON.parse(ENV['DEVISE_SHIBBOLETH_CONFIG'], { symbolize_names: true }) : {
-    info_fields: {
-      uid: "uid",
-      eppn: "eppn",
-      email: "mail",
-      name: "displayName",
-      last_name: "sn",
-      first_name: "givenName",
-      identity_provider: "shib_identity_provider"
-    },
-    debug: false
-  }
-  shibboleth_extra_fields = JSON.parse(ENV.fetch('DEVISE_SHIBBOLETH_EXTRA_FIELDS', [:schacHomeOrganization]&.to_json)).map(&:to_sym)
+  shibboleth_config = if ENV['DEVISE_SHIBBOLETH_CONFIG']&.present?
+                        JSON.parse(ENV['DEVISE_SHIBBOLETH_CONFIG'],
+                                   { symbolize_names: true })
+                      else
+                        {
+                          info_fields: {
+                            uid: "uid",
+                            eppn: "eppn",
+                            email: "mail",
+                            name: "displayName",
+                            last_name: "sn",
+                            first_name: "givenName",
+                            identity_provider: "shib_identity_provider"
+                          },
+                          debug: false
+                        }
+                      end
+  shibboleth_extra_fields = JSON.parse(ENV.fetch('DEVISE_SHIBBOLETH_EXTRA_FIELDS',
+                                                 [:schacHomeOrganization].to_json)).map(&:to_sym)
   config.omniauth :shibboleth, {
     request_type: shibboleth_request_type,
     **shibboleth_config,

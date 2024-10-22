@@ -8,21 +8,19 @@ module Api
         attr_reader :client, :madmp_fragment
 
         def show?
+          plan = @record.plan
           if @user.is_a?(User)
-            plan = @record.plan
             plan.readable_by?(@user.id)
           else
-            plan = @record.plan
             plan.readable_by_client?(@user.id)
           end
         end
 
         def dmp_fragments?
+          plan = @record.plan
           if @user.is_a?(User)
-            plan = @record.plan
             plan.readable_by?(@user.id)
           else
-            plan = @record.plan
             plan.readable_by_client?(@user.id)
           end
         end

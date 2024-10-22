@@ -5,7 +5,7 @@ class GuidedTourController < ApplicationController
   after_action :verify_authorized
   include Dmpopidor::ErrorHelper
 
-  def get_tour
+  def get_tour # rubocop:disable Naming/AccessorMethodName
     tour_name = params[:tour]
     @guided_tour = current_user.guided_tours.find_or_create_by(tour: tour_name)
 
@@ -14,6 +14,7 @@ class GuidedTourController < ApplicationController
     render json: { status: 200, tour: { name: tour_name, ended: @guided_tour.nil? ? false : @guided_tour.ended } }
   end
 
+  # rubocop:disable Metrics/AbcSize
   def end_tour
     tour_name = params[:tour]
 
@@ -26,10 +27,11 @@ class GuidedTourController < ApplicationController
 
       @guided_tour.update(ended: true)
       render json: { status: 200, tour: { name: tour_name, ended: true } }
-    rescue => e
+    rescue StandardError => e
       Rails.logger.error("An error occurred during ending the guided tour: #{e.message}")
       Rails.logger.error(e.backtrace.join("\n"))
       internal_server_error('An error occurred during ending the guided tour')
     end
   end
+  # rubocop:enable Metrics/AbcSize
 end

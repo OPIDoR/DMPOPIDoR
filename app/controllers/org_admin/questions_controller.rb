@@ -42,13 +42,11 @@ module OrgAdmin
     end
 
     # GET /org_admin/templates/[:template_id]/phases/[:phase_id]/sections/[:id]/questions/[:question_id]/edit
-    # rubocop:disable Metrics/MethodLength
     def edit
       question = Question.includes(:annotations,
                                    :question_options,
                                    section: { phase: :template })
                          .find(params[:id])
-
 
       authorize question
       render json: { html: render_to_string(partial: 'edit', locals: {
@@ -59,11 +57,10 @@ module OrgAdmin
                                               conditions: question.conditions
                                             }) }
     end
-    # rubocop:enable Metrics/MethodLength
 
     # SEE MODULE
     # GET /org_admin/templates/:template_id/phases/:phase_id/sections/:section_id/questions/new
-    # rubocop:disable Metrics/AbcSize, Metrics/MethodLength
+    # rubocop:disable Metrics/AbcSize
     def new
       section = Section.includes(:questions, phase: :template).find(params[:section_id])
       nbr = section.questions.maximum(:number)
@@ -87,7 +84,7 @@ module OrgAdmin
                                               question_formats: question_formats
                                             }) }
     end
-    # rubocop:enable Metrics/AbcSize, Metrics/MethodLength
+    # rubocop:enable Metrics/AbcSize
 
     # POST /org_admin/templates/:template_id/phases/:phase_id/sections/:section_id/questions
     # rubocop:disable Metrics/AbcSize

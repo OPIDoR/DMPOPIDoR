@@ -2,6 +2,7 @@
 
 module Dmpopidor
   # Customized code for ResearchOutput model
+  # rubocop:disable Metrics/ModuleLength
   module ResearchOutput
     def main?
       display_order.eql?(1)
@@ -38,6 +39,7 @@ module Dmpopidor
     end
 
     # rubocop:disable Metrics/AbcSize, Metrics/MethodLength
+    # rubocop:disable Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
     def create_json_fragments(configuration = {})
       # rubocop:disable Metrics/BlockLength
       I18n.with_locale plan.template.locale do
@@ -46,7 +48,7 @@ module Dmpopidor
         contact_person = dmp_fragment.persons.first
         data_type = configuration[:dataType]
         if fragment.nil?
-          description_prop_name, description_question, description_schema = dataTypeToSchemaData(data_type)
+          description_prop_name, description_question, description_schema = data_type_to_schema_data(data_type)
 
           # Creates the main ResearchOutput fragment
           fragment = Fragment::ResearchOutput.create(
@@ -109,24 +111,26 @@ module Dmpopidor
       end
       # rubocop:enable Metrics/BlockLength
     end
+    # rubocop:enable Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
     # rubocop:enable Metrics/AbcSize, Metrics/MethodLength
 
     def serialize_infobox_data
       description_fragment = json_fragment.research_output_description
-      return {
+      {
         abbreviation: abbreviation,
         title: description_fragment.data['title'],
         type: description_fragment.data['type'],
         configuration: {
-          hasPersonalData: has_personal_data,
-        },
+          hasPersonalData: personal_data?
+        }
       }
     end
 
-    def serialize_json(with_questions_with_guidance = false)
-      ro_fragment = json_fragment()
+    # rubocop:disable Metrics/AbcSize, Metrics/MethodLength
+    def serialize_json(with_questions_with_guidance: false)
+      ro_fragment = json_fragment
       module_id = ro_fragment.additional_info['moduleId']
-      template = module_id ? ::Template.find(module_id) :  plan.template
+      template = module_id ? ::Template.find(module_id) : plan.template
 
       questions_with_guidance = []
 
@@ -160,8 +164,9 @@ module Dmpopidor
         }
       end
     end
+    # rubocop:enable Metrics/AbcSize, Metrics/MethodLength
 
-    def has_personal_data
+    def personal_data?
       json_fragment.additional_info['hasPersonalData'] || false
     end
 
@@ -171,11 +176,11 @@ module Dmpopidor
     # Returns an array containing the property name, description question & the madmpschema according to the
     # data_type in parameters
     #####
-    def dataTypeToSchemaData(data_type)
+    def data_type_to_schema_data(data_type)
       if data_type.eql?('software') && MadmpSchema.exists?(name: 'SoftwareDescriptionStandard')
         [
           'softwareDescription',
-          ::Template.module(data_type:).questions.joins(:madmp_schema).find_by(madmp_schemas: { classname: 'software_description' }),
+          ::Template.module(data_type:).questions.joins(:madmp_schema).find_by(madmp_schemas: { classname: 'software_description' }), # rubocop:disable Layout/LineLength
           MadmpSchema.find_by(name: 'SoftwareDescriptionStandard')
         ]
       else
@@ -187,4 +192,5 @@ module Dmpopidor
       end
     end
   end
+  # rubocop:enable Metrics/ModuleLength
 end

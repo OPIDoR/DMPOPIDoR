@@ -277,7 +277,7 @@ module Dmpopidor
         Rails.logger.error('An error occurred while rendering response')
         Rails.logger.error(e.backtrace.join("\n"))
         internal_server_error(e.message)
-        return
+        nil
       end
 
       render json: { status: 200, message: "#{notes_with_users.length} notes found", notes: notes_with_users }

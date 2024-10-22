@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-# Templates controller specific to DMP OPIDoR, allows the app to get JSON info about a DMP template 
+# Templates controller specific to DMP OPIDoR, allows the app to get JSON info about a DMP template
 class TemplatesController < ApplicationController
   after_action :verify_authorized
 
@@ -23,7 +23,13 @@ class TemplatesController < ApplicationController
     if template.save
       render json: {
         code: 1,
-        msg: (template.is_recommended? ? _("'#{template.title}' template is now recommended.") : _("'#{template.title}' template is no longer recommended."))
+        msg: (
+          if template.is_recommended?
+            _("'#{template.title}' template is now recommended.")
+          else
+            _("'#{template.title}' template is no longer recommended.")
+          end
+        )
       }
     else
       render status: :bad_request, json: {

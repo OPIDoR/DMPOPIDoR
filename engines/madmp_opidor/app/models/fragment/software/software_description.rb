@@ -40,19 +40,21 @@
 
 #  index_madmp_fragments_on_answer_id                  (answer_id)
 #  index_madmp_fragments_on_madmp_schema_id  (madmp_schema_id)
-module Fragment::Software
-  # ResearchOutputDescription STI model
-  class SoftwareDescription < MadmpFragment
-    def contact
-      Fragment::Contributor.where(parent_id: id).first
-    end
+module Fragment
+  module Software
+    # ResearchOutputDescription STI model
+    class SoftwareDescription < MadmpFragment
+      def contact
+        Fragment::Contributor.where(parent_id: id).first
+      end
 
-    def properties
-      'contact'
-    end
+      def properties
+        'contact'
+      end
 
-    def self.sti_name
-      'software_description'
+      def self.sti_name
+        'software_description'
+      end
     end
   end
 end

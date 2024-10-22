@@ -40,11 +40,13 @@
 
 #  index_madmp_fragments_on_answer_id                  (answer_id)
 #  index_madmp_fragments_on_madmp_schema_id  (madmp_schema_id)
-module Fragment::Software
-  # ResearchOutputDescription STI model
-  class DependencyReference < MadmpFragment
-    def self.sti_name
-      'dependency_reference'
+module Fragment
+  module Software
+    # ResearchOutputDescription STI model
+    class DependencyReference < MadmpFragment
+      def self.sti_name
+        'dependency_reference'
+      end
     end
   end
 end

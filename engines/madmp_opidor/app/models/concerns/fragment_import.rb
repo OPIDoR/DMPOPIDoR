@@ -91,7 +91,7 @@ module FragmentImport
     # rubocop:enable Metrics/BlockLength
 
     # Object needs reloading after being modified by update_parent_references
-    self.reload
+    reload
     fragmented_data.try(:permit!)
     update!(
       data: data.merge(fragmented_data),
@@ -169,7 +169,7 @@ module FragmentImport
     # rubocop:enable Metrics/BlockLength
 
     # Object needs reloading after being modified by update_parent_references
-    self.reload
+    reload
     update!(
       data: data.merge(fragmented_data),
       additional_info: additional_info.except!('custom_value')
@@ -260,7 +260,7 @@ module FragmentImport
     # rubocop:enable Metrics/BlockLength
 
     # Object needs reloading after being modified by update_parent_references
-    self.reload
+    reload
     update!(
       data: data.merge(fragmented_data),
       additional_info: additional_info.except!('custom_value')

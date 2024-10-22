@@ -576,7 +576,8 @@ class Plan < ApplicationRecord
       # Start DMP OPIDoR Customization
       # CHANGES : All plan except private one are visible by admins.
       # --------------------------------
-      false if privately_visible?
+      return false if privately_visible?
+
       # --------------------------------
       # End DMP OPIDoR Customization
       # --------------------------------

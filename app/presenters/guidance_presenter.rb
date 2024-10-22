@@ -38,7 +38,8 @@ class GuidancePresenter
   # question  - The question to which guidance pretains
   #
   # Returns an array of tab hashes.  These
-  # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize
+  # rubocop:disable Metrics/AbcSize
+  # rubocop:disable Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
   def tablist(question)
     # start with orgs
     # filter into hash with annotation_presence, main_group presence, and
@@ -47,9 +48,7 @@ class GuidancePresenter
     orgs.each do |org|
       annotations = guidance_annotations(org: org, question: question)
       groups = guidance_groups_by_theme(org: org, question: question)
-      if locale != nil
-        groups = groups.reject { |group| group.language_id != locale.id }
-      end
+      groups = groups.select { |group| group.language_id == locale.id } unless locale.nil?
       main_groups = groups.select { |group| group.optional_subset == false }
       subsets = groups.reject { |group| group.optional_subset == false }
       if annotations.present? || main_groups.present? # annotations and main group
@@ -65,7 +64,8 @@ class GuidancePresenter
     end
     display_tabs
   end
-  # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize
+  # rubocop:enable Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
+  # rubocop:enable Metrics/AbcSize
 
   private
 
@@ -118,7 +118,8 @@ class GuidancePresenter
   # Returns a hash of guidance groups for an org and question passed with the following
   # structure:
   # { guidance_group: { theme: [guidance, ...], ... }, ... }
-  # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize
+  # rubocop:disable Metrics/AbcSize
+  # rubocop:disable Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
   def guidance_groups_by_theme(org: nil, question: nil)
     raise ArgumentError unless question.is_a?(Question)
     raise ArgumentError unless org.is_a?(Org)
@@ -135,7 +136,8 @@ class GuidancePresenter
       acc[gg] = filtered_gg if filtered_gg.present?
     end
   end
-  # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize
+  # rubocop:enable Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
+  # rubocop:enable Metrics/AbcSize
 
   # Returns a collection of annotations (type guidance) for an org and question passed
   def guidance_annotations(org: nil, question: nil)
