@@ -41,8 +41,8 @@
   "dependencies": {
     "@fortawesome/fontawesome-free": "^6.4.0",
     "@hotwired/turbo-rails": "^8.0",
-    "@rails/actioncable": "~7.1",
-    "@rails/activestorage": "~7.1",
+    "@rails/actioncable": "^7.2",
+    "@rails/activestorage": "^7.2",
     "@rails/ujs": "~7.1",
     "autonumeric": "^4.6.0",
     "bootstrap": "^3.4.1",
@@ -76,6 +76,7 @@
   },
   "devDependencies": {
     "@babel/core": "^7.20.12",
+    "@babel/plugin-syntax-dynamic-import": "^7.8.3",
     "@babel/plugin-transform-class-properties": "^7.25.4",
     "@babel/plugin-transform-object-rest-spread": "^7.24.7",
     "@babel/plugin-transform-private-methods": "^7.25.4",

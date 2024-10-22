@@ -1,17 +1,17 @@
 # frozen_string_literal: true
 
-# rubocop:disable Metrics/ClassLength
 # Controller for the MadmpFragments, handle structures forms
 class MadmpFragmentsController < ApplicationController
   after_action :verify_authorized
   include Dmpopidor::ErrorHelper
 
+  # rubocop:disable Metrics/AbcSize, Metrics/MethodLength
   def create
     body = JSON.parse(request.body.string)
-    dmp = Fragment::Dmp.find(body["dmp_id"])
+    dmp = Fragment::Dmp.find(body['dmp_id'])
     plan = dmp.plan
-    research_output = body["research_output_id"] ? ::ResearchOutput.find(body["research_output_id"]) : nil
-    madmp_schema = MadmpSchema.find(body["schema_id"])
+    research_output = body['research_output_id'] ? ::ResearchOutput.find(body['research_output_id']) : nil
+    madmp_schema = MadmpSchema.find(body['schema_id'])
     defaults = madmp_schema.defaults(plan.template.locale)
     classname = madmp_schema.classname
     @fragment = MadmpFragment.new(
@@ -30,25 +30,27 @@ class MadmpFragmentsController < ApplicationController
       @fragment.answer = ::Answer.create!(
         research_output_id: research_output.id,
         plan_id: plan.id,
-        question_id: body["question_id"],
+        question_id: body['question_id'],
         user_id: current_user.id
       )
     end
     @fragment.save!
     @fragment.handle_defaults(defaults)
-    @fragment.import_with_instructions(body["data"], madmp_schema)
+    @fragment.import_with_instructions(body['data'], madmp_schema)
 
-    render json: render_fragment_json(@fragment, madmp_schema)
+    render json: MadmpFragment.render_fragment_json(@fragment, madmp_schema)
   end
+  # rubocop:enable Metrics/AbcSize, Metrics/MethodLength
 
   def show
     @fragment = MadmpFragment.find(params[:id])
     madmp_schema = @fragment.madmp_schema
     authorize @fragment
-    render json: render_fragment_json(@fragment, madmp_schema)
+    render json: MadmpFragment.render_fragment_json(@fragment, madmp_schema)
   end
 
   # Needs some rework
+  # rubocop:disable Metrics/AbcSize
   def update
     @fragment = MadmpFragment.find(params[:id])
     form_data = JSON.parse(request.body.string)
@@ -64,7 +66,7 @@ class MadmpFragmentsController < ApplicationController
       @fragment.update_research_output_parameters
       render json: {
         fragment: @fragment.get_full_fragment(with_ids: true, with_template_name: true),
-        plan_title: (@fragment.dmp.meta.data['title'] if %w[dmp project entity].include?( @fragment.classname)),
+        plan_title: (@fragment.dmp.meta.data['title'] if %w[dmp project entity].include?(@fragment.classname)),
         message: _('Form saved successfully.')
       }, status: :ok
     rescue ActiveRecord::StaleObjectError
@@ -73,6 +75,7 @@ class MadmpFragmentsController < ApplicationController
       }, status: :internal_server_error
     end
   end
+  # rubocop:enable Metrics/AbcSize
 
   # rubocop:disable Metrics/AbcSize
   def load_fragments
@@ -88,7 +91,7 @@ class MadmpFragmentsController < ApplicationController
                                   .map do |f|
                                     {
                                       **f.get_full_fragment(with_ids: true),
-                                      'to_string' => f.to_s,
+                                      'to_string' => f.to_s
                                     }
                                   end
     authorize @dmp_fragment
@@ -98,10 +101,8 @@ class MadmpFragmentsController < ApplicationController
   end
   # rubocop:enable Metrics/AbcSize
 
-
   def destroy
     @fragment = MadmpFragment.find(params[:id])
-    parent_id = @fragment.parent_id
 
     authorize @fragment
     if @fragment.destroy
@@ -114,16 +115,13 @@ class MadmpFragmentsController < ApplicationController
     end
   end
 
-  # rubocop:disable Metrics/AbcSize
   def destroy_contributor
     @person = Fragment::Person.find(params[:contributor_id])
     contributors_list = @person.contributors
-    dmp_id = @person.dmp_id
-    property_name = @person.additional_info['property_name']
 
     authorize @person.becomes(MadmpFragment)
     if @person.destroy
-      contributors_list.each { |c| c.destroy }
+      contributors_list.each(&:destroy)
 
       @person = success_message(@person, _('removed'))
       render json: { status: 200, message: 'Contributor removed successfully', fragment: @person }, status: :ok
@@ -132,29 +130,6 @@ class MadmpFragmentsController < ApplicationController
       @notice = failure_message(@person, _('remove'))
       render bad_request(@notice)
     end
-  end
-  # rubocop:enable Metrics/AbcSize
-
-
-
-  private
-
-  def render_fragment_json(fragment, madmp_schema) 
-    {
-      'fragment' => fragment.get_full_fragment(with_ids: true, with_template_name: true),
-      'answer_id' => fragment.answer_id,
-      'template' => {
-        id: fragment.madmp_schema_id,
-        name: madmp_schema.name,
-        schema: madmp_schema.schema,
-        api_client: if madmp_schema.api_client.present?
-          {
-            id: madmp_schema.api_client_id,
-            name: madmp_schema.api_client.name
-          } 
-        end
-      }
-    }
   end
 
   # Since the StaleObjectError is triggered on the Answer we need to recover the
@@ -194,4 +169,3 @@ class MadmpFragmentsController < ApplicationController
     params.require(:madmp_fragment).permit(permit_arr)
   end
 end
-# rubocop:enable Metrics/ClassLength

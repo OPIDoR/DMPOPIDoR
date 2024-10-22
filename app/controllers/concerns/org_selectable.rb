@@ -128,7 +128,7 @@ module OrgSelectable
     def prep_org_partial
       name = Rails.configuration.x.application.restrict_orgs ? 'local_only' : 'combined'
       @org_partial = "shared/org_selectors/#{name}"
-      @all_orgs = if current_user.present? && current_user.can_super_admin? 
+      @all_orgs = if current_user.present? && current_user.can_super_admin?
                     Org.includes(identifiers: [:identifier_scheme]).all
                   else
                     Org.includes(identifiers: [:identifier_scheme]).where(managed: true)

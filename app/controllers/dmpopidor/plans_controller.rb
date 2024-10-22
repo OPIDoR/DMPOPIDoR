@@ -6,6 +6,8 @@ module Dmpopidor
   module PlansController
     include Dmpopidor::ErrorHelper
 
+    # rubocop:disable Metrics/AbcSize, Metrics/MethodLength
+    # rubocop:disable Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
     def index
       authorize ::Plan
       @plans = ::Plan.includes(:roles).active(current_user)
@@ -19,21 +21,25 @@ module Dmpopidor
         format.html
         format.json do
           plans = @plans.zip(@organisationally_or_publicly_visible).flatten.compact
-          plans = plans.map do | plan |
+          plans = plans.map do |plan|
             {
               id: plan.id,
               title: plan.title,
               research_outputs: plan.research_outputs
             }
-          end.reject { |plan|
+          end.reject do |plan| # rubocop:disable Style/MultilineBlockChain
             plan[:research_outputs].empty? ||
               plan[:research_outputs].all? { |output| output[:title].nil? || output[:title].strip.empty? } ||
-                plan[:research_outputs].all? { |output| output[:output_type	].nil? || output[:output_type	].strip.empty? }
-          }
+              plan[:research_outputs].all? do |output|
+                output[:output_type].nil? || output[:output_type].strip.empty?
+              end
+          end
           render json: { plans: plans }
         end
       end
     end
+    # rubocop:enable Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
+    # rubocop:enable Metrics/AbcSize, Metrics/MethodLength
 
     # CHANGES:
     # - Emptied method as logic is now handled by ReactJS
@@ -56,6 +62,7 @@ module Dmpopidor
         }, status: 400
       else
         @plan.template = ::Template.find(plan_params[:template_id])
+        # rubocop:disable Metrics/BlockLength
         I18n.with_locale @plan.template.locale do
           @plan.visibility = Rails.configuration.x.plans.default_visibility
 
@@ -102,8 +109,8 @@ module Dmpopidor
             # Initialize Meta & Project
             @plan.create_plan_fragments
 
-            registry_values = Registry.find_by(name:"ResearchDataType").registry_values
-            registry = registry_values.find { |entry| entry['data']['en_GB'] == "Dataset" }
+            registry_values = Registry.find_by(name: 'ResearchDataType').registry_values
+            registry = registry_values.find { |entry| entry['data']['en_GB'] == 'Dataset' }
 
             # Add default research output if possible
             if Rails.configuration.x.dmpopidor.create_first_research_output || @plan.template.structured? == false
@@ -112,11 +119,11 @@ module Dmpopidor
                 title: "#{_('Research output')} 1",
                 is_default: true,
                 display_order: 1,
-                output_type_description: registry['data'][@plan.template.locale.gsub('-', '_')],
+                output_type_description: registry['data'][@plan.template.locale.tr('-', '_')]
               )
               created_ro.create_json_fragments({
-                hasPersonalData: Rails.configuration.x.dmpopidor.front[:enableHasPersonalData],
-              })
+                                                 hasPersonalData: Rails.configuration.x.dmpopidor.front[:enableHasPersonalData] # rubocop:disable Layout/LineLength
+                                               })
             end
 
             flash[:notice] = msg
@@ -131,6 +138,7 @@ module Dmpopidor
             }, status: 400
           end
         end
+        # rubocop:enable Metrics/BlockLength
       end
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
@@ -215,7 +223,6 @@ module Dmpopidor
           template:,
           locale: template.locale
         })
-
     end
 
     # GET /plans/:id/budget
@@ -232,65 +239,67 @@ module Dmpopidor
       render json: {
         status: 200,
         message: 'Guidance groups',
-        data: @all_ggs_grouped_by_org,
-      },status: :ok
+        data: @all_ggs_grouped_by_org
+      }, status: :ok
     end
 
+    # rubocop:disable Metrics/MethodLength, Metrics/AbcSize
     def select_guidance_groups
-      begin
-        @plan = ::Plan.find(params[:id])
-        authorize @plan
+      @plan = ::Plan.find(params[:id])
+      authorize @plan
 
-        body = JSON.parse(request.raw_post)
+      body = JSON.parse(request.raw_post)
 
-        selected_ids = body["guidance_group_ids"]
+      selected_ids = body['guidance_group_ids']
 
-        guidance_group_ids = if selected_ids.blank?
-                                []
-                              else
-                                selected_ids.map(&:to_i).uniq
-                              end
+      guidance_group_ids = if selected_ids.blank?
+                             []
+                           else
+                             selected_ids.map(&:to_i).uniq
+                           end
 
-        @plan.guidance_groups = ::GuidanceGroup.where(id: guidance_group_ids)
+      @plan.guidance_groups = ::GuidanceGroup.where(id: guidance_group_ids)
 
-        guidance_presenter = ::GuidancePresenter.new(@plan)
+      guidance_presenter = ::GuidancePresenter.new(@plan)
 
-        if @plan.save
-          @all_ggs_grouped_by_org = get_guidances_groups(params[:id], params[:locale])
-          render json: {
-              status: 200,
-              message: "Guidances updated for plan [#{params[:id]}]",
-              guidance_groups: @all_ggs_grouped_by_org,
-              questions_with_guidance: @plan.template.questions.select do |q|
-                question = ::Question.find(q.id)
-                guidance_presenter.any?(question:)
-              end.pluck(:id)
-          }, status: :ok
-        else
-          Rails.logger.error("Plan [#{params[:id]}] not updated")
-          internal_server_error("Plan [#{params[:id]}] not updated")
-        end
-      rescue ActiveRecord::RecordNotFound => e
-        Rails.logger.error("Plan [#{params[:id]}] not found")
-        not_found("Plan [#{params[:id]}] not found")
-      rescue JSON::ParserError, TypeError => e
-        Rails.logger.error("Bad request - Invalid JSON data")
-        bad_request("Bad request - Invalid JSON data")
-      rescue StandardError => e
-        Rails.logger.error("Internal server error - #{e.message}")
-        internal_server_error("Internal server error - #{e.message}")
+      if @plan.save
+        @all_ggs_grouped_by_org = get_guidances_groups(params[:id], params[:locale])
+        render json: {
+          status: 200,
+          message: "Guidances updated for plan [#{params[:id]}]",
+          guidance_groups: @all_ggs_grouped_by_org,
+          questions_with_guidance: @plan.template.questions.select do |q|
+            question = ::Question.find(q.id)
+            guidance_presenter.any?(question:)
+          end.pluck(:id)
+        }, status: :ok
+      else
+        Rails.logger.error("Plan [#{params[:id]}] not updated")
+        internal_server_error("Plan [#{params[:id]}] not updated")
       end
+    rescue ActiveRecord::RecordNotFound
+      Rails.logger.error("Plan [#{params[:id]}] not found")
+      not_found("Plan [#{params[:id]}] not found")
+    rescue JSON::ParserError, TypeError
+      Rails.logger.error('Bad request - Invalid JSON data')
+      bad_request('Bad request - Invalid JSON data')
+    rescue StandardError => e
+      Rails.logger.error("Internal server error - #{e.message}")
+      internal_server_error("Internal server error - #{e.message}")
     end
+    # rubocop:enable Metrics/MethodLength, Metrics/AbcSize
 
+    # rubocop:disable Metrics/AbcSize, Metrics/MethodLength
+    # rubocop:disable Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
     def question_guidances
       plan_id = params[:id]
-      unless plan_id && plan_id.to_i.positive?
+      unless plan_id&.to_i&.positive?
         bad_request("Plan [#{plan_id}] id, must be present or positive value")
         return
       end
 
       question_id = params[:question]
-      unless question_id && question_id.to_i.positive?
+      unless question_id&.to_i&.positive?
         bad_request("Question [#{question_id}] id, must be present or positive value")
         return
       end
@@ -336,7 +345,7 @@ module Dmpopidor
         guidance_presenter = ::GuidancePresenter.new(@plan)
         guidances = guidance_presenter.tablist(question)
       rescue StandardError => e
-        Rails.logger.error("Cannot create guidance presenter")
+        Rails.logger.error('Cannot create guidance presenter')
         Rails.logger.error(e.backtrace.join("\n"))
         internal_server_error('An error occured during guidance presenter creation')
         return
@@ -346,12 +355,18 @@ module Dmpopidor
         {
           name: guidance[:name],
           groups: guidance[:groups].to_a,
-          annotations: guidance[:annotations],
+          annotations: guidance[:annotations]
         }
       end
 
-      render json: { status: 200, message: "Guidances for plan [#{plan_id}] and question [#{question_id}]", guidances: guidances }, status: :ok
+      render json: {
+               status: 200, message: "Guidances for plan [#{plan_id}] and question [#{question_id}]",
+               guidances: guidances
+             },
+             status: :ok
     end
+    # rubocop:enable Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
+    # rubocop:enable Metrics/AbcSize, Metrics/MethodLength
 
     def import
       @plan = ::Plan.new
@@ -363,7 +378,7 @@ module Dmpopidor
     end
 
     # rubocop:disable Metrics/MethodLength, Metrics/AbcSize
-    # rubocop:disable Metrics/PerceivedComplexity
+    # rubocop:disable Metrics/PerceivedComplexity, Metrics/CyclomaticComplexity
     def import_plan
       @plan = ::Plan.new
       authorize @plan
@@ -399,9 +414,7 @@ module Dmpopidor
               @plan.visibility = Rails.configuration.x.plans.default_visibility
 
               @plan.title = format(_("%{user_name}'s Plan"), user_name: current_user.firstname)
-              if json_data.dig('meta', 'title')
-                @plan.title = json_data['meta']['title']
-              end
+              @plan.title = json_data['meta']['title'] if json_data.dig('meta', 'title')
               @plan.org = current_user.org
 
               if @plan.save
@@ -438,10 +451,10 @@ module Dmpopidor
       end
       # rubocop:enable Metrics/BlockLength
     end
-    # rubocop:enable Metrics/PerceivedComplexity
+    # rubocop:enable Metrics/PerceivedComplexity, Metrics/CyclomaticComplexity
     # rubocop:enable Metrics/MethodLength, Metrics/AbcSize
 
-    # rubocop:disable Metrics/MethodLength, Metrics/AbcSize
+    # rubocop:disable Metrics/AbcSize
     def research_outputs_data
       plan = ::Plan.find(params[:id])
       authorize plan
@@ -450,18 +463,17 @@ module Dmpopidor
       render json: {
         id: plan.id,
         dmp_id: plan.json_fragment.id,
-        research_outputs: plan.research_outputs.order(:display_order).map do |ro|
-          ro.serialize_json
-        end,
+        research_outputs: plan.research_outputs.order(:display_order).map(&:serialize_json),
         questions_with_guidance: plan.template.questions.select do |q|
           question = ::Question.find(q.id)
           guidance_presenter.any?(question:)
         end.pluck(:id)
       }
     end
-    # rubocop:enable Metrics/MethodLength, Metrics/AbcSize
+    # rubocop:enable Metrics/AbcSize
 
     # GET AJAX /plans/:id/contributors_data
+    # rubocop:disable Metrics/MethodLength, Metrics/AbcSize
     def contributors_data
       plan = ::Plan.find(params[:id])
       authorize plan
@@ -470,7 +482,7 @@ module Dmpopidor
       contributors = dmp_fragment.persons.order(
         Arel.sql("data->>'lastName', data->>'firstName'")
       )
-      schema = MadmpSchema.find_by(name: "PersonStandard")
+      schema = MadmpSchema.find_by(name: 'PersonStandard')
       render json: {
         dmp_id: plan.json_fragment.id,
         contributors: contributors.map do |contributor|
@@ -484,8 +496,9 @@ module Dmpopidor
           id: schema.id,
           schema: schema.schema
         }
-      } 
+      }
     end
+    # rubocop:enable Metrics/MethodLength, Metrics/AbcSize
 
     private
 
@@ -529,8 +542,9 @@ module Dmpopidor
              })
     end
 
+    # rubocop:disable Metrics/MethodLength, Metrics/AbcSize
     def get_guidances_groups(id, locale = 'fr-FR')
-      current_locale = Language.where(abbreviation: locale).first()
+      current_locale = Language.where(abbreviation: locale).first
       @plan = ::Plan.includes(
         :guidance_groups, template: [:phases]
       ).find(id)
@@ -559,12 +573,13 @@ module Dmpopidor
               name: item.name,
               selected: @selected_guidance_groups.include?(item.id),
               description: item.description,
-              language_id: item.language_id,
+              language_id: item.language_id
             }
           end
         }
       end
     end
+    # rubocop:enable Metrics/MethodLength, Metrics/AbcSize
   end
   # rubocop:enable Metrics/ModuleLength
 end

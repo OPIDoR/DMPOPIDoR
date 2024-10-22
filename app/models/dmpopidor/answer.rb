@@ -3,6 +3,7 @@
 module Dmpopidor
   # Customized code for Answer model
   module Answer
+    # rubocop:disable Metrics/AbcSize
     def instantiate_fragment
       if plan.template.structured? && madmp_fragment.nil?
         dmp_id = plan.json_fragment.id
@@ -25,5 +26,6 @@ module Dmpopidor
       end
       nil
     end
+    # rubocop:enable Metrics/AbcSize
   end
 end

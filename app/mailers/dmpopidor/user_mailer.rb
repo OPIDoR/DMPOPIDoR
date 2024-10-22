@@ -11,6 +11,7 @@ module Dmpopidor
     # CHANGES
     # Mail is sent with user's locale
     # rubocop:disable Metrics/AbcSize, Metrics/MethodLength
+    # rubocop:disable Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
     def new_comment(commenter, plan, answer, collaborator)
       return unless commenter.is_a?(User) && plan.is_a?(Plan)
 
@@ -29,9 +30,12 @@ module Dmpopidor
       research_output  = @answer.research_output
       research_output_description = research_output&.json_fragment&.research_output_description
       @research_output_name = research_output_description.data['title']
-      @phase_link = plan.template.structured? ? 
-                    url_for(action: 'structured_edit', controller: 'plans', id: @plan.id, phase_id: @phase_id, research_output: research_output.id) : 
-                    url_for(action: 'edit', controller: 'plans', id: @plan.id, phase_id: @phase_id)
+      @phase_link = if plan.template.structured?
+                      url_for(action: 'structured_edit', controller: 'plans', id: @plan.id, phase_id: @phase_id,
+                              research_output: research_output.id)
+                    else
+                      url_for(action: 'edit', controller: 'plans', id: @plan.id, phase_id: @phase_id)
+                    end
       @helpdesk_email = helpdesk_email(org: @commenter.org)
 
       I18n.with_locale current_locale(collaborator) do
@@ -41,6 +45,7 @@ module Dmpopidor
                                                                                           plan_title: @plan.title))
       end
     end
+    # rubocop:enable Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
     # rubocop:enable Metrics/AbcSize, Metrics/MethodLength
 
     # CHANGES
@@ -221,32 +226,29 @@ module Dmpopidor
       end
     end
 
-    
-  # rubocop:disable Metrics/AbcSize
-  def client_sharing_notification(client_role, user)
-    @api_client = client_role.api_client
-    return unless @api_client.contact_email.present?
+    # rubocop:disable Metrics/AbcSize
+    def client_sharing_notification(client_role, user)
+      @api_client = client_role.api_client
+      return unless @api_client.contact_email.present?
 
-    @client_role = client_role
-    @contact_name = @api_client.contact_name.present? ? @api_client.contact_name : @api_client.contact_email
-    @user = user
-    
-    @link       = url_for(action: 'show', controller: '/api/v1/madmp/plans', id: @client_role.plan.id)
-    @helpdesk_email = helpdesk_email(org: @api_client.org)
-    @api_docs = Rails.configuration.x.application.api_documentation_urls[:v1]
-    @grant_id = nil
+      @client_role = client_role
+      @contact_name = @api_client.contact_name.present? ? @api_client.contact_name : @api_client.contact_email
+      @user = user
 
-    if @api_client.org&.funder?
-      @grant_id = @client_role.plan.grant_identifier
+      @link = url_for(action: 'show', controller: '/api/v1/madmp/plans', id: @client_role.plan.id)
+      @helpdesk_email = helpdesk_email(org: @api_client.org)
+      @api_docs = Rails.configuration.x.application.api_documentation_urls[:v1]
+      @grant_id = nil
+
+      @grant_id = @client_role.plan.grant_identifier if @api_client.org&.funder?
+
+      I18n.with_locale I18n.default_locale do
+        mail(to: @api_client.contact_email,
+             subject: format(_('%{username} has granted access to their Data Management Plan in %{tool_name}'),
+                             username: @user.name(false), tool_name: tool_name))
+      end
     end
-
-    I18n.with_locale I18n.default_locale do
-      mail(to: @api_client.contact_email,
-           subject: format(_('%{username} has granted access to their Data Management Plan in %{tool_name}'),
-                           username: @user.name(false), tool_name: tool_name))
-    end
-  end
-  # rubocop:enable Metrics/AbcSize
+    # rubocop:enable Metrics/AbcSize
   end
   # rubocop:enable Metrics/ModuleLength
 end

@@ -46,7 +46,7 @@ module MailerHelper
       }
     end
   end
-  
+
   def current_locale(user)
     user.locale.nil? ? I18n.default_locale : user.locale
   end

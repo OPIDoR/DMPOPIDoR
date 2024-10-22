@@ -48,17 +48,17 @@ module Dmpopidor
           @templates << ::Template.published.where(
             org_id: org&.id,
             context: template_context,
-            type: ['classic', 'structured']
+            type: %w[classic structured]
           ).to_a
         end
 
       else
         @templates = ::Template.published
                                .where(
-                                  org_id: current_user.org.id,
-                                  context: template_context,
-                                  type: ['classic', 'structured']
-                                ).to_a
+                                 org_id: current_user.org.id,
+                                 context: template_context,
+                                 type: %w[classic structured]
+                               ).to_a
       end
 
       @templates = @templates.flatten.uniq
@@ -76,14 +76,15 @@ module Dmpopidor
           description: template.description || '',
           structured: template.structured?
         }
-      end.as_json()
+      end.as_json
       render json: res
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
     # rubocop:enable Metrics/AbcSize, Metrics/MethodLength
 
     def recommend
-      recommended_template = ::Template.recommend(context: params[:context], locale: params[:locale]) || ::Template.default
+      recommended_template = ::Template.recommend(context: params[:context],
+                                                  locale: params[:locale]) || ::Template.default
       authorize ::Template.new, :template_options?
 
       render json: {

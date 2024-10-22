@@ -134,7 +134,7 @@ class GuidanceGroup < ApplicationRecord
       language_id: Language.find_by(abbreviation: 'fr-FR').id,
       org: org,
       optional_subset: false,
-      language_id: 1,
+      language_id: 1
     )
   end
 

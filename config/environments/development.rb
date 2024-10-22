@@ -3,7 +3,6 @@
 require 'active_support/core_ext/integer/time'
 require 'json'
 
-# rubocop:disable Metrics/BlockLength
 Rails.application.configure do
   # Settings specified here will take precedence over those in config/application.rb.
 
@@ -14,7 +13,8 @@ Rails.application.configure do
   config.active_record.migration_error = ENV.fetch('ACTIVE_RECORD_MIGRATION_ERROR', :page_load)&.to_sym
 
   # Highlight code that triggered database queries in logs.
-  config.active_record.verbose_query_logs = ENV.fetch('ACTIVE_RECORD_VERBOSE_QUERY_LOGS', true).to_s.casecmp('true').zero?
+  config.active_record.verbose_query_logs = ENV.fetch('ACTIVE_RECORD_VERBOSE_QUERY_LOGS',
+                                                      true).to_s.casecmp('true').zero?
 
   # Debug mode disables concatenation and preprocessing of assets.
   # This option may cause significant delays in view rendering with a large
@@ -42,7 +42,7 @@ Rails.application.configure do
   config.assets.debug = true
 
   # Precompile additional assets
-	config.assets.precompile += %w( .svg .eot .woff .ttf )
+  config.assets.precompile += %w[.svg .eot .woff .ttf]
 
   config.action_mailer.perform_deliveries = true
 
@@ -56,8 +56,6 @@ Rails.application.configure do
     IPAddr.new('0.0.0.0/0'), # All IPv4 addresses.
     IPAddr.new('::/0'), # All IPv6 addresses.
     'localhost', # The localhost reserved domain.
-    ENV.fetch('DMPROADMAP_HOST', 'dmpopidor') # Additional comma-separated hosts for development.
+    ENV.fetch('ALLOWED_HOSTS', 'dmpopidor') # Additional comma-separated hosts for development.
   ]
 end
-# rubocop:enable Metrics/BlockLength
-

@@ -6,6 +6,7 @@ module Dmpopidor
   # Customized code for ApplicationController
   module ApplicationController
     # Set Static Pages collection to use in navigation
+    # rubocop:disable Metrics/AbcSize, Metrics/MethodLength
     def set_nav_static_pages
       @nav_static_pages = []
 
@@ -26,34 +27,30 @@ module Dmpopidor
 
       begin
         resp = HTTParty.post("#{Rails.configuration.x.directus.url}/graphql",
-          body: { query: query }.to_json,
-          headers: { 'Content-Type' => 'application/json' }
-        )
-      rescue
+                             body: { query: query }.to_json,
+                             headers: { 'Content-Type' => 'application/json' })
+      rescue StandardError
         return @nav_static_pages
       end
 
-      unless resp.present? && resp.code == 200
-        return @nav_static_pages
-      end
+      return @nav_static_pages unless resp.present? && resp.code == 200
 
       resp = JSON.parse(resp.body)
 
       pages = resp['data']['static_pages']&.map do |page|
         page_translation = page['translations']
-        category = {
+        {
           'path' => page['path'],
           'inMenu' => page['inMenu'],
           'title' => reduce_translations(page_translation, 'title')
         }
       end
 
-      if pages.nil?
-        return @nav_static_pages
-      end
+      return @nav_static_pages if pages.nil?
 
       @nav_static_pages = pages
     end
+    # rubocop:enable Metrics/AbcSize, Metrics/MethodLength
 
     # Added Research output Support
     # rubocop:disable Metrics/AbcSize
