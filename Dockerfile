@@ -1,5 +1,4 @@
-FROM ruby:3.2.5-slim AS base
-
+FROM ruby:3.3.5-slim AS base
 WORKDIR /app
 
 # Install necessary dependencies
