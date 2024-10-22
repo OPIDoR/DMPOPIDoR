@@ -368,7 +368,6 @@ group :development do
 end
 
 gem 'net-smtp'
-
 # ======================#
 # MADMP OPIDOR FEATURES #
 # ===================== #
@@ -380,6 +379,7 @@ group :build do
   gem 'activerecord-nulldb-adapter', git: 'https://github.com/taylorthurlow/nulldb',
                                      branch: 'fix/activerecord72-register-adapter'
 end
+gem 'grover', '~> 1.1'
 
 gem 'graphiql-rails', '~> 1.10'
 gem 'graphql', '~> 2.3'
