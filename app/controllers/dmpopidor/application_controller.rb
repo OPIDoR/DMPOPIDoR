@@ -45,9 +45,6 @@ module Dmpopidor
           'title' => reduce_translations(page_translation, 'title')
         }
       end
-      p '##################'
-      p pages
-      p '##################'
 
       return @nav_static_pages if pages.nil?
 
