@@ -40,11 +40,13 @@
 
 #  index_madmp_fragments_on_answer_id                  (answer_id)
 #  index_madmp_fragments_on_madmp_schema_id  (madmp_schema_id)
-module Fragment::Software
-  # ResearchOutputDescription STI model
-  class ProgrammingLanguage < MadmpFragment
-    def self.sti_name
-      'programming_language'
+module Fragment
+  module Software
+    # ResearchOutputDescription STI model
+    class ProgrammingLanguage < MadmpFragment
+      def self.sti_name
+        'programming_language'
+      end
     end
   end
 end

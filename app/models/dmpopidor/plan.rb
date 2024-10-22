@@ -4,7 +4,6 @@ module Dmpopidor
   # rubocop:disable Metrics/ModuleLength
   # Customized code for Plan model
   module Plan
-
     # CHANGES : ADDED RESEARCH OUTPUT SUPPORT
     # rubocop:disable Metrics/AbcSize, Style/OptionalBooleanParameter
     # rubocop:disable Metrics/CyclomaticComplexity
@@ -159,11 +158,15 @@ module Dmpopidor
 
     def handle_research_entity(dmp_id, research_entity = nil)
       entity_schema = MadmpSchema.find_by(name: 'ResearchEntityStandard')
-      entity = Fragment::ResearchEntity.create!(
-        data: research_entity.present? ? research_entity : {
-          'title' => title,
-          'description' => description
-        },
+      Fragment::ResearchEntity.create!(
+        data: if research_entity.present?
+                research_entity
+              else
+                {
+                  'title' => title,
+                  'description' => description
+                }
+              end,
         dmp_id: dmp_id,
         parent_id: dmp_id,
         madmp_schema: entity_schema,
@@ -203,7 +206,7 @@ module Dmpopidor
         api_client_id: api_client.id
       )
     end
-    
+
     def grant_identifier
       json_fragment.project.fundings.pluck(Arel.sql("data->'grantId'")).join(', ')
     end

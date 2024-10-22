@@ -11,11 +11,11 @@ module Dmpopidor
     end
 
     def should_hide_question(question, research_output)
-      if question[:madmp_schema].classname === 'personal_data_issues'
-        return research_output.has_personal_data === false
+      if question[:madmp_schema].classname.eql?('personal_data_issues')
+        return research_output.personal_data?.eql?(false)
       end
-      return false
-    end
 
+      false
+    end
   end
 end

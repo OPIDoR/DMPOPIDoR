@@ -172,17 +172,17 @@ class MadmpSchema < ApplicationRecord
     const_data
   end
 
-  def self.serialize_json_response(schema) 
+  def self.serialize_json_response(schema)
     {
       id: schema.id,
       name: schema.name,
       schema: schema.schema,
       api_client: if schema.api_client.present?
-        {
-          id: schema.api_client_id,
-          name: schema.api_client.name
-        } 
-      end
+                    {
+                      id: schema.api_client_id,
+                      name: schema.api_client.name
+                    }
+                  end
     }
   end
 end

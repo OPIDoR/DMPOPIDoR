@@ -1,4 +1,7 @@
+# frozen_string_literal: true
+
 module Dmpopidor
+  # DMP OPIDoR error helper
   module ErrorHelper
     def bad_request(message)
       render json: { status: 400, error: 'Bad Request', message: message }, status: :bad_request
@@ -9,7 +12,8 @@ module Dmpopidor
     end
 
     def forbidden(message)
-      render json: { status: 403, error: 'Forbidden', message: message || 'You are not authorized to access this resource' }, status: :forbidden
+      render json: { status: 403, error: 'Forbidden', message: message || 'You are not authorized to access this resource' }, # rubocop:disable Layout/LineLength
+             status: :forbidden
     end
 
     def internal_server_error(message)

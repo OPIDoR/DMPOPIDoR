@@ -117,7 +117,7 @@ class Template < ApplicationRecord
 
   validates :title, presence: { message: PRESENCE_MESSAGE }
 
-  validates :org, presence: { message: PRESENCE_MESSAGE }, unless: Proc.new { |t| t.module? }
+  validates :org, presence: { message: PRESENCE_MESSAGE }, unless: proc(&:module?)
 
   validates :locale, presence: { message: PRESENCE_MESSAGE }
 
@@ -137,7 +137,7 @@ class Template < ApplicationRecord
   # overwriting the accessors.  We want to ensure this template is published
   # before we remove the published_version
   # That being said, there's a potential race_condition where we have multiple-published-versions
-  after_update :reconcile_published, if: ->(template) { template.published? }
+  after_update :reconcile_published, if: ->(template) { template.published? } # rubocop:disable Style/SymbolProc
 
   # ==========
   # = Scopes =
@@ -266,13 +266,13 @@ class Template < ApplicationRecord
   end
 
   def self.recommend(context: 'research_project', locale: 'fr-FR')
-    where(is_recommended: true, published: true, type: 'structured', context: , locale:).last
+    where(is_recommended: true, published: true, type: 'structured', context:, locale:).last
   end
 
   def self.module(data_type: nil, context: 'research_project', locale: 'fr-FR')
     return nil if data_type.nil?
-  
-    where(published: true, type: 'module', data_type:, context: , locale:).last
+
+    where(published: true, type: 'module', data_type:, context:, locale:).last
   end
 
   def self.current(family_id)

@@ -47,7 +47,6 @@ class ResearchOutput < ApplicationRecord
 
   attribute :uuid, :string, default: -> { unique_uuid(field_name: 'uuid') }
 
-
   prepend Dmpopidor::ResearchOutput
   after_destroy :destroy_json_fragment
   # --------------------------------
@@ -58,7 +57,7 @@ class ResearchOutput < ApplicationRecord
                        interactive_resource model_representation physical_object
                        service software sound text workflow other]
 
-  enum access: %i[open embargoed restricted closed]
+  enum :access, %i[open embargoed restricted closed]
 
   # ================
   # = Associations =

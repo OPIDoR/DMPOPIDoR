@@ -227,7 +227,6 @@ namespace :madmpopidor do
     RegistryValue.destroy_all
 
     registries.each do |registry_name, values|
-      registry_values = []
       registry = Registry.find_or_create_by(name: registry_name) do |r|
         r.name = registry_name
         r.version = 1

@@ -132,7 +132,7 @@ class GuidanceGroup < ApplicationRecord
       name: org.abbreviation? ? org.abbreviation : org.name,
       org: org,
       optional_subset: false,
-      language_id: 1,
+      language_id: 1
     )
   end
 

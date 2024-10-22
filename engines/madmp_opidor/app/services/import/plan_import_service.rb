@@ -21,6 +21,7 @@ module Import
         Import::PlanImportService.handle_research_outputs(plan, dmp['researchOutput'])
       end
 
+      # rubocop:disable Metrics/AbcSize
       def handle_research_outputs(plan, research_outputs)
         I18n.with_locale plan.template.locale do
           research_outputs.each_with_index do |ro_data, idx|
@@ -37,6 +38,7 @@ module Import
           end
         end
       end
+      # rubocop:enable Metrics/AbcSize
 
       def handle_contributors(dmp_fragment, contributors)
         schema = MadmpSchema.find_by(name: 'PersonStandard')
@@ -56,7 +58,7 @@ module Import
       # rubocop:disable Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
       def import_research_output(research_output_fragment, research_output_data, plan)
         dmp_id = research_output_fragment.dmp_id
-        research_output_data.each do |prop, content|
+        research_output_data.each do |prop, content| # rubocop:disable Metrics/BlockLength
           next if prop.eql?('research_output_id')
 
           schema_prop = research_output_fragment.madmp_schema.schema['properties'][prop]
@@ -64,7 +66,9 @@ module Import
 
           if research_output_fragment.data[prop].nil?
             # Fetch the associated question
-            associated_question = plan.questions.joins(:madmp_schema).find_by(madmp_schema: { name: schema_prop['template_name'] })
+            associated_question = plan.questions.joins(:madmp_schema).find_by(madmp_schema: {
+                                                                                name: schema_prop['template_name']
+                                                                              })
             next if associated_question.nil?
 
             fragment = MadmpFragment.new(

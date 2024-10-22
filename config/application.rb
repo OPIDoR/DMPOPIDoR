@@ -45,13 +45,15 @@ module DMPRoadmap
     config.filter_parameters += [ENV.fetch('APPLICATION_FILTER_PARAMETERS', :password)&.to_sym]
 
     # Enable escaping HTML in JSON.
-    config.active_support.escape_html_entities_in_json = ENV.fetch('ESCAPE_HTML_ENTITIES_IN_JSON', true).to_s.casecmp('true').zero?
+    config.active_support.escape_html_entities_in_json = ENV.fetch('ESCAPE_HTML_ENTITIES_IN_JSON',
+                                                                   true).to_s.casecmp('true').zero?
 
     # Allow controllers to access view helpers
     # TODO: We should see what methods specifically are used by the controllers
     #       and include them specifically in the controllers. We should also consider
     #       moving our helper methods into Presenters if it makes sense
-    config.action_controller.include_all_helpers = ENV.fetch('ACTION_CONTROLLER_INCLUDE_ALL_HELPERS', true).to_s.casecmp('true').zero?
+    config.action_controller.include_all_helpers = ENV.fetch('ACTION_CONTROLLER_INCLUDE_ALL_HELPERS',
+                                                             true).to_s.casecmp('true').zero?
 
     smtp_setting = {
       address: ENV.fetch('ACTION_MAILER_SMTP_HOST', 'mailcatcher'),
@@ -79,7 +81,8 @@ module DMPRoadmap
 
     config.cache_classes = ENV.fetch('CACHE_CLASSES', false).to_s.casecmp('true').zero?
 
-    config.action_view.cache_template_loading = ENV.fetch('ACTION_VIEW_CACHE_TEMPLATE_LOADING', true).to_s.casecmp('true').zero?
+    config.action_view.cache_template_loading = ENV.fetch('ACTION_VIEW_CACHE_TEMPLATE_LOADING',
+                                                          true).to_s.casecmp('true').zero?
 
     config.public_file_server.enabled = ENV.fetch('PUBLIC_FILE_SERVER_ENABLED', true).to_s.casecmp('true').zero?
 
@@ -95,16 +98,22 @@ module DMPRoadmap
     # Enable/disable caching. By default caching is disabled.
     # Run rails dev:cache to toggle caching.
     if Rails.root.join('tmp', 'caching-dev.txt').exist?
-      config.action_controller.perform_caching = ENV.fetch('ACTION_CONTROLLER_PERFORM_CACHING', true).to_s.casecmp('true').zero?
-      config.action_controller.enable_fragment_cache_logging = ENV.fetch('ACTION_CONTROLLER_ENABLE_FRAGMENT_CACHE_LOGGING', true).to_s.casecmp('true').zero?
+      config.action_controller.perform_caching = ENV.fetch('ACTION_CONTROLLER_PERFORM_CACHING',
+                                                           true).to_s.casecmp('true').zero?
+      config.action_controller.enable_fragment_cache_logging = ENV.fetch(
+        'ACTION_CONTROLLER_ENABLE_FRAGMENT_CACHE_LOGGING', true
+      ).to_s.casecmp('true').zero?
     else
-      config.action_controller.perform_caching = ENV.fetch('ACTION_CONTROLLER_PERFORM_CACHING', false).to_s.casecmp('true').zero?
+      config.action_controller.perform_caching = ENV.fetch('ACTION_CONTROLLER_PERFORM_CACHING',
+                                                           false).to_s.casecmp('true').zero?
     end
 
     # Raise exceptions instead of rendering exception templates.
-    config.action_dispatch.show_exceptions = ENV.fetch('ACTION_DISPATCH_SHOW_EXCEPTIONS', false) .to_s.casecmp('true').zero?
+    config.action_dispatch.show_exceptions = ENV.fetch('ACTION_DISPATCH_SHOW_EXCEPTIONS',
+                                                       false).to_s.casecmp('true').zero?
 
-    config.action_controller.allow_forgery_protection = ENV.fetch('ACTION_CONTROLLER_ALLOW_FORGERY_PROTECTION', false) .to_s.casecmp('true').zero?
+    config.action_controller.allow_forgery_protection = ENV.fetch('ACTION_CONTROLLER_ALLOW_FORGERY_PROTECTION',
+                                                                  false).to_s.casecmp('true').zero?
 
     # Store uploaded files on the local file system (see config/storage.yml for options)
     config.active_storage.service = ENV.fetch('ACTIVE_STORAGE_SERVICE', :local)&.to_sym
@@ -120,7 +129,9 @@ module DMPRoadmap
     config.active_support.disallowed_deprecation = ENV.fetch('ACTIVE_SUPPORT_DISALLOWED_DEPRECATION', :log)&.to_sym
 
     # Tell Active Support which deprecation messages to disallow.
-    config.active_support.disallowed_deprecation_warnings = JSON.parse(ENV.fetch('ACTIVE_SUPPORT_DISALLOWED_DEPRECATION_WARNINGS', [].to_json), symbolize_names: true)
+    config.active_support.disallowed_deprecation_warnings = JSON.parse(
+      ENV.fetch('ACTIVE_SUPPORT_DISALLOWED_DEPRECATION_WARNINGS', [].to_json), symbolize_names: true
+    )
 
     # Do not fallback to assets pipeline if a precompiled asset is missed.
     config.assets.compile = ENV.fetch('ASSETS_COMPILE', false).to_s.casecmp('true').zero?
@@ -138,17 +149,22 @@ module DMPRoadmap
     config.i18n.enforce_available_locales = ENV.fetch('I18N_ENFORCE_AVAILABLE_LOCALES', true).to_s.casecmp('true').zero?
 
     # Do not dump schema after migrations.
-    config.active_record.dump_schema_after_migration = ENV.fetch('ACTIVE_RECORD_DUMP_SCHEMA_AFTER_MIGRATION', false).to_s.casecmp('true').zero?
+    config.active_record.dump_schema_after_migration = ENV.fetch('ACTIVE_RECORD_DUMP_SCHEMA_AFTER_MIGRATION',
+                                                                 false).to_s.casecmp('true').zero?
 
     # Ignore bad email addresses and do not raise email delivery errors.
     # Set this to true and configure the email server for immediate delivery to raise delivery errors.
-    config.action_mailer.raise_delivery_errors = ENV.fetch('ACTION_MAILER_RAISE_DELIVERY_ERRORS', true).to_s.casecmp('true').zero?
+    config.action_mailer.raise_delivery_errors = ENV.fetch('ACTION_MAILER_RAISE_DELIVERY_ERRORS',
+                                                           true).to_s.casecmp('true').zero?
 
     # Mount Action Cable outside main process or domain
     config.action_cable.url = ENV.fetch('ACTION_CABLE_URL', 'ws://localhost:8080/cable')
     config.action_cable.mount_path = ENV.fetch('ACTION_CABLE_MOUNT_PATH', '/cable')
-    config.action_cable.allowed_request_origins = JSON.parse(ENV.fetch('ACTION_CABLE_ALLOWED_REQUEST_ORIGINS', '[ "http://example.com", "/http:\/\/example.*/" ]'))
-    config.action_cable.disable_request_forgery_protection = ENV.fetch('ACTION_CABLE_DISABLE_REQUEST_FORGERY_PROTECTION', true).to_s.casecmp('true').zero?
+    config.action_cable.allowed_request_origins = JSON.parse(ENV.fetch('ACTION_CABLE_ALLOWED_REQUEST_ORIGINS',
+                                                                       '[ "http://example.com", "/http:\/\/example.*/" ]')) # rubocop:disable Layout/LineLength
+    config.action_cable.disable_request_forgery_protection = ENV.fetch(
+      'ACTION_CABLE_DISABLE_REQUEST_FORGERY_PROTECTION', true
+    ).to_s.casecmp('true').zero?
 
     allowed_origins = ENV.fetch('ALLOWED_HOSTS', 'dmpopidor').split(',')
     config.action_cable.allowed_request_origins = allowed_origins.is_a?(Array) ? allowed_origins : [allowed_origins]
@@ -157,7 +173,7 @@ module DMPRoadmap
     config.log_formatter = Logger::Formatter.new
 
     if ENV['RAILS_LOG_TO_STDOUT'].present?
-      logger           = ActiveSupport::Logger.new($stdout, shift_age = 'daily')
+      logger           = ActiveSupport::Logger.new($stdout)
       logger.formatter = config.log_formatter
       config.logger    = ActiveSupport::TaggedLogging.new(logger)
     end
@@ -166,8 +182,9 @@ module DMPRoadmap
     if ENV['ERROR_NOTIFICATION_EMAIL'].present?
       config.middleware.use ExceptionNotification::Rack, :email => {
         :email_prefix => ENV.fetch('ERROR_NOTIFICATION_EMAIL_PREFIX', '[DMPOPIDoR ERROR]'),
-        :sender_address => ENV.fetch('ERROR_NOTIFICATION_SENDER_ADDRESS', %{"No-reply" <noreply@example.com>}),
-        :exception_recipients => ENV.fetch('ERROR_NOTIFICATION_EXCEPTION_RECIPIENTS', %w{exception-recipients@email.address})
+        :sender_address => ENV.fetch('ERROR_NOTIFICATION_SENDER_ADDRESS', %("No-reply" <noreply@example.com>)),
+        :exception_recipients => ENV.fetch('ERROR_NOTIFICATION_EXCEPTION_RECIPIENTS',
+                                           %w[exception-recipients@email.address])
       }
     end
 
