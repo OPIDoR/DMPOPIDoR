@@ -117,7 +117,7 @@ class Template < ApplicationRecord
 
   validates :title, presence: { message: PRESENCE_MESSAGE }
 
-  validates :org, presence: { message: PRESENCE_MESSAGE }, unless: proc(&:module?)
+  validates :org, presence: { message: PRESENCE_MESSAGE }, unless: proc { |t| t.module? } # rubocop:disable Style/SymbolProc
 
   validates :locale, presence: { message: PRESENCE_MESSAGE }
 
