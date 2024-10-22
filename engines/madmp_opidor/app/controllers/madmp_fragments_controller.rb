@@ -38,7 +38,7 @@ class MadmpFragmentsController < ApplicationController
     @fragment.handle_defaults(defaults)
     @fragment.import_with_instructions(body['data'], madmp_schema)
 
-    render json: render_fragment_json(@fragment, madmp_schema)
+    render json: MadmpFragment.render_fragment_json(@fragment, madmp_schema)
   end
   # rubocop:enable Metrics/AbcSize, Metrics/MethodLength
 
@@ -46,7 +46,7 @@ class MadmpFragmentsController < ApplicationController
     @fragment = MadmpFragment.find(params[:id])
     madmp_schema = @fragment.madmp_schema
     authorize @fragment
-    render json: render_fragment_json(@fragment, madmp_schema)
+    render json: MadmpFragment.render_fragment_json(@fragment, madmp_schema)
   end
 
   # Needs some rework
@@ -130,26 +130,6 @@ class MadmpFragmentsController < ApplicationController
       @notice = failure_message(@person, _('remove'))
       render bad_request(@notice)
     end
-  end
-
-  private
-
-  def render_fragment_json(fragment, madmp_schema)
-    {
-      'fragment' => fragment.get_full_fragment(with_ids: true, with_template_name: true),
-      'answer_id' => fragment.answer_id,
-      'template' => {
-        id: fragment.madmp_schema_id,
-        name: madmp_schema.name,
-        schema: madmp_schema.schema,
-        api_client: if madmp_schema.api_client.present?
-                      {
-                        id: madmp_schema.api_client_id,
-                        name: madmp_schema.api_client.name
-                      }
-                    end
-      }
-    }
   end
 
   # Since the StaleObjectError is triggered on the Answer we need to recover the

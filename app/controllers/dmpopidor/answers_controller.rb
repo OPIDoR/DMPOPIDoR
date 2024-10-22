@@ -6,6 +6,28 @@ module Dmpopidor
   module AnswersController
     include Dmpopidor::ErrorHelper
 
+    # rubocop:disable Metrics/AbcSize
+    def new_form
+      research_output = ::ResearchOutput.includes(:plan).find(params[:research_output_id])
+      question = Question.includes(:madmp_schema).find(params[:question_id])
+      answer = ::Answer.includes(:madmp_fragment).find_by!(
+        question_id: question.id,
+        research_output_id: research_output.id
+      )
+
+      authorize answer
+      fragment = answer.madmp_fragment
+      render json: MadmpFragment.render_fragment_json(fragment, fragment.madmp_schema)
+      nil
+    rescue ActiveRecord::RecordNotFound
+      authorize ::Answer.new(plan_id: research_output.plan_id)
+      render json: {
+        template: MadmpSchema.serialize_json_response(question.madmp_schema)
+      }
+      nil
+    end
+    # rubocop:enable Metrics/AbcSize
+
     # Added Research outputs support
     # rubocop:disable Metrics/AbcSize, Metrics/MethodLength
     # rubocop:disable Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
