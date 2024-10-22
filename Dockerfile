@@ -75,5 +75,5 @@ COPY --from=production-builder /app/config ./config
 COPY --from=production-builder /usr/local/bundle /usr/local/bundle
 COPY --from=production-builder /app/.ssl ./.ssl
 EXPOSE 3000
-RUN chmod a+x /app/bin/prod
-CMD [ "/app/bin/prod" ]
+RUN chmod a+x /app/bin/run
+CMD [ "/app/bin/run" ]
