@@ -10,11 +10,13 @@ $(() => {
 
     // update progress on section panel on load
     const sectionsInfo = $('#progress-data').data('sections');
-    sectionsInfo.forEach((sectionInfo) => {
-      const forms = $(`#collapse-${sectionInfo.id}`).find('form');
-      if (forms.length > 0) { // ensure current phase
-        updateSectionProgress(sectionInfo.id, sectionInfo.no_ans, sectionInfo.no_qns);
-      }
-    });
+    if (sectionsInfo) {
+      sectionsInfo.forEach((sectionInfo) => {
+        const forms = $(`#collapse-${sectionInfo.id}`).find('form');
+        if (forms.length > 0) { // ensure current phase
+          updateSectionProgress(sectionInfo.id, sectionInfo.no_ans, sectionInfo.no_qns);
+        }
+      });
+    }
   }
 });
