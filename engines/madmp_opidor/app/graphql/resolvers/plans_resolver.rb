@@ -26,7 +26,6 @@ module Resolvers
         {
           id: plan.id,
           title: plan.title,
-          fragments: plan.json_fragment.get_full_fragment
         }
       end
     end
