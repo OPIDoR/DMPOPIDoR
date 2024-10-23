@@ -173,11 +173,16 @@ module Dmpopidor
       I18n.with_locale @plan.template.locale do
         @persons = @plan.json_fragment.persons
         max_order = @plan.research_outputs.maximum('display_order') + 1
+
+        registry_values = Registry.find_by(name: 'ResearchDataType').registry_values
+        registry = registry_values.find { |entry| entry['data']['en_GB'] == 'Dataset' }
+
         created_ro = @plan.research_outputs.create(
           abbreviation: "#{_('RO')} #{max_order}",
           title: "#{_('Research output')} #{max_order}",
           is_default: false,
-          display_order: max_order
+          display_order: max_order,
+          output_type_description: registry['data'][@plan.template.locale.tr('-', '_')],
         )
         created_ro.create_json_fragments
 
