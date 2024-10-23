@@ -2,6 +2,13 @@
 
 **Attention** Cette liste de changements concerne les déploiements sur nos serveurs de test en interne.
 
+## 23/10/2024
+
+- Affichage du type "Personne" ou "Personal" dans les contributeurs importés via ORCID (plan FR ou EN)
+- Affichage des types dans le filtre de rechercher DataCite
+- Ajout du type "Jeu de données" ou "Dataset" par défaut à la création d'un produit de recherche (plan classique)
+- Correction de l'affichage des commentaires (plan classique)
+
 ## 22/10/2024
 
 - Amélioration du chargement des formulaires des questions non répondues afin d'éviter les réponses en double. Lors de la première ouverture d'une question, on vérifie qu'une réponse n'est pas déjà associée à la question et au produit de recherche.
