@@ -25,7 +25,7 @@ module Resolvers
       plans.where(id: id).map do |plan|
         {
           id: plan.id,
-          title: plan.title,
+          title: plan.title
         }
       end
     end
