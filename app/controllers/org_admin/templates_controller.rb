@@ -228,7 +228,7 @@ module OrgAdmin
         redirect_to edit_org_admin_template_path(@template),
                     notice: success_message(@template, _('created'))
       else
-        flash[:alert] = flash[:alert] = failure_message(@template, _('create'))
+        flash[:alert] = failure_message(@template, _('create'))
         render :new
       end
     end
