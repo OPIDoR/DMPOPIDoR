@@ -108,7 +108,7 @@ module ConditionsHelper
     return [] if plan.nil?
 
     info = plan.sections.map do |section|
-      info.push(section_info(plan, section))
+      info&.push(section_info(plan, section))
     end
   end
 
