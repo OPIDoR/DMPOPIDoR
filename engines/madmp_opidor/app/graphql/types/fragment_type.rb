@@ -1,6 +1,6 @@
 module Types
   class FragmentType < Types::BaseObject
-    field :plan_id, ID, null: false
+    field :plan, GraphQL::Types::JSON, null: false
     field :meta, GraphQL::Types::JSON, null: true
     field :project, GraphQL::Types::JSON, null: true
     field :researchOutput, GraphQL::Types::JSON, null: true

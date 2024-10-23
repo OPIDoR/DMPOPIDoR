@@ -28,7 +28,9 @@ module Resolvers
         regex = grant_ids["regex"].gsub(/\A\/|\/\z/, '')
         fragments = MadmpFragment.where("data->>'grantId' ~* ?", regex).map do |fragment|
           if Api::V1::Madmp::MadmpFragmentsPolicy.new(context[:current_user], fragment).show?
-            fragment.plan.json_fragment.get_full_fragment
+            {
+              plan: fragment.plan
+            }.merge(fragment.plan.json_fragment.get_full_fragment)
           else
             nil
           end
@@ -37,7 +39,9 @@ module Resolvers
         grant_ids = grant_ids.compact.uniq
         fragments = MadmpFragment.where("data->>'grantId' IN (?)", grant_ids).map do |fragment|
           if Api::V1::Madmp::MadmpFragmentsPolicy.new(context[:current_user], fragment).show?
-            fragment.plan.json_fragment.get_full_fragment
+            {
+              plan: fragment.plan
+            }.merge(fragment.plan.json_fragment.get_full_fragment)
           else
             nil
           end
@@ -49,7 +53,9 @@ module Resolvers
     def filter_by_fieldName(field_name, value)
       MadmpFragment.where("data->>? = ?", field_name, value).map do |fragment|
         if Api::V1::Madmp::MadmpFragmentsPolicy.new(context[:current_user], fragment).show?
-          fragment.plan.json_fragment.get_full_fragment
+          {
+            plan: fragment.plan
+          }.merge(fragment.plan.json_fragment.get_full_fragment)
         else
           nil
         end
