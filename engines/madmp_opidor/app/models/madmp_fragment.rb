@@ -450,6 +450,9 @@ class MadmpFragment < ApplicationRecord
   # rubocop:disable Metrics/AbcSize
   def update_meta_fragment
     meta_fragment = dmp.meta
+    if (classname.eql?('research_entity'))
+      dmp_title = format(_('"%{entity_name}" entity DMP'), entity_name: entity_fragment.data['name'])
+    end
     if classname.eql?('project')
       project_fragment = self
       dmp_title = format(_('"%{project_title}" project DMP'), project_title: project_fragment.data['title'])
