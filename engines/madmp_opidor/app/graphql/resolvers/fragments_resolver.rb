@@ -1,7 +1,7 @@
 module Resolvers
   class FragmentsResolver < BaseResolver
-    # type [Types::FragmentType], null: false
-    # argument :filter, Types::FragmentFilterInputType, required: false
+    type [Types::FragmentType], null: false
+    argument :filter, Types::FragmentFilterInputType, required: false
 
     def resolve(filter: nil)
       fragments = apply_filters(filter) if filter.present?
