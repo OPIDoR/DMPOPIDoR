@@ -5,6 +5,7 @@ module Resolvers
 
     def resolve(filter: nil)
       plans = Api::V1::PlansPolicy::Scope.new(context[:current_user], Plan).resolve
+      context[:plan_ids] = plans.map { |plan| plan.id }
 
       plans = apply_filters(plans, filter) if filter.present?
 

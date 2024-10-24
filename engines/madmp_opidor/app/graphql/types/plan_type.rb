@@ -6,5 +6,6 @@ module Types
     field :id, ID, null: false
     field :title, String, null: false
     field :fragments, [Types::FragmentType], null: false, resolver: Resolvers::FragmentsResolver
+    field :visibility, Boolean, null: false
   end
 end

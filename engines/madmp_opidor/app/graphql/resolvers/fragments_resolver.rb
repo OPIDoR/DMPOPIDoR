@@ -6,6 +6,10 @@ module Resolvers
     def resolve(filter: nil)
       fragments = apply_filters(filter) if filter.present?
 
+      p "===================="
+      p fragments
+      p "===================="
+
       fragments
     end
 
@@ -30,9 +34,9 @@ module Resolvers
     def format_fragments(fragments)
       fragments.map do |fragment|
         if Api::V1::Madmp::MadmpFragmentsPolicy.new(context[:current_user], fragment).show?
-          { plan: fragment.plan }.merge(fragment.plan.json_fragment.get_full_fragment)
+          fragment
         end
-      end.compact.uniq { |fragment| fragment[:plan].id }
+      end.compact
     end
 
     def filter_by_grant_id(grant_ids)
