@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: app 1.0\n"
 "Report-Msgid-Bugs-To: contact@translation.io\n"
-"POT-Creation-Date: 2024-10-23 15:04+0200\n"
-"PO-Revision-Date: 2024-10-23 15:04+0200\n"
+"POT-Creation-Date: 2024-10-24 15:26+0200\n"
+"PO-Revision-Date: 2024-10-24 15:26+0200\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: French\n"
 "Language: fr_FR\n"
@@ -1142,13 +1142,17 @@ msgid "DMP manager"
 msgstr "Responsable du plan"
 
 #: ../../app/models/dmpopidor/plan.rb:110
-#: ../../engines/madmp_opidor/app/models/madmp_fragment.rb:462
+#: ../../engines/madmp_opidor/app/models/madmp_fragment.rb:464
 msgid "\"%{project_title}\" project DMP"
 msgstr "PGD du projet \"%{project_title}\""
 
 #: ../../app/models/dmpopidor/plan.rb:136
 msgid "Project coordinator"
 msgstr "Coordinateur du projet"
+
+#: ../../app/models/dmpopidor/plan.rb:190
+msgid "Copy of %{title}"
+msgstr "Copie de %{title}"
 
 #: ../../app/models/dmpopidor/research_output.rb:85
 msgid "Contact Person"
@@ -2696,7 +2700,7 @@ msgstr "Créer un modèle"
 
 #: ../../app/views/branded/org_admin/templates/index.html.erb:131
 msgid "Create a module template"
-msgstr "Créer un modèle"
+msgstr "Créer un module"
 
 #: ../../app/views/branded/org_admin/templates/index.html.erb:135
 msgid "Create a classic template"
@@ -4779,7 +4783,7 @@ msgstr "Erreur lors de l'enregistrement du formulaire."
 msgid "Unable to change the template's recommended status"
 msgstr "Impossible de changer le statut \"recommandé\" du modèle"
 
-#: ../../engines/madmp_opidor/app/models/madmp_fragment.rb:455
+#: ../../engines/madmp_opidor/app/models/madmp_fragment.rb:456
 msgid "\"%{entity_name}\" entity DMP"
 msgstr "Plan de l'entité \"%{entity_name}\""
 

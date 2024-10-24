@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: app 1.0\n"
 "Report-Msgid-Bugs-To: contact@translation.io\n"
-"POT-Creation-Date: 2024-10-23 15:04+0200\n"
-"PO-Revision-Date: 2024-10-23 15:04+0200\n"
+"POT-Creation-Date: 2024-10-24 15:26+0200\n"
+"PO-Revision-Date: 2024-10-24 15:26+0200\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: English\n"
 "Language: en\n"
@@ -1131,13 +1131,17 @@ msgid "DMP manager"
 msgstr "DMP manager"
 
 #: ../../app/models/dmpopidor/plan.rb:110
-#: ../../engines/madmp_opidor/app/models/madmp_fragment.rb:462
+#: ../../engines/madmp_opidor/app/models/madmp_fragment.rb:464
 msgid "\"%{project_title}\" project DMP"
 msgstr "\"%{project_title}\" project DMP"
 
 #: ../../app/models/dmpopidor/plan.rb:136
 msgid "Project coordinator"
 msgstr "Project coordinator"
+
+#: ../../app/models/dmpopidor/plan.rb:190
+msgid "Copy of %{title}"
+msgstr "Copy of %{title}"
 
 #: ../../app/models/dmpopidor/research_output.rb:85
 msgid "Contact Person"
@@ -4705,7 +4709,7 @@ msgstr "Error when saving form."
 msgid "Unable to change the template's recommended status"
 msgstr "Unable to change the template's recommended status"
 
-#: ../../engines/madmp_opidor/app/models/madmp_fragment.rb:455
+#: ../../engines/madmp_opidor/app/models/madmp_fragment.rb:456
 msgid "\"%{entity_name}\" entity DMP"
 msgstr "\"%{entity_name}\" entity DMP"
 
