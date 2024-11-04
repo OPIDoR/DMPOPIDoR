@@ -2,6 +2,11 @@
 
 **Attention** Cette liste de changements concerne les déploiements sur nos serveurs de test en interne.
 
+## 04/11/2024
+
+- Correction de problèmes divers liés à la création, mise à jour et affichage des produits de recherche (KB #12075, #12076, #12079)
+- Ajout de la possibilité d'interroger ORCID par un identifiant sous forme d'URL. (KB #12081)
+- Amélioration des traductions des imports ROR/ORCID (KB #12109)
 ## 23/10/2024
 
 - Affichage du type "Personne" ou "Personal" dans les contributeurs importés via ORCID (plan FR ou EN)
