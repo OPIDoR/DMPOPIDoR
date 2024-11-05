@@ -6,12 +6,16 @@
 
 - Correction enregistrement des licences (import DataCite et "Informations générales") (KB #12042, #12144)
 - Correction de la mise à jour du fragment meta (onglet "Informations générales") (KB #12032)
+- Correction du problème d'affichage du texte temporaire (placeholder) dans le référentiel Licence.
+- Ajout du référentiel FundersWithImport listant les financeurs ayant un import et contenant les informations concernant les scripts et les référentiels des projets financés.
+
 
 ## 04/11/2024
 
 - Correction de problèmes divers liés à la création, mise à jour et affichage des produits de recherche (KB #12075, #12076, #12079)
 - Ajout de la possibilité d'interroger ORCID par un identifiant sous forme d'URL. (KB #12081)
 - Amélioration des traductions des imports ROR/ORCID (KB #12109)
+
 ## 23/10/2024
 
 - Affichage du type "Personne" ou "Personal" dans les contributeurs importés via ORCID (plan FR ou EN)
