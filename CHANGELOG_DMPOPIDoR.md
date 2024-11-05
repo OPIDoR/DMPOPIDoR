@@ -2,6 +2,11 @@
 
 **Attention** Cette liste de changements concerne les déploiements sur nos serveurs de test en interne.
 
+## 05/11/2024
+
+- Correction enregistrement des licences (import DataCite et "Informations générales") (KB #12042, #12144)
+- Correction de la mise à jour du fragment meta (onglet "Informations générales") (KB #12032)
+
 ## 04/11/2024
 
 - Correction de problèmes divers liés à la création, mise à jour et affichage des produits de recherche (KB #12075, #12076, #12079)
