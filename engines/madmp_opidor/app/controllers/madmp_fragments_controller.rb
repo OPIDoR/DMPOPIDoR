@@ -64,11 +64,12 @@ class MadmpFragmentsController < ApplicationController
 
       @fragment.update_meta_fragment
       @fragment.update_research_output_parameters
+
       render json: {
         fragment: @fragment.get_full_fragment(with_ids: true, with_template_name: true),
-        plan_title: (@fragment.dmp.meta.data['title'] if %w[dmp project research_entity].include?(@fragment.classname)),
+        meta_fragment: (@fragment.dmp.meta if %w[dmp project research_entity].include?(@fragment.classname)),
         message: _('Form saved successfully.')
-      }, status: :ok
+      }.compact, status: :ok
     rescue ActiveRecord::StaleObjectError
       render json: {
         message: _('Error when saving form.')
