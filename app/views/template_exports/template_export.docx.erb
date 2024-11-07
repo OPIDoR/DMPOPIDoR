@@ -19,6 +19,7 @@
 
       <% phase.sections.order(:number).each do |section| %>
         <h3><%= section.title %></h3>
+        <p><%= sanitize section.description %></p>
         <% section.questions.each do |question|%>
           <div>
             <p><%= sanitize question.text.chomp.strip %></p>
