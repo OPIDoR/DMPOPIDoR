@@ -21,7 +21,7 @@ module Settings
   # Settings the questions
   class Question < RailsSettings::SettingObject
     AVAILABLE_CLASSNAMES = {
-      "none" => %w[
+      'none' => %w[
         research_output_description
         data_reuse
         personal_data_issues
@@ -35,8 +35,17 @@ module Settings
         data_sharing
         data_preservation
       ],
-      "software" => %w[
+      'software' => %w[
         software_description
+        software_development_management
+        software_documentation
+        software_runtime_environment
+        software_archiving
+        software_sharing
+        software_legal_issues
+        programming_language
+        dependency_reference
+        software_resource_reference
       ]
     }.freeze
   end

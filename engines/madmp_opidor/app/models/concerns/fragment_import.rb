@@ -91,7 +91,7 @@ module FragmentImport
     # rubocop:enable Metrics/BlockLength
 
     # Object needs reloading after being modified by update_parent_references
-    self.reload
+    reload
     fragmented_data.try(:permit!)
     update!(
       data: data.merge(fragmented_data),
@@ -131,7 +131,6 @@ module FragmentImport
           #     madmp_schema_id: sub_schema.id,
           #     additional_info: { property_name: prop }
           #   )
-          #   api_fragment.instantiate
           #   created_frag = api_fragment.import_with_ids(sub_data, sub_schema)
           #   # If sub_data is a Person, we need to set the dbid manually, since Person has no parent
           #   # and update_references function is not triggered
@@ -160,7 +159,6 @@ module FragmentImport
               madmp_schema_id: sub_schema.id,
               additional_info: { property_name: prop }
             )
-            api_fragment.instantiate
             api_fragment.import_with_ids(sub_fragment_data, sub_schema)
           end
         end
@@ -171,7 +169,7 @@ module FragmentImport
     # rubocop:enable Metrics/BlockLength
 
     # Object needs reloading after being modified by update_parent_references
-    self.reload
+    reload
     update!(
       data: data.merge(fragmented_data),
       additional_info: additional_info.except!('custom_value')
@@ -213,7 +211,6 @@ module FragmentImport
             madmp_schema_id: sub_schema.id,
             additional_info: { property_name: prop }
           )
-          sub_fragment.instantiate
           sub_fragment.import_with_instructions(sub_fragment_data, sub_schema)
         elsif sub_fragment_id.present? && sub_data['action'].eql?('update')
           sub_fragment = MadmpFragment.find(sub_fragment_id)
@@ -247,7 +244,6 @@ module FragmentImport
               madmp_schema_id: sub_schema.id,
               additional_info: { property_name: prop }
             )
-            sub_fragment.instantiate
             sub_fragment.import_with_instructions(sub_data, sub_schema)
           elsif cb_data['action'].eql?('update') && sub_fragment_id
             sub_fragment = MadmpFragment.find(sub_fragment_id)
@@ -264,7 +260,7 @@ module FragmentImport
     # rubocop:enable Metrics/BlockLength
 
     # Object needs reloading after being modified by update_parent_references
-    self.reload
+    reload
     update!(
       data: data.merge(fragmented_data),
       additional_info: additional_info.except!('custom_value')

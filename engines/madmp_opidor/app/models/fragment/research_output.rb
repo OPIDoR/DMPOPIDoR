@@ -46,7 +46,7 @@ module Fragment
     def research_output_description
       data_type = additional_info['dataType']
       if data_type.eql?('software')
-        Fragment::SoftwareDescription.where(parent_id: id).first
+        Fragment::Software::SoftwareDescription.where(parent_id: id).first
       else
         Fragment::ResearchOutputDescription.where(parent_id: id).first
       end

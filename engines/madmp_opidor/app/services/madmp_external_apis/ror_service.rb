@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 require 'cgi'
 
 module MadmpExternalApis
@@ -104,7 +105,7 @@ module MadmpExternalApis
           "query=#{CGI.escape(term)}",
           "page=#{page}",
           ("filter=#{CGI.escape(filters&.join(','))}" unless filters.nil?)
-        ]&.compact&.join('&')
+        ].compact&.join('&')
       end
 
       # Recursive method that can handle multiple ROR result pages if necessary
@@ -135,10 +136,11 @@ module MadmpExternalApis
       # rubocop:enable Metrics/AbcSize
 
       # Convert the JSON items into a hash
+      # rubocop:disable Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
       def parse_results(json:)
         return [] unless json['items']&.any?
 
-        json['items']&.map do |item|
+        json['items']&.filter_map do |item|
           {
             type: 'ROR ID',
             ror: item['id'],
@@ -151,9 +153,11 @@ module MadmpExternalApis
           }
         end&.compact || []
       end
+      # rubocop:enable Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
 
       def get_ror_value(item:)
-        item['id'].to_s.gsub(/^#{landing_page_url}/, '') # Remove the 'landing_page_url' from the beginning of the 'id' value
+        # Remove the 'landing_page_url' from the beginning of the 'id' value
+        item['id'].to_s.gsub(/^#{landing_page_url}/, '')
       end
 
       def get_country(item:)
@@ -163,8 +167,9 @@ module MadmpExternalApis
         }
       end
 
+      # rubocop:disable Metrics/AbcSize
       def get_name(item:)
-        return '' unless item&.dig('name') && item&.dig('country', 'country_code')
+        return '' unless item&.dig('name') && item.dig('country', 'country_code')
 
         country_code = item&.dig('country', 'country_code').to_s
 
@@ -172,16 +177,16 @@ module MadmpExternalApis
         # Each 'iso639' is used as a symbol key, and 'name' from 'item' is the associated value.
         # The resulting hash contains 'iso639' symbols as keys and 'name' values.
         # This process aggregates data from 'labels' to achieve the desired result format.
-        labels = item&.dig('labels').reduce({}) do |hash, label|
+        labels = item&.dig('labels')&.each_with_object({}) do |label, hash|
           iso639 = label['iso639'] || ''
           hash[iso639.to_sym] = item['name'].to_s
-          hash
         end
 
         labels[country_code.downcase.to_sym] = item['name']
 
         labels
       end
+      # rubocop:enable Metrics/AbcSize
 
       def get_addresses(item:)
         return [] unless item&.dig('addresses')
@@ -227,6 +232,7 @@ module MadmpExternalApis
       end
 
       # Extracts the website domain from the item
+      # rubocop:disable Metrics/CyclomaticComplexity
       def org_website(item:)
         return nil unless item&.fetch('links', [])&.any?
 
@@ -234,6 +240,7 @@ module MadmpExternalApis
         website = item['links'].first&.match(%r{^(?:http://|www\.|https://)([^/]+)})&.captures&.first
         website&.sub('www.', '')
       end
+      # rubocop:enable Metrics/CyclomaticComplexity
 
       # Extracts the FundRef Id if available
       def fundref_id(item:)

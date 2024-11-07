@@ -30,25 +30,6 @@
             "form_label@fr_FR": "Métadonnées du plan",
             "form_label@en_GB": "Plan Metadata"
         },
-        "researchEntity": {
-            "type": "object",
-            "class": "ResearchEntity",
-            "properties": {
-                "dbid": {
-                    "type": "number"
-                }
-            },
-            "template_name": "ResearchEntityStandard",
-            "required": [
-                "dbid"
-            ],
-            "description": "Aspects relatifs à une entité (ou structure) de recherche",
-            "label@fr_FR": "Renseignements sur l'entité de recherche",
-            "label@en_GB": "Research Entity Details",
-            "tooltip": null,
-            "form_label@fr_FR": "Renseignements sur l'entité de recherche",
-            "form_label@en_GB": "Research entity Details"
-        },
         "researchOutput": {
             "type": "array",
             "table_header": null,
@@ -83,14 +64,33 @@
             ],
             "description": "Budget lié à la gestion des données de recherche",
             "tooltip": null
+        },
+        "researchEntity": {
+            "type": "object",
+            "class": "ResearchEntity",
+            "properties": {
+                "dbid": {
+                    "type": "number"
+                }
+            },
+            "template_name": "ResearchEntityStandard",
+            "required": [
+                "dbid"
+            ],
+            "description": "Aspects relatifs à une entité (ou structure) de recherche",
+            "label@fr_FR": "Renseignements sur l'entité de recherche",
+            "label@en_GB": "Research Entity Details",
+            "tooltip": null,
+            "form_label@fr_FR": "Renseignements sur l'entité de recherche",
+            "form_label@en_GB": "Research entity Details"
         }
     },
     "required": [
         "identifier",
         "meta",
-        "researchEntity",
         "researchOutput",
-        "budget"
+        "budget",
+        "researchEntity"
     ],
     "to_string": []
 }

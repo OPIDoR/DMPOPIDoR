@@ -514,6 +514,9 @@
     "Funders": {
         "path": "Funders.json"
     },
+    "FundersWithImport": {
+        "path": "FundersWithImport.json"
+    },
     "GEMET": {
         "path": "GEMET.json"
     },

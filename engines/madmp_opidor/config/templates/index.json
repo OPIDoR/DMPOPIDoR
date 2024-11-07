@@ -70,11 +70,6 @@
         "question_id": null
     },
     {
-        "path": "PartnerStandard-template.json",
-        "classname": "partner",
-        "question_id": null
-    },
-    {
         "path": "LegalReference-template.json",
         "classname": "resource_reference",
         "question_id": null
@@ -139,7 +134,7 @@
         "classname": "data_preservation",
         "question_id": null
     },
-     {
+    {
         "path": "ReusedDataStandard-template.json",
         "classname": "reused_data",
         "question_id": null
@@ -179,19 +174,6 @@
         "classname": "research_entity",
         "question_id": null
     },
-    
-    
-    
-    {
-        "path": "DMPResearchEntity-template.json",
-        "classname": "dmp",
-        "question_id": null
-    },
-    {
-        "path": "DMPResearchProject-template.json",
-        "classname": "dmp",
-        "question_id": null
-    },
     {
         "path": "CostCalculMesoUCA-template.json",
         "classname": "cost",
@@ -213,12 +195,27 @@
         "question_id": null
     },
     {
-        "path": "MesoUCAStorageRequest_v2-template.json",
+        "path": "MesoUCAStorageRequest-template.json",
         "classname": "specific_data",
         "question_id": null
     },
     {
         "path": "DataStorageMesoUCA_v2-template.json",
+        "classname": "data_storage",
+        "question_id": null
+    },
+    {
+        "path": "GenOuestRequest-template.json",
+        "classname": "specific_data",
+        "question_id": null
+    },
+    {
+        "path": "GenOuestServiceRequest-template.json",
+        "classname": "specific_data",
+        "question_id": null
+    },
+    {
+        "path": "DataStorageGenOuest-template.json",
         "classname": "data_storage",
         "question_id": null
     },
@@ -238,20 +235,18 @@
         "question_id": null
     },
     {
-        "path": "GenOuestRequest-template.json",
-        "classname": "specific_data",
+        "path": "DMPResearchEntity-template.json",
+        "classname": "dmp",
         "question_id": null
     },
     {
-        "path": "GenOuestServiceRequest-template.json",
-        "classname": "specific_data",
+        "path": "DMPResearchProject-template.json",
+        "classname": "dmp",
         "question_id": null
     },
     {
-        "path": "DataStorageGenOuest-template.json",
-        "classname": "data_storage",
+        "path": "PartnerStandard-template.json",
+        "classname": "partner",
         "question_id": null
     }
-    
-    
 ]

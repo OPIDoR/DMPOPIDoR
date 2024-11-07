@@ -308,14 +308,20 @@ users.each{ |u| User.create!(u) unless User.find_by(email: u[:email]) }
 # Create a Guidance Group for our organisation and the funder
 # -------------------------------------------------------
 guidance_groups = [
-  {name: "Generic Guidance (provided by the example curation centre)",
-   org: Org.find_by(abbreviation: Rails.configuration.x.organisation.abbreviation),
-   optional_subset: true,
-   published: true},
-  {name: "Government Agency Advice (Funder specific guidance)",
-   org: Org.find_by(abbreviation: 'GA'),
-   optional_subset: false,
-   published: true}
+  {
+    name: "Generic Guidance (provided by the example curation centre)",
+    org: Org.find_by(abbreviation: Rails.configuration.x.organisation.abbreviation),
+    optional_subset: true,
+    published: true,
+    language_id: Language.find_by(abbreviation: 'fr-FR').id,
+  },
+  {
+    name: "Government Agency Advice (Funder specific guidance)",
+    org: Org.find_by(abbreviation: 'GA'),
+    optional_subset: false,
+    published: true,
+    language_id: Language.find_by(abbreviation: 'en-GB').id,
+  }
 ]
 guidance_groups.each do |gg|
   guidance_group = GuidanceGroup.find_or_create_by(org: gg[:org])

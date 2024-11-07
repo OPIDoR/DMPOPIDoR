@@ -4,7 +4,6 @@ module Dmpopidor
   # rubocop:disable Metrics/ModuleLength
   # Customized code for Plan model
   module Plan
-
     # CHANGES : ADDED RESEARCH OUTPUT SUPPORT
     # rubocop:disable Metrics/AbcSize, Style/OptionalBooleanParameter
     # rubocop:disable Metrics/CyclomaticComplexity
@@ -120,7 +119,6 @@ module Dmpopidor
           madmp_schema: MadmpSchema.find_by(name: 'MetaStandard'),
           additional_info: { property_name: 'meta' }
         )
-        meta.instantiate
 
         dmp_coordinator.update(parent_id: meta.id)
       end
@@ -154,24 +152,26 @@ module Dmpopidor
         madmp_schema: project_schema,
         additional_info: { property_name: 'project' }
       )
-      project.instantiate
       project_coordinator.update(parent_id: project.id)
     end
     # rubocop:enable Metrics/MethodLength
 
     def handle_research_entity(dmp_id, research_entity = nil)
       entity_schema = MadmpSchema.find_by(name: 'ResearchEntityStandard')
-      entity = Fragment::ResearchEntity.create!(
-        data: research_entity.present? ? research_entity : {
-          'title' => title,
-          'description' => description
-        },
+      Fragment::ResearchEntity.create!(
+        data: if research_entity.present?
+                research_entity
+              else
+                {
+                  'title' => title,
+                  'description' => description
+                }
+              end,
         dmp_id: dmp_id,
         parent_id: dmp_id,
         madmp_schema: entity_schema,
         additional_info: { property_name: 'researchEntity' }
       )
-      entity.instantiate
     end
 
     # rubocop:disable Metrics/AbcSize
@@ -179,22 +179,32 @@ module Dmpopidor
       create_plan_fragments if json_fragment.nil?
 
       incoming_dmp = plan.json_fragment
-      raw_project = incoming_dmp.project.get_full_fragment
-      raw_meta = incoming_dmp.meta.get_full_fragment
-      raw_meta = raw_meta.merge(
-        'title' => "Copy of #{raw_meta['title']}"
-      )
-      incoming_dmp.persons.each do |person|
-        Fragment::Person.create(
-          data: person.data,
-          dmp_id: json_fragment.id,
-          madmp_schema: MadmpSchema.find_by(name: 'PersonStandard'),
-          additional_info: { property_name: 'person' }
+      I18n.with_locale plan.template.locale do
+        raw_project = if plan.template.context == 'research_entity'
+                        incoming_dmp.research_entity.get_full_fragment
+                      else
+                        incoming_dmp.project.get_full_fragment
+                      end
+        raw_meta = incoming_dmp.meta.get_full_fragment
+        raw_meta = raw_meta.merge(
+          'title' => format(_('Copy of %{title}'), title: raw_meta['title'])
         )
-      end
+        incoming_dmp.persons.each do |person|
+          Fragment::Person.create(
+            data: person.data,
+            dmp_id: json_fragment.id,
+            madmp_schema: MadmpSchema.find_by(name: 'PersonStandard'),
+            additional_info: { property_name: 'person' }
+          )
+        end
 
-      json_fragment.project.raw_import(raw_project, json_fragment.project.madmp_schema)
-      json_fragment.meta.raw_import(raw_meta, json_fragment.meta.madmp_schema)
+        if plan.template.context == 'research_entity'
+          json_fragment.research_entity.raw_import(raw_project, json_fragment.research_entity.madmp_schema)
+        else
+          json_fragment.project.raw_import(raw_project, json_fragment.project.madmp_schema)
+        end
+        json_fragment.meta.raw_import(raw_meta, json_fragment.meta.madmp_schema)
+      end
     end
     # rubocop:enable Metrics/AbcSize
 
@@ -206,7 +216,7 @@ module Dmpopidor
         api_client_id: api_client.id
       )
     end
-    
+
     def grant_identifier
       json_fragment.project.fundings.pluck(Arel.sql("data->'grantId'")).join(', ')
     end

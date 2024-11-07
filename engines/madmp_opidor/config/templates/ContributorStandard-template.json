@@ -19,9 +19,7 @@
                 "dbid"
             ],
             "description": "Personnes impliquées dans la production et gestion des données",
-            "tooltip": null,
-            "form_label@fr_FR": "Sélectionner une valeur dans la liste déroulante",
-            "form_label@en_GB": "Select a person from the drop-down list"
+            "tooltip": null
         },
         "role": {
             "type": "string",

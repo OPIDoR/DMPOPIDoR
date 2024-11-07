@@ -63,12 +63,12 @@
         "fr_FR": {
             "costType": "Calcul",
             "currency": "EUR",
-            "title": "Estimation du coût de calcul auprès du Mésocentre Clermont Auvergne"
+            "title": "Estimation du coût de calcul auprès du Mésocentre Clermont-Auvergne"
         },
         "en_GB": {
             "costType": "Computation",
             "currency": "EUR",
-            "title": "Estimated computational cost at Clermont Auvergne Mesocentre"
+            "title": "Estimated computational cost at Clermont-Auvergne Mesocentre"
         }
     }
 }

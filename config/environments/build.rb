@@ -3,5 +3,5 @@
 require 'active_support/core_ext/integer/time'
 
 Rails.application.configure do
-  config.eager_load = false
+  # Settings specified here will take precedence over those in config/application.rb.
 end

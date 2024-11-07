@@ -1,93 +1,50 @@
 # frozen_string_literal: true
 
 require 'active_support/core_ext/integer/time'
+require 'json'
 
-# rubocop:disable Metrics/BlockLength
 Rails.application.configure do
   # Settings specified here will take precedence over those in config/application.rb.
 
-  # In the development environment your application's code is reloaded on
-  # every request. This slows down response time but is perfect for development
-  # since you don't have to restart the web server when you make code changes.
-  config.cache_classes = false
-
-  # Do not eager load code on boot.
-  config.eager_load = false
-
   # Enable server timing
-  config.server_timing = true
-
-  # Show full error reports.
-  config.consider_all_requests_local = true
-
-  # Enable/disable caching. By default caching is disabled.
-  # Run rails dev:cache to toggle caching.
-  if Rails.root.join('tmp', 'caching-dev.txt').exist?
-    config.action_controller.perform_caching = true
-    config.action_controller.enable_fragment_cache_logging = true
-
-    config.cache_store = :memory_store
-    config.public_file_server.headers = {
-      'Cache-Control' => "public, max-age=#{2.days.to_i}"
-    }
-  else
-    config.action_controller.perform_caching = false
-
-    config.cache_store = :null_store
-  end
-
-  # Store uploaded files on the local file system (see config/storage.yml for options)
-  config.active_storage.service = :local
-
-  # Don't care if the mailer can't send.
-  config.action_mailer.raise_delivery_errors = false
-
-  config.action_mailer.perform_caching = false
-
-  # settings for mailcatcher
-  config.action_mailer.delivery_method = :smtp
-  config.action_mailer.smtp_settings = { address: 'mailcatcher', port: 1025 }
-
-  # Print deprecation notices to the Rails logger.
-  config.active_support.deprecation = :log
-
-  # Use the lowest log level to ensure availability of diagnostic information
-  # when problems arise.
-  config.log_level = ENV['RAILS_LOG_LEVEL']&.to_sym || :debug
-
-  # Raise exceptions for disallowed deprecations.
-  config.active_support.disallowed_deprecation = :raise
-
-  # Tell Active Support which deprecation messages to disallow.
-  config.active_support.disallowed_deprecation_warnings = []
+  config.server_timing = ENV.fetch('SERVER_TIMING', true).to_s.casecmp('true').zero?
 
   # Raise an error on page load if there are pending migrations.
-  config.active_record.migration_error = :page_load
+  config.active_record.migration_error = ENV.fetch('ACTIVE_RECORD_MIGRATION_ERROR', :page_load)&.to_sym
 
   # Highlight code that triggered database queries in logs.
-  config.active_record.verbose_query_logs = true
+  config.active_record.verbose_query_logs = ENV.fetch('ACTIVE_RECORD_VERBOSE_QUERY_LOGS',
+                                                      true).to_s.casecmp('true').zero?
 
   # Debug mode disables concatenation and preprocessing of assets.
   # This option may cause significant delays in view rendering with a large
   # number of complex assets.
-  config.assets.debug = false
+  config.assets.debug = ENV.fetch('ASSETS_DEBUG', false).to_s.casecmp('true').zero?
 
   # Suppress logger output for asset requests.
-  config.assets.quiet = true
-
-  # Raises error for missing translations.
-  # config.i18n.raise_on_missing_translations = true
-
-  # Annotate rendered view with file names.
-  # config.action_view.annotate_rendered_view_with_filenames = true
+  config.assets.quiet = ENV.fetch('ASSETS_QUIET', true).to_s.casecmp('true').zero?
 
   # Use an evented file watcher to asynchronously detect changes in source code,
   # routes, locales, etc. This feature depends on the listen gem.
   # config.file_watcher = ActiveSupport::EventedFileUpdateChecker
   config.file_watcher = ActiveSupport::FileUpdateChecker
 
-  # Uncomment if you wish to allow Action Cable access from any origin.
-  # config.action_cable.disable_request_forgery_protection = true
+  # Log error messages when you accidentally call methods on nil.
+  config.whiny_nils = true
+
+  # Only use best-standards-support built into browsers
+  config.action_dispatch.best_standards_support = :builtin
+
+  # Do not compress assets
+  config.assets.compress = false
+
+  # Expands the lines which load the assets
+  config.assets.debug = true
+
+  # Precompile additional assets
+  config.assets.precompile += %w[.svg .eot .woff .ttf]
+
+  config.action_mailer.perform_deliveries = true
 
   # Rails 6+ adds middleware to prevent DNS rebinding attacks:
   #    https://guides.rubyonrails.org/configuring.html#actiondispatch-hostauthorization
@@ -99,10 +56,6 @@ Rails.application.configure do
     IPAddr.new('0.0.0.0/0'), # All IPv4 addresses.
     IPAddr.new('::/0'), # All IPv6 addresses.
     'localhost', # The localhost reserved domain.
-    ENV.fetch('DMPROADMAP_HOST', 'dmpopidor') # Additional comma-separated hosts for development.
+    ENV.fetch('ALLOWED_HOSTS', 'dmpopidor') # Additional comma-separated hosts for development.
   ]
 end
-# rubocop:enable Metrics/BlockLength
-
-# Used by Rails' routes url_helpers (typically when including a link in an email)
-Rails.application.routes.default_url_options[:host] = ENV.fetch('DMPROADMAP_HOST', 'localhost:3000')

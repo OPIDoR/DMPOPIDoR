@@ -29,14 +29,11 @@
         "type": {
             "type": "string",
             "description": "Type de produit de recherche généré",
-            "inputType": "dropdown",
             "label@fr_FR": "Type",
             "label@en_GB": "Type",
-            "registries": [
-                "ResearchDataType"
-            ],
-            "tooltip@fr_FR": "Les types de produits de recherche sont issus du schéma DataCite 4.4.",
-            "tooltip@en_GB": "The types of research outputs are based on resourceTypeGeneral property from DataCite Metadata Schema 4.4. ",
+            "tooltip@fr_FR": "Les types de produits de recherche sont issus du schéma DataCite 4.5.",
+            "tooltip@en_GB": "The types of research outputs are based on resourceTypeGeneral property from DataCite Metadata Schema 4.5. ",
+            "hidden": true,
             "form_label@fr_FR": "Type de produit de recherche",
             "form_label@en_GB": "Research output type"
         },
@@ -75,6 +72,7 @@
             "inputType": "dropdown",
             "registries": [
                 "GEMET",
+                "MeSH Loterre",
                 "Pactols Lieux",
                 "Pactols Sujets",
                 "Thésaurus INRAE",
@@ -147,10 +145,9 @@
             "description": "Identifiant pérenne attribué au produit de recherche",
             "label@fr_FR": "Identifiant pérenne",
             "label@en_GB": "Persistent identifier",
-            "tooltip@fr_FR": "Indiquer l’identifiant du produit de recherche après son éventuelle publication ou dépôt dans un entrepôt de données (ou autres hébergements)",
-            "tooltip@en_GB": "Provide the researchoutput ID after possible publishing or deposit in an data repository (or other hostings)",
-            "form_label@fr_FR": "Identifiant pérenne du produit de recherche",
-            "form_label@en_GB": "Reseach product persistent identifier"
+            "tooltip": null,
+            "form_label@fr_FR": "Identifiant pérenne du produit de recherche (à compléter après dépôt dans un entrepôt de données)",
+            "form_label@en_GB": "Research output persistent identifier (to fill in after deposit in an data repository)"
         },
         "idType": {
             "type": "string",
@@ -164,18 +161,15 @@
             "overridable": true,
             "tooltip": null,
             "form_label@fr_FR": "Type d'identifiant du produit de recherche",
-            "form_label@en_GB": "Reseach product identifier type"
+            "form_label@en_GB": "Research output identifier type"
         },
         "containsPersonalData": {
             "type": "string",
             "description": "Indique si les données incluent des données personnelles",
-            "inputType": "dropdown",
             "label@fr_FR": "Contient des données personnelles ?",
             "label@en_GB": "May contain personal data?",
-            "registries": [
-                "YesNoUnknown"
-            ],
             "tooltip": null,
+            "hidden": true,
             "form_label@fr_FR": "Le produit de recherche contient-il des données personnelles ?",
             "form_label@en_GB": "Does the research output contain personal data?"
         },

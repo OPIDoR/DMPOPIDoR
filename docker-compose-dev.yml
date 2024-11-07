@@ -5,8 +5,12 @@ services:
     build:
       context: .
       target: dev
+      args:
+        - NODE_MAJOR=${NODE_MAJOR:-18}
     depends_on:
       postgres:
+        condition: service_healthy
+      maildev:
         condition: service_healthy
     working_dir: /app
     environment:
@@ -14,6 +18,25 @@ services:
       - RAKE_ENV=development
       - NODE_ENV=development
       - RAILS_SERVE_STATIC_FILES=${RAILS_SERVE_STATIC_FILES:-false}
+      - RECAPTCHA_ENABLED=false
+      - CACHE_STORE=memory_store
+      - 'PUBLIC_FILE_SERVER_HEADERS={ "Cache-Control": "public, max-age=172800" }'
+      - CONSIDER_ALL_REQUESTS_LOCAL=true
+      - ACTIVE_SUPPORT_DEPRECATION=log
+      - ACTIVE_SUPPORT_DISALLOWED_DEPRECATION=raise
+      - RAILS_LOG_LEVEL=debug
+      - MAILER_FROM=dmp.opidor@inist.fr
+      - DMPROADMAP_HOST=localhost:8080
+      - ALLOWED_HOSTS=dmpopidor,0.0.0.0,localhost
+      - ACTION_MAILER_RAISE_DELIVERY_ERRORS=false
+      - MADMP_ENABLE_RESEARCH_OUTPUTS=false
+      - MADMP_ENABLE_LICENSE_SELECTION=false
+      - MADMP_ENABLE_METADATA_STANDARD_SELECTION=false
+      - MADMP_ENABLE_REPOSITORY_SELECTION=false
+      - MADMP_ENABLE_ETHICAL_ISSUES=false
+      - MADMP_ENABLE_RESEARCH_DOMAIN=false
+      - ACTION_MAILER_SMTP_HOST=maildev
+      - ACTION_MAILER_SMTP_PORT=1025
     volumes:
       - ./:/app
     command:
@@ -34,6 +57,28 @@ services:
   postgres:
     ports:
       - ${POSTGRES_PORT:-5432}:5432
+    networks:
+      - dmpopidor_network
+
+  valkey:
+    ports:
+      - ${VALKEY_PORT:-6379}:6379
+    networks:
+      - dmpopidor_network
+
+  maildev:
+    image: maildev/maildev:2.1.0
+    ports:
+      - 1080:1080
+    healthcheck:
+      test:
+        [
+          "CMD-SHELL",
+          "wget -q -S -O - http://0.0.0.0:1080 2>&1 | grep 'HTTP/1.1 200 OK'"
+        ]
+      interval: ${MAILDEV_HEALTHCHECK_INTERVAL:-30s}
+      timeout: ${MAILDEV_HEALTHCHECK_TIMEOUT:-10s}
+      retries: ${MAILDEV_HEALTHCHECK_RETRIES:-5}
     networks:
       - dmpopidor_network
 

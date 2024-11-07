@@ -5,13 +5,13 @@ module Dmpopidor
     # Customized code for OrgAdmin QuestionsController
     module QuestionsController
       # GET /org_admin/templates/[:template_id]/phases/[:phase_id]/sections/[:id]/questions/[:question_id]/edit
-      # rubocop:disable Metrics/MethodLength
       # CHANGES : Added  MadmpSchema list
+      # rubocop:disable Metrics/AbcSize
       def edit
         question = Question.includes(:annotations,
-                                    :question_options,
-                                    section: { phase: :template })
-                          .find(params[:id])
+                                     :question_options,
+                                     section: { phase: :template })
+                           .find(params[:id])
         template = question.section.phase.template
         @available_classnames = Settings::Question::AVAILABLE_CLASSNAMES[template.data_type]
         @madmp_schemas = MadmpSchema.where(classname: @available_classnames, data_type: template.data_type)
@@ -24,7 +24,7 @@ module Dmpopidor
                                                 conditions: question.conditions
                                               }) }
       end
-      # rubocop:enable Metrics/MethodLength
+      # rubocop:enable Metrics/AbcSize
 
       # SEE MODULE
       # GET /org_admin/templates/:template_id/phases/:phase_id/sections/:section_id/questions/new
