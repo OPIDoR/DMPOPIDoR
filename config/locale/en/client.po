@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: app 1.0\n"
 "Report-Msgid-Bugs-To: contact@translation.io\n"
-"POT-Creation-Date: 2024-10-24 15:26+0200\n"
-"PO-Revision-Date: 2024-10-24 15:26+0200\n"
+"POT-Creation-Date: 2024-11-07 11:52+0100\n"
+"PO-Revision-Date: 2024-11-07 11:52+0100\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: English\n"
 "Language: en\n"
@@ -158,8 +158,8 @@ msgstr "save"
 #: ../../app/controllers/dmpopidor/notes_controller.rb:246
 #: ../../app/controllers/notes_controller.rb:153
 #: ../../app/controllers/research_outputs_controller.rb:83
-#: ../../engines/madmp_opidor/app/controllers/madmp_fragments_controller.rb:109
-#: ../../engines/madmp_opidor/app/controllers/madmp_fragments_controller.rb:126
+#: ../../engines/madmp_opidor/app/controllers/madmp_fragments_controller.rb:110
+#: ../../engines/madmp_opidor/app/controllers/madmp_fragments_controller.rb:127
 msgid "removed"
 msgstr "removed"
 
@@ -167,8 +167,8 @@ msgstr "removed"
 #: ../../app/controllers/dmpopidor/notes_controller.rb:250
 #: ../../app/controllers/notes_controller.rb:171
 #: ../../app/controllers/research_outputs_controller.rb:86
-#: ../../engines/madmp_opidor/app/controllers/madmp_fragments_controller.rb:113
-#: ../../engines/madmp_opidor/app/controllers/madmp_fragments_controller.rb:130
+#: ../../engines/madmp_opidor/app/controllers/madmp_fragments_controller.rb:114
+#: ../../engines/madmp_opidor/app/controllers/madmp_fragments_controller.rb:131
 msgid "remove"
 msgstr "remove"
 
@@ -4697,11 +4697,11 @@ msgstr "Notification has been sent"
 msgid "Project data have successfully been imported."
 msgstr "Project data have successfully been imported."
 
-#: ../../engines/madmp_opidor/app/controllers/madmp_fragments_controller.rb:70
+#: ../../engines/madmp_opidor/app/controllers/madmp_fragments_controller.rb:71
 msgid "Form saved successfully."
 msgstr "Form saved successfully."
 
-#: ../../engines/madmp_opidor/app/controllers/madmp_fragments_controller.rb:74
+#: ../../engines/madmp_opidor/app/controllers/madmp_fragments_controller.rb:75
 msgid "Error when saving form."
 msgstr "Error when saving form."
 
