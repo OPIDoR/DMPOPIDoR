@@ -277,8 +277,8 @@ group :test do
   # Adds support for Capybara system testing and selenium driver
   gem 'capybara'
 
-  # Easy installation and use of web drivers to run system tests with browsers
-  gem 'webdrivers'
+  # This gem provides Ruby bindings for Selenium and supports MRI >= 3.1.
+  gem 'selenium-webdriver'
 
   # RSpec::CollectionMatchers lets you express expected outcomes on
   # collections of an object in an example.

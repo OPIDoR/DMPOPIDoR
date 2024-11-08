@@ -1,9 +1,8 @@
 # frozen_string_literal: true
 
-require 'webdrivers/chromedriver'
+require 'selenium-webdriver'
 
-# Cache for one hour
-Webdrivers.cache_time = 3600
+Capybara.default_driver = :selenium
 
 # Use Puma as the webserver for feature tests
 Capybara.server = :puma, { Silent: true }
