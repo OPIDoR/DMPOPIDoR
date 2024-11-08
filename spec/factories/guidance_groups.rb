@@ -27,6 +27,7 @@ FactoryBot.define do
     org
     published { true }
     optional_subset { false }
+    language { Language.default }
     trait :unpublished do
       published { false }
     end
