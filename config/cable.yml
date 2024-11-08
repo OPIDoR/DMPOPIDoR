@@ -1,12 +1,14 @@
-development:
+default: &default
   adapter: redis
-  url: <%= ENV.fetch("REDIS_URL") { "redis://redis:6379/1" } %>
+  url: <%= Rails.configuration.x.dmpopidor.redis_url %>
+
+development:
+  <<: *default
   channel_prefix: dmp_opidor_dev
 
 test:
   adapter: async
 
 production:
-  adapter: redis
-  url: <%= ENV.fetch("REDIS_URL") { "redis://redis:6379/1" } %>
+  <<: *default
   channel_prefix: dmp_opidor_production

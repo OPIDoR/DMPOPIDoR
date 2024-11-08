@@ -2,9 +2,10 @@
 
 # rubocop:disable Metrics/BlockLength
 Rails.application.routes.draw do
-  mount ActionCable.server => "/cable"
-  mount Rswag::Ui::Engine => '/api-docs'
-  mount Rswag::Api::Engine => '/api-docs'
+  mount ActionCable.server => ENV.fetch('ACTON_CABLE_SERVER', '/cable')
+  mount Rswag::Ui::Engine => ENV.fetch('RSWAG_UI', '/api-docs')
+  mount Rswag::Api::Engine => ENV.fetch('RSWAG_API', '/api-docs')
+
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
 
   devise_for(:users, controllers: {
@@ -129,6 +130,7 @@ Rails.application.routes.draw do
     post 'create_or_update', on: :collection
     post 'set_answers_as_common', on: :collection
     get 'notes', constraints: { format: [:json] }
+    get 'new_form', on: :collection, constraints: { format: [:json] }
   end
 
   # Question Formats controller, currently just the one action
@@ -173,7 +175,7 @@ Rails.application.routes.draw do
     resources :research_outputs, only: %i[index update destroy], controller: 'research_outputs'
   end
 
-  resources :research_outputs, only: [:index, :show, :create, :destroy, :update], constraints: { format: [:json] } do
+  resources :research_outputs, only: %i[index show create destroy update], constraints: { format: [:json] } do
     get 'create_remote', on: :collection
     delete 'destroy_remote', on: :collection
     patch 'update_remote', on: :collection

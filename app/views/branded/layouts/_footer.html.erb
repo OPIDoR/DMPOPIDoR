@@ -70,7 +70,12 @@
       </a>
     </span>
     <span>
-      <%= link_to("https://github.com/DMPRoadmap/roadmap", title: "DMPRoadmap Github - " + _("Opens in new window"), target: '_blank')  do %>
+      <a title="<%= _('Canal-U') %> - <%= _("Opens in new window") %>"  target="_blank" href="<%= Rails.configuration.x.application.canalu_url %>">
+        <%= image_tag("canalu.svg", alt: 'Canal-U (opens in a new window)') %>
+      </a>
+    </span>
+    <span>
+      <%= link_to("https://github.com/DMPRoadmap/roadmap", title: "DMPRoadmap Github - " + _("Opens in new window"), target: '_blank') do %>
         <%= image_tag("roadmap_logo_orange_white.png", alt: 'DMPRoadmap Github (opens in a new window)') %>
       <% end %>
     </span>

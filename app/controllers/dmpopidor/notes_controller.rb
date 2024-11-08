@@ -10,6 +10,7 @@ module Dmpopidor
     # Delivered mail contains the name of the collaborator leaving the note
     # Added RESEARCH OUTPUT SUPPORT
     # rubocop:disable Metrics/AbcSize, Metrics/MethodLength
+    # rubocop:disable Metrics/PerceivedComplexity, Metrics/CyclomaticComplexity
     def create
       user_id = note_params[:user_id] || current_user.id
       unless user_id.present? && user_id.to_i.positive?
@@ -111,9 +112,9 @@ module Dmpopidor
             ),
             answer_created: @answer.previously_new_record?,
             answer: {
-              answer_id: @answer.id,
+              id: @answer.id,
               question_id: @answer.question_id,
-              fragment_id: @madmp_schema_id,
+              fragment_id: @madmp_schema_id
               # madmp_schema_id: a.madmp_fragment.madmp_schema_id
             }
           }, status: :created
@@ -133,11 +134,13 @@ module Dmpopidor
         internal_server_error("An unexpected error occurred: #{e.message}")
       end
     end
+    # rubocop:enable Metrics/PerceivedComplexity, Metrics/CyclomaticComplexity
     # rubocop:enable Metrics/AbcSize, Metrics/MethodLength
 
     # CHANGES
     # Research Output support
     # rubocop:disable Metrics/AbcSize, Metrics/MethodLength
+    # rubocop:disable Metrics/PerceivedComplexity, Metrics/CyclomaticComplexity
     def update
       node_id = params[:id]
 
@@ -222,11 +225,12 @@ module Dmpopidor
         internal_server_error(e.message)
       end
     end
+    # rubocop:enable Metrics/PerceivedComplexity, Metrics/CyclomaticComplexity
     # rubocop:enable Metrics/AbcSize, Metrics/MethodLength
 
     # CHANGES
     # Research Output support
-    # rubocop:disable Metrics/AbcSize, Metrics/MethodLength
+    # rubocop:disable Metrics/AbcSize
     def archive
       @note = ::Note.find(params[:id])
       authorize @note
@@ -238,9 +242,6 @@ module Dmpopidor
       @plan = @answer.plan
       @research_output = @answer.research_output
 
-      question_id = @note.answer.question_id.to_s
-      section_id = @question.section_id
-
       if @note.update(note_params)
         @notice = success_message(@note, _('removed'))
         render json: { status: 200, message: 'Note removed successsfully', note: @note }, status: :ok
@@ -250,7 +251,7 @@ module Dmpopidor
         render bad_request(@notice)
       end
     end
-    # rubocop:enable Metrics/AbcSize, Metrics/MethodLength
+    # rubocop:enable Metrics/AbcSize
   end
   # rubocop:enable Metrics/ModuleLength
 end

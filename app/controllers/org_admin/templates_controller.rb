@@ -72,7 +72,7 @@ module OrgAdmin
       authorize Template
       customizations = Template.latest_customized_version_per_org(current_user.org.id)
                                .where(org_id: current_user.org.id)
-                               
+
       # --------------------------------
       # Start DMP OPIDoR Customization
       # CHANGES
@@ -173,6 +173,7 @@ module OrgAdmin
     # rubocop:enable Metrics/AbcSize, Metrics/MethodLength
 
     # GET /org_admin/templates/new
+    # rubocop:disable Metrics/AbcSize
     def new
       authorize Template
       # --------------------------------
@@ -195,6 +196,7 @@ module OrgAdmin
       # The default is already 'organisationally_visible' so change it if this is a funder
       @template.visibility = Template.visibilities[:publicly_visible] if current_org.funder?
     end
+    # rubocop:enable Metrics/AbcSize
 
     # POST /org_admin/templates
     # rubocop:disable Metrics/AbcSize
@@ -226,7 +228,7 @@ module OrgAdmin
         redirect_to edit_org_admin_template_path(@template),
                     notice: success_message(@template, _('created'))
       else
-        flash[:alert] = flash[:alert] = failure_message(@template, _('create'))
+        flash[:alert] = failure_message(@template, _('create'))
         render :new
       end
     end

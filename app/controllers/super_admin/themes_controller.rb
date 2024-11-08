@@ -6,20 +6,21 @@ module SuperAdmin
     helper PaginableHelper
     def index
       authorize(Theme)
-      @locales = Language::all
+      @locales = Language.all
       render(:index, locals: { themes: Theme.all.page(1) })
     end
 
     def new
       authorize(Theme)
-      @locales = Language::where.not(abbreviation: 'fr-FR')
+      @locales = Language.where.not(abbreviation: 'fr-FR')
       @theme = Theme.new
     end
 
+    # rubocop:disable Metrics/AbcSize
     def create
       authorize(Theme)
       @theme = Theme.new(permitted_params)
-      @locales = Language::where.not(abbreviation: 'fr-FR')
+      @locales = Language.where.not(abbreviation: 'fr-FR')
       if @theme.save
         flash.now[:notice] = success_message(@theme, _('created'))
         render :edit
@@ -28,10 +29,11 @@ module SuperAdmin
         render :new
       end
     end
+    # rubocop:enable Metrics/AbcSize
 
     def edit
       authorize(Theme)
-      @locales = Language::where.not(abbreviation: 'fr-FR')
+      @locales = Language.where.not(abbreviation: 'fr-FR')
       @theme = Theme.find(params[:id])
     end
 
@@ -39,7 +41,7 @@ module SuperAdmin
     def update
       authorize(Theme)
       @theme = Theme.find(params[:id])
-      @locales = Language::where.not(abbreviation: 'fr-FR')
+      @locales = Language.where.not(abbreviation: 'fr-FR')
 
       if @theme.update(permitted_params)
         flash.now[:notice] = success_message(@theme, _('updated'))

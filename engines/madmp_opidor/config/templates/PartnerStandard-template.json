@@ -6,13 +6,13 @@
 	"type": "object",
 	"class": "PartnerStandard",
 	"externalImports": {
-    "ror": {
-      "name": "name",
-      "ror": "orgId",
-      "acronyms[0]": "acronym",
-      "type": "idType"
-    }
-  },
+		"ror": {
+			"name.fr": "name",
+			"ror": "orgId",
+			"acronyms[0]": "acronym",
+			"type": "idType"
+		}
+	},
 	"properties": {
 		"name": {
 			"type": "string",

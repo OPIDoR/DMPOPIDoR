@@ -64,41 +64,38 @@ class GuidancesController < ApplicationController
   end
   # rubocop:enable Metrics/AbcSize
 
+  # rubocop:disable Metrics/AbcSize, Metrics/MethodLength
   def render_themes
     authorize Guidance
     guidance_group = GuidanceGroup.find(params[:guidance_group_id])
     language = Language.find_by(id: guidance_group.language_id)
 
     guidance = if params[:guidance_id].present?
-                  Guidance.eager_load(:themes, :guidance_group).find(params[:guidance_id])
-                else
-                  nil
-                end
+                 Guidance.eager_load(:themes, :guidance_group).find(params[:guidance_id])
+               end
 
-    selected_theme = if guidance && guidance.themes.any?
-                       guidance.themes[0].title
-                     else
-                       nil
-                     end
+    selected_theme = (guidance.themes[0].title if guidance&.themes&.any?)
 
     rendered_partial = ::GuidancesController.new.render_to_string(
       {
         partial: 'branded/org_admin/shared/theme_selector',
         locals: {
           f: form_builder_for(guidance || Guidance.new),
-          all_themes: Theme.all.order("title"),
+          all_themes: Theme.all.order('title'),
           as_radio: true,
           required: true,
           in_error: false,
           selected_theme: selected_theme,
           locale_id: language.id,
-          popover_message: _('Select one or more themes that are relevant to this guidance. This will display your generic organisation-level guidance, or any Schools/Departments for which you create guidance groups, across all templates that have questions with the corresponding theme tags.')
+          popover_message: _('Select one or more themes that are relevant to this guidance. This will display your generic organisation-level guidance, or any Schools/Departments for which you create guidance groups, across all templates that have questions with the corresponding theme tags.') # rubocop:disable Layout/LineLength
         }
       }
     )
 
-    render json: { status: 200, error: 'Themes results', data: { partial: rendered_partial, locale: language.name } }, status: :ok
+    render json: { status: 200, error: 'Themes results', data: { partial: rendered_partial, locale: language.name } },
+           status: :ok
   end
+  # rubocop:enable Metrics/AbcSize, Metrics/MethodLength
 
   def form_builder_for(object)
     ActionView::Helpers::FormBuilder.new(:guidance, object, self, {})

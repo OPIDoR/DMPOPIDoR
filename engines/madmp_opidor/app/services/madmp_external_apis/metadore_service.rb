@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 require 'uri'
 
 module MadmpExternalApis
@@ -49,7 +50,7 @@ module MadmpExternalApis
           uri: target,
           additional_headers: {
             'X-API-KEY': api_key,
-            'Accept': 'application/json'
+            Accept: 'application/json'
           }
         )
 

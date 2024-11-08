@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: app 1.0\n"
 "Report-Msgid-Bugs-To: contact@translation.io\n"
-"POT-Creation-Date: 2024-08-23 13:26+0200\n"
-"PO-Revision-Date: 2024-08-23 13:26+0200\n"
+"POT-Creation-Date: 2024-11-07 11:52+0100\n"
+"PO-Revision-Date: 2024-11-07 11:52+0100\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: English\n"
 "Language: en\n"
@@ -19,7 +19,7 @@ msgstr ""
 "\n"
 
 #: ../../app/controllers/answers_controller.rb:30
-#: ../../app/controllers/dmpopidor/answers_controller.rb:21
+#: ../../app/controllers/dmpopidor/answers_controller.rb:43
 msgid ""
 "There is no question with id %{question_id} associated to plan id %{plan_id} f"
 "or which to create or update an answer"
@@ -28,7 +28,7 @@ msgstr ""
 "or which to create or update an answer"
 
 #: ../../app/controllers/answers_controller.rb:38
-#: ../../app/controllers/dmpopidor/answers_controller.rb:28
+#: ../../app/controllers/dmpopidor/answers_controller.rb:50
 msgid "There is no plan with id %{id} for which to create or update an answer"
 msgstr "There is no plan with id %{id} for which to create or update an answer"
 
@@ -49,52 +49,52 @@ msgid "Successfully %{action} the %{object}."
 msgstr "Successfully %{action} the %{object}."
 
 #: ../../app/controllers/application_controller.rb:135
-#: ../../app/controllers/dmpopidor/application_controller.rb:62
+#: ../../app/controllers/dmpopidor/application_controller.rb:59
 msgid "API client"
 msgstr "API client"
 
 #: ../../app/controllers/application_controller.rb:136
-#: ../../app/controllers/dmpopidor/application_controller.rb:64
+#: ../../app/controllers/dmpopidor/application_controller.rb:61
 msgid "plan"
 msgstr "plan"
 
 #: ../../app/controllers/application_controller.rb:137
-#: ../../app/controllers/dmpopidor/application_controller.rb:65
+#: ../../app/controllers/dmpopidor/application_controller.rb:62
 msgid "guidance group"
 msgstr "guidance group"
 
 #: ../../app/controllers/application_controller.rb:138
-#: ../../app/controllers/dmpopidor/application_controller.rb:66
+#: ../../app/controllers/dmpopidor/application_controller.rb:63
 msgid "comment"
 msgstr "comment"
 
 #: ../../app/controllers/application_controller.rb:139
-#: ../../app/controllers/dmpopidor/application_controller.rb:67
+#: ../../app/controllers/dmpopidor/application_controller.rb:64
 msgid "organisation"
 msgstr "organisation"
 
 #: ../../app/controllers/application_controller.rb:140
-#: ../../app/controllers/dmpopidor/application_controller.rb:68
+#: ../../app/controllers/dmpopidor/application_controller.rb:65
 msgid "permission"
 msgstr "permission"
 
 #: ../../app/controllers/application_controller.rb:141
-#: ../../app/controllers/dmpopidor/application_controller.rb:69
+#: ../../app/controllers/dmpopidor/application_controller.rb:66
 msgid "preferences"
 msgstr "preferences"
 
 #: ../../app/controllers/application_controller.rb:142
-#: ../../app/controllers/dmpopidor/application_controller.rb:71
+#: ../../app/controllers/dmpopidor/application_controller.rb:68
 msgid "profile"
 msgstr "profile"
 
 #: ../../app/controllers/application_controller.rb:142
-#: ../../app/controllers/dmpopidor/application_controller.rb:71
+#: ../../app/controllers/dmpopidor/application_controller.rb:68
 msgid "user"
 msgstr "user"
 
 #: ../../app/controllers/application_controller.rb:143
-#: ../../app/controllers/dmpopidor/application_controller.rb:72
+#: ../../app/controllers/dmpopidor/application_controller.rb:69
 msgid "question option"
 msgstr "question option"
 
@@ -115,10 +115,10 @@ msgstr "added"
 
 #: ../../app/controllers/contributors_controller.rb:79
 #: ../../app/controllers/dmpopidor/orgs_controller.rb:106
-#: ../../app/controllers/dmpopidor/plans_controller.rb:167
-#: ../../app/controllers/dmpopidor/plans_controller.rb:170
+#: ../../app/controllers/dmpopidor/plans_controller.rb:184
+#: ../../app/controllers/dmpopidor/plans_controller.rb:187
 #: ../../app/controllers/guidance_groups_controller.rb:59
-#: ../../app/controllers/guidances_controller.rb:123
+#: ../../app/controllers/guidances_controller.rb:120
 #: ../../app/controllers/notes_controller.rb:103
 #: ../../app/controllers/orgs_controller.rb:99
 #: ../../app/controllers/plans_controller.rb:321
@@ -134,14 +134,14 @@ msgid "saved"
 msgstr "saved"
 
 #: ../../app/controllers/contributors_controller.rb:81
-#: ../../app/controllers/dmpopidor/notes_controller.rb:205
+#: ../../app/controllers/dmpopidor/notes_controller.rb:216
 #: ../../app/controllers/dmpopidor/orgs_controller.rb:108
-#: ../../app/controllers/dmpopidor/plans_controller.rb:176
-#: ../../app/controllers/dmpopidor/plans_controller.rb:179
-#: ../../app/controllers/dmpopidor/plans_controller.rb:183
-#: ../../app/controllers/dmpopidor/plans_controller.rb:186
+#: ../../app/controllers/dmpopidor/plans_controller.rb:193
+#: ../../app/controllers/dmpopidor/plans_controller.rb:196
+#: ../../app/controllers/dmpopidor/plans_controller.rb:200
+#: ../../app/controllers/dmpopidor/plans_controller.rb:203
 #: ../../app/controllers/guidance_groups_controller.rb:61
-#: ../../app/controllers/guidances_controller.rb:125
+#: ../../app/controllers/guidances_controller.rb:122
 #: ../../app/controllers/notes_controller.rb:121
 #: ../../app/controllers/orgs_controller.rb:101
 #: ../../app/controllers/plans_controller.rb:330
@@ -155,20 +155,20 @@ msgid "save"
 msgstr "save"
 
 #: ../../app/controllers/contributors_controller.rb:91
-#: ../../app/controllers/dmpopidor/notes_controller.rb:237
+#: ../../app/controllers/dmpopidor/notes_controller.rb:246
 #: ../../app/controllers/notes_controller.rb:153
 #: ../../app/controllers/research_outputs_controller.rb:83
-#: ../../engines/madmp_opidor/app/controllers/madmp_fragments_controller.rb:109
-#: ../../engines/madmp_opidor/app/controllers/madmp_fragments_controller.rb:129
+#: ../../engines/madmp_opidor/app/controllers/madmp_fragments_controller.rb:110
+#: ../../engines/madmp_opidor/app/controllers/madmp_fragments_controller.rb:127
 msgid "removed"
 msgstr "removed"
 
 #: ../../app/controllers/contributors_controller.rb:94
-#: ../../app/controllers/dmpopidor/notes_controller.rb:241
+#: ../../app/controllers/dmpopidor/notes_controller.rb:250
 #: ../../app/controllers/notes_controller.rb:171
 #: ../../app/controllers/research_outputs_controller.rb:86
-#: ../../engines/madmp_opidor/app/controllers/madmp_fragments_controller.rb:113
-#: ../../engines/madmp_opidor/app/controllers/madmp_fragments_controller.rb:133
+#: ../../engines/madmp_opidor/app/controllers/madmp_fragments_controller.rb:114
+#: ../../engines/madmp_opidor/app/controllers/madmp_fragments_controller.rb:131
 msgid "remove"
 msgstr "remove"
 
@@ -181,28 +181,28 @@ msgstr "plan not found"
 msgid "contributor not found"
 msgstr "contributor not found"
 
-#: ../../app/controllers/dmpopidor/application_controller.rb:63
+#: ../../app/controllers/dmpopidor/application_controller.rb:60
 msgid "research output"
 msgstr "research output"
 
-#: ../../app/controllers/dmpopidor/application_controller.rb:70
+#: ../../app/controllers/dmpopidor/application_controller.rb:67
 msgid "department"
 msgstr "department"
 
-#: ../../app/controllers/dmpopidor/application_controller.rb:73
+#: ../../app/controllers/dmpopidor/application_controller.rb:70
 msgid "schema"
 msgstr "schema"
 
-#: ../../app/controllers/dmpopidor/application_controller.rb:74
+#: ../../app/controllers/dmpopidor/application_controller.rb:71
 msgid "registry"
 msgstr "registry"
 
-#: ../../app/controllers/dmpopidor/application_controller.rb:75
+#: ../../app/controllers/dmpopidor/application_controller.rb:72
 msgid "registry value"
 msgstr "registry value"
 
-#: ../../app/controllers/dmpopidor/notes_controller.rb:99
-#: ../../app/controllers/dmpopidor/plans_controller.rb:80
+#: ../../app/controllers/dmpopidor/notes_controller.rb:101
+#: ../../app/controllers/dmpopidor/plans_controller.rb:90
 #: ../../app/controllers/guidance_groups_controller.rb:33
 #: ../../app/controllers/guidances_controller.rb:59
 #: ../../app/controllers/notes_controller.rb:54
@@ -212,9 +212,9 @@ msgstr "registry value"
 msgid "created"
 msgstr "created"
 
-#: ../../app/controllers/dmpopidor/notes_controller.rb:114
-#: ../../app/controllers/dmpopidor/plans_controller.rb:121
-#: ../../app/controllers/dmpopidor/plans_controller.rb:401
+#: ../../app/controllers/dmpopidor/notes_controller.rb:123
+#: ../../app/controllers/dmpopidor/plans_controller.rb:137
+#: ../../app/controllers/dmpopidor/plans_controller.rb:432
 #: ../../app/controllers/guidance_groups_controller.rb:36
 #: ../../app/controllers/guidances_controller.rb:61
 #: ../../app/controllers/notes_controller.rb:73
@@ -232,48 +232,48 @@ msgstr "%{plan_owner} has been notified that you have finished providing feedbac
 msgid "Unable to notify user that you have finished providing feedback."
 msgstr "Unable to notify user that you have finished providing feedback."
 
-#: ../../app/controllers/dmpopidor/org_admin/templates_controller.rb:19
+#: ../../app/controllers/dmpopidor/org_admin/templates_controller.rb:18
 #: ../../app/views/branded/org_admin/templates/index.html.erb:52
 msgid "%{org_name} Templates"
 msgstr "%{org_name} Templates"
 
-#: ../../app/controllers/dmpopidor/org_admin/templates_controller.rb:21
+#: ../../app/controllers/dmpopidor/org_admin/templates_controller.rb:20
 #: ../../app/views/branded/org_admin/templates/index.html.erb:54
 msgid "Own Templates"
 msgstr "Own Templates"
 
-#: ../../app/controllers/dmpopidor/plans_controller.rb:55
+#: ../../app/controllers/dmpopidor/plans_controller.rb:61
 #: ../../app/controllers/plans_controller.rb:89
 msgid "Unable to identify a suitable template for your plan."
 msgstr "Unable to identify a suitable template for your plan."
 
-#: ../../app/controllers/dmpopidor/plans_controller.rb:67
+#: ../../app/controllers/dmpopidor/plans_controller.rb:74
 #: ../../app/controllers/plans_controller.rb:103
 msgid "My Plan (%{title})"
 msgstr "My Plan (%{title})"
 
-#: ../../app/controllers/dmpopidor/plans_controller.rb:69
-#: ../../app/controllers/dmpopidor/plans_controller.rb:383
+#: ../../app/controllers/dmpopidor/plans_controller.rb:76
+#: ../../app/controllers/dmpopidor/plans_controller.rb:416
 #: ../../app/controllers/plans_controller.rb:105
 msgid "%{user_name}'s Plan"
 msgstr "%{user_name}'s Plan"
 
-#: ../../app/controllers/dmpopidor/plans_controller.rb:84
+#: ../../app/controllers/dmpopidor/plans_controller.rb:94
 #: ../../app/controllers/plans_controller.rb:143
 msgid "This plan is based on the default template."
 msgstr "This plan is based on the default template."
 
-#: ../../app/controllers/dmpopidor/plans_controller.rb:89
+#: ../../app/controllers/dmpopidor/plans_controller.rb:99
 #: ../../app/controllers/plans_controller.rb:148
 msgid "This plan is based on the"
 msgstr "This plan is based on the"
 
-#: ../../app/controllers/dmpopidor/plans_controller.rb:89
+#: ../../app/controllers/dmpopidor/plans_controller.rb:99
 #: ../../app/controllers/plans_controller.rb:148
 msgid "template with customisations by the"
 msgstr "template with customisations by the"
 
-#: ../../app/controllers/dmpopidor/plans_controller.rb:93
+#: ../../app/controllers/dmpopidor/plans_controller.rb:103
 #: ../../app/controllers/plans_controller.rb:156
 #: ../../app/views/branded/phases/_edit_plan_answers.html.erb:9
 msgid ""
@@ -283,51 +283,50 @@ msgstr ""
 "This plan is based on the \"%{template_title}\" template provided by %{org_name}"
 "."
 
-#: ../../app/controllers/dmpopidor/plans_controller.rb:105
-#: ../../app/controllers/dmpopidor/research_outputs_controller.rb:36
-#: ../../app/controllers/dmpopidor/research_outputs_controller.rb:138
-#: ../../app/controllers/dmpopidor/research_outputs_controller.rb:185
-#: ../../engines/madmp_opidor/app/services/import/plan_import_service.rb:28
+#: ../../app/controllers/dmpopidor/plans_controller.rb:118
+#: ../../app/controllers/dmpopidor/research_outputs_controller.rb:33
+#: ../../app/controllers/dmpopidor/research_outputs_controller.rb:130
+#: ../../app/controllers/dmpopidor/research_outputs_controller.rb:181
+#: ../../engines/madmp_opidor/app/services/import/plan_import_service.rb:29
 msgid "RO"
 msgstr "RO"
 
-#: ../../app/controllers/dmpopidor/plans_controller.rb:106
-#: ../../app/controllers/dmpopidor/research_outputs_controller.rb:37
-#: ../../app/controllers/dmpopidor/research_outputs_controller.rb:139
-#: ../../app/controllers/dmpopidor/research_outputs_controller.rb:186
+#: ../../app/controllers/dmpopidor/plans_controller.rb:119
+#: ../../app/controllers/dmpopidor/research_outputs_controller.rb:34
+#: ../../app/controllers/dmpopidor/research_outputs_controller.rb:131
+#: ../../app/controllers/dmpopidor/research_outputs_controller.rb:182
 msgid "Research output"
 msgstr "Research output"
 
-#: ../../app/controllers/dmpopidor/plans_controller.rb:397
+#: ../../app/controllers/dmpopidor/plans_controller.rb:428
 msgid "imported"
 msgstr "imported"
 
-#: ../../app/controllers/dmpopidor/plans_controller.rb:407
+#: ../../app/controllers/dmpopidor/plans_controller.rb:438
 msgid "Unvalid file"
 msgstr "Unvalid file"
 
-#: ../../app/controllers/dmpopidor/plans_controller.rb:411
+#: ../../app/controllers/dmpopidor/plans_controller.rb:442
 msgid "File should contain JSON"
 msgstr "File should contain JSON"
 
-#: ../../app/controllers/dmpopidor/plans_controller.rb:416
-#: ../../engines/madmp_opidor/app/controllers/madmp_codebase_controller.rb:63
-#: ../../engines/madmp_opidor/app/controllers/madmp_codebase_controller.rb:141
+#: ../../app/controllers/dmpopidor/plans_controller.rb:447
+#: ../../engines/madmp_opidor/app/controllers/madmp_codebase_controller.rb:64
+#: ../../engines/madmp_opidor/app/controllers/madmp_codebase_controller.rb:143
 msgid "An error has occured: "
 msgstr "An error has occured: "
 
-#: ../../app/controllers/dmpopidor/plans_controller.rb:480
+#: ../../app/controllers/dmpopidor/plans_controller.rb:511
 msgid "Invalid JSON: "
 msgstr "Invalid JSON: "
 
-#: ../../app/controllers/dmpopidor/research_outputs_controller.rb:15
-#: ../../app/controllers/plans_controller.rb:529
+#: ../../app/controllers/dmpopidor/research_outputs_controller.rb:16
+#: ../../app/controllers/plans_controller.rb:531
 msgid "There is no plan associated with id %{id}"
 msgstr "There is no plan associated with id %{id}"
 
-#: ../../app/controllers/dmpopidor/research_outputs_controller.rb:73
-#: ../../app/models/dmpopidor/research_output.rb:71
-#: ../../app/models/dmpopidor/research_output.rb:148
+#: ../../app/controllers/dmpopidor/research_outputs_controller.rb:67
+#: ../../app/models/dmpopidor/research_output.rb:73
 #: ../../app/views/branded/paginable/guidance_groups/_index.html.erb:34
 #: ../../app/views/branded/paginable/orgs/_index.html.erb:25
 #: ../../app/views/branded/paginable/plans/_administrator_visible.html.erb:36
@@ -340,8 +339,8 @@ msgstr "There is no plan associated with id %{id}"
 msgid "Yes"
 msgstr "Yes"
 
-#: ../../app/controllers/dmpopidor/research_outputs_controller.rb:73
-#: ../../app/models/dmpopidor/research_output.rb:71
+#: ../../app/controllers/dmpopidor/research_outputs_controller.rb:67
+#: ../../app/models/dmpopidor/research_output.rb:73
 #: ../../app/views/branded/paginable/guidance_groups/_index.html.erb:32
 #: ../../app/views/branded/paginable/orgs/_index.html.erb:25
 #: ../../app/views/branded/paginable/plans/_administrator_visible.html.erb:36
@@ -354,38 +353,38 @@ msgstr "Yes"
 msgid "No"
 msgstr "No"
 
-#: ../../app/controllers/dmpopidor/research_outputs_controller.rb:119
-#: ../../app/controllers/dmpopidor/research_outputs_controller.rb:212
+#: ../../app/controllers/dmpopidor/research_outputs_controller.rb:109
+#: ../../app/controllers/dmpopidor/research_outputs_controller.rb:210
 #: ../../app/controllers/guidance_groups_controller.rb:104
-#: ../../app/controllers/guidances_controller.rb:144
-#: ../../app/controllers/plans_controller.rb:405
+#: ../../app/controllers/guidances_controller.rb:141
+#: ../../app/controllers/plans_controller.rb:407
 #: ../../engines/madmp_opidor/app/controllers/super_admin/madmp_schemas_controller.rb:57
 #: ../../engines/madmp_opidor/app/controllers/super_admin/registries_controller.rb:67
 #: ../../engines/madmp_opidor/app/controllers/super_admin/registry_values_controller.rb:35
 msgid "delete"
 msgstr "delete"
 
-#: ../../app/controllers/dmpopidor/research_outputs_controller.rb:138
-#: ../../app/controllers/dmpopidor/research_outputs_controller.rb:139
+#: ../../app/controllers/dmpopidor/research_outputs_controller.rb:130
+#: ../../app/controllers/dmpopidor/research_outputs_controller.rb:131
 msgid "Copy of"
 msgstr "Copy of"
 
-#: ../../app/controllers/dmpopidor/research_outputs_controller.rb:210
+#: ../../app/controllers/dmpopidor/research_outputs_controller.rb:208
 #: ../../app/controllers/guidance_groups_controller.rb:102
-#: ../../app/controllers/guidances_controller.rb:142
-#: ../../app/controllers/plans_controller.rb:400
+#: ../../app/controllers/guidances_controller.rb:139
+#: ../../app/controllers/plans_controller.rb:402
 #: ../../engines/madmp_opidor/app/controllers/super_admin/madmp_schemas_controller.rb:54
 #: ../../engines/madmp_opidor/app/controllers/super_admin/registries_controller.rb:64
 #: ../../engines/madmp_opidor/app/controllers/super_admin/registry_values_controller.rb:32
 msgid "deleted"
 msgstr "deleted"
 
-#: ../../app/controllers/dmpopidor/research_outputs_controller.rb:234
+#: ../../app/controllers/dmpopidor/research_outputs_controller.rb:232
 msgid "Data contact"
 msgstr "Data contact"
 
-#: ../../app/controllers/dmpopidor/research_outputs_controller.rb:246
-#: ../../app/controllers/plans_controller.rb:486
+#: ../../app/controllers/dmpopidor/research_outputs_controller.rb:244
+#: ../../app/controllers/plans_controller.rb:488
 #: ../../engines/madmp_opidor/app/controllers/super_admin/madmp_schemas_controller.rb:45
 #: ../../engines/madmp_opidor/app/controllers/super_admin/registries_controller.rb:52
 #: ../../engines/madmp_opidor/app/controllers/super_admin/registry_values_controller.rb:21
@@ -414,7 +413,7 @@ msgid "Your guidance group has been published and is now available to users."
 msgstr "Your guidance group has been published and is now available to users."
 
 #: ../../app/controllers/guidance_groups_controller.rb:77
-#: ../../app/controllers/guidances_controller.rb:161
+#: ../../app/controllers/guidances_controller.rb:158
 msgid "publish"
 msgstr "publish"
 
@@ -423,11 +422,11 @@ msgid "Your guidance group is no longer published and will not be available to u
 msgstr "Your guidance group is no longer published and will not be available to users."
 
 #: ../../app/controllers/guidance_groups_controller.rb:91
-#: ../../app/controllers/guidances_controller.rb:178
+#: ../../app/controllers/guidances_controller.rb:175
 msgid "unpublish"
 msgstr "unpublish"
 
-#: ../../app/controllers/guidances_controller.rb:95
+#: ../../app/controllers/guidances_controller.rb:90
 msgid ""
 "Select one or more themes that are relevant to this guidance. This will displa"
 "y your generic organisation-level guidance, or any Schools/Departments for whi"
@@ -439,11 +438,11 @@ msgstr ""
 "ch you create guidance groups, across all templates that have questions with t"
 "he corresponding theme tags."
 
-#: ../../app/controllers/guidances_controller.rb:158
+#: ../../app/controllers/guidances_controller.rb:155
 msgid "Your guidance has been published and is now available to users."
 msgstr "Your guidance has been published and is now available to users."
 
-#: ../../app/controllers/guidances_controller.rb:175
+#: ../../app/controllers/guidances_controller.rb:172
 msgid "Your guidance is no longer published and will not be available to users."
 msgstr "Your guidance is no longer published and will not be available to users."
 
@@ -483,15 +482,15 @@ msgstr "This is a"
 msgid "test plan"
 msgstr "test plan"
 
-#: ../../app/controllers/plans_controller.rb:460
+#: ../../app/controllers/plans_controller.rb:462
 msgid "copied"
 msgstr "copied"
 
-#: ../../app/controllers/plans_controller.rb:462
+#: ../../app/controllers/plans_controller.rb:464
 msgid "copy"
 msgstr "copy"
 
-#: ../../app/controllers/plans_controller.rb:483
+#: ../../app/controllers/plans_controller.rb:485
 #: ../../app/controllers/users_controller.rb:123
 #: ../../engines/madmp_opidor/app/controllers/super_admin/madmp_schemas_controller.rb:43
 #: ../../engines/madmp_opidor/app/controllers/super_admin/registries_controller.rb:50
@@ -499,7 +498,7 @@ msgstr "copy"
 msgid "updated"
 msgstr "updated"
 
-#: ../../app/controllers/plans_controller.rb:491
+#: ../../app/controllers/plans_controller.rb:493
 msgid ""
 "Unable to change the plan's status since it is needed at least %{percentage} p"
 "ercentage responded"
@@ -507,19 +506,19 @@ msgstr ""
 "Unable to change the plan's status since it is needed at least %{percentage} p"
 "ercentage responded"
 
-#: ../../app/controllers/plans_controller.rb:497
+#: ../../app/controllers/plans_controller.rb:499
 msgid "Unable to find plan id %{plan_id}"
 msgstr "Unable to find plan id %{plan_id}"
 
-#: ../../app/controllers/plans_controller.rb:512
+#: ../../app/controllers/plans_controller.rb:514
 msgid "Your project is now a test."
 msgstr "Your project is now a test."
 
-#: ../../app/controllers/plans_controller.rb:512
+#: ../../app/controllers/plans_controller.rb:514
 msgid "Your project is no longer a test."
 msgstr "Your project is no longer a test."
 
-#: ../../app/controllers/plans_controller.rb:516
+#: ../../app/controllers/plans_controller.rb:518
 msgid "Unable to change the plan's test status"
 msgstr "Unable to change the plan's test status"
 
@@ -758,19 +757,19 @@ msgstr ""
 "emes too, this will be pulled in based on your selections below so it's best n"
 "ot to duplicate too much text."
 
-#: ../../app/helpers/conditions_helper.rb:191
+#: ../../app/helpers/conditions_helper.rb:189
 msgid "Answering"
 msgstr "Answering"
 
-#: ../../app/helpers/conditions_helper.rb:195
+#: ../../app/helpers/conditions_helper.rb:193
 msgid " will <b>send an email</b> with subject %{subject_name}"
 msgstr " will <b>send an email</b> with subject %{subject_name}"
 
-#: ../../app/helpers/conditions_helper.rb:201
+#: ../../app/helpers/conditions_helper.rb:199
 msgid " will <b>remove</b> question "
 msgstr " will <b>remove</b> question "
 
-#: ../../app/helpers/conditions_helper.rb:202
+#: ../../app/helpers/conditions_helper.rb:200
 msgid " will <b>remove</b> questions "
 msgstr " will <b>remove</b> questions "
 
@@ -1036,57 +1035,57 @@ msgstr "Last 9 months"
 msgid "Last 12 months"
 msgstr "Last 12 months"
 
-#: ../../app/mailers/dmpopidor/user_mailer.rb:40
+#: ../../app/mailers/dmpopidor/user_mailer.rb:44
 msgid "%{tool_name}: A new comment was added to %{plan_title}"
 msgstr "%{tool_name}: A new comment was added to %{plan_title}"
 
-#: ../../app/mailers/dmpopidor/user_mailer.rb:61 ../../app/models/user.rb:406
+#: ../../app/mailers/dmpopidor/user_mailer.rb:66 ../../app/models/user.rb:406
 msgid "%{user_name} has shared a Data Management Plan with you in %{tool_name}"
 msgstr "%{user_name} has shared a Data Management Plan with you in %{tool_name}"
 
-#: ../../app/mailers/dmpopidor/user_mailer.rb:82
+#: ../../app/mailers/dmpopidor/user_mailer.rb:87
 #: ../../app/mailers/user_mailer.rb:82
 msgid "Changed permissions on a Data Management Plan in %{tool_name}"
 msgstr "Changed permissions on a Data Management Plan in %{tool_name}"
 
-#: ../../app/mailers/dmpopidor/user_mailer.rb:99
+#: ../../app/mailers/dmpopidor/user_mailer.rb:104
 #: ../../app/mailers/user_mailer.rb:98
 msgid "Permissions removed on a DMP in %{tool_name}"
 msgstr "Permissions removed on a DMP in %{tool_name}"
 
-#: ../../app/mailers/dmpopidor/user_mailer.rb:118
+#: ../../app/mailers/dmpopidor/user_mailer.rb:123
 #: ../../app/mailers/user_mailer.rb:117
 msgid "%{user_name} has requested feedback on a %{tool_name} plan"
 msgstr "%{user_name} has requested feedback on a %{tool_name} plan"
 
-#: ../../app/mailers/dmpopidor/user_mailer.rb:144
+#: ../../app/mailers/dmpopidor/user_mailer.rb:149
 #: ../../app/mailers/user_mailer.rb:143
 msgid "%{tool_name}: Expert feedback has been provided for %{plan_title}"
 msgstr "%{tool_name}: Expert feedback has been provided for %{plan_title}"
 
-#: ../../app/mailers/dmpopidor/user_mailer.rb:164
+#: ../../app/mailers/dmpopidor/user_mailer.rb:169
 #: ../../app/mailers/user_mailer.rb:164
 msgid "DMP Visibility Changed: %{plan_title}"
 msgstr "DMP Visibility Changed: %{plan_title}"
 
-#: ../../app/mailers/dmpopidor/user_mailer.rb:180
+#: ../../app/mailers/dmpopidor/user_mailer.rb:185
 #: ../../app/mailers/user_mailer.rb:217
 msgid "Administrator privileges granted in %{tool_name}"
 msgstr "Administrator privileges granted in %{tool_name}"
 
-#: ../../app/mailers/dmpopidor/user_mailer.rb:197
+#: ../../app/mailers/dmpopidor/user_mailer.rb:202
 msgid "%{tool_name} API client created/updated"
 msgstr "%{tool_name} API client created/updated"
 
-#: ../../app/mailers/dmpopidor/user_mailer.rb:211
+#: ../../app/mailers/dmpopidor/user_mailer.rb:216
 msgid "Account expiration in %{tool_name}"
 msgstr "Account expiration in %{tool_name}"
 
-#: ../../app/mailers/dmpopidor/user_mailer.rb:220
+#: ../../app/mailers/dmpopidor/user_mailer.rb:225
 msgid "Account expired in %{tool_name}"
 msgstr "Account expired in %{tool_name}"
 
-#: ../../app/mailers/dmpopidor/user_mailer.rb:245
+#: ../../app/mailers/dmpopidor/user_mailer.rb:247
 #: ../../app/views/branded/user_mailer/client_sharing_notification.html.erb:5
 msgid "%{username} has granted access to their Data Management Plan in %{tool_name}"
 msgstr "%{username} has granted access to their Data Management Plan in %{tool_name}"
@@ -1123,24 +1122,28 @@ msgstr "can't be blank if no email is provided."
 msgid "can't be blank if no name is provided."
 msgstr "can't be blank if no name is provided."
 
-#: ../../app/models/dmpopidor/plan.rb:78
+#: ../../app/models/dmpopidor/plan.rb:77
 msgid "Personal"
 msgstr "Personal"
 
-#: ../../app/models/dmpopidor/plan.rb:92
+#: ../../app/models/dmpopidor/plan.rb:91
 msgid "DMP manager"
 msgstr "DMP manager"
 
-#: ../../app/models/dmpopidor/plan.rb:111
-#: ../../engines/madmp_opidor/app/models/madmp_fragment.rb:434
+#: ../../app/models/dmpopidor/plan.rb:110
+#: ../../engines/madmp_opidor/app/models/madmp_fragment.rb:464
 msgid "\"%{project_title}\" project DMP"
 msgstr "\"%{project_title}\" project DMP"
 
-#: ../../app/models/dmpopidor/plan.rb:138
+#: ../../app/models/dmpopidor/plan.rb:136
 msgid "Project coordinator"
 msgstr "Project coordinator"
 
-#: ../../app/models/dmpopidor/research_output.rb:83
+#: ../../app/models/dmpopidor/plan.rb:190
+msgid "Copy of %{title}"
+msgstr "Copy of %{title}"
+
+#: ../../app/models/dmpopidor/research_output.rb:85
 msgid "Contact Person"
 msgstr "Contact Person"
 
@@ -1224,7 +1227,7 @@ msgstr "Funded"
 msgid "Denied"
 msgstr "Denied"
 
-#: ../../app/models/plan.rb:815
+#: ../../app/models/plan.rb:816
 msgid "must be after the start date"
 msgstr "must be after the start date"
 
@@ -1385,7 +1388,7 @@ msgstr "This answer triggers email(s) to "
 
 #: ../../app/views/branded/answers/_status.html.erb:26
 #: ../../app/views/branded/shared/export/_export_by_question.erb:76
-#: ../../app/views/branded/shared/export/_export_by_research_output.erb:76
+#: ../../app/views/branded/shared/export/_export_by_research_output.erb:77
 #: ../../app/views/branded/shared/export/_export_by_section.erb:71
 msgid "Question not answered."
 msgstr "Question not answered."
@@ -1476,6 +1479,7 @@ msgstr ""
 #: ../../app/views/branded/layouts/_footer.html.erb:63
 #: ../../app/views/branded/layouts/_footer.html.erb:68
 #: ../../app/views/branded/layouts/_footer.html.erb:73
+#: ../../app/views/branded/layouts/_footer.html.erb:78
 #: ../../app/views/branded/layouts/_navigation.html.erb:11
 #: ../../app/views/branded/paginable/plans/_organisationally_or_publicly_visible.html.erb:36
 #: ../../app/views/branded/paginable/plans/_publicly_visible.html.erb:31
@@ -1891,6 +1895,10 @@ msgstr "INIST website"
 msgid "Mailing list"
 msgstr "Mailing list"
 
+#: ../../app/views/branded/layouts/_footer.html.erb:73
+msgid "Canal-U"
+msgstr "Canal-U"
+
 #: ../../app/views/branded/layouts/_header.html.erb:18
 msgid "Effectively describing the life of your data to ensure its future"
 msgstr "Effectively describing the life of your data to ensure its future"
@@ -2199,7 +2207,7 @@ msgstr "Request Date"
 #: ../../app/views/branded/paginable/guidance_groups/_index.html.erb:11
 #: ../../app/views/branded/paginable/guidance_groups/_index.html.erb:53
 #: ../../app/views/branded/paginable/guidances/_index.html.erb:12
-#: ../../app/views/branded/paginable/guidances/_index.html.erb:60
+#: ../../app/views/branded/paginable/guidances/_index.html.erb:56
 #: ../../app/views/branded/paginable/orgs/_index.html.erb:12
 #: ../../app/views/branded/paginable/orgs/_index.html.erb:36
 #: ../../app/views/branded/paginable/plans/_administrator_visible.html.erb:14
@@ -2401,7 +2409,7 @@ msgstr "None provided"
 #: ../../app/views/branded/paginable/api_clients/_index.html.erb:43
 #: ../../app/views/branded/paginable/departments/_index.html.erb:27
 #: ../../app/views/branded/paginable/guidance_groups/_index.html.erb:56
-#: ../../app/views/branded/paginable/guidances/_index.html.erb:63
+#: ../../app/views/branded/paginable/guidances/_index.html.erb:59
 #: ../../app/views/branded/paginable/orgs/_index.html.erb:39
 #: ../../app/views/branded/paginable/plans/_administrator_visible.html.erb:59
 #: ../../app/views/branded/paginable/plans/_privately_visible.html.erb:66
@@ -2812,7 +2820,7 @@ msgstr "Please remove schemas attached to the Api Client before deleting it."
 #: ../../app/views/branded/paginable/api_clients/_index.html.erb:49
 #: ../../app/views/branded/paginable/departments/_index.html.erb:28
 #: ../../app/views/branded/paginable/guidance_groups/_index.html.erb:63
-#: ../../app/views/branded/paginable/guidances/_index.html.erb:70
+#: ../../app/views/branded/paginable/guidances/_index.html.erb:66
 #: ../../app/views/branded/paginable/orgs/_index.html.erb:41
 #: ../../app/views/branded/paginable/plans/_administrator_visible.html.erb:76
 #: ../../app/views/branded/paginable/plans/_privately_visible.html.erb:83
@@ -2845,14 +2853,14 @@ msgstr ""
 "ou sure?"
 
 #: ../../app/views/branded/paginable/guidance_groups/_index.html.erb:58
-#: ../../app/views/branded/paginable/guidances/_index.html.erb:66
+#: ../../app/views/branded/paginable/guidances/_index.html.erb:62
 #: ../../app/views/branded/paginable/templates/_modules.html.erb:67
 #: ../../app/views/branded/paginable/templates/_organisational.html.erb:63
 msgid "Unpublish"
 msgstr "Unpublish"
 
 #: ../../app/views/branded/paginable/guidance_groups/_index.html.erb:60
-#: ../../app/views/branded/paginable/guidances/_index.html.erb:68
+#: ../../app/views/branded/paginable/guidances/_index.html.erb:64
 #: ../../app/views/branded/paginable/templates/_modules.html.erb:72
 #: ../../app/views/branded/paginable/templates/_organisational.html.erb:68
 msgid "Publish"
@@ -2870,11 +2878,11 @@ msgstr ""
 msgid "Text"
 msgstr "Text"
 
-#: ../../app/views/branded/paginable/guidances/_index.html.erb:71
+#: ../../app/views/branded/paginable/guidances/_index.html.erb:67
 msgid "You are about to delete '%{guidance_summary}'. Are you sure?"
 msgstr "You are about to delete '%{guidance_summary}'. Are you sure?"
 
-#: ../../app/views/branded/paginable/guidances/_index.html.erb:71
+#: ../../app/views/branded/paginable/guidances/_index.html.erb:67
 msgid "... (continued)"
 msgstr "... (continued)"
 
@@ -4626,7 +4634,8 @@ msgid "Fragment doesn't exist."
 msgstr "Fragment doesn't exist."
 
 #:
-#: ../../engines/madmp_opidor/app/controllers/api/v1/madmp/madmp_schemas_controller.rb:21
+#: ../../engines/madmp_opidor/app/controllers/api/v1/madmp/madmp_schemas_controller.rb:19
+#: ../../engines/madmp_opidor/app/controllers/api/v1/madmp/madmp_schemas_controller.rb:27
 msgid "Schema not found"
 msgstr "Schema not found"
 
@@ -4680,39 +4689,39 @@ msgstr "Please select an application in the list"
 msgid "Successfully changed the permissions for %{api_client}."
 msgstr "Successfully changed the permissions for %{api_client}."
 
-#: ../../engines/madmp_opidor/app/controllers/madmp_codebase_controller.rb:49
+#: ../../engines/madmp_opidor/app/controllers/madmp_codebase_controller.rb:50
 msgid "Notification has been sent"
 msgstr "Notification has been sent"
 
-#: ../../engines/madmp_opidor/app/controllers/madmp_codebase_controller.rb:135
+#: ../../engines/madmp_opidor/app/controllers/madmp_codebase_controller.rb:137
 msgid "Project data have successfully been imported."
 msgstr "Project data have successfully been imported."
 
-#: ../../engines/madmp_opidor/app/controllers/madmp_fragments_controller.rb:68
+#: ../../engines/madmp_opidor/app/controllers/madmp_fragments_controller.rb:71
 msgid "Form saved successfully."
 msgstr "Form saved successfully."
 
-#: ../../engines/madmp_opidor/app/controllers/madmp_fragments_controller.rb:72
+#: ../../engines/madmp_opidor/app/controllers/madmp_fragments_controller.rb:75
 msgid "Error when saving form."
 msgstr "Error when saving form."
 
-#: ../../engines/madmp_opidor/app/controllers/madmp_schemas_controller.rb:25
-msgid "%{template_name} form is unavailable."
-msgstr "%{template_name} form is unavailable."
-
-#: ../../engines/madmp_opidor/app/controllers/templates_controller.rb:30
+#: ../../engines/madmp_opidor/app/controllers/templates_controller.rb:36
 msgid "Unable to change the template's recommended status"
 msgstr "Unable to change the template's recommended status"
 
-#: ../../engines/madmp_opidor/app/services/import/plan_import_service.rb:97
+#: ../../engines/madmp_opidor/app/models/madmp_fragment.rb:456
+msgid "\"%{entity_name}\" entity DMP"
+msgstr "\"%{entity_name}\" entity DMP"
+
+#: ../../engines/madmp_opidor/app/services/import/plan_import_service.rb:101
 msgid "Invalid JSON data"
 msgstr "Invalid JSON data"
 
-#: ../../engines/madmp_opidor/app/services/import/plan_import_service.rb:98
+#: ../../engines/madmp_opidor/app/services/import/plan_import_service.rb:102
 msgid "Invalid format"
 msgstr "Invalid format"
 
-#: ../../engines/madmp_opidor/app/services/import/plan_import_service.rb:102
+#: ../../engines/madmp_opidor/app/services/import/plan_import_service.rb:106
 msgid "File should begin with :dmp property"
 msgstr "File should begin with :dmp property"
 

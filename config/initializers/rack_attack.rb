@@ -3,7 +3,7 @@
 # NB: `req` is a Rack::Request object (basically an env hash with friendly accessor methods)
 
 # Enable/disable Rack::Attack
-Rack::Attack.enabled = true
+Rack::Attack.enabled = ENV.fetch('RACK_ATTACK_ENABLED', true).to_s.casecmp('true').zero?
 
 # Cache store required to work.
 Rack::Attack.cache.store = ActiveSupport::Cache::MemoryStore.new # defaults to Rails.cache

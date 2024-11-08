@@ -63,8 +63,6 @@ module TemplateHelper
   def can_add_phase?(template)
     return true if template.classic?
 
-    return true if template.phases.length == 0
-
+    true if template.phases.empty?
   end
-
 end

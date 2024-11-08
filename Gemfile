@@ -2,14 +2,14 @@
 
 source 'https://rubygems.org'
 
-ruby '>= 3.2'
+ruby '>= 3.3'
 
 # ===========#
 # CORE RAILS #
 # ===========#
 
 # Full-stack web application framework. (http://rubyonrails.org)
-gem 'rails', '~> 7.1'
+gem 'rails', '~> 7.2'
 
 # TODO: Remove this once Rails addresses the issue with its dependency on mimemagic. Mimemagic had
 #       an MIT license but was using some incompatible GPL license code.
@@ -42,9 +42,9 @@ gem 'propshaft'
 # Use Redis adapter to run Action Cable in production
 # A Ruby client that tries to match Redis' API one-to-one, while still providing an idiomatic interface
 # (https://github.com/redis/redis-rb)
-gem "redis"
+gem 'redis'
 
-# redis-actionpack provides a session store for ActionPack, specifically for ActionDispatch. 
+# redis-actionpack provides a session store for ActionPack, specifically for ActionDispatch.
 # (https://github.com/redis-store/redis-actionpack)
 gem 'redis-actionpack'
 # Use Active Model has_secure_password
@@ -377,7 +377,13 @@ end
 gem 'madmp_opidor', path: 'engines/madmp_opidor' # , git: 'https://github.com/OPIDoR/madmp_opidor.git'
 
 group :build do
-  gem 'activerecord-nulldb-adapter'
+  # TEMP : fork added support to rails 7.2. Need update when main repo releases a new version
+  # Git needs to be removed from Dockerfile
+  gem 'activerecord-nulldb-adapter', git: 'https://github.com/simpl1g/nulldb',
+                                     branch: 'activerecord80-support'
 end
 
-gem "foreman", "~> 0.88.1"
+gem 'graphiql-rails', '~> 1.10'
+gem 'graphql', '~> 2.3'
+
+gem 'foreman', '~> 0.88.1'

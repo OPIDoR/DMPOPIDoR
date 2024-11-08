@@ -19,8 +19,8 @@
                 "dbid"
             ],
             "description": "Source (agence) de financement",
-            "label@fr_FR": "Financeurs",
-            "label@en_GB": "Funders",
+            "label@fr_FR": "Financeur",
+            "label@en_GB": "Funder",
             "inputType": "dropdown",
             "registries": [
                 "Funders"
@@ -28,8 +28,8 @@
             "overridable": true,
             "tooltip@fr_FR": "Liste interne en cours d'élaboration",
             "tooltip@en_GB": "Internal list in progress",
-            "form_label@fr_FR": "Financeurs",
-            "form_label@en_GB": "Funders"
+            "form_label@fr_FR": "Financeur",
+            "form_label@en_GB": "Funder"
         },
         "grantId": {
             "type": "string",
@@ -38,6 +38,8 @@
             "label@en_GB": "Grant Identifier",
             "tooltip@fr_FR": "Aussi appelé Code décision, Identifiant de la convention de subvention, Numéro de la convention de subvention, Numéro de subvention",
             "tooltip@en_GB": "Also called Decision code, Grant agreement ID, Grant agreement number, Award number",
+            "example@fr_FR": "ANR-19-DATA-0017 ou ANSES-23-EST-043 ou https://doi.org/10.3030/101058527",
+            "example@en_GB": "ANR-19-DATA-0017 ou ANSES-23-EST-043 ou https://doi.org/10.3030/101058527",
             "form_label@fr_FR": "Identifiant du financement",
             "form_label@en_GB": "Grant Identifier"
         },

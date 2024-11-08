@@ -87,7 +87,7 @@ class MadmpFragment < ApplicationRecord
   scope :reused_datas, -> { where(classname: 'reused_data') }
   scope :specific_datas, -> { where(classname: 'specific_data') }
   scope :technical_resources, -> { where(classname: 'technical_resource') }
-  
+
   # = Software specific classes =
   scope :software_descriptions, -> { where(classname: 'software_description') }
   scope :software_development_managements, -> { where(classname: 'software_development_management') }
@@ -210,7 +210,8 @@ class MadmpFragment < ApplicationRecord
     parent.update_children_references
   end
 
-  def update_research_output_parameters(skip_broadcast = false)
+  # rubocop:disable Metrics/AbcSize
+  def update_research_output_parameters(skip_broadcast: false)
     return unless plan.template.structured?
 
     case classname
@@ -223,20 +224,21 @@ class MadmpFragment < ApplicationRecord
         title: data['title']
       )
       ro_fragment.update(additional_info: new_additional_info)
-      PlanChannel.broadcast_to(research_output.plan, {
-        target: "research_output_infobox",
-        research_output_id: research_output.id,
-        payload: research_output.serialize_infobox_data
-      }) unless skip_broadcast
-    else
-      return
+      unless skip_broadcast
+        PlanChannel.broadcast_to(research_output.plan, {
+                                   target: 'research_output_infobox',
+                                   research_output_id: research_output.id,
+                                   payload: research_output.serialize_infobox_data
+                                 })
+      end
     end
   end
+  # rubocop:enable Metrics/AbcSize
 
   # This method return the fragment full record
   # It integrates its children into the JSON
-  # rubocop:disable Metrics/AbcSize, Metrics/MethodLength
   # rubocop:disable Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
+  # rubocop:disable Metrics/AbcSize, Metrics/MethodLength
   def get_full_fragment(with_ids: false, with_template_name: false)
     if additional_info['custom_value'].present?
       {
@@ -300,8 +302,8 @@ class MadmpFragment < ApplicationRecord
 
     editable_data
   end
-  # rubocop:enable Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
   # rubocop:enable Metrics/AbcSize, Metrics/MethodLength
+  # rubocop:enable Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
 
   # This method take a fragment and convert its data with the target schema
   # rubocop:disable Metrics/AbcSize, Metrics/MethodLength
@@ -376,34 +378,39 @@ class MadmpFragment < ApplicationRecord
 
   # This method is called when a form is opened for the first time
   # It creates the whole tree of sub_fragments
-  # rubocop:disable Metrics/AbcSize
+  # rubocop:disable Metrics/AbcSize, Metrics/MethodLength
+  # rubocop:disable Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
   def instantiate
     save! if id.nil?
 
     new_data = data || {}
     madmp_schema.properties.each do |key, prop|
-      next unless prop['type'].eql?('object') && prop['template_name'].present?
+      if prop['type'].eql?('object') && prop['template_name'].present?
 
-      sub_schema = MadmpSchema.find_by(name: prop['template_name'])
+        sub_schema = MadmpSchema.find_by(name: prop['template_name'])
 
-      next if sub_schema.classname.eql?('person') || new_data[key].present?
+        next if sub_schema.classname.eql?('person') || new_data[key].present?
 
-      sub_fragment = MadmpFragment.create!(
-        data: {},
-        answer_id: nil,
-        dmp_id: dmp.id,
-        parent_id: id,
-        madmp_schema: sub_schema,
-        classname: sub_schema.classname,
-        additional_info: { property_name: key }
-      )
-      sub_fragment.instantiate
+        sub_fragment = MadmpFragment.create!(
+          data: {},
+          answer_id: nil,
+          dmp_id: dmp.id,
+          parent_id: id,
+          madmp_schema: sub_schema,
+          classname: sub_schema.classname,
+          additional_info: { property_name: key }
+        )
+        sub_fragment.instantiate
 
-      new_data[key] = { 'dbid' => sub_fragment.id }
+        new_data[key] = { 'dbid' => sub_fragment.id }
+      elsif prop['type'].eql?('array') && prop['items']['type'].eql?('string')
+        new_data[key] = []
+      end
     end
     update!(data: new_data)
   end
-  # rubocop:enable Metrics/AbcSize
+  # rubocop:enable Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
+  # rubocop:enable Metrics/AbcSize, Metrics/MethodLength
 
   def handle_defaults(defaults)
     raw_import(defaults, madmp_schema) # if defaults.any?
@@ -443,20 +450,30 @@ class MadmpFragment < ApplicationRecord
   # rubocop:disable Metrics/AbcSize
   def update_meta_fragment
     meta_fragment = dmp.meta
-    if classname.eql?('project')
-      project_fragment = self
-      dmp_title = format(_('"%{project_title}" project DMP'), project_title: project_fragment.data['title'])
-      meta_data = meta_fragment.data.merge(
-        'title' => dmp_title, 'lastModifiedDate' => plan.updated_at.strftime('%F')
-      )
-      plan.update(title: dmp_title)
-    else
-      plan.update(title: meta_fragment.data['title'])
-      meta_data = meta_fragment.data.merge(
-        'lastModifiedDate' => plan.updated_at.strftime('%F')
-      )
+    I18n.with_locale plan.template.locale do
+      if (classname.eql?('research_entity'))
+        entity_fragment = self
+        dmp_title = format(_('"%{entity_name}" entity DMP'), entity_name: entity_fragment.data['name'])
+        plan.update(title: dmp_title)
+        meta_data = meta_fragment.data.merge(
+          'title' => dmp_title, 'lastModifiedDate' => plan.updated_at.strftime('%F')
+        )
+        plan.update(title: dmp_title)
+      elsif classname.eql?('project')
+        project_fragment = self
+        dmp_title = format(_('"%{project_title}" project DMP'), project_title: project_fragment.data['title'])
+        meta_data = meta_fragment.data.merge(
+          'title' => dmp_title, 'lastModifiedDate' => plan.updated_at.strftime('%F')
+        )
+        plan.update(title: dmp_title)
+      else
+        plan.update(title: meta_fragment.data['title'])
+        meta_data = meta_fragment.data.merge(
+          'lastModifiedDate' => plan.updated_at.strftime('%F')
+        )
+      end
+      meta_fragment.update(data: meta_data)
     end
-    meta_fragment.update(data: meta_data)
   end
   # rubocop:enable Metrics/AbcSize
 
@@ -490,6 +507,7 @@ class MadmpFragment < ApplicationRecord
 
   # Checks for a given dmp_id (and parent_id) if a fragment exists in the database
   # rubocop:disable Metrics/AbcSize
+  # rubocop:disable Metrics/CyclomaticComplexity
   def self.fragment_exists?(data, schema, dmp_id, parent_id = nil, current_fragment_id = nil)
     return false if schema.schema['unicity'].nil? || schema.schema['unicity'].empty?
 
@@ -513,6 +531,7 @@ class MadmpFragment < ApplicationRecord
 
     false
   end
+  # rubocop:enable Metrics/CyclomaticComplexity
   # rubocop:enable Metrics/AbcSize
 
   def self.deep_copy(fragment, answer_id, ro_fragment)
@@ -534,6 +553,24 @@ class MadmpFragment < ApplicationRecord
 
   def self.find_sti_class(_type_name)
     self
+  end
+
+  def self.render_fragment_json(fragment, madmp_schema)
+    {
+      'fragment' => fragment.get_full_fragment(with_ids: true, with_template_name: true),
+      'answer_id' => fragment.answer_id,
+      'template' => {
+        id: fragment.madmp_schema_id,
+        name: madmp_schema.name,
+        schema: madmp_schema.schema,
+        api_client: if madmp_schema.api_client.present?
+                      {
+                        id: madmp_schema.api_client_id,
+                        name: madmp_schema.api_client.name
+                      }
+                    end
+      }
+    }
   end
 
   private

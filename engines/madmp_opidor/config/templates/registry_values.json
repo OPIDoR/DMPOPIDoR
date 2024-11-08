@@ -173,17 +173,17 @@
         {
             "fr_FR": "Stockage inférieur à 100 To",
             "en_GB": "Storage less than 100 TB",
-            "cost": "55"
+            "cost": 55
         },
         {
             "fr_FR": "Stockage supérieur ou égal à 100 To",
             "en_GB": "Stockage greater than or equal to 100 TB",
-            "cost": "50"
+            "cost": 50
         },
         {
             "fr_FR": "Stockage associé au calcul Meso",
             "en_GB": "Storage associated with Meso compute",
-            "cost": "45"
+            "cost": 45
         }
     ],
     "MesoatLRStorageTime": [
@@ -214,12 +214,28 @@
             "en_GB": "AR"
         },
         {
+            "fr_FR": "AT",
+            "en_GB": "AT"
+        },
+        {
+            "fr_FR": "BE",
+            "en_GB": "BE"
+        },
+        {
             "fr_FR": "CH",
             "en_GB": "CH"
         },
         {
             "fr_FR": "DE",
             "en_GB": "DE"
+        },
+        {
+            "fr_FR": "DK",
+            "en_GB": "DK"
+        },
+        {
+            "fr_FR": "ES",
+            "en_GB": "ES"
         },
         {
             "fr_FR": "FI",
@@ -234,8 +250,24 @@
             "en_GB": "GB"
         },
         {
+            "fr_FR": "IN",
+            "en_GB": "IN"
+        },
+        {
+            "fr_FR": "IT",
+            "en_GB": "IT"
+        },
+        {
+            "fr_FR": "LT",
+            "en_GB": "LT"
+        },
+        {
             "fr_FR": "NC",
             "en_GB": "NC"
+        },
+        {
+            "fr_FR": "NL",
+            "en_GB": "NL"
         },
         {
             "fr_FR": "NO",
@@ -262,16 +294,6 @@
         {
             "fr_FR": "SGD",
             "en_GB": "SGD"
-        }
-    ],
-    "ISO639-3_fra_eng": [
-        {
-            "fr_FR": "anglais",
-            "en_GB": "english"
-        },
-        {
-            "fr_FR": "français",
-            "en_GB": "french"
         }
     ],
     "NameTypeValues": [
@@ -375,7 +397,7 @@
         },
         {
             "en_GB": "Interactive resource",
-            "fr_FR": "Resource interactive"
+            "fr_FR": "Ressource interactive"
         },
         {
             "en_GB": "Service",

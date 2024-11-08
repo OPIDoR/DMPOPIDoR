@@ -7,7 +7,7 @@ module Dmpopidor
       if @record.section.phase.template.module?
         @user.can_super_admin?
       else
-        @user.can_modify_templates?  &&  (@record.section.phase.template.org_id == @user.org_id)
+        @user.can_modify_templates? && (@record.section.phase.template.org_id == @user.org_id)
       end
     end
 
@@ -15,7 +15,7 @@ module Dmpopidor
       if @record.section.phase.template.module?
         @user.can_super_admin?
       else
-        @user.can_modify_templates?  &&  (@record.section.phase.template.org_id == @user.org_id)
+        @user.can_modify_templates? && (@record.section.phase.template.org_id == @user.org_id)
       end
     end
 
@@ -23,7 +23,7 @@ module Dmpopidor
       if @record.section.phase.template.module?
         @user.can_super_admin?
       else
-        @user.can_modify_templates?  &&  (@record.section.phase.template.org_id == @user.org_id)
+        @user.can_modify_templates? && (@record.section.phase.template.org_id == @user.org_id)
       end
     end
 
@@ -31,7 +31,7 @@ module Dmpopidor
       if @record.section.phase.template.module?
         @user.can_super_admin?
       else
-        @user.can_modify_templates?  &&  (@record.section.phase.template.org_id == @user.org_id)
+        @user.can_modify_templates? && (@record.section.phase.template.org_id == @user.org_id)
       end
     end
 
@@ -39,7 +39,7 @@ module Dmpopidor
       if @record.section.phase.template.module?
         @user.can_super_admin?
       else
-        @user.can_modify_templates?  &&  (@record.section.phase.template.org_id == @user.org_id)
+        @user.can_modify_templates? && (@record.section.phase.template.org_id == @user.org_id)
       end
     end
   end
