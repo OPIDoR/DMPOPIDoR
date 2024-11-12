@@ -168,7 +168,7 @@ module DMPRoadmap
       'ACTION_CABLE_DISABLE_REQUEST_FORGERY_PROTECTION', true
     ).to_s.casecmp('true').zero?
 
-    allowed_origins = ENV.fetch('ALLOWED_HOSTS', 'dmpopidor').split(',')
+    allowed_origins = ENV.fetch('ACTION_CABLE_ALLOWED_REQUEST_ORIGINS', 'dmpopidor').split(',')
     config.action_cable.allowed_request_origins = allowed_origins.is_a?(Array) ? allowed_origins : [allowed_origins]
 
     # Use default logging formatter so that PID and timestamp are not suppressed.
@@ -196,7 +196,9 @@ module DMPRoadmap
     # This allows us to define the hostname and add it to the whitelist. If you attempt
     # to access the site and receive a 'Blocked host' error then you will need to
     # set this environment variable
-    config.hosts << ENV.fetch('ALLOWED_HOSTS', 'dmpopidor')
+    ENV.fetch('ALLOWED_HOSTS', 'dmpopidor').split(',').each do |host|
+      config.hosts << host
+    end
   end
 end
 
