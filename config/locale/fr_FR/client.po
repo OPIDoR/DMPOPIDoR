@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: app 1.0\n"
 "Report-Msgid-Bugs-To: contact@translation.io\n"
-"POT-Creation-Date: 2024-10-24 15:26+0200\n"
-"PO-Revision-Date: 2024-10-24 15:26+0200\n"
+"POT-Creation-Date: 2024-11-07 11:52+0100\n"
+"PO-Revision-Date: 2024-11-07 11:52+0100\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: French\n"
 "Language: fr_FR\n"
@@ -161,8 +161,8 @@ msgstr "enregistrer"
 #: ../../app/controllers/dmpopidor/notes_controller.rb:246
 #: ../../app/controllers/notes_controller.rb:153
 #: ../../app/controllers/research_outputs_controller.rb:83
-#: ../../engines/madmp_opidor/app/controllers/madmp_fragments_controller.rb:109
-#: ../../engines/madmp_opidor/app/controllers/madmp_fragments_controller.rb:126
+#: ../../engines/madmp_opidor/app/controllers/madmp_fragments_controller.rb:110
+#: ../../engines/madmp_opidor/app/controllers/madmp_fragments_controller.rb:127
 msgid "removed"
 msgstr "supprimé(e)"
 
@@ -170,8 +170,8 @@ msgstr "supprimé(e)"
 #: ../../app/controllers/dmpopidor/notes_controller.rb:250
 #: ../../app/controllers/notes_controller.rb:171
 #: ../../app/controllers/research_outputs_controller.rb:86
-#: ../../engines/madmp_opidor/app/controllers/madmp_fragments_controller.rb:113
-#: ../../engines/madmp_opidor/app/controllers/madmp_fragments_controller.rb:130
+#: ../../engines/madmp_opidor/app/controllers/madmp_fragments_controller.rb:114
+#: ../../engines/madmp_opidor/app/controllers/madmp_fragments_controller.rb:131
 msgid "remove"
 msgstr "supprimer"
 
@@ -2656,7 +2656,7 @@ msgid ""
 " want to add questions to funder templates use the 'customise template' option"
 "s below."
 msgstr ""
-"Si vous souhaitez ajouter un modèle de DMP pour un organisme, utilisez le bout"
+"Si vous souhaitez ajouter un modèle de PGD pour un organisme, utilisez le bout"
 "on 'Créer un modèle'. Vous pouvez au besoin créer plusieurs modèles, par exemp"
 "le, un pour les chercheurs et un pour les doctorants. Votre modèle apparaîtra "
 "aux utilisateurs de votre organisme si aucun modèle de financeur ne s'applique"
@@ -3888,9 +3888,9 @@ msgid ""
 "DMP templates provided by a funder or research organisations, available on DMP"
 " OPIDoR. You can download these templates and related guidances."
 msgstr ""
-"PGD fournis par un financeur ou des organismes de recherche, disponibles sur D"
-"MP OPIDoR. Vous pouvez télécharger ces modèles et les recommandations associés"
-"."
+"Modèles de PGD proposés par les financeurs ou par les organismes de recherche,"
+" disponibles dans DMP OPIDoR. Vous pouvez télécharger ces modèles et les recom"
+"mandations associées."
 
 #: ../../app/views/branded/public_pages/template_index.html.erb:10
 msgid "There are currently no public Templates."
@@ -4771,11 +4771,11 @@ msgstr "La notification a été envoyée"
 msgid "Project data have successfully been imported."
 msgstr "Les données concernant le projet ont été importées avec succès"
 
-#: ../../engines/madmp_opidor/app/controllers/madmp_fragments_controller.rb:70
+#: ../../engines/madmp_opidor/app/controllers/madmp_fragments_controller.rb:71
 msgid "Form saved successfully."
 msgstr "Formulaire enregistré avec succès."
 
-#: ../../engines/madmp_opidor/app/controllers/madmp_fragments_controller.rb:74
+#: ../../engines/madmp_opidor/app/controllers/madmp_fragments_controller.rb:75
 msgid "Error when saving form."
 msgstr "Erreur lors de l'enregistrement du formulaire."
 

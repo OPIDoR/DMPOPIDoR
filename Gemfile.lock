@@ -1,10 +1,10 @@
 GIT
-  remote: https://github.com/taylorthurlow/nulldb
-  revision: c763f45c12ec7833d051b61acff1497c5adc7d2b
-  branch: fix/activerecord72-register-adapter
+  remote: https://github.com/simpl1g/nulldb
+  revision: ab38cd720209adee2dac88a1e4cda224a1733959
+  branch: activerecord80-support
   specs:
     activerecord-nulldb-adapter (1.0.1)
-      activerecord (>= 6.0, < 7.3)
+      activerecord (>= 6.0, < 8.1)
 
 PATH
   remote: engines/madmp_opidor
@@ -256,7 +256,7 @@ GEM
       activesupport (>= 6.1)
     graphiql-rails (1.10.1)
       railties
-    graphql (2.4.0)
+    graphql (2.4.1)
       base64
       fiber-storage
     guard (2.19.0)
@@ -295,7 +295,7 @@ GEM
       activesupport (>= 5.0.0)
     jsbundling-rails (1.3.1)
       railties (>= 6.0.0)
-    json (2.7.5)
+    json (2.8.1)
     json_schemer (2.3.0)
       bigdecimal
       hana (~> 1.3)
@@ -344,7 +344,7 @@ GEM
     mime-types (3.6.0)
       logger
       mime-types-data (~> 3.2015)
-    mime-types-data (3.2024.1001)
+    mime-types-data (3.2024.1105)
     mimemagic (0.4.3)
       nokogiri (~> 1)
       rake
@@ -359,7 +359,7 @@ GEM
     mysql2 (0.5.6)
     nap (1.1.0)
     nenv (0.3.0)
-    net-http (0.4.1)
+    net-http (0.5.0)
       uri
     net-imap (0.5.0)
       date
@@ -406,7 +406,7 @@ GEM
     orm_adapter (0.5.0)
     ostruct (0.6.0)
     parallel (1.26.3)
-    parser (3.3.5.1)
+    parser (3.3.6.0)
       ast (~> 2.4.1)
       racc
     pg (1.5.9)
@@ -425,7 +425,7 @@ GEM
       coderay (~> 1.1)
       method_source (~> 1.0)
     pstore (0.1.3)
-    psych (5.1.2)
+    psych (5.2.0)
       stringio
     public_suffix (6.0.1)
     puma (6.4.3)
@@ -551,7 +551,7 @@ GEM
       rubocop-ast (>= 1.32.2, < 2.0)
       ruby-progressbar (~> 1.7)
       unicode-display_width (>= 2.4.0, < 3.0)
-    rubocop-ast (1.33.1)
+    rubocop-ast (1.34.0)
       parser (>= 3.3.1.0)
     rubocop-i18n (3.0.0)
       rubocop (~> 1.0)
@@ -588,12 +588,12 @@ GEM
     spring-watcher-listen (2.1.0)
       listen (>= 2.7, < 4.0)
       spring (>= 4)
-    stringio (3.1.1)
+    stringio (3.1.2)
     terminal-table (3.0.2)
       unicode-display_width (>= 1.1.1, < 3)
     text (1.3.1)
     thor (1.3.2)
-    timeout (0.4.1)
+    timeout (0.4.2)
     tomparse (0.4.2)
     translation (1.41)
       gettext (~> 3.2, >= 3.2.5, <= 3.4.9)
@@ -606,7 +606,7 @@ GEM
       tzinfo (>= 1.0.0)
     unicode-display_width (2.6.0)
     uniform_notifier (1.16.0)
-    uri (0.13.1)
+    uri (1.0.0)
     useragent (0.16.10)
     version_gem (1.1.4)
     warden (1.2.9)

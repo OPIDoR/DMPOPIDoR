@@ -21,7 +21,7 @@
             "description": "Numéro du livrable auquel est rattaché le DMP",
             "label@fr_FR": "Livrable",
             "label@en_GB": "Deliverable",
-            "tooltip@fr_FR": "Indiquer si besoin le numéro de livrable correspondant au DMP",
+            "tooltip@fr_FR": "Indiquer si besoin le numéro de livrable correspondant au PGD",
             "tooltip@en_GB": "Indicate if necessary the deliverable number corresponding to the DMP",
             "example@fr_FR": "Livrable D8.2",
             "example@en_GB": "Deliverable D8.2",
@@ -39,7 +39,7 @@
             ],
             "overridable": true,
             "tooltip": null,
-            "form_label@fr_FR": "Version du DMP",
+            "form_label@fr_FR": "Version du PGD",
             "form_label@en_GB": "DMP version"
         },
         "description": {
@@ -48,7 +48,7 @@
             "inputType": "textarea",
             "label@fr_FR": "Objet/périmètre du plan",
             "label@en_GB": "Plan purpose/scope",
-            "tooltip@fr_FR": "Décrire brièvement le contexte et l'objectif du DMP, la structure du document ainsi que ses relations avec les autres livrables.",
+            "tooltip@fr_FR": "Décrire brièvement le contexte et l'objectif du PGD, la structure du document ainsi que ses relations avec les autres livrables.",
             "tooltip@en_GB": "Briefly describe the context and purpose of the DMP, the structure of the document and its relationship to other deliverables.",
             "form_label@fr_FR": "Objet/périmètre du plan et ses relations avec les autres livrables",
             "form_label@en_GB": "Plan purpose/scope and its relation to other deliverables"
@@ -98,7 +98,7 @@
             "description": "Personne responsable de la réalisation et suivi du plan de gestion de données",
             "label@fr_FR": "Responsable du plan",
             "label@en_GB": "DMP manager",
-            "tooltip@fr_FR": "Personne qui coordonne la planification de la gestion des données, aussi appelée auteur ou responsable du DMP. Par défaut, la personne qui crée le DMP sur DMP OPIDoR",
+            "tooltip@fr_FR": "Personne qui coordonne la planification de la gestion des données, aussi appelée auteur ou responsable du PGD. Par défaut, la personne qui crée le PGD sur DMP OPIDoR",
             "tooltip@en_GB": "Person who coordinates data management planning, also called DMP author or manager. By default, the person who creates the DMP with DMP OPIDoR",
             "form_label@fr_FR": "Responsable du plan",
             "form_label@en_GB": "DMP manager"
@@ -131,6 +131,8 @@
             "label@fr_FR": "Identifiant",
             "label@en_GB": "Identifier",
             "tooltip": null,
+            "example@fr_FR": "https://hal.science/hal-04043652v2",
+            "example@en_GB": "https://hal.science/hal-04043652v2",
             "form_label@fr_FR": "Identifiant du plan (à compléter après publication ou dépôt dans une archive)",
             "form_label@en_GB": "Plan identifier (to fill in after publishing or deposit in an archive)"
         },

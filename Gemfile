@@ -377,8 +377,8 @@ gem 'madmp_opidor', path: 'engines/madmp_opidor' # , git: 'https://github.com/OP
 group :build do
   # TEMP : fork added support to rails 7.2. Need update when main repo releases a new version
   # Git needs to be removed from Dockerfile
-  gem 'activerecord-nulldb-adapter', git: 'https://github.com/taylorthurlow/nulldb',
-                                     branch: 'fix/activerecord72-register-adapter'
+  gem 'activerecord-nulldb-adapter', git: 'https://github.com/simpl1g/nulldb',
+                                     branch: 'activerecord80-support'
 end
 
 gem 'graphiql-rails', '~> 1.10'

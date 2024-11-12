@@ -2,6 +2,15 @@
 
 **Attention** Cette liste de changements concerne les déploiements sur nos serveurs de test en interne.
 
+## 08/11/2024
+
+- Correction du problème de mise à jour du titre du plan après un import financeur (#12157)
+
+## 07/11/2024
+
+- L'icone des scripts ne devrait s'affiche qu'après la sauvegarde du formulaire
+- Ajout de la description des sections dans l'export des Modèles et correction de l'affichage de la description des sections dans l'export de plan (KB #12140)
+
 ## 05/11/2024
 
 - Correction enregistrement des licences (import DataCite et "Informations générales") (KB #12042, #12144)

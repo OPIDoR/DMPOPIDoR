@@ -84,7 +84,7 @@ namespace :data_migration do
         ro_fragment = research_output.json_fragment
         ro_fragment_description = ro_fragment.research_output_description
         new_additional_info = ro_fragment.additional_info
-        new_additional_info = if non_no.include?(ro_fragment_description.data['containsPersonalData'].downcase)
+        new_additional_info = if non_no.include?(ro_fragment_description&.data&.dig('containsPersonalData')&.downcase) # rubocop:disable Style/SafeNavigationChainLength
                                 new_additional_info.merge(
                                   'hasPersonalData' => false
                                 )

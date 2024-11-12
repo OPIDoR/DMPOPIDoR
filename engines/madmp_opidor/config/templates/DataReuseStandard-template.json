@@ -37,8 +37,8 @@
             "label@fr_FR": "Données réutilisées",
             "label@en_GB": "Reused data",
             "tooltip": null,
-            "form_label@fr_FR": "Décrire le ou les produits de recherche réutilisés",
-            "form_label@en_GB": "Describe the reused research output(s)"
+            "form_label@fr_FR": "Décrire la ou les données réutilisées",
+            "form_label@en_GB": "Describe the reused data"
         },
         "cost": {
             "type": "array",
