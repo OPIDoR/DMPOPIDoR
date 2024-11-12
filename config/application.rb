@@ -56,8 +56,10 @@ module DMPRoadmap
                                                              true).to_s.casecmp('true').zero?
 
     smtp_setting = {
-      address: ENV.fetch('ACTION_MAILER_SMTP_HOST', 'mailcatcher'),
-      port: ENV.fetch('ACTION_MAILER_SMTP_PORT', 1025)
+      :address => ENV.fetch('ACTION_MAILER_SMTP_HOST', 'mailcatcher'),
+      :port => ENV.fetch('ACTION_MAILER_SMTP_PORT', 1025),
+      :open_timeout => 10,
+      :read_timeout => 10
     }
 
     # Set the default host for mailer URLs
