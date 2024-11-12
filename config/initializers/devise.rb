@@ -283,7 +283,7 @@ Devise.setup do |config|
                             first_name: "givenName",
                             identity_provider: "shib_identity_provider"
                           },
-                          debug: false
+                          debug: ENV.fetch('DEVISE_DEBUG', false).to_s.casecmp('true').zero?
                         }
                       end
   shibboleth_extra_fields = JSON.parse(ENV.fetch('DEVISE_SHIBBOLETH_EXTRA_FIELDS',
@@ -292,7 +292,6 @@ Devise.setup do |config|
     request_type: shibboleth_request_type,
     **shibboleth_config,
     extra_fields: shibboleth_extra_fields
-    debug: ENV.fetch('DEVISE_DEBUG', false).to_s.casecmp('true').zero?
   }
 
   # ==> Warden configuration
@@ -338,7 +337,7 @@ module OmniAuth
           when :env, 'env'
             request.env[key]
           when :header, 'header'
-            v = request.env['HTTP_#{key.upcase.gsub('-', '_')}']
+            v = request.env["HTTP_#{key.upcase.gsub('-', '_')}"]
             v = v.force_encoding('UTF-8') unless v.nil?
             v
           when :params, 'params'
