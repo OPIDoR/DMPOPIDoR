@@ -445,6 +445,8 @@ Rails.application.routes.draw do
                                    controller: 'research_projects',
                                    constraints: { format: 'json' }
 
+  get "healthz" => "rails/health#show", as: :rails_health_check
+
   # mount MadmpOpidor::Engine => '/madmp_opidor', as: 'madmp_opidor'
 end
 # rubocop:enable Metrics/BlockLength

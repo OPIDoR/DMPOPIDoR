@@ -94,3 +94,5 @@ app/javascript/dmp_opidor_react
 puma.pid
 
 !/directus/**/*
+
+healthz
