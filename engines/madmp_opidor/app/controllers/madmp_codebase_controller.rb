@@ -133,7 +133,7 @@ class MadmpCodebaseController < ApplicationController
               'to_string' => f.to_s
             }
           end,
-          'plan_title' => dmp_fragment.meta.data['title'],
+          'meta_fragment' => dmp_fragment.get_full_fragment(with_ids: true),
           'message' => _('Project data have successfully been imported.')
         }, status: 200
         update_run_log(dmp_fragment, script_name)

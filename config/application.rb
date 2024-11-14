@@ -56,8 +56,10 @@ module DMPRoadmap
                                                              true).to_s.casecmp('true').zero?
 
     smtp_setting = {
-      address: ENV.fetch('ACTION_MAILER_SMTP_HOST', 'mailcatcher'),
-      port: ENV.fetch('ACTION_MAILER_SMTP_PORT', 1025)
+      :address => ENV.fetch('ACTION_MAILER_SMTP_HOST', 'mailcatcher'),
+      :port => ENV.fetch('ACTION_MAILER_SMTP_PORT', 1025),
+      :open_timeout => 10,
+      :read_timeout => 10
     }
 
     # Set the default host for mailer URLs
@@ -166,7 +168,7 @@ module DMPRoadmap
       'ACTION_CABLE_DISABLE_REQUEST_FORGERY_PROTECTION', true
     ).to_s.casecmp('true').zero?
 
-    allowed_origins = ENV.fetch('ALLOWED_HOSTS', 'dmpopidor').split(',')
+    allowed_origins = ENV.fetch('ACTION_CABLE_ALLOWED_REQUEST_ORIGINS', 'dmpopidor').split(',')
     config.action_cable.allowed_request_origins = allowed_origins.is_a?(Array) ? allowed_origins : [allowed_origins]
 
     # Use default logging formatter so that PID and timestamp are not suppressed.
@@ -194,7 +196,13 @@ module DMPRoadmap
     # This allows us to define the hostname and add it to the whitelist. If you attempt
     # to access the site and receive a 'Blocked host' error then you will need to
     # set this environment variable
-    config.hosts << ENV.fetch('ALLOWED_HOSTS', 'dmpopidor')
+    ENV.fetch('ALLOWED_HOSTS', 'dmpopidor').split(',').each do |host|
+      if host.match?(/\d+\.\d+\.\d+\.\d+\/\d+/)
+        config.hosts << IPAddr.new(host)
+      else
+        config.hosts << host
+      end
+    end
   end
 end
 

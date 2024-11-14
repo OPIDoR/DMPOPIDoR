@@ -2,6 +2,10 @@
 
 **Attention** Cette liste de changements concerne les déploiements sur nos serveurs de test en interne.
 
+## 08/11/2024
+
+- Correction du problème de mise à jour du titre du plan après un import financeur (#12157)
+
 ## 07/11/2024
 
 - L'icone des scripts ne devrait s'affiche qu'après la sauvegarde du formulaire

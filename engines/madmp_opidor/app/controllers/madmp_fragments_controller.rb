@@ -50,7 +50,7 @@ class MadmpFragmentsController < ApplicationController
   end
 
   # Needs some rework
-  # rubocop:disable Metrics/AbcSize
+  # rubocop:disable Metrics/AbcSize, Metrics/MethodLength
   def update
     @fragment = MadmpFragment.find(params[:id])
     form_data = JSON.parse(request.body.string)
@@ -67,7 +67,9 @@ class MadmpFragmentsController < ApplicationController
 
       render json: {
         fragment: @fragment.get_full_fragment(with_ids: true, with_template_name: true),
-        meta_fragment: (@fragment.dmp.meta if %w[dmp project research_entity].include?(@fragment.classname)),
+        meta_fragment: (if %w[dmp project research_entity].include?(@fragment.classname)
+                          @fragment.dmp.meta.get_full_fragment(with_ids: true)
+                        end),
         message: _('Form saved successfully.')
       }.compact, status: :ok
     rescue ActiveRecord::StaleObjectError
@@ -76,7 +78,7 @@ class MadmpFragmentsController < ApplicationController
       }, status: :internal_server_error
     end
   end
-  # rubocop:enable Metrics/AbcSize
+  # rubocop:enable Metrics/AbcSize, Metrics/MethodLength
 
   # rubocop:disable Metrics/AbcSize
   def load_fragments
