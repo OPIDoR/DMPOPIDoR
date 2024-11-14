@@ -197,7 +197,11 @@ module DMPRoadmap
     # to access the site and receive a 'Blocked host' error then you will need to
     # set this environment variable
     ENV.fetch('ALLOWED_HOSTS', 'dmpopidor').split(',').each do |host|
-      config.hosts << host
+      if host.match?(/\d+\.\d+\.\d+\.\d+\/\d+/)
+        config.hosts << IPAddr.new(host)
+      else
+        config.hosts << host
+      end
     end
   end
 end
