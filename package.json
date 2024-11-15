@@ -41,8 +41,8 @@
   "dependencies": {
     "@fortawesome/fontawesome-free": "^6.4.0",
     "@hotwired/turbo-rails": "^8.0",
-    "@rails/actioncable": "^7.2",
-    "@rails/activestorage": "^7.2",
+    "@rails/actioncable": "^8.0",
+    "@rails/activestorage": "^8.0",
     "@rails/ujs": "~7.1",
     "autonumeric": "^4.6.0",
     "bootstrap": "^3.4.1",
