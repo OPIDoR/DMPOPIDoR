@@ -136,8 +136,9 @@ Rails.application.routes.draw do
   # Question Formats controller, currently just the one action
   get 'question_formats/rda_api_address' => 'question_formats#rda_api_address'
 
-  resources :notes, only: %i[create update archive] do
+  resources :notes, only: %i[create update] do
     member do
+      post 'archive', constraints: { format: [:json] }
       post 'create', constraints: { format: [:json] }
       patch 'archive', constraints: { format: [:json] }
       put 'update', constraints: { format: [:json] }

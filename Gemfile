@@ -9,7 +9,7 @@ ruby '>= 3.3'
 # ===========#
 
 # Full-stack web application framework. (http://rubyonrails.org)
-gem 'rails', '~> 7.2'
+gem 'rails', '~> 8.0'
 
 # TODO: Remove this once Rails addresses the issue with its dependency on mimemagic. Mimemagic had
 #       an MIT license but was using some incompatible GPL license code.
@@ -378,7 +378,6 @@ group :build do
   gem 'activerecord-nulldb-adapter'
 end
 
-gem 'graphiql-rails', '~> 1.10'
-gem 'graphql', '~> 2.3'
-
-gem 'foreman', '~> 0.88.1'
+gem 'foreman'
+gem 'graphiql-rails'
+gem 'graphql'

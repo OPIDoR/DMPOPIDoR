@@ -23,7 +23,7 @@ Rails.application.routes.draw do
   get '/codebase/run', to: 'madmp_codebase#run', constraints: { format: [:json] }
   get '/codebase/project_search', to: 'madmp_codebase#project_search', constraints: { format: [:json] }
 
-  resources :guided_tour, only: %i[get_tour end_tour] do
+  resources :guided_tour, only: [] do
     get ':tour', action: :get_tour, on: :collection, constraints: { format: [:json] }
     post ':tour', action: :end_tour, on: :collection, constraints: { format: [:json] }
   end
@@ -69,7 +69,7 @@ Rails.application.routes.draw do
           end
         end
         resources :services do
-          resources :items, only: %i[ror orcid]
+          resources :items, only: %i[]
           get 'ror', action: :ror, on: :collection, as: :ror
           get 'orcid', action: :orcid, on: :collection, as: :orcid
           get 'loterre/*path', action: :loterre, on: :collection, as: :loterre
