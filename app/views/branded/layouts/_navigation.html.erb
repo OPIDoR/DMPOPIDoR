@@ -64,6 +64,10 @@
           <li <%='class=active' if active_page?(public_templates_path) %>>
             <%= link_to _('DMP Templates'), public_templates_path + "#content" %>
           </li>
+          <li role="separator" class="divider"></li>
+          <li <%='class=active' if active_page?(public_guidance_groups_path) %>>
+            <%= link_to _('Guidance Groups'), public_guidance_groups_path + "#content" %>
+          </li>
         </ul>
       </li>
       <li class="delimiter">&#x25cf;</li>

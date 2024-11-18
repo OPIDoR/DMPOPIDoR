@@ -28,4 +28,8 @@ class ThemePolicy < ApplicationPolicy
   def destroy?
     @user.can_super_admin?
   end
+
+  def sort?
+    @user.can_super_admin?
+  end
 end

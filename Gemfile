@@ -368,7 +368,6 @@ group :development do
 end
 
 gem 'net-smtp'
-
 # ======================#
 # MADMP OPIDOR FEATURES #
 # ===================== #

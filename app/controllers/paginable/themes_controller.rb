@@ -8,7 +8,11 @@ module Paginable
     # /paginable/themes/index/:page
     def index
       authorize(Theme)
-      paginable_renderise(partial: 'index', scope: Theme.all, format: :json)
+      paginable_renderise(
+        partial: 'index',
+        query_params: { sort_field: 'themes.number', sort_direction: :asc },
+        scope: Theme.all,
+        format: :json)
     end
   end
 end
