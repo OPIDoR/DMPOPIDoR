@@ -12,7 +12,7 @@
     <% if @show_sections_questions %>
       <br/>
       <h3><%= section[:title] %></h3>
-      <p><%= section[:description] %></p>
+      <p><%= sanitize section[:description] %></p>
       <br/>
     <% end %>
     <% section[:questions].each do |question| %>

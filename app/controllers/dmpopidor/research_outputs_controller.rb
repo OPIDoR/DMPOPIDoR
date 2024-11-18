@@ -21,7 +21,7 @@ module Dmpopidor
       @research_output = ::ResearchOutput.find(params[:id])
       authorize @research_output
 
-      render json: @research_output.serialize_json(true)
+      render json: @research_output.serialize_json(with_questions_with_guidance: true)
     end
 
     # rubocop:disable Metrics/AbcSize,Metrics/MethodLength
@@ -67,7 +67,7 @@ module Dmpopidor
                                                                 containsPersonalData: params[:configuration][:hasPersonalData] ? _('Yes') : _('No') # rubocop:disable Layout/LineLength
                                                               })
         research_output_description.update(data: updated_data)
-        research_output_description.update_research_output_parameters(true)
+        research_output_description.update_research_output_parameters(skip_broadcast: true)
         PlanChannel.broadcast_to(plan, {
                                    target: 'dynamic_form',
                                    fragment_id: research_output_description.id,
@@ -173,11 +173,16 @@ module Dmpopidor
       I18n.with_locale @plan.template.locale do
         @persons = @plan.json_fragment.persons
         max_order = @plan.research_outputs.maximum('display_order') + 1
+
+        registry_values = Registry.find_by(name: 'ResearchDataType').registry_values
+        registry = registry_values.find { |entry| entry['data']['en_GB'] == 'Dataset' }
+
         created_ro = @plan.research_outputs.create(
           abbreviation: "#{_('RO')} #{max_order}",
           title: "#{_('Research output')} #{max_order}",
           is_default: false,
-          display_order: max_order
+          display_order: max_order,
+          output_type_description: registry['data'][@plan.template.locale.tr('-', '_')]
         )
         created_ro.create_json_fragments
 

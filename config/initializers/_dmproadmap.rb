@@ -301,7 +301,6 @@ module DMPRoadmap
                                                                       true).to_s.casecmp('true').zero?
     config.x.dmpopidor.enable_research_outputs_uuid = ENV.fetch('DMPOPIDOR_ENABLE_RESEARCH_OUTPUTS_UUID',
                                                                 true).to_s.casecmp('true').zero?
-    config.x.dmpopidor.enable_research_outputs_uuid = true
     config.x.dmpopidor.enable_third_party_form = ENV.fetch('ENABLE_THIRD_PARTY_FORM', false).to_s.casecmp('true').zero?
     config.x.dmpopidor.create_first_research_output = ENV.fetch('CREATE_FIRST_RESEARCH_OUTPUT',
                                                                 false).to_s.casecmp('true').zero?

@@ -21,7 +21,7 @@ description_text_tooltip =  _('Enter your description here. You can include link
   <% locale = LocaleService.to_gettext(locale: locale).gsub!('_', '-') %>
   <%= form.label(:locale, _('Locale'), for: :locale, class: "control-label") %>
   <%= select_tag(:locale,
-      options_from_collection_for_select(@locales, "id", "name", @guidance_group.language_id || locale),
+      options_from_collection_for_select(@locales, "id", "name", @guidance_group.language&.id || locale),
       include_blank: false,
       aria: { required: true },
       class: "form-control",

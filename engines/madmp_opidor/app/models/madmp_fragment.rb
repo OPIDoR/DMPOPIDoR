@@ -450,20 +450,30 @@ class MadmpFragment < ApplicationRecord
   # rubocop:disable Metrics/AbcSize
   def update_meta_fragment
     meta_fragment = dmp.meta
-    if classname.eql?('project')
-      project_fragment = self
-      dmp_title = format(_('"%{project_title}" project DMP'), project_title: project_fragment.data['title'])
-      meta_data = meta_fragment.data.merge(
-        'title' => dmp_title, 'lastModifiedDate' => plan.updated_at.strftime('%F')
-      )
-      plan.update(title: dmp_title)
-    else
-      plan.update(title: meta_fragment.data['title'])
-      meta_data = meta_fragment.data.merge(
-        'lastModifiedDate' => plan.updated_at.strftime('%F')
-      )
+    I18n.with_locale plan.template.locale do
+      if (classname.eql?('research_entity'))
+        entity_fragment = self
+        dmp_title = format(_('"%{entity_name}" entity DMP'), entity_name: entity_fragment.data['name'])
+        plan.update(title: dmp_title)
+        meta_data = meta_fragment.data.merge(
+          'title' => dmp_title, 'lastModifiedDate' => plan.updated_at.strftime('%F')
+        )
+        plan.update(title: dmp_title)
+      elsif classname.eql?('project')
+        project_fragment = self
+        dmp_title = format(_('"%{project_title}" project DMP'), project_title: project_fragment.data['title'])
+        meta_data = meta_fragment.data.merge(
+          'title' => dmp_title, 'lastModifiedDate' => plan.updated_at.strftime('%F')
+        )
+        plan.update(title: dmp_title)
+      else
+        plan.update(title: meta_fragment.data['title'])
+        meta_data = meta_fragment.data.merge(
+          'lastModifiedDate' => plan.updated_at.strftime('%F')
+        )
+      end
+      meta_fragment.update(data: meta_data)
     end
-    meta_fragment.update(data: meta_data)
   end
   # rubocop:enable Metrics/AbcSize
 

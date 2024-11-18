@@ -179,22 +179,32 @@ module Dmpopidor
       create_plan_fragments if json_fragment.nil?
 
       incoming_dmp = plan.json_fragment
-      raw_project = incoming_dmp.project.get_full_fragment
-      raw_meta = incoming_dmp.meta.get_full_fragment
-      raw_meta = raw_meta.merge(
-        'title' => "Copy of #{raw_meta['title']}"
-      )
-      incoming_dmp.persons.each do |person|
-        Fragment::Person.create(
-          data: person.data,
-          dmp_id: json_fragment.id,
-          madmp_schema: MadmpSchema.find_by(name: 'PersonStandard'),
-          additional_info: { property_name: 'person' }
+      I18n.with_locale plan.template.locale do
+        raw_project = if plan.template.context == 'research_entity'
+                        incoming_dmp.research_entity.get_full_fragment
+                      else
+                        incoming_dmp.project.get_full_fragment
+                      end
+        raw_meta = incoming_dmp.meta.get_full_fragment
+        raw_meta = raw_meta.merge(
+          'title' => format(_('Copy of %{title}'), title: raw_meta['title'])
         )
-      end
+        incoming_dmp.persons.each do |person|
+          Fragment::Person.create(
+            data: person.data,
+            dmp_id: json_fragment.id,
+            madmp_schema: MadmpSchema.find_by(name: 'PersonStandard'),
+            additional_info: { property_name: 'person' }
+          )
+        end
 
-      json_fragment.project.raw_import(raw_project, json_fragment.project.madmp_schema)
-      json_fragment.meta.raw_import(raw_meta, json_fragment.meta.madmp_schema)
+        if plan.template.context == 'research_entity'
+          json_fragment.research_entity.raw_import(raw_project, json_fragment.research_entity.madmp_schema)
+        else
+          json_fragment.project.raw_import(raw_project, json_fragment.project.madmp_schema)
+        end
+        json_fragment.meta.raw_import(raw_meta, json_fragment.meta.madmp_schema)
+      end
     end
     # rubocop:enable Metrics/AbcSize
 

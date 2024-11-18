@@ -374,10 +374,7 @@ gem 'net-smtp'
 gem 'madmp_opidor', path: 'engines/madmp_opidor' # , git: 'https://github.com/OPIDoR/madmp_opidor.git'
 
 group :build do
-  # TEMP : fork added support to rails 7.2. Need update when main repo releases a new version
-  # Git needs to be removed from Dockerfile
-  gem 'activerecord-nulldb-adapter', git: 'https://github.com/taylorthurlow/nulldb',
-                                     branch: 'fix/activerecord72-register-adapter'
+  gem 'activerecord-nulldb-adapter'
 end
 gem 'grover', '~> 1.1'
 

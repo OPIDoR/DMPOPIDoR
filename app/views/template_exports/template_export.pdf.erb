@@ -65,6 +65,7 @@
       <h1><%= "#{@template.org.name}: #{@template.title}" %><%= @template.phases.length > 1 ? " - #{phase.title}" : "" %></h1>
       <% phase.sections.order(:number).each do |section| %>
         <h2><%= section.title %></h2>
+        <p><%= sanitize section.description %></p>
         <% section.questions.each do |question| %>
         <div class="question">
           <p><%= sanitize question.text.chomp.strip %></p>

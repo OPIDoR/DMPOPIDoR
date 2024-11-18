@@ -25,7 +25,7 @@ module Dmpopidor
     end
 
     #
-    # CHANGES : Added mpdule template support
+    # CHANGES : Added module template support
     #
     def removable?
       if type.eql?('module')
@@ -37,7 +37,7 @@ module Dmpopidor
     end
 
     #
-    # CHANGES : Added mpdule template support
+    # CHANGES : Added module template support
     #
     def latest?
       id == if module?
