@@ -19,11 +19,10 @@
             <td class="text-center"><%= l guidance_group.updated_at.to_date, formats: :short %></td>
 
             <td class="text-center">
-              <%= link_to guidance_group_export_path(guidance_group.id), format: "pdf", target: '_blank' do %>
-               <i class="fas fa-file-pdf" aria-hidden="true"></i>
-               <em class="sr-only"><%= _('(new window)') %></em>
-            <% end %>
-
+              <%= link_to guidance_group_export_path(guidance_group.id, format: :pdf), target: '_blank' do %>
+                <i class="fas fa-file-pdf" aria-hidden="true"></i>
+                <em class="sr-only"><%= _('(new window)') %></em>
+              <% end %>
             </td>
           </tr>
         <% end %>

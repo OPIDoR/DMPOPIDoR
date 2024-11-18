@@ -43,16 +43,21 @@ module Dmpopidor
       @guidances = @guidance_group.guidances.joins(:themes).all
       @themes = ::Theme.all.order(:number)
       @formatting = Settings::Template::DEFAULT_SETTINGS[:formatting]
-      html = render_to_string({
-                                template: 'guidance_group_exports/guidance_group_export',
-                                layout: false
-                              })
       file_name = @guidance_group.name.gsub(/[^a-zA-Z\d\s]/, '').tr(' ', '_')
       respond_to do |format|
-        format.html do
-          pdf = Grover.new(html).to_pdf
-          send_data(pdf, disposition: 'inline', filename: "#{file_name}.pdf",
-                         type: 'application/pdf')
+        format.pdf do
+          # rubocop:disable Layout/LineLength
+          render pdf: "#{file_name}.pdf",
+                 template: 'guidance_group_exports/guidance_group_export',
+                 margin: @formatting[:margin],
+                 footer: {
+                   center: format(_('Guidance created using the %{application_name} service. Last modified %{date}'), application_name: ApplicationService.application_name, date: l(@guidance_group.updated_at.to_date, formats: :short)),
+                   font_size: 8,
+                   spacing: (@formatting[:margin][:bottom] / 2) - 4,
+                   right: '[page] of [topage]',
+                   encoding: 'utf8'
+                 }
+          # rubocop:enable Layout/LineLength
         end
       end
     end
