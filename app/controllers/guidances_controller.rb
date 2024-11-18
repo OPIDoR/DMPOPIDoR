@@ -68,7 +68,6 @@ class GuidancesController < ApplicationController
   def render_themes
     authorize Guidance
     guidance_group = GuidanceGroup.find(params[:guidance_group_id])
-    language = Language.find_by(id: guidance_group.language_id)
 
     guidance = if params[:guidance_id].present?
                  Guidance.eager_load(:themes, :guidance_group).find(params[:guidance_id])
@@ -86,7 +85,7 @@ class GuidancesController < ApplicationController
           required: true,
           in_error: false,
           selected_theme: selected_theme,
-          locale_id: language.id,
+          locale_id: guidance_group.language&.id,
           popover_message: _('Select one or more themes that are relevant to this guidance. This will display your generic organisation-level guidance, or any Schools/Departments for which you create guidance groups, across all templates that have questions with the corresponding theme tags.') # rubocop:disable Layout/LineLength
         }
       }
