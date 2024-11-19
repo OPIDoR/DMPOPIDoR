@@ -51,7 +51,7 @@ module Dmpopidor
                  template: 'guidance_group_exports/guidance_group_export',
                  margin: @formatting[:margin],
                  footer: {
-                   center: format(_('Guidance created using the %{application_name} service. Last modified %{date}'), application_name: ApplicationService.application_name, date: l(@guidance_group.updated_at.to_date, formats: :short)),
+                   center: format(_('Guidance group created using the %{application_name} service. Last modified %{date}'), application_name: ApplicationService.application_name, date: l(@guidance_group.updated_at.to_date, formats: :short)),
                    font_size: 8,
                    spacing: (@formatting[:margin][:bottom] / 2) - 4,
                    right: '[page] of [topage]',
