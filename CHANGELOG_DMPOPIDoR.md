@@ -2,6 +2,10 @@
 
 **Attention** Cette liste de changements concerne les déploiements sur nos serveurs de test en interne.
 
+## 19/11/2024
+
+- Mise à jour de l'API GraphQL, prise en compte des droites sur les données, mise à jours des filtres
+
 ## 08/11/2024
 
 - Correction du problème de mise à jour du titre du plan après un import financeur (#12157)
@@ -17,7 +21,6 @@
 - Correction de la mise à jour du fragment meta (onglet "Informations générales") (KB #12032)
 - Correction du problème d'affichage du texte temporaire (placeholder) dans le référentiel Licence.
 - Ajout du référentiel FundersWithImport listant les financeurs ayant un import et contenant les informations concernant les scripts et les référentiels des projets financés.
-
 
 ## 04/11/2024
 
