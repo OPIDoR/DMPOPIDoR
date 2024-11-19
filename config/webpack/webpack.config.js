@@ -30,7 +30,7 @@ module.exports = {
       },
       {
         test: /\.(png|jpe?g|gif|eot|woff2|woff|ttf|svg)$/i,
-        use: 'file-loader',
+        type: 'asset/resource'
       },
       erbLoader,
     ],
