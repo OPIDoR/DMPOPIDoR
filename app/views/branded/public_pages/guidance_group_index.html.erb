@@ -14,7 +14,7 @@
     <% if @guidance_groups.count > 0 %>
       <%= paginable_renderise(
         partial: '/paginable/guidance_groups/publicly_visible',
-        controller: 'public_pages/guidance_group_export',
+        controller: 'paginable/guidance_groups',
         action: 'publicly_visible',
         remote: false,
         scope: @guidance_groups,

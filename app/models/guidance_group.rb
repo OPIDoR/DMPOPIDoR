@@ -51,6 +51,8 @@ class GuidanceGroup < ApplicationRecord
 
   validates :org, presence: { message: PRESENCE_MESSAGE }
 
+  validates :language, presence: { message: PRESENCE_MESSAGE }
+
   validates :optional_subset, inclusion: { in: BOOLEAN_VALUES,
                                            message: INCLUSION_MESSAGE }
 
