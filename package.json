@@ -67,8 +67,7 @@
     "sass": "^1.57.1",
     "sweetalert2": "^11.7.32",
     "timeago.js": "^4.0.2",
-    "tinymce": "^7.0.0",
-    "webpack": "^5.75.0"
+    "tinymce": "^7.0.0"
   },
   "devDependencies": {
     "@babel/core": "^7.20.12",
@@ -101,7 +100,9 @@
     "karma-json-fixtures-preprocessor": "^0.0.6",
     "karma-webpack": "^5.0.0",
     "style-loader": "^4.0.0",
-    "terser-webpack-plugin": "^5.3.9"
+    "terser-webpack-plugin": "^5.3.9",
+    "webpack-cli": "^5.1.4",
+    "webpack": "^5.96.1"
   },
   "resolutions": {
     "webpack": "^5.75.0"
