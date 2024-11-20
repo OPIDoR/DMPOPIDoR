@@ -47,7 +47,7 @@ module Dmpopidor
       respond_to do |format|
         format.pdf do
           # rubocop:disable Layout/LineLength
-          render pdf: "#{file_name}.pdf",
+          render pdf: file_name,
                  template: 'guidance_group_exports/guidance_group_export',
                  margin: @formatting[:margin],
                  footer: {
