@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module Dmpopidor
   module Paginable
     # Customized code for Paginable GuidanceGroupsController
