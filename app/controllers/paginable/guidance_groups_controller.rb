@@ -4,6 +4,7 @@ module Paginable
   # Controller for paginating/sorting/searching the guidance groups table
   class GuidanceGroupsController < ApplicationController
     include Paginable
+    prepend Dmpopidor::Paginable::GuidanceGroupsController
 
     # /paginable/guidance_groups/index/:page
     def index

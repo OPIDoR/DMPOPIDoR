@@ -325,6 +325,7 @@ Rails.application.routes.draw do
     # Paginable actions for guidance_groups
     resources :guidance_groups, only: [] do
       get 'index/:page', action: :index, on: :collection, as: :index
+      get 'publicly_visible/:page', action: :publicly_visible, on: :collection, as: :publicly_visible
     end
     # Paginable actions for static pages
     resources :static_pages, only: [] do
@@ -417,7 +418,7 @@ Rails.application.routes.draw do
     end
 
     resources :themes, only: %i[index new create edit update destroy] do
-        post 'sort', on: :collection
+      post 'sort', on: :collection
     end
     resources :users, only: %i[edit update] do
       member do
