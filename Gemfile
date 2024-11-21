@@ -371,7 +371,6 @@ group :development do
   gem 'yard-tomdoc'
 end
 
-gem 'net-smtp'
 # ======================#
 # MADMP OPIDOR FEATURES #
 # ===================== #
