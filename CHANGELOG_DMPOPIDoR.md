@@ -4,6 +4,12 @@
 
 ## 20/11/2024
 
+- Correction du dysfonctionnement du moteur des recherche sur les groupes de recommandations (#12198)
+- Correction du dysfonctionnement du bouton Voir tout dans la liste des modèles et groupe de recommandations publics (#10325)
+- Correction du problème de mise à jour du titre du plan après un import financeur (#12157)
+
+## 20/11/2024
+
 - Ajout de l'export PDF des recommandations (#11836)
 - Ajout de la possibilité de réordonner les thèmes (#11922)
 - Correction du problème d'affichage de l'exemple dans les champs de listes de chaine de caractères (#12004)
