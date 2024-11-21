@@ -63,6 +63,10 @@
           <li class="nav-item <%= ' active' if active_page?(public_templates_path, true) %>">
             <%= link_to _('DMP Templates'), public_templates_path+"#content", class: 'dropdown-item  px-3' %>
           </li>
+          <li role="separator" class="divider"></li>
+          <li <%='class=active' if active_page?(public_guidance_groups_path) %>>
+            <%= link_to _('Guidance groups'), public_guidance_groups_path + "#content" %>
+          </li>
         </ul>
       </li>
       <li class="delimiter">&#x25cf;</li>

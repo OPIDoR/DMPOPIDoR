@@ -261,7 +261,7 @@ Devise.setup do |config|
 
   # Any entries here MUST match a corresponding entry in the identifier_schemes table as
   # well as an identifier_schemes.schemes section in each locale file!
-  OmniAuth.config.full_host = ENV.fetch('DMPROADMAP_HOST', 'https://my_service.hostname')
+  OmniAuth.config.full_host = ENV.fetch('OMNI_AUTH_FULL_HOST', 'https://my_service.hostname')
   OmniAuth.config.allowed_request_methods = [ENV.fetch('DEVISE_ALLOWED_REQUEST_METHODS', :post)&.to_sym]
 
   config.omniauth :orcid, ENV.fetch('DEVISE_ORCID_CLIENT_ID', 'client_id'),
@@ -273,6 +273,7 @@ Devise.setup do |config|
                                    { symbolize_names: true })
                       else
                         {
+                          uid_field: "eppn",
                           info_fields: {
                             uid: "uid",
                             eppn: "eppn",
@@ -282,7 +283,7 @@ Devise.setup do |config|
                             first_name: "givenName",
                             identity_provider: "shib_identity_provider"
                           },
-                          debug: false
+                          debug: ENV.fetch('DEVISE_DEBUG', false).to_s.casecmp('true').zero?
                         }
                       end
   shibboleth_extra_fields = JSON.parse(ENV.fetch('DEVISE_SHIBBOLETH_EXTRA_FIELDS',
@@ -336,7 +337,7 @@ module OmniAuth
           when :env, 'env'
             request.env[key]
           when :header, 'header'
-            v = request.env["HTTP_#{key.upcase.tr('-', '_')}"]
+            v = request.env["HTTP_#{key.upcase.gsub('-', '_')}"]
             v = v.force_encoding('UTF-8') unless v.nil?
             v
           when :params, 'params'

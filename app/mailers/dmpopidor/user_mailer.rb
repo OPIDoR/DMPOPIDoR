@@ -162,7 +162,9 @@ module Dmpopidor
         @username        = @user.name
         @plan            = plan
         @plan_title      = @plan.title
-        @plan_visibility = ::Plan::VISIBILITY_MESSAGE[@plan.visibility.to_sym]
+        I18n.with_locale @plan.template.locale do
+          @plan_visibility = ::Plan::VISIBILITY_MESSAGE[@plan.visibility.to_sym]
+        end
         @helpdesk_email = helpdesk_email(org: @plan.org)
 
         mail(to: @user.email,

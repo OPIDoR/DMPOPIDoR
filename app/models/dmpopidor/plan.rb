@@ -163,7 +163,7 @@ module Dmpopidor
                 research_entity
               else
                 {
-                  'title' => title,
+                  'name' => title,
                   'description' => description
                 }
               end,

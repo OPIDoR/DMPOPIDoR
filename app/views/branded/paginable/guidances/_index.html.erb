@@ -21,7 +21,7 @@
               <td>
                 <% guidance.themes.each do |th| %>
                   <% theme = Theme.find_by(title: th.title) %>
-                  <% local_abbreviation = Language.find_by(id: guidance.guidance_group.language_id)&.abbreviation %>
+                  <% local_abbreviation = guidance.guidance_group.language&.abbreviation %>
                   <%= theme&.translations[local_abbreviation]&.fetch("title", nil) || th&.title %>
                 <% end %>
               </td>
