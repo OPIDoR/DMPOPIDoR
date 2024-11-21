@@ -133,10 +133,9 @@ class GuidanceGroup < ApplicationRecord
   def self.create_org_default(org)
     GuidanceGroup.create!(
       name: org.abbreviation? ? org.abbreviation : org.name,
-      language_id: Language.find_by(abbreviation: 'fr-FR').id,
+      language_id: Language.default.id,
       org: org,
-      optional_subset: false,
-      language_id: 1
+      optional_subset: false
     )
   end
 
