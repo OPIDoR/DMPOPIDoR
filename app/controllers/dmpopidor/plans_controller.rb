@@ -368,15 +368,6 @@ module Dmpopidor
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
     # rubocop:enable Metrics/AbcSize, Metrics/MethodLength
 
-    def import
-      @plan = ::Plan.new
-      authorize @plan
-
-      @templates = ::Template.includes(:org)
-                             .where(type: 'structured', context: 'research_project', customization_of: nil)
-                             .unarchived.published
-    end
-
     # rubocop:disable Metrics/MethodLength, Metrics/AbcSize
     # rubocop:disable Metrics/PerceivedComplexity, Metrics/CyclomaticComplexity
     def import_plan
