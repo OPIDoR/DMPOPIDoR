@@ -88,7 +88,7 @@ module OrgAdmin
             plan.owner&.name(false)&.to_s,
             plan.owner&.email&.to_s,
             l(plan.latest_update.to_date, format: :csv).to_s,
-            Plan::VISIBILITY_MESSAGE[plan.visibility.to_sym].capitalize.to_s
+            _(Plan::VISIBILITY_MESSAGE[plan.visibility.to_sym]).capitalize.to_s
           ]
         end
       end

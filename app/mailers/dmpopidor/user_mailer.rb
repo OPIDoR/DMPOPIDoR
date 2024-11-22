@@ -157,14 +157,14 @@ module Dmpopidor
     def plan_visibility(user, plan)
       return unless user.active?
 
+      plan.reload
+
       I18n.with_locale current_locale(user) do
         @user            = user
         @username        = @user.name
         @plan            = plan
         @plan_title      = @plan.title
-        I18n.with_locale @plan.template.locale do
-          @plan_visibility = ::Plan::VISIBILITY_MESSAGE[@plan.visibility.to_sym]
-        end
+        @plan_visibility = _(::Plan::VISIBILITY_MESSAGE[@plan.visibility.to_sym])
         @helpdesk_email = helpdesk_email(org: @plan.org)
 
         mail(to: @user.email,
