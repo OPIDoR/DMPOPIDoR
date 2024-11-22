@@ -68,7 +68,7 @@ class GuidanceGroup < ApplicationRecord
 
   scope :search, lambda { |term|
     search_pattern = "%#{term}%"
-    where('lower(name) LIKE lower(?)', search_pattern)
+    where('lower(guidance_groups.name) LIKE lower(?)', search_pattern)
   }
 
   scope :published, -> { where(published: true) }
@@ -133,10 +133,9 @@ class GuidanceGroup < ApplicationRecord
   def self.create_org_default(org)
     GuidanceGroup.create!(
       name: org.abbreviation? ? org.abbreviation : org.name,
-      language_id: Language.find_by(abbreviation: 'fr-FR').id,
+      language_id: Language.default.id,
       org: org,
-      optional_subset: false,
-      language_id: 1
+      optional_subset: false
     )
   end
 

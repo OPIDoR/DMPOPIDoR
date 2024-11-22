@@ -21,7 +21,7 @@ module Dmpopidor
                   ::Template.where(is_default: true).unarchived.published.pluck(:id)
       @templates = ::Template.includes(:org)
                              .where(id: templates.uniq.flatten)
-                             .unarchived.published.order('orgs.name asc').page(1)
+                             .unarchived.published.order('orgs.name asc')
     end
 
     def guidance_group_index
@@ -35,7 +35,7 @@ module Dmpopidor
       guidance_groups =  ::GuidanceGroup.where(published: true).pluck(:id)
 
       @guidance_groups = ::GuidanceGroup.includes(:org)
-                                        .where(id: guidance_groups.uniq.flatten).order('orgs.name asc').page(1)
+                                        .where(id: guidance_groups.uniq.flatten).order('orgs.name asc')
     end
 
     def guidance_group_export
