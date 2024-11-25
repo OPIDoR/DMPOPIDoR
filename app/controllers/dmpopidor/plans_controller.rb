@@ -244,11 +244,15 @@ module Dmpopidor
     end
 
     # rubocop:disable Metrics/MethodLength, Metrics/AbcSize
+    # rubocop:disable Metrics/PerceivedComplexity
     def select_guidance_groups
       @plan = ::Plan.find(params[:id])
       authorize @plan
 
       body = JSON.parse(request.raw_post)
+      research_output = ::ResearchOutput.find(body['ro_id'])
+      module_id = research_output.json_fragment.additional_info['moduleId']
+      template = module_id ? ::Template.find(module_id) : @plan.template
 
       selected_ids = body['guidance_group_ids']
 
@@ -268,7 +272,7 @@ module Dmpopidor
           status: 200,
           message: "Guidances updated for plan [#{params[:id]}]",
           guidance_groups: @all_ggs_grouped_by_org,
-          questions_with_guidance: @plan.template.questions.select do |q|
+          questions_with_guidance: template.questions.select do |q|
             question = ::Question.find(q.id)
             guidance_presenter.any?(question:)
           end.pluck(:id)
@@ -287,10 +291,11 @@ module Dmpopidor
       Rails.logger.error("Internal server error - #{e.message}")
       internal_server_error("Internal server error - #{e.message}")
     end
+    # rubocop:enable Metrics/PerceivedComplexity
     # rubocop:enable Metrics/MethodLength, Metrics/AbcSize
 
     # rubocop:disable Metrics/AbcSize, Metrics/MethodLength
-    # rubocop:disable Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
+    # rubocop:disable Metrics/CyclomaticComplexity
     def question_guidances
       plan_id = params[:id]
       unless plan_id&.to_i&.positive?
@@ -365,7 +370,7 @@ module Dmpopidor
              },
              status: :ok
     end
-    # rubocop:enable Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
+    # rubocop:enable Metrics/CyclomaticComplexity
     # rubocop:enable Metrics/AbcSize, Metrics/MethodLength
 
     def import
