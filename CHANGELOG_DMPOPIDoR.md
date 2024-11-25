@@ -2,7 +2,15 @@
 
 **Attention** Cette liste de changements concerne les déploiements sur nos serveurs de test en interne.
 
-## 20/11/2024
+## 25/11/2024
+
+- Correction du problème d'affichage des recommandations dans la langue du plan dans un plan classique (#12209)
+- [PR Logiciel] Un module ne peut plus être supprimé lorsqu'au moins un plan l'utilise (#11093)
+- Correction du problème d'enregistrement d'un contributeur après la sauvegarde d'un formulaire (#12136)
+- Correction du problème de traduction de la visibilité dans les notifications mail (#10439)
+- [PR Logiciel] Correction du problème d'affichage des recommandations dans un produit Logiciel (#12193)
+
+## 21/11/2024
 
 - Correction du dysfonctionnement du moteur des recherche sur les groupes de recommandations (#12198)
 - Correction du dysfonctionnement du bouton Voir tout dans la liste des modèles et groupe de recommandations publics (#10325)
