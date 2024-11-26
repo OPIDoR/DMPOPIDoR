@@ -7,13 +7,13 @@ module Resolvers
     argument :field, Types::FieldInputType, required: false
 
     def resolve(**args)
-      filter = args
+      filters = args
 
-      plan_id = object.id if object.respond_to?(:id)
+      # plan_id = object.respond_to?(:id) ? object.id : nil
+      # fragments = plan_id ? MadmpFragment.where(dmp_id: plan_id) : MadmpFragment.all
+      fragments = MadmpFragment.all
 
-      fragments = plan_id ? MadmpFragment.where(dmp_id: plan_id) : MadmpFragment.all
-
-      fragments = apply_filters(fragments, filter) if filter.present? && filter.any?
+      fragments = apply_filters(fragments, filters) if filters.present? && filters.any?
 
       format_fragments(fragments)
     end
