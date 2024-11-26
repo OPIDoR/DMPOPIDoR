@@ -99,6 +99,7 @@ class MadmpFragment < ApplicationRecord
   scope :programming_languages, -> { where(classname: 'programming_language') }
   scope :dependency_references, -> { where(classname: 'dependency_reference') }
   scope :software_resource_references, -> { where(classname: 'software_resource_reference') }
+  scope :software_outreaches, -> { where(classname: 'software_outreach') }
 
   # =============
   # = Callbacks =
