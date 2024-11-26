@@ -2,6 +2,11 @@
 
 **Attention** Cette liste de changements concerne les déploiements sur nos serveurs de test en interne.
 
+## 26/11/2024
+
+- [PR Logiciel] Correction du problème d'accès à la liste des modules
+- [PR Logiciel] Ajout de la classe SoftwareOutreach
+
 ## 25/11/2024
 
 - Correction du problème d'affichage des recommandations dans la langue du plan dans un plan classique (#12209)
