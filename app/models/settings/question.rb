@@ -46,6 +46,7 @@ module Settings
         programming_language
         dependency_reference
         software_resource_reference
+        software_outreach
       ]
     }.freeze
   end
