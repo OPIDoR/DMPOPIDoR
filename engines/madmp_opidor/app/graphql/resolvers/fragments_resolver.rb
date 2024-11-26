@@ -8,9 +8,6 @@ module Resolvers
 
     def resolve(**args)
       filters = args
-
-      # plan_id = object.respond_to?(:id) ? object.id : nil
-      # fragments = plan_id ? MadmpFragment.where(dmp_id: plan_id) : MadmpFragment.all
       fragments = MadmpFragment.all
 
       fragments = apply_filters(fragments, filters) if filters.present? && filters.any?
