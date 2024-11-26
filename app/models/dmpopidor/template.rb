@@ -30,7 +30,7 @@ module Dmpopidor
     def removable?
       versions = ::Template.includes(:plans).where(family_id: family_id)
       if type.eql?('module')
-        Fragment::ResearchOutput.where("(additional_info->>'moduleId')::int = ?", versions.pluck(:id)).empty?
+        Fragment::ResearchOutput.where("(additional_info->>'moduleId')::int IN (?)", versions.pluck(:id)).empty?
       else
         versions.reject { |version| version.plans.empty? }.empty?
       end
