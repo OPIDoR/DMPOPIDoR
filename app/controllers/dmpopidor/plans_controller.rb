@@ -244,15 +244,18 @@ module Dmpopidor
     end
 
     # rubocop:disable Metrics/MethodLength, Metrics/AbcSize
-    # rubocop:disable Metrics/PerceivedComplexity
+    # rubocop:disable Metrics/PerceivedComplexity, Metrics/CyclomaticComplexity
     def select_guidance_groups
       @plan = ::Plan.find(params[:id])
+      template = @plan.template
       authorize @plan
 
       body = JSON.parse(request.raw_post)
-      research_output = ::ResearchOutput.find(body['ro_id'])
-      module_id = research_output.json_fragment.additional_info['moduleId']
-      template = module_id ? ::Template.find(module_id) : @plan.template
+      if body['ro_id'].present?
+        research_output = ::ResearchOutput.find(body['ro_id'])
+        module_id = research_output.json_fragment.additional_info['moduleId']
+        template = module_id ? ::Template.find(module_id) : @plan.template
+      end
 
       selected_ids = body['guidance_group_ids']
 
@@ -291,7 +294,7 @@ module Dmpopidor
       Rails.logger.error("Internal server error - #{e.message}")
       internal_server_error("Internal server error - #{e.message}")
     end
-    # rubocop:enable Metrics/PerceivedComplexity
+    # rubocop:enable Metrics/PerceivedComplexity, Metrics/CyclomaticComplexity
     # rubocop:enable Metrics/MethodLength, Metrics/AbcSize
 
     # rubocop:disable Metrics/AbcSize, Metrics/MethodLength
