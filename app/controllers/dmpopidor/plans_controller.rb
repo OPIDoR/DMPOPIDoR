@@ -551,6 +551,7 @@ module Dmpopidor
     end
 
     # rubocop:disable Metrics/MethodLength, Metrics/AbcSize
+    # rubocop:disable Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
     def get_guidances_groups(id, locale = 'fr-FR')
       current_locale = Language.where(abbreviation: locale).first
       @plan = ::Plan.includes(
@@ -564,7 +565,11 @@ module Dmpopidor
                       Rails.configuration.x.plans.default_visibility
                     end
 
-      @all_guidance_groups = @plan.guidance_group_options.where(language_id: current_locale.id)
+      @all_guidance_groups = if @plan.template.structured?
+                               GuidanceGroup.published
+                             else
+                               @plan.guidance_group_options.where(language_id: current_locale.id)
+                             end
       @all_ggs_grouped_by_org = @all_guidance_groups.sort.group_by(&:org)
       @selected_guidance_groups = @plan.guidance_groups.ids.to_set
 
@@ -587,6 +592,7 @@ module Dmpopidor
         }
       end
     end
+    # rubocop:enable Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
     # rubocop:enable Metrics/MethodLength, Metrics/AbcSize
   end
   # rubocop:enable Metrics/ModuleLength
