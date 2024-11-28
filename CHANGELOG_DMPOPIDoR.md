@@ -4,6 +4,12 @@
 
 ## 26/11/2024
 
+- [PR Logiciel] Ajout de l'affichage des recommandations dans un produit de recherche logiciel (#12193)
+- Amélioration de la gestion de la langue des recommandations (#12209)
+- Amélioration de la gestion des erreurs dans la formulaire de contact (#12188)
+
+## 26/11/2024
+
 - [PR Logiciel] Correction du problème d'accès à la liste des modules
 - [PR Logiciel] Ajout de la classe SoftwareOutreach
 - Correction du problème de sélection des recommandations dans un plan classique (#12209)
