@@ -235,7 +235,7 @@ module Dmpopidor
     end
 
     def guidance_groups
-      @all_ggs_grouped_by_org = get_guidances_groups(params[:id], params[:locale])
+      @all_ggs_grouped_by_org = get_guidances_groups(params[:id])
       render json: {
         status: 200,
         message: 'Guidance groups',
@@ -270,7 +270,7 @@ module Dmpopidor
       guidance_presenter = ::GuidancePresenter.new(@plan)
 
       if @plan.save
-        @all_ggs_grouped_by_org = get_guidances_groups(params[:id], params[:locale])
+        @all_ggs_grouped_by_org = get_guidances_groups(params[:id])
         render json: {
           status: 200,
           message: "Guidances updated for plan [#{params[:id]}]",
@@ -298,7 +298,7 @@ module Dmpopidor
     # rubocop:enable Metrics/MethodLength, Metrics/AbcSize
 
     # rubocop:disable Metrics/AbcSize, Metrics/MethodLength
-    # rubocop:disable Metrics/CyclomaticComplexity
+    # rubocop:disable Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
     def question_guidances
       plan_id = params[:id]
       unless plan_id&.to_i&.positive?
@@ -373,7 +373,7 @@ module Dmpopidor
              },
              status: :ok
     end
-    # rubocop:enable Metrics/CyclomaticComplexity
+    # rubocop:enable Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
     # rubocop:enable Metrics/AbcSize, Metrics/MethodLength
 
     def import
@@ -545,12 +545,12 @@ module Dmpopidor
 
     # rubocop:disable Metrics/MethodLength, Metrics/AbcSize
     # rubocop:disable Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
-    def get_guidances_groups(id, locale = 'fr-FR')
-      current_locale = Language.where(abbreviation: locale).first
+    def get_guidances_groups(id)
       @plan = ::Plan.includes(
         :guidance_groups, template: [:phases]
       ).find(id)
       authorize @plan
+      current_locale = Language.where(abbreviation: @plan.template.locale).first
 
       @visibility = if @plan.visibility.present?
                       @plan.visibility.to_s
