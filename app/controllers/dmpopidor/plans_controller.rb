@@ -462,23 +462,16 @@ module Dmpopidor
     # rubocop:enable Metrics/PerceivedComplexity, Metrics/CyclomaticComplexity
     # rubocop:enable Metrics/MethodLength, Metrics/AbcSize
 
-    # rubocop:disable Metrics/AbcSize
     def research_outputs_data
       plan = ::Plan.find(params[:id])
       authorize plan
 
-      guidance_presenter = ::GuidancePresenter.new(plan)
       render json: {
         id: plan.id,
         dmp_id: plan.json_fragment.id,
-        research_outputs: plan.research_outputs.order(:display_order).map(&:serialize_json),
-        questions_with_guidance: plan.template.questions.select do |q|
-          question = ::Question.find(q.id)
-          guidance_presenter.any?(question:)
-        end.pluck(:id)
+        research_outputs: plan.research_outputs.order(:display_order).map(&:serialize_json)
       }
     end
-    # rubocop:enable Metrics/AbcSize
 
     # GET AJAX /plans/:id/contributors_data
     # rubocop:disable Metrics/MethodLength, Metrics/AbcSize
