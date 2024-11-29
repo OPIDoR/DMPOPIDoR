@@ -30,8 +30,7 @@ RUN mkdir -p /etc/apt/keyrings && \
   apt-get install -y --no-install-recommends nodejs && \
   apt-get clean && \
   rm -rf /var/lib/apt/lists/*
-RUN bundle config set --local && \
-  bundle install --jobs=4 --retry=3
+RUN bundle install --jobs=4 --retry=3
 RUN yarn install && \
   yarn --cwd app/javascript/dmp_opidor_react install && \
   yarn cache clean
