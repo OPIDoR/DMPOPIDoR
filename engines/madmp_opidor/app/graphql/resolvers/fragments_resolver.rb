@@ -8,19 +8,18 @@ module Resolvers
 
     def resolve(**args)
       filters = args
-      fragments = MadmpFragment.all
 
-      fragments = apply_filters(fragments, filters) if filters.present? && filters.any?
+      fragments = apply_filters(filters) if filters.present? && filters.any?
 
-      format_fragments(fragments)
+      fragments_policy(fragments)
     end
 
-    def apply_filters(fragments, filter)
-      fragments = filter_by_grant_id(fragments, filter[:grantId]) if filter[:grantId].present?
-      fragments = filter_by_class_name(fragments, filter[:className]) if filter[:className].present?
+    def apply_filters(filter)
+      fragments = filter_by_grant_id(filter[:grantId]) if filter[:grantId].present?
+      fragments = filter_by_class_name(filter[:className]) if filter[:className].present?
 
       if filter[:field].present? && filter[:field][:name].present? && filter[:field][:value].present?
-        fragments = filter_by_field_name(fragments, filter[:field][:name], filter[:field][:value])
+        fragments = filter_by_field_name(filter[:field][:name], filter[:field][:value])
       end
 
       fragments
@@ -28,26 +27,26 @@ module Resolvers
 
     private
 
-    def format_fragments(fragments)
+    def fragments_policy(fragments)
       fragments.select { |fragment| Api::V1::Madmp::MadmpFragmentsPolicy.new(context[:current_user], fragment).show? }
     end
 
-    def filter_by_grant_id(fragments, grant_ids)
+    def filter_by_grant_id(grant_ids)
       if grant_ids.is_a?(Hash) && grant_ids["regex"].present?
         regex = grant_ids["regex"].gsub(/\A\/|\/\z/, '')
-        fragments = fragments.where("data->>'grantId' ~* ?", regex)
+        fragments = MadmpFragment.where("data->>'grantId' ~* ?", regex)
       elsif grant_ids.is_a?(Array)
-        fragments = fragments.where("data->>'grantId' IN (?)", grant_ids.compact.uniq)
+        fragments = MadmpFragment.where("data->>'grantId' IN (?)", grant_ids.compact.uniq)
       end
       fragments
     end
 
-    def filter_by_class_name(fragments, class_name)
-      fragments.where(classname: class_name)
+    def filter_by_class_name(class_name)
+      MadmpFragment.where(classname: class_name)
     end
 
-    def filter_by_field_name(fragments, field_name, value)
-      fragments.where("data->>? = ?", field_name, value)
+    def filter_by_field_name( field_name, value)
+      MadmpFragment.where("data->>? = ?", field_name, value)
     end
   end
 end
