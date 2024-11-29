@@ -2,7 +2,11 @@
 
 **Attention** Cette liste de changements concerne les déploiements sur nos serveurs de test en interne.
 
-## 26/11/2024
+## 29/11/2024
+
+- Correction du problème d'affichage des groupes de recommandations en fonction de la langue du plan (#12230)
+
+## 28/11/2024
 
 - [PR Logiciel] Ajout de l'affichage des recommandations dans un produit de recherche logiciel (#12193)
 - Amélioration de la gestion de la langue des recommandations (#12209)
