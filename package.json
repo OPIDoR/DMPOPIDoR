@@ -101,8 +101,8 @@
     "karma-webpack": "^5.0.0",
     "style-loader": "^4.0.0",
     "terser-webpack-plugin": "^5.3.9",
-    "webpack-cli": "^5.1.4",
-    "webpack": "^5.96.1"
+    "webpack": "^5.96.1",
+    "webpack-cli": "^5.1.4"
   },
   "resolutions": {
     "webpack": "^5.75.0"
