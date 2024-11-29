@@ -559,7 +559,7 @@ module Dmpopidor
                     end
 
       @all_guidance_groups = if @plan.template.structured?
-                               GuidanceGroup.published
+                               GuidanceGroup.published.where(language_id: current_locale.id)
                              else
                                @plan.guidance_group_options.where(language_id: current_locale.id)
                              end
