@@ -32,6 +32,7 @@ module Dmpopidor
       reviewer = ::User.find(user_id)
       feedback_requested? &&
         reviewer.present? &&
+        reviewer.org_id == feedback_requestor&.org_id &&
         reviewer.can_review_plans?
     end
 
