@@ -44,20 +44,16 @@ module Dmpopidor
       @themes = ::Theme.all.order(:number)
       @formatting = Settings::Template::DEFAULT_SETTINGS[:formatting]
       file_name = @guidance_group.name.gsub(/[^a-zA-Z\d\s]/, '').tr(' ', '_')
+      html = render_to_string({
+                                template: 'guidance_group_exports/guidance_group_export'
+                              })
       respond_to do |format|
         format.pdf do
-          # rubocop:disable Layout/LineLength
-          render pdf: file_name,
-                 template: 'guidance_group_exports/guidance_group_export',
-                 margin: @formatting[:margin],
-                 footer: {
-                   center: format(_('Guidance group created using the %{application_name} service. Last modified %{date}'), application_name: ApplicationService.application_name, date: l(@guidance_group.updated_at.to_date, formats: :short)),
-                   font_size: 8,
-                   spacing: (@formatting[:margin][:bottom] / 2) - 4,
-                   right: '[page] of [topage]',
-                   encoding: 'utf8'
-                 }
-          # rubocop:enable Layout/LineLength
+          pdf = HTTParty.post('http://pdf_generator:3000/pdf',
+                              body: { html: html }.to_json,
+                              headers: { 'Content-Type' => 'application/json' })
+          send_data(pdf, disposition: 'inline', filename: "#{file_name}.pdf",
+                         type: 'application/pdf')
         end
       end
     end
