@@ -69,18 +69,18 @@ class Plan < ApplicationRecord
   # Returns visibility message given a Symbol type visibility passed, otherwise
   # nil
   VISIBILITY_MESSAGE = {
-    organisationally_visible: _('organisational'),
-    publicly_visible: _('public'),
-    is_test: _('test'),
+    organisationally_visible: 'organisational',
+    publicly_visible: 'public',
+    is_test: 'test',
     # --------------------------------
     # Start DMP OPIDoR Customization
     # CHANGES : Administrator visibility
     # --------------------------------
-    administrator_visible: _('Administrator'),
+    administrator_visible: 'Administrator',
     # --------------------------------
     # End DMP OPIDoR Customization
     # --------------------------------
-    privately_visible: _('private')
+    privately_visible: 'private'
   }.freeze
 
   FUNDING_STATUS = {
@@ -94,10 +94,10 @@ class Plan < ApplicationRecord
   # ==============
 
   # public is a Ruby keyword so using publicly
-  enum visibility: %i[organisationally_visible publicly_visible
-                      is_test administrator_visible privately_visible]
+  enum :visibility, %i[organisationally_visible publicly_visible
+                       is_test administrator_visible privately_visible]
 
-  enum funding_status: %i[planned funded denied]
+  enum :funding_status, %i[planned funded denied]
 
   alias_attribute :name, :title
 

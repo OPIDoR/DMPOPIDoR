@@ -34,6 +34,7 @@ class GuidanceGroup < ApplicationRecord
   # ================
 
   belongs_to :org
+  belongs_to :language
 
   belongs_to :language
 
@@ -50,6 +51,8 @@ class GuidanceGroup < ApplicationRecord
 
   validates :org, presence: { message: PRESENCE_MESSAGE }
 
+  validates :language, presence: { message: PRESENCE_MESSAGE }
+
   validates :optional_subset, inclusion: { in: BOOLEAN_VALUES,
                                            message: INCLUSION_MESSAGE }
 
@@ -65,7 +68,7 @@ class GuidanceGroup < ApplicationRecord
 
   scope :search, lambda { |term|
     search_pattern = "%#{term}%"
-    where('lower(name) LIKE lower(?)', search_pattern)
+    where('lower(guidance_groups.name) LIKE lower(?)', search_pattern)
   }
 
   scope :published, -> { where(published: true) }
@@ -130,9 +133,9 @@ class GuidanceGroup < ApplicationRecord
   def self.create_org_default(org)
     GuidanceGroup.create!(
       name: org.abbreviation? ? org.abbreviation : org.name,
+      language_id: Language.default.id,
       org: org,
-      optional_subset: false,
-      language_id: 1
+      optional_subset: false
     )
   end
 

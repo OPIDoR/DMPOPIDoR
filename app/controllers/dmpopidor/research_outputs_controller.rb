@@ -21,7 +21,7 @@ module Dmpopidor
       @research_output = ::ResearchOutput.find(params[:id])
       authorize @research_output
 
-      render json: @research_output.serialize_json(with_questions_with_guidance: true)
+      render json: @research_output.serialize_json
     end
 
     # rubocop:disable Metrics/AbcSize,Metrics/MethodLength
@@ -167,7 +167,7 @@ module Dmpopidor
 
     # DELETE AFTER V4 ?
 
-    # rubocop:disable Metrics/AbcSize
+    # rubocop:disable Metrics/AbcSize, Metrics/MethodLength
     def create_remote
       @plan = ::Plan.includes(:template).find(params[:plan_id])
       I18n.with_locale @plan.template.locale do
@@ -196,7 +196,7 @@ module Dmpopidor
         }
       end
     end
-    # rubocop:enable Metrics/AbcSize
+    # rubocop:enable Metrics/AbcSize, Metrics/MethodLength
 
     # rubocop:disable Metrics/AbcSize
     def destroy_remote

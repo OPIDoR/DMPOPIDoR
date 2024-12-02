@@ -18,6 +18,10 @@ class PublicPagePolicy < ApplicationPolicy
     true
   end
 
+  def guidance_group_index?
+    true
+  end
+
   # --------------------------------
   # Start DMP OPIDoR Customization
   # CHANGES: User are authorize to export template without being logged in

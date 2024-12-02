@@ -99,6 +99,7 @@ class MadmpFragment < ApplicationRecord
   scope :programming_languages, -> { where(classname: 'programming_language') }
   scope :dependency_references, -> { where(classname: 'dependency_reference') }
   scope :software_resource_references, -> { where(classname: 'software_resource_reference') }
+  scope :software_outreaches, -> { where(classname: 'software_outreach') }
 
   # =============
   # = Callbacks =
@@ -107,6 +108,7 @@ class MadmpFragment < ApplicationRecord
   before_save   :set_defaults
   after_create  :update_parent_references
   after_destroy :update_parent_references
+  after_save    -> { plan.touch }
 
   # =====================
   # = Nested Attributes =
@@ -451,7 +453,7 @@ class MadmpFragment < ApplicationRecord
   def update_meta_fragment
     meta_fragment = dmp.meta
     I18n.with_locale plan.template.locale do
-      if (classname.eql?('research_entity'))
+      if classname.eql?('research_entity')
         entity_fragment = self
         dmp_title = format(_('"%{entity_name}" entity DMP'), entity_name: entity_fragment.data['name'])
         plan.update(title: dmp_title)

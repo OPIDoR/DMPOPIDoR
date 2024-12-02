@@ -51,7 +51,6 @@
     "bootstrap-select": "^1.13.18",
     "chart.js": "^4.2.1",
     "core-js": "^3.6.5",
-    "file-loader": "^6.2.0",
     "graphiql": "^3.3.2",
     "graphql": "^16.9.0",
     "jquery": "^3.5.1",
@@ -66,12 +65,9 @@
     "react-proptypes": "^1.0.0",
     "regenerator-runtime": "^0.14.0",
     "sass": "^1.57.1",
-    "stylis": "^4",
     "sweetalert2": "^11.7.32",
     "timeago.js": "^4.0.2",
-    "tinymce": "^7.0.0",
-    "webpack": "^5.75.0",
-    "webpack-cli": "^5.0.1"
+    "tinymce": "^7.0.0"
   },
   "devDependencies": {
     "@babel/core": "^7.20.12",
@@ -104,7 +100,9 @@
     "karma-json-fixtures-preprocessor": "^0.0.6",
     "karma-webpack": "^5.0.0",
     "style-loader": "^4.0.0",
-    "terser-webpack-plugin": "^5.3.9"
+    "terser-webpack-plugin": "^5.3.9",
+    "webpack": "^5.96.1",
+    "webpack-cli": "^5.1.4"
   },
   "resolutions": {
     "webpack": "^5.75.0"

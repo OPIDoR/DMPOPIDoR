@@ -235,7 +235,7 @@ module Dmpopidor
     end
 
     def guidance_groups
-      @all_ggs_grouped_by_org = get_guidances_groups(params[:id], params[:locale])
+      @all_ggs_grouped_by_org = get_guidances_groups(params[:id])
       render json: {
         status: 200,
         message: 'Guidance groups',
@@ -244,11 +244,18 @@ module Dmpopidor
     end
 
     # rubocop:disable Metrics/MethodLength, Metrics/AbcSize
+    # rubocop:disable Metrics/PerceivedComplexity, Metrics/CyclomaticComplexity
     def select_guidance_groups
       @plan = ::Plan.find(params[:id])
+      template = @plan.template
       authorize @plan
 
       body = JSON.parse(request.raw_post)
+      if body['ro_id'].present?
+        research_output = ::ResearchOutput.find(body['ro_id'])
+        module_id = research_output.json_fragment.additional_info['moduleId']
+        template = module_id ? ::Template.find(module_id) : @plan.template
+      end
 
       selected_ids = body['guidance_group_ids']
 
@@ -263,12 +270,12 @@ module Dmpopidor
       guidance_presenter = ::GuidancePresenter.new(@plan)
 
       if @plan.save
-        @all_ggs_grouped_by_org = get_guidances_groups(params[:id], params[:locale])
+        @all_ggs_grouped_by_org = get_guidances_groups(params[:id])
         render json: {
           status: 200,
           message: "Guidances updated for plan [#{params[:id]}]",
           guidance_groups: @all_ggs_grouped_by_org,
-          questions_with_guidance: @plan.template.questions.select do |q|
+          questions_with_guidance: template.questions.select do |q|
             question = ::Question.find(q.id)
             guidance_presenter.any?(question:)
           end.pluck(:id)
@@ -287,6 +294,7 @@ module Dmpopidor
       Rails.logger.error("Internal server error - #{e.message}")
       internal_server_error("Internal server error - #{e.message}")
     end
+    # rubocop:enable Metrics/PerceivedComplexity, Metrics/CyclomaticComplexity
     # rubocop:enable Metrics/MethodLength, Metrics/AbcSize
 
     # rubocop:disable Metrics/AbcSize, Metrics/MethodLength
@@ -454,23 +462,16 @@ module Dmpopidor
     # rubocop:enable Metrics/PerceivedComplexity, Metrics/CyclomaticComplexity
     # rubocop:enable Metrics/MethodLength, Metrics/AbcSize
 
-    # rubocop:disable Metrics/AbcSize
     def research_outputs_data
       plan = ::Plan.find(params[:id])
       authorize plan
 
-      guidance_presenter = ::GuidancePresenter.new(plan)
       render json: {
         id: plan.id,
         dmp_id: plan.json_fragment.id,
-        research_outputs: plan.research_outputs.order(:display_order).map(&:serialize_json),
-        questions_with_guidance: plan.template.questions.select do |q|
-          question = ::Question.find(q.id)
-          guidance_presenter.any?(question:)
-        end.pluck(:id)
+        research_outputs: plan.research_outputs.order(:display_order).map(&:serialize_json)
       }
     end
-    # rubocop:enable Metrics/AbcSize
 
     # GET AJAX /plans/:id/contributors_data
     # rubocop:disable Metrics/MethodLength, Metrics/AbcSize
@@ -543,12 +544,13 @@ module Dmpopidor
     end
 
     # rubocop:disable Metrics/MethodLength, Metrics/AbcSize
-    def get_guidances_groups(id, locale = 'fr-FR')
-      current_locale = Language.where(abbreviation: locale).first
+    # rubocop:disable Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
+    def get_guidances_groups(id)
       @plan = ::Plan.includes(
         :guidance_groups, template: [:phases]
       ).find(id)
       authorize @plan
+      current_locale = Language.where(abbreviation: @plan.template.locale).first
 
       @visibility = if @plan.visibility.present?
                       @plan.visibility.to_s
@@ -556,7 +558,11 @@ module Dmpopidor
                       Rails.configuration.x.plans.default_visibility
                     end
 
-      @all_guidance_groups = @plan.guidance_group_options.where(language_id: current_locale.id)
+      @all_guidance_groups = if @plan.template.structured?
+                               GuidanceGroup.published.where(language_id: current_locale.id)
+                             else
+                               @plan.guidance_group_options.where(language_id: current_locale.id)
+                             end
       @all_ggs_grouped_by_org = @all_guidance_groups.sort.group_by(&:org)
       @selected_guidance_groups = @plan.guidance_groups.ids.to_set
 
@@ -579,6 +585,7 @@ module Dmpopidor
         }
       end
     end
+    # rubocop:enable Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
     # rubocop:enable Metrics/MethodLength, Metrics/AbcSize
   end
   # rubocop:enable Metrics/ModuleLength

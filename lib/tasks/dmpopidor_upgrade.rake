@@ -2,6 +2,10 @@
 
 # rubocop:disable Naming/VariableNumber
 namespace :dmpopidor_upgrade do
+  desc 'Upgrade to 4.2.0'
+  task V4_2_0: :environment do
+    Rake::Task['dmpopidor_upgrade:add_default_language_to_guidance_groups'].execute
+  end
   desc 'Upgrade to 2.1.0'
   task v2_1_0: :environment do
     Rake::Task['dmpopidor_upgrade:add_themes_token_permission_types'].execute
@@ -19,6 +23,13 @@ namespace :dmpopidor_upgrade do
   desc 'Upgrade to 2.3.0'
   task v2_3_0: :environment do
     Rake::Task['dmpopidor_upgrade:close_existing_feedback_plans'].execute
+  end
+
+  desc 'Add default language to guidance groups'
+  task add_default_language_to_guidance_groups: :environment do
+    GuidanceGroup.where(language_id: 0).each do |gg|
+      gg.update(language: Language.default)
+    end
   end
 
   desc 'Add the themes token permission type'
