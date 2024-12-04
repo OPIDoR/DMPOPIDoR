@@ -20,8 +20,8 @@
                - <%= _('Customized') %>
             <% end %>
           </td>
-          <td><%= template.org.present? ? template.org.name : nil %></td>
-          <td><%= template.org.present? ? _(template.org&.org_type_to_s) : nil %></td>
+          <td><%= template.org.name %></td>
+          <td><%= _(template.org.org_type_to_s) %></td>
           <td><%= raw template.description %></td>
           <td><%= l(template.updated_at.to_date, formats: :short) %></td>
           <td class="text-center">

@@ -18,7 +18,6 @@ module Dmpopidor
 
       templates = ::Template.live(::Template.families(::Org.all.pluck(:id)).pluck(:family_id))
                             .pluck(:id) <<
-                  ::Template.live(::Template.where(type: 'module').pluck(:family_id)) <<
                   ::Template.where(is_default: true).unarchived.published.pluck(:id)
       @templates = ::Template.includes(:org)
                              .where(id: templates.uniq.flatten)

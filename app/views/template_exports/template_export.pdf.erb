@@ -62,10 +62,7 @@
       <% unless idx.eql?(0) %>
         <div style="page-break-before:always;"></div> <!-- Page break before each phase -->
       <% end %>
-      <h1>
-        <%= @template.org.present? ? "#{@template.org.name}: #{@template.title}" : "#{@template.title}" %>
-        <%= @template.phases.length > 1 ? " - #{phase.title}" : "" %>
-      </h1>
+      <h1><%= "#{@template.org.name}: #{@template.title}" %><%= @template.phases.length > 1 ? " - #{phase.title}" : "" %></h1>
       <% phase.sections.order(:number).each do |section| %>
         <h2><%= section.title %></h2>
         <p><%= sanitize section.description %></p>
