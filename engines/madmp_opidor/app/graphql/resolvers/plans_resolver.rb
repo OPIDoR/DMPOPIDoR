@@ -34,15 +34,14 @@ module Resolvers
 
     def filter_by_grant_id(plans, grant_ids)
       plans.select do |plan|
+        fragments = plan&.json_fragment&.dmp_fragments
         if grant_ids.is_a?(Hash) && grant_ids["regex"].present?
           regex = grant_ids["regex"].gsub(/\A\/|\/\z/, '')
-          fragments = plan&.json_fragment&.dmp_fragments
           fragments&.where("data->>'grantId' ~* ?", regex)&.exists?
         elsif grant_ids.is_a?(Array)
-          fragments = plan&.json_fragment&.dmp_fragments
           fragments&.where("data->>'grantId' IN (?)", grant_ids.compact.uniq)&.exists?
         else
-          false
+          fragments&.where("data->>grantId = ?", grant_ids)&.exists?
         end
       end
     end
