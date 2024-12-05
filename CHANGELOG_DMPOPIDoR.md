@@ -7,7 +7,7 @@
 - Ajout d'un icone indiquant la présence d'un tooltip sur un libellé (#11798)
 - Ajout d'un bouton permettant de réinitialiser la valeur d'un référentiel simple (#12252)
 - Retrait de l'onglet d'import d'un produit de recherche lors de la création du premier produit (#12256)
-- Amélioration de l'API GraphQL pour les plans (#12257)
+- Ajout des modules aux exports des modèles PDF structurés (#12239)
 
 ## 29/11/2024
 
