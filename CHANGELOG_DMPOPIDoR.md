@@ -2,6 +2,13 @@
 
 **Attention** Cette liste de changements concerne les déploiements sur nos serveurs de test en interne.
 
+## 05/12/2024
+
+- Ajout d'un icone indiquant la présence d'un tooltip sur un libellé (#11798)
+- Ajout d'un bouton permettant de réinitialiser la valeur d'un référentiel simple (#12252)
+- Retrait de l'onglet d'import d'un produit de recherche lors de la création du premier produit (#12256)
+- Amélioration de l'API GraphQL pour les plans (#12257)
+
 ## 29/11/2024
 
 - Correction du problème d'affichage des groupes de recommandations en fonction de la langue du plan (#12230)
