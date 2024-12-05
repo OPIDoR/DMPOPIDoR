@@ -12,7 +12,7 @@ help: ## Command help
 	@echo ""
 	@echo "Options:"
 	@echo "  env                            Application environment: prod or dev (e.g env=prod)"
-	@echo "  adapter                        Database adapter: postgres or mysql (e.g adapter=postgres)"
+	@echo "  adapter                        Database adapter: postgres (e.g adapter=postgres)"
 
 check_env:
 ifndef env
@@ -24,10 +24,10 @@ endif
 
 check_adapter:
 ifndef adapter
-	$(error Please specify an adapter (postgres or mysql) (eg: make setup env=prod adapter=postgres))
+	$(error Please specify an adapter (postgres) (eg: make setup env=prod adapter=postgres))
 endif
-ifeq (,$(filter $(adapter),postgres mysql))
-	$(error Invalid adapter specified. Please use 'postgres' or 'mysql'.)
+ifeq (,$(filter $(adapter),postgres))
+	$(error Invalid adapter specified. Please use 'postgres'.)
 endif
 
 check_docker_compose:
@@ -39,7 +39,7 @@ define docker_action
 	$(DOCKER_COMPOSE) -f $(COMPOSE_FILE) $(1)
 endef
 
-setup: check_env check_adapter check_docker_compose ## Setup DMPOPIDoR configuration (env: prod or dev, adapter: postgres or mysql)
+setup: check_env check_adapter check_docker_compose ## Setup DMPOPIDoR configuration (env: prod or dev, adapter: postgres)
 	$(call docker_action,run --rm dmpopidor sh -c 'ruby bin/docker $(adapter)')
 	$(call docker_action,run --rm dmpopidor sh -c 'ruby bin/docker db:setup')
 
