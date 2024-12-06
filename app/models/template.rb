@@ -54,7 +54,7 @@ class Template < ApplicationRecord
   # that are meant for external use will be publicly visible. This allows a
   # funder to create 'funder' as well as organisational templates. The default
   # template should also always be publicly_visible.
-  enum visibility: %i[organisationally_visible publicly_visible]
+  enum :visibility, %i[organisationally_visible publicly_visible]
 
   # --------------------------------
   # Start DMP OPIDoR Customization
@@ -65,11 +65,11 @@ class Template < ApplicationRecord
   # access to structured forms when adding a new question.
   # Module templates can only have one phase, have a data_type & can't be used by a plan
   self.inheritance_column = nil
-  enum type: %i[classic structured module]
+  enum :type, %i[classic structured module]
   # Context describes if the DMP is for a Research Project ou a Research Entity
   # The Project Form is replaced by a Structure Form in the General information tab.
   # New features might be added in the future
-  enum context: %i[research_project research_entity]
+  enum :context, %i[research_project research_entity]
   # --------------------------------
   # End DMP OPIDoR Customization
   # --------------------------------

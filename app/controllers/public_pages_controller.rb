@@ -40,6 +40,7 @@ class PublicPagesController < ApplicationController
   def template_export
     # only export live templates, id passed is family_id
     @template = Template.live(params[:id])
+    @modules = []
     # covers authorization for this action.
     # Pundit dosent support passing objects into scoped policies
     unless PublicPagePolicy.new(current_user, @template).template_export?
@@ -61,6 +62,20 @@ class PublicPagesController < ApplicationController
         }
       }
     ).find(@template.id)
+    if @template.structured?
+      @modules_tplt = Template.includes(
+        :org,
+        phases: {
+          sections: {
+            questions: %i[
+              question_options
+              question_format
+              annotations
+            ]
+          }
+        }
+      ).where(type: 'module', locale: @template.locale)
+    end
     @formatting = Settings::Template::DEFAULT_SETTINGS[:formatting]
 
     begin

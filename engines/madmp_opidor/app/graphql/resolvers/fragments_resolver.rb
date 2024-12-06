@@ -7,23 +7,21 @@ module Resolvers
     argument :field, Types::FieldInputType, required: false
 
     def resolve(**args)
-      filter = args
+      filters = args
 
-      plan_id = object.id if object.respond_to?(:id)
+      plans = Api::V1::PlansPolicy::Scope.new(context[:current_user], Plan).resolve
 
-      fragments = plan_id ? MadmpFragment.where(dmp_id: plan_id) : MadmpFragment.all
+      fragments = apply_filters(plans, filters) if filters.present? && filters.any?
 
-      fragments = apply_filters(fragments, filter) if filter.present? && filter.any?
-
-      format_fragments(fragments)
+      fragments
     end
 
-    def apply_filters(fragments, filter)
-      fragments = filter_by_grant_id(fragments, filter[:grantId]) if filter[:grantId].present?
-      fragments = filter_by_class_name(fragments, filter[:className]) if filter[:className].present?
+    def apply_filters(plans, filter)
+      fragments = filter_by_grant_id(plans, filter[:grantId]) if filter[:grantId].present?
+      fragments = filter_by_class_name(plans, filter[:className]) if filter[:className].present?
 
       if filter[:field].present? && filter[:field][:name].present? && filter[:field][:value].present?
-        fragments = filter_by_field_name(fragments, filter[:field][:name], filter[:field][:value])
+        fragments = filter_by_field_name(plans, filter[:field][:name], filter[:field][:value])
       end
 
       fragments
@@ -31,26 +29,32 @@ module Resolvers
 
     private
 
-    def format_fragments(fragments)
-      fragments.select { |fragment| Api::V1::Madmp::MadmpFragmentsPolicy.new(context[:current_user], fragment).show? }
-    end
-
-    def filter_by_grant_id(fragments, grant_ids)
-      if grant_ids.is_a?(Hash) && grant_ids["regex"].present?
-        regex = grant_ids["regex"].gsub(/\A\/|\/\z/, '')
-        fragments = fragments.where("data->>'grantId' ~* ?", regex)
-      elsif grant_ids.is_a?(Array)
-        fragments = fragments.where("data->>'grantId' IN (?)", grant_ids.compact.uniq)
+    def filter_by_grant_id(plans, grant_ids)
+      plans.flat_map do |plan|
+        fragments = plan&.json_fragment&.dmp_fragments
+        if grant_ids.is_a?(Hash) && grant_ids["regex"].present?
+          regex = grant_ids["regex"].gsub(/\A\/|\/\z/, '')
+          fragments&.where("data->>'grantId' ~* ?", regex) || []
+        elsif grant_ids.is_a?(Array)
+          fragments&.where("data->>'grantId' IN (?)", grant_ids.compact.uniq) || []
+        else
+          fragments&.where("data->>'grantId' = ?", grant_ids) || []
+        end
       end
-      fragments
     end
 
-    def filter_by_class_name(fragments, class_name)
-      fragments.where(classname: class_name)
+    def filter_by_class_name(plans, class_name)
+      plans.flat_map do |plan|
+        fragments = plan&.json_fragment&.dmp_fragments
+        fragments&.where(classname: class_name) || []
+      end
     end
 
-    def filter_by_field_name(fragments, field_name, value)
-      fragments.where("data->>? = ?", field_name, value)
+    def filter_by_field_name(plans, field_name, value)
+      plans.flat_map do |plan|
+        fragments = plan&.json_fragment&.dmp_fragments
+        fragments&.where("data->>? = ?", field_name, value) || []
+      end
     end
   end
 end

@@ -28,10 +28,10 @@ module Dmpopidor
     # CHANGES : Added module template support
     #
     def removable?
+      versions = ::Template.includes(:plans).where(family_id: family_id)
       if type.eql?('module')
-        Fragment::ResearchOutput.where("(additional_info->>'moduleId')::int = ?", id).empty?
+        Fragment::ResearchOutput.where("(additional_info->>'moduleId')::int IN (?)", versions.pluck(:id)).empty?
       else
-        versions = ::Template.includes(:plans).where(family_id: family_id)
         versions.reject { |version| version.plans.empty? }.empty?
       end
     end

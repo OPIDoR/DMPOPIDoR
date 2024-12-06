@@ -1,0 +1,13 @@
+<%# locals: { modules_tplt, export_format } %>
+
+<% modules_tplt.each do |module_tplt| %>
+  <div style="page-break-before:always;"></div> <!-- Page break before each module -->
+  <% if export_format.eql?('pdf') %>
+    <h1><%= module_tplt.title %></h1>
+  <% else %>
+    <h2><%= module_tplt.title %></h2>
+  <% end %>
+  <% module_tplt.phases.first.sections.order(:number).each do |section| %>
+    <%= render partial: 'shared/template_exports/display_sections', locals: { section: section, export_format: export_format } %>
+  <% end %>
+<% end %>

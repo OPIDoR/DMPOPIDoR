@@ -127,20 +127,16 @@ module Dmpopidor
     end
 
     # rubocop:disable Metrics/AbcSize, Metrics/MethodLength
-    def serialize_json(with_questions_with_guidance: false)
+    def serialize_json
       ro_fragment = json_fragment
       module_id = ro_fragment.additional_info['moduleId']
       template = module_id ? ::Template.find(module_id) : plan.template
 
-      questions_with_guidance = []
-
-      if with_questions_with_guidance
-        guidance_presenter = ::GuidancePresenter.new(plan)
-        questions_with_guidance = template.questions.select do |q|
-          question = ::Question.find(q.id)
-          guidance_presenter.any?(question:)
-        end.pluck(:id)
-      end
+      guidance_presenter = ::GuidancePresenter.new(plan)
+      questions_with_guidance = template.questions.select do |q|
+        question = ::Question.find(q.id)
+        guidance_presenter.any?(question:)
+      end.pluck(:id)
 
       I18n.with_locale plan.template.locale do
         return {
