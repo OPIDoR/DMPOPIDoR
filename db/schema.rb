@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.2].define(version: 2024_12_09_094219) do
+ActiveRecord::Schema[7.2].define(version: 2024_12_09_134915) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
   enable_extension "unaccent"
@@ -679,6 +679,7 @@ ActiveRecord::Schema[7.2].define(version: 2024_12_09_094219) do
     t.datetime "created_at", precision: nil, null: false
     t.datetime "updated_at", precision: nil, null: false
     t.string "data_type", default: "none", null: false
+    t.string "classname"
     t.index ["org_id"], name: "index_registries_on_org_id"
   end
 
