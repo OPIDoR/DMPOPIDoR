@@ -95,7 +95,7 @@ module SuperAdmin
     private
 
     def permitted_params
-      params.require(:registry).permit(:name, :description, :uri, :version, :values)
+      params.require(:registry).permit(:name, :description, :uri, :data_type, :version, :values)
     end
   end
 end

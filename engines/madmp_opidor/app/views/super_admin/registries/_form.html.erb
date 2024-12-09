@@ -15,6 +15,16 @@
         <%= f.url_field(:uri, class: "form-control", spellcheck: true) %>
       </div>
       <div class="form-group">
+        <%= f.label(:data_type, _('Data type'), class: 'control-label') %>
+        <%= select_tag(:data_type,
+            options_for_select(
+              [[_("None"), "none"], [_("Software"), "software"]],
+              f.object.data_type
+            ),
+            class: "form-control",
+            name: 'registry[data_type]') %>
+      </div>
+      <div class="form-group">
         <%= f.label(:version, _('Version'), class: 'control-label') %>
         <%= f.number_field(:version, class: "form-control", spellcheck: true) %>
       </div>
