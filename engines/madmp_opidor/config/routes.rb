@@ -28,7 +28,7 @@ Rails.application.routes.draw do
     post ':tour', action: :end_tour, on: :collection, constraints: { format: [:json] }
   end
 
-  resources :registries, only: %i[show] do
+  resources :registries, only: %i[index show] do
     get 'load_values', action: :load_values, on: :collection
     get 'by_name/:name', action: :by_name, on: :collection
   end

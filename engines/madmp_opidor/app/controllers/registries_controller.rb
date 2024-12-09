@@ -4,6 +4,16 @@
 class RegistriesController < ApplicationController
   after_action :verify_authorized
 
+  def index
+    skip_authorization
+    registries = if params[:data_type].present?
+                   Registry.where(classname: params[:by_classname], data_type: params[:data_type])
+                 else
+                   Registry.where(classname: params[:by_classname])
+                 end
+    render json: registries.select(%w[id name])
+  end
+
   def show
     registry = Registry.find(params[:id])
     registry_values = registry.registry_values
