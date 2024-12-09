@@ -11,7 +11,7 @@
       nbr_of_cols = (all_themes.length.to_f / per_col.to_f).ceil
       col_size = (12 / (nbr_of_cols > 4 ? 3 : nbr_of_cols)).round
     %>
-    <fieldset<%= in_error ? ' class=field_with_errors' : '' %>>
+    <fieldset <%= in_error ? ' class=field_with_errors' : '' %>>
       <legend>
         <%= _('Themes') %>
         <%= render partial: 'shared/popover',
