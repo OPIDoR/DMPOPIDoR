@@ -79,7 +79,7 @@
     <% if f.object.new_record? %>
       <%= select_tag(:data_type,
           options_for_select(
-            [[_("None"), "none"], [_("Software"), "software"]],
+            data_type_select_values,
             f.object.data_type
           ),
           class: "form-control",
