@@ -40,7 +40,7 @@ module Dmpopidor
 
     def guidance_group_export
       @guidance_group = ::GuidanceGroup.includes(guidances: :themes).find(params[:id])
-      @guidances = @guidance_group.guidances.joins(:themes).all
+      @guidances = @guidance_group.guidances.joins(:themes).where(published: true)
       @themes = ::Theme.all.order(:number)
       @formatting = Settings::Template::DEFAULT_SETTINGS[:formatting]
       file_name = @guidance_group.name.gsub(/[^a-zA-Z\d\s]/, '').tr(' ', '_')
