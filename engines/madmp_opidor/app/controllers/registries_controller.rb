@@ -5,12 +5,12 @@ class RegistriesController < ApplicationController
   after_action :verify_authorized
 
   def index
+    registries = []
     skip_authorization
-    registries = if params[:data_type].present?
-                   Registry.where(classname: params[:by_classname], data_type: params[:data_type])
-                 else
-                   Registry.where(classname: params[:by_classname])
-                 end
+    if params[:data_type].present?
+      registries = Registry.where(category: params[:category], data_type: params[:data_type])
+    end
+    registries = Registry.where(category: params[:category]) if registries.empty?
     render json: registries.select(%w[id name])
   end
 
