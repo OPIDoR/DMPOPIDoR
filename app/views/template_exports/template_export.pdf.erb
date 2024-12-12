@@ -64,32 +64,11 @@
       <% end %>
       <h1><%= "#{@template.org.name}: #{@template.title}" %><%= @template.phases.length > 1 ? " - #{phase.title}" : "" %></h1>
       <% phase.sections.order(:number).each do |section| %>
-        <h2><%= section.title %></h2>
-        <p><%= sanitize section.description %></p>
-        <% section.questions.each do |question| %>
-        <div class="question">
-          <p><%= sanitize question.text.chomp.strip %></p>
-          <% q_format = question.question_format %>
-          <% if q_format.option_based? %>
-            <ul>
-            <% question.question_options.each do |option| %>
-              <li><%= option.text.chomp.strip %><%= option.is_default? ? ' - ' + _('default') : '' %></li>
-            <% end %>
-            </ul>
-          <% end %>
-        </div>
-        <div class="annotations">
-          <% question.annotations.each do |annotation| %>
-            <% unless annotation.text.chomp.strip.gsub(/<\/?p>/, '').gsub(/<br\s?\/>/, '').blank? %>
-              <p><i><%= annotation.type == 'example_answer' ? _('Example Answer') : _('Guidance') %></i>:</p>
-              <div style="margin-left: 15px;">
-                <%= sanitize annotation.text.chomp.strip %>
-              </div>
-            <% end %>
-          <% end %>
-        </div>
-        <% end %>
+        <%= render partial: 'shared/template_exports/display_sections', locals: { section: section, export_format: 'pdf' } %>
       <% end %>
+    <% end %>
+    <% if @modules_tplt.length > 0 %>
+      <%= render partial: 'shared/template_exports/display_modules', locals: { modules_tplt: @modules_tplt, export_format: 'pdf' } %>
     <% end %>
   </body>
 </html>

@@ -74,7 +74,7 @@ module DMPRoadmap
     config.x.application.name = ENV.fetch('APPLICATION_NAME', 'DMP OPIDoR')
 
     # App version, displayed in the footer
-    config.x.application.version = ENV.fetch('APPLICATION_VERSION', 'V4.1.0')
+    config.x.application.version = ENV.fetch('DMP_VERSION', 'V4.1.0')
 
     # App Github URL, displayed in the footer
     config.x.application.url = ENV.fetch('APPLICATION_URL', 'https://github.com/OPIDoR/DMPOPIDoR')

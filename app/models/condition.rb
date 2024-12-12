@@ -26,7 +26,7 @@
 # Object that represents a condition of a conditional question
 class Condition < ApplicationRecord
   belongs_to :question
-  enum action_type: %i[remove add_webhook]
+  enum :action_type, %i[remove add_webhook]
   serialize :option_list, type: Array
   serialize :remove_data, type: Array
   serialize :webhook_data, coder: JSON

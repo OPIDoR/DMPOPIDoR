@@ -71,7 +71,7 @@ services:
     volumes:
       - ./log:/app/log
     healthcheck:
-      test: ["CMD-SHELL", "wget -q -S -O - http://localhost:3000/healthz 2>&1 | grep 'HTTP/1.1 200 OK'"]
+      test: ["CMD-SHELL", "wget -q -S -O - http://localhost:3000 2>&1 | grep 'HTTP/1.1 200 OK'"]
       interval: ${DMPOPIDOR_HEALTHCHECK_INTERVAL:-30s}
       timeout: ${DMPOPIDOR_HEALTHCHECK_TIMEOUT:-30s}
       retries: ${DMPOPIDOR_HEALTHCHECK_RETRIES:-3}

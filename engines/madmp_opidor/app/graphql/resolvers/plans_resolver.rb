@@ -18,7 +18,7 @@ module Resolvers
 
     def apply_filters(plans, filter)
       plans = filter_by_id(plans, filter[:id]) if filter[:id].present?
-      plans = filter_by_grant_id(filter[:grantId]) if filter[:grantId].present?
+      plans = filter_by_grant_id(plans, filter[:grantId]) if filter[:grantId].present?
       plans
     end
 
@@ -32,15 +32,17 @@ module Resolvers
       end
     end
 
-    def filter_by_grant_id(grant_ids)
-      if grant_ids.is_a?(Hash) && grant_ids["regex"].present?
-        regex = grant_ids["regex"].gsub(/\A\/|\/\z/, '')
-        fragments = MadmpFragment.where("data->>'grantId' ~* ?", regex)
-      elsif grant_ids.is_a?(Array)
-        fragments = MadmpFragment.where("data->>'grantId' IN (?)", grant_ids.compact.uniq)
-      end
-      fragments&.map do |fragment|
-        fragment.plan
+    def filter_by_grant_id(plans, grant_ids)
+      plans.select do |plan|
+        fragments = plan&.json_fragment&.dmp_fragments
+        if grant_ids.is_a?(Hash) && grant_ids["regex"].present?
+          regex = grant_ids["regex"].gsub(/\A\/|\/\z/, '')
+          fragments&.where("data->>'grantId' ~* ?", regex)&.exists?
+        elsif grant_ids.is_a?(Array)
+          fragments&.where("LOWER(data->>'grantId') IN (?)", grant_ids.compact.uniq.map(&:downcase)) || []
+        else
+          fragments&.where("data->>grantId ~* ?", grant_ids)&.exists?
+        end
       end
     end
 
