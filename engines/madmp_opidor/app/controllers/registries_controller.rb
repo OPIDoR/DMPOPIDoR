@@ -31,6 +31,21 @@ class RegistriesController < ApplicationController
   end
 
   # rubocop:disable Metrics/AbcSize
+  def suggest
+    registry = if Registry.exists?(category: params[:category], data_type: params[:data_type])
+                 Registry.find_by(category: params[:category], data_type: params[:data_type])
+               else
+                 Registry.find_by(category: params[:category])
+               end
+    skip_authorization
+    render json: {
+      name: registry.name,
+      values: registry.registry_values.pluck(:data)
+    }
+  end
+  # rubocop:enable Metrics/AbcSize
+
+  # rubocop:disable Metrics/AbcSize
   def load_values
     registry = Registry.find(params[:id])
     plan = Plan.find(params[:plan_id])
