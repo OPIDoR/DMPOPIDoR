@@ -21,7 +21,7 @@
         <%= render partial: 'shared/template_exports/display_sections', locals: { section: section, export_format: 'docx' } %>
       <% end %>
     <% end %>
-    <% if @modules_tplt.length > 0 %>
+    <% if @modules_tplt&.any? %>
       <%= render partial: 'shared/template_exports/display_modules', locals: { modules_tplt: @modules_tplt, export_format: 'docx' } %>
     <% end %>
   </body>
