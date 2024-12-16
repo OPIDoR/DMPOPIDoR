@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.2].define(version: 2024_12_13_140601) do
+ActiveRecord::Schema[7.2].define(version: 2024_12_16_112001) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
   enable_extension "unaccent"
@@ -685,16 +685,6 @@ ActiveRecord::Schema[7.2].define(version: 2024_12_13_140601) do
   end
 
 
-  create_table "registry_values", id: :serial, force: :cascade do |t|
-    t.json "data"
-    t.integer "registry_id"
-    t.datetime "created_at", precision: nil, null: false
-    t.datetime "updated_at", precision: nil, null: false
-    t.integer "order"
-    t.index ["registry_id"], name: "index_registry_values_on_registry_id"
-  end
-
-
   create_table "repositories", force: :cascade do |t|
     t.string "name", null: false
     t.text "description", null: false
@@ -1039,7 +1029,6 @@ ActiveRecord::Schema[7.2].define(version: 2024_12_13_140601) do
   add_foreign_key "questions_themes", "questions", deferrable: :deferred
   add_foreign_key "questions_themes", "themes", deferrable: :deferred
   add_foreign_key "registries", "orgs"
-  add_foreign_key "registry_values", "registries"
   add_foreign_key "research_domains", "research_domains", column: "parent_id"
   add_foreign_key "research_outputs", "licenses"
   add_foreign_key "research_outputs", "plans"
