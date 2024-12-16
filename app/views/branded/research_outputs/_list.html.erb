@@ -29,7 +29,7 @@
             <span class="readonly"><%= research_output_data['title'] %></span>
           </div>
           <div class='research-output-field form-group research-output-type'>
-            <% registryValues = Registry.find_by(name:"ResearchDataType").registry_values %>
+            <% registryValues = Registry.find_by(name:"ResearchDataType").values %>
             <%= f.label :output_type_description, _('Type'),  class: 'control-label' %>
             <%= select_tag "research_output[output_type_description]",
                         options_for_select(

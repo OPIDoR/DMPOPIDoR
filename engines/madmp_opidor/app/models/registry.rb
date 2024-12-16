@@ -30,8 +30,6 @@ class Registry < ApplicationRecord
   # = Associations =
   # ================
 
-  has_many :registry_values, dependent: :destroy
-
   belongs_to :org, optional: true
 
   # ===============
@@ -51,8 +49,7 @@ class Registry < ApplicationRecord
           search_pattern, search_pattern)
   }
 
-  # rubocop:disable Metrics/AbcSize, Metrics/MethodLength
-  # rubocop:disable Metrics/PerceivedComplexity
+  # rubocop:disable Metrics/AbcSize
   def self.load_values(values_file, registry)
     return if values_file.nil?
 
@@ -66,12 +63,7 @@ class Registry < ApplicationRecord
     begin
       json_values = JSON.parse(values_data)
       if json_values.key?(registry.name)
-        registry.registry_values.delete_all
-        registry_values = []
-        json_values[registry.name].each_with_index do |reg_val, idx|
-          registry_values << RegistryValue.new(data: reg_val, registry:, order: idx)
-        end
-        RegistryValue.import registry_values
+        registry.update(values: json_values[registry.name])
       else
         flash.now[:alert] = 'Wrong values file format'
       end
@@ -79,6 +71,5 @@ class Registry < ApplicationRecord
       flash.now[:alert] = 'File should contain JSON'
     end
   end
-  # rubocop:enable Metrics/PerceivedComplexity
-  # rubocop:enable Metrics/AbcSize, Metrics/MethodLength
+  # rubocop:enable Metrics/AbcSize
 end

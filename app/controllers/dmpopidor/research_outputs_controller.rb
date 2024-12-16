@@ -174,15 +174,15 @@ module Dmpopidor
         @persons = @plan.json_fragment.persons
         max_order = @plan.research_outputs.maximum('display_order') + 1
 
-        registry_values = Registry.find_by(name: 'ResearchDataType').registry_values
-        registry = registry_values.find { |entry| entry['data']['en_GB'] == 'Dataset' }
+        registry_values = Registry.find_by(name: 'ResearchDataType').values
+        reg_val = registry_values.find { |entry| entry['en_GB'] == 'Dataset' }
 
         created_ro = @plan.research_outputs.create(
           abbreviation: "#{_('RO')} #{max_order}",
           title: "#{_('Research output')} #{max_order}",
           is_default: false,
           display_order: max_order,
-          output_type_description: registry['data'][@plan.template.locale.tr('-', '_')]
+          output_type_description: reg_val[@plan.template.locale.tr('-', '_')]
         )
         created_ro.create_json_fragments
 
