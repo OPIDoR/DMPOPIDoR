@@ -13,7 +13,7 @@
     <tbody>
       <% scope.each do |registry| %>
         <tr>
-          <td><%= link_to "#{registry.name} (#{registry.version})", super_admin_registry_path(registry) %></td>
+          <td><%= "#{registry.name} (#{registry.version})" %></td>
           <td><%= registry.description %></td>
           <td><%= registry.uri %></td>
           <td><%= registry.category %></td>

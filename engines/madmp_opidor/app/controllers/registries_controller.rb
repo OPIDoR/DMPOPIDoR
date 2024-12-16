@@ -16,18 +16,16 @@ class RegistriesController < ApplicationController
 
   def show
     registry = Registry.find(params[:id])
-    registry_values = registry.registry_values
 
     skip_authorization
-    render json: registry_values.pluck(:data)
+    render json: registry.values
   end
 
   def by_name
     registry = Registry.find_by(name: params[:name])
-    registry_values = params[:page] ? registry.registry_values.page(params[:page]) : registry.registry_values
 
     skip_authorization
-    render json: registry_values.pluck(:data)
+    render json: params[:page] ? registry.values.page(params[:page]) : registry.values
   end
 
   # rubocop:disable Metrics/AbcSize
@@ -40,7 +38,7 @@ class RegistriesController < ApplicationController
     skip_authorization
     render json: {
       name: registry.name,
-      values: registry.registry_values.pluck(:data)
+      values: registry.values
     }
   end
   # rubocop:enable Metrics/AbcSize
@@ -51,9 +49,8 @@ class RegistriesController < ApplicationController
     plan = Plan.find(params[:plan_id])
     locale = plan.template.locale
     search_term = params[:term] || ''
-    values_list = registry.registry_values
-    formatted_list = values_list.select { |v| v.to_s(locale:).downcase.include?(search_term.downcase) }
-                                .map    { |v| { 'id' => select_value(v, locale), 'text' => v.to_s(locale:) } }
+    formatted_list = registry.values.select { |v| v.to_s(locale:).downcase.include?(search_term.downcase) }
+                             .map { |v| { 'id' => select_value(v, locale), 'text' => v.to_s(locale:) } }
     authorize plan
     render json: {
       'results' => formatted_list

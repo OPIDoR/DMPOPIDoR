@@ -10,11 +10,6 @@ module SuperAdmin
       render(:index, locals: { registries: Registry.all.page(1) })
     end
 
-    def show
-      authorize(Registry)
-      @registry = Registry.includes(:registry_values).find(params[:id])
-    end
-
     def new
       authorize(Registry)
       @registry = Registry.new
@@ -81,8 +76,7 @@ module SuperAdmin
     def download
       registry = Registry.find(params[:registry_id])
       authorize registry
-      values = registry.registry_values.map(&:data)
-      data = { registry.name => values }
+      data = { registry.name => registry.values }
       send_data(JSON.pretty_generate(data), filename: "#{registry.name}.json")
     end
 
