@@ -43,9 +43,9 @@
 module Fragment
   module Software
     # ResearchOutputDescription STI model
-    class SoftwareOutreach < MadmpFragment
+    class SoftwareDevelopment < MadmpFragment
       def self.sti_name
-        'software_outreach'
+        'software_development'
       end
     end
   end
