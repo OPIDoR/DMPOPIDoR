@@ -29,7 +29,7 @@
         <%= link_to '<i class="fas fa-pen-square" aria-hidden="true">&nbsp;</i>&nbsp;'.html_safe + _('Edit profile'), edit_user_registration_path %>
       </li>
       <li>
-        <%= link_to '<i class="fas fa-sign-in-alt" aria-hidden="true">&nbsp;</i>&nbsp;'.html_safe + _('Logout'), destroy_user_session_path, method: :delete %>
+        <%= link_to '<i class="fas fa-sign-in-alt" aria-hidden="true">&nbsp;</i>&nbsp;'.html_safe + _('Logout'), destroy_user_session_path, data: { turbo_method: :delete } %>
       </li>
     </ul>
   </li>
