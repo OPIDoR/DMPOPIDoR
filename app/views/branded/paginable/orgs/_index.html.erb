@@ -38,7 +38,7 @@
               <ul class="dropdown-menu" aria-labelledby="org-<%= org.id %>-actions">
                 <li><%= link_to _('Edit'), admin_edit_org_path(org) %></li>
                 <% unless org.user_count > 0 || org.template_count > 0 %>
-                  <li><%= link_to _('Remove'), super_admin_org_path(org), data: {confirm: _("You are about to delete '%{org_name}'. Are you sure?") % { org_name: org.name}}, method: :delete %></li>
+                  <li><%= link_to _('Remove'), super_admin_org_path(org), data: { turbo_method: :delete, turbo_confirm: _("You are about to delete '%{org_name}'. Are you sure?") % { org_name: org.name}} %></li>
                 <% end %>
               </ul>
             </div>

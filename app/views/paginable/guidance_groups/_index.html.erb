@@ -53,7 +53,7 @@
                     <li><%= link_to _('Publish'),  admin_update_publish_guidance_group_path(guidance_gr), method: :put %></li>
                 <% end %>
                 <% if allow_delete %>
-                  <li><%= link_to _('Remove'), admin_destroy_guidance_group_path(guidance_gr), data: {confirm: _("You are about to delete '%{guidance_group_name}'. This will affect guidance. Are you sure?") % { :guidance_group_name => guidance_gr.name }}, method: :delete %></li>
+                  <li><%= link_to _('Remove'), admin_destroy_guidance_group_path(guidance_gr), data: { turbo_method: :delete, turbo_confirm: _("You are about to delete '%{guidance_group_name}'. This will affect guidance. Are you sure?") % { :guidance_group_name => guidance_gr.name }} %></li>
                 <% end %>
               </ul>
             </div>

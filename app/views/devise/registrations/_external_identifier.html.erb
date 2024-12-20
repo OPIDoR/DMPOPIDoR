@@ -83,9 +83,9 @@
     <% end %>
     <%= link_to '<i class="fas fa-fw fa-circle-xmark" aria-hidden="true"></i>'.html_safe,
                 destroy_user_identifier_path(id),
-                method: :delete,
+                data: { turbo_method: :delete },
                 title: unlinktext,
-                data: {confirm: unlinkconf},
+                data: {turbo_confirm: unlinkconf},
                 'aria-label': unlinktext,
                 'data-toggle': "tooltip" %>
 <% end %>
