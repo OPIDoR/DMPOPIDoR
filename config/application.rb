@@ -197,14 +197,17 @@ module DMPRoadmap
     # to access the site and receive a 'Blocked host' error then you will need to
     # set this environment variable
     ENV.fetch('ALLOWED_HOSTS', 'dmpopidor').split(',').each do |host|
-      if host.match?(/\d+\.\d+\.\d+\.\d+\/\d+/)
-        config.hosts << IPAddr.new(host)
-      else
-        config.hosts << host
-      end
+      config.hosts << if host.match?(%r{\d+\.\d+\.\d+\.\d+/\d+})
+                        IPAddr.new(host)
+                      else
+                        host
+                      end
     end
   end
 end
 
 # Used by Rails' routes url_helpers (typically when including a link in an email)
 Rails.application.routes.default_url_options[:host] = ENV.fetch('DMPROADMAP_HOST', 'dmpopidor')
+
+# Make `form_with` generate non-remote forms by default.
+Rails.application.config.action_view.form_with_generates_remote_forms = false

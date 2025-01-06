@@ -64,7 +64,7 @@
                     <li><%= link_to _('Publish'), admin_publish_guidance_path(guidance), method: :put %></li>
                   <% end %>
                   <li><%= link_to _('Remove'), admin_destroy_guidance_path(guidance),
-                  data: {confirm: _("You are about to delete '%{guidance_summary}'. Are you sure?") % { :guidance_summary => truncate(sanitize(guidance.text,tags: %w(br a)), length: 20 , omission: _('... (continued)'))} }, method: :delete %>
+                  data: { turbo_method: :delete, turbo_confirm: _("You are about to delete '%{guidance_summary}'. Are you sure?") % { :guidance_summary => truncate(sanitize(guidance.text,tags: %w(br a)), length: 20 , omission: _('... (continued)'))} } %>
                   </li>
                 </ul>
               </div>
