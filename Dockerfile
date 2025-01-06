@@ -30,8 +30,7 @@ RUN mkdir -p /etc/apt/keyrings && \
   apt-get install -y --no-install-recommends nodejs && \
   apt-get clean && \
   rm -rf /var/lib/apt/lists/*
-RUN bundle config set --local without 'mysql' && \
-  bundle install --jobs=4 --retry=3
+RUN bundle install --jobs=4 --retry=3
 RUN yarn install && \
   yarn --cwd app/javascript/dmp_opidor_react install && \
   yarn cache clean
@@ -42,7 +41,7 @@ ARG DB_ADAPTER \
   DB_PASSWORD
 RUN bin/docker ${DB_ADAPTER:-postgres} && \
   RAILS_ENV=build DISABLE_SPRING=1 NODE_OPTIONS=--openssl-legacy-provider rails assets:precompile && \
-  bundle config set --local without 'mysql thin test ci aws development build' && \
+  bundle config set --local without 'thin test ci aws development build' && \
   bundle install --jobs=4 --retry=3
 
 FROM base AS production
