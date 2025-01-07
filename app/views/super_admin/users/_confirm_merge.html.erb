@@ -11,6 +11,6 @@
     <%= select_tag(:merge_id, options_from_collection_for_select(@users, "id", "email"), class: "form-control") %>
     </div>
   </div>
-  <%= submit_tag( _("Merge"), class: 'btn btn-default', style: 'margin-top: 8px;', data: { turbo_confirm: "placeholder" }) %>
+  <%= submit_tag( _("Merge"), class: 'btn btn-default', style: 'margin-top: 8px;', data: { confirm: "placeholder" }) %>
   <%= link_to(_("Cancel"), edit_super_admin_user_path(@user), class: 'btn btn-default') %>
 <% end %>

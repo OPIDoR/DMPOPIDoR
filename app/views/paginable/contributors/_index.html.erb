@@ -54,7 +54,8 @@
                         edit_plan_contributor_path(plan_id: @plan.id, id: contributor) %></li>
                 <li><%= link_to _('Remove'),
                                 plan_contributor_path(@plan.id, contributor),
-                                data: { turbo_method: :delete, turbo_confirm: _("You are about to delete '%{contributor_name}'. Are you sure?") % { contributor_name: contributor.name } } %>
+                                data: { confirm: _("You are about to delete '%{contributor_name}'. Are you sure?") % { contributor_name: contributor.name } },
+                                method: :delete %>
                 </li>
               </ul>
             </div>

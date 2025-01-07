@@ -61,7 +61,8 @@ end
         _('Delete'),
         super_admin_static_page_path(@static_page),
         class: 'btn btn-default',
-        data: { turbo_method: :delete, turbo_confirm: _('Are you sure you want to delete the Static Page "%{name}"') % { name: @static_page.name }}
+        method: :delete,
+        data: { confirm: _('Are you sure you want to delete the Static Page "%{name}"') % { name: @static_page.name }}
       ) unless @static_page.new_record? %>
       <%= link_to _('Cancel'), super_admin_static_pages_path, class: 'btn btn-default' %>
     </div>

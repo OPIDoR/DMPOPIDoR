@@ -178,7 +178,7 @@ repository_tooltip = _("Repositories preserve, manage, and provide access to man
         <%= f.button(_("Save"), class: "btn btn-default", type: "submit") %>
         <% unless research_output.new_record? %>
           <%= link_to _("Remove"), plan_research_output_path(plan, research_output),
-                                   data: { turbo_method: :delete }, class: "btn btn-default" %>
+                                   method: :delete, class: "btn btn-default" %>
           <% end %>
           <%= link_to _("Cancel"), plan_research_outputs_path(plan),
                                    class: "btn btn-default" %>
