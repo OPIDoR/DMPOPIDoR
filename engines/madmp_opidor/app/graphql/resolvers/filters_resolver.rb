@@ -22,15 +22,53 @@ module Resolvers
       value = filter[:value]
       operator = filter[:operator] || "eq"
 
-      case operator
-      when "eq"
-        scope.where(field => value)
-      when "neq"
-        scope.where.not(field => value)
-      when "like"
-        scope.where("LOWER(#{field}) ILIKE LOWER(?)", "%#{value}%")
+      if field == "grantId"
+        apply_grant_id_filter(scope, filter)
       else
-        scope
+        case operator
+        when "eq"
+          if value.is_a?(Array)
+            scope.where("LOWER(#{field}) IN (?)", value.map(&:downcase))
+          else
+            scope.where("LOWER(#{field}) = ?", value.downcase)
+          end
+        when "neq"
+          if value.is_a?(Array)
+            scope.where.not("LOWER(#{field}) IN (?)", value.map(&:downcase))
+          else
+            scope.where.not("LOWER(#{field}) = ?", value.downcase)
+          end
+        when "like"
+          if value.is_a?(Array)
+            conditions = value.map { |v| "LOWER(#{field}) ILIKE ?" }
+            scope.where(conditions.join(" OR "), *value.map { |v| "%#{v.downcase}%" })
+          else
+            scope.where("LOWER(#{field}) ILIKE ?", "%#{value.downcase}%")
+          end
+        else
+          scope
+        end
+      end
+    end
+
+    def self.apply_grant_id_filter(scope, filter)
+      value = filter[:value]
+      operator = filter[:operator] || "eq"
+
+      scope.select do |plan|
+        fragments_scope = plan&.json_fragment&.dmp_fragments
+
+        case operator
+        when "eq"
+          fragments_scope&.where("data->>'grantId' ~* ?", value)&.exists?
+        when "regex"
+          regex = value["regex"].gsub(/\A\/|\/\z/, '')
+          fragments_scope&.where("data->>'grantId' ~* ?", regex)&.exists?
+        when "in"
+          fragments_scope&.where("LOWER(data->>'grantId') IN (?)", value.compact.uniq.map(&:downcase)) || []
+        else
+          fragments_scope
+        end
       end
     end
   end

@@ -20,10 +20,10 @@ module Mutations
       @token = auth_svc.call
 
       {
-        "access_token": @token,
-        "token_type": "Bearer",
-        "expires_in":  auth_svc.expiration,
-        "created_at": Time.now.to_formatted_s(:iso8601)
+        access_token: @token,
+        token_type: "Bearer",
+        expires_in:  auth_svc.expiration,
+        created_at: Time.now.to_formatted_s(:iso8601)
       }
     end
   end

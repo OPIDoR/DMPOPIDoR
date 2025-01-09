@@ -1,11 +1,11 @@
 module Types
   class QueryType < Types::BaseObject
-    # field :plans, resolver: Resolvers::PlansResolver, description: "Fetch plans"
     field :fragments, resolver: Resolvers::FragmentsResolver, description: "Fetch fragments"
     # field :researchOutputs, resolver: Resolvers::ResearchOutputsResolver, description: "Fetch research outputs"
 
     field :plans, [PlanType], null: false do
       argument :filter, Types::LogicalFilterInput, required: false
+      description "Fetch plans with optional filtering"
     end
 
     def plans(filter: nil)
