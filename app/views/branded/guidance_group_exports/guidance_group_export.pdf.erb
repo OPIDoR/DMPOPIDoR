@@ -60,8 +60,8 @@
   <body>
     <h1><%= "#{@guidance_group.org}: #{@guidance_group.name} (#{@guidance_group.language.name})" %></h1>
     <% language = @guidance_group.language.abbreviation %>
-    <% for theme in @themes %>
-      <% for guidance in @guidances.where(published: true, themes: { id: theme.id } )  %>
+    <% @themes.each |theme| do %>
+      <% @guidances.where(themes: { id: theme.id } ).each |guidance| do %>
         <% if language == "fr-FR" %>
           <h2><%= theme.title  %></h2>
         <% elsif language == "en-GB" %>
