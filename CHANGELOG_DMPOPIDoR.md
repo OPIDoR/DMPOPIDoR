@@ -2,6 +2,9 @@
 
 **Attention** Cette liste de changements concerne les déploiements sur nos serveurs de test en interne.
 
+## 10/01/2025
+- Mise à jour API GraphQL, opérateurs AND, OR et NOT, filtre sur plan et grantId
+
 ## 05/12/2024
 
 - Ajout d'un icone indiquant la présence d'un tooltip sur un libellé (#11798)

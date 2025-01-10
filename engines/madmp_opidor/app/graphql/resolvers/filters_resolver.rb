@@ -3,15 +3,36 @@ module Resolvers
     def self.apply(scope, filter)
       return scope if filter.nil?
 
+      conditions = []
+
       if filter[:and]
-        filter[:and].reduce(scope) do |current_scope, sub_filter|
-          apply(current_scope, sub_filter)
+        and_condition = filter[:and].reduce(nil) do |current_scope, sub_filter|
+          sub_condition = build_condition(scope, sub_filter)
+          current_scope ? current_scope.and(sub_condition) : sub_condition
         end
-      elsif filter[:or]
-        filters = filter[:or].map { |sub_filter| apply(scope, sub_filter).where_clause.ast }
-        scope.where(filters.reduce { |acc, query| acc.or(query) })
-      elsif filter[:not]
-        scope.where.not(apply(scope, filter[:not]).where_clause.ast)
+        conditions << and_condition
+      end
+
+      if filter[:or]
+        or_condition = filter[:or].reduce(nil) do |current_scope, sub_filter|
+          sub_condition = build_condition(scope, sub_filter)
+          current_scope ? current_scope.or(sub_condition) : sub_condition
+        end
+        conditions << or_condition
+      end
+
+      if filter[:not]
+        not_condition = build_condition(scope, filter[:not])
+        conditions << scope.where.not(not_condition)
+      end
+
+      conditions.reduce(scope) { |current_scope, condition| current_scope.merge(condition) }
+    end
+
+    def self.build_condition(scope, filter)
+      field = filter[:field]
+      if field == "grantId"
+        build_grant_id_condition(scope, filter)
       else
         apply_single_filter(scope, filter)
       end
@@ -22,54 +43,63 @@ module Resolvers
       value = filter[:value]
       operator = filter[:operator] || "eq"
 
-      if field == "grantId"
-        apply_grant_id_filter(scope, filter)
-      else
+      matching_ids = scope.select do |plan|
+        fragments_scope = plan&.json_fragment&.dmp_fragments
+        next false unless fragments_scope
+
         case operator
         when "eq"
           if value.is_a?(Array)
-            scope.where("LOWER(#{field}) IN (?)", value.map(&:downcase))
+            fragments_scope.any? { |fragment| fragment.data[field]&.downcase == value&.downcase }
           else
-            scope.where("LOWER(#{field}) = ?", value.downcase)
+            fragments_scope.any? { |fragment| fragment.data[field]&.downcase == value&.downcase }
           end
         when "neq"
-          if value.is_a?(Array)
-            scope.where.not("LOWER(#{field}) IN (?)", value.map(&:downcase))
-          else
-            scope.where.not("LOWER(#{field}) = ?", value.downcase)
-          end
+          fragments_scope.none? { |fragment| fragment.data[field]&.downcase == value&.downcase }
         when "like"
-          if value.is_a?(Array)
-            conditions = value.map { |v| "LOWER(#{field}) ILIKE ?" }
-            scope.where(conditions.join(" OR "), *value.map { |v| "%#{v.downcase}%" })
-          else
-            scope.where("LOWER(#{field}) ILIKE ?", "%#{value.downcase}%")
-          end
+          fragments_scope.any? { |fragment| fragment.data[field]&.downcase&.include?(value.downcase) }
+        when "regex"
+          regex = value.gsub(/\A\/|\/\z/, '')
+          fragments_scope.any? { |fragment| fragment.data[field] =~ Regexp.new(regex) }
         else
           scope
         end
-      end
+      end.map(&:id)
+
+      scope.where(id: matching_ids)
     end
 
-    def self.apply_grant_id_filter(scope, filter)
+    def self.build_grant_id_condition(scope, filter)
       value = filter[:value]
       operator = filter[:operator] || "eq"
 
-      scope.select do |plan|
+      matching_ids = scope.select do |plan|
         fragments_scope = plan&.json_fragment&.dmp_fragments
+        next false unless fragments_scope
 
         case operator
         when "eq"
-          fragments_scope&.where("data->>'grantId' ~* ?", value)&.exists?
+          if value.is_a?(Array)
+            fragments_scope.any? { |fragment| value.include?(fragment.data['grantId']&.downcase) }
+          else
+            fragments_scope.any? { |fragment| fragment.data['grantId']&.downcase == value.downcase }
+          end
+        when "like"
+          if value.is_a?(Array)
+            fragments_scope.any? { |fragment| value.any? { |v| fragment.data['grantId']&.downcase =~ /#{v.downcase}/i } }
+          else
+            fragments_scope.any? { |fragment| fragment.data['grantId']&.downcase =~ /#{value.downcase}/i }
+          end
         when "regex"
-          regex = value["regex"].gsub(/\A\/|\/\z/, '')
-          fragments_scope&.where("data->>'grantId' ~* ?", regex)&.exists?
-        when "in"
-          fragments_scope&.where("LOWER(data->>'grantId') IN (?)", value.compact.uniq.map(&:downcase)) || []
+          regex = Regexp.new(value.gsub(/\A\/|\/\z/, ''))
+          fragments_scope.any? { |fragment| fragment.data['grantId'] =~ regex }
         else
-          fragments_scope
+          false
         end
-      end
+      end.map(&:id)
+
+      scope.where(id: matching_ids)
     end
+
   end
 end
