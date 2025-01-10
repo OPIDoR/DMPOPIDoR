@@ -5,16 +5,20 @@ module Api
 
     respond_to :json
 
-    before_action :authorize_request
-    skip_before_action :authorize_request, if: -> { params[:query].present? && params[:query].include?('authenticate') }
+    before_action :authorize_request, unless: -> { public_query?(params[:query]) }
 
     def execute
+      if public_query?(params[:query])
+        context = {}
+      else
+        authorize_request
+        context = { current_user: @client }
+      end
+
       variables = prepare_variables(params[:variables])
       query = params[:query]
       operation_name = params[:operationName]
-      context = {
-        current_user: @client
-      }
+
       result = DmpRoadmapSchema.execute(query, variables: variables, context: context, operation_name: operation_name)
       render json: result
     rescue StandardError => error
@@ -24,6 +28,10 @@ module Api
     end
 
     private
+
+    def public_query?(query)
+      query.present? && (query.include?('__schema')  || query.include?('authenticate'))
+    end
 
     def prepare_variables(variables_param)
       case variables_param
