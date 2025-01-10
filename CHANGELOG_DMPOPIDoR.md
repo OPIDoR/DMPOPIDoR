@@ -2,13 +2,8 @@
 
 **Attention** Cette liste de changements concerne les déploiements sur nos serveurs de test en interne.
 
-## 07/01/2025
-
-- Mise à jour des classes pour le produit de recherche logiciel
-- Retrait de l'icone Twitter du pied de page (#12322)
-- Le choix des recommandations est désormais affiché lorsqu'il n'y a aucun produit de recherche (#12265)
-- Harmonisation des couleurs et de la taille du formulaire de création de PR & ajout du message de description d'un PR pour les plans sans PR (#12265)
-
+## 10/01/2025
+- Mise à jour API GraphQL, opérateurs AND, OR et NOT, filtre sur plan et grantId
 
 ## 05/12/2024
 
