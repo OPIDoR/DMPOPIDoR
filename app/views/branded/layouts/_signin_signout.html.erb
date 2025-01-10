@@ -105,12 +105,15 @@
         <div>
         <h5 class="dropdown-header"><%= _('maDMP Features') %></h5>
         <ul>
-        <li <%= 'class=active' if active_page?(super_admin_madmp_schemas_path) %>>
-          <%= link_to _('Schemas'), super_admin_madmp_schemas_path+"#content" %>
-        </li>
-        <li <%= 'class=active' if active_page?(super_admin_registries_path) %>>
-          <%= link_to _('Registries'), super_admin_registries_path+"#content" %>
-        </li>
+          <li <%= 'class=active' if active_page?(super_admin_madmp_schemas_path) %>>
+            <%= link_to _('Schemas'), super_admin_madmp_schemas_path+"#content" %>
+          </li>
+          <li <%= 'class=active' if active_page?(super_admin_registries_path) %>>
+            <%= link_to _('Registries'), super_admin_registries_path+"#content" %>
+          </li>
+          <li <%= 'class=active' if active_page?(super_admin_module_templates_path) %>>
+            <%= link_to _('Module Templates'), super_admin_module_templates_path+"#content" %>
+          </li>
         </ul>
         </div>
       <% end %>

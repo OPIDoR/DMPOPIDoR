@@ -64,15 +64,6 @@
               customisable_org_admin_templates_path, { role: 'tab' }) %>
         </li>
       <% end %>
-
-      <li role="presentation"
-          class="<%= action_name == 'modules' ? 'active' : '' %>">
-
-        <%= link_to(modules_org_admin_templates_path, { role: 'tab' }) do %>
-            <% _('Module Templates') %>
-        <% end %>
-
-      </li>
     </ul>
 
     <div class="tab-content">
@@ -126,11 +117,6 @@
     <a href="<%= new_org_admin_template_path(type: "structured") %>" class="btn btn-primary" role="button">
       <%= _('Create a template') %>
     </a>
-    <% if current_user.can_super_admin? %>
-      <a href="<%= new_org_admin_template_path(type: "module") %>" class="btn btn-primary" role="button">
-        <%= _('Create a module template') %>
-      </a>
-    <% end %>
     <a href="<%= new_org_admin_template_path(type: "classic") %>">
       <%= _('Create a classic template') %>
     </a>
