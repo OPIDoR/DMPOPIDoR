@@ -43,9 +43,9 @@
 module Fragment
   module Software
     # ResearchOutputDescription STI model
-    class SoftwareArchiving < MadmpFragment
+    class SoftwarePreservation < MadmpFragment
       def self.sti_name
-        'software_archiving'
+        'software_preservation'
       end
     end
   end

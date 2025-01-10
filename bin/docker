@@ -25,10 +25,10 @@ if params == 'db:setup'
   exit!
 end
 
-valid_db = ARGV.length > 0 && %w[mysql postgres].include?(params)
+valid_db = ARGV.length > 0 && %w[postgres].include?(params)
 
 unless valid_db
-  puts '== You MUST specify the type of DB you would like to use. Either mysql or postgres =='
+  puts '== You MUST specify the type of DB you would like to use. Only postgres is supported =='
   puts '== For example: `ruby bin/docker postgres` =='
   exit!
 end
@@ -51,8 +51,7 @@ chdir APP_ROOT do
 
   puts '== Generate credentials file =='
   db_username = {
-    "postgres" => 'postgres',
-    "mysql" => 'root'
+    "postgres" => 'postgres'
   }
   regex = [
     "s/^secret_key_base:(.*)$/\\secret_key_base:\s#{ENV["SECRET_KEY_BASE"] || 'my_secret_key'}/",

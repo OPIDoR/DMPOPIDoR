@@ -122,8 +122,7 @@ module Dmpopidor
 
       target_plan = ::Plan.find(params[:plan_id])
 
-      # rubocop:disable Metrics/BlockLength
-      I18n.with_locale target_plan.template.locale do
+      I18n.with_locale target_plan.template.locale do # rubocop:disable Metrics/BlockLength
         pos = target_plan.research_outputs.length + 1
 
         research_output_copy = target_plan.research_outputs.create!(
@@ -143,16 +142,17 @@ module Dmpopidor
           additional_info: research_output_fragment.additional_info
         )
 
-        research_output.answers.each do |answer|
-          answer_copy = ::Answer.deep_copy(answer)
-          answer_copy.plan_id = target_plan.id
-          answer_copy.research_output_id = research_output_copy.id
-          answer_copy.save!
-          MadmpFragment.deep_copy(answer.madmp_fragment, answer_copy.id, research_output_copy_fragment)
-        end
+        module_id = research_output_copy_fragment.additional_info['moduleId']
+        template = module_id ? ::Template.find(module_id) : target_plan.template
 
-        # module_id = research_output_copy_fragment.additional_info['moduleId']
-        # template = module_id ? ::Template.find(module_id) : target_plan.template
+        Import::PlanImportService.import_research_output(
+          research_output_copy_fragment,
+          research_output_fragment.get_full_fragment,
+          target_plan,
+          template
+        )
+        research_output_copy_fragment.research_output_description
+                                     .update_research_output_parameters(skip_broadcast: true)
 
         render json: {
           id: target_plan.id,
@@ -161,7 +161,6 @@ module Dmpopidor
           research_outputs: target_plan.research_outputs.order(:display_order).map(&:serialize_json)
         }
       end
-      # rubocop:enable Metrics/BlockLength
     end
     # rubocop:enable Metrics/AbcSize, Metrics/MethodLength
 

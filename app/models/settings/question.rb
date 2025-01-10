@@ -37,16 +37,16 @@ module Settings
       ],
       'software' => %w[
         software_description
-        software_development_management
+        software_development
         software_documentation
-        software_runtime_environment
-        software_archiving
+        software_runtime
+        software_preservation
         software_sharing
         software_legal_issues
         programming_language
         dependency_reference
         software_resource_reference
-        software_outreach
+        software_valorisation
       ]
     }.freeze
   end
