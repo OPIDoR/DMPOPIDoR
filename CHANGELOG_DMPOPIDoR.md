@@ -2,6 +2,15 @@
 
 **Attention** Cette liste de changements concerne les déploiements sur nos serveurs de test en interne.
 
+## 13/01/2025
+
+- Amélioration de la gestion des modules (#12353)
+- Suppression du lien Actualités dans le pied de page & Ajout d'un lien Voir Tout pour les actualités de l'accueil (#12338)
+- Retrait de l'export DOCX pour les modèles publics et l'historique des modèles (#12339)
+- Correction du problème d'affichage du choix des recommandations (#12351)
+- Correction du problème de création de fragments contenant des valeurs vides avec des contraintes d'unicité. ex: Partenaires (#12355)
+
+
 ## 10/01/2025
 
 - Mise à jour API GraphQL, opérateurs AND, OR et NOT, filtre sur plan et grantId
