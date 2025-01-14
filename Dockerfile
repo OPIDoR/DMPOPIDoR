@@ -6,6 +6,7 @@ RUN apt update -y && apt install -y --no-install-recommends \
   curl \
   gnupg \
   libpq-dev \
+  libyaml-dev \
   wkhtmltopdf \
   imagemagick \
   tzdata \
