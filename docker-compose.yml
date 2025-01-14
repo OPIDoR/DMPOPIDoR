@@ -155,7 +155,7 @@ services:
       - dmpopidor_network
 
   valkey:
-    image: valkey/valkey:8.0.2-alpine3.20
+    image: valkey/valkey:8.0.2-alpine3.21
     command: "redis-server /etc/redis/redis.conf --requirepass ${REDIS_PASSWORD:-changeme}"
     volumes:
       - ./redis/sysctl.conf:/etc/sysctl.conf:ro
