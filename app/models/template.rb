@@ -269,10 +269,10 @@ class Template < ApplicationRecord
     where(is_recommended: true, published: true, type: 'structured', context:, locale:).last
   end
 
-  def self.module(data_type: nil, context: 'research_project', locale: 'fr-FR')
+  def self.module(data_type: nil, locale: 'fr-FR')
     return nil if data_type.nil?
 
-    where(published: true, type: 'module', data_type:, context:, locale:).last
+    where(published: true, type: 'module', data_type:, locale:).last
   end
 
   def self.current(family_id)

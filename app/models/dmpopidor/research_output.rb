@@ -48,9 +48,8 @@ module Dmpopidor
         contact_person = dmp_fragment.persons.first
         data_type = configuration[:dataType]
         locale = plan.template.locale
-        context = plan.template.context
         if fragment.nil?
-          description_prop_name, description_question, description_schema = data_type_to_schema_data(data_type, context, locale) # rubocop:disable Layout/LineLength
+          description_prop_name, description_question, description_schema = data_type_to_schema_data(data_type, locale)
 
           # Creates the main ResearchOutput fragment
           fragment = Fragment::ResearchOutput.create(
@@ -64,7 +63,7 @@ module Dmpopidor
               property_name: 'researchOutput',
               hasPersonalData: configuration[:hasPersonalData] || false,
               dataType: data_type || 'none',
-              moduleId: ::Template.module(data_type:, context:, locale:)&.id
+              moduleId: ::Template.module(data_type:, locale:)&.id
             }
           )
           fragment_description = MadmpFragment.create!(
@@ -174,11 +173,11 @@ module Dmpopidor
     # Returns an array containing the property name, description question & the madmpschema according to the
     # data_type in parameters
     #####
-    def data_type_to_schema_data(data_type, context, locale)
+    def data_type_to_schema_data(data_type, locale)
       if data_type.eql?('software') && MadmpSchema.exists?(name: 'SoftwareDescriptionStandard')
         [
           'softwareDescription',
-          ::Template.module(data_type:, context:, locale:).questions.joins(:madmp_schema).find_by(madmp_schemas: { classname: 'software_description' }), # rubocop:disable Layout/LineLength
+          ::Template.module(data_type:, locale:).questions.joins(:madmp_schema).find_by(madmp_schemas: { classname: 'software_description' }), # rubocop:disable Layout/LineLength
           MadmpSchema.find_by(name: 'SoftwareDescriptionStandard')
         ]
       else
