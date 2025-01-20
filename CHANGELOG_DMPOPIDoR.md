@@ -2,11 +2,12 @@
 
 **Attention** Cette liste de changements concerne les déploiements sur nos serveurs de test en interne.
 
-## 15/01/2025
+## 20/01/2025
 
 - Changement de l'URL "Voir tout" des actualités (#12344)
 - Retrait du context dans le choix d'un module lors de la création d'un produit logiciel 
 - Ajout du support de l'import de plan avec un PR Logiciel (#12338)
+- Correction du problème d'export des questions autre que la description dans la PR Logiciel(#12354)
 
 ## 13/01/2025
 
