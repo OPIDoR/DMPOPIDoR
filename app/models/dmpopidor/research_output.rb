@@ -69,6 +69,7 @@ module Dmpopidor
           fragment_description = MadmpFragment.create!(
             data: {
               'title' => title,
+              'shortName' => abbreviation,
               'datasetId' => pid,
               'type' => output_type_description,
               'containsPersonalData' => configuration[:hasPersonalData] ? _('Yes') : _('No')
@@ -118,7 +119,7 @@ module Dmpopidor
     def serialize_infobox_data
       description_fragment = json_fragment.research_output_description
       {
-        abbreviation: abbreviation,
+        abbreviation: description_fragment.data['shortName'],
         title: description_fragment.data['title'],
         type: description_fragment.data['type'],
         configuration: {

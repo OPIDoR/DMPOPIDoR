@@ -63,6 +63,7 @@ module Dmpopidor
 
         updated_data = research_output_description.data.merge({
                                                                 title: params[:title],
+                                                                shortName: params[:abbreviation],
                                                                 type: params[:type],
                                                                 containsPersonalData: params[:configuration][:hasPersonalData] ? _('Yes') : _('No') # rubocop:disable Layout/LineLength
                                                               })
