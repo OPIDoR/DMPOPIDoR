@@ -25,13 +25,14 @@ module Import
       def handle_research_outputs(plan, research_outputs)
         I18n.with_locale plan.template.locale do
           research_outputs.each_with_index do |ro_data, idx|
+            max_order = plan.research_outputs.empty? ? 1 : plan.research_outputs.maximum('display_order') + 1
             research_output = plan.research_outputs.create!(
               abbreviation: "#{_('RO')} #{idx + 1}",
-              title: ro_data['researchOutputDescription']['title'],
+              title: "#{_('Research output')} #{max_order}",
               is_default: idx.eql?(0),
               display_order: idx + 1
             )
-            research_output.create_json_fragments
+            research_output.create_json_fragments(ro_data['configuration'].deep_symbolize_keys)
             ro_frag = research_output.json_fragment
             import_research_output(ro_frag, ro_data, plan, plan.template)
             ro_frag.research_output_description.update_research_output_parameters(skip_broadcast: true)
