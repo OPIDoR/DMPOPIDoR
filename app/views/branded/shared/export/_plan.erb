@@ -18,44 +18,100 @@
 
     <% @hash[:phases].each do |phase| %>
       <%# Page break before each phase %>
-        <div style="page-break-before:always;"></div>
-        <h1><%= download_plan_page_title(@plan, phase, @hash) %></h1>
-        <hr />
-        <% if @research_output_export_mode == "by_research_output" %>
-          <%= render partial: 'shared/export/export_by_research_output',
-                      locals: {
-                        research_outputs: @hash[:research_outputs],
-                        sections: phase[:sections]
-                      } %>
-        <% else %>
-          <% phase[:sections].each do |section| %>
-            <% if display_section?(@hash[:customization], section, @show_custom_sections) %>
-                <% if @show_sections_questions %>
-                  <br/>
-                  <h2><%= section[:title] %></h2>
-                  <p><%= sanitize section[:description].to_s %></p>
-                  <br/>
-                <% end %>
-                <% if @research_output_export_mode == "by_section" || @hash[:research_outputs].length == 1 %>
-                  <%= render partial: 'shared/export/export_by_section',
-                            locals: {
-                              research_outputs: @hash[:research_outputs],
-                              questions: section[:questions],
-                              section: section
-                            } %>
-                <% elsif @research_output_export_mode == "by_question" %>
-                  <%= render partial: 'shared/export/export_by_question',
-                            locals: {
-                              research_outputs: @hash[:research_outputs],
-                              questions: section[:questions],
-                              section: section
-                            } %>
-                <% else %>
-                    <h1>Export mode unknown</h1>
-                <% end %>
-            <% end %> <!-- sections.each -->
+      <div style="page-break-before:always;"></div>
+      <h1><%= download_plan_page_title(@plan, phase, @hash) %></h1>
+      <hr />
+      <% @hash[:research_outputs].each do |research_output| %>
+        <% research_output_default_and_alone = research_output.is_default && research_outputs.length == 1 %>
+        <% research_output_description = research_output.json_fragment.research_output_description %>
+
+        <% if !research_output_default_and_alone %>
+          <div class="research-output">
+            <h2><%= research_output_description.data['title'] %></h2>
+        <% end %>
+        <% phase[:sections].each do |section| %>
+          <% section_has_common_answers = research_output.main().common_answers?(section[:id]) %>
+          <% if @show_sections_questions %>
+            <br/>
+            <h3><%= section[:title] %></h3>
+            <p><%= sanitize section[:description] %></p>
+            <br/>
           <% end %>
-        <% end %> <!-- phases.each -->
+          <% section[:questions].each do |question| %>
+            <% answer = section_has_common_answers ?
+                  @plan.answer(question[:id], false, research_output.main().id) :
+                  @plan.answer(question[:id], false, research_output[:id]) %>
+            <% blank = answer.present? ? answer.blank? : true %>
+            <% options = answer.present? ? answer.question_options : [] %>
+            <% fragment = answer.present? ? answer.madmp_fragment : nil %>
+
+            <% next if  @plan.template.structured? && should_hide_question(question, research_output) %>
+
+            <%  unless @show_unanswered == false && blank  %>
+              <div class="question">
+                <% if !@public_plan && @show_sections_questions%>
+                  <p>
+                    <%# Hack: for DOCX export - otherwise, bold highlighting of question inconsistent. %>
+                    <% if local_assigns[:export_format] && export_format == 'docx' %>
+                      <strong><h4><%=  sanitize question[:text].to_s, scrubber: TableFreeScrubber.new %></h4></strong>
+                    <% else %>
+                      <div class="bold"><h4><%=  sanitize question[:text].to_s, scrubber: TableFreeScrubber.new %></h4></div>
+                    <% end %>
+                    <br/>
+                  </p>
+                  <br/>
+                <% end %>
+                <%# case where Question has options %>
+                <% if options.present? && options.any? %>
+                  <ul>
+                  <% options.each do |opt| %>
+                    <li><%= opt.text %></li>
+                  <% end %>
+                  </ul>
+                <% end %>
+                <% if question[:format].rda_metadata? && !blank %>
+                  <% ah = answer.answer_hash %>
+                  <% if ah['standards'].present? %>
+                  <ul>
+                    <% ah['standards'].each do |id, title| %>
+                    <li><%= title %></li>
+                    <% end %>
+                  </ul>
+                  <% end %>
+                  <p><%= sanitize ah['text'] %></p>
+                  <br/>
+                <% end %>
+                <% if @plan.template.structured? && fragment.present? %>
+                  <%= render partial: 'shared/export/display_madmp_fragment',
+                              locals: {
+                                  fragment: fragment,
+                                  schema: fragment.madmp_schema,
+                                  classname: fragment.classname,
+                                  locale: LocaleService.to_gettext(locale: @plan.template.locale),
+                                  table_header: nil
+                              } %>
+                <%# case for displaying comments OR text %>
+                <% elsif !blank %>
+                  <%= sanitize answer&.text %>
+                  <br/>
+                <% else %>
+                  <br/>
+                  <p><%= _('Question not answered.') -%></p>
+                  <br/><br/>
+                  <br />
+                <% end %>
+                <br />
+              </div>
+            <% end %>
+          <% end %> <!-- questions.each -->
+
+        <% end %>
+
+        <% if !research_output_default_and_alone  %>
+          </div> <!-- .research_output -->
+        <% end %>
+
+      <% end %>
     <% end %>
   </body>
 </html>
