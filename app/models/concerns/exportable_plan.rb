@@ -61,20 +61,8 @@ module ExportablePlan
   # rubocop:enable Metrics/AbcSize, Metrics/MethodLength, Metrics/ParameterLists
   # rubocop:enable Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
 
-  private
-
-  # rubocop:disable Metrics/MethodLength, Metrics/AbcSize
-  # rubocop:disable Style/OptionalBooleanParameter
-  def prepare(user, coversheet = false)
-    hash = coversheet ? prepare_coversheet : {}
-    template = Template.includes(phases: { sections: { questions: :question_format } })
-                       .joins(phases: { sections: { questions: :question_format } })
-                       .where(id: template_id)
-                       .order('sections.number', 'questions.number').first
-    hash[:customization] = template.customization_of.present?
-    hash[:title] = title
-    hash[:answers] = answers
-
+  # rubocop:disable Metrics/AbcSize, Metrics/MethodLength
+  def prepare_template_phases(template)
     # add the relevant questions/answers
     phases = []
     template.phases.order(:number).each do |phase|
@@ -106,7 +94,25 @@ module ExportablePlan
       end
       phases << phs
     end
-    hash[:phases] = phases
+    phases
+  end
+  # rubocop:enable Metrics/AbcSize, Metrics/MethodLength
+
+  private
+
+  # rubocop:disable Metrics/MethodLength, Metrics/AbcSize
+  # rubocop:disable Style/OptionalBooleanParameter
+  def prepare(user, coversheet = false)
+    hash = coversheet ? prepare_coversheet : {}
+    template = Template.includes(phases: { sections: { questions: :question_format } })
+                       .joins(phases: { sections: { questions: :question_format } })
+                       .where(id: template_id)
+                       .order('sections.number', 'questions.number').first
+    hash[:customization] = template.customization_of.present?
+    hash[:title] = title
+    hash[:answers] = answers
+
+    hash[:phases] = prepare_template_phases(template)
 
     # include any research outputs
     # --------------------------------

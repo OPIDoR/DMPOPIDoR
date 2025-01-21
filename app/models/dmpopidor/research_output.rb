@@ -168,6 +168,10 @@ module Dmpopidor
       json_fragment.additional_info['hasPersonalData'] || false
     end
 
+    def module_id
+      json_fragment.additional_info['moduleId'] || nil
+    end
+
     private
 
     #####
