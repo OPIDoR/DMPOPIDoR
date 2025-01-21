@@ -2,6 +2,13 @@
 
 **Attention** Cette liste de changements concerne les déploiements sur nos serveurs de test en interne.
 
+## 21/01/2025
+
+- Ajout du support de l'export d'un plan utilisant un module (#12237)
+- Retrait des modes d'export PDF/DOCX par question et par section (#12237)
+- Ajout de la mise à jour de l'abbreviation/shortName du produit de recherche lors de la mise à jour de la description et de l'infobox du PR (#12352)
+- Retrait de la possibilité pour un utilisateur ayant un accès en lecture seule de créer un produit de recherche dans un plan (#12407)
+
 ## 20/01/2025
 
 - Changement de l'URL "Voir tout" des actualités (#12344)
