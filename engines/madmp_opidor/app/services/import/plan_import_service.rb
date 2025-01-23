@@ -33,8 +33,10 @@ module Import
               display_order: idx + 1
             )
             research_output.create_json_fragments(ro_data['configuration'].deep_symbolize_keys)
+            module_id = research_output.module_id
             ro_frag = research_output.json_fragment
-            import_research_output(ro_frag, ro_data, plan, plan.template)
+            plan_template = module_id.present? ? Template.find(module_id) : plan.template
+            import_research_output(ro_frag, ro_data, plan, plan_template)
             ro_frag.research_output_description.update_research_output_parameters(skip_broadcast: true)
           end
         end
