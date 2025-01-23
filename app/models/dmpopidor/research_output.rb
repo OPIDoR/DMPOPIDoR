@@ -70,7 +70,6 @@ module Dmpopidor
             data: {
               'title' => title,
               'shortName' => abbreviation,
-              'datasetId' => pid,
               'type' => output_type_description,
               'containsPersonalData' => configuration[:hasPersonalData] ? _('Yes') : _('No')
             },
@@ -100,7 +99,7 @@ module Dmpopidor
             )
             fragment_description.save!
           end
-        else
+        else # Called in classic plans only
           data = fragment.research_output_description.data.merge(
             {
               'title' => title,
