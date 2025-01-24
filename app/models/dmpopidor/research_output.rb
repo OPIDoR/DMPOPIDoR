@@ -47,8 +47,9 @@ module Dmpopidor
         dmp_fragment = plan.json_fragment
         contact_person = dmp_fragment.persons.first
         data_type = configuration[:dataType]
+        locale = plan.template.locale
         if fragment.nil?
-          description_prop_name, description_question, description_schema = data_type_to_schema_data(data_type)
+          description_prop_name, description_question, description_schema = data_type_to_schema_data(data_type, locale)
 
           # Creates the main ResearchOutput fragment
           fragment = Fragment::ResearchOutput.create(
@@ -62,13 +63,13 @@ module Dmpopidor
               property_name: 'researchOutput',
               hasPersonalData: configuration[:hasPersonalData] || false,
               dataType: data_type || 'none',
-              moduleId: ::Template.module(data_type:)&.id
+              moduleId: ::Template.module(data_type:, locale:)&.id
             }
           )
           fragment_description = MadmpFragment.create!(
             data: {
               'title' => title,
-              'datasetId' => pid,
+              'shortName' => abbreviation,
               'type' => output_type_description,
               'containsPersonalData' => configuration[:hasPersonalData] ? _('Yes') : _('No')
             },
@@ -98,7 +99,7 @@ module Dmpopidor
             )
             fragment_description.save!
           end
-        else
+        else # Called in classic plans only
           data = fragment.research_output_description.data.merge(
             {
               'title' => title,
@@ -117,7 +118,7 @@ module Dmpopidor
     def serialize_infobox_data
       description_fragment = json_fragment.research_output_description
       {
-        abbreviation: abbreviation,
+        abbreviation: description_fragment.data['shortName'],
         title: description_fragment.data['title'],
         type: description_fragment.data['type'],
         configuration: {
@@ -166,17 +167,21 @@ module Dmpopidor
       json_fragment.additional_info['hasPersonalData'] || false
     end
 
+    def module_id
+      json_fragment.additional_info['moduleId'] || nil
+    end
+
     private
 
     #####
     # Returns an array containing the property name, description question & the madmpschema according to the
     # data_type in parameters
     #####
-    def data_type_to_schema_data(data_type)
+    def data_type_to_schema_data(data_type, locale)
       if data_type.eql?('software') && MadmpSchema.exists?(name: 'SoftwareDescriptionStandard')
         [
           'softwareDescription',
-          ::Template.module(data_type:).questions.joins(:madmp_schema).find_by(madmp_schemas: { classname: 'software_description' }), # rubocop:disable Layout/LineLength
+          ::Template.module(data_type:, locale:).questions.joins(:madmp_schema).find_by(madmp_schemas: { classname: 'software_description' }), # rubocop:disable Layout/LineLength
           MadmpSchema.find_by(name: 'SoftwareDescriptionStandard')
         ]
       else

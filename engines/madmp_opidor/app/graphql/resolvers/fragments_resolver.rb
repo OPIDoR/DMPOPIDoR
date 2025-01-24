@@ -36,9 +36,9 @@ module Resolvers
           regex = grant_ids["regex"].gsub(/\A\/|\/\z/, '')
           fragments&.where("data->>'grantId' ~* ?", regex) || []
         elsif grant_ids.is_a?(Array)
-          fragments&.where("data->>'grantId' IN (?)", grant_ids.compact.uniq) || []
+          fragments&.where("LOWER(data->>'grantId') IN (?)", grant_ids.compact.uniq.map(&:downcase)) || []
         else
-          fragments&.where("data->>'grantId' = ?", grant_ids) || []
+          fragments&.where("data->>'grantId' ~* ?", grant_ids) || []
         end
       end
     end
@@ -53,7 +53,7 @@ module Resolvers
     def filter_by_field_name(plans, field_name, value)
       plans.flat_map do |plan|
         fragments = plan&.json_fragment&.dmp_fragments
-        fragments&.where("data->>? = ?", field_name, value) || []
+        fragments&.where("data->>? ~* ?", field_name, value) || []
       end
     end
   end

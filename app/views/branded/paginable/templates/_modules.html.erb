@@ -11,9 +11,7 @@
         <th scope="col"><%= _('Data Type') %></th>
         <th scope="col"><%= _('Status') %></th>
         <th scope="col" class="date-column"><%= _('Edited Date') %>&nbsp;<%= paginable_sort_link('templates.updated_at') %></th>
-        <% if action_name != 'index' && current_user.can_super_admin? %>
-          <th scope="col">&nbsp;</th>
-        <% end %>
+        <th scope="col">&nbsp;</th>
       </tr>
     </thead>
     <tbody>
@@ -72,10 +70,9 @@
                     <li><%= link_to _('Publish'), publish_org_admin_template_path(template.id), 'data-method': 'patch' %></li>
                   <% end %>
                   <li>
-                    <%= link_to _('Copy'),
-                        org_admin_template_copies_path(template.id),
-                        data: { method: 'post' }
-                    %>
+                    <%= link_to _('Remove'), org_admin_template_path(id: template.id),
+                                'data-method': 'delete', rel: 'nofollow',
+                                'data-confirm': _('Are you sure you want to remove "%{template_title}"? Any published versions will become unavailable to users.') % { template_title: template.title} %>
                   </li>
                   <% if template.removable? %>
                     <li>
@@ -92,10 +89,6 @@
                           <em class="sr-only"><%= _('(new window)') %></em>
                           <span class="new-window-popup-info"><%= _('Opens in new window') %></span>
                       <% end %>
-                  </li>
-                  <li>
-                    <%= direct_link(template, true) %>
-                    <a href="" class="copy-link" data-bs-toggle="modal" data-bs-target="#link-modal"><%= _('Copy link') %></a>
                   </li>
                 </ul>
               </div>

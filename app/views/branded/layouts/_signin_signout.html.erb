@@ -111,7 +111,10 @@
             <li class="nav-item <%= ' active' if active_page?(super_admin_registries_path) %>">
               <%= link_to _('Registries'), super_admin_registries_path+"#content", class: 'nav-link' %>
             </li>
-            </ul>
+            <li class="nav-item <%= ' active' if active_page?(super_admin_module_templates_path) %>">
+              <%= link_to _('Module Templates'), super_admin_module_templates_path+"#content", class: 'nav-link'  %>
+            </li>
+          </ul>
         </div>
       <% end %>
     </div>

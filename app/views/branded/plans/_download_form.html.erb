@@ -26,29 +26,6 @@
         <% end %>
         </ul>
       </div>
-      <div id="research-output-export-mode">
-        <strong><%= _("Research output export mode") %></strong>
-        <ul>
-          <li class="form-check">
-            <%= label_tag  do %>
-              <%= radio_button_tag("export[research_output_mode]", "by_research_output", false) %>
-              <%= _('Export by research output') %>
-            <% end %>
-          </li>
-          <li class="form-check">
-            <%= label_tag do %>
-              <%= radio_button_tag("export[research_output_mode]", "by_section", true) %>
-              <%= _('Export by section') %>
-            <% end %>
-          </li>
-          <li class="form-check">
-            <%= label_tag do %>
-              <%= radio_button_tag("export[research_output_mode]", "by_question", false) %>
-              <%= _('Export by question') %>
-            <% end %>
-          </li>
-        </ul>
-      </div>
     <% else %>
       <%= hidden_field_tag(:research_output_id, @research_outputs[0].id) %>
     <% end %>

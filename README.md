@@ -4,7 +4,6 @@
 [![Actions Status](https://github.com/DMPRoadmap/roadmap/workflows/Rubocop/badge.svg)](https://github.com/DMPRoadmap/roadmap/actions)
 [![Actions Status](https://github.com/DMPRoadmap/roadmap/workflows/ESLint/badge.svg)](https://github.com/DMPRoadmap/roadmap/actions)
 [![Actions Status](https://github.com/DMPRoadmap/roadmap/workflows/Tests%20-%20PostgreSQL/badge.svg)](https://github.com/DMPRoadmap/roadmap/actions)
-[![Actions Status](https://github.com/DMPRoadmap/roadmap/workflows/Tests%20-%20MySQL/badge.svg)](https://github.com/DMPRoadmap/roadmap/actions)
 
 DMP Roadmap is a Data Management Planning tool. Management and development of DMP Roadmap is jointly provided by the Digital Curation Centre (DCC), http://www.dcc.ac.uk/, and the University of California Curation Center (UC3), http://www.cdlib.org/services/uc3/.
 
@@ -19,9 +18,9 @@ Click here for the latest [releases](https://github.com/DMPRoadmap/roadmap/relea
 
 #### Pre-requisites
 Roadmap is a Ruby on Rails application and you will need to have:
-- Ruby >= 3.1
-- Rails = 7.0
-- MySQL >= 5.0 OR PostgreSQL
+- Ruby >= 3.3
+- Rails = 7.2
+- PostgreSQL
 
 Further detail on how to install Ruby on Rails applications are available from the Ruby on Rails site: http://rubyonrails.org.
 
@@ -82,7 +81,7 @@ docker compose exec -it postgres sh -c "psql -U ${DB_USERNAME:-postgres} -c 'dro
 # build image
 docker compose -f docker-compose.yml -f docker-compose-dev.yml build dmpopidor
 
-# Configure database connection for postgres (change postgres by mysql)
+# Configure database connection for postgres 
 docker compose -f docker-compose.yml -f docker-compose-dev.yml run --rm dmpopidor sh -c 'ruby bin/docker postgres'
 
 # Setup database
@@ -104,7 +103,7 @@ To delete them, do : ``docker compose -f docker-compose.yml -f docker-compose-de
 # build image
 docker compose build dmpopidor
 
-# Configure database connection for postgres (change postgres by mysql)
+# Configure database connection for postgres
 docker compose run --rm dmpopidor sh -c 'ruby bin/docker postgres'
 
 # Setup database

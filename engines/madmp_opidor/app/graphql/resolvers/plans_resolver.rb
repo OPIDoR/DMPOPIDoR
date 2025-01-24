@@ -39,9 +39,9 @@ module Resolvers
           regex = grant_ids["regex"].gsub(/\A\/|\/\z/, '')
           fragments&.where("data->>'grantId' ~* ?", regex)&.exists?
         elsif grant_ids.is_a?(Array)
-          fragments&.where("data->>'grantId' IN (?)", grant_ids.compact.uniq)&.exists?
+          fragments&.where("LOWER(data->>'grantId') IN (?)", grant_ids.compact.uniq.map(&:downcase)) || []
         else
-          fragments&.where("data->>grantId = ?", grant_ids)&.exists?
+          fragments&.where("data->>grantId ~* ?", grant_ids)&.exists?
         end
       end
     end

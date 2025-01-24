@@ -16,46 +16,13 @@
       <%= render partial: 'shared/export/plan_coversheet' %>
     <% end %>
 
-    <% @hash[:phases].each do |phase| %>
-      <%# Page break before each phase %>
-        <div style="page-break-before:always;"></div>
-        <h1><%= download_plan_page_title(@plan, phase, @hash) %></h1>
-        <hr />
-        <% if @research_output_export_mode == "by_research_output" %>
-          <%= render partial: 'shared/export/export_by_research_output',
-                      locals: {
-                        research_outputs: @hash[:research_outputs],
-                        sections: phase[:sections]
-                      } %>
-        <% else %>
-          <% phase[:sections].each do |section| %>
-            <% if display_section?(@hash[:customization], section, @show_custom_sections) %>
-                <% if @show_sections_questions %>
-                  <br/>
-                  <h2><%= section[:title] %></h2>
-                  <p><%= sanitize section[:description].to_s %></p>
-                  <br/>
-                <% end %>
-                <% if @research_output_export_mode == "by_section" || @hash[:research_outputs].length == 1 %>
-                  <%= render partial: 'shared/export/export_by_section',
-                            locals: {
-                              research_outputs: @hash[:research_outputs],
-                              questions: section[:questions],
-                              section: section
-                            } %>
-                <% elsif @research_output_export_mode == "by_question" %>
-                  <%= render partial: 'shared/export/export_by_question',
-                            locals: {
-                              research_outputs: @hash[:research_outputs],
-                              questions: section[:questions],
-                              section: section
-                            } %>
-                <% else %>
-                    <h1>Export mode unknown</h1>
-                <% end %>
-            <% end %> <!-- sections.each -->
-          <% end %>
-        <% end %> <!-- phases.each -->
-    <% end %>
+    <% partial_name = @plan.template.structured? ? 'plan_structured_export' : 'plan_classic_export'%>
+    <%= render partial: "shared/export/#{partial_name}",
+               locals: {
+                 plan: @plan,
+                 phases: @hash[:phases],
+                 research_outputs: @hash[:research_outputs]
+               }
+    %>
   </body>
 </html>

@@ -9,6 +9,7 @@ Rails.application.routes.draw do
     end
     resources :registry_values, only: %i[edit update destroy]
     resources :madmp_schemas, only: %i[index new create edit update destroy]
+    resources :module_templates, only: %i[index]
   end
 
   resources :madmp_fragments, only: %i[show create update destroy] do

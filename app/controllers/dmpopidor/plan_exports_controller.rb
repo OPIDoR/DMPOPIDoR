@@ -36,7 +36,6 @@ module Dmpopidor
 
       @hash           = @plan.as_pdf(current_user, @show_coversheet)
       @formatting     = export_params[:formatting] || @plan.settings(:export).formatting
-      @research_output_export_mode = export_params[:research_output_mode] || 'by_section'
 
       if params.key?(:selected_phases)
         @hash[:phases] = @hash[:phases].select { |p| params[:selected_phases].include?(p[:id].to_s) }
@@ -102,7 +101,7 @@ module Dmpopidor
     def export_params
       params.fetch(:export, {})
             .permit(:form, :project_details, :question_headings, :unanswered_questions, :complete_data,
-                    :custom_sections, :research_outputs, :research_output_mode, :selected_phases,
+                    :custom_sections, :research_outputs, :selected_phases,
                     formatting: [:font_face, :font_size, { margin: %i[top right bottom left] }])
     end
   end
