@@ -2,6 +2,12 @@
 
 **Attention** Cette liste de changements concerne les déploiements sur nos serveurs de test en interne.
 
+## 23/01/2025
+
+- Retrait des modules non publiés de l'export des modèles publics (#12239)
+- Import de plan : Correction du problème d'import des données dans un produit de recherche utilisant un module (#12238)
+- La propriété `datasetId` n'est désormais plus générée lors de la création d'un produit de recherche
+
 ## 21/01/2025
 
 - Ajout du support de l'export d'un plan utilisant un module (#12237)
