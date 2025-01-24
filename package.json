@@ -62,7 +62,6 @@
     "rails-erb-loader": "^5.5.2",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
-    "react-proptypes": "^1.0.0",
     "regenerator-runtime": "^0.14.0",
     "sass": "^1.57.1",
     "sweetalert2": "^11.7.32",
