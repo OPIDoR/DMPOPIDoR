@@ -223,6 +223,7 @@ class MadmpFragment < ApplicationRecord
         hasPersonalData: %w[Oui Yes].include?(data['containsPersonalData'])
       )
       research_output.update(
+        abbreviation: data['shortName'],
         title: data['title']
       )
       ro_fragment.update(additional_info: new_additional_info)
