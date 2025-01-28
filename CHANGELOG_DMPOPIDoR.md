@@ -2,6 +2,11 @@
 
 **Attention** Cette liste de changements concerne les déploiements sur nos serveurs de test en interne.
 
+## 28/01/2025
+
+- Amélioration des textes et traductions du formulaire de création de PR (#12361)
+- L'abbréviation du PR est désormais importée correctement lors d'un import de plan (#12438)
+
 ## 23/01/2025
 
 - Retrait des modules non publiés de l'export des modèles publics (#12239)
