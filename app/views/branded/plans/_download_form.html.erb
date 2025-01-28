@@ -19,7 +19,7 @@
               <%= label_tag("research_outputs[]", nil, { for: "research_output_#{research_output.id}" }) do %>
                 <span class="sublist">└─ </span>
                 <%= check_box_tag("research_outputs[]", research_output.id, true, { class: "research-output-checkbox", id: "research_output_#{research_output.id}" }) %>
-                <%= research_output_description.data['title'] %>
+                <%= "#{research_output_description.data['title']} (#{research_output_description.data['type']})" %>
               <% end %>
             </li>
           <% end %>
@@ -117,6 +117,7 @@
               <%= radio_button_tag("json_format", "rda", false) %>
               <%= _('RDA DMP Common Standard format') %>
             <% end %>
+            <span class="export-msg"><%= _("This format is not compatible with the Software type, the research outputs using this type won't be exported.") %></span>
           </li>
         <% end %>
       </ul>

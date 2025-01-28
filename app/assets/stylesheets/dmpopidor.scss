@@ -224,6 +224,10 @@ body div a.btn {
   #download_form {
     #json-formatting {
       display: none;
+      .export-msg {
+        color: $rust;
+        font-size: smaller;
+      }
     }
   }
 
