@@ -2,6 +2,13 @@
 
 **Attention** Cette liste de changements concerne les déploiements sur nos serveurs de test en interne.
 
+## 29/01/2025
+
+- Retrait de la possibilité de copier un plan (#12385)
+- Correction du problème de sélection des produits de recherche lors de l'export de plan (#12416)
+- Retrait de l'export des PR Logiciel du format RDA JSON & ajout de messages pour l'utilisateur. Ajout du type de produit de recherche dans la liste des PR lors de l'export (#12416)
+- Ajout d'une option de configuration permettant d'améliorer le chargement des traductions dans l'onglet Rédiger et Infos Générales (#12283)
+
 ## 28/01/2025
 
 - Amélioration des textes et traductions du formulaire de création de PR (#12361)
