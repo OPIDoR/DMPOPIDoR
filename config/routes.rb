@@ -169,7 +169,7 @@ Rails.application.routes.draw do
       get 'guidances', action: :question_guidances, constraints: { format: [:json] }
       get 'research_outputs_data', constraints: { format: [:json] }
       get 'contributors_data', constraints: { format: [:json] }
-      # post 'duplicate'
+      post 'duplicate'
       post 'visibility', constraints: { format: [:json] }
       post 'set_test', constraints: { format: [:json] }
       get 'overview'
