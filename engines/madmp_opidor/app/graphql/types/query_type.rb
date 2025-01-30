@@ -5,14 +5,20 @@ module Types
 
     field :plans, [PlanType], null: false do
       argument :filter, Types::LogicalFilterInput, required: false
+      argument :size, Integer, required: false, default_value: 10, description: "Number of items to fetch"
+      argument :offset, Integer, required: false, default_value: 0, description: "Offset for pagination"
       description "Fetch plans with optional filtering"
     end
 
-    def plans(filter: nil)
+    def plans(filter: nil, size: 10, offset: 0)
       scope = Api::V1::PlansPolicy::Scope.new(context[:current_user], Plan).resolve
-      Resolvers::FiltersResolver.apply(scope, filter)&.map do |plan|
-        plan.json_fragment.get_full_fragment
-      end
+
+      fragments_by_plan_id = MadmpFragment.where("(data->>'plan_id')::int IN (?)", scope&.map(&:id))
+      fragments_by_plan_id.flat_map do |fragment|
+        Resolvers::FiltersResolver.apply(fragment.dmp_fragments, filter, size, offset)&.map do |madmp_fragment|
+          madmp_fragment.dmp.get_full_fragment
+        end
+      end.compact.uniq { |fragment| fragment[:plan_id] }
     end
   end
 end

@@ -133,7 +133,7 @@ class MadmpFragment < ApplicationRecord
   end
 
   def dmp_fragments
-    MadmpFragment.where(dmp_id: dmp.id)
+    MadmpFragment.where(dmp_id: classname.eql?('dmp') ? id : dmp_id)
   end
 
   # Returns a human readable version of the structured answer

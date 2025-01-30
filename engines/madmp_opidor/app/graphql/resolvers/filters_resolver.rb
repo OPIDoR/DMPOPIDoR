@@ -1,105 +1,84 @@
 module Resolvers
   class FiltersResolver
-    def self.apply(scope, filter)
+    def self.apply(scope, filter, size, offset)
+      filtered_scope = apply_filters(scope, filter)
+
+      filtered_scope = filtered_scope.offset(offset).limit(size) if size && offset
+
+      filtered_scope
+    end
+
+    def self.apply_filters(scope, filter)
       return scope if filter.nil?
 
-      conditions = []
+      scope = apply_and_conditions(scope, filter[:and]) if filter[:and].present?
+      scope = apply_or_conditions(scope, filter[:or]) if filter[:or].present?
+      scope = apply_not_conditions(scope, filter[:not]) if filter[:not].present?
 
-      if filter[:and]
-        and_condition = filter[:and].reduce(nil) do |current_scope, sub_filter|
-          sub_condition = build_condition(scope, sub_filter)
-          current_scope ? current_scope.and(sub_condition) : sub_condition
+      scope
+    end
+
+    def self.apply_and_conditions(scope, conditions)
+      return scope if conditions.all? { |sub_filter| build_condition(scope, sub_filter).any? }
+
+      scope.none
+    end
+
+
+    def self.apply_or_conditions(scope, conditions)
+      if sub_scopes.any?
+        combined_scope = sub_scopes.first
+        sub_scopes.drop(1).each do |sub_scope|
+          combined_scope = combined_scope.or(sub_scope)
         end
-        conditions << and_condition
+        scope = scope.merge(combined_scope)
+      else
+        Rails.logger.warn "No valid OR conditions found: #{conditions.inspect}"
+        return scope.none
       end
+      scope
+    end
 
-      if filter[:or]
-        or_condition = filter[:or].reduce(nil) do |current_scope, sub_filter|
-          sub_condition = build_condition(scope, sub_filter)
-          current_scope ? current_scope.or(sub_condition) : sub_condition
-        end
-        conditions << or_condition
+    def self.apply_not_conditions(scope, condition)
+      not_condition = build_condition(scope, condition)
+
+      if not_condition.present?
+        scope.where.not(not_condition)
+      else
+        Rails.logger.warn "Invalid NOT condition: #{condition.inspect}"
+        return scope.none
       end
-
-      if filter[:not]
-        not_condition = build_condition(scope, filter[:not])
-        conditions << scope.where.not(not_condition)
-      end
-
-      conditions.reduce(scope) { |current_scope, condition| current_scope.merge(condition) }
     end
 
     def self.build_condition(scope, filter)
-      field = filter[:field]
-      if field == "grantId"
-        build_grant_id_condition(scope, filter)
-      else
-        apply_single_filter(scope, filter)
-      end
+      return nil unless filter[:className] && filter[:field] && filter[:value]
+
+      apply_single_filter(scope, filter)
     end
 
     def self.apply_single_filter(scope, filter)
+      class_name = filter[:className]
       field = filter[:field]
       value = filter[:value]
       operator = filter[:operator] || "eq"
 
-      matching_ids = scope.select do |plan|
-        fragments_scope = plan&.json_fragment&.dmp_fragments
-        next false unless fragments_scope
+      scope = scope.where('LOWER(classname) = ?', class_name.downcase)
 
-        case operator
-        when "eq"
-          if value.is_a?(Array)
-            fragments_scope.any? { |fragment| fragment.data[field]&.downcase == value&.downcase }
-          else
-            fragments_scope.any? { |fragment| fragment.data[field]&.downcase == value&.downcase }
-          end
-        when "neq"
-          fragments_scope.none? { |fragment| fragment.data[field]&.downcase == value&.downcase }
-        when "like"
-          fragments_scope.any? { |fragment| fragment.data[field]&.downcase&.include?(value.downcase) }
-        when "regex"
-          regex = value.gsub(/\A\/|\/\z/, '')
-          fragments_scope.any? { |fragment| fragment.data[field] =~ Regexp.new(regex) }
-        else
-          scope
-        end
-      end.map(&:id)
-
-      scope.where(id: matching_ids)
+      case operator
+      when "eq"
+        scope = scope.where("LOWER(data->>'#{field}') = ?", value.downcase)
+      when "neq"
+        scope = scope.where.not("LOWER(data->>'#{field}') = ?", value.downcase)
+      when "like"
+        scope = scope.where("LOWER(data->>'#{field}') LIKE ?", "%#{value.downcase}%")
+      when "regex"
+        regex = value.gsub(/\A\/|\/\z/, '')
+        scope = scope.where("data->>'#{field}' ~* ?", regex)
+      else
+        Rails.logger.warn "Unknown operator: #{operator}"
+        scope = scope
+      end
+      scope
     end
-
-    def self.build_grant_id_condition(scope, filter)
-      value = filter[:value]
-      operator = filter[:operator] || "eq"
-
-      matching_ids = scope.select do |plan|
-        fragments_scope = plan&.json_fragment&.dmp_fragments
-        next false unless fragments_scope
-
-        case operator
-        when "eq"
-          if value.is_a?(Array)
-            fragments_scope.any? { |fragment| value.include?(fragment.data['grantId']&.downcase) }
-          else
-            fragments_scope.any? { |fragment| fragment.data['grantId']&.downcase == value.downcase }
-          end
-        when "like"
-          if value.is_a?(Array)
-            fragments_scope.any? { |fragment| value.any? { |v| fragment.data['grantId']&.downcase =~ /#{v.downcase}/i } }
-          else
-            fragments_scope.any? { |fragment| fragment.data['grantId']&.downcase =~ /#{value.downcase}/i }
-          end
-        when "regex"
-          regex = Regexp.new(value.gsub(/\A\/|\/\z/, ''))
-          fragments_scope.any? { |fragment| fragment.data['grantId'] =~ regex }
-        else
-          false
-        end
-      end.map(&:id)
-
-      scope.where(id: matching_ids)
-    end
-
   end
 end
