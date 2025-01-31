@@ -1,9 +1,11 @@
+require 'arel'
+
 module Resolvers
   class FiltersResolver
     def self.apply(scope, filter, size, offset)
       filtered_scope = apply_filters(scope, filter)
 
-      filtered_scope = filtered_scope.offset(offset).limit(size) if size && offset
+      # filtered_scope = filtered_scope.offset(offset).limit(size) if size && offset
 
       filtered_scope
     end
@@ -19,35 +21,38 @@ module Resolvers
     end
 
     def self.apply_and_conditions(scope, conditions)
-      return scope if conditions.all? { |sub_filter| build_condition(scope, sub_filter).any? }
+      and_conditions = conditions.map { |sub_filter| build_condition(scope, sub_filter) }.compact
 
-      scope.none
-    end
-
-
-    def self.apply_or_conditions(scope, conditions)
-      if sub_scopes.any?
-        combined_scope = sub_scopes.first
-        sub_scopes.drop(1).each do |sub_scope|
-          combined_scope = combined_scope.or(sub_scope)
-        end
-        scope = scope.merge(combined_scope)
+      if and_conditions.any?
+        scope = scope.where(and_conditions.reduce(&:or))
+        scope = scope
+                  .select('madmp_fragments.dmp_id', 'MAX(madmp_fragments.id) as id')
+                  .group(:dmp_id)
+                  .having(Arel.sql("COUNT(*) = #{conditions.length}"))
       else
-        Rails.logger.warn "No valid OR conditions found: #{conditions.inspect}"
         return scope.none
       end
       scope
     end
 
-    def self.apply_not_conditions(scope, condition)
-      not_condition = build_condition(scope, condition)
+    def self.apply_or_conditions(scope, conditions)
+      or_conditions = conditions.map { |sub_filter| build_condition(scope, sub_filter) }.compact
 
-      if not_condition.present?
-        scope.where.not(not_condition)
+      if or_conditions.any?
+        combined_scope = or_conditions.reduce do |accum, condition|
+          accum.or(condition)
+        end
+
+        scope = scope.where(combined_scope)
+        scope = scope
+                  .select('madmp_fragments.dmp_id', 'MAX(madmp_fragments.id) as id')
+                  .group(:dmp_id)
       else
-        Rails.logger.warn "Invalid NOT condition: #{condition.inspect}"
+        Rails.logger.warn "No valid OR conditions found: #{conditions.inspect}"
         return scope.none
       end
+
+      scope
     end
 
     def self.build_condition(scope, filter)
@@ -62,23 +67,28 @@ module Resolvers
       value = filter[:value]
       operator = filter[:operator] || "eq"
 
-      scope = scope.where('LOWER(classname) = ?', class_name.downcase)
+      table = scope.arel_table
+      field_column = Arel.sql("data->>'#{field}'")
+      class_column = table[:classname]
+
+      condition = nil
 
       case operator
       when "eq"
-        scope = scope.where("LOWER(data->>'#{field}') = ?", value.downcase)
+        condition = class_column.eq(class_name).and(field_column.eq(value))
       when "neq"
-        scope = scope.where.not("LOWER(data->>'#{field}') = ?", value.downcase)
+        condition = class_column.eq(class_name).and(field_column.not_eq(value))
       when "like"
-        scope = scope.where("LOWER(data->>'#{field}') LIKE ?", "%#{value.downcase}%")
+        condition = class_column.eq(class_name).and(field_column.like("%#{value.downcase}%"))
       when "regex"
         regex = value.gsub(/\A\/|\/\z/, '')
-        scope = scope.where("data->>'#{field}' ~* ?", regex)
+        condition = Arel::Nodes::SqlLiteral.new("LOWER(data->>'#{field}') ~* '#{regex}'")
+        condition = class_column.eq(class_name).and(condition)
       else
         Rails.logger.warn "Unknown operator: #{operator}"
-        scope = scope
       end
-      scope
+
+      condition
     end
   end
 end
