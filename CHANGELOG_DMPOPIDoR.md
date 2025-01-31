@@ -4,6 +4,11 @@
 
 ## 29/01/2025
 
+- Annulation : Retrait de la possibilité de copier un plan (#12385)
+- Retrait du switch des indiquant la présence de données personnelles dans un produit Logiciel (#12361)
+
+## 29/01/2025
+
 - Retrait de la possibilité de copier un plan (#12385)
 - Correction du problème de sélection des produits de recherche lors de l'export de plan (#12416)
 - Retrait de l'export des PR Logiciel du format RDA JSON & ajout de messages pour l'utilisateur. Ajout du type de produit de recherche dans la liste des PR lors de l'export (#12416)
