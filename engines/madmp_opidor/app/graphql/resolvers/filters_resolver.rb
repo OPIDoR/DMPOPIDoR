@@ -1,13 +1,14 @@
+# frozen_string_literal: true
+
 require 'arel'
 
 module Resolvers
+  # FiltersResolver
   class FiltersResolver
-    def self.apply(scope, filter, size, offset)
-      filtered_scope = apply_filters(scope, filter)
+    def self.apply(scope, filter, _size, _offset)
+      apply_filters(scope, filter)
 
       # filtered_scope = filtered_scope.offset(offset).limit(size) if size && offset
-
-      filtered_scope
     end
 
     def self.apply_filters(scope, filter)
@@ -21,22 +22,19 @@ module Resolvers
     end
 
     def self.apply_and_conditions(scope, conditions)
-      and_conditions = conditions.map { |sub_filter| build_condition(scope, sub_filter) }.compact
+      and_conditions = conditions.filter_map { |sub_filter| build_condition(scope, sub_filter) }
 
-      if and_conditions.any?
-        scope = scope.where(and_conditions.reduce(&:or))
-        scope = scope
-                  .select('madmp_fragments.dmp_id', 'MAX(madmp_fragments.id) as id')
-                  .group(:dmp_id)
-                  .having(Arel.sql("COUNT(*) = #{conditions.length}"))
-      else
-        return scope.none
-      end
+      return scope.none unless and_conditions.any?
+
+      scope = scope.where(and_conditions.reduce(&:or))
       scope
+        .select('madmp_fragments.dmp_id', 'MAX(madmp_fragments.id) as id')
+        .group(:dmp_id)
+        .having(Arel.sql("COUNT(*) = #{conditions.length}"))
     end
 
     def self.apply_or_conditions(scope, conditions)
-      or_conditions = conditions.map { |sub_filter| build_condition(scope, sub_filter) }.compact
+      or_conditions = conditions.filter_map { |sub_filter| build_condition(scope, sub_filter) }
 
       if or_conditions.any?
         combined_scope = or_conditions.reduce do |accum, condition|
@@ -45,8 +43,8 @@ module Resolvers
 
         scope = scope.where(combined_scope)
         scope = scope
-                  .select('madmp_fragments.dmp_id', 'MAX(madmp_fragments.id) as id')
-                  .group(:dmp_id)
+                .select('madmp_fragments.dmp_id', 'MAX(madmp_fragments.id) as id')
+                .group(:dmp_id)
       else
         Rails.logger.warn "No valid OR conditions found: #{conditions.inspect}"
         return scope.none
@@ -61,11 +59,12 @@ module Resolvers
       apply_single_filter(scope, filter)
     end
 
+    # rubocop:disable Metrics/AbcSize,Metrics/MethodLength
     def self.apply_single_filter(scope, filter)
       class_name = filter[:className]
       field = filter[:field]
       value = filter[:value]
-      operator = filter[:operator] || "eq"
+      operator = filter[:operator] || 'eq'
 
       table = scope.arel_table
       field_column = Arel.sql("data->>'#{field}'")
@@ -74,14 +73,14 @@ module Resolvers
       condition = nil
 
       case operator
-      when "eq"
+      when 'eq'
         condition = class_column.eq(class_name).and(field_column.eq(value))
-      when "neq"
+      when 'neq'
         condition = class_column.eq(class_name).and(field_column.not_eq(value))
-      when "like"
+      when 'like'
         condition = class_column.eq(class_name).and(field_column.like("%#{value.downcase}%"))
-      when "regex"
-        regex = value.gsub(/\A\/|\/\z/, '')
+      when 'regex'
+        regex = value.gsub(%r{\A/|/\z}, '')
         condition = Arel::Nodes::SqlLiteral.new("LOWER(data->>'#{field}') ~* '#{regex}'")
         condition = class_column.eq(class_name).and(condition)
       else
@@ -90,5 +89,6 @@ module Resolvers
 
       condition
     end
+    # rubocop:enable Metrics/AbcSize,Metrics/MethodLength
   end
 end

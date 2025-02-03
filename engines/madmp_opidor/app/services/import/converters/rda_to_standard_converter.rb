@@ -55,20 +55,16 @@ module Import
         def convert_funding(fundings)
           return [] if fundings.nil?
 
-          fundings_list = []
-          fundings.each do |elem|
-            fundings_list.append(
-              {
-                'funder' => {
-                  'funderId' => elem.dig('funder_id', 'identifier'),
-                  'idType' => elem.dig('funder_id', 'type')
-                },
-                'fundingStatus' => elem['funding_status'],
-                'grantId' => elem.dig('grant_id', 'identifier')
-              }
-            )
+          fundings.map do |elem|
+            {
+              'funder' => {
+                'funderId' => elem.dig('funder_id', 'identifier'),
+                'idType' => elem.dig('funder_id', 'type')
+              },
+              'fundingStatus' => elem['funding_status'],
+              'grantId' => elem.dig('grant_id', 'identifier')
+            }
           end
-          fundings_list
         end
 
         # FROM
@@ -95,67 +91,51 @@ module Import
         def convert_contributors(contributors)
           return [] if contributors.nil?
 
-          contributors_list = []
-          contributors.each do |contributor|
-            contributors_list.append(
-              {
-                'lastName' => contributor['name'],
-                'mbox' => contributor['mbox'],
-                'personId' => contributor.dig('contributor_id', 'identifier'),
-                'idType' => contributor.dig('contributor_id', 'type')
+          contributors.map do |contributor|
+            {
+              'lastName' => contributor['name'],
+              'mbox' => contributor['mbox'],
+              'personId' => contributor.dig('contributor_id', 'identifier'),
+              'idType' => contributor.dig('contributor_id', 'type')
 
-              }
-            )
+            }
           end
-          contributors_list
         end
 
         def convert_metadata(metadata)
           return [] if metadata.nil?
 
-          metadata_list = []
-          metadata.each do |elem|
-            metadata_list.append(
-              {
-                'description' => elem['description'],
-                'metadataStandardId' => elem.dig('metadata_standard_id', 'identifier'),
-                'idType' => elem.dig('metadata_standard_id', 'type')
-              }
-            )
+          metadata.map do |elem|
+            {
+              'description' => elem['description'],
+              'metadataStandardId' => elem.dig('metadata_standard_id', 'identifier'),
+              'idType' => elem.dig('metadata_standard_id', 'type')
+            }
           end
-          metadata_list
         end
 
         def convert_technical_ressource(facilities)
           return [] if facilities.nil?
 
-          facilities_list = []
-          facilities.each do |elem|
-            facilities_list.append(
-              {
-                'description' => elem['description'],
-                'title' => elem['title']
-              }
-            )
+          facilities.map do |elem|
+            {
+              'description' => elem['description'],
+              'title' => elem['title']
+            }
           end
-          facilities_list
         end
 
         def convert_cost(costs)
           return [] if costs.nil?
 
-          costs_list = []
-          costs.each do |elem|
-            costs_list.append(
-              {
-                'currency' => elem['currency_code'],
-                'costType' => elem['description'],
-                'title' => elem['title'],
-                'amount' => elem['value']
-              }
-            )
+          costs.map do |elem|
+            {
+              'currency' => elem['currency_code'],
+              'costType' => elem['description'],
+              'title' => elem['title'],
+              'amount' => elem['value']
+            }
           end
-          costs_list
         end
 
         def convert_host(distributions)
@@ -223,55 +203,51 @@ module Import
 
         # rubocop:disable Metrics/AbcSize, Metrics/MethodLength
         def convert_research_output(research_output, full_dmp)
-          ro_list = []
           # rubocop:disable Metrics/BlockLength
-          research_output.each do |dataset|
-            ro_list.append(
-              {
-                'documentationQuality' => {
-                  'description' => if dataset['data_quality_assurance'].present?
-                                     dataset['data_quality_assurance'].first
-                                   end, # else nil in implied
-                  'metadataStandard' => convert_metadata(dataset['metadata']),
-                  'metadataLanguage' => dataset['metadata'].present? ? dataset['metadata'].first['language'] : nil
-                },
-                'researchOutputDescription' => {
-                  'datasetId' => dataset.dig('dataset_id', 'identifier'),
-                  'issuedDate' => dataset['issued'],
-                  'idType' => dataset.dig('dataset_id', 'type'),
-                  'description' => dataset['description'],
-                  'uncontrolledKeywords' => [dataset['keyword']],
-                  'language' => dataset['language'],
-                  'containsPersonalData' => dataset['personal_data']&.capitalize,
-                  'title' => dataset['title'],
-                  'type' => dataset['type'],
-                  'containsSensitiveData' => dataset['sensitive_data']&.capitalize,
-                  'hasEthicalIssues' => full_dmp['ethical_issues_exist']&.capitalize
-                },
-                'sharing' => {
-                  'distribution' => convert_distribution(dataset['distribution']),
-                  'host' => convert_host(dataset['distribution'])
-                },
-                'preservationIssues' => {
-                  'description' => dataset['preservation_statement']
-                },
-                'dataStorage' => {
-                  'securityMeasures' => convert_security_measures(dataset['security_and_privacy'])
-                },
-                'ethicalIssues' => {
-                  'description' => full_dmp['ethical_issues_description'],
-                  'resourceReference' => [{
-                    'docIdentifier' => full_dmp['ethical_issues_report']
-                  }]
-                },
-                'dataCollection' => {
-                  'facility' => convert_technical_ressource(dataset['technical_resource'])
-                }
+          research_output.map do |dataset|
+            {
+              'documentationQuality' => {
+                'description' => if dataset['data_quality_assurance'].present?
+                                   dataset['data_quality_assurance'].first
+                                 end, # else nil in implied
+                'metadataStandard' => convert_metadata(dataset['metadata']),
+                'metadataLanguage' => dataset['metadata'].present? ? dataset['metadata'].first['language'] : nil
+              },
+              'researchOutputDescription' => {
+                'datasetId' => dataset.dig('dataset_id', 'identifier'),
+                'issuedDate' => dataset['issued'],
+                'idType' => dataset.dig('dataset_id', 'type'),
+                'description' => dataset['description'],
+                'uncontrolledKeywords' => [dataset['keyword']],
+                'language' => dataset['language'],
+                'containsPersonalData' => dataset['personal_data']&.capitalize,
+                'title' => dataset['title'],
+                'type' => dataset['type'],
+                'containsSensitiveData' => dataset['sensitive_data']&.capitalize,
+                'hasEthicalIssues' => full_dmp['ethical_issues_exist']&.capitalize
+              },
+              'sharing' => {
+                'distribution' => convert_distribution(dataset['distribution']),
+                'host' => convert_host(dataset['distribution'])
+              },
+              'preservationIssues' => {
+                'description' => dataset['preservation_statement']
+              },
+              'dataStorage' => {
+                'securityMeasures' => convert_security_measures(dataset['security_and_privacy'])
+              },
+              'ethicalIssues' => {
+                'description' => full_dmp['ethical_issues_description'],
+                'resourceReference' => [{
+                  'docIdentifier' => full_dmp['ethical_issues_report']
+                }]
+              },
+              'dataCollection' => {
+                'facility' => convert_technical_ressource(dataset['technical_resource'])
               }
-            )
+            }
           end
           # rubocop:enable Metrics/BlockLength
-          ro_list
         end
         # rubocop:enable Metrics/AbcSize, Metrics/MethodLength
       end
