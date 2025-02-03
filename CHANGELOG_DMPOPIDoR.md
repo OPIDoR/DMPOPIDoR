@@ -2,7 +2,13 @@
 
 **Attention** Cette liste de changements concerne les déploiements sur nos serveurs de test en interne.
 
-## 29/01/2025
+## 03/02/2025
+
+- Modification de la position des notifications (#12452)
+- Améliorations de l'API GraphQL
+- Ajout d'une barre de défilement au niveau du choix des recommandations
+
+## 31/01/2025
 
 - Annulation : Retrait de la possibilité de copier un plan (#12385)
 - Retrait du switch des indiquant la présence de données personnelles dans un produit Logiciel (#12361)
