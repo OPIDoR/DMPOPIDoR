@@ -1,4 +1,7 @@
+# frozen_string_literal: true
+
 module Mutations
+  # Authenticate
   class Authenticate < BaseMutation
     argument :grant_type, String, required: true
     argument :email, String, required: true
@@ -10,19 +13,19 @@ module Mutations
     field :created_at, String, null: false
 
     def resolve(grant_type:, email:, code:)
-      raise GraphQL::ExecutionError, "Invalid grant type" if grant_type != "authorization_code"
+      raise GraphQL::ExecutionError, 'Invalid grant type' if grant_type != 'authorization_code'
 
       auth_svc = Api::V1::Auth::Jwt::AuthenticationService.new(json: {
-        grant_type: grant_type,
-        email: email,
-        code: code,
-      })
+                                                                 grant_type: grant_type,
+                                                                 email: email,
+                                                                 code: code
+                                                               })
       @token = auth_svc.call
 
       {
         access_token: @token,
-        token_type: "Bearer",
-        expires_in:  auth_svc.expiration,
+        token_type: 'Bearer',
+        expires_in: auth_svc.expiration,
         created_at: Time.now.to_formatted_s(:iso8601)
       }
     end

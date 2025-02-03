@@ -450,7 +450,7 @@ class MadmpFragment < ApplicationRecord
     ResearchOutput.find(research_output_fragment.data['research_output_id'])
   end
 
-  # rubocop:disable Metrics/AbcSize
+  # rubocop:disable Metrics/AbcSize,Metrics/MethodLength
   def update_meta_fragment
     meta_fragment = dmp.meta
     I18n.with_locale plan.template.locale do
@@ -478,7 +478,7 @@ class MadmpFragment < ApplicationRecord
       meta_fragment.update(data: meta_data)
     end
   end
-  # rubocop:enable Metrics/AbcSize
+  # rubocop:enable Metrics/AbcSize,Metrics/MethodLength
 
   # =================
   # = Class methods =
@@ -510,7 +510,7 @@ class MadmpFragment < ApplicationRecord
 
   # Checks for a given dmp_id (and parent_id) if a fragment exists in the database
   # rubocop:disable Metrics/AbcSize
-  # rubocop:disable Metrics/CyclomaticComplexity
+  # rubocop:disable Metrics/CyclomaticComplexity,Metrics/PerceivedComplexity
   def self.fragment_exists?(data, schema, dmp_id, parent_id = nil, current_fragment_id = nil)
     return false if schema.schema['unicity'].nil? || schema.schema['unicity'].empty?
 
@@ -534,7 +534,7 @@ class MadmpFragment < ApplicationRecord
 
     false
   end
-  # rubocop:enable Metrics/CyclomaticComplexity
+  # rubocop:enable Metrics/CyclomaticComplexity,Metrics/PerceivedComplexity
   # rubocop:enable Metrics/AbcSize
 
   def self.deep_copy(fragment, answer_id, ro_fragment)
