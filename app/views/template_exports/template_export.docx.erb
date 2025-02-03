@@ -16,12 +16,18 @@
       <% unless idx.eql?(0) %>
         <div style="page-break-before:always;"></div> <!-- Page break before each phase -->
       <% end %>
-      <h2><%= "#{@template.org.name}: #{@template.title}" %><%= @template.phases.length > 1 ? " - #{phase.title}" : "" %></h2>
+      <h2>
+        <% if @template.module? %>
+          <%= @template.title %>
+        <% else %>
+          <%= "#{@template.org.name}: #{@template.title}" %><%= @template.phases.length > 1 ? " - #{phase.title}" : "" %>
+        <% end %>
+      </h2>
       <% phase.sections.order(:number).each do |section| %>
         <%= render partial: 'shared/template_exports/display_sections', locals: { section: section, export_format: 'docx' } %>
       <% end %>
     <% end %>
-    <% if @modules_tplt.length > 0 %>
+    <% if @modules_tplt&.any? %>
       <%= render partial: 'shared/template_exports/display_modules', locals: { modules_tplt: @modules_tplt, export_format: 'docx' } %>
     <% end %>
   </body>

@@ -20,7 +20,7 @@
 @use './dmpopidor/footer' as *;
 @use './dmpopidor/header' as *;
 @use './dmpopidor/homepage' as *;
-@use './dmpopidor/news' as *;
+@use './dmpopidor/welcome' as *;
 @use './dmpopidor/notes' as *;
 @use './dmpopidor/plan' as *;
 @use './dmpopidor/user_profile' as *;
@@ -224,6 +224,10 @@ body div a.btn {
   #download_form {
     #json-formatting {
       display: none;
+      .export-msg {
+        color: $rust;
+        font-size: smaller;
+      }
     }
   }
 

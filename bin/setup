@@ -9,7 +9,7 @@ def system!(*args)
   system(*args) || abort("\n== Command #{args} failed ==")
 end
 
-valid_db = ARGV.length > 0 && %w[mysql postgres].include?(ARGV[0].to_s.downcase.strip)
+valid_db = ARGV.length > 0 && %w[postgres].include?(ARGV[0].to_s.downcase.strip)
 
 if valid_db
   chdir APP_ROOT do
@@ -66,6 +66,6 @@ if valid_db
     puts "    To run it on your own: `bin/rails external_api:load_re3data_repos`"
   end
 else
-  puts "\n== You MUST specify the type of DB you would like to use. Either mysql or postgres =="
+  puts "\n== You MUST specify the type of DB you would like to use. Only postgres is supported =="
   puts "== For example: `ruby bin/setup postgres` =="
 end

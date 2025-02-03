@@ -171,7 +171,7 @@ class PlanExportsController < ApplicationController
   def export_params
     params.permit(:export)
           .permit(:form, :project_details, :question_headings, :unanswered_questions,
-                  :custom_sections, :research_outputs, :research_output_mode,
+                  :custom_sections, :research_outputs,
                   formatting: [:font_face, :font_size, { margin: %i[top right bottom left] }])
   end
 

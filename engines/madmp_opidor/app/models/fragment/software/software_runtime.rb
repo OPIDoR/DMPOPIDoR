@@ -43,9 +43,9 @@
 module Fragment
   module Software
     # ResearchOutputDescription STI model
-    class SoftwareRuntimeEnvironment < MadmpFragment
+    class SoftwareRuntime < MadmpFragment
       def self.sti_name
-        'software_runtime_environment'
+        'software_runtime'
       end
     end
   end

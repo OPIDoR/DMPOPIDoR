@@ -135,7 +135,7 @@ services:
       - dmpopidor_network
 
   postgres:
-    image: postgres:16.6-alpine3.20
+    image: postgres:16.6-alpine3.21
     environment:
       - POSTGRES_USER=${DB_USERNAME:-postgres}
       - POSTGRES_PASSWORD=${DB_PASSWORD:-changeme}
@@ -155,7 +155,7 @@ services:
       - dmpopidor_network
 
   valkey:
-    image: valkey/valkey:8.0.1-alpine3.20
+    image: valkey/valkey:8.0.2-alpine3.21
     command: "redis-server /etc/redis/redis.conf --requirepass ${REDIS_PASSWORD:-changeme}"
     volumes:
       - ./redis/sysctl.conf:/etc/sysctl.conf:ro

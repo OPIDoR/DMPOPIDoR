@@ -8,6 +8,7 @@ Rails.application.routes.draw do
       get 'download'
     end
     resources :madmp_schemas, only: %i[index new create edit update destroy]
+    resources :module_templates, only: %i[index]
   end
 
   resources :madmp_fragments, only: %i[show create update destroy] do

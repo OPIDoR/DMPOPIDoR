@@ -90,16 +90,16 @@ class MadmpFragment < ApplicationRecord
 
   # = Software specific classes =
   scope :software_descriptions, -> { where(classname: 'software_description') }
-  scope :software_development_managements, -> { where(classname: 'software_development_management') }
+  scope :software_developments, -> { where(classname: 'software_development') }
   scope :software_documentations, -> { where(classname: 'software_documentation') }
-  scope :software_runtime_environments, -> { where(classname: 'software_runtime_environment') }
-  scope :software_archivings, -> { where(classname: 'software_archiving') }
+  scope :software_runtimes, -> { where(classname: 'software_runtime') }
+  scope :software_preservations, -> { where(classname: 'software_preservation') }
   scope :software_sharings, -> { where(classname: 'software_sharing') }
   scope :software_legal_issues, -> { where(classname: 'software_legal_issues') }
   scope :programming_languages, -> { where(classname: 'programming_language') }
   scope :dependency_references, -> { where(classname: 'dependency_reference') }
   scope :software_resource_references, -> { where(classname: 'software_resource_reference') }
-  scope :software_outreaches, -> { where(classname: 'software_outreach') }
+  scope :software_valorisations, -> { where(classname: 'software_valorisation') }
 
   # =============
   # = Callbacks =
@@ -133,7 +133,7 @@ class MadmpFragment < ApplicationRecord
   end
 
   def dmp_fragments
-    MadmpFragment.where(dmp_id: dmp.id)
+    MadmpFragment.where(dmp_id: classname.eql?('dmp') ? id : dmp_id)
   end
 
   # Returns a human readable version of the structured answer
@@ -223,6 +223,7 @@ class MadmpFragment < ApplicationRecord
         hasPersonalData: %w[Oui Yes].include?(data['containsPersonalData'])
       )
       research_output.update(
+        abbreviation: data['shortName'],
         title: data['title']
       )
       ro_fragment.update(additional_info: new_additional_info)
@@ -522,10 +523,10 @@ class MadmpFragment < ApplicationRecord
       classname:
     ).where.not(id: current_fragment_id)
 
-    filtered_incoming_data = data.to_h.slice(*unicity_properties)
+    filtered_incoming_data = data.to_h.delete_if { |_, v| v.empty? }.slice(*unicity_properties)
 
     dmp_fragments.each do |fragment|
-      filtered_db_data = fragment.data.slice(*unicity_properties)
+      filtered_db_data = fragment.data.delete_if { |_, v| v.empty? }.slice(*unicity_properties)
       next if filtered_db_data.nil? || filtered_db_data.empty?
 
       return fragment if filtered_db_data.eql?(filtered_incoming_data)

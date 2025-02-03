@@ -16,36 +16,13 @@
           <% @research_outputs.each do |research_output| %>
             <% research_output_description = research_output.json_fragment.research_output_description %>
             <li class="checkbox">
-              <%= label_tag "research_outputs[]" do %>
+              <%= label_tag("research_outputs[]", nil, { for: "research_output_#{research_output.id}" }) do %>
                 <span class="sublist">└─ </span>
-                <%= check_box_tag("research_outputs[]", research_output.id, true, { class: "research-output-checkbox" }) %>
-                <%= research_output_description.data['title'] %>
+                <%= check_box_tag("research_outputs[]", research_output.id, true, { class: "research-output-checkbox", id: "research_output_#{research_output.id}" }) %>
+                <%= "#{research_output_description.data['title']} (#{research_output_description.data['type']})" %>
               <% end %>
             </li>
           <% end %>
-        </ul>
-      </div>
-      <div id="research-output-export-mode">
-        <strong><%= _("Research output export mode") %></strong>
-        <ul>
-          <li class="checkbox">
-            <%= label_tag  do %>
-              <%= radio_button_tag("export[research_output_mode]", "by_research_output", false) %>
-              <%= _('Export by research output') %>
-            <% end %>
-          </li>
-          <li class="checkbox">
-            <%= label_tag do %>
-              <%= radio_button_tag("export[research_output_mode]", "by_section", true) %>
-              <%= _('Export by section') %>
-            <% end %>
-          </li>
-          <li class="checkbox">
-            <%= label_tag do %>
-              <%= radio_button_tag("export[research_output_mode]", "by_question", false) %>
-              <%= _('Export by question') %>
-            <% end %>
-          </li>
         </ul>
       </div>
     <% else %>
@@ -140,6 +117,7 @@
               <%= radio_button_tag("json_format", "rda", false) %>
               <%= _('RDA DMP Common Standard format') %>
             <% end %>
+            <span class="export-msg"><%= _("This format is not compatible with the Software type, the research outputs using this type won't be exported.") %></span>
           </li>
         <% end %>
       </ul>

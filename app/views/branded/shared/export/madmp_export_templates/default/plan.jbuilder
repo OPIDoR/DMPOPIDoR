@@ -19,6 +19,7 @@ json.researchOutput research_outputs do |research_output|
   research_output_fragment = research_output.json_fragment
   next unless selected_research_outputs.include?(research_output_fragment.data["research_output_id"])
 
+  json.configuration research_output_fragment.additional_info.except('moduleId', 'property_name')
   json.merge! research_output_fragment.get_full_fragment
 end
 json.dmp_id dmp.id

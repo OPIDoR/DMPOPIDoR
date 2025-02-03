@@ -25,15 +25,18 @@ module Import
       def handle_research_outputs(plan, research_outputs)
         I18n.with_locale plan.template.locale do
           research_outputs.each_with_index do |ro_data, idx|
+            max_order = plan.research_outputs.empty? ? 1 : plan.research_outputs.maximum('display_order') + 1
             research_output = plan.research_outputs.create!(
               abbreviation: "#{_('RO')} #{idx + 1}",
-              title: ro_data['researchOutputDescription']['title'],
+              title: "#{_('Research output')} #{max_order}",
               is_default: idx.eql?(0),
               display_order: idx + 1
             )
-            research_output.create_json_fragments
+            research_output.create_json_fragments(ro_data['configuration'].deep_symbolize_keys)
+            module_id = research_output.module_id
             ro_frag = research_output.json_fragment
-            import_research_output(ro_frag, ro_data, plan)
+            plan_template = module_id.present? ? Template.find(module_id) : plan.template
+            import_research_output(ro_frag, ro_data, plan, plan_template)
             ro_frag.research_output_description.update_research_output_parameters(skip_broadcast: true)
           end
         end
@@ -56,7 +59,7 @@ module Import
 
       # rubocop:disable Metrics/AbcSize, Metrics/MethodLength
       # rubocop:disable Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
-      def import_research_output(research_output_fragment, research_output_data, plan)
+      def import_research_output(research_output_fragment, research_output_data, plan, template)
         dmp_id = research_output_fragment.dmp_id
         research_output_data.each do |prop, content| # rubocop:disable Metrics/BlockLength
           next if prop.eql?('research_output_id')
@@ -66,9 +69,9 @@ module Import
 
           if research_output_fragment.data[prop].nil?
             # Fetch the associated question
-            associated_question = plan.questions.joins(:madmp_schema).find_by(madmp_schema: {
-                                                                                name: schema_prop['template_name']
-                                                                              })
+            associated_question = template.questions.joins(:madmp_schema).find_by(madmp_schema: {
+                                                                                    name: schema_prop['template_name']
+                                                                                  })
             next if associated_question.nil?
 
             fragment = MadmpFragment.new(
@@ -78,7 +81,7 @@ module Import
               additional_info: { 'property_name' => prop }
             )
             fragment.classname = associated_question.madmp_schema.classname
-            next unless associated_question.present? && plan.template.structured?
+            next if associated_question.nil?
 
             # Create a new answer for the question associated to the fragment
             fragment.answer = Answer.create(

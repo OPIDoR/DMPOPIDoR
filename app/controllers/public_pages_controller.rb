@@ -74,7 +74,7 @@ class PublicPagesController < ApplicationController
             ]
           }
         }
-      ).where(type: 'module', locale: @template.locale)
+      ).where(published: true, archived: false, type: 'module', locale: @template.locale)
     end
     @formatting = Settings::Template::DEFAULT_SETTINGS[:formatting]
 
