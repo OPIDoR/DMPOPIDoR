@@ -19,14 +19,15 @@
         <%= f.text_field(:category, class: "form-control", spellcheck: true) %>
       </div>
       <div class="form-group">
-        <%= f.label(:data_type, _('Data type'), class: 'control-label') %>
-        <%= select_tag(:data_type,
+        <%= f.label(:data_types, _('Data types'), class: 'control-label') %>
+        <%= select_tag(:data_types,
             options_for_select(
               data_type_select_values,
-              f.object.data_type
+              f.object.data_types
             ),
+            multiple: true,
             class: "form-control",
-            name: 'registry[data_type]') %>
+            name: 'registry[data_types][]') %>
       </div>
       <div class="form-group">
         <%= f.label(:version, _('Version'), class: 'control-label') %>

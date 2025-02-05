@@ -678,7 +678,7 @@ ActiveRecord::Schema[7.2].define(version: 2024_12_16_112001) do
     t.integer "org_id"
     t.datetime "created_at", precision: nil, null: false
     t.datetime "updated_at", precision: nil, null: false
-    t.string "data_type", default: "none", null: false
+    t.string "data_types", default: ["none"], null: false, array: true
     t.string "category"
     t.json "values"
     t.index ["org_id"], name: "index_registries_on_org_id"

@@ -5,12 +5,9 @@ class RegistriesController < ApplicationController
   after_action :verify_authorized
 
   def index
-    registries = []
+    data_type = params[:data_type] || 'none'
     skip_authorization
-    if params[:data_type].present?
-      registries = Registry.where(category: params[:category], data_type: params[:data_type])
-    end
-    registries = Registry.where(category: params[:category]) if registries.empty?
+    registries = Registry.where(Arel.sql("'#{data_type}' = ANy(data_types) AND category='#{params[:category]}'"))
     render json: registries.select(%w[id name])
   end
 
@@ -28,20 +25,15 @@ class RegistriesController < ApplicationController
     render json: params[:page] ? registry.values.page(params[:page]) : registry.values
   end
 
-  # rubocop:disable Metrics/AbcSize
   def suggest
-    registry = if Registry.exists?(category: params[:category], data_type: params[:data_type])
-                 Registry.find_by(category: params[:category], data_type: params[:data_type])
-               else
-                 Registry.find_by(category: params[:category])
-               end
+    data_type = params[:data_type] || 'none'
+    registry = Registry.find_by(Arel.sql("'#{data_type}' = ANy(data_types) AND category='#{params[:category]}'"))
     skip_authorization
     render json: {
       name: registry.name,
       values: registry.values
     }
   end
-  # rubocop:enable Metrics/AbcSize
 
   # rubocop:disable Metrics/AbcSize
   def load_values
