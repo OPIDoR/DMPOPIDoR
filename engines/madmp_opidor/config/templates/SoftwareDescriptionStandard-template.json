@@ -1,0 +1,230 @@
+{
+    "$schema": "http://json-schema.org/draft-07/schema#",
+    "$id": "../Documentation/Implementation/data_model/Json/",
+    "title": "SoftwareDescriptionStandard",
+    "description": "SoftwareDescriptionStandard template",
+    "dataTypes": [
+        "software"
+    ],
+    "type": "object",
+    "class": "SoftwareDescriptionStandard",
+    "properties": {
+        "title": {
+            "type": "string",
+            "description": "Nom complet du logiciel",
+            "label@fr_FR": "Nom complet du logiciel",
+            "label@en_GB": "Software name",
+            "tooltip": null,
+            "form_label@fr_FR": "Nom complet du logiciel",
+            "form_label@en_GB": "Software name"
+        },
+        "shortName": {
+            "type": "string",
+            "description": "Nom abrégé du logiciel",
+            "label@fr_FR": "Nom abrégé",
+            "label@en_GB": "Short name",
+            "tooltip": null,
+            "hidden": true,
+            "form_label@fr_FR": "Nom abrégé",
+            "form_label@en_GB": "Short name"
+        },
+        "description": {
+            "type": "string",
+            "description": "Description du logiciel pendant le projet",
+            "inputType": "textarea",
+            "label@fr_FR": "Description",
+            "label@en_GB": "Description",
+            "tooltip": null,
+            "form_label@fr_FR": "Description de votre logiciel",
+            "form_label@en_GB": "Software description"
+        },
+        "type": {
+            "type": "string",
+            "description": "Type de produit de recherche généré",
+            "label@fr_FR": "Type",
+            "label@en_GB": "Type",
+            "tooltip@fr_FR": "Les types de produits de recherche sont issus du schéma DataCite 4.6.",
+            "tooltip@en_GB": "The types of research outputs are based on resourceTypeGeneral property from DataCite Metadata Schema 4.6. ",
+            "hidden": true,
+            "form_label@fr_FR": "Type de produit de recherche",
+            "form_label@en_GB": "Research output type"
+        },
+        "webSiteUrl": {
+            "type": "string",
+            "format": "uri",
+            "description": "URL du site de présentation du logiciel",
+            "label@fr_FR": "URL du site de présentation du logiciel (ou du projet)",
+            "label@en_GB": "URL of the software (or project) presentation site",
+            "tooltip": null,
+            "example@fr_FR": "https://www.monsite.com/fr",
+            "example@en_GB": "https://www.monsite.com/fr",
+            "form_label@fr_FR": "URL du site de présentation du logiciel (ou du projet)",
+            "form_label@en_GB": "URL of the software (or project) presentation site"
+        },
+        "creationDate": {
+            "type": "string",
+            "format": "date",
+            "description": "Date de création : Année de début du développement",
+            "label@fr_FR": "Date de création",
+            "label@en_GB": "Creation date",
+            "tooltip": null,
+            "form_label@fr_FR": "Date de création : Année de début du développement",
+            "form_label@en_GB": "Creation Date: Year development began"
+        },
+        "releasedDate": {
+            "type": "string",
+            "format": "date",
+            "description": "Année de la première version mise en production",
+            "label@fr_FR": "Année de la première version mise en production",
+            "label@en_GB": "Year of first version put into production",
+            "tooltip": null,
+            "form_label@fr_FR": "Année de la première version mise en production",
+            "form_label@en_GB": "Year of first version put into production"
+        },
+        "applicationField": {
+            "type": "array",
+            "items": {
+                "type": "string"
+            },
+            "minItems": 1,
+            "description": "Principaux domaines d'application principaux",
+            "inputType": "dropdown",
+            "label@fr_FR": "Principaux domaines d'application",
+            "label@en_GB": "Principal application field(s)",
+            "registries": [
+                "ClassificationOCDE"
+            ],
+            "registryCategory": "Subject",
+            "tooltip": null,
+            "form_label@fr_FR": "Principaux domaines d'application",
+            "form_label@en_GB": "Principal application fields"
+        },
+        "uncontrolledApplicationField": {
+            "type": "array",
+            "items": {
+                "type": "string"
+            },
+            "description": "Autres domaines d'application (texte libre)",
+            "label@fr_FR": "Autres domaines d'application",
+            "label@en_GB": "Others application fields",
+            "tooltip": null,
+            "form_label@fr_FR": "Autres domaines d'application",
+            "form_label@en_GB": "Others application fields"
+        },
+        "controlledKeyword": {
+            "type": "array",
+            "table_header": null,
+            "items": {
+                "type": "object",
+                "class": "ControlledKeyword",
+                "properties": {
+                    "dbid": {
+                        "type": "number"
+                    }
+                },
+                "template_name": "ControlledKeywordStandard",
+                "required": [
+                    "dbid"
+                ]
+            },
+            "description": "Mot(s)-clé(s) issu(s) de vocabulaire(s) contrôlé(s) ou d'ontologie(s)",
+            "label@fr_FR": "Mots-clés",
+            "label@en_GB": "Keywords",
+            "tooltip": null,
+            "form_label@fr_FR": "Mots clés contrôlés (vocabulaire, thésaurus, lexique...)",
+            "form_label@en_GB": "Controlled keywords (vocabulary, thesaurus, lexicon...)"
+        },
+        "version": {
+            "type": "string",
+            "description": "Numéro de version du logiciel",
+            "label@fr_FR": "Numéro de version du logiciel",
+            "label@en_GB": "Software version number",
+            "tooltip": null,
+            "example@fr_FR": "v4.0",
+            "example@en_GB": "v4.0",
+            "form_label@fr_FR": "Numéro de version du logiciel",
+            "form_label@en_GB": "Software version number"
+        },
+        "category": {
+            "type": "string",
+            "description": "Catégorie du logiciel",
+            "inputType": "dropdown",
+            "label@fr_FR": "Catégorie du logiciel",
+            "label@en_GB": "Software category",
+            "registries": [
+                "SoftwareCategories"
+            ],
+            "registryCategory": "SoftwareCategory",
+            "overridable": true,
+            "tooltip": null,
+            "form_label@fr_FR": "Quelle est la catégorie du logiciel ?",
+            "form_label@en_GB": "What is the software's category?"
+        },
+        "relatedOutput": {
+            "type": "array",
+            "table_header": null,
+            "items": {
+                "type": "object",
+                "class": "ReusedData",
+                "properties": {
+                    "dbid": {
+                        "type": "number"
+                    }
+                },
+                "template_name": "ReusedDataStandard",
+                "required": [
+                    "dbid"
+                ]
+            },
+            "description": "Liens avec d'autres produits de recherche de ce plan",
+            "label@fr_FR": "Liens avec d’autres produits de recherche de ce plan",
+            "label@en_GB": "Links to other research products in this plan",
+            "tooltip@fr_FR": "Penser à faire le lien entre votre code et les autres produits de recherche du projet, par exemple les données traitées via le logiciel",
+            "tooltip@en_GB": "Consider linking your code to other research products in the project, such as data processed through the software",
+            "form_label@fr_FR": "Votre logiciel est-il lié à d'autres produits de recherche du projet ?",
+            "form_label@en_GB": "Is your software related to other research products in the project?"
+        },
+        "contact": {
+            "type": "object",
+            "class": "Contributor",
+            "properties": {
+                "dbid": {
+                    "type": "number"
+                }
+            },
+            "template_name": "ContributorStandard",
+            "required": [
+                "dbid"
+            ],
+            "description": "Contact pour le logiciel",
+            "label@fr_FR": "Personne contact",
+            "label@en_GB": "Contact Person",
+            "tooltip@fr_FR": "Personne contact pour le logiciel. Il est important d'indiquer le courriel de la personne contact pour assurer le suivi du produit de recherche",
+            "tooltip@en_GB": "Person to contact about this software. It is important to indicate the email of the contact person to ensure the follow-up of the research product",
+            "form_label@fr_FR": "Personne contact",
+            "form_label@en_GB": "Contact Person"
+        }
+    },
+    "required": [
+        "title",
+        "description",
+        "type",
+        "creationDate",
+        "applicationField",
+        "category",
+        "contact"
+    ],
+    "to_string": [],
+    "default": {
+        "fr_FR": {
+            "contact": {
+                "role": "Personne contact"
+            }
+        },
+        "en_GB": {
+            "contact": {
+                "role": "Contact Person"
+            }
+        }
+    }
+}

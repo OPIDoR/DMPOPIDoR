@@ -3,6 +3,7 @@
     "$id": "../Documentation/Implementation/data_model/Json/",
     "title": "DataStorageStandard",
     "description": "DataStorageStandard template",
+    "dataTypes": null,
     "type": "object",
     "class": "DataStorageStandard",
     "properties": {
@@ -34,6 +35,7 @@
             "registries": [
                 "VolumeUnit"
             ],
+            "registryCategory": "VolumeUnit",
             "overridable": true,
             "tooltip": null,
             "form_label@fr_FR": "Unité",
@@ -62,6 +64,7 @@
             "registries": [
                 "StorageServices"
             ],
+            "registryCategory": "StorageService",
             "overridable": true,
             "tooltip": null,
             "form_label@fr_FR": "Equipements, plateaux techniques utilisés pour le stockage et sauvegarde des données",

@@ -2,6 +2,10 @@
 
 **Attention** Cette liste de changements concerne les déploiements sur nos serveurs de test en interne.
 
+## 06/02/2025
+
+- Ajout d'une alerte indiquant à l'utilisateur de partager son plan avec un financeur lors d'un import Financeur(#12349)
+
 ## 03/02/2025
 
 - Modification de la position des notifications (#12452)

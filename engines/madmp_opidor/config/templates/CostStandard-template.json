@@ -3,6 +3,10 @@
     "$id": "../Documentation/Implementation/data_model/Json/",
     "title": "CostStandard",
     "description": "CostStandard template",
+    "dataTypes": [
+        "software",
+        "none"
+    ],
     "type": "object",
     "class": "CostStandard",
     "properties": {
@@ -15,6 +19,7 @@
             "registries": [
                 "CostType"
             ],
+            "registryCategory": "CostType",
             "overridable": true,
             "tooltip": null,
             "form_label@fr_FR": "Type de coût",
@@ -40,6 +45,7 @@
             "registries": [
                 "ISO4217"
             ],
+            "registryCategory": "ISO4217",
             "tooltip": null,
             "form_label@fr_FR": "Devise",
             "form_label@en_GB": "Currency"

@@ -11,19 +11,19 @@
     },
     {
       "label": {
+        "fr_FR": "Agence nationale de sécurité sanitaire de l'alimentation, de l'environnement et du travail (Anses)",
+        "en_GB": "French Agency for Food, Environmental and Occupational Health & Safety (ANSES)"
+      },
+      "scriptName": "AnsesProjectsDataFetcher",
+      "registry": "AnsesProjects"
+    },
+    {
+      "label": {
         "fr_FR": "Commission Européenne",
         "en_GB": "European Commission"
       },
       "scriptName": "CordisDataFetcher",
       "registry": "CordisProjects"
-    },
-    {
-      "label": {
-        "en_GB": "Anses",
-        "fr_FR": "Anses"
-      },
-      "scriptName": "AnsesProjectsDataFetcher",
-      "registry": "AnsesProjects"
     }
   ]
 }

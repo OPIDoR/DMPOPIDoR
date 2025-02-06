@@ -3,6 +3,7 @@
     "$id": "../Documentation/Implementation/data_model/Json/",
     "title": "DataProcessingStandard",
     "description": "DataProcessingStandard template",
+    "dataTypes": null,
     "type": "object",
     "class": "DataProcessingStandard",
     "properties": {
@@ -62,6 +63,7 @@
             "registries": [
                 "ProcessingServices"
             ],
+            "registryCategory": "ProcessingService",
             "overridable": true,
             "tooltip": null,
             "form_label@fr_FR": "Equipements, plateaux techniques utilisés pour le traitement et l'analyse des données",

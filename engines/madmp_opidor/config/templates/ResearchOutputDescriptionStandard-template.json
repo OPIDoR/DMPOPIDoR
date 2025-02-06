@@ -3,6 +3,7 @@
     "$id": "../Documentation/Implementation/data_model/Json/",
     "title": "ResearchOutputDescriptionStandard",
     "description": "ResearchOutputDescriptionStandard template",
+    "dataTypes": null,
     "type": "object",
     "class": "ResearchOutputDescriptionStandard",
     "properties": {
@@ -14,6 +15,16 @@
             "tooltip": null,
             "form_label@fr_FR": "Nom  complet",
             "form_label@en_GB": "Full name"
+        },
+        "shortName": {
+            "type": "string",
+            "description": "Nom abrégé du produit de recherche",
+            "label@fr_FR": "Nom abrégé",
+            "label@en_GB": "Short name",
+            "tooltip": null,
+            "hidden": true,
+            "form_label@fr_FR": "Nom abrégé",
+            "form_label@en_GB": "Short name"
         },
         "description": {
             "type": "string",
@@ -31,8 +42,8 @@
             "description": "Type de produit de recherche généré",
             "label@fr_FR": "Type",
             "label@en_GB": "Type",
-            "tooltip@fr_FR": "Les types de produits de recherche sont issus du schéma DataCite 4.5.",
-            "tooltip@en_GB": "The types of research outputs are based on resourceTypeGeneral property from DataCite Metadata Schema 4.5. ",
+            "tooltip@fr_FR": "Les types de produits de recherche sont issus du schéma DataCite 4.6.",
+            "tooltip@en_GB": "The types of research outputs are based on resourceTypeGeneral property from DataCite Metadata Schema 4.6. ",
             "hidden": true,
             "form_label@fr_FR": "Type de produit de recherche",
             "form_label@en_GB": "Research output type"
@@ -78,6 +89,7 @@
                 "Thésaurus INRAE",
                 "Thésaurus Biodiversité Loterre"
             ],
+            "registryCategory": "Keyword",
             "tooltip@fr_FR": "Mots-clés décrivant les aspects importants du jeu de données",
             "tooltip@en_GB": "Key words describing important aspects of the dataset",
             "form_label@fr_FR": "Mots clés contrôlés (vocabulaire, thésaurus, lexique...)",
@@ -106,6 +118,7 @@
             "registries": [
                 "ISO639-3"
             ],
+            "registryCategory": "ISO639-3",
             "tooltip": null,
             "form_label@fr_FR": "Indiquer la langue dans laquelle est décrit le produit de recherche",
             "form_label@en_GB": "Indicate the language in which the research output is described"
@@ -158,6 +171,7 @@
             "registries": [
                 "PIDSystem"
             ],
+            "registryCategory": "PIDSystem",
             "overridable": true,
             "tooltip": null,
             "form_label@fr_FR": "Type d'identifiant du produit de recherche",
@@ -182,6 +196,7 @@
             "registries": [
                 "YesNoUnknown"
             ],
+            "registryCategory": "YesNoUnknown",
             "tooltip": null,
             "form_label@fr_FR": "Le produit de recherche contient-il des données sensibles ?",
             "form_label@en_GB": "Does the research output contain sensitive data?"
@@ -195,6 +210,7 @@
             "registries": [
                 "YesNoUnknown"
             ],
+            "registryCategory": "YesNoUnknown",
             "tooltip": null,
             "form_label@fr_FR": "Le contexte de production du produit de recherche prend-il en compte des aspects éthiques ?",
             "form_label@en_GB": "Does the production context of the research output takes ethical issues into account?"

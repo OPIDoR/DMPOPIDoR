@@ -3,6 +3,7 @@
     "$id": "../Documentation/Implementation/data_model/Json/",
     "title": "BackupPolicyStandard",
     "description": "BackupPolicyStandard template",
+    "dataTypes": null,
     "type": "object",
     "class": "BackupPolicyStandard",
     "properties": {
@@ -34,6 +35,7 @@
             "registries": [
                 "BackupType"
             ],
+            "registryCategory": "BackupType",
             "overridable": true,
             "tooltip": null,
             "form_label@fr_FR": "Type de sauvegarde",
@@ -51,6 +53,7 @@
             "registries": [
                 "StorageType"
             ],
+            "registryCategory": "StorageType",
             "overridable": true,
             "tooltip": null,
             "form_label@fr_FR": "Supports de stockage",

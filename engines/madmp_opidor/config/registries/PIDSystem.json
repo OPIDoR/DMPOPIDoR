@@ -1,0 +1,36 @@
+{
+    "PIDSystem": [
+        {
+            "fr_FR": "DOI",
+            "en_GB": "DOI"
+        },
+        {
+            "fr_FR": "ARK",
+            "en_GB": "ARK"
+        },
+        {
+            "fr_FR": "Handle",
+            "en_GB": "Handle"
+        },
+        {
+            "fr_FR": "HAL Id",
+            "en_GB": "HAL Id"
+        },
+        {
+            "fr_FR": "IGSN",
+            "en_GB": "IGSN"
+        },
+        {
+            "fr_FR": "URL",
+            "en_GB": "URL"
+        },
+        {
+            "fr_FR": "Identifiant local",
+            "en_GB": "Identifiant local"
+        },
+        {
+            "fr_FR": "SWHID",
+            "en_GB": "SWHID"
+        }
+    ]
+}

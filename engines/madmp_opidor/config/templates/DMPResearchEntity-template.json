@@ -3,6 +3,10 @@
     "$id": "../Documentation/Implementation/data_model/Json/",
     "title": "DMPResearchEntity",
     "description": "DMPResearchEntity template",
+    "dataTypes": [
+        "software",
+        "none"
+    ],
     "type": "object",
     "class": "DMPResearchEntity",
     "properties": {
@@ -50,6 +54,26 @@
             "description": "Ensemble des informations concernant les produits de recherche générés dans le cadre du projet ou activité de recherche",
             "tooltip": null
         },
+        "researchOutputSoftware": {
+            "type": "array",
+            "table_header": null,
+            "items": {
+                "type": "object",
+                "class": "ResearchOutput",
+                "properties": {
+                    "dbid": {
+                        "type": "number"
+                    }
+                },
+                "template_name": "ResearchOutputSoftwareStandard",
+                "required": [
+                    "dbid"
+                ]
+            },
+            "minItems": 1,
+            "description": "Ensemble des informations concernant les produits de recherche de type \"logiciel\" générés dans le cadre du projet ou activité de recherche",
+            "tooltip": null
+        },
         "budget": {
             "type": "object",
             "class": "Budget",
@@ -89,6 +113,7 @@
         "identifier",
         "meta",
         "researchOutput",
+        "researchOutputSoftware",
         "budget",
         "researchEntity"
     ],

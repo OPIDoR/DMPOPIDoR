@@ -3,6 +3,10 @@
     "$id": "../Documentation/Implementation/data_model/Json/",
     "title": "FundingStandard",
     "description": "FundingStandard template",
+    "dataTypes": [
+        "software",
+        "none"
+    ],
     "type": "object",
     "class": "FundingStandard",
     "properties": {
@@ -21,11 +25,6 @@
             "description": "Source (agence) de financement",
             "label@fr_FR": "Financeur",
             "label@en_GB": "Funder",
-            "inputType": "dropdown",
-            "registries": [
-                "Funders"
-            ],
-            "overridable": true,
             "tooltip@fr_FR": "Liste interne en cours d'élaboration",
             "tooltip@en_GB": "Internal list in progress",
             "form_label@fr_FR": "Financeur",
@@ -52,6 +51,7 @@
             "registries": [
                 "FundingStatus"
             ],
+            "registryCategory": "FundingStatus",
             "tooltip": null,
             "form_label@fr_FR": "Statut du financement",
             "form_label@en_GB": "Funding status"

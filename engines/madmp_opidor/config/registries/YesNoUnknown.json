@@ -1,0 +1,16 @@
+{
+    "YesNoUnknown": [
+        {
+            "fr_FR": "Oui",
+            "en_GB": "Yes"
+        },
+        {
+            "fr_FR": "Non",
+            "en_GB": "No"
+        },
+        {
+            "fr_FR": "Ne sais pas",
+            "en_GB": "Unknown"
+        }
+    ]
+}

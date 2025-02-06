@@ -1,0 +1,24 @@
+{
+    "CostType": [
+        {
+            "en_GB": "Personnel cost",
+            "fr_FR": "Frais de personnel"
+        },
+        {
+            "en_GB": "Training",
+            "fr_FR": "Formation"
+        },
+        {
+            "en_GB": "Software",
+            "fr_FR": "Logiciel"
+        },
+        {
+            "en_GB": "Hardware",
+            "fr_FR": "Matériel informatique"
+        },
+        {
+            "en_GB": "Storage",
+            "fr_FR": "Stockage"
+        }
+    ]
+}

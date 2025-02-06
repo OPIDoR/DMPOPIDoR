@@ -1,0 +1,16 @@
+{
+    "DMPVersion": [
+        {
+            "fr_FR": "Version initiale",
+            "en_GB": "First version"
+        },
+        {
+            "fr_FR": "Version intermédiaire",
+            "en_GB": "Mid term version"
+        },
+        {
+            "fr_FR": "Version finale",
+            "en_GB": "Final version"
+        }
+    ]
+}

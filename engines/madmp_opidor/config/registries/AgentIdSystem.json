@@ -1,0 +1,24 @@
+{
+    "AgentIdSystem": [
+        {
+            "fr_FR": "ORCID iD",
+            "en_GB": "ORCID iD"
+        },
+        {
+            "fr_FR": "IdHAL",
+            "en_GB": "IdHAL"
+        },
+        {
+            "fr_FR": "ISNI",
+            "en_GB": "ISNI"
+        },
+        {
+            "fr_FR": "IdRef",
+            "en_GB": "IdRef"
+        },
+        {
+            "fr_FR": "URL",
+            "en_GB": "URL"
+        }
+    ]
+}

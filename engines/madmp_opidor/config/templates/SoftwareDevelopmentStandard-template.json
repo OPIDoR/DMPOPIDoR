@@ -1,0 +1,149 @@
+{
+    "$schema": "http://json-schema.org/draft-07/schema#",
+    "$id": "../Documentation/Implementation/data_model/Json/",
+    "title": "SoftwareDevelopmentStandard",
+    "description": "SoftwareDevelopmentStandard template",
+    "dataTypes": [
+        "software"
+    ],
+    "type": "object",
+    "class": "SoftwareDevelopmentStandard",
+    "properties": {
+        "codeRepository": {
+            "type": "string",
+            "description": "Nom de la forge logicielle",
+            "inputType": "dropdown",
+            "label@fr_FR": "Nom de la forge logicielle",
+            "label@en_GB": "Name of software forge",
+            "registries": [
+                "CodeRepositories"
+            ],
+            "registryCategory": "CodeRepository",
+            "overridable": true,
+            "tooltip": null,
+            "form_label@fr_FR": "Utilisez-vous une forge logicielle ?",
+            "form_label@en_GB": "Do you use a software forge?"
+        },
+        "codeRepositoryUrl": {
+            "type": "string",
+            "format": "uri",
+            "description": "URL de référence de la forge",
+            "label@fr_FR": "URL de la forge logicielle",
+            "label@en_GB": "URL of software forge",
+            "tooltip": null,
+            "form_label@fr_FR": "Indiquer, le cas échéant, le lien vers le dépôt du code ou l'URL d'accés",
+            "form_label@en_GB": "Indicate, if applicable, the link to the code repository or the access URL "
+        },
+        "softwareAccess": {
+            "type": "string",
+            "description": "Condition d'accès au code source",
+            "inputType": "dropdown",
+            "label@fr_FR": "Mode d'accès",
+            "label@en_GB": "Source code access mode",
+            "registries": [
+                "SoftwareAccess"
+            ],
+            "registryCategory": "Access",
+            "tooltip": null,
+            "form_label@fr_FR": "L'accès au code source est-il ?",
+            "form_label@en_GB": "Is access to source code?"
+        },
+        "versionControlTool": {
+            "type": "string",
+            "description": "Utilisation d'un gestionnaire de version",
+            "inputType": "dropdown",
+            "label@fr_FR": "Utilisez-vous un gestionnaire de version ?",
+            "label@en_GB": "Do you use a version control tool?",
+            "registries": [
+                "VersionControls"
+            ],
+            "registryCategory": "VersionControl",
+            "overridable": true,
+            "tooltip": null,
+            "form_label@fr_FR": "Utilisez-vous un gestionnaire de version ?",
+            "form_label@en_GB": "Do you use a version control tool?"
+        },
+        "softwareTest": {
+            "type": "array",
+            "items": {
+                "type": "string"
+            },
+            "description": "Type de tests utilisés pour vérifier la qualité du code",
+            "inputType": "dropdown",
+            "label@fr_FR": "Quels types de tests utilisez-vous pour vérifier la qualité du code ?",
+            "label@en_GB": "What types of test method are you using to ensure the quality of the code?",
+            "registries": [
+                "SoftwareTestTypes"
+            ],
+            "registryCategory": "SoftwareTestType",
+            "tooltip": null,
+            "form_label@fr_FR": "Quels types de tests utilisez-vous pour vérifier la qualité du code ?",
+            "form_label@en_GB": "What types of test method are you using to ensure the quality of the code?"
+        },
+        "continuousIntegrationTool": {
+            "type": "string",
+            "description": "Utilisez-vous un framework d'intégration continu ?",
+            "inputType": "dropdown",
+            "label@fr_FR": "Utilisez-vous un framework d'intégration continue ?",
+            "label@en_GB": "Are you using a testing framework?",
+            "registries": [
+                "IntegrationTools"
+            ],
+            "registryCategory": "IntegrationTool",
+            "overridable": true,
+            "tooltip": null,
+            "form_label@fr_FR": "Utilisez-vous un framework d'intégration continue ?",
+            "form_label@en_GB": "Are you using a testing framework?"
+        },
+        "continuousIntegrationUrl": {
+            "type": "string",
+            "format": "uri",
+            "description": "URL du framework d'intégration continue, s'il existe",
+            "label@fr_FR": "URL du framework d'intégration continue, s'il existe ?",
+            "label@en_GB": "URL of testing framework if any",
+            "tooltip": null,
+            "form_label@fr_FR": "URL du framework d'intégration continue, s'il existe ?",
+            "form_label@en_GB": "URL of testing framework if any"
+        },
+        "cost": {
+            "type": "array",
+            "table_header@fr_FR": "Type de coût : montant",
+            "table_header@en_GB": "Cost type: amount",
+            "items": {
+                "type": "object",
+                "class": "Cost",
+                "properties": {
+                    "dbid": {
+                        "type": "number"
+                    }
+                },
+                "template_name": "CostStandard",
+                "required": [
+                    "dbid"
+                ]
+            },
+            "description": "Coûts éventuels liés à l'environnement de développement",
+            "label@fr_FR": "Coûts",
+            "label@en_GB": "Costs",
+            "tooltip": null,
+            "form_label@fr_FR": "Coûts liés à l'environnement de développement",
+            "form_label@en_GB": "Costs related to the development environment"
+        },
+        "description": {
+            "type": "string",
+            "description": "Informations complémentaires en lien avec la description de l'environnement de développement",
+            "inputType": "textarea",
+            "label@fr_FR": "Informations complémentaires",
+            "label@en_GB": "Additional informations",
+            "tooltip": null,
+            "example@fr_FR": "Vous pouvez ici compléter vos intentions, justifier vos choix cités ci-dessus et ajouter tout autre commentaire ou information",
+            "example@en_GB": "Here you can complete your intentions, justify your choices mentioned above and add any other comment or information",
+            "form_label@fr_FR": "Informations complémentaires",
+            "form_label@en_GB": "Additional informations"
+        }
+    },
+    "required": [
+        "softwareAccess"
+    ],
+    "to_string": []
+}

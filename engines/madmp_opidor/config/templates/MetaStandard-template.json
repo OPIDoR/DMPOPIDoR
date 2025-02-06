@@ -3,6 +3,10 @@
     "$id": "../Documentation/Implementation/data_model/Json/",
     "title": "MetaStandard",
     "description": "MetaStandard template",
+    "dataTypes": [
+        "software",
+        "none"
+    ],
     "type": "object",
     "class": "MetaStandard",
     "properties": {
@@ -37,6 +41,7 @@
             "registries": [
                 "DMPVersion"
             ],
+            "registryCategory": "DMPVersion",
             "overridable": true,
             "tooltip": null,
             "form_label@fr_FR": "Version du PGD",
@@ -65,6 +70,7 @@
             "registries": [
                 "ClassificationOCDE"
             ],
+            "registryCategory": "Subject",
             "tooltip": null,
             "form_label@fr_FR": "Domaines de recherche (selon classification de l'OCDE)",
             "form_label@en_GB": "Fields of science and technology (from OECD classification)"
@@ -79,6 +85,7 @@
             "registries": [
                 "ISO639-3_fra_eng"
             ],
+            "registryCategory": "ISO639-3_fra_eng",
             "tooltip": null,
             "form_label@fr_FR": "Langue de rédaction du plan",
             "form_label@en_GB": "Language in which the plan is drafted"
@@ -145,6 +152,7 @@
             "registries": [
                 "PIDSystem"
             ],
+            "registryCategory": "PIDSystem",
             "overridable": true,
             "tooltip": null,
             "form_label@fr_FR": "Type d'identifiant",
@@ -169,6 +177,7 @@
             "registries": [
                 "DMPLicenses"
             ],
+            "registryCategory": "DMPLicense",
             "overridable": true,
             "tooltip": null,
             "form_label@fr_FR": "Licence du plan",
