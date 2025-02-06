@@ -227,7 +227,7 @@ namespace :madmpopidor do
       registry = Registry.find_or_create_by(name: registry_name) do |r|
         r.name = registry_name
         r.category = registry_data['category']
-        r.data_type = registry_data['dataType']
+        r.data_types = registry_data['dataTypes']
         r.version = 1
       end
       if registry_data.is_a?(Array)
