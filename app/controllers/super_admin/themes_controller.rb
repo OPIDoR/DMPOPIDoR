@@ -80,6 +80,7 @@ module SuperAdmin
       permitted = params.require(:theme).permit(
         :title,
         :description,
+        :data_type,
         translations: {}
       )
 

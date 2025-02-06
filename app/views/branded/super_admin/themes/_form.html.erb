@@ -6,6 +6,16 @@
     <%= f.text_field(:title, class: "form-control", spellcheck: true, "aria-required": true) %>
   </div>
   <div class="form-group">
+    <%= f.label(:data_type, _('Data type'), class: 'control-label') %>
+    <%= select_tag(:data_type,
+        options_for_select(
+          data_type_select_values,
+          f.object.data_type
+        ),
+        class: "form-control",
+        name: 'theme[data_type]') %>
+  </div>
+  <div class="form-group">
     <%= f.label(:description, _('Guidance')) %>
     <%= f.text_area(:description, class: "form-control", rows: 10, spellcheck: true) %>
   </div>

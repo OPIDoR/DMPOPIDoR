@@ -7,7 +7,6 @@ Rails.application.routes.draw do
       post 'sort_values', on: :collection
       get 'download'
     end
-    resources :registry_values, only: %i[edit update destroy]
     resources :madmp_schemas, only: %i[index new create edit update destroy]
     resources :module_templates, only: %i[index]
   end
@@ -29,9 +28,10 @@ Rails.application.routes.draw do
     post ':tour', action: :end_tour, on: :collection, constraints: { format: [:json] }
   end
 
-  resources :registries, only: %i[show] do
+  resources :registries, only: %i[index] do
     get 'load_values', action: :load_values, on: :collection
     get 'by_name/:name', action: :by_name, on: :collection
+    get 'suggest', action: :suggest, on: :collection
   end
 
   resources :api_client_roles, only: %i[create update destroy]
@@ -88,10 +88,6 @@ Rails.application.routes.draw do
     # Paginable actions for madmp schemas
     resources :madmp_schemas, only: [] do
       get 'index/:page', action: :index, on: :collection, as: :index
-    end
-    # Paginable actions for registry values
-    resources :registry_values, only: [] do
-      get ':id/index/:page', action: :index, on: :collection, as: :index
     end
   end
 end

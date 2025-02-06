@@ -566,6 +566,7 @@ class MadmpFragment < ApplicationRecord
         id: fragment.madmp_schema_id,
         name: madmp_schema.name,
         schema: madmp_schema.schema,
+        dataType: madmp_schema.data_type,
         api_client: if madmp_schema.api_client.present?
                       {
                         id: madmp_schema.api_client_id,

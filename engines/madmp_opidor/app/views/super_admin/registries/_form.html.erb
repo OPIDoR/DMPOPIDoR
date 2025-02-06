@@ -15,6 +15,21 @@
         <%= f.url_field(:uri, class: "form-control", spellcheck: true) %>
       </div>
       <div class="form-group">
+        <%= f.label(:category, _('Category'), class: 'control-label') %>
+        <%= f.text_field(:category, class: "form-control", spellcheck: true) %>
+      </div>
+      <div class="form-group">
+        <%= f.label(:data_types, _('Data types'), class: 'control-label') %>
+        <%= select_tag(:data_types,
+            options_for_select(
+              data_type_select_values,
+              f.object.data_types
+            ),
+            multiple: true,
+            class: "form-control",
+            name: 'registry[data_types][]') %>
+      </div>
+      <div class="form-group">
         <%= f.label(:version, _('Version'), class: 'control-label') %>
         <%= f.number_field(:version, class: "form-control", spellcheck: true) %>
       </div>
