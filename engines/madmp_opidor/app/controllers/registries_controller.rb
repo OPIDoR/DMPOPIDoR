@@ -7,7 +7,7 @@ class RegistriesController < ApplicationController
   def index
     data_type = params[:data_type] || 'none'
     skip_authorization
-    registries = Registry.where(Arel.sql("'#{data_type}' = ANy(data_types) AND category='#{params[:category]}'"))
+    registries = Registry.where(Arel.sql("'#{data_type}' = ANY(data_types) AND category='#{params[:category]}'"))
     render json: registries.select(%w[id name])
   end
 
@@ -27,7 +27,7 @@ class RegistriesController < ApplicationController
 
   def suggest
     data_type = params[:data_type] || 'none'
-    registry = Registry.find_by(Arel.sql("'#{data_type}' = ANy(data_types) AND category='#{params[:category]}'"))
+    registry = Registry.find_by(Arel.sql("'#{data_type}' = ANY(data_types) AND category='#{params[:category]}'"))
     skip_authorization
     render json: {
       name: registry.name,
