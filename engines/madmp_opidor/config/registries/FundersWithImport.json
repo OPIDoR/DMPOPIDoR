@@ -6,7 +6,8 @@
         "en_GB": "French National Research Agency (ANR)"
       },
       "scriptName": "AnrProjectDataFetcher",
-      "registry": "AnrProjects"
+      "registry": "AnrProjects",
+      "apiClient": "anr"
     },
     {
       "label": {
