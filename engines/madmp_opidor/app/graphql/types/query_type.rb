@@ -21,7 +21,7 @@ module Types
         Resolvers::FiltersResolver.apply(fragment.dmp_fragments, filter, size, offset)&.map do |madmp_fragment|
           madmp_fragment.dmp.get_full_fragment
         end
-      end.compact.uniq { |fragment| fragment[:plan_id] } # rubocop:disable Style/MultilineBlockChain
+      end.compact # rubocop:disable Style/MultilineBlockChain
     end
   end
 end
