@@ -45,8 +45,13 @@ class Registry < ApplicationRecord
   scope :search, lambda { |term|
     search_pattern = "%#{term}%"
     where('lower(registries.name) LIKE lower(?) OR ' \
-          'lower(registries.description) LIKE lower(?)',
-          search_pattern, search_pattern)
+          'lower(registries.description) LIKE lower(?) OR ' \
+          'lower(registries.category) LIKE lower(?)',
+          search_pattern, search_pattern, search_pattern)
+  }
+
+  scope :paginable, lambda {
+    select(:id, :name, :version, :description, :uri, :category, :data_types)
   }
 
   # rubocop:disable Metrics/AbcSize
