@@ -97,6 +97,13 @@
       </h1>
     </div>
   </div>
+  <div style="display: flex; justify-content: flex-end; align-items: flex-end; width: 100%; position: relative; margin-right: 100px;">
+    <a href="/plans/<%= plan.id %>/share">
+        <button class="btn btn-<%= plan.api_client_roles.any? ? 'primary' : 'danger' %>">
+          <%= _(plan.api_client_roles.any? ? 'Plan shared with external services' : 'Plan not shared with external services') %>
+        </button>
+      </a>
+  </div>
   <div id="content" role="tabpanel" class="tab-pane active row col-md-12">
     <div class="plan-content panel panel-default">
       <div class="panel-body <%= write_plan_class %> ">
