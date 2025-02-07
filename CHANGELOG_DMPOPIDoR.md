@@ -2,9 +2,18 @@
 
 **Attention** Cette liste de changements concerne les déploiements sur nos serveurs de test en interne.
 
+## 07/02/2025
+
+- Ajout d'un message incitant un utilisateur à partager son plan avec l'ANR (#12349)
+- Ajout d'un "badge" indiquant que le plan a été partagé ou non avec un service externe (#12349)
+- Refonte des référentiels (#12236) : 
+  - Suppression de la table registry_values => Les valeurs sont directement stockées dans la table registries
+  - Ajout des champs `data_types` & `category` permettant de choisir de proposer les référentiels disponibles dans un formulaire
+- Ajout de `data_type` à la table des Thèmes afin de ne proposer que les thèmes pertinents à un module donné (#12223)
+
 ## 06/02/2025
 
-- Ajout d'une alerte indiquant à l'utilisateur de partager son plan avec un financeur lors d'un import Financeur(#12349)
+- Ajout d'une alerte indiquant à l'utilisateur de partager son plan avec un financeur lors d'un import Financeur (#12349)
 
 ## 03/02/2025
 
