@@ -2,6 +2,10 @@
 
 **Attention** Cette liste de changements concerne les déploiements sur nos serveurs de test en interne.
 
+### 10/02/2025
+
+- Mise à jour de la mutation ``authenticate`` de l'API GraphQL pour générer un token via les identifiants d'un Client API
+
 ## 07/02/2025
 
 - Ajout d'un message incitant un utilisateur à partager son plan avec l'ANR (#12349)
