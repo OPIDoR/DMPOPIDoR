@@ -5,6 +5,7 @@
 ### 10/02/2025
 
 - Mise à jour de la mutation ``authenticate`` de l'API GraphQL pour générer un token via les identifiants d'un Client API
+- Ajout d'une condition selon le type de plan dans ``/app/models/dmpopidor/plan.rb:222`` pour récuper la liste des **fundings**
 
 ## 07/02/2025
 
