@@ -218,7 +218,7 @@ module Dmpopidor
       )
     end
 
-    def grant_identifier(plan)
+    def grant_identifier
       if template.research_entity?
         json_fragment.research_entity.fundings.pluck(Arel.sql("data->'grantId'")).join(', ')
       else
