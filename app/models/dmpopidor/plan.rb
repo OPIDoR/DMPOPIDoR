@@ -199,7 +199,7 @@ module Dmpopidor
           )
         end
 
-        if plan.template.context == 'research_entity'
+        if template.research_entity?
           json_fragment.research_entity.raw_import(raw_project, json_fragment.research_entity.madmp_schema)
         else
           json_fragment.project.raw_import(raw_project, json_fragment.project.madmp_schema)
@@ -218,8 +218,12 @@ module Dmpopidor
       )
     end
 
-    def grant_identifier
-      json_fragment.project.fundings.pluck(Arel.sql("data->'grantId'")).join(', ')
+    def grant_identifier(plan)
+      if template.research_entity?
+        json_fragment.research_entity.fundings.pluck(Arel.sql("data->'grantId'")).join(', ')
+      else
+        json_fragment.project.fundings.pluck(Arel.sql("data->'grantId'")).join(', ')
+      end
     end
   end
   # rubocop:enable Metrics/ModuleLength
