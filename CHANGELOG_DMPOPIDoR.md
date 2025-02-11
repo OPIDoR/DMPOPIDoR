@@ -2,6 +2,11 @@
 
 **Attention** Cette liste de changements concerne les déploiements sur nos serveurs de test en interne.
 
+## 11/02/2025
+
+- Correction des problèmes d'affichage des référentiels (#12530, #12532, #12533)
+- Correction d'affichage de la question données personnelles de l'infobox (#12476)
+
 ### 10/02/2025
 
 - Mise à jour de la mutation ``authenticate`` de l'API GraphQL pour générer un token via les identifiants d'un Client API
