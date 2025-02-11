@@ -1,0 +1,20 @@
+{
+    "ResourceIdSystem": [
+        {
+            "fr_FR": "DOI",
+            "en_GB": "DOI"
+        },
+        {
+            "fr_FR": "ARK",
+            "en_GB": "ARK"
+        },
+        {
+            "fr_FR": "Handle",
+            "en_GB": "Handle"
+        },
+        {
+            "fr_FR": "IGSN",
+            "en_GB": "IGSN"
+        }
+    ]
+}

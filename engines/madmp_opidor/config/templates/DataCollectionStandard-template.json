@@ -3,6 +3,7 @@
     "$id": "../Documentation/Implementation/data_model/Json/",
     "title": "DataCollectionStandard",
     "description": "DataCollectionStandard template",
+    "dataTypes": null,
     "type": "object",
     "class": "DataCollectionStandard",
     "properties": {
@@ -36,6 +37,7 @@
             "registries": [
                 "DataNature"
             ],
+            "registryCategory": "DataNature",
             "overridable": true,
             "tooltip@fr_FR": "Sélectionner dans la liste déroulante la nature du produit de recherche",
             "tooltip@en_GB": "Choose in the dropdown the research output data nature",
@@ -65,6 +67,7 @@
             "registries": [
                 "CollectionServices"
             ],
+            "registryCategory": "CollectionService",
             "overridable": true,
             "tooltip": null,
             "form_label@fr_FR": "Equipements, plateaux techniques utilisés pour la production ou l'acquisition de données",

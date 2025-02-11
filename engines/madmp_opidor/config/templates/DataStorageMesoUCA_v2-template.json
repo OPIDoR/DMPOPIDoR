@@ -1,229 +1,230 @@
 {
-	"$schema": "http://json-schema.org/draft-07/schema#",
-	"$id": "../Documentation/Implementation/data_model/Json/",
-	"title": "DataStorageMesoUCA_v2",
-	"description": "DataStorageMesoUCA_v2 template",
-	"type": "object",
-	"class": "DataStorageMesoUCA_v2",
-	"properties": {
-		"description": {
-			"type": "string",
-			"description": "Description des besoins de stockage",
-			"inputType": "textarea",
-			"label@fr_FR": "Description",
-			"label@en_GB": "Description",
-			"tooltip": null,
-			"form_label@fr_FR": "Description",
-			"form_label@en_GB": "Description"
-		},
-		"facility": {
-			"type": "array",
-			"table_header": null,
-			"items": {
-				"type": "object",
-				"class": "TechnicalResource",
-				"properties": {
-					"dbid": {
-						"type": "number"
-					}
-				},
-				"template_name": "TechnicalResourceStandard",
-				"required": [
-					"dbid"
-				]
-			},
-			"description": "Ressource/équipement utilisé pour le stockage et sauvegarde des données",
-			"label@fr_FR": "Identification de la resource",
-			"label@en_GB": "Resource identification",
-			"tooltip": null,
-			"isConst": true,
-			"form_label@fr_FR": "Identification du Mésocentre Clermont-Auvergne",
-			"form_label@en_GB": "Clermont-Auvergne Mesocentre identification"
-		},
-		"mesoUCAStorageRequest": {
-			"type": "array",
-			"table_header": null,
-			"items": {
-				"type": "object",
-				"class": "SpecificData",
-				"properties": {
-					"dbid": {
-						"type": "number"
-					}
-				},
-				"template_name": "MesoUCAStorageRequest",
-				"required": [
-					"dbid"
-				]
-			},
-			"minItems": 1,
-			"description": "Informations requises pour un espace de stockage auprès du Mésocentre Clermont-Auvergne",
-			"label@fr_FR": "Demande d'espace de stockage auprès du Mésocentre Clermont-Auvergne",
-			"label@en_GB": "Request for storage space from Clermont-Auvergne Mesocentre",
-			"tooltip": null,
-			"form_label@fr_FR": "Demande d'espace de stockage auprès du Mésocentre Clermont-Auvergne",
-			"form_label@en_GB": "Request for storage space from Clermont-Auvergne Mesocentre"
-		},
-		"backupPolicy": {
-			"type": "array",
-			"table_header": null,
-			"items": {
-				"type": "object",
-				"class": "BackupPolicy",
-				"properties": {
-					"dbid": {
-						"type": "number"
-					}
-				},
-				"template_name": "BackupPolicyStandard",
-				"required": [
-					"dbid"
-				]
-			},
-			"description": "Informations relatives à la politique de sauvegarde",
-			"label@fr_FR": "Politique de sauvegarde",
-			"label@en_GB": "Backup policy",
-			"tooltip": null,
-			"isConst": true,
-			"form_label@fr_FR": "Politique de sauvegarde du Mésocentre Clermont-Auvergne",
-			"form_label@en_GB": "Clermont-AuvergneMesocentre backup policy"
-		},
-		"securityMeasures": {
-			"type": "string",
-			"description": "Description des mesures prises pour assurer la sécurité des données",
-			"label@fr_FR": "Mesures de sécurité",
-			"label@en_GB": "Security measures",
-			"tooltip": null,
-			"isConst": true,
-			"inputType": "textarea",
-			"form_label@fr_FR": "Mesures de sécurité du Mésocentre Clermont-Auvergne",
-			"form_label@en_GB": "Clermont-Auvergne Mesocentre security measures"
-		},
-		"contributor": {
-			"type": "array",
-			"table_header@fr_FR": "Nom",
-			"table_header@en_GB": "Name",
-			"items": {
-				"type": "object",
-				"class": "Contributor",
-				"properties": {
-					"dbid": {
-						"type": "number"
-					}
-				},
-				"template_name": "ContributorStandard",
-				"required": [
-					"dbid"
-				]
-			},
-			"description": "Personne(s) responsable(s) du suivi du stockage des données",
-			"label@fr_FR": "Personnes impliquées dans le stockage des données",
-			"label@en_GB": "Persons in charge of data storage",
-			"tooltip@fr_FR": "Le responsable peut être une personne, une équipe, un service",
-			"tooltip@en_GB": "Person in charge can be a person, a team, a department",
-			"form_label@fr_FR": "Personnes impliquées dans le stockage des données",
-			"form_label@en_GB": "Persons in charge of data storage"
-		},
-		"cost": {
-			"type": "array",
-			"table_header@fr_FR": "Type de coût : montant",
-			"table_header@en_GB": "Cost type: amount",
-			"items": {
-				"type": "object",
-				"class": "Cost",
-				"properties": {
-					"dbid": {
-						"type": "number"
-					}
-				},
-				"template_name": "CostStorageMesoUCA",
-				"required": [
-					"dbid"
-				]
-			},
-			"description": "Coût total des données stockées au Mésocentre Clermont-Auvergne",
-			"label@fr_FR": "Coût total de stockage (coût calculé automatiquement)",
-			"label@en_GB": "Total cost of storage (automatically calculated cost)",
-			"tooltip": null,
-			"form_label@fr_FR": "Coût total de stockage : calcul automatique et notification au Mésocentre Clermont-Auvergne avec les « outils » (roue crantée à droite de la question)",
-			"form_label@en_GB": "Total cost of storage: automatic calculation and notification to the Clermont-Auvergne Mesocentre using the “tools” (tar wheel to the right of the question)"
-		}
-	},
-	"required": [
-		"description",
-		"mesoUCAStorageRequest"
-	],
-	"to_string": [],
-	"run": [
-		{
-			"script_id": 0,
-			"name": "MesoUcaStorageCostComputer",
-			"owner": "superadmin",
-			"label@fr_FR": "Calculer le coût de stockage",
-			"label@en_GB": "Compute data storage cost",
-			"tooltip@fr_FR": "Calcule le coût de stockage",
-			"tooltip@en_GB": "Compute data storage cost"
-		},
-		{
-			"script_id": 0,
-			"name": "MesoUcaStorageNotifyer",
-			"owner": "superadmin",
-			"label@fr_FR": "Notifier Mésocentre Clermont-Auvergne",
-			"label@en_GB": "Notify Clermont-Auvergne Mesocentre",
-			"tooltip@fr_FR": "Envoie une demande d'espace de stockage au mésocentre Clermont-Auvergne",
-			"tooltip@en_GB": "Send a request for storage space to the Clermont-Auvergne mesocenter ",
-			"params": {
-				"recipients": [
-					"francoise.cosserat@inist.fr",
-					"anne.busin@inist.fr"
-				]
-			}
-		}
-	],
-	"default": {
-		"fr_FR": {
-			"securityMeasures": "La politique de sécurité du Mésocentre Clermont-Auvergne applique celle de l'établissement Université Clermont-Auvergne, notamment en terme de filtrage des flux réseaux, d'authentification et d'usage (Charte d'utilisation du Mésocentre : https://mesocentre.uca.fr/charte-mesocentre-clermont-auvergne). Les comptes sont nominatifs et rattachés à une structure (établissement, laboratoire de recherche ...). Des mesures de sécurité supplémentaires spécifiques aux projets peuvent être ajoutées. Le Mésocentre Clermont-Auvergne n'est pas accrédité pour héberger des données patients.",
-			"facility": [
-				{
-					"title": "Mésocentre Clermont-Auvergne",
-					"technicalResourceId": "https://cat.opidor.fr/index.php/Mésocentre_Clermont_Auvergne",
-					"idType": "URL",
-					"serviceContact": "https://hub.mesocentre.uca.fr/",
-					"policyUrl": null
-				}
-			],
-			"backupPolicy": [
-				{
-					"description": "Seuls les espaces de stockage en mode \"projet\" sont répliqués sur plusieurs serveurs. Le nombre de réplicats est défini avec le responsable du projet et est au maximum de 3. Les réplicats sont tous localisés physiquement dans le même datacentre. La gestion des versions des données est possible en utilisant l'API S3. L'espace utilisateur sur le cluster de calcul ($HOME) est un espace de travail non sauvegardé. L'accompagnement des utilisateurs se fait par le système de gestion de tickets Jira. Une documentation est mise à disposition des utilisateurs et est mise à jour au fil de l'eau.",
-					"backupFrequency": "Instantanée",
-					"backupType": "Miroir",
-					"storageType": [
-						"Cloud"
-					]
-				}
-			]
-		},
-		"en_GB": {
-			"securityMeasures": "The security policy of the Clermont-Auvergne Mesocentre applies that the Clermont Auvergne University, particularly in terms of filtering network flows, authentication and use (Mesocentre user charter : https://mesocentre.uca.fr/charte-mesocentre-clermont-auvergne). The accounts are nominative and attached to a structure (establishment, research laboratory, etc.). Additional project-specific security measures can be added. The Clermont-Auvergne Mesocentre is not accredited to host patient data.",
-			"facility": [
-				{
-					"title": "Mésocentre Clermont-Auvergne",
-					"technicalResourceId": "https://cat.opidor.fr/index.php/Mésocentre_Clermont_Auvergne",
-					"idType": "URL",
-					"serviceContact": "https://hub.mesocentre.uca.fr/",
-					"policyUrl": null
-				}
-			],
-			"backupPolicy": [
-				{
-					"description": "Only storage spaces in \"project\" mode are replicated on several servers. The number of replicates is defined with the project manager and is a maximum of 3. The replicates are all physically located in the same datacentre. Data versioning is possible using the S3 API. The user space on the compute cluster ($HOME) is an unsaved workspace. User support is done through the Jira ticket management system. Documentation is made available to users and is updated over time.",
-					"backupFrequency": "Instantaneous",
-					"backupType": "Mirror",
-					"storageType": [
-						"Cloud"
-					]
-				}
-			]
-		}
-	}
+    "$schema": "http://json-schema.org/draft-07/schema#",
+    "$id": "../Documentation/Implementation/data_model/Json/",
+    "title": "DataStorageMesoUCA_v2",
+    "description": "DataStorageMesoUCA_v2 template",
+    "dataTypes": null,
+    "type": "object",
+    "class": "DataStorageMesoUCA_v2",
+    "properties": {
+        "description": {
+            "type": "string",
+            "description": "Description des besoins de stockage",
+            "inputType": "textarea",
+            "label@fr_FR": "Description",
+            "label@en_GB": "Description",
+            "tooltip": null,
+            "form_label@fr_FR": "Description",
+            "form_label@en_GB": "Description"
+        },
+        "facility": {
+            "type": "array",
+            "table_header": null,
+            "items": {
+                "type": "object",
+                "class": "TechnicalResource",
+                "properties": {
+                    "dbid": {
+                        "type": "number"
+                    }
+                },
+                "template_name": "TechnicalResourceStandard",
+                "required": [
+                    "dbid"
+                ]
+            },
+            "description": "Ressource/équipement utilisé pour le stockage et sauvegarde des données",
+            "label@fr_FR": "Identification de la resource",
+            "label@en_GB": "Resource identification",
+            "tooltip": null,
+            "isConst": true,
+            "form_label@fr_FR": "Identification du Mésocentre Clermont-Auvergne",
+            "form_label@en_GB": "Clermont-Auvergne Mesocentre identification"
+        },
+        "mesoUCAStorageRequest": {
+            "type": "array",
+            "table_header": null,
+            "items": {
+                "type": "object",
+                "class": "SpecificData",
+                "properties": {
+                    "dbid": {
+                        "type": "number"
+                    }
+                },
+                "template_name": "MesoUCAStorageRequest",
+                "required": [
+                    "dbid"
+                ]
+            },
+            "minItems": 1,
+            "description": "Informations requises pour un espace de stockage auprès du Mésocentre Clermont-Auvergne",
+            "label@fr_FR": "Demande d'espace de stockage auprès du Mésocentre Clermont-Auvergne",
+            "label@en_GB": "Request for storage space from Clermont-Auvergne Mesocentre",
+            "tooltip": null,
+            "form_label@fr_FR": "Demande d'espace de stockage auprès du Mésocentre Clermont-Auvergne",
+            "form_label@en_GB": "Request for storage space from Clermont-Auvergne Mesocentre"
+        },
+        "backupPolicy": {
+            "type": "array",
+            "table_header": null,
+            "items": {
+                "type": "object",
+                "class": "BackupPolicy",
+                "properties": {
+                    "dbid": {
+                        "type": "number"
+                    }
+                },
+                "template_name": "BackupPolicyStandard",
+                "required": [
+                    "dbid"
+                ]
+            },
+            "description": "Informations relatives à la politique de sauvegarde",
+            "label@fr_FR": "Politique de sauvegarde",
+            "label@en_GB": "Backup policy",
+            "tooltip": null,
+            "isConst": true,
+            "form_label@fr_FR": "Politique de sauvegarde du Mésocentre Clermont-Auvergne",
+            "form_label@en_GB": "Clermont-AuvergneMesocentre backup policy"
+        },
+        "securityMeasures": {
+            "type": "string",
+            "description": "Description des mesures prises pour assurer la sécurité des données",
+            "inputType": "textarea",
+            "label@fr_FR": "Mesures de sécurité",
+            "label@en_GB": "Security measures",
+            "tooltip": null,
+            "isConst": true,
+            "form_label@fr_FR": "Mesures de sécurité du Mésocentre Clermont-Auvergne",
+            "form_label@en_GB": "Clermont-Auvergne Mesocentre security measures"
+        },
+        "contributor": {
+            "type": "array",
+            "table_header@fr_FR": "Nom",
+            "table_header@en_GB": "Name",
+            "items": {
+                "type": "object",
+                "class": "Contributor",
+                "properties": {
+                    "dbid": {
+                        "type": "number"
+                    }
+                },
+                "template_name": "ContributorStandard",
+                "required": [
+                    "dbid"
+                ]
+            },
+            "description": "Personne(s) responsable(s) du suivi du stockage des données",
+            "label@fr_FR": "Personnes impliquées dans le stockage des données",
+            "label@en_GB": "Persons in charge of data storage",
+            "tooltip@fr_FR": "Le responsable peut être une personne, une équipe, un service",
+            "tooltip@en_GB": "Person in charge can be a person, a team, a department",
+            "form_label@fr_FR": "Personnes impliquées dans le stockage des données",
+            "form_label@en_GB": "Persons in charge of data storage"
+        },
+        "cost": {
+            "type": "array",
+            "table_header@fr_FR": "Type de coût : montant",
+            "table_header@en_GB": "Cost type: amount",
+            "items": {
+                "type": "object",
+                "class": "Cost",
+                "properties": {
+                    "dbid": {
+                        "type": "number"
+                    }
+                },
+                "template_name": "CostStorageMesoUCA",
+                "required": [
+                    "dbid"
+                ]
+            },
+            "description": "Coût total des données stockées au Mésocentre Clermont-Auvergne",
+            "label@fr_FR": "Coût total de stockage (coût calculé automatiquement)",
+            "label@en_GB": "Total cost of storage (automatically calculated cost)",
+            "tooltip": null,
+            "form_label@fr_FR": "Coût total de stockage : calcul automatique et notification au Mésocentre Clermont-Auvergne avec les « outils » (roue crantée à droite de la question)",
+            "form_label@en_GB": "Total cost of storage: automatic calculation and notification to the Clermont-Auvergne Mesocentre using the “tools” (tar wheel to the right of the question)"
+        }
+    },
+    "required": [
+        "description",
+        "mesoUCAStorageRequest"
+    ],
+    "to_string": [],
+    "run": [
+        {
+            "script_id": 0,
+            "name": "MesoUcaStorageCostComputer",
+            "owner": "superadmin",
+            "label@fr_FR": "Calculer le coût de stockage",
+            "label@en_GB": "Compute data storage cost",
+            "tooltip@fr_FR": "Calcule le coût de stockage",
+            "tooltip@en_GB": "Compute data storage cost"
+        },
+        {
+            "script_id": 0,
+            "name": "MesoUcaStorageNotifyer",
+            "owner": "superadmin",
+            "label@fr_FR": "Notifier Mésocentre Clermont-Auvergne",
+            "label@en_GB": "Notify Clermont-Auvergne Mesocentre",
+            "tooltip@fr_FR": "Envoie une demande d'espace de stockage au mésocentre Clermont-Auvergne",
+            "tooltip@en_GB": "Send a request for storage space to the Clermont-Auvergne mesocenter ",
+            "params": {
+                "recipients": [
+                    "francoise.cosserat@inist.fr",
+                    "anne.busin@inist.fr"
+                ]
+            }
+        }
+    ],
+    "default": {
+        "fr_FR": {
+            "securityMeasures": "La politique de sécurité du Mésocentre Clermont-Auvergne applique celle de l'établissement Université Clermont-Auvergne, notamment en terme de filtrage des flux réseaux, d'authentification et d'usage (Charte d'utilisation du Mésocentre : https://mesocentre.uca.fr/charte-mesocentre-clermont-auvergne). Les comptes sont nominatifs et rattachés à une structure (établissement, laboratoire de recherche ...). Des mesures de sécurité supplémentaires spécifiques aux projets peuvent être ajoutées. Le Mésocentre Clermont-Auvergne n'est pas accrédité pour héberger des données patients.",
+            "facility": [
+                {
+                    "title": "Mésocentre Clermont-Auvergne",
+                    "technicalResourceId": "https://cat.opidor.fr/index.php/Mésocentre_Clermont_Auvergne",
+                    "idType": "URL",
+                    "serviceContact": "https://hub.mesocentre.uca.fr/",
+                    "policyUrl": null
+                }
+            ],
+            "backupPolicy": [
+                {
+                    "description": "Le cluster de stockage capacitif du Mésocentre est situé intégralement dans le datacentre de l'UCA. L'accès au stockage est proposé aux utilisateurs via l'utilisation d'une API compatible avec S3. Les comptes de stockage sont créés soit par projet, d'une durée initiale de 3 ans, soit pour les entités qui prennent part au financement et au fonctionnement du cluster pour la durée de vie des serveurs financés.<br />La répartition des données au sein du cluster de stockage suit les règles suivantes :<ul><li>les données sont recopiées 3 fois, c'est-à-dire qu'une donnée envoyée par l'utilisateur sur son stockage S3 est copiée deux fois supplémentaires (on appelle ces copies des réplicats) ;</li><li>les 3 réplicats sont répartis sur 3 disques différents, eux-mêmes sur 3 serveurs différents, eux-mêmes dans 3 baies datacentre différentes.</li></ul>Cela permet une disponibilité de la donnée même en cas :<ul><li>de panne d'un disque ;</li><li>de panne d'un serveur entier portant de multiples disques ;</li><li>de panne d'une baie entière concentrant de multiples serveurs.</li></ul>Ce mécanisme de redondance, couplé à une infrastructure réseau en mode haute disponibilité, a été choisi par le Mésocentre pour garantir autant que possible la disponibilité des données aux utilisateurs.<br />Le Mésocentre attire l'attention sur le fait que ce stockage se situe intégralement dans le datacentre de l'UCA, avec réplication sur le même site, dans le même datacenter, ne constituant donc de fait en aucun cas une solution de sauvegarde ou d'archivage pérenne, en cas d'incident majeur sur le datacenter.",
+                    "backupFrequency": "Instantanée",
+                    "backupType": "Miroir",
+                    "storageType": [
+                        "Cloud"
+                    ]
+                }
+            ]
+        },
+        "en_GB": {
+            "securityMeasures": "The security policy of the Clermont-Auvergne Mesocentre applies that the Clermont Auvergne University, particularly in terms of filtering network flows, authentication and use (Mesocentre user charter : https://mesocentre.uca.fr/charte-mesocentre-clermont-auvergne). The accounts are nominative and attached to a structure (establishment, research laboratory, etc.). Additional project-specific security measures can be added. The Clermont-Auvergne Mesocentre is not accredited to host patient data.",
+            "facility": [
+                {
+                    "title": "Mésocentre Clermont-Auvergne",
+                    "technicalResourceId": "https://cat.opidor.fr/index.php/Mésocentre_Clermont_Auvergne",
+                    "idType": "URL",
+                    "serviceContact": "https://hub.mesocentre.uca.fr/",
+                    "policyUrl": null
+                }
+            ],
+            "backupPolicy": [
+                {
+                    "description": "The Mesocentre's capacitive storage cluster is located entirely within the UCA datacenter. Access to the storage is offered to users via the use of an S3-compatible API. Storage accounts are created either by project, with an initial duration of 3 years, or for entities that participate in the financing and operation of the cluster for the lifetime of the financed servers.<br />The distribution of data within the storage cluster follows the following rules:<ul><li>the data is copied 3 times, that is to say that data sent by the user to their S3 storage is copied two additional times (these copies are called replicas);</li><li>the 3 replicas are distributed over 3 different disks, themselves on 3 different servers, themselves in 3 different datacenter bays.</li></ul>This allows data availability even in the event of:<ul><li>a disk failure;</li><li>an entire server failure carrying multiple disks;</li><li>an entire bay failure concentrating multiple servers.</li></ul>This redundancy mechanism, coupled with a high-speed availability network infrastructure, was chosen by the Mesocentre to guarantee as much as possible the data availability for users.<br />The Mesocentre draws attention to the fact that this storage is located entirely in the UCA datacenter, with replication on the same site, in the same datacenter, therefore in no way constituting a long-term backup or archiving solution, in the event of a major incident in the datacenter.",
+                    "backupFrequency": "Instantaneous",
+                    "backupType": "Mirror",
+                    "storageType": [
+                        "Cloud"
+                    ]
+                }
+            ]
+        }
+    }
 }

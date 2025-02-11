@@ -1,0 +1,12 @@
+{
+	"SoftwareAccess": [
+		{
+			"en_GB": "Public (open)",
+			"fr_FR": "Public (ouvert)"
+		},
+		{
+			"en_GB": "Private (closed or owner)",
+			"fr_FR": "Privé (fermé ou propriétaire)"
+		}
+	]
+}

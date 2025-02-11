@@ -1,0 +1,24 @@
+{
+	"IntegrationTools": [
+		{
+			"en_GB": "GitLab CI",
+			"fr_FR": "GitLab CI"
+		},
+		{
+			"en_GB": "Jenkins",
+			"fr_FR": "Jenkins"
+		},
+		{
+			"en_GB": "Travis CI",
+			"fr_FR": "Travis CI"
+		},
+		{
+			"en_GB": "GitHub actions",
+			"fr_FR": "GitHub actions"
+		},
+		{
+			"en_GB": "None",
+			"fr_FR": "Aucun"
+		}
+	]
+}

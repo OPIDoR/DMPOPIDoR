@@ -1,0 +1,32 @@
+{
+	"OperatingSystems": [
+		{
+			"en_GB": "Microsoft Windows",
+			"fr_FR": "Microsoft Windows"
+		},
+		{
+			"en_GB": "MacOS",
+			"fr_FR": "MacOS"
+		},
+		{
+			"en_GB": "GNU/Linux",
+			"fr_FR": "GNU/Linux"
+		},
+		{
+			"en_GB": "Others UNIX",
+			"fr_FR": "Autres UNIX"
+		},
+		{
+			"en_GB": "Android",
+			"fr_FR": "Android"
+		},
+		{
+			"en_GB": "iOS",
+			"fr_FR": "iOS"
+		},
+		{
+			"en_GB": "Not applicable",
+			"fr_FR": "Non applicable"
+		}
+	]
+}

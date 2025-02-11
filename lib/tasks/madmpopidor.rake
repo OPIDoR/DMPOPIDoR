@@ -181,11 +181,6 @@ namespace :madmpopidor do
   task load_templates: :environment do
     p 'Loading maDMP Templates...'
     path = 'engines/madmp_opidor/config/templates'
-    data_type = 'none'
-    if ENV['type'].eql?('software')
-      path = 'engines/madmp_opidor/config/templates/software'
-      data_type = 'software'
-    end
     # Read and parse index.json file
     index_path = Rails.root.join("#{path}/index.json")
     schemas_index = JSON.parse(File.read(index_path))
@@ -197,6 +192,7 @@ namespace :madmpopidor do
       json_schema = JSON.parse(File.read(schema_path))
       title = json_schema['title']
       classname = schema_desc['classname']
+      data_types = schema_desc['dataTypes'].present? ? schema_desc['dataTypes'] : 'none'
 
       begin
         schema = MadmpSchema.find_or_initialize_by(name: title) do |s|
@@ -205,7 +201,7 @@ namespace :madmpopidor do
           s.version = 1
           s.org_id = Org.first.id
           s.classname = classname
-          s.data_type = data_type
+          s.data_type = data_types.length.eql?(1) ? data_types[0] : 'none'
         end
         schema.update(schema: json_schema)
         p "#{schema.name} loaded"
@@ -223,20 +219,17 @@ namespace :madmpopidor do
     registries_path = Rails.root.join('engines/madmp_opidor/config/registries/index.json')
     registries = JSON.parse(File.read(registries_path))
 
-    # Remove all registry values to avoid duplicates
-    RegistryValue.destroy_all
-
-    registries.each do |registry_name, values|
+    registries.each do |registry_name, registry_data|
       registry = Registry.find_or_create_by(name: registry_name) do |r|
         r.name = registry_name
+        r.category = registry_data['category']
+        r.data_types = registry_data['dataTypes'] || ['none']
         r.version = 1
       end
-      if values.is_a?(Array)
-        values.each_with_index do |reg_val, idx|
-          RegistryValue.create!(data: reg_val, registry: registry, order: idx)
-        end
-      elsif values['path'].present?
-        values_path = Rails.root.join("engines/madmp_opidor/config/registries/#{values['path']}")
+      if registry_data.is_a?(Array)
+        registry.update(values: registry_data['values'])
+      elsif registry_data['path'].present?
+        values_path = Rails.root.join("engines/madmp_opidor/config/registries/#{registry_data['path']}")
         Registry.load_values(values_path, registry)
       end
       p "#{registry_name} loaded."

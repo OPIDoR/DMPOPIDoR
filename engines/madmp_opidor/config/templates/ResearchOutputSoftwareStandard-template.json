@@ -1,0 +1,176 @@
+{
+    "$schema": "http://json-schema.org/draft-07/schema#",
+    "$id": "../Documentation/Implementation/data_model/Json/",
+    "title": "ResearchOutputSoftwareStandard",
+    "description": "ResearchOutputSoftwareStandard template",
+    "dataTypes": [
+        "software"
+    ],
+    "type": "object",
+    "class": "ResearchOutputSoftwareStandard",
+    "properties": {
+        "softwareDescription": {
+            "type": "object",
+            "class": "SoftwareDescription",
+            "properties": {
+                "dbid": {
+                    "type": "number"
+                }
+            },
+            "template_name": "SoftwareDescriptionStandard",
+            "required": [
+                "dbid"
+            ],
+            "description": "Description du logiciel produit pendant le projet",
+            "label@fr_FR": "Description des produits de recherche de type logiciel",
+            "label@en_GB": "Description of software type research products",
+            "tooltip": null,
+            "form_label@fr_FR": "Description des produits de recherche de type logiciel",
+            "form_label@en_GB": "Description of software type research products"
+        },
+        "softwareDevelopment": {
+            "type": "object",
+            "class": "SoftwareDevelopment",
+            "properties": {
+                "dbid": {
+                    "type": "number"
+                }
+            },
+            "template_name": "SoftwareDevelopmentStandard",
+            "required": [
+                "dbid"
+            ],
+            "description": "Dépôt du code source",
+            "label@fr_FR": "Environnement de développement",
+            "label@en_GB": "Development environment",
+            "tooltip": null,
+            "form_label@fr_FR": "Environnement de développement",
+            "form_label@en_GB": "Development environment"
+        },
+        "softwareDocumentation": {
+            "type": "object",
+            "class": "SoftwareDocumentation",
+            "properties": {
+                "dbid": {
+                    "type": "number"
+                }
+            },
+            "template_name": "SoftwareDocumentationStandard",
+            "required": [
+                "dbid"
+            ],
+            "description": "Informations relatives à la qualité documentaire du logiciel",
+            "label@fr_FR": "Documentation du logiciel",
+            "label@en_GB": "Software documentation",
+            "tooltip": null,
+            "form_label@fr_FR": "Documentation du logiciel",
+            "form_label@en_GB": "Software documentation"
+        },
+        "softwareRuntime": {
+            "type": "object",
+            "class": "SoftwareRuntime",
+            "properties": {
+                "dbid": {
+                    "type": "number"
+                }
+            },
+            "template_name": "SoftwareRuntimeStandard",
+            "required": [
+                "dbid"
+            ],
+            "description": "Environment d'exécution",
+            "label@fr_FR": "Environnement d'éxécution",
+            "label@en_GB": "Execution environment",
+            "tooltip": null,
+            "form_label@fr_FR": "Environnement d'éxécution",
+            "form_label@en_GB": "Execution environment"
+        },
+        "softwarePreservation": {
+            "type": "object",
+            "class": "SoftwarePreservation",
+            "properties": {
+                "dbid": {
+                    "type": "number"
+                }
+            },
+            "template_name": "SoftwarePreservationStandard",
+            "required": [
+                "dbid"
+            ],
+            "description": "Informations sur la préservation du logiciel",
+            "label@fr_FR": "Archivage pérenne du logiciel",
+            "label@en_GB": "Software preservation",
+            "tooltip": null,
+            "form_label@fr_FR": "Archivage pérenne du logiciel",
+            "form_label@en_GB": "Software preservation"
+        },
+        "softwareSharing": {
+            "type": "object",
+            "class": "SoftwareSharing",
+            "properties": {
+                "dbid": {
+                    "type": "number"
+                }
+            },
+            "template_name": "SoftwareSharingStandard",
+            "required": [
+                "dbid"
+            ],
+            "description": "Référencement du logiciel",
+            "label@fr_FR": "Référencement du logiciel",
+            "label@en_GB": "Software registration",
+            "tooltip": null,
+            "form_label@fr_FR": "Référencement du logiciel",
+            "form_label@en_GB": "Software registration"
+        },
+        "softwareLegalIssues": {
+            "type": "object",
+            "class": "SoftwareLegalIssues",
+            "properties": {
+                "dbid": {
+                    "type": "number"
+                }
+            },
+            "template_name": "SoftwareLegalIssuesStandard",
+            "required": [
+                "dbid"
+            ],
+            "description": "Questions juridiques du logiciel",
+            "label@fr_FR": "Aspects juriques du logiciel",
+            "label@en_GB": "Software legal issues",
+            "tooltip": null,
+            "form_label@fr_FR": "Aspects juridiques du logiciel",
+            "form_label@en_GB": "Software legal issues"
+        },
+        "softwareValorisation": {
+            "type": "object",
+            "class": "SoftwareValorisation",
+            "properties": {
+                "dbid": {
+                    "type": "number"
+                }
+            },
+            "template_name": "SoftwareValorisationStandard",
+            "required": [
+                "dbid"
+            ],
+            "description": "Valorisation scientifique du logiciel",
+            "label@fr_FR": "Valorisation scientifique du logiciel",
+            "label@en_GB": "Software scientific valorisation",
+            "tooltip": null,
+            "form_label@fr_FR": "Valorisation scientifique du logiciel",
+            "form_label@en_GB": "Software scientific valorisation"
+        }
+    },
+    "required": [
+        "softwareDescription",
+        "softwareDevelopment",
+        "softwareDocumentation",
+        "softwareRuntime",
+        "softwarePreservation",
+        "softwareSharing",
+        "softwareLegalIssues",
+        "softwareValorisation"
+    ],
+    "to_string": []
+}

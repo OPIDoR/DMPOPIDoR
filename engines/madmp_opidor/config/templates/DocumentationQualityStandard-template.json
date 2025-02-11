@@ -3,6 +3,7 @@
     "$id": "../Documentation/Implementation/data_model/Json/",
     "title": "DocumentationQualityStandard",
     "description": "DocumentationQualityStandard template",
+    "dataTypes": null,
     "type": "object",
     "class": "DocumentationQualityStandard",
     "properties": {
@@ -64,6 +65,7 @@
             "registries": [
                 "Standards"
             ],
+            "registryCategory": "Standard",
             "overridable": true,
             "tooltip": null,
             "form_label@fr_FR": "Lister les standards de métadonnées/données utilisés",
@@ -79,6 +81,7 @@
             "registries": [
                 "ISO639-3"
             ],
+            "registryCategory": "ISO639-3",
             "tooltip@fr_FR": "Code de la langue des métadonnées, annotations",
             "tooltip@en_GB": "Language code of metadata or annotation",
             "form_label@fr_FR": "Code langue des métadonnées",
@@ -96,6 +99,7 @@
             "registries": [
                 "MetadataTools"
             ],
+            "registryCategory": "MetadataTool",
             "overridable": true,
             "tooltip@fr_FR": "Logiciels/outils utilisés pour la saisie des métadonnées comme par exemple Morpho pour le standard de métadonnées EML (pour en savoir plus : consulter l’onglet « A propos des réferentiels »)",
             "tooltip@en_GB": "Software/tools used for entering metadata, such as Morpho for the EML metadata standard (for more information: see “About registries”",

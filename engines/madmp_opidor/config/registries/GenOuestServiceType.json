@@ -1,0 +1,20 @@
+{
+    "GenOuestServiceType": [
+        {
+            "fr_FR": "Cluster",
+            "en_GB": "Cluster"
+        },
+        {
+            "fr_FR": "Projet sur cluster",
+            "en_GB": "Cluster project"
+        },
+        {
+            "fr_FR": "Cloud privé",
+            "en_GB": "Private cloud"
+        },
+        {
+            "fr_FR": "Portail web",
+            "en_GB": "Web portal"
+        }
+    ]
+}

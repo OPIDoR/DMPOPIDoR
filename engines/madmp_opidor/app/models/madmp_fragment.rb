@@ -133,7 +133,7 @@ class MadmpFragment < ApplicationRecord
   end
 
   def dmp_fragments
-    MadmpFragment.where(dmp_id: dmp.id)
+    MadmpFragment.where(dmp_id: classname.eql?('dmp') ? id : dmp_id)
   end
 
   # Returns a human readable version of the structured answer
@@ -223,6 +223,7 @@ class MadmpFragment < ApplicationRecord
         hasPersonalData: %w[Oui Yes].include?(data['containsPersonalData'])
       )
       research_output.update(
+        abbreviation: data['shortName'],
         title: data['title']
       )
       ro_fragment.update(additional_info: new_additional_info)
@@ -449,7 +450,7 @@ class MadmpFragment < ApplicationRecord
     ResearchOutput.find(research_output_fragment.data['research_output_id'])
   end
 
-  # rubocop:disable Metrics/AbcSize
+  # rubocop:disable Metrics/AbcSize,Metrics/MethodLength
   def update_meta_fragment
     meta_fragment = dmp.meta
     I18n.with_locale plan.template.locale do
@@ -477,7 +478,7 @@ class MadmpFragment < ApplicationRecord
       meta_fragment.update(data: meta_data)
     end
   end
-  # rubocop:enable Metrics/AbcSize
+  # rubocop:enable Metrics/AbcSize,Metrics/MethodLength
 
   # =================
   # = Class methods =
@@ -509,7 +510,7 @@ class MadmpFragment < ApplicationRecord
 
   # Checks for a given dmp_id (and parent_id) if a fragment exists in the database
   # rubocop:disable Metrics/AbcSize
-  # rubocop:disable Metrics/CyclomaticComplexity
+  # rubocop:disable Metrics/CyclomaticComplexity,Metrics/PerceivedComplexity
   def self.fragment_exists?(data, schema, dmp_id, parent_id = nil, current_fragment_id = nil)
     return false if schema.schema['unicity'].nil? || schema.schema['unicity'].empty?
 
@@ -522,10 +523,10 @@ class MadmpFragment < ApplicationRecord
       classname:
     ).where.not(id: current_fragment_id)
 
-    filtered_incoming_data = data.to_h.delete_if { |_, v| v.empty? }.slice(*unicity_properties)
+    filtered_incoming_data = data.to_h.delete_if { |_, v| v.nil? || v.empty? }.slice(*unicity_properties)
 
     dmp_fragments.each do |fragment|
-      filtered_db_data = fragment.data.delete_if { |_, v| v.empty? }.slice(*unicity_properties)
+      filtered_db_data = fragment.data.delete_if { |_, v| v.nil? || v.empty? }.slice(*unicity_properties)
       next if filtered_db_data.nil? || filtered_db_data.empty?
 
       return fragment if filtered_db_data.eql?(filtered_incoming_data)
@@ -533,7 +534,7 @@ class MadmpFragment < ApplicationRecord
 
     false
   end
-  # rubocop:enable Metrics/CyclomaticComplexity
+  # rubocop:enable Metrics/CyclomaticComplexity,Metrics/PerceivedComplexity
   # rubocop:enable Metrics/AbcSize
 
   def self.deep_copy(fragment, answer_id, ro_fragment)
@@ -565,6 +566,7 @@ class MadmpFragment < ApplicationRecord
         id: fragment.madmp_schema_id,
         name: madmp_schema.name,
         schema: madmp_schema.schema,
+        dataType: madmp_schema.data_type,
         api_client: if madmp_schema.api_client.present?
                       {
                         id: madmp_schema.api_client_id,

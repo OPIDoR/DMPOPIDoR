@@ -1,0 +1,20 @@
+{
+	"VersionControls": [
+		{
+			"en_GB": "Git",
+			"fr_FR": "Git"
+		},
+		{
+			"en_GB": "SVN",
+			"fr_FR": "SVN"
+		},
+		{
+			"en_GB": "Mercurial",
+			"fr_FR": "Mercurial"
+		},
+				{
+			"en_GB": "None",
+			"fr_FR": "Aucun"
+		}
+	]
+}

@@ -1,0 +1,24 @@
+{
+    "Certification": [
+        {
+            "fr_FR": "CoreTrustSeal",
+            "en_GB": "CoreTrustSeal"
+        },
+        {
+            "fr_FR": "WDS",
+            "en_GB": "WDS"
+        },
+        {
+            "fr_FR": "DSA",
+            "en_GB": "DSA"
+        },
+        {
+            "fr_FR": "ISO-9001",
+            "en_GB": "ISO-9001"
+        },
+        {
+            "fr_FR": "ISO-27000",
+            "en_GB": "ISO-27000"
+        }
+    ]
+}

@@ -1,0 +1,56 @@
+{
+    "ResearchDataType": [
+        {
+            "en_GB": "Dataset",
+            "fr_FR": "Jeu de données"
+        },
+        {
+            "en_GB": "Software",
+            "fr_FR": "Logiciel"
+        },
+        {
+            "en_GB": "Model",
+            "fr_FR": "Modèle"
+        },
+        {
+            "en_GB": "Physical object",
+            "fr_FR": "Objet physique"
+        },
+        {
+            "en_GB": "Workflow",
+            "fr_FR": "Workflow"
+        },
+        {
+            "en_GB": "Audiovisual",
+            "fr_FR": "Audiovisuel"
+        },
+        {
+            "en_GB": "Collection",
+            "fr_FR": "Collection"
+        },
+        {
+            "en_GB": "Image",
+            "fr_FR": "Image"
+        },
+        {
+            "en_GB": "Interactive resource",
+            "fr_FR": "Ressource interactive"
+        },
+        {
+            "en_GB": "Service",
+            "fr_FR": "Service"
+        },
+        {
+            "en_GB": "Sound",
+            "fr_FR": "Son"
+        },
+        {
+            "en_GB": "Text",
+            "fr_FR": "Texte"
+        },
+        {
+            "en_GB": "Other",
+            "fr_FR": "Autre"
+        }
+    ]
+}

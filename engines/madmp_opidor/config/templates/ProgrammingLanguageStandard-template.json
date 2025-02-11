@@ -1,0 +1,48 @@
+{
+    "$schema": "http://json-schema.org/draft-07/schema#",
+    "$id": "../Documentation/Implementation/data_model/Json/",
+    "title": "ProgrammingLanguageStandard",
+    "description": "ProgrammingLanguageStandard template",
+    "dataTypes": [
+        "software"
+    ],
+    "type": "object",
+    "class": "ProgrammingLanguageStandard",
+    "properties": {
+        "name": {
+            "type": "string",
+            "description": "Nom du language de programmation utilisé dans le logiciel",
+            "inputType": "dropdown",
+            "label@fr_FR": "Nom du langage de programmation",
+            "label@en_GB": "Name of the programming language",
+            "registries": [
+                "ProgrammingLanguages"
+            ],
+            "registryCategory": "ProgrammingLanguage",
+            "overridable": true,
+            "tooltip": null,
+            "form_label@fr_FR": "Nom du langage de programmation",
+            "form_label@en_GB": "Version of the programming language"
+        },
+        "version": {
+            "type": "string",
+            "description": "Version du language de programmation utilisé dans le logiciel (Python 2, Python 3…)",
+            "label@fr_FR": "Version du langage de programmation",
+            "label@en_GB": "Version of the programming language",
+            "tooltip": null,
+            "example@fr_FR": "Python 2, Python 3",
+            "example@en_GB": "Python 2, Python 3",
+            "form_label@fr_FR": "Version du langage de programmation (si besoin)",
+            "form_label@en_GB": "Version of the programming language (if applicable)"
+        }
+    },
+    "required": [
+        "name"
+    ],
+    "to_string": [
+        "$.name",
+        " (",
+        "$.version",
+        ")"
+    ]
+}

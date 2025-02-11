@@ -1,0 +1,20 @@
+{
+    "DataAccess": [
+        {
+            "fr_FR": "Ouvert",
+            "en_GB": "Open"
+        },
+        {
+            "fr_FR": "Restreint",
+            "en_GB": "Restricted"
+        },
+        {
+            "fr_FR": "Sous embargo",
+            "en_GB": "Embargoed"
+        },
+        {
+            "fr_FR": "Fermé",
+            "en_GB": "Closed"
+        }
+    ]
+}

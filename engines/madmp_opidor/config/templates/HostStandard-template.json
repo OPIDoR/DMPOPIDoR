@@ -3,6 +3,7 @@
     "$id": "../Documentation/Implementation/data_model/Json/",
     "title": "HostStandard",
     "description": "HostStandard template",
+    "dataTypes": null,
     "type": "object",
     "class": "HostStandard",
     "properties": {
@@ -33,6 +34,7 @@
             "registries": [
                 "PIDSystem"
             ],
+            "registryCategory": "PIDSystem",
             "overridable": true,
             "tooltip": null,
             "form_label@fr_FR": "Type d'identifiant",
@@ -54,6 +56,7 @@
             "registries": [
                 "ISO3166-alpha2"
             ],
+            "registryCategory": "ISO3166-alpha2",
             "tooltip": null,
             "form_label@fr_FR": "Localisation géographique (pays)",
             "form_label@en_GB": "Geo location (country)"
@@ -70,6 +73,7 @@
             "registries": [
                 "Certification"
             ],
+            "registryCategory": "Certification",
             "overridable": true,
             "tooltip": null,
             "form_label@fr_FR": "Certification/Label qualité",
@@ -87,6 +91,7 @@
             "registries": [
                 "PIDSystem"
             ],
+            "registryCategory": "PIDSystem",
             "overridable": true,
             "tooltip": null,
             "form_label@fr_FR": "Système d'identifiants",
@@ -124,6 +129,7 @@
             "registries": [
                 "StandardsShort"
             ],
+            "registryCategory": "StandardsShort",
             "overridable": true,
             "tooltip": null,
             "form_label@fr_FR": "Standards de métadonnées disponibles",

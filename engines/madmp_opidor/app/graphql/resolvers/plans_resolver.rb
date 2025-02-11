@@ -1,7 +1,11 @@
+# frozen_string_literal: true
+
 module Resolvers
+  # PlansResolver
   class PlansResolver < BaseResolver
     type [Types::PlanType], null: true
-    argument :id, GraphQL::Types::JSON, required: false, description: "ID of plan(s), can be a string or an array of strings."
+    argument :id, GraphQL::Types::JSON, required: false,
+                                        description: 'ID of plan(s), can be a string or an array of strings.'
     argument :grantId, GraphQL::Types::JSON, required: false
 
     def resolve(**args)
@@ -32,19 +36,22 @@ module Resolvers
       end
     end
 
+    # rubocop:disable Metrics/AbcSize
+    # rubocop:disable Metrics/CyclomaticComplexity,Metrics/PerceivedComplexity
     def filter_by_grant_id(plans, grant_ids)
       plans.select do |plan|
         fragments = plan&.json_fragment&.dmp_fragments
-        if grant_ids.is_a?(Hash) && grant_ids["regex"].present?
-          regex = grant_ids["regex"].gsub(/\A\/|\/\z/, '')
+        if grant_ids.is_a?(Hash) && grant_ids['regex'].present?
+          regex = grant_ids['regex'].gsub(%r{\A/|/\z}, '')
           fragments&.where("data->>'grantId' ~* ?", regex)&.exists?
         elsif grant_ids.is_a?(Array)
           fragments&.where("LOWER(data->>'grantId') IN (?)", grant_ids.compact.uniq.map(&:downcase)) || []
         else
-          fragments&.where("data->>grantId ~* ?", grant_ids)&.exists?
+          fragments&.where('data->>grantId ~* ?', grant_ids)&.exists?
         end
       end
     end
-
+    # rubocop:enable Metrics/CyclomaticComplexity,Metrics/PerceivedComplexity
+    # rubocop:enable Metrics/AbcSize
   end
 end

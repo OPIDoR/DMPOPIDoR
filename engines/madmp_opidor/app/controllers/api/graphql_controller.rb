@@ -1,12 +1,13 @@
 # frozen_string_literal: true
 
 module Api
+  # GraphqlController
   class GraphqlController < V1::BaseApiController
-
     respond_to :json
 
     before_action :authorize_request, unless: -> { public_query?(params[:query]) }
 
+    # rubocop:disable Metrics/AbcSize
     def execute
       if public_query?(params[:query])
         context = {}
@@ -21,16 +22,17 @@ module Api
 
       result = DmpRoadmapSchema.execute(query, variables: variables, context: context, operation_name: operation_name)
       render json: result
-    rescue StandardError => error
-      raise error unless Rails.env.development?
+    rescue StandardError => e
+      raise e unless Rails.env.development?
 
-      handle_error_in_development(error)
+      handle_error_in_development(e)
     end
+    # rubocop:enable Metrics/AbcSize
 
     private
 
     def public_query?(query)
-      query.present? && (query.include?('__schema')  || query.include?('authenticate'))
+      query.present? && (query.include?('__schema') || query.include?('authenticate'))
     end
 
     def prepare_variables(variables_param)

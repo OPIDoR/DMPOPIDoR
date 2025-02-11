@@ -3,6 +3,7 @@
     "$id": "../Documentation/Implementation/data_model/Json/",
     "title": "DataPreservationStandard",
     "description": "DataPreservationStandard template",
+    "dataTypes": null,
     "type": "object",
     "class": "DataPreservationStandard",
     "properties": {
@@ -35,6 +36,7 @@
             "registries": [
                 "VolumeUnit"
             ],
+            "registryCategory": "VolumeUnit",
             "overridable": true,
             "tooltip": null,
             "form_label@fr_FR": "Unité",
@@ -79,6 +81,7 @@
             "registries": [
                 "Archives"
             ],
+            "registryCategory": "Archive",
             "overridable": true,
             "tooltip": null,
             "form_label@fr_FR": "Choisir une archive pour conserver les données à long terme",

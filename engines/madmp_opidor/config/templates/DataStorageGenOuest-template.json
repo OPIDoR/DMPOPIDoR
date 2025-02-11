@@ -3,6 +3,7 @@
     "$id": "../Documentation/Implementation/data_model/Json/",
     "title": "DataStorageGenOuest",
     "description": "DataStorageGenOuest template",
+    "dataTypes": null,
     "type": "object",
     "class": "DataStorageGenOuest",
     "properties": {
@@ -118,6 +119,7 @@
             "registries": [
                 "VolumeUnit"
             ],
+            "registryCategory": "VolumeUnit",
             "overridable": true,
             "tooltip": null,
             "form_label@fr_FR": "Unité",

@@ -2,6 +2,52 @@
 
 **Attention** Cette liste de changements concerne les déploiements sur nos serveurs de test en interne.
 
+## 11/02/2025
+
+- Correction des problèmes d'affichage des référentiels (#12530, #12532, #12533)
+- Correction d'affichage de la question données personnelles de l'infobox (#12476)
+
+### 10/02/2025
+
+- Mise à jour de la mutation ``authenticate`` de l'API GraphQL pour générer un token via les identifiants d'un Client API
+- Ajout d'une condition selon le type de plan dans ``/app/models/dmpopidor/plan.rb:222`` pour récuper la liste des **fundings**
+
+## 07/02/2025
+
+- Ajout d'un message incitant un utilisateur à partager son plan avec l'ANR (#12349)
+- Ajout d'un "badge" indiquant que le plan a été partagé ou non avec un service externe (#12349)
+- Refonte des référentiels (#12236) : 
+  - Suppression de la table registry_values => Les valeurs sont directement stockées dans la table registries
+  - Ajout des champs `data_types` & `category` permettant de choisir de proposer les référentiels disponibles dans un formulaire
+- Ajout de `data_type` à la table des Thèmes afin de ne proposer que les thèmes pertinents à un module donné (#12223)
+
+## 06/02/2025
+
+- Ajout d'une alerte indiquant à l'utilisateur de partager son plan avec un financeur lors d'un import Financeur (#12349)
+
+## 03/02/2025
+
+- Modification de la position des notifications (#12452)
+- Améliorations de l'API GraphQL
+- Ajout d'une barre de défilement au niveau du choix des recommandations
+
+## 31/01/2025
+
+- Annulation : Retrait de la possibilité de copier un plan (#12385)
+- Retrait du switch des indiquant la présence de données personnelles dans un produit Logiciel (#12361)
+
+## 29/01/2025
+
+- Retrait de la possibilité de copier un plan (#12385)
+- Correction du problème de sélection des produits de recherche lors de l'export de plan (#12416)
+- Retrait de l'export des PR Logiciel du format RDA JSON & ajout de messages pour l'utilisateur. Ajout du type de produit de recherche dans la liste des PR lors de l'export (#12416)
+- Ajout d'une option de configuration permettant d'améliorer le chargement des traductions dans l'onglet Rédiger et Infos Générales (#12283)
+
+## 28/01/2025
+
+- Amélioration des textes et traductions du formulaire de création de PR (#12361)
+- L'abbréviation du PR est désormais importée correctement lors d'un import de plan (#12438)
+
 ## 23/01/2025
 
 - Retrait des modules non publiés de l'export des modèles publics (#12239)

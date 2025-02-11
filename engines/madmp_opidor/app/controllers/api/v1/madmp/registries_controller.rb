@@ -15,9 +15,9 @@ module Api
 
         # GET /api/v1/madmp/registries/:name
         def show
-          registry = Registry.includes(:registry_values).find_by!(name: params[:name])
+          registry = Registry.find_by!(name: params[:name])
           render json: {
-            registry.name => registry.registry_values.map(&:data)
+            registry.name => registry.values
           }
         rescue ActiveRecord::RecordNotFound
           render_error(errors: [_('Registry not found')], status: :not_found)

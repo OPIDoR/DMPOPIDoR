@@ -3,6 +3,7 @@
     "$id": "../Documentation/Implementation/data_model/Json/",
     "title": "DataSharingStandard",
     "description": "DataSharingStandard template",
+    "dataTypes": null,
     "type": "object",
     "class": "DataSharingStandard",
     "properties": {
@@ -51,6 +52,7 @@
             "registries": [
                 "Repositories"
             ],
+            "registryCategory": "Repository",
             "overridable": true,
             "substitutable": true,
             "tooltip": null,

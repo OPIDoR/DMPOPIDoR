@@ -10,7 +10,7 @@ module Paginable
       authorize(Registry)
       paginable_renderise(
         partial: 'index',
-        scope: Registry.all,
+        scope: Registry.paginable,
         query_params: { sort_field: 'registries.name', sort_direction: :asc },
         format: :json
       )

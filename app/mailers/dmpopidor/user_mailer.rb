@@ -154,6 +154,7 @@ module Dmpopidor
 
     # CHANGES
     # Mail is sent with user's locale
+    # rubocop:disable Metrics/AbcSize
     def plan_visibility(user, plan)
       return unless user.active?
 
@@ -171,6 +172,7 @@ module Dmpopidor
              subject: format(_('DMP Visibility Changed: %{plan_title}'), plan_title: @plan.title))
       end
     end
+    # rubocop:enable Metrics/AbcSize
 
     # CHANGES
     # Mail is sent with user's locale

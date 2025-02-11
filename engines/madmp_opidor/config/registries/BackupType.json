@@ -1,0 +1,20 @@
+{
+    "BackupType": [
+        {
+            "fr_FR": "Complète",
+            "en_GB": "Complete"
+        },
+        {
+            "fr_FR": "Différentielle",
+            "en_GB": "Differential"
+        },
+        {
+            "fr_FR": "Incrémentale",
+            "en_GB": "Incremental"
+        },
+        {
+            "fr_FR": "Miroir",
+            "en_GB": "Mirror"
+        }
+    ]
+}

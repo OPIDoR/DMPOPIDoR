@@ -3,6 +3,7 @@
     "$id": "../Documentation/Implementation/data_model/Json/",
     "title": "GenOuestServiceRequest",
     "description": "GenOuestServiceRequest template",
+    "dataTypes": null,
     "type": "object",
     "class": "GenOuestServiceRequest",
     "properties": {
@@ -15,6 +16,7 @@
             "registries": [
                 "GenOuestServiceType"
             ],
+            "registryCategory": "GenOuestServiceType",
             "tooltip": null,
             "form_label@fr_FR": "Type de service",
             "form_label@en_GB": "Service type"

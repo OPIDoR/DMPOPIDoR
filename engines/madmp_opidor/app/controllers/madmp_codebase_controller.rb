@@ -84,34 +84,50 @@ class MadmpCodebaseController < ApplicationController
     dmp_fragment = fragment.dmp
     script_name = params[:script_name]
 
+    if params[:api_client].present?
+      api_client = ApiClient.find_by(name: params[:api_client])
+      client_reader = ApiClientRole.new(read: true)
+      client_role = ApiClientRole.new({
+        plan_id: plan.id,
+        access: client_reader.access,
+        api_client_id: api_client.id
+      })
+      client_role.api_client = api_client
+      unless ApiClientRole.exists?(plan: client_role.plan, api_client:)
+        client_role.save!
+      end
+    end
+
     authorize fragment
 
     # rubocop:disable Metrics/BlockLength
     I18n.with_locale plan.template.locale do
       # EXAMPLE DATA
-      # begin
-      #   file_path = Rails.root.join("engines/madmp_opidor/config/example_data/anr_example_data.json")
-      #   response = JSON.load(File.open(file_path))
-      #   dmp_fragment.raw_import(response, dmp_fragment.madmp_schema)
-      #   dmp_fragment.update_meta_fragment
+      if Rails.configuration.x.madmp_codebase.mock == true
+        begin
+          file_path = Rails.root.join("engines/madmp_opidor/config/example_data/anr_example_data.json")
+          response = JSON.load(File.open(file_path))
+          dmp_fragment.raw_import(response, dmp_fragment.madmp_schema)
+          dmp_fragment.update_meta_fragment
 
-      #   render json: {
-      #     'fragment' => dmp_fragment.get_full_fragment,
-      #     'persons' => dmp_fragment.persons.map do |f|
-      #       {
-      #         **f.get_full_fragment(with_ids: true),
-      #         'to_string' => f.to_s,
-      #       }
-      #     end,
-      #     "message" => _('New data have been added to your plan, please click on the "Reload" button.')
-      #   }, status: 200
-      # rescue StandardError => e
-      #   # Rails.cache.delete(["codebase_run", fragment.id])
-      #   render json: {
-      #     'error' => "Internal Server error: #{e.message}"
-      #   }, status: 500
-      # end
-      # return
+          render json: {
+            'fragment' => dmp_fragment.get_full_fragment,
+            'persons' => dmp_fragment.persons.map do |f|
+              {
+                **f.get_full_fragment(with_ids: true),
+                'to_string' => f.to_s,
+              }
+            end,
+            "message" => _('New data have been added to your plan, please click on the "Reload" button.')
+          }, status: 200
+        rescue StandardError => e
+          # Rails.cache.delete(["codebase_run", fragment.id])
+          render json: {
+            'error' => "Internal Server error: #{e.message}"
+          }, status: 500
+        end
+        return
+      end
 
       response = fetch_run_data(fragment, script_name, 'superadmin', body: {
                                   data: { grantId: project_id },

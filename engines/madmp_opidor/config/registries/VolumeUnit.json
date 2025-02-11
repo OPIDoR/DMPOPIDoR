@@ -1,0 +1,28 @@
+{
+    "VolumeUnit": [
+        {
+            "fr_FR": "Octets",
+            "en_GB": "Bytes"
+        },
+        {
+            "fr_FR": "Ko",
+            "en_GB": "KB"
+        },
+        {
+            "fr_FR": "Mo",
+            "en_GB": "MB"
+        },
+        {
+            "fr_FR": "Go",
+            "en_GB": "GB"
+        },
+        {
+            "fr_FR": "To",
+            "en_GB": "TB"
+        },
+        {
+            "fr_FR": "Po",
+            "en_GB": "PB"
+        }
+    ]
+}

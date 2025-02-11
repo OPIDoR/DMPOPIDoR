@@ -1,105 +1,94 @@
+# frozen_string_literal: true
+
+require 'arel'
+
 module Resolvers
+  # FiltersResolver
   class FiltersResolver
-    def self.apply(scope, filter)
+    def self.apply(scope, filter, _size, _offset)
+      apply_filters(scope, filter)
+
+      # filtered_scope = filtered_scope.offset(offset).limit(size) if size && offset
+    end
+
+    def self.apply_filters(scope, filter)
       return scope if filter.nil?
 
-      conditions = []
+      scope = apply_and_conditions(scope, filter[:and]) if filter[:and].present?
+      scope = apply_or_conditions(scope, filter[:or]) if filter[:or].present?
+      scope = apply_not_conditions(scope, filter[:not]) if filter[:not].present?
 
-      if filter[:and]
-        and_condition = filter[:and].reduce(nil) do |current_scope, sub_filter|
-          sub_condition = build_condition(scope, sub_filter)
-          current_scope ? current_scope.and(sub_condition) : sub_condition
+      scope
+    end
+
+    def self.apply_and_conditions(scope, conditions)
+      and_conditions = conditions.filter_map { |sub_filter| build_condition(scope, sub_filter) }
+
+      return scope.none unless and_conditions.any?
+
+      scope = scope.where(and_conditions.reduce(&:or))
+      scope
+        .select('madmp_fragments.dmp_id', 'MAX(madmp_fragments.id) as id')
+        .group(:dmp_id)
+        .having(Arel.sql("COUNT(*) = #{conditions.length}"))
+    end
+
+    def self.apply_or_conditions(scope, conditions)
+      or_conditions = conditions.filter_map { |sub_filter| build_condition(scope, sub_filter) }
+
+      if or_conditions.any?
+        combined_scope = or_conditions.reduce do |accum, condition|
+          accum.or(condition)
         end
-        conditions << and_condition
+
+        scope = scope.where(combined_scope)
+        scope = scope
+                .select('madmp_fragments.dmp_id', 'MAX(madmp_fragments.id) as id')
+                .group(:dmp_id)
+      else
+        Rails.logger.warn "No valid OR conditions found: #{conditions.inspect}"
+        return scope.none
       end
 
-      if filter[:or]
-        or_condition = filter[:or].reduce(nil) do |current_scope, sub_filter|
-          sub_condition = build_condition(scope, sub_filter)
-          current_scope ? current_scope.or(sub_condition) : sub_condition
-        end
-        conditions << or_condition
-      end
-
-      if filter[:not]
-        not_condition = build_condition(scope, filter[:not])
-        conditions << scope.where.not(not_condition)
-      end
-
-      conditions.reduce(scope) { |current_scope, condition| current_scope.merge(condition) }
+      scope
     end
 
     def self.build_condition(scope, filter)
-      field = filter[:field]
-      if field == "grantId"
-        build_grant_id_condition(scope, filter)
-      else
-        apply_single_filter(scope, filter)
-      end
+      return nil unless filter[:className] && filter[:field] && filter[:value]
+
+      apply_single_filter(scope, filter)
     end
 
+    # rubocop:disable Metrics/AbcSize,Metrics/MethodLength
     def self.apply_single_filter(scope, filter)
+      class_name = filter[:className]
       field = filter[:field]
       value = filter[:value]
-      operator = filter[:operator] || "eq"
+      operator = filter[:operator] || 'eq'
 
-      matching_ids = scope.select do |plan|
-        fragments_scope = plan&.json_fragment&.dmp_fragments
-        next false unless fragments_scope
+      table = scope.arel_table
+      field_column = Arel.sql("data->>'#{field}'")
+      class_column = table[:classname]
 
-        case operator
-        when "eq"
-          if value.is_a?(Array)
-            fragments_scope.any? { |fragment| fragment.data[field]&.downcase == value&.downcase }
-          else
-            fragments_scope.any? { |fragment| fragment.data[field]&.downcase == value&.downcase }
-          end
-        when "neq"
-          fragments_scope.none? { |fragment| fragment.data[field]&.downcase == value&.downcase }
-        when "like"
-          fragments_scope.any? { |fragment| fragment.data[field]&.downcase&.include?(value.downcase) }
-        when "regex"
-          regex = value.gsub(/\A\/|\/\z/, '')
-          fragments_scope.any? { |fragment| fragment.data[field] =~ Regexp.new(regex) }
-        else
-          scope
-        end
-      end.map(&:id)
+      condition = nil
 
-      scope.where(id: matching_ids)
+      case operator
+      when 'eq'
+        condition = class_column.eq(class_name).and(field_column.eq(value))
+      when 'neq'
+        condition = class_column.eq(class_name).and(field_column.not_eq(value))
+      when 'like'
+        condition = class_column.eq(class_name).and(field_column.like("%#{value.downcase}%"))
+      when 'regex'
+        regex = value.gsub(%r{\A/|/\z}, '')
+        condition = Arel::Nodes::SqlLiteral.new("LOWER(data->>'#{field}') ~* '#{regex}'")
+        condition = class_column.eq(class_name).and(condition)
+      else
+        Rails.logger.warn "Unknown operator: #{operator}"
+      end
+
+      condition
     end
-
-    def self.build_grant_id_condition(scope, filter)
-      value = filter[:value]
-      operator = filter[:operator] || "eq"
-
-      matching_ids = scope.select do |plan|
-        fragments_scope = plan&.json_fragment&.dmp_fragments
-        next false unless fragments_scope
-
-        case operator
-        when "eq"
-          if value.is_a?(Array)
-            fragments_scope.any? { |fragment| value.include?(fragment.data['grantId']&.downcase) }
-          else
-            fragments_scope.any? { |fragment| fragment.data['grantId']&.downcase == value.downcase }
-          end
-        when "like"
-          if value.is_a?(Array)
-            fragments_scope.any? { |fragment| value.any? { |v| fragment.data['grantId']&.downcase =~ /#{v.downcase}/i } }
-          else
-            fragments_scope.any? { |fragment| fragment.data['grantId']&.downcase =~ /#{value.downcase}/i }
-          end
-        when "regex"
-          regex = Regexp.new(value.gsub(/\A\/|\/\z/, ''))
-          fragments_scope.any? { |fragment| fragment.data['grantId'] =~ regex }
-        else
-          false
-        end
-      end.map(&:id)
-
-      scope.where(id: matching_ids)
-    end
-
+    # rubocop:enable Metrics/AbcSize,Metrics/MethodLength
   end
 end

@@ -189,3 +189,5 @@ Style/StringLiterals:
     - 'config/**/*'
 Style/SwapValues: # new in 1.1
   Enabled: true
+Style/SafeNavigationChainLength:
+  Max: 3

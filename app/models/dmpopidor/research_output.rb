@@ -39,7 +39,6 @@ module Dmpopidor
     end
 
     # rubocop:disable Metrics/AbcSize, Metrics/MethodLength
-    # rubocop:disable Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
     def create_json_fragments(configuration = {})
       # rubocop:disable Metrics/BlockLength
       I18n.with_locale plan.template.locale do
@@ -50,6 +49,7 @@ module Dmpopidor
         locale = plan.template.locale
         if fragment.nil?
           description_prop_name, description_question, description_schema = data_type_to_schema_data(data_type, locale)
+          ro_additional_info, description_data = configuration_to_additional_info_data(configuration, locale)
 
           # Creates the main ResearchOutput fragment
           fragment = Fragment::ResearchOutput.create(
@@ -59,20 +59,10 @@ module Dmpopidor
             madmp_schema: MadmpSchema.find_by(classname: 'research_output', data_type: data_type || 'none'),
             dmp_id: dmp_fragment.id,
             parent_id: dmp_fragment.id,
-            additional_info: {
-              property_name: 'researchOutput',
-              hasPersonalData: configuration[:hasPersonalData] || false,
-              dataType: data_type || 'none',
-              moduleId: ::Template.module(data_type:, locale:)&.id
-            }
+            additional_info: ro_additional_info
           )
           fragment_description = MadmpFragment.create!(
-            data: {
-              'title' => title,
-              'shortName' => abbreviation,
-              'type' => output_type_description,
-              'containsPersonalData' => configuration[:hasPersonalData] ? _('Yes') : _('No')
-            },
+            data: description_data,
             madmp_schema: description_schema,
             classname: description_schema.classname,
             dmp_id: dmp_fragment.id,
@@ -112,7 +102,6 @@ module Dmpopidor
       end
       # rubocop:enable Metrics/BlockLength
     end
-    # rubocop:enable Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
     # rubocop:enable Metrics/AbcSize, Metrics/MethodLength
 
     def serialize_infobox_data
@@ -192,6 +181,44 @@ module Dmpopidor
         ]
       end
     end
+
+    #####
+    # Returns an array containing the researchOutput fragment additional info and researchOutput description data
+    # depending on the research output configuration in parameters
+    #####
+    # rubocop:disable Metrics/MethodLength
+    def configuration_to_additional_info_data(configuration, locale)
+      case configuration[:dataType]
+      when 'software'
+        [
+          {
+            property_name: 'researchOutput',
+            dataType: configuration[:dataType],
+            moduleId: ::Template.module(data_type: configuration[:dataType], locale:)&.id
+          },
+          {
+            'title' => title,
+            'shortName' => abbreviation,
+            'type' => output_type_description
+          }
+        ]
+      else
+        [
+          {
+            property_name: 'researchOutput',
+            hasPersonalData: configuration[:hasPersonalData] || false,
+            dataType: 'none'
+          },
+          {
+            'title' => title,
+            'shortName' => abbreviation,
+            'type' => output_type_description,
+            'containsPersonalData' => configuration[:hasPersonalData] ? _('Yes') : _('No')
+          }
+        ]
+      end
+    end
+    # rubocop:enable Metrics/MethodLength
   end
   # rubocop:enable Metrics/ModuleLength
 end

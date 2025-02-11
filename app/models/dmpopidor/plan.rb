@@ -175,7 +175,7 @@ module Dmpopidor
       )
     end
 
-    # rubocop:disable Metrics/AbcSize
+    # rubocop:disable Metrics/AbcSize, Metrics/MethodLength
     def copy_plan_fragments(plan)
       create_plan_fragments if json_fragment.nil?
 
@@ -199,7 +199,7 @@ module Dmpopidor
           )
         end
 
-        if plan.template.context == 'research_entity'
+        if template.research_entity?
           json_fragment.research_entity.raw_import(raw_project, json_fragment.research_entity.madmp_schema)
         else
           json_fragment.project.raw_import(raw_project, json_fragment.project.madmp_schema)
@@ -207,7 +207,7 @@ module Dmpopidor
         json_fragment.meta.raw_import(raw_meta, json_fragment.meta.madmp_schema)
       end
     end
-    # rubocop:enable Metrics/AbcSize
+    # rubocop:enable Metrics/AbcSize, Metrics/MethodLength
 
     def add_api_client!(api_client)
       return unless api_client.present? && api_client_roles.where(api_client_id: api_client.id).none?
@@ -219,7 +219,11 @@ module Dmpopidor
     end
 
     def grant_identifier
-      json_fragment.project.fundings.pluck(Arel.sql("data->'grantId'")).join(', ')
+      if template.research_entity?
+        json_fragment.research_entity.fundings.pluck(Arel.sql("data->'grantId'")).join(', ')
+      else
+        json_fragment.project.fundings.pluck(Arel.sql("data->'grantId'")).join(', ')
+      end
     end
   end
   # rubocop:enable Metrics/ModuleLength
