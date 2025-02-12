@@ -83,6 +83,14 @@ module Resolvers
         regex = value.gsub(%r{\A/|/\z}, '')
         condition = Arel::Nodes::SqlLiteral.new("LOWER(data->>'#{field}') ~* '#{regex}'")
         condition = class_column.eq(class_name).and(condition)
+      when 'lt'
+        condition = class_column.eq(class_name).and(Arel.sql("data->>'#{field}' < '#{value}'"))
+      when 'lte'
+        condition = class_column.eq(class_name).and(Arel.sql("data->>'#{field}' <= '#{value}'"))
+      when 'gt'
+        condition = class_column.eq(class_name).and(Arel.sql("data->>'#{field}' > '#{value}'"))
+      when 'gte'
+        condition = class_column.eq(class_name).and(Arel.sql("data->>'#{field}' >= '#{value}'"))
       else
         Rails.logger.warn "Unknown operator: #{operator}"
       end
