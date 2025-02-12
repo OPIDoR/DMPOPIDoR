@@ -2,6 +2,12 @@
 
 **Attention** Cette liste de changements concerne les déploiements sur nos serveurs de test en interne.
 
+## 12/02/2025
+
+- Ajout d'un évenement pour recharger les données du produit de recherche après création (#12373)
+- Affichage uniquement des plans structurés dans l'import de produit de recherche (#12504)
+- Mise à jour interface ANR
+
 ## 11/02/2025
 
 - Correction des problèmes d'affichage des référentiels (#12530, #12532, #12533)
