@@ -118,6 +118,7 @@ class MadmpCodebaseController < ApplicationController
                 'to_string' => f.to_s,
               }
             end,
+            'clients' => plan.api_client_roles.map { |client_role| ApiClient.where(id: client_role.api_client_id).select(:name).first },
             "message" => _('New data have been added to your plan, please click on the "Reload" button.')
           }, status: 200
         rescue StandardError => e
@@ -149,7 +150,8 @@ class MadmpCodebaseController < ApplicationController
               'to_string' => f.to_s
             }
           end,
-          'message' => _('Project data have successfully been imported.')
+          'clients' => plan.api_client_roles.map { |client_role| ApiClient.where(id: client_role.api_client_id).select(:name).first },
+          'message' => _('Project data have successfully been imported.'),
         }, status: 200
         update_run_log(dmp_fragment, script_name)
       else

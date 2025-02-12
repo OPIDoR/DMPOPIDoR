@@ -99,15 +99,7 @@
     </div>
   </div>
   <div style="display: flex; justify-content: flex-end; align-items: flex-end; width: 100%; position: relative; margin-right: 100px;">
-    <% if plan.api_client_roles.any? %>
-      <% clients = plan.api_client_roles.map { |client_role| ApiClient.where(id: client_role.api_client_id).select(:name).first }%>
-      <% @clients_name =  %>
-      <a href="/plans/<%= plan.id %>/share">
-        <button class="btn btn-primary">
-          <%= _("Plan shared with : %{clients}") % { :clients => clients.pluck('name').join(', ') } %>
-        </button>
-      </a>
-    <% end %>
+    <%= react("SharedLabelLayout", props: { planId: plan.id, clients: plan.api_client_roles.map { |client_role| ApiClient.where(id: client_role.api_client_id).select(:name).first } }) %>
   </div>
   <div id="content" role="tabpanel" class="tab-pane active row col-md-12">
     <div class="plan-content panel panel-default">
