@@ -25,7 +25,8 @@ module Dmpopidor
             {
               id: plan.id,
               title: plan.title,
-              research_outputs: plan.research_outputs
+              research_outputs: plan.research_outputs,
+              isStructured: plan.template.structured?,
             }
           end.reject do |plan| # rubocop:disable Style/MultilineBlockChain
             plan[:research_outputs].empty? ||
