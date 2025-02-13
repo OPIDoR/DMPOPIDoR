@@ -20,4 +20,6 @@ class StaticPagesController < ApplicationController
   def termsuse; end
 
   def help; end
+
+  def roadmap; end
 end
