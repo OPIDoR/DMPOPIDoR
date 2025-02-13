@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: app 1.0\n"
 "Report-Msgid-Bugs-To: contact@translation.io\n"
-"POT-Creation-Date: 2025-02-12 10:01+0100\n"
-"PO-Revision-Date: 2025-02-12 10:01+0100\n"
+"POT-Creation-Date: 2025-02-13 13:38+0100\n"
+"PO-Revision-Date: 2025-02-13 13:38+0100\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "Language: \n"
@@ -113,8 +113,8 @@ msgstr ""
 
 #: ../../app/controllers/contributors_controller.rb:79
 #: ../../app/controllers/dmpopidor/orgs_controller.rb:106
-#: ../../app/controllers/dmpopidor/plans_controller.rb:184
-#: ../../app/controllers/dmpopidor/plans_controller.rb:187
+#: ../../app/controllers/dmpopidor/plans_controller.rb:185
+#: ../../app/controllers/dmpopidor/plans_controller.rb:188
 #: ../../app/controllers/guidance_groups_controller.rb:59
 #: ../../app/controllers/guidances_controller.rb:119
 #: ../../app/controllers/notes_controller.rb:103
@@ -134,10 +134,10 @@ msgstr ""
 #: ../../app/controllers/contributors_controller.rb:81
 #: ../../app/controllers/dmpopidor/notes_controller.rb:216
 #: ../../app/controllers/dmpopidor/orgs_controller.rb:108
-#: ../../app/controllers/dmpopidor/plans_controller.rb:193
-#: ../../app/controllers/dmpopidor/plans_controller.rb:196
-#: ../../app/controllers/dmpopidor/plans_controller.rb:200
-#: ../../app/controllers/dmpopidor/plans_controller.rb:203
+#: ../../app/controllers/dmpopidor/plans_controller.rb:194
+#: ../../app/controllers/dmpopidor/plans_controller.rb:197
+#: ../../app/controllers/dmpopidor/plans_controller.rb:201
+#: ../../app/controllers/dmpopidor/plans_controller.rb:204
 #: ../../app/controllers/guidance_groups_controller.rb:61
 #: ../../app/controllers/guidances_controller.rb:121
 #: ../../app/controllers/notes_controller.rb:121
@@ -200,7 +200,7 @@ msgid "registry value"
 msgstr ""
 
 #: ../../app/controllers/dmpopidor/notes_controller.rb:101
-#: ../../app/controllers/dmpopidor/plans_controller.rb:90
+#: ../../app/controllers/dmpopidor/plans_controller.rb:91
 #: ../../app/controllers/guidance_groups_controller.rb:33
 #: ../../app/controllers/guidances_controller.rb:59
 #: ../../app/controllers/notes_controller.rb:54
@@ -211,8 +211,8 @@ msgid "created"
 msgstr ""
 
 #: ../../app/controllers/dmpopidor/notes_controller.rb:123
-#: ../../app/controllers/dmpopidor/plans_controller.rb:137
-#: ../../app/controllers/dmpopidor/plans_controller.rb:440
+#: ../../app/controllers/dmpopidor/plans_controller.rb:138
+#: ../../app/controllers/dmpopidor/plans_controller.rb:441
 #: ../../app/controllers/guidance_groups_controller.rb:36
 #: ../../app/controllers/guidances_controller.rb:61
 #: ../../app/controllers/notes_controller.rb:73
@@ -242,38 +242,38 @@ msgstr ""
 msgid "Own Templates"
 msgstr ""
 
-#: ../../app/controllers/dmpopidor/plans_controller.rb:61
+#: ../../app/controllers/dmpopidor/plans_controller.rb:62
 #: ../../app/controllers/plans_controller.rb:89
 msgid "Unable to identify a suitable template for your plan."
 msgstr ""
 
-#: ../../app/controllers/dmpopidor/plans_controller.rb:74
+#: ../../app/controllers/dmpopidor/plans_controller.rb:75
 #: ../../app/controllers/plans_controller.rb:103
 msgid "My Plan (%{title})"
 msgstr ""
 
-#: ../../app/controllers/dmpopidor/plans_controller.rb:76
-#: ../../app/controllers/dmpopidor/plans_controller.rb:424
+#: ../../app/controllers/dmpopidor/plans_controller.rb:77
+#: ../../app/controllers/dmpopidor/plans_controller.rb:425
 #: ../../app/controllers/plans_controller.rb:105
 msgid "%{user_name}'s Plan"
 msgstr ""
 
-#: ../../app/controllers/dmpopidor/plans_controller.rb:94
+#: ../../app/controllers/dmpopidor/plans_controller.rb:95
 #: ../../app/controllers/plans_controller.rb:143
 msgid "This plan is based on the default template."
 msgstr ""
 
-#: ../../app/controllers/dmpopidor/plans_controller.rb:99
+#: ../../app/controllers/dmpopidor/plans_controller.rb:100
 #: ../../app/controllers/plans_controller.rb:148
 msgid "This plan is based on the"
 msgstr ""
 
-#: ../../app/controllers/dmpopidor/plans_controller.rb:99
+#: ../../app/controllers/dmpopidor/plans_controller.rb:100
 #: ../../app/controllers/plans_controller.rb:148
 msgid "template with customisations by the"
 msgstr ""
 
-#: ../../app/controllers/dmpopidor/plans_controller.rb:103
+#: ../../app/controllers/dmpopidor/plans_controller.rb:104
 #: ../../app/controllers/plans_controller.rb:156
 #: ../../app/views/branded/phases/_edit_plan_answers.html.erb:9
 msgid ""
@@ -281,7 +281,7 @@ msgid ""
 "."
 msgstr ""
 
-#: ../../app/controllers/dmpopidor/plans_controller.rb:118
+#: ../../app/controllers/dmpopidor/plans_controller.rb:119
 #: ../../app/controllers/dmpopidor/research_outputs_controller.rb:33
 #: ../../app/controllers/dmpopidor/research_outputs_controller.rb:130
 #: ../../app/controllers/dmpopidor/research_outputs_controller.rb:181
@@ -289,7 +289,7 @@ msgstr ""
 msgid "RO"
 msgstr ""
 
-#: ../../app/controllers/dmpopidor/plans_controller.rb:119
+#: ../../app/controllers/dmpopidor/plans_controller.rb:120
 #: ../../app/controllers/dmpopidor/research_outputs_controller.rb:34
 #: ../../app/controllers/dmpopidor/research_outputs_controller.rb:131
 #: ../../app/controllers/dmpopidor/research_outputs_controller.rb:182
@@ -297,25 +297,25 @@ msgstr ""
 msgid "Research output"
 msgstr ""
 
-#: ../../app/controllers/dmpopidor/plans_controller.rb:436
+#: ../../app/controllers/dmpopidor/plans_controller.rb:437
 msgid "imported"
 msgstr ""
 
-#: ../../app/controllers/dmpopidor/plans_controller.rb:446
+#: ../../app/controllers/dmpopidor/plans_controller.rb:447
 msgid "Unvalid file"
 msgstr ""
 
-#: ../../app/controllers/dmpopidor/plans_controller.rb:450
+#: ../../app/controllers/dmpopidor/plans_controller.rb:451
 msgid "File should contain JSON"
 msgstr ""
 
-#: ../../app/controllers/dmpopidor/plans_controller.rb:455
+#: ../../app/controllers/dmpopidor/plans_controller.rb:456
 #: ../../engines/madmp_opidor/app/controllers/madmp_codebase_controller.rb:64
 #: ../../engines/madmp_opidor/app/controllers/madmp_codebase_controller.rb:160
 msgid "An error has occured: "
 msgstr ""
 
-#: ../../app/controllers/dmpopidor/plans_controller.rb:512
+#: ../../app/controllers/dmpopidor/plans_controller.rb:513
 msgid "Invalid JSON: "
 msgstr ""
 
@@ -1287,7 +1287,7 @@ msgstr ""
 #: ../../app/views/branded/org_admin/users/edit.html.erb:55
 #: ../../app/views/branded/orgs/_profile_form.html.erb:157
 #: ../../app/views/branded/plans/_guidance_selection.html.erb:23
-#: ../../app/views/branded/plans/_share_form.html.erb:111
+#: ../../app/views/branded/plans/_share_form.html.erb:55
 #: ../../app/views/branded/plans/_share_third_party.html.erb:53
 #: ../../app/views/branded/research_outputs/_list.html.erb:82
 #: ../../app/views/branded/super_admin/api_clients/_form.html.erb:67
@@ -1365,7 +1365,7 @@ msgstr ""
 #: ../../app/views/branded/devise/registrations/_personal_details.html.erb:10
 #: ../../app/views/branded/org_admin/users/edit.html.erb:14
 #: ../../app/views/branded/paginable/users/_index.html.erb:21
-#: ../../app/views/branded/plans/_share_form.html.erb:75
+#: ../../app/views/branded/plans/_share_form.html.erb:19
 #: ../../app/views/branded/shared/_create_account_form.html.erb:12
 #: ../../app/views/branded/shared/_sign_in_form.html.erb:22
 #: ../../app/views/branded/shared/_sign_in_form_header.html.erb:22
@@ -2135,7 +2135,7 @@ msgstr ""
 #: ../../app/views/branded/paginable/templates/_history.html.erb:10
 #: ../../app/views/branded/paginable/templates/_modules.html.erb:58
 #: ../../app/views/branded/paginable/templates/_organisational.html.erb:57
-#: ../../app/views/branded/plans/_share_form.html.erb:19
+#: ../../app/views/branded/plans/_share_form.html.erb:70
 #: ../../app/views/branded/plans/_share_third_party.html.erb:70
 #: ../../engines/madmp_opidor/app/views/paginable/madmp_schemas/_index.html.erb:10
 #: ../../engines/madmp_opidor/app/views/paginable/madmp_schemas/_index.html.erb:30
@@ -2685,7 +2685,7 @@ msgstr ""
 #: ../../app/views/branded/paginable/plans/_privately_visible.html.erb:83
 #: ../../app/views/branded/paginable/templates/_modules.html.erb:73
 #: ../../app/views/branded/paginable/templates/_organisational.html.erb:78
-#: ../../app/views/branded/plans/_share_form.html.erb:57
+#: ../../app/views/branded/plans/_share_form.html.erb:108
 #: ../../app/views/branded/plans/_share_third_party.html.erb:84
 #: ../../app/views/research_outputs/_form.html.erb:180
 msgid "Remove"
@@ -3370,46 +3370,46 @@ msgid ""
 "n (can view the plan or comment)"
 msgstr ""
 
-#: ../../app/views/branded/plans/_share_form.html.erb:10
-msgid "Manage collaborators"
+#: ../../app/views/branded/plans/_share_form.html.erb:11
+msgid "Invite collaborators"
 msgstr ""
 
-#: ../../app/views/branded/plans/_share_form.html.erb:11
+#: ../../app/views/branded/plans/_share_form.html.erb:12
 msgid ""
 "Invite specific people to read, edit, or administer your plan. Invitees will r"
 "eceive an email notification that they have access to this plan."
 msgstr ""
 
-#: ../../app/views/branded/plans/_share_form.html.erb:16
-msgid "Email address"
-msgstr ""
-
-#: ../../app/views/branded/plans/_share_form.html.erb:17
-#: ../../app/views/branded/plans/_share_form.html.erb:90
+#: ../../app/views/branded/plans/_share_form.html.erb:34
+#: ../../app/views/branded/plans/_share_form.html.erb:68
 #: ../../app/views/branded/plans/_share_third_party.html.erb:44
 #: ../../app/views/branded/plans/_share_third_party.html.erb:68
 msgid "Permissions"
 msgstr ""
 
-#: ../../app/views/branded/plans/_share_form.html.erb:57
-#: ../../app/views/branded/plans/_share_third_party.html.erb:84
-msgid "Are you sure?"
-msgstr ""
-
-#: ../../app/views/branded/plans/_share_form.html.erb:68
-msgid "Invite collaborators"
-msgstr ""
-
-#: ../../app/views/branded/plans/_share_form.html.erb:95
+#: ../../app/views/branded/plans/_share_form.html.erb:39
 msgid "Co-owner: can edit project details, change visibility, and add collaborators"
 msgstr ""
 
-#: ../../app/views/branded/plans/_share_form.html.erb:101
+#: ../../app/views/branded/plans/_share_form.html.erb:45
 msgid "Editor: can comment and make changes"
 msgstr ""
 
-#: ../../app/views/branded/plans/_share_form.html.erb:107
+#: ../../app/views/branded/plans/_share_form.html.erb:51
 msgid "Read only: can view and comment, but not make changes"
+msgstr ""
+
+#: ../../app/views/branded/plans/_share_form.html.erb:62
+msgid "Manage collaborators"
+msgstr ""
+
+#: ../../app/views/branded/plans/_share_form.html.erb:67
+msgid "Email address"
+msgstr ""
+
+#: ../../app/views/branded/plans/_share_form.html.erb:108
+#: ../../app/views/branded/plans/_share_third_party.html.erb:84
+msgid "Are you sure?"
 msgstr ""
 
 #: ../../app/views/branded/plans/_share_form.html.erb:120
@@ -3418,8 +3418,9 @@ msgstr ""
 
 #: ../../app/views/branded/plans/_share_form.html.erb:122
 msgid ""
-"Fully or partially completed plans can be made visible to administrators, orga"
-"nisations as well as public. Plans flagged as test projects remain private."
+"Make fully or partially completed plans visible to administrators and the orga"
+"nization. They can also be made public. Plans marked as test projects remain p"
+"rivate."
 msgstr ""
 
 #: ../../app/views/branded/plans/_share_form.html.erb:131
