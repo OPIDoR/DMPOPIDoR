@@ -2,6 +2,16 @@
 
 **Attention** Cette liste de changements concerne les déploiements sur nos serveurs de test en interne.
 
+## 13/02/2025
+
+- Ajout du lien vers la Feuille de route dans le pied de page (#12531)
+- Correction du problème d'accès à l'onglet Produits de Recherche (#12564)
+- Correction du problème d'accès aux référentiels dans les sous formulaires (#12530)
+- Correction d'un problème d'affichage de la valeur "données personelles" dans l'infobox d'un produit de recherche.
+- Amélioration de l'onglet Partager (#12563)
+- Correction du problème de récupération des noms d'organisme dans l'import RoR (#12554)
+- Correction du problème d'accès aux référentiels dans les sous formulaires (#12530)
+
 ## 12/02/2025
 
 - Ajout d'un évenement pour recharger les données du produit de recherche après création (#12373)
