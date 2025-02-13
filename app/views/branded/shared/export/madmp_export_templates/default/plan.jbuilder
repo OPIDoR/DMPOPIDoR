@@ -13,7 +13,6 @@ if plan.template.research_entity?
 else
   json.project dmp.project.get_full_fragment
 end
-json.contributor format_contributors(dmp, selected_research_outputs)
 
 json.researchOutput research_outputs do |research_output|
   research_output_fragment = research_output.json_fragment

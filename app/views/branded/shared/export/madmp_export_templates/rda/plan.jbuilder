@@ -36,7 +36,7 @@ json.dmp do
     json.contact({})
   end
   json.contributor dmp.persons do |person|
-    roles = person.roles(selected_research_outputs)
+    roles = person.roles
     next if roles.empty?
 
     json.name       person.to_s
