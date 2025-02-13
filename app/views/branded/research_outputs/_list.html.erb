@@ -34,8 +34,8 @@
             <%= select_tag "research_output[output_type_description]",
                         options_for_select(
                             registryValues.map {|v| [ 
-                                    v.to_s(locale: template_locale), 
-                                    v.to_s(locale: template_locale)
+                                    v[template_locale], 
+                                    v[template_locale]
                                 ] 
                             },
                             selected: research_output_data['type']
