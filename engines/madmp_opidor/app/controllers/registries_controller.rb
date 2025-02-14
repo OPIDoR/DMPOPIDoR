@@ -8,7 +8,7 @@ class RegistriesController < ApplicationController
     data_type = params[:data_type] || 'none'
     skip_authorization
     registries = Registry.where(Arel.sql("'#{data_type}' = ANY(data_types) AND category='#{params[:category]}'"))
-    render json: registries.select(%w[id name])
+    render json: registries.length > 1 ? registries.select(%w[id name]) : registries.select(%w[id name values])
   end
 
   def show
