@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: app 1.0\n"
 "Report-Msgid-Bugs-To: contact@translation.io\n"
-"POT-Creation-Date: 2025-02-13 14:29+0100\n"
-"PO-Revision-Date: 2025-02-13 14:29+0100\n"
+"POT-Creation-Date: 2025-02-14 14:22+0100\n"
+"PO-Revision-Date: 2025-02-14 14:22+0100\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "Language: \n"
@@ -332,6 +332,7 @@ msgstr ""
 
 #: ../../app/controllers/dmpopidor/research_outputs_controller.rb:68
 #: ../../app/models/dmpopidor/research_output.rb:216
+#: ../../app/views/branded/paginable/api_clients/_index.html.erb:34
 #: ../../app/views/branded/paginable/guidance_groups/_index.html.erb:34
 #: ../../app/views/branded/paginable/orgs/_index.html.erb:25
 #: ../../app/views/branded/paginable/plans/_administrator_visible.html.erb:36
@@ -346,6 +347,7 @@ msgstr ""
 
 #: ../../app/controllers/dmpopidor/research_outputs_controller.rb:68
 #: ../../app/models/dmpopidor/research_output.rb:216
+#: ../../app/views/branded/paginable/api_clients/_index.html.erb:34
 #: ../../app/views/branded/paginable/guidance_groups/_index.html.erb:32
 #: ../../app/views/branded/paginable/orgs/_index.html.erb:25
 #: ../../app/views/branded/paginable/plans/_administrator_visible.html.erb:36
@@ -652,7 +654,7 @@ msgid ""
 msgstr ""
 
 #: ../../app/controllers/roles_controller.rb:107
-#: ../../engines/madmp_opidor/app/controllers/api_client_roles_controller.rb:56
+#: ../../engines/madmp_opidor/app/controllers/api_client_roles_controller.rb:58
 msgid "Access removed"
 msgstr ""
 
@@ -1290,7 +1292,7 @@ msgstr ""
 #: ../../app/views/branded/plans/_share_form.html.erb:55
 #: ../../app/views/branded/plans/_share_third_party.html.erb:53
 #: ../../app/views/branded/research_outputs/_list.html.erb:82
-#: ../../app/views/branded/super_admin/api_clients/_form.html.erb:67
+#: ../../app/views/branded/super_admin/api_clients/_form.html.erb:78
 #: ../../app/views/branded/super_admin/static_pages/_form.html.erb:59
 #: ../../app/views/branded/super_admin/themes/_form.html.erb:50
 #: ../../app/views/branded/super_admin/users/edit.html.erb:62
@@ -1661,7 +1663,7 @@ msgstr ""
 #: ../../app/views/branded/org_admin/questions/_form.html.erb:136
 #: ../../app/views/branded/plans/_guidance_selection.html.erb:35
 #: ../../app/views/branded/research_outputs/_list.html.erb:83
-#: ../../app/views/branded/super_admin/api_clients/_form.html.erb:93
+#: ../../app/views/branded/super_admin/api_clients/_form.html.erb:104
 #: ../../app/views/branded/super_admin/static_pages/_form.html.erb:67
 #: ../../app/views/branded/super_admin/themes/_form.html.erb:56
 #: ../../app/views/research_outputs/_form.html.erb:183
@@ -2122,8 +2124,8 @@ msgid "Request Date"
 msgstr ""
 
 #: ../../app/views/branded/org_admin/plans/index.html.erb:20
-#: ../../app/views/branded/paginable/api_clients/_index.html.erb:20
-#: ../../app/views/branded/paginable/api_clients/_index.html.erb:40
+#: ../../app/views/branded/paginable/api_clients/_index.html.erb:23
+#: ../../app/views/branded/paginable/api_clients/_index.html.erb:44
 #: ../../app/views/branded/paginable/departments/_index.html.erb:7
 #: ../../app/views/branded/paginable/departments/_index.html.erb:24
 #: ../../app/views/branded/paginable/guidance_groups/_index.html.erb:11
@@ -2232,8 +2234,8 @@ msgid ""
 msgstr ""
 
 #: ../../app/views/branded/org_admin/questions/_form.html.erb:133
-#: ../../app/views/branded/super_admin/api_clients/_form.html.erb:82
-#: ../../app/views/branded/super_admin/api_clients/_form.html.erb:86
+#: ../../app/views/branded/super_admin/api_clients/_form.html.erb:93
+#: ../../app/views/branded/super_admin/api_clients/_form.html.erb:97
 #: ../../app/views/branded/super_admin/static_pages/_form.html.erb:61
 #: ../../app/views/branded/super_admin/themes/_form.html.erb:52
 #: ../../engines/madmp_opidor/app/views/paginable/registries/_index.html.erb:35
@@ -2308,7 +2310,7 @@ msgid "None provided"
 msgstr ""
 
 #: ../../app/views/branded/org_admin/questions/_show.html.erb:229
-#: ../../app/views/branded/paginable/api_clients/_index.html.erb:43
+#: ../../app/views/branded/paginable/api_clients/_index.html.erb:47
 #: ../../app/views/branded/paginable/departments/_index.html.erb:27
 #: ../../app/views/branded/paginable/guidance_groups/_index.html.erb:56
 #: ../../app/views/branded/paginable/guidances/_index.html.erb:59
@@ -2669,18 +2671,22 @@ msgstr ""
 msgid "Last Accessed"
 msgstr ""
 
-#: ../../app/views/branded/paginable/api_clients/_index.html.erb:30
+#: ../../app/views/branded/paginable/api_clients/_index.html.erb:21
+msgid "Notify"
+msgstr ""
+
+#: ../../app/views/branded/paginable/api_clients/_index.html.erb:33
 #: ../../app/views/branded/super_admin/api_clients/_form.html.erb:59
 msgid "Never"
 msgstr ""
 
-#: ../../app/views/branded/paginable/api_clients/_index.html.erb:45
-#: ../../app/views/branded/super_admin/api_clients/_form.html.erb:80
+#: ../../app/views/branded/paginable/api_clients/_index.html.erb:49
+#: ../../app/views/branded/super_admin/api_clients/_form.html.erb:91
 msgid "Please remove schemas attached to the Api Client before deleting it."
 msgstr ""
 
-#: ../../app/views/branded/paginable/api_clients/_index.html.erb:46
-#: ../../app/views/branded/paginable/api_clients/_index.html.erb:49
+#: ../../app/views/branded/paginable/api_clients/_index.html.erb:50
+#: ../../app/views/branded/paginable/api_clients/_index.html.erb:53
 #: ../../app/views/branded/paginable/departments/_index.html.erb:28
 #: ../../app/views/branded/paginable/guidance_groups/_index.html.erb:63
 #: ../../app/views/branded/paginable/guidances/_index.html.erb:66
@@ -2695,7 +2701,7 @@ msgstr ""
 msgid "Remove"
 msgstr ""
 
-#: ../../app/views/branded/paginable/api_clients/_index.html.erb:49
+#: ../../app/views/branded/paginable/api_clients/_index.html.erb:53
 msgid ""
 "You are about to delete '%{client_name}'. They will no longer be able to acces"
 "s the API. Are you sure?"
@@ -3490,18 +3496,18 @@ msgid "Read only: can read the content of the dmp"
 msgstr ""
 
 #: ../../app/views/branded/plans/_share_third_party.html.erb:59
-msgid "Manage external services"
+msgid "Manage third-party organizations"
 msgstr ""
 
 #: ../../app/views/branded/plans/_share_third_party.html.erb:61
 msgid ""
-"Below is a list of external services that you can authorize to access to your "
-"plan content. You may withdraw a service's right at any time by clicking on th"
-"e \"Remove\" button."
+"Below is a list of third-party organizations that you can authorize to access "
+"to your plan content. You may withdraw a service's right at any time by clicki"
+"ng on the \"Remove\" button."
 msgstr ""
 
 #: ../../app/views/branded/plans/_share_third_party.html.erb:66
-msgid "External Service"
+msgid "Third-party organization"
 msgstr ""
 
 #: ../../app/views/branded/plans/_share_third_party.html.erb:67
@@ -3837,15 +3843,28 @@ msgid "Last accessed on"
 msgstr ""
 
 #: ../../app/views/branded/super_admin/api_clients/_form.html.erb:70
+msgid "Notify?"
+msgstr ""
+
+#: ../../app/views/branded/super_admin/api_clients/_form.html.erb:81
 msgid "Refresh client ID and secret"
 msgstr ""
 
-#: ../../app/views/branded/super_admin/api_clients/_form.html.erb:74
+#: ../../app/views/branded/super_admin/api_clients/_form.html.erb:85
 msgid "Email credentials to contact"
 msgstr ""
 
-#: ../../app/views/branded/super_admin/api_clients/_form.html.erb:90
+#: ../../app/views/branded/super_admin/api_clients/_form.html.erb:101
 msgid "Are you sure you want to delete the API client: \"%{name}\""
+msgstr ""
+
+#: ../../app/views/branded/super_admin/api_clients/index.html.erb:1
+#: ../../app/views/branded/super_admin/api_clients/index.html.erb:6
+msgid "API Clients"
+msgstr ""
+
+#: ../../app/views/branded/super_admin/api_clients/index.html.erb:8
+msgid "Create Api Client"
 msgstr ""
 
 #: ../../app/views/branded/super_admin/static_pages/_form.html.erb:19
@@ -4393,19 +4412,19 @@ msgstr ""
 msgid "Plan is already shared with %{api_client}."
 msgstr ""
 
-#: ../../engines/madmp_opidor/app/controllers/api_client_roles_controller.rb:23
+#: ../../engines/madmp_opidor/app/controllers/api_client_roles_controller.rb:24
 msgid "Plan shared with \"%{api_client}\" application successfully."
 msgstr ""
 
-#: ../../engines/madmp_opidor/app/controllers/api_client_roles_controller.rb:26
+#: ../../engines/madmp_opidor/app/controllers/api_client_roles_controller.rb:28
 msgid "An error has occured while sharing the plan with \"%{api_client}\"."
 msgstr ""
 
-#: ../../engines/madmp_opidor/app/controllers/api_client_roles_controller.rb:30
+#: ../../engines/madmp_opidor/app/controllers/api_client_roles_controller.rb:32
 msgid "Please select an application in the list"
 msgstr ""
 
-#: ../../engines/madmp_opidor/app/controllers/api_client_roles_controller.rb:44
+#: ../../engines/madmp_opidor/app/controllers/api_client_roles_controller.rb:46
 msgid "Successfully changed the permissions for %{api_client}."
 msgstr ""
 
