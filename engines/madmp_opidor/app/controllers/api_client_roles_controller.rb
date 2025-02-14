@@ -19,9 +19,11 @@ class ApiClientRolesController < ApplicationController
         flash[:notice] = format(_('Plan is already shared with %{api_client}.'),
                                 api_client: api_client.name)
       elsif @client_role.save
-        ::UserMailer.client_sharing_notification(@client_role, current_user).deliver_now
-        flash[:notice] = format(_('Plan shared with "%{api_client}" application successfully.'),
-                                api_client: api_client.name)
+        if api_client.notify
+          ::UserMailer.client_sharing_notification(@client_role, current_user).deliver_now
+          flash[:notice] = format(_('Plan shared with "%{api_client}" application successfully.'),
+                                  api_client: api_client.name)
+        end
       else
         flash[:alert] = format(_('An error has occured while sharing the plan with "%{api_client}".'),
                                api_client: api_client.name)

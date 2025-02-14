@@ -110,7 +110,7 @@ module SuperAdmin
       params.require(:api_client).permit(:name, :description, :homepage,
                                          :contact_name, :contact_email,
                                          :client_id, :client_secret,
-                                         :org_id, :org_name, :org_sources, :org_crosswalk)
+                                         :org_id, :org_name, :org_sources, :org_crosswalk, :notify)
     end
   end
 end
