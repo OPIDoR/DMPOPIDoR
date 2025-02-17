@@ -2,6 +2,11 @@
 
 **Attention** Cette liste de changements concerne les déploiements sur nos serveurs de test en interne.
 
+## 17/02/2025
+
+- Correction du problème de mise à jour des formulaires lors de la sauvegarde d'une question non répondue
+- Le message invitant à partager avec l'ANR ne s'affiche désormais que pour les plans structurés.
+
 ## 13/02/2025
 
 - Ajout du lien vers la Feuille de route dans le pied de page (#12531)
