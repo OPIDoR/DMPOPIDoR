@@ -30,7 +30,7 @@ module Dmpopidor
       research_output  = @answer.research_output
       research_output_description = research_output&.json_fragment&.research_output_description
       @research_output_name = research_output_description.data['title']
-      @phase_link = if plan.template.structured?
+      @phase_link = if plan.structured?
                       url_for(action: 'structured_edit', controller: 'plans', id: @plan.id, phase_id: @phase_id,
                               research_output: research_output.id)
                     else

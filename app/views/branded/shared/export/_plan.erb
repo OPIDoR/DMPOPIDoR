@@ -16,7 +16,7 @@
       <%= render partial: 'shared/export/plan_coversheet' %>
     <% end %>
 
-    <% partial_name = @plan.template.structured? ? 'plan_structured_export' : 'plan_classic_export'%>
+    <% partial_name = @plan.structured? ? 'plan_structured_export' : 'plan_classic_export'%>
     <%= render partial: "shared/export/#{partial_name}",
                locals: {
                  plan: @plan,

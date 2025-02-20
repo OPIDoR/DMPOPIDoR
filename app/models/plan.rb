@@ -403,7 +403,7 @@ class Plan < ApplicationRecord
         answer_copy.plan_id = plan_copy.id
         answer_copy.research_output_id = research_output_copy.id
         answer_copy.save!
-        MadmpFragment.deep_copy(answer.madmp_fragment, answer_copy.id, ro_fragment) if plan.template.structured?
+        MadmpFragment.deep_copy(answer.madmp_fragment, answer_copy.id, ro_fragment) if plan.structured?
       end
     end
     plan.guidance_groups.each do |guidance_group|

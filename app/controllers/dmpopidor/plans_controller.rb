@@ -26,7 +26,7 @@ module Dmpopidor
               id: plan.id,
               title: plan.title,
               research_outputs: plan.research_outputs,
-              isStructured: plan.template.structured?,
+              isStructured: plan.structured?
             }
           end.reject do |plan| # rubocop:disable Style/MultilineBlockChain
             plan[:research_outputs].empty? ||
@@ -114,7 +114,7 @@ module Dmpopidor
             reg_val = registry_values.find { |entry| entry['en_GB'] == 'Dataset' }
 
             # Add default research output if possible
-            if Rails.configuration.x.dmpopidor.create_first_research_output || @plan.template.structured? == false
+            if Rails.configuration.x.dmpopidor.create_first_research_output || @plan.structured? == false
               created_ro = @plan.research_outputs.create!(
                 abbreviation: "#{_('RO')} 1",
                 title: "#{_('Research output')} 1",
@@ -559,7 +559,7 @@ module Dmpopidor
                       Rails.configuration.x.plans.default_visibility
                     end
 
-      @all_guidance_groups = if @plan.template.structured?
+      @all_guidance_groups = if @plan.structured?.eql?(true)
                                GuidanceGroup.published.where(language_id: current_locale.id)
                              else
                                @plan.guidance_group_options.where(language_id: current_locale.id)

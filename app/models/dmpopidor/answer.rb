@@ -5,7 +5,7 @@ module Dmpopidor
   module Answer
     # rubocop:disable Metrics/AbcSize
     def instantiate_fragment
-      if plan.template.structured? && madmp_fragment.nil?
+      if plan.structured? && madmp_fragment.nil?
         dmp_id = plan.json_fragment.id
         madmp_schema = MadmpSchema.find(question.madmp_schema_id)
         defaults = madmp_schema.defaults(plan.template.locale)

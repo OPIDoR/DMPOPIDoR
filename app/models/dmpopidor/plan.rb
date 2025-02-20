@@ -225,6 +225,10 @@ module Dmpopidor
         json_fragment.project.fundings.pluck(Arel.sql("data->'grantId'")).join(', ')
       end
     end
+
+    def structured?
+      template.structured?
+    end
   end
   # rubocop:enable Metrics/ModuleLength
 end

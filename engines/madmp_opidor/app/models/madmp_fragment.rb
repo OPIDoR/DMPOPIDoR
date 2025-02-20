@@ -214,7 +214,7 @@ class MadmpFragment < ApplicationRecord
 
   # rubocop:disable Metrics/AbcSize
   def update_research_output_parameters(skip_broadcast: false)
-    return unless plan.template.structured?
+    return unless plan.structured?
 
     case classname
     when 'research_output_description', 'software_description'

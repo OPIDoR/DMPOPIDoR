@@ -166,7 +166,7 @@
 <hr style="border-color: var(--dark-blue)" />
 
 <div class="share-form">
-  <% if @plan.template.structured?  %>
+  <% if @plan.structured?  %>
     <%= render partial: 'plans/share_third_party',locals: { administerable: administerable } %>
   <% end %>
 </div>
