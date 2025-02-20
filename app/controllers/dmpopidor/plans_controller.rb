@@ -20,13 +20,13 @@ module Dmpopidor
       respond_to do |format|
         format.html
         format.json do
-          plans = @plans.zip(@organisationally_or_publicly_visible).flatten.compact
+          # plans = @plans.zip(@organisationally_or_publicly_visible).flatten.compact
+          plans = @plans.order('updated_at desc').filter(&:structured?).compact
           plans = plans.map do |plan|
             {
               id: plan.id,
               title: plan.title,
-              research_outputs: plan.research_outputs,
-              isStructured: plan.structured?
+              research_outputs: plan.research_outputs
             }
           end.reject do |plan| # rubocop:disable Style/MultilineBlockChain
             plan[:research_outputs].empty? ||
