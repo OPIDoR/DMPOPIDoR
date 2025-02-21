@@ -10,13 +10,17 @@ module Dmpopidor
     # rubocop:disable Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
     def index
       authorize ::Plan
-      @plans = ::Plan.includes(:roles).active(current_user)
+      @plans = if request.format.json?
+                 ::Plan.includes(:roles).owner_or_coowner(current_user)
+                       .where.not(visibility: ::Plan.visibilities[:is_test])
+               else
+                 ::Plan.includes(:roles).active(current_user)
+               end
       @organisationally_or_publicly_visible = if current_user.org.is_other?
                                                 []
                                               else
                                                 ::Plan.organisationally_or_publicly_visible(current_user)
                                               end
-
       respond_to do |format|
         format.html
         format.json do

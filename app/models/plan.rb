@@ -214,6 +214,15 @@ class Plan < ApplicationRecord
       .where(id: plan_ids)
   }
 
+  # Retrieves any plan in which the user has an active role and
+  # is not a reviewer
+  scope :owner_or_coowner, lambda { |user|
+    plan_ids = Role.administrator.where(active: true, user_id: user.id).pluck(:plan_id)
+
+    includes(:template, :roles)
+      .where(id: plan_ids)
+  }
+
   # Retrieves any plan organisationally or publicly visible for a given org id
   scope :organisationally_or_publicly_visible, lambda { |user|
     # --------------------------------
