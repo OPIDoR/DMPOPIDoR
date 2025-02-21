@@ -2,6 +2,11 @@
 
 **Attention** Cette liste de changements concerne les déploiements sur nos serveurs de test en interne.
 
+## 13/02/2025
+
+- Modifications de la liste des plans proposés lors de l'import de produit de recherche. (#12646)
+- Correction du problème d'affichage des mails lors d'un import RoR/ORCID (#12637)
+
 ## 17/02/2025
 
 - Correction du problème de mise à jour des formulaires lors de la sauvegarde d'une question non répondue
