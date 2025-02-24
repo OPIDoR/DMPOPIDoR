@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: app 1.0\n"
 "Report-Msgid-Bugs-To: contact@translation.io\n"
-"POT-Creation-Date: 2025-02-14 14:22+0100\n"
-"PO-Revision-Date: 2025-02-14 14:22+0100\n"
+"POT-Creation-Date: 2025-02-18 09:43+0100\n"
+"PO-Revision-Date: 2025-02-18 09:43+0100\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: English\n"
 "Language: en_GB\n"
@@ -1289,7 +1289,7 @@ msgstr ""
 #: ../../app/views/branded/org_admin/users/edit.html.erb:55
 #: ../../app/views/branded/orgs/_profile_form.html.erb:157
 #: ../../app/views/branded/plans/_guidance_selection.html.erb:23
-#: ../../app/views/branded/plans/_share_form.html.erb:55
+#: ../../app/views/branded/plans/_share_form.html.erb:57
 #: ../../app/views/branded/plans/_share_third_party.html.erb:53
 #: ../../app/views/branded/research_outputs/_list.html.erb:82
 #: ../../app/views/branded/super_admin/api_clients/_form.html.erb:78
@@ -1367,7 +1367,7 @@ msgstr ""
 #: ../../app/views/branded/devise/registrations/_personal_details.html.erb:10
 #: ../../app/views/branded/org_admin/users/edit.html.erb:14
 #: ../../app/views/branded/paginable/users/_index.html.erb:21
-#: ../../app/views/branded/plans/_share_form.html.erb:19
+#: ../../app/views/branded/plans/_share_form.html.erb:21
 #: ../../app/views/branded/shared/_create_account_form.html.erb:12
 #: ../../app/views/branded/shared/_sign_in_form.html.erb:22
 #: ../../app/views/branded/shared/_sign_in_form_header.html.erb:22
@@ -2141,7 +2141,7 @@ msgstr ""
 #: ../../app/views/branded/paginable/templates/_history.html.erb:10
 #: ../../app/views/branded/paginable/templates/_modules.html.erb:58
 #: ../../app/views/branded/paginable/templates/_organisational.html.erb:57
-#: ../../app/views/branded/plans/_share_form.html.erb:70
+#: ../../app/views/branded/plans/_share_form.html.erb:72
 #: ../../app/views/branded/plans/_share_third_party.html.erb:70
 #: ../../engines/madmp_opidor/app/views/paginable/madmp_schemas/_index.html.erb:10
 #: ../../engines/madmp_opidor/app/views/paginable/madmp_schemas/_index.html.erb:30
@@ -2695,7 +2695,7 @@ msgstr ""
 #: ../../app/views/branded/paginable/plans/_privately_visible.html.erb:83
 #: ../../app/views/branded/paginable/templates/_modules.html.erb:73
 #: ../../app/views/branded/paginable/templates/_organisational.html.erb:78
-#: ../../app/views/branded/plans/_share_form.html.erb:108
+#: ../../app/views/branded/plans/_share_form.html.erb:110
 #: ../../app/views/branded/plans/_share_third_party.html.erb:84
 #: ../../app/views/research_outputs/_form.html.erb:180
 msgid "Remove"
@@ -2836,7 +2836,7 @@ msgid "Shared"
 msgstr ""
 
 #: ../../app/views/branded/paginable/plans/_administrator_visible.html.erb:33
-#: ../../app/views/branded/plans/_share_form.html.erb:159
+#: ../../app/views/branded/plans/_share_form.html.erb:161
 msgid "Update"
 msgstr ""
 
@@ -3372,7 +3372,15 @@ msgstr ""
 msgid "You can continue to edit and download the plan in the interim."
 msgstr ""
 
-#: ../../app/views/branded/plans/_share_form.html.erb:6
+#: ../../app/views/branded/plans/_share_form.html.erb:5
+msgid ""
+"Enter the email address of your collaborator: If they are already using %{appl"
+"ication_name}, they will see this plan on their dashboard, and recieve an emai"
+"l. If they are not currently using %{application_name}, they will recieve an e"
+"mail inviting them to the tool so they can collaborate on your plan."
+msgstr ""
+
+#: ../../app/views/branded/plans/_share_form.html.erb:8
 msgid ""
 "Co-owner: Has admin-rights to the plan (can invite other users, view the plan,"
 " answer questions, or comment). Editor: Has edit-rights to the plan (can view "
@@ -3380,83 +3388,83 @@ msgid ""
 "n (can view the plan or comment)"
 msgstr ""
 
-#: ../../app/views/branded/plans/_share_form.html.erb:11
+#: ../../app/views/branded/plans/_share_form.html.erb:13
 msgid "Invite collaborators"
 msgstr ""
 
-#: ../../app/views/branded/plans/_share_form.html.erb:12
+#: ../../app/views/branded/plans/_share_form.html.erb:14
 msgid ""
 "Invite specific people to read, edit, or administer your plan. Invitees will r"
 "eceive an email notification that they have access to this plan."
 msgstr ""
 
-#: ../../app/views/branded/plans/_share_form.html.erb:34
-#: ../../app/views/branded/plans/_share_form.html.erb:68
+#: ../../app/views/branded/plans/_share_form.html.erb:36
+#: ../../app/views/branded/plans/_share_form.html.erb:70
 #: ../../app/views/branded/plans/_share_third_party.html.erb:44
 #: ../../app/views/branded/plans/_share_third_party.html.erb:68
 msgid "Permissions"
 msgstr ""
 
-#: ../../app/views/branded/plans/_share_form.html.erb:39
+#: ../../app/views/branded/plans/_share_form.html.erb:41
 msgid "Co-owner: can edit project details, change visibility, and add collaborators"
 msgstr ""
 
-#: ../../app/views/branded/plans/_share_form.html.erb:45
+#: ../../app/views/branded/plans/_share_form.html.erb:47
 msgid "Editor: can comment and make changes"
 msgstr ""
 
-#: ../../app/views/branded/plans/_share_form.html.erb:51
+#: ../../app/views/branded/plans/_share_form.html.erb:53
 msgid "Read only: can view and comment, but not make changes"
 msgstr ""
 
-#: ../../app/views/branded/plans/_share_form.html.erb:62
+#: ../../app/views/branded/plans/_share_form.html.erb:64
 msgid "Manage collaborators"
 msgstr ""
 
-#: ../../app/views/branded/plans/_share_form.html.erb:67
+#: ../../app/views/branded/plans/_share_form.html.erb:69
 msgid "Email address"
 msgstr ""
 
-#: ../../app/views/branded/plans/_share_form.html.erb:108
+#: ../../app/views/branded/plans/_share_form.html.erb:110
 #: ../../app/views/branded/plans/_share_third_party.html.erb:84
 msgid "Are you sure?"
 msgstr ""
 
-#: ../../app/views/branded/plans/_share_form.html.erb:120
+#: ../../app/views/branded/plans/_share_form.html.erb:122
 msgid "Set plan visibility"
 msgstr ""
 
-#: ../../app/views/branded/plans/_share_form.html.erb:122
+#: ../../app/views/branded/plans/_share_form.html.erb:124
 msgid ""
 "Make fully or partially completed plans visible to administrators and the orga"
 "nization. They can also be made public. Plans marked as test projects remain p"
 "rivate."
 msgstr ""
 
-#: ../../app/views/branded/plans/_share_form.html.erb:131
+#: ../../app/views/branded/plans/_share_form.html.erb:133
 msgid "Private: visible to me and specified collaborators"
 msgstr ""
 
-#: ../../app/views/branded/plans/_share_form.html.erb:137
+#: ../../app/views/branded/plans/_share_form.html.erb:139
 #: ../../app/views/branded/user_mailer/plan_visibility.html.erb:12
 msgid ""
 "Administrator: visible to me, specified collaborators and administrators at my"
 " organisation"
 msgstr ""
 
-#: ../../app/views/branded/plans/_share_form.html.erb:143
+#: ../../app/views/branded/plans/_share_form.html.erb:145
 #: ../../app/views/branded/user_mailer/plan_visibility.html.erb:13
 msgid "Organisation: anyone at my organisation can view"
 msgstr ""
 
-#: ../../app/views/branded/plans/_share_form.html.erb:151
+#: ../../app/views/branded/plans/_share_form.html.erb:153
 msgid ""
 "You have chosen to make your plan public. Before confirming, please ensure tha"
 "t your plan is complete. This DMP can be used as an example for other, please "
 "fill the different sections. Do you confirm and then update your choice?"
 msgstr ""
 
-#: ../../app/views/branded/plans/_share_form.html.erb:154
+#: ../../app/views/branded/plans/_share_form.html.erb:156
 msgid "Public: anyone can view"
 msgstr ""
 
