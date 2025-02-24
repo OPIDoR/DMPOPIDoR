@@ -2,6 +2,10 @@
 
 # rubocop:disable Naming/VariableNumber
 namespace :dmpopidor_upgrade do
+  desc 'Upgrade to 4.3.0'
+  task V4_3_0: :environment do
+    Rake::Task['dmpopidor_upgrade:add_default_data_type_to_research_outputs'].execute
+  end
   desc 'Upgrade to 4.2.0'
   task V4_2_0: :environment do
     Rake::Task['dmpopidor_upgrade:add_default_language_to_guidance_groups'].execute
@@ -23,6 +27,21 @@ namespace :dmpopidor_upgrade do
   desc 'Upgrade to 2.3.0'
   task v2_3_0: :environment do
     Rake::Task['dmpopidor_upgrade:close_existing_feedback_plans'].execute
+  end
+
+  desc 'Add default data_type to research outputs'
+  task add_default_data_type_to_research_outputs: :environment do
+    Fragment::ResearchOutput.all.each do |ro_fragment|
+      next unless ro_fragment.additional_info['dataType'].nil?
+
+      p "Updating research output fragment #{ro_fragment.id}"
+      ro_fragment.update(
+        additional_info: ro_fragment.additional_info.merge({
+                                                             'moduleId' => nil,
+                                                             'dataType' => 'none'
+                                                           })
+      )
+    end
   end
 
   desc 'Add default language to guidance groups'
