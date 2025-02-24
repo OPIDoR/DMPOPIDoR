@@ -2,6 +2,12 @@
 
 **Attention** Cette liste de changements concerne les déploiements sur nos serveurs de test en interne.
 
+## 24/02/2025
+- Refonte de l'API GraphQL
+    - Factorisationn de la construction des requêtes
+    - Création dynamique des enums
+    - Filtre des produits de recherche
+
 ## 13/02/2025
 
 - Modifications de la liste des plans proposés lors de l'import de produit de recherche. (#12646)
