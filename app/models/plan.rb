@@ -404,7 +404,7 @@ class Plan < ApplicationRecord
         madmp_schema: MadmpSchema.find_by(classname: 'research_output'),
         dmp_id: plan_copy.json_fragment.id,
         parent_id: plan_copy.json_fragment.id,
-        additional_info: { property_name: 'researchOutput' }
+        additional_info: research_output.json_fragment.additional_info
       )
 
       research_output.answers.each do |answer|
