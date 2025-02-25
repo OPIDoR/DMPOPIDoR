@@ -2,13 +2,17 @@
 
 **Attention** Cette liste de changements concerne les déploiements sur nos serveurs de test en interne.
 
-## 24/02/2025
+## 25/02/2025
+
+- Un produit de recherche utilisant un module est désormais importé dans un module utilisant la locale du plan (#12503)
+- Ajout d'une tâche permettant d'initialiser le dataType des fragments ResearchOutput n'en possédant pas (#12645)
+- Correction d'un problème de copie des informations de configuration d'un PR lors d'une copie de plan (#12666)
 - Refonte de l'API GraphQL
     - Factorisationn de la construction des requêtes
     - Création dynamique des enums
     - Filtre des produits de recherche
 
-## 13/02/2025
+## 21/02/2025
 
 - Modifications de la liste des plans proposés lors de l'import de produit de recherche. (#12646)
 - Correction du problème d'affichage des mails lors d'un import RoR/ORCID (#12637)
