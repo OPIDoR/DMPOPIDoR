@@ -4,8 +4,8 @@ module Types
   # PlanType
   class PlanType < Types::BaseObject
     field :plan_id, ID, null: false
-    field :meta, Types::MetaType, null: true
-    field :project, Types::ProjectType, null: true
+    field :meta, GraphQL::Types::JSON, null: true
+    field :project, GraphQL::Types::JSON, null: true
     field :researchEntity, GraphQL::Types::JSON, null: true
     field :budget, GraphQL::Types::JSON, null: true
     field :researchOutput, GraphQL::Types::JSON, null: true do
