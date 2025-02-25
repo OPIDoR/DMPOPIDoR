@@ -10,6 +10,22 @@ module Resolvers
       # filtered_scope = filtered_scope.offset(_offset).limit(_size) if _size && _offset
     end
 
+    def self.apply_and_conditions(scope, conditions)
+      apply_conditions(scope, conditions, "and")
+    end
+
+    def self.apply_or_conditions(scope, conditions)
+      apply_conditions(scope, conditions, "or")
+    end
+
+    def self.build_condition(scope, filter)
+      return nil unless filter[:className] && filter[:field] && filter[:value]
+
+      apply_single_filter(scope, filter)
+    end
+
+    private
+
     def self.apply_filters(scope, filter)
       return scope if filter.nil?
 
@@ -20,10 +36,17 @@ module Resolvers
       scope
     end
 
-    def self.build_condition(scope, filter)
-      return nil unless filter[:className] && filter[:field] && filter[:value]
+    def self.apply_conditions(scope, conditions, operator = "and")
+      grouped_conditions = conditions.group_by { |condition| condition[:className] }
 
-      apply_single_filter(scope, filter)
+      operator_conditions = grouped_conditions.map do |class_name, sub_filters|
+        operator_conditions = sub_filters.map { |sub_filter| self.build_condition(scope, sub_filter) }
+        operator_conditions.reduce(operator.to_sym)
+      end
+
+      return scope.none unless operator_conditions.any?
+
+      scope.where(operator_conditions.reduce(&:or))
     end
 
     # rubocop:disable Metrics/AbcSize,Metrics/MethodLength
