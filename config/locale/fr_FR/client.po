@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: app 1.0\n"
 "Report-Msgid-Bugs-To: contact@translation.io\n"
-"POT-Creation-Date: 2025-02-26 11:47+0100\n"
-"PO-Revision-Date: 2025-02-26 11:47+0100\n"
+"POT-Creation-Date: 2025-02-26 15:32+0100\n"
+"PO-Revision-Date: 2025-02-26 15:32+0100\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: French\n"
 "Language: fr_FR\n"
@@ -1360,7 +1360,7 @@ msgstr "Merci de patienter, les standards sont en cours de chargement"
 #: ../../app/views/branded/orgs/_profile_form.html.erb:157
 #: ../../app/views/branded/plans/_guidance_selection.html.erb:23
 #: ../../app/views/branded/plans/_share_form.html.erb:49
-#: ../../app/views/branded/plans/_share_third_party.html.erb:53
+#: ../../app/views/branded/plans/_share_third_party.html.erb:50
 #: ../../app/views/branded/research_outputs/_list.html.erb:82
 #: ../../app/views/branded/super_admin/api_clients/_form.html.erb:78
 #: ../../app/views/branded/super_admin/static_pages/_form.html.erb:59
@@ -2266,7 +2266,7 @@ msgstr "Date de la demande"
 #: ../../app/views/branded/paginable/templates/_modules.html.erb:58
 #: ../../app/views/branded/paginable/templates/_organisational.html.erb:57
 #: ../../app/views/branded/plans/_share_form.html.erb:63
-#: ../../app/views/branded/plans/_share_third_party.html.erb:70
+#: ../../app/views/branded/plans/_share_third_party.html.erb:67
 #: ../../engines/madmp_opidor/app/views/paginable/madmp_schemas/_index.html.erb:10
 #: ../../engines/madmp_opidor/app/views/paginable/madmp_schemas/_index.html.erb:30
 #: ../../engines/madmp_opidor/app/views/paginable/registries/_index.html.erb:10
@@ -2630,11 +2630,15 @@ msgstr ""
 "Ajouter des liens vers des exemples de plans s'ils sont fournis par le finance"
 "ur."
 
-#: ../../app/views/branded/org_admin/templates/_navigation.html.erb:3
+#: ../../app/views/branded/org_admin/templates/_navigation.html.erb:5
+msgid "Module details"
+msgstr "Détails du module"
+
+#: ../../app/views/branded/org_admin/templates/_navigation.html.erb:5
 msgid "Template details"
 msgstr "Détails du modèle"
 
-#: ../../app/views/branded/org_admin/templates/_navigation.html.erb:15
+#: ../../app/views/branded/org_admin/templates/_navigation.html.erb:17
 msgid "Add new phase"
 msgstr "Ajouter une nouvelle phase"
 
@@ -2872,7 +2876,7 @@ msgstr "Veuillez supprimer les schémas attachés au client API avant de le supp
 #: ../../app/views/branded/paginable/templates/_modules.html.erb:73
 #: ../../app/views/branded/paginable/templates/_organisational.html.erb:78
 #: ../../app/views/branded/plans/_share_form.html.erb:101
-#: ../../app/views/branded/plans/_share_third_party.html.erb:84
+#: ../../app/views/branded/plans/_share_third_party.html.erb:81
 #: ../../app/views/research_outputs/_form.html.erb:180
 msgid "Remove"
 msgstr "Supprimer"
@@ -3639,30 +3643,28 @@ msgid ""
 "eceive an email notification that they have access to this plan."
 msgstr ""
 "Inviter des personnes à participer à la rédaction ou à la relecture de votre p"
-"lan en renseignant leur courriel puis en leur attribuant des droits. Elles rec"
-"evront une notification par mail les invitant à se créer un compte ou à se con"
-"necter pour accéder à votre plan."
+"lan en renseignant leur courriel puis en leur attribuant des permissions. Elle"
+"s recevront une notification par mail les invitant à se créer un compte ou à s"
+"e connecter pour accéder à votre plan."
 
 #: ../../app/views/branded/plans/_share_form.html.erb:29
 #: ../../app/views/branded/plans/_share_form.html.erb:61
-#: ../../app/views/branded/plans/_share_third_party.html.erb:44
-#: ../../app/views/branded/plans/_share_third_party.html.erb:68
+#: ../../app/views/branded/plans/_share_third_party.html.erb:41
+#: ../../app/views/branded/plans/_share_third_party.html.erb:65
 msgid "Permissions"
 msgstr "Permissions"
 
 #: ../../app/views/branded/plans/_share_form.html.erb:33
-msgid "Co-owner: can edit project details, change visibility, and add collaborators"
-msgstr ""
-"Copropriétaire : peut éditer les renseignements sur le projet, changer la visi"
-"bilité et ajouter des contributeurs."
+msgid "Co-owner: can modify, comment, share and delete the plan"
+msgstr "Copropriétaire : peut modifier, commenter, partager et supprimer le plan"
 
 #: ../../app/views/branded/plans/_share_form.html.erb:39
-msgid "Editor: can comment and make changes"
-msgstr "Éditeur : peut commenter et apporter des modifications"
+msgid "Editor: can modifiy and comment the plan"
+msgstr "Editor: can modifiy and comment the plan"
 
 #: ../../app/views/branded/plans/_share_form.html.erb:45
-msgid "Read only: can view and comment, but not make changes"
-msgstr "Lecture seule : peut voir et commenter, mais pas apporter de modifications"
+msgid "Read only: can view and comment the plan"
+msgstr "Read only: can view and comment the plan"
 
 #: ../../app/views/branded/plans/_share_form.html.erb:55
 msgid "Manage collaborators"
@@ -3673,7 +3675,7 @@ msgid "Email address"
 msgstr "Courriel"
 
 #: ../../app/views/branded/plans/_share_form.html.erb:101
-#: ../../app/views/branded/plans/_share_third_party.html.erb:84
+#: ../../app/views/branded/plans/_share_third_party.html.erb:81
 msgid "Are you sure?"
 msgstr "Êtes-vous sûr ?"
 
@@ -3724,15 +3726,11 @@ msgstr ""
 msgid "Public: anyone can view"
 msgstr "Public : visible par tous"
 
-#: ../../app/views/branded/plans/_share_third_party.html.erb:3
-msgid "Select a service you would like to share your plan with."
-msgstr "Sélectionnez un service avec laquelle vous souhaitez partager votre plan."
-
-#: ../../app/views/branded/plans/_share_third_party.html.erb:6
+#: ../../app/views/branded/plans/_share_third_party.html.erb:5
 msgid "Authorize third-party organizations"
 msgstr "Autoriser des organismes tiers"
 
-#: ../../app/views/branded/plans/_share_third_party.html.erb:7
+#: ../../app/views/branded/plans/_share_third_party.html.erb:6
 msgid ""
 "An \"third-party organizations\" can be provided by an organisation, a platform "
 "or a data infrastructure. These services are allowed (by DMP OPIDoR team) to a"
@@ -3744,7 +3742,7 @@ msgstr ""
 "ctures) à collecter de façon automatisée (API) des informations contenues dans"
 " ce plan. Tous les organismes tiers proposés ont été validés par DMP OPIDoR"
 
-#: ../../app/views/branded/plans/_share_third_party.html.erb:14
+#: ../../app/views/branded/plans/_share_third_party.html.erb:13
 msgid ""
 "If your project is funded by the ANR, remember to share your plan with the ANR"
 ". Find out how to do this here: <waiting for the link>"
@@ -3752,23 +3750,27 @@ msgstr ""
 "Si votre projet est financé par l'ANR, n'oubliez pas de partager votre projet "
 "avec l'ANR. Découvrez comment procéder ici :<waiting for the link>"
 
-#: ../../app/views/branded/plans/_share_third_party.html.erb:25
+#: ../../app/views/branded/plans/_share_third_party.html.erb:24
 msgid "Organizations"
 msgstr "Organismes"
 
-#: ../../app/views/branded/plans/_share_third_party.html.erb:29
+#: ../../app/views/branded/plans/_share_third_party.html.erb:27
 msgid "Select an organization"
 msgstr "Sélectionnez une organisme"
 
-#: ../../app/views/branded/plans/_share_third_party.html.erb:49
+#: ../../app/views/branded/plans/_share_third_party.html.erb:28
+msgid "Select a service you would like to share your plan with."
+msgstr "Sélectionnez un service avec laquelle vous souhaitez partager votre plan."
+
+#: ../../app/views/branded/plans/_share_third_party.html.erb:46
 msgid "Read only: can read the content of the dmp"
 msgstr "Lecture seule : peut lire le contenu du plan"
 
-#: ../../app/views/branded/plans/_share_third_party.html.erb:59
+#: ../../app/views/branded/plans/_share_third_party.html.erb:56
 msgid "Manage third-party organizations"
 msgstr "Gérer les organismes tiers"
 
-#: ../../app/views/branded/plans/_share_third_party.html.erb:61
+#: ../../app/views/branded/plans/_share_third_party.html.erb:58
 msgid ""
 "Below is a list of third-party organizations that you can authorize to access "
 "to your plan content. You may withdraw a service's right at any time by clicki"
@@ -3779,11 +3781,11 @@ msgstr ""
 " contenues dans votre PGD via l’API DMP OPIDoR. Vous pouvez à tout moment reti"
 "rer cette autorisation à l’aide du bouton \"Supprimer\"."
 
-#: ../../app/views/branded/plans/_share_third_party.html.erb:66
+#: ../../app/views/branded/plans/_share_third_party.html.erb:63
 msgid "Third-party organization"
 msgstr "Organisme tiers"
 
-#: ../../app/views/branded/plans/_share_third_party.html.erb:67
+#: ../../app/views/branded/plans/_share_third_party.html.erb:64
 msgid "Purpose"
 msgstr "Finalité"
 
