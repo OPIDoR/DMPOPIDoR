@@ -30,19 +30,19 @@
             <div class="radio">
               <%= f.label :administrator_access do %>
                 <%= f.radio_button :access, administrator.access, id: "role_administrator_access", "aria-required": true, required: true %>
-                <%= _('Co-owner: can edit project details, change visibility, and add collaborators') %>
+                <%= _('Co-owner: can modify, comment, share and delete the plan') %>
               <% end %>
             </div>
             <div class="radio">
               <%= f.label :editor_access do %>
                 <%= f.radio_button :access, editor.access , id: "role_editor_access" %>
-                <%= _('Editor: can comment and make changes') %>
+                <%= _('Editor: can modifiy and comment the plan') %>
               <% end %>
             </div>
             <div class="radio">
               <%= f.label :commenter_access do %>
                 <%= f.radio_button :access, commenter.access, checked: true, id: "role_commenter_access" %>
-                <%= _('Read only: can view and comment, but not make changes') %>
+                <%= _('Read only: can view and comment the plan') %>
               <% end %>
             </div>
 
