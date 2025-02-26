@@ -4,7 +4,7 @@
 
 ## 26/02/2025
 
-- Mise à jour de traduction (#12685)
+- Mise à jour de traductions (#12685 | #12696)
 - Suppression des tooltips (#12685)
 - Traduction de ``Copy of ...`` par ``Copie de ...` (#12315)
 
