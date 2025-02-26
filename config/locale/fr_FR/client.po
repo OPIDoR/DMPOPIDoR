@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: app 1.0\n"
 "Report-Msgid-Bugs-To: contact@translation.io\n"
-"POT-Creation-Date: 2025-02-26 11:31+0100\n"
-"PO-Revision-Date: 2025-02-26 11:31+0100\n"
+"POT-Creation-Date: 2025-02-26 11:47+0100\n"
+"PO-Revision-Date: 2025-02-26 11:47+0100\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: French\n"
 "Language: fr_FR\n"
@@ -217,7 +217,7 @@ msgstr "créé"
 
 #: ../../app/controllers/dmpopidor/notes_controller.rb:123
 #: ../../app/controllers/dmpopidor/plans_controller.rb:142
-#: ../../app/controllers/dmpopidor/plans_controller.rb:445
+#: ../../app/controllers/dmpopidor/plans_controller.rb:446
 #: ../../app/controllers/guidance_groups_controller.rb:36
 #: ../../app/controllers/guidances_controller.rb:61
 #: ../../app/controllers/notes_controller.rb:73
@@ -304,25 +304,29 @@ msgstr "PR"
 msgid "Research output"
 msgstr "Produit de recherche"
 
-#: ../../app/controllers/dmpopidor/plans_controller.rb:441
+#: ../../app/controllers/dmpopidor/plans_controller.rb:431
+msgid "Import of %{title}"
+msgstr "Import de %{title}"
+
+#: ../../app/controllers/dmpopidor/plans_controller.rb:442
 msgid "imported"
 msgstr "importé"
 
-#: ../../app/controllers/dmpopidor/plans_controller.rb:451
+#: ../../app/controllers/dmpopidor/plans_controller.rb:452
 msgid "Unvalid file"
 msgstr "Fichier non valide"
 
-#: ../../app/controllers/dmpopidor/plans_controller.rb:455
+#: ../../app/controllers/dmpopidor/plans_controller.rb:456
 msgid "File should contain JSON"
 msgstr "Le fichier doit contenir du JSON"
 
-#: ../../app/controllers/dmpopidor/plans_controller.rb:460
+#: ../../app/controllers/dmpopidor/plans_controller.rb:461
 #: ../../engines/madmp_opidor/app/controllers/madmp_codebase_controller.rb:64
 #: ../../engines/madmp_opidor/app/controllers/madmp_codebase_controller.rb:160
 msgid "An error has occured: "
 msgstr "Une erreur s'est produite :"
 
-#: ../../app/controllers/dmpopidor/plans_controller.rb:517
+#: ../../app/controllers/dmpopidor/plans_controller.rb:518
 msgid "Invalid JSON: "
 msgstr "JSON non valide :"
 
