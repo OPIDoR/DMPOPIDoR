@@ -2,6 +2,42 @@
 
 **Attention** Cette liste de changements concerne les déploiements sur nos serveurs de test en interne.
 
+## 25/02/2025
+
+- Un produit de recherche utilisant un module est désormais importé dans un module utilisant la locale du plan (#12503)
+- Ajout d'une tâche permettant d'initialiser le dataType des fragments ResearchOutput n'en possédant pas (#12645)
+- Correction d'un problème de copie des informations de configuration d'un PR lors d'une copie de plan (#12666)
+- Refonte de l'API GraphQL
+    - Factorisationn de la construction des requêtes
+    - Création dynamique des enums
+    - Filtre des produits de recherche
+
+## 21/02/2025
+
+- Modifications de la liste des plans proposés lors de l'import de produit de recherche. (#12646)
+- Correction du problème d'affichage des mails lors d'un import RoR/ORCID (#12637)
+
+## 17/02/2025
+
+- Correction du problème de mise à jour des formulaires lors de la sauvegarde d'une question non répondue
+- Le message invitant à partager avec l'ANR ne s'affiche désormais que pour les plans structurés.
+
+## 13/02/2025
+
+- Ajout du lien vers la Feuille de route dans le pied de page (#12531)
+- Correction du problème d'accès à l'onglet Produits de Recherche (#12564)
+- Correction du problème d'accès aux référentiels dans les sous formulaires (#12530)
+- Correction d'un problème d'affichage de la valeur "données personelles" dans l'infobox d'un produit de recherche.
+- Amélioration de l'onglet Partager (#12563)
+- Correction du problème de récupération des noms d'organisme dans l'import RoR (#12554)
+- Correction du problème d'accès aux référentiels dans les sous formulaires (#12530)
+
+## 12/02/2025
+
+- Ajout d'un évenement pour recharger les données du produit de recherche après création (#12373)
+- Affichage uniquement des plans structurés dans l'import de produit de recherche (#12504)
+- Mise à jour interface ANR
+
 ## 11/02/2025
 
 - Correction des problèmes d'affichage des référentiels (#12530, #12532, #12533)

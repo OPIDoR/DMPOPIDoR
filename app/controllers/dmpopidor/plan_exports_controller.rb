@@ -72,7 +72,7 @@ module Dmpopidor
     # CHANGES: PDF footer now displays DMP licence
     # rubocop:disable Metrics/AbcSize
     def show_pdf
-      license = @plan.json_fragment.meta.license if @plan.template.structured?
+      license = @plan.json_fragment.meta.license if @plan.structured?
       license_details = if license.present? && !license.data.compact.empty?
                           "#{license.data['licenseName']} (#{license.data['licenseUrl']})"
                         end

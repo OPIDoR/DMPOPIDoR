@@ -10,17 +10,22 @@ module Dmpopidor
     # rubocop:disable Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
     def index
       authorize ::Plan
-      @plans = ::Plan.includes(:roles).active(current_user)
+      @plans = if request.format.json?
+                 ::Plan.includes(:roles).owner_or_coowner(current_user)
+                       .where.not(visibility: ::Plan.visibilities[:is_test])
+               else
+                 ::Plan.includes(:roles).active(current_user)
+               end
       @organisationally_or_publicly_visible = if current_user.org.is_other?
                                                 []
                                               else
                                                 ::Plan.organisationally_or_publicly_visible(current_user)
                                               end
-
       respond_to do |format|
         format.html
         format.json do
-          plans = @plans.zip(@organisationally_or_publicly_visible).flatten.compact
+          # plans = @plans.zip(@organisationally_or_publicly_visible).flatten.compact
+          plans = @plans.order('updated_at desc').filter(&:structured?).compact
           plans = plans.map do |plan|
             {
               id: plan.id,
@@ -113,7 +118,7 @@ module Dmpopidor
             reg_val = registry_values.find { |entry| entry['en_GB'] == 'Dataset' }
 
             # Add default research output if possible
-            if Rails.configuration.x.dmpopidor.create_first_research_output || @plan.template.structured? == false
+            if Rails.configuration.x.dmpopidor.create_first_research_output || @plan.structured? == false
               created_ro = @plan.research_outputs.create!(
                 abbreviation: "#{_('RO')} 1",
                 title: "#{_('Research output')} 1",
@@ -549,7 +554,7 @@ module Dmpopidor
                       Rails.configuration.x.plans.default_visibility
                     end
 
-      @all_guidance_groups = if @plan.template.structured?
+      @all_guidance_groups = if @plan.structured?.eql?(true)
                                GuidanceGroup.published.where(language_id: current_locale.id)
                              else
                                @plan.guidance_group_options.where(language_id: current_locale.id)

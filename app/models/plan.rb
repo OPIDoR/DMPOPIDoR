@@ -214,6 +214,15 @@ class Plan < ApplicationRecord
       .where(id: plan_ids)
   }
 
+  # Retrieves any plan in which the user has an active role and
+  # is not a reviewer
+  scope :owner_or_coowner, lambda { |user|
+    plan_ids = Role.administrator.where(active: true, user_id: user.id).pluck(:plan_id)
+
+    includes(:template, :roles)
+      .where(id: plan_ids)
+  }
+
   # Retrieves any plan organisationally or publicly visible for a given org id
   scope :organisationally_or_publicly_visible, lambda { |user|
     # --------------------------------
@@ -395,7 +404,7 @@ class Plan < ApplicationRecord
         madmp_schema: MadmpSchema.find_by(classname: 'research_output'),
         dmp_id: plan_copy.json_fragment.id,
         parent_id: plan_copy.json_fragment.id,
-        additional_info: { property_name: 'researchOutput' }
+        additional_info: research_output.json_fragment.additional_info
       )
 
       research_output.answers.each do |answer|
@@ -403,7 +412,7 @@ class Plan < ApplicationRecord
         answer_copy.plan_id = plan_copy.id
         answer_copy.research_output_id = research_output_copy.id
         answer_copy.save!
-        MadmpFragment.deep_copy(answer.madmp_fragment, answer_copy.id, ro_fragment) if plan.template.structured?
+        MadmpFragment.deep_copy(answer.madmp_fragment, answer_copy.id, ro_fragment) if plan.structured?
       end
     end
     plan.guidance_groups.each do |guidance_group|

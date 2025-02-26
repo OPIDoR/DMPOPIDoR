@@ -12,6 +12,7 @@ import StaticPagesLayout from './dmp_opidor_react/src/components/StaticPages/Sta
 import GlossaryLayout from './dmp_opidor_react/src/components/Glossary/GlossaryLayout.jsx';
 import CookieConsent from './dmp_opidor_react/src/components/CookieConsent';
 import BackToTop from './dmp_opidor_react/src/components/BackToTop';
+import SharedLabelLayout from './dmp_opidor_react/src/components/SharedLabel/SharedLabelLayout';
 
 export default function mount(components) {
   document.addEventListener('DOMContentLoaded', () => {
@@ -49,4 +50,5 @@ mount({
   GlossaryLayout,
   CookieConsent,
   BackToTop,
+  SharedLabelLayout,
 });

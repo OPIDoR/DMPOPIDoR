@@ -77,7 +77,7 @@ namespace :data_migration do
   desc 'Fix research output fragment hasPersonalData configuration'
   task fix_ro_fragment_haspersonaldata: :environment do
     Plan.includes(:template).all.each do |plan|
-      next unless plan.template.structured?
+      next unless plan.structured?
 
       non_no = %w[non no].freeze
       plan.research_outputs.each do |research_output|

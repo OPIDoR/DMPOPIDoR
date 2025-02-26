@@ -69,7 +69,7 @@
           <%= _('unanswered questions') %>
         <% end %>
       </div>
-      <% if @plan.template.structured? %>
+      <% if @plan.structured? %>
       <div class="form-check">
         <%= label_tag 'export[complete_data]', class:'form-check-label' do %>
           <%= check_box_tag 'export[complete_data]', true, false %>
@@ -91,7 +91,7 @@
     <div class="row">
       <div class="control mb-3 col-sm-2">
         <%
-          valid_formats = if @plan.template.structured?
+          valid_formats = if @plan.structured?
                       Settings::Template::VALID_FORMATS
                     else
                       Settings::Template::VALID_FORMATS - ["json"]
@@ -117,7 +117,7 @@
             <%= _('unanswered questions') %>
           <% end %>
         </div>
-        <% if @plan.template.structured? %>
+        <% if @plan.structured? %>
           <div class="checkbox">
             <%= label_tag 'export[complete_data]' do %>
               <%= check_box_tag 'export[complete_data]', true, false %>

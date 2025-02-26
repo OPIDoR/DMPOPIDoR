@@ -25,16 +25,6 @@ module MadmpExportHelper
     JSON.parse(File.open(export_format))
   end
 
-  def format_contributors(dmp_fragment, selected_research_outputs)
-    contributors = []
-    dmp_fragment.persons.each do |person|
-      contributor = person.get_full_fragment
-      contributor['role'] = person.roles(selected_research_outputs).uniq
-      contributors.append(contributor)
-    end
-    contributors
-  end
-
   def exportable_description(description)
     exportable = Loofah.fragment(description).text(encode_special_chars: false).tr("\n\r", ' ')
     return nil if exportable.eql?('')

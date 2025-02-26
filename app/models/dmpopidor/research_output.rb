@@ -77,7 +77,7 @@ module Dmpopidor
             }
           )
 
-          if description_question.present? && plan.template.structured?
+          if description_question.present? && plan.structured?
             # Create a new answer for the ResearchOutputDescription Question
             # This answer will be displayed in the Write Plan tab,
             # pre filled with the ResearchOutputDescription info

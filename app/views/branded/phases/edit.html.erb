@@ -3,7 +3,7 @@
 <% locale = LocaleService.to_gettext(locale: locale)%>
 
 <% content_for :plan_tab_body do %>
-  <% if plan.template.structured? %>
+  <% if plan.structured? %>
     <%= react("WritePlanLayout", props: { 
       locale: locale,
       planId: plan.id,

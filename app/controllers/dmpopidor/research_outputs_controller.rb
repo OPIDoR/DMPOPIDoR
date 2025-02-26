@@ -118,10 +118,11 @@ module Dmpopidor
       body = JSON.parse(request.body.string)
       research_output = ::ResearchOutput.find_by(uuid: body['uuid'])
       research_output_fragment = research_output.json_fragment
+      data_type = research_output_fragment.additional_info['dataType']
 
       authorize research_output
 
-      target_plan = ::Plan.find(params[:plan_id])
+      target_plan = ::Plan.includes(:template).find(params[:plan_id])
 
       I18n.with_locale target_plan.template.locale do # rubocop:disable Metrics/BlockLength
         pos = target_plan.research_outputs.length + 1
@@ -132,6 +133,8 @@ module Dmpopidor
           display_order: pos
         )
 
+        module_tplt = ::Template.module(data_type:, locale: target_plan.template.locale)
+
         # Creates the main ResearchOutput fragment
         research_output_copy_fragment = Fragment::ResearchOutput.create(
           data: {
@@ -140,11 +143,12 @@ module Dmpopidor
           madmp_schema: research_output_fragment.madmp_schema,
           dmp_id: target_plan.json_fragment.id,
           parent_id: target_plan.json_fragment.id,
-          additional_info: research_output_fragment.additional_info
+          additional_info: research_output_fragment.additional_info.merge(
+            'moduleId' => module_tplt&.id
+          )
         )
 
-        module_id = research_output_copy_fragment.additional_info['moduleId']
-        template = module_id ? ::Template.find(module_id) : target_plan.template
+        template = module_tplt || target_plan.template
 
         Import::PlanImportService.import_research_output(
           research_output_copy_fragment,

@@ -28,7 +28,7 @@
     </li>
   <% end %>
   <% phases.each do |phase| %>
-    <% plan_phase_url = plan.template.structured? ? structured_edit_plan_path(plan.id, phase_id: phase.id) : edit_plan_path(plan.id, phase_id: phase.id) %>
+    <% plan_phase_url = plan.structured? ? structured_edit_plan_path(plan.id, phase_id: phase.id) : edit_plan_path(plan.id, phase_id: phase.id) %>
     <li role="presentation" class="phase-tab nav-item <%= (active_page?(plan_phase_url) ? 'active' : '') %>">
       <a href="<%= plan_phase_url %>" role="tab" class="nav-link" aria-controls="content">
         <%= inline_svg_tag "plan_navigation/write_plan.svg", class: 'icon' %>
@@ -38,7 +38,7 @@
       <span class="active-bullet">&#x25cf;</span>
     </li>
   <% end %>
-  <% if plan.template.structured? %>
+  <% if plan.structured? %>
     <li role="contributors" class="nav-item <%= (active_page?(plan_contributors_path(plan)) ? "active" : "") %>">
       <a href="<%= plan_contributors_path(plan) %>" class="nav-link" role="tab" aria-controls="content">
         <%= inline_svg_tag "plan_navigation/contributors.svg", class: 'icon' %>
@@ -88,7 +88,7 @@
   <% end %>
 </ul>
 
-<% write_plan_class = active_page?(edit_plan_path(plan.id)) && !plan.template.structured? ? "write-plan" : ""%>
+<% write_plan_class = active_page?(edit_plan_path(plan.id)) && !plan.structured? ? "write-plan" : ""%>
 <div class="tab-content">
   <div class="row">
     <div class="col-md-12">
@@ -99,15 +99,7 @@
     </div>
   </div>
   <div style="display: flex; justify-content: flex-end; align-items: flex-end; width: 100%; position: relative; margin-right: 100px;">
-    <% if plan.api_client_roles.any? %>
-      <% clients = plan.api_client_roles.map { |client_role| ApiClient.where(id: client_role.api_client_id).select(:name).first }%>
-      <% @clients_name =  %>
-      <a href="/plans/<%= plan.id %>/share">
-        <button class="btn btn-primary">
-          <%= _("Plan shared with : %{clients}") % { :clients => clients.pluck('name').join(', ') } %>
-        </button>
-      </a>
-    <% end %>
+    <%= react("SharedLabelLayout", props: { planId: plan.id, clients: plan.api_client_roles.map { |client_role| ApiClient.where(id: client_role.api_client_id).select(:name).first } }) %>
   </div>
   <div id="content" role="tabpanel" class="tab-pane active row col-md-12">
     <div class="plan-content card card-default">
