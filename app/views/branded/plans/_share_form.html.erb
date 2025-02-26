@@ -19,11 +19,9 @@
           <%= f.hidden_field :plan_id %>
           <%= f.fields_for :user, new_role.user do |user| %>
               <%= user.label :email, _('Email'), class: 'control-label'%>
-              <em class="sr-only"><%= email_tooltip %></em>
               <%= user.email_field :email, class: "form-control", title: email_tooltip,
                                         aria: { required: true },
-                                        required: true,
-                                        data: { toggle: "tooltip", html: true } %>
+                                        required: true %>
             <% end %>
         </div>
         <div class="clearfix"></div>
