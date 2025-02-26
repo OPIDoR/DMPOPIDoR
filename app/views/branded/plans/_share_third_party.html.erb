@@ -1,6 +1,5 @@
 <% client_editor = ApiClientRole.new(edit: true, read: true) %>
 <% client_reader = ApiClientRole.new(read: true) %>
-<% client_tooltip = _('Select a service you would like to share your plan with.') %>
 <% client_permissions_tooltip = '' %>
 
 <h2><%= _("Authorize third-party organizations") %></h2>
@@ -23,12 +22,10 @@
       <%= f.hidden_field :plan_id %>
       <%= f.fields_for :api_client, new_client_role.api_client do |api_client| %>
           <%= api_client.label :api_client_id, _('Organizations'), class: 'control-label'%>
-          <em class="sr-only"><%= client_tooltip %></em>
           <%= select_tag("api_client_role[api_client_id]",
               options_from_collection_for_select(@api_clients, "id", "name"),
               prompt: _('Select an organization'),
-              title: client_tooltip,
-              data: { toggle: "tooltip", html: true },
+              title:  _('Select a service you would like to share your plan with.'),
               class: "form-control") %>
       <% end %>
     </div>
