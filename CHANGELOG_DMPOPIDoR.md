@@ -2,6 +2,12 @@
 
 **Attention** Cette liste de changements concerne les déploiements sur nos serveurs de test en interne.
 
+## 26/02/2025
+
+- Mise à jour de traduction (#12685)
+- Suppréssion des tooltips (#12685)
+- Traduction de ``Copy of ...`` par ``Copie de ...` (#12315)
+
 ## 25/02/2025
 
 - Un produit de recherche utilisant un module est désormais importé dans un module utilisant la locale du plan (#12503)
