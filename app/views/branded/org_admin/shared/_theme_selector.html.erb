@@ -4,7 +4,7 @@
 <% in_error ||= false %>
 
 <div class="form-group">
-  <% if all_themes.length > 0 %>
+  <% if !all_themes.nil? && all_themes.length > 0 %>
     <%
       cntr = 0
       per_col = Rails.configuration.x.max_number_themes_per_column

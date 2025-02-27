@@ -56,7 +56,7 @@
         <%= f.label(:madmp_schema_id, _('Structured Form'), class: "control-label") %>
           <%= f.select :madmp_schema_id,
             options_for_select(
-              @madmp_schemas.map{ 
+              @madmp_schemas.map{
                 |schema| [schema.detailed_name, schema.id, { 'data-classname' => schema.classname }]
               },
               question.madmp_schema_id
@@ -82,7 +82,7 @@
               <%= render partial: 'org_admin/conditions/container', locals: { f: f, question: question, conditions: conditions } %>
             </p>
           </div>
-        <% else %> 
+        <% else %>
           <div class="form-group" data-toggle="tooltip", title="<%= _('Save this question before adding conditions.') %>" >
             <%= link_to _('Add Conditions'), '#', class: "add-logic btn btn-default disabled" %>
           </div>
@@ -99,24 +99,28 @@
     </div>
 
   <!--Question default_value -->
-    <div class="form-group col-md-10" data-attribute="default_value" style="<%= current_format.textfield? || current_format.textarea? ? '' : 'display: none;' %>">
-      <%= f.label(:default_value, _('Default answer'), class: "control-label") %>
-      <div class="" data-toggle="tooltip" title="<%= question_default_value_tooltip %>">
-        <em class="sr-only"><%= question_default_value_tooltip %></em>
-        <span data-attribute="textfield" style="<%= current_format.textfield? ? '' : 'display:none;' %>">
-          <%= f.text_field(:default_value, class: 'form-control', spellcheck: true) %>
-        </span>
-        <span data-attribute="textarea" style="<%= current_format.textarea? ? '' : 'display:none;' %>">
-          <%= text_area_tag('question[default_value]', question.default_value, id: "#{question.id.present? ? question.id : 'new'}_question_default_value_area", class: "form-control question") %>
-        </span>
+    <% unless template&.module? %>
+      <div class="form-group col-md-10" data-attribute="default_value" style="<%= current_format.textfield? || current_format.textarea? ? '' : 'display: none;' %>">
+        <%= f.label(:default_value, _('Default answer'), class: "control-label") %>
+        <div class="" data-toggle="tooltip" title="<%= question_default_value_tooltip %>">
+          <em class="sr-only"><%= question_default_value_tooltip %></em>
+          <span data-attribute="textfield" style="<%= current_format.textfield? ? '' : 'display:none;' %>">
+            <%= f.text_field(:default_value, class: 'form-control', spellcheck: true) %>
+          </span>
+          <span data-attribute="textarea" style="<%= current_format.textarea? ? '' : 'display:none;' %>">
+            <%= text_area_tag('question[default_value]', question.default_value, id: "#{question.id.present? ? question.id : 'new'}_question_default_value_area", class: "form-control question") %>
+          </span>
+        </div>
       </div>
-    </div>
+    <% end %>
   </div>
   <div class="row">
-    <%# example_answer and guidance annotations as nested fields %>
-    <% question.annotations_per_org(current_user.org_id).each do |annotation| %>
-      <%= f.fields_for(:annotations, annotation) do |annotation_fields| %>
-        <%= render partial: 'org_admin/annotations/form', locals: { f: annotation_fields } %>
+    <% unless template&.module? %>
+      <%# example_answer and guidance annotations as nested fields %>
+      <% question.annotations_per_org(current_user.org_id).each do |annotation| %>
+        <%= f.fields_for(:annotations, annotation) do |annotation_fields| %>
+          <%= render partial: 'org_admin/annotations/form', locals: { f: annotation_fields } %>
+        <% end %>
       <% end %>
     <% end %>
     <!-- Themes -->
