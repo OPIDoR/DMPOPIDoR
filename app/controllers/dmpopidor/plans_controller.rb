@@ -475,6 +475,7 @@ module Dmpopidor
       render json: {
         id: plan.id,
         dmp_id: plan.json_fragment.id,
+        template: plan.template.serialize_json,
         research_outputs: plan.research_outputs.order(:display_order).map(&:serialize_json)
       }
     end
