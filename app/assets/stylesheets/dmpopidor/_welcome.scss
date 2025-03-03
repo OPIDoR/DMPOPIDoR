@@ -6,7 +6,7 @@
   background: $rust;
   border-radius: 5px;
   padding: 20px;
-  min-width: 425px;
+  max-width: 425px;
   position: relative;
   top: -190px;
   left: -100px;
@@ -42,7 +42,7 @@
 
   h2 {
     grid-column: 1/2;
-    margin-right: 20px;
+    margin: 20px 20px 10px 0;
     color: white;
     font-weight: bold;
   }
