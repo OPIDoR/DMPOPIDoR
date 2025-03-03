@@ -14,6 +14,8 @@ else
   json.project dmp.project.get_full_fragment
 end
 
+json.contributor format_contributors(dmp)
+
 json.researchOutput research_outputs do |research_output|
   research_output_fragment = research_output.json_fragment
   next unless selected_research_outputs.include?(research_output_fragment.data["research_output_id"])

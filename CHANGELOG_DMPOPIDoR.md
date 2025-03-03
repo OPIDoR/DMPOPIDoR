@@ -2,6 +2,22 @@
 
 **Attention** Cette liste de changements concerne les déploiements sur nos serveurs de test en interne.
 
+## 28/02/2025
+
+- Retrait des produits de recherche associés aux contributeurs dans l'export JSON (#12670)
+- Retrait de l'affichage du module utilisé dans la rédaction (#12691)
+- Améliorations de l'interface d'édition des modules (#12372 | #12370)
+- Améliorations de l'interface de l'onglet Partager (#12685 | #12563)
+- Amélioration de la recherche des groupes de recommandations (#12207)
+- Traduction d'un titre de PGD copié (#12315)
+- Ajout du libellé "Import de" dans un plan importé (#12696)
+
+## 26/02/2025
+
+- Mise à jour de traductions (#12685 | #12696)
+- Suppression des tooltips (#12685)
+- Traduction de ``Copy of ...`` par ``Copie de ...` (#12315)
+
 ## 25/02/2025
 
 - Un produit de recherche utilisant un module est désormais importé dans un module utilisant la locale du plan (#12503)

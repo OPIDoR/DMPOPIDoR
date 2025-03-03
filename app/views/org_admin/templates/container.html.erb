@@ -1,9 +1,13 @@
-<% title template.id.present? ? template.title : "New Template" %>
+
+<% title = template&.module? && template.id.present? ? template.title : 'New Template' %>
+
 <% modifiable = template.latest? && !template.customization_of.present? && template.id.present? && (template.org_id = current_user.org.id) %>
 <div class="row">
   <div class="col-md-12">
-    <h1><%= template.id.present? ? template.title : _('New Template') %></h1>
-    <%= link_to _('View all templates'), referrer, class: 'btn btn-secondary float-end' %>
+    <h1><%= title %></h1>
+    <%= link_to template&.module? ? _('View all modules') : _('View all templates'),
+                template&.module? ? super_admin_module_templates_path : referrer,
+                class: 'btn btn-secondary float-end' %>
   </div>
 </div>
 <div class="row">

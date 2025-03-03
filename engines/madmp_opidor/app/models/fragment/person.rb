@@ -46,7 +46,7 @@ module Fragment
     NON_RO_CLASSES = %w[meta project research_entity].freeze
     # rubocop:disable Metrics/AbcSize, Metrics/MethodLength
     # rubocop:disable Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
-    def roles(selected_research_outputs = nil)
+    def roles(selected_research_outputs = nil, include_ro_names = false)
       contributors_list = contributors
       roles_list = []
       roles_aggregate = {}
@@ -65,15 +65,19 @@ module Fragment
           roles_list.push(c.data['role'])
           next
         end
-        if research_outputs.size.eql?(1)
-          roles_list.push(c.data['role'])
-          next
-        end
-        ro = research_outputs.find(c.research_output_id)
-        if roles_aggregate[c.data['role']].nil?
-          roles_aggregate[c.data['role']] = [ro.abbreviation]
+        if include_ro_names
+          if research_outputs.size.eql?(1)
+            roles_list.push(c.data['role'])
+            next
+          end
+          ro = research_outputs.find(c.research_output_id)
+          if roles_aggregate[c.data['role']].nil?
+            roles_aggregate[c.data['role']] = [ro.abbreviation]
+          else
+            roles_aggregate[c.data['role']].push(ro.abbreviation)
+          end
         else
-          roles_aggregate[c.data['role']].push(ro.abbreviation)
+          roles_list.push(c.data['role'])
         end
       end
       roles_list += roles_aggregate.map { |k, v| "#{k} (#{v.join(', ')})" }

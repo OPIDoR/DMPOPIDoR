@@ -68,7 +68,7 @@ class GuidanceGroup < ApplicationRecord
 
   scope :search, lambda { |term|
     search_pattern = "%#{term}%"
-    where('lower(guidance_groups.name) LIKE lower(?)', search_pattern)
+    joins(:org).where('lower(guidance_groups.name) LIKE lower(?) OR lower(orgs.name) LIKE lower(?)', search_pattern, search_pattern)
   }
 
   scope :published, -> { where(published: true) }

@@ -419,6 +419,7 @@ module Dmpopidor
 
               @plan.title = format(_("%{user_name}'s Plan"), user_name: current_user.firstname)
               @plan.title = json_data['meta']['title'] if json_data.dig('meta', 'title')
+              @plan.title = format(_('Import of %{title}'), title: @plan.title)
               @plan.org = current_user.org
 
               if @plan.save
@@ -465,6 +466,7 @@ module Dmpopidor
       render json: {
         id: plan.id,
         dmp_id: plan.json_fragment.id,
+        template: plan.template.serialize_json,
         research_outputs: plan.research_outputs.order(:display_order).map(&:serialize_json)
       }
     end

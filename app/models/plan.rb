@@ -350,28 +350,30 @@ class Plan < ApplicationRecord
   # rubocop:disable Metrics/AbcSize, Metrics/MethodLength
   def self.deep_copy(plan)
     plan_copy = plan.dup
-    plan_copy.title = "Copy of #{plan.title}"
-    plan_copy.feedback_requested = false
-    plan_copy.save!
-    plan_copy.copy_plan_fragments(plan)
-    plan.research_outputs.each do |research_output|
-      research_output_copy = ResearchOutput.deep_copy(research_output)
-      research_output_copy.title = research_output.title || "Copy of #{research_output.abbreviation}"
-      research_output_copy.plan_id = plan_copy.id
-      research_output_copy.save!
-      research_output_copy.create_json_fragments
+    I18n.with_locale plan.template.locale do
+      plan_copy.title = format(_('Copy of %{title}'), title: plan.title)
+      plan_copy.feedback_requested = false
+      plan_copy.save!
+      plan_copy.copy_plan_fragments(plan)
+      plan.research_outputs.each do |research_output|
+        research_output_copy = ResearchOutput.deep_copy(research_output)
+        research_output_copy.title = research_output.title || format(_('Copy of %{title}'), title: research_output.abbreviation)
+        research_output_copy.plan_id = plan_copy.id
+        research_output_copy.save!
+        research_output_copy.create_json_fragments
 
-      research_output_description = research_output.json_fragment.research_output_description
-      research_output_copy.json_fragment.research_output_description.raw_import(
-        research_output_description.get_full_fragment,
-        research_output_description.madmp_schema
-      )
+        research_output_description = research_output.json_fragment.research_output_description
+        research_output_copy.json_fragment.research_output_description.raw_import(
+          research_output_description.get_full_fragment,
+          research_output_description.madmp_schema
+        )
 
-      research_output.answers.each do |answer|
-        answer_copy = Answer.deep_copy(answer)
-        answer_copy.plan_id = plan_copy.id
-        answer_copy.research_output_id = research_output_copy.id
-        answer_copy.save!
+        research_output.answers.each do |answer|
+          answer_copy = Answer.deep_copy(answer)
+          answer_copy.plan_id = plan_copy.id
+          answer_copy.research_output_id = research_output_copy.id
+          answer_copy.save!
+        end
       end
     end
     plan.guidance_groups.each do |guidance_group|
@@ -387,32 +389,34 @@ class Plan < ApplicationRecord
   # rubocop:disable Metrics/AbcSize, Metrics/MethodLength
   def self.structured_deep_copy(plan)
     plan_copy = plan.dup
-    plan_copy.title = "Copy of #{plan.title}"
-    plan_copy.feedback_requested = false
-    plan_copy.save!
-    plan_copy.copy_plan_fragments(plan)
-    plan.research_outputs.each do |research_output|
-      research_output_copy = ResearchOutput.deep_copy(research_output)
-      research_output_copy.title = research_output.title || "Copy of #{research_output.abbreviation}"
-      research_output_copy.plan_id = plan_copy.id
-      research_output_copy.save!
-      # Creates the main ResearchOutput fragment
-      ro_fragment = Fragment::ResearchOutput.create(
-        data: {
-          'research_output_id' => research_output_copy.id
-        },
-        madmp_schema: MadmpSchema.find_by(classname: 'research_output'),
-        dmp_id: plan_copy.json_fragment.id,
-        parent_id: plan_copy.json_fragment.id,
-        additional_info: research_output.json_fragment.additional_info
-      )
+    I18n.with_locale plan.template.locale do
+      plan_copy.title = format(_('Copy of %{title}'), title: plan.title)
+      plan_copy.feedback_requested = false
+      plan_copy.save!
+      plan_copy.copy_plan_fragments(plan)
+      plan.research_outputs.each do |research_output|
+        research_output_copy = ResearchOutput.deep_copy(research_output)
+        research_output_copy.title = research_output.title || format(_('Copy of %{title}'), title: research_output.abbreviation)
+        research_output_copy.plan_id = plan_copy.id
+        research_output_copy.save!
+        # Creates the main ResearchOutput fragment
+        ro_fragment = Fragment::ResearchOutput.create(
+          data: {
+            'research_output_id' => research_output_copy.id
+          },
+          madmp_schema: MadmpSchema.find_by(classname: 'research_output'),
+          dmp_id: plan_copy.json_fragment.id,
+          parent_id: plan_copy.json_fragment.id,
+          additional_info: research_output.json_fragment.additional_info
+        )
 
-      research_output.answers.each do |answer|
-        answer_copy = Answer.deep_copy(answer)
-        answer_copy.plan_id = plan_copy.id
-        answer_copy.research_output_id = research_output_copy.id
-        answer_copy.save!
-        MadmpFragment.deep_copy(answer.madmp_fragment, answer_copy.id, ro_fragment) if plan.structured?
+        research_output.answers.each do |answer|
+          answer_copy = Answer.deep_copy(answer)
+          answer_copy.plan_id = plan_copy.id
+          answer_copy.research_output_id = research_output_copy.id
+          answer_copy.save!
+          MadmpFragment.deep_copy(answer.madmp_fragment, answer_copy.id, ro_fragment) if plan.structured?
+        end
       end
     end
     plan.guidance_groups.each do |guidance_group|

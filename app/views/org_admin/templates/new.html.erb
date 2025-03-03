@@ -1,9 +1,12 @@
+<% is_module = request.query_parameters[:type] == 'module' %>
+<% title = if is_module then _('New module') elsif @template.id.present? then @template.title else _('New Template') end %>
+
 <div class="row">
   <div class="col-md-12">
-    <h1><%= @template.id.present? ? template.title : _('New Template') %></h1>
-    <%= link_to _('View all templates'),
-        org_admin_templates_path,
-        class: 'btn btn-secondary float-end' %>
+    <h1><%= title %></h1>
+    <%= link_to is_module ? _('View all modules') : _('View all templates'),
+                is_module ? super_admin_module_templates_path : org_admin_templates_path,
+                class: 'btn btn-secondary float-end' %>
   </div>
 </div>
 

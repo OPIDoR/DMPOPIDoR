@@ -91,7 +91,7 @@
           <td>
             <% if contributor.roles.present? %>
               <ul>
-                <% contributor.roles(@hash[:research_outputs].pluck(:id)).each do |role| %>
+                <% contributor.roles(@hash[:research_outputs].pluck(:id), true).each do |role| %>
                   <li><%= role %></li>
                 <% end %>
               </ul>
