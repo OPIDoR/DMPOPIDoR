@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: app 1.0\n"
 "Report-Msgid-Bugs-To: contact@translation.io\n"
-"POT-Creation-Date: 2025-02-26 15:32+0100\n"
-"PO-Revision-Date: 2025-02-26 15:32+0100\n"
+"POT-Creation-Date: 2025-03-03 16:24+0100\n"
+"PO-Revision-Date: 2025-03-03 16:24+0100\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: French\n"
 "Language: fr_FR\n"
@@ -326,7 +326,7 @@ msgstr "Le fichier doit contenir du JSON"
 msgid "An error has occured: "
 msgstr "Une erreur s'est produite :"
 
-#: ../../app/controllers/dmpopidor/plans_controller.rb:518
+#: ../../app/controllers/dmpopidor/plans_controller.rb:519
 msgid "Invalid JSON: "
 msgstr "JSON non valide :"
 
@@ -1353,7 +1353,7 @@ msgstr "Merci de patienter, les standards sont en cours de chargement"
 #: ../../app/views/branded/notes/_edit.html.erb:10
 #: ../../app/views/branded/org_admin/departments/edit.html.erb:23
 #: ../../app/views/branded/org_admin/departments/new.html.erb:23
-#: ../../app/views/branded/org_admin/questions/_form.html.erb:130
+#: ../../app/views/branded/org_admin/questions/_form.html.erb:134
 #: ../../app/views/branded/org_admin/questions/_show.html.erb:220
 #: ../../app/views/branded/org_admin/templates/_form.html.erb:150
 #: ../../app/views/branded/org_admin/users/edit.html.erb:55
@@ -1635,7 +1635,7 @@ msgstr "Changer votre organisation entraînera la perte de vos droits administra
 
 #: ../../app/views/branded/devise/registrations/_personal_details.html.erb:36
 #: ../../app/views/branded/layouts/_branding.html.erb:52
-#: ../../app/views/branded/plans/new.html.erb:11
+#: ../../app/views/branded/plans/new.html.erb:9
 msgid ""
 "Your organisation has been deactivated. Please choose a new organisation from "
 "your <a href=\"/users/edit\">user profile</a>."
@@ -1768,8 +1768,8 @@ msgstr "(par ex. : Ecole/Département)"
 #: ../../app/views/branded/notes/_edit.html.erb:11
 #: ../../app/views/branded/org_admin/departments/edit.html.erb:24
 #: ../../app/views/branded/org_admin/departments/new.html.erb:24
-#: ../../app/views/branded/org_admin/questions/_form.html.erb:134
-#: ../../app/views/branded/org_admin/questions/_form.html.erb:136
+#: ../../app/views/branded/org_admin/questions/_form.html.erb:138
+#: ../../app/views/branded/org_admin/questions/_form.html.erb:140
 #: ../../app/views/branded/plans/_guidance_selection.html.erb:35
 #: ../../app/views/branded/research_outputs/_list.html.erb:83
 #: ../../app/views/branded/super_admin/api_clients/_form.html.erb:104
@@ -1777,7 +1777,7 @@ msgstr "(par ex. : Ecole/Département)"
 #: ../../app/views/branded/super_admin/themes/_form.html.erb:56
 #: ../../app/views/research_outputs/_form.html.erb:183
 #: ../../engines/madmp_opidor/app/views/super_admin/madmp_schemas/_form.html.erb:49
-#: ../../engines/madmp_opidor/app/views/super_admin/registries/_form.html.erb:43
+#: ../../engines/madmp_opidor/app/views/super_admin/registries/_form.html.erb:44
 msgid "Cancel"
 msgstr "Annuler"
 
@@ -2359,11 +2359,11 @@ msgstr "Enregistrez cette question avant d'ajouter des conditions."
 msgid "Display additional comment area."
 msgstr "Afficher un zone de commentaire supplémentaire."
 
-#: ../../app/views/branded/org_admin/questions/_form.html.erb:103
+#: ../../app/views/branded/org_admin/questions/_form.html.erb:104
 msgid "Default answer"
 msgstr "Réponse par défaut"
 
-#: ../../app/views/branded/org_admin/questions/_form.html.erb:126
+#: ../../app/views/branded/org_admin/questions/_form.html.erb:130
 msgid ""
 "Select one or more themes that are relevant to this question. This will allow "
 "similarly themed organisation-level guidance to appear alongside your question"
@@ -2373,7 +2373,7 @@ msgstr ""
 "icher des recommandations similaires au niveau des organismes à côté de votre "
 "question."
 
-#: ../../app/views/branded/org_admin/questions/_form.html.erb:133
+#: ../../app/views/branded/org_admin/questions/_form.html.erb:137
 #: ../../app/views/branded/super_admin/api_clients/_form.html.erb:93
 #: ../../app/views/branded/super_admin/api_clients/_form.html.erb:97
 #: ../../app/views/branded/super_admin/static_pages/_form.html.erb:61
@@ -2383,7 +2383,7 @@ msgstr ""
 msgid "Delete"
 msgstr "Supprimer"
 
-#: ../../app/views/branded/org_admin/questions/_form.html.erb:133
+#: ../../app/views/branded/org_admin/questions/_form.html.erb:137
 msgid "You are about to delete question #%{question_number}. Are you sure?"
 msgstr ""
 "Vous êtes sur le point de supprimer la question #%{question_number}. En êtes-v"
@@ -4849,15 +4849,15 @@ msgstr "Impossible de changer le statut \"recommandé\" du modèle"
 msgid "\"%{entity_name}\" entity DMP"
 msgstr "Plan de l'entité \"%{entity_name}\""
 
-#: ../../engines/madmp_opidor/app/services/import/plan_import_service.rb:104
+#: ../../engines/madmp_opidor/app/services/import/plan_import_service.rb:105
 msgid "Invalid JSON data"
 msgstr "Données JSON invalides"
 
-#: ../../engines/madmp_opidor/app/services/import/plan_import_service.rb:105
+#: ../../engines/madmp_opidor/app/services/import/plan_import_service.rb:106
 msgid "Invalid format"
 msgstr "Format invalide"
 
-#: ../../engines/madmp_opidor/app/services/import/plan_import_service.rb:109
+#: ../../engines/madmp_opidor/app/services/import/plan_import_service.rb:110
 msgid "File should begin with :dmp property"
 msgstr "Le fichier doit commencer par la propriété :dmp"
 
@@ -4982,6 +4982,11 @@ msgstr "Types de données"
 #: ../../engines/madmp_opidor/app/views/super_admin/registries/_form.html.erb:37
 msgid "Values"
 msgstr "Valeurs"
+
+#:
+#: ../../engines/madmp_opidor/app/views/super_admin/registries/_form.html.erb:43
+msgid "Export Registry"
+msgstr "Exporter le référentiel"
 
 #: ../../engines/madmp_opidor/app/views/super_admin/registries/edit.html.erb:5
 #: ../../engines/madmp_opidor/app/views/super_admin/registries/new.html.erb:5

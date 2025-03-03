@@ -40,6 +40,7 @@
 
     <div class="pull-right">
       <%= f.button(_('Save'), class: "btn btn-default", type: "submit") %>
+      <%= link_to(_('Export Registry'), super_admin_registry_download_path(@registry.id), class: 'btn btn-default', role: 'button') %>
       <%= link_to(_('Cancel'), super_admin_registries_path, class: 'btn btn-default', role: 'button') %>
     </div>
   </div>
