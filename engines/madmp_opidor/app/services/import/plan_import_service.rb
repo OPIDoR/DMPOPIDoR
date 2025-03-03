@@ -32,7 +32,8 @@ module Import
               is_default: idx.eql?(0),
               display_order: idx + 1
             )
-            research_output.create_json_fragments(ro_data['configuration'].deep_symbolize_keys)
+            configuration = ro_data['configuration'] || {}
+            research_output.create_json_fragments(configuration.deep_symbolize_keys)
             module_id = research_output.module_id
             ro_frag = research_output.json_fragment
             plan_template = module_id.present? ? Template.find(module_id) : plan.template
