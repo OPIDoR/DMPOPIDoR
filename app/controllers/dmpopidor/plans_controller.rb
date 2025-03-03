@@ -497,7 +497,7 @@ module Dmpopidor
           {
             id: contributor.id,
             data: contributor.get_full_fragment(with_ids: true),
-            roles: contributor.roles
+            roles: contributor.roles(include_ro_names: true)
           }
         end,
         template: {
