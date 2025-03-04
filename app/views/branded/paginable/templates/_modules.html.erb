@@ -58,10 +58,10 @@
                 <%= _('Actions') %><span class="caret"></span>
               </button>
               <ul class="dropdown-menu">
-                <li><%= link_to _('Edit'), edit_org_admin_template_path(template.id) %></li>
-                <li><%= link_to _('History'), history_org_admin_template_path(template.id) %></li>
+                <li><%= link_to _('Edit'), edit_super_admin_template_path(template.id) %></li>
+                <li><%= link_to _('History'), history_super_admin_template_path(template.id) %></li>
                 <% if template.draft? || template.published? %>
-                  <li><%= link_to _('Unpublish'), unpublish_org_admin_template_path(template.id), 'data-method': 'patch' %></li>
+                  <li><%= link_to _('Unpublish'), unpublish_super_admin_template_path(template.id), 'data-method': 'patch' %></li>
                 <% end %>
                 <% if template.draft? %>
                   <li><%= link_to _('Publish changes'), publish_org_admin_template_path(template), 'data-method': 'patch' %></li>
@@ -70,7 +70,7 @@
                 <% end %>
                 <% if template.removable? %>
                   <li>
-                    <%= link_to _('Remove'), org_admin_template_path(id: template.id),
+                    <%= link_to _('Remove'), super_admin_template_path(id: template.id),
                                 'data-method': 'delete', rel: 'nofollow',
                                 'data-confirm': _('Are you sure you want to remove "%{template_title}"? Any published versions will become unavailable to users.') % { template_title: template.title} %>
                   </li>
