@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: app 1.0\n"
 "Report-Msgid-Bugs-To: contact@translation.io\n"
-"POT-Creation-Date: 2025-02-26 15:32+0100\n"
-"PO-Revision-Date: 2025-02-26 15:32+0100\n"
+"POT-Creation-Date: 2025-03-04 09:48+0100\n"
+"PO-Revision-Date: 2025-03-04 09:48+0100\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: English\n"
 "Language: en_GB\n"
@@ -319,7 +319,7 @@ msgstr ""
 msgid "An error has occured: "
 msgstr ""
 
-#: ../../app/controllers/dmpopidor/plans_controller.rb:518
+#: ../../app/controllers/dmpopidor/plans_controller.rb:519
 msgid "Invalid JSON: "
 msgstr ""
 
@@ -1289,7 +1289,7 @@ msgstr ""
 #: ../../app/views/branded/notes/_edit.html.erb:10
 #: ../../app/views/branded/org_admin/departments/edit.html.erb:23
 #: ../../app/views/branded/org_admin/departments/new.html.erb:23
-#: ../../app/views/branded/org_admin/questions/_form.html.erb:130
+#: ../../app/views/branded/org_admin/questions/_form.html.erb:134
 #: ../../app/views/branded/org_admin/questions/_show.html.erb:220
 #: ../../app/views/branded/org_admin/templates/_form.html.erb:150
 #: ../../app/views/branded/org_admin/users/edit.html.erb:55
@@ -1665,8 +1665,8 @@ msgstr ""
 #: ../../app/views/branded/notes/_edit.html.erb:11
 #: ../../app/views/branded/org_admin/departments/edit.html.erb:24
 #: ../../app/views/branded/org_admin/departments/new.html.erb:24
-#: ../../app/views/branded/org_admin/questions/_form.html.erb:134
-#: ../../app/views/branded/org_admin/questions/_form.html.erb:136
+#: ../../app/views/branded/org_admin/questions/_form.html.erb:138
+#: ../../app/views/branded/org_admin/questions/_form.html.erb:140
 #: ../../app/views/branded/plans/_guidance_selection.html.erb:35
 #: ../../app/views/branded/research_outputs/_list.html.erb:83
 #: ../../app/views/branded/super_admin/api_clients/_form.html.erb:104
@@ -2228,18 +2228,18 @@ msgstr ""
 msgid "Display additional comment area."
 msgstr ""
 
-#: ../../app/views/branded/org_admin/questions/_form.html.erb:103
+#: ../../app/views/branded/org_admin/questions/_form.html.erb:104
 msgid "Default answer"
 msgstr ""
 
-#: ../../app/views/branded/org_admin/questions/_form.html.erb:126
+#: ../../app/views/branded/org_admin/questions/_form.html.erb:130
 msgid ""
 "Select one or more themes that are relevant to this question. This will allow "
 "similarly themed organisation-level guidance to appear alongside your question"
 "."
 msgstr ""
 
-#: ../../app/views/branded/org_admin/questions/_form.html.erb:133
+#: ../../app/views/branded/org_admin/questions/_form.html.erb:137
 #: ../../app/views/branded/super_admin/api_clients/_form.html.erb:93
 #: ../../app/views/branded/super_admin/api_clients/_form.html.erb:97
 #: ../../app/views/branded/super_admin/static_pages/_form.html.erb:61
@@ -2249,7 +2249,7 @@ msgstr ""
 msgid "Delete"
 msgstr ""
 
-#: ../../app/views/branded/org_admin/questions/_form.html.erb:133
+#: ../../app/views/branded/org_admin/questions/_form.html.erb:137
 msgid "You are about to delete question #%{question_number}. Are you sure?"
 msgstr ""
 
@@ -2323,7 +2323,7 @@ msgstr ""
 #: ../../app/views/branded/paginable/orgs/_index.html.erb:39
 #: ../../app/views/branded/paginable/plans/_administrator_visible.html.erb:59
 #: ../../app/views/branded/paginable/plans/_privately_visible.html.erb:66
-#: ../../app/views/branded/paginable/templates/_history.html.erb:48
+#: ../../app/views/branded/paginable/templates/_history.html.erb:50
 #: ../../app/views/branded/paginable/templates/_modules.html.erb:61
 #: ../../app/views/branded/paginable/templates/_organisational.html.erb:60
 #: ../../app/views/branded/paginable/users/_index.html.erb:81
@@ -2864,7 +2864,7 @@ msgstr ""
 
 #: ../../app/views/branded/paginable/plans/_administrator_visible.html.erb:68
 #: ../../app/views/branded/paginable/plans/_privately_visible.html.erb:75
-#: ../../app/views/branded/paginable/templates/_history.html.erb:50
+#: ../../app/views/branded/paginable/templates/_history.html.erb:52
 msgid "View"
 msgstr ""
 
@@ -2929,11 +2929,11 @@ msgstr ""
 msgid "Version"
 msgstr ""
 
-#: ../../app/views/branded/paginable/templates/_history.html.erb:42
+#: ../../app/views/branded/paginable/templates/_history.html.erb:44
 msgid "Edit customizations"
 msgstr ""
 
-#: ../../app/views/branded/paginable/templates/_history.html.erb:44
+#: ../../app/views/branded/paginable/templates/_history.html.erb:46
 msgid "View customizations"
 msgstr ""
 
@@ -3404,8 +3404,9 @@ msgstr ""
 
 #: ../../app/views/branded/plans/_share_form.html.erb:14
 msgid ""
-"Invite specific people to read, edit, or administer your plan. Invitees will r"
-"eceive an email notification that they have access to this plan."
+"Invite people to edit or read your plan by entering their email address and as"
+"signing them permissions. They will receive an email notification inviting the"
+"m to create an account or log in to access your plan."
 msgstr ""
 
 #: ../../app/views/branded/plans/_share_form.html.erb:29
@@ -4594,7 +4595,7 @@ msgid "New schema"
 msgstr ""
 
 #:
-#: ../../engines/madmp_opidor/app/views/super_admin/module_templates/index.html.erb:8
+#: ../../engines/madmp_opidor/app/views/super_admin/module_templates/index.html.erb:9
 msgid "Create a module template"
 msgstr ""
 

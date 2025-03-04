@@ -409,6 +409,17 @@ Rails.application.routes.draw do
     get 'download_plans' => 'plans#download_plans'
   end
 
+  scope '/super_admin', module: 'org_admin', as: 'super_admin' do
+    resources :templates, controller: 'templates' do
+      member do
+        get 'new', to: 'templates#new'
+        get 'history', to: 'templates#history'
+        get 'edit', to: 'templates#edit'
+        patch 'unpublish', to: 'templates#unpublish'
+      end
+    end
+  end
+
   namespace :super_admin do
     resources :orgs, only: %i[index new create destroy] do
       member do
