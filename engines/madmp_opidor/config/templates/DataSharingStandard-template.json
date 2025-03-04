@@ -105,8 +105,8 @@
             "description": "Personne(s) impliquée(s) dans la mise à disposition des données",
             "label@fr_FR": "Personnes impliquées dans le depôt et la diffusion des données",
             "label@en_GB": "Persons in charge of data deposition and diffusion",
-            "tooltip@fr_FR": "Le responsable peut être une personne, une équipe, un service",
-            "tooltip@en_GB": "Person in charge can be a person, a team, a department",
+            "tooltip@fr_FR": "Il peut s'agir d'une ou plusieurs personnes, d'une équipe, d'un service",
+            "tooltip@en_GB": "It can be one or more people, a team, a department",
             "form_label@fr_FR": "Personnes impliquées dans le depôt et la diffusion des données",
             "form_label@en_GB": "Persons in charge of data deposition and diffusion"
         },

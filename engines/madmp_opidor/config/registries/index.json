@@ -169,10 +169,10 @@
         "category": "MediaType",
         "path": "MediaType.json"
     },
-    "MeSH Loterre": {
+    "Thésaurus MeSH Istex Loterre": {
         "dataTypes": null,
         "category": "Keyword",
-        "path": "MeSH Loterre.json"
+        "path": "Thésaurus MeSH Istex Loterre.json"
     },
     "MesoatLRServiceType": {
         "dataTypes": null,
@@ -361,10 +361,10 @@
         "category": "StorageType",
         "path": "StorageType.json"
     },
-    "Thésaurus Biodiversité Loterre": {
+    "Thésaurus Biodiversité Istex Loterre": {
         "dataTypes": null,
         "category": "Keyword",
-        "path": "Thésaurus Biodiversité Loterre.json"
+        "path": "Thésaurus Biodiversité Istex Loterre.json"
     },
     "Thésaurus INRAE": {
         "dataTypes": null,

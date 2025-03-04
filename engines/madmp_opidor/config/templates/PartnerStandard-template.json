@@ -11,7 +11,7 @@
     "class": "PartnerStandard",
     "externalImports": {
         "ror": {
-            "name.fr": "name",
+            "name": "name",
             "ror": "orgId",
             "acronyms[0]": "acronym",
             "type": "idType"
@@ -81,8 +81,5 @@
         "\">",
         "$.orgId",
         "</a>"
-    ],
-    "unicity": [
-        "orgId"
     ]
 }

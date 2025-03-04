@@ -76,9 +76,10 @@
             "description": "Coûts éventuels liés à la valorisation scientifique",
             "label@fr_FR": "Coûts",
             "label@en_GB": "Costs",
-            "tooltip": null,
-            "form_label@fr_FR": "Coûts liés à la valorisation scientifique (par ex : APC)",
-            "form_label@en_GB": "Costs related to scientific development (e.g. APC)"
+            "tooltip@fr_FR": "Par exemple, coûts liés aux APCs (frais publication)",
+            "tooltip@en_GB": "For example, costs related to APCs (Article Processing Charges)",
+            "form_label@fr_FR": "Coûts liés à la valorisation scientifique",
+            "form_label@en_GB": "Costs related to scientific development"
         }
     },
     "required": [],

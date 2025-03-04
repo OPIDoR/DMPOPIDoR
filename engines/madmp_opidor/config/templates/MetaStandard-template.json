@@ -25,8 +25,7 @@
             "description": "Numéro du livrable auquel est rattaché le DMP",
             "label@fr_FR": "Livrable",
             "label@en_GB": "Deliverable",
-            "tooltip@fr_FR": "Indiquer si besoin le numéro de livrable correspondant au PGD",
-            "tooltip@en_GB": "Indicate if necessary the deliverable number corresponding to the DMP",
+            "tooltip": null,
             "example@fr_FR": "Livrable D8.2",
             "example@en_GB": "Deliverable D8.2",
             "form_label@fr_FR": "Numéro du livrable",
@@ -179,7 +178,8 @@
             ],
             "registryCategory": "DMPLicense",
             "overridable": true,
-            "tooltip": null,
+            "tooltip@fr_FR": "Choisir une licence pour définir les conditions de réutilisation du PGD en cas de diffusion",
+            "tooltip@en_GB": "Choose a license to define the conditions for reuse of the PGD in case of distribution",
             "form_label@fr_FR": "Licence du plan",
             "form_label@en_GB": "Plan license"
         },
@@ -202,8 +202,7 @@
             "description": "Références de documents éventuels à relier au plan de gestion de données (ex publications)",
             "label@fr_FR": "Documents (publications, rapports, brevets, plan expérimental….), sites web associés",
             "label@en_GB": "Associated documents (publications,reports, patents, experimental plan...), website",
-            "tooltip@fr_FR": "Indiquer les documents (publications, rapports, brevets, plan expérimental….) ou sites web à relier au plan de gestion de données ",
-            "tooltip@en_GB": "Provide the documents (publications,reports, patents, experimental plan...) and websites associated with the DMP ",
+            "tooltip": null,
             "form_label@fr_FR": "Lister les documents (publications, rapports, brevets, plan expérimental….), sites web associés au plan ",
             "form_label@en_GB": "List the documents (publications,reports, patents, experimental plan...), website associated with the DMP "
         },
@@ -226,8 +225,7 @@
             "description": "Autres plans de gestion de données en lien avec le projet ou l'activité de l'entité",
             "label@fr_FR": "Plans de gestion en lien avec le projet ou l'activité de l'entité",
             "label@en_GB": "Management plans related to the project or the entity's activity",
-            "tooltip@fr_FR": "Indiquer les plans de gestion de données en lien avec le projet ou avec l'activité de l'entité",
-            "tooltip@en_GB": "Provide the other DMPs associated with the project or the entity's activity",
+            "tooltip": null,
             "form_label@fr_FR": "Lister les autres plans de gestion en lien avec le projet ou avec l'activité de l'entité",
             "form_label@en_GB": "List the other management plans related to the project or the entity's activity"
         }
