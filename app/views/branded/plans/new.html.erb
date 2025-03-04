@@ -1,8 +1,6 @@
 <% if current_user.org.active? %>
   <%= react("PlanCreationLayout", props: { 
-    locale: locale,
-    currentOrgId: current_user.org.id,
-    currentOrgName: current_user.org.name
+    locale: locale
   }) %>
 <% else%>
   <div class="alert alert-danger">

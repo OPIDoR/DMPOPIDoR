@@ -1,7 +1,8 @@
 <div class="row">
   <div class="col-md-12">
     <h1>
-      <%= templates.first.customization_of.present? ? _('Template Customisation History') : _('Template History') %>
+      <% title = templates.first.module? ? _('Module History') : _('Template History') %>
+      <%= templates.first.customization_of.present? ? (templates.first.module? ? _('Module Customisation History') : _('Template Customisation History')) : title %>
       <div class="float-end">
         <%= link_to _('View all templates'), referrer, class: "btn btn-primary" %>
       </div>

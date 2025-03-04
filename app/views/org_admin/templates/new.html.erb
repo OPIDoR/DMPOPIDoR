@@ -4,7 +4,7 @@
 <div class="row">
   <div class="col-md-12">
     <h1><%= title %></h1>
-    <%= link_to is_module ? _('View all modules') : _('View all templates'),
+    <%= link_to _(is_module ? 'View all modules' : 'View all templates'),
                 is_module ? super_admin_module_templates_path : org_admin_templates_path,
                 class: 'btn btn-secondary float-end' %>
   </div>

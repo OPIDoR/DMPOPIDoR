@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: app 1.0\n"
 "Report-Msgid-Bugs-To: contact@translation.io\n"
-"POT-Creation-Date: 2025-02-26 15:32+0100\n"
-"PO-Revision-Date: 2025-02-26 15:32+0100\n"
+"POT-Creation-Date: 2025-03-04 09:54+0100\n"
+"PO-Revision-Date: 2025-03-04 09:54+0100\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: English\n"
 "Language: en\n"
@@ -323,7 +323,7 @@ msgstr "File should contain JSON"
 msgid "An error has occured: "
 msgstr "An error has occured: "
 
-#: ../../app/controllers/dmpopidor/plans_controller.rb:518
+#: ../../app/controllers/dmpopidor/plans_controller.rb:519
 msgid "Invalid JSON: "
 msgstr "Invalid JSON: "
 
@@ -1340,7 +1340,7 @@ msgstr "Please wait, Standards are loading"
 #: ../../app/views/branded/notes/_edit.html.erb:10
 #: ../../app/views/branded/org_admin/departments/edit.html.erb:23
 #: ../../app/views/branded/org_admin/departments/new.html.erb:23
-#: ../../app/views/branded/org_admin/questions/_form.html.erb:130
+#: ../../app/views/branded/org_admin/questions/_form.html.erb:134
 #: ../../app/views/branded/org_admin/questions/_show.html.erb:220
 #: ../../app/views/branded/org_admin/templates/_form.html.erb:150
 #: ../../app/views/branded/org_admin/users/edit.html.erb:55
@@ -1620,7 +1620,7 @@ msgstr ""
 
 #: ../../app/views/branded/devise/registrations/_personal_details.html.erb:36
 #: ../../app/views/branded/layouts/_branding.html.erb:52
-#: ../../app/views/branded/plans/new.html.erb:11
+#: ../../app/views/branded/plans/new.html.erb:9
 msgid ""
 "Your organisation has been deactivated. Please choose a new organisation from "
 "your <a href=\"/users/edit\">user profile</a>."
@@ -1751,8 +1751,8 @@ msgstr " (e.g. School/ Department) "
 #: ../../app/views/branded/notes/_edit.html.erb:11
 #: ../../app/views/branded/org_admin/departments/edit.html.erb:24
 #: ../../app/views/branded/org_admin/departments/new.html.erb:24
-#: ../../app/views/branded/org_admin/questions/_form.html.erb:134
-#: ../../app/views/branded/org_admin/questions/_form.html.erb:136
+#: ../../app/views/branded/org_admin/questions/_form.html.erb:138
+#: ../../app/views/branded/org_admin/questions/_form.html.erb:140
 #: ../../app/views/branded/plans/_guidance_selection.html.erb:35
 #: ../../app/views/branded/research_outputs/_list.html.erb:83
 #: ../../app/views/branded/super_admin/api_clients/_form.html.erb:104
@@ -1760,7 +1760,7 @@ msgstr " (e.g. School/ Department) "
 #: ../../app/views/branded/super_admin/themes/_form.html.erb:56
 #: ../../app/views/research_outputs/_form.html.erb:183
 #: ../../engines/madmp_opidor/app/views/super_admin/madmp_schemas/_form.html.erb:49
-#: ../../engines/madmp_opidor/app/views/super_admin/registries/_form.html.erb:43
+#: ../../engines/madmp_opidor/app/views/super_admin/registries/_form.html.erb:46
 msgid "Cancel"
 msgstr "Cancel"
 
@@ -2332,11 +2332,11 @@ msgstr "Save this question before adding conditions."
 msgid "Display additional comment area."
 msgstr "Display additional comment area."
 
-#: ../../app/views/branded/org_admin/questions/_form.html.erb:103
+#: ../../app/views/branded/org_admin/questions/_form.html.erb:104
 msgid "Default answer"
 msgstr "Default answer"
 
-#: ../../app/views/branded/org_admin/questions/_form.html.erb:126
+#: ../../app/views/branded/org_admin/questions/_form.html.erb:130
 msgid ""
 "Select one or more themes that are relevant to this question. This will allow "
 "similarly themed organisation-level guidance to appear alongside your question"
@@ -2346,7 +2346,7 @@ msgstr ""
 "similarly themed organisation-level guidance to appear alongside your question"
 "."
 
-#: ../../app/views/branded/org_admin/questions/_form.html.erb:133
+#: ../../app/views/branded/org_admin/questions/_form.html.erb:137
 #: ../../app/views/branded/super_admin/api_clients/_form.html.erb:93
 #: ../../app/views/branded/super_admin/api_clients/_form.html.erb:97
 #: ../../app/views/branded/super_admin/static_pages/_form.html.erb:61
@@ -2356,7 +2356,7 @@ msgstr ""
 msgid "Delete"
 msgstr "Delete"
 
-#: ../../app/views/branded/org_admin/questions/_form.html.erb:133
+#: ../../app/views/branded/org_admin/questions/_form.html.erb:137
 msgid "You are about to delete question #%{question_number}. Are you sure?"
 msgstr "You are about to delete question #%{question_number}. Are you sure?"
 
@@ -2437,7 +2437,7 @@ msgstr "None provided"
 #: ../../app/views/branded/paginable/orgs/_index.html.erb:39
 #: ../../app/views/branded/paginable/plans/_administrator_visible.html.erb:59
 #: ../../app/views/branded/paginable/plans/_privately_visible.html.erb:66
-#: ../../app/views/branded/paginable/templates/_history.html.erb:48
+#: ../../app/views/branded/paginable/templates/_history.html.erb:50
 #: ../../app/views/branded/paginable/templates/_modules.html.erb:61
 #: ../../app/views/branded/paginable/templates/_organisational.html.erb:60
 #: ../../app/views/branded/paginable/users/_index.html.erb:81
@@ -3003,7 +3003,7 @@ msgstr "Copy"
 
 #: ../../app/views/branded/paginable/plans/_administrator_visible.html.erb:68
 #: ../../app/views/branded/paginable/plans/_privately_visible.html.erb:75
-#: ../../app/views/branded/paginable/templates/_history.html.erb:50
+#: ../../app/views/branded/paginable/templates/_history.html.erb:52
 msgid "View"
 msgstr "View"
 
@@ -3072,11 +3072,11 @@ msgstr "URL"
 msgid "Version"
 msgstr "Version"
 
-#: ../../app/views/branded/paginable/templates/_history.html.erb:42
+#: ../../app/views/branded/paginable/templates/_history.html.erb:44
 msgid "Edit customizations"
 msgstr "Edit customizations"
 
-#: ../../app/views/branded/paginable/templates/_history.html.erb:44
+#: ../../app/views/branded/paginable/templates/_history.html.erb:46
 msgid "View customizations"
 msgstr "View customizations"
 
@@ -3594,11 +3594,13 @@ msgstr "Invite collaborators"
 
 #: ../../app/views/branded/plans/_share_form.html.erb:14
 msgid ""
-"Invite specific people to read, edit, or administer your plan. Invitees will r"
-"eceive an email notification that they have access to this plan."
+"Invite people to edit or read your plan by entering their email address and as"
+"signing them permissions. They will receive an email notification inviting the"
+"m to create an account or log in to access your plan."
 msgstr ""
-"Invite specific people to read, edit, or administer your plan. Invitees will r"
-"eceive an email notification that they have access to this plan."
+"Invite people to edit or read your plan by entering their email address and as"
+"signing them permissions. They will receive an email notification inviting the"
+"m to create an account or log in to access your plan."
 
 #: ../../app/views/branded/plans/_share_form.html.erb:29
 #: ../../app/views/branded/plans/_share_form.html.erb:61
@@ -4775,15 +4777,15 @@ msgstr "Unable to change the template's recommended status"
 msgid "\"%{entity_name}\" entity DMP"
 msgstr "\"%{entity_name}\" entity DMP"
 
-#: ../../engines/madmp_opidor/app/services/import/plan_import_service.rb:104
+#: ../../engines/madmp_opidor/app/services/import/plan_import_service.rb:105
 msgid "Invalid JSON data"
 msgstr "Invalid JSON data"
 
-#: ../../engines/madmp_opidor/app/services/import/plan_import_service.rb:105
+#: ../../engines/madmp_opidor/app/services/import/plan_import_service.rb:106
 msgid "Invalid format"
 msgstr "Invalid format"
 
-#: ../../engines/madmp_opidor/app/services/import/plan_import_service.rb:109
+#: ../../engines/madmp_opidor/app/services/import/plan_import_service.rb:110
 msgid "File should begin with :dmp property"
 msgstr "File should begin with :dmp property"
 
@@ -4895,7 +4897,7 @@ msgid "New schema"
 msgstr "New schema"
 
 #:
-#: ../../engines/madmp_opidor/app/views/super_admin/module_templates/index.html.erb:8
+#: ../../engines/madmp_opidor/app/views/super_admin/module_templates/index.html.erb:9
 msgid "Create a module template"
 msgstr "Create a module template"
 
@@ -4908,6 +4910,11 @@ msgstr "Data types"
 #: ../../engines/madmp_opidor/app/views/super_admin/registries/_form.html.erb:37
 msgid "Values"
 msgstr "Values"
+
+#:
+#: ../../engines/madmp_opidor/app/views/super_admin/registries/_form.html.erb:44
+msgid "Export Registry"
+msgstr "Export Registry"
 
 #: ../../engines/madmp_opidor/app/views/super_admin/registries/edit.html.erb:5
 #: ../../engines/madmp_opidor/app/views/super_admin/registries/new.html.erb:5

@@ -40,6 +40,9 @@
 
     <div class="float-end">
       <%= f.button(_('Save'), class: "btn btn-secondary", type: "submit") %>
+      <% unless @registry.new_record? %>
+        <%= link_to(_('Export Registry'), super_admin_registry_download_path(@registry.id), class: 'btn btn-secondary', role: 'button') %>
+      <% end %>
       <%= link_to(_('Cancel'), super_admin_registries_path, class: 'btn btn-secondary', role: 'button') %>
     </div>
   </div>

@@ -11,7 +11,7 @@
   <div style="flex: 1; padding: 20px">
     <% if administerable  %>
       <h2><%= _('Invite collaborators') %></h2>
-      <p><%= _('Invite specific people to read, edit, or administer your plan. Invitees will receive an email notification that they have access to this plan.') %></p>
+      <p><%= _('Invite people to edit or read your plan by entering their email address and assigning them permissions. They will receive an email notification inviting them to create an account or log in to access your plan.') %></p>
       <% new_role = Role.new %>
       <% new_role.plan = @plan %>
       <%= form_for new_role, url: {controller: :roles, action: :create }, html: {method: :post} do |f| %>
