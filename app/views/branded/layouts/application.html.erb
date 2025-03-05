@@ -71,50 +71,51 @@
 
   </head>
   <body>
-      <div class="skip">
-        <a href="#maincontent"> _('Skip to main content') </a> 
+    <div class="skip">
+      <a href="#maincontent"> _('Skip to main content') </a> 
+    </div>
+    <!-- header rendering -->
+    <header class="dmpopidor-branding">
+      <%= render partial: "layouts/header" %>
+    </header>
+
+    <!-- main page content rendering -->
+    <% 
+      user_access_class = if request.path.starts_with?('/super_admin')
+                            "super-admin"
+                          elsif request.path.starts_with?('/org_admin') ||
+                                request.path.starts_with?('/org/admin')
+                            "org-admin"
+                          else
+                            ""
+                          end 
+    %>
+    <main class="container dmpopidor-branding <%= user_access_class %>" id="maincontent">
+      <div class="ribbon">Version d'essai Bootstrap 5</div> 
+      <%= yield %>
+
+
+      <%# Updated with Bootstrap 5 built in spinner %>
+      <div class="spinner-border d-none" role="status">
+        <span class="visually-hidden"><%spinner_msg = _("Loading...") %></span>
       </div>
-      <!-- header rendering -->
-      <header class="dmpopidor-branding">
-        <%= render partial: "layouts/header" %>
-      </header>
+    
+      <%= render "layouts/contact_icons" %>
+    </main>
 
-      <!-- main page content rendering -->
-      <% 
-        user_access_class = if request.path.starts_with?('/super_admin')
-                              "super-admin"
-                            elsif request.path.starts_with?('/org_admin') ||
-                                  request.path.starts_with?('/org/admin')
-                              "org-admin"
-                            else
-                              ""
-                            end 
-      %>
-      <main class="container dmpopidor-branding <%= user_access_class %>" id="maincontent">
-        <%= yield %>
+    <!-- footer rendering -->
+    <footer id="dmpopidor-footer">
+      <%= render "layouts/footer" %>
+    </footer>
 
+    <!-- Back to top button -->
+    <%= react("BackToTop", props: {}) %>
 
-        <%# Updated with Bootstrap 5 built in spinner %>
-        <div class="spinner-border d-none" role="status">
-          <span class="visually-hidden"><%spinner_msg = _("Loading...") %></span>
-        </div>
-      
-        <%= render "layouts/contact_icons" %>
-      </main>
+    <!-- Cookie Consent -->
+    <%= react("CookieConsent", props: {}) %>
 
-      <!-- footer rendering -->
-      <footer id="dmpopidor-footer">
-        <%= render "layouts/footer" %>
-      </footer>
-
-      <!-- Back to top button -->
-      <%= react("BackToTop", props: {}) %>
-
-      <!-- Cookie Consent -->
-      <%= react("CookieConsent", props: {}) %>
-
-      <!-- piwik -->
-      <%= render "layouts/piwik" %>
+    <!-- piwik -->
+    <%= render "layouts/piwik" %>
 
     <%
     constants_json = {
