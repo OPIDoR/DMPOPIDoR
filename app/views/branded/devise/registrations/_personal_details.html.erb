@@ -41,8 +41,8 @@
   <% if org_admin %>
     <input type="hidden" id="original_org" value="<%= @user.org_id %>">
   <% end %>
-    <% departments = current_user.org.departments.order(:name) %>
-    <% if departments.count > 0 %>
+  <% departments = current_user.org.departments.order(:name) %>
+  <% if departments.count > 0 %>
     <div class="form-control mb-3 col-sm-8">
       <% dept_id = current_user.department.nil? ? -1 : current_user.department.id  %>
       <%= f.label(:department_id, _('Structure'), class: 'form-label') %>
@@ -52,7 +52,7 @@
           disabled: current_user.org.active? == false || departments.count === 0,
           class: "form-control") %>
     </div>
-    <% end %>
+  <% end %>
 
   <% if Language.many? %>
     <div class="form-control mb-3 col-sm-8">
