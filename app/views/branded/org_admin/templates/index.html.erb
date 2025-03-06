@@ -59,9 +59,9 @@
 
       <% if !current_user.org.funder_only? %>
         <li role="presentation"
-            class="<%= action_name == 'customisable' ? 'nav-item active' : 'nav-item'  %>">
+            class="<%= action_name == 'customisable' ? 'nav-item active' : 'nav-item' %>">
           <%= link_to(_('Customisable Templates'),
-              customisable_org_admin_templates_path, { role: 'tab', class: 'nav-link' }) %>
+              customisable_org_admin_templates_path, { class: 'nav-link' }) %>
         </li>
       <% end %>
     </ul>
