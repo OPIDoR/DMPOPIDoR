@@ -82,8 +82,7 @@
                 "ISO639-3"
             ],
             "registryCategory": "ISO639-3",
-            "tooltip@fr_FR": "Code de la langue des métadonnées, annotations",
-            "tooltip@en_GB": "Language code of metadata or annotation",
+            "tooltip": null,
             "form_label@fr_FR": "Code langue des métadonnées",
             "form_label@en_GB": "Metadata language code"
         },

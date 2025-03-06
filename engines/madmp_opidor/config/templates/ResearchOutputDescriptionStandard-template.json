@@ -90,8 +90,8 @@
                 "Thésaurus MeSH Istex Loterre"
             ],
             "registryCategory": "Keyword",
-            "tooltip@fr_FR": "Mots-clés choisis à partir des référentiels de référence proposés pour décrire les aspects importants du jeu de données (Pour en savoir plus : consulter le Glossaire)",
-            "tooltip@en_GB": "Keywords selected from the proposed reference registries to describe important aspects of the dataset (For more information: see the Glossary)",
+            "tooltip@fr_FR": "Choisir un ou plusieurs mots-clés à partir des référentiels thématiques proposés dans la liste (Pour en savoir plus, consulter la page A propos des référentiels)",
+            "tooltip@en_GB": "Choose on or more keywords selected from the thematic registries (For more information, see the webpage About registries)",
             "form_label@fr_FR": "Mots clés contrôlés (vocabulaire, thésaurus, lexique...)",
             "form_label@en_GB": "Controlled keywords (vocabulary, thesaurus, lexicon...)"
         },
@@ -149,7 +149,8 @@
             "description": "Date à laquelle les données sont publiées",
             "label@fr_FR": "Date de publication",
             "label@en_GB": "Issued Date",
-            "tooltip": null,
+            "tooltip@fr_FR": "Date à laquelle les données sont publiées",
+            "tooltip@en_GB": "Date when data is published",
             "form_label@fr_FR": "Date de publication",
             "form_label@en_GB": "Issued Date"
         },

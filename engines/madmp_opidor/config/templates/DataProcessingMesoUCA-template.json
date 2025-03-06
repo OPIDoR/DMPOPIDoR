@@ -92,9 +92,11 @@
         "securityMeasures": {
             "type": "string",
             "description": "Description des mesures prises pour assurer la sécurité des données",
+            "inputType": "textarea",
             "label@fr_FR": "Mesures de sécurité",
             "label@en_GB": "Security measures",
             "tooltip": null,
+            "isConst": true,
             "form_label@fr_FR": "Mesures de sécurité du Mésocentre Clermont-Auvergne",
             "form_label@en_GB": "Mesocentre Clermont-Auvergne security measures"
         },
