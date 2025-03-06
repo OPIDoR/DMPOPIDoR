@@ -81,7 +81,7 @@
             <% @nav_static_pages.each do |sp| %>
               <% if sp['inMenu'] %>
                 <li class="nav-item <%= ' active' if active_page?("/static/#{sp['path']}") %>">
-                  <a href="<%= "/static/#{sp['path']}#content" %>">
+                  <a href="<%= "/static/#{sp['path']}#content" %>" class="dropdown-item px-3">
                     <%= sp['title'][I18n.locale.to_s] %>
                   </a>
                 </li>
