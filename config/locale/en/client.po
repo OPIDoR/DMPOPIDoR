@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: app 1.0\n"
 "Report-Msgid-Bugs-To: contact@translation.io\n"
-"POT-Creation-Date: 2025-03-04 09:54+0100\n"
-"PO-Revision-Date: 2025-03-04 09:54+0100\n"
+"POT-Creation-Date: 2025-03-05 10:50+0100\n"
+"PO-Revision-Date: 2025-03-05 10:50+0100\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: English\n"
 "Language: en\n"
@@ -1347,9 +1347,9 @@ msgstr "Please wait, Standards are loading"
 #: ../../app/views/branded/orgs/_profile_form.html.erb:157
 #: ../../app/views/branded/plans/_guidance_selection.html.erb:23
 #: ../../app/views/branded/plans/_share_form.html.erb:49
-#: ../../app/views/branded/plans/_share_third_party.html.erb:50
+#: ../../app/views/branded/plans/_share_third_party.html.erb:53
 #: ../../app/views/branded/research_outputs/_list.html.erb:82
-#: ../../app/views/branded/super_admin/api_clients/_form.html.erb:78
+#: ../../app/views/branded/super_admin/api_clients/_form.html.erb:91
 #: ../../app/views/branded/super_admin/static_pages/_form.html.erb:59
 #: ../../app/views/branded/super_admin/themes/_form.html.erb:50
 #: ../../app/views/branded/super_admin/users/edit.html.erb:62
@@ -1755,7 +1755,7 @@ msgstr " (e.g. School/ Department) "
 #: ../../app/views/branded/org_admin/questions/_form.html.erb:140
 #: ../../app/views/branded/plans/_guidance_selection.html.erb:35
 #: ../../app/views/branded/research_outputs/_list.html.erb:83
-#: ../../app/views/branded/super_admin/api_clients/_form.html.erb:104
+#: ../../app/views/branded/super_admin/api_clients/_form.html.erb:117
 #: ../../app/views/branded/super_admin/static_pages/_form.html.erb:67
 #: ../../app/views/branded/super_admin/themes/_form.html.erb:56
 #: ../../app/views/research_outputs/_form.html.erb:183
@@ -2243,7 +2243,7 @@ msgstr "Request Date"
 #: ../../app/views/branded/paginable/templates/_modules.html.erb:58
 #: ../../app/views/branded/paginable/templates/_organisational.html.erb:57
 #: ../../app/views/branded/plans/_share_form.html.erb:63
-#: ../../app/views/branded/plans/_share_third_party.html.erb:67
+#: ../../app/views/branded/plans/_share_third_party.html.erb:73
 #: ../../engines/madmp_opidor/app/views/paginable/madmp_schemas/_index.html.erb:10
 #: ../../engines/madmp_opidor/app/views/paginable/madmp_schemas/_index.html.erb:30
 #: ../../engines/madmp_opidor/app/views/paginable/registries/_index.html.erb:10
@@ -2347,8 +2347,8 @@ msgstr ""
 "."
 
 #: ../../app/views/branded/org_admin/questions/_form.html.erb:137
-#: ../../app/views/branded/super_admin/api_clients/_form.html.erb:93
-#: ../../app/views/branded/super_admin/api_clients/_form.html.erb:97
+#: ../../app/views/branded/super_admin/api_clients/_form.html.erb:106
+#: ../../app/views/branded/super_admin/api_clients/_form.html.erb:110
 #: ../../app/views/branded/super_admin/static_pages/_form.html.erb:61
 #: ../../app/views/branded/super_admin/themes/_form.html.erb:52
 #: ../../engines/madmp_opidor/app/views/paginable/registries/_index.html.erb:35
@@ -2819,12 +2819,12 @@ msgid "Notify"
 msgstr "Notify"
 
 #: ../../app/views/branded/paginable/api_clients/_index.html.erb:33
-#: ../../app/views/branded/super_admin/api_clients/_form.html.erb:59
+#: ../../app/views/branded/super_admin/api_clients/_form.html.erb:72
 msgid "Never"
 msgstr "Never"
 
 #: ../../app/views/branded/paginable/api_clients/_index.html.erb:49
-#: ../../app/views/branded/super_admin/api_clients/_form.html.erb:91
+#: ../../app/views/branded/super_admin/api_clients/_form.html.erb:104
 msgid "Please remove schemas attached to the Api Client before deleting it."
 msgstr "Please remove schemas attached to the Api Client before deleting it."
 
@@ -2839,7 +2839,7 @@ msgstr "Please remove schemas attached to the Api Client before deleting it."
 #: ../../app/views/branded/paginable/templates/_modules.html.erb:73
 #: ../../app/views/branded/paginable/templates/_organisational.html.erb:78
 #: ../../app/views/branded/plans/_share_form.html.erb:101
-#: ../../app/views/branded/plans/_share_third_party.html.erb:81
+#: ../../app/views/branded/plans/_share_third_party.html.erb:87
 #: ../../app/views/research_outputs/_form.html.erb:180
 msgid "Remove"
 msgstr "Remove"
@@ -3604,8 +3604,8 @@ msgstr ""
 
 #: ../../app/views/branded/plans/_share_form.html.erb:29
 #: ../../app/views/branded/plans/_share_form.html.erb:61
-#: ../../app/views/branded/plans/_share_third_party.html.erb:41
-#: ../../app/views/branded/plans/_share_third_party.html.erb:65
+#: ../../app/views/branded/plans/_share_third_party.html.erb:44
+#: ../../app/views/branded/plans/_share_third_party.html.erb:71
 msgid "Permissions"
 msgstr "Permissions"
 
@@ -3630,7 +3630,7 @@ msgid "Email address"
 msgstr "Email address"
 
 #: ../../app/views/branded/plans/_share_form.html.erb:101
-#: ../../app/views/branded/plans/_share_third_party.html.erb:81
+#: ../../app/views/branded/plans/_share_third_party.html.erb:87
 msgid "Are you sure?"
 msgstr "Are you sure?"
 
@@ -3686,17 +3686,13 @@ msgstr "Authorize third-party organizations"
 
 #: ../../app/views/branded/plans/_share_third_party.html.erb:6
 msgid ""
-"An \"third-party organizations\" can be provided by an organisation, a platform "
-"or a data infrastructure. These services are allowed (by DMP OPIDoR team) to a"
-"utomatically collect information that is being captured in data management pla"
-"n, once you have given them the authorization, in order to offer you some serv"
-"ices."
+"Authorize third-party organizations (funders, service platforms, infrastructur"
+"e) to collect information contained in this plan automatically (API). All prop"
+"osed third-party organizations have been validated by DMP OPIDoR."
 msgstr ""
-"An \"third-party organizations\" can be provided by an organisation, a platform "
-"or a data infrastructure. These services are allowed (by DMP OPIDoR team) to a"
-"utomatically collect information that is being captured in data management pla"
-"n, once you have given them the authorization, in order to offer you some serv"
-"ices."
+"Authorize third-party organizations (funders, service platforms, infrastructur"
+"e) to collect information contained in this plan automatically (API). All prop"
+"osed third-party organizations have been validated by DMP OPIDoR."
 
 #: ../../app/views/branded/plans/_share_third_party.html.erb:13
 msgid ""
@@ -3706,27 +3702,27 @@ msgstr ""
 "If your project is funded by the ANR, remember to share your plan with the ANR"
 ". Find out how to do this here: <waiting for the link>"
 
-#: ../../app/views/branded/plans/_share_third_party.html.erb:24
+#: ../../app/views/branded/plans/_share_third_party.html.erb:28
 msgid "Organizations"
 msgstr "Organizations"
 
-#: ../../app/views/branded/plans/_share_third_party.html.erb:27
+#: ../../app/views/branded/plans/_share_third_party.html.erb:31
 msgid "Select an organization"
 msgstr "Select an organization"
 
-#: ../../app/views/branded/plans/_share_third_party.html.erb:28
-msgid "Select a service you would like to share your plan with."
-msgstr "Select a service you would like to share your plan with."
-
-#: ../../app/views/branded/plans/_share_third_party.html.erb:46
+#: ../../app/views/branded/plans/_share_third_party.html.erb:49
 msgid "Read only: can read the content of the dmp"
 msgstr "Read only: can read the content of the dmp"
 
-#: ../../app/views/branded/plans/_share_third_party.html.erb:56
+#: ../../app/views/branded/plans/_share_third_party.html.erb:58
+msgid "No organizations are available for sharing !"
+msgstr "No organizations are available for sharing !"
+
+#: ../../app/views/branded/plans/_share_third_party.html.erb:62
 msgid "Manage third-party organizations"
 msgstr "Manage third-party organizations"
 
-#: ../../app/views/branded/plans/_share_third_party.html.erb:58
+#: ../../app/views/branded/plans/_share_third_party.html.erb:64
 msgid ""
 "Below is a list of third-party organizations that you can authorize to access "
 "to your plan content. You may withdraw a service's right at any time by clicki"
@@ -3736,11 +3732,11 @@ msgstr ""
 "to your plan content. You may withdraw a service's right at any time by clicki"
 "ng on the \"Remove\" button."
 
-#: ../../app/views/branded/plans/_share_third_party.html.erb:63
+#: ../../app/views/branded/plans/_share_third_party.html.erb:69
 msgid "Third-party organization"
 msgstr "Third-party organization"
 
-#: ../../app/views/branded/plans/_share_third_party.html.erb:64
+#: ../../app/views/branded/plans/_share_third_party.html.erb:70
 msgid "Purpose"
 msgstr "Purpose"
 
@@ -4098,31 +4094,32 @@ msgstr "Contact Name"
 msgid "Contact Email"
 msgstr "Contact Email"
 
-#: ../../app/views/branded/super_admin/api_clients/_form.html.erb:47
-msgid "Client ID"
-msgstr "Client ID"
-
-#: ../../app/views/branded/super_admin/api_clients/_form.html.erb:51
-msgid "Client Secret"
-msgstr "Client Secret"
-
-#: ../../app/views/branded/super_admin/api_clients/_form.html.erb:58
-msgid "Last accessed on"
-msgstr "Last accessed on"
-
-#: ../../app/views/branded/super_admin/api_clients/_form.html.erb:70
+#: ../../app/views/branded/super_admin/api_clients/_form.html.erb:50
+#: ../../app/views/branded/super_admin/api_clients/_form.html.erb:83
 msgid "Notify?"
 msgstr "Notify?"
 
-#: ../../app/views/branded/super_admin/api_clients/_form.html.erb:81
+#: ../../app/views/branded/super_admin/api_clients/_form.html.erb:60
+msgid "Client ID"
+msgstr "Client ID"
+
+#: ../../app/views/branded/super_admin/api_clients/_form.html.erb:64
+msgid "Client Secret"
+msgstr "Client Secret"
+
+#: ../../app/views/branded/super_admin/api_clients/_form.html.erb:71
+msgid "Last accessed on"
+msgstr "Last accessed on"
+
+#: ../../app/views/branded/super_admin/api_clients/_form.html.erb:94
 msgid "Refresh client ID and secret"
 msgstr "Refresh client ID and secret"
 
-#: ../../app/views/branded/super_admin/api_clients/_form.html.erb:85
+#: ../../app/views/branded/super_admin/api_clients/_form.html.erb:98
 msgid "Email credentials to contact"
 msgstr "Email credentials to contact"
 
-#: ../../app/views/branded/super_admin/api_clients/_form.html.erb:101
+#: ../../app/views/branded/super_admin/api_clients/_form.html.erb:114
 msgid "Are you sure you want to delete the API client: \"%{name}\""
 msgstr "Are you sure you want to delete the API client: \"%{name}\""
 

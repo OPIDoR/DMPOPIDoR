@@ -18,7 +18,7 @@ module Types
 
       fragments_by_plan_id = MadmpFragment.where("(data->>'plan_id')::int IN (?)", plans&.map(&:id))
       fragments_by_plan_id.flat_map do |fragment|
-        Resolvers::PlansFiltersResolver.apply(fragment.dmp_fragments, filter, size, offset)&.map do |madmp_fragment|
+        Resolvers::PlansFiltersResolver.apply(fragment.dmp_fragments, filter, fragment.id)&.map do |madmp_fragment|
           # madmp_fragment&.dmp&.get_full_fragment(with_ids: true, with_template_name: true)
           madmp_fragment&.dmp&.get_full_fragment
         end
