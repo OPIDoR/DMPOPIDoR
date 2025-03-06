@@ -27,7 +27,7 @@
       </h2>
 
       <div id="collapse-personal-details" class="accordion-collapse collapse" role="tabpanel" aria-labelledby="heading-personal-details">
-        <div class="accordion-body card card-body">
+        <div class="accordion-body">
           <%= render partial: 'devise/registrations/personal_details', locals: {orgs: @orgs, org_partial: @org_partial} %>
         </div>
       </div>
@@ -51,7 +51,7 @@
       </h2>
 
       <div id="collapse-password-details" class="accordion-collapse collapse" role="tabpanel" aria-labelledby="heading-password-details">
-        <div class="accordion-body card card-body">
+        <div class="accordion-body">
           <%= render partial: 'devise/registrations/password_details' %>
         </div>
       </div>
@@ -76,7 +76,7 @@
         </h2>
 
         <div id="collapse-api-details" class="accordion-collapse collapse" role="tabpanel" aria-labelledby="heading-api-details">
-          <div class="accordion-body card card-body">
+          <div class="accordion-body">
               <%= render partial: 'devise/registrations/api_token', locals: { user: @user } %>
           </div>
         </div>
@@ -102,7 +102,7 @@
       </h2>
 
       <div id="collapse-notification-preferences" class="accordion-collapse collapse" role="tabpanel" aria-labelledby="heading-notification-preferences">
-        <div class="accordion-body card card-body">
+        <div class="accordion-body">
             <%= render partial: 'users/notification_preferences' %>
         </div>
       </div>
