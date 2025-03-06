@@ -44,7 +44,7 @@ module Resolvers
 
       operator_conditions << primary_alias[:dmp_id].eq(dmp_id)
 
-      scope = scope.from("#{scope.table_name} m1").select("m1.*")
+      scope = MadmpFragment.from("#{scope.table_name} m1").select("DISTINCT m1.dmp_id")
 
       grouped_conditions.each_with_index do |(class_name, sub_filters), index|
         table_alias = index.zero? ? primary_alias : Arel::Table.new(scope.table_name).alias("m#{index + 1}")
@@ -65,10 +65,6 @@ module Resolvers
 
       scope = scope.joins(joins.join(" "))
       scope = scope.where(operator_conditions.reduce(&:and))
-
-      p "==========================="
-      p scope.to_sql
-      p "==========================="
 
       scope
     end
