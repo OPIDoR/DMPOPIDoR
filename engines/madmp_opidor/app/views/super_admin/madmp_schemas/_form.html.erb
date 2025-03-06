@@ -39,7 +39,7 @@
       <%= f.label(:schema, _('Schema'), class: 'form-label') %>
       <%= f.text_area(:schema, class: "form-control json", rows: 100, value: JSON.pretty_generate(@schema.schema))  %>
     </div>
-    <div class="pull-right">
+    <div class="float-end">
       <%= f.button(_('Save'), class: "btn btn-default", type: "submit") %>
       <% unless @schema.new_record? %>
         <%= link_to(_('Delete'), super_admin_madmp_schema_path(@schema), class: 'btn btn-default',
