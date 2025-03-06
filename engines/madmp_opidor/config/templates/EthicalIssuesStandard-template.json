@@ -36,7 +36,8 @@
             "description": "Référence(s) de document(s) en lien avec les aspects éthiques à prendre en compte",
             "label@fr_FR": "Références associées",
             "label@en_GB": "Related references",
-            "tooltip": null,
+            "tooltip@fr_FR": "Par exemple, l’avis du Comité d’éthique de votre organisme",
+            "tooltip@en_GB": "For example, the opinion of your organisation's Ethics Committee",
             "form_label@fr_FR": "Indiquer la ou les références de documents en lien avec les questions éthiques",
             "form_label@en_GB": "Indicate the reference(s) of documents related to ethical issues"
         },
@@ -60,8 +61,8 @@
             "description": "Personne contact pour traiter/prendre en charge les aspects éthiques d'un projet",
             "label@fr_FR": "Personnes impliquées dans les questions éthiques",
             "label@en_GB": "Persons in charge of ethical issues",
-            "tooltip@fr_FR": "Le responsable peut être une personne, une équipe, un service",
-            "tooltip@en_GB": "Person in charge can be a person, a team, a department",
+            "tooltip@fr_FR": "Il peut s'agir d'une ou plusieurs personnes, d'une équipe, d'un service",
+            "tooltip@en_GB": "It can be one or more people, a team, a department",
             "form_label@fr_FR": "Personnes impliquées dans les questions éthiques",
             "form_label@en_GB": "Persons in charge of ethical issues"
         }

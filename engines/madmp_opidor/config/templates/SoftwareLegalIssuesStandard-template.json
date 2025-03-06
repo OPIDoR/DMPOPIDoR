@@ -55,7 +55,8 @@
             "description": "Principaux contributeurs du logiciel : autres collaborateurs",
             "label@fr_FR": "Principaux contributeurs du logiciel et leurs rôles",
             "label@en_GB": "Principal software contributors and their roles",
-            "tooltip": null,
+            "tooltip@fr_FR": "Il peut s'agir d'une ou plusieurs personnes, d'une équipe, d'un service",
+            "tooltip@en_GB": "It can be one or more people, a team, a department",
             "form_label@fr_FR": "Lister les principaux contributeurs du logiciel puis leur attribuer un rôle",
             "form_label@en_GB": "List the main contributors of the software and then assign them a role"
         },
@@ -109,9 +110,10 @@
             "description": "Coûts éventuels liés au conseil juridique pour le logiciel",
             "label@fr_FR": "Coûts",
             "label@en_GB": "Costs",
-            "tooltip": null,
-            "form_label@fr_FR": "Coûts liés aux aspects juridiques (ex : recours à un conseil juridique)",
-            "form_label@en_GB": "Costs related to legal aspects (e.g. seeking legal advice)"
+            "tooltip@fr_FR": "Par exemple, recours à un conseil juridique",
+            "tooltip@en_GB": "For example, seeking legal advice",
+            "form_label@fr_FR": "Coûts liés aux aspects juridiques",
+            "form_label@en_GB": "Costs related to legal aspects"
         },
         "description": {
             "type": "string",

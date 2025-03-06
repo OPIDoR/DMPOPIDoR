@@ -103,7 +103,8 @@
             "description": "Partenaires d'un projet ou d'une activité de recherche",
             "label@fr_FR": "Partenaires",
             "label@en_GB": "Partners",
-            "tooltip": null,
+            "tooltip@fr_FR": "Lister les organismes partenaires. L’organisme auquel le coordinateur du projet est affilié doit être ajouté.",
+            "tooltip@en_GB": "List the partner organisations. The organisation with which the project coordinator is affiliated must be added.",
             "form_label@fr_FR": "Lister les partenaires associés au projet",
             "form_label@en_GB": "List the partners associated with the project"
         },

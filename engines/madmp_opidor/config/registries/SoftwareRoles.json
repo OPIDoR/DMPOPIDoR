@@ -14,7 +14,7 @@
 		},
 		{
 			"en_GB": "Design",
-			"fr_FR": "Design"
+			"fr_FR": "Conception"
 		},
 		{
 			"en_GB": "Architecture",
@@ -46,7 +46,7 @@
 		},
 		{
 			"en_GB": "Other",
-			"fr_FR": "autre"
+			"fr_FR": "Autre"
 		}
 	]
 }

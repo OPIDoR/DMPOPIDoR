@@ -7,7 +7,7 @@
       },
       "scriptName": "AnrProjectDataFetcher",
       "registry": "AnrProjects",
-      "apiClient": "anr"
+	  "apiClient" : "anr"
     },
     {
       "label": {
