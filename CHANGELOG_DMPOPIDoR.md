@@ -2,6 +2,12 @@
 
 **Attention** Cette liste de changements concerne les déploiements sur nos serveurs de test en interne.
 
+## 03/03/2025
+
+- Correction du problème affectant l'import RDA (#12574)
+- Ajout du nom manquant du PR dans la liste des rôles affichées dans l'onglet Contributeurs (#12647)
+- Simplification de la création de plan, retrait des modèles de l'organisme de l'utilisateur (#12712)
+
 ## 28/02/2025
 
 - Retrait des produits de recherche associés aux contributeurs dans l'export JSON (#12670)

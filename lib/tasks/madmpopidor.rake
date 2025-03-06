@@ -216,16 +216,17 @@ namespace :madmpopidor do
   desc 'Load JSON registries'
   task load_registries: :environment do
     p 'Loading maDMP registries...'
+    Registry.destroy_all
     registries_path = Rails.root.join('engines/madmp_opidor/config/registries/index.json')
     registries = JSON.parse(File.read(registries_path))
 
     registries.each do |registry_name, registry_data|
-      registry = Registry.find_or_create_by(name: registry_name) do |r|
-        r.name = registry_name
-        r.category = registry_data['category']
-        r.data_types = registry_data['dataTypes'] || ['none']
-        r.version = 1
-      end
+      registry = Registry.create(
+        name: registry_name,
+        category: registry_data['category'],
+        data_types: registry_data['dataTypes'] || ['none'],
+        version: 1
+      )
       if registry_data.is_a?(Array)
         registry.update(values: registry_data['values'])
       elsif registry_data['path'].present?

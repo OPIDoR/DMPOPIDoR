@@ -3,7 +3,7 @@
 <% client_permissions_tooltip = '' %>
 
 <h2><%= _("Authorize third-party organizations") %></h2>
-<p><%= _('An "third-party organizations" can be provided by an organisation, a platform or a data infrastructure. These services are allowed (by DMP OPIDoR team) to automatically collect information that is being captured in data management plan, once you have given them the authorization, in order to offer you some services.') %></p>
+<p><%= _('Authorize third-party organizations (funders, service platforms, infrastructure) to collect information contained in this plan automatically (API). All proposed third-party organizations have been validated by DMP OPIDoR.') %></p>
 
 <% if administerable && Rails.configuration.x.dmpopidor.enable_third_party_form %>
   <% unless @plan_client_roles.find { |client_role| client_role.api_client.name == 'anr'} %>
@@ -15,41 +15,47 @@
     </div>
   <% end %>
 
-  <% new_client_role = ApiClientRole.new %>
-  <% new_client_role.plan = @plan %>
-  <%= form_for new_client_role, url: {controller: :api_client_roles, action: :create }, html: {method: :post} do |f| %>
-    <div class="form-group">
-      <%= f.hidden_field :plan_id %>
-      <%= f.fields_for :api_client, new_client_role.api_client do |api_client| %>
+  <% plan_client_names = @plan_client_roles.map { |client_role| client_role.api_client.name } %>
+  <% api_clients = @api_clients.reject { |api_client| plan_client_names.include?(api_client.name) } %>
+
+  <% if api_clients.length > 0 %>
+    <% new_client_role = ApiClientRole.new %>
+    <% new_client_role.plan = @plan %>
+    <%= form_for new_client_role, url: {controller: :api_client_roles, action: :create }, html: {method: :post} do |f| %>
+      <div class="form-group">
+        <%= f.hidden_field :plan_id %>
+        <%= f.fields_for :api_client, new_client_role.api_client do |api_client| %>
           <%= api_client.label :api_client_id, _('Organizations'), class: 'control-label'%>
           <%= select_tag("api_client_role[api_client_id]",
-              options_from_collection_for_select(@api_clients, "id", "name"),
-              prompt: _('Select an organization'),
-              title:  _('Select a service you would like to share your plan with.'),
-              class: "form-control") %>
-      <% end %>
-    </div>
-    <div class="clearfix"></div>
-    <div style="display: none;">
-      <em class="sr-only"><%= client_permissions_tooltip %></em>
-      <%= field_set_tag  nil, class: 'col-xs-12',
-                    'data-toggle': 'tooltip',
-                    'data-html': true,
-                    title: client_permissions_tooltip,
-                    'data-placement':'right' do %>
-    </div>
-    <div style="display: none;"><%= content_tag :legend , _('Permissions') %></div>
-      <div class="form-group">
-        <div class="radio" style="display: none;">
-          <%= f.label :commenter_access do %>
-            <%= f.radio_button :access, client_reader.access, checked: true, id: "client_role_commenter_access" %>
-            <%= _('Read only: can read the content of the dmp') %>
-          <% end %>
-        </div>
-
-        <%= f.button(_('Save'), class: "btn btn-primary", type: "submit") %>
+                         options_from_collection_for_select(api_clients, "id", "name"),
+                         prompt: _('Select an organization'),
+                         class: "form-control") %>
+        <% end %>
       </div>
+      <div class="clearfix"></div>
+      <div style="display: none;">
+        <em class="sr-only"><%= client_permissions_tooltip %></em>
+        <%= field_set_tag  nil, class: 'col-xs-12',
+                           'data-toggle': 'tooltip',
+                           'data-html': true,
+                           title: client_permissions_tooltip,
+                           'data-placement':'right' do %>
+          </div>
+          <div style="display: none;"><%= content_tag :legend , _('Permissions') %></div>
+          <div class="form-group">
+            <div class="radio" style="display: none;">
+              <%= f.label :commenter_access do %>
+                <%= f.radio_button :access, client_reader.access, checked: true, id: "client_role_commenter_access" %>
+                <%= _('Read only: can read the content of the dmp') %>
+              <% end %>
+            </div>
+
+            <%= f.button(_('Save'), class: "btn btn-primary", type: "submit") %>
+          </div>
+        <% end %>
     <% end %>
+  <% else %>
+    <div class="alert alert-warning" role="alert"><%= _('No organizations are available for sharing !') %></div>
   <% end %>
 
   <% if @plan_client_roles.any? then %>

@@ -46,7 +46,7 @@ module Fragment
     NON_RO_CLASSES = %w[meta project research_entity].freeze
     # rubocop:disable Metrics/AbcSize, Metrics/MethodLength
     # rubocop:disable Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
-    def roles(selected_research_outputs = nil, include_ro_names = false)
+    def roles(selected_research_outputs = nil, include_ro_names: false)
       contributors_list = contributors
       roles_list = []
       roles_aggregate = {}

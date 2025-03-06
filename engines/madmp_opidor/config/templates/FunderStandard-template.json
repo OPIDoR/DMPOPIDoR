@@ -11,9 +11,8 @@
     "class": "FunderStandard",
     "externalImports": {
         "ror": {
-            "name.fr": "name",
-            "ror": "orgId",
-            "acronyms[0]": "acronym",
+            "name": "name",
+            "ror": "funderId",
             "type": "idType"
         }
     },

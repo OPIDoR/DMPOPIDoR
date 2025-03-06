@@ -170,8 +170,8 @@
             "description": "Personne(s) responsable(s) du suivi du stockage des données",
             "label@fr_FR": "Personne en charge de la gestion du stockage des données",
             "label@en_GB": "Person in charge of data storage management",
-            "tooltip@fr_FR": "Le responsable peut être une personne, une équipe, un service",
-            "tooltip@en_GB": "Person in charge can be a person, a team, a department",
+            "tooltip@fr_FR": "Il peut s'agir d'une ou plusieurs personnes, d'une équipe, d'un service",
+            "tooltip@en_GB": "It can be one or more people, a team, a department",
             "form_label@fr_FR": "Personne en charge de la gestion du stockage des données",
             "form_label@en_GB": "Person in charge of data storage management"
         }

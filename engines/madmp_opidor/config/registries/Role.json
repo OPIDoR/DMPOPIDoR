@@ -104,6 +104,10 @@
 			"en_GB": "Sponsor",
 			"fr_FR": "Sponsor"
 		},
+				{
+			"en_GB": "Translator",
+			"fr_FR": "Traducteur"
+		},
 		{
 			"en_GB": "Other",
 			"fr_FR": "Autre"
