@@ -21,7 +21,7 @@ end
   <div class="col-xs-12">
     <% guidance_groups = GuidanceGroup.where(org_id: current_user.org_id).order("name ASC") %>
     <%= form_for(@guidance, url: url, html: { method: method , id: 'new_edit_guidance'}) do |f| %>
-      <div class="form-control mb-3">
+      <div class="form-group mb-3">
         <%= f.label _('Guidance group'), for: :guidance_group_id, class: 'form-label' %>
         <%= f.collection_select(:guidance_group_id,
                                 guidance_groups,
@@ -42,7 +42,7 @@ end
         <input id="locale" type="text" class="form-control" value="<%= Language.find_by(id: @guidance&.guidance_group&.language_id)&.name%>" disabled readonly />
       </div>
 
-      <div class="form-control mb-3" data-toggle="tooltip" title="<%= guidance_text_tooltip %>">
+      <div class="form-group mb-3" data-toggle="tooltip" title="<%= guidance_text_tooltip %>">
         <em class="sr-only"><%= guidance_text_tooltip %></em>
         <%= f.label :text, class: 'form-label' %>
         <%= f.text_area :text, rows: 10, class: "form-control", spellcheck: true,
@@ -65,7 +65,7 @@ end
           <%= _('Published?') %>
         <% end %>
       </div>
-      <div class="form-control mb-3 clear-fix">
+      <div class="form-group mb-3 clear-fix">
         <%= f.submit _('Save'), name: "edit_guidance_submit", class: "btn btn-primary" %>
         <%= link_to _('Cancel'), admin_index_guidance_path, class: "btn btn-primary", role: 'button' %>    
       </div>

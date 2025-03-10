@@ -5,19 +5,19 @@ published_tip = _("Check this box when you are ready for guidance associated wit
 subset_tip = _("If the guidance is only meant for a subset of users e.g. those in a specific college or institute, check this box.  Users will be able to select to display this subset guidance when answering questions in the 'create plan' wizard.")
 description_text_tooltip =  _('Enter your description here. You can include links where needed.')
 %>
- <div class="form-control mb-3 col-xs-8">
+ <div class="form-group mb-3 col-xs-8">
   <%= form.label(:name, _('Name'), class: "form-label") %>
   <%= form.text_field :name, class: "form-control", spellcheck: true, aria: { required: true },
                              data: { toggle: 'tooltip' }, title: name_tip %>
 </div>
 
-<div class="form-control mb-3 col-xs-12" data-toggle="tooltip" title="<%= description_text_tooltip %>">
+<div class="form-group mb-3 col-xs-12" data-toggle="tooltip" title="<%= description_text_tooltip %>">
   <em class="sr-only"><%= description_text_tooltip %></em>
   <%= form.label :description, class: 'form-label' %>
   <%= form.text_area :description, rows: 10, class: "form-control", spellcheck: true, aria: { required: true } %>
 </div>
 
-<div class="form-control mb-3 col-xs-12">
+<div class="form-group mb-3 col-xs-12">
   <% locale = LocaleService.to_gettext(locale: locale).gsub!('_', '-') %>
   <%= form.label(:locale, _('Locale'), for: :locale, class: "form-label") %>
   <%= select_tag(:locale,
@@ -42,7 +42,7 @@ description_text_tooltip =  _('Enter your description here. You can include link
 <% else %>
   <%= form.hidden_field :optional_subset, value: "0" %>
 <% end %>
-<div class="form-control mb-3 col-xs-8">
+<div class="form-group mb-3 col-xs-8">
   <%= form.hidden_field :org_id %>
   <%= form.submit _('Save'), class: "btn btn-primary" %>
   <%= link_to _('Cancel'), admin_index_guidance_path, class: "btn btn-primary", role: 'button' %>
