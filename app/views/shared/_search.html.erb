@@ -1,7 +1,7 @@
 <%# locals: { search_term } %>
 
 <%= form_tag(paginable_base_url(1), method: :get, remote: remote, class: 'form-inline paginable-action') do %>
-  <div class="d-inline-flex flex-row mb-2 col-6">
+  <div class="paginable-search d-inline-flex flex-row mb-2 col-6">
     <div class="d-inline-flex input-group col-6">
       <span class="input-group-text" id="search-addon">
         <span class="fas fa-magnifying-glass" aria-hidden="true"></span>
@@ -17,7 +17,7 @@
         <%= label_tag(:filter_admin, _('Only Show Admins'), class: 'form-check-label') %>
       </div>
     <% end %>
-      <%= submit_tag(_('Search'), class: 'btn btn-secondary ms-2') %>
+      <%= submit_tag(_('Search'), class: 'btn btn-secondary search-button ms-2') %>
     </div>
   </div>
 <% end %>
