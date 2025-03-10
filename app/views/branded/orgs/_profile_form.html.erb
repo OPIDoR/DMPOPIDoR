@@ -38,7 +38,7 @@
      end %>
 
   <div class="row">
-    <div class="form-control mb-3 col-sm-8">
+    <div class="form-group mb-3 col-sm-8">
       <%= f.label :logo, _('Organization logo'), class: "form-label"  %>
 
       <% if org.logo.present? %>
@@ -88,12 +88,12 @@
   <hr>
 
   <div class="row">
-    <div class="form-control mb-3 col-sm-8">
+    <div class="form-group mb-3 col-sm-8">
       <h3><%= _("Help Desk email") %></h3>
     </div>
   </div>
   <div class="row">
-    <div class="form-control mb-3 col-xs-4">
+    <div class="mb-3 col-md-4">
       <%= f.label :helpdesk_email, _('Help Desk email'), class: "form-label" %>
       <%= f.email_field :helpdesk_email, class: "form-control" %>
     </div>
@@ -102,16 +102,16 @@
   <hr>
 
   <div class="row">
-    <div class="form-control mb-3 col-sm-8">
+    <div class="form-group mb-3 col-sm-8">
       <h3><%= _("Administrator contact") %></h3>
     </div>
   </div>
   <div class="row">
-    <div class="form-control mb-3 col-xs-4">
+    <div class="col-md-6 px-3">
       <%= f.label :contact_email, _('Contact email'), class: "form-label" %>
       <%= f.email_field :contact_email, class: "form-control", aria: { required: true } %>
     </div>
-    <div class="form-control mb-3 col-xs-4">
+    <div class="col-md-6 px-3">
       <%= f.label :contact_name, _('Link text'), class: "form-label" %>
       <%= f.text_field :contact_name, class: "form-control", aria: { required: true } %>
     </div>
@@ -153,7 +153,7 @@
   </div>
 
   <div class="row">
-    <div class="form-control mb-3 col-sm-8">
+    <div class="form-group mb-3 col-sm-8">
       <%= f.button(_('Save'), id:"save_org_details_submit", class: "btn btn-primary", type: "submit") %>
     </div>
   </div>
