@@ -153,8 +153,9 @@ module OrgAdmin
         msg = _('Unable to create a new version of this template.')
         flash[:alert] = "#{msg}<br>#{e.message}"
       end
-      redirect_to edit_org_admin_template_phase_path(template_id: phase.template.id,
-                                                     id: phase.id)
+      redirect_to phase.template&.module? ? edit_super_admin_template_phase_path(template_id: phase.template.id,
+                                                     id: phase.id) : edit_org_admin_template_phase_path(template_id: phase.template.id,
+                                                                                                        id: phase.id)
     end
     # rubocop:enable Metrics/AbcSize
 
