@@ -3,8 +3,12 @@
 <div class="row">
   <div class="col-md-12">
     <h1><%= template.title %></h1>
-    <% referrer = template.customization_of.present? ? customisable_org_admin_templates_path : organisational_org_admin_templates_path %>
-    <%= link_to _('View all templates'), referrer, class: 'btn btn-default pull-right' %>
+    <% referrer = if template&.module?
+      template.customization_of.present? ? customisable_super_admin_templates_path : organisational_super_admin_templates_path
+    else
+      template.customization_of.present? ? customisable_org_admin_templates_path : organisational_org_admin_templates_path
+    end %>
+    <%= link_to _(template&.module? ? 'View all modules' : 'View all templates'), referrer, class: 'btn btn-default pull-right' %>
   </div>
 </div>
 <div class="row">
@@ -22,7 +26,7 @@
             </div>
             <div class="pull-right">
               <%= link_to(_('Preview'),
-                          preview_org_admin_template_phase_path(template, phase),
+                          template&.module? ? preview_super_admin_template_phase_path(template, phase) : preview_org_admin_template_phase_path(template, phase),
                           class: 'btn btn-default phase_preview_link', role: 'button') %>
             </div>
             <div class="clearfix"></div>

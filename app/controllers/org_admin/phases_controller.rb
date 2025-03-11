@@ -91,7 +91,7 @@ module OrgAdmin
         local_referrer = if request.referrer.present?
                            request.referrer
                          else
-                           org_admin_templates_path
+                           template&.module? ? super_admin_templates_path : org_admin_templates_path
                          end
         render('/org_admin/templates/container',
                locals: {
@@ -127,9 +127,10 @@ module OrgAdmin
         flash[:alert] = "#{msg}<br>#{e.message}"
       end
       if flash[:alert].present?
-        redirect_to new_org_admin_template_phase_path(template_id: phase.template.id)
+        redirect_to phase.template&.module? ? new_super_admin_template_phase_path(template_id: phase.template.id) : new_org_admin_template_phase_path(template_id: phase.template.id)
       else
-        redirect_to edit_org_admin_template_phase_path(template_id: phase.template.id,
+        redirect_to phase.template&.module? ? edit_super_admin_template_phase_path(template_id: phase.template.id,
+                                                                                 id: phase.id) : edit_org_admin_template_phase_path(template_id: phase.template.id,
                                                        id: phase.id)
       end
     end

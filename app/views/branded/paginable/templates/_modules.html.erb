@@ -64,9 +64,9 @@
                   <li><%= link_to _('Unpublish'), unpublish_super_admin_template_path(template.id), 'data-method': 'patch' %></li>
                 <% end %>
                 <% if template.draft? %>
-                  <li><%= link_to _('Publish changes'), publish_org_admin_template_path(template), 'data-method': 'patch' %></li>
+                  <li><%= link_to _('Publish changes'), publish_super_admin_template_path(template), 'data-method': 'patch' %></li>
                 <% elsif !template.published? %>
-                  <li><%= link_to _('Publish'), publish_org_admin_template_path(template.id), 'data-method': 'patch' %></li>
+                  <li><%= link_to _('Publish'), publish_super_admin_template_path(template.id), 'data-method': 'patch' %></li>
                 <% end %>
                 <% if template.removable? %>
                   <li>
@@ -75,7 +75,7 @@
                                 'data-confirm': _('Are you sure you want to remove "%{template_title}"? Any published versions will become unavailable to users.') % { template_title: template.title} %>
                   </li>
                 <% end %>
-                <li><%= link_to template_export_org_admin_template_url(template, format: :pdf),
+                <li><%= link_to template_export_super_admin_template_url(template, format: :pdf),
                                 title: export_as_pdf,
                                 target: '_blank',
                                 class: 'has-new-window-popup-info' do %>
