@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: app 1.0\n"
 "Report-Msgid-Bugs-To: contact@translation.io\n"
-"POT-Creation-Date: 2025-03-05 10:50+0100\n"
-"PO-Revision-Date: 2025-03-05 10:50+0100\n"
+"POT-Creation-Date: 2025-03-11 10:03+0100\n"
+"PO-Revision-Date: 2025-03-11 10:03+0100\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: French\n"
 "Language: fr_FR\n"
@@ -1039,7 +1039,7 @@ msgstr "Financeur"
 msgid "Your ORCID"
 msgstr "Votre ORCID"
 
-#: ../../app/helpers/template_helper.rb:48
+#: ../../app/helpers/template_helper.rb:60
 #: ../../app/views/branded/layouts/_navigation.html.erb:34
 #: ../../app/views/branded/plans/index.html.erb:27
 msgid "Create plan"
@@ -2195,31 +2195,27 @@ msgstr "Ajoutez le nom abbrégé ou le code de la structure"
 msgid "Create a Structure"
 msgstr "Créer une structure"
 
-#: ../../app/views/branded/org_admin/phases/container.html.erb:7
-msgid "View all templates"
-msgstr "Voir tous les modèles"
-
-#: ../../app/views/branded/org_admin/phases/container.html.erb:21
+#: ../../app/views/branded/org_admin/phases/container.html.erb:25
 msgid "Phase details"
 msgstr "Renseignements sur la phase"
 
-#: ../../app/views/branded/org_admin/phases/container.html.erb:24
+#: ../../app/views/branded/org_admin/phases/container.html.erb:28
 msgid "Preview"
 msgstr "Aperçu"
 
-#: ../../app/views/branded/org_admin/phases/container.html.erb:37
+#: ../../app/views/branded/org_admin/phases/container.html.erb:41
 msgid "Sections"
 msgstr "Sections"
 
-#: ../../app/views/branded/org_admin/phases/container.html.erb:45
+#: ../../app/views/branded/org_admin/phases/container.html.erb:49
 msgid "Drag arrows to rearrange sections."
 msgstr "Faites glisser les flèches pour réorganiser les sections."
 
-#: ../../app/views/branded/org_admin/phases/container.html.erb:47
+#: ../../app/views/branded/org_admin/phases/container.html.erb:51
 msgid "You may place them before or after the main template sections."
 msgstr "Vous pouvez les placer avant ou après les sections principales du modèle."
 
-#: ../../app/views/branded/org_admin/phases/container.html.erb:50
+#: ../../app/views/branded/org_admin/phases/container.html.erb:54
 msgid "Re-order sections"
 msgstr "Réorganiser les sections"
 
@@ -2630,15 +2626,15 @@ msgstr ""
 "Ajouter des liens vers des exemples de plans s'ils sont fournis par le finance"
 "ur."
 
-#: ../../app/views/branded/org_admin/templates/_navigation.html.erb:5
+#: ../../app/views/branded/org_admin/templates/_navigation.html.erb:3
 msgid "Module details"
 msgstr "Détails du module"
 
-#: ../../app/views/branded/org_admin/templates/_navigation.html.erb:5
+#: ../../app/views/branded/org_admin/templates/_navigation.html.erb:3
 msgid "Template details"
 msgstr "Détails du modèle"
 
-#: ../../app/views/branded/org_admin/templates/_navigation.html.erb:17
+#: ../../app/views/branded/org_admin/templates/_navigation.html.erb:22
 msgid "Add new phase"
 msgstr "Ajouter une nouvelle phase"
 
@@ -3750,12 +3746,12 @@ msgstr ""
 "avec l'ANR. Découvrez comment procéder ici :<waiting for the link>"
 
 #: ../../app/views/branded/plans/_share_third_party.html.erb:28
-msgid "Organizations"
-msgstr "Organismes"
+msgid "Third-party organizations"
+msgstr "Organismes tiers"
 
 #: ../../app/views/branded/plans/_share_third_party.html.erb:31
 msgid "Select an organization"
-msgstr "Sélectionnez un organisme"
+msgstr "Sélectionnez un organisme pour partager votre plan"
 
 #: ../../app/views/branded/plans/_share_third_party.html.erb:49
 msgid "Read only: can read the content of the dmp"

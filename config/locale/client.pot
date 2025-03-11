@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: app 1.0\n"
 "Report-Msgid-Bugs-To: contact@translation.io\n"
-"POT-Creation-Date: 2025-03-05 10:50+0100\n"
-"PO-Revision-Date: 2025-03-05 10:50+0100\n"
+"POT-Creation-Date: 2025-03-11 10:03+0100\n"
+"PO-Revision-Date: 2025-03-11 10:03+0100\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "Language: \n"
@@ -983,7 +983,7 @@ msgstr ""
 msgid "Your ORCID"
 msgstr ""
 
-#: ../../app/helpers/template_helper.rb:48
+#: ../../app/helpers/template_helper.rb:60
 #: ../../app/views/branded/layouts/_navigation.html.erb:34
 #: ../../app/views/branded/plans/index.html.erb:27
 msgid "Create plan"
@@ -2077,31 +2077,27 @@ msgstr ""
 msgid "Create a Structure"
 msgstr ""
 
-#: ../../app/views/branded/org_admin/phases/container.html.erb:7
-msgid "View all templates"
-msgstr ""
-
-#: ../../app/views/branded/org_admin/phases/container.html.erb:21
+#: ../../app/views/branded/org_admin/phases/container.html.erb:25
 msgid "Phase details"
 msgstr ""
 
-#: ../../app/views/branded/org_admin/phases/container.html.erb:24
+#: ../../app/views/branded/org_admin/phases/container.html.erb:28
 msgid "Preview"
 msgstr ""
 
-#: ../../app/views/branded/org_admin/phases/container.html.erb:37
+#: ../../app/views/branded/org_admin/phases/container.html.erb:41
 msgid "Sections"
 msgstr ""
 
-#: ../../app/views/branded/org_admin/phases/container.html.erb:45
+#: ../../app/views/branded/org_admin/phases/container.html.erb:49
 msgid "Drag arrows to rearrange sections."
 msgstr ""
 
-#: ../../app/views/branded/org_admin/phases/container.html.erb:47
+#: ../../app/views/branded/org_admin/phases/container.html.erb:51
 msgid "You may place them before or after the main template sections."
 msgstr ""
 
-#: ../../app/views/branded/org_admin/phases/container.html.erb:50
+#: ../../app/views/branded/org_admin/phases/container.html.erb:54
 msgid "Re-order sections"
 msgstr ""
 
@@ -2475,15 +2471,15 @@ msgstr ""
 msgid "Add links to sample plans if provided by the funder."
 msgstr ""
 
-#: ../../app/views/branded/org_admin/templates/_navigation.html.erb:5
+#: ../../app/views/branded/org_admin/templates/_navigation.html.erb:3
 msgid "Module details"
 msgstr ""
 
-#: ../../app/views/branded/org_admin/templates/_navigation.html.erb:5
+#: ../../app/views/branded/org_admin/templates/_navigation.html.erb:3
 msgid "Template details"
 msgstr ""
 
-#: ../../app/views/branded/org_admin/templates/_navigation.html.erb:17
+#: ../../app/views/branded/org_admin/templates/_navigation.html.erb:22
 msgid "Add new phase"
 msgstr ""
 
@@ -3497,7 +3493,7 @@ msgid ""
 msgstr ""
 
 #: ../../app/views/branded/plans/_share_third_party.html.erb:28
-msgid "Organizations"
+msgid "Third-party organizations"
 msgstr ""
 
 #: ../../app/views/branded/plans/_share_third_party.html.erb:31
