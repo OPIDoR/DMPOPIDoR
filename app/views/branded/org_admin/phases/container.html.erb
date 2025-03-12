@@ -4,7 +4,7 @@
   <div class="col-md-12">
     <h1><%= template.title %></h1>
     <% referrer = if template&.module?
-      template.customization_of.present? ? customisable_super_admin_templates_path : organisational_super_admin_templates_path
+      super_admin_module_templates_path
     else
       template.customization_of.present? ? customisable_org_admin_templates_path : organisational_org_admin_templates_path
     end %>
