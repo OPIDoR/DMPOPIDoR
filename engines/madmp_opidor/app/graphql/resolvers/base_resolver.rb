@@ -27,6 +27,10 @@ module Resolvers
     def self.apply_filters(scope, filter, dmp_id)
       return scope if filter.nil?
 
+      if filter[:and].blank? && filter[:or].blank? && filter[:not].blank?
+        raise GraphQL::ExecutionError, "The filter must contain at least one 'and', 'or' condition."
+      end
+
       scope = apply_and_conditions(scope, filter[:and], dmp_id) if filter[:and].present?
       scope = apply_or_conditions(scope, filter[:or], dmp_id) if filter[:or].present?
       # scope = apply_not_conditions(scope, filter[:not], dmp_id) if filter[:not].present?
@@ -35,6 +39,18 @@ module Resolvers
     end
 
     def self.apply_conditions(scope, conditions, operator = "and", dmp_id)
+      conditions.each_with_index do |condition, index|
+        unless condition[:className].present?
+          raise GraphQL::ExecutionError, "Condition at index #{index} is missing 'className'."
+        end
+        unless condition[:field].present?
+          raise GraphQL::ExecutionError, "Condition at index #{index} is missing 'field'."
+        end
+        if condition[:value].nil?
+          raise GraphQL::ExecutionError, "Condition at index #{index} is missing 'value'."
+        end
+      end
+
       grouped_conditions = conditions.group_by { |condition| condition[:className] }
 
       joins = []
@@ -72,6 +88,7 @@ module Resolvers
     # rubocop:disable Metrics/AbcSize,Metrics/MethodLength
     def self.apply_single_filter(scope, filter)
       class_name = filter[:className].downcase
+
       field = filter[:field]
       value = filter[:value]
       operator = filter[:operator] || 'eq'
