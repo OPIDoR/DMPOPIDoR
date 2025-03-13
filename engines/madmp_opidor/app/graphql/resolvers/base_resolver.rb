@@ -27,13 +27,12 @@ module Resolvers
     def self.apply_filters(scope, filter, dmp_id)
       return scope if filter.nil?
 
-      if filter[:and].blank? && filter[:or].blank? && filter[:not].blank?
+      if filter[:and].blank? && filter[:or].blank?
         raise GraphQL::ExecutionError, "The filter must contain at least one 'and', 'or' condition."
       end
 
       scope = apply_and_conditions(scope, filter[:and], dmp_id) if filter[:and].present?
       scope = apply_or_conditions(scope, filter[:or], dmp_id) if filter[:or].present?
-      # scope = apply_not_conditions(scope, filter[:not], dmp_id) if filter[:not].present?
 
       scope
     end
