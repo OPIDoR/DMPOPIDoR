@@ -8,14 +8,6 @@ module Resolvers
       apply_filters(scope, filter, dmp_id)
     end
 
-    def self.apply_and_conditions(scope, conditions, dmp_id)
-      apply_conditions(scope, conditions, "and", dmp_id)
-    end
-
-    def self.apply_or_conditions(scope, conditions, dmp_id)
-      apply_conditions(scope, conditions, "or", dmp_id)
-    end
-
     private
 
     def self.build_condition(scope, filter)
@@ -31,55 +23,98 @@ module Resolvers
         raise GraphQL::ExecutionError, "The filter must contain at least one 'and', 'or' condition."
       end
 
-      scope = apply_and_conditions(scope, filter[:and], dmp_id) if filter[:and].present?
-      scope = apply_or_conditions(scope, filter[:or], dmp_id) if filter[:or].present?
-
-      scope
+      apply_conditions(scope, filter, dmp_id)
     end
 
-    def self.apply_conditions(scope, conditions, operator = "and", dmp_id)
-      conditions.each_with_index do |condition, index|
-        unless condition[:className].present?
-          raise GraphQL::ExecutionError, "Condition at index #{index} is missing 'className'."
+    def self.apply_conditions(scope, conditions, dmp_id)
+      and_operator_conditions = []
+      or_operator_conditions = []
+      primary_alias = Arel::Table.new(scope.table_name).alias("m1")
+      and_operator_conditions << primary_alias[:dmp_id].eq(dmp_id)
+      scope = MadmpFragment.from("#{scope.table_name} m1").select("DISTINCT m1.dmp_id")
+
+      joins = []
+
+      if conditions[:and].present?
+        conditions[:and].each_with_index do |condition, index|
+          unless condition[:className].present?
+            raise GraphQL::ExecutionError, "Condition at index #{index} is missing 'className' in 'and' filter."
+          end
+          unless condition[:field].present?
+            raise GraphQL::ExecutionError, "Condition at index #{index} is missing 'field' in 'and' filter."
+          end
+          if condition[:value].nil?
+            raise GraphQL::ExecutionError, "Condition at index #{index} is missing 'value' in 'and' filter."
+          end
         end
-        unless condition[:field].present?
-          raise GraphQL::ExecutionError, "Condition at index #{index} is missing 'field'."
-        end
-        if condition[:value].nil?
-          raise GraphQL::ExecutionError, "Condition at index #{index} is missing 'value'."
+
+        grouped_conditions = conditions[:and].group_by { |condition| condition[:className] }
+
+        grouped_conditions.each_with_index do |(class_name, sub_filters), index|
+          table_alias = index.zero? ? primary_alias : Arel::Table.new(scope.table_name).alias("m_and_#{index + 1}")
+
+          class_conditions = sub_filters.map do |sub_filter|
+            build_condition(table_alias, sub_filter)
+          end.compact
+
+          and_operator_conditions << class_conditions.reduce(&:and) if class_conditions.any?
+
+          if index > 0
+            join_condition = primary_alias[:dmp_id].eq(table_alias[:dmp_id])
+            joins << "JOIN #{scope.table_name} #{table_alias.name} ON #{join_condition.to_sql}"
+          end
         end
       end
 
-      grouped_conditions = conditions.group_by { |condition| condition[:className] }
+      if conditions[:or].present?
+        conditions[:or].each_with_index do |condition, index|
+          unless condition[:className].present?
+            raise GraphQL::ExecutionError, "Condition at index #{index} is missing 'className' in 'or' filter."
+          end
+          unless condition[:field].present?
+            raise GraphQL::ExecutionError, "Condition at index #{index} is missing 'field' in 'or' filter."
+          end
+          if condition[:value].nil?
+            raise GraphQL::ExecutionError, "Condition at index #{index} is missing 'value' in 'or' filter."
+          end
+        end
 
-      joins = []
-      operator_conditions = []
+        grouped_conditions = conditions[:or].group_by { |condition| condition[:className] }
 
-      primary_alias = Arel::Table.new(scope.table_name).alias("m1")
+        grouped_conditions.each_with_index do |(class_name, sub_filters), index|
+          table_alias = Arel::Table.new(scope.table_name).alias("m_or_#{index + 1}")
 
-      operator_conditions << primary_alias[:dmp_id].eq(dmp_id)
+          class_conditions = sub_filters.map do |sub_filter|
+            build_condition(table_alias, sub_filter)
+          end.compact
+          class_conditions << table_alias[:dmp_id].eq(dmp_id)
 
-      scope = MadmpFragment.from("#{scope.table_name} m1").select("DISTINCT m1.dmp_id")
+          or_operator_conditions << class_conditions.reduce(&:and) if class_conditions.any?
 
-      grouped_conditions.each_with_index do |(class_name, sub_filters), index|
-        table_alias = index.zero? ? primary_alias : Arel::Table.new(scope.table_name).alias("m#{index + 1}")
-
-        class_conditions = sub_filters.map do |sub_filter|
-          build_condition(table_alias, sub_filter)
-        end.compact
-
-        operator_conditions << class_conditions.reduce(operator.to_sym) if class_conditions.any?
-
-        if index > 0
           join_condition = primary_alias[:dmp_id].eq(table_alias[:dmp_id])
           joins << "JOIN #{scope.table_name} #{table_alias.name} ON #{join_condition.to_sql}"
         end
       end
 
-      return scope.none unless operator_conditions.any?
+      final_and_conditions = and_operator_conditions.reduce(&:and)
+      final_or_conditions = or_operator_conditions.reduce(&:or)
 
-      scope = scope.joins(joins.join(" "))
-      scope = scope.where(operator_conditions.reduce(&:and))
+      if final_and_conditions && final_or_conditions
+        final_operators = Arel::Nodes::Grouping.new(final_and_conditions).or(final_or_conditions)
+      elsif final_and_conditions
+        final_operators = final_and_conditions
+      elsif final_or_conditions
+        final_operators = final_or_conditions
+      else
+        return scope.none
+      end
+
+      scope = scope.joins(joins.join(" ")) unless joins.empty?
+      scope = scope.where(final_operators)
+
+      p "================================"
+      p scope.to_sql
+      p "================================ to_sql"
 
       scope
     end

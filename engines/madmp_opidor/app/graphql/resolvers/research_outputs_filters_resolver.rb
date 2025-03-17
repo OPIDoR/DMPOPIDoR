@@ -5,14 +5,9 @@ require 'arel'
 module Resolvers
   # FiltersResolver
   class ResearchOutputsFiltersResolver < Resolvers::BaseResolver
-    def self.apply_and_conditions(scope, conditions)
-      super(scope, conditions)
-        .select('*')
-    end
-
-    def self.apply_or_conditions(scope, conditions)
-      super(scope, conditions)
-        .select('*')
+    def self.apply_filter_conditions(scope, conditions, dmp_id)
+      super(scope, conditions, dmp_id)
+        .select("*")
     end
   end
 end
