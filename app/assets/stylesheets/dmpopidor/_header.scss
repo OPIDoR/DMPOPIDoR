@@ -80,12 +80,6 @@ header.dmpopidor-branding {
 
         .nav-link {
           text-decoration: none;
-
-          &:not([data-method="patch"]):not(.btn) {
-            &:hover {
-              background-color: transparent !important;
-            }
-          }
         }
       }
 
