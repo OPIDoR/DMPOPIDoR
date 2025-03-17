@@ -35,64 +35,32 @@ module Resolvers
 
       joins = []
 
-      if conditions[:and].present?
-        conditions[:and].each_with_index do |condition, index|
-          unless condition[:className].present?
-            raise GraphQL::ExecutionError, "Condition at index #{index} is missing 'className' in 'and' filter."
-          end
-          unless condition[:field].present?
-            raise GraphQL::ExecutionError, "Condition at index #{index} is missing 'field' in 'and' filter."
-          end
-          if condition[:value].nil?
-            raise GraphQL::ExecutionError, "Condition at index #{index} is missing 'value' in 'and' filter."
-          end
-        end
+      conditions.keys.each do |operator|
+        validate_conditions(conditions[operator], operator.to_s)
 
-        grouped_conditions = conditions[:and].group_by { |condition| condition[:className] }
+        grouped_conditions = conditions[operator].group_by { |condition| condition[:className] }
 
         grouped_conditions.each_with_index do |(class_name, sub_filters), index|
-          table_alias = index.zero? ? primary_alias : Arel::Table.new(scope.table_name).alias("m_and_#{index + 1}")
+          table_alias = index.zero? && operator == :and ? primary_alias : Arel::Table.new(scope.table_name).alias("m_#{operator}_#{index + 1}")
 
           class_conditions = sub_filters.map do |sub_filter|
             build_condition(table_alias, sub_filter)
           end.compact
 
-          and_operator_conditions << class_conditions.reduce(&:and) if class_conditions.any?
+          if operator == :and
+            and_operator_conditions << class_conditions.reduce(&:and) if class_conditions.any?
 
-          if index > 0
+            if index > 0
+              join_condition = primary_alias[:dmp_id].eq(table_alias[:dmp_id])
+              joins << "JOIN #{scope.table_name} #{table_alias.name} ON #{join_condition.to_sql}"
+            end
+          elsif operator == :or
+            class_conditions << table_alias[:dmp_id].eq(dmp_id)
+            or_operator_conditions << class_conditions.reduce(&:and) if class_conditions.any?
+
             join_condition = primary_alias[:dmp_id].eq(table_alias[:dmp_id])
             joins << "JOIN #{scope.table_name} #{table_alias.name} ON #{join_condition.to_sql}"
           end
-        end
-      end
-
-      if conditions[:or].present?
-        conditions[:or].each_with_index do |condition, index|
-          unless condition[:className].present?
-            raise GraphQL::ExecutionError, "Condition at index #{index} is missing 'className' in 'or' filter."
-          end
-          unless condition[:field].present?
-            raise GraphQL::ExecutionError, "Condition at index #{index} is missing 'field' in 'or' filter."
-          end
-          if condition[:value].nil?
-            raise GraphQL::ExecutionError, "Condition at index #{index} is missing 'value' in 'or' filter."
-          end
-        end
-
-        grouped_conditions = conditions[:or].group_by { |condition| condition[:className] }
-
-        grouped_conditions.each_with_index do |(class_name, sub_filters), index|
-          table_alias = Arel::Table.new(scope.table_name).alias("m_or_#{index + 1}")
-
-          class_conditions = sub_filters.map do |sub_filter|
-            build_condition(table_alias, sub_filter)
-          end.compact
-          class_conditions << table_alias[:dmp_id].eq(dmp_id)
-
-          or_operator_conditions << class_conditions.reduce(&:and) if class_conditions.any?
-
-          join_condition = primary_alias[:dmp_id].eq(table_alias[:dmp_id])
-          joins << "JOIN #{scope.table_name} #{table_alias.name} ON #{join_condition.to_sql}"
         end
       end
 
@@ -112,11 +80,53 @@ module Resolvers
       scope = scope.joins(joins.join(" ")) unless joins.empty?
       scope = scope.where(final_operators)
 
-      p "================================"
-      p scope.to_sql
-      p "================================ to_sql"
-
       scope
+    end
+
+    def self.validate_conditions(conditions, operator)
+      conditions.each_with_index do |condition, index|
+        unless condition[:className].present?
+          raise GraphQL::ExecutionError, "Condition at index #{index} is missing 'className' in '#{operator}' filter."
+        end
+        unless condition[:field].present?
+          raise GraphQL::ExecutionError, "Condition at index #{index} is missing 'field' in '#{operator}' filter."
+        end
+        if condition[:value].nil?
+          raise GraphQL::ExecutionError, "Condition at index #{index} is missing 'value' in '#{operator}' filter."
+        end
+      end
+    end
+
+    def process_conditions(conditions, operator, dmp_id = nil)
+      return unless conditions.present?
+
+      validate_conditions(conditions, operator)
+
+      grouped_conditions = conditions.group_by { |condition| condition[:className] }
+
+      grouped_conditions.each_with_index do |(class_name, sub_filters), index|
+        table_alias = determine_table_alias(operator, index)
+
+        class_conditions = sub_filters.map { |sub_filter| build_condition(table_alias, sub_filter) }.compact
+        class_conditions << table_alias[:dmp_id].eq(dmp_id) if operator == "or"
+
+        if class_conditions.any?
+          operator == "and" ? and_operator_conditions << class_conditions.reduce(&:and) : or_operator_conditions << class_conditions.reduce(&:and)
+        end
+
+        joins << build_join_statement(table_alias) unless index.zero? && operator == "and"
+      end
+    end
+
+    def determine_table_alias(operator, index)
+      return primary_alias if operator == "and" && index.zero?
+
+      Arel::Table.new(scope.table_name).alias("m_#{operator}_#{index + 1}")
+    end
+
+    def build_join_statement(table_alias)
+      join_condition = primary_alias[:dmp_id].eq(table_alias[:dmp_id])
+      "JOIN #{scope.table_name} #{table_alias.name} ON #{join_condition.to_sql}"
     end
 
     # rubocop:disable Metrics/AbcSize,Metrics/MethodLength
