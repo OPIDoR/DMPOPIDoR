@@ -7,7 +7,7 @@
 }) %>
 <% permissions_tooltip = _('Co-owner: Has admin-rights to the plan (can invite other users, view the plan, answer questions, or comment). Editor: Has edit-rights to the plan (can view the plan, answer questions, or comment). Read Only: Has read-rights to the plan (can view the plan or comment)') %>
 
-<div style="display: flex; gap: 20px;">
+<div style="display: flex; gap: 20px;" id="share-form">
   <div style="flex: 1; padding: 20px">
     <% if administerable  %>
       <h2><%= _('Invite collaborators') %></h2>
@@ -159,7 +159,7 @@
 
 <hr style="border-color: var(--dark-blue)" />
 
-<div class="share-form">
+<div class="share-third-party-form">
   <% if @plan.structured?  %>
     <%= render partial: 'plans/share_third_party',locals: { administerable: administerable } %>
   <% end %>

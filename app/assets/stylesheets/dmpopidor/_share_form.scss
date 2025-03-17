@@ -4,24 +4,29 @@
 /*
     Share Form
 */
+#share-form {
+  label {
+    font-weight: inherit;
+  }
 
-.share-form {
+  .share-third-party-form {
     display: flex;
     flex-direction: column;
 
     .card-heading {
-        background-color: #fff;
-        color: $rust;
-        border-bottom: 2px solid $rust;
-        border-right: 2px solid $rust;
+      background-color: #fff;
+      color: $rust;
+      border-bottom: 2px solid $rust;
+      border-right: 2px solid $rust;
 
-        .card-title {
-            color: $rust;
-            font-weight: bold;
-        }
+      .card-title {
+        color: $rust;
+        font-weight: bold;
+      }
     }
 
     #new_role {
-        border-bottom: 0.5px groove $color-border-light;
+      border-bottom: 0.5px groove $color-border-light;
     }
+  }
 }
