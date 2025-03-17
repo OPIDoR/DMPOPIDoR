@@ -2,6 +2,11 @@
 
 **Attention** Cette liste de changements concerne les déploiements sur nos serveurs de test en interne.
 
+## 17/03/2025
+
+- Erreur GraphQL si ``className``, ``field`` et ``operator`` sont absents ou vide, erreur si value est vide
+- Erreur GraphQL si ``and`` ou ``or`` ne sont pas dans filter
+
 ## 03/03/2025
 
 - Correction du problème affectant l'import RDA (#12574)
