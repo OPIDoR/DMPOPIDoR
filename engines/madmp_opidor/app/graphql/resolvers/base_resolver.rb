@@ -97,38 +97,6 @@ module Resolvers
       end
     end
 
-    def process_conditions(conditions, operator, dmp_id = nil)
-      return unless conditions.present?
-
-      validate_conditions(conditions, operator)
-
-      grouped_conditions = conditions.group_by { |condition| condition[:className] }
-
-      grouped_conditions.each_with_index do |(class_name, sub_filters), index|
-        table_alias = determine_table_alias(operator, index)
-
-        class_conditions = sub_filters.map { |sub_filter| build_condition(table_alias, sub_filter) }.compact
-        class_conditions << table_alias[:dmp_id].eq(dmp_id) if operator == "or"
-
-        if class_conditions.any?
-          operator == "and" ? and_operator_conditions << class_conditions.reduce(&:and) : or_operator_conditions << class_conditions.reduce(&:and)
-        end
-
-        joins << build_join_statement(table_alias) unless index.zero? && operator == "and"
-      end
-    end
-
-    def determine_table_alias(operator, index)
-      return primary_alias if operator == "and" && index.zero?
-
-      Arel::Table.new(scope.table_name).alias("m_#{operator}_#{index + 1}")
-    end
-
-    def build_join_statement(table_alias)
-      join_condition = primary_alias[:dmp_id].eq(table_alias[:dmp_id])
-      "JOIN #{scope.table_name} #{table_alias.name} ON #{join_condition.to_sql}"
-    end
-
     # rubocop:disable Metrics/AbcSize,Metrics/MethodLength
     def self.apply_single_filter(scope, filter)
       class_name = filter[:className].downcase
