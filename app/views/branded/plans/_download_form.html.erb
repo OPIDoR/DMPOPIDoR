@@ -2,7 +2,7 @@
 <% if @research_outputs.length == 0 %>
   <div style="text-align: center">
     <h2><%= _('Your plan does not contain a search product. Please create one or import it from another plan.') %></h2>
-    <%= link_to _('Create or import research output'), structured_edit_plan_path, class: 'btn btn-default', id: 'edit-btn' %>
+    <%= link_to _('Create or import research output'), structured_edit_plan_path, class: 'btn btn-primary', id: 'edit-btn' %>
   </div>
 <% else %>
   <%= form_tag(plan_export_path(@plan), method: :get, target: '_blank', id: 'download_form') do |f| %>
@@ -135,14 +135,15 @@
         <% end %>
       </fieldset>
 
-        <% if @plan.template.research_project? %>
-          <li class="form-check">
-            <%= label_tag do %>
-              <%= radio_button_tag("json_format", "default", true) %>
-              <%= _('DMP OPIDoR format') %>
-            <% end %>
-            <span class="export-msg"><%= _("This format is not compatible with the Software type, the research outputs using this type won't be exported.") %></span>
-          </li>
+      <% if @plan.template.research_project? %>
+        <li class="form-check">
+          <%= label_tag do %>
+            <%= radio_button_tag("json_format", "default", true) %>
+            <%= _('DMP OPIDoR format') %>
+          <% end %>
+          <span class="export-msg"><%= _("This format is not compatible with the Software type, the research outputs using this type won't be exported.") %></span>
+        </li>
+      <% end %>
 
     <div id="pdf-formatting" class="py-3">
       <h2><%= _('PDF formatting') %></h2>
