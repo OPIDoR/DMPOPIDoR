@@ -85,7 +85,26 @@
     }
   }
 
-  // &.super-admin {}
+  &.super-admin {
+    .nav-tabs {
+      background-color: $dmpopidor-yellow;
+      
+      li>a {
+        color: black;
+        text-decoration: none;
+      }
+
+      li>a:hover,
+      li>a:focus,
+      li.active>a,
+      li.active>a:focus,
+      li.active>a:hover {
+        color: $dmpopidor-yellow;
+        border: 1px solid $dmpopidor-yellow;
+        border-bottom-color: transparent;
+      }
+    }
+  }
 }
 
 /*
