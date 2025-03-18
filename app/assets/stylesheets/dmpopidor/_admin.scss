@@ -13,6 +13,33 @@
     color: $rust;
   }
 
+  .accordion {
+    border: none;
+    .accordion-item {
+      border: none;
+
+      h2.accordion-header {
+        margin-bottom: 0;
+        padding: 0;
+      }
+
+      h2.accordion-header,
+      a.accordion-button,
+      button.accordion-button {
+        background-color: $rust;
+        color: white;
+      }
+
+      .accordion-collapse,
+      .accordion-body {
+        border-color: $rust;
+      }
+
+      .accordion-body {
+        padding-top: 30px;
+      }
+    }
+  }
 
   // main border
   .card-default {
