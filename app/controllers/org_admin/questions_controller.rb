@@ -102,7 +102,8 @@ module OrgAdmin
       rescue StandardError
         flash[:alert] = _('Unable to create a new version of this template.')
       end
-      redirect_to edit_org_admin_template_phase_path(
+      path_helper = section.phase.template&.module? ? :edit_super_admin_template_phase_path : :edit_org_admin_template_phase_path
+      redirect_to send(path_helper,
         template_id: section.phase.template.id,
         id: section.phase.id,
         section: section.id
@@ -173,13 +174,15 @@ module OrgAdmin
         flash[:alert] = flash[:alert] = failure_message(question, _('update'))
       end
       if question.section.phase.template.customization_of.present?
-        redirect_to org_admin_template_phase_path(
+        path_helper = question.section.phase.template&.module? ? :super_admin_template_phase_path : :org_admin_template_phase_path
+        redirect_to send(path_helper,
           template_id: question.section.phase.template.id,
           id: question.section.phase.id,
           section: question.section.id
         )
       else
-        redirect_to edit_org_admin_template_phase_path(
+        path_helper = question.section.phase.template&.module? ? :edit_super_admin_template_phase_path : :edit_org_admin_template_phase_path
+        redirect_to send(path_helper,
           template_id: question.section.phase.template.id,
           id: question.section.phase.id,
           section: question.section.id
@@ -205,7 +208,8 @@ module OrgAdmin
       rescue StandardError
         flash[:alert] = _('Unable to create a new version of this template.')
       end
-      redirect_to edit_org_admin_template_phase_path(
+      path_helper = question.section.phase.template&.module? ? :edit_super_admin_template_phase_path : :edit_org_admin_template_phase_path
+      redirect_to send(path_helper,
         template_id: section.phase.template.id,
         id: section.phase.id,
         section: section.id

@@ -224,7 +224,8 @@
           <% if section.modifiable? %>
             <div class="form-control mb-3 col-md-10">
               <div class="float-end">
-                <%= link_to _('Edit'), edit_org_admin_template_phase_section_question_path(template_id: question.section.phase.template.id, phase_id: question.section.phase.id, section_id: question.section.id, id: question.id), class: "btn btn-secondary ajaxified-question", remote: true %>
+                <% path_helper = question.section.phase.template&.module? ? :edit_super_admin_template_phase_section_question_path : :edit_org_admin_template_phase_section_question_path %>
+                <%= link_to _('Edit'), send(path_helper, template_id: question.section.phase.template.id, phase_id: question.section.phase.id, section_id: question.section.id, id: question.id), class: "btn btn-secondary ajaxified-question", remote: true %>
               </div>
             </div>
           <% end %>

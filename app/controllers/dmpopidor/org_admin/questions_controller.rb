@@ -49,7 +49,11 @@ module Dmpopidor
                                                 section: section,
                                                 question: question,
                                                 method: 'post',
-                                                url: org_admin_template_phase_section_questions_path(
+                                                url: template&.module? ? super_admin_template_phase_section_questions_path(
+                                                  template_id: template.id,
+                                                  phase_id: section.phase.id,
+                                                  id: section.id
+                                                ) : org_admin_template_phase_section_questions_path(
                                                   template_id: template.id,
                                                   phase_id: section.phase.id,
                                                   id: section.id

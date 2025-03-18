@@ -5,8 +5,9 @@
 </div>
 <div class="row">
   <div class="col-md-12">
+    <% path_helper = section.phase.template&.module? ? :super_admin_template_phase_section_path : :org_admin_template_phase_section_path %>
     <%= render partial: 'org_admin/sections/form',
-               locals: local_assigns.merge({ method: :put, url: org_admin_template_phase_section_path(template_id: template.id, phase_id: section.phase.id, id: section) }) %>
+               locals: local_assigns.merge({ method: :put, url: send(path_helper, template_id: template.id, phase_id: section.phase.id, id: section) }) %>
   </div>
   <div class="col-md-12">
     <%= render partial: 'org_admin/questions/index',

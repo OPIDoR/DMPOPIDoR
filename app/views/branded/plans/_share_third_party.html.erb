@@ -25,7 +25,7 @@
       <div class="form-control mb-3">
         <%= f.hidden_field :plan_id %>
         <%= f.fields_for :api_client, new_client_role.api_client do |api_client| %>
-          <%= api_client.label :api_client_id, _('Organizations'), class: 'form-label'%>
+          <%= api_client.label :api_client_id, _('Third-party organizations'), class: 'form-label'%>
           <%= select_tag("api_client_role[api_client_id]",
                          options_from_collection_for_select(api_clients, "id", "name"),
                          prompt: _('Select an organization'),

@@ -4,9 +4,21 @@
 module TemplateHelper
   def template_details_path(template)
     if template_modifiable?(template)
-      edit_org_admin_template_path(template)
+      template&.module? ? edit_super_admin_template_path(template) : edit_org_admin_template_path(template)
     else
-      template.persisted? ? org_admin_template_path(template) : org_admin_templates_path
+      if template.persisted?
+        if template&.module?
+          super_admin_template_path(template)
+        else
+          org_admin_template_path(template)
+        end
+      else
+        if template&.module?
+          super_admin_templates_path
+        else
+          org_admin_templates_path
+        end
+      end
     end
   end
 

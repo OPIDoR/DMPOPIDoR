@@ -75,16 +75,18 @@ orgs = Org.where(is_other: false)
       </div>
     </div>
 
-    <div class="row">
-      <div class="form-group col-xs-12">
-        <div class="checkbox">
-          <%= f.label(:notify) do %>
-            <%= f.check_box(:notify, checked: f.object.notify) %>
-            <%= _('Notify?') %>
-          <% end %>
+    <% unless @api_client.new_record? %>
+      <div class="row">
+        <div class="form-group col-xs-12">
+          <div class="checkbox">
+            <%= f.label(:notify) do %>
+              <%= f.check_box(:notify, checked: f.object.notify) %>
+              <%= _('Notify?') %>
+            <% end %>
+          </div>
         </div>
       </div>
-    </div>
+    <% end %>
   <% end %>
 
   <div class="float-end">
