@@ -3,7 +3,8 @@
 module Types
   # PlanResultType
   class PlanResultType < Types::BaseObject
-    field :totalCount, Integer, null: false
+    field :count, Integer, null: false
+    # field :pages, Integer, null: false
     field :items, [Types::PlanType], null: false
   end
 end
