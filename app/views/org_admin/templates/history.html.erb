@@ -3,7 +3,7 @@
     <h1>
       <% title = templates.first.module? ? _('Module History') : _('Template History') %>
       <%= templates.first.customization_of.present? ? (templates.first.module? ? _('Module Customisation History') : _('Template Customisation History')) : title %>
-      <div class="float-end">
+      <div class="pull-right">
         <%= link_to _('View all templates'), referrer, class: "btn btn-primary" %>
       </div>
     </h1>
