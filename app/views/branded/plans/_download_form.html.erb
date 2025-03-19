@@ -101,7 +101,6 @@
                       class: 'form-control', "aria-labelledby": "format" %>
       </div>
     </div>
-
     <fieldset id="json-formatting">
       <legend><%= _("JSON format") %></legend>
       <ul>
@@ -110,40 +109,19 @@
             <%= radio_button_tag("json_format", "default", true) %>
             <%= _('DMP OPIDoR format') %>
           <% end %>
-        </div>
-        <div class="checkbox">
-          <%= label_tag 'export[unanswered_questions]' do %>
-            <%= check_box_tag 'export[unanswered_questions]', true, true %>
-            <%= _('unanswered questions') %>
-          <% end %>
-        </div>
-        <% if @plan.structured? %>
-          <div class="checkbox">
-            <%= label_tag 'export[complete_data]' do %>
-              <%= check_box_tag 'export[complete_data]', true, false %>
-              <%= _('export complete data') %>
-            <% end %>
-          </div>
-        <% end %>
-        <% if @plan.template.customization_of.present? %>
-          <div class="checkbox">
-            <%= label_tag 'export[custom_sections]' do %>
-              <%= check_box_tag 'export[custom_sections]', true, false %>
-              <%= _('supplementary section(s) not requested by funding organisation') %>
-            <% end %>
-          </div>
-        <% end %>
-      </fieldset>
-
-      <% if @plan.template.research_project? %>
-        <li class="form-check">
-          <%= label_tag do %>
-            <%= radio_button_tag("json_format", "default", true) %>
-            <%= _('DMP OPIDoR format') %>
-          <% end %>
-          <span class="export-msg"><%= _("This format is not compatible with the Software type, the research outputs using this type won't be exported.") %></span>
         </li>
-      <% end %>
+
+        <% if @plan.template.research_project? %>
+          <li class="form-check">
+            <%= label_tag do %>
+              <%= radio_button_tag("json_format", "rda", false) %>
+              <%= _('RDA DMP Common Standard format') %>
+            <% end %>
+            <span class="export-msg"><%= _("This format is not compatible with the Software type, the research outputs using this type won't be exported.") %></span>
+          </li>
+        <% end %>
+      </ul>
+    </fieldset>
 
     <div id="pdf-formatting" class="py-3">
       <h2><%= _('PDF formatting') %></h2>
