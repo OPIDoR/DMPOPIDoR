@@ -36,7 +36,7 @@ module Resolvers
       joins = []
 
       conditions.keys.each do |operator|
-        validate_conditions(conditions[operator], operator.to_s)
+        validate_conditions(conditions[operator], operator)
 
         grouped_conditions = conditions[operator].group_by { |condition| condition[:className] }
 
@@ -47,17 +47,13 @@ module Resolvers
             build_condition(table_alias, sub_filter)
           end.compact
 
-          if operator == :and
-            and_operator_conditions << class_conditions.reduce(&:and) if class_conditions.any?
+          class_conditions << table_alias[:dmp_id].eq(dmp_id) if operator == :or
 
-            if index > 0
-              join_condition = primary_alias[:dmp_id].eq(table_alias[:dmp_id])
-              joins << "JOIN #{scope.table_name} #{table_alias.name} ON #{join_condition.to_sql}"
-            end
-          elsif operator == :or
-            class_conditions << table_alias[:dmp_id].eq(dmp_id)
-            or_operator_conditions << class_conditions.reduce(&:and) if class_conditions.any?
+          if class_conditions.any?
+            (operator == :and ? and_operator_conditions : or_operator_conditions) << class_conditions.reduce(&:and)
+          end
 
+          if operator == :or || index.positive?
             join_condition = primary_alias[:dmp_id].eq(table_alias[:dmp_id])
             joins << "JOIN #{scope.table_name} #{table_alias.name} ON #{join_condition.to_sql}"
           end
@@ -84,6 +80,8 @@ module Resolvers
     end
 
     def self.validate_conditions(conditions, operator)
+      return if conditions.nil? || conditions.empty?
+
       conditions.each_with_index do |condition, index|
         unless condition[:className].present?
           raise GraphQL::ExecutionError, "Condition at index #{index} is missing 'className' in '#{operator}' filter."
