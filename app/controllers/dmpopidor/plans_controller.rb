@@ -429,7 +429,7 @@ module Dmpopidor
               @plan.title = format(_("%{user_name}'s Plan"), user_name: current_user.firstname)
               @plan.title = json_data['meta']['title'] if json_data.dig('meta', 'title')
               @plan.title = format(_('Import of %{title}'), title: @plan.title)
-              json_data['meta']['title'] = format(_('Import of %{title}'), title: @plan.title)
+              json_data['meta']['title'] = @plan.title
               @plan.org = current_user.org
 
               if @plan.save
