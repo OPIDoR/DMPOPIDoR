@@ -29,11 +29,16 @@ module Resolvers
     def self.apply_conditions(scope, conditions, dmp_id)
       and_operator_conditions = []
       or_operator_conditions = []
+
+      sub_and_operator_conditions = []
+      sub_or_operator_conditions = []
+
       primary_alias = Arel::Table.new(scope.table_name).alias("m1")
       and_operator_conditions << primary_alias[:dmp_id].eq(dmp_id)
       scope = MadmpFragment.from("#{scope.table_name} m1").select("DISTINCT m1.dmp_id")
 
       joins = []
+      sub_joins = []
 
       conditions.keys.each do |operator|
         validate_conditions(conditions[operator], operator)
@@ -44,8 +49,42 @@ module Resolvers
           table_alias = index.zero? && operator == :and ? primary_alias : Arel::Table.new(scope.table_name).alias("m_#{operator}_#{index + 1}")
 
           class_conditions = sub_filters.map do |sub_filter|
-            build_condition(table_alias, sub_filter)
-          end.compact
+            if sub_filter[:and].present? || sub_filter[:or].present?
+
+              sub_conditions = {
+                and: sub_filter[:and],
+                or: sub_filter[:or]
+              }.compact
+
+              sub_class_conditions = []
+
+              sub_conditions.keys.each do |sub_operator|
+                validate_conditions(sub_conditions[sub_operator], sub_operator)
+
+                grouped_sub_conditions = sub_conditions[sub_operator].group_by { |condition| condition[:className] }
+
+                grouped_sub_conditions.each_with_index do |(class_name, sub_filters), index|
+                  sub_table_alias = Arel::Table.new(scope.table_name).alias("m_sub_#{sub_operator}_#{index + 1}")
+
+                  sub_class_conditions = sub_filters.map do |sub_filter|
+                    build_condition(sub_table_alias, sub_filter)
+                  end
+
+                  sub_class_conditions << table_alias[:dmp_id].eq(dmp_id) if sub_operator == :or
+
+                  if sub_class_conditions.any?
+                    (sub_operator == :and ? sub_and_operator_conditions : sub_or_operator_conditions) << sub_class_conditions.reduce(&:and)
+                  end
+
+                  class_name_downcased = class_name.downcase
+                  sub_joins << "JOIN #{scope.table_name} #{sub_table_alias.name} ON (#{sub_table_alias.name}.classname = '#{class_name_downcased}' AND #{sub_table_alias.name}.id = (#{table_alias.name}.data->'#{class_name_downcased}'->>'dbid')::INTEGER)"
+                end
+              end
+              sub_class_conditions.flatten
+            else
+              build_condition(table_alias, sub_filter)
+            end
+          end.compact.flatten
 
           class_conditions << table_alias[:dmp_id].eq(dmp_id) if operator == :or
 
@@ -59,6 +98,10 @@ module Resolvers
           end
         end
       end
+
+      joins = joins.concat(sub_joins)
+      and_operator_conditions = and_operator_conditions.concat(sub_and_operator_conditions)
+      or_operator_conditions = or_operator_conditions.concat(sub_or_operator_conditions)
 
       final_and_conditions = and_operator_conditions.reduce(&:and)
       final_or_conditions = or_operator_conditions.reduce(&:or)
