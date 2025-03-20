@@ -17,16 +17,9 @@ module Types
 
       return {
         count: plans_scope.count,
-        items: plans_scope.limit(size).offset(offset).map { |plan| plan.json_fragment.get_full_fragment }
+        # pages: (plans_scope.length / size).ceil,
+        items: plans_scope.map { |plan| plan.json_fragment.get_full_fragment }
       } if filter.nil?
-
-      if filter.nil?
-        {
-          count: plans_scope.length,
-          # pages: (plans_scope.length / size).ceil,
-          items: plans_scope
-        }
-      end
 
       fragments_by_plan_id = MadmpFragment
                                .where("(data->>'plan_id')::int IN (?)", plans_scope.select(:id))
