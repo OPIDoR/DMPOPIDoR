@@ -80,7 +80,7 @@ module Resolvers
                   sub_joins << "JOIN #{scope.table_name} #{sub_table_alias.name} ON (#{sub_table_alias.name}.classname = '#{class_name_downcased}' AND #{sub_table_alias.name}.id = (#{table_alias.name}.data->'#{class_name_downcased}'->>'dbid')::INTEGER)"
                 end
               end
-              sub_class_conditions.flatten
+              build_condition(table_alias, sub_filter).and(Arel::Nodes::And.new(sub_class_conditions))
             else
               build_condition(table_alias, sub_filter)
             end
