@@ -71,51 +71,51 @@
 
   </head>
   <body>
-      <div class="skip">
-        <a href="#maincontent"> _('Skip to main content') </a> 
+    <div class="skip">
+      <a href="#maincontent"> _('Skip to main content') </a> 
+    </div>
+    <!-- header rendering -->
+    <header class="dmpopidor-branding">
+      <%= render partial: "layouts/header" %>
+    </header>
+
+    <!-- main page content rendering -->
+    <% 
+      user_access_class = if request.path.starts_with?('/super_admin')
+                            "super-admin"
+                          elsif request.path.starts_with?('/org_admin') ||
+                                request.path.starts_with?('/org/admin')
+                            "org-admin"
+                          else
+                            ""
+                          end 
+    %>
+    <main class="container dmpopidor-branding <%= user_access_class %>" id="maincontent">
+      <%# <div class="ribbon">Version d'essai Bootstrap 5</div> %>
+      <%= yield %>
+
+
+      <%# Updated with Bootstrap 5 built in spinner %>
+      <div class="spinner-border d-none" role="status">
+        <span class="visually-hidden"><%spinner_msg = _("Loading...") %></span>
       </div>
-      <!-- header rendering -->
-      <header class="dmpopidor-branding">
-        <%= render partial: "layouts/header" %>
-      </header>
+    
+      <%= render "layouts/contact_icons" %>
+    </main>
 
-      <!-- main page content rendering -->
-      <% 
-        user_access_class = if request.path.starts_with?('/super_admin')
-                              "super-admin"
-                            elsif request.path.starts_with?('/org_admin') ||
-                                  request.path.starts_with?('/org/admin')
-                              "org-admin"
-                            else
-                              ""
-                            end 
-      %>
-      <main class="container dmpopidor-branding <%= user_access_class %>" id="maincontent">
-        <%= yield %>
+    <!-- footer rendering -->
+    <footer id="dmpopidor-footer">
+      <%= render "layouts/footer" %>
+    </footer>
 
-        <%# Generic UJS/Ajax spinner. Bootstrap 5+ has built in spinner for this class, so update when
-            we upgrade to remove the img tag %>
-        <div class="spinner-border hidden" role="status">
-          <%spinner_msg = _("Loading...") %>
-          <%= image_tag("spinner.gif", alt: spinner_msg) %>
-        </div>
+    <!-- Back to top button -->
+    <%= react("BackToTop", props: {}) %>
 
-        <%= render "layouts/contact_icons" %>
-      </main>
+    <!-- Cookie Consent -->
+    <%= react("CookieConsent", props: {}) %>
 
-      <!-- footer rendering -->
-      <footer id="dmpopidor-footer">
-        <%= render "layouts/footer" %>
-      </footer>
-
-      <!-- Back to top button -->
-      <%= react("BackToTop", props: {}) %>
-
-      <!-- Cookie Consent -->
-      <%= react("CookieConsent", props: {}) %>
-
-      <!-- piwik -->
-      <%= render "layouts/piwik" %>
+    <!-- piwik -->
+    <%= render "layouts/piwik" %>
 
     <%
     constants_json = {
@@ -150,7 +150,10 @@
       AUTOCOMPLETE_ARIA_HELPER_EMPTY: _("No results are available for your entry."),
       AUTOCOMPLETE_SEARCHING: _("Searching ..."),
 
-      CURRENT_LOCALE: LocaleService.to_gettext(locale: @current_locale.to_s)
+      CURRENT_LOCALE: LocaleService.to_gettext(locale: @current_locale.to_s),
+
+      MORE_INFO: _("More info"),
+      LESS_INFO: _("Less info")
     }.to_json
     %>
 

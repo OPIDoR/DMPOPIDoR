@@ -5,21 +5,50 @@
   h1,
   h2 {
     color: $rust;
+    margin-top: 20px;
+    margin-bottom: 10px;
   }
 
   a {
     color: $rust;
   }
 
+  .accordion {
+    border: none;
+    .accordion-item {
+      border: none;
+
+      h2.accordion-header {
+        margin-bottom: 0;
+        padding: 0;
+      }
+
+      h2.accordion-header,
+      a.accordion-button,
+      button.accordion-button {
+        background-color: $rust;
+        color: white;
+      }
+
+      .accordion-collapse,
+      .accordion-body {
+        border-color: $rust;
+      }
+
+      .accordion-body {
+        padding-top: 30px;
+      }
+    }
+  }
 
   // main border
-  .panel-default {
+  .card-default {
     border-color: $rust;
   }
 
   // Sections & Phases
-  .heading-button>.panel-heading,
-  .panel-default>.panel-heading {
+  .heading-button>.card-heading,
+  .card-default>.card-heading {
     background-color: $rust;
   }
 
@@ -28,29 +57,6 @@
   }
 
   table {
-    tbody>tr:nth-child(odd) {
-      background: white;
-      color: $rust;
-
-      a,
-      i,
-      button {
-        color: $rust;
-      }
-    }
-
-    tbody>tr:nth-child(even),
-    tbody>tr:hover {
-      background: $rust;
-      color: white;
-
-      a,
-      i,
-      button {
-        color: white;
-      }
-    }
-
     ul.dropdown-menu {
       li a {
         color: $rust;
@@ -58,4 +64,10 @@
     }
   }
 
+}
+
+.dmpopidor-branding.super-admin {
+  .tab-pane {
+    width: 100%;
+  }
 }

@@ -4,7 +4,7 @@
       <% title = templates.first.module? ? _('Module History') : _('Template History') %>
       <%= templates.first.customization_of.present? ? (templates.first.module? ? _('Module Customisation History') : _('Template Customisation History')) : title %>
       <div class="pull-right">
-        <%= link_to _(templates.first.module? ? 'View all modules' : 'View all templates'), referrer, class: "btn btn-primary" %>
+        <%= link_to _('View all templates'), referrer, class: "btn btn-primary" %>
       </div>
     </h1>
     <p>

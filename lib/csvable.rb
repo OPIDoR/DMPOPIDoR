@@ -4,12 +4,14 @@
 module Csvable
   require 'csv'
   class << self
-    # rubocop:disable Style/OptionalBooleanParameter, Metrics/AbcSize
+    # rubocop:disable Style/OptionalBooleanParameter
+    # rubocop:disable Metrics/AbcSize
     def from_array_of_hashes(data = [], humanize = true, sep = ',')
       return '' unless data.first&.keys
 
       headers = if humanize
-                  data.first.keys.map { |x| x.to_s.humanize }
+                  data.first.keys
+                      .map { |x| x.to_s.humanize }
                 else
                   data.first.keys
                       .map(&:to_s)
@@ -23,6 +25,7 @@ module Csvable
         end
       end
     end
-    # rubocop:enable Style/OptionalBooleanParameter, Metrics/AbcSize
+    # rubocop:enable Style/OptionalBooleanParameter
+    # rubocop:enable Metrics/AbcSize
   end
 end

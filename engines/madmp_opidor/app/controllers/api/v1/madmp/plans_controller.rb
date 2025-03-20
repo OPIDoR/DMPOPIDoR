@@ -41,56 +41,6 @@ module Api
         end
         # rubocop:enable Metrics/AbcSize, Metrics/MethodLength
 
-        # rubocop:disable Metrics/AbcSize, Metrics/MethodLength
-        # rubocop:disable Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
-        def import
-          json_data = JSON.parse(request.raw_post)
-          import_format = params[:import_format]
-          template = Template.default
-          # rubocop:disable Metrics/BlockLength
-          Plan.transaction do
-            plan = Plan.new
-            errs = Import::PlanImportService.validate(json_data, import_format)
-            render_error(errors: errs, status: :bad_request) and return if errs.any?
-
-            if import_format.eql?('rda')
-              json_data = Import::Converters::RdaToStandardConverter.convert(json_data['dmp'])
-            end
-
-            # Try to determine the Plan's owner
-            owner = determine_owner(client:, dmp: json_data)
-            if owner.nil?
-              render_error(
-                errors: [_('Unable to determine owner of the DMP, please specify an existing user as the contact')],
-                status: :bad_request
-              )
-              return
-            end
-            plan.org = owner.org if owner.present? && plan.org.blank?
-
-            plan.visibility = Rails.configuration.x.plans.default_visibility
-            plan.template = template
-
-            plan.title = format(_('%{user_name} Plan'), user_name: "#{owner.firstname}'s")
-
-            if plan.save
-              plan.add_user!(owner.id, :creator)
-              plan.create_plan_fragments
-
-              Import::PlanImportService.import(plan, json_data, 'standard')
-
-              respond_with plan
-            else
-              render_error(errors: [_('Invalid JSON')], status: :bad_request)
-            end
-          rescue JSON::ParserError
-            render_error(errors: [_('Invalid JSON')], status: :bad_request)
-          end
-          # rubocop:enable Metrics/BlockLength
-        end
-        # rubocop:enable Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
-        # rubocop:enable Metrics/AbcSize, Metrics/MethodLength
-
         private
 
         # Get the Plan's owner

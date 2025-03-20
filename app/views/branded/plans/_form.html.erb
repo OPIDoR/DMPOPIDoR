@@ -8,7 +8,7 @@
           <%= @template_context.eql?(::Template.contexts[:research_entity]) ? _('Creating a research entity DMP: ') : _('Creating a research project DMP: ') %>
           <%= _('Choose a template') %>
         </h1>
-        <p class="left-indent">
+        <p class="start-indent">
             <%= _('You can either choose a template provided by your organisation, another organisation or a funder template. The default template is ') %>
             <strong><%= @default_template.title + "." %></strong>
             <br/>
@@ -23,13 +23,13 @@
         <!-- Tabs menu -->
         <ul class="nav nav-tabs form-tabs">
           <li class="active">
-            <span data-toggle="tab" data-target="#own-org-controls"><%= current_user.org.name  %> (<%= _('Your organisation') %>) </span>
+            <span data-bs-toggle="tab" data-bs-target="#own-org-controls"><%= current_user.org.name  %> (<%= _('Your organisation') %>) </span>
           </li>
           <li>
-            <span data-toggle="tab" data-target="#research-org-controls"><%= _('Other organisation') %></span>
+            <span data-bs-toggle="tab" data-bs-target="#research-org-controls"><%= _('Other organisation') %></span>
           </li>
           <li>
-            <span data-toggle="tab" data-target="#funder-org-controls"><%= _('Funder') %></span>
+            <span data-bs-toggle="tab" data-bs-target="#funder-org-controls"><%= _('Funder') %></span>
           </li>
         </ul>
 
@@ -90,7 +90,7 @@
             </h2>
             <!-- Hidden field to store the URL from which to get available templates (async) -->
             <%= hidden_field_tag 'template-option-target', template_options_path %>
-            <div class="form-group row">
+            <div class="form-control mb-3 row">
               <div class="col-md-6">
                 <%= select_tag(:plan_template_id, "<option value=\"-1\">#{_('Please select a template')}</option>", name: 'plan[template_id]', class: 'form-control', 'aria-labelledby': 'template-selection') %>
                 <span class="message-block" style=""><%= _('Please select a template from the list.') %></span>
@@ -131,7 +131,7 @@
           <% end %>
 
           <!-- Submit and other buttons -->
-          <div class="pull-right">
+          <div class="float-end">
 
             <%= f.hidden_field(:visibility, value: @is_test ? 'is_test' : Rails.configuration.x.plans.default_visibility) %>
             <%= f.button(_('Create a plan'), class: "btn btn-primary", id: 'create-btn', type: "submit") %>
@@ -141,14 +141,6 @@
         </div>
       </div>
     </div>
-    <!-- 
-    <div class="row">
-      <div class="col-md-12">
-        <h1><%= _('Import DMP') %></h1>
-        <%= link_to _('Import DMP'), import_plans_path, class: 'btn btn-default', id: 'import-btn' %>
-      </div>
-    </div>
-    -->
     <% end %>
   </div>
 </div>

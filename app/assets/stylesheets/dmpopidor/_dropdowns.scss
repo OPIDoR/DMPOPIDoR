@@ -2,6 +2,11 @@
 
 @mixin dmpopidor-dropdown {
   .dmpopidor-dropdown {
+    z-index: 1;
+    box-shadow: rgba(0, 0, 0, 0.3) 0px 2px 5px;
+    border: none;
+    margin: 0;
+
     li a[rel="nofollow"][data-method="patch"] {
 
       &:first-of-type,
@@ -43,6 +48,7 @@
       a:focus,
       a:visited {
         font-weight: bold;
+        background-color: $dark-blue;
         color: white;
       }
     }
@@ -51,6 +57,9 @@
       color: $dark-blue;
       font-weight: bold;
       text-align: center;
+    }
+    hr.dropdown-divider {
+      margin: 0;
     }
   }
 }
@@ -62,7 +71,7 @@
 .plan-actions {
 
   .dmpopidor-dropdown {
-    background-color: $white;
+    background-color: #fff;
     box-shadow: rgba(0, 0, 0, 0.3) 0px 2px 5px;
 
     li {
@@ -71,13 +80,13 @@
       a:active,
       a:focus,
       a:visited {
-        color: $blue;
+        color: $dmpopidor-blue;
 
       }
 
       a:hover {
-        color: $white;
-        background-color: $blue;
+        color: #fff;
+        background-color: $dmpopidor-blue;
       }
     }
 
@@ -87,15 +96,15 @@
       a:active,
       a:focus,
       a:visited {
-        background-color: $blue;
-        color: $white;
+        background-color: $dmpopidor-blue;
+        color: #fff;
       }
     }
   }
 
   .open {
     a {
-      background-color: $white;
+      background-color: #fff;
     }
   }
 }
@@ -109,7 +118,7 @@
       a:focus,
       a:visited {
         background-color: $rust;
-        color: $white;
+        color: #fff;
       }
     }
   }

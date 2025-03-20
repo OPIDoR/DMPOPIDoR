@@ -6,7 +6,7 @@
       <%= _('Module Templates') %>
       <% link = request.path.include?('super_admin') ? new_super_admin_template_path(type: "module") : new_org_admin_template_path(type: "module") %>
       <a href="<%= link %>"
-         class="btn btn-primary pull-right"><%= _('Create a module template') %></a>
+         class="btn btn-primary float-end"><%= _('Create a module template') %></a>
     </h1>
   </div>
 </div>
@@ -19,6 +19,5 @@
           remote: true,
           scope: @templates,
           query_params: { sort_field: 'templates.title', sort_direction: :asc }) %>
-    <div>
   </div>
 </div>

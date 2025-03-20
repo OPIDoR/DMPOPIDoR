@@ -54,7 +54,7 @@ module TemplateHelper
       funder: { id: "{ \"id\": #{template.org&.id}, \"name\": \"#{template.org&.name}\" }" },
       template_id: template.id
     }
-    cls = text.nil? ? 'direct-link' : 'direct-link btn btn-default'
+    cls = text.nil? ? 'direct-link' : 'direct-link btn btn-secondary'
     style = hidden ? 'display: none' : ''
 
     link_to(plans_url(plan: params), method: :post, title: _('Create plan'),
