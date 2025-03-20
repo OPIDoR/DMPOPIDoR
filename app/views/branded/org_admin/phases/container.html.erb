@@ -8,7 +8,7 @@
     else
       template.customization_of.present? ? customisable_org_admin_templates_path : organisational_org_admin_templates_path
     end %>
-    <%= link_to _(template&.module? ? 'View all modules' : 'View all templates'), referrer, class: 'btn btn-default pull-right' %>
+    <%= link_to _(template&.module? ? 'View all modules' : 'View all templates'), referrer, class: 'btn btn-secondary float-end' %>
   </div>
 </div>
 <div class="row">
@@ -18,16 +18,16 @@
                locals: local_assigns.merge({ modifiable: modifiable }) %>
     <div class="tab-content">
       <div role="tabpanel" class="tab-pane active">
-        <div class="panel panel-default">
-          <div class="panel-body">
+        <div class="card card-default">
+          <div class="card-body">
             <% # locals: { phase, template, edit, current_section } %>
-            <div class="pull-left">
+            <div class="float-start">
               <h2><%= _('Phase details')%></h2>
             </div>
-            <div class="pull-right">
+            <div class="float-end">
               <%= link_to(_('Preview'),
                           template&.module? ? preview_super_admin_template_phase_path(template, phase) : preview_org_admin_template_phase_path(template, phase),
-                          class: 'btn btn-default phase_preview_link', role: 'button') %>
+                          class: 'btn btn-secondary phase_preview_link', role: 'button') %>
             </div>
             <div class="clearfix"></div>
             <div class="row">

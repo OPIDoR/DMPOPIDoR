@@ -228,6 +228,10 @@ gem 'rswag-ui'
 # https://github.com/tzinfo/tzinfo-data
 gem 'tzinfo-data'
 
+# This library provides functionality to send internet mail via SMTP, the Simple Mail Transfer Protocol.
+# https://github.com/ruby/net-smtp
+gem 'net-smtp'
+
 # ================================= #
 # ENVIRONMENT SPECIFIC DEPENDENCIES #
 # ================================= #
@@ -274,7 +278,7 @@ group :test do
   gem 'capybara'
 
   # Easy installation and use of web drivers to run system tests with browsers
-  gem 'webdrivers'
+  gem 'selenium-webdriver'
 
   # RSpec::CollectionMatchers lets you express expected outcomes on
   # collections of an object in an example.
@@ -363,7 +367,6 @@ group :development do
   gem 'yard-tomdoc'
 end
 
-gem 'net-smtp'
 # ======================#
 # MADMP OPIDOR FEATURES #
 # ===================== #

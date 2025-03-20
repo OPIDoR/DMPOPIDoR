@@ -51,10 +51,6 @@ module Dmpopidor
       @record.readable_by?(@user.id)
     end
 
-    def import?
-      @user.present?
-    end
-
     def import_plan?
       @user.present?
     end

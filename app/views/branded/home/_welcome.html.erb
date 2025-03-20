@@ -6,7 +6,7 @@
     <h2 class="see-all-news">
       <a href="https://opidor.fr/toutes-les-actualites/"><%= _('View all')%></a>
     </h2>
-    <div class="dmp-visit" data-toggle="modal" data-target="#dmpVisitModal">
+    <div class="dmp-visit" data-bs-toggle="modal" data-bs-target="#dmpVisitModal">
       <h2><%= _('First time visiting?') %></h2>
       <p><%= _('Discover DMP OPIDoR in three minutes!') %></p>
       <i class="fa fa-circle-play" aria-hidden="true"></i>
@@ -17,14 +17,14 @@
   </div>
 </div>
 <div class="modal fade" id="dmpVisitModal" tabindex="-1" role="dialog" aria-labelledby="dmpVisitModal" aria-hidden="true">
-  <div class="modal-dialog" role="document">
+  <div class="modal-dialog modal-xl" role="document">
     <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
       <div class="modal-body">
-       <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>        
         <!-- 16:9 aspect ratio -->
-        <div class="embed-responsive embed-responsive-16by9">
+        <div class="ratio ratio-16x9">
           <iframe class="embed-responsive-item" src="https://www.canal-u.tv/chaines/inist-cnrs/embed/152543?t=0" id="video"  allowscriptaccess="always" allow="autoplay"></iframe>
         </div>
       </div>

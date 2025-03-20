@@ -70,20 +70,20 @@
     <% elsif question.question_format.number? %>
         <%= render(partial: 'questions/new_edit_question_numberfield', locals: { f: f, question: question, answer: answer, research_output: research_output, readonly: readonly }) %>
     <% end %>
-    <%= f.button(_('Save'), class: "btn btn-default", type: "submit") %>
+    <%= f.button(_('Save'), class: "btn btn-secondary", type: "submit") %>
   </fieldset>
   <!--Example Answer area -->
   <% if template.present? && template.org.present? %>
     <% question.example_answers([base_template_org.id, template.org.id]).each do |annotation| %>
       <% if annotation.present? && annotation.org.present? && annotation.text.present? %>
-        <div class="panel panel-default example-answer">
-          <span class="label label-default example-answer-link" 
-                data-toggle="collapse" 
-                data-target="<%= "#example-#{question.id}-research-output-#{research_output.id}"  %>">
+        <div class="card card-default example-answer">
+          <span class="badge bg-secondary example-answer-link" 
+                data-bs-toggle="collapse" 
+                data-bs-target="<%= "#example-#{question.id}-research-output-#{research_output.id}"  %>">
             <%="#{annotation.org.abbreviation} "%> <%=_('example answer')%>
             <i class="more-less fas fa-plus small"></i>
           </span>
-          <div class="panel-body collapse" id="<%= "example-#{question.id}-research-output-#{research_output.id}"  %>">
+          <div class="card-body collapse" id="<%= "example-#{question.id}-research-output-#{research_output.id}"  %>">
             <%= sanitize annotation.text %>
           </div>
         </div>

@@ -24,13 +24,13 @@
                 class="btn btn-link dropdown-toggle"
                 type="button"
                 id="org-<%= schema.id %>-actions"
-                data-toggle="dropdown"
+                data-bs-toggle="dropdown"
                 aria-haspopup="true"
                 aria-expanded="true">
                 <%= _('Actions') %><span class="caret"></span>
               </button>
               <ul class="dropdown-menu" aria-labelledby="org-<%= schema.id %>-actions">
-                <li><%= link_to _('Edit'), edit_super_admin_madmp_schema_path(schema) %></li>
+                <li class="nav-item"><%= link_to _('Edit'), edit_super_admin_madmp_schema_path(schema), class: 'dropdown-item px-3' %></li>
               </ul>
             </div>
           </td>

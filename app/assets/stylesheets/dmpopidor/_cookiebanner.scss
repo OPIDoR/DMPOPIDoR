@@ -18,7 +18,7 @@
     text-align: center;
     background: green;
     padding: 5px;
-    color: $white !important;
+    color: #fff !important;
     font-weight: bold;
     margin-left: 10px;
   
@@ -26,7 +26,7 @@
     &:hover,
     &:active {
       outline-style: solid !important;
-      outline-color: $white !important;
+      outline-color: #fff !important;
       outline-width: 2px !important;
     }
   }
