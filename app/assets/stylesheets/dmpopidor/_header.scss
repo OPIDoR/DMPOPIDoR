@@ -39,7 +39,6 @@ header.dmpopidor-branding {
       border-bottom: 3px solid $rust;
 
       .header-logo {
-
         display: flex;
         justify-content: center;
         align-items: center;
@@ -62,6 +61,14 @@ header.dmpopidor-branding {
         justify-content: space-around;
       }
 
+      .navbar-collapse {
+        padding: 0 15px;
+
+        .dropdown-toggle.nav-link {
+          padding: 15px;
+        }
+      }
+
       .header-links,
       .header-language-account {
         min-height: 75px;
@@ -71,18 +78,13 @@ header.dmpopidor-branding {
         text-transform: uppercase;
         @include dmpopidor-dropdown;
 
-        a {
+        .nav-link {
           text-decoration: none;
-
-          &:not([data-method="patch"]):not(.btn) {
-            &:hover {
-              background-color: transparent !important;
-            }
-          }
         }
       }
 
-      ul.header-language-account {
+      .navbar-nav.header-language-account {
+        margin-left: auto;
         @media (max-width: 767px) {
           flex-direction: column;
 
@@ -94,7 +96,6 @@ header.dmpopidor-branding {
         }
 
         li#signin-signout {
-
           border-radius: 5px;
 
           &>a {
@@ -161,6 +162,11 @@ header.dmpopidor-branding {
           }
 
           ul.dropdown-menu {
+            .nav-item {
+              .dropdown-item {
+                padding: 3px 20px;
+              }
+            }
             &:hover {
               +a#user-menu {
                 border-radius: 5px 5px 0 0;
@@ -279,7 +285,7 @@ header.dmpopidor-branding {
           }
         }
 
-        &>li.active {
+        .nav-item.active {
           font-weight: bold;
         }
 
@@ -288,10 +294,6 @@ header.dmpopidor-branding {
             ul {
               top: 50px;
             }
-          }
-
-          a:not(.institution-login):not([href="/users/password/new"]) {
-            color: $dark-blue;
           }
 
           ul {
@@ -333,7 +335,7 @@ header.dmpopidor-branding {
             grid-column-start: 1;
             grid-row-start: 1;
 
-            a img.app-logo.navbar-brand {
+            a img.navbar-brand {
               width: 130px;
               height: auto;
               margin-left: 44px;
@@ -351,9 +353,10 @@ header.dmpopidor-branding {
         align-items: center;
         height: inherit;
 
-        div.navbar-header a img.app-logo {
+        div.navbar-header a img.navbar-brand {
           width: auto;
           height: 100px;
+          padding: 15px;
         }
       }
     }
@@ -362,14 +365,6 @@ header.dmpopidor-branding {
   // #####################################################
   // HEADER BANNER
   // #####################################################
-  .header-banner-img {
-    position: absolute;
-    left: 0;
-    top: 0;
-    width: 100%;
-    height: auto;
-    z-index: -1;
-  }
 
   .header-banner {
     align-self: center;
@@ -587,10 +582,12 @@ header.dmpopidor-branding {
           text-decoration: underline;
         }
       }
+
       .fas {
         align-self: center;
         padding-right: 10px;
       }
+
       p {
         margin: 0;
       }
@@ -608,10 +605,12 @@ header.dmpopidor-branding {
   header.dmpopidor-branding {
     div.main-nav {
       height: 60px;
-      div.navbar-header a img.app-logo {
+
+      div.navbar-header a img.navbar-brand {
         height: 60px !important;
         transition: height 200ms ease-in-out;
       }
+
       div.navbar-collapse {
         padding: 0;
       }

@@ -9,98 +9,103 @@
 
 <div id="user-profile" class="row">
   <div class="col-md-12">
-      <div class="profile-form">
-        <div class="heading-button" role="button" data-toggle="collapse"
-              data-parent="user-profile"
-              href="#personal-details"
-              aria-expanded="true"
-              aria-controls="personal-details">
-          <div class="panel-heading dmpopidor-accordion" role="tab" id="heading-personal-details">
-            <div class="panel-title pull-left">
-              <span class="icon icon-personal-details"></span>
-              <%= _('Personal Details') %>
-            </div>
-            <i class="fas fa-chevron-down pull-right" aria-hidden="true"></i>
-            <div class="clearfix"></div>
+    <div class="profile-form accordion-item w-100 my-3">
+      <h2 class="accordion-header" role="tab" id="heading-personal-details">
+        <button class="accordion-button dmpopidor-accordion collapsed" type="button" data-bs-toggle="collapse"
+          id="panel-personal-details"
+          data-bs-parent="user-profile"
+          href="#collapse-personal-details"
+          aria-expanded="false"
+          aria-controls="collapse-personal-details">
+          <div class="card-title float-start">
+            <span class="icon icon-personal-details"></span>
+            <%= _('Personal Details') %>
           </div>
-        </div>
+          <i class="fas fa-chevron-down float-end" aria-hidden="true"></i>
+          <div class="clearfix"></div>
+        </button>
+      </h2>
 
-        <div id="personal-details" class="panel-collapse collapse" role="tabpanel" aria-labelledby="heading-personal-details">
-          <div class="panel-body">
-            <%= render partial: 'devise/registrations/personal_details', locals: {orgs: @orgs, org_partial: @org_partial} %>
-          </div>
-        </div>
-      </div>
-
-      <div class="profile-form">
-        <div class="heading-button" role="button" data-toggle="collapse"
-              data-parent="user-profile"
-              href="#password-details"
-              aria-expanded="true"
-              aria-controls="password-details">
-          <div class="panel-heading dmpopidor-accordion" role="tab" id="heading-password-details">
-            <div class="panel-title pull-left">
-              <span class="icon icon-password"></span>
-              <%= _('Password') %>
-            </div>
-            <i class="fas fa-chevron-down pull-right" aria-hidden="true"></i>
-            <div class="clearfix"></div>
-          </div>
-        </div>
-
-        <div id="password-details" class="panel-collapse collapse" role="tabpanel" aria-labelledby="heading-password-details">
-          <div class="panel-body">
-            <%= render partial: 'devise/registrations/password_details' %>
-          </div>
+      <div id="collapse-personal-details" class="accordion-collapse collapse" role="tabpanel" aria-labelledby="heading-personal-details">
+        <div class="accordion-body">
+          <%= render partial: 'devise/registrations/personal_details', locals: {orgs: @orgs, org_partial: @org_partial} %>
         </div>
       </div>
+    </div>
 
-      <% if @user.can_use_api? %>
-        <div class="profile-form">
-          <div class="heading-button" role="button" data-toggle="collapse"
-                data-parent="user-profile"
-                href="#api-details"
-                aria-expanded="true"
-                aria-controls="api-details">
-            <div class="panel-heading dmpopidor-accordion" role="tab" id="heading-api-details">
-              <div class="panel-title pull-left">
-                <span class="icon icon-api"></span>
+    <div class="profile-form accordion-item w-100 my-3">
+      <h2 class="accordion-header" role="tab" id="heading-password-details">
+        <button class="accordion-button dmpopidor-accordion collapsed" type="button" data-bs-toggle="collapse"
+          id="panel-password-details"
+          data-bs-parent="user-profile"
+          href="#collapse-password-details"
+          aria-expanded="false"
+          aria-controls="collapse-password-details">
+          <div class="card-title float-start">
+            <span class="icon icon-password"></span>
+            <%= _('Password') %>
+          </div>
+          <i class="fas fa-chevron-down float-end" aria-hidden="true"></i>
+          <div class="clearfix"></div>
+        </button>
+      </h2>
+
+      <div id="collapse-password-details" class="accordion-collapse collapse" role="tabpanel" aria-labelledby="heading-password-details">
+        <div class="accordion-body">
+          <%= render partial: 'devise/registrations/password_details' %>
+        </div>
+      </div>
+    </div>
+
+    <% if @user.can_use_api? %>
+      <div class="profile-form accordion-item w-100 my-3">
+        <h2 class="accordion-header" role="tab" id="heading-api-details">
+          <button class="accordion-button dmpopidor-accordion collapsed" type="button" data-bs-toggle="collapse"
+            id="panel-api-details"
+            data-bs-parent="user-profile"
+            href="#collapse-api-details"
+            aria-expanded="false"
+            aria-controls="collapse-api-details">
+            <div class="card-title float-start">
+              <span class="icon icon-api"></span>
                 <%= _('API Access') %>
-              </div>
-              <i class="fas fa-chevron-down pull-right" aria-hidden="true"></i>
-              <div class="clearfix"></div>
             </div>
-          </div>
-
-          <div id="api-details" class="panel-collapse collapse" role="tabpanel" aria-labelledby="heading-api-details">
-            <div class="panel-body">
-              <%= render partial: 'devise/registrations/api_token', locals: { user: @user } %>
-            </div>
-          </div>
-        </div>
-      <% end %>
-
-      <div class="profile-form">
-        <div class="heading-button" role="button" data-toggle="collapse"
-              data-parent="user-profile"
-              href="#notification-preferences"
-              aria-expanded="true"
-              aria-controls="notification-preferences">
-          <div class="panel-heading dmpopidor-accordion" role="tab" id="heading-notification-preferences">
-            <div class="panel-title pull-left">
-              <span class="icon icon-notification-off"></span>
-              <%= _('Notification Preferences') %>
-            </div>
-            <i class="fas fa-chevron-down pull-right" aria-hidden="true"></i>
+            <i class="fas fa-chevron-down float-end" aria-hidden="true"></i>
             <div class="clearfix"></div>
-          </div>
-        </div>
+          </button>
+        </h2>
 
-        <div id="notification-preferences" class="panel-collapse collapse" role="tabpanel" aria-labelledby="heading-notification-preferences">
-          <div class="panel-body">
-            <%= render partial: 'users/notification_preferences' %>
+        <div id="collapse-api-details" class="accordion-collapse collapse" role="tabpanel" aria-labelledby="heading-api-details">
+          <div class="accordion-body">
+              <%= render partial: 'devise/registrations/api_token', locals: { user: @user } %>
           </div>
         </div>
       </div>
+    <% end %>
+    
+
+    <div class="profile-form accordion-item w-100 my-3">
+      <h2 class="accordion-header" role="tab" id="heading-notification-preferences">
+        <button class="accordion-button dmpopidor-accordion collapsed" type="button" data-bs-toggle="collapse"
+          id="panel-notification-preferences"
+          data-bs-parent="user-profile"
+          href="#collapse-notification-preferences"
+          aria-expanded="false"
+          aria-controls="collapse-notification-preferences">
+          <div class="card-title float-start">
+            <span class="icon icon-notification-off"></span>
+            <%= _('Password') %>
+          </div>
+          <i class="fas fa-chevron-down float-end" aria-hidden="true"></i>
+          <div class="clearfix"></div>
+        </button>
+      </h2>
+
+      <div id="collapse-notification-preferences" class="accordion-collapse collapse" role="tabpanel" aria-labelledby="heading-notification-preferences">
+        <div class="accordion-body">
+            <%= render partial: 'users/notification_preferences' %>
+        </div>
+      </div>
+    </div>
   </div>
 </div>

@@ -725,6 +725,7 @@ DEPENDENCIES
   rubocop-i18n
   rubocop-performance
   ruby-progressbar
+  selenium-webdriver
   shoulda
   spring
   spring-commands-rspec
@@ -734,7 +735,6 @@ DEPENDENCIES
   turbo-rails
   tzinfo-data
   web-console
-  webdrivers
   webmock
   wicked_pdf
   wkhtmltopdf-binary

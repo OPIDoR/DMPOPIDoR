@@ -7,7 +7,7 @@
 }) %>
 <% permissions_tooltip = _('Co-owner: Has admin-rights to the plan (can invite other users, view the plan, answer questions, or comment). Editor: Has edit-rights to the plan (can view the plan, answer questions, or comment). Read Only: Has read-rights to the plan (can view the plan or comment)') %>
 
-<div style="display: flex; gap: 20px;">
+<div style="display: flex; gap: 20px;" id="share-form">
   <div style="flex: 1; padding: 20px">
     <% if administerable  %>
       <h2><%= _('Invite collaborators') %></h2>
@@ -15,31 +15,32 @@
       <% new_role = Role.new %>
       <% new_role.plan = @plan %>
       <%= form_for new_role, url: {controller: :roles, action: :create }, html: {method: :post} do |f| %>
-        <div class="form-group col-xs-8">
+        <div class="form-control mb-3 col-xs-8">
           <%= f.hidden_field :plan_id %>
           <%= f.fields_for :user, new_role.user do |user| %>
-              <%= user.label :email, _('Email'), class: 'control-label'%>
+              <%= user.label :email, _('Email'), class: 'form-label'%>
+              <em class="sr-only"><%= email_tooltip %></em>
               <%= user.email_field :email, class: "form-control", title: email_tooltip,
                                         aria: { required: true },
                                         required: true %>
             <% end %>
         </div>
         <div class="clearfix"></div>
-          <div class="form-group" style="margin-left: 15px;">
-            <%= f.label(:administrator_access, _('Permissions'), class: 'control-label') %>
-            <div class="radio">
+          <div class="form-control mb-3" style="margin-left: 15px;">
+            <%= f.label(:administrator_access, _('Permissions'), class: 'legend-label') %>
+            <div class="form-check">
               <%= f.label :administrator_access do %>
                 <%= f.radio_button :access, administrator.access, id: "role_administrator_access", "aria-required": true, required: true %>
                 <%= _('Co-owner: can modify, comment, share and delete the plan') %>
               <% end %>
             </div>
-            <div class="radio">
+            <div class="form-check">
               <%= f.label :editor_access do %>
                 <%= f.radio_button :access, editor.access , id: "role_editor_access" %>
                 <%= _('Editor: can modifiy and comment the plan') %>
               <% end %>
             </div>
-            <div class="radio">
+            <div class="form-check">
               <%= f.label :commenter_access do %>
                 <%= f.radio_button :access, commenter.access, checked: true, id: "role_commenter_access" %>
                 <%= _('Read only: can view and comment the plan') %>
@@ -73,7 +74,7 @@
                 <span><%= display_role(role) %></span>
               <% else %>
                 <% if administerable && role.user != current_user %>
-                  <div class="form-group col-xs-8">
+                  <div class="form-control mb-3 col-xs-8">
                     <%= fields_for role do |f| %>
                       <% options = [
                         ["#{display_role(administrator)}", administrator.access],
@@ -117,26 +118,26 @@
     <% allow_visibility = @plan.visibility_allowed? %>
     <%= form_for(@plan, url: visibility_plan_path, method: :post, remote: true, html: { id: 'set_visibility' }) do |f| %>
       <fieldset <%= (allow_visibility ? '' : ' disabled') %>>
-        <div class="form-group col-xs-8">
-          <div class="radio">
+        <div class="form-control mb-3 col-xs-8">
+          <div class="form-check">
             <%= f.label :visibility_privately_visible do %>
               <%= f.radio_button :visibility, :privately_visible %>
               <%= _('Private: visible to me and specified collaborators') %>
             <% end %>
           </div>
-          <div class="radio">
+          <div class="form-check">
             <%= f.label :visibility_administrator_visible do %>
               <%= f.radio_button :visibility, :administrator_visible %>
               <%= _('Administrator: visible to me, specified collaborators and administrators at my organisation') %>
             <% end %>
           </div>
-          <div class="radio">
+          <div class="form-check">
             <%= f.label :visibility_organisationally_visible do %>
               <%= f.radio_button :visibility, :organisationally_visible %>
               <%= _('Organisation: anyone at my organisation can view') %>
             <% end %>
           </div>
-          <div class="radio">
+          <div class="form-check">
             <%= f.label :visibility_publicly_visible do %>
               <%= f.radio_button :visibility,
                                 :publicly_visible, class: 'set-plan-public',
@@ -158,7 +159,7 @@
 
 <hr style="border-color: var(--dark-blue)" />
 
-<div class="share-form">
+<div class="share-third-party-form">
   <% if @plan.structured?  %>
     <%= render partial: 'plans/share_third_party',locals: { administerable: administerable } %>
   <% end %>

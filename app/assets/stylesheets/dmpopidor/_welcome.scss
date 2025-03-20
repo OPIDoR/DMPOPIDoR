@@ -6,7 +6,7 @@
   background: $rust;
   border-radius: 5px;
   padding: 20px;
-  min-width: 425px;
+  max-width: 425px;
   position: relative;
   top: -190px;
   left: -100px;
@@ -32,18 +32,18 @@
     grid-row-start: 1;
     grid-row-end: 3;
     align-self: center;
-    color: $white;
+    color: white;
   }
 
   p {
-    color: $white;
+    color: white;
     grid-column: 1/2;
   }
 
   h2 {
     grid-column: 1/2;
-    margin-right: 20px;
-    color: $white;
+    margin: 20px 20px 10px 0;
+    color: white;
     font-weight: bold;
   }
 
