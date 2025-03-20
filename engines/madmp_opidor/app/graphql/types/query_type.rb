@@ -16,7 +16,7 @@ module Types
       offset = (page - 1) * size
 
       return {
-        totalCount: plans_scope.count,
+        count: plans_scope.count,
         items: plans_scope.limit(size).offset(offset).map { |plan| plan.json_fragment.get_full_fragment }
       } if filter.nil?
 
