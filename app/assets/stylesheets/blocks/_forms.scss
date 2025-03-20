@@ -4,7 +4,9 @@
     border: 0px;
 }
 
-input.form-control, textarea.form-control, select.form-control {
+input.form-control,
+textarea.form-control,
+select.form-select {
     border: 2px solid $color-border-light;
 }
 

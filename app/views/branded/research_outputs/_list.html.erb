@@ -42,7 +42,7 @@
                         ),
                         include_blank: true,
                         "data-toggle": "tooltip",
-                        class: "form-control input edit",
+                        class: "form-select input edit",
                         aria: { required: true, label: _('Research output type') },
                         id: "output_type_description"  %>
             <span class="readonly"><%= research_output_data['type'] %></span>
@@ -62,7 +62,7 @@
                 disabled: readonly,
                 include_blank: true,
                 aria: { label: _('Contact') },
-                class: "form-control" %>
+                class: "form-select" %>
               <a href="<%= plan_contributors_path(@plan) %>" target="_blank"
                  class="contributor-link"
                  aria-hidden="true" data-toggle="tooltip" 

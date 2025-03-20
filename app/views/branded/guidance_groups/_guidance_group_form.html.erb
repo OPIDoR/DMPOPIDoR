@@ -24,7 +24,7 @@ description_text_tooltip =  _('Enter your description here. You can include link
       options_from_collection_for_select(@locales, "id", "name", @guidance_group.language&.id || locale),
       include_blank: false,
       aria: { required: true },
-      class: "form-control",
+      class: "form-select",
       name: 'guidance_group[language_id]') %>
 </div>
 

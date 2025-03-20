@@ -29,7 +29,7 @@
           <%= select_tag("api_client_role[api_client_id]",
                          options_from_collection_for_select(api_clients, "id", "name"),
                          prompt: _('Select an organization'),
-                         class: "form-control") %>
+                         class: "form-select") %>
         <% end %>
       </div>
       <div class="clearfix"></div>
