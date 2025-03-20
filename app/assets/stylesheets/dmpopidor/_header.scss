@@ -161,10 +161,13 @@ header.dmpopidor-branding {
             }
           }
 
-          ul.dropdown-menu {
+          .dropdown-menu {
             .nav-item {
               .dropdown-item {
                 padding: 3px 20px;
+              }
+              .nav-link {
+                padding: 0 20px;
               }
             }
             &:hover {
