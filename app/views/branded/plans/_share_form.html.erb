@@ -26,7 +26,7 @@
             <% end %>
         </div>
         <div class="clearfix"></div>
-          <div class="form-control mb-3" style="margin-left: 15px;">
+          <div class="form-control mb-3 col-xs-8">
             <%= f.label(:administrator_access, _('Permissions'), class: 'legend-label') %>
             <div class="form-check">
               <%= f.label :administrator_access do %>
@@ -37,7 +37,7 @@
             <div class="form-check">
               <%= f.label :editor_access do %>
                 <%= f.radio_button :access, editor.access , id: "role_editor_access" %>
-                <%= _('Editor: can modifiy and comment the plan') %>
+                <%= _('Editor: can modify and comment the plan') %>
               <% end %>
             </div>
             <div class="form-check">
