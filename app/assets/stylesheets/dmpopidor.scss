@@ -125,21 +125,6 @@ body div a.btn {
     background-color: $dmpopidor-blue;
   }
 
-  /** Focus outline required for accessibility */
-  // input,
-  // select,
-  // .form-control {
-
-  //   &:focus,
-  //   &:hover,
-  //   &:active {
-  //     outline-style: solid !important;
-  //     outline-color: $dmpopidor-blue !important;
-  //     outline-width: 2px !important;
-  //   }
-  // }
-
-
   input.btn[type="button"] {
 
     &:focus,
