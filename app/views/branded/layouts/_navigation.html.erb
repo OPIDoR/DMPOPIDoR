@@ -77,6 +77,7 @@
           <li class="nav-item <%= ' active' if active_page?(glossary_path, true) %>">
             <%= link_to _("Glossary"), glossary_path+"#content", class: 'dropdown-item px-3' %>
           </li>
+          <li><hr class="dropdown-divider"></li>
           <% unless @nav_static_pages.empty? %>
             <% @nav_static_pages.each do |sp| %>
               <% if sp['inMenu'] %>
