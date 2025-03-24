@@ -47,3 +47,7 @@
   border: 1px solid $color-border-default;
   // box-shadow: 0px 0px 1px 1px $color-primary-background;
 }
+
+.btn.dropdown-toggle:hover, .btn.dropdown-toggle:focus {
+	color: black;
+}

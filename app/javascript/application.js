@@ -12,7 +12,6 @@ import 'regenerator-runtime/runtime';
 
 // Pull in Bootstrap JS functionality
 import 'bootstrap';
-import 'bootstrap-select';
 
 import Rails from '@rails/ujs';
 
