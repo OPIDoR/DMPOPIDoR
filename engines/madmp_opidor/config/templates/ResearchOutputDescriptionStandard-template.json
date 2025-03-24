@@ -124,17 +124,21 @@
             "form_label@en_GB": "Indicate the language in which the research output is described"
         },
         "contact": {
-            "type": "object",
-            "class": "Contributor",
-            "properties": {
-                "dbid": {
-                    "type": "number"
-                }
+            "type": "array",
+            "table_header": null,
+            "items": {
+                "type": "object",
+                "class": "Contributor",
+                "properties": {
+                    "dbid": {
+                        "type": "number"
+                    }
+                },
+                "template_name": "ContributorStandard",
+                "required": [
+                    "dbid"
+                ]
             },
-            "template_name": "ContributorStandard",
-            "required": [
-                "dbid"
-            ],
             "description": "Producteur ou titulaire des données",
             "label@fr_FR": "Personne contact",
             "label@en_GB": "Contact Person",

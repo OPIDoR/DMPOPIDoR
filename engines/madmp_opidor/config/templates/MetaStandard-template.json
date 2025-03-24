@@ -90,17 +90,21 @@
             "form_label@en_GB": "Language in which the plan is drafted"
         },
         "contact": {
-            "type": "object",
-            "class": "Contributor",
-            "properties": {
-                "dbid": {
-                    "type": "number"
-                }
+            "type": "array",
+            "table_header": null,
+            "items": {
+                "type": "object",
+                "class": "Contributor",
+                "properties": {
+                    "dbid": {
+                        "type": "number"
+                    }
+                },
+                "template_name": "ContributorStandard",
+                "required": [
+                    "dbid"
+                ]
             },
-            "template_name": "ContributorStandard",
-            "required": [
-                "dbid"
-            ],
             "description": "Personne responsable de la réalisation et suivi du plan de gestion de données",
             "label@fr_FR": "Responsable du plan",
             "label@en_GB": "DMP manager",
