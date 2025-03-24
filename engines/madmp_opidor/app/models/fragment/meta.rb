@@ -44,7 +44,7 @@ module Fragment
   # Meta STI model
   class Meta < MadmpFragment
     def contact
-      Fragment::Contributor.where(parent_id: id).first
+      Fragment::Contributor.where(parent_id: id)
     end
 
     def license

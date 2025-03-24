@@ -20,7 +20,7 @@ json.dmp do
   json.modified Export::Converters::RdaRegistryConverter.convert_date_to_iso8601(meta.data["lastModifiedDate"])
   json.title meta.data["title"]
 
-  contact = meta.contact
+  contact = meta.contact[0]
   if contact.present?
     json.contact do
       json.contact_id do
