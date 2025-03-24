@@ -19,7 +19,7 @@
       <tr id="<%= dom_id(template) %>">
         <td>
           <% if current_user.can_super_admin? %>
-            <%= link_to "#{template.title}", edit_org_admin_template_path(template.id) %>
+            <%= link_to "#{template.title}", edit_super_admin_template_path(template.id) %>
           <% else %>
             <%= template.title %>
           <% end %>

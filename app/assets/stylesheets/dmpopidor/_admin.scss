@@ -67,7 +67,30 @@
 }
 
 .dmpopidor-branding.super-admin {
+  
+  h1,
+  h2 {
+    color: black;
+    margin-top: 20px;
+    margin-bottom: 10px;
+  }
+
+  a {
+    color: black;
+    text-decoration: underline;
+  }
+
   .tab-pane {
     width: 100%;
+  }
+  .accordion {
+    .accordion-item {
+      border: none;
+      h2.accordion-header,
+      a.accordion-button,
+      button.accordion-button {
+        background-color: $dmpopidor-yellow;
+      }
+    }
   }
 }
