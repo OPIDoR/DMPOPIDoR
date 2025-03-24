@@ -15,11 +15,6 @@ export default function updateConditions(id) {
       addLogicButton.get(0).click();
     }
   }
-  // set up form-select select boxes for condition options
-  const setSelectPicker = () => {
-    // $('.form-select.narrow').selectpicker({ width: 120 });
-    // $('.form-select.regular').selectpicker({ width: 150 });
-  };
 
   // test if a webhook is selected and set up if so
   const allowWebhook = (selectObject, webhook = false) => { // webhook false => new condition
@@ -101,7 +96,6 @@ export default function updateConditions(id) {
     if (isObject(content)) {
       content.html(data.container);
     }
-    setSelectPicker();
     webhookForm(data.webhooks, undefined);
   });
 
@@ -114,7 +108,6 @@ export default function updateConditions(id) {
       conditionList.append(data.attachment_partial);
       addDiv.html(data.add_link);
       conditionList.attr('data-loaded', 'false');
-      setSelectPicker();
       const selectObject = conditionList.find('.form-select.action-type').last();
       webhookForm(undefined, selectObject);
     }
