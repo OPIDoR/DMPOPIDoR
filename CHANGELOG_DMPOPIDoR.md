@@ -2,6 +2,11 @@
 
 **Attention** Cette liste de changements concerne les déploiements sur nos serveurs de test en interne.
 
+## 24/03/2025
+
+- Corrections Bootstrap 5 (#10828)
+- Ajout d'éléments génériques lors du chargement de l'onglet Rédiger (placeholder)
+
 ## 17/03/2025
 
 - Erreur GraphQL si ``className``, ``field`` et ``operator`` sont absents ou vide, erreur si value est vide
