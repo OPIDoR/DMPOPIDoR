@@ -94,7 +94,7 @@ module Dmpopidor
             {
               'title' => title,
               'datasetId' => pid,
-              'type' => output_type_description
+              'type' => output_type_description || _('Dataset')
             }
           )
           fragment.research_output_description.update(data: data)

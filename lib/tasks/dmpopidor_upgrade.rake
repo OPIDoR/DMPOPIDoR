@@ -5,6 +5,8 @@ namespace :dmpopidor_upgrade do
   desc 'Upgrade to 4.3.0'
   task V4_3_0: :environment do
     Rake::Task['dmpopidor_upgrade:add_default_data_type_to_research_outputs'].execute
+    Rake::Task['dmpopidor_upgrade:add_default_type_to_research_outputs_without_type'].execute
+    Rake::Task['data_migration:V4_3_0'].execute
   end
   desc 'Upgrade to 4.2.0'
   task V4_2_0: :environment do
@@ -41,6 +43,17 @@ namespace :dmpopidor_upgrade do
                                                              'dataType' => 'none'
                                                            })
       )
+    end
+  end
+
+  desc 'Add default type to research outputs withoyt type'
+  task add_default_type_to_research_outputs_without_type: :environment do
+    Fragment::ResearchOutputDescription.all.each do |rod_fragment|
+      next if rod_fragment.data['type'].present?
+
+      I18n.with_locale rod_fragment.plan.template.locale do
+        rod_fragment.update_column(:data, rod_fragment.data.merge('type' => _('Dataset')))
+      end
     end
   end
 
