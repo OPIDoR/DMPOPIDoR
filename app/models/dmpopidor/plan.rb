@@ -113,7 +113,7 @@ module Dmpopidor
             'lastModifiedDate' => updated_at.strftime('%F'),
             'dmpLanguage' => template_locale,
             'dmpId' => identifier,
-            'contact' => { 'dbid' => dmp_coordinator.id }
+            'contact' => [{ 'dbid' => dmp_coordinator.id }]
           },
           dmp_id: dmp_fragment.id,
           parent_id: dmp_fragment.id,
@@ -146,7 +146,7 @@ module Dmpopidor
         data: {
           'title' => title,
           'description' => description,
-          'principalInvestigator' => { 'dbid' => project_coordinator.id }
+          'principalInvestigator' => [{ 'dbid' => project_coordinator.id }]
         },
         dmp_id: dmp_id,
         parent_id: dmp_id,

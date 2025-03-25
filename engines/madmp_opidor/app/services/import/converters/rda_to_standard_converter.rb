@@ -23,14 +23,14 @@ module Import
               'licenseStartDate' => '',
               'relatedDoc' => [],
               'associatedDmp' => [],
-              'contact' => {
+              'contact' => [{
                 'person' => {
                   'personId' => json.dig('contact', 'contact_id', 'identifier'),
                   'idType' => json.dig('contact', 'contact_id', 'type'),
                   'mbox' => json.dig('contact', 'mbox'),
                   'lastName' => json.dig('contact', 'name')
                 }
-              }
+              }]
             },
             'project' => convert_project(json['project']),
             'budget' => { 'cost' => convert_cost(json['cost']) },
