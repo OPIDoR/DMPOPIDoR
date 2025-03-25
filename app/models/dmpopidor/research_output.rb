@@ -70,11 +70,15 @@ module Dmpopidor
             additional_info: { property_name: description_prop_name }
           )
           fragment_description.instantiate
-          Fragment::Contributor.find_by(parent_id: fragment_description.id).update(
+          Fragment::Contributor.create!(
             data: {
               'person' => contact_person.present? ? { 'dbid' => contact_person.id } : nil,
               'role' => _('Contact Person')
-            }
+            },
+            dmp_id: dmp_fragment.id,
+            parent_id: fragment_description.id,
+            madmp_schema: MadmpSchema.find_by(name: 'ContributorStandard'),
+            additional_info: { property_name: 'contact' }
           )
 
           if description_question.present? && plan.structured?

@@ -109,17 +109,22 @@
             "form_label@en_GB": "List the partners associated with the project"
         },
         "principalInvestigator": {
-            "type": "object",
-            "class": "Contributor",
-            "properties": {
-                "dbid": {
-                    "type": "number"
-                }
+            "type": "array",
+            "table_header": null,
+            "items": {
+                "type": "object",
+                "class": "Contributor",
+                "properties": {
+                    "dbid": {
+                        "type": "number"
+                    }
+                },
+                "template_name": "ContributorStandard",
+                "required": [
+                    "dbid"
+                ]
             },
-            "template_name": "ContributorStandard",
-            "required": [
-                "dbid"
-            ],
+            "minItems": 1,
             "description": "Coordinateur principal du projet",
             "label@fr_FR": "Coordinateur du projet",
             "label@en_GB": "Project coordinator",
