@@ -2,6 +2,12 @@
 
 **Attention** Cette liste de changements concerne les déploiements sur nos serveurs de test en interne.
 
+## 26/03/2025
+
+- Ajout du support du role constant dans un template Contributeur (#12545)
+- Ajout de "Jeu de données/Dataset" aux PR sans type (#12859)
+- Changement de cardinalité pour des contributeurs à cardinalité 1..1 (#12546)
+
 ## 24/03/2025
 
 - Corrections Bootstrap 5 (#10828)
