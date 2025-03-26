@@ -4,7 +4,7 @@
 secure = Rails.env.production?
 
 Rails.application.config.session_store :redis_store,
-                                       servers: ENV.fetch('REDIS_URL', nil),
+                                       servers: Rails.configuration.x.dmpopidor.redis_url,
                                        expire_after: 1.day,
                                        key: ENV.fetch('SESSION_STORE_KEY', '_dmp_opidor_session'),
                                        threadsafe: ENV.fetch('SESSION_STORE_THREADSAFE',

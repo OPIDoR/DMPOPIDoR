@@ -160,7 +160,9 @@ module DMPRoadmap
                                                            true).to_s.casecmp('true').zero?
 
     # Mount Action Cable outside main process or domain
-    config.action_cable.url = ENV.fetch('ACTION_CABLE_URL', 'ws://localhost:8080/cable')
+    ws_scheme = ENV.fetch('ACTION_CABLE_SCHEME', 'ws')
+    ws_host = ENV.fetch('DMPROADMAP_HOST', 'localhost:8080')
+    config.action_cable.url = "#{ws_scheme}://#{ws_host}/cable"
     config.action_cable.mount_path = ENV.fetch('ACTION_CABLE_MOUNT_PATH', '/cable')
     config.action_cable.allowed_request_origins = JSON.parse(ENV.fetch('ACTION_CABLE_ALLOWED_REQUEST_ORIGINS',
                                                                        '[ "http://example.com", "/http:\/\/example.*/" ]')) # rubocop:disable Layout/LineLength
@@ -196,7 +198,10 @@ module DMPRoadmap
     # This allows us to define the hostname and add it to the whitelist. If you attempt
     # to access the site and receive a 'Blocked host' error then you will need to
     # set this environment variable
-    ENV.fetch('ALLOWED_HOSTS', 'dmpopidor').split(',').each do |host|
+    allowed_hosts = ENV.fetch('ALLOWED_HOSTS', 'dmpopidor')
+    app_host = ENV.fetch('DMPROADMAP_HOST', 'localhost:8080')
+    allowed_hosts = "#{app_host},#{allowed_hosts}"
+    allowed_hosts.split(',').each do |host|
       config.hosts << if host.match?(%r{\d+\.\d+\.\d+\.\d+/\d+})
                         IPAddr.new(host)
                       else

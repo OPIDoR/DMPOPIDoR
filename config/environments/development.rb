@@ -52,10 +52,13 @@ Rails.application.configure do
   # This allows us to define the hostname and add it to the whitelist. If you attempt
   # to access the site and receive a 'Blocked host' error then you will need to
   # set this environment variable
+  allowed_hosts = ENV.fetch('ALLOWED_HOSTS', 'dmpopidor')
+  app_host = ENV.fetch('DMPROADMAP_HOST', 'localhost:8080')
+  allowed_hosts = "#{app_host},#{allowed_hosts}"
   Rails.application.config.hosts = [
     IPAddr.new('0.0.0.0/0'), # All IPv4 addresses.
     IPAddr.new('::/0'), # All IPv6 addresses.
     'localhost', # The localhost reserved domain.
-    *ENV.fetch('ALLOWED_HOSTS', 'dmpopidor').split(',') # Additional comma-separated hosts for development.
+    *allowed_hosts.split(',') # Additional comma-separated hosts for development.
   ]
 end

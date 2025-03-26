@@ -313,7 +313,15 @@ module DMPRoadmap
     config.x.directus.url = ENV.fetch('DIRECTUS_URL', 'http://directus:8055')
     config.x.directus.public_url = ENV.fetch('DIRECTUS_PUBLIC_URL', 'http://localhost:8080/directus')
     config.x.dmpopidor.enable_third_party_form = ENV.fetch('ENABLE_THIRD_PARTY_FORM', false)
-    config.x.dmpopidor.redis_url = ENV.fetch('REDIS_URL', 'redis://default:changeme@localhost:6379/1')
     config.x.application.canalu_url = ENV.fetch('CANALU_URL', 'https://www.canal-u.tv/chaines/inist-cnrs/opidor')
+
+    redis_config = {
+      username: ENV.fetch('REDIS_USERNAME', 'default'),
+      password: ENV.fetch('REDIS_PASSWORD', 'changeme'),
+      host: ENV.fetch('REDIS_HOST', 'valkey'),
+      port: ENV.fetch('REDIS_PORT', '6379')
+    }
+
+    config.x.dmpopidor.redis_url = "redis://#{redis_config[:username]}:#{redis_config[:password]}@#{redis_config[:host]}:#{redis_config[:port]}"
   end
 end

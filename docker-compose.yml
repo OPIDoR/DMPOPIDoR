@@ -20,11 +20,11 @@ services:
       - PORT=${APP_PORT:-3000}
       - DB_ADAPTER=${DB_ADAPTER:-postgresql}
       - DB_POOL_SIZE=${DB_POOL_SIZE:-16}
-      - DB_HOST=${DB_HOST:-postgres}
-      - DB_PORT=${DB_PORT:-5432}
-      - DB_NAME=${DB_NAME:-roadmap}
-      - DB_USERNAME=${DB_USERNAME:-postgres}
-      - DB_PASSWORD=${DB_PASSWORD:-changeme}
+      - POSTGRES_HOST=${DB_HOST:-postgres}
+      - POSTGRES_PORT=${DB_PORT:-5432}
+      - POSTGRES_DATABASE=${DB_NAME:-roadmap}
+      - POSTGRES_USERNAME=${DB_USERNAME:-postgres}
+      - POSTGRES_PASSWORD=${DB_PASSWORD:-changeme}
       - DMPROADMAP_HOST=${DMPROADMAP_HOST:-dmpopidor}
       - ALLOWED_HOSTS=${ALLOWED_HOSTS}
       - RAILS_SERVE_STATIC_FILES=${RAILS_SERVE_STATIC_FILES:-true}
@@ -43,7 +43,6 @@ services:
       - DRAGON_FLY_SECRET=${DRAGON_FLY_SECRET:-my_secret_key}
       - RECAPTCHA_SITE_KEY=${RECAPTCHA_SITE_KEY:-11111}
       - RECAPTCHA_SECRET_KEY=${RECAPTCHA_SECRET_KEY:-22222}
-      - REDIS_URL=redis://${REDIS_USERNAME:-default}:${REDIS_PASSWORD:-changeme}@${REDIS_HOST:-valkey}:${REDIS_PORT:-6379}
       - REDIS_HOST=${REDIS_HOST:-valkey}
       - REDIS_PORT=${REDIS_PORT:-6379}
       - REDIS_USERNAME=${REDIS_USERNAME:-default}
@@ -67,6 +66,7 @@ services:
       - DIRECTUS_URL=http://directus:8055
       - DIRECTUS_PUBLIC_URL=http://${DMP_SERVER_NAME:-0.0.0.0}:${NGINX_PORT:-8080}/directus
       - ENABLE_GRAPHIQL=true
+      - ACTION_CABLE_SCHEME=ws
     working_dir: /app
     volumes:
       - ./log:/app/log

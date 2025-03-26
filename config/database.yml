@@ -2,11 +2,11 @@ defaults: &defaults
   adapter: <%= ENV.fetch('DB_ADAPTER', 'postgresql') %>
   encoding: <%= '' %>
   pool: <%= ENV.fetch('DB_POOL_SIZE', 16) %>
-  host: <%= ENV.fetch('DB_HOST', 'localhost') %>
-  port: <%= ENV.fetch('DB_PORT', '5432') %>
-  database: <%= ENV.fetch('DB_NAME', 'roadmap') %>
-  username: <%= ENV.fetch('DB_USERNAME', Rails.application.credentials.db_username) %>
-  password: <%= ENV.fetch('DB_PASSWORD', Rails.application.credentials.db_password) %>
+  host: <%= ENV.fetch('POSTGRES_HOST', 'postgres') %>
+  port: <%= ENV.fetch('POSTGRES_PORT', '5432') %>
+  database: <%= ENV.fetch('POSTGRES_DATABASE', 'roadmap') %>
+  username: <%= ENV.fetch('POSTGRES_USERNAME', Rails.application.credentials.db_username) %>
+  password: <%= ENV.fetch('POSTGRES_PASSWORD', Rails.application.credentials.db_password) %>
 
 production:
   <<: *defaults
