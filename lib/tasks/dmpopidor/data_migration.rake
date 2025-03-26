@@ -110,24 +110,24 @@ namespace :data_migration do
     p '------------------------------------------------------------------------'
     Fragment::Meta.all.each do |meta_fragment|
       contact = meta_fragment.data['contact']
-      meta_fragment.update(
-        data: meta_fragment.data.merge('contact' => [contact])
+      meta_fragment.update_column(
+        :data, meta_fragment.data.merge('contact' => [contact])
       )
     end
     p 'Changing project.principalInvestigator'
     p '------------------------------------------------------------------------'
     Fragment::Project.all.each do |project_fragment|
       pi = project_fragment.data['principalInvestigator']
-      project_fragment.update(
-        data: project_fragment.data.merge('principalInvestigator' => [pi])
+      project_fragment.update_column(
+        :data, project_fragment.data.merge('principalInvestigator' => [pi])
       )
     end
     p 'Changing researchOutputDescription.contact'
     p '------------------------------------------------------------------------'
     Fragment::ResearchOutputDescription.all.each do |rod_fragment|
       contact = rod_fragment.data['contact']
-      rod_fragment.update(
-        data: rod_fragment.data.merge('contact' => [contact])
+      rod_fragment.update_column(
+        :data, rod_fragment.data.merge('contact' => [contact])
       )
     end
     p '------------------------------------------------------------------------'

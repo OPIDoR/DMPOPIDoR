@@ -37,11 +37,12 @@ namespace :dmpopidor_upgrade do
       next unless ro_fragment.additional_info['dataType'].nil?
 
       p "Updating research output fragment #{ro_fragment.id}"
-      ro_fragment.update(
-        additional_info: ro_fragment.additional_info.merge({
-                                                             'moduleId' => nil,
-                                                             'dataType' => 'none'
-                                                           })
+      ro_fragment.update_column(
+        :additional_info,
+        ro_fragment.additional_info.merge({
+                                            'moduleId' => nil,
+                                            'dataType' => 'none'
+                                          })
       )
     end
   end
