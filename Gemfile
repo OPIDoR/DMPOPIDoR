@@ -9,7 +9,7 @@ ruby '>= 3.3'
 # ===========#
 
 # Full-stack web application framework. (http://rubyonrails.org)
-gem 'rails', '~> 7.2'
+gem 'rails', '~> 8.0'
 
 # TODO: Remove this once Rails addresses the issue with its dependency on mimemagic. Mimemagic had
 #       an MIT license but was using some incompatible GPL license code.
@@ -348,12 +348,8 @@ group :development do
   gem 'rack-mini-profiler'
 
   # Annotates Rails Models, routes, fixtures, and others based on the
-  # database schema. (http://github.com/ctran/annotate_models)
-  gem 'annotate'
-
-  # Add comments to your Gemfile with each dependency's description.
-  # (https://github.com/ivantsepp/annotate_gem)
-  gem 'annotate_gem'
+  # database schema. (https://github.com/drwl/annotaterb)
+  gem 'annotaterb'
 
   # help to kill N+1 queries and unused eager loading.
   # (https://github.com/flyerhzm/bullet)
