@@ -5,7 +5,7 @@ defaults: &defaults
   host: <%= ENV.fetch('POSTGRES_HOST', 'postgres') %>
   port: <%= ENV.fetch('POSTGRES_PORT', '5432') %>
   database: <%= ENV.fetch('POSTGRES_DATABASE', 'roadmap') %>
-  username: <%= ENV.fetch('POSTGRES_USERNAME', Rails.application.credentials.db_username) %>
+  username: <%= ENV.fetch('POSTGRES_USER', Rails.application.credentials.db_username) %>
   password: <%= ENV.fetch('POSTGRES_PASSWORD', Rails.application.credentials.db_password) %>
 
 production:

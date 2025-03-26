@@ -23,7 +23,7 @@ services:
       - POSTGRES_HOST=${DB_HOST:-postgres}
       - POSTGRES_PORT=${DB_PORT:-5432}
       - POSTGRES_DATABASE=${DB_NAME:-roadmap}
-      - POSTGRES_USERNAME=${DB_USERNAME:-postgres}
+      - POSTGRES_USER=${DB_USERNAME:-postgres}
       - POSTGRES_PASSWORD=${DB_PASSWORD:-changeme}
       - DMPROADMAP_HOST=${DMPROADMAP_HOST:-dmpopidor}
       - ALLOWED_HOSTS=${ALLOWED_HOSTS}
