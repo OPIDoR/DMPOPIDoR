@@ -391,6 +391,7 @@ header.dmpopidor-branding {
       height: min-content;
 
       #org-navbar {
+        flex-direction: column;
         margin-top: auto;
         width: 100%;
         border-radius: 15px;
@@ -402,6 +403,7 @@ header.dmpopidor-branding {
           display: flex;
           height: inherit;
           padding: 20px;
+          width: 100%;
 
           @media (max-width: 767px) {
             justify-content: center;
@@ -503,6 +505,7 @@ header.dmpopidor-branding {
           font-size: large;
           padding: 0 30px;
           text-align: justify;
+          width: 100%;
 
           @media (max-width: 575px) {
             text-align: center;
