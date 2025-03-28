@@ -93,7 +93,7 @@ module Dmpopidor
           },
           dmp_id: dmp_fragment.id,
           parent_id: nil,
-          madmp_schema: MadmpSchema.find_by(name: 'ContributorStandard'),
+          madmp_schema: MadmpSchema.find_by(name: 'ContributorConstantRole'),
           additional_info: { property_name: 'contact' }
         )
 
@@ -138,7 +138,7 @@ module Dmpopidor
         },
         dmp_id: dmp_id,
         parent_id: nil,
-        madmp_schema: MadmpSchema.find_by(name: 'ContributorStandard'),
+        madmp_schema: MadmpSchema.find_by(name: 'ContributorConstantRole'),
         additional_info: { property_name: 'principalInvestigator' }
       )
 

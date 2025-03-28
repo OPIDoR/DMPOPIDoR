@@ -77,7 +77,7 @@ module Dmpopidor
             },
             dmp_id: dmp_fragment.id,
             parent_id: fragment_description.id,
-            madmp_schema: MadmpSchema.find_by(name: 'ContributorStandard'),
+            madmp_schema: MadmpSchema.find_by(name: 'ContributorConstantRole'),
             additional_info: { property_name: 'contact' }
           )
 
