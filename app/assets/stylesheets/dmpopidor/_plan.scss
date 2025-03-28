@@ -270,9 +270,11 @@
           &.form-control {
             flex-direction: column;
           }
+
           select {
             width: 90%;
           }
+
           .contributor-link {
             align-self: center;
           }
@@ -354,6 +356,10 @@
     &.multiple-research-output {
       border-top-color: transparent;
     }
+
+    .card {
+      border: none;
+    }
   }
 
 
@@ -364,9 +370,10 @@
     li {
       flex: 1 1 15%;
       text-align: center;
+
       &.disabled {
         cursor: not-allowed;
-  
+
         a {
           pointer-events: none;
         }
@@ -408,12 +415,17 @@
       .card-title {
         color: $dark-blue;
         font-weight: bold;
+        width: 100%;
+        font-size: 16px;
 
         a {
           display: inline;
           padding: 0;
           margin: 0;
           background-color: #fff;
+        }
+        i {
+          font-size: 16px;
         }
       }
     }
@@ -435,10 +447,10 @@
           color: #fff;
           padding: 10px 5px;
           cursor: pointer;
-  
+
           text-orientation: mixed;
           writing-mode: vertical-rl;
-  
+
           &.disabled {
             background-color: $light-grey;
             cursor: not-allowed;

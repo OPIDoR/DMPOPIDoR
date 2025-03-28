@@ -120,9 +120,10 @@ body div a.btn {
       min-width: initial;
     }
   }
+  
 
-  .label-info {
-    background-color: $dmpopidor-blue;
+  .bg-info {
+    background-color: $dmpopidor-blue !important;
   }
 
   input.btn[type="button"] {

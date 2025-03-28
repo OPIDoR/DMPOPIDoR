@@ -53,8 +53,9 @@
           <ul class="nav nav-tabs research-outputs-tabs">
             <% section_has_common_answers = plan.research_outputs.first.common_answers?(section.id) %>
             <% plan.research_outputs.each_with_index do |research_output, i| %>
-              <li class="research-outputs-tab <%= 'active' if research_output.main? %> <%= 'disabled' if section_has_common_answers %>">
+              <li class="research-outputs-tab nav-item <%= 'disabled' if section_has_common_answers %>">
                 <a href="#section-panel-<%= section.id %>" data-bs-toggle="tab" 
+                                  class="nav-link <%= 'active' if research_output.main? %>"
                                   data-research-output="<%= research_output.id %>" 
                                   data-bs-target="#research_output_<%= research_output.id %>_section_<%= section.id %>"
                 >
@@ -64,10 +65,10 @@
             <% end if plan.research_outputs.count > 1 %>
           </ul>
           <% multiple_ro_class = plan.research_outputs.count > 1 ? "multiple-research-output" : "single-research-output" %>
-          <div id="questions-accordion-<%= section.id %>" class="tab-content card-body research-output-content <%= multiple_ro_class %>">
+          <div id="questions-accordion-<%= section.id %>" class="tab-content card research-output-content <%= multiple_ro_class %>">
             <% plan.research_outputs.each_with_index do |research_output, i| %>
               <div id="research_output_<%= research_output.id %>_section_<%= section.id %>" 
-                   class="card research-output-panel tab-pane fade <%= 'in active' if research_output.main? %> <%= 'main_research_output' if research_output.main? %>">
+                   class="card-body research-output-panel tab-pane fade <%= 'show active' if research_output.main? %> <%= 'main_research_output' if research_output.main? %>">
                 <% if research_output.main? && plan.research_outputs.count > 1 %>
                   <p>
                     <input type="checkbox" class="is_common_cb" 
@@ -89,19 +90,17 @@
                   <div class="row question accordion-item w-100 my-3">
                   
                     <h2 class="accordion-header" role="tab" id="heading-<%= consolidated_id %>">
-                      <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                      <button class="accordion-button question-text collapsed" type="button" data-bs-toggle="collapse"
                         id="question-panel-<%= consolidated_id %>"
                         data-bs-parent="sections-accordion"
                         href="#collapse-<%= consolidated_id %>"
                         aria-expanded="false"
                         aria-controls="collapse-<%= consolidated_id %>">
-                          <div class="card-heading question-text" role="tab" id="heading-<%= consolidated_id %>">
-                            <div class="card-title float-start">
-                              <%= sanitize(question.text) %> 
-                            </div>
-                            <i class="fas fa-chevron-right float-start" aria-hidden="true"></i>
-                            <div class="clearfix"></div>
+                          <div class="card-title float-start">
+                            <%= sanitize(question.text) %> 
                           </div>
+                          <i class="fas fa-chevron-right float-end" aria-hidden="true"></i>
+                          <div class="clearfix"></div>
                         </button>
               
                     </h2>
