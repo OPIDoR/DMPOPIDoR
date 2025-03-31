@@ -64,6 +64,10 @@
     }
   }
 
+  #search-addon {
+    background-color: $rust;
+  }
+
 }
 
 .dmpopidor-branding.super-admin {
@@ -91,6 +95,13 @@
       button.accordion-button {
         background-color: $dmpopidor-yellow;
       }
+    }
+  }
+
+  #search-addon {
+    background-color: $dmpopidor-yellow;
+    span.fa-magnifying-glass {
+      color: black;
     }
   }
 }
