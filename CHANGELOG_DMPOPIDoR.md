@@ -2,6 +2,13 @@
 
 **Attention** Cette liste de changements concerne les déploiements sur nos serveurs de test en interne.
 
+## 31/03/2025
+
+- Retrait de la création du principalInvestigator à la création du plan (#12934)
+- Amélioration de l'affichage d'un contributeur avec un rôle constant (#12545)
+- Correction du problème de création de lien dans un éditeur présent dans un fenêtre modale (#11060)
+- Améliorations suite à la migration Bootstrap (bannière organisme, champ de recherche liste utilisateurs...)
+
 ## 26/03/2025
 
 - Ajout du support du role constant dans un template Contributeur (#12545)
