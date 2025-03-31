@@ -4,25 +4,25 @@
 <div class="plan-guidance-tab">
   <!-- Nav tabs -->
   <ul class="nav nav-pills nav-justified mb-2" role="tablist">
-      <% if guidances_active %>
-          <li role="presentation" class="nav-item">
-              <a class="nav-link active" href="#guidances-<%= question.id %>-research-output-<%= research_output.id %>" 
-                 aria-controls="guidances-<%= question.id %>-research-output-<%= research_output.id %>" role="tab" data-bs-toggle="pill">
-                  <%= _('Guidance') %>
-              </a>
-          </li>
-      <% end %>
-      <% if plan.present? %>
-          <li role="presentation" class="nav-item">
-              <a class="nav-link <%= 'active' if !guidances_active %>" href="#notes-<%= question.id %>-research-output-<%= research_output.id %>" 
-                 aria-controls="notes-<%= question.id %>-research-output-<%= research_output.id %>" role="tab" data-bs-toggle="pill">
-                  <span id="notes-title-<%= question.id %>-research-output-<%= research_output.id %>">
-                    <% notes = answer.non_archived_notes %>
-                    <%= _('Comments') %><%= notes.length > 0 ? " (#{notes.length})" : '' %>
-                  </span>
-              </a>
-          </li>
-      <% end %>
+    <% if guidances_active %>
+      <li role="presentation" class="nav-item">
+        <a class="nav-link active" href="#guidances-<%= question.id %>-research-output-<%= research_output.id %>" 
+            aria-controls="guidances-<%= question.id %>-research-output-<%= research_output.id %>" role="tab" data-bs-toggle="pill">
+            <%= _('Guidance') %>
+        </a>
+      </li>
+    <% end %>
+    <% if plan.present? %>
+      <li role="presentation" class="nav-item">
+        <a class="nav-link <%= 'active' if !guidances_active %>" href="#notes-<%= question.id %>-research-output-<%= research_output.id %>"
+          aria-controls="notes-<%= question.id %>-research-output-<%= research_output.id %>" role="tab" data-bs-toggle="pill">
+          <span id="notes-title-<%= question.id %>-research-output-<%= research_output.id %>">
+            <% notes = answer.non_archived_notes %>
+            <%= _('Comments') %><%= notes.length > 0 ? " (#{notes.length})" : '' %>
+          </span>
+        </a>
+      </li>
+    <% end %>
   </ul>
   <div class="tab-content">
     <% if guidances_active %>
@@ -67,7 +67,6 @@
                     <%= render partial: 'guidance_groups/index_by_theme',
                         locals: { question: question, research_output: research_output, guidance_groups_by_theme: tab[:groups] } %>
                   <% end %>
-                  </div>
                 </div>
               </div>
             </div>
