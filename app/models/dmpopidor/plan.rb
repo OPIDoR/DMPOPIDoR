@@ -103,7 +103,7 @@ module Dmpopidor
         if template.research_entity?
           handle_research_entity(dmp_fragment.id, json_data.present? ? json_data['research_entity'] : nil)
         else
-          handle_research_project(dmp_fragment.id, person)
+          handle_research_project(dmp_fragment.id)
         end
 
         meta = Fragment::Meta.create!(
@@ -127,35 +127,20 @@ module Dmpopidor
     end
     # rubocop:enable Metrics/AbcSize, Metrics/MethodLength
 
-    # rubocop:disable Metrics/MethodLength
-    def handle_research_project(dmp_id, person)
+    def handle_research_project(dmp_id)
       project_schema = MadmpSchema.find_by(name: 'ProjectStandard')
 
-      project_coordinator = Fragment::Contributor.create!(
-        data: {
-          'person' => person.present? ? { 'dbid' => person.id } : nil,
-          'role' => _('Project coordinator')
-        },
-        dmp_id: dmp_id,
-        parent_id: nil,
-        madmp_schema: MadmpSchema.find_by(name: 'ContributorConstantRole'),
-        additional_info: { property_name: 'principalInvestigator' }
-      )
-
-      project = Fragment::Project.create!(
+      Fragment::Project.create!(
         data: {
           'title' => title,
-          'description' => description,
-          'principalInvestigator' => [{ 'dbid' => project_coordinator.id }]
+          'description' => description
         },
         dmp_id: dmp_id,
         parent_id: dmp_id,
         madmp_schema: project_schema,
         additional_info: { property_name: 'project' }
       )
-      project_coordinator.update(parent_id: project.id)
     end
-    # rubocop:enable Metrics/MethodLength
 
     def handle_research_entity(dmp_id, research_entity = nil)
       entity_schema = MadmpSchema.find_by(name: 'ResearchEntityStandard')
