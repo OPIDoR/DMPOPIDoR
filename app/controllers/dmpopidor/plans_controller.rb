@@ -417,10 +417,11 @@ module Dmpopidor
             else
               @plan.visibility = Rails.configuration.x.plans.default_visibility
 
-              @plan.title = format(_("%{user_name}'s Plan"), user_name: current_user.firstname)
-              @plan.title = json_data['meta']['title'] if json_data.dig('meta', 'title')
-              @plan.title = format(_('Import of %{title}'), title: @plan.title)
-              json_data['meta']['title'] = @plan.title
+              @plan.title = if json_data.dig('meta', 'title')
+                              format(_('Import of %{title}'), title: json_data['meta']['title'])
+                            else
+                              format(_("%{user_name}'s Plan"), user_name: current_user.firstname)
+                            end
               @plan.org = current_user.org
 
               if @plan.save
@@ -430,6 +431,7 @@ module Dmpopidor
 
                 Import::PlanImportService.import(@plan, json_data, import_params[:format])
 
+                @plan.update(title: @plan.json_fragment.meta.data['title'])
                 format.json do
                   render json: { status: 201, message: _('imported'), data: { planId: @plan.id } }, status: :created
                 end
