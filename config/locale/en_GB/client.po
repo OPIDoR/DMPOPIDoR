@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: app 1.0\n"
 "Report-Msgid-Bugs-To: contact@translation.io\n"
-"POT-Creation-Date: 2025-04-02 08:22+0200\n"
-"PO-Revision-Date: 2025-04-02 08:22+0200\n"
+"POT-Creation-Date: 2025-04-02 10:59+0200\n"
+"PO-Revision-Date: 2025-04-02 10:59+0200\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: English\n"
 "Language: en_GB\n"
@@ -342,7 +342,7 @@ msgstr ""
 #: ../../app/views/branded/paginable/plans/_administrator_visible.html.erb:36
 #: ../../app/views/branded/paginable/plans/_administrator_visible.html.erb:44
 #: ../../app/views/branded/paginable/plans/_privately_visible.html.erb:42
-#: ../../app/views/branded/paginable/plans/_privately_visible.html.erb:57
+#: ../../app/views/branded/paginable/plans/_privately_visible.html.erb:58
 #: ../../app/views/branded/paginable/templates/_history.html.erb:34
 #: ../../app/views/branded/paginable/users/_index.html.erb:92
 #: ../../app/views/branded/shared/export/_display_madmp_fragment.erb:15
@@ -357,7 +357,7 @@ msgstr ""
 #: ../../app/views/branded/paginable/plans/_administrator_visible.html.erb:36
 #: ../../app/views/branded/paginable/plans/_administrator_visible.html.erb:46
 #: ../../app/views/branded/paginable/plans/_privately_visible.html.erb:42
-#: ../../app/views/branded/paginable/plans/_privately_visible.html.erb:60
+#: ../../app/views/branded/paginable/plans/_privately_visible.html.erb:61
 #: ../../app/views/branded/paginable/templates/_history.html.erb:34
 #: ../../app/views/branded/paginable/users/_index.html.erb:92
 #: ../../app/views/branded/shared/export/_display_madmp_fragment.erb:15
@@ -2167,7 +2167,7 @@ msgstr ""
 #: ../../app/views/branded/paginable/plans/_administrator_visible.html.erb:14
 #: ../../app/views/branded/paginable/plans/_administrator_visible.html.erb:54
 #: ../../app/views/branded/paginable/plans/_privately_visible.html.erb:13
-#: ../../app/views/branded/paginable/plans/_privately_visible.html.erb:68
+#: ../../app/views/branded/paginable/plans/_privately_visible.html.erb:69
 #: ../../app/views/branded/paginable/templates/_history.html.erb:10
 #: ../../app/views/branded/paginable/templates/_modules.html.erb:58
 #: ../../app/views/branded/paginable/templates/_organisational.html.erb:57
@@ -2346,7 +2346,7 @@ msgstr ""
 #: ../../app/views/branded/paginable/guidances/_index.html.erb:59
 #: ../../app/views/branded/paginable/orgs/_index.html.erb:39
 #: ../../app/views/branded/paginable/plans/_administrator_visible.html.erb:59
-#: ../../app/views/branded/paginable/plans/_privately_visible.html.erb:73
+#: ../../app/views/branded/paginable/plans/_privately_visible.html.erb:74
 #: ../../app/views/branded/paginable/templates/_history.html.erb:50
 #: ../../app/views/branded/paginable/templates/_modules.html.erb:61
 #: ../../app/views/branded/paginable/templates/_organisational.html.erb:60
@@ -2726,7 +2726,7 @@ msgstr ""
 #: ../../app/views/branded/paginable/guidances/_index.html.erb:66
 #: ../../app/views/branded/paginable/orgs/_index.html.erb:41
 #: ../../app/views/branded/paginable/plans/_administrator_visible.html.erb:76
-#: ../../app/views/branded/paginable/plans/_privately_visible.html.erb:90
+#: ../../app/views/branded/paginable/plans/_privately_visible.html.erb:91
 #: ../../app/views/branded/paginable/templates/_modules.html.erb:72
 #: ../../app/views/branded/paginable/templates/_modules.html.erb:79
 #: ../../app/views/branded/paginable/templates/_organisational.html.erb:78
@@ -2790,8 +2790,8 @@ msgstr ""
 #: ../../app/views/branded/paginable/plans/_administrator_visible.html.erb:65
 #: ../../app/views/branded/paginable/plans/_administrator_visible.html.erb:71
 #: ../../app/views/branded/paginable/plans/_organisationally_or_publicly_visible.html.erb:21
-#: ../../app/views/branded/paginable/plans/_privately_visible.html.erb:79
-#: ../../app/views/branded/paginable/plans/_privately_visible.html.erb:85
+#: ../../app/views/branded/paginable/plans/_privately_visible.html.erb:80
+#: ../../app/views/branded/paginable/plans/_privately_visible.html.erb:86
 #: ../../app/views/branded/paginable/plans/_publicly_visible.html.erb:13
 #: ../../app/views/branded/paginable/templates/_history.html.erb:6
 #: ../../app/views/branded/paginable/templates/_modules.html.erb:2
@@ -2876,32 +2876,32 @@ msgid "Update"
 msgstr ""
 
 #: ../../app/views/branded/paginable/plans/_administrator_visible.html.erb:62
-#: ../../app/views/branded/paginable/plans/_privately_visible.html.erb:76
+#: ../../app/views/branded/paginable/plans/_privately_visible.html.erb:77
 #: ../../app/views/branded/plans/_navigation.html.erb:63
 msgid "Share"
 msgstr ""
 
 #: ../../app/views/branded/paginable/plans/_administrator_visible.html.erb:66
-#: ../../app/views/branded/paginable/plans/_privately_visible.html.erb:80
+#: ../../app/views/branded/paginable/plans/_privately_visible.html.erb:81
 #: ../../app/views/branded/paginable/templates/_organisational.html.erb:71
 msgid "Copy"
 msgstr ""
 
 #: ../../app/views/branded/paginable/plans/_administrator_visible.html.erb:68
-#: ../../app/views/branded/paginable/plans/_privately_visible.html.erb:82
+#: ../../app/views/branded/paginable/plans/_privately_visible.html.erb:83
 #: ../../app/views/branded/paginable/templates/_history.html.erb:52
 msgid "View"
 msgstr ""
 
 #: ../../app/views/branded/paginable/plans/_administrator_visible.html.erb:75
-#: ../../app/views/branded/paginable/plans/_privately_visible.html.erb:89
+#: ../../app/views/branded/paginable/plans/_privately_visible.html.erb:90
 msgid ""
 "Are you sure you wish to remove this public plan? This will remove it from the"
 " Public DMPs page but any collaborators will still be able to access it."
 msgstr ""
 
 #: ../../app/views/branded/paginable/plans/_administrator_visible.html.erb:75
-#: ../../app/views/branded/paginable/plans/_privately_visible.html.erb:89
+#: ../../app/views/branded/paginable/plans/_privately_visible.html.erb:90
 msgid ""
 "Are you sure you wish to remove this plan? Any collaborators will still be abl"
 "e to access it."
@@ -2934,15 +2934,17 @@ msgstr ""
 msgid "Test plan ?"
 msgstr ""
 
-#: ../../app/views/branded/paginable/plans/_privately_visible.html.erb:51
+#: ../../app/views/branded/paginable/plans/_privately_visible.html.erb:52
 msgid "Shared with:<br/>"
 msgstr ""
 
-#: ../../app/views/branded/paginable/plans/_privately_visible.html.erb:52
-msgid " - %{collab_number} collaborators<br/>"
-msgstr ""
-
 #: ../../app/views/branded/paginable/plans/_privately_visible.html.erb:53
+msgid " - %{collab_number} collaborator<br/>"
+msgid_plural " - %{collab_number} collaborators<br/>"
+msgstr[0] ""
+msgstr[1] ""
+
+#: ../../app/views/branded/paginable/plans/_privately_visible.html.erb:54
 msgid " - the following third-party organizations : %{services_list}"
 msgstr ""
 

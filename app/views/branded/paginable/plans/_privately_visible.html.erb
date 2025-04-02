@@ -46,10 +46,11 @@
             <%= plan.visibility === 'is_test' ? _('N/A') : sanitize(display_visibility(plan.visibility)) %>
           </td>
           <% if plan.shared? %>
-            <% api_clients = plan.api_client_roles.joins(:api_client).pluck('api_clients.name').join(',') %>
             <% 
+              api_clients = plan.api_client_roles.joins(:api_client).pluck('api_clients.name').join(',')
+              collab_number = plan.roles.length - 1
               shared_tooltip = _('Shared with:<br/>')
-              shared_tooltip += _(' - %{collab_number} collaborators<br/>') % { collab_number: plan.roles.length } if plan.roles.length > 1
+              shared_tooltip += n_(' - %{collab_number} collaborator<br/>', ' - %{collab_number} collaborators<br/>', collab_number) % { collab_number: collab_number } if collab_number > 0
               shared_tooltip += _(' - the following third-party organizations : %{services_list}') % { services_list: api_clients } if api_clients.length > 0
             %>
             <td data-toggle="tooltip" data-bs-html="true" title="<%= shared_tooltip %>">
