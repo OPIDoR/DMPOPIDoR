@@ -45,13 +45,20 @@
           <td class="plan-visibility">
             <%= plan.visibility === 'is_test' ? _('N/A') : sanitize(display_visibility(plan.visibility)) %>
           </td>
-          <td>
-            <% if plan.shared? %>
+          <% if plan.shared? %>
+            <% api_clients = plan.api_client_roles.joins(:api_client).pluck('api_clients.name').join(',') %>
+            <% 
+              shared_tooltip = _('Shared with:<br/>')
+              shared_tooltip += _(' - %{collab_number} collaborators<br/>') % { collab_number: plan.roles.length } if plan.roles.length > 1
+              shared_tooltip += _(' - the following third-party organizations : %{services_list}') % { services_list: api_clients } if api_clients.length > 0
+            %>
+            <td data-toggle="tooltip" data-bs-html="true" title="<%= shared_tooltip %>">
+              <em class="sr-only"><%= shared_tooltip %></em>
               <%= _("Yes") %>
-            <% else %>
-              <%= _('No') %>
-            <% end  %>
-          </td>
+            </td>
+          <% else %>
+            <td><%= link_to _('No'), share_plan_path(plan) %></td>
+          <% end  %>
           <td class="text-center">
             <div class="dropdown plan-actions">
               <button href="#" class="btn btn-link dropdown-toggle" type="button"

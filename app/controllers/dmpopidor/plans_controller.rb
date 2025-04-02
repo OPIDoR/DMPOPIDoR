@@ -14,7 +14,7 @@ module Dmpopidor
                  ::Plan.includes(:roles).owner_or_coowner(current_user)
                        .where.not(visibility: ::Plan.visibilities[:is_test])
                else
-                 ::Plan.includes(:roles).active(current_user)
+                 ::Plan.includes(:roles, api_client_roles: :api_client).active(current_user)
                end
       @organisationally_or_publicly_visible = if current_user.org.is_other?
                                                 []

@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: app 1.0\n"
 "Report-Msgid-Bugs-To: contact@translation.io\n"
-"POT-Creation-Date: 2025-03-25 11:48+0100\n"
-"PO-Revision-Date: 2025-03-25 11:48+0100\n"
+"POT-Creation-Date: 2025-04-02 08:22+0200\n"
+"PO-Revision-Date: 2025-04-02 08:22+0200\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: French\n"
 "Language: fr_FR\n"
@@ -217,7 +217,7 @@ msgstr "créé"
 
 #: ../../app/controllers/dmpopidor/notes_controller.rb:123
 #: ../../app/controllers/dmpopidor/plans_controller.rb:142
-#: ../../app/controllers/dmpopidor/plans_controller.rb:438
+#: ../../app/controllers/dmpopidor/plans_controller.rb:440
 #: ../../app/controllers/guidance_groups_controller.rb:36
 #: ../../app/controllers/guidances_controller.rb:61
 #: ../../app/controllers/notes_controller.rb:73
@@ -260,7 +260,7 @@ msgid "My Plan (%{title})"
 msgstr "Mon plan (%{title})"
 
 #: ../../app/controllers/dmpopidor/plans_controller.rb:81
-#: ../../app/controllers/dmpopidor/plans_controller.rb:420
+#: ../../app/controllers/dmpopidor/plans_controller.rb:423
 #: ../../app/controllers/plans_controller.rb:105
 msgid "%{user_name}'s Plan"
 msgstr "Plan de %{user_name}"
@@ -304,29 +304,29 @@ msgstr "PR"
 msgid "Research output"
 msgstr "Produit de recherche"
 
-#: ../../app/controllers/dmpopidor/plans_controller.rb:422
+#: ../../app/controllers/dmpopidor/plans_controller.rb:421
 msgid "Import of %{title}"
 msgstr "Import de %{title}"
 
-#: ../../app/controllers/dmpopidor/plans_controller.rb:434
+#: ../../app/controllers/dmpopidor/plans_controller.rb:436
 msgid "imported"
 msgstr "importé"
 
-#: ../../app/controllers/dmpopidor/plans_controller.rb:444
+#: ../../app/controllers/dmpopidor/plans_controller.rb:446
 msgid "Unvalid file"
 msgstr "Fichier non valide"
 
-#: ../../app/controllers/dmpopidor/plans_controller.rb:448
+#: ../../app/controllers/dmpopidor/plans_controller.rb:450
 msgid "File should contain JSON"
 msgstr "Le fichier doit contenir du JSON"
 
-#: ../../app/controllers/dmpopidor/plans_controller.rb:453
+#: ../../app/controllers/dmpopidor/plans_controller.rb:455
 #: ../../engines/madmp_opidor/app/controllers/madmp_codebase_controller.rb:64
 #: ../../engines/madmp_opidor/app/controllers/madmp_codebase_controller.rb:160
 msgid "An error has occured: "
 msgstr "Une erreur s'est produite :"
 
-#: ../../app/controllers/dmpopidor/plans_controller.rb:511
+#: ../../app/controllers/dmpopidor/plans_controller.rb:513
 msgid "Invalid JSON: "
 msgstr "JSON non valide :"
 
@@ -344,14 +344,14 @@ msgid "There is no plan associated with id %{id}"
 msgstr "Il n'existe aucun plan associé à l'identifiant %{id}"
 
 #: ../../app/controllers/dmpopidor/research_outputs_controller.rb:68
-#: ../../app/models/dmpopidor/research_output.rb:216
+#: ../../app/models/dmpopidor/research_output.rb:220
 #: ../../app/views/branded/paginable/api_clients/_index.html.erb:34
 #: ../../app/views/branded/paginable/guidance_groups/_index.html.erb:34
 #: ../../app/views/branded/paginable/orgs/_index.html.erb:25
 #: ../../app/views/branded/paginable/plans/_administrator_visible.html.erb:36
 #: ../../app/views/branded/paginable/plans/_administrator_visible.html.erb:44
 #: ../../app/views/branded/paginable/plans/_privately_visible.html.erb:42
-#: ../../app/views/branded/paginable/plans/_privately_visible.html.erb:50
+#: ../../app/views/branded/paginable/plans/_privately_visible.html.erb:57
 #: ../../app/views/branded/paginable/templates/_history.html.erb:34
 #: ../../app/views/branded/paginable/users/_index.html.erb:92
 #: ../../app/views/branded/shared/export/_display_madmp_fragment.erb:15
@@ -359,14 +359,14 @@ msgid "Yes"
 msgstr "Oui"
 
 #: ../../app/controllers/dmpopidor/research_outputs_controller.rb:68
-#: ../../app/models/dmpopidor/research_output.rb:216
+#: ../../app/models/dmpopidor/research_output.rb:220
 #: ../../app/views/branded/paginable/api_clients/_index.html.erb:34
 #: ../../app/views/branded/paginable/guidance_groups/_index.html.erb:32
 #: ../../app/views/branded/paginable/orgs/_index.html.erb:25
 #: ../../app/views/branded/paginable/plans/_administrator_visible.html.erb:36
 #: ../../app/views/branded/paginable/plans/_administrator_visible.html.erb:46
 #: ../../app/views/branded/paginable/plans/_privately_visible.html.erb:42
-#: ../../app/views/branded/paginable/plans/_privately_visible.html.erb:52
+#: ../../app/views/branded/paginable/plans/_privately_visible.html.erb:60
 #: ../../app/views/branded/paginable/templates/_history.html.erb:34
 #: ../../app/views/branded/paginable/users/_index.html.erb:92
 #: ../../app/views/branded/shared/export/_display_madmp_fragment.erb:15
@@ -1169,11 +1169,7 @@ msgstr "Responsable du plan"
 msgid "\"%{project_title}\" project DMP"
 msgstr "PGD du projet \"%{project_title}\""
 
-#: ../../app/models/dmpopidor/plan.rb:137
-msgid "Project coordinator"
-msgstr "Coordinateur du projet"
-
-#: ../../app/models/dmpopidor/plan.rb:191 ../../app/models/plan.rb:354
+#: ../../app/models/dmpopidor/plan.rb:176 ../../app/models/plan.rb:354
 #: ../../app/models/plan.rb:360 ../../app/models/plan.rb:393
 #: ../../app/models/plan.rb:399
 msgid "Copy of %{title}"
@@ -1183,7 +1179,7 @@ msgstr "Copie de %{title}"
 msgid "Contact Person"
 msgstr "Personne contact"
 
-#: ../../app/models/dmpopidor/research_output.rb:97
+#: ../../app/models/dmpopidor/research_output.rb:101
 msgid "Dataset"
 msgstr "Jeu de données"
 
@@ -1523,7 +1519,7 @@ msgstr ""
 "re ci dessous."
 
 #: ../../app/views/branded/contact_us/contacts/new.html.erb:12
-#: ../../app/views/branded/layouts/_branding.html.erb:35
+#: ../../app/views/branded/layouts/_branding.html.erb:37
 #: ../../app/views/branded/layouts/_footer.html.erb:22
 #: ../../app/views/branded/layouts/_footer.html.erb:36
 #: ../../app/views/branded/layouts/_footer.html.erb:44
@@ -1667,7 +1663,7 @@ msgid ""
 msgstr "Changer votre organisation entraînera la perte de vos droits administrateur."
 
 #: ../../app/views/branded/devise/registrations/_personal_details.html.erb:36
-#: ../../app/views/branded/layouts/_branding.html.erb:52
+#: ../../app/views/branded/layouts/_branding.html.erb:54
 #: ../../app/views/branded/plans/new.html.erb:9
 msgid ""
 "Your organisation has been deactivated. Please choose a new organisation from "
@@ -2295,7 +2291,7 @@ msgstr "Date de la demande"
 #: ../../app/views/branded/paginable/plans/_administrator_visible.html.erb:14
 #: ../../app/views/branded/paginable/plans/_administrator_visible.html.erb:54
 #: ../../app/views/branded/paginable/plans/_privately_visible.html.erb:13
-#: ../../app/views/branded/paginable/plans/_privately_visible.html.erb:61
+#: ../../app/views/branded/paginable/plans/_privately_visible.html.erb:68
 #: ../../app/views/branded/paginable/templates/_history.html.erb:10
 #: ../../app/views/branded/paginable/templates/_modules.html.erb:58
 #: ../../app/views/branded/paginable/templates/_organisational.html.erb:57
@@ -2501,7 +2497,7 @@ msgstr "Aucun fourni"
 #: ../../app/views/branded/paginable/guidances/_index.html.erb:59
 #: ../../app/views/branded/paginable/orgs/_index.html.erb:39
 #: ../../app/views/branded/paginable/plans/_administrator_visible.html.erb:59
-#: ../../app/views/branded/paginable/plans/_privately_visible.html.erb:66
+#: ../../app/views/branded/paginable/plans/_privately_visible.html.erb:73
 #: ../../app/views/branded/paginable/templates/_history.html.erb:50
 #: ../../app/views/branded/paginable/templates/_modules.html.erb:61
 #: ../../app/views/branded/paginable/templates/_organisational.html.erb:60
@@ -2906,7 +2902,7 @@ msgstr "Veuillez supprimer les schémas attachés au client API avant de le supp
 #: ../../app/views/branded/paginable/guidances/_index.html.erb:66
 #: ../../app/views/branded/paginable/orgs/_index.html.erb:41
 #: ../../app/views/branded/paginable/plans/_administrator_visible.html.erb:76
-#: ../../app/views/branded/paginable/plans/_privately_visible.html.erb:83
+#: ../../app/views/branded/paginable/plans/_privately_visible.html.erb:90
 #: ../../app/views/branded/paginable/templates/_modules.html.erb:72
 #: ../../app/views/branded/paginable/templates/_modules.html.erb:79
 #: ../../app/views/branded/paginable/templates/_organisational.html.erb:78
@@ -2976,8 +2972,8 @@ msgstr "Dernière mise à jour"
 #: ../../app/views/branded/paginable/plans/_administrator_visible.html.erb:65
 #: ../../app/views/branded/paginable/plans/_administrator_visible.html.erb:71
 #: ../../app/views/branded/paginable/plans/_organisationally_or_publicly_visible.html.erb:21
-#: ../../app/views/branded/paginable/plans/_privately_visible.html.erb:72
-#: ../../app/views/branded/paginable/plans/_privately_visible.html.erb:78
+#: ../../app/views/branded/paginable/plans/_privately_visible.html.erb:79
+#: ../../app/views/branded/paginable/plans/_privately_visible.html.erb:85
 #: ../../app/views/branded/paginable/plans/_publicly_visible.html.erb:13
 #: ../../app/views/branded/paginable/templates/_history.html.erb:6
 #: ../../app/views/branded/paginable/templates/_modules.html.erb:2
@@ -3062,25 +3058,25 @@ msgid "Update"
 msgstr "Mettre à jour"
 
 #: ../../app/views/branded/paginable/plans/_administrator_visible.html.erb:62
-#: ../../app/views/branded/paginable/plans/_privately_visible.html.erb:69
+#: ../../app/views/branded/paginable/plans/_privately_visible.html.erb:76
 #: ../../app/views/branded/plans/_navigation.html.erb:63
 msgid "Share"
 msgstr "Partager"
 
 #: ../../app/views/branded/paginable/plans/_administrator_visible.html.erb:66
-#: ../../app/views/branded/paginable/plans/_privately_visible.html.erb:73
+#: ../../app/views/branded/paginable/plans/_privately_visible.html.erb:80
 #: ../../app/views/branded/paginable/templates/_organisational.html.erb:71
 msgid "Copy"
 msgstr "Copier"
 
 #: ../../app/views/branded/paginable/plans/_administrator_visible.html.erb:68
-#: ../../app/views/branded/paginable/plans/_privately_visible.html.erb:75
+#: ../../app/views/branded/paginable/plans/_privately_visible.html.erb:82
 #: ../../app/views/branded/paginable/templates/_history.html.erb:52
 msgid "View"
 msgstr "Voir"
 
 #: ../../app/views/branded/paginable/plans/_administrator_visible.html.erb:75
-#: ../../app/views/branded/paginable/plans/_privately_visible.html.erb:82
+#: ../../app/views/branded/paginable/plans/_privately_visible.html.erb:89
 msgid ""
 "Are you sure you wish to remove this public plan? This will remove it from the"
 " Public DMPs page but any collaborators will still be able to access it."
@@ -3089,7 +3085,7 @@ msgstr ""
 "PGD publics mais vos collaborateurs continueront à pouvoir y accéder."
 
 #: ../../app/views/branded/paginable/plans/_administrator_visible.html.erb:75
-#: ../../app/views/branded/paginable/plans/_privately_visible.html.erb:82
+#: ../../app/views/branded/paginable/plans/_privately_visible.html.erb:89
 msgid ""
 "Are you sure you wish to remove this plan? Any collaborators will still be abl"
 "e to access it."
@@ -3123,6 +3119,18 @@ msgstr "Titre du plan"
 #: ../../app/views/branded/paginable/plans/_privately_visible.html.erb:39
 msgid "Test plan ?"
 msgstr "Plan test ?"
+
+#: ../../app/views/branded/paginable/plans/_privately_visible.html.erb:51
+msgid "Shared with:<br/>"
+msgstr "Partagé avec :<br/>"
+
+#: ../../app/views/branded/paginable/plans/_privately_visible.html.erb:52
+msgid " - %{collab_number} collaborators<br/>"
+msgstr " - %{collab_number} collaborateurs<br/>"
+
+#: ../../app/views/branded/paginable/plans/_privately_visible.html.erb:53
+msgid " - the following third-party organizations : %{services_list}"
+msgstr " - les organismes tiers suivants : %{services_list}"
 
 #: ../../app/views/branded/paginable/plans/_publicly_visible.html.erb:7
 msgid "Research Domains"
@@ -3278,7 +3286,7 @@ msgstr "Editer le profil"
 msgid "(version: %{template_version}, published: %{published_date})"
 msgstr "(version: %{template_version}, publiée: %{published_date})"
 
-#: ../../app/views/branded/phases/_edit_plan_answers.html.erb:75
+#: ../../app/views/branded/phases/_edit_plan_answers.html.erb:76
 msgid ""
 "Please click to indicate that this section\\'s answers are common to all resear"
 "ch outputs"
@@ -3286,15 +3294,15 @@ msgstr ""
 "Cliquez ici pour indiquer que les réponses de cette section sont communes à to"
 "us les produits de recherche"
 
-#: ../../app/views/branded/phases/_edit_plan_answers.html.erb:76
+#: ../../app/views/branded/phases/_edit_plan_answers.html.erb:77
 msgid "This section's answers are common to all research outputs"
 msgstr "Les réponses de cette section sont communes à tous les produits de recherche"
 
-#: ../../app/views/branded/phases/_edit_plan_answers.html.erb:78
+#: ../../app/views/branded/phases/_edit_plan_answers.html.erb:79
 msgid "Changes saved."
 msgstr "Changements enregistrés."
 
-#: ../../app/views/branded/phases/_edit_plan_answers.html.erb:121
+#: ../../app/views/branded/phases/_edit_plan_answers.html.erb:119
 msgid "Comments & Guidance"
 msgstr "Commentaires & Recommandations"
 
