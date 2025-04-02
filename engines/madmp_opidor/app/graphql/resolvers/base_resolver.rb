@@ -49,11 +49,9 @@ module Resolvers
           table_alias = index.zero? && operator == :and ? primary_alias : Arel::Table.new(scope.table_name).alias("m_#{operator}_#{index + 1}")
 
           class_conditions = sub_filters.map do |sub_filter|
-            if sub_filter[:and].present? || sub_filter[:or].present?
+            if sub_filter[:filter]&.dig(:and).present? || sub_filter[:filter]&.dig(:or).present?
 
-              sub_conditions = { and: sub_filter[:and], or: sub_filter[:or] }.compact
-
-              sub_class_conditions = []
+              sub_conditions = { and: sub_filter[:filter]&.dig(:and), or: sub_filter[:filter]&.dig(:or) }.compact
 
               sub_conditions.keys.each do |sub_operator|
                 validate_conditions(sub_conditions[sub_operator], sub_operator)
