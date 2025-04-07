@@ -75,7 +75,7 @@ module Dmpopidor
         if owner.present?
           person = Fragment::Person.create!(
             data: {
-              'nameType' => _('Personal'),
+              'nameType' => 'Personal',
               'lastName' => owner.surname,
               'firstName' => owner.firstname,
               'mbox' => owner.email

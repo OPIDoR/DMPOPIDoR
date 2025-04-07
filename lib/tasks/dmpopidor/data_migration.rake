@@ -7,6 +7,7 @@ namespace :data_migration do
     p 'Upgrading to DMP OPIDoR v4.3.0'
     p '------------------------------------------------------------------------'
     Rake::Task['data_migration:change_contributors_cardinality'].execute
+    Rake::Task['data_migration:change_person_fragments_nametype'].execute
     p 'Upgrade complete'
   end
   task V4_1_0: :environment do
@@ -132,6 +133,19 @@ namespace :data_migration do
     end
     p '------------------------------------------------------------------------'
     p 'Done'
+  end
+  desc 'Change Person fragment nameType to "Personal" or "Organisational"'
+  task change_person_fragments_nametype: :environment do
+    Fragment::Person.all.each do |person|
+      updated_nametype = if %w[Personne Personal].include?(person.data['nameType']) # rubocop:disable Performance/CollectionLiteralInLoop
+                           'Personal'
+                         else
+                           'Organizational'
+                         end
+      person.update(
+        data: person.data.merge('nameType' => updated_nametype)
+      )
+    end
   end
 end
 # rubocop:enable Naming/VariableNumber
