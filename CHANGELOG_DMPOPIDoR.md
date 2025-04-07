@@ -2,6 +2,13 @@
 
 **Attention** Cette liste de changements concerne les déploiements sur nos serveurs de test en interne.
 
+## 07/04/2025
+
+- [EN ATTENTE] Ajout de scripts de correction des référentiels (#11668)
+- Correction de la valeur de nameType suite au changement du référentiel NameTypeValues (#11948, #11949)
+- Mise à jour de la visite guidée  (#12937)
+- Amélioration de l'indicateur de partage sur dans la liste des plans du Tableau de bord (#12940)
+
 ## 31/03/2025
 
 - Retrait de la création du principalInvestigator à la création du plan (#12934)
