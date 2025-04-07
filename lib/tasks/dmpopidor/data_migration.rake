@@ -9,6 +9,7 @@ namespace :data_migration do
     Rake::Task['data_migration:change_contributors_cardinality'].execute
     Rake::Task['data_migration:change_person_fragments_nametype'].execute
     Rake::Task['data_migration:remove_dmpkeyword_number_from_meta'].execute
+    Rake::Task['data_migration:remove_funder_datapolicy'].execute
     p 'Upgrade complete'
   end
   task V4_1_0: :environment do
@@ -162,6 +163,17 @@ namespace :data_migration do
       meta_fragment.update(
         data: meta_fragment.data.merge('dmpKeyword' => updated_kw)
       )
+    end
+  end
+  desc 'Remove funder.dataPolicy'
+  task remove_funder_datapolicy: :environment do
+    Fragment::Funder.all.each do |funder|
+      updated_data = funder.data
+      next unless updated_data['dataPolicy'].present?
+
+      dbid = updated_data.dig('dataPolicy', 'dbid')
+      MadmpFragment.find(dbid).destroy if dbid.present?
+      updated_data.delete('dataPolicy')
     end
   end
 end
