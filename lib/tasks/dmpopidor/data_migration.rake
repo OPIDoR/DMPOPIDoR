@@ -8,6 +8,7 @@ namespace :data_migration do
     p '------------------------------------------------------------------------'
     Rake::Task['data_migration:change_contributors_cardinality'].execute
     Rake::Task['data_migration:change_person_fragments_nametype'].execute
+    Rake::Task['data_migration:remove_dmpkeyword_number_from_meta'].execute
     p 'Upgrade complete'
   end
   task V4_1_0: :environment do
@@ -144,6 +145,22 @@ namespace :data_migration do
                          end
       person.update(
         data: person.data.merge('nameType' => updated_nametype)
+      )
+    end
+  end
+  desc 'Remove dmpKeyword number from Meta fragments'
+  task remove_dmpkeyword_number_from_meta: :environment do
+    Fragment::Meta.all.each do |meta_fragment|
+      dmp_keywords = meta_fragment.data['dmpKeyword']
+      updated_kw = []
+
+      if dmp_keywords.present? && dmp_keywords.length.positive?
+        dmp_keywords.each do |kw|
+          /^\d\.\d /.match?(kw) ? updated_kw.push(kw[4..kw.length - 1]) : updated_kw.push(kw)
+        end
+      end
+      meta_fragment.update(
+        data: meta_fragment.data.merge('dmpKeyword' => updated_kw)
       )
     end
   end
