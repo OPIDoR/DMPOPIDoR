@@ -57,16 +57,6 @@ class ApiClient < ApplicationRecord
   validates :client_id, presence: { message: PRESENCE_MESSAGE }
   validates :client_secret, presence: { message: PRESENCE_MESSAGE }
 
-  # =========================
-  # = Custom Accessor Logic =
-  # =========================
-
-  # Ensure the name is always saved as lowercase
-  # TODO: do we want to add this as a validation as well?
-  def name=(value)
-    super(value&.downcase)
-  end
-
   # ===========================
   # = Public instance methods =
   # ===========================
