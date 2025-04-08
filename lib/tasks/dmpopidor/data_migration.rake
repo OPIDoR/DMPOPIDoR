@@ -145,7 +145,7 @@ namespace :data_migration do
                            'Organizational'
                          end
       person.update_column(
-        data: person.data.merge('nameType' => updated_nametype)
+        :data, person.data.merge('nameType' => updated_nametype)
       )
     end
   end
@@ -161,7 +161,7 @@ namespace :data_migration do
         end
       end
       meta_fragment.update_column(
-        data: meta_fragment.data.merge('dmpKeyword' => updated_kw)
+        :data, meta_fragment.data.merge('dmpKeyword' => updated_kw)
       )
     end
   end
@@ -172,8 +172,11 @@ namespace :data_migration do
       next unless updated_data['dataPolicy'].present?
 
       dbid = updated_data.dig('dataPolicy', 'dbid')
-      MadmpFragment.find(dbid).destroy if dbid.present?
+      MadmpFragment.find(dbid).delete if dbid.present?
       updated_data.delete('dataPolicy')
+      funder.update_column(
+        :data, updated_data
+      )
     end
   end
 end
