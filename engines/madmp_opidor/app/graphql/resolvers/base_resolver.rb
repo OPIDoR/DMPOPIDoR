@@ -4,8 +4,8 @@ require 'arel'
 
 module Resolvers
   class BaseResolver < GraphQL::Schema::Resolver
-    def self.apply(scope, filter, dmp_id)
-      apply_filters(scope, filter, dmp_id)
+    def self.apply(filter, dmp_id)
+      apply_filters(filter, dmp_id)
     end
 
     private
@@ -16,26 +16,28 @@ module Resolvers
       apply_single_filter(scope, filter)
     end
 
-    def self.apply_filters(scope, filter, dmp_id)
+    def self.apply_filters(filter, dmp_id)
       return scope if filter.nil?
 
       if filter[:and].blank? && filter[:or].blank?
         raise GraphQL::ExecutionError, "The filter must contain at least one 'and', 'or' condition."
       end
 
-      apply_conditions(scope, filter, dmp_id)
+      apply_conditions(filter, dmp_id)
     end
 
-    def self.apply_conditions(scope, conditions, dmp_id)
+    def self.apply_conditions(conditions, dmp_id)
       and_operator_conditions = []
       or_operator_conditions = []
 
       sub_and_operator_conditions = []
       sub_or_operator_conditions = []
 
-      primary_alias = Arel::Table.new(scope.table_name).alias("m1")
+      table_name = MadmpFragment.arel_table.name
+
+      primary_alias = Arel::Table.new(table_name).alias("m1")
       and_operator_conditions << primary_alias[:dmp_id].eq(dmp_id)
-      scope = MadmpFragment.from("#{scope.table_name} m1").select("DISTINCT m1.dmp_id")
+      scope = MadmpFragment.from("#{table_name} m1").select("DISTINCT m1.dmp_id")
 
       joins = []
       sub_joins = []
@@ -46,7 +48,7 @@ module Resolvers
         grouped_conditions = conditions[operator].group_by { |condition| condition[:className] }
 
         grouped_conditions.each_with_index do |(class_name, sub_filters), index|
-          table_alias = index.zero? && operator == :and ? primary_alias : Arel::Table.new(scope.table_name).alias("m_#{operator}_#{index + 1}")
+          table_alias = index.zero? && operator == :and ? primary_alias : Arel::Table.new(table_name).alias("m_#{operator}_#{index + 1}")
 
           class_conditions = sub_filters.map do |sub_filter|
             if sub_filter[:filter]&.dig(:and).present? || sub_filter[:filter]&.dig(:or).present?
@@ -59,7 +61,7 @@ module Resolvers
                 grouped_sub_conditions = sub_conditions[sub_operator].group_by { |condition| condition[:className] }
 
                 grouped_sub_conditions.each_with_index do |(class_name, sub_filters), index|
-                  sub_table_alias = Arel::Table.new(scope.table_name).alias("m_sub_#{sub_operator}_#{index + 1}")
+                  sub_table_alias = Arel::Table.new(table_name).alias("m_sub_#{sub_operator}_#{index + 1}")
 
                   sub_class_conditions = sub_filters.map { |sub_filter| build_condition(sub_table_alias, sub_filter) }
 
@@ -70,7 +72,7 @@ module Resolvers
                   end
 
                   class_name_downcased = class_name.downcase
-                  sub_joins << "JOIN #{scope.table_name} #{sub_table_alias.name} " \
+                  sub_joins << "JOIN #{table_name} #{sub_table_alias.name} " \
                     "ON (#{sub_table_alias.name}.dmp_id = #{table_alias.name}.dmp_id " \
                     "AND #{sub_table_alias.name}.classname = '#{class_name_downcased}' "\
                     "AND #{sub_table_alias.name}.id = (#{table_alias.name}.data->'#{class_name_downcased}'->>'dbid')::INTEGER)"
@@ -90,7 +92,7 @@ module Resolvers
 
           if operator == :or || index.positive?
             join_condition = primary_alias[:dmp_id].eq(table_alias[:dmp_id])
-            joins << "JOIN #{scope.table_name} #{table_alias.name} ON #{join_condition.to_sql}"
+            joins << "JOIN #{table_name} #{table_alias.name} ON #{join_condition.to_sql}"
           end
         end
       end
