@@ -13,6 +13,14 @@
         ]
     },
     {
+        "path": "ContributorConstantRole-template-template.json",
+        "classname": "contributor",
+        "dataTypes": [
+            "software",
+            "none"
+        ]
+    },
+    {
         "path": "ContributorStandard-template.json",
         "classname": "contributor",
         "dataTypes": [
