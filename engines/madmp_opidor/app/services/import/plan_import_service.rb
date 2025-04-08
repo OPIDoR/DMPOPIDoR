@@ -27,8 +27,8 @@ module Import
           research_outputs.each_with_index do |ro_data, idx|
             max_order = plan.research_outputs.empty? ? 1 : plan.research_outputs.maximum('display_order') + 1
             research_output = plan.research_outputs.create!(
-              abbreviation: "#{_('RO')} #{idx + 1}",
-              title: "#{_('Research output')} #{max_order}",
+              abbreviation: ro_data["researchOutputDescription"]["shortName"] || "#{_('RO')} #{idx + 1}",
+              title: ro_data["researchOutputDescription"]["title"] || "#{_('Research output')} #{max_order}",
               is_default: idx.eql?(0),
               display_order: idx + 1
             )
