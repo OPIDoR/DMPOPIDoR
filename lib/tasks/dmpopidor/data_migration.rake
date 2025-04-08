@@ -144,7 +144,7 @@ namespace :data_migration do
                          else
                            'Organizational'
                          end
-      person.update(
+      person.update_column(
         data: person.data.merge('nameType' => updated_nametype)
       )
     end
@@ -160,7 +160,7 @@ namespace :data_migration do
           /^\d\.\d /.match?(kw) ? updated_kw.push(kw[4..kw.length - 1]) : updated_kw.push(kw)
         end
       end
-      meta_fragment.update(
+      meta_fragment.update_column(
         data: meta_fragment.data.merge('dmpKeyword' => updated_kw)
       )
     end
