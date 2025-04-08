@@ -13,7 +13,7 @@
         ]
     },
     {
-        "path": "ContributorConstantRole-template-template.json",
+        "path": "ContributorConstantRole-template.json",
         "classname": "contributor",
         "dataTypes": [
             "software",
