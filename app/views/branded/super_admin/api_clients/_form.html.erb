@@ -45,8 +45,8 @@ orgs = Org.where(is_other: false)
     <div class="row">
       <div class="form-group col-xs-12">
         <div class="checkbox">
-          <%= f.label(:notify) do %>
-            <%= f.check_box(:notify, checked: false) %>
+          <%= f.label(:send_notification) do %>
+            <%= f.check_box(:send_notification, checked: false) %>
             <%= _('Notify?') %>
           <% end %>
         </div>
@@ -79,8 +79,8 @@ orgs = Org.where(is_other: false)
       <div class="row">
         <div class="form-group col-xs-12">
           <div class="checkbox">
-            <%= f.label(:notify) do %>
-              <%= f.check_box(:notify, checked: f.object.notify) %>
+            <%= f.label(:send_notification) do %>
+              <%= f.check_box(:send_notification, checked: f.object.send_notification) %>
               <%= _('Notify?') %>
             <% end %>
           </div>
