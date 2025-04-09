@@ -7,6 +7,7 @@
 - Création d’une mutation GraphQL pour la création de produits de recherche dans un plan (#12973)
 - Possibilité de vider le champ de sélection du projet financeur (#12939)
 - Correction du retour en haut de la liste des groupes de recommandations et modification de l’ordonnancement : les groupes sélectionnés apparaissent désormais en haut (#12858)
+- Correction affichage recommandations d'un plan classique (#12950)
 
 ## 07/04/2025
 
