@@ -25,9 +25,9 @@ module Import
       def handle_research_outputs(plan, research_outputs)
         I18n.with_locale plan.template.locale do
           research_outputs.each_with_index do |ro_data, idx|
-            max_order = plan.research_outputs.empty? ? 1 : plan.research_outputs.maximum('display_order') + 1
+            max_order = plan.research_outputs.empty? ? 1 : plan.research_outputs.count + 1
             research_output = plan.research_outputs.create!(
-              abbreviation: ro_data["researchOutputDescription"]["shortName"] || "#{_('RO')} #{idx + 1}",
+              abbreviation: ro_data["researchOutputDescription"]["shortName"] || "#{_('RO')} #{max_order}",
               title: ro_data["researchOutputDescription"]["title"] || "#{_('Research output')} #{max_order}",
               is_default: idx.eql?(0),
               display_order: idx + 1
