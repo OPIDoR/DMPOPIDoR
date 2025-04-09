@@ -1,59 +1,11 @@
 <%# locals{ guidance_groups_by_theme } %>
 <% parent_id = guidance_groups_by_theme.object_id %>
-<div id="<%= parent_id %>" class="d-flex flex-column" role="tablist" aria-multiselectable="true">
-  <% guidance_groups_by_theme.each_pair do |guidance_group, theme_hash| %>
-    <% guidances_output = [] %>
-    <%# Do not show expand/collapse all links if there is only one item in theme_hash %>
-    <% if theme_hash.length > 1 %>
-      <div id="guidance-accordion-controls">
-        <div class="accordion-controls px-1" data-bs-parent="<%= parent_id %>">
-          <a href="#" data-toggle-direction="show"><%= _('expand all') %></a>
-            <span>|</span>
-          <a href="#" data-toggle-direction="hide"><%= _('collapse all') %></a>
-        </div>
-      </div>
-    <% end %>
-    <% theme_hash.each_pair do |theme, guidances| %>
-      <% question_guidance_id = "#{question.object_id}-#{guidances.object_id}-research-output-#{research_output.id}" %>
-      <%# if guidances with this theme have not been output %>
-      <% if (guidances.map(&:id) - guidances_output).any? %>
-        <div class="accordion-item my-1 card card-default">
-          <h2 class="accordion-header" id="<%= "headingGuidance-#{question_guidance_id}" %>">
-            <button
-            class="accordion-button collapsed"
-            type="button"
-            data-bs-toggle="collapse"
-            href="<%= "#collapseGuidance-#{question_guidance_id}" %>"
-            aria-expanded="false"
-            aria-controls="<%= "#collapseGuidance-#{question_guidance_id}" %>">
-              <%= theme %>
-            </button>
-           </h2>
-          <div
-            id="<%= "collapseGuidance-#{question_guidance_id}" %>"
-            class="accordion-collapse collapse"
-            role="tabpanel"
-            aria-labelledby="<%= "headingGuidance-#{question_guidance_id}" %>">
-            <div class="accordion-body card card-body">
-              <% multiple = false %>
-              <% guidances.each do |guidance| %>
-                <% if multiple %>
-                  <hr>
-                <% end %>
-                <p>
-                  <% unless guidances_output.include?(guidance.id) %>
-                    <div class="display-readonly-textarea-content allow-break-words">
-                      <%= sanitize guidance.text %>
-                    </div>
-                    <% guidances_output << guidance.id %>
-                    <% multiple = true %>
-                  <% end %>
-                </p>
-              <% end %>
-            </div>
-          </div>
-        </div>
-      <% end %>
+<% guidance_groups_by_theme.each do |title, guidances| %>
+  <h2><%= guidances[:title] %></h2>
+  <p><%= title %></p>
+  <% guidances[:guidances].each do |key, collection| %>
+    <% collection.each do |guidance| %>
+      <%= guidance.text %>
     <% end %>
   <% end %>
-</div>
+<% end %>

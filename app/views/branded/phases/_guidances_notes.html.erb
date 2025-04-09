@@ -6,7 +6,7 @@
   <ul class="nav nav-pills nav-justified mb-2" role="tablist">
     <% if guidances_active %>
       <li role="presentation" class="nav-item">
-        <a class="nav-link active" href="#guidances-<%= question.id %>-research-output-<%= research_output.id %>" 
+        <a class="nav-link active" href="#guidances-<%= question.id %>-research-output-<%= research_output.id %>"
             aria-controls="guidances-<%= question.id %>-research-output-<%= research_output.id %>" role="tab" data-bs-toggle="pill">
             <%= _('Guidance') %>
         </a>
@@ -27,9 +27,33 @@
   <div class="tab-content">
     <% if guidances_active %>
       <% tablist = guidance_presenter.tablist(question) %>
+      <%
+        guidances = tablist.map do |guidance|
+          groups = guidance[:groups].reduce({}) do |acc, (group_info, guidance_info)|
+            group_name = group_info[:name]
+            description_key = guidance_info.keys.find { |key| key != :id }
+
+            acc[group_name] = {
+              title: description_key,
+              guidances: guidance_info
+            }
+
+            acc
+          end
+
+          title = groups.values.first&.dig(:title) || ''
+
+          {
+            name: guidance[:name],
+            title: title,
+            groups: groups,
+            annotations: guidance[:annotations].is_a?(Array) ? guidance[:annotations] : []
+          }
+        end
+      %>
       <div id="guidances-<%= question.id %>-research-output-<%= research_output.id %>" role="tabpanel" class="tab-pane active">
         <ul class="nav nav-tabs" role="tablist">
-          <% tablist.each_with_index do |tab, i| %>
+          <% guidances.each_with_index do |tab, i| %>
             <% active_nav ||= tab[:name] %>
             <li role="presentation" class="nav-item">
               <a
@@ -45,7 +69,7 @@
           <% end %>
         </ul>
         <div class="tab-content">
-          <% tablist.each_with_index do |tab, i| %>
+          <% guidances.each do |tab, i| %>
             <div id="<%= "guidance_per_question_#{question.id}_research_output_#{research_output.id}_#{i}" %>" role="tabpanel" class="tab-pane <%= active_nav == tab[:name] ? 'active' : '' %>">
               <div class="card card-default">
                 <div class="card-body">
