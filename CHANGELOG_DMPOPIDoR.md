@@ -2,6 +2,12 @@
 
 **Attention** Cette liste de changements concerne les déploiements sur nos serveurs de test en interne.
 
+## 09/04/2025
+
+- Création d’une mutation GraphQL pour la création de produits de recherche dans un plan (#12973)
+- Possibilité de vider le champ de sélection du projet financeur (#12939)
+- Correction du retour en haut de la liste des groupes de recommandations et modification de l’ordonnancement : les groupes sélectionnés apparaissent désormais en haut (#12858)
+
 ## 07/04/2025
 
 - [EN ATTENTE] Ajout de scripts de correction des référentiels (#11668)
