@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 module Mutations
-  # Authenticate
+  # CreateResearchOutput
   class CreateResearchOutput < BaseMutation
     argument :plan_id, Int, required: true
     argument :research_outputs, GraphQL::Types::JSON, required: true
