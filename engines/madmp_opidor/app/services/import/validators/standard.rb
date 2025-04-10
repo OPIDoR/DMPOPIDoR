@@ -23,7 +23,7 @@ module Import
         end
 
         def contact_valid?(json:)
-          json.present? && json['person'].present? && json['person']['mbox'].present?
+          json.present? && json.all? { |entry| entry['person'].present? && entry['person']['mbox'].present? }
         end
 
         def validation_errors(json:)
