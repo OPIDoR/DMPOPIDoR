@@ -384,80 +384,22 @@ module Dmpopidor
     # rubocop:disable Metrics/MethodLength, Metrics/AbcSize
     # rubocop:disable Metrics/PerceivedComplexity, Metrics/CyclomaticComplexity
     def import_plan
-      @plan = ::Plan.new
-      authorize @plan
-      # rubocop:disable Metrics/BlockLength
-      ::Plan.transaction do
-        @plan.template = ::Template.find(import_params[:template_id])
+      plan = ::Plan.new
+      authorize(plan)
 
-        # pre-select org's guidance and the default org's guidance
-        ids = (::Org.default_orgs.pluck(:id) << current_user.org_id).flatten.uniq
+      import_params[:plan] = plan
 
-        language = Language.find_by(abbreviation: @plan.template.locale)
+      result = Import::PlanImporter.call(import_params, current_user)
 
-        ggs = ::GuidanceGroup.where(org_id: ids, optional_subset: false, published: true, language_id: language.id)
-
-        @plan.guidance_groups << ggs unless ggs.empty?
-
-        I18n.with_locale @plan.template.locale do
-          respond_to do |format|
-            json_file = import_params[:json_file]
-            if json_file.respond_to?(:read)
-              json_data = JSON.parse(json_file.read)
-            elsif json_file.respond_to?(:path)
-              json_data = JSON.parse(File.read(json_file.path))
-            else
-              raise IOError
-            end
-            errs = Import::PlanImportService.validate(json_data, import_params[:format], locale: @plan.template.locale)
-            if errs.any?
-              format.json do
-                bad_request(import_errors(errs))
-              end
-            else
-              @plan.visibility = Rails.configuration.x.plans.default_visibility
-
-              @plan.title = if json_data.dig('meta', 'title')
-                              format(_('Import of %{title}'), title: json_data['meta']['title'])
-                            else
-                              format(_("%{user_name}'s Plan"), user_name: current_user.firstname)
-                            end
-              @plan.org = current_user.org
-
-              if @plan.save
-                @plan.add_user!(current_user.id, :creator)
-                @plan.save
-                @plan.create_plan_fragments(json_data)
-
-                Import::PlanImportService.import(@plan, json_data, import_params[:format])
-
-                @plan.update(title: @plan.json_fragment.meta.data['title'])
-                format.json do
-                  render json: { status: 201, message: _('imported'), data: { planId: @plan.id } }, status: :created
-                end
-              else
-                format.json do
-                  bad_request(failure_message(@plan, _('create')))
-                end
-              end
-            end
-          rescue IOError
-            format.json do
-              bad_request(_('Unvalid file'))
-            end
-          rescue JSON::ParserError
-            format.json do
-              bad_request(_('File should contain JSON'))
-            end
-          rescue StandardError => e
-            Rails.logger.error e.backtrace
-            format.json do
-              bad_request("#{_('An error has occured: ')} #{e.message}")
-            end
+      respond_to do |format|
+        format.json do
+          if result.success?
+            render json: { status: 201, message: _('imported'), data: { planId: result.plan.id } }, status: :created
+          else
+            render json: { status: 400, message: _('Import failed'), errors: result.errors }, status: :bad_request
           end
         end
       end
-      # rubocop:enable Metrics/BlockLength
     end
     # rubocop:enable Metrics/PerceivedComplexity, Metrics/CyclomaticComplexity
     # rubocop:enable Metrics/MethodLength, Metrics/AbcSize
