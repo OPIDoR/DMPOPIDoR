@@ -28,7 +28,7 @@ module Mutations
       {
         result: {
           code: 200,
-          message: "Research output#{research_outputs.length > 1 ? "s" : ""} created successfully for plan ${plan_id}.",
+          message: "Research output#{research_outputs.length > 1 ? "s" : ""} created successfully for plan #{plan_id}.",
           success: true
         }
       }
