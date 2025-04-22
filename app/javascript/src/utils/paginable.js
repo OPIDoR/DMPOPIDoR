@@ -4,6 +4,10 @@ $(() => {
   const onAjaxSuccessHandler = (e) => {
     const data = e.detail[0];
     $(e.target).closest(paginableSelector).replaceWith(data.html);
+    $('[data-toggle="tooltip"]:not([data-placement])').tooltip({
+      animated: 'fade',
+      placement: 'bottom',
+    });
   };
   // Event listener for Ajax success event captured in response to a paginable link clicked or
   // search form submitted. Note the presence of a selector for on (e.g. a[data-remote="true"])
