@@ -1,4 +1,4 @@
-FROM ruby:3.3.7-slim AS base
+FROM ruby:3.3.8-slim AS base
 WORKDIR /app
 RUN apt update -y && apt install -y --no-install-recommends \
   build-essential \
