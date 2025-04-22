@@ -44,7 +44,7 @@ orgs = Org.where(is_other: false)
   <% if @api_client.new_record? %>
     <div class="row">
       <div class="form-group col-xs-12">
-        <div class="checkbox">
+        <div class="form-check">
           <%= f.label(:send_notification) do %>
             <%= f.check_box(:send_notification, checked: false) %>
             <%= _('Notify?') %>
@@ -78,7 +78,7 @@ orgs = Org.where(is_other: false)
     <% unless @api_client.new_record? %>
       <div class="row">
         <div class="form-group col-xs-12">
-          <div class="checkbox">
+          <div class="form-check">
             <%= f.label(:send_notification) do %>
               <%= f.check_box(:send_notification, checked: f.object.send_notification) %>
               <%= _('Notify?') %>

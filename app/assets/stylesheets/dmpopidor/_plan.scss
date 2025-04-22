@@ -423,6 +423,7 @@
           margin: 0;
           background-color: #fff;
         }
+
         i {
           font-size: 16px;
         }
@@ -636,5 +637,31 @@
 #create-research-output-tabs {
   .nav-tabs {
     background-color: white;
+  }
+}
+
+// ##################################
+// Plan Download
+// ##################################
+
+#download_form {
+  #json-formatting {
+    display: none;
+
+    .export-msg {
+      color: $rust;
+      font-size: smaller;
+    }
+  }
+
+  legend {
+    display: block;
+    width: 100%;
+    padding: 0;
+    margin-bottom: 20px;
+    font-size: 21px;
+    line-height: inherit;
+    color: #333333;
+    border-bottom: 1px solid #e5e5e5;
   }
 }

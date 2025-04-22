@@ -9,7 +9,7 @@
     <h2><%= _("Download settings") %></h2>
     <%= hidden_field_tag 'export[form]', true %>
     <% if @research_outputs.length > 1 %>
-      <div class="form-control mb-5 research-outputs-selection">
+      <div class="form-group research-outputs-selection">
         <strong><%= _("Select research outputs to download") %></strong>
         <ul>
           <%= check_box_tag("select-all-research-outputs", "none", true, { id: "select-all-research-outputs" }) %>
@@ -30,7 +30,7 @@
       <%= hidden_field_tag(:research_output_id, @research_outputs[0].id) %>
     <% end %>
     <% if @phase_options.length > 1 %>
-      <div class="form-control mb-5 phase-selection">
+      <div class="form-group phase-selection">
         <strong><%= _("Select phase to download") %></strong>
         <ul>
         <%= check_box_tag("select-all-phases", "none", true, { id: "select-all-phases" }) %>
