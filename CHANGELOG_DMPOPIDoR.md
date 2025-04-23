@@ -2,6 +2,14 @@
 
 **Attention** Cette liste de changements concerne les déploiements sur nos serveurs de test en interne.
 
+## 23/04/2025
+
+- Amélioration de l'indicateur de partage d'un plan dans le tableau de bord (#12940)
+- Améliorations Bootstrap (#10828)
+  - Retrait d'un point en trop dans le menu
+  - Amélioration des paramètres de téléchargement du plan
+  - Amélioration de l'affichage de la liste lors du choix de l'organisme.
+
 ## 09/04/2025
 
 - Création d’une mutation GraphQL pour la création de produits de recherche dans un plan (#12973)
