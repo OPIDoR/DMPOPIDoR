@@ -116,10 +116,6 @@ class ResearchOutput < ApplicationRecord
     end
   end
 
-  # --------------------------------
-  # Start DMP OPIDoR Customization
-  # CHANGES: Added deep_copy
-  # --------------------------------
   ##
   # deep copy the given research output
   #
@@ -127,7 +123,64 @@ class ResearchOutput < ApplicationRecord
   def self.deep_copy(research_output)
     research_output.dup
   end
-  # --------------------------------
-  # End DMP OPIDoR Customization
-  # --------------------------------
+
+  #####
+  # Returns an array containing the property name, description question & the madmpschema according to the
+  # data_type in parameters
+  #####
+  def self.data_type_to_schema_data(plan, data_type, locale)
+    if data_type.eql?('software') && MadmpSchema.exists?(name: 'SoftwareDescriptionStandard')
+      [
+        'softwareDescription',
+        Template.module(data_type:, locale:).questions.joins(:madmp_schema).find_by(madmp_schemas: { classname: 'software_description' }), # rubocop:disable Layout/LineLength
+        MadmpSchema.find_by(name: 'SoftwareDescriptionStandard')
+      ]
+    else
+      [
+        'researchOutputDescription',
+        plan.questions.joins(:madmp_schema).find_by(madmp_schemas: { classname: 'research_output_description' }),
+        MadmpSchema.find_by(name: 'ResearchOutputDescriptionStandard')
+      ]
+    end
+  end
+
+  private
+
+  #####
+  # Returns an array containing the researchOutput fragment additional info and researchOutput description data
+  # depending on the research output configuration in parameters
+  #####
+  # rubocop:disable Metrics/MethodLength
+  def configuration_to_additional_info_data(configuration, locale)
+    case configuration[:dataType]
+    when 'software'
+      [
+        {
+          property_name: 'researchOutput',
+          dataType: configuration[:dataType],
+          moduleId: ::Template.module(data_type: configuration[:dataType], locale:)&.id
+        },
+        {
+          'title' => title,
+          'shortName' => abbreviation,
+          'type' => output_type_description
+        }
+      ]
+    else
+      [
+        {
+          property_name: 'researchOutput',
+          hasPersonalData: configuration[:hasPersonalData] || false,
+          dataType: 'none'
+        },
+        {
+          'title' => title,
+          'shortName' => abbreviation,
+          'type' => output_type_description,
+          'containsPersonalData' => configuration[:hasPersonalData] ? _('Yes') : _('No')
+        }
+      ]
+    end
+  end
+  # rubocop:enable Metrics/MethodLength
 end

@@ -48,7 +48,9 @@ module Dmpopidor
         data_type = configuration[:dataType]
         locale = plan.template.locale
         if fragment.nil?
-          description_prop_name, description_question, description_schema = data_type_to_schema_data(data_type, locale)
+          description_prop_name, description_question, description_schema = ::ResearchOutput.data_type_to_schema_data(
+            plan, data_type, locale
+          )
           ro_additional_info, description_data = configuration_to_additional_info_data(configuration, locale)
 
           # Creates the main ResearchOutput fragment
@@ -163,66 +165,6 @@ module Dmpopidor
     def module_id
       json_fragment.additional_info['moduleId'] || nil
     end
-
-    private
-
-    #####
-    # Returns an array containing the property name, description question & the madmpschema according to the
-    # data_type in parameters
-    #####
-    def data_type_to_schema_data(data_type, locale)
-      if data_type.eql?('software') && MadmpSchema.exists?(name: 'SoftwareDescriptionStandard')
-        [
-          'softwareDescription',
-          ::Template.module(data_type:, locale:).questions.joins(:madmp_schema).find_by(madmp_schemas: { classname: 'software_description' }), # rubocop:disable Layout/LineLength
-          MadmpSchema.find_by(name: 'SoftwareDescriptionStandard')
-        ]
-      else
-        [
-          'researchOutputDescription',
-          plan.questions.joins(:madmp_schema).find_by(madmp_schemas: { classname: 'research_output_description' }),
-          MadmpSchema.find_by(name: 'ResearchOutputDescriptionStandard')
-        ]
-      end
-    end
-
-    #####
-    # Returns an array containing the researchOutput fragment additional info and researchOutput description data
-    # depending on the research output configuration in parameters
-    #####
-    # rubocop:disable Metrics/MethodLength
-    def configuration_to_additional_info_data(configuration, locale)
-      case configuration[:dataType]
-      when 'software'
-        [
-          {
-            property_name: 'researchOutput',
-            dataType: configuration[:dataType],
-            moduleId: ::Template.module(data_type: configuration[:dataType], locale:)&.id
-          },
-          {
-            'title' => title,
-            'shortName' => abbreviation,
-            'type' => output_type_description
-          }
-        ]
-      else
-        [
-          {
-            property_name: 'researchOutput',
-            hasPersonalData: configuration[:hasPersonalData] || false,
-            dataType: 'none'
-          },
-          {
-            'title' => title,
-            'shortName' => abbreviation,
-            'type' => output_type_description,
-            'containsPersonalData' => configuration[:hasPersonalData] ? _('Yes') : _('No')
-          }
-        ]
-      end
-    end
-    # rubocop:enable Metrics/MethodLength
   end
   # rubocop:enable Metrics/ModuleLength
 end

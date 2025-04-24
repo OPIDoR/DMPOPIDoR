@@ -26,13 +26,15 @@ module Import
         I18n.with_locale plan.template.locale do
           research_outputs.each_with_index do |ro_data, idx|
             max_order = plan.research_outputs.empty? ? 1 : plan.research_outputs.count + 1
+            configuration = ro_data['configuration'] || {}
+            description_prop_name, = ResearchOutput.data_type_to_schema_data(plan, configuration['dataType'],
+                                                                             plan.template.locale)
             research_output = plan.research_outputs.create!(
-              abbreviation: ro_data["researchOutputDescription"]["shortName"] || "#{_('RO')} #{max_order}",
-              title: ro_data["researchOutputDescription"]["title"] || "#{_('Research output')} #{max_order}",
+              abbreviation: ro_data[description_prop_name]['shortName'] || "#{_('RO')} #{max_order}",
+              title: ro_data[description_prop_name]['title'] || "#{_('Research output')} #{max_order}",
               is_default: idx.eql?(0),
               display_order: idx + 1
             )
-            configuration = ro_data['configuration'] || {}
             research_output.create_json_fragments(configuration.deep_symbolize_keys)
             module_id = research_output.module_id
             ro_frag = research_output.json_fragment
