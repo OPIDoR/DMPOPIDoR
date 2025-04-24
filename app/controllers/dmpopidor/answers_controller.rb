@@ -8,7 +8,7 @@ module Dmpopidor
 
     # rubocop:disable Metrics/AbcSize
     def new_form
-      research_output = ::ResearchOutput.includes(:plan).find(params[:research_output_id])
+      research_output = ResearchOutput.includes(:plan).find(params[:research_output_id])
       question = Question.includes(:madmp_schema).find(params[:question_id])
       answer = ::Answer.includes(:madmp_fragment).find_by!(
         question_id: question.id,

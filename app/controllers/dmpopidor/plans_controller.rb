@@ -257,7 +257,7 @@ module Dmpopidor
 
       body = JSON.parse(request.raw_post)
       if body['ro_id'].present?
-        research_output = ::ResearchOutput.find(body['ro_id'])
+        research_output = ResearchOutput.find(body['ro_id'])
         module_id = research_output.json_fragment.additional_info['moduleId']
         template = module_id ? ::Template.find(module_id) : @plan.template
       end

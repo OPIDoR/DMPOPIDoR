@@ -10,7 +10,7 @@ class MadmpFragmentsController < ApplicationController
     body = JSON.parse(request.body.string)
     dmp = Fragment::Dmp.find(body['dmp_id'])
     plan = dmp.plan
-    research_output = body['research_output_id'] ? ::ResearchOutput.find(body['research_output_id']) : nil
+    research_output = body['research_output_id'] ? ResearchOutput.find(body['research_output_id']) : nil
     madmp_schema = MadmpSchema.find(body['schema_id'])
     defaults = madmp_schema.defaults(plan.template.locale)
     classname = madmp_schema.classname
