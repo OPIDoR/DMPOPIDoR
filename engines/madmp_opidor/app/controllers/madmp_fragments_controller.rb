@@ -27,7 +27,7 @@ class MadmpFragmentsController < ApplicationController
     @fragment.classname = classname
     authorize @fragment
     unless classname.eql?('person')
-      @fragment.answer = ::Answer.create!(
+      @fragment.answer = Answer.create!(
         research_output_id: research_output.id,
         plan_id: plan.id,
         question_id: body['question_id'],
