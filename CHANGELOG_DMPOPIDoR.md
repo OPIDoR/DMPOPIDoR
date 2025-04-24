@@ -2,6 +2,13 @@
 
 **Attention** Cette liste de changements concerne les déploiements sur nos serveurs de test en interne.
 
+## 24/04/2025
+
+- Correction d'un problème affectant l'import de plan au format standard (#12546)
+- Améliorations Bootstrap (#10828)
+  - Amélioration dans le profil utilisateur (Structures, Language)
+  - Ajout d'espaces manquants dans le Tableau de Bord & Export de plan
+
 ## 23/04/2025
 
 - Amélioration de l'indicateur de partage d'un plan dans le tableau de bord (#12940)
