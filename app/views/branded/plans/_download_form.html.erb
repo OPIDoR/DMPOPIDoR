@@ -49,7 +49,7 @@
     <% else %>
       <%= hidden_field_tag(:phase_id, @phase_options[0][1]) %>
     <% end %>
-    <fieldset id="export-options">
+    <fieldset id="export-options" class="form-group">
       <legend><%= _("Plan components") %></legend>
       <div class="form-check">
         <%= label_tag 'export[project_details]', class:'form-check-label' do %>
