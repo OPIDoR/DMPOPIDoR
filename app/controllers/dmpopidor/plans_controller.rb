@@ -567,7 +567,7 @@ module Dmpopidor
       @all_ggs_grouped_by_org = @all_guidance_groups.sort.group_by(&:org)
       @selected_guidance_groups = @plan.guidance_groups.ids.to_set
 
-      @default_orgs = ::Org.default_orgs
+      @default_orgs = Org.default_orgs
 
       @all_ggs_grouped_by_org.map do |key, group|
         {

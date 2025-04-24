@@ -9,7 +9,7 @@ module SuperAdmin
       templates = ::Template.latest_module_version.where(customization_of: nil)
       published = templates.count { |t| t.published? || t.draft? }
 
-      @orgs  = current_user.can_super_admin? ? ::Org.includes(:identifiers).all : nil
+      @orgs  = current_user.can_super_admin? ? Org.includes(:identifiers).all : nil
       @title = if current_user.can_super_admin?
                  format(_('%{org_name} Templates'), org_name: current_user.org.name)
                else

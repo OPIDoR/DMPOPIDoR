@@ -54,7 +54,7 @@ module Api
             name = json[:name]
 
             # Search the DB
-            org = ::Org.where('LOWER(name) = ?', name.downcase).first
+            org = Org.where('LOWER(name) = ?', name.downcase).first
             return org if org.present?
 
             # External ROR search
