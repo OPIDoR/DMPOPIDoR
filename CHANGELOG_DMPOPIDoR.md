@@ -2,6 +2,11 @@
 
 **Attention** Cette liste de changements concerne les déploiements sur nos serveurs de test en interne.
 
+## 29/04/2025
+
+- Correction d'un problème des titres des plans importés (#12546)
+- Mise à jour du message de partage à l'ANR (#12939)
+
 ## 24/04/2025
 
 - Correction d'un problème affectant l'import de plan au format standard (#12546)
