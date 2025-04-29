@@ -17,6 +17,8 @@ import 'bootstrap';
 //       properly setup to work with it. We should review the docs:
 //       https://github.com/hotwired/turbo-rails
 import '@hotwired/turbo-rails';
+import { Application } from '@hotwired/stimulus';
+import ReactController from './controllers/react_controller.js';
 
 // Uncomment to copy all static images under ../images to the output folder and reference
 // them with the image_pack_tag helper in views (e.g <%= image_pack_tag 'rails.png' %>)
@@ -92,8 +94,6 @@ import './src/superAdmin/staticPages/edit';
 import './src/superAdmin/themes/newEdit';
 import './src/superAdmin/users/edit';
 
-import './react.jsx';
-
 // require("@rails/activestorage").start()
 // require("@rails/actioncable").start()
 // Setup JS functions/libraries so that they're available within the js.erb templates
@@ -104,3 +104,7 @@ window.jQuery = jQuery;
 window.renderAlert = renderAlert;
 window.renderNotice = renderNotice;
 window.toggleSpinner = toggleSpinner;
+
+// Register Stimulus controllers
+window.Stimulus = Application.start();
+window.Stimulus.register('react', ReactController);
