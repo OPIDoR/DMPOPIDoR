@@ -53,7 +53,7 @@
                 <li><%= link_to _('Remove'),
                                 plan_research_output_path(@plan.id, output),
                                 data: {
-                                  confirm: _("You are about to delete '%{research_output_title}'. Are you sure?") % { research_output_title: output.title },
+                                  turbo_confirm: _("You are about to delete '%{research_output_title}'. Are you sure?") % { research_output_title: output.title },
                                   turbo_method: :delete
                                 }, class: 'dropdown-item' %>
                 </li>

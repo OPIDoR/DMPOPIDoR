@@ -33,7 +33,7 @@
                 <li class="nav-item"><%= link_to _('Edit'), edit_super_admin_registry_path(registry), class: 'dropdown-item px-3' %></li>
                 <li class="nav-item">
                   <%= link_to(_('Delete'), super_admin_registry_path(registry), class: 'dropdown-item px-3', rel: 'nofollow', 'data-turbo-method': 'delete',
-                    'data-confirm': _("Are you sure you want to delete the registry \"%{title}\"?") % { title: registry.name }) %>
+                    'data-turbo-confirm': _("Are you sure you want to delete the registry \"%{title}\"?") % { title: registry.name }) %>
                 </li>
               </ul>
             </div>

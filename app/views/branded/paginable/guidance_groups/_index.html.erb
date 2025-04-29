@@ -60,7 +60,7 @@
                     <li class="nav-item"><%= link_to _('Publish'),  admin_update_publish_guidance_group_path(guidance_gr), data: { turbo_method: :put }, class:'dropdown-item px-3' %></li>
                 <% end %>
                 <% if allow_delete %>
-                  <li class="nav-item"><%= link_to _('Remove'), admin_destroy_guidance_group_path(guidance_gr), data: {confirm: _("You are about to delete '%{guidance_group_name}'. This will affect guidance. Are you sure?") % { :guidance_group_name => guidance_gr.name }}, method: :delete, class:'dropdown-item px-3' %></li>
+                  <li class="nav-item"><%= link_to _('Remove'), admin_destroy_guidance_group_path(guidance_gr), data: { turbo_confirm: _("You are about to delete '%{guidance_group_name}'. This will affect guidance. Are you sure?") % { :guidance_group_name => guidance_gr.name }}, method: :delete, class:'dropdown-item px-3' %></li>
                 <% end %>
               </ul>
             </div>

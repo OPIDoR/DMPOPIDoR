@@ -56,7 +56,7 @@
                 <li class="nav-item"><%= link_to _('Remove'),
                                 plan_contributor_path(@plan.id, contributor),
                                 data: {
-                                  confirm: _("You are about to delete '%{contributor_name}'. Are you sure?") % { contributor_name: contributor.name },
+                                  turbo_confirm: _("You are about to delete '%{contributor_name}'. Are you sure?") % { contributor_name: contributor.name },
                                   turbo_method: :delete
                                 },
                                 class: 'dropdown-item nav-link px-3' %>
