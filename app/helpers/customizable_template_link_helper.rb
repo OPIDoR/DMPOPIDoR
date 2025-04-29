@@ -16,7 +16,7 @@ module CustomizableTemplateLinkHelper
         name = _('Transfer customisation') if name.blank?
         link_to name,
                 org_admin_template_customization_transfers_path(customization.id),
-                data: { method: 'post' },
+                data: { turbo_method: 'post' },
                 class: link_css
       else
         name = _('Edit customisation') if name.blank?
@@ -26,7 +26,7 @@ module CustomizableTemplateLinkHelper
       name = _('Customise') if name.blank?
       link_to name,
               org_admin_template_customizations_path(template.id),
-              'data-method': 'post',
+              'data-turbo-method': 'post',
               class: link_css
     end
   end

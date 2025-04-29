@@ -135,8 +135,8 @@
         <% if question.id.present? %>
             <% path_helper = template&.module? ? :super_admin_template_phase_section_question_path : :org_admin_template_phase_section_question_path %>
             <% href = send(path_helper, template_id: template.id, phase_id: question.section.phase.id, section_id: question.section.id, id: question.id) %>
-            <%= link_to _('Delete'), href, method: :delete, class: "btn btn-secondary", role:'button', 'data-confirm': _("You are about to delete question #%{question_number}. Are you sure?") % { question_number: question.number } %>
-          <%= link_to _('Cancel'), href, class: "btn btn-secondary ajaxified-question", method: 'get', remote: true %>
+            <%= link_to _('Delete'), href, data: { turbo_method: :delete }, class: "btn btn-secondary", role:'button', 'data-confirm': _("You are about to delete question #%{question_number}. Are you sure?") % { question_number: question.number } %>
+          <%= link_to _('Cancel'), href, class: "btn btn-secondary ajaxified-question", data: { turbo_method: :get }, remote: true %>
         <% else %>
           <%= link_to _('Cancel'), '#', class: "btn btn-secondary cancel-new-question" %>
         <% end %>

@@ -43,7 +43,7 @@
       <%= f.button(_('Save'), class: "btn btn-primary", type: "submit") %>
       <% unless @schema.new_record? %>
         <%= link_to(_('Delete'), super_admin_madmp_schema_path(@schema), class: 'btn btn-primary',
-          rel: 'nofollow', 'data-method': 'delete',
+          rel: 'nofollow', 'data-turbo-method': 'delete',
           'data-confirm': _("Are you sure you want to delete the schema \"%{title}\"?") % { title: @schema.name }) %>
       <% end %>
       <%= link_to(_('Cancel'), super_admin_madmp_schemas_path, class: 'btn btn-primary', role: 'button') %>

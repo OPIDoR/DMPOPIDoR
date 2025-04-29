@@ -84,7 +84,7 @@
             </td>
             <% if administerable %>
               <td>
-                <%= link_to _('Remove'), client_role, method: :delete, data: { confirm: _('Are you sure?') }, :class => "a-orange" %>
+                <%= link_to _('Remove'), client_role, data: { turbo_method: :delete, confirm: _('Are you sure?') }, :class => "a-orange" %>
               </td>
             <% end %>
           </tr>

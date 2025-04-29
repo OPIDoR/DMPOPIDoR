@@ -14,8 +14,11 @@
           <% end %>
           <% if template.latest? && phase.modifiable %>
             <%= link_to _('Delete phase'), org_admin_template_phase_path(template.id, phase.id),
-                        data: { confirm: _("You are about to delete the '%{phase_title}' phase. This will remove all of the sections and questions listed below. Are you sure?") % { phase_title: phase.title },
-                                length: 20, omission: _('... (continued)') }, method: :delete, class: 'btn btn-secondary', role: 'button' %>
+                        data: { 
+                          confirm: _("You are about to delete the '%{phase_title}' phase. This will remove all of the sections and questions listed below. Are you sure?") % { phase_title: phase.title },
+                          length: 20, omission: _('... (continued)'),
+                          turbo_method: :delete
+                        }, class: 'btn btn-secondary', role: 'button' %>
           <% end %>
         </div>
       </h3>

@@ -99,7 +99,7 @@
             <% if administerable %>
               <td>
                 <% unless role.creator? || role.user == current_user then %>
-                  <%= link_to _('Remove'), role, method: :delete, data: { confirm: _('Are you sure?') }, :class => "a-orange" %>
+                  <%= link_to _('Remove'), role, data: { turbo_method: :delete, confirm: _('Are you sure?') }, :class => "a-orange" %>
                 <% end %>
               </td>
             <% end %>

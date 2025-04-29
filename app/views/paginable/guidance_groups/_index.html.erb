@@ -48,12 +48,12 @@
               <ul class="dropdown-menu" aria-labelledby="guidance_group-<%= guidance_gr.id %>-actions">
                 <li class="nav-item"><%= link_to _('Edit'), admin_edit_guidance_group_path(guidance_gr), class:'dropdown-item px-3' %></li>
                 <% if guidance_gr.published? %>
-                    <li class="nav-item"><%= link_to _('Unpublish'),  admin_update_unpublish_guidance_group_path(guidance_gr), method: :put, class:'dropdown-item px-3' %></li>
+                    <li class="nav-item"><%= link_to _('Unpublish'),  admin_update_unpublish_guidance_group_path(guidance_gr), data: { turbo_method: :put }, class:'dropdown-item px-3' %></li>
                 <% else %>
-                    <li class="nav-item"><%= link_to _('Publish'),  admin_update_publish_guidance_group_path(guidance_gr), method: :put, class:'dropdown-item px-3' %></li>
+                    <li class="nav-item"><%= link_to _('Publish'),  admin_update_publish_guidance_group_path(guidance_gr), data: { turbo_method: :put }, class:'dropdown-item px-3' %></li>
                 <% end %>
                 <% if allow_delete %>
-                  <li class="nav-item"><%= link_to _('Remove'), admin_destroy_guidance_group_path(guidance_gr), data: {confirm: _("You are about to delete '%{guidance_group_name}'. This will affect guidance. Are you sure?") % { :guidance_group_name => guidance_gr.name }}, method: :delete, class:'dropdown-item px-3' %></li>
+                  <li class="nav-item"><%= link_to _('Remove'), admin_destroy_guidance_group_path(guidance_gr), data: {confirm: _("You are about to delete '%{guidance_group_name}'. This will affect guidance. Are you sure?") % { :guidance_group_name => guidance_gr.name }, turbo_method: :delete }, class:'dropdown-item px-3' %></li>
                 <% end %>
               </ul>
             </div>

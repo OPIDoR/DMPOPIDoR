@@ -5,7 +5,7 @@
       <div class="form-control mb-3">
         <span class="d-grid">
           <% target = (Rails.configuration.x.shibboleth.use_filtered_discovery_service ? shibboleth_ds_path : user_shibboleth_omniauth_authorize_path) %>
-          <%= link_to _('Sign in'), target, method: :post, class: 'btn btn-secondary institution-login accessible' %>
+          <%= link_to _('Sign in'), target, data: { turbo_method: :post }, class: 'btn btn-secondary institution-login accessible' %>
         </span>
       </div>
     <% else %>

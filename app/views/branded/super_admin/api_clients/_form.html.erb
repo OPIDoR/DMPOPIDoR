@@ -112,8 +112,7 @@ orgs = Org.where(is_other: false)
               _('Delete'),
               super_admin_api_client_path(@api_client),
               class: 'btn btn-secondary',
-              method: :delete,
-              data: { confirm: _('Are you sure you want to delete the API client: "%{name}"') % { name: @api_client.name }}) %>      <% end %>
+              data: { turbo_method: :delete, confirm: _('Are you sure you want to delete the API client: "%{name}"') % { name: @api_client.name }}) %>      <% end %>
     <% end %>
 
     <%= link_to _('Cancel'), super_admin_api_clients_path, class: 'btn btn-secondary', role: 'button' %>
