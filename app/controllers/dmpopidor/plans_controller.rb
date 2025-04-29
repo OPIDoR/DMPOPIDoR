@@ -382,7 +382,7 @@ module Dmpopidor
     # rubocop:enable Metrics/AbcSize, Metrics/MethodLength
 
     # rubocop:disable Metrics/MethodLength, Metrics/AbcSize
-    # rubocop:disable Metrics/PerceivedComplexity, Metrics/CyclomaticComplexity
+    # rubocop:disable Metrics/PerceivedComplexity
     def import_plan
       @plan = ::Plan.new
       authorize @plan
@@ -417,21 +417,20 @@ module Dmpopidor
             else
               @plan.visibility = Rails.configuration.x.plans.default_visibility
 
-              @plan.title = if json_data.dig('meta', 'title')
-                              format(_('Import of %{title}'), title: json_data['meta']['title'])
-                            else
-                              format(_("%{user_name}'s Plan"), user_name: current_user.firstname)
-                            end
+              @plan.title = format(_("%{user_name}'s Plan"), user_name: current_user.firstname)
               @plan.org = current_user.org
 
               if @plan.save
+                plan_title = format(_('Import of %{title}'), title: json_data.dig('meta', 'title'))
                 @plan.add_user!(current_user.id, :creator)
                 @plan.save
                 @plan.create_plan_fragments(json_data)
 
+                json_data['meta']['title'] = plan_title
+
                 Import::PlanImportService.import(@plan, json_data, import_params[:format])
 
-                @plan.update(title: @plan.json_fragment.meta.data['title'])
+                @plan.update(title: plan_title)
                 format.json do
                   render json: { status: 201, message: _('imported'), data: { planId: @plan.id } }, status: :created
                 end
@@ -459,7 +458,7 @@ module Dmpopidor
       end
       # rubocop:enable Metrics/BlockLength
     end
-    # rubocop:enable Metrics/PerceivedComplexity, Metrics/CyclomaticComplexity
+    # rubocop:enable Metrics/PerceivedComplexity
     # rubocop:enable Metrics/MethodLength, Metrics/AbcSize
 
     def research_outputs_data
