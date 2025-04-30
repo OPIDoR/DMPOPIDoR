@@ -59,7 +59,7 @@
               </button>
               <ul class="dropdown-menu">
                 <li class="nav-item"><%= link_to _('Edit'), edit_super_admin_template_path(template.id), class: 'dropdown-item px-3' %></li>
-                <li class="nav-item"><%= link_to _('History'), edit_super_admin_template_path(template.id), class: 'dropdown-item px-3' %></li>
+                <li class="nav-item"><%= link_to _('History'), history_super_admin_template_path(template.id), class: 'dropdown-item px-3' %></li>
                 <% if template.draft? || template.published? %>
                   <li class="nav-item"><%= link_to _('Unpublish'), unpublish_super_admin_template_path(template.id), 'data-method': 'patch', class: 'dropdown-item px-3' %></li>
                 <% end %>
