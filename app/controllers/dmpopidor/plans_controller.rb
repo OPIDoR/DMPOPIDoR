@@ -4,7 +4,7 @@ module Dmpopidor
   # Customized code for PlansController
   # rubocop:disable Metrics/ModuleLength
   module PlansController
-    include Dmpopidor::ErrorHelper
+    include ErrorHelper
 
     # rubocop:disable Metrics/AbcSize, Metrics/MethodLength
     # rubocop:disable Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity

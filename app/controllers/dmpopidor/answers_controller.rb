@@ -4,7 +4,7 @@ module Dmpopidor
   # rubocop:disable Metrics/ModuleLength
   # Customized code for AnswersController
   module AnswersController
-    include Dmpopidor::ErrorHelper
+    include ErrorHelper
 
     # rubocop:disable Metrics/AbcSize
     def new_form

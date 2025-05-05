@@ -3,7 +3,7 @@
 # Controller for the MadmpFragments, handle structures forms
 class MadmpFragmentsController < ApplicationController
   after_action :verify_authorized
-  include Dmpopidor::ErrorHelper
+  include ErrorHelper
 
   # rubocop:disable Metrics/AbcSize, Metrics/MethodLength
   def create

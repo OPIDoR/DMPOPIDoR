@@ -4,7 +4,7 @@ module Dmpopidor
   # Customized code for ResearchOutputsController
   # rubocop:disable Metrics/ModuleLength
   module ResearchOutputsController
-    include Dmpopidor::ErrorHelper
+    include ErrorHelper
     # GET /plans/:plan_id/research_outputs
     def index
       @plan = ::Plan.find(params[:plan_id])
