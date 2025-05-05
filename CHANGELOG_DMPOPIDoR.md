@@ -2,6 +2,13 @@
 
 **Attention** Cette liste de changements concerne les déploiements sur nos serveurs de test en interne.
 
+## 05/05/2025
+
+- Amélioration des textes du formulaire des produits de recherche (#12713)
+- Correction du problème empêchant les utilisateurs avec un accès Editeur au plan de créer/modifier/supprimer un PR (#13059)
+- Correction du lien Historique pour les modules (#12800)
+- Améliorations de l'API GraphQL (#13067)
+
 ## 29/04/2025
 
 - Correction d'un problème des titres des plans importés (#12546)
