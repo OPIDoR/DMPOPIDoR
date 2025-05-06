@@ -2,6 +2,12 @@
 
 **Attention** Cette liste de changements concerne les déploiements sur nos serveurs de test en interne.
 
+## 06/05/2025
+
+- Suppression de l'option "Supprimer" (dupliquée) dans la section Modules
+- Masquage du bouton "Aperçu" dans l'édition d’un module
+- Correction du texte du bouton "Voir tous les modules" dans l’historique d’un module
+
 ## 05/05/2025
 
 - Amélioration des textes du formulaire des produits de recherche (#12713)
