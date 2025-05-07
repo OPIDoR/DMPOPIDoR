@@ -51,7 +51,7 @@
     "bootstrap": "^5.3.3",
     "chart.js": "^4.2.1",
     "core-js": "^3.6.5",
-    "graphiql": "^3.3.2",
+    "graphiql": "^4.0.2",
     "graphql": "^16.9.0",
     "jquery": "^3.5.1",
     "jquery-ui": "^1.12.1",
