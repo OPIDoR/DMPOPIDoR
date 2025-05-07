@@ -126,9 +126,7 @@ module Dmpopidor
                 display_order: 1,
                 output_type_description: reg_val[@plan.template.locale.tr('-', '_')]
               )
-              created_ro.create_json_fragments({
-                                                 hasPersonalData: Rails.configuration.x.dmpopidor.front[:enableHasPersonalData] # rubocop:disable Layout/LineLength
-                                               })
+              created_ro.create_json_fragments({ hasPersonalData: true })
             end
 
             flash[:notice] = msg
@@ -382,11 +380,9 @@ module Dmpopidor
     # rubocop:enable Metrics/AbcSize, Metrics/MethodLength
 
     # rubocop:disable Metrics/MethodLength, Metrics/AbcSize
-    # rubocop:disable Metrics/PerceivedComplexity
     def import_plan
       @plan = ::Plan.new
       authorize @plan
-      # rubocop:disable Metrics/BlockLength
       begin
         plan_importer = Import::Plan.new
         data = plan_importer.import(@plan, import_params, current_user)
@@ -396,9 +392,9 @@ module Dmpopidor
             render json: { status: 201, message: _('imported'), data: data }, status: :created
           end
         end
-      rescue StandardError => errs
+      rescue StandardError => e
         format.json do
-          bad_request(errs)
+          bad_request(e)
         end
       rescue IOError
         format.json do
@@ -414,9 +410,7 @@ module Dmpopidor
           bad_request("#{_('An error has occured: ')} #{e.message}")
         end
       end
-      # rubocop:enable Metrics/BlockLength
     end
-    # rubocop:enable Metrics/PerceivedComplexity
     # rubocop:enable Metrics/MethodLength, Metrics/AbcSize
 
     def research_outputs_data
