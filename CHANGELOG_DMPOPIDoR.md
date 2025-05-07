@@ -3,16 +3,14 @@
 **Attention** Cette liste de changements concerne les déploiements sur nos serveurs de test en interne.
 
 ## 07/05/2025
-
+- Amélioration de l'affichage de la création d'un produit de recherche (#12713)
+- Découpage de la fonction d'import de plan par interface dans un nouveau service
 - Découpage de la fonction d'import de plan par interface dans un nouveau service
 - Réutilisation du service pour l'import de plan par interface
 - Réutilisation du service pour la route d'import de plan de l'API V1
 - Réutilisation du service pour la mutation d'import de plan de l'API GraphQL
 - Gestion des droits à la création/import de plan pour l'API REST et GraphQL
 - Gestion des droits pour la création de produits de recherche de l'API GraphQL
-
-## 06/05/2025
-
 - Suppression de l'option "Supprimer" (dupliquée) dans la section Modules
 - Masquage du bouton "Aperçu" dans l'édition d’un module
 - Correction du texte du bouton "Voir tous les modules" dans l’historique d’un module
