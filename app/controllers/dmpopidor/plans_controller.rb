@@ -387,73 +387,31 @@ module Dmpopidor
       @plan = ::Plan.new
       authorize @plan
       # rubocop:disable Metrics/BlockLength
-      ::Plan.transaction do
-        @plan.template = ::Template.find(import_params[:template_id])
+      begin
+        plan_importer = Import::Plan.new
+        data = plan_importer.import(@plan, import_params, current_user)
 
-        # pre-select org's guidance and the default org's guidance
-        ids = (::Org.default_orgs.pluck(:id) << current_user.org_id).flatten.uniq
-
-        language = Language.find_by(abbreviation: @plan.template.locale)
-
-        ggs = ::GuidanceGroup.where(org_id: ids, optional_subset: false, published: true, language_id: language.id)
-
-        @plan.guidance_groups << ggs unless ggs.empty?
-
-        I18n.with_locale @plan.template.locale do
-          respond_to do |format|
-            json_file = import_params[:json_file]
-            if json_file.respond_to?(:read)
-              json_data = JSON.parse(json_file.read)
-            elsif json_file.respond_to?(:path)
-              json_data = JSON.parse(File.read(json_file.path))
-            else
-              raise IOError
-            end
-            errs = Import::PlanImportService.validate(json_data, import_params[:format], locale: @plan.template.locale)
-            if errs.any?
-              format.json do
-                bad_request(import_errors(errs))
-              end
-            else
-              @plan.visibility = Rails.configuration.x.plans.default_visibility
-
-              @plan.title = format(_("%{user_name}'s Plan"), user_name: current_user.firstname)
-              @plan.org = current_user.org
-
-              if @plan.save
-                plan_title = format(_('Import of %{title}'), title: json_data.dig('meta', 'title'))
-                @plan.add_user!(current_user.id, :creator)
-                @plan.save
-                @plan.create_plan_fragments(json_data)
-
-                json_data['meta']['title'] = plan_title
-
-                Import::PlanImportService.import(@plan, json_data, import_params[:format])
-
-                @plan.update(title: plan_title)
-                format.json do
-                  render json: { status: 201, message: _('imported'), data: { planId: @plan.id } }, status: :created
-                end
-              else
-                format.json do
-                  bad_request(failure_message(@plan, _('create')))
-                end
-              end
-            end
-          rescue IOError
-            format.json do
-              bad_request(_('Unvalid file'))
-            end
-          rescue JSON::ParserError
-            format.json do
-              bad_request(_('File should contain JSON'))
-            end
-          rescue StandardError => e
-            Rails.logger.error e.backtrace
-            format.json do
-              bad_request("#{_('An error has occured: ')} #{e.message}")
-            end
+        respond_to do |format|
+          format.json do
+            render json: { status: 201, message: _('imported'), data: data }, status: :created
           end
+        end
+      rescue StandardError => errs
+        format.json do
+          bad_request(errs)
+        end
+      rescue IOError
+        format.json do
+          bad_request(_('Unvalid file'))
+        end
+      rescue JSON::ParserError
+        format.json do
+          bad_request(_('File should contain JSON'))
+        end
+      rescue StandardError => e
+        Rails.logger.error e.backtrace
+        format.json do
+          bad_request("#{_('An error has occured: ')} #{e.message}")
         end
       end
       # rubocop:enable Metrics/BlockLength
