@@ -3,10 +3,12 @@
 module Api
   module V1
     module Madmp
+
       # Handles CRUD operations for MadmpSchemas in API V1
       class PlansController < BaseApiController
         respond_to :json
         include MadmpExportHelper
+        include ErrorHelper
         # GET /api/v1/madmp/plans/:id(/research_outputs/:uuid)
         # GET /api/v1/madmp/plans/research_outputs/:uuid
         # rubocop:disable Metrics/AbcSize, Metrics/MethodLength
@@ -40,6 +42,37 @@ module Api
           render_error(errors: [_('Plan not found')], status: :not_found)
         end
         # rubocop:enable Metrics/AbcSize, Metrics/MethodLength
+
+        # POST /api/v1/madmp/plans/import
+        def import
+          return forbidden(_('You are not allowed to create plan')) unless Api::V0::PlansPolicy.new(client, Plan).create?
+
+          plan = ::Plan.new
+
+          file = Tempfile.new(['plan', '.json'])
+          file.write(params[:plan].to_json)
+          file.rewind
+
+          begin
+            plan_importer = Import::Plan.new
+            data = plan_importer.import(plan, {
+              template_id: params[:template_id],
+              format: params[:import_format],
+              json_file: file
+            }, client)
+
+            render json: { status: 201, message: _('Plan imported successfully'), data: data }, status: :created
+          rescue StandardError => errs
+            bad_request(errs)
+          rescue IOError
+            bad_request(_('Unvalid file'))
+          rescue JSON::ParserError
+            bad_request(_('File should contain JSON'))
+          rescue StandardError => e
+            Rails.logger.error e.backtrace
+            bad_request("#{_('An error has occured: ')} #{e.message}")
+          end
+        end
 
         private
 

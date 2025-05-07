@@ -63,7 +63,7 @@ Rails.application.routes.draw do
         resources :madmp_fragments, only: %i[show update], controller: "madmp_fragments", path: "fragments"
         resources :madmp_schemas, only: %i[index show], controller: "madmp_schemas", path: "schemas"
         resources :registries, only: %i[index show], controller: "registries", param: :name
-        resources :plans, only: [:show] do
+        resources :plans, only: [:show, :import] do
           get 'research_outputs/:uuid', action: :show, on: :collection, as: :show
           collection do
             post :import

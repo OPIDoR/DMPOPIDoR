@@ -12,6 +12,9 @@ module Mutations
     def resolve(plan_id:, research_outputs:, format:)
       plan = Api::V1::PlansPolicy::Scope.new(context[:current_user], Plan).resolve.find(plan_id)
 
+
+      raise GraphQL::ExecutionError, 'You are not allowed to create research output(s)' unless ResearchOutputPolicy.new(context[:current_user], ResearchOutput.new(plan_id: plan.id)).create?
+
       begin
         if format.eql?('rda')
           research_outputs = Import::Converters::RdaToStandardConverter.convert_research_output(research_outputs, {
@@ -20,6 +23,7 @@ module Mutations
             ethical_issues_report: ''
           })
         end
+
         Import::PlanImportService.handle_research_outputs(plan, research_outputs)
       rescue => e
           raise GraphQL::ExecutionError, e.message
@@ -28,7 +32,7 @@ module Mutations
       {
         result: {
           code: 200,
-          message: "Research output#{research_outputs.length > 1 ? "s" : ""} created successfully for plan ${plan_id}.",
+          message: "Research output#{research_outputs.length > 1 ? "s" : ""} created successfully for plan #{plan_id}.",
           success: true
         }
       }

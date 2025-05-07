@@ -55,41 +55,48 @@
         <ul class="nav nav-tabs" role="tablist">
           <% guidances.each_with_index do |tab, i| %>
             <% active_nav ||= tab[:name] %>
-            <li role="presentation" class="nav-item">
-              <a
-                data-bs-target="<%= "#guidance_per_question_#{question.id}_research_output_#{research_output.id}_#{i}" %>"
-                aria-controls="<%= "#guidance_per_question_#{question.id}_research_output_#{research_output.id}_#{i}" %>"
-                role="tab"
+            <li class="nav-item" role="presentation">
+              <button
+                class="nav-link view-plan-guidance <%= 'active' if active_nav == tab[:name] %>"
+                id="<%= "tab_#{i}_#{question.id}_#{research_output.id}" %>"
                 data-bs-toggle="tab"
-                tabindex="0"
-                class="<%= active_nav == tab[:name] ? "nav-link view-plan-guidance active" : "nav-link view-plan-guidance" %>">
+                data-bs-target="<%= "#guidance_per_question_#{question.id}_research_output_#{research_output.id}_#{i}" %>"
+                type="button"
+                role="tab"
+                aria-controls="<%= "guidance_per_question_#{question.id}_research_output_#{research_output.id}_#{i}" %>"
+                aria-selected="<%= active_nav == tab[:name] ? 'true' : 'false' %>">
                 <%= tab[:name] %>
-              </a>
+              </button>
             </li>
           <% end %>
         </ul>
+
         <div class="tab-content">
-          <% guidances.each do |tab, i| %>
-            <div id="<%= "guidance_per_question_#{question.id}_research_output_#{research_output.id}_#{i}" %>" role="tabpanel" class="tab-pane <%= active_nav == tab[:name] ? 'active' : '' %>">
-              <div class="card card-default">
+          <% guidances.each_with_index do |tab, i| %>
+            <div
+              class="tab-pane fade <%= 'show active' if active_nav == tab[:name] %>"
+              id="<%= "guidance_per_question_#{question.id}_research_output_#{research_output.id}_#{i}" %>"
+              role="tabpanel"
+              aria-labelledby="<%= "tab_#{i}_#{question.id}_#{research_output.id}" %>">
+
+              <div class="card">
                 <div class="card-body">
                   <% if tab[:annotations].present? %>
                     <% tab[:annotations].each do |annotation| %>
-                      <%=
-                        render partial: 'org_admin/annotations/show', locals: {
-                          template: template,
-                          example_answer: nil,
-                          guidance: annotation,
-                          for_plan: true }
-                      %>
+                      <%= render partial: 'org_admin/annotations/show', locals: {
+                        template: template,
+                        example_answer: nil,
+                        guidance: annotation,
+                        for_plan: true } %>
                     <% end %>
                     <% if tab[:groups].present? %>
                       <hr />
                     <% end %>
                   <% end %>
+
                   <% if tab[:groups].present? %>
                     <%= render partial: 'guidance_groups/index_by_theme',
-                        locals: { question: question, research_output: research_output, guidance_groups_by_theme: tab[:groups] } %>
+                               locals: { question: question, research_output: research_output, guidance_groups_by_theme: tab[:groups] } %>
                   <% end %>
                 </div>
               </div>

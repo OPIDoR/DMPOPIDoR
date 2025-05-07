@@ -132,6 +132,16 @@
                   "rda"
                 ]
               }
+            },
+            {
+              "name": "template_id",
+              "in": "query",
+              "description": "Template ID",
+              "required": true,
+              "schema": {
+                "type": "integer",
+                "default": ""
+              }
             }
           ],
           "requestBody": {
