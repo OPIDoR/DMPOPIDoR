@@ -6,7 +6,6 @@ module OrgAdmin
     include AllowedQuestionFormats
     include Versionable
     include ConditionsHelper
-    prepend Dmpopidor::OrgAdmin::QuestionsController
 
     respond_to :html
     after_action :verify_authorized
@@ -42,49 +41,67 @@ module OrgAdmin
     end
 
     # GET /org_admin/templates/[:template_id]/phases/[:phase_id]/sections/[:id]/questions/[:question_id]/edit
+    # CHANGES : Added  MadmpSchema list
+    # rubocop:disable Metrics/AbcSize
     def edit
       question = Question.includes(:annotations,
                                    :question_options,
                                    section: { phase: :template })
                          .find(params[:id])
-
+      template = question.section.phase.template
+      @available_classnames = Settings::Question::AVAILABLE_CLASSNAMES[template.data_type]
+      @madmp_schemas = MadmpSchema.where(classname: @available_classnames, data_type: template.data_type)
+      @available_themes = Theme.where(data_type: template.data_type).order('title')
       authorize question
       render json: { html: render_to_string(partial: 'edit', locals: {
-                                              template: question.section.phase.template,
+                                              template: template,
                                               section: question.section,
                                               question: question,
                                               question_formats: allowed_question_formats,
                                               conditions: question.conditions
                                             }) }
     end
+    # rubocop:enable Metrics/AbcSize
 
     # SEE MODULE
     # GET /org_admin/templates/:template_id/phases/:phase_id/sections/:section_id/questions/new
-    # rubocop:disable Metrics/AbcSize
+    # rubocop:disable Metrics/AbcSize, Metrics/MethodLength
+    # CHANGES : Added  MadmpSchema list
     def new
       section = Section.includes(:questions, phase: :template).find(params[:section_id])
+      template = section.phase.template
       nbr = section.questions.maximum(:number)
       question_format = QuestionFormat.find_by(title: 'Text area')
       question = Question.new(section_id: section.id,
                               question_format: question_format,
                               number: nbr.present? ? nbr + 1 : 1)
       question_formats = allowed_question_formats
-
+      @available_classnames = Settings::Question::AVAILABLE_CLASSNAMES[template.data_type]
+      @madmp_schemas = MadmpSchema.where(classname: @available_classnames, data_type: template.data_type)
+      @available_themes = Theme.where(data_type: template.data_type).order('title')
       authorize question
       render json: { html: render_to_string(partial: 'form', locals: {
-                                              template: section.phase.template,
+                                              template: template,
                                               section: section,
                                               question: question,
                                               method: 'post',
-                                              url: org_admin_template_phase_section_questions_path(
-                                                template_id: section.phase.template.id,
-                                                phase_id: section.phase.id,
-                                                id: section.id
-                                              ),
+                                              url: if template&.module?
+                                                     super_admin_template_phase_section_questions_path(
+                                                       template_id: template.id,
+                                                       phase_id: section.phase.id,
+                                                       id: section.id
+                                                     )
+                                                   else
+                                                     org_admin_template_phase_section_questions_path(
+                                                       template_id: template.id,
+                                                       phase_id: section.phase.id,
+                                                       id: section.id
+                                                     )
+                                                   end,
                                               question_formats: question_formats
                                             }) }
     end
-    # rubocop:enable Metrics/AbcSize
+    # rubocop:enable Metrics/AbcSize, Metrics/MethodLength
 
     # POST /org_admin/templates/:template_id/phases/:phase_id/sections/:section_id/questions
     # rubocop:disable Metrics/AbcSize
@@ -104,10 +121,9 @@ module OrgAdmin
       end
       path_helper = section.phase.template&.module? ? :edit_super_admin_template_phase_path : :edit_org_admin_template_phase_path
       redirect_to send(path_helper,
-        template_id: section.phase.template.id,
-        id: section.phase.id,
-        section: section.id
-      )
+                       template_id: section.phase.template.id,
+                       id: section.phase.id,
+                       section: section.id)
     end
     # rubocop:enable Metrics/AbcSize
 
@@ -176,17 +192,15 @@ module OrgAdmin
       if question.section.phase.template.customization_of.present?
         path_helper = question.section.phase.template&.module? ? :super_admin_template_phase_path : :org_admin_template_phase_path
         redirect_to send(path_helper,
-          template_id: question.section.phase.template.id,
-          id: question.section.phase.id,
-          section: question.section.id
-        )
+                         template_id: question.section.phase.template.id,
+                         id: question.section.phase.id,
+                         section: question.section.id)
       else
         path_helper = question.section.phase.template&.module? ? :edit_super_admin_template_phase_path : :edit_org_admin_template_phase_path
         redirect_to send(path_helper,
-          template_id: question.section.phase.template.id,
-          id: question.section.phase.id,
-          section: question.section.id
-        )
+                         template_id: question.section.phase.template.id,
+                         id: question.section.phase.id,
+                         section: question.section.id)
       end
     end
     # rubocop:enable Metrics/AbcSize, Metrics/MethodLength
@@ -210,10 +224,9 @@ module OrgAdmin
       end
       path_helper = question.section.phase.template&.module? ? :edit_super_admin_template_phase_path : :edit_org_admin_template_phase_path
       redirect_to send(path_helper,
-        template_id: section.phase.template.id,
-        id: section.phase.id,
-        section: section.id
-      )
+                       template_id: section.phase.template.id,
+                       id: section.phase.id,
+                       section: section.id)
     end
     # rubocop:enable Metrics/AbcSize
 
