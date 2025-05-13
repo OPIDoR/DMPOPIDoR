@@ -8,15 +8,15 @@ module Dmpopidor
       # -----------------------------------------------------
       # rubocop:disable Metrics/AbcSize, Metrics/CyclomaticComplexity
       def modules
-        authorize ::Template
-        templates = ::Template.latest_module_version.where(customization_of: nil)
+        authorize Template
+        templates = Template.latest_module_version.where(customization_of: nil)
         case params[:f]
         when 'published'
           template_ids = templates.select { |t| t.published? || t.draft? }.collect(&:family_id)
-          templates = ::Template.latest_version(template_ids)
+          templates = Template.latest_version(template_ids)
         when 'unpublished'
           template_ids = templates.select { |t| !t.published? && !t.draft? }.collect(&:family_id)
-          templates = ::Template.latest_version(template_ids)
+          templates = Template.latest_version(template_ids)
         end
         paginable_renderise(
           partial: 'modules',

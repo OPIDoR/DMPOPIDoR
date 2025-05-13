@@ -427,10 +427,10 @@ class User < ApplicationRecord
     copy = dup
     self.firstname = 'Anonymous'
     self.surname = 'User'
-    self.email = ::User.unique_random(field_name: 'email',
-                                      prefix: 'user_',
-                                      suffix: suffix,
-                                      length: 5)
+    self.email = User.unique_random(field_name: 'email',
+                                    prefix: 'user_',
+                                    suffix: suffix,
+                                    length: 5)
     self.recovery_email = nil
     self.api_token = nil
     self.encrypted_password = nil

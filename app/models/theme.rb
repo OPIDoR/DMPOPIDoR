@@ -15,7 +15,7 @@
 
 # Object that represents a question/guidance theme
 class Theme < ApplicationRecord
-  # Before save & create, generate the slug, method from Dmpopidor::Models::Theme
+  # Before save & create, generate the slug
   before_save :generate_slug
 
   # ================

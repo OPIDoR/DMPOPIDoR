@@ -368,9 +368,9 @@ class Template < ApplicationRecord
   # CHANGES : Added module template support
   def latest?
     id == if module?
-            ::Template.latest_module_version(family_id).pluck('templates.id').first
+            Template.latest_module_version(family_id).pluck('templates.id').first
           else
-            ::Template.latest_version(family_id).pluck('templates.id').first
+            Template.latest_version(family_id).pluck('templates.id').first
           end
   end
 
@@ -407,7 +407,7 @@ class Template < ApplicationRecord
 
   # CHANGES : Added module template support
   def removable?
-    versions = ::Template.includes(:plans).where(family_id: family_id)
+    versions = Template.includes(:plans).where(family_id: family_id)
     if type.eql?('module')
       Fragment::ResearchOutput.where("(additional_info->>'moduleId')::int IN (?)", versions.pluck(:id)).empty?
     else

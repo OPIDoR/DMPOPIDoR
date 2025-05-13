@@ -133,7 +133,7 @@ module Dmpopidor
           display_order: pos
         )
 
-        module_tplt = ::Template.module(data_type:, locale: target_plan.template.locale)
+        module_tplt = Template.module(data_type:, locale: target_plan.template.locale)
 
         # Creates the main ResearchOutput fragment
         research_output_copy_fragment = Fragment::ResearchOutput.create(

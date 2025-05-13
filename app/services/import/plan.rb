@@ -4,7 +4,7 @@ module Import
   class Plan
     def import(plan, import_params, current_user)
       ::Plan.transaction do
-        plan.template = ::Template.find(import_params[:template_id])
+        plan.template = Template.find(import_params[:template_id])
 
         # pre-select org's guidance and the default org's guidance
         ids = (::Org.default_orgs.pluck(:id) << current_user.org_id).flatten.uniq

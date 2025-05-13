@@ -237,7 +237,7 @@ class ResearchOutput < ApplicationRecord
   def serialize_json
     ro_fragment = json_fragment
     module_id = ro_fragment.additional_info['moduleId']
-    template = module_id ? ::Template.find(module_id) : plan.template
+    template = module_id ? Template.find(module_id) : plan.template
 
     guidance_presenter = ::GuidancePresenter.new(plan)
     questions_with_guidance = template.questions.select do |q|
@@ -319,7 +319,7 @@ class ResearchOutput < ApplicationRecord
         {
           property_name: 'researchOutput',
           dataType: configuration[:dataType],
-          moduleId: ::Template.module(data_type: configuration[:dataType], locale:)&.id
+          moduleId: Template.module(data_type: configuration[:dataType], locale:)&.id
         },
         {
           'title' => title,

@@ -5,7 +5,7 @@ class TemplatesController < ApplicationController
   after_action :verify_authorized
 
   def show
-    template = ::Template.includes(
+    template = Template.includes(
       { sections: :questions }
     ).find(params[:id])
 
@@ -15,7 +15,7 @@ class TemplatesController < ApplicationController
   end
 
   def set_recommended
-    template = ::Template.find(params[:template_id])
+    template = Template.find(params[:template_id])
 
     authorize template, policy_class: PublicTemplateInfoPolicy
     template.is_recommended = params[:is_recommended] == '1'
