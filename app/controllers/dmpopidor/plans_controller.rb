@@ -387,28 +387,16 @@ module Dmpopidor
         plan_importer = Import::Plan.new
         data = plan_importer.import(@plan, import_params, current_user)
 
-        respond_to do |format|
-          format.json do
-            render json: { status: 201, message: _('imported'), data: data }, status: :created
-          end
-        end
+        render json: { status: 201, message: _('imported'), data: data }, status: :created
       rescue StandardError => e
-        format.json do
-          bad_request(e)
-        end
+        bad_request(e)
       rescue IOError
-        format.json do
-          bad_request(_('Unvalid file'))
-        end
+        bad_request(_('Unvalid file'))
       rescue JSON::ParserError
-        format.json do
-          bad_request(_('File should contain JSON'))
-        end
+        bad_request(_('File should contain JSON'))
       rescue StandardError => e
         Rails.logger.error e.backtrace
-        format.json do
-          bad_request("#{_('An error has occured: ')} #{e.message}")
-        end
+        bad_request("#{_('An error has occured: ')} #{e.message}")
       end
     end
     # rubocop:enable Metrics/MethodLength, Metrics/AbcSize

@@ -3,8 +3,11 @@
 module Import
   class Plan
     def import(plan, import_params, current_user)
+      import_format = import_params[:format].eql?('null') ? 'standard' : import_params[:format]
       ::Plan.transaction do
-        plan.template = ::Template.find(import_params[:template_id])
+        recommended_template = ::Template.recommend(context: import_params[:context],
+                                                    locale: import_params[:locale]) || ::Template.default
+        plan.template = recommended_template
 
         # pre-select org's guidance and the default org's guidance
         ids = (::Org.default_orgs.pluck(:id) << current_user.org_id).flatten.uniq
@@ -24,7 +27,7 @@ module Import
           raise IOError, _('Unvalid file')
         end
 
-        errs = Import::PlanImportService.validate(json_data, import_params[:format], locale: plan.template.locale)
+        errs = Import::PlanImportService.validate(json_data, import_format, locale: plan.template.locale)
 
         raise StandardError, errs if errs.any?
 
@@ -42,7 +45,7 @@ module Import
 
         json_data['meta']['title'] = plan_title
 
-        Import::PlanImportService.import(plan, json_data, import_params[:format])
+        Import::PlanImportService.import(plan, json_data, import_format)
 
         plan.update(title: plan_title)
 
