@@ -2,29 +2,18 @@
 
 # Controller that handles Admin operations for managing users
 class UsersController < ApplicationController
-  # --------------------------------
-  # Start DMP OPIDoR Customization
-  # --------------------------------
-  prepend Dmpopidor::UsersController
-  # --------------------------------
-  # End DMP OPIDoR Customization
-  # --------------------------------
-
   helper PaginableHelper
   helper PermsHelper
   include ConditionalUserMailer
   after_action :verify_authorized
   respond_to :html
 
-  # --------------------------------
-  # Start DMP OPIDoR Customization
-  # SEE app/controllers/dmpopidor/users_controller.rb
-  # CHANGES: Users without last_sign_in date should be displayed last
-  # --------------------------------
   ##
   # GET - List of all users for an organisation
   # Displays number of roles[was project_group], name, email, and last sign in
-  # rubocop:disable Metrics/AbcSize
+  # Added Total users count
+  # CHANGES: Users without last_sign_in date should be displayed last
+  # rubocop:disable Metrics/AbcSize, Metrics/MethodLength
   def admin_index
     authorize User
 
@@ -32,25 +21,26 @@ class UsersController < ApplicationController
       format.html do
         @clicked_through = params[:click_through].present?
         @filter_admin = false
-
-        @users = if current_user.can_super_admin?
-                   User.includes(:department, :org, :perms, :roles, :identifiers).page(1)
-                 else
-                   current_user.org.users
-                               .includes(:department, :org, :perms, :roles, :identifiers)
-                               .page(1)
-                 end
+        if current_user.can_super_admin?
+          @users = User.order('last_sign_in_at desc NULLS LAST')
+                       .includes(:department, :org, :perms, :roles, :identifiers).page(1)
+          @total_active = User.where(active: true).count
+          @total_users = User.count
+        else
+          @users = current_user.org.users.order('last_sign_in_at desc NULLS LAST')
+                               .includes(:department, :org, :perms, :roles, :identifiers).page(1)
+          @total_active = current_user.org.users.where(active: true).count
+          @total_users = current_user.org.users.count
+        end
       end
+
       format.csv do
         send_data User.to_csv(current_user.org.users.order(:surname)),
                   filename: "users-accounts-#{Date.today}.csv"
       end
     end
   end
-  # --------------------------------
-  # End DMP OPIDoR Customization
-  # --------------------------------
-  # rubocop:enable Metrics/AbcSize
+  # rubocop:enable Metrics/AbcSize, Metrics/MethodLength
 
   ##
   # GET - Displays the permissions available to the selected user

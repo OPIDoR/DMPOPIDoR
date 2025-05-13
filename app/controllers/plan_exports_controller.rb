@@ -2,30 +2,29 @@
 
 # Controller for the Plan Download page
 class PlanExportsController < ApplicationController
-  prepend Dmpopidor::PlanExportsController
   after_action :verify_authorized
 
   include ConditionsHelper
 
-  # --------------------------------
-  # Start DMP OPIDoR Customization
   # CHANGES:
   #   - Research outputs : added research output support with export mode
   #   - JSON export uses DMP OPIDoR JSON export (default & RDA)
   # --------------------------------
   # rubocop:disable Metrics/AbcSize, Metrics/MethodLength
-  # rubocop:disable Metrics/PerceivedComplexity, Metrics/CyclomaticComplexity
+  # rubocop:disable Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
   def show
-    @plan = Plan.includes(:answers, { template: { phases: { sections: :questions } } })
-                .find(params[:plan_id])
+    @plan = ::Plan.includes(:answers, :research_outputs, {
+                              template: { phases: { sections: :questions } }
+                            }).find(params[:plan_id])
 
     if privately_authorized? && export_params[:form].present?
       skip_authorization
       @show_coversheet         = export_params[:project_details].present?
       @show_sections_questions = export_params[:question_headings].present?
       @show_unanswered         = export_params[:unanswered_questions].present?
+      @show_complete_data      = export_params[:complete_data].present?
       @show_custom_sections    = export_params[:custom_sections].present?
-      @show_research_outputs   = export_params[:research_outputs].present?
+      @show_research_outputs   = true
       @public_plan             = false
 
     elsif publicly_authorized?
@@ -34,7 +33,7 @@ class PlanExportsController < ApplicationController
       @show_sections_questions = true
       @show_unanswered         = true
       @show_custom_sections    = true
-      @show_research_outputs   = @plan.research_outputs&.any? || false
+      @show_research_outputs   = true
       @public_plan             = true
 
     else
@@ -43,25 +42,23 @@ class PlanExportsController < ApplicationController
 
     @hash           = @plan.as_pdf(current_user, @show_coversheet)
     @formatting     = export_params[:formatting] || @plan.settings(:export).formatting
-    if params.key?(:phase_id) && params[:phase_id].length.positive?
-      # order phases by phase number asc
-      @hash[:phases] = @hash[:phases].sort_by { |phase| phase[:number] }
-      if params[:phase_id] == 'All'
-        @hash[:all_phases] = true
-      else
-        @selected_phase = @plan.phases.find(params[:phase_id])
-      end
-    else
-      @selected_phase = @plan.phases.order('phases.updated_at DESC')
-                             .detect { |p| p.visibility_allowed?(@plan) }
+
+    if params.key?(:selected_phases)
+      @hash[:phases] = @hash[:phases].select { |p| params[:selected_phases].include?(p[:id].to_s) }
     end
 
     # Added contributors to coverage of plans.
     # Users will see both roles and contributor names if the role is filled
-    @hash[:data_curation] = Contributor.where(plan_id: @plan.id).data_curation
-    @hash[:investigation] = Contributor.where(plan_id: @plan.id).investigation
-    @hash[:pa] = Contributor.where(plan_id: @plan.id).project_administration
-    @hash[:other] = Contributor.where(plan_id: @plan.id).other
+    # @hash[:data_curation] = Contributor.where(plan_id: @plan.id).data_curation
+    # @hash[:investigation] = Contributor.where(plan_id: @plan.id).investigation
+    # @hash[:pa] = Contributor.where(plan_id: @plan.id).project_administration
+    # @hash[:other] = Contributor.where(plan_id: @plan.id).other
+
+    if params.key?(:research_outputs)
+      @hash[:research_outputs] = @hash[:research_outputs].order(display_order: :asc).select do |d|
+        params[:research_outputs].include?(d[:id].to_s)
+      end
+    end
 
     respond_to do |format|
       format.html { show_html }
@@ -69,14 +66,14 @@ class PlanExportsController < ApplicationController
       format.text { show_text }
       format.docx { show_docx }
       format.pdf  { show_pdf }
-      format.json { show_json }
+      format.json do
+        selected_research_outputs = params[:research_outputs]&.map(&:to_i) || @plan.research_output_ids
+        show_json(selected_research_outputs, params[:json_format])
+      end
     end
   end
+  # rubocop:enable Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
   # rubocop:enable Metrics/AbcSize, Metrics/MethodLength
-  # rubocop:enable Metrics/PerceivedComplexity, Metrics/CyclomaticComplexity
-  # --------------------------------
-  # End DMP OPIDoR Customization
-  # --------------------------------
 
   private
 
@@ -106,41 +103,36 @@ class PlanExportsController < ApplicationController
                                                                   locals: { export_format: 'docx' }))
   end
 
-  # --------------------------------
-  # Start DMP OPIDoR Customization
   # CHANGES: PDF footer now displays DMP licence
-  # --------------------------------
+  # rubocop:disable Metrics/AbcSize
   def show_pdf
+    license = @plan.json_fragment.meta.license if @plan.structured?
+    license_details = if license.present? && !license.data.compact.empty?
+                        "#{license.data['licenseName']} (#{license.data['licenseUrl']})"
+                      end
     render pdf: file_name,
            margin: @formatting[:margin],
-           # wkhtmltopdf behavior is based on the OS so force the zoom level
-           # See 'Gotchas' section of https://github.com/mileszs/wicked_pdf
-           zoom: 0.78125,
-           footer: {
-             center: format(_('Created using %{application_name}. Last modified %{date}'),
-                            application_name: ApplicationService.application_name,
-                            date: l(@plan.updated_at.to_date, format: :readable)),
+           footer:
+           {
+             center: license_details,
              font_size: 8,
              spacing: (Integer(@formatting[:margin][:bottom]) / 2) - 4,
-             right: _('[page] of [topage]'),
+             right: '[page] of [topage]',
              encoding: 'utf8'
            }
   end
-  # --------------------------------
-  # End DMP OPIDoR Customization
-  # --------------------------------
+  # rubocop:enable Metrics/AbcSize
 
   # --------------------------------
   # Start DMP OPIDoR Customization
   # CHANGES: Changed JSON export to use madmp_fragments
-  # --------------------------------
-  def show_json
-    json = render_to_string(partial: '/api/v1/plans/show', locals: { plan: @plan })
-    render json: "{\"dmp\":#{json}}"
+  def show_json(selected_research_outputs, json_format)
+    send_data render_to_string("shared/export/madmp_export_templates/#{json_format}/plan",
+                               locals: {
+                                 dmp: @plan.json_fragment,
+                                 selected_research_outputs: selected_research_outputs
+                               }), filename: "#{file_name}_#{json_format}.json"
   end
-  # --------------------------------
-  # End DMP OPIDoR Customization
-  # --------------------------------
 
   def file_name
     # Sanitize bad characters and replace spaces with underscores
@@ -169,9 +161,9 @@ class PlanExportsController < ApplicationController
   end
 
   def export_params
-    params.permit(:export)
-          .permit(:form, :project_details, :question_headings, :unanswered_questions,
-                  :custom_sections, :research_outputs,
+    params.fetch(:export, {})
+          .permit(:form, :project_details, :question_headings, :unanswered_questions, :complete_data,
+                  :custom_sections, :research_outputs, :selected_phases,
                   formatting: [:font_face, :font_size, { margin: %i[top right bottom left] }])
   end
 
