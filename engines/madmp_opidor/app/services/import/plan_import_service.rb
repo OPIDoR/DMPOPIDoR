@@ -4,7 +4,8 @@ module Import
   # Service used to import a plan from a JSON document
   class PlanImportService
     class << self
-      def import(plan, json_data, import_format)
+      # rubocop:disable Metrics/AbcSize
+      def import(plan, json_data, plan_title, import_format)
         dmp_fragment = plan.json_fragment
         if import_format.eql?('rda')
           dmp = Import::Converters::RdaToStandardConverter.convert(json_data['dmp'])
@@ -14,12 +15,14 @@ module Import
         else
           dmp = json_data
         end
+        dmp['meta']['title'] = plan_title
         dmp_template_name = plan.template.research_entity? ? 'DMPResearchEntity' : 'DMPResearchProject'
         dmp_fragment.raw_import(
           dmp.slice('meta', 'project', 'researchEntity', 'budget'), MadmpSchema.find_by(name: dmp_template_name)
         )
         Import::PlanImportService.handle_research_outputs(plan, dmp['researchOutput'])
       end
+      # rubocop:enable Metrics/AbcSize
 
       # rubocop:disable Metrics/AbcSize
       def handle_research_outputs(plan, research_outputs)

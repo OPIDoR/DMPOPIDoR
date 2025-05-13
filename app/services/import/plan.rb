@@ -40,9 +40,7 @@ module Import
         plan.save
         plan.create_plan_fragments(json_data)
 
-        json_data['meta']['title'] = plan_title
-
-        Import::PlanImportService.import(plan, json_data, import_params[:format])
+        Import::PlanImportService.import(plan, json_data, plan_title, import_params[:format])
 
         plan.update(title: plan_title)
 
@@ -51,4 +49,3 @@ module Import
     end
   end
 end
-
