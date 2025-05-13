@@ -15,15 +15,8 @@
 
 # Object that represents a question/guidance theme
 class Theme < ApplicationRecord
-  # --------------------------------
-  # Start DMP OPIDoR Customization
-  # --------------------------------
-  prepend Dmpopidor::Theme
   # Before save & create, generate the slug, method from Dmpopidor::Models::Theme
   before_save :generate_slug
-  # --------------------------------
-  # End DMP OPIDoR Customization
-  # --------------------------------
 
   # ================
   # = Associations =
@@ -58,5 +51,14 @@ class Theme < ApplicationRecord
   # Returns String
   def to_s
     title
+  end
+
+  def to_slug
+    title.parameterize.truncate(80, omission: '')
+  end
+
+  # generate slug from title
+  def generate_slug
+    self.slug = title.parameterize if title
   end
 end

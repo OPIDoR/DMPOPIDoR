@@ -57,13 +57,6 @@ class User < ApplicationRecord
   include ConditionalUserMailer
   include DateRangeable
   include Identifiable
-  # --------------------------------
-  # Start DMP OPIDoR Customization
-  # --------------------------------
-  prepend Dmpopidor::User
-  # --------------------------------
-  # End DMP OPIDoR Customization
-  # --------------------------------
 
   extend UniqueRandom
 
@@ -423,34 +416,36 @@ class User < ApplicationRecord
     notifications << notification if notification.dismissable?
   end
 
-  # --------------------------------
-  # Start DMP OPIDoR Customization
-  # CHANGES : changed firstname & lastname, deleted user_identifiers & added some log
-  # --------------------------------
   # remove personal data from the user account and save
   # leave account in-place, with org for statistics (until we refactor those)
   #
   # Returns boolean
+  # CHANGES : changed firstname & lastname, deleted user_identifiers & added some log
   # rubocop:disable Metrics/AbcSize
   def archive
     suffix = Rails.configuration.x.application.fetch(:archived_accounts_email_suffix, '@example.org')
-    self.firstname = 'Deleted'
+    copy = dup
+    self.firstname = 'Anonymous'
     self.surname = 'User'
-    self.email = User.unique_random(field_name: 'email',
-                                    prefix: 'user_',
-                                    suffix: suffix,
-                                    length: 5)
+    self.email = ::User.unique_random(field_name: 'email',
+                                      prefix: 'user_',
+                                      suffix: suffix,
+                                      length: 5)
     self.recovery_email = nil
     self.api_token = nil
     self.encrypted_password = nil
     self.last_sign_in_ip = nil
     self.current_sign_in_ip = nil
     self.active = false
+
+    identifiers.destroy_all
+
+    Rails.logger.info "User #{id} anonymized : email was #{copy.email}"
+    p "User #{id} anonymized : email was #{copy.email}"
+    ::UserMailer.anonymization_notice(copy).deliver_now
+
     save
   end
-  # --------------------------------
-  # End DMP OPIDoR Customization
-  # --------------------------------
   # rubocop:enable Metrics/AbcSize
 
   # rubocop:disable Metrics/AbcSize
