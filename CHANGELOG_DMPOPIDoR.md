@@ -2,7 +2,13 @@
 
 **Attention** Cette liste de changements concerne les déploiements sur nos serveurs de test en interne.
 
+## 14/05/2025
+
+- Correctiion du lien "voir tous les modules" depuis la page historique
+- Alerte de partage ANR masquée si le plan est partagé avec l'ANR dans l'onglet "Partager"
+
 ## 07/05/2025
+
 - Amélioration de l'affichage de la création d'un produit de recherche (#12713)
 - Découpage de la fonction d'import de plan par interface dans un nouveau service
 - Découpage de la fonction d'import de plan par interface dans un nouveau service
