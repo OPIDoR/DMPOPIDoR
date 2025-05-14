@@ -7,6 +7,7 @@
 - Correctiion du lien "voir tous les modules" depuis la page historique
 - Alerte de partage ANR masquée si le plan est partagé avec l'ANR dans l'onglet "Partager"
 - Correction d'un problème lié au titre du plan lors de l'import RDA
+- Correction de l'affichage des recommantations HTML pour un plan classique
 
 ## 07/05/2025
 
