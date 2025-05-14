@@ -5,7 +5,7 @@
   <p><%= title %></p>
   <% guidances[:guidances].each do |key, collection| %>
     <% collection.each do |guidance| %>
-      <%= guidance.text %>
+      <%= raw(guidance.text) %>
     <% end %>
   <% end %>
 <% end %>
