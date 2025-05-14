@@ -134,13 +134,31 @@
               }
             },
             {
-              "name": "template_id",
+              "name": "context",
               "in": "query",
-              "description": "Template ID",
+              "description": "Import context (research_project/research_entity)",
               "required": true,
               "schema": {
-                "type": "integer",
-                "default": ""
+                "type": "string",
+                "default": "research_project",
+                "enum": [
+                  "research_project",
+                  "research_entity"
+                ]
+              }
+            },
+            {
+              "name": "locale",
+              "in": "query",
+              "description": "Import language (fr/en)",
+              "required": true,
+              "schema": {
+                "type": "string",
+                "default": "fr",
+                "enum": [
+                  "fr",
+                  "en"
+                ]
               }
             }
           ],

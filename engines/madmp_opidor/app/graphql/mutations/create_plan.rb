@@ -3,13 +3,14 @@
 module Mutations
   # CreateResearchOutput
   class CreatePlan < BaseMutation
-    argument :template_id, Int, required: true
-    argument :format, String, default_value: 'standard', required: false
+    argument :locale, Types::LocaleEnum, default_value: 'FR', required: true
+    argument :format, Types::FormatEnum, default_value: 'STANDARD', required: true
+    argument :context, Types::ContextEnum, default_value: 'RESEARCH_PROJECT', required: true, as: :context_param
     argument :plan, GraphQL::Types::JSON, required: true
 
     field :result, Types::MutationResponseType
 
-    def resolve(template_id:, format:, plan:)
+    def resolve(locale:, format:, context_param:, plan:)
       raise GraphQL::ExecutionError, _('You are not allowed to create plan') unless Api::V0::PlansPolicy.new(context[:current_user], Plan).create?
 
       begin
@@ -21,10 +22,11 @@ module Mutations
         file.rewind
 
         res = plan_importer.import(new_plan, {
-          template_id: template_id,
-          format: format,
+          locale: locale.downcase,
+          format: format.downcase,
+          context: context_param.downcase,
           json_file: file,
-        }, context[:current_user])
+        }, Api::V1::Madmp::PlansController.new.determine_owner(client: context[:current_user], dmp: JSON.parse(plan.to_json)))
 
         {
           result: {
