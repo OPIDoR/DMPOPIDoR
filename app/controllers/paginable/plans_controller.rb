@@ -4,7 +4,6 @@ module Paginable
   # Controller for paginating/sorting/searching the plans tables
   class PlansController < ApplicationController
     include Paginable
-    prepend Dmpopidor::Paginable::PlansController
 
     # /paginable/plans/privately_visible/:page
     def privately_visible
