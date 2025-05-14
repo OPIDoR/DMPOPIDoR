@@ -29,7 +29,7 @@ module Dmpopidor
 
     # CHANGES : Reviewer can be from a different org of the plan owner
     def reviewable_by?(user_id)
-      reviewer = ::User.find(user_id)
+      reviewer = User.find(user_id)
       feedback_requested? &&
         reviewer.present? &&
         reviewer.org_id == feedback_requestor&.org_id &&

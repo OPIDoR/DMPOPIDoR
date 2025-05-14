@@ -16,12 +16,12 @@ module Dmpopidor
         sort_direction: paginable_params.fetch(:sort_direction, 'asc')
       }
 
-      templates = ::Template.live(::Template.families(::Org.all.pluck(:id)).pluck(:family_id))
-                            .pluck(:id) <<
-                  ::Template.where(is_default: true).unarchived.published.pluck(:id)
-      @templates = ::Template.includes(:org)
-                             .where(id: templates.uniq.flatten)
-                             .unarchived.published.order('orgs.name asc')
+      templates = Template.live(Template.families(::Org.all.pluck(:id)).pluck(:family_id))
+                          .pluck(:id) <<
+                  Template.where(is_default: true).unarchived.published.pluck(:id)
+      @templates = Template.includes(:org)
+                           .where(id: templates.uniq.flatten)
+                           .unarchived.published.order('orgs.name asc')
     end
 
     def guidance_group_index
@@ -41,7 +41,7 @@ module Dmpopidor
     def guidance_group_export
       @guidance_group = ::GuidanceGroup.includes(guidances: :themes).find(params[:id])
       @guidances = @guidance_group.guidances.joins(:themes).where(published: true)
-      @themes = ::Theme.all.order(:number)
+      @themes = Theme.all.order(:number)
       @formatting = Settings::Template::DEFAULT_SETTINGS[:formatting]
       file_name = @guidance_group.name.gsub(/[^a-zA-Z\d\s]/, '').tr(' ', '_')
       respond_to do |format|

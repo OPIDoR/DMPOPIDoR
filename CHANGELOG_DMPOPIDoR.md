@@ -2,9 +2,16 @@
 
 **Attention** Cette liste de changements concerne les déploiements sur nos serveurs de test en interne.
 
+## 14/05/2025
+
+- Correctiion du lien "voir tous les modules" depuis la page historique
+- Alerte de partage ANR masquée si le plan est partagé avec l'ANR dans l'onglet "Partager"
+- Correction d'un problème lié au titre du plan lors de l'import RDA
+- Correction de l'affichage des recommantations HTML pour un plan classique
+
 ## 07/05/2025
+
 - Amélioration de l'affichage de la création d'un produit de recherche (#12713)
-- Découpage de la fonction d'import de plan par interface dans un nouveau service
 - Découpage de la fonction d'import de plan par interface dans un nouveau service
 - Réutilisation du service pour l'import de plan par interface
 - Réutilisation du service pour la route d'import de plan de l'API V1

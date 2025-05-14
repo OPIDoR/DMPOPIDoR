@@ -67,7 +67,7 @@ module SuperAdmin
     def sort
       authorize(Theme)
       params[:updated_order].each_with_index do |id, index|
-        ::Theme.find(id).update(number: index + 1)
+        Theme.find(id).update(number: index + 1)
       end
       head :ok
     end

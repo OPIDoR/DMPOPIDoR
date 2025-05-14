@@ -66,12 +66,12 @@ module Dmpopidor
           message: _('Unable to identify a suitable template for your plan.')
         }, status: 400
       else
-        @plan.template = ::Template.find(plan_params[:template_id])
+        @plan.template = Template.find(plan_params[:template_id])
         # rubocop:disable Metrics/BlockLength
         I18n.with_locale @plan.template.locale do
           @plan.visibility = Rails.configuration.x.plans.default_visibility
 
-          @plan.template = ::Template.find(plan_params[:template_id])
+          @plan.template = Template.find(plan_params[:template_id])
 
           @plan.org = current_user.org
 
@@ -90,7 +90,7 @@ module Dmpopidor
 
             @plan.guidance_groups << ggs unless ggs.empty?
 
-            default = ::Template.default
+            default = Template.default
 
             msg = "#{success_message(@plan, _('created'))}<br />"
 
@@ -257,7 +257,7 @@ module Dmpopidor
       if body['ro_id'].present?
         research_output = ResearchOutput.find(body['ro_id'])
         module_id = research_output.json_fragment.additional_info['moduleId']
-        template = module_id ? ::Template.find(module_id) : @plan.template
+        template = module_id ? Template.find(module_id) : @plan.template
       end
 
       selected_ids = body['guidance_group_ids']

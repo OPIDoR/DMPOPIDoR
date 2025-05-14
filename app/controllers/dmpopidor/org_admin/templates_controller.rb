@@ -9,8 +9,8 @@ module Dmpopidor
       # -----------------------------------------------------
       # rubocop:disable Metrics/AbcSize, Metrics/PerceivedComplexity
       def modules
-        authorize ::Template
-        templates = ::Template.latest_module_version.where(customization_of: nil)
+        authorize Template
+        templates = Template.latest_module_version.where(customization_of: nil)
         published = templates.count { |t| t.published? || t.draft? }
 
         @orgs  = current_user.can_super_admin? ? Org.includes(:identifiers).all : nil
