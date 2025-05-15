@@ -38,16 +38,11 @@ module Import
 
         raise StandardError, _('Unable to create plan.') unless plan.save!
 
-        plan_title = format(_('Import of %{title}'), title: json_data.dig('meta', 'title'))
         plan.add_user!(current_user.id, :creator)
         plan.save
-        plan.create_plan_fragments(json_data)
+        plan.create_plan_fragments
 
-        json_data['meta']['title'] = plan_title
-
-        Import::PlanImportService.import(plan, json_data, import_format)
-
-        plan.update(title: plan_title)
+        Import::PlanImportService.import(plan, json_data, import_params[:format])
 
         { planId: plan.id }
       end
