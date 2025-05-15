@@ -357,7 +357,8 @@ class Plan < ApplicationRecord
       plan_copy.copy_plan_fragments(plan)
       plan.research_outputs.each do |research_output|
         research_output_copy = ResearchOutput.deep_copy(research_output)
-        research_output_copy.title = research_output.title || format(_('Copy of %{title}'), title: research_output.abbreviation)
+        research_output_copy.title = research_output.title || format(_('Copy of %{title}'),
+                                                                     title: research_output.abbreviation)
         research_output_copy.plan_id = plan_copy.id
         research_output_copy.save!
         research_output_copy.create_json_fragments
@@ -396,7 +397,8 @@ class Plan < ApplicationRecord
       plan_copy.copy_plan_fragments(plan)
       plan.research_outputs.each do |research_output|
         research_output_copy = ResearchOutput.deep_copy(research_output)
-        research_output_copy.title = research_output.title || format(_('Copy of %{title}'), title: research_output.abbreviation)
+        research_output_copy.title = research_output.title || format(_('Copy of %{title}'),
+                                                                     title: research_output.abbreviation)
         research_output_copy.plan_id = plan_copy.id
         research_output_copy.save!
         # Creates the main ResearchOutput fragment
@@ -818,6 +820,18 @@ class Plan < ApplicationRecord
     self.grant_id = current.id
   end
   # rubocop:enable Metrics/AbcSize, Metrics/CyclomaticComplexity
+
+  def research_project?
+    template.research_project?
+  end
+
+  def research_entity?
+    template.research_entity?
+  end
+
+  def structured?
+    template.structured?
+  end
 
   private
 

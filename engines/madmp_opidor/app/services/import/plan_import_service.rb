@@ -17,7 +17,7 @@ module Import
         end
         plan_title = format(_('Import of %{title}'), title: dmp.dig('meta', 'title'))
         dmp['meta']['title'] = plan_title
-        dmp_template_name = plan.template.research_entity? ? 'DMPResearchEntity' : 'DMPResearchProject'
+        dmp_template_name = plan.research_entity? ? 'DMPResearchEntity' : 'DMPResearchProject'
         dmp_fragment.raw_import(
           dmp.slice('meta', 'project', 'researchEntity', 'budget'), MadmpSchema.find_by(name: dmp_template_name)
         )

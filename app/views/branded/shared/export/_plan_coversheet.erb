@@ -34,10 +34,10 @@
   </div>
 
   <% I18n.with_locale @plan.template.locale  do %>
-    <h2><%= @plan.template.research_project? ? _("Project Details") : _("Structure Details") %></h2>
+    <h2><%= @plan.research_project? ? _("Project Details") : _("Structure Details") %></h2>
   <% end %>
   <div class="plan-details">
-    <% project_fragment = @plan.template.research_project? ? plan_fragment.project : plan_fragment.research_entity %>
+    <% project_fragment = @plan.research_project? ? plan_fragment.project : plan_fragment.research_entity %>
     <%= render(partial: 'shared/export/display_madmp_fragment', locals: {
             fragment: project_fragment,
             schema: project_fragment.madmp_schema,
