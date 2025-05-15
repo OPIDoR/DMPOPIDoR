@@ -51,7 +51,7 @@ module Api
           json = JSON.parse(body)
 
           file = Tempfile.new(['plan', '.json'])
-          file.write(json['plan'].to_json)
+          file.write(json['data'].to_json)
           file.rewind
 
           plan = ::Plan.new
@@ -63,7 +63,7 @@ module Api
               context: params[:context],
               format: params[:import_format],
               json_file: file
-            }, determine_owner(client: client, dmp: json['plan']))
+            }, determine_owner(client: client, dmp: json['data']))
 
             render json: { status: 201, message: _('Plan imported successfully'), data: data }, status: :created
           rescue StandardError => errs

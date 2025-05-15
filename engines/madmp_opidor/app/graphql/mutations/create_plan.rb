@@ -6,11 +6,11 @@ module Mutations
     argument :locale, Types::LocaleEnum, default_value: 'FR', required: true
     argument :format, Types::FormatEnum, default_value: 'STANDARD', required: true
     argument :context, Types::ContextEnum, default_value: 'RESEARCH_PROJECT', required: true, as: :context_param
-    argument :plan, GraphQL::Types::JSON, required: true
+    argument :data, GraphQL::Types::JSON, required: true
 
     field :result, Types::MutationResponseType
 
-    def resolve(locale:, format:, context_param:, plan:)
+    def resolve(locale:, format:, context_param:, data:)
       raise GraphQL::ExecutionError, _('You are not allowed to create plan') unless Api::V0::PlansPolicy.new(context[:current_user], Plan).create?
 
       begin
@@ -18,7 +18,7 @@ module Mutations
         plan_importer = Import::Plan.new
 
         file = Tempfile.new(['plan', '.json'])
-        file.write(plan.to_json)
+        file.write(data.to_json)
         file.rewind
 
         res = plan_importer.import(new_plan, {
@@ -26,7 +26,7 @@ module Mutations
           format: format.downcase,
           context: context_param.downcase,
           json_file: file,
-        }, Api::V1::Madmp::PlansController.new.determine_owner(client: context[:current_user], dmp: JSON.parse(plan.to_json)))
+        }, Api::V1::Madmp::PlansController.new.determine_owner(client: context[:current_user], dmp: JSON.parse(data.to_json)))
 
         {
           result: {
