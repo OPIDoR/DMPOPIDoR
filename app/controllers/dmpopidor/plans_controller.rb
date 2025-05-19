@@ -118,7 +118,7 @@ module Dmpopidor
             reg_val = registry_values.find { |entry| entry['en_GB'] == 'Dataset' }
 
             # Add default research output if possible
-            if Rails.configuration.x.dmpopidor.create_first_research_output || @plan.structured? == false
+            if @plan.structured? == false
               created_ro = @plan.research_outputs.create!(
                 abbreviation: "#{_('RO')} 1",
                 title: "#{_('Research output')} 1",
@@ -379,7 +379,7 @@ module Dmpopidor
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
     # rubocop:enable Metrics/AbcSize, Metrics/MethodLength
 
-    # rubocop:disable Metrics/MethodLength, Metrics/AbcSize
+    # rubocop:disable Metrics/AbcSize
     def import_plan
       @plan = ::Plan.new
       authorize @plan
@@ -388,8 +388,6 @@ module Dmpopidor
         data = plan_importer.import(@plan, import_params, current_user)
 
         render json: { status: 201, message: _('imported'), data: data }, status: :created
-      rescue StandardError => e
-        bad_request(e)
       rescue IOError
         bad_request(_('Unvalid file'))
       rescue JSON::ParserError
@@ -399,7 +397,7 @@ module Dmpopidor
         bad_request("#{_('An error has occured: ')} #{e.message}")
       end
     end
-    # rubocop:enable Metrics/MethodLength, Metrics/AbcSize
+    # rubocop:enable Metrics/AbcSize
 
     def research_outputs_data
       plan = ::Plan.find(params[:id])

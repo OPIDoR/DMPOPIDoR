@@ -297,17 +297,9 @@ module DMPRoadmap
     # --------------------------------------------------- #
     # DMP OPIDoR Features #
     # --------------------------------------------------- #
-    config.x.dmpopidor.enable_research_structure_template = ENV.fetch('DMPOPIDOR_ENABLE_RESEARCH_STRUCTURE_TEMPLATE',
-                                                                      true).to_s.casecmp('true').zero?
-    config.x.dmpopidor.enable_research_outputs_uuid = ENV.fetch('DMPOPIDOR_ENABLE_RESEARCH_OUTPUTS_UUID',
-                                                                true).to_s.casecmp('true').zero?
-    config.x.dmpopidor.enable_third_party_form = ENV.fetch('ENABLE_THIRD_PARTY_FORM', false).to_s.casecmp('true').zero?
-    config.x.dmpopidor.create_first_research_output = ENV.fetch('CREATE_FIRST_RESEARCH_OUTPUT',
-                                                                false).to_s.casecmp('true').zero?
     config.x.dmpopidor.front = {}
     config.x.directus.url = ENV.fetch('DIRECTUS_URL', 'http://directus:8055')
     config.x.directus.public_url = ENV.fetch('DIRECTUS_PUBLIC_URL', 'http://localhost:8080/directus')
-    config.x.dmpopidor.enable_third_party_form = ENV.fetch('ENABLE_THIRD_PARTY_FORM', false)
     config.x.dmpopidor.redis_url = ENV.fetch('REDIS_URL', 'redis://default:changeme@localhost:6379/1')
     config.x.application.canalu_url = ENV.fetch('CANALU_URL', 'https://www.canal-u.tv/chaines/inist-cnrs/opidor')
   end

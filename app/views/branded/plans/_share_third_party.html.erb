@@ -5,7 +5,7 @@
 <h2><%= _("Authorize third-party organizations") %></h2>
 <p><%= _('Authorize third-party organizations (funders, service platforms, infrastructure) to collect information contained in this plan automatically (API). All proposed third-party organizations have been validated by DMP OPIDoR.') %></p>
 
-<% if administerable && Rails.configuration.x.dmpopidor.enable_third_party_form %>
+<% if administerable %>
   <% unless @plan_client_roles.find { |client_role| client_role.api_client.name.upcase == 'anr'.upcase} %>
     <div class="alert alert-danger">
       <span class="fas fa-exclamation-circle"></span>
