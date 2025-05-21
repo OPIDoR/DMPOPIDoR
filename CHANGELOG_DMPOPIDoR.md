@@ -2,6 +2,10 @@
 
 **Attention** Cette liste de changements concerne les déploiements sur nos serveurs de test en interne.
 
+## 21/05/2025
+
+- Ajout de le requête "publicPlans" dans l'API GraphQL pour récupérer la liste des plans public sans authentification (#)
+
 ## 14/05/2025
 
 - Correctiion du lien "voir tous les modules" depuis la page historique
