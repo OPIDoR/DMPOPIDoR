@@ -18,7 +18,7 @@ module Types
       argument :page, Integer, required: false, default_value: 1, description: 'Page number for pagination'
       argument :order_by, Types::OrderByFilterInput, required: false, description: 'Specifies sorting order and field for the query'
 
-      description 'Retrieve a paginated list of plans with optional filtering'
+      description 'Retrieve a paginated list of public plans with optional filtering'
     end
 
     def plans(filter: nil, size: 10, page: 1, order_by: nil)
