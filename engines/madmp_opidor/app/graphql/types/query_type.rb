@@ -12,7 +12,28 @@ module Types
       description 'Retrieve a paginated list of plans with optional filtering'
     end
 
+    field :public_plans, Types::PlanResultType, null: false do
+      argument :filter, Types::LogicalFilterInput, required: false, description: 'Optional filter to refine the list of plans'
+      argument :size, Integer, required: false, default_value: 10, description: 'Number of items to retrieve per page'
+      argument :page, Integer, required: false, default_value: 1, description: 'Page number for pagination'
+      argument :order_by, Types::OrderByFilterInput, required: false, description: 'Specifies sorting order and field for the query'
+
+      description 'Retrieve a paginated list of plans with optional filtering'
+    end
+
     def plans(filter: nil, size: 10, page: 1, order_by: nil)
+      plans_scope = Api::V1::PlansPolicy::Scope.new(context[:current_user], Plan).resolve
+      get_plans(filter, size, page, order_by, plans_scope)
+    end
+
+    def public_plans(filter: nil, size: 10, page: 1, order_by: nil)
+      plans_scope = Plan.where(visibility: Plan.visibilities[:publicly_visible])
+      get_plans(filter, size, page, order_by, plans_scope)
+    end
+
+    private
+
+    def get_plans(filter, size, page, order_by, plans_scope)
       if size < 1 || size > 1000
         raise GraphQL::ExecutionError, "Size must be between 1 and 1000. Current size: #{size}."
       end
@@ -20,8 +41,6 @@ module Types
       order_params = {
         (order_by&.[](:field) || 'updated_at') => (order_by&.[](:order).presence || 'desc').to_sym
       }
-
-      plans_scope = Api::V1::PlansPolicy::Scope.new(context[:current_user], Plan).resolve
 
       if filter.nil?
         total_items = plans_scope.count
