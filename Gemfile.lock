@@ -1,12 +1,3 @@
-PATH
-  remote: engines/madmp_opidor
-  specs:
-    madmp_opidor (0.1.0)
-      activerecord-import
-      jsonpath (~> 1.1.0)
-      pundit
-      rails (~> 7.2)
-
 GEM
   remote: https://rubygems.org/
   specs:
@@ -63,8 +54,6 @@ GEM
       activemodel (= 7.2.2.1)
       activesupport (= 7.2.2.1)
       timeout (>= 0.4.0)
-    activerecord-import (2.1.0)
-      activerecord (>= 4.2)
     activerecord-nulldb-adapter (1.1.1)
       activerecord (>= 6.0, < 8.1)
     activestorage (7.2.2.1)
@@ -695,7 +684,6 @@ DEPENDENCIES
   kaminari
   ledermann-rails-settings
   listen
-  madmp_opidor!
   mimemagic
   mocha
   net-smtp

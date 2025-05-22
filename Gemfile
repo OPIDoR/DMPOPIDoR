@@ -370,7 +370,6 @@ end
 # ======================#
 # MADMP OPIDOR FEATURES #
 # ===================== #
-gem 'madmp_opidor', path: 'engines/madmp_opidor' # , git: 'https://github.com/OPIDoR/madmp_opidor.git'
 
 group :build do
   gem 'activerecord-nulldb-adapter'
