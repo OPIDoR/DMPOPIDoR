@@ -3,13 +3,6 @@
 # Security rules for questions
 # Note the method names here correspond with controller actions
 class QuestionPolicy < ApplicationPolicy
-  # --------------------------------
-  # Start DMP OPIDoR Customization
-  # --------------------------------
-  prepend Dmpopidor::QuestionPolicy
-  # --------------------------------
-  # End DMP OPIDoR Customization
-  # --------------------------------
   # NOTE: @user is the signed_in_user and @record is an instance of Question
 
   ##
@@ -26,31 +19,51 @@ class QuestionPolicy < ApplicationPolicy
   end
 
   def open_conditions?
-    @user.can_modify_templates?  &&  (@record.section.phase.template.org_id == @user.org_id)
+    @user.can_modify_templates? && (@record.section.phase.template.org_id == @user.org_id)
   end
 
   def edit?
-    @user.can_modify_templates?  &&  (@record.section.phase.template.org_id == @user.org_id)
+    if @record.section.phase.template.module?
+      @user.can_super_admin?
+    else
+      @user.can_modify_templates? && (@record.section.phase.template.org_id == @user.org_id)
+    end
   end
 
   def new?
-    @user.can_modify_templates?  &&  (@record.section.phase.template.org_id == @user.org_id)
+    if @record.section.phase.template.module?
+      @user.can_super_admin?
+    else
+      @user.can_modify_templates? && (@record.section.phase.template.org_id == @user.org_id)
+    end
   end
 
   def create?
-    @user.can_modify_templates?  &&  (@record.section.phase.template.org_id == @user.org_id)
+    if @record.section.phase.template.module?
+      @user.can_super_admin?
+    else
+      @user.can_modify_templates? && (@record.section.phase.template.org_id == @user.org_id)
+    end
   end
 
   def update?
-    @user.can_modify_templates?  &&  (@record.section.phase.template.org_id == @user.org_id)
+    if @record.section.phase.template.module?
+      @user.can_super_admin?
+    else
+      @user.can_modify_templates? && (@record.section.phase.template.org_id == @user.org_id)
+    end
   end
 
   def destroy?
-    @user.can_modify_templates?  &&  (@record.section.phase.template.org_id == @user.org_id)
+    if @record.section.phase.template.module?
+      @user.can_super_admin?
+    else
+      @user.can_modify_templates? && (@record.section.phase.template.org_id == @user.org_id)
+    end
   end
 
   # TODO: Remove this after annotations controller is refactored
   def admin_update?
-    @user.can_modify_templates?  &&  (@record.section.phase.template.org_id == @user.org_id)
+    @user.can_modify_templates? && (@record.section.phase.template.org_id == @user.org_id)
   end
 end

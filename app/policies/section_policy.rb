@@ -3,13 +3,6 @@
 # Security rules for template sections
 # Note the method names here correspond with controller actions
 class SectionPolicy < ApplicationPolicy
-  # --------------------------------
-  # Start DMP OPIDoR Customization
-  # --------------------------------
-  prepend Dmpopidor::SectionPolicy
-  # --------------------------------
-  # End DMP OPIDoR Customization
-  # --------------------------------
   # NOTE: @user is the signed_in_user and @record is an instance of Section
 
   ##
@@ -26,22 +19,42 @@ class SectionPolicy < ApplicationPolicy
   end
 
   def edit?
-    @user.can_modify_templates?  &&  (@record.phase.template.org_id == @user.org_id)
+    if @record.phase.template.module?
+      @user.can_super_admin?
+    else
+      @user.can_modify_templates? && (@record.template.org_id == @user.org_id)
+    end
   end
 
   def new?
-    @user.can_modify_templates?  &&  (@record.phase.template.org_id == @user.org_id)
+    if @record.phase.template.module?
+      @user.can_super_admin?
+    else
+      @user.can_modify_templates? && (@record.template.org_id == @user.org_id)
+    end
   end
 
   def create?
-    @user.can_modify_templates?  &&  (@record.phase.template.org_id == @user.org_id)
+    if @record.phase.template.module?
+      @user.can_super_admin?
+    else
+      @user.can_modify_templates? && (@record.template.org_id == @user.org_id)
+    end
   end
 
   def update?
-    @user.can_modify_templates?  &&  (@record.phase.template.org_id == @user.org_id)
+    if @record.phase.template.module?
+      @user.can_super_admin?
+    else
+      @user.can_modify_templates? && (@record.template.org_id == @user.org_id)
+    end
   end
 
   def destroy?
-    @user.can_modify_templates?  &&  (@record.phase.template.org_id == @user.org_id)
+    if @record.phase.template.module?
+      @user.can_super_admin?
+    else
+      @user.can_modify_templates? && (@record.template.org_id == @user.org_id)
+    end
   end
 end
