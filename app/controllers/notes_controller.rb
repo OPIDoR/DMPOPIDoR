@@ -2,143 +2,241 @@
 
 # Controller for the Comments section of the Write Plan page
 class NotesController < ApplicationController
-  prepend Dmpopidor::NotesController
   include ConditionalUserMailer
+  helper ErrorHelper
   after_action :verify_authorized
   respond_to :html
 
-  # --------------------------------
-  # Start DMP OPIDoR Customization
-  # Changes:
-  #   - Added RESEARCH OUTPUT SUPPORT
-  #   - Mail notification is sent to all plan collaborators
-  # --------------------------------
   # POST /notes
+  # CHANGES
+  # Delivered mail contains the name of the collaborator leaving the note
+  # Added RESEARCH OUTPUT SUPPORT
   # rubocop:disable Metrics/AbcSize, Metrics/MethodLength
+  # rubocop:disable Metrics/PerceivedComplexity, Metrics/CyclomaticComplexity
   def create
-    @note = Note.new
-    # take user id from current user rather than form as form can be spoofed
-    @note.user_id = current_user.id
+    user_id = note_params[:user_id] || current_user.id
+    unless user_id.present? && user_id.to_i.positive?
+      Rails.logger.error("User id [#{user_id}] is not valid")
+      bad_request("User id [#{user_id}] is not valid")
+      return
+    end
+
+    plan_id = note_params[:plan_id]
+    unless plan_id.present? && plan_id.to_i.positive?
+      Rails.logger.error("Plan id [#{plan_id}] is not valid")
+      bad_request("Plan id [#{plan_id}] is not valid")
+      return
+    end
+
+    note_text = note_params[:text]
+    unless note_text.present? && !note_text.empty?
+      Rails.logger.error('Note content cannot be empty')
+      bad_request('Note content cannot be empty')
+      return
+    end
+
     # ensure user has access to plan BEFORE creating/finding answer
-    raise Pundit::NotAuthorizedError unless Plan.find_by(id: note_params[:plan_id]).readable_by?(@note.user_id)
+    raise Pundit::NotAuthorizedError unless ::Plan.find_by(id: plan_id).readable_by?(user_id.to_i)
 
-    Answer.transaction do
-      @answer = Answer.find_by(
-        plan_id: note_params[:plan_id],
-        question_id: note_params[:question_id]
-      )
-      if @answer.blank?
-        @answer             = Answer.new
-        @answer.plan_id     = note_params[:plan_id]
-        @answer.question_id = note_params[:question_id]
-        @answer.user_id     = @note.user_id
-        @answer.save!
+    begin
+      @note = ::Note.new
+      @note.user_id = user_id
+
+      Answer.transaction do
+        @answer = Answer.find_by(
+          plan_id: plan_id,
+          question_id: note_params[:question_id],
+          research_output_id: note_params[:research_output_id]
+        )
+        if @answer.blank?
+          @answer             = Answer.new
+          @answer.plan_id     = plan_id
+          @answer.question_id = note_params[:question_id]
+          @answer.user_id     = @note.user_id
+          @answer.research_output_id = note_params[:research_output_id]
+          @answer.save!
+          @madmp_schema_id = @answer.instantiate_fragment
+        end
       end
+    rescue ActiveRecord::RecordInvalid => e
+      Rails.logger.error(e.backtrace.join("\n"))
+      internal_server_error(e.message)
+      return
+    rescue ActiveRecord::RecordNotFound => e
+      Rails.logger.error(e.backtrace.join("\n"))
+      not_found(e.message)
+      return
     end
 
-    @note.answer = @answer
-    @note.text = note_params[:text]
-    authorize @note
+    begin
+      @note.answer = @answer
+      @note.text = note_text
+    rescue ActiveRecord::RecordInvalid => e
+      Rails.logger.error(e.backtrace.join("\n"))
+      internal_server_error(e.message)
+      return
+    end
 
-    @plan = @answer.plan
-    @question = Question.find(note_params[:question_id])
+    begin
+      authorize @note
+    rescue Pundit::NotAuthorizedError => e
+      Rails.logger.error('An error occurred while checking authorisations')
+      Rails.logger.error(e.backtrace.join("\n"))
+      forbidden
+      return
+    end
 
-    if @note.save
-      @status = true
-      answer = @note.answer
-      plan = answer.plan
-      owner = plan.owner
-      deliver_if(recipients: owner, key: 'users.new_comment') do |_r|
-        UserMailer.new_comment(current_user, plan, answer).deliver_now
+    begin
+      @plan = @answer.plan
+      @research_output = @answer.research_output
+
+      @question = ::Question.find(note_params[:question_id])
+
+      if @note.save
+        @status = true
+        answer = @note.answer
+        plan = answer.plan
+        collaborators = plan.users.reject { |u| u == current_user || !u.active }
+        deliver_if(recipients: collaborators, key: 'users.new_comment') do |r|
+          ::UserMailer.new_comment(current_user, plan, answer, r).deliver_later
+        end
+        @notice = success_message(@note, _('created'))
+        @updated_note = ::Note.find_by(id: @note.id)
+        render json: {
+          status: 201,
+          message: 'Note created',
+          note: @updated_note.as_json(
+            include: {
+              user: {
+                only: %w[id surname firstname]
+              }
+            }
+          ),
+          answer_created: @answer.previously_new_record?,
+          answer: {
+            id: @answer.id,
+            question_id: @answer.question_id,
+            fragment_id: @madmp_schema_id
+            # madmp_schema_id: a.madmp_fragment.madmp_schema_id
+          }
+        }, status: :created
+      else
+        @status = false
+        @notice = failure_message(@note, _('create'))
+        bad_request(@notice)
       end
-      @notice = success_message(@note, _('created'))
-      render(json: {
-        'notes' => {
-          'id' => note_params[:question_id],
-          'html' => render_to_string(partial: 'layout', locals: {
-                                       plan: @plan,
-                                       question: @question,
-                                       answer: @answer
-                                     }, formats: [:html])
-        },
-        'title' => {
-          'id' => note_params[:question_id],
-          'html' => render_to_string(partial: 'title', locals: {
-                                       answer: @answer
-                                     }, formats: [:html])
-        }
-      }.to_json, status: :created)
-    else
-      @status = false
-      @notice = failure_message(@note, _('create'))
-      render json: {
-        'msg' => @notice
-      }.to_json, status: :bad_request
+    rescue ActiveRecord::RecordNotFound => e
+      Rails.logger.error("Question not found: #{e.message}")
+      not_found("Question not found: #{e.message}")
+    rescue ActiveRecord::RecordInvalid => e
+      Rails.logger.error("Validation error: #{e.message}")
+      internal_server_error("Validation error: #{e.message}")
+    rescue StandardError => e
+      Rails.logger.error("An unexpected error occurred: #{e.message}")
+      internal_server_error("An unexpected error occurred: #{e.message}")
     end
   end
+  # rubocop:enable Metrics/PerceivedComplexity, Metrics/CyclomaticComplexity
   # rubocop:enable Metrics/AbcSize, Metrics/MethodLength
-  # --------------------------------
-  # End DMP OPIDoR Customization
-  # --------------------------------
 
-  # --------------------------------
-  # Start DMP OPIDoR Customization
-  # Changes:
-  #   - Added RESEARCH OUTPUT SUPPORT
-  # --------------------------------
   # PUT /notes/:id
+  # CHANGES
+  # Research Output support
   # rubocop:disable Metrics/AbcSize, Metrics/MethodLength
+  # rubocop:disable Metrics/PerceivedComplexity, Metrics/CyclomaticComplexity
   def update
-    @note = Note.find(params[:id])
-    authorize @note
-    @note.text = note_params[:text]
+    node_id = params[:id]
 
-    @answer = @note.answer
-    @question = @answer.question
-    @plan = @answer.plan
+    unless node_id.present? && node_id.to_i.to_s == node_id && node_id.to_i.positive?
+      Rails.logger.error("Note id [#{node_id}] is not valid")
+      bad_request("Note id [#{node_id}] is not valid")
+      return
+    end
 
-    question_id = @note.answer.question_id.to_s
+    begin
+      @note = ::Note.find(params[:id])
+    rescue ActiveRecord::RecordNotFound => e
+      Rails.logger.error("Note [#{note_id}] not found")
+      Rails.logger.error(e.backtrace.join("\n"))
+      not_found('Note not found')
+      return
+    rescue StandardError => e
+      Rails.logger.error('An error occured during retriving note data')
+      Rails.logger.error(e.backtrace.join("\n"))
+      internal_server_error(e.message)
+      return
+    end
 
-    if @note.update(note_params)
-      @notice = success_message(@note, _('saved'))
-      render(json: {
-        'notes' => {
-          'id' => question_id,
-          'html' => render_to_string(partial: 'layout', locals: {
-                                       plan: @plan,
-                                       question: @question,
-                                       answer: @answer
-                                     }, formats: [:html])
-        },
-        'title' => {
-          'id' => question_id,
-          'html' => render_to_string(partial: 'title', locals: {
-                                       answer: @answer
-                                     }, formats: [:html])
-        }
-      }.to_json, status: :ok)
-    else
-      @notice = failure_message(@note, _('save'))
+    unless @note
+      Rails.logger.error('Note not found')
+      not_found('Note not found')
+      return
+    end
+
+    begin
+      authorize @note
+    rescue Pundit::NotAuthorizedError
+      Rails.logger.error('An error occurred while checking authorisations')
+      forbidden
+      return
+    end
+
+    begin
+      @note.text = note_params[:text]
+      @answer = @note.answer
+      @question = @answer.question
+      @plan = @answer.plan
+      @research_output = @answer.research_output
+    rescue ActiveRecord::RecordNotFound => e
+      Rails.logger.error('Note not found')
+      Rails.logger.error(e.backtrace.join("\n"))
+      not_found('Note not found')
+      return
+    rescue StandardError => e
+      Rails.logger.error("An error has occurred while updating the note [#{node_id}] information")
+      Rails.logger.error(e.backtrace.join("\n"))
+      internal_server_error(e.message)
+      return
+    end
+
+    begin
+      if @note.update(note_params)
+        render json: {
+          status: 200,
+          message: 'Note updated',
+          note: @note.as_json(
+            include: {
+              user: {
+                only: %w[id surname firstname]
+              }
+            }
+          )
+        }, status: :ok
+        return
+      end
+
       render json: {
-        'msg' => @notice
+        msg: failure_message(@note, _('save'))
       }.to_json, status: :bad_request
+    rescue ActiveRecord::RecordNotFound => e
+      Rails.logger.error('An error occurred while rendering response')
+      Rails.logger.error(e.backtrace.join("\n"))
+      not_found('Note not found')
+    rescue ActiveRecord::RecordInvalid => e
+      Rails.logger.error('An error occurred while rendering response')
+      Rails.logger.error(e.backtrace.join("\n"))
+      internal_server_error(e.message)
     end
   end
+  # rubocop:enable Metrics/PerceivedComplexity, Metrics/CyclomaticComplexity
   # rubocop:enable Metrics/AbcSize, Metrics/MethodLength
-  # --------------------------------
-  # End DMP OPIDoR Customization
-  # --------------------------------
 
-  # --------------------------------
-  # Start DMP OPIDoR Customization
-  # Changes:
-  #   - Added RESEARCH OUTPUT SUPPORT
-  # --------------------------------
-  # TODO: Consider just using the :destroy route
   # PATCH /notes/:id/archive
-  # rubocop:disable Metrics/AbcSize, Metrics/MethodLength
+  # CHANGES
+  # Research Output support
+  # rubocop:disable Metrics/AbcSize
   def archive
-    @note = Note.find(params[:id])
+    @note = ::Note.find(params[:id])
     authorize @note
     @note.archived = true
     @note.archived_by = params[:note][:archived_by]
@@ -146,38 +244,18 @@ class NotesController < ApplicationController
     @answer = @note.answer
     @question = @answer.question
     @plan = @answer.plan
-
-    question_id = @note.answer.question_id.to_s
+    @research_output = @answer.research_output
 
     if @note.update(note_params)
       @notice = success_message(@note, _('removed'))
-      render(json: {
-        'notes' => {
-          'id' => question_id,
-          'html' => render_to_string(partial: 'layout', locals: {
-                                       plan: @plan,
-                                       question: @question,
-                                       answer: @answer
-                                     }, formats: [:html])
-        },
-        'title' => {
-          'id' => question_id,
-          'html' => render_to_string(partial: 'title', locals: {
-                                       answer: @answer
-                                     }, formats: [:html])
-        }
-      }.to_json, status: :ok)
+      render json: { status: 200, message: 'Note removed successsfully', note: @note }, status: :ok
+
     else
       @notice = failure_message(@note, _('remove'))
-      render json: {
-        'msg' => @notice
-      }.to_json, status: :bad_request
+      render bad_request(@notice)
     end
   end
-  # rubocop:enable Metrics/AbcSize, Metrics/MethodLength
-  # --------------------------------
-  # End DMP OPIDoR Customization
-  # --------------------------------
+  # rubocop:enable Metrics/AbcSize
 
   private
 

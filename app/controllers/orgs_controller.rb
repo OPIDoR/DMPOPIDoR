@@ -2,13 +2,39 @@
 
 # Controller for Org pages for Admins
 class OrgsController < ApplicationController
-  prepend Dmpopidor::OrgsController
   include OrgSelectable
 
   after_action :verify_authorized, except: %w[
     shibboleth_ds shibboleth_ds_passthru search
   ]
   respond_to :html
+
+  # Returns a list of active orgs in json
+  # Removes current user's org from the list
+  # rubocop:disable Metrics/AbcSize
+  def list
+    orgs_with_context = Org.joins(:templates).managed
+                           .where(
+                             active: true,
+                             templates: {
+                               published: true,
+                               archived: false,
+                               is_recommended: false,
+                               context: params[:context],
+                               locale: params[:locale],
+                               type: %w[classic structured]
+                             }
+                           )
+    @orgs = if params[:type] == 'org'
+              (orgs_with_context.organisation + orgs_with_context.institution + orgs_with_context.default_orgs)
+            else
+              [orgs_with_context.funder]
+            end
+    @orgs = @orgs.flatten.uniq.sort_by(&:name)
+    authorize Org.new, :list?
+    render json: @orgs.as_json(only: %i[id name])
+  end
+  # rubocop:enable Metrics/AbcSize
 
   # TODO: Refactor this one along with super_admin/orgs_controller. Consider moving
   #       to a new `admin` namespace, leaving public facing actions in here and
@@ -26,20 +52,14 @@ class OrgsController < ApplicationController
                                    url: admin_update_org_path(org) }
   end
 
-  # --------------------------------
-  # Start DMP OPIDoR Customization
-  # Changes:
-  #   - Added BANNER TEXT
-  #   - Added ACTIVE
-  # --------------------------------
   # PUT /org/admin/:id/admin_update
+  # CHANGE: ADDED BANNER TEXT and ACTIVE
   # rubocop:disable Metrics/AbcSize, Metrics/MethodLength
   # rubocop:disable Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
   def admin_update
     attrs = org_params
     @org = Org.find(params[:id])
     authorize @org
-
     # If a new logo was supplied then use it, otherwise retain the existing one
     attrs[:logo] = attrs[:logo].present? ? attrs[:logo] : @org.logo
     # Remove the logo if the user checked the box
@@ -48,6 +68,8 @@ class OrgsController < ApplicationController
     tab = (attrs[:feedback_enabled].present? ? 'feedback' : 'profile')
     @org.links = ActiveSupport::JSON.decode(params[:org_links]) if params[:org_links].present?
 
+    @org.banner_text = attrs[:banner_text] if attrs[:banner_text]
+
     # Only allow super admins to change the org types and shib info
     if current_user.can_super_admin?
       identifiers = []
@@ -55,14 +77,14 @@ class OrgsController < ApplicationController
 
       # Handle Shibboleth identifier if that is enabled
       if Rails.configuration.x.shibboleth.use_filtered_discovery_service
-        shib = IdentifierScheme.by_name('shibboleth').first
+        shib = ::IdentifierScheme.by_name('shibboleth').first
 
         if shib.present? && attrs[:identifiers_attributes].present?
           key = attrs[:identifiers_attributes].keys.first
           entity_id = attrs[:identifiers_attributes][:"#{key}"][:value]
           # rubocop:disable Metrics/BlockNesting
           if entity_id.present?
-            identifier = Identifier.find_or_initialize_by(
+            identifier = ::Identifier.find_or_initialize_by(
               identifiable: @org, identifier_scheme: shib, value: entity_id
             )
             @org = process_identifier_change(org: @org, identifier: identifier)
@@ -95,6 +117,14 @@ class OrgsController < ApplicationController
         end
         @org.save
       end
+
+      # if active is false, unpublish all published tempaltes, guidances
+      unless @org.active
+        @org.published_templates.update_all(published: false)
+        @org.guidance_groups.update_all(published: false)
+        @org.update(feedback_enabled: false)
+      end
+
       redirect_to "#{admin_edit_org_path(@org)}##{tab}",
                   notice: success_message(@org, _('saved'))
     else
@@ -102,11 +132,8 @@ class OrgsController < ApplicationController
       redirect_to "#{admin_edit_org_path(@org)}##{tab}", alert: failure
     end
   end
-  # rubocop:enable Metrics/AbcSize, Metrics/MethodLength
   # rubocop:enable Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
-  # --------------------------------
-  # End DMP OPIDoR Customization
-  # --------------------------------
+  # rubocop:enable Metrics/AbcSize, Metrics/MethodLength
 
   # This action is used by installations that have the following config enabled:
   #   Rails.configuration.x.shibboleth.use_filtered_discovery_service

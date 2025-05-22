@@ -4,18 +4,37 @@
 class AnswersController < ApplicationController
   respond_to :html
   include ConditionsHelper
-  prepend Dmpopidor::AnswersController
+  helper ErrorHelper
 
-  # --------------------------------
-  # Start DMP OPIDoR Customization
-  # CHANGES: Added Research output support
-  # --------------------------------
+  # rubocop:disable Metrics/AbcSize
+  def new_form
+    research_output = ResearchOutput.includes(:plan).find(params[:research_output_id])
+    question = Question.includes(:madmp_schema).find(params[:question_id])
+    answer = Answer.includes(:madmp_fragment).find_by!(
+      question_id: question.id,
+      research_output_id: research_output.id
+    )
+
+    authorize answer
+    fragment = answer.madmp_fragment
+    render json: MadmpFragment.render_fragment_json(fragment, fragment.madmp_schema)
+    nil
+  rescue ActiveRecord::RecordNotFound
+    authorize Answer.new(plan_id: research_output.plan_id)
+    render json: {
+      template: MadmpSchema.serialize_json_response(question.madmp_schema)
+    }
+    nil
+  end
+  # rubocop:enable Metrics/AbcSize
+
   # POST /answers/create_or_update
   # TODO: Why!? This method is overly complex. Needs a serious refactor!
   #       We should break apart into separate create/update actions to simplify
   #       logic and we should stop using custom JSON here and instead use
   #       `remote: true` in the <form> tag and just send back the ERB.
   #       Consider using ActionCable for the progress bar(s)
+  # Added Research outputs support
   # rubocop:disable Metrics/AbcSize, Metrics/MethodLength
   # rubocop:disable Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
   def create_or_update
@@ -23,7 +42,7 @@ class AnswersController < ApplicationController
 
     # First it is checked plan exists and question exist for that plan
     begin
-      p = Plan.find(p_params[:plan_id])
+      p = ::Plan.find(p_params[:plan_id])
       unless p.question_exists?(p_params[:question_id])
         # rubocop:disable Layout/LineLength
         render(status: :not_found, json: {
@@ -33,14 +52,13 @@ class AnswersController < ApplicationController
         return
       end
     rescue ActiveRecord::RecordNotFound
-      # rubocop:disable Layout/LineLength
       render(status: :not_found, json: {
-               msg: format(_('There is no plan with id %{id} for which to create or update an answer'), id: p_params[:plan_id])
+               msg: format(_('There is no plan with id %{id} for which to create or update an answer'),
+                           id: p_params[:plan_id])
              })
-      # rubocop:enable Layout/LineLength
       return
     end
-    q = Question.find(p_params[:question_id])
+    q = ::Question.find(p_params[:question_id])
 
     # rubocop:disable Metrics/BlockLength
     Answer.transaction do
@@ -51,7 +69,8 @@ class AnswersController < ApplicationController
 
       @answer = Answer.find_by!(
         plan_id: args[:plan_id],
-        question_id: args[:question_id]
+        question_id: args[:question_id],
+        research_output_id: args[:research_output_id]
       )
       authorize @answer
 
@@ -81,7 +100,8 @@ class AnswersController < ApplicationController
       @stale_answer = @answer
       @answer = Answer.find_by(
         plan_id: args[:plan_id],
-        question_id: args[:question_id]
+        question_id: args[:question_id],
+        research_output_id: args[:research_output_id]
       )
     end
     # rubocop:enable Metrics/BlockLength
@@ -91,7 +111,7 @@ class AnswersController < ApplicationController
     #      check should probably happen on create/update
     # rubocop:disable Style/GuardClause
     if @answer.present?
-      @plan = Plan.includes(
+      @plan = ::Plan.includes(
         sections: {
           questions: %i[
             answers
@@ -102,6 +122,7 @@ class AnswersController < ApplicationController
       @question = @answer.question
       @section = @plan.sections.find_by(id: @question.section_id)
       template = @section.phase.template
+      @research_output = @answer.research_output
 
       remove_list_after = remove_list(@plan)
 
@@ -131,6 +152,9 @@ class AnswersController < ApplicationController
       render json: {
         qn_data: qn_data,
         section_data: section_data,
+        'answer' => {
+          'id' => @answer.id
+        },
         'question' => {
           'id' => @question.id,
           'answer_lock_version' => @answer.lock_version,
@@ -138,6 +162,7 @@ class AnswersController < ApplicationController
                          render_to_string(partial: 'answers/locking', locals: {
                                             question: @question,
                                             answer: @stale_answer,
+                                            research_output: @research_output,
                                             user: @answer.user
                                           }, formats: [:html])
                        end,
@@ -145,6 +170,7 @@ class AnswersController < ApplicationController
                                        template: template,
                                        question: @question,
                                        answer: @answer,
+                                       research_output: @research_output,
                                        readonly: false,
                                        locking: false,
                                        base_template_org: template.base_org
@@ -159,30 +185,132 @@ class AnswersController < ApplicationController
                                            plan: @plan,
                                            current_phase: @section.phase
                                          }, formats: [:html])
+        },
+        'research_output' => {
+          'id' => @research_output.id
         }
       }.to_json
-
     end
     # rubocop:enable Style/GuardClause
   end
-  # --------------------------------
-  # End DMP OPIDoR Customization
-  # --------------------------------
-  # rubocop:enable Metrics/AbcSize, Metrics/MethodLength
   # rubocop:enable Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
+  # rubocop:enable Metrics/AbcSize, Metrics/MethodLength
+
+  def set_answers_as_common
+    answer_ids = params[:answer_ids]
+    common_value = params[:is_common]
+    Answer.where(id: answer_ids).update_all(is_common: common_value)
+
+    render json: {
+      updated_answers: answer_ids
+    }.to_json
+  end
+
+  # Public: Retrieves notes associated with a specific answer and includes user information.
+  #
+  # This method retrieves notes associated with the specified answer and includes information
+  # about the users who created the notes. The method performs authorization checks to ensure
+  # that the requesting user has the appropriate permissions to access the notes.
+  #
+  # Parameters:
+  #   None
+  #
+  # Returns:
+  #   JSON: A JSON response containing the notes with associated user information.
+  #
+  # Errors:
+  #   - 400 (Bad Request) if the answer_id parameter is missing, not a positive integer, or not provided.
+  #   - 404 (Not Found) if the specified answer is not found.
+  #   - 403 (Forbidden) if the requesting user is not authorized to access the resource.
+  #   - 500 (Internal Server Error) if an unexpected error occurs during processing.
+  #
+  # Example:
+  #   GET /answers/:answer_id/notes
+  #
+  #   Returns a JSON response with the notes and associated user information.
+  # rubocop:disable Metrics/AbcSize, Metrics/MethodLength
+  def notes
+    answer_id = params[:answer_id]
+
+    unless answer_id.present? && answer_id.to_i.positive?
+      Rails.logger.error("Answer id [#{answer_id}] is not valid")
+      bad_request("Answer id [#{answer_id}] is not valid")
+      return
+    end
+
+    begin
+      @answer = Answer.find(answer_id)
+    rescue ActiveRecord::RecordNotFound => e
+      Rails.logger.error("Answer [#{answer_id}] not found")
+      Rails.logger.error(e.backtrace.join("\n"))
+      not_found('No answer found')
+      return
+    rescue StandardError => e
+      Rails.logger.error('An error occured during retriving answer data')
+      Rails.logger.error(e.backtrace.join("\n"))
+      internal_server_error(e.message)
+      return
+    end
+
+    unless @answer
+      Rails.logger.error('No answer found')
+      not_found('No answer found')
+      return
+    end
+
+    begin
+      authorize @answer
+    rescue Pundit::NotAuthorizedError => e
+      Rails.logger.error('An error occurred while checking authorisations')
+      Rails.logger.error(e.backtrace.join("\n"))
+      forbidden
+      return
+    end
+
+    notes_with_users = begin
+      @answer.notes
+             .where(archived: false)
+             .order(created_at: :desc)
+             .includes(:user)
+             .as_json(
+               include: {
+                 user: {
+                   only: %w[id surname firstname]
+                 }
+               }
+             )
+    rescue StandardError => e
+      Rails.logger.error('An error occurred while rendering response')
+      Rails.logger.error(e.backtrace.join("\n"))
+      internal_server_error(e.message)
+      nil
+    end
+
+    render json: { status: 200, message: "#{notes_with_users.length} notes found", notes: notes_with_users }
+  end
+  # rubocop:enable Metrics/AbcSize, Metrics/MethodLength
 
   private
 
-  # --------------------------------
-  # Start DMP OPIDoR Customization
-  # CHANGES: Added research_output_id, :is_common, :parent_id
-  # --------------------------------
+  # Get the schema from the question, if any (works for strucutred questions/answers only)
+  # TODO: move to global var with before_action trigger + rename accordingly (set_json_schema ?)
+  def json_schema
+    question = ::Question.find(params['question_id'])
+    question.madmp_schema
+  end
+
+  # Get the parameters corresponding to the schema
+  def schema_params(data, schema, flat: false)
+    s_params = schema.generate_strong_params(flat: flat)
+    data.require(:answer).permit(s_params)
+  end
+
   # rubocop:disable Metrics/AbcSize
   def permitted_params
     permitted = params.require(:answer)
                       .permit(:id, :text, :plan_id, :user_id, :question_id,
+                              :research_output_id, :is_common, :parent_id,
                               :lock_version, question_option_ids: [], standards: {})
-
     # If question_option_ids has been filtered out because it was a
     # scalar value (e.g. radiobutton answer)
     if !params[:answer][:question_option_ids].nil? &&
@@ -195,9 +323,6 @@ class AnswersController < ApplicationController
     permitted
   end
   # rubocop:enable Metrics/AbcSize
-  # --------------------------------
-  # End DMP OPIDoR Customization
-  # --------------------------------
 
   def check_answered(section, q_array, all_answers)
     n_qs = section.questions.count { |question| q_array.include?(question.id) }
