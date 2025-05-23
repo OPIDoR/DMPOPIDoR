@@ -1,68 +1,149 @@
+<% 
+  plan_fragment = @plan.json_fragment
+  contributors = plan_fragment.contributors.order(
+    Arel.sql("data->>'lastName', data->>'firstName'")
+  )
+  costs = Fragment::Cost.where(dmp_id: plan_fragment.id)
+  locale = LocaleService.to_gettext(locale: @plan.template.locale)
+  template = @plan.template 
+  template_title = template.title
+  template_title += " - #{_('Customized')}" if template.customization_of.present?
+%>
 <hr />
-<h1><%= _("Plan Overview") %></h1>
-<p><em><%= _("A Data Management Plan created using %{application_name}") % { application_name: ApplicationService.application_name } %></em></p>
+<h1><%= @plan.title %></h1>
+<em>
+  <%= _("A Data Management Plan created using %{application_name}, based on the \"%{template_title}\" template provided by %{org_name}.") % {
+      application_name:  ApplicationService.application_name,
+      template_title: template_title,
+      org_name: template.org.name
+    } %>
+</em>
 <br/>
 <div class="cover-page">
-  <p><b><%= _("Title: ") %></b><%= @hash[:title] %></p><br>
-
-  <p><strong><%= _("Creator:") %></strong><%= @hash[:attribution] %></p><br>
-
-  <%# Added contributors to coverage of plans. 
-    # Users will see both roles and contributor names if the role is filled %>
-  <%# Roles are ranked by PI -> DM -> PA -> Other (if any) %>
-  <% if @hash[:investigation].present? %>
-  <p><b><%= _("Principal Investigator: ") %></b><%= @hash[:investigation].map(&:name).join(', ') %></p><br>
+  <% I18n.with_locale @plan.template.locale  do %>
+    <h2><%= _("Plan Details") %></h2>
   <% end %>
-  <% if @hash[:data_curation].present? %>
-  <p><b><%= _("Data Manager: ") %></b><%= @hash[:data_curation].map(&:name).join(', ') %></p><br>
+  <div class="plan-details">
+    <%= render(partial: 'shared/export/display_madmp_fragment', locals: {
+            fragment: plan_fragment.meta,
+            schema: plan_fragment.meta.madmp_schema,
+            classname: plan_fragment.meta.classname,
+            locale: locale,
+            table_header: nil
+    } ) %>
+  </div>
+
+  <% I18n.with_locale @plan.template.locale  do %>
+    <h2><%= @plan.research_project? ? _("Project Details") : _("Structure Details") %></h2>
   <% end %>
-  <% if @hash[:pa].present? %>
-  <p><b><%= _("Project Administrator: ") %></b><%= @hash[:pa].map(&:name).join(', ') %></p><br>
+  <div class="plan-details">
+    <% project_fragment = @plan.research_project? ? plan_fragment.project : plan_fragment.research_entity %>
+    <%= render(partial: 'shared/export/display_madmp_fragment', locals: {
+            fragment: project_fragment,
+            schema: project_fragment.madmp_schema,
+            classname: project_fragment.classname,
+            locale: locale,
+            table_header: nil
+    } ) %>
+  </div>
+  <% I18n.with_locale @plan.template.locale  do %>
+    <p><b><%= _("Research outputs") %> : </b></p>
   <% end %>
-  <% if @hash[:other].present? %>
-  <p><b><%= _("Contributor: ") %></b><%= @hash[:other].map(&:name).join(', ') %></p><br>
+  <ol>
+    <% @hash[:research_outputs].each do |research_output| %>
+      <% research_output_description = research_output.json_fragment.research_output_description %>
+      <li>
+        <%= research_output_description.data['title'] %>
+        <% if research_output_description.data['type'].present? %>
+          (<%= research_output_description.data['type'] %>)
+        <% end %>
+      </li>
+    <% end %>
+  </ol>
+  <br/>
+  <% I18n.with_locale @plan.template.locale  do %>
+    <p><b><%= _("Contributors") %></b></p> <br/>
+    <table class="real-table">
+      <thead>
+        <tr>
+          <th><%= _("Name") %></th>
+          <th><%= _("Affiliation") %></th>
+          <th><%= _("Roles") %></th>
+        </tr>
+      </thead>
+      <tbody>
+      <% contributors.each do |contributor| %>
+        <% person_id = contributor.data["personId"]%>
+        <% affiliation_id = contributor.data["affiliationId"]%>
+        <tr>
+          <td>
+            <%= contributor.to_s %>
+            <% if person_id.present? %>
+              - <%= uri?(person_id) ? link_to(person_id, person_id, target: "_blank") : person_id %>
+            <% end %>
+          </td>
+          <td>
+            <%= contributor.data["affiliationName"] %>
+            <% if affiliation_id.present? %>
+              - <%= uri?(affiliation_id) ? link_to(affiliation_id, affiliation_id, target: "_blank") : affiliation_id %>
+            <% end %>
+          </td>
+          <td>
+            <% if contributor.roles.present? %>
+              <ul>
+                <% contributor.roles(@hash[:research_outputs].pluck(:id), include_ro_names: true).each do |role| %>
+                  <li><%= role %></li>
+                <% end %>
+              </ul>
+            <% end %>
+          </td>
+        </tr>
+      <% end %>
+      </tbody>
+    </table>
   <% end %>
+  <% if @plan.structured? && !costs.empty?%>
+    <br/>
 
-  <p><b><%= _("Affiliation: ") %></b><%= @hash[:affiliation] %></p><br>
-
-  <% if @hash[:funder].present? %>
-    <p><b><%= _("Funder: ") %></b><%= @hash[:funder] %></p><br>
-  <% end %>
-
-    <p><b><%= _("Template: ") %></b><%= @hash[:template] + @hash[:customizer] %></p><br>
-
-  <% @plan.contributors.investigation.each do |contributor| %>
-    <% orcid = contributor.identifier_for_scheme(scheme: "orcid") %>
-    <% next unless orcid.present? && orcid.value.present? %>
-
-    <p><b><%= _("ORCID iD: ") %></b><%= orcid.value_without_scheme_prefix %></p> <br>
-  <% end %>
-
-  <% if @plan.description.present? %>
-    <p><b><%= _("Project abstract: ") %></b></p>
-    <div style="margin-left: 15px;"><%= sanitize(@plan.description) %></div><br>
-  <% end %>
-
-  <% if @plan.id.present? %>
-    <p><b><%= _("ID: ") %></b><%= @plan.id %></p> <br>
-  <% end %>
-
-  <% if @plan.start_date.present? %>
-    <p><b><%= _("Start date: ") %></b><%=  l(@plan.start_date.to_date, formats: :short) %></p> <br>
-  <% end %>
-
-  <% if @plan.end_date.present? %>
-    <p><b><%= _("End date: ") %></b><%=  l(@plan.end_date.to_date, formats: :short) %></p> <br>
-  <% end %>
-
-  <p><b><%= _("Last modified: ") %></b><%=  l(@plan.updated_at.to_date, formats: :short) %></p> <br>
-
-  <% if @plan.grant.present? %>
-    <p><b><%= _("Grant number / URL: ") %></b><%= @plan.grant.value %></p> <br>
+    <% I18n.with_locale @plan.template.locale  do %>
+      <p><b><%= _("Budget") %></b></p> <br/>
+      <table class="real-table">
+        <thead>
+          <tr>
+            <th scope="col"><%= _("Cost type (Title)") %></th>
+            <th scope="col" class="sorter-false"><%= _("Amount") %></th>
+            <th scope="col" class="sorter-false"><%= _("Lifecycle stage") %></th>
+          </tr>
+        </thead>
+        <tbody>
+        <% costs.each do |cost| %>
+          <% next unless @hash[:research_outputs].pluck(:id).include?(cost.research_output_id) %>
+          
+          <% ro = ResearchOutput.where(id: cost.research_output_id).first %>
+          <% cost_title = cost.data["costType"] || "" %>
+          <% cost_title +=  " (#{cost.data["title"]})" if cost.data["title"].present?%>
+          <tr>
+            <td><%=  cost_title %></td>
+            <td><%= "#{cost.data["amount"]} #{cost.data["currency"]}"%></td>
+            <% if ro.present? %>
+              <% cost_label = form_label(
+                                cost.parent.madmp_schema.properties["cost"],
+                                LocaleService.to_gettext(locale: @plan.template.locale),
+                                false
+                              ) %>
+              <td><%= "#{cost_label} - " %><b><%= ro.abbreviation %></b></td>
+            <% else %>
+              <td><%= _("General Budget") %></td>
+            <% end %>
+          </tr>
+        <% end %>
+        </tbody>
+      </table>
+    <% end %>
   <% end %>
 
   <% if @public_plan %>
-    <p><b><%= _("Copyright information:") %></b></p>
+    <p><%= _("Copyright information:") %></p>
     <div style="margin-left: 15px;">
       <p>
         <%= _(" The above plan creator(s) have agreed that others may use as much of the text of this plan as they would like in their own plans, and customise it as necessary. You do not need to credit the creator(s) as the source of the language used, but using any of the plan's text does not imply that the creator(s) endorse, or have any relationship to, your project or proposal") %>

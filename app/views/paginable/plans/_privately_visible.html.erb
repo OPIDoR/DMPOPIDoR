@@ -2,16 +2,15 @@
   <table class="table table-hover" id="my-plans">
     <thead>
       <tr>
-        <th scope="col"><%= _('Project Title') %>&nbsp;<%= paginable_sort_link('plans.title') %></th>
+        <th scope="col"><%= _('Plan Title') %>&nbsp;<%= paginable_sort_link('plans.title') %></th>
         <th scope="col"><%= _('Template') %>&nbsp;<%= paginable_sort_link('templates.title') %></th>
         <th scope="col" class="date-column"><%= _('Edited') %>&nbsp;<%= paginable_sort_link('plans.updated_at') %></th>
         <th scope="col"><%= _('Role') %></th>
+        <th scope="col"><%= _('Owner') %></th>
         <th scope="col" class="text-center sorter-false"><%= _('Test') %></th>
         <th scope="col" ><%= _('Visibility') %></th>
         <th scope="col" ><%= _('Shared') %></th>
-        <th scope="col" class="sorter-false">
-          <span aria-hidden="false" class="sr-only"><%= _('Actions') %></span>
-        </th>
+        <th scope="col" class="sorter-false"><%= _('Actions') %></th>
       </tr>
     </thead>
     <tbody>
@@ -19,21 +18,26 @@
         <% my_plan_roles = plan.roles.select(&:active).select { |r| r.user_id == current_user.id } %>
         <tr id="<%= dom_id(plan) %>">
           <td>
-            <%= link_to "#{plan.title.length > 60 ? "#{plan.title[0..59]} ..." : plan.title}",
+            <%= link_to "#{plan.title.length > 100 ? "#{plan.title[0..99]} ..." : plan.title}",
                 plan_path(plan) %>
           </td>
           <td><%= plan.template.title %></td>
           <td><%= l(plan.updated_at.to_date, formats: :short) %></td>
           <td><%= display_role(my_plan_roles.first) %></td>
-          <td class="text-center">
+          <td><%= display_owner(plan.owner) %></td>
+          <td class="text-center set-test-td">
             <% if plan.administerable_by?(current_user.id) then %>
-              <%= check_box_tag :is_test, "1", (plan.visibility === "is_test"),
+              <%= check_box_tag "is_test", "1", (plan.visibility === "is_test"),
+                                          id: "is_test_#{plan.id}",
                                           class: "set_test_plan",
                                           aria: {
                                             label: "#{plan.title} - test plan flag"
                                           },
                                           data: { remote: true, method: :post,
                                                   url: set_test_plan_path(plan) } %>
+              <label for="is_test_<%= plan.id %>">
+                <span class="visually-hidden"><%= _('Test plan ?') %></span>
+              </label>
             <% else %>
               <%= plan.visibility === 'is_test' ? _('Yes') : _('No') %>
             <% end %>
@@ -41,41 +45,50 @@
           <td class="plan-visibility">
             <%= plan.visibility === 'is_test' ? _('N/A') : sanitize(display_visibility(plan.visibility)) %>
           </td>
-          <td>
-            <% if plan.shared? %>
-              <%= _("Yes") %>
-            <% else %>
-              <%= _('No') %>
-            <% end  %>
-          </td>
-          <td>
-            <div class="dropdown">
-              <button class="btn btn-link dropdown-toggle" type="button"
-                      id="plan-<%= plan.id %>-actions" data-bs-toggle="dropdown" 
+          <% if plan.shared? %>
+            <% 
+              api_clients = plan.api_client_roles.joins(:api_client).pluck('api_clients.name').join(',')
+              collab_number = plan.roles.length - 1
+              shared_tooltip = _('Shared with:<br/>')
+              shared_tooltip += n_(' - %{collab_number} collaborator<br/>', ' - %{collab_number} collaborators<br/>', collab_number) % { collab_number: collab_number } if collab_number > 0
+              shared_tooltip += _(' - the following third-party organizations : %{services_list}') % { services_list: api_clients } if api_clients.length > 0
+            %>
+            <td data-toggle="tooltip" data-bs-html="true" title="<%= shared_tooltip %>">
+              <em class="sr-only"><%= shared_tooltip %></em>
+              <%= link_to _('Yes'), share_plan_path(plan) %>
+            </td>
+          <% else %>
+            <td><%= link_to _('No'), share_plan_path(plan) %></td>
+          <% end  %>
+          <td class="text-center">
+            <div class="dropdown plan-actions">
+              <button href="#" class="btn btn-link dropdown-toggle" type="button"
+                      id="plan-<%= plan.id %>-actions" data-bs-toggle="dropdown"
                       aria-haspopup="true" aria-expanded="true">
-                <%= _('Actions') %><span class="caret"></span>
+                <span class="fas fa-cog"></span>
+                <span class="visually-hidden"><%= _('Actions') %></span>
               </button>
 
-              <ul class="dropdown-menu" aria-labelledby="plan-<%= plan.id %>-actions">
+              <ul class="dropdown-menu dmpopidor-dropdown" aria-labelledby="plan-<%= plan.id %>-actions">
               <% if plan.editable_by?(current_user.id) then %>
                 <li class="nav-item"><%= link_to _('Edit'), plan_path(plan), class: 'dropdown-item  px-3' %></li>
 
                 <% if plan.administerable_by?(current_user.id) %>
-                  <li><%= link_to _('Share'), share_plan_path(plan), class: 'dropdown-item  px-3' %></li>
+                  <li class="nav-item"><%= link_to _('Share'), share_plan_path(plan), class: 'dropdown-item  px-3' %></li>
                 <% end %>
 
-                <li><%= link_to _('Download'), download_plan_path(plan), class: 'dropdown-item  px-3' %></li>
-                <li><%= link_to(_('Copy'), duplicate_plan_path(plan), class: 'dropdown-item  px-3', data: { method: :post }) %></li>
+                <li class="nav-item"><%= link_to _('Download'), download_plan_path(plan), class: 'dropdown-item  px-3' %></li>
+                <li class="copy-plan nav-item"><%= link_to(_('Copy'), duplicate_plan_path(plan), data: { method: :post }, class: 'dropdown-item  px-3') %></li>
               <% else %>
-                <li><%= link_to _('View'), plan_path(plan), class: 'dropdown-item  px-3' %></li>
+                <li class="nav-item"><%= link_to _('View'), plan_path(plan), class: 'dropdown-item  px-3' %></li>
 
                 <% if !plan.reviewable_by?(current_user.id) %>
-                  <li><%= link_to _('Download'), download_plan_path(plan), class: 'dropdown-item  px-3' %></li>
+                  <li class="nav-item"><%= link_to _('Download'), download_plan_path(plan), class: 'dropdown-item  px-3' %></li>
                 <% end %>
               <% end %>
               <% role = my_plan_roles.first %>
               <% conf = (role.creator? && plan.publicly_visible?) ? _("Are you sure you wish to remove this public plan? This will remove it from the Public DMPs page but any collaborators will still be able to access it.") : _("Are you sure you wish to remove this plan? Any collaborators will still be able to access it.") %>
-              <li><%= link_to _('Remove'), deactivate_role_path(role), 'class': 'dropdown-item  px-3', 'data-method': 'put', rel: 'nofollow', 'data-confirm': conf %></li>
+              <li class="nav-item"><%= link_to _('Remove'), deactivate_role_path(role), class: 'dropdown-item  px-3', 'data-method': 'put', rel: 'nofollow', 'data-confirm': conf %></li>
             </ul>
           </div>
           </td>

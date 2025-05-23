@@ -1,3 +1,0 @@
-<%= form_for phase, { url: org_admin_template_phase_path(template.id, phase.id), html: { method: :put, class: 'phase_form' }} do |f| %>
-  <%= render partial: 'org_admin/phases/form', locals: local_assigns.merge({ f: f }) %>
-<% end %>

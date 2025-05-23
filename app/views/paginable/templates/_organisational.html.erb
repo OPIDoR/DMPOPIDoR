@@ -11,6 +11,7 @@
         <% else %>
           <th scope="col"><%= (action_name == 'customizable' ? _('Funder') : _('Organisation')) %>&nbsp;<%= paginable_sort_link('orgs.name') %></th>
         <% end %>
+        <th scope="col"><%= _('Type - Context') %></th>
         <th scope="col"><%= _('Status') %></th>
         <th scope="col" class="date-column"><%= _('Edited Date') %>&nbsp;<%= paginable_sort_link('templates.updated_at') %></th>
         <% if action_name != 'index' %>
@@ -26,6 +27,9 @@
         </td>
           <td>
             <%= action_name == 'organisational' ? sanitize(template.description) : template.org.name %>
+          </td>
+          <td>
+            <%= "#{template.type.humanize} - #{template.context.humanize}" %>
           </td>
           <td>
             <%# Leaving this line here as a placeholder for determining how to notify user of changes now that dirty flag is removed %>
@@ -53,32 +57,31 @@
                   <%= _('Actions') %><span class="caret"></span>
                 </button>
                 <ul class="dropdown-menu">
-                  <li><%= link_to _('Edit'), edit_org_admin_template_path(template.id), class: 'dropdown-item px-3' %></li>
-                  <li><%= link_to _('History'), history_org_admin_template_path(template.id), class: 'dropdown-item px-3' %></li>
+                  <li class="nav-item"><%= link_to _('Edit'), edit_org_admin_template_path(template.id), class: 'dropdown-item px-3' %></li>
+                  <li class="nav-item"><%= link_to _('History'), history_org_admin_template_path(template.id), class: 'dropdown-item px-3' %></li>
                   <% if template.draft? || template.published? %>
-                    <li><%= link_to _('Unpublish'), unpublish_org_admin_template_path(template.id), 'data-method': 'patch', class: 'dropdown-item px-3' %></li>
+                    <li class="nav-item"><%= link_to _('Unpublish'), unpublish_org_admin_template_path(template.id), 'data-method': 'patch', class: 'dropdown-item px-3' %></li>
                   <% end %>
                   <% if template.draft? %>
-                    <li><%= link_to _('Publish changes'), publish_org_admin_template_path(template), 'data-method': 'patch', class: 'dropdown-item px-3' %></li>
+                    <li class="nav-item"><%= link_to _('Publish changes'), publish_org_admin_template_path(template), 'data-method': 'patch', class: 'dropdown-item px-3' %></li>
                   <% elsif !template.published? %>
-                    <li><%= link_to _('Publish'), publish_org_admin_template_path(template.id), 'data-method': 'patch', class: 'dropdown-item px-3' %></li>
+                    <li class="nav-item"><%= link_to _('Publish'), publish_org_admin_template_path(template.id), 'data-method': 'patch', class: 'dropdown-item px-3' %></li>
                   <% end %>
-                  <li>
+                  <li class="nav-item">
                     <%= link_to _('Copy'),
                         org_admin_template_copies_path(template.id),
-                        data: { method: 'post' },
-                        class: 'dropdown-item px-3'
+                        data: { method: 'post' }, class: 'dropdown-item px-3'
                     %>
                   </li>
                   <% if template.removable? %>
-                    <li>
+                    <li class="nav-item">
                       <%= link_to _('Remove'), org_admin_template_path(id: template.id),
+                                  class: 'dropdown-item px-3',
                                   'data-method': 'delete', rel: 'nofollow',
-                                  'data-confirm': _('Are you sure you want to remove "%{template_title}"? Any published versions will become unavailable to users.') % { template_title: template.title},
-                                  class: 'dropdown-item px-3' %>
+                                  'data-confirm': _('Are you sure you want to remove "%{template_title}"? Any published versions will become unavailable to users.') % { template_title: template.title} %>
                     </li>
                   <% end %>
-                  <li><%= link_to template_export_org_admin_template_url(template, format: :pdf),
+                  <li class="nav-item"><%= link_to template_export_org_admin_template_url(template, format: :pdf),
                                   title: export_as_pdf,
                                   target: '_blank',
                                   class: 'has-new-window-popup-info dropdown-item px-3' do %>
@@ -87,7 +90,7 @@
                           <span class="new-window-popup-info"><%= _('Opens in new window') %></span>
                       <% end %>
                   </li>
-                  <li>
+                  <li class="nav-item">
                     <%= direct_link(template, true) %>
                     <a href="" class="copy-link dropdown-item px-3" data-bs-toggle="modal" data-bs-target="#link-modal"><%= _('Copy link') %></a>
                   </li>
