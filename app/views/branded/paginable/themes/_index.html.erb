@@ -1,0 +1,32 @@
+<table class="table table-hover">
+  <thead>
+    <tr>
+      <th scope="col"><%= _('Name') %>&nbsp;<%= paginable_sort_link('themes.title') %></th>
+      <th scope="col"><%= _('Guidance') %>&nbsp;<%= paginable_sort_link('themes.description') %></th>
+      <th scope="col"><%= _('Data Type') %>&nbsp;<%= paginable_sort_link('themes.data_type') %></th>
+      <th scope="col"><%= _('Languages') %></th>
+      <th scope="col"></th>
+    </tr>
+  </thead>
+  <tbody id="themes">
+    <% scope.each do |theme| %>
+      <tr class="theme">
+        <td><%= link_to(theme.title, edit_super_admin_theme_path(theme)) %></td>
+        <td><%= sanitize(theme.description) %></td>
+        <td><%= theme.data_type %></td>
+        <td>
+          <% locales = Language.all %>
+          <% fr_locale = locales.find { |locale| locale.abbreviation == 'fr-FR' } %>
+          <% languages = theme.translations.keys.map { |abbr| locales.find { |locale| locale.abbreviation == abbr }&.name }.compact %>
+          <% languages.unshift(fr_locale.name) if fr_locale %>
+          <%= languages.join(', ') %>
+        </td>
+        <td class="theme-actions">
+          <i class="fas fa-up-down-left-right handle" aria-hidden="true" data-toggle="tooltip" 
+                      data-theme-id="<%= theme.id %>"
+                      data-original-title="<%= _('Move Theme') %>"></i>
+        </td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>

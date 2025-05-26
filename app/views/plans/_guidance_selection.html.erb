@@ -6,7 +6,7 @@
   <p><%= _('To help you write your plan, %{application_name} can show you guidance from a variety of organisations.') % { application_name: app_name } %>
   </p>
   <fieldset>
-    <legend class="legend-label"><%= _('Select up to 6 organisations to see their guidance.') %></legend>
+    <legend><%= _('Select up to 6 organisations to see their guidance.') %></legend>
     <ul id="priority-guidance-orgs">
       <%= render partial: "guidance_choices",
                  locals: { choices: important_ggs, form: form,
@@ -16,7 +16,7 @@
 
   <% if all_guidance_groups.length > important_ggs.length %>
     <p><%= _('Find guidance from additional organisations below') %></p>
-    <%= link_to _('See the full list'), '#', 'data-bs-toggle' => 'modal', 'data-bs-target' => '#modal-full-guidances', class: 'modal-guidances-window'  %>
+    <%= link_to _('See the full list'), '#', 'data-bs-toggle' => 'modal', 'data-bs-target' => '#modal-full-guidances', class: 'modal-guidances-window' %>
   <% end %>
 
   <br>
@@ -27,9 +27,9 @@
 <% end %>
 
 <% if all_guidance_groups.length > important_ggs.length %>
-  <div id="modal-full-guidances" class="modal fade" tabindex="-1" role="dialog">
-    <div class="modal-dialog modal-dialog-scrollable">
-      <div class="modal-content">
+  <div id="modal-full-guidances"  class="modal fade" tabindex="-1" role="dialog">
+    <div class="modal-dialog">
+      <div class="modal-content modal-dialog-scrollable">
         <div class="sign-in">
           <div class="modal-body">
             <button type="button" class="btn-close float-end" data-bs-dismiss="modal" aria-label="<%= _('Cancel') %>"></button>

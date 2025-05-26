@@ -9,7 +9,6 @@
     <div class="row">
       <div class="col-md-8">
         <% q_format = question.question_format %>
-        <% q_schema = question.madmp_schema %>
         <dl class="dl-horizontal">
           <dt><%= _('Question number')%></dt>
           <dd><%= question.number %></dd>
@@ -25,43 +24,30 @@
             <dd><%= question.question_options.order(:number).collect(&:text).join(', ') %></dd>
           <% end %>
           <!-- Default value -->
-          <% if q_format %>
-            <% if q_format.textfield? || q_format.textarea? %>
-              <% if !question.default_value.nil? %>
-                <dt><%= _('Default value')%></dt>
-                <dd>
-                  <% if q_format.textarea?  %>
-                    <div class="display-readonly-textarea-content">
-                      <%= sanitize question.default_value %>
-                    </div>
-                  <% else %>
+          <% if q_format.textfield? || q_format.textarea? %>
+            <% if !question.default_value.nil? %>
+              <dt><%= _('Default value')%></dt>
+              <dd>
+                <% if q_format.textarea?  %>
+                  <div class="display-readonly-textarea-content">
                     <%= sanitize question.default_value %>
-                <% end %>
-                </dd>
-              <% end %>
+                  </div>
+                <% else %>
+                  <%= sanitize question.default_value %>
+               <% end %>
+           </dd>
             <% end %>
           <% end %>
           <!-- Format title -->
-          <% if q_format.structured? %>
-            <dt><%= _('Data Type')%></dt>
-            <dd>
-              <%= q_schema.classname.camelcase %>
-            </dd>
-            <dt><%= _('Structured Form')%></dt>
-            <dd>
-              <%= q_schema.detailed_name %>
-            </dd>
-          <% else %>
-            <dt><%= _('Answer format')%></dt>
-            <dd>
-              <%= q_format.title + "."%>
-              <% if q_format.option_based? %>
-                <%= _('Additional comment area will be displayed.')%>
-              <% else %>
-                <%= _('No additional comment area will be displayed.')%>
-              <% end %>
-            </dd>
-          <% end %>
+          <dt><%= _('Answer format')%></dt>
+          <dd>
+            <%= q_format.title + "."%>
+            <% if q_format.option_based? %>
+              <%= _('Additional comment area will be displayed.')%>
+            <% else %>
+              <%= _('No additional comment area will be displayed.')%>
+            <% end %>
+          </dd>
 
           <!-- question conditions -->
           <% if conditions.count > 0 %>
@@ -69,34 +55,31 @@
              <%= raw condition_to_text(conditions) %>
           <% end %>
 
-
-          <% if question.section.phase.template.org.present? %>
-            <!-- Suggested answer or Example-->
-            <% if !question.section.phase.template.org.funder? %>
-              <% example_answer = question.example_answers(template.base_org.id).first %>
-                <% if example_answer.present?  && example_answer.text.present?  %>
-                    <dt><%= _('example answer')%></dt>
-                    <dd>
-                      <% if q_format && q_format.textarea?  %>
-                        <div class="display-readonly-textarea-content">
-                          <%= sanitize example_answer.text %>
-                        </div>
-                      <% else %>
+          <!-- Suggested answer or Example-->
+          <% if !question.section.phase.template.org.funder? %>
+            <% example_answer = question.example_answers(template.base_org.id).first %>
+              <% if example_answer.present?  && example_answer.text.present?  %>
+                  <dt><%= _('example answer')%></dt>
+                  <dd>
+                    <% if q_format.textarea?  %>
+                      <div class="display-readonly-textarea-content">
                         <%= sanitize example_answer.text %>
-                      <% end %>
-                    </dd>
-                <% end %>
-            <% end %>
-            <!-- Guidance linked to this question -->
-            <% guidance = question.guidance_annotation(template.base_org.id) %>
-            <% if guidance.present?  %>
-              <dt><%= _('Guidance')%></dt>
-              <dd>
-                <div class="display-readonly-textarea-content">
-                  <%= sanitize guidance.text %>
-                </div>
-              </dd>
-            <% end %>
+                      </div>
+                    <% else %>
+                       <%= sanitize example_answer.text %>
+                    <% end %>
+                  </dd>
+              <% end %>
+          <% end %>
+          <!-- Guidance linked to this question -->
+          <% guidance = question.guidance_annotation(template.base_org.id) %>
+          <% if guidance.present?  %>
+            <dt><%= _('Guidance')%></dt>
+            <dd>
+              <div class="display-readonly-textarea-content">
+                <%= sanitize guidance.text %>
+              </div>
+            </dd>
           <% end %>
           <!-- Themes -->
           <% themes_q = question.themes %>
@@ -106,7 +89,8 @@
           <% end %>
         </dl>
       </div>
-      <div class="col-md-4">
+
+      <div class="ps-4 col-md-4">
         <% has_org_themed_guidance = false %>
         <% themes_q = question.themes %>
         <% if !themes_q.nil? %>
@@ -166,8 +150,8 @@
                               </div>
                            </div>
                         </div>
+                      <% end %>
                     <% end %>
-                   <% end %>
                   <% end %>
                 <% end %>
               <% end %>
@@ -224,8 +208,7 @@
           <% if section.modifiable? %>
             <div class="form-control mb-3 col-md-10">
               <div class="float-end">
-                <% path_helper = question.section.phase.template&.module? ? :edit_super_admin_template_phase_section_question_path : :edit_org_admin_template_phase_section_question_path %>
-                <%= link_to _('Edit'), send(path_helper, template_id: question.section.phase.template.id, phase_id: question.section.phase.id, section_id: question.section.id, id: question.id), class: "btn btn-secondary ajaxified-question", remote: true %>
+                <%= link_to _('Edit'), edit_org_admin_template_phase_section_question_path(template_id: question.section.phase.template.id, phase_id: question.section.phase.id, section_id: question.section.id, id: question.id), class: "btn btn-secondary ajaxified-question", remote: true %>
               </div>
             </div>
           <% end %>

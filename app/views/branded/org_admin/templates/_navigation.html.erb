@@ -1,0 +1,24 @@
+<ul class="nav nav-tabs" role="tablist">
+  <li role="presentation" class="nav-item <%= active_page?(template_details_path(template), true) ? 'active' : '' %>">
+    <%= link_to(template&.module? ? _('Module details') : _('Template details'), template_details_path(template), { 'aria-controls': 'show_template', role: 'tab', class:'nav-link' }) %>
+  </li>
+  <% template.phases.each do |phase| %><%# TODO when phase is modifiable and show is accessed, it does not get active tab %>
+    <% phase_path =
+         if template&.module?
+           modifiable && template.customization_of.present? ? edit_super_admin_template_phase_path(template.id, phase.id) : super_admin_template_phase_path(template.id, phase.id)
+         else
+           modifiable && template.customization_of.present? ? edit_org_admin_template_phase_path(template.id, phase.id) : org_admin_template_phase_path(template.id, phase.id)
+         end
+    %>
+    <li role="presentation" class="nav-item <%= active_page?(phase_path) ? 'active' : '' %>">
+      <%= link_to(phase.title, phase_path, { 'aria-controls': "#{phase.id}", role: 'tab', class:'nav-link' }) %>
+    </li>
+  <% end %>
+  <!-- Add another phase button -->
+  <% if template_modifiable?(template) && can_add_phase?(template) %>
+    <% add_new_phase_link = template&.module? ? new_super_admin_template_phase_path(template.id) : new_org_admin_template_phase_path(template.id) %>
+    <li role="presentation" class="nav-item <%= active_page?(add_new_phase_link) ? 'active' : '' %>">
+      <%= link_to(_('Add new phase'), add_new_phase_link, { 'aria-controls': 'add_phase', role: 'tab', class:'nav-link' }) %>
+    </li>
+  <% end %>
+</ul>

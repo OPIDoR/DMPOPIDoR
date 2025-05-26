@@ -1,0 +1,47 @@
+<div class="row">
+  <div class="col-md-12">
+    <% if template_hash[:template][:phases].present? && template_hash[:template][:phases].length > 1 %>
+      <div id="sections-accordion-controls">
+        <div class="accordion-controls px-1" data-bs-parent="phases_accordion">
+          <a href="#" data-toggle-direction="show"><%= _('expand all') %></a>
+          <span>|</span>
+          <a href="#" data-toggle-direction="hide"><%= _('collapse all') %></a>
+        </div>
+      </div>
+    <% end %>
+  </div>
+</div>
+<div class="row">
+  <div class="col-md-12">
+    <div class="accordion" id="phases_accordion" role="tablist">
+      <!-- If template has phases-->
+      <% if template_hash[:template][:phases].present? %>
+        <% i = 0 %>
+        <% template_hash[:template][:phases].each do |phase_no, phase_hash| %>
+          <% phase = phase_hash[:data] %>
+            <div class="card card-default">
+              <div class="heading-button" role="button" data-bs-toggle="collapse"
+                   data-bs-parent="#phases_accordion"
+                   href="#collapsePhase<%= phase.id %>"
+                   role="button"
+                   aria-expanded="<%= i == 0 ? 'true' : 'false' %>"
+                   aria-controls="#collapsePhase<%= phase.id %>">
+
+                <div class="card-heading" role="tab" id="<%= "headingPhase#{phase.id}" %>">
+                  <div class="card-title float-start">
+                    <%= phase.title %>
+                  </div>
+                </div>
+              </div>
+              <div id="<%= "collapsePhase#{phase.id}" %>" class="accordion-collapse collapse<%= i == 0 ? 'show' : 'hide' %>" role="tabcard" aria-labelledby="<%= "headingPhase#{phase.id}" %>"<%= i == 0 ? 'aria-expanded="false"' : '' %>>
+                <div class="card-body">
+                  <%= render partial: 'org_admin/templates/show_phases_sections', locals: { phase: phase, phase_hash: phase_hash, template: template, current: current } %>
+                </div>
+              </div>
+            </div>
+            <% i += 1 %>
+        <% end %>
+      <% end %>
+    </div>
+  </div>
+</div>

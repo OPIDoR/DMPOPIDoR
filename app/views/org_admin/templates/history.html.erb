@@ -1,0 +1,32 @@
+<div class="row">
+  <div class="col-md-12">
+    <h1>
+      <% title = templates.first.module? ? _('Module History') : _('Template History') %>
+      <%= templates.first.customization_of.present? ? (templates.first.module? ? _('Module Customisation History') : _('Template Customisation History')) : title %>
+      <div class="pull-right">
+        <%= link_to _(templates.first.module? ? 'View all modules' : 'View all templates'), templates.first.module? ? super_admin_module_templates_path : referrer, class: "btn btn-primary" %>
+      </div>
+    </h1>
+    <p>
+      <%= sanitize _('Here you can view previously published versions of your template.  These can no longer be modified.')%>
+    </p>
+  </div>
+</div>
+
+<div class="row">
+  <div class="col-md-12">
+    <!-- List of own templates -->
+    <% if templates.length > 0 %>
+      <%= paginable_renderise(
+        partial: '/paginable/templates/history',
+        controller: 'paginable/templates',
+        action: 'history',
+        remote: true,
+        query_params: query_params,
+        scope: templates,
+        locals: local_assigns ) %>
+    <% else %>
+      <p><%= _('This template is new and does not yet have any publication history.') %></p>
+    <% end %>
+  </div>
+</div>

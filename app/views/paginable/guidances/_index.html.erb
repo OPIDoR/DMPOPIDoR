@@ -7,7 +7,6 @@
         <th scope="col"><%= _('Themes') %></th>
         <th scope="col"><%= _('Guidance group') %>&nbsp;<%= paginable_sort_link('guidance_groups.name') %></th>
         <th scope="col"><%= _('Status') %>&nbsp;<%= paginable_sort_link('guidances.published') %></th>
-        <th scope="col"><%= _('Locale') %>&nbsp;<%= paginable_sort_link('guidances.locale') %></th>
         <th scope="col" class="date-column"><%= _('Last updated') %>&nbsp;<%= paginable_sort_link('guidances.updated_at') %></th>
         <th scope="col" class="sorter-false"><span aria-hidden="false" class="sr-only"><%= _('Actions') %></span></th>
       </tr>
@@ -20,9 +19,7 @@
             <% if guidance.themes.present? %>
               <td>
                 <% guidance.themes.each do |th| %>
-                  <% theme = Theme.find_by(title: th.title) %>
-                  <% local_abbreviation = guidance.guidance_group.language&.abbreviation %>
-                  <%= theme&.translations[local_abbreviation]&.fetch("title", nil) || th&.title %>
+                  <%= th.title %>
                 <% end %>
               </td>
             <% else %>
@@ -39,8 +36,6 @@
               <% else %>
                 <%= _('Published')%>
               <% end %>
-            </td>
-            <td><%= guidance.guidance_group.language&.name || 'N/C' %>
             </td>
             <td>
               <%= l guidance.updated_at.to_date, formats: :short %>

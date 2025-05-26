@@ -1,6 +1,7 @@
-<%# locals: { f, question, answer, research_output } %>
+<%# locals: { f, question, answer } %>
 <% options = question.question_options.by_number %>
 <% if question.question_format.checkbox? || question.question_format.multiselectbox? %>
+    <%= f.label(:question_option_ids, sanitize(question.text), class: 'form-label') %>
     <% options.each do |op| %>
         <div class="form-check">
             <label>
@@ -32,7 +33,6 @@
     <%= select_tag('answer[question_option_ids]',
         options_html.html_safe,
         { multiple: question.question_format.multiselectbox?,
-          prompt: _('Select an answer'),
           include_blank: question.question_format.dropdown?,
           class: 'form-select' }) %>
 <% end %>
@@ -45,7 +45,7 @@
         <%= sanitize("<p>#{text}</p>") %>
       </div>
     <% else %>
-      <%= text_area_tag('answer[text]', text, id: "answer-text-#{question.id}-research-output-#{research_output.id}", class: "form-control tinymce_answer") %>
+      <%= text_area_tag('answer[text]', text, id: "answer-text-#{question.id}", class: "form-control tinymce_answer") %>
     <% end %>
 <% end %>
 </div>

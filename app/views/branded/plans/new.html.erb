@@ -1,0 +1,12 @@
+<% if current_user.org.active? %>
+  <%= react("PlanCreationLayout", props: { 
+    locale: locale
+  }) %>
+<% else%>
+  <div class="alert alert-danger">
+    <span class="fas fa-exclamation-circle"></span>
+    <span>
+      <%= _('Your organisation has been deactivated. Please choose a new organisation from your <a href="/users/edit">user profile</a>.').html_safe %>
+    </span>
+  </div>
+<% end %>

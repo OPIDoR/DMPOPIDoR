@@ -1,0 +1,61 @@
+<%= form_for resource, namespace: 'new', url: registration_path("user"), html: {autocomplete: "off", id: "create_account_form"} do |f| %>
+
+  <div class="form-control mb-3">
+    <%= f.label(:firstname, _('First Name'), class: "form-label") %>
+    <%= f.text_field(:firstname, class: "form-control", "aria-required": true) %>
+  </div>
+  <div class="form-control mb-3">
+    <%= f.label(:surname, _('Last Name'), class: "form-label") %>
+    <%= f.text_field(:surname, class: "form-control", "aria-required": true) %>
+  </div>
+  <div class="form-control mb-3">
+    <%= f.label(:email, _('Email'), class: "form-label") %>
+    <%= f.email_field(:email, class: "form-control", "aria-required": true) %>
+  </div>
+  <div class="form-control mb-3" id="create-account-org-controls">
+    <%= render partial: org_partial,
+               locals: {
+                 form: f,
+                 orgs: orgs,
+                 default_org: resource&.org,
+                 required: true
+               } %>
+  </div>
+  <div class="form-control mb-3">
+    <%= f.label(:password, _('Password'), class: "form-label") %>
+    <%= f.password_field(:password, class: "form-control", "aria-required": true) %>
+  </div>
+  <div class="form-control mb-3">
+    <div class="form-check">
+      <label>
+        <input type="checkbox" id="passwords_toggle_sign_up" class="passwords_toggle" /> <%= _('Show password') %>
+      </label>
+    </div>
+  </div>
+  <div class="form-control mb-3">
+    <div class="form-check">
+      <%= f.label(:accept_terms) do %>
+        <%= f.check_box(:accept_terms, "aria-required": true) %>
+        <%= _('I accept the') %>
+        <%= link_to _('terms and conditions'), terms_path %>
+      <% end %>
+    </div>
+  </div>
+  <% if Rails.configuration.x.recaptcha.enabled %>
+    <div class="form-control mb-3">
+      <% if @show_checkbox_recaptcha %>
+        <%= label_tag(nil, _('Security check'), class: "form-label") %>
+        <%= recaptcha_tags %>
+      <% else %>
+        <%= recaptcha_v3(action: 'create_account') %>
+      <% end %>
+    </div>
+  <% end %>
+
+  <div class="cil_message">
+  <p><%= raw _("The information collected that concerns you will be processed and is destined for the Inist-CNRS (UAR76) and the correspondent for Computing and Liberties (CIL). For the following goal: management of user accounts. The recipients of this data are the administrators of the Inist-CNRS. The duration of conservation of the data is 5 years following the last login.") %></p>
+  <p><%= raw _("You have the right of access, of correction, of portability, or of removal of this data, or of a limitation of their processing. You can oppose the processing of the data that concerns you and you have the right to withdraw your agreement at any time, by contacting: <a href='mailto:%{contact_url}'>%{contact_url}</a>. You can also direct a complaint at a controlling body.") % { contact_url: Rails.configuration.x.organisation.email } %></p>
+  </div>
+
+  <%= f.button(_('Create account'), class: "btn btn-secondary", type: "submit") %>
+<% end %>
