@@ -29,7 +29,6 @@ services:
       - DMPROADMAP_HOST=localhost:8080
       - ALLOWED_HOSTS=dmpopidor,0.0.0.0,localhost
       - ACTION_MAILER_RAISE_DELIVERY_ERRORS=false
-      - MADMP_ENABLE_RESEARCH_OUTPUTS=false
       - MADMP_ENABLE_ETHICAL_ISSUES=false
       - ACTION_MAILER_SMTP_HOST=maildev
       - ACTION_MAILER_SMTP_PORT=1025
