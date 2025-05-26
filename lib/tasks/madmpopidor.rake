@@ -180,7 +180,7 @@ namespace :madmpopidor do
   desc 'Load JSON templates for structured questions in the database'
   task load_templates: :environment do
     p 'Loading maDMP Templates...'
-    path = 'engines/madmp_opidor/config/templates'
+    path = 'config/templates'
     # Read and parse index.json file
     index_path = Rails.root.join("#{path}/index.json")
     schemas_index = JSON.parse(File.read(index_path))
@@ -217,7 +217,7 @@ namespace :madmpopidor do
   task load_registries: :environment do
     p 'Loading maDMP registries...'
     Registry.destroy_all
-    registries_path = Rails.root.join('engines/madmp_opidor/config/registries/index.json')
+    registries_path = Rails.root.join('config/registries/index.json')
     registries = JSON.parse(File.read(registries_path))
 
     registries.each do |registry_name, registry_data|
@@ -230,7 +230,7 @@ namespace :madmpopidor do
       if registry_data.is_a?(Array)
         registry.update(values: registry_data['values'])
       elsif registry_data['path'].present?
-        values_path = Rails.root.join("engines/madmp_opidor/config/registries/#{registry_data['path']}")
+        values_path = Rails.root.join("config/registries/#{registry_data['path']}")
         Registry.load_values(values_path, registry)
       end
       p "#{registry_name} loaded."
