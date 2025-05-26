@@ -271,8 +271,7 @@ class OrgsController < ApplicationController
                   # --------------------------------
                   :feedback_msg, :org_id, :org_name, :org_crosswalk,
                   :helpdesk_email,
-                  identifiers_attributes: %i[identifier_scheme_id value],
-                  tracker_attributes: %i[code id])
+                  identifiers_attributes: %i[identifier_scheme_id value])
   end
 
   def shib_params

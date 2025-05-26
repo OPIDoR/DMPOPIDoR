@@ -65,14 +65,6 @@ class Org < ApplicationRecord
 
   belongs_to :language
 
-  has_one :tracker, dependent: :destroy
-  accepts_nested_attributes_for :tracker
-  validates_associated :tracker
-
-  has_one :tracker, dependent: :destroy
-  accepts_nested_attributes_for :tracker
-  validates_associated :tracker
-
   has_many :guidance_groups, dependent: :destroy
 
   has_many :plans
@@ -331,7 +323,6 @@ class Org < ApplicationRecord
 
       to_be_merged.templates.update_all(org_id: id)
       merge_token_permission_types!(to_be_merged: to_be_merged)
-      self.tracker = to_be_merged.tracker unless tracker.present?
       to_be_merged.users.update_all(org_id: id)
 
       # Terminate the transaction if the resulting Org is not valid

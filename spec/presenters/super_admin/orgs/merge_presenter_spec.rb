@@ -30,7 +30,6 @@ RSpec.describe SuperAdmin::Orgs::MergePresenter do
     @id_scheme = create(:identifier, identifiable: @from_org, identifier_scheme: @scheme)
     create(:plan, funder_id: @from_org.id)
     create(:plan, org: @from_org)
-    create(:tracker, org: @from_org)
     @user = create(:user, org: @from_org)
     @from_org.reload
     @presenter = SuperAdmin::Orgs::MergePresenter.new(from_org: @from_org, to_org: @to_org)
@@ -78,7 +77,6 @@ RSpec.describe SuperAdmin::Orgs::MergePresenter do
         expect(results[:plans].any?).to eql(true)
         expect(results[:templates].any?).to eql(true)
         expect(results[:token_permission_types].any?).to eql(true)
-        expect(results[:tracker].any?).to eql(true)
         expect(results[:users].any?).to eql(true)
       end
       it 'returns the expected categories for to_org' do
@@ -91,7 +89,6 @@ RSpec.describe SuperAdmin::Orgs::MergePresenter do
         expect(results[:plans].any?).to eql(false)
         expect(results[:templates].any?).to eql(false)
         expect(results[:token_permission_types].any?).to eql(false)
-        expect(results[:tracker].any?).to eql(false)
         expect(results[:users].any?).to eql(false)
       end
     end
@@ -107,22 +104,14 @@ RSpec.describe SuperAdmin::Orgs::MergePresenter do
         expect(results[:plans].any?).to eql(true)
         expect(results[:templates].any?).to eql(true)
         expect(results[:token_permission_types].any?).to eql(true)
-        expect(results[:tracker].any?).to eql(true)
         expect(results[:users].any?).to eql(true)
-      end
-      it 'does not return :tracker if one is already defined on to_org' do
-        create(:tracker, org: @to_org)
-        @to_org.reload
-        @presenter = SuperAdmin::Orgs::MergePresenter.new(from_org: @from_org, to_org: @to_org)
-        results = @presenter.send(:prepare_mergeables)
-        expect(results[:tracker]).to eql([])
       end
     end
 
     describe ':diff_from_and_to(category:)' do
       before(:each) do
         @entries = %i[annotations departments funded_plans guidances identifiers
-                      plans templates token_permission_types tracker users]
+                      plans templates token_permission_types users]
       end
       it 'returns an empty array if category is not present' do
         expect(@presenter.send(:diff_from_and_to, category: nil)).to eql([])

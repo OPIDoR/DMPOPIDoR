@@ -32,8 +32,6 @@ module SuperAdmin
                    [entry.identifier_scheme&.name, entry.value].join(' - ')
                  when 'TokenPermissionType'
                    entry.token_type.capitalize
-                 when 'Tracker'
-                   entry.code
                  when 'User'
                    [entry.email, entry.identifier_for_scheme(scheme: orcid)&.value].compact
                                                                                    .join(' - ')

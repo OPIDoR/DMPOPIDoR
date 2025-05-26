@@ -50,7 +50,6 @@ module SuperAdmin
           plans: Plan.where(org: org).sort_by(&:title),
           templates: org.templates.sort_by(&:title),
           token_permission_types: org.token_permission_types.sort_by(&:to_s),
-          tracker: [org.tracker].compact,
           users: org.users.sort_by(&:email)
         }
       end
@@ -69,7 +68,6 @@ module SuperAdmin
           plans: diff_from_and_to(category: :plans),
           templates: diff_from_and_to(category: :templates),
           token_permission_types: diff_from_and_to(category: :token_permission_types),
-          tracker: @to_org_entries[:tracker].any? ? [] : @from_org_entries[:tracker],
           users: diff_from_and_to(category: :users)
         }
       end

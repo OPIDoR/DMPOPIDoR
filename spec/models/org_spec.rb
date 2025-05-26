@@ -472,7 +472,6 @@ RSpec.describe Org, type: :model do
       create(:identifier, identifiable: @to_be_merged, identifier_scheme: nil)
       create(:identifier, identifiable: @to_be_merged, identifier_scheme: @scheme)
       create(:plan, funder_id: @to_be_merged.id)
-      create(:tracker, org: @to_be_merged)
       create(:user, org: @to_be_merged)
       @to_be_merged.reload
     end
@@ -535,11 +534,6 @@ RSpec.describe Org, type: :model do
       expected = (@org.token_permission_types | @to_be_merged.token_permission_types).length
       @org.merge!(to_be_merged: @to_be_merged)
       expect(@org.token_permission_types.length).to eql(expected)
-    end
-    it 'merges associated :tracker' do
-      expected = @to_be_merged.tracker.code
-      @org.merge!(to_be_merged: @to_be_merged)
-      expect(@org.tracker.code).to eql(expected)
     end
     it 'merges associated :users' do
       expected = @org.users.length + @to_be_merged.users.length
