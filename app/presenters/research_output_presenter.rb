@@ -25,15 +25,6 @@ class ResearchOutputPresenter
     [%w[MB mb], %w[GB gb], %w[TB tb], %w[PB pb], ['bytes', '']]
   end
 
-  # Returns the options for metadata standards
-  def selectable_metadata_standards(category:)
-    out = MetadataStandard.all.order(:title).map { |ms| [ms.title, ms.id] }
-    return out unless category.present?
-
-    MetadataStandard.where(descipline_specific: (category == 'disciplinary'))
-                    .map { |ms| [ms.title, ms.id] }
-  end
-
   # Returns whether or not we should capture the byte_size based on the output_type
   def byte_sizable?
     @research_output.audiovisual? || @research_output.sound? || @research_output.image? ||
@@ -107,13 +98,6 @@ class ResearchOutputPresenter
     return [_('None specified')] unless @research_output.repositories.any?
 
     @research_output.repositories.map(&:name)
-  end
-
-  # Returns the display name(s) of the repository(ies)
-  def display_metadata_standard
-    return [_('None specified')] unless @research_output.metadata_standards.any?
-
-    @research_output.metadata_standards.map(&:title)
   end
 
   # Returns the humanized version of the access enum variable

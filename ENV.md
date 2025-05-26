@@ -273,7 +273,6 @@
 | MADMP_CODEBASE_RUN_PATH | String | MADMP Codebase script execution path ``(default: scripts/%s/run)`` |
 | MADMP_CODEBASE_SCRIPTS_PATH | String | MADMP Codebase scripts path ``(default: scripts)`` |
 | MADMP_ENABLE_ETHICAL_ISSUES | Boolean | MADMP ethical issues activation ``(default: true)`` |
-| MADMP_ENABLE_METADATA_STANDARD_SELECTION | Boolean | MADMP metadata standards selection activation ``(default: true)`` |
 | MADMP_ENABLE_REPOSITORY_SELECTION | Boolean | MADMP repository selection activation ``(default: true)`` |
 | MADMP_ENABLE_RESEARCH_OUTPUTS | Boolean | MADMP research outputs activation ``(default: true)`` |
 | MADMP_EXTRACT_DATA_QUALITY_STATEMENTS_FROM_THEMED_QUESTIONS | Boolean | MADMP data quality statements extraction from themed questions ``(default: false)`` |

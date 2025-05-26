@@ -55,9 +55,6 @@ RSpec.describe ResearchOutput, type: :model do
     xit 'repositories should have tests once implemented' do
       true
     end
-    xit 'metadata_standards should have tests once implemented' do
-      true
-    end
     xit 'resource_types should have tests once implemented' do
       true
     end
