@@ -49,8 +49,4 @@ class ResearchOutputPolicy < ApplicationPolicy
   def select_output_type?
     @research_output.plan.administerable_by?(@user.id)
   end
-
-  def repository_search?
-    @research_output.plan.administerable_by?(@user.id)
-  end
 end

@@ -55,9 +55,6 @@ if valid_db
     puts "\n== Restarting application server =="
     system! 'bin/rails restart'
 
-    puts "\n== !!We highly recommend that you populate the Repositories table, but this can take"
-    puts "in excess of 10 minutes so we do not run it as part of this setup!!"
-    puts "    To run it on your own: `bin/rails external_api:load_re3data_repos`"
   end
 else
   puts "\n== You MUST specify the type of DB you would like to use. Only postgres is supported =="

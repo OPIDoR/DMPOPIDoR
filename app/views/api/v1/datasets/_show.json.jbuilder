@@ -20,24 +20,6 @@ if output.is_a?(ResearchOutput)
     json.partial! "api/v1/identifiers/show", identifier: presenter.dataset_id
   end
 
-  json.distribution output.repositories do |repository|
-    json.title "Anticipated distribution for #{output.title}"
-    json.byte_size output.byte_size
-    json.data_access output.access
-
-    json.host do
-      json.title repository.name
-      json.description repository.description
-      json.url repository.homepage
-
-      # DMPTool extensions to the RDA common metadata standard
-      json.dmproadmap_host_id do
-        json.type "url"
-        json.identifier repository.uri
-      end
-    end
-  end
-
   json.technical_resource []
 
 else

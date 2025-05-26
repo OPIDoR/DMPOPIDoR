@@ -52,9 +52,6 @@ RSpec.describe ResearchOutput, type: :model do
   end
 
   context 'instance methods' do
-    xit 'repositories should have tests once implemented' do
-      true
-    end
     xit 'resource_types should have tests once implemented' do
       true
     end

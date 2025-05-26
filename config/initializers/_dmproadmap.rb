@@ -251,8 +251,6 @@ module DMPRoadmap
     # This flag will enable/disable the entire Research Outputs tab. The others below will
     # just enable/disable specific functionality on the Research Outputs tab
     config.x.madmp.enable_research_outputs = ENV.fetch('MADMP_ENABLE_RESEARCH_OUTPUTS', true).to_s.casecmp('true').zero?
-    config.x.madmp.enable_repository_selection = ENV.fetch('MADMP_ENABLE_REPOSITORY_SELECTION',
-                                                           true).to_s.casecmp('true').zero?
 
     # The following flags will allow the system to include the question and answer in the JSON output
     #   - questions with a theme equal to 'Preservation'

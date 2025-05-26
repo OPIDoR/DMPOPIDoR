@@ -108,28 +108,6 @@ RSpec.describe ResearchOutputPresenter do
     end
   end
 
-  describe ':display_repository' do
-    before(:each) do
-      @research_output.repositories.clear
-    end
-    it "returns ['None specified'] if not repositories are assigned" do
-      presenter = described_class.new(research_output: @research_output)
-      expect(presenter.display_repository).to eql(['None specified'])
-    end
-    it 'returns an array of names when there is only one repository' do
-      repo = build(:repository)
-      @research_output.repositories << repo
-      presenter = described_class.new(research_output: @research_output)
-      expect(presenter.display_repository).to eql([repo.name])
-    end
-    it 'returns an array of names when there are multiple repositories' do
-      repos = [build(:repository), build(:repository)]
-      @research_output.repositories << repos
-      presenter = described_class.new(research_output: @research_output)
-      expect(presenter.display_repository).to eql(repos.collect(&:name))
-    end
-  end
-
   describe ':display_access' do
     it "returns 'Unspecified' if :access has not been defined" do
       presenter = described_class.new(research_output: build(:research_output, access: nil))
@@ -164,18 +142,6 @@ RSpec.describe ResearchOutputPresenter do
         expect(sample[0].scan(/^[a-zA-Z\s,]*$/).any?).to eql(true)
         expect(sample[1].scan(/^[0-9]+\s[a-zA-Z\s,]*$/).any?).to eql(true)
         expect(sample[1].ends_with?(sample[0])).to eql(true)
-      end
-    end
-
-    describe ':selectable_repository_types' do
-      it 'returns repository types' do
-        expect(described_class.selectable_repository_types.any?).to eql(true)
-      end
-      it "packages the repo types for a selectbox - [['Discipline specific', 'disciplinary']]" do
-        sample = described_class.selectable_repository_types.first
-        expect(sample.length).to eql(2)
-        expect(sample[0].scan(/^[A-Z]{1}[a-z\s()]*$/).any?).to eql(true)
-        expect(sample[1].scan(/^[a-z]*$/).any?).to eql(true)
       end
     end
   end

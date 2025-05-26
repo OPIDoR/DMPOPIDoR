@@ -61,8 +61,6 @@ class ResearchOutput < ApplicationRecord
 
   belongs_to :plan, optional: true, touch: true
 
-  has_and_belongs_to_many :repositories
-
   has_many :answers, dependent: :destroy
 
   # ===============
@@ -95,13 +93,6 @@ class ResearchOutput < ApplicationRecord
   # ====================
   # = Instance methods =
   # ====================
-
-  # Helper method to convert selected repository form params into Repository objects
-  def repositories_attributes=(params)
-    params.each_value do |repository_params|
-      repositories << Repository.find_by(id: repository_params[:id])
-    end
-  end
 
   def main?
     display_order.eql?(1)

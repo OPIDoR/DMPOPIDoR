@@ -85,26 +85,6 @@ describe 'api/v1/datasets/_show.json.jbuilder' do
       end
     end
 
-    describe 'includes all of the repository info as attributes' do
-      before(:each) do
-        @host = @json[:distribution].first[:host]
-        @expected = @output.repositories.last
-      end
-      it 'includes :title' do
-        expect(@host[:title]).to eql(@expected.name)
-      end
-      it 'includes :description' do
-        expect(@host[:description]).to eql(@expected.description)
-      end
-      it 'includes :url' do
-        expect(@host[:url]).to eql(@expected.homepage)
-      end
-      it 'includes :dmproadmap_host_id' do
-        expect(@host[:dmproadmap_host_id][:type]).to eql('url')
-        expect(@host[:dmproadmap_host_id][:identifier]).to eql(@expected.uri)
-      end
-    end
-
     describe 'includes all of the themed question/answers as attributes' do
       it 'includes :preservation_statement' do
         expect(@json[:preservation_statement]).to eql('')
