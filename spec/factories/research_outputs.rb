@@ -36,6 +36,7 @@
 #
 FactoryBot.define do
   factory :research_output do
+    plan
     license
     abbreviation            { Faker::Lorem.unique.word }
     access                  { ResearchOutput.accesses.keys.sample }

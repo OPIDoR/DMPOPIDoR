@@ -60,7 +60,9 @@ class Answer < ApplicationRecord
 
   validates :user, presence: { message: PRESENCE_MESSAGE }
 
-  validates :question, presence: { message: PRESENCE_MESSAGE }
+  validates :question, presence: { message: PRESENCE_MESSAGE },
+                       uniqueness: { message: UNIQUENESS_MESSAGE,
+                                     scope: %i[plan_id research_output_id] }
 
   validates :research_output, presence: { message: PRESENCE_MESSAGE }
 
