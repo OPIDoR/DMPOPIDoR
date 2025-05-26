@@ -1,9 +1,11 @@
 <% title _('DMP Templates') %>
 <div class="row">
   <div class="col-md-12">
-    <h1><%= _('DMP Templates') %></h1>
+    <h1>
+      <%= _('DMP Templates') %>
+    </h1>
     <% if @templates.count > 0 %>
-      <p class="start-indent"><%= _('Templates are provided by a funder, an organisation, or a trusted party.') %></p>
+      <p class="left-indent"><%= _('DMP templates provided by a funder or research organisations, available on DMP OPIDoR. You can download these templates and related guidances.') %></p>
     <% else %>
       <p class="start-indent"><%= _('There are currently no public Templates.')%></p>
     <% end %>
@@ -18,7 +20,7 @@
         action: 'publicly_visible',
         remote: false,
         scope: @templates,
-        query_params: @templates_query_params) %>
+        query_params: @templates_query_params)%>
     <% end %>
   </div>
 </div>

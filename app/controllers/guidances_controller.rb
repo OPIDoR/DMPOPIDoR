@@ -77,7 +77,7 @@ class GuidancesController < ApplicationController
 
     rendered_partial = ::GuidancesController.new.render_to_string(
       {
-        partial: 'branded/org_admin/shared/theme_selector',
+        partial: 'org_admin/shared/theme_selector',
         locals: {
           f: form_builder_for(guidance || Guidance.new),
           all_themes: Theme.all.order('title'),

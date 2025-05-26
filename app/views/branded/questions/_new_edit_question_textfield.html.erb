@@ -1,4 +1,0 @@
-<%# locals: { f, question, answer, research_output } %>
-<div class="form-control mb-3">
-    <%= text_field_tag('answer[text]', strip_tags(answer.text || question.default_value), class: 'form-control', spellcheck: true, 'aria-hidden' => true) %>
-</div>

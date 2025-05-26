@@ -3,35 +3,23 @@
 <%
   shared_links_tooltip = _('Links will be displayed next to your organisation\'s logo')
   org_config_info_tooltip =  _('This information can only be changed by a system administrator. Contact the Help Desk if you have questions or to request changes.')
-  org_types_tooltip = _(
-  'This information can only be changed by a system administrator. Contact %{support_email} if you have questions or to request changes.' % { support_email: Rails.configuration.x.organisation.email}
-  )
 %>
 
 <%= form_for(org, url: url, html: { multipart: true, method: method,
                                     id: "edit_org_profile_form" } ) do |f| %>
-
-  <% if org.new_record? %>
-    <%= render partial: "orgs/external_identifiers",
-               locals: {
-                 form: f,
-                 org: org,
-                 editable: current_user.can_super_admin?
-               } %>
-  <% else %>
-    <div class="row">
-      <div class="form-control mb-3 col-sm-8">
-        <%= f.label :name, _('Organisation full name'), class: "form-label" %>
-        <%= f.text_field :name, id: "org_name", class: "form-control", "aria-required": true %>
-      </div>
+  
+  <div class="row">
+    <div class="form-control mb-3 col-sm-8">
+      <%= f.label :name, _('Organisation full name'), class: "form-label" %>
+      <%= f.text_field :name, id: "org_name", class: "form-control", "aria-required": true %>
     </div>
-    <div class="row">
-      <div class="form-control mb-3 col-sm-8">
-        <%= f.label :abbreviation, _('Organisation abbreviated name'), class: "form-label" %>
-        <%= f.text_field :abbreviation, id: "org_abbreviation", class: "form-control" %>
-      </div>
+  </div>
+  <div class="row">
+    <div class="form-control mb-3 col-sm-8">
+      <%= f.label :abbreviation, _('Organisation abbreviated name'), class: "form-label" %>
+      <%= f.text_field :abbreviation, id: "org_abbreviation", class: "form-control" %>
     </div>
-  <% end %>
+  </div>
 
   <% if current_user.can_super_admin? %>
     <div class="row">
@@ -50,13 +38,13 @@
      end %>
 
   <div class="row">
-    <div class="form-control mb-3 col-sm-8">
+    <div class="form-group mb-3 col-sm-8">
       <%= f.label :logo, _('Organization logo'), class: "form-label"  %>
 
       <% if org.logo.present? %>
         <div class="clearfix"></div>
         <%= image_tag logo_url_for_org(org), alt: "#{org.name} #{_('logo')}", class: "org-logo" %>
-        <div class="org-logo-controls checkbox">
+        <div class="org-logo-controls form-check">
           <%= f.label :remove_logo do %>
             <%= f.check_box :remove_logo,
                              title: _("This will remove your organisation's logo") %>
@@ -75,6 +63,16 @@
 
   <div class="row">
     <div class="col-sm-8">
+      <% tip = _('Maximum 3 lines (about 250 characters)') %>
+      <div data-toggle="tooltip" data-html="true" title="<%= tip %>">
+        <%= f.label :banner_text, _('Banner text'), class: 'form-label' %>
+        <%= f.text_area :banner_text, class: 'form-control', 'aria-required': true %>
+      </div>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-sm-8">
       <em class="sr-only"><%= shared_links_tooltip %></em>
       <%= render(partial: '/shared/links',
                  locals: {
@@ -90,12 +88,12 @@
   <hr>
 
   <div class="row">
-    <div class="form-control mb-3 col-sm-8">
+    <div class="form-group mb-3 col-sm-8">
       <h3><%= _("Help Desk email") %></h3>
     </div>
   </div>
   <div class="row">
-    <div class="form-control mb-3 col-sm-4">
+    <div class="mb-3 col-md-4">
       <%= f.label :helpdesk_email, _('Help Desk email'), class: "form-label" %>
       <%= f.email_field :helpdesk_email, class: "form-control" %>
     </div>
@@ -104,33 +102,18 @@
   <hr>
 
   <div class="row">
-    <div class="form-control mb-3 col-sm-8">
+    <div class="form-group mb-3 col-sm-8">
       <h3><%= _("Administrator contact") %></h3>
     </div>
   </div>
   <div class="row">
-    <div class="form-control mb-3 col-sm-4">
+    <div class="col-md-6 px-3">
       <%= f.label :contact_email, _('Contact email'), class: "form-label" %>
       <%= f.email_field :contact_email, class: "form-control", aria: { required: true } %>
     </div>
-    <div class="form-control mb-3 col-sm-4">
+    <div class="col-md-6 px-3">
       <%= f.label :contact_name, _('Link text'), class: "form-label" %>
       <%= f.text_field :contact_name, class: "form-control", aria: { required: true } %>
-    </div>
-  </div>
-
-  <hr>
-  <div class="row">
-    <div class="form-control mb-3 col-sm-8">
-      <h3><%= _("Google Analytics Tracker") %></h3>
-    </div>
-  </div>
-  <div class="row">
-    <div class="form-control mb-3 col-sm-4">
-      <%= f.fields_for :tracker do |t| %>
-        <%= t.label :code, _('Tracker Code'), class: "form-label" %>
-        <%= t.text_field :code, class: "form-control", aria: { required: false } %>
-      <% end %>
     </div>
   </div>
 
@@ -139,13 +122,7 @@
   <div class="row">
     <% if current_user.can_super_admin? %>
       <fieldset class="col-sm-8">
-        <legend>
-          <%= _('Organisation Types') %>
-            &nbsp; <a href="#" aria-label="<%= _('Text') %>" data-toggle="tooltip" data-placement="right" title="<%= org_types_tooltip %>">
-            <i class="fas fa-circle-question fa-reverse" ></i>
-            <em class="sr-only"></em>
-          </a>
-        </legend>
+        <legend><%= _('Organisation Types') %></legend>
         <div class="form-check">
           <%= f.label :funder do %>
             <%= f.check_box :funder, { class: 'org_types', value: org.funder? }, "true", "false" %>
@@ -168,32 +145,15 @@
     <% else %>
       <div class="col-sm-8">
         <dl>
-          <dt>
-            <%= _('Organisation type(s)') %>
-              &nbsp; <a href="#" aria-label="<%= _('Text') %>" data-toggle="tooltip" data-placement="right" title="<%= org_types_tooltip %>">
-              <i class="fas fa-circle-question fa-reverse" ></i>
-              <em class="sr-only"></em>
-            </a>
-          </dt>
+          <dt><%= _('Organisation types') %></dt>
           <dd><%= org.org_type_to_s %></dd>
         </dl>
       </div>
     <% end %>
   </div>
 
-  <hr>
-
-  <% if !org.new_record? %>
-    <%= render partial: "orgs/external_identifiers",
-               locals: {
-                 form: f,
-                 org: org,
-                 editable: current_user.can_super_admin?
-               } %>
-  <% end %>
-
   <div class="row">
-    <div class="form-control mb-3 col-sm-8">
+    <div class="form-group mb-3 col-sm-8">
       <%= f.button(_('Save'), id:"save_org_details_submit", class: "btn btn-primary", type: "submit") %>
     </div>
   </div>

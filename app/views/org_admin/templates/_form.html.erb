@@ -26,12 +26,74 @@
       <% end %>
     </div>
   </div>
-<% else %>
-  <%
-  visibility = f.object.visibility
-  visibility = f.object.org.funder? ? 'publicly_visible' : 'organisationally_visible' if visibility.nil?
-  %>
-  <%= f.hidden_field :visibility, value: visibility %>
+<% end %>
+
+<div class="form-control mb-3 col-xs-8">
+  <%= f.label(:locale, _('Locale'), class: "form-label") %>
+  <%= select_tag(:locale,
+      options_from_collection_for_select(@locales, "abbreviation", "name", f.object.locale),
+      include_blank: false,
+      class: "form-select",
+      name: 'template[locale]') %>
+</div>
+
+<div class="form-control mb-3 col-xs-8">
+  <%= f.label(:type, _('Type'), class: "form-label") %>
+  <%= f.hidden_field :type, id: nil %>
+  <p class="form-control-static">
+    <% if f.object.structured? %>
+      <%= _('Structured') %>
+    <% elsif f.object.module? %>
+      <%= _('Module') %>
+    <% else %>
+      <%= _('Classic') %>
+    <% end %>
+  </p>
+</div>
+
+<div class="form-control mb-3 col-xs-8">
+  <%= f.label(:context, _('Context'), class: "form-label") %>
+  <% if f.object.new_record? %>
+    <%= select_tag(:context,
+        options_for_select(
+          [["Research Project", "research_project"], ["Research Entity", "research_entity"]],
+          f.object.context
+        ),
+        disabled: f.object.module?,
+        class: "form-select",
+        name: 'template[context]') %>
+  <% else %>
+    <p class="form-control-static">
+      <% if f.object.research_entity? %>
+        <%= _('Research Entity') %>
+      <% else %>
+        <%= _('Research Project') %>
+      <% end %>
+    </p>
+  <% end %>
+</div>
+
+<% if f.object.module? %>
+  <div class="form-control mb-3 col-xs-8">
+    <%= f.label(:data_type, _('Data type'), class: "form-label") %>
+    <% if f.object.new_record? %>
+      <%= select_tag(:data_type,
+          options_for_select(
+            data_type_select_values,
+            f.object.data_type
+          ),
+          class: "form-select",
+          name: 'template[data_type]') %>
+      <% else %>
+        <p class="form-control-static">
+          <% if f.object.data_type.eql?('software') %>
+            <%= _("Software") %>
+          <% else %>
+            <%= _("None") %>
+          <% end %>
+        </p>
+      <% end %>
+  </div>
 <% end %>
 
 <div class="form-control mb-3 col-xs-8">
@@ -62,7 +124,7 @@
   </div>
 <% end %>
 
-<% if f.object.org.funder? %>
+<% if !f.object.module? && f.object.org.funder? %>
   <div class="col-xs-8">
     <%= render(partial: '/shared/links',
     locals: {
