@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.2].define(version: 2024_12_16_112001) do
+ActiveRecord::Schema[7.2].define(version: 2025_05_26_123045) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
   enable_extension "unaccent"
@@ -301,20 +301,6 @@ ActiveRecord::Schema[7.2].define(version: 2024_12_16_112001) do
   end
 
 
-  create_table "licenses", force: :cascade do |t|
-    t.string "name", null: false
-    t.string "identifier", null: false
-    t.string "uri", null: false
-    t.boolean "osi_approved", default: false
-    t.boolean "deprecated", default: false
-    t.datetime "created_at", precision: nil, null: false
-    t.datetime "updated_at", precision: nil, null: false
-    t.index ["identifier", "osi_approved", "deprecated"], name: "index_license_on_identifier_and_criteria"
-    t.index ["identifier"], name: "index_licenses_on_identifier"
-    t.index ["uri"], name: "index_licenses_on_uri"
-  end
-
-
   create_table "madmp_fragments", id: :serial, force: :cascade do |t|
     t.json "data", default: {}
     t.integer "answer_id"
@@ -343,18 +329,6 @@ ActiveRecord::Schema[7.2].define(version: 2024_12_16_112001) do
     t.string "data_type", default: "none", null: false
     t.index ["api_client_id"], name: "index_madmp_schemas_on_api_client_id"
     t.index ["org_id"], name: "index_madmp_schemas_on_org_id"
-  end
-
-
-  create_table "metadata_standards", force: :cascade do |t|
-    t.string "title"
-    t.text "description"
-    t.string "rdamsc_id"
-    t.string "uri"
-    t.json "locations"
-    t.json "related_entities"
-    t.datetime "created_at", precision: nil, null: false
-    t.datetime "updated_at", precision: nil, null: false
   end
 
 
@@ -466,7 +440,6 @@ ActiveRecord::Schema[7.2].define(version: 2024_12_16_112001) do
     t.datetime "updated_at", precision: nil, null: false
     t.boolean "is_other", default: false, null: false
     t.text "banner_text"
-    t.integer "region_id"
     t.integer "language_id"
     t.string "logo_uid"
     t.string "logo_name"
@@ -480,7 +453,6 @@ ActiveRecord::Schema[7.2].define(version: 2024_12_16_112001) do
     t.boolean "managed", default: false, null: false
     t.string "helpdesk_email"
     t.index ["language_id"], name: "orgs_language_id_idx"
-    t.index ["region_id"], name: "orgs_region_id_idx"
   end
 
 
@@ -662,14 +634,6 @@ ActiveRecord::Schema[7.2].define(version: 2024_12_16_112001) do
   end
 
 
-  create_table "regions", id: :serial, force: :cascade do |t|
-    t.string "abbreviation"
-    t.string "description"
-    t.string "name"
-    t.integer "super_region_id"
-  end
-
-
   create_table "registries", id: :serial, force: :cascade do |t|
     t.string "name", null: false
     t.string "description"
@@ -685,36 +649,11 @@ ActiveRecord::Schema[7.2].define(version: 2024_12_16_112001) do
   end
 
 
-  create_table "repositories", force: :cascade do |t|
-    t.string "name", null: false
-    t.text "description", null: false
-    t.string "homepage"
-    t.string "contact"
-    t.string "uri", null: false
-    t.json "info"
-    t.datetime "created_at", precision: nil, null: false
-    t.datetime "updated_at", precision: nil, null: false
-    t.index ["homepage"], name: "index_repositories_on_homepage"
-    t.index ["name"], name: "index_repositories_on_name"
-    t.index ["uri"], name: "index_repositories_on_uri"
-  end
-
-
   create_table "repositories_research_outputs", force: :cascade do |t|
     t.bigint "research_output_id"
     t.bigint "repository_id"
     t.index ["repository_id"], name: "index_repositories_research_outputs_on_repository_id"
     t.index ["research_output_id"], name: "index_repositories_research_outputs_on_research_output_id"
-  end
-
-
-  create_table "research_domains", force: :cascade do |t|
-    t.string "identifier", null: false
-    t.string "label", null: false
-    t.bigint "parent_id"
-    t.datetime "created_at", precision: nil, null: false
-    t.datetime "updated_at", precision: nil, null: false
-    t.index ["parent_id"], name: "index_research_domains_on_parent_id"
   end
 
 
@@ -735,9 +674,7 @@ ActiveRecord::Schema[7.2].define(version: 2024_12_16_112001) do
     t.boolean "personal_data"
     t.boolean "sensitive_data"
     t.bigint "byte_size"
-    t.bigint "license_id"
     t.string "uuid"
-    t.index ["license_id"], name: "index_research_outputs_on_license_id"
     t.index ["plan_id"], name: "index_research_outputs_on_plan_id"
   end
 
@@ -884,15 +821,6 @@ ActiveRecord::Schema[7.2].define(version: 2024_12_16_112001) do
   end
 
 
-  create_table "trackers", id: :serial, force: :cascade do |t|
-    t.integer "org_id"
-    t.string "code"
-    t.datetime "created_at", precision: nil, null: false
-    t.datetime "updated_at", precision: nil, null: false
-    t.index ["org_id"], name: "index_trackers_on_org_id"
-  end
-
-
   create_table "user_org_roles", id: :serial, force: :cascade do |t|
     t.integer "user_id"
     t.integer "organisation_id"
@@ -1016,7 +944,6 @@ ActiveRecord::Schema[7.2].define(version: 2024_12_16_112001) do
   add_foreign_key "org_token_permissions", "orgs", deferrable: :deferred
   add_foreign_key "org_token_permissions", "token_permission_types", deferrable: :deferred
   add_foreign_key "orgs", "languages", deferrable: :deferred
-  add_foreign_key "orgs", "regions", deferrable: :deferred
   add_foreign_key "phases", "templates", deferrable: :deferred
   add_foreign_key "plans", "orgs"
   add_foreign_key "plans", "templates", deferrable: :deferred
@@ -1029,8 +956,6 @@ ActiveRecord::Schema[7.2].define(version: 2024_12_16_112001) do
   add_foreign_key "questions_themes", "questions", deferrable: :deferred
   add_foreign_key "questions_themes", "themes", deferrable: :deferred
   add_foreign_key "registries", "orgs"
-  add_foreign_key "research_domains", "research_domains", column: "parent_id"
-  add_foreign_key "research_outputs", "licenses"
   add_foreign_key "research_outputs", "plans"
   add_foreign_key "roles", "plans", deferrable: :deferred
   add_foreign_key "roles", "users", deferrable: :deferred
@@ -1040,7 +965,6 @@ ActiveRecord::Schema[7.2].define(version: 2024_12_16_112001) do
   add_foreign_key "templates", "orgs", deferrable: :deferred
   add_foreign_key "themes_in_guidance", "guidances", deferrable: :deferred
   add_foreign_key "themes_in_guidance", "themes", deferrable: :deferred
-  add_foreign_key "trackers", "orgs"
   add_foreign_key "users", "departments"
   add_foreign_key "users", "languages", deferrable: :deferred
   add_foreign_key "users", "orgs", deferrable: :deferred
