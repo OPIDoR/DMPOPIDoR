@@ -3,7 +3,7 @@
 # Validation for email format
 class JsonValidator < ActiveModel::EachValidator
   def validate_each(record, attribute, value)
-    record.errors[attribute] << 'is not valid json' unless valid_json?(value)
+    record.errors.add(attribute, 'is not valid json') unless valid_json?(value)
   end
 
   private
