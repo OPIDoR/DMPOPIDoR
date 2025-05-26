@@ -276,7 +276,6 @@
 | MADMP_ENABLE_LICENSE_SELECTION | Boolean | MADMP license selection activation ``(default: true)`` |
 | MADMP_ENABLE_METADATA_STANDARD_SELECTION | Boolean | MADMP metadata standards selection activation ``(default: true)`` |
 | MADMP_ENABLE_REPOSITORY_SELECTION | Boolean | MADMP repository selection activation ``(default: true)`` |
-| MADMP_ENABLE_RESEARCH_DOMAIN | Boolean | MADMP research domain activation ``(default: true)`` |
 | MADMP_ENABLE_RESEARCH_OUTPUTS | Boolean | MADMP research outputs activation ``(default: true)`` |
 | MADMP_EXTRACT_DATA_QUALITY_STATEMENTS_FROM_THEMED_QUESTIONS | Boolean | MADMP data quality statements extraction from themed questions ``(default: false)`` |
 | MADMP_EXTRACT_PRESERVATION_STATEMENTS_FROM_THEMED_QUESTIONS | Boolean | MADMP preservation statements extraction from themed questions ``(default: false)`` |
