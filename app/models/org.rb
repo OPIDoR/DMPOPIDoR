@@ -24,17 +24,14 @@
 #  created_at       :datetime         not null
 #  updated_at       :datetime         not null
 #  language_id      :integer
-#  region_id        :integer
 #
 # Indexes
 #
 #  orgs_language_id_idx  (language_id)
-#  orgs_region_id_idx    (region_id)
 #
 # Foreign Keys
 #
 #  fk_rails_...  (language_id => languages.id)
-#  fk_rails_...  (region_id => regions.id)
 #
 
 # Object that represents an Organization/Institution/Funder
@@ -67,8 +64,6 @@ class Org < ApplicationRecord
   # ================
 
   belongs_to :language
-
-  belongs_to :region, optional: true
 
   has_one :tracker, dependent: :destroy
   accepts_nested_attributes_for :tracker

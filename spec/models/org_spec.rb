@@ -41,8 +41,6 @@ RSpec.describe Org, type: :model do
   context 'associations' do
     it { should belong_to(:language) }
 
-    it { should belong_to(:region).optional }
-
     it { should have_many(:guidance_groups).dependent(:destroy) }
 
     it { should have_many(:templates) }
@@ -566,7 +564,6 @@ RSpec.describe Org, type: :model do
         @to_be_merged = create(:org, :funder, templates: 1, plans: 2, managed: true,
                                               feedback_enabled: true,
                                               is_other: true,
-                                              region: create(:region),
                                               language: create(:language, abbreviation: 'org-mdl'))
       end
 
@@ -592,7 +589,6 @@ RSpec.describe Org, type: :model do
         expect(org.name).not_to eql(original.name)
         expect(org.organisation?).to eql(true)
         expect(org.funder?).to eql(false)
-        expect(org.region).not_to eql(original.region)
         expect(org.language).not_to eql(original.language)
       end
     end
