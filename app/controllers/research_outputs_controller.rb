@@ -5,7 +5,7 @@ class ResearchOutputsController < ApplicationController
   helper ErrorHelper
   helper PaginableHelper
 
-  before_action :fetch_plan, except: %i[show destroy select_output_type select_license repository_search
+  before_action :fetch_plan, except: %i[show destroy select_output_type repository_search
                                         metadata_standard_search]
   before_action :fetch_research_output, only: %i[edit update]
 
@@ -292,15 +292,6 @@ class ResearchOutputsController < ApplicationController
     authorize @research_output
   end
 
-  # GET  /plans/:id/license_selection
-  def select_license
-    @plan = Plan.find_by(id: params[:plan_id])
-    @research_output = ResearchOutput.new(
-      plan: @plan, license_id: output_params[:license_id]
-    )
-    authorize @research_output
-  end
-
   # GET /plans/:id/repository_search
   # rubocop:disable Metrics/AbcSize
   def repository_search
@@ -350,7 +341,7 @@ class ResearchOutputsController < ApplicationController
           .permit(%i[title abbreviation description output_type output_type_description
                      sensitive_data personal_data file_size file_size_unit mime_type_id
                      release_date access coverage_start coverage_end coverage_region
-                     mandatory_attribution license_id],
+                     mandatory_attribution],
                   repositories_attributes: %i[id], metadata_standards_attributes: %i[id])
   end
 

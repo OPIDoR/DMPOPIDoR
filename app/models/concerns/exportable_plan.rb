@@ -192,7 +192,6 @@ module ExportablePlan
         initial_access_level: presenter.display_access,
         intended_repositories: presenter.display_repository&.join(', '),
         anticipated_file_size: "#{size_hash[:size]} #{size_hash[:unit]&.upcase}",
-        initial_license: presenter.display_license,
         metadata_standards: presenter.display_metadata_standard&.join(', '),
         may_contain_sensitive_data: presenter.display_boolean(value: research_output.sensitive_data),
         may_contain_pii: presenter.display_boolean(value: research_output.personal_data)

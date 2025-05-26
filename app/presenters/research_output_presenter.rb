@@ -34,18 +34,6 @@ class ResearchOutputPresenter
                     .map { |ms| [ms.title, ms.id] }
   end
 
-  # Returns the available licenses for a select tag
-  def complete_licenses
-    License.selectable
-           .sort_by(&:identifier)
-           .map { |license| [license.identifier, license.id] }
-  end
-
-  # Returns the available licenses for a select tag
-  def preferred_licenses
-    License.preferred.map { |license| [license.identifier, license.id] }
-  end
-
   # Returns whether or not we should capture the byte_size based on the output_type
   def byte_sizable?
     @research_output.audiovisual? || @research_output.sound? || @research_output.image? ||
@@ -119,13 +107,6 @@ class ResearchOutputPresenter
     return [_('None specified')] unless @research_output.repositories.any?
 
     @research_output.repositories.map(&:name)
-  end
-
-  # Returns the display the license name
-  def display_license
-    return _('None specified') unless @research_output.license.present?
-
-    @research_output.license.name
   end
 
   # Returns the display name(s) of the repository(ies)

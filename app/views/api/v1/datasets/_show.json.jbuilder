@@ -36,13 +36,6 @@ if output.is_a?(ResearchOutput)
         json.identifier repository.uri
       end
     end
-
-    if output.license.present?
-      json.license [output.license] do |license|
-        json.license_ref license.uri
-        json.start_date presenter.license_start_date
-      end
-    end
   end
 
   json.metadata output.metadata_standards do |metadata_standard|

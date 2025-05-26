@@ -46,9 +46,6 @@ if valid_db
     puts "\n== Preparing database =="
     system! 'bin/rails db:setup'
 
-    puts "\n== Populating License table =="
-    system! 'bin/rails external_api:load_spdx_licenses'
-
     puts "\n== Populating Metadata Standards table =="
     system! 'bin/rails external_api:load_rdamsc_standards'
 

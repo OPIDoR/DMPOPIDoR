@@ -13,10 +13,4 @@ namespace :external_api do
     p 'This can take in excess of 10 minutes to complete ...'
     ExternalApis::Re3dataService.fetch
   end
-
-  desc 'Load Licenses from SPDX'
-  task load_spdx_licenses: :environment do
-    p 'Fetching the latest SPDX license metadata and updating the licenses table'
-    ExternalApis::SpdxService.fetch
-  end
 end

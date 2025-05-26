@@ -251,8 +251,6 @@ module DMPRoadmap
     # This flag will enable/disable the entire Research Outputs tab. The others below will
     # just enable/disable specific functionality on the Research Outputs tab
     config.x.madmp.enable_research_outputs = ENV.fetch('MADMP_ENABLE_RESEARCH_OUTPUTS', true).to_s.casecmp('true').zero?
-    config.x.madmp.enable_license_selection = ENV.fetch('MADMP_ENABLE_LICENSE_SELECTION',
-                                                        true).to_s.casecmp('true').zero?
     config.x.madmp.enable_metadata_standard_selection = ENV.fetch('MADMP_ENABLE_METADATA_STANDARD_SELECTION',
                                                                   true).to_s.casecmp('true').zero?
     config.x.madmp.enable_repository_selection = ENV.fetch('MADMP_ENABLE_REPOSITORY_SELECTION',
