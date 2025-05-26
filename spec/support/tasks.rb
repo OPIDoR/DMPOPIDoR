@@ -11,22 +11,22 @@ require 'rake' # Task names should be used in the top-level describe, with an op
 # doc output that makes it clear a rake task is under test and how it is
 # invoked.
 
-module TaskFormat
-  extend ActiveSupport::Concern
-  included do
-    let(:task_name) { self.class.top_level_description.sub(/\Arake /, '') }
-    let(:tasks) { Rake::Task } # Make the Rake task available as `task` in your examples:
-    subject(:task) { tasks[task_name] }
-  end
-end
+# module TaskFormat
+#   extend ActiveSupport::Concern
+#   included do
+#     let(:task_name) { self.class.top_level_description.sub(/\Arake /, '') }
+#     let(:tasks) { Rake::Task } # Make the Rake task available as `task` in your examples:
+#     subject(:task) { tasks[task_name] }
+#   end
+# end
 
-RSpec.configure do |config|
-  # Tag Rake specs with `:task` metadata or put them in the spec/tasks dir
-  config.define_derived_metadata(:file_path => %r{/spec/tasks/}) do |metadata|
-    metadata[:type] = :task
-  end
-  config.include TaskFormat, type: :task
-  config.before(:suite) do
-    Rails.application.load_tasks
-  end
-end
+# RSpec.configure do |config|
+#   # Tag Rake specs with `:task` metadata or put them in the spec/tasks dir
+#   config.define_derived_metadata(:file_path => %r{/spec/tasks/}) do |metadata|
+#     metadata[:type] = :task
+#   end
+#   config.include TaskFormat, type: :task
+#   config.before(:suite) do
+#     Rails.application.load_tasks
+#   end
+# end
