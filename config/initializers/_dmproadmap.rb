@@ -247,7 +247,6 @@ module DMPRoadmap
     # --------------------------------------------------- #
     # Enable/disable functionality on the Project Details tab
     config.x.madmp.enable_ethical_issues = ENV.fetch('MADMP_ENABLE_ETHICAL_ISSUES', true).to_s.casecmp('true').zero?
-    config.x.madmp.enable_research_domain = ENV.fetch('MADMP_ENABLE_RESEARCH_DOMAIN', true).to_s.casecmp('true').zero?
 
     # This flag will enable/disable the entire Research Outputs tab. The others below will
     # just enable/disable specific functionality on the Research Outputs tab

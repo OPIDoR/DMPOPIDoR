@@ -52,9 +52,6 @@ if valid_db
     puts "\n== Populating Metadata Standards table =="
     system! 'bin/rails external_api:load_rdamsc_standards'
 
-    puts "\n== Populating Research Domains table =="
-    system! 'bin/rails external_api:add_field_of_science_to_research_domains'
-
     puts "\n== Removing old logs and tempfiles =="
     system! 'bin/rails log:clear tmp:clear'
 
