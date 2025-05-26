@@ -50,16 +50,5 @@ FactoryBot.define do
     release_date            { Time.now + 1.month }
     sensitive_data          { [nil, true, false].sample }
     title                   { Faker::Music::PearlJam.song }
-
-    transient do
-      repositories_count { 1 }
-      metadata_standards_count { 1 }
-    end
-
-    after(:create) do |research_output, evaluator|
-      research_output.repositories = create_list(:repository, evaluator.repositories_count)
-      research_output.metadata_standards = create_list(:metadata_standard,
-                                                       evaluator.metadata_standards_count)
-    end
   end
 end
