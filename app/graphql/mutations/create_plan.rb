@@ -11,10 +11,12 @@ module Mutations
     field :result, Types::MutationResponseType
 
     def resolve(locale:, format:, context_param:, data:)
-      raise GraphQL::ExecutionError, _('You are not allowed to create plan') unless Api::V0::PlansPolicy.new(context[:current_user], Plan).create?
+      raise GraphQL::ExecutionError, _('You are not allowed to create plan') unless Api::V0::PlansPolicy.new(
+        context[:current_user], Plan
+      ).create?
 
       begin
-        new_plan = ::Plan.new
+        new_plan = Plan.new
         plan_importer = Import::Plan.new
 
         file = Tempfile.new(['plan', '.json'])
@@ -22,11 +24,11 @@ module Mutations
         file.rewind
 
         res = plan_importer.import(new_plan, {
-          locale: locale.downcase,
-          format: format.downcase,
-          context: context_param.downcase,
-          json_file: file,
-        }, Api::V1::Madmp::PlansController.new.determine_owner(client: context[:current_user], dmp: JSON.parse(data.to_json)))
+                                     locale: locale.downcase,
+                                     format: format.downcase,
+                                     context: context_param.downcase,
+                                     json_file: file
+                                   }, Api::V1::Madmp::PlansController.new.determine_owner(client: context[:current_user], dmp: JSON.parse(data.to_json)))
 
         {
           result: {
@@ -35,8 +37,8 @@ module Mutations
             success: true
           }
         }
-      rescue StandardError => errs
-        raise GraphQL::ExecutionError, errs.message
+      rescue StandardError => e
+        raise GraphQL::ExecutionError, e.message
       rescue IOError
         raise GraphQL::ExecutionError, _('Unvalid file')
       rescue JSON::ParserError

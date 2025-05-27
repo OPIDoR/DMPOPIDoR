@@ -12,7 +12,7 @@ class ResearchOutputsController < ApplicationController
 
   # GET /plans/:plan_id/research_outputs
   def index
-    @plan = ::Plan.find(params[:plan_id])
+    @plan = Plan.find(params[:plan_id])
     @research_outputs = @plan.research_outputs
     @persons = @plan.json_fragment.persons
     authorize @plan
@@ -140,7 +140,7 @@ class ResearchOutputsController < ApplicationController
 
     authorize research_output
 
-    target_plan = ::Plan.includes(:template).find(params[:plan_id])
+    target_plan = Plan.includes(:template).find(params[:plan_id])
 
     I18n.with_locale target_plan.template.locale do # rubocop:disable Metrics/BlockLength
       pos = target_plan.research_outputs.length + 1
@@ -188,7 +188,7 @@ class ResearchOutputsController < ApplicationController
   # rubocop:enable Metrics/AbcSize, Metrics/MethodLength
 
   def sort
-    @plan = ::Plan.find(params[:plan_id])
+    @plan = Plan.find(params[:plan_id])
     authorize @plan
     params[:updated_order].each_with_index do |id, index|
       ResearchOutput.find(id).update(display_order: index + 1)
@@ -200,7 +200,7 @@ class ResearchOutputsController < ApplicationController
 
   # rubocop:disable Metrics/AbcSize, Metrics/MethodLength
   def create_remote
-    @plan = ::Plan.includes(:template).find(params[:plan_id])
+    @plan = Plan.includes(:template).find(params[:plan_id])
     I18n.with_locale @plan.template.locale do
       @persons = @plan.json_fragment.persons
       max_order = @plan.research_outputs.maximum('display_order') + 1
@@ -231,7 +231,7 @@ class ResearchOutputsController < ApplicationController
 
   # rubocop:disable Metrics/AbcSize
   def destroy_remote
-    @plan = ::Plan.find(params[:plan_id])
+    @plan = Plan.find(params[:plan_id])
     @research_output = ResearchOutput.find(params[:id])
     @persons = @plan.json_fragment.persons
     authorize @plan
@@ -246,7 +246,7 @@ class ResearchOutputsController < ApplicationController
 
   # rubocop:disable Metrics/AbcSize, Metrics/MethodLength
   def update_remote
-    @plan = ::Plan.find(params[:plan_id])
+    @plan = Plan.find(params[:plan_id])
     @research_output = ResearchOutput.find(params[:id])
     @persons = @plan.json_fragment.persons
     attrs = research_output_params

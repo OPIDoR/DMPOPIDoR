@@ -6,7 +6,7 @@ module MadmpExternalApis
   # This service provides an interface to the Research Organization Registry (ROR)
   # API.
   # For more information: https://github.com/ror-community/ror-api
-  class RorService < ::ExternalApis::BaseService
+  class RorService < ExternalApis::BaseService
     class << self
       # Retrieve the config settings from the initializer
       def landing_page_url

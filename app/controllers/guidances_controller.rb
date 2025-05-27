@@ -75,7 +75,7 @@ class GuidancesController < ApplicationController
 
     selected_theme = (guidance.themes[0].title if guidance&.themes&.any?)
 
-    rendered_partial = ::GuidancesController.new.render_to_string(
+    rendered_partial = GuidancesController.new.render_to_string(
       {
         partial: 'org_admin/shared/theme_selector',
         locals: {

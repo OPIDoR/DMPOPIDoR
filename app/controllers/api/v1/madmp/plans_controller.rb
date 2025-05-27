@@ -3,7 +3,6 @@
 module Api
   module V1
     module Madmp
-
       # Handles CRUD operations for MadmpSchemas in API V1
       class PlansController < BaseApiController
         respond_to :json
@@ -45,7 +44,8 @@ module Api
 
         # POST /api/v1/madmp/plans/import
         def import
-          return forbidden(_('You are not allowed to create plan')) unless Api::V0::PlansPolicy.new(client, Plan).create?
+          return forbidden(_('You are not allowed to create plan')) unless Api::V0::PlansPolicy.new(client,
+                                                                                                    Plan).create?
 
           body = request.body.read
           json = JSON.parse(body)
@@ -54,21 +54,21 @@ module Api
           file.write(json['data'].to_json)
           file.rewind
 
-          plan = ::Plan.new
+          plan = Plan.new
 
           begin
             plan_importer = Import::Plan.new
             data = plan_importer.import(plan, {
-              locale: params[:locale],
-              context: params[:context],
-              format: params[:import_format],
-              json_file: file
-            }, determine_owner(client: client, dmp: json['data']))
+                                          locale: params[:locale],
+                                          context: params[:context],
+                                          format: params[:import_format],
+                                          json_file: file
+                                        }, determine_owner(client: client, dmp: json['data']))
 
             render json: { status: 201, message: _('Plan imported successfully'), data: data }, status: :created
-          rescue StandardError => errs
-            Rails.logger.error errs.backtrace
-            bad_request(errs)
+          rescue StandardError => e
+            Rails.logger.error e.backtrace
+            bad_request(e)
           rescue IOError
             bad_request(_('Unvalid file'))
           rescue JSON::ParserError

@@ -16,17 +16,17 @@ class PlansController < ApplicationController
   # rubocop:disable Metrics/AbcSize, Metrics/MethodLength
   # rubocop:disable Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
   def index
-    authorize ::Plan
+    authorize Plan
     @plans = if request.format.json?
-               ::Plan.includes(:roles).owner_or_coowner(current_user)
-                     .where.not(visibility: ::Plan.visibilities[:is_test])
+               Plan.includes(:roles).owner_or_coowner(current_user)
+                   .where.not(visibility: Plan.visibilities[:is_test])
              else
-               ::Plan.includes(:roles, api_client_roles: :api_client).active(current_user)
+               Plan.includes(:roles, api_client_roles: :api_client).active(current_user)
              end
     @organisationally_or_publicly_visible = if current_user.org.is_other?
                                               []
                                             else
-                                              ::Plan.organisationally_or_publicly_visible(current_user)
+                                              Plan.organisationally_or_publicly_visible(current_user)
                                             end
     respond_to do |format|
       format.html
@@ -56,7 +56,7 @@ class PlansController < ApplicationController
   # CHANGES:
   # - Emptied method as logic is now handled by ReactJS
   def new
-    authorize ::Plan.new
+    authorize Plan.new
     respond_to :html
   end
 
@@ -64,7 +64,7 @@ class PlansController < ApplicationController
   # rubocop:disable Metrics/AbcSize, Metrics/MethodLength
   # rubocop:disable Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
   def create
-    @plan = ::Plan.new
+    @plan = Plan.new
     authorize @plan
     # If the template_id is blank then we need to look up the available templates and
     # return JSON
@@ -93,7 +93,7 @@ class PlansController < ApplicationController
 
           language = Language.find_by(abbreviation: @plan.template.locale)
 
-          ggs = ::GuidanceGroup.where(org_id: ids, optional_subset: false, published: true, language_id: language.id)
+          ggs = GuidanceGroup.where(org_id: ids, optional_subset: false, published: true, language_id: language.id)
 
           @plan.guidance_groups << ggs unless ggs.empty?
 
@@ -158,7 +158,7 @@ class PlansController < ApplicationController
   # CHANGES:
   # - Kept only necessary code as logic is now handled by ReactJS
   def show
-    @plan = ::Plan.includes(
+    @plan = Plan.includes(
       template: [:phases]
     ).find(params[:id])
     authorize @plan
@@ -200,10 +200,10 @@ class PlansController < ApplicationController
   # rubocop:enable Metrics/AbcSize
 
   def structured_edit
-    plan = ::Plan.includes(
+    plan = Plan.includes(
       { template: :phases }
     )
-                 .find(params[:id])
+               .find(params[:id])
     authorize plan
     template = plan.template
     render('/phases/edit', locals:
@@ -217,7 +217,7 @@ class PlansController < ApplicationController
   # PUT /plans/1
   # rubocop:disable Metrics/MethodLength
   def update
-    @plan = ::Plan.find(params[:id])
+    @plan = Plan.find(params[:id])
     authorize @plan
     # rubocop:disable Metrics/BlockLength
     respond_to do |format|
@@ -229,7 +229,7 @@ class PlansController < ApplicationController
                            else
                              params[:guidance_group_ids].map(&:to_i).uniq
                            end
-      @plan.guidance_groups = ::GuidanceGroup.where(id: guidance_group_ids)
+      @plan.guidance_groups = GuidanceGroup.where(id: guidance_group_ids)
 
       if @plan.save # _attributes(attrs)
         format.html do
@@ -266,7 +266,7 @@ class PlansController < ApplicationController
 
   # GET /plans/:id/budget
   def budget
-    @plan = ::Plan.find(params[:id])
+    @plan = Plan.find(params[:id])
     dmp_fragment = @plan.json_fragment
     @costs = Fragment::Cost.where(dmp_id: dmp_fragment.id)
     authorize @plan
@@ -470,7 +470,7 @@ class PlansController < ApplicationController
   # rubocop:disable Metrics/MethodLength, Metrics/AbcSize
   # rubocop:disable Metrics/PerceivedComplexity, Metrics/CyclomaticComplexity
   def select_guidance_groups
-    @plan = ::Plan.find(params[:id])
+    @plan = Plan.find(params[:id])
     template = @plan.template
     authorize @plan
 
@@ -489,9 +489,9 @@ class PlansController < ApplicationController
                            selected_ids.map(&:to_i).uniq
                          end
 
-    @plan.guidance_groups = ::GuidanceGroup.where(id: guidance_group_ids)
+    @plan.guidance_groups = GuidanceGroup.where(id: guidance_group_ids)
 
-    guidance_presenter = ::GuidancePresenter.new(@plan)
+    guidance_presenter = GuidancePresenter.new(@plan)
 
     if @plan.save
       @all_ggs_grouped_by_org = get_guidances_groups(params[:id])
@@ -500,7 +500,7 @@ class PlansController < ApplicationController
         message: "Guidances updated for plan [#{params[:id]}]",
         guidance_groups: @all_ggs_grouped_by_org,
         questions_with_guidance: template.questions.select do |q|
-          question = ::Question.find(q.id)
+          question = Question.find(q.id)
           guidance_presenter.any?(question:)
         end.pluck(:id)
       }, status: :ok
@@ -537,7 +537,7 @@ class PlansController < ApplicationController
     end
 
     begin
-      @plan = ::Plan.find(plan_id)
+      @plan = Plan.find(plan_id)
     rescue ActiveRecord::RecordNotFound => e
       Rails.logger.error("Plan [#{plan_id}] not found")
       Rails.logger.error(e.backtrace.join("\n"))
@@ -560,7 +560,7 @@ class PlansController < ApplicationController
     end
 
     begin
-      question = ::Question.find(question_id)
+      question = Question.find(question_id)
     rescue ActiveRecord::RecordNotFound => e
       Rails.logger.error("Question [#{plan_id}] not found")
       Rails.logger.error(e.backtrace.join("\n"))
@@ -574,7 +574,7 @@ class PlansController < ApplicationController
     end
 
     begin
-      guidance_presenter = ::GuidancePresenter.new(@plan)
+      guidance_presenter = GuidancePresenter.new(@plan)
       guidances = guidance_presenter.tablist(question)
     rescue StandardError => e
       Rails.logger.error('Cannot create guidance presenter')
@@ -602,7 +602,7 @@ class PlansController < ApplicationController
 
   # rubocop:disable Metrics/AbcSize
   def import_plan
-    @plan = ::Plan.new
+    @plan = Plan.new
     authorize @plan
     begin
       plan_importer = Import::Plan.new
@@ -621,7 +621,7 @@ class PlansController < ApplicationController
   # rubocop:enable Metrics/AbcSize
 
   def research_outputs_data
-    plan = ::Plan.find(params[:id])
+    plan = Plan.find(params[:id])
     authorize plan
 
     render json: {
@@ -635,7 +635,7 @@ class PlansController < ApplicationController
   # GET AJAX /plans/:id/contributors_data
   # rubocop:disable Metrics/MethodLength, Metrics/AbcSize
   def contributors_data
-    plan = ::Plan.find(params[:id])
+    plan = Plan.find(params[:id])
     authorize plan
 
     dmp_fragment = plan.json_fragment
@@ -747,7 +747,7 @@ class PlansController < ApplicationController
   # CHANGES : maDMP Fragments SUPPORT
   def render_phases_edit(plan, phase, guidance_groups)
     readonly = !plan.editable_by?(current_user.id)
-    @schemas = ::MadmpSchema.all
+    @schemas = MadmpSchema.all
     # Since the answers have been pre-fetched through plan (see Plan.load_for_phase)
     # we create a hash whose keys are question id and value is the answer associated
     answers = plan.answers
@@ -767,7 +767,7 @@ class PlansController < ApplicationController
   # rubocop:disable Metrics/MethodLength, Metrics/AbcSize
   # rubocop:disable Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
   def get_guidances_groups(id)
-    @plan = ::Plan.includes(
+    @plan = Plan.includes(
       :guidance_groups, template: [:phases]
     ).find(id)
     authorize @plan

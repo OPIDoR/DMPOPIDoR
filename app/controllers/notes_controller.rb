@@ -36,10 +36,10 @@ class NotesController < ApplicationController
     end
 
     # ensure user has access to plan BEFORE creating/finding answer
-    raise Pundit::NotAuthorizedError unless ::Plan.find_by(id: plan_id).readable_by?(user_id.to_i)
+    raise Pundit::NotAuthorizedError unless Plan.find_by(id: plan_id).readable_by?(user_id.to_i)
 
     begin
-      @note = ::Note.new
+      @note = Note.new
       @note.user_id = user_id
 
       Answer.transaction do
@@ -90,7 +90,7 @@ class NotesController < ApplicationController
       @plan = @answer.plan
       @research_output = @answer.research_output
 
-      @question = ::Question.find(note_params[:question_id])
+      @question = Question.find(note_params[:question_id])
 
       if @note.save
         @status = true
@@ -98,10 +98,10 @@ class NotesController < ApplicationController
         plan = answer.plan
         collaborators = plan.users.reject { |u| u == current_user || !u.active }
         deliver_if(recipients: collaborators, key: 'users.new_comment') do |r|
-          ::UserMailer.new_comment(current_user, plan, answer, r).deliver_later
+          UserMailer.new_comment(current_user, plan, answer, r).deliver_later
         end
         @notice = success_message(@note, _('created'))
-        @updated_note = ::Note.find_by(id: @note.id)
+        @updated_note = Note.find_by(id: @note.id)
         render json: {
           status: 201,
           message: 'Note created',
@@ -154,7 +154,7 @@ class NotesController < ApplicationController
     end
 
     begin
-      @note = ::Note.find(params[:id])
+      @note = Note.find(params[:id])
     rescue ActiveRecord::RecordNotFound => e
       Rails.logger.error("Note [#{note_id}] not found")
       Rails.logger.error(e.backtrace.join("\n"))
@@ -236,7 +236,7 @@ class NotesController < ApplicationController
   # Research Output support
   # rubocop:disable Metrics/AbcSize
   def archive
-    @note = ::Note.find(params[:id])
+    @note = Note.find(params[:id])
     authorize @note
     @note.archived = true
     @note.archived_by = params[:note][:archived_by]

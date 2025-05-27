@@ -77,14 +77,14 @@ class OrgsController < ApplicationController
 
       # Handle Shibboleth identifier if that is enabled
       if Rails.configuration.x.shibboleth.use_filtered_discovery_service
-        shib = ::IdentifierScheme.by_name('shibboleth').first
+        shib = IdentifierScheme.by_name('shibboleth').first
 
         if shib.present? && attrs[:identifiers_attributes].present?
           key = attrs[:identifiers_attributes].keys.first
           entity_id = attrs[:identifiers_attributes][:"#{key}"][:value]
           # rubocop:disable Metrics/BlockNesting
           if entity_id.present?
-            identifier = ::Identifier.find_or_initialize_by(
+            identifier = Identifier.find_or_initialize_by(
               identifiable: @org, identifier_scheme: shib, value: entity_id
             )
             @org = process_identifier_change(org: @org, identifier: identifier)

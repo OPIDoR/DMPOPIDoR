@@ -218,9 +218,9 @@ class ResearchOutput < ApplicationRecord
     module_id = ro_fragment.additional_info['moduleId']
     template = module_id ? Template.find(module_id) : plan.template
 
-    guidance_presenter = ::GuidancePresenter.new(plan)
+    guidance_presenter = GuidancePresenter.new(plan)
     questions_with_guidance = template.questions.select do |q|
-      question = ::Question.find(q.id)
+      question = Question.find(q.id)
       guidance_presenter.any?(question:)
     end.pluck(:id)
 

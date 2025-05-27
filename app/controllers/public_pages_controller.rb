@@ -123,15 +123,15 @@ class PublicPagesController < ApplicationController
       sort_direction: paginable_params.fetch(:sort_direction, 'asc')
     }
 
-    guidance_groups =  ::GuidanceGroup.where(published: true).pluck(:id)
+    guidance_groups =  GuidanceGroup.where(published: true).pluck(:id)
 
-    @guidance_groups = ::GuidanceGroup.includes(:org)
-                                      .where(id: guidance_groups.uniq.flatten).order('orgs.name asc')
+    @guidance_groups = GuidanceGroup.includes(:org)
+                                    .where(id: guidance_groups.uniq.flatten).order('orgs.name asc')
   end
 
   # rubocop:disable Metrics/AbcSize
   def guidance_group_export
-    @guidance_group = ::GuidanceGroup.includes(guidances: :themes).find(params[:id])
+    @guidance_group = GuidanceGroup.includes(guidances: :themes).find(params[:id])
     @guidances = @guidance_group.guidances.joins(:themes).where(published: true)
     @themes = Theme.all.order(:number)
     @formatting = Settings::Template::DEFAULT_SETTINGS[:formatting]

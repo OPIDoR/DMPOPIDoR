@@ -13,9 +13,9 @@ class PlanExportsController < ApplicationController
   # rubocop:disable Metrics/AbcSize, Metrics/MethodLength
   # rubocop:disable Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
   def show
-    @plan = ::Plan.includes(:answers, :research_outputs, {
-                              template: { phases: { sections: :questions } }
-                            }).find(params[:plan_id])
+    @plan = Plan.includes(:answers, :research_outputs, {
+                            template: { phases: { sections: :questions } }
+                          }).find(params[:plan_id])
 
     if privately_authorized? && export_params[:form].present?
       skip_authorization

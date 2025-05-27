@@ -32,7 +32,7 @@ module OrgAdmin
     # CHANGES : Added feedback requestor to plan
     # rubocop:disable Metrics/AbcSize
     def feedback_complete
-      plan = ::Plan.find(params[:id])
+      plan = Plan.find(params[:id])
       requestor = User.find(plan.feedback_requestor_id)
       # Test auth directly and throw Pundit error sincePundit is
       # unaware of namespacing

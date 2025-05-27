@@ -42,7 +42,7 @@ class AnswersController < ApplicationController
 
     # First it is checked plan exists and question exist for that plan
     begin
-      p = ::Plan.find(p_params[:plan_id])
+      p = Plan.find(p_params[:plan_id])
       unless p.question_exists?(p_params[:question_id])
         # rubocop:disable Layout/LineLength
         render(status: :not_found, json: {
@@ -58,7 +58,7 @@ class AnswersController < ApplicationController
              })
       return
     end
-    q = ::Question.find(p_params[:question_id])
+    q = Question.find(p_params[:question_id])
 
     # rubocop:disable Metrics/BlockLength
     Answer.transaction do
@@ -111,7 +111,7 @@ class AnswersController < ApplicationController
     #      check should probably happen on create/update
     # rubocop:disable Style/GuardClause
     if @answer.present?
-      @plan = ::Plan.includes(
+      @plan = Plan.includes(
         sections: {
           questions: %i[
             answers
@@ -295,7 +295,7 @@ class AnswersController < ApplicationController
   # Get the schema from the question, if any (works for strucutred questions/answers only)
   # TODO: move to global var with before_action trigger + rename accordingly (set_json_schema ?)
   def json_schema
-    question = ::Question.find(params['question_id'])
+    question = Question.find(params['question_id'])
     question.madmp_schema
   end
 

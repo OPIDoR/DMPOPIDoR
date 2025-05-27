@@ -451,7 +451,7 @@ class Plan < ApplicationRecord
     answer = answers.select { |a| a.question_id == qid && a.research_output_id == roid }
                     .max_by(&:created_at)
     if answer.nil? && create_if_missing
-      question           = ::Question.find(qid)
+      question           = Question.find(qid)
       answer             = Answer.new
       answer.plan_id     = id
       answer.question_id = qid
