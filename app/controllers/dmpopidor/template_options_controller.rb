@@ -10,8 +10,8 @@ module Dmpopidor
     def index
       org_hash = plan_params.fetch(:research_org_id, {})
       funder_hash = plan_params.fetch(:funder_id, {})
-      template_context = ::Template.contexts[plan_params[:context]] || 'research_project'
-      authorize ::Template.new, :template_options?
+      template_context = Template.contexts[plan_params[:context]] || 'research_project'
+      authorize Template.new, :template_options?
 
       org = org_from_params(params_in: { org_id: org_hash.to_json }) if org_hash.present?
       funder = org_from_params(params_in: { org_id: funder_hash.to_json }) if funder_hash.present?
@@ -21,14 +21,14 @@ module Dmpopidor
       if (org.present? && !org.new_record?) ||
          (funder.present? && !funder.new_record?)
         if funder.present? && !funder.new_record?
-          @templates = ::Template.latest_customizable
-                                 .where(org_id: funder.id).to_a
+          @templates = Template.latest_customizable
+                               .where(org_id: funder.id).to_a
           if org.present? && !org.new_record?
             # Swap out any organisational customizations of a funder template
             @templates = @templates.map do |tmplt|
-              customization = ::Template.published
-                                        .latest_customized_version(tmplt.family_id,
-                                                                   org.id).first
+              customization = Template.published
+                                      .latest_customized_version(tmplt.family_id,
+                                                                 org.id).first
               # Only provide the customized version if its still up to date with the
               # funder template!
               # rubocop:disable Metrics/BlockNesting
@@ -45,7 +45,7 @@ module Dmpopidor
         # If the no funder was specified OR the funder matches the org
         if funder.blank? || funder.id == org&.id
           # Retrieve the Org's templates
-          @templates << ::Template.published.where(
+          @templates << Template.published.where(
             org_id: org&.id,
             context: template_context,
             type: %w[classic structured]
@@ -53,12 +53,12 @@ module Dmpopidor
         end
 
       else
-        @templates = ::Template.published
-                               .where(
-                                 org_id: current_user.org.id,
-                                 context: template_context,
-                                 type: %w[classic structured]
-                               ).to_a
+        @templates = Template.published
+                             .where(
+                               org_id: current_user.org.id,
+                               context: template_context,
+                               type: %w[classic structured]
+                             ).to_a
       end
 
       @templates = @templates.flatten.uniq
@@ -83,9 +83,9 @@ module Dmpopidor
     # rubocop:enable Metrics/AbcSize, Metrics/MethodLength
 
     def recommend
-      recommended_template = ::Template.recommend(context: params[:context],
-                                                  locale: params[:locale]) || ::Template.default
-      authorize ::Template.new, :template_options?
+      recommended_template = Template.recommend(context: params[:context],
+                                                locale: params[:locale]) || Template.default
+      authorize Template.new, :template_options?
 
       render json: {
         id: recommended_template.id,

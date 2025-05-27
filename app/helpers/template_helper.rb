@@ -4,9 +4,21 @@
 module TemplateHelper
   def template_details_path(template)
     if template_modifiable?(template)
-      edit_org_admin_template_path(template)
+      template&.module? ? edit_super_admin_template_path(template) : edit_org_admin_template_path(template)
     else
-      template.persisted? ? org_admin_template_path(template) : org_admin_templates_path
+      if template.persisted?
+        if template&.module?
+          super_admin_template_path(template)
+        else
+          org_admin_template_path(template)
+        end
+      else
+        if template&.module?
+          super_admin_templates_path
+        else
+          org_admin_templates_path
+        end
+      end
     end
   end
 
@@ -42,7 +54,7 @@ module TemplateHelper
       funder: { id: "{ \"id\": #{template.org&.id}, \"name\": \"#{template.org&.name}\" }" },
       template_id: template.id
     }
-    cls = text.nil? ? 'direct-link' : 'direct-link btn btn-default'
+    cls = text.nil? ? 'direct-link' : 'direct-link btn btn-secondary'
     style = hidden ? 'display: none' : ''
 
     link_to(plans_url(plan: params), method: :post, title: _('Create plan'),

@@ -1,9 +1,12 @@
+<% is_module = request.query_parameters[:type] == 'module' %>
+<% title = if is_module then _('New module') elsif @template.id.present? then @template.title else _('New Template') end %>
+
 <div class="row">
   <div class="col-md-12">
-    <h1><%= @template.id.present? ? template.title : _('New Template') %></h1>
-    <%= link_to _('View all templates'),
-        org_admin_templates_path,
-        class: 'btn btn-default pull-right' %>
+    <h1><%= title %></h1>
+    <%= link_to _(is_module ? 'View all modules' : 'View all templates'),
+                is_module ? super_admin_module_templates_path : org_admin_templates_path,
+                class: 'btn btn-secondary float-end' %>
   </div>
 </div>
 
@@ -15,8 +18,8 @@
 
     <div class="tab-content">
       <div role="tabpanel" class="tab-pane active">
-        <div class="panel panel-default">
-          <div class="panel-body">
+        <div class="card card-default">
+          <div class="card-body">
             <div class="template_edit">
               <%= form_for([:org_admin, @template]) do |f| %>
                 <%= render 'form', { f: f }%>

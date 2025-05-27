@@ -3,6 +3,7 @@
     "$id": "../Documentation/Implementation/data_model/Json/",
     "title": "DataReuseStandard",
     "description": "DataReuseStandard template",
+    "dataTypes": null,
     "type": "object",
     "class": "DataReuseStandard",
     "properties": {
@@ -12,8 +13,7 @@
             "inputType": "textarea",
             "label@fr_FR": "Justification",
             "label@en_GB": "Justification",
-            "tooltip@fr_FR": "Indiquer comment elles seront intégrées au projet ou réutilisées dans le cadre de l'entité",
-            "tooltip@en_GB": "Indicate how they will be integrated into the project or reused within the entity",
+            "tooltip": null,
             "form_label@fr_FR": "Justifier la réutilisation ou la non-réutilisation de données existantes",
             "form_label@en_GB": "Justify the reuse or non-reuse of existing data"
         },

@@ -3,6 +3,10 @@
     "$id": "../Documentation/Implementation/data_model/Json/",
     "title": "DMPResearchEntity",
     "description": "DMPResearchEntity template",
+    "dataTypes": [
+        "software",
+        "none"
+    ],
     "type": "object",
     "class": "DMPResearchEntity",
     "properties": {

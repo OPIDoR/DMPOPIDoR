@@ -3,6 +3,7 @@
     "$id": "../Documentation/Implementation/data_model/Json/",
     "title": "DataPreservationStandard",
     "description": "DataPreservationStandard template",
+    "dataTypes": null,
     "type": "object",
     "class": "DataPreservationStandard",
     "properties": {
@@ -35,6 +36,7 @@
             "registries": [
                 "VolumeUnit"
             ],
+            "registryCategory": "VolumeUnit",
             "overridable": true,
             "tooltip": null,
             "form_label@fr_FR": "Unité",
@@ -79,6 +81,7 @@
             "registries": [
                 "Archives"
             ],
+            "registryCategory": "Archive",
             "overridable": true,
             "tooltip": null,
             "form_label@fr_FR": "Choisir une archive pour conserver les données à long terme",
@@ -114,8 +117,8 @@
             "description": "Personne(s) en charge de la conservation à long terme des données",
             "label@fr_FR": "Personnes impliquées dans la conservation à long terme des données",
             "label@en_GB": "Persons in charge of long term data preservation",
-            "tooltip@fr_FR": "Le responsable peut être une personne, une équipe, un service",
-            "tooltip@en_GB": "Person in charge can be a person, a team, a department",
+            "tooltip@fr_FR": "Il peut s'agir d'une ou plusieurs personnes, d'une équipe, d'un service",
+            "tooltip@en_GB": "It can be one or more people, a team, a department",
             "form_label@fr_FR": "Personnes impliquées dans la conservation à long terme des données",
             "form_label@en_GB": "Persons in charge of long term data preservation"
         },

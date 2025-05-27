@@ -64,11 +64,10 @@ module SuperAdmin
       end
     end
 
-    
     def sort
       authorize(Theme)
       params[:updated_order].each_with_index do |id, index|
-        ::Theme.find(id).update(number: index + 1)
+        Theme.find(id).update(number: index + 1)
       end
       head :ok
     end
@@ -81,6 +80,7 @@ module SuperAdmin
       permitted = params.require(:theme).permit(
         :title,
         :description,
+        :data_type,
         translations: {}
       )
 

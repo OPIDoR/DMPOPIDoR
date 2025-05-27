@@ -1,0 +1,18 @@
+{
+  "ISO639-3_fra_eng": [
+    {
+      "label": {
+        "fr_FR": "anglais",
+        "en_GB": "english"
+      },
+      "value": "eng"
+    },
+    {
+      "label": {
+        "fr_FR": "français",
+        "en_GB": "french"
+      },
+      "value": "fra"
+    }
+  ]
+}

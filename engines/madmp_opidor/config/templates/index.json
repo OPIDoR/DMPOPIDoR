@@ -2,251 +2,424 @@
     {
         "path": "BackupPolicyStandard-template.json",
         "classname": "backup_policy",
-        "question_id": null
-    },
-    {
-        "path": "ControlledKeywordStandard-template.json",
-        "classname": "controlled_keyword",
-        "question_id": null
-    },
-    {
-        "path": "PersonStandard-template.json",
-        "classname": "person",
-        "question_id": null
-    },
-    {
-        "path": "CostStandard-template.json",
-        "classname": "cost",
-        "question_id": null
-    },
-    {
-        "path": "LicenseStandard-template.json",
-        "classname": "license",
-        "question_id": null
-    },
-    {
-        "path": "SpecificDataStandard-template.json",
-        "classname": "specific_data",
-        "question_id": null
-    },
-    {
-        "path": "ContributorStandard-template.json",
-        "classname": "contributor",
-        "question_id": null
-    },
-    {
-        "path": "TechnicalResourceStandard-template.json",
-        "classname": "technical_resource",
-        "question_id": null
-    },
-    {
-        "path": "DataOrganizationReference-template.json",
-        "classname": "resource_reference",
-        "question_id": null
-    },
-    {
-        "path": "DistributionStandard-template.json",
-        "classname": "distribution",
-        "question_id": null
-    },
-    {
-        "path": "MethodReference-template.json",
-        "classname": "resource_reference",
-        "question_id": null
-    },
-    {
-        "path": "FunderStandard-template.json",
-        "classname": "funder",
-        "question_id": null
-    },
-    {
-        "path": "HostStandard-template.json",
-        "classname": "host",
-        "question_id": null
-    },
-    {
-        "path": "FundingStandard-template.json",
-        "classname": "funding",
-        "question_id": null
-    },
-    {
-        "path": "LegalReference-template.json",
-        "classname": "resource_reference",
-        "question_id": null
-    },
-    {
-        "path": "ResourceReferenceStandard-template.json",
-        "classname": "resource_reference",
-        "question_id": null
-    },
-    {
-        "path": "MetadataStandardStandard-template.json",
-        "classname": "metadata_standard",
-        "question_id": null
-    },
-    {
-        "path": "QualityAssuranceMethodStandard-template.json",
-        "classname": "quality_assurance_method",
-        "question_id": null
-    },
-    {
-        "path": "ResearchOutputDescriptionStandard-template.json",
-        "classname": "research_output_description",
-        "question_id": null
-    },
-    {
-        "path": "DataCollectionStandard-template.json",
-        "classname": "data_collection",
-        "question_id": null
-    },
-    {
-        "path": "DataProcessingStandard-template.json",
-        "classname": "data_processing",
-        "question_id": null
-    },
-    {
-        "path": "DataStorageStandard-template.json",
-        "classname": "data_storage",
-        "question_id": null
-    },
-    {
-        "path": "EthicalIssuesStandard-template.json",
-        "classname": "ethical_issues",
-        "question_id": null
-    },
-    {
-        "path": "DocumentationQualityStandard-template.json",
-        "classname": "documentation_quality",
-        "question_id": null
-    },
-    {
-        "path": "LegalIssuesStandard-template.json",
-        "classname": "legal_issues",
-        "question_id": null
-    },
-    {
-        "path": "PersonalDataIssuesStandard-template.json",
-        "classname": "personal_data_issues",
-        "question_id": null
-    },
-    {
-        "path": "DataPreservationStandard-template.json",
-        "classname": "data_preservation",
-        "question_id": null
-    },
-    {
-        "path": "ReusedDataStandard-template.json",
-        "classname": "reused_data",
-        "question_id": null
-    },
-    {
-        "path": "DataReuseStandard-template.json",
-        "classname": "data_reuse",
-        "question_id": null
-    },
-    {
-        "path": "DataSharingStandard-template.json",
-        "classname": "data_sharing",
-        "question_id": null
+        "dataTypes": null
     },
     {
         "path": "BudgetStandard-template.json",
         "classname": "budget",
-        "question_id": null
+        "dataTypes": [
+            "software",
+            "none"
+        ]
     },
     {
-        "path": "MetaStandard-template.json",
-        "classname": "meta",
-        "question_id": null
+        "path": "ContributorConstantRole-template.json",
+        "classname": "contributor",
+        "dataTypes": [
+            "software",
+            "none"
+        ]
     },
     {
-        "path": "ProjectStandard-template.json",
-        "classname": "project",
-        "question_id": null
+        "path": "ContributorStandard-template.json",
+        "classname": "contributor",
+        "dataTypes": [
+            "software",
+            "none"
+        ]
     },
     {
-        "path": "ResearchOutputStandard-template.json",
-        "classname": "research_output",
-        "question_id": null
-    },
-    {
-        "path": "ResearchEntityStandard-template.json",
-        "classname": "research_entity",
-        "question_id": null
+        "path": "ControlledKeywordStandard-template.json",
+        "classname": "controlled_keyword",
+        "dataTypes": [
+            "software",
+            "none"
+        ]
     },
     {
         "path": "CostCalculMesoUCA-template.json",
         "classname": "cost",
-        "question_id": null
-    },
-    {
-        "path": "MesoUCACalculRequest-template.json",
-        "classname": "specific_data",
-        "question_id": null
-    },
-    {
-        "path": "DataProcessingMesoUCA-template.json",
-        "classname": "data_processing",
-        "question_id": null
-    },
-    {
-        "path": "CostStorageMesoUCA-template.json",
-        "classname": "cost",
-        "question_id": null
-    },
-    {
-        "path": "MesoUCAStorageRequest-template.json",
-        "classname": "specific_data",
-        "question_id": null
-    },
-    {
-        "path": "DataStorageMesoUCA_v2-template.json",
-        "classname": "data_storage",
-        "question_id": null
-    },
-    {
-        "path": "GenOuestRequest-template.json",
-        "classname": "specific_data",
-        "question_id": null
-    },
-    {
-        "path": "GenOuestServiceRequest-template.json",
-        "classname": "specific_data",
-        "question_id": null
-    },
-    {
-        "path": "DataStorageGenOuest-template.json",
-        "classname": "data_storage",
-        "question_id": null
+        "dataTypes": null
     },
     {
         "path": "CostMesoatLR-template.json",
         "classname": "cost",
-        "question_id": null
+        "dataTypes": null
     },
     {
-        "path": "MesoatLRServiceRequest-template.json",
-        "classname": "specific_data",
-        "question_id": null
+        "path": "CostStandard-template.json",
+        "classname": "cost",
+        "dataTypes": [
+            "software",
+            "none"
+        ]
+    },
+    {
+        "path": "CostStorageMesoUCA-template.json",
+        "classname": "cost",
+        "dataTypes": null
+    },
+    {
+        "path": "DataCollectionMasa-template.json",
+        "classname": "data_collection",
+        "dataTypes": null
+    },
+    {
+        "path": "DataCollectionStandard-template.json",
+        "classname": "data_collection",
+        "dataTypes": null
+    },
+    {
+        "path": "DataOrganizationReference-template.json",
+        "classname": "resource_reference",
+        "dataTypes": null
+    },
+    {
+        "path": "DataPreservationStandard-template.json",
+        "classname": "data_preservation",
+        "dataTypes": null
+    },
+    {
+        "path": "DataProcessingMesoUCA-template.json",
+        "classname": "data_processing",
+        "dataTypes": null
+    },
+    {
+        "path": "DataProcessingStandard-template.json",
+        "classname": "data_processing",
+        "dataTypes": null
+    },
+    {
+        "path": "DataReuseMasa-template.json",
+        "classname": "data_reuse",
+        "dataTypes": null
+    },
+    {
+        "path": "DataReuseStandard-template.json",
+        "classname": "data_reuse",
+        "dataTypes": null
+    },
+    {
+        "path": "DataSharingStandard-template.json",
+        "classname": "data_sharing",
+        "dataTypes": null
+    },
+    {
+        "path": "DataStorageGenOuest-template.json",
+        "classname": "data_storage",
+        "dataTypes": null
     },
     {
         "path": "DataStorageMesoatLR-template.json",
         "classname": "data_storage",
-        "question_id": null
+        "dataTypes": null
+    },
+    {
+        "path": "DataStorageMesoUCA_v2-template.json",
+        "classname": "data_storage",
+        "dataTypes": null
+    },
+    {
+        "path": "DataStorageStandard-template.json",
+        "classname": "data_storage",
+        "dataTypes": null
+    },
+    {
+        "path": "DependencyReferenceStandard-template.json",
+        "classname": "dependency_reference",
+        "dataTypes": [
+            "software"
+        ]
+    },
+    {
+        "path": "DistributionStandard-template.json",
+        "classname": "distribution",
+        "dataTypes": null
     },
     {
         "path": "DMPResearchEntity-template.json",
         "classname": "dmp",
-        "question_id": null
+        "dataTypes": [
+            "software",
+            "none"
+        ]
     },
     {
         "path": "DMPResearchProject-template.json",
         "classname": "dmp",
-        "question_id": null
+        "dataTypes": [
+            "software",
+            "none"
+        ]
+    },
+    {
+        "path": "DocumentationQualityStandard-template.json",
+        "classname": "documentation_quality",
+        "dataTypes": null
+    },
+    {
+        "path": "EthicalIssuesStandard-template.json",
+        "classname": "ethical_issues",
+        "dataTypes": null
+    },
+    {
+        "path": "FunderStandard-template.json",
+        "classname": "funder",
+        "dataTypes": [
+            "software",
+            "none"
+        ]
+    },
+    {
+        "path": "FundingStandard-template.json",
+        "classname": "funding",
+        "dataTypes": [
+            "software",
+            "none"
+        ]
+    },
+    {
+        "path": "GenOuestRequest-template.json",
+        "classname": "specific_data",
+        "dataTypes": null
+    },
+    {
+        "path": "GenOuestServiceRequest-template.json",
+        "classname": "specific_data",
+        "dataTypes": null
+    },
+    {
+        "path": "GeoLocationBox-template.json",
+        "classname": "specific_data",
+        "dataTypes": null
+    },
+    {
+        "path": "GeoLocationPoint-template.json",
+        "classname": "specific_data",
+        "dataTypes": null
+    },
+    {
+        "path": "HostStandard-template.json",
+        "classname": "host",
+        "dataTypes": null
+    },
+    {
+        "path": "LegalIssuesStandard-template.json",
+        "classname": "legal_issues",
+        "dataTypes": null
+    },
+    {
+        "path": "LegalReference-template.json",
+        "classname": "resource_reference",
+        "dataTypes": null
+    },
+    {
+        "path": "LicenseStandard-template.json",
+        "classname": "license",
+        "dataTypes": [
+            "software",
+            "none"
+        ]
+    },
+    {
+        "path": "MasaArcheoOperation-template.json",
+        "classname": "specific_data",
+        "dataTypes": null
+    },
+    {
+        "path": "MesoatLRServiceRequest-template.json",
+        "classname": "specific_data",
+        "dataTypes": null
+    },
+    {
+        "path": "MesoUCACalculRequest-template.json",
+        "classname": "specific_data",
+        "dataTypes": null
+    },
+    {
+        "path": "MesoUCAStorageRequest-template.json",
+        "classname": "specific_data",
+        "dataTypes": null
+    },
+    {
+        "path": "MetadataStandardStandard-template.json",
+        "classname": "metadata_standard",
+        "dataTypes": null
+    },
+    {
+        "path": "MetaStandard-template.json",
+        "classname": "meta",
+        "dataTypes": [
+            "software",
+            "none"
+        ]
+    },
+    {
+        "path": "MethodReference-template.json",
+        "classname": "resource_reference",
+        "dataTypes": null
     },
     {
         "path": "PartnerStandard-template.json",
         "classname": "partner",
-        "question_id": null
+        "dataTypes": [
+            "software",
+            "none"
+        ]
+    },
+    {
+        "path": "PersonalDataIssuesStandard-template.json",
+        "classname": "personal_data_issues",
+        "dataTypes": null
+    },
+    {
+        "path": "PersonStandard-template.json",
+        "classname": "person",
+        "dataTypes": [
+            "software",
+            "none"
+        ]
+    },
+    {
+        "path": "ProgrammingLanguageStandard-template.json",
+        "classname": "programming_language",
+        "dataTypes": [
+            "software"
+        ]
+    },
+    {
+        "path": "ProjectStandard-template.json",
+        "classname": "project",
+        "dataTypes": [
+            "software",
+            "none"
+        ]
+    },
+    {
+        "path": "QualityAssuranceMethodStandard-template.json",
+        "classname": "quality_assurance_method",
+        "dataTypes": null
+    },
+    {
+        "path": "ResearchEntityStandard-template.json",
+        "classname": "research_entity",
+        "dataTypes": [
+            "software",
+            "none"
+        ]
+    },
+    {
+        "path": "ResearchOutputDescriptionStandard-template.json",
+        "classname": "research_output_description",
+        "dataTypes": null
+    },
+    {
+        "path": "ResearchOutputSoftwareStandard-template.json",
+        "classname": "research_output",
+        "dataTypes": [
+            "software"
+        ]
+    },
+    {
+        "path": "ResearchOutputStandard-template.json",
+        "classname": "research_output",
+        "dataTypes": null
+    },
+    {
+        "path": "ResourceReferenceStandard-template.json",
+        "classname": "resource_reference",
+        "dataTypes": [
+            "software",
+            "none"
+        ]
+    },
+    {
+        "path": "ReusedDataStandard-template.json",
+        "classname": "reused_data",
+        "dataTypes": null
+    },
+    {
+        "path": "SoftwareDescriptionStandard-template.json",
+        "classname": "software_description",
+        "dataTypes": [
+            "software"
+        ]
+    },
+    {
+        "path": "SoftwareDevelopmentStandard-template.json",
+        "classname": "software_development",
+        "dataTypes": [
+            "software"
+        ]
+    },
+    {
+        "path": "SoftwareDocumentationStandard-template.json",
+        "classname": "software_documentation",
+        "dataTypes": [
+            "software"
+        ]
+    },
+    {
+        "path": "SoftwareLegalIssuesStandard-template.json",
+        "classname": "software_legal_issues",
+        "dataTypes": [
+            "software"
+        ]
+    },
+    {
+        "path": "SoftwarePreservationStandard-template.json",
+        "classname": "software_preservation",
+        "dataTypes": [
+            "software"
+        ]
+    },
+    {
+        "path": "SoftwareResourceReference-template.json",
+        "classname": "resource_reference",
+        "dataTypes": [
+            "software"
+        ]
+    },
+    {
+        "path": "SoftwareRuntimeStandard-template.json",
+        "classname": "software_runtime",
+        "dataTypes": [
+            "software"
+        ]
+    },
+    {
+        "path": "SoftwareSharingStandard-template.json",
+        "classname": "software_sharing",
+        "dataTypes": [
+            "software"
+        ]
+    },
+    {
+        "path": "SoftwareRegistrationStandard-template.json",
+        "classname": "software_registration",
+        "dataTypes": null
+    },
+    {
+        "path": "SoftwareValorisationStandard-template.json",
+        "classname": "software_valorisation",
+        "dataTypes": [
+            "software"
+        ]
+    },
+    {
+        "path": "SpecificDataStandard-template.json",
+        "classname": "specific_data",
+        "dataTypes": [
+            "software",
+            "none"
+        ]
+    },
+    {
+        "path": "TechnicalResourceStandard-template.json",
+        "classname": "technical_resource",
+        "dataTypes": [
+            "software",
+            "none"
+        ]
     }
 ]

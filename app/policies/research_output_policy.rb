@@ -2,14 +2,6 @@
 
 # Security policies for research outputs
 class ResearchOutputPolicy < ApplicationPolicy
-  # --------------------------------
-  # Start DMP OPIDoR Customization
-  # --------------------------------
-  prepend Dmpopidor::ResearchOutputPolicy
-  # --------------------------------
-  # End DMP OPIDoR Customization
-  # --------------------------------
-
   attr_reader :user, :research_output
 
   def initialize(user, research_output)
@@ -31,23 +23,27 @@ class ResearchOutputPolicy < ApplicationPolicy
   end
 
   def new?
-    @research_output.plan.administerable_by?(@user.id)
+    @research_output.plan.editable_by?(@user.id)
   end
 
   def edit?
-    @research_output.plan.administerable_by?(@user.id)
+    @research_output.plan.editable_by?(@user.id)
   end
 
   def create?
-    @research_output.plan.administerable_by?(@user.id)
+    @research_output.plan.editable_by?(@user.id)
   end
 
   def update?
-    @research_output.plan.administerable_by?(@user.id)
+    @research_output.plan.editable_by?(@user.id)
   end
 
   def destroy?
-    @research_output.plan.administerable_by?(@user.id)
+    @research_output.plan.editable_by?(@user.id)
+  end
+
+  def import?
+    @research_output.plan.editable_by?(@user.id)
   end
 
   def select_output_type?

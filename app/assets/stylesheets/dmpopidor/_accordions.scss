@@ -9,7 +9,7 @@
   .dmpopidor-accordion {
     background-color: white;
 
-    .panel-title {
+    .card-title {
       font-size: x-large;
       font-weight: bold;
       color: $rust;
@@ -30,10 +30,10 @@
   border: 1px solid $dark-blue;
 
   .dmpopidor-accordion {
-    background-color: $white;
+    background-color: #fff;
     color: $dark-blue;
 
-    .panel-title {
+    .card-title {
       color: $dark-blue;
       font-size: 20px;
     }

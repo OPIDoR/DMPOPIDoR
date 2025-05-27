@@ -4,13 +4,13 @@ module Dmpopidor
   # rubocop:disable Metrics/ModuleLength
   # Customized code for AnswersController
   module AnswersController
-    include Dmpopidor::ErrorHelper
+    include ErrorHelper
 
     # rubocop:disable Metrics/AbcSize
     def new_form
-      research_output = ::ResearchOutput.includes(:plan).find(params[:research_output_id])
+      research_output = ResearchOutput.includes(:plan).find(params[:research_output_id])
       question = Question.includes(:madmp_schema).find(params[:question_id])
-      answer = ::Answer.includes(:madmp_fragment).find_by!(
+      answer = Answer.includes(:madmp_fragment).find_by!(
         question_id: question.id,
         research_output_id: research_output.id
       )
@@ -20,7 +20,7 @@ module Dmpopidor
       render json: MadmpFragment.render_fragment_json(fragment, fragment.madmp_schema)
       nil
     rescue ActiveRecord::RecordNotFound
-      authorize ::Answer.new(plan_id: research_output.plan_id)
+      authorize Answer.new(plan_id: research_output.plan_id)
       render json: {
         template: MadmpSchema.serialize_json_response(question.madmp_schema)
       }
@@ -55,13 +55,13 @@ module Dmpopidor
       q = ::Question.find(p_params[:question_id])
 
       # rubocop:disable Metrics/BlockLength
-      ::Answer.transaction do
+      Answer.transaction do
         args = p_params
         # Answer model does not understand :standards so remove it from the params
         standards = args[:standards]
         args.delete(:standards)
 
-        @answer = ::Answer.find_by!(
+        @answer = Answer.find_by!(
           plan_id: args[:plan_id],
           question_id: args[:question_id],
           research_output_id: args[:research_output_id]
@@ -81,7 +81,7 @@ module Dmpopidor
           @answer.save!
         end
       rescue ActiveRecord::RecordNotFound
-        @answer = ::Answer.new(args.merge(user_id: current_user.id))
+        @answer = Answer.new(args.merge(user_id: current_user.id))
         @answer.lock_version = 1
         authorize @answer
         if q.question_format.rda_metadata?
@@ -92,7 +92,7 @@ module Dmpopidor
         @answer.save!
       rescue ActiveRecord::StaleObjectError
         @stale_answer = @answer
-        @answer = ::Answer.find_by(
+        @answer = Answer.find_by(
           plan_id: args[:plan_id],
           question_id: args[:question_id],
           research_output_id: args[:research_output_id]
@@ -193,7 +193,7 @@ module Dmpopidor
     def set_answers_as_common
       answer_ids = params[:answer_ids]
       common_value = params[:is_common]
-      ::Answer.where(id: answer_ids).update_all(is_common: common_value)
+      Answer.where(id: answer_ids).update_all(is_common: common_value)
 
       render json: {
         updated_answers: answer_ids
@@ -233,7 +233,7 @@ module Dmpopidor
       end
 
       begin
-        @answer = ::Answer.find(answer_id)
+        @answer = Answer.find(answer_id)
       rescue ActiveRecord::RecordNotFound => e
         Rails.logger.error("Answer [#{answer_id}] not found")
         Rails.logger.error(e.backtrace.join("\n"))

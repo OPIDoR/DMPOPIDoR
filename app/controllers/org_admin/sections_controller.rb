@@ -77,17 +77,24 @@ module OrgAdmin
       @section = get_new(@section)
       if @section.save
         flash[:notice] = success_message(@section, _('created'))
-        redirect_to edit_org_admin_template_phase_path(
-          id: @section.phase_id,
-          template_id: @phase.template_id,
-          section: @section.id
-        )
+        redirect_to @phase.template&.module? ? edit_super_admin_template_phase_path(
+                      id: @section.phase_id,
+                      template_id: @phase.template_id,
+                      section: @section.id
+                    ) : edit_org_admin_template_phase_path(
+                      id: @section.phase_id,
+                      template_id: @phase.template_id,
+                      section: @section.id
+                    )
       else
         flash[:alert] = failure_message(@section, _('create'))
-        redirect_to edit_org_admin_template_phase_path(
-          template_id: @phase.template_id,
-          id: @section.phase_id
-        )
+        redirect_to @phase.template&.module? ? edit_super_admin_template_phase_path(
+                      template_id: @phase.template_id,
+                      id: @section.phase_id
+                    ) : edit_org_admin_template_phase_path(
+                      template_id: @phase.template_id,
+                      id: @section.phase_id
+                    )
       end
     end
     # rubocop:enable Metrics/AbcSize, Metrics/MethodLength
@@ -109,10 +116,13 @@ module OrgAdmin
         flash[:alert] = "#{msg}<br/>#{e.message}"
       end
 
-      redirect_to edit_org_admin_template_phase_path(
-        template_id: section.phase.template.id,
-        id: section.phase.id, section: section.id
-      )
+      redirect_to section.phase.template&.module? ? edit_super_admin_template_phase_path(
+                    template_id: section.phase.template.id,
+                    id: section.phase.id, section: section.id
+                  ) : edit_org_admin_template_phase_path(
+                    template_id: section.phase.template.id,
+                    id: section.phase.id, section: section.id
+                  )
     end
     # rubocop:enable Metrics/AbcSize
 
@@ -134,10 +144,11 @@ module OrgAdmin
         flash[:alert] = "#{msg}<br/>#{e.message}"
       end
 
-      redirect_to(edit_org_admin_template_phase_path(
+      path_helper = phase.template&.module? ? :edit_super_admin_template_phase_path : :edit_org_admin_template_phase_path
+      redirect_to send(path_helper,
                     template_id: phase.template.id,
                     id: phase.id
-                  ))
+                  )
     end
     # rubocop:enable Metrics/AbcSize
 

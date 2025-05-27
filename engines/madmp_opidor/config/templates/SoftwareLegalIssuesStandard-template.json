@@ -1,0 +1,149 @@
+{
+    "$schema": "http://json-schema.org/draft-07/schema#",
+    "$id": "../Documentation/Implementation/data_model/Json/",
+    "title": "SoftwareLegalIssuesStandard",
+    "description": "SoftwareLegalIssuesStandard template",
+    "dataTypes": [
+        "software"
+    ],
+    "type": "object",
+    "class": "SoftwareLegalIssuesStandard",
+    "properties": {
+        "author": {
+            "type": "array",
+            "table_header@fr_FR": "Nom",
+            "table_header@en_GB": "Name",
+            "items": {
+                "type": "object",
+                "class": "Contributor",
+                "properties": {
+                    "dbid": {
+                        "type": "number"
+                    }
+                },
+                "template_name": "ContributorStandard",
+                "required": [
+                    "dbid"
+                ]
+            },
+            "minItems": 1,
+            "description": "Auteur(s) du logiciel : personnes qui ont le droit d'auteur sur le logiciel",
+            "label@fr_FR": "Auteurs du logiciel",
+            "label@en_GB": "Software authors",
+            "tooltip": null,
+            "form_label@fr_FR": "Lister les auteurs du logiciel",
+            "form_label@en_GB": "List the authors of the software"
+        },
+        "contributor": {
+            "type": "array",
+            "table_header@fr_FR": "Nom",
+            "table_header@en_GB": "Name",
+            "items": {
+                "type": "object",
+                "class": "Contributor",
+                "properties": {
+                    "dbid": {
+                        "type": "number"
+                    }
+                },
+                "template_name": "ContributorStandard",
+                "required": [
+                    "dbid"
+                ]
+            },
+            "minItems": 1,
+            "description": "Principaux contributeurs du logiciel : autres collaborateurs",
+            "label@fr_FR": "Principaux contributeurs du logiciel et leurs rôles",
+            "label@en_GB": "Principal software contributors and their roles",
+            "tooltip@fr_FR": "Il peut s'agir d'une ou plusieurs personnes, d'une équipe, d'un service",
+            "tooltip@en_GB": "It can be one or more people, a team, a department",
+            "form_label@fr_FR": "Lister les principaux contributeurs du logiciel puis leur attribuer un rôle",
+            "form_label@en_GB": "List the main contributors of the software and then assign them a role"
+        },
+        "license": {
+            "type": "array",
+            "table_header": null,
+            "items": {
+                "type": "object",
+                "class": "License",
+                "properties": {
+                    "dbid": {
+                        "type": "number"
+                    }
+                },
+                "template_name": "LicenseStandard",
+                "required": [
+                    "dbid"
+                ]
+            },
+            "minItems": 1,
+            "description": "Licences de diffusion du logiciel",
+            "label@fr_FR": "Licences",
+            "label@en_GB": "Licenses",
+            "inputType": "dropdown",
+            "registries": [
+                "SoftwareLicenses"
+            ],
+            "registryCategory": "License",
+            "overridable": true,
+            "tooltip": null,
+            "form_label@fr_FR": "Sous quelles licences est ou sera diffusé le logiciel ?",
+            "form_label@en_GB": "Under what licenses is or will the software be distributed?"
+        },
+        "cost": {
+            "type": "array",
+            "table_header@fr_FR": "Type de coût : montant",
+            "table_header@en_GB": "Cost type: amount",
+            "items": {
+                "type": "object",
+                "class": "Cost",
+                "properties": {
+                    "dbid": {
+                        "type": "number"
+                    }
+                },
+                "template_name": "CostStandard",
+                "required": [
+                    "dbid"
+                ]
+            },
+            "description": "Coûts éventuels liés au conseil juridique pour le logiciel",
+            "label@fr_FR": "Coûts",
+            "label@en_GB": "Costs",
+            "tooltip@fr_FR": "Par exemple, recours à un conseil juridique",
+            "tooltip@en_GB": "For example, seeking legal advice",
+            "form_label@fr_FR": "Coûts liés aux aspects juridiques",
+            "form_label@en_GB": "Costs related to legal aspects"
+        },
+        "description": {
+            "type": "string",
+            "description": "Aspects relatifs à la sécurité juridique et titularité du logiciel",
+            "inputType": "textarea",
+            "label@fr_FR": "Informations complémentaires",
+            "label@en_GB": "Additional informations",
+            "tooltip": null,
+            "example@fr_FR": "Vous pouvez ajouter ici toutes informations complémentaires en lien avec les aspects juridiques comme par exemple l'accord de consortium, les droits de propriété intellectuelle...",
+            "example@en_GB": "You can add here any additional information related to legal aspects such as consortium agreement, intellectual property rights...",
+            "form_label@fr_FR": "Informations complémentaires",
+            "form_label@en_GB": "Additional informations"
+        }
+    },
+    "required": [
+        "author",
+        "contributor",
+        "license"
+    ],
+    "to_string": [],
+    "default": {
+        "fr_FR": {
+            "author": {
+                "role": "Auteur"
+            }
+        },
+        "en_GB": {
+            "author": {
+                "role": "Author"
+            }
+        }
+    }
+}

@@ -30,7 +30,7 @@ module Dmpopidor
       research_output  = @answer.research_output
       research_output_description = research_output&.json_fragment&.research_output_description
       @research_output_name = research_output_description.data['title']
-      @phase_link = if plan.template.structured?
+      @phase_link = if plan.structured?
                       url_for(action: 'structured_edit', controller: 'plans', id: @plan.id, phase_id: @phase_id,
                               research_output: research_output.id)
                     else
@@ -154,6 +154,7 @@ module Dmpopidor
 
     # CHANGES
     # Mail is sent with user's locale
+    # rubocop:disable Metrics/AbcSize
     def plan_visibility(user, plan)
       return unless user.active?
 
@@ -171,6 +172,7 @@ module Dmpopidor
              subject: format(_('DMP Visibility Changed: %{plan_title}'), plan_title: @plan.title))
       end
     end
+    # rubocop:enable Metrics/AbcSize
 
     # CHANGES
     # Mail is sent with user's locale

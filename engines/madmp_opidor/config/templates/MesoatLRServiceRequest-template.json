@@ -3,6 +3,7 @@
     "$id": "../Documentation/Implementation/data_model/Json/",
     "title": "MesoatLRServiceRequest",
     "description": "MesoatLRServiceRequest template",
+    "dataTypes": null,
     "type": "object",
     "class": "MesoatLRServiceRequest",
     "properties": {
@@ -15,6 +16,7 @@
             "registries": [
                 "MesoatLRServiceType"
             ],
+            "registryCategory": "MesoatLRServiceType",
             "tooltip": null,
             "form_label@fr_FR": "Type de service",
             "form_label@en_GB": "Service type"
@@ -57,6 +59,7 @@
             "registries": [
                 "MesoatLRStorageTime"
             ],
+            "registryCategory": "MesoatLRStorageTime",
             "tooltip": null,
             "form_label@fr_FR": "Durée de stockage (en mois)",
             "form_label@en_GB": "Storage time (in months)"

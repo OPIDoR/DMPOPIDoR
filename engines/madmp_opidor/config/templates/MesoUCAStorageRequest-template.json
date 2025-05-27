@@ -3,6 +3,7 @@
     "$id": "../Documentation/Implementation/data_model/Json/",
     "title": "MesoUCAStorageRequest",
     "description": "MesoUCAStorageRequest template",
+    "dataTypes": null,
     "type": "object",
     "class": "MesoUCAStorageRequest",
     "properties": {
@@ -15,6 +16,7 @@
             "registries": [
                 "MesoUCAStorageAgents"
             ],
+            "registryCategory": "MesoUCAStorageAgent",
             "tooltip": null,
             "form_label@fr_FR": "Utilisateurs",
             "form_label@en_GB": "Applicants"
@@ -58,6 +60,7 @@
             "registries": [
                 "MesoUCAStorageTimes"
             ],
+            "registryCategory": "MesoUCAStorageTime",
             "tooltip": null,
             "form_label@fr_FR": "Durée de stockage (en mois)",
             "form_label@en_GB": "Storage time (in months)"

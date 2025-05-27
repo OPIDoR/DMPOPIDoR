@@ -3,7 +3,7 @@
 module ContactUs
   # Controller for the Contact Us gem
   class ContactsController < ApplicationController
-    # rubocop:disable Metrics/AbcSize
+    # rubocop:disable Metrics/AbcSize, Metrics/MethodLength
     # rubocop:disable Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
     def create
       @contact = ContactUs::Contact.new(params[:contact_us_contact])
@@ -15,7 +15,7 @@ module ContactUs
         render_new_page and return
       end
       if @contact.save
-        return redirect_to(ContactUs.success_redirect || contact_us_path,
+        redirect_to(ContactUs.success_redirect || contact_us_path,
                     notice: _('Contact email was successfully sent.'))
       else
         flash[:alert] = _('Unable to submit your request')
@@ -30,7 +30,7 @@ module ContactUs
       flash[:alert] = _('An unexpected error occurred while sending the email. Please try again later.')
       render_new_page and return
     end
-    # rubocop:enable Metrics/AbcSize
+    # rubocop:enable Metrics/AbcSize, Metrics/MethodLength
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
 
     def new

@@ -3,6 +3,7 @@
     "$id": "../Documentation/Implementation/data_model/Json/",
     "title": "MesoUCACalculRequest",
     "description": "MesoUCACalculRequest template",
+    "dataTypes": null,
     "type": "object",
     "class": "MesoUCACalculRequest",
     "properties": {
@@ -15,6 +16,7 @@
             "registries": [
                 "MesoUCACalculAgents"
             ],
+            "registryCategory": "MesoUCACalculAgent",
             "tooltip": null,
             "form_label@fr_FR": "Utilisateurs",
             "form_label@en_GB": "Applicants"
@@ -28,6 +30,7 @@
             "registries": [
                 "MesoUCACalculTypes"
             ],
+            "registryCategory": "MesoUCACalculType",
             "tooltip": null,
             "form_label@fr_FR": "Type de calcul",
             "form_label@en_GB": "Computational type"

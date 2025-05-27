@@ -10,7 +10,7 @@ Rswag::Ui.configure do |c|
   c.openapi_endpoint ENV.fetch('RSWAG_SWAGGER_V1_ENDPOINT_FILE_PATH', '/api-docs/v1/swagger.json'),
                      ENV.fetch('RSWAG_SWAGGER_V1_TITLE', 'API V1 Docs')
   c.openapi_endpoint ENV.fetch('RSWAG_SWAGGER_V0_ENDPOINT_FILE_PATH', '/api-docs/v0/swagger.json'),
-                     ENV.fetch('RSWAG_SWAGGER_V0_TITLE', 'API V1 Docs')
+                     ENV.fetch('RSWAG_SWAGGER_V0_TITLE', 'API V0 Docs')
 
   # Add Basic Auth in case your API is private
   # c.basic_auth_enabled = true

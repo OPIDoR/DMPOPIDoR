@@ -3,6 +3,7 @@
     "$id": "../Documentation/Implementation/data_model/Json/",
     "title": "DataProcessingStandard",
     "description": "DataProcessingStandard template",
+    "dataTypes": null,
     "type": "object",
     "class": "DataProcessingStandard",
     "properties": {
@@ -62,6 +63,7 @@
             "registries": [
                 "ProcessingServices"
             ],
+            "registryCategory": "ProcessingService",
             "overridable": true,
             "tooltip": null,
             "form_label@fr_FR": "Equipements, plateaux techniques utilisés pour le traitement et l'analyse des données",
@@ -87,8 +89,8 @@
             "description": "Personnes impliquées dans le traitement des données",
             "label@fr_FR": "Personnes impliquées dans le traitement et l’analyse des données",
             "label@en_GB": "Research staff processing and analysing data",
-            "tooltip@fr_FR": "Le responsable peut être une personne, une équipe, un service",
-            "tooltip@en_GB": "Person in charge can be a person, a team, a department",
+            "tooltip@fr_FR": "Il peut s'agir d'une ou plusieurs personnes, d'une équipe, d'un service",
+            "tooltip@en_GB": "It can be one or more people, a team, a department",
             "form_label@fr_FR": "Personnes impliquées dans le traitement et l’analyse des données",
             "form_label@en_GB": "Research staff processing and analysing data"
         },

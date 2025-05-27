@@ -1,10 +1,9 @@
 <% title "#{plan.title} - Write plan" %>
 
-
 <% locale = LocaleService.to_gettext(locale: locale)%>
 
 <% content_for :plan_tab_body do %>
-  <% if plan.template.structured? %>
+  <% if plan.structured? %>
     <%= react("WritePlanLayout", props: { 
       locale: locale,
       planId: plan.id,
@@ -12,8 +11,7 @@
       userId: @current_user.id,
       currentOrgId: current_user.org.id,
       currentOrgName: current_user.org.name,
-      readonly: !plan.editable_by?(current_user.id),
-      configuration: Rails.configuration.x.dmpopidor.front
+      readonly: !plan.editable_by?(current_user.id)
     }) %>
   <% else %>
     <%= render partial: 'phases/edit_plan_answers',

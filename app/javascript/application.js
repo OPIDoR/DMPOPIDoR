@@ -12,8 +12,6 @@ import 'regenerator-runtime/runtime';
 
 // Pull in Bootstrap JS functionality
 import 'bootstrap';
-import 'bootstrap-3-typeahead';
-import 'bootstrap-select';
 
 import Rails from '@rails/ujs';
 
@@ -31,7 +29,6 @@ import './src/utils/modalSearch';
 import './src/utils/outOfFocus';
 import './src/utils/paginable';
 import './src/utils/panelHeading';
-import './src/utils/popoverHelper';
 import './src/utils/requiredField';
 import './src/utils/tabHelper';
 import './src/utils/tooltipHelper';

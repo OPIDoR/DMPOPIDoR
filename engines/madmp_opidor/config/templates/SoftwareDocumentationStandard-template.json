@@ -1,0 +1,76 @@
+{
+    "$schema": "http://json-schema.org/draft-07/schema#",
+    "$id": "../Documentation/Implementation/data_model/Json/",
+    "title": "SoftwareDocumentationStandard",
+    "description": "SoftwareDocumentationStandard template",
+    "dataTypes": [
+        "software"
+    ],
+    "type": "object",
+    "class": "SoftwareDocumentationStandard",
+    "properties": {
+        "documentationReference": {
+            "type": "array",
+            "table_header": null,
+            "items": {
+                "type": "object",
+                "class": "ResourceReferenceStandard",
+                "properties": {
+                    "dbid": {
+                        "type": "number"
+                    }
+                },
+                "template_name": "SoftwareResourceReference",
+                "required": [
+                    "dbid"
+                ]
+            },
+            "description": "Référence(s) de protocoles /méthodes utilisées",
+            "label@fr_FR": "Références associées",
+            "label@en_GB": "Related references",
+            "tooltip": null,
+            "form_label@fr_FR": "Indiquer les liens vers la documentation utilisateur et/ou développeur si elle est disponible",
+            "form_label@en_GB": "Provide links to user and/or developer documentation if available"
+        },
+        "cost": {
+            "type": "array",
+            "table_header@fr_FR": "Type de coût : montant",
+            "table_header@en_GB": "Cost type: amount",
+            "items": {
+                "type": "object",
+                "class": "Cost",
+                "properties": {
+                    "dbid": {
+                        "type": "number"
+                    }
+                },
+                "template_name": "CostStandard",
+                "required": [
+                    "dbid"
+                ]
+            },
+            "description": "Coûts éventuels liés à la documentation du logiciel",
+            "label@fr_FR": "Coûts",
+            "label@en_GB": "Costs",
+            "tooltip": null,
+            "form_label@fr_FR": "Coûts liés à la documentation",
+            "form_label@en_GB": "Costs related to documentation"
+        },
+        "description": {
+            "type": "string",
+            "description": "Informations complémentaires en lien avec la documentation du code et l'utilisation du logiciel",
+            "inputType": "textarea",
+            "label@fr_FR": "Informations complémentaires",
+            "label@en_GB": "Additional informations",
+            "tooltip": null,
+            "example@fr_FR": "Vous pouvez ici compléter la description des méthodes et/ou outils adoptés pour documenter le code et l'utilisation du logiciel",
+            "example@en_GB": "Here you can complete the description of the methods and/or tools adopted to document the code and use of the software",
+            "form_label@fr_FR": "Informations complémentaires",
+            "form_label@en_GB": "Additional informations"
+        }
+    },
+    "required": [
+        "description"
+    ],
+    "to_string": []
+}

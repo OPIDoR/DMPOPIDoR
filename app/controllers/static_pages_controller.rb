@@ -2,15 +2,6 @@
 
 # Controller that handles requests for static pages
 class StaticPagesController < ApplicationController
-  # --------------------------------
-  # Start DMP OPIDoR Customization
-  # SEE app/controllers/dmpopidor/static_pages_controller.rb
-  # --------------------------------
-  prepend Dmpopidor::StaticPagesController
-  # --------------------------------
-  # End DMP OPIDoR Customization
-  # --------------------------------
-
   def about_us; end
 
   def contact_us; end
@@ -20,4 +11,16 @@ class StaticPagesController < ApplicationController
   def termsuse; end
 
   def help; end
+
+  def roadmap; end
+
+  # Changed News feed
+  def news_feed; end
+
+  def glossary; end
+
+  # Added Tutorials Page
+  def tutorials; end
+
+  def optout; end
 end

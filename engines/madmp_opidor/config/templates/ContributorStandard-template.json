@@ -3,6 +3,10 @@
     "$id": "../Documentation/Implementation/data_model/Json/",
     "title": "ContributorStandard",
     "description": "ContributorStandard template",
+    "dataTypes": [
+        "software",
+        "none"
+    ],
     "type": "object",
     "class": "ContributorStandard",
     "properties": {
@@ -28,8 +32,10 @@
             "label@fr_FR": "Rôle",
             "label@en_GB": "Role",
             "registries": [
-                "Role"
+                "Role",
+                "SoftwareRoles"
             ],
+            "registryCategory": "Role",
             "tooltip@fr_FR": "Sélectionner dans la liste déroulante le rôle du contributeur",
             "tooltip@en_GB": "Choose in the dropdown the contributor's role",
             "form_label@fr_FR": "Rôle",

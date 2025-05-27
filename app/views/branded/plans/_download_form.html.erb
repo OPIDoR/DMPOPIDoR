@@ -1,7 +1,8 @@
+
 <% if @research_outputs.length == 0 %>
   <div style="text-align: center">
     <h2><%= _('Your plan does not contain a search product. Please create one or import it from another plan.') %></h2>
-    <%= link_to _('Create or import research output'), structured_edit_plan_path, class: 'btn btn-default', id: 'edit-btn' %>
+    <%= link_to _('Create or import research output'), structured_edit_plan_path, class: 'btn btn-primary', id: 'edit-btn' %>
   </div>
 <% else %>
   <%= form_tag(plan_export_path(@plan), method: :get, target: '_blank', id: 'download_form') do |f| %>
@@ -15,37 +16,14 @@
           <%= label_tag("select-all-research-outputs", _('All')) %>
           <% @research_outputs.each do |research_output| %>
             <% research_output_description = research_output.json_fragment.research_output_description %>
-            <li class="checkbox">
-              <%= label_tag "research_outputs[]" do %>
+            <li class="form-check">
+              <%= label_tag("research_outputs[]", nil, { for: "research_output_#{research_output.id}" }) do %>
                 <span class="sublist">└─ </span>
-                <%= check_box_tag("research_outputs[]", research_output.id, true, { class: "research-output-checkbox" }) %>
-                <%= research_output_description.data['title'] %>
+                <%= check_box_tag("research_outputs[]", research_output.id, true, { class: "research-output-checkbox", id: "research_output_#{research_output.id}" }) %>
+                <%= "#{research_output_description.data['title']} (#{research_output_description.data['type']})" %>
               <% end %>
             </li>
           <% end %>
-        </ul>
-      </div>
-      <div id="research-output-export-mode">
-        <strong><%= _("Research output export mode") %></strong>
-        <ul>
-          <li class="checkbox">
-            <%= label_tag  do %>
-              <%= radio_button_tag("export[research_output_mode]", "by_research_output", false) %>
-              <%= _('Export by research output') %>
-            <% end %>
-          </li>
-          <li class="checkbox">
-            <%= label_tag do %>
-              <%= radio_button_tag("export[research_output_mode]", "by_section", true) %>
-              <%= _('Export by section') %>
-            <% end %>
-          </li>
-          <li class="checkbox">
-            <%= label_tag do %>
-              <%= radio_button_tag("export[research_output_mode]", "by_question", false) %>
-              <%= _('Export by question') %>
-            <% end %>
-          </li>
         </ul>
       </div>
     <% else %>
@@ -55,53 +33,53 @@
       <div class="form-group phase-selection">
         <strong><%= _("Select phase to download") %></strong>
         <ul>
-          <%= check_box_tag("select-all-phases", "none", true, { id: "select-all-phases" }) %>
-          <%= label_tag("select-all-phases", _('All')) %>
-          <% @phase_options.each do |phase| %>
-            <li class="checkbox">
-              <%= label_tag "selected_phases[]" do %>
-                <span class="sublist">└─ </span>
-                <%= check_box_tag("selected_phases[]", phase[1], true, { class: "phase-checkbox" }) %>
-                <%= phase[0] %>
-              <% end %>
-            </li>
-          <% end %>
+        <%= check_box_tag("select-all-phases", "none", true, { id: "select-all-phases" }) %>
+        <%= label_tag("select-all-phases", _('All')) %>
+        <% @phase_options.each do |phase| %>
+          <li class="form-check">
+            <%= label_tag "selected_phases[]", class:'form-check-label' do %>
+              <span class="sublist">└─ </span>
+              <%= check_box_tag("selected_phases[]", phase[1], true, { class: "phase-checkbox" }) %>
+              <%= phase[0] %>
+            <% end %>
+          </li>
+        <% end %>
         </ul>
       </div>
     <% else %>
       <%= hidden_field_tag(:phase_id, @phase_options[0][1]) %>
     <% end %>
-    <fieldset id="export-options">
+    <fieldset id="export-options" class="form-group">
       <legend><%= _("Plan components") %></legend>
-      <div class="checkbox">
-        <%= label_tag 'export[project_details]' do %>
+      <div class="form-check">
+        <%= label_tag 'export[project_details]', class:'form-check-label' do %>
           <%= check_box_tag 'export[project_details]', true, true %>
           <%= _('general information page') %>
         <% end %>
       </div>
-      <div class="checkbox">
-        <%= label_tag 'export[question_headings]' do %>
+      <div class="form-check">
+        <%= label_tag 'export[question_headings]', class:'form-check-label' do %>
           <%= check_box_tag 'export[question_headings]', true, true %>
           <%= _('question text and section headings') %>
         <% end %>
       </div>
-      <div class="checkbox">
-        <%= label_tag 'export[unanswered_questions]' do %>
+      <div class="form-check">
+        <%= label_tag 'export[unanswered_questions]', class:'form-check-label' do %>
           <%= check_box_tag 'export[unanswered_questions]', true, true %>
           <%= _('unanswered questions') %>
         <% end %>
       </div>
-      <% if @plan.template.structured? %>
-        <div class="checkbox">
-          <%= label_tag 'export[complete_data]' do %>
-            <%= check_box_tag 'export[complete_data]', true, false %>
-            <%= _('export complete data') %>
-          <% end %>
-        </div>
+      <% if @plan.structured? %>
+      <div class="form-check">
+        <%= label_tag 'export[complete_data]', class:'form-check-label' do %>
+          <%= check_box_tag 'export[complete_data]', true, false %>
+          <%= _('export complete data') %>
+        <% end %>
+      </div>
       <% end %>
       <% if @plan.template.customization_of.present? %>
-        <div class="checkbox">
-          <%= label_tag 'export[custom_sections]' do %>
+        <div class="form-check">
+          <%= label_tag 'export[custom_sections]', class:'form-check-label' do %>
             <%= check_box_tag 'export[custom_sections]', true, false %>
             <%= _('supplementary section(s) not requested by funding organisation') %>
           <% end %>
@@ -111,109 +89,109 @@
 
     <h2><%= _('Format') %></h2>
     <div class="row">
-      <div class="form-group col-xs-2">
+      <div class="control mb-3 col-sm-2">
         <%
-          valid_formats = if @plan.template.structured?
-                            Settings::Template::VALID_FORMATS
-                          else
-                            Settings::Template::VALID_FORMATS - ["json"]
-                          end
+          valid_formats = if @plan.structured?
+                      Settings::Template::VALID_FORMATS
+                    else
+                      Settings::Template::VALID_FORMATS - ["json"]
+                    end
         %>
         <%= select_tag :format, options_for_select(valid_formats, :pdf),
-                       class: 'form-control', "aria-labelledby": "format" %>
+                      class: 'form-select', "aria-labelledby": "format" %>
       </div>
     </div>
-
     <fieldset id="json-formatting">
       <legend><%= _("JSON format") %></legend>
       <ul>
-        <li class="checkbox">
+        <li class="form-check">
           <%= label_tag do %>
             <%= radio_button_tag("json_format", "default", true) %>
             <%= _('DMP OPIDoR format') %>
           <% end %>
         </li>
 
-        <% if @plan.template.research_project? %>
-          <li class="checkbox">
+        <% if @plan.research_project? %>
+          <li class="form-check">
             <%= label_tag do %>
               <%= radio_button_tag("json_format", "rda", false) %>
               <%= _('RDA DMP Common Standard format') %>
             <% end %>
+            <span class="export-msg"><%= _("This format is not compatible with the Software type, the research outputs using this type won't be exported.") %></span>
           </li>
         <% end %>
       </ul>
     </fieldset>
 
-    <div id="pdf-formatting">
+    <div id="pdf-formatting" class="py-3">
       <h2><%= _('PDF formatting') %></h2>
-      <div class="row">
-        <div class="col-xs-6">
-          <h3><%= _('Font') %></h3>
+      <div class="d-flex flex-">
+        <div class="col-sm-6">
+          <h4><%= _('Font') %></h4>
         </div>
-        <div class="col-xs-6">
-          <h3><%= _('Margin (mm)') %></h3>
+        <div class="col-sm-6 px-2">
+          <h4><%= _('Margin (mm)') %></h4>
         </div>
       </div>
-      <div class="row">
-        <div class="form-group col-xs-4">
-          <%= label_tag "export[formatting][font_face]", _('Face'), class: 'control-label' %>
+      <div class="d-flex flex-row">
+        <div class="form-control mb-3 col-sm-4">
+          <%= label_tag "export[formatting][font_face]", _('Face'), class: 'form-label' %>
           <%= select_tag "export[formatting][font_face]",
-                         options_for_select(Settings::Template::VALID_FONT_FACES,
-                                            @export_settings.formatting[:font_face]),
-                         class: 'form-control',
-                         "data-default": @plan.template.settings(:export).formatting[:font_face] %>
+              options_for_select(Settings::Template::VALID_FONT_FACES,
+                                @export_settings.formatting[:font_face]),
+              class: 'form-select',
+              "data-default": @plan.template.settings(:export).formatting[:font_face] %>
         </div>
-        <div class="form-group col-xs-2">
-          <%= label_tag "export[formatting][font_size]", _('Size') + " (pt)", class: 'control-label' %>
+        <div class="form-control mb-3 px-2 col-sm-2">
+          <%= label_tag "export[formatting][font_size]", _('Size') + " (pt)", class: 'form-label' %>
           <%= select_tag "export[formatting][font_size]",
-                         options_for_select(Settings::Template::VALID_FONT_SIZE_RANGE.to_a, @export_settings.formatting[:font_size]),
-                         class: 'form-control',
-                         "data-default": @plan.template.settings(:export).formatting[:font_size] %>
+              options_for_select(Settings::Template::VALID_FONT_SIZE_RANGE.to_a, @export_settings.formatting[:font_size]),
+              class: 'form-select',
+              "data-default": @plan.template.settings(:export).formatting[:font_size] %>
         </div>
 
-        <div class="form-group col-xs-1">
+        <div class="form-control mb-3 px-2 col-sm-1">
           <%= label_tag "export[formatting][margin][top]", _('Top'),
-                        class: 'control-label' %>
+                        class: 'form-label' %>
           <%= select_tag "export[formatting][margin][top]",
-                         options_for_select(Settings::Template::VALID_MARGIN_RANGE.to_a,
-                                            @export_settings.formatting[:margin][:top]),
-                         class: 'form-control',
-                         "data-default": @plan.template.settings(:export).formatting[:margin][:top] %>
+              options_for_select(Settings::Template::VALID_MARGIN_RANGE.to_a,
+                                @export_settings.formatting[:margin][:top]),
+              class: 'form-select',
+              "data-default": @plan.template.settings(:export).formatting[:margin][:top] %>
         </div>
-        <div class="form-group col-xs-1">
+        <div class="form-control mb-3 px-2 col-sm-1">
           <%= label_tag "export[formatting][margin][bottom]", _('Bottom'),
-                        class: 'control-label' %>
+                        class: 'form-label' %>
           <%= select_tag "export[formatting][margin][bottom]",
-                         options_for_select(Settings::Template::VALID_MARGIN_RANGE.to_a,
-                                            @export_settings.formatting[:margin][:bottom]),
-                         class: 'form-control',
-                         "data-default": @plan.template.settings(:export).formatting[:margin][:bottom] %>
+              options_for_select(Settings::Template::VALID_MARGIN_RANGE.to_a,
+                                @export_settings.formatting[:margin][:bottom]),
+              class: 'form-select',
+              "data-default": @plan.template.settings(:export).formatting[:margin][:bottom] %>
         </div>
-        <div class="form-group col-xs-1">
+        <div class="form-control mb-3 px-2 col-sm-1">
           <%= label_tag "export[formatting][margin][left]", _('Left'),
-                        class: 'control-label' %>
+                        class: 'form-label' %>
           <%= select_tag "export[formatting][margin][left]",
-                         options_for_select(Settings::Template::VALID_MARGIN_RANGE.to_a,
-                                            @export_settings.formatting[:margin][:left]),
-                         class: 'form-control',
-                         "data-default": @plan.template.settings(:export).formatting[:margin][:left] %>
+              options_for_select(Settings::Template::VALID_MARGIN_RANGE.to_a,
+                                @export_settings.formatting[:margin][:left]),
+              class: 'form-select',
+              "data-default": @plan.template.settings(:export).formatting[:margin][:left] %>
         </div>
-        <div class="form-group col-xs-1">
+        <div class="form-control mb-3 px-2 col-sm-1">
           <%= label_tag "export[formatting][margin][right]", _('Right'),
-                        class: 'control-label' %>
+                        class: 'form-label' %>
           <%= select_tag "export[formatting][margin][right]",
-                         options_for_select(Settings::Template::VALID_MARGIN_RANGE.to_a,
-                                            @export_settings.formatting[:margin][:right]),
-                         class: 'form-control',
-                         "data-default": @plan.template.settings(:export).formatting[:margin][:right] %>
+              options_for_select(Settings::Template::VALID_MARGIN_RANGE.to_a,
+                                @export_settings.formatting[:margin][:right]),
+              class: 'form-select',
+              "data-default": @plan.template.settings(:export).formatting[:margin][:right] %>
         </div>
       </div>
     </div>
 
     <%= button_tag(sanitize(_("Download Plan") % { open_in_new_window_text: _('Opens in new window') },
-                            tags: %w{ span em }),
-                   class: "btn btn-primary",
-                   type: "submit") %>
+          tags: %w{ span em }),
+        class: "btn btn-primary",
+        type: "submit") %>
   <% end %>
 <% end %>

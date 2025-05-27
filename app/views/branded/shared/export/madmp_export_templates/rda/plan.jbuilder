@@ -20,7 +20,7 @@ json.dmp do
   json.modified Export::Converters::RdaRegistryConverter.convert_date_to_iso8601(meta.data["lastModifiedDate"])
   json.title meta.data["title"]
 
-  contact = meta.contact
+  contact = meta.contact[0]
   if contact.present?
     json.contact do
       json.contact_id do
@@ -36,7 +36,7 @@ json.dmp do
     json.contact({})
   end
   json.contributor dmp.persons do |person|
-    roles = person.roles(selected_research_outputs)
+    roles = person.roles
     next if roles.empty?
 
     json.name       person.to_s

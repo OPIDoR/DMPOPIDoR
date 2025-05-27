@@ -1,0 +1,124 @@
+{
+	"ProgrammingLanguages": [
+		{
+			"en_GB": "Python",
+			"fr_FR": "Python"
+		},
+		{
+			"en_GB": "C",
+			"fr_FR": "C"
+		},
+		{
+			"en_GB": "C++",
+			"fr_FR": "C++"
+		},
+		{
+			"en_GB": "C#",
+			"fr_FR": "C#"
+		},
+		{
+			"en_GB": "Objective-C",
+			"fr_FR": "Objective-C"
+		},
+		{
+			"en_GB": "Java",
+			"fr_FR": "Java"
+		},
+		{
+			"en_GB": "(Visual) Basic",
+			"fr_FR": "(Visual) Basic"
+		},
+		{
+			"en_GB": "JavaScript",
+			"fr_FR": "JavaScript"
+		},
+		{
+			"en_GB": "Assembler",
+			"fr_FR": "Assembleur"
+		},
+		{
+			"en_GB": "PHP",
+			"fr_FR": "PHP"
+		},
+		{
+			"en_GB": "Go",
+			"fr_FR": "Go"
+		},
+		{
+			"en_GB": "R",
+			"fr_FR": "R"
+		},
+		{
+			"en_GB": "Matlab",
+			"fr_FR": "Matlab"
+		},
+		{
+			"en_GB": "Delphi/Object Pascal",
+			"fr_FR": "Delphi/Object Pascal"
+		},
+		{
+			"en_GB": "Swift",
+			"fr_FR": "Swift"
+		},
+		{
+			"en_GB": "Ruby",
+			"fr_FR": "Ruby"
+		},
+		{
+			"en_GB": "Perl",
+			"fr_FR": "Perl"
+		},
+		{
+			"en_GB": "Rust",
+			"fr_FR": "Rust"
+		},
+		{
+			"en_GB": "Ada",
+			"fr_FR": "Ada"
+		},
+		{
+			"en_GB": "Fortran",
+			"fr_FR": "Fortran"
+		},
+		{
+			"en_GB": "OCaml",
+			"fr_FR": "OCaml"
+		},
+		{
+			"en_GB": "Haskell",
+			"fr_FR": "Haskell"
+		},
+		{
+			"en_GB": "ML",
+			"fr_FR": "ML"
+		},
+		{
+			"en_GB": "Lisp",
+			"fr_FR": "Lisp"
+		},
+		{
+			"en_GB": "Scheme",
+			"fr_FR": "Scheme"
+		},
+		{
+			"en_GB": "F#",
+			"fr_FR": "F#"
+		},
+		{
+			"en_GB": "Scala",
+			"fr_FR": "Scala"
+		},
+		{
+			"en_GB": "Lua",
+			"fr_FR": "Lua"
+		},
+		{
+			"en_GB": "Julia",
+			"fr_FR": "Julia"
+		},
+		{
+			"en_GB": "Bas",
+			"fr_FR": "Bas"
+		}
+	]
+}

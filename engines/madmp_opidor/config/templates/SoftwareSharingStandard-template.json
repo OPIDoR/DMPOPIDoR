@@ -1,0 +1,52 @@
+{
+    "$schema": "http://json-schema.org/draft-07/schema#",
+    "$id": "../Documentation/Implementation/data_model/Json/",
+    "title": "SoftwareSharingStandard",
+    "description": "SoftwareSharingStandard template",
+    "dataTypes": [
+        "software"
+    ],
+    "type": "object",
+    "class": "SoftwareSharingStandard",
+    "properties": {
+        "registration": {
+            "type": "array",
+            "table_header": null,
+            "items": {
+                "type": "object",
+                "class": "SoftwareRegistration",
+                "properties": {
+                    "dbid": {
+                        "type": "number"
+                    }
+                },
+                "template_name": "SoftwareRegistrationStandard",
+                "required": [
+                    "dbid"
+                ]
+            },
+            "minItems": 1,
+            "description": "Informations sur le référencement du logiciel (catalogues et identifiants)",
+            "label@fr_FR": "Informations sur le référencement du logiciel",
+            "label@en_GB": "Software registration software",
+            "tooltip": null,
+            "form_label@fr_FR": "Indiquer le ou les catalogues dans lequel est signalé le logiciel ainsi que son identifiant pérenne (ou l'URL du dépôt)",
+            "form_label@en_GB": "Indicate the catalog(s) in which the software is reported as well as its persistent identifier (or the URL of the repository)"
+        },
+        "description": {
+            "type": "string",
+            "description": "Autres aspects relatifs au référencement du logiciel",
+            "inputType": "textarea",
+            "label@fr_FR": "Informations complémentaires",
+            "label@en_GB": "Additional informations",
+            "tooltip": null,
+            "form_label@fr_FR": "Informations complémentaires",
+            "form_label@en_GB": "Additional informations"
+        }
+    },
+    "required": [
+        "registration",
+        "description"
+    ],
+    "to_string": []
+}

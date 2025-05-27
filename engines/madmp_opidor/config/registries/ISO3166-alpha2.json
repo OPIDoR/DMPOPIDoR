@@ -1,0 +1,72 @@
+{
+    "ISO3166-alpha2": [
+        {
+            "fr_FR": "AR",
+            "en_GB": "AR"
+        },
+        {
+            "fr_FR": "AT",
+            "en_GB": "AT"
+        },
+        {
+            "fr_FR": "BE",
+            "en_GB": "BE"
+        },
+        {
+            "fr_FR": "CH",
+            "en_GB": "CH"
+        },
+        {
+            "fr_FR": "DE",
+            "en_GB": "DE"
+        },
+        {
+            "fr_FR": "DK",
+            "en_GB": "DK"
+        },
+        {
+            "fr_FR": "ES",
+            "en_GB": "ES"
+        },
+        {
+            "fr_FR": "FI",
+            "en_GB": "FI"
+        },
+        {
+            "fr_FR": "FR",
+            "en_GB": "FR"
+        },
+        {
+            "fr_FR": "GB",
+            "en_GB": "GB"
+        },
+        {
+            "fr_FR": "IN",
+            "en_GB": "IN"
+        },
+        {
+            "fr_FR": "IT",
+            "en_GB": "IT"
+        },
+        {
+            "fr_FR": "LT",
+            "en_GB": "LT"
+        },
+        {
+            "fr_FR": "NC",
+            "en_GB": "NC"
+        },
+        {
+            "fr_FR": "NL",
+            "en_GB": "NL"
+        },
+        {
+            "fr_FR": "NO",
+            "en_GB": "NO"
+        },
+        {
+            "fr_FR": "US",
+            "en_GB": "US"
+        }
+    ]
+}

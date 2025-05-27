@@ -67,7 +67,16 @@ class MadmpSchema < ApplicationRecord
     'quality_assurance_method' => 'qualityAssuranceMethod',
     'data_sharing' => 'sharing',
     'data_preservation' => 'preservationIssues',
-    'budget' => 'budget'
+    'budget' => 'budget',
+    # Software output
+    'software_description' => 'softwareDescription',
+    'software_development' => 'softwareDevelopment',
+    'software_documentation' => 'softwareDocumentation',
+    'software_runtime' => 'softwareRuntime',
+    'software_preservation' => 'softwarePreservation',
+    'software_legal_issues' => 'softwareLegalIssues',
+    'software_sharing' => 'softwareSharing',
+    'software_valorisation' => 'softwareValorisation'
   }.freeze
 
   # ==========

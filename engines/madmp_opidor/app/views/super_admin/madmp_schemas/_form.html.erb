@@ -1,51 +1,52 @@
 <% url = @schema.new_record? ? super_admin_madmp_schemas_path : super_admin_madmp_schema_path(@schema) %>
 
  <%= form_for @schema, url: url, html: { class: 'schema' } do |f| %>
-    <div class="row">
-      <div class="form-group">
-        <%= f.label(:label, _('Label'), class: 'control-label') %>
-        <%= f.text_field(:label, class: "form-control", spellcheck: true, "aria-required": true) %>
-      </div>
-      <div class="form-group">
-        <%= f.label(:name, _('Name'), class: 'control-label') %>
-        <%= f.text_field(:name, class: "form-control", spellcheck: true, "aria-required": true) %>
-      </div>
-      <div class="form-group">
-        <%= f.label(:name, _('Classname'), class: 'control-label') %>
-        <%= f.text_field(:classname, class: "form-control", spellcheck: true, "aria-required": true) %>
-      <div class="form-group">
-        <%= f.label(:data_type, _('Data type'), class: 'control-label') %>
-        <%= select_tag(:data_type,
-            options_for_select(
-              [[_("None"), "none"], [_("Software"), "software"]],
-              f.object.data_type
-            ),
-            class: "form-control",
-            name: 'madmp_schema[data_type]') %>
-      </div>
-      <div class="form-group">
-        <%= f.label(:version, _('Version'), class: 'control-label') %>
-        <%= f.number_field(:version, class: "form-control", spellcheck: true, "aria-required": true) %>
-      </div>
-      <div class="form-group">
-        <%= f.label(:api_client_id, _('Api Client'), class: 'control-label') %>
-        <%= f.collection_select(:api_client_id,
-                ApiClient.all.order("name ASC"),
-                :id, :name, {include_blank: true, prompt: true}, {multiple: false, 'data-toggle': 'tooltip', title: _('Select which API Client this form belongs to.'), class: 'form-control', 'aria-required': true})%>
+  <div class="row">
+    <div class="form-control mb-3">
+      <%= f.label(:label, _('Label'), class: 'form-label') %>
+      <%= f.text_field(:label, class: "form-control", spellcheck: true, "aria-required": true) %>
+    </div>
+    <div class="form-control mb-3">
+      <%= f.label(:name, _('Name'), class: 'form-label') %>
+      <%= f.text_field(:name, class: "form-control", spellcheck: true, "aria-required": true) %>
+    </div>
+    <div class="form-control mb-3">
+      <%= f.label(:name, _('Classname'), class: 'form-label') %>
+      <%= f.text_field(:classname, class: "form-control", spellcheck: true, "aria-required": true) %>
+    </div>
+    <div class="form-control mb-3">
+      <%= f.label(:data_type, _('Data type'), class: 'form-label') %>
+      <%= select_tag(:data_type,
+          options_for_select(
+            data_type_select_values,
+            f.object.data_type
+          ),
+          class: "form-select",
+          name: 'madmp_schema[data_type]') %>
+    </div>
+    <div class="form-control mb-3">
+      <%= f.label(:version, _('Version'), class: 'form-label') %>
+      <%= f.number_field(:version, class: "form-control", spellcheck: true, "aria-required": true) %>
+    </div>
+    <div class="form-control mb-3">
+      <%= f.label(:api_client_id, _('Api Client'), class: 'form-label') %>
+      <%= f.collection_select(:api_client_id,
+              ApiClient.all.order("name ASC"),
+              :id, :name, {include_blank: true, prompt: true}, {multiple: false, 'data-toggle': 'tooltip', title: _('Select which API Client this form belongs to.'), class: 'form-select', 'aria-required': true})%>
 
-      </div>
-      <div class="form-group">
-        <%= f.label(:schema, _('Schema'), class: 'control-label') %>
-        <%= f.text_area(:schema, class: "form-control json", rows: 100, value: JSON.pretty_generate(@schema.schema))  %>
-      </div>
-      <div class="pull-right">
-        <%= f.button(_('Save'), class: "btn btn-default", type: "submit") %>
-        <% unless @schema.new_record? %>
-          <%= link_to(_('Delete'), super_admin_madmp_schema_path(@schema), class: 'btn btn-default',
-            rel: 'nofollow', 'data-method': 'delete',
-            'data-confirm': _("Are you sure you want to delete the schema \"%{title}\"?") % { title: @schema.name }) %>
-        <% end %>
-        <%= link_to(_('Cancel'), super_admin_madmp_schemas_path, class: 'btn btn-default', role: 'button') %>
-      </div>
-   </div>
+    </div>
+    <div class="form-control mb-3">
+      <%= f.label(:schema, _('Schema'), class: 'form-label') %>
+      <%= f.text_area(:schema, class: "form-control json", rows: 100, value: JSON.pretty_generate(@schema.schema))  %>
+    </div>
+    <div class="float-end">
+      <%= f.button(_('Save'), class: "btn btn-primary", type: "submit") %>
+      <% unless @schema.new_record? %>
+        <%= link_to(_('Delete'), super_admin_madmp_schema_path(@schema), class: 'btn btn-primary',
+          rel: 'nofollow', 'data-method': 'delete',
+          'data-confirm': _("Are you sure you want to delete the schema \"%{title}\"?") % { title: @schema.name }) %>
+      <% end %>
+      <%= link_to(_('Cancel'), super_admin_madmp_schemas_path, class: 'btn btn-primary', role: 'button') %>
+    </div>
+  </div>
  <% end %>

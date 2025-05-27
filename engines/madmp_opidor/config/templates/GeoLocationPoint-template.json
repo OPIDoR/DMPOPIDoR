@@ -1,0 +1,44 @@
+{
+    "$schema": "http://json-schema.org/draft-07/schema#",
+    "$id": "../Documentation/Implementation/data_model/Json/",
+    "title": "GeoLocationPoint",
+    "description": "GeoLocationPoint template",
+    "dataTypes": null,
+    "type": "object",
+    "class": "GeoLocationPoint",
+    "properties": {
+        "pointLongitude": {
+            "type": "string",
+            "description": "Longitude du point",
+            "label@fr_FR": "Longitude",
+            "label@en_GB": "Longitude",
+            "tooltip": null,
+            "example@fr_FR": "-56.32",
+            "example@en_GB": "-56.32",
+            "form_label@fr_FR": "Longitude",
+            "form_label@en_GB": "Longitude"
+        },
+        "pointLatitude": {
+            "type": "string",
+            "description": "Latitude du point",
+            "label@fr_FR": "Latitude",
+            "label@en_GB": "Latitude",
+            "tooltip": null,
+            "example@fr_FR": "46.85",
+            "example@en_GB": "46.85",
+            "form_label@fr_FR": "Latitude",
+            "form_label@en_GB": "Latitude"
+        }
+    },
+    "required": [
+        "pointLongitude",
+        "pointLatitude"
+    ],
+    "to_string": [
+        "Longitude : ",
+        "$.pointLongitude",
+        " / ",
+        "Latitude : ",
+        "$.pointLatitude"
+    ]
+}

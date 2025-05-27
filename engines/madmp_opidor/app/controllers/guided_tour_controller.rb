@@ -3,7 +3,7 @@
 # Controller for the GuidedTour Service, that handles guided tour state
 class GuidedTourController < ApplicationController
   after_action :verify_authorized
-  include Dmpopidor::ErrorHelper
+  include ErrorHelper
 
   def get_tour # rubocop:disable Naming/AccessorMethodName
     tour_name = params[:tour]

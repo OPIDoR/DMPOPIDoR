@@ -1,0 +1,27 @@
+@use '../variables/colours' as *;
+@use '../dmpopidor/colours' as *;
+
+.form-control {
+  border: 0px;
+}
+
+input.form-control,
+textarea.form-control,
+select.form-select {
+  border: 1px solid $dark-blue;
+  &::placeholder {
+    color: $light-blue;
+  }
+}
+
+.form-check {
+  padding-left: 0rem;
+}
+
+.form-inline {
+  margin-bottom: 5px;
+}
+
+.form-check-label {
+  padding-left: 5px;
+}

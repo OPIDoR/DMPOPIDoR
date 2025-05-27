@@ -34,14 +34,14 @@
                 class="btn btn-link dropdown-toggle"
                 type="button"
                 id="api_client-<%= client.id %>-actions"
-                data-toggle="dropdown"
+                data-bs-toggle="dropdown"
                 aria-haspopup="true"
                 aria-expanded="true">
                 <%= _('Actions') %><span class="caret"></span>
               </button>
               <ul class="dropdown-menu" aria-labelledby="api_client-<%= client.id %>-actions">
-                <li><%= link_to _('Edit'), edit_super_admin_api_client_path(client) %></li>
-                <li><%= link_to _('Remove'),  super_admin_api_client_path(client), method: :delete, data: { confirm: _("You are about to delete '%{client_name}'. They will no longer be able to access the API. Are you sure?") % { :client_name => client.name }} %></li>
+                <li class="nav-item"><%= link_to _('Edit'), edit_super_admin_api_client_path(client), class: 'dropdown-item px-3' %></li>
+                <li class="nav-item"><%= link_to _('Remove'), super_admin_api_client_path(client), class: 'dropdown-item px-3', method: :delete, data: { confirm: _("You are about to delete '%{client_name}'. They will no longer be able to access the API. Are you sure?") % { :client_name => client.name }} %></li>
               </ul>
             </div>
           </td>

@@ -3,6 +3,10 @@
     "$id": "../Documentation/Implementation/data_model/Json/",
     "title": "TechnicalResourceStandard",
     "description": "TechnicalResourceStandard template",
+    "dataTypes": [
+        "software",
+        "none"
+    ],
     "type": "object",
     "class": "TechnicalResourceStandard",
     "properties": {
@@ -33,6 +37,7 @@
             "registries": [
                 "PIDSystem"
             ],
+            "registryCategory": "PIDSystem",
             "overridable": true,
             "tooltip": null,
             "form_label@fr_FR": "Type d'identifiant de la ressource technique",

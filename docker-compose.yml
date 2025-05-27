@@ -8,7 +8,7 @@ services:
         - DB_ADAPTER=${DB_ADAPTER:-postgres}
         - DB_USERNAME=${DB_USERNAME:-postgres}
         - DB_PASSWORD=${DB_PASSWORD:-changeme}
-        - NODE_MAJOR=${NODE_MAJOR:-20}
+        - NODE_MAJOR=${NODE_MAJOR:-22}
     depends_on:
       postgres:
         condition: service_healthy
@@ -32,7 +32,6 @@ services:
       - RAILS_LOG_TO_STDOUT=${RAILS_LOG_TO_STDOUT:-true}
       - DOMAIN=${DOMAIN:-app}
       - ENABLE_SHIBBOLETH=${ENABLE_SHIBBOLETH:-false}
-      - ENABLE_THIRD_PARTY_FORM=${ENABLE_THIRD_PARTY_FORM:-false}
       - WEB_CONCURRENCY=${WEB_CONCURRENCY:-2}
       - RAILS_MAX_THREADS=${RAILS_MAX_THREADS:-5}
       - WICKED_PDF_PATH=${WICKED_PDF_PATH:-/usr/local/bin/wkhtmltopdf}
@@ -71,7 +70,7 @@ services:
     volumes:
       - ./log:/app/log
     healthcheck:
-      test: ["CMD-SHELL", "wget -q -S -O - http://localhost:3000 2>&1 | grep 'HTTP/1.1 200 OK'"]
+      test: ["CMD-SHELL", "curl -s -o /dev/null -w \"%{http_code}\" http://localhost:3000 | grep '200'"]
       interval: ${DMPOPIDOR_HEALTHCHECK_INTERVAL:-30s}
       timeout: ${DMPOPIDOR_HEALTHCHECK_TIMEOUT:-30s}
       retries: ${DMPOPIDOR_HEALTHCHECK_RETRIES:-3}
@@ -113,7 +112,7 @@ services:
       - dmpopidor_network
 
   nginx:
-    image: nginx:1.27.3-alpine-slim
+    image: nginx:1.27.5-alpine-slim
     ports:
       - ${NGINX_PORT:-8080}:80
     depends_on:
@@ -135,7 +134,7 @@ services:
       - dmpopidor_network
 
   postgres:
-    image: postgres:16.6-alpine3.20
+    image: postgres:16.8-alpine3.21
     environment:
       - POSTGRES_USER=${DB_USERNAME:-postgres}
       - POSTGRES_PASSWORD=${DB_PASSWORD:-changeme}
@@ -155,7 +154,7 @@ services:
       - dmpopidor_network
 
   valkey:
-    image: valkey/valkey:8.0.1-alpine3.20
+    image: valkey/valkey:8.1.0-alpine3.21
     command: "redis-server /etc/redis/redis.conf --requirepass ${REDIS_PASSWORD:-changeme}"
     volumes:
       - ./redis/sysctl.conf:/etc/sysctl.conf:ro

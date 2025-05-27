@@ -1,0 +1,80 @@
+<%# locals: { plan, phases, research_outputs } %>
+
+<% research_outputs.each do |research_output| %>
+  <% research_output_default_and_alone = research_output.is_default && research_outputs.length == 1 %>
+  <% research_output_fragment = research_output.json_fragment %>
+  <% research_output_description = research_output_fragment.research_output_description %>
+  <% phase = phases.first %>
+  <% 
+    module_id = research_output.module_id
+    if module_id.present?
+      phase = plan.prepare_template_phases(::Template.find(module_id)).first
+    end
+  %> 
+  <%# Page break before each research output %>
+  <div style="page-break-before:always;"></div>
+  <h1><%= research_output_description.data['title'] %></h1>
+  <hr />
+
+  <% if !research_output_default_and_alone %>
+    <div class="research-output">
+  <% end %>
+  <% phase[:sections].each do |section| %>
+    <% if @show_sections_questions %>
+      <br/>
+      <h3><%= section[:title] %></h3>
+      <p><%= sanitize section[:description] %></p>
+      <br/>
+    <% end %>
+    <% section[:questions].each do |question| %>
+      <% answer = @plan.answer(question[:id], false, research_output[:id]) %>
+      <% blank = answer.present? ? answer.blank? : true %>
+      <% fragment = answer.present? ? answer.madmp_fragment : nil %>
+
+      <% next if should_hide_question(question, research_output) %>
+
+      <% unless @show_unanswered == false && blank  %>
+        <div class="question">
+          <% if !@public_plan && @show_sections_questions%>
+            <p>
+              <%# Hack: for DOCX export - otherwise, bold highlighting of question inconsistent. %>
+              <% if local_assigns[:export_format] && export_format == 'docx' %>
+                <strong><h4><%=  sanitize question[:text].to_s, scrubber: TableFreeScrubber.new %></h4></strong>
+              <% else %>
+                <div class="bold"><h4><%=  sanitize question[:text].to_s, scrubber: TableFreeScrubber.new %></h4></div>
+              <% end %>
+              <br/>
+            </p>
+            <br/>
+          <% end %>
+          <% if fragment.present? %>
+            <%= render partial: 'shared/export/display_madmp_fragment',
+                        locals: {
+                            fragment: fragment,
+                            schema: fragment.madmp_schema,
+                            classname: fragment.classname,
+                            locale: LocaleService.to_gettext(locale: @plan.template.locale),
+                            table_header: nil
+                        } %>
+          <%# case for displaying comments OR text %>
+          <% elsif !blank %>
+            <%= sanitize answer&.text %>
+            <br/>
+          <% else %>
+            <br/>
+            <p><%= _('Question not answered.') -%></p>
+            <br/><br/>
+            <br />
+          <% end %>
+          <br />
+        </div>
+      <% end %>
+    <% end %> <!-- questions.each -->
+
+  <% end %>
+
+  <% if !research_output_default_and_alone  %>
+    </div> <!-- .research_output -->
+  <% end %>
+
+<% end %>

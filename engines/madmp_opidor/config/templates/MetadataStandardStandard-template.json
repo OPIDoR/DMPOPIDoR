@@ -3,6 +3,7 @@
     "$id": "../Documentation/Implementation/data_model/Json/",
     "title": "MetadataStandardStandard",
     "description": "MetadataStandardStandard template",
+    "dataTypes": null,
     "type": "object",
     "class": "MetadataStandardStandard",
     "properties": {
@@ -49,6 +50,7 @@
             "registries": [
                 "PIDSystem"
             ],
+            "registryCategory": "PIDSystem",
             "overridable": true,
             "tooltip": null,
             "form_label@fr_FR": "Type d'identifiant",

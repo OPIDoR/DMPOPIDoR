@@ -1,0 +1,121 @@
+{
+    "$schema": "http://json-schema.org/draft-07/schema#",
+    "$id": "../Documentation/Implementation/data_model/Json/",
+    "title": "SoftwareRuntimeStandard",
+    "description": "SoftwareRuntimeStandard template",
+    "dataTypes": [
+        "software"
+    ],
+    "type": "object",
+    "class": "SoftwareRuntimeStandard",
+    "properties": {
+        "programmingLanguage": {
+            "type": "array",
+            "table_header": null,
+            "items": {
+                "type": "object",
+                "class": "ProgrammingLanguage",
+                "properties": {
+                    "dbid": {
+                        "type": "number"
+                    }
+                },
+                "template_name": "ProgrammingLanguageStandard",
+                "required": [
+                    "dbid"
+                ]
+            },
+            "minItems": 1,
+            "description": "Langages de programmation utilisés dans le logiciel (nom et version)",
+            "label@fr_FR": "Langages de programmation",
+            "label@en_GB": "Programming languages",
+            "tooltip": null,
+            "form_label@fr_FR": "Quels langages de programmation sont utilisés dans le logiciel ?",
+            "form_label@en_GB": "What programming languages ​​are used in the software?"
+        },
+        "operatingSystem": {
+            "type": "array",
+            "items": {
+                "type": "string"
+            },
+            "minItems": 1,
+            "description": "Systèmes d’exploitation sur lesquels le code s’exécute",
+            "inputType": "dropdown",
+            "label@fr_FR": "Systèmes d'exploitation",
+            "label@en_GB": "Operating systems",
+            "registries": [
+                "OperatingSystems"
+            ],
+            "registryCategory": "OperatingSystem",
+            "overridable": true,
+            "tooltip": null,
+            "form_label@fr_FR": "Sur quels systèmes d'exploitation votre code s'exécute-t-il ?",
+            "form_label@en_GB": "What operating systems does your code run on?"
+        },
+        "dependency": {
+            "type": "array",
+            "table_header": null,
+            "items": {
+                "type": "object",
+                "class": "DependencyReference",
+                "properties": {
+                    "dbid": {
+                        "type": "number"
+                    }
+                },
+                "template_name": "DependencyReferenceStandard",
+                "required": [
+                    "dbid"
+                ]
+            },
+            "minItems": 1,
+            "description": "Dépendances",
+            "label@fr_FR": "Dépendances",
+            "label@en_GB": "Dependencies",
+            "tooltip@fr_FR": "Si vous avez un fichier 'Requirements', ajoutez-le comme élément en précisant son lien URL ou lister les dépendances individuellement",
+            "tooltip@en_GB": "If you have a 'Requirements' file, add it as an item with its URL link or list the dependencies individually",
+            "form_label@fr_FR": "Quelles sont les dépendances requises pour l'utilisation du logiciel ?",
+            "form_label@en_GB": "What are the dependencies required to use the software?"
+        },
+        "cost": {
+            "type": "array",
+            "table_header@fr_FR": "Type de coût : montant",
+            "table_header@en_GB": "Cost type: amount",
+            "items": {
+                "type": "object",
+                "class": "Cost",
+                "properties": {
+                    "dbid": {
+                        "type": "number"
+                    }
+                },
+                "template_name": "CostStandard",
+                "required": [
+                    "dbid"
+                ]
+            },
+            "description": "Coûts éventuels liés à l'environnement d'exécution",
+            "label@fr_FR": "Coûts",
+            "label@en_GB": "Costs",
+            "tooltip": null,
+            "form_label@fr_FR": "Coûts liés à l'environnement d'exécution",
+            "form_label@en_GB": "Costs related to the execution environment"
+        },
+        "description": {
+            "type": "string",
+            "description": "Informations complémentaires sur l'environnement d'exécution",
+            "inputType": "textarea",
+            "label@fr_FR": "Informations complémentaires",
+            "label@en_GB": "Additional informations",
+            "tooltip": null,
+            "form_label@fr_FR": "Informations complémentaires",
+            "form_label@en_GB": "Additional informations"
+        }
+    },
+    "required": [
+        "programmingLanguage",
+        "operatingSystem",
+        "dependency"
+    ],
+    "to_string": []
+}

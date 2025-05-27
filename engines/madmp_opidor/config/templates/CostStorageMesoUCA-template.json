@@ -3,6 +3,7 @@
     "$id": "../Documentation/Implementation/data_model/Json/",
     "title": "CostStorageMesoUCA",
     "description": "CostStorageMesoUCA template",
+    "dataTypes": null,
     "type": "object",
     "class": "CostStorageMesoUCA",
     "properties": {
@@ -31,7 +32,6 @@
             "label@fr_FR": "Devise",
             "label@en_GB": "Currency",
             "tooltip": null,
-            "isConst": true,
             "form_label@fr_FR": "Devise",
             "form_label@en_GB": "Currency"
         },
@@ -41,7 +41,6 @@
             "label@fr_FR": "Titre",
             "label@en_GB": "Title",
             "tooltip": null,
-            "isConst": true,
             "form_label@fr_FR": "Titre",
             "form_label@en_GB": "Title"
         }

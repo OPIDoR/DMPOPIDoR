@@ -1,0 +1,22 @@
+@use './colours' as *;
+
+
+
+#search-addon {
+  background-color: $dark-blue;
+}
+
+.dmpopidor-branding.org-admin {
+  #search-addon {
+    background-color: $rust;
+  }
+}
+
+.dmpopidor-branding.super-admin {
+  #search-addon {
+    background-color: $dmpopidor-yellow;
+    span.fa-magnifying-glass {
+      color: black;
+    }
+  }
+}

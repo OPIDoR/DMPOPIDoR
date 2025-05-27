@@ -3,53 +3,42 @@
 <% required ||= false %>
 <% in_error ||= false %>
 
-<div class="form-group">
-  <% if all_themes.length > 0 %>
+<div class="form-control mb-3">
+  <% if !all_themes.nil? && all_themes.length > 0 %>
     <%
       cntr = 0
       per_col = Rails.configuration.x.max_number_themes_per_column
       nbr_of_cols = (all_themes.length.to_f / per_col.to_f).ceil
       col_size = (12 / (nbr_of_cols > 4 ? 3 : nbr_of_cols)).round
     %>
-    <fieldset<%= in_error ? ' class=field_with_errors' : '' %>>
+    <fieldset <%= in_error ? ' class=field_with_errors' : '' %>>
       <legend>
         <%= _('Themes') %>
         <%= render partial: 'shared/popover',
                    locals: { message: popover_message, placement: 'right' }%>
       </legend>
-
-      <div class="col-md-<%= col_size %>">
-        <% all_themes.each do |theme| %>
-          <% if cntr >= per_col %>
+ 
+      <div class="row">
+        <div class="col-md-<%= col_size %>">
+          <% all_themes.each do |theme| %>
+            <% if cntr >= per_col %>
+              </div>
+              <div class="col-md-<%= col_size %>">
+              <% cntr = 0 %>
+            <% end %>
+            <div class="form-check">
+              <% namespace = f.object.class.name.downcase %>
+              <% id = f.object.id.present? ? f.object.id : 'new' %>
+              <input id="<%= id %>_<%= namespace %>_theme_ids_<%= theme[:id] %>"
+                    name="<%= namespace %>[theme_ids][]"
+                    type="<%= as_radio ? 'radio' : 'checkbox' %>"
+                    <%= required && (theme == all_themes.first ? ' aria-required=true ' : '') %>
+                    value="<%= theme[:id] %>"<%= f.object.themes.include?(theme) ? ' checked="checked"' : '' %>>
+              <%= theme[:title] %>
             </div>
-            <div class="col-md-<%= col_size %>">
-            <% cntr = 0 %>
+            <% cntr += 1 %>
           <% end %>
-          <div class="checkbox">
-            <% namespace = f.object.class.name.downcase %>
-            <% id = f.object.id.present? ? f.object.id : 'new' %>
-            <% locale = if defined?(locale_id) && locale_id.present?
-                          Language.find_by(id: locale_id) || Language.find_by(abbreviation: 'fr-FR')
-                        else
-                          Language.find_by(abbreviation: 'fr-FR')
-                        end %>
-            <% title_theme = theme&.translations&.dig(locale&.abbreviation, 'title') || theme&.title %>
-            <% checked_value = if defined?(selected_theme) && selected_theme && title_theme.eql?(selected_theme)
-                     ' checked="checked"'
-                   elsif f.object.themes.include?(theme)
-                     ' checked="checked"'
-                   else
-                     ''
-                   end %>
-            <input id="<%= id %>_<%= namespace %>_theme_ids_<%= theme[:id] %>"
-                   name="<%= namespace %>[theme_ids][]"
-                   type="<%= as_radio ? 'radio' : 'checkbox' %>"
-                   <%= required && (theme == all_themes.first ? ' aria-required=true ' : '') %>
-                   value="<%= theme[:id] %>"<%= checked_value %>>
-            <%= title_theme %>
-          </div>
-          <% cntr += 1 %>
-        <% end %>
+        </div>
       </div>
     </fieldset>
   <% else %>
