@@ -18,7 +18,7 @@
       <div class="form-control mb-3 col-xs-8">
         <%= link_to _('Request feedback'),
                      feedback_requests_path(plan_id: @plan.id),
-                     data: { method: 'post' },
+                     data: { turbo_method: 'post' },
                      class: "btn btn-secondary#{' disabled' if @plan.feedback_requested?}" %>
         <span><%= _("Feedback has been requested.") if @plan.feedback_requested? %></span>
       </div>

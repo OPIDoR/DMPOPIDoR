@@ -54,12 +54,12 @@
                   <li class="nav-item"><%= link_to _('Edit'), admin_edit_guidance_path(guidance), class:'dropdown-item px-3' %></li>
                   <!-- If the guidance has never been published or it has changed -->
                   <% if guidance.published? %>
-                    <li class="nav-item"><%= link_to _('Unpublish'), admin_unpublish_guidance_path(guidance), method: :put, class:'dropdown-item px-3' %></li>
+                    <li class="nav-item"><%= link_to _('Unpublish'), admin_unpublish_guidance_path(guidance), data: { turbo_method: :put }, class:'dropdown-item px-3' %></li>
                   <% else %>
-                    <li class="nav-item"><%= link_to _('Publish'), admin_publish_guidance_path(guidance), method: :put, class:'dropdown-item px-3' %></li>
+                    <li class="nav-item"><%= link_to _('Publish'), admin_publish_guidance_path(guidance), data: { turbo_method: :put }, class:'dropdown-item px-3' %></li>
                   <% end %>
                   <li class="nav-item"><%= link_to _('Remove'), admin_destroy_guidance_path(guidance),
-                  data: {confirm: _("You are about to delete '%{guidance_summary}'. Are you sure?") % { :guidance_summary => truncate(sanitize(guidance.text,tags: %w(br a)), length: 20 , omission: _('... (continued)'))} }, method: :delete, class:'dropdown-item px-3' %>
+                  data: { turbo_confirm: _("You are about to delete '%{guidance_summary}'. Are you sure?") % { :guidance_summary => truncate(sanitize(guidance.text,tags: %w(br a)), length: 20 , omission: _('... (continued)'))}, turbo_method: :delete }, class:'dropdown-item px-3' %>
                   </li>
                 </ul>
               </div>

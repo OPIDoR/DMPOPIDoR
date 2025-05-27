@@ -53,7 +53,7 @@
                       <% elsif template.latest? %>
                         <%= link_to _('Re-order sections'),
                             org_admin_template_phase_versions_path(phase.template, phase),
-                            method: "post",
+                            data: { turbo_method: :post },
                             class: "btn btn-primary btn-sm" %>
                       <% end %>
                     </div>
