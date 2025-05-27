@@ -61,19 +61,19 @@
                 <li class="nav-item"><%= link_to _('Edit'), edit_super_admin_template_path(template.id), class: 'dropdown-item px-3' %></li>
                 <li class="nav-item"><%= link_to _('History'), history_super_admin_template_path(template.id), class: 'dropdown-item px-3' %></li>
                 <% if template.draft? || template.published? %>
-                  <li class="nav-item"><%= link_to _('Unpublish'), unpublish_super_admin_template_path(template.id), 'data-method': 'patch', class: 'dropdown-item px-3' %></li>
+                  <li class="nav-item"><%= link_to _('Unpublish'), unpublish_super_admin_template_path(template.id), 'data-turbo-method': 'patch', class: 'dropdown-item px-3' %></li>
                 <% end %>
                 <% if template.draft? %>
-                  <li class="nav-item"><%= link_to _('Publish changes'), publish_super_admin_template_path(template), 'data-method': 'patch', class: 'dropdown-item px-3' %></li>
+                  <li class="nav-item"><%= link_to _('Publish changes'), publish_super_admin_template_path(template), 'data-turbo-method': 'patch', class: 'dropdown-item px-3' %></li>
                 <% elsif !template.published? %>
-                  <li class="nav-item"><%= link_to _('Publish'), publish_super_admin_template_path(template.id), 'data-method': 'patch', class: 'dropdown-item px-3' %></li>
+                  <li class="nav-item"><%= link_to _('Publish'), publish_super_admin_template_path(template.id), 'data-turbo-method': 'patch', class: 'dropdown-item px-3' %></li>
                 <% end %>
                 <% if template.removable? %>
                   <li class="nav-item">
                     <%= link_to _('Remove'), super_admin_template_path(id: template.id),
                                 class: 'dropdown-item px-3',
-                                'data-method': 'delete', rel: 'nofollow',
-                                'data-confirm': _('Are you sure you want to remove "%{template_title}"? Any published versions will become unavailable to users.') % { template_title: template.title} %>
+                                'data-turbo-method': 'delete', rel: 'nofollow',
+                                'data-turbo-confirm': _('Are you sure you want to remove "%{template_title}"? Any published versions will become unavailable to users.') % { template_title: template.title} %>
                   </li>
                 <% end %>
                 <li class="nav-item"><%= link_to template_export_super_admin_template_url(template, format: :pdf),

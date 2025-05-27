@@ -997,7 +997,12 @@
     "@tanstack/react-virtual" "^3.13.6"
     use-sync-external-store "^1.5.0"
 
-"@hotwired/turbo-rails@^8.0":
+"@hotwired/stimulus@^3.2.2":
+  version "3.2.2"
+  resolved "https://registry.yarnpkg.com/@hotwired/stimulus/-/stimulus-3.2.2.tgz#071aab59c600fed95b97939e605ff261a4251608"
+  integrity sha512-eGeIqNOQpXoPAIP7tC1+1Yc1yl1xnwYqg+3mzqxyrbE5pg5YFBZcA6YoTiByJB6DKAEsiWtl6tjTJS4IYtbB7A==
+
+"@hotwired/turbo-rails@^8.0.13":
   version "8.0.13"
   resolved "https://registry.yarnpkg.com/@hotwired/turbo-rails/-/turbo-rails-8.0.13.tgz#7016651f7144053992ce5096bb95495f8faa5854"
   integrity sha512-6SCnnOSzhtaJ0pNkAjncZxjtKsK3sP/vPEkCnTXBXSHkr+vF7DTZkOlwjhms1DbbQNTsjCsBoKvzSMbh/omSCQ==
@@ -1504,11 +1509,6 @@
   integrity sha512-7hCJsh2eULFwki4MhDGVLSdAABkmjQkCm9LNE2UK6Ti9uRMkhpER+PoLFLJ2QlJkahZuN62gbCnOnLczRxZSdA==
   dependencies:
     spark-md5 "^3.0.1"
-
-"@rails/ujs@~7.1":
-  version "7.1.501"
-  resolved "https://registry.yarnpkg.com/@rails/ujs/-/ujs-7.1.501.tgz#e560a7b6885a12a659c4beb47f4336c8a9353056"
-  integrity sha512-7EDRGUlgns12IgP3SXVSaxA3CwRzbLOypPXn1EqEZiZ/NS/PwaQ/oa7Z2VRO4B46JifoVr0PYg+G5ERSGQJHxQ==
 
 "@react-aria/focus@^3.20.2":
   version "3.20.2"
