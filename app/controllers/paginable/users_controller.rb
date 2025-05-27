@@ -3,12 +3,9 @@
 module Paginable
   # Controller for paginating/sorting/searching the users table
   class UsersController < ApplicationController
-    prepend Dmpopidor::Paginable::UsersController
     include Paginable
 
     # --------------------------------
-    # Start DMP OPIDoR Customization
-    # SEE app/controllers/dmpopidor/paginable/users_controller.rb
     # Changes : Users without activity should not be displayed first
     # --------------------------------
     # /paginable/users/index/:page
@@ -30,15 +27,12 @@ module Paginable
 
       paginable_renderise(
         partial: 'index',
-        scope: scope,
-        query_params: { sort_field: 'users.surname', sort_direction: :asc },
+        scope: scope.order('users.last_sign_in_at desc NULLS LAST'),
+        query_params: { sort_field: 'users.last_sign_in_at', sort_direction: :desc },
         format: :json,
         view_all: !current_user.can_super_admin?
       )
     end
     # rubocop:enable Metrics/AbcSize
-    # --------------------------------
-    # End DMP OPIDoR Customization
-    # --------------------------------
   end
 end

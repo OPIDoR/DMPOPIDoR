@@ -29,7 +29,7 @@ module Dmpopidor
 
     # CHANGES : Reviewer can be from a different org of the plan owner
     def reviewable_by?(user_id)
-      reviewer = ::User.find(user_id)
+      reviewer = User.find(user_id)
       feedback_requested? &&
         reviewer.present? &&
         reviewer.org_id == feedback_requestor&.org_id &&
@@ -58,7 +58,7 @@ module Dmpopidor
     # rubocop:disable Metrics/AbcSize, Metrics/MethodLength
     def create_plan_fragments(json_data = nil)
       template_locale = template.locale.eql?('en-GB') ? 'eng' : 'fra'
-      dmp_template_name = template.research_entity? ? 'DMPResearchEntity' : 'DMPResearchProject'
+      dmp_template_name = research_entity? ? 'DMPResearchEntity' : 'DMPResearchProject'
       # rubocop:disable Metrics/BlockLength
       I18n.with_locale template.locale do
         dmp_fragment = Fragment::Dmp.create!(
@@ -100,7 +100,7 @@ module Dmpopidor
         #################################
         # META & PROJECT FRAGMENTS
         #################################
-        if template.research_entity?
+        if research_entity?
           handle_research_entity(dmp_fragment.id, json_data.present? ? json_data['research_entity'] : nil)
         else
           handle_research_project(dmp_fragment.id)
@@ -184,7 +184,7 @@ module Dmpopidor
           )
         end
 
-        if template.research_entity?
+        if research_entity?
           json_fragment.research_entity.raw_import(raw_project, json_fragment.research_entity.madmp_schema)
         else
           json_fragment.project.raw_import(raw_project, json_fragment.project.madmp_schema)
@@ -204,15 +204,11 @@ module Dmpopidor
     end
 
     def grant_identifier
-      if template.research_entity?
+      if research_entity?
         json_fragment.research_entity.fundings.pluck(Arel.sql("data->'grantId'")).join(', ')
       else
         json_fragment.project.fundings.pluck(Arel.sql("data->'grantId'")).join(', ')
       end
-    end
-
-    def structured?
-      template.structured?
     end
   end
   # rubocop:enable Metrics/ModuleLength

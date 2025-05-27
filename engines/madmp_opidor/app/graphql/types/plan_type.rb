@@ -15,6 +15,15 @@ module Types
     #  description 'Fetch research outputs'
     # end
 
+    def researchOutput
+      object["researchOutput"].map do |ro|
+        research_output = ResearchOutput.find(ro["research_output_id"])
+        research_output_fragment = research_output.json_fragment
+        additional_info = research_output_fragment.additional_info.except('moduleId', 'property_name')
+        research_output_fragment.get_full_fragment.merge(configuration: additional_info)
+      end
+    end
+
     #def researchOutput(filter: nil)
     # dmp_id = object["id"]
 

@@ -132,13 +132,44 @@
                   "rda"
                 ]
               }
+            },
+            {
+              "name": "context",
+              "in": "query",
+              "description": "Import context (research_project/research_entity)",
+              "required": true,
+              "schema": {
+                "type": "string",
+                "default": "research_project",
+                "enum": [
+                  "research_project",
+                  "research_entity"
+                ]
+              }
+            },
+            {
+              "name": "locale",
+              "in": "query",
+              "description": "Import language (fr/en)",
+              "required": true,
+              "schema": {
+                "type": "string",
+                "default": "fr",
+                "enum": [
+                  "fr",
+                  "en"
+                ]
+              }
             }
           ],
           "requestBody": {
             "content": {
               "application/json": {
                 "schema": {
-                  "type": "object"
+                  "type": "object",
+                  "example": {
+                    "data": {}
+                  }
                 }
               }
             },

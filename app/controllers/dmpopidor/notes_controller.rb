@@ -4,7 +4,7 @@ module Dmpopidor
   # rubocop:disable Metrics/ModuleLength
   # Customized code for NotesController
   module NotesController
-    include Dmpopidor::ErrorHelper
+    include ErrorHelper
 
     # CHANGES
     # Delivered mail contains the name of the collaborator leaving the note

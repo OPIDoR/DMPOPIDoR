@@ -2,6 +2,39 @@
 
 **Attention** Cette liste de changements concerne les déploiements sur nos serveurs de test en interne.
 
+## 21/05/2025
+
+- Ajout de le requête "publicPlans" dans l'API GraphQL pour récupérer la liste des plans public sans authentification (#)
+- Correction du problème d'instabilité de la visite guidée  (#13075)
+- Suppression de variables de configuration plus utilisées (création du premier PR, affichage du formulaire Services Externes..)
+
+## 14/05/2025
+
+- Correction du lien "voir tous les modules" depuis la page historique
+- Alerte de partage ANR masquée si le plan est partagé avec l'ANR dans l'onglet "Partager"
+- Correction d'un problème lié au titre du plan lors de l'import RDA
+- Correction de l'affichage des recommantations HTML pour un plan classique
+
+## 07/05/2025
+
+- Amélioration de l'affichage de la création d'un produit de recherche (#12713)
+- Découpage de la fonction d'import de plan par interface dans un nouveau service
+- Réutilisation du service pour l'import de plan par interface
+- Réutilisation du service pour la route d'import de plan de l'API V1
+- Réutilisation du service pour la mutation d'import de plan de l'API GraphQL
+- Gestion des droits à la création/import de plan pour l'API REST et GraphQL
+- Gestion des droits pour la création de produits de recherche de l'API GraphQL
+- Suppression de l'option "Supprimer" (dupliquée) dans la section Modules
+- Masquage du bouton "Aperçu" dans l'édition d’un module
+- Correction du texte du bouton "Voir tous les modules" dans l’historique d’un module
+
+## 05/05/2025
+
+- Amélioration des textes du formulaire des produits de recherche (#12713)
+- Correction du problème empêchant les utilisateurs avec un accès Editeur au plan de créer/modifier/supprimer un PR (#13059)
+- Correction du lien Historique pour les modules (#12800)
+- Améliorations de l'API GraphQL (#13067)
+
 ## 29/04/2025
 
 - Correction d'un problème des titres des plans importés (#12546)

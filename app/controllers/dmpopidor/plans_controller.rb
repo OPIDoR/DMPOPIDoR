@@ -4,7 +4,7 @@ module Dmpopidor
   # Customized code for PlansController
   # rubocop:disable Metrics/ModuleLength
   module PlansController
-    include Dmpopidor::ErrorHelper
+    include ErrorHelper
 
     # rubocop:disable Metrics/AbcSize, Metrics/MethodLength
     # rubocop:disable Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
@@ -66,12 +66,12 @@ module Dmpopidor
           message: _('Unable to identify a suitable template for your plan.')
         }, status: 400
       else
-        @plan.template = ::Template.find(plan_params[:template_id])
+        @plan.template = Template.find(plan_params[:template_id])
         # rubocop:disable Metrics/BlockLength
         I18n.with_locale @plan.template.locale do
           @plan.visibility = Rails.configuration.x.plans.default_visibility
 
-          @plan.template = ::Template.find(plan_params[:template_id])
+          @plan.template = Template.find(plan_params[:template_id])
 
           @plan.org = current_user.org
 
@@ -90,7 +90,7 @@ module Dmpopidor
 
             @plan.guidance_groups << ggs unless ggs.empty?
 
-            default = ::Template.default
+            default = Template.default
 
             msg = "#{success_message(@plan, _('created'))}<br />"
 
@@ -118,7 +118,7 @@ module Dmpopidor
             reg_val = registry_values.find { |entry| entry['en_GB'] == 'Dataset' }
 
             # Add default research output if possible
-            if Rails.configuration.x.dmpopidor.create_first_research_output || @plan.structured? == false
+            if @plan.structured? == false
               created_ro = @plan.research_outputs.create!(
                 abbreviation: "#{_('RO')} 1",
                 title: "#{_('Research output')} 1",
@@ -126,9 +126,7 @@ module Dmpopidor
                 display_order: 1,
                 output_type_description: reg_val[@plan.template.locale.tr('-', '_')]
               )
-              created_ro.create_json_fragments({
-                                                 hasPersonalData: Rails.configuration.x.dmpopidor.front[:enableHasPersonalData] # rubocop:disable Layout/LineLength
-                                               })
+              created_ro.create_json_fragments({ hasPersonalData: true })
             end
 
             flash[:notice] = msg
@@ -259,7 +257,7 @@ module Dmpopidor
       if body['ro_id'].present?
         research_output = ResearchOutput.find(body['ro_id'])
         module_id = research_output.json_fragment.additional_info['moduleId']
-        template = module_id ? ::Template.find(module_id) : @plan.template
+        template = module_id ? Template.find(module_id) : @plan.template
       end
 
       selected_ids = body['guidance_group_ids']
@@ -381,85 +379,25 @@ module Dmpopidor
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
     # rubocop:enable Metrics/AbcSize, Metrics/MethodLength
 
-    # rubocop:disable Metrics/MethodLength, Metrics/AbcSize
-    # rubocop:disable Metrics/PerceivedComplexity
+    # rubocop:disable Metrics/AbcSize
     def import_plan
       @plan = ::Plan.new
       authorize @plan
-      # rubocop:disable Metrics/BlockLength
-      ::Plan.transaction do
-        @plan.template = ::Template.find(import_params[:template_id])
+      begin
+        plan_importer = Import::Plan.new
+        data = plan_importer.import(@plan, import_params, current_user)
 
-        # pre-select org's guidance and the default org's guidance
-        ids = (::Org.default_orgs.pluck(:id) << current_user.org_id).flatten.uniq
-
-        language = Language.find_by(abbreviation: @plan.template.locale)
-
-        ggs = ::GuidanceGroup.where(org_id: ids, optional_subset: false, published: true, language_id: language.id)
-
-        @plan.guidance_groups << ggs unless ggs.empty?
-
-        I18n.with_locale @plan.template.locale do
-          respond_to do |format|
-            json_file = import_params[:json_file]
-            if json_file.respond_to?(:read)
-              json_data = JSON.parse(json_file.read)
-            elsif json_file.respond_to?(:path)
-              json_data = JSON.parse(File.read(json_file.path))
-            else
-              raise IOError
-            end
-            errs = Import::PlanImportService.validate(json_data, import_params[:format], locale: @plan.template.locale)
-            if errs.any?
-              format.json do
-                bad_request(import_errors(errs))
-              end
-            else
-              @plan.visibility = Rails.configuration.x.plans.default_visibility
-
-              @plan.title = format(_("%{user_name}'s Plan"), user_name: current_user.firstname)
-              @plan.org = current_user.org
-
-              if @plan.save
-                plan_title = format(_('Import of %{title}'), title: json_data.dig('meta', 'title'))
-                @plan.add_user!(current_user.id, :creator)
-                @plan.save
-                @plan.create_plan_fragments(json_data)
-
-                json_data['meta']['title'] = plan_title
-
-                Import::PlanImportService.import(@plan, json_data, import_params[:format])
-
-                @plan.update(title: plan_title)
-                format.json do
-                  render json: { status: 201, message: _('imported'), data: { planId: @plan.id } }, status: :created
-                end
-              else
-                format.json do
-                  bad_request(failure_message(@plan, _('create')))
-                end
-              end
-            end
-          rescue IOError
-            format.json do
-              bad_request(_('Unvalid file'))
-            end
-          rescue JSON::ParserError
-            format.json do
-              bad_request(_('File should contain JSON'))
-            end
-          rescue StandardError => e
-            Rails.logger.error e.backtrace
-            format.json do
-              bad_request("#{_('An error has occured: ')} #{e.message}")
-            end
-          end
-        end
+        render json: { status: 201, message: _('imported'), data: data }, status: :created
+      rescue IOError
+        bad_request(_('Unvalid file'))
+      rescue JSON::ParserError
+        bad_request(_('File should contain JSON'))
+      rescue StandardError => e
+        Rails.logger.error e.backtrace
+        bad_request("#{_('An error has occured: ')} #{e.message}")
       end
-      # rubocop:enable Metrics/BlockLength
     end
-    # rubocop:enable Metrics/PerceivedComplexity
-    # rubocop:enable Metrics/MethodLength, Metrics/AbcSize
+    # rubocop:enable Metrics/AbcSize
 
     def research_outputs_data
       plan = ::Plan.find(params[:id])

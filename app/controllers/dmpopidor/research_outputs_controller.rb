@@ -4,7 +4,7 @@ module Dmpopidor
   # Customized code for ResearchOutputsController
   # rubocop:disable Metrics/ModuleLength
   module ResearchOutputsController
-    include Dmpopidor::ErrorHelper
+    include ErrorHelper
     # GET /plans/:plan_id/research_outputs
     def index
       @plan = ::Plan.find(params[:plan_id])
@@ -133,7 +133,7 @@ module Dmpopidor
           display_order: pos
         )
 
-        module_tplt = ::Template.module(data_type:, locale: target_plan.template.locale)
+        module_tplt = Template.module(data_type:, locale: target_plan.template.locale)
 
         # Creates the main ResearchOutput fragment
         research_output_copy_fragment = Fragment::ResearchOutput.create(
