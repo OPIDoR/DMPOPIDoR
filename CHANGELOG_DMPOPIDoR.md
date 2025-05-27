@@ -4,6 +4,7 @@
 
 ## 21/05/2025
 
+- Ajout de le requête "publicPlans" dans l'API GraphQL pour récupérer la liste des plans public sans authentification (#)
 - Correction du problème d'instabilité de la visite guidée  (#13075)
 - Suppression de variables de configuration plus utilisées (création du premier PR, affichage du formulaire Services Externes..)
 

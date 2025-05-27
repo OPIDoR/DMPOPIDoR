@@ -32,7 +32,7 @@ module Api
     private
 
     def public_query?(query)
-      query.present? && (query.include?('__schema') || query.include?('authenticate'))
+      query.present? && (query.include?('__schema') || query.include?('authenticate') || query.include?('publicPlans'))
     end
 
     def prepare_variables(variables_param)
