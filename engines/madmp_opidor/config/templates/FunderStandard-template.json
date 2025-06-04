@@ -3,8 +3,19 @@
     "$id": "../Documentation/Implementation/data_model/Json/",
     "title": "FunderStandard",
     "description": "FunderStandard template",
+    "dataTypes": [
+        "software",
+        "none"
+    ],
     "type": "object",
     "class": "FunderStandard",
+    "externalImports": {
+        "ror": {
+            "name": "name",
+            "ror": "funderId",
+            "type": "idType"
+        }
+    },
     "properties": {
         "name": {
             "type": "string",
@@ -33,29 +44,11 @@
             "registries": [
                 "OrganizationIdSystem"
             ],
+            "registryCategory": "OrganizationIdSystem",
             "overridable": true,
             "tooltip": null,
             "form_label@fr_FR": "Type d'identifiant du financeur",
             "form_label@en_GB": "Funder identifier type"
-        },
-        "dataPolicy": {
-            "type": "object",
-            "class": "ResourceReference",
-            "properties": {
-                "dbid": {
-                    "type": "number"
-                }
-            },
-            "template_name": "ResourceReferenceStandard",
-            "required": [
-                "dbid"
-            ],
-            "description": "Référence de la politique de données de l'agence de financement",
-            "label@fr_FR": "Politique de données",
-            "label@en_GB": "Data policy",
-            "tooltip": null,
-            "form_label@fr_FR": "Référence de la politique de données du financeur",
-            "form_label@en_GB": "Funder data policy reference"
         }
     },
     "required": [

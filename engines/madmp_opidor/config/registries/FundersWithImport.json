@@ -6,7 +6,16 @@
         "en_GB": "French National Research Agency (ANR)"
       },
       "scriptName": "AnrProjectDataFetcher",
-      "registry": "AnrProjects"
+      "registry": "AnrProjects",
+	  "apiClient" : "anr"
+    },
+    {
+      "label": {
+        "fr_FR": "Agence nationale de sécurité sanitaire de l'alimentation, de l'environnement et du travail (Anses)",
+        "en_GB": "French Agency for Food, Environmental and Occupational Health & Safety (ANSES)"
+      },
+      "scriptName": "AnsesProjectsDataFetcher",
+      "registry": "AnsesProjects"
     },
     {
       "label": {
@@ -15,14 +24,6 @@
       },
       "scriptName": "CordisDataFetcher",
       "registry": "CordisProjects"
-    },
-    {
-      "label": {
-        "en_GB": "Anses",
-        "fr_FR": "Anses"
-      },
-      "scriptName": "AnsesProjectsDataFetcher",
-      "registry": "AnsesProjects"
     }
   ]
 }

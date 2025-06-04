@@ -12,7 +12,8 @@ module Paginable
         partial: 'index',
         query_params: { sort_field: 'themes.number', sort_direction: :asc },
         scope: Theme.all,
-        format: :json)
+        format: :json
+      )
     end
   end
 end

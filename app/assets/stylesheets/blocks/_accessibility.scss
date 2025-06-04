@@ -39,7 +39,7 @@ div.skip a:focus {
 }
 
 /** Focus outline required for accessibility */
-// a, input, select, .form-control {
+// a, input, select, .form-control input, .form-control textarea {
 //   &:focus,
 //   &:hover,
 //   &:active {
@@ -60,15 +60,6 @@ ul.header-links li {
       padding: 0;
   }
 }
-
-ul.header-links li {
-  a {
-    &:hover,
-    &:active {
-      background-color: $dark-blue;
-    }
-  }
-}
   
   /** button outline-width increased for better visibility of outline */
   // button {
@@ -87,7 +78,7 @@ ul.header-links li {
     &:focus,
     &:hover {
       outline-style: solid !important;
-      outline-color: $white !important;
+      outline-color: #fff !important;
       outline-width: 2px !important;
     }
   }

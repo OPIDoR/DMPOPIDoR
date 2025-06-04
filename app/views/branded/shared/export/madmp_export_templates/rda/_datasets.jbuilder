@@ -3,10 +3,12 @@
 ethical_issues_exist = []
 ethical_issues_description = []
 ethical_issues_report = []
+excluded_types = %w[software logiciel].freeze
 
 # rubocop:disable Metrics/BlockLength
 json.dataset research_outputs do |research_output|
   dataset = research_output.json_fragment
+  next if excluded_types.include?(dataset.research_output_description.data["type"].downcase)
   next unless selected_datasets.include?(dataset.data["research_output_id"])
 
   dataset_title = dataset.research_output_description.data["title"]

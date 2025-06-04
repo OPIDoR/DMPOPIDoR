@@ -3,6 +3,10 @@
     "$id": "../Documentation/Implementation/data_model/Json/",
     "title": "SpecificDataStandard",
     "description": "SpecificDataStandard template",
+    "dataTypes": [
+        "software",
+        "none"
+    ],
     "type": "object",
     "class": "SpecificDataStandard",
     "properties": {},

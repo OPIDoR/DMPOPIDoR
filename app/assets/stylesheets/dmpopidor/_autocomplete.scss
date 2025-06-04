@@ -1,0 +1,22 @@
+@use './colours' as *;
+
+ul.ui-menu {
+
+  .ui-menu-item {
+    color: $dark-blue;
+    .ui-state-active {
+      color: $dark-blue;
+    }
+    .ui-menu-item-wrapper {
+      border: none;
+    }
+
+    &:hover,
+    &:focus {
+      background-color: $dmpopidor-blue;
+      .ui-state-active {
+        color: white;
+      }
+    }
+  }
+}

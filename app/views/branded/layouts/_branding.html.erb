@@ -1,4 +1,4 @@
-<nav id="org-navbar" class="navbar navbar-default" role="navigation">
+<nav id="org-navbar" class="navbar navbar-expand-md navbar-light bg-light" role="navigation">
   <div class="org-infos">
     <% if user_signed_in? && !current_user.org.nil? %>
       <% if current_user.org.logo.present? %>
@@ -20,15 +20,17 @@
       <% if user_signed_in? && (links.any? || current_user.org.contact_email.present?) %>
         <ul class="nav navbar-nav">
           <% if !current_user.org.contact_email.blank? %>
-            <%= mail_to current_user.org.contact_email, :class => 'org-a' do %>
-              <i class="fas fa-envelope" aria-hidden="true">&nbsp;</i>
-              <%= current_user.org.contact_name ? current_user.org.contact_name : current_user.org.contact_email %>
-            <% end %>
+            <li class="nav-item org-links">
+              <%= mail_to current_user.org.contact_email, :class => 'nav-link org-a' do %>
+                <i class="fas fa-envelope" aria-hidden="true">&nbsp;</i>
+                <%= current_user.org.contact_name ? current_user.org.contact_name : current_user.org.contact_email %>
+              <% end %>
+            </li>
           <% end %>
           <% links.each do |link| %>
-            <li class="org-links">
+            <li class="nav-item org-links">
               <% if link.present?%>
-                <%= link_to link['link'], :target=>'_blank', :class => 'org-a has-new-window-popup-info' do %>
+                <%= link_to link['link'], :target=>'_blank', :class => 'nav-link org-a has-new-window-popup-info' do %>
                   <i class="fas fa-globe" aria-hidden="true">&nbsp;</i>
                   <%= link['text'].blank? ? link['link'] : link['text'] %>
                   <em class="sr-only"> (new window)</em>

@@ -1,0 +1,20 @@
+{
+    "FundingStatus": [
+        {
+            "fr_FR": "Planifié",
+            "en_GB": "Planned"
+        },
+        {
+            "fr_FR": "Soumis",
+            "en_GB": "Applied"
+        },
+        {
+            "fr_FR": "Approuvé",
+            "en_GB": "Granted"
+        },
+        {
+            "fr_FR": "Rejeté",
+            "en_GB": "Rejected"
+        }
+    ]
+}

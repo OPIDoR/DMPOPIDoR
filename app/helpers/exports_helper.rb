@@ -2,15 +2,6 @@
 
 # Helper methods for Plan exports
 module ExportsHelper
-  # --------------------------------
-  # Start DMP OPIDoR Customization
-  # SEE app/helpers/dmpopidor/exports_helper.rb
-  # --------------------------------
-  prepend Dmpopidor::ExportsHelper
-  # --------------------------------
-  # End DMP OPIDoR Customization
-  # --------------------------------
-
   PAGE_MARGINS = {
     top: '5',
     bottom: '10',
@@ -43,18 +34,19 @@ module ExportsHelper
   end
 
   # --------------------------------
-  # Start DMP OPIDoR Customization
-  # SEE app/helpers/dmpopidor/exports_helper.rb
   # CHANGES: Changed prefix value to 'DMP Creator(s)'
   # --------------------------------
   def plan_attribution(attribution)
     attribution = Array(attribution)
-    prefix = attribution.many? ? _('Creators:') : _('Creator:')
+    prefix = attribution.many? ? _('DMP Creators:') : _('DMP Creator:')
     "<strong>#{prefix}</strong> #{attribution.join(', ')}"
   end
-  # --------------------------------
-  # End DMP OPIDoR Customization
-  # --------------------------------
+
+  def should_hide_question(question, research_output)
+    return research_output.personal_data?.eql?(false) if question[:madmp_schema].classname.eql?('personal_data_issues')
+
+    false
+  end
 
   private
 

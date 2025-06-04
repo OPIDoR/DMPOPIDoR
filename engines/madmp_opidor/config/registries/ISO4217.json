@@ -1,0 +1,20 @@
+{
+    "ISO4217": [
+        {
+            "fr_FR": "EUR",
+            "en_GB": "EUR"
+        },
+        {
+            "fr_FR": "GBP",
+            "en_GB": "GBP"
+        },
+        {
+            "fr_FR": "USD",
+            "en_GB": "USD"
+        },
+        {
+            "fr_FR": "SGD",
+            "en_GB": "SGD"
+        }
+    ]
+}

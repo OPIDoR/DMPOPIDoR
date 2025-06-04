@@ -2,10 +2,10 @@
   <% if Rails.configuration.x.shibboleth.enabled %>
   <p class="fontsize-h3"><%= _('Institutional Access')%></p>
     <% if session['devise.shibboleth_data'].nil? %>
-      <div class="form-group">
+      <div class="form-control mb-3">
         <span class="center-block btn-group-justified">
           <% target = (Rails.configuration.x.shibboleth.use_filtered_discovery_service ? shibboleth_ds_path : user_shibboleth_omniauth_authorize_path) %>
-          <%= link_to _('Sign in'), target, method: :post, class: 'btn btn-default institution-login accessible' %>
+          <%= link_to _('Sign in'), target, method: :post, class: 'btn btn-secondary institution-login accessible' %>
         </span>
       </div>
     <% else %>
@@ -18,21 +18,27 @@
   <div style="font-size: 14px; margin: -5px 0 10px 0">
     <%= _('Not registered yet?') %> <u><a href="<%= login_path %>?place=signup#content"><%= _('Create my account') %></a></u>
   </div>
-  <div class="form-group">
-    <%= f.label(:email, _('Email'), class: 'control-label') %>
-    <%= f.email_field(:email, class: 'form-control', "aria-required": true) %>
+  <div class="row">
+    <div class="form-control mb-3">
+      <%= f.label(:email, _('Email'), class: 'form-label') %>
+      <%= f.email_field(:email, class: 'form-control', "aria-required": true) %>
+    </div>
   </div>
-  <div class="form-group">
-    <%= f.label(:password, _('Password'), class: 'control-label') %>
-    <%= f.password_field(:password, class: 'form-control', "aria-required": true) %>
+  <div class="row">
+    <div class="form-control mb-3">
+      <%= f.label(:password, _('Password'), class: 'form-label') %>
+      <%= f.password_field(:password, class: 'form-control', "aria-required": true) %>
+    </div>
   </div>
-  <div class="checkbox">
-    <%= label_tag 'remember_me' do %>
-      <%= check_box_tag 'remember_me' %>
-      <%= _('Remember me') %>
-    <% end %>
+  <div class="row">
+    <div class="form-check">
+      <%= label_tag 'remember_me', class: 'form-check-label' do %>
+        <%= check_box_tag 'remember_me' %>
+        <%= _('Remember me') %>
+      <% end %>
+    </div>
   </div>
-  <%= f.button(_('Sign in'), class: "btn btn-default", type: "submit") %>
+  <%= f.button(_('Sign in'), class: "btn btn-secondary", type: "submit") %>
   <div style="font-size: 14px; margin: -5px 0 10px 0">
     <%= link_to _('Forgot password?'), new_password_path('user') %>
   </div>

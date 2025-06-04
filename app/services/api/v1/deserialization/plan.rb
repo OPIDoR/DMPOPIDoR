@@ -158,7 +158,7 @@ module Api
           def find_template(json: {})
             return nil unless json.present?
 
-            template = ::Template.find_by(id: template_id(json: json))
+            template = Template.find_by(id: template_id(json: json))
             template.present? ? template : Template.find_by(is_default: true)
           end
 

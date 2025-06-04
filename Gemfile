@@ -73,10 +73,6 @@ gem 'rollbar', group: :rollbar, require: false
 # DATABASE #
 # ======== #
 
-# A simple, fast Mysql library for Ruby, binding to libmysql
-# (http://github.com/brianmario/mysql2)
-gem 'mysql2', group: :mysql, require: false
-
 # Pg is the Ruby interface to the {PostgreSQL
 # RDBMS}[http://www.postgresql.org/](https://bitbucket.org/ged/ruby-pg)
 gem 'pg', group: :pgsql, require: false
@@ -232,6 +228,10 @@ gem 'rswag-ui'
 # https://github.com/tzinfo/tzinfo-data
 gem 'tzinfo-data'
 
+# This library provides functionality to send internet mail via SMTP, the Simple Mail Transfer Protocol.
+# https://github.com/ruby/net-smtp
+gem 'net-smtp'
+
 # ================================= #
 # ENVIRONMENT SPECIFIC DEPENDENCIES #
 # ================================= #
@@ -278,7 +278,7 @@ group :test do
   gem 'capybara'
 
   # Easy installation and use of web drivers to run system tests with browsers
-  gem 'webdrivers'
+  gem 'selenium-webdriver'
 
   # RSpec::CollectionMatchers lets you express expected outcomes on
   # collections of an object in an example.
@@ -367,7 +367,6 @@ group :development do
   gem 'yard-tomdoc'
 end
 
-gem 'net-smtp'
 # ======================#
 # MADMP OPIDOR FEATURES #
 # ===================== #

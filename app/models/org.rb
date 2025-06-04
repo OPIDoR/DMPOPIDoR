@@ -42,14 +42,6 @@ class Org < ApplicationRecord
   extend FeedbacksHelper
   include FlagShihTzu
   include Identifiable
-  # --------------------------------
-  # Start DMP OPIDoR Customization
-  # SEE app/models/dmpopidor/org.rb
-  # --------------------------------
-  prepend Dmpopidor::Org
-  # --------------------------------
-  # End DMP OPIDoR Customization
-  # --------------------------------
 
   extend Dragonfly::Model::Validations
   validates_with OrgLinksValidator
@@ -308,21 +300,14 @@ class Org < ApplicationRecord
   end
 
   # This replaces the old plans method. We now use the native plans method and this.
-  # rubocop:disable Metrics/AbcSize
   def org_admin_plans
-    combined_plan_ids = (native_plan_ids + affiliated_plan_ids).flatten.uniq
+    combined_plan_ids = affiliated_plan_ids.flatten.uniq
 
-    if Rails.configuration.x.plans.org_admins_read_all
-      Plan.includes(:template, :phases, :roles, :users).where(id: combined_plan_ids)
+    ::Plan.includes(:template, :phases, :roles, :users).where(id: combined_plan_ids)
+          .where.not(visibility: ::Plan.visibilities[:privately_visible])
+          .where.not(visibility: ::Plan.visibilities[:is_test])
           .where(roles: { active: true })
-    else
-      Plan.includes(:template, :phases, :roles, :users).where(id: combined_plan_ids)
-          .where.not(visibility: Plan.visibilities[:privately_visible])
-          .where.not(visibility: Plan.visibilities[:is_test])
-          .where(roles: { active: true })
-    end
   end
-  # rubocop:enable Metrics/AbcSize
 
   def grant_api!(token_permission_type)
     token_permission_types << token_permission_type unless

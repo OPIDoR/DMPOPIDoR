@@ -7,14 +7,15 @@
 
   bottom: 0;
   width: 100%;
-  color: $white;
+  color: #fff;
   background-color: $dark-blue;
 
   a,
   a:active,
   a:focus,
   a:visited {
-    color: $white;
+    color: #fff;
+    text-decoration: none;
   }
 
   img[|alt="DMP OPIDoR logo"] {
@@ -184,8 +185,8 @@
 //   .footer-content {
 //     width: 100%;
 //     padding: 0px 100px;
-//     color: $white;
-//     background-color: $blue;
+//     color: #fff;
+//     background-color: $dmpopidor-blue;
 
 //     .footer-links-logos {
 //       display: flex;
@@ -208,7 +209,7 @@
 
 //     .footer-infos-sn {
 //       display: flex;
-//       border-top: 1px solid $white;
+//       border-top: 1px solid #fff;
 
 //       .footer-infos {
 //         flex: 9;
@@ -250,7 +251,7 @@
 //   a:active,
 //   a:focus,
 //   a:visited {
-//     color: $white;
+//     color: #fff;
 //   }
 // }
 

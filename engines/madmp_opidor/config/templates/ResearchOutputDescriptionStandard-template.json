@@ -3,6 +3,7 @@
     "$id": "../Documentation/Implementation/data_model/Json/",
     "title": "ResearchOutputDescriptionStandard",
     "description": "ResearchOutputDescriptionStandard template",
+    "dataTypes": null,
     "type": "object",
     "class": "ResearchOutputDescriptionStandard",
     "properties": {
@@ -15,14 +16,24 @@
             "form_label@fr_FR": "Nom  complet",
             "form_label@en_GB": "Full name"
         },
+        "shortName": {
+            "type": "string",
+            "description": "Nom abrégé du produit de recherche",
+            "label@fr_FR": "Nom abrégé",
+            "label@en_GB": "Short name",
+            "tooltip": null,
+            "hidden": true,
+            "form_label@fr_FR": "Nom abrégé",
+            "form_label@en_GB": "Short name"
+        },
         "description": {
             "type": "string",
             "description": "Description succincte du produit de recherche",
             "inputType": "textarea",
             "label@fr_FR": "Description",
             "label@en_GB": "Description",
-            "tooltip@fr_FR": "Résumé décrivant l'objet et la portée du jeu de données",
-            "tooltip@en_GB": "Summary describing the purpose and scope of the dataset",
+            "tooltip@fr_FR": "Résumé décrivant l'objet et la portée du jeu de données (intérêt, objectifs, contexte de production,…)",
+            "tooltip@en_GB": "Summary describing the purpose and scope of the dataset (interest, objectives, production context, etc.)",
             "form_label@fr_FR": "Décrire succinctement le produit de recherche",
             "form_label@en_GB": "Briefly describe the research output"
         },
@@ -31,8 +42,8 @@
             "description": "Type de produit de recherche généré",
             "label@fr_FR": "Type",
             "label@en_GB": "Type",
-            "tooltip@fr_FR": "Les types de produits de recherche sont issus du schéma DataCite 4.5.",
-            "tooltip@en_GB": "The types of research outputs are based on resourceTypeGeneral property from DataCite Metadata Schema 4.5. ",
+            "tooltip@fr_FR": "Les types de produits de recherche sont issus du schéma DataCite 4.6.",
+            "tooltip@en_GB": "The types of research outputs are based on resourceTypeGeneral property from DataCite Metadata Schema 4.6. ",
             "hidden": true,
             "form_label@fr_FR": "Type de produit de recherche",
             "form_label@en_GB": "Research output type"
@@ -42,8 +53,8 @@
             "description": "Nom du workpackage",
             "label@fr_FR": "Workpackage",
             "label@en_GB": "Workpackage",
-            "tooltip@fr_FR": "Nom ou numéro de la tâche (ou workpackage)",
-            "tooltip@en_GB": "Name or number of the task (or workpackage)",
+            "tooltip@fr_FR": "Indiquer le nom ou le numéro de la tâche (ou workpackage). Pour en savoir plus : consulter le Glossaire",
+            "tooltip@en_GB": "Indicate the name or number of the task (or workpackage). For more information: consult the Glossary",
             "example@fr_FR": "WP1, WP2",
             "example@en_GB": "WP1, WP2",
             "form_label@fr_FR": "Indiquer, si besoin, la tâche (ou workpackage) à laquelle est rattaché le produit de recherche",
@@ -72,14 +83,15 @@
             "inputType": "dropdown",
             "registries": [
                 "GEMET",
-                "MeSH Loterre",
                 "Pactols Lieux",
                 "Pactols Sujets",
+                "Thésaurus Biodiversité Istex Loterre",
                 "Thésaurus INRAE",
-                "Thésaurus Biodiversité Loterre"
+                "Thésaurus MeSH Istex Loterre"
             ],
-            "tooltip@fr_FR": "Mots-clés décrivant les aspects importants du jeu de données",
-            "tooltip@en_GB": "Key words describing important aspects of the dataset",
+            "registryCategory": "Keyword",
+            "tooltip@fr_FR": "Choisir un ou plusieurs mots-clés à partir des référentiels thématiques proposés dans la liste (Pour en savoir plus, consulter la page A propos des référentiels)",
+            "tooltip@en_GB": "Choose on or more keywords selected from the thematic registries (For more information, see the webpage About registries)",
             "form_label@fr_FR": "Mots clés contrôlés (vocabulaire, thésaurus, lexique...)",
             "form_label@en_GB": "Controlled keywords (vocabulary, thesaurus, lexicon...)"
         },
@@ -91,8 +103,8 @@
             "description": "Mots clés libres",
             "label@fr_FR": "Mots clés (texte libre)",
             "label@en_GB": "Keywords (free-text)",
-            "tooltip@fr_FR": "Un mot clé par ligne. Cliquer sur + pour ajouter un mot-clé. Eviter les acronymes et les mots clés trop génériques",
-            "tooltip@en_GB": "One key word per line. Click on + to add a key word. Avoid acronyms and overly generic keywords",
+            "tooltip@fr_FR": "Autres mots clés libres pour préciser la description du jeu de données. Eviter les acronymes et les mots clés trop génériques ",
+            "tooltip@en_GB": "Other free keywords to specify the description of the dataset. Avoid acronyms and overly generic keywords",
             "form_label@fr_FR": "Mots clés (texte libre)",
             "form_label@en_GB": "Uncontrolled keyword(s) (free-text)"
         },
@@ -106,22 +118,27 @@
             "registries": [
                 "ISO639-3"
             ],
+            "registryCategory": "ISO639-3",
             "tooltip": null,
             "form_label@fr_FR": "Indiquer la langue dans laquelle est décrit le produit de recherche",
             "form_label@en_GB": "Indicate the language in which the research output is described"
         },
         "contact": {
-            "type": "object",
-            "class": "Contributor",
-            "properties": {
-                "dbid": {
-                    "type": "number"
-                }
+            "type": "array",
+            "table_header": null,
+            "items": {
+                "type": "object",
+                "class": "Contributor",
+                "properties": {
+                    "dbid": {
+                        "type": "number"
+                    }
+                },
+                "template_name": "ContributorConstantRole",
+                "required": [
+                    "dbid"
+                ]
             },
-            "template_name": "ContributorStandard",
-            "required": [
-                "dbid"
-            ],
             "description": "Producteur ou titulaire des données",
             "label@fr_FR": "Personne contact",
             "label@en_GB": "Contact Person",
@@ -136,7 +153,8 @@
             "description": "Date à laquelle les données sont publiées",
             "label@fr_FR": "Date de publication",
             "label@en_GB": "Issued Date",
-            "tooltip": null,
+            "tooltip@fr_FR": "Date à laquelle les données sont publiées",
+            "tooltip@en_GB": "Date when data is published",
             "form_label@fr_FR": "Date de publication",
             "form_label@en_GB": "Issued Date"
         },
@@ -158,6 +176,7 @@
             "registries": [
                 "PIDSystem"
             ],
+            "registryCategory": "PIDSystem",
             "overridable": true,
             "tooltip": null,
             "form_label@fr_FR": "Type d'identifiant du produit de recherche",
@@ -182,6 +201,7 @@
             "registries": [
                 "YesNoUnknown"
             ],
+            "registryCategory": "YesNoUnknown",
             "tooltip": null,
             "form_label@fr_FR": "Le produit de recherche contient-il des données sensibles ?",
             "form_label@en_GB": "Does the research output contain sensitive data?"
@@ -195,6 +215,7 @@
             "registries": [
                 "YesNoUnknown"
             ],
+            "registryCategory": "YesNoUnknown",
             "tooltip": null,
             "form_label@fr_FR": "Le contexte de production du produit de recherche prend-il en compte des aspects éthiques ?",
             "form_label@en_GB": "Does the production context of the research output takes ethical issues into account?"

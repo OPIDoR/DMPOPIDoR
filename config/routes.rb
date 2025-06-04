@@ -409,6 +409,47 @@ Rails.application.routes.draw do
     get 'download_plans' => 'plans#download_plans'
   end
 
+  scope '/super_admin', module: 'org_admin', as: 'super_admin' do
+    resources :templates, controller: 'templates' do
+      resources :customizations, only: [:create], controller: 'template_customizations'
+
+      resources :copies, only: [:create],
+                controller: 'template_copies',
+                constraints: { format: [:json] }
+
+      resources :customization_transfers, only: [:create],
+                controller: 'template_customization_transfers'
+
+      member do
+        get 'history'
+        get 'template_export', action: :template_export
+        patch 'publish', action: :publish, constraints: { format: [:json] }
+        patch 'unpublish', action: :unpublish, constraints: { format: [:json] }
+      end
+
+      collection do
+        get 'organisational'
+        get 'customisable'
+        get 'modules'
+      end
+
+      resources :phases, except: [:index] do
+        resources :versions, only: [:create], controller: 'phase_versions'
+
+        member do
+          get 'preview'
+          post 'sort'
+        end
+
+        resources :sections, only: %i[index show edit update create destroy] do
+          resources :questions, only: %i[show edit new update create destroy]
+        end
+      end
+    end
+
+    get 'download_plans' => 'plans#download_plans'
+  end
+
   namespace :super_admin do
     resources :orgs, only: %i[index new create destroy] do
       member do

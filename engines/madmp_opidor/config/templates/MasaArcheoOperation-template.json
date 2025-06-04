@@ -1,0 +1,120 @@
+{
+    "$schema": "http://json-schema.org/draft-07/schema#",
+    "$id": "../Documentation/Implementation/data_model/Json/",
+    "title": "MasaArcheoOperation",
+    "description": "MasaArcheoOperation template",
+    "dataTypes": null,
+    "type": "object",
+    "class": "MasaArcheoOperation",
+    "properties": {
+        "archeoOperationName": {
+            "type": "string",
+            "description": "Intitulé de l'opération archéologique",
+            "label@fr_FR": "Intitulé de l'opération",
+            "label@en_GB": "Name of the operation",
+            "tooltip": null,
+            "form_label@fr_FR": "Intitulé de l'opération",
+            "form_label@en_GB": "Name of the operation"
+        },
+        "archeoOperationIdentifier": {
+            "type": "string",
+            "description": "Identifiant de l'opération archéologique",
+            "label@fr_FR": "Identifiant de l'opération",
+            "label@en_GB": "Identifier of the operation",
+            "tooltip": null,
+            "form_label@fr_FR": "Identifiant de l'opération",
+            "form_label@en_GB": "Identifier of the operation"
+        },
+        "archeoOperationIdType": {
+            "type": "string",
+            "description": "Type d'dentifiant de l'opération archéologique",
+            "label@fr_FR": "Type d'identifiant",
+            "label@en_GB": "Identifier type",
+            "tooltip": null,
+            "form_label@fr_FR": "Type d'identifiant",
+            "form_label@en_GB": "Identifier type"
+        },
+        "archeoOperationStatus": {
+            "type": "string",
+            "description": "Statut administratif de l'opération  archéologique",
+            "label@fr_FR": "Statut administratif de l'opération",
+            "label@en_GB": "Administrative status of the operation",
+            "tooltip": null,
+            "example@fr_FR": "Fouille préventive, fouille programmée, fouille Ministère des affaires étrangères, etc.",
+            "example@en_GB": "Preventive excavations, scheduled excavations, Ministry of Foreign Affairs excavations, etc.",
+            "form_label@fr_FR": "Statut administratif de l'opération",
+            "form_label@en_GB": "Administrative status of the operation"
+        },
+        "archeoOperationNature": {
+            "type": "string",
+            "description": "Nature de l'opération archéologique",
+            "label@fr_FR": "Nature de l'opération",
+            "label@en_GB": "Nature of the operation",
+            "tooltip": null,
+            "example@fr_FR": "Diagnostic, fouilles, prospection, surveillance de travaux, fouilles subaquatiques, etc.",
+            "example@en_GB": "Diagnostic, excavations, prospecting, works supervision, underwater excavations, etc.",
+            "form_label@fr_FR": "Nature de l'opération",
+            "form_label@en_GB": "Nature of the operation"
+        },
+        "geoLocationBox": {
+            "type": "object",
+            "class": "SpecificData",
+            "properties": {
+                "dbid": {
+                    "type": "number"
+                }
+            },
+            "template_name": "GeoLocationBox",
+            "required": [
+                "dbid"
+            ],
+            "description": "Coordonnées géographiques d'une zone spatiale (exprimées sous la forme d’un rectangle de délimitation)",
+            "label@fr_FR": "Coordonnées géographiques de l'opération (pour une zone géographique)",
+            "label@en_GB": "Geographical coordinates of the operation (for a geographic bounding box)",
+            "tooltip@fr_FR": "Étendue de l'opération archéologique dans l'espace géographique, exprimée sous la forme d'un rectangle de délimitation (définies par des longitudes ouest et est et des latitudes nord et sud)",
+            "tooltip@en_GB": "Extent of the archaeological operation in the geographical space, expressed in the form of a bounding box (defined by west and east longitudes and north and south latitudes)",
+            "form_label@fr_FR": "Coordonnées géographiques de l'opération (pour une zone géographique)",
+            "form_label@en_GB": "Geographical coordinates of the operation (for a geographic bounding box)"
+        },
+        "geoLocationPoint": {
+            "type": "object",
+            "class": "SpecificData",
+            "properties": {
+                "dbid": {
+                    "type": "number"
+                }
+            },
+            "template_name": "GeoLocationPoint",
+            "required": [
+                "dbid"
+            ],
+            "description": "Coordonnées géographiques d'un lieu nommé (exprimées sous la forme d’un point géographique)",
+            "label@fr_FR": "Coordonnées géographiques de l'opération (pour un point géographique)",
+            "label@en_GB": "Geographical coordinates of the operation (for a point location in a space)",
+            "tooltip": null,
+            "form_label@fr_FR": "Coordonnées géographiques de l'opération (pour un point géographique)",
+            "form_label@en_GB": "Geographical coordinates of the operation (for a point location in a space)"
+        },
+        "archeoOperationManager": {
+            "type": "array",
+            "items": {
+                "type": "string"
+            },
+            "description": "Responsable(s) de l'opération archéologique",
+            "label@fr_FR": "Responsable(s) de l'opération archéologique",
+            "label@en_GB": "Director(s) of the excavations",
+            "tooltip": null,
+            "example@fr_FR": "Perrot, Jean / CNRS.",
+            "example@en_GB": "Perrot, Jean / CNRS.",
+            "form_label@fr_FR": "Responsable(s) de l'opération archéologique",
+            "form_label@en_GB": "Director(s) of the excavations"
+        }
+    },
+    "required": [],
+    "to_string": [
+        "$.archeoOperationName",
+        " (",
+        "$.archeoOperationManager",
+        " )"
+    ]
+}

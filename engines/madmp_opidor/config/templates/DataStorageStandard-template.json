@@ -3,6 +3,7 @@
     "$id": "../Documentation/Implementation/data_model/Json/",
     "title": "DataStorageStandard",
     "description": "DataStorageStandard template",
+    "dataTypes": null,
     "type": "object",
     "class": "DataStorageStandard",
     "properties": {
@@ -34,6 +35,7 @@
             "registries": [
                 "VolumeUnit"
             ],
+            "registryCategory": "VolumeUnit",
             "overridable": true,
             "tooltip": null,
             "form_label@fr_FR": "Unité",
@@ -62,6 +64,7 @@
             "registries": [
                 "StorageServices"
             ],
+            "registryCategory": "StorageService",
             "overridable": true,
             "tooltip": null,
             "form_label@fr_FR": "Equipements, plateaux techniques utilisés pour le stockage et sauvegarde des données",
@@ -121,8 +124,8 @@
             "description": "Personne(s) responsable(s) du suivi du stockage des données",
             "label@fr_FR": "Personnes impliquées dans le stockage des données",
             "label@en_GB": "Persons in charge of data storage",
-            "tooltip@fr_FR": "Le responsable peut être une personne, une équipe, un service",
-            "tooltip@en_GB": "Person in charge can be a person, a team, a department",
+            "tooltip@fr_FR": "Il peut s'agir d'une ou plusieurs personnes, d'une équipe, d'un service",
+            "tooltip@en_GB": "It can be one or more people, a team, a department",
             "form_label@fr_FR": "Personnes impliquées dans le stockage des données",
             "form_label@en_GB": "Persons in charge of data storage"
         },

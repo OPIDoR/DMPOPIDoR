@@ -1,7 +1,6 @@
 # frozen_string_literal: true
 
 # Module that allows us to sort query results for paginated tables
-# rubocop:disable Metrics/BlockLength
 module ActsAsSortable
   extend ActiveSupport::Concern
 
@@ -12,9 +11,7 @@ module ActsAsSortable
       return if ids.empty?
 
       update_numbers_postgresql!(ids) if ApplicationRecord.postgres_db?
-      update_numbers_mysql2!(ids) if ApplicationRecord.mysql_db?
-      update_numbers_sequentially!(ids) unless ApplicationRecord.postgres_db? ||
-                                               ApplicationRecord.mysql_db?
+      update_numbers_sequentially!(ids) unless ApplicationRecord.postgres_db?
     end
 
     private
@@ -32,12 +29,6 @@ module ActsAsSortable
       connection.execute(query)
     end
 
-    def update_numbers_mysql2!(ids)
-      ids_string = ids.map { |id| "'#{id}'" }.join(',')
-      update_all(%{ number = FIELD(id, #{sanitize_sql(ids_string)})
-                     WHERE id IN (#{sanitize_sql(ids_string)}) })
-    end
-
     def update_numbers_sequentially!(ids)
       ids.each_with_index.map do |id, number|
         find(id).update(:number, number + 1)
@@ -45,4 +36,3 @@ module ActsAsSortable
     end
   end
 end
-# rubocop:enable Metrics/BlockLength

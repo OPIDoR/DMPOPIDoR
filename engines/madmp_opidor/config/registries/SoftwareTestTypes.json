@@ -1,0 +1,36 @@
+{
+    "SoftwareTestTypes": [
+        {
+            "fr_FR": "Aucun",
+            "en_GB": "None"
+        },
+        {
+            "fr_FR": "Tests unitaires",
+            "en_GB": "Unit tests"
+        },
+        {
+            "fr_FR": "Tests d'intégration",
+            "en_GB": "Integration tests"
+        },
+        {
+            "fr_FR": "Tests fonctionnels",
+            "en_GB": "Functional tests"
+        },
+        {
+            "fr_FR": "Tests de bout en bout",
+            "en_GB": "End-to-end tests"
+        },
+        {
+            "fr_FR": "Tests d'acceptation",
+            "en_GB": "Acceptance testing"
+        },
+        {
+            "fr_FR": "Tests de performance",
+            "en_GB": "Performance testing"
+        },
+        {
+            "fr_FR": "Smoke tests",
+            "en_GB": "Smoke testing"
+        }
+    ]
+}

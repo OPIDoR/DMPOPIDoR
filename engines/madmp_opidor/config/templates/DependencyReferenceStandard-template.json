@@ -1,0 +1,52 @@
+{
+    "$schema": "http://json-schema.org/draft-07/schema#",
+    "$id": "../Documentation/Implementation/data_model/Json/",
+    "title": "DependencyReferenceStandard",
+    "description": "DependencyReferenceStandard template",
+    "dataTypes": [
+        "software"
+    ],
+    "type": "object",
+    "class": "DependencyReferenceStandard",
+    "properties": {
+        "title": {
+            "type": "string",
+            "description": "Nom de la dépendance",
+            "label@fr_FR": "Nom de la dépendance",
+            "label@en_GB": "Dependency name",
+            "tooltip": null,
+            "form_label@fr_FR": "Nom de la dépendance",
+            "form_label@en_GB": "Dependency Name"
+        },
+        "version": {
+            "type": "string",
+            "description": "Version de la dépendance",
+            "label@fr_FR": "Version de la dépendance",
+            "label@en_GB": "Dependency version",
+            "tooltip": null,
+            "form_label@fr_FR": "Version de la dépendance",
+            "form_label@en_GB": "Dependency version"
+        },
+        "dependencyUrl": {
+            "type": "string",
+            "format": "uri",
+            "description": "Lien URL de la dépendance",
+            "label@fr_FR": "URL de la dépendance",
+            "label@en_GB": "Dependency URL",
+            "tooltip": null,
+            "form_label@fr_FR": "URL de la dépendance",
+            "form_label@en_GB": "Dependency URL"
+        }
+    },
+    "required": [
+        "title",
+        "version",
+        "dependencyUrl"
+    ],
+    "to_string": [
+        "$.title",
+        " (",
+        "$.version",
+        ")"
+    ]
+}

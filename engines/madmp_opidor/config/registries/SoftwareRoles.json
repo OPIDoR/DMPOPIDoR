@@ -1,0 +1,52 @@
+{
+	"SoftwareRoles": [
+		{
+			"en_GB": "All roles",
+			"fr_FR": "Tous les rôles"
+		},
+		{
+			"en_GB": "Development",
+			"fr_FR": "Développement"
+		},
+		{
+			"en_GB": "Maintenance",
+			"fr_FR": "Maintenance"
+		},
+		{
+			"en_GB": "Design",
+			"fr_FR": "Conception"
+		},
+		{
+			"en_GB": "Architecture",
+			"fr_FR": "Architecture"
+		},
+		{
+			"en_GB": "Debugging",
+			"fr_FR": "Débogage"
+		},
+		{
+			"en_GB": "Documentation",
+			"fr_FR": "Documentation"
+		},
+		{
+			"en_GB": "Test",
+			"fr_FR": "Test"
+		},
+		{
+			"en_GB": "Support",
+			"fr_FR": "Support"
+		},
+		{
+			"en_GB": "Management",
+			"fr_FR": "Management"
+		},
+		{
+			"en_GB": "Author",
+			"fr_FR": "Auteur"
+		},
+		{
+			"en_GB": "Other",
+			"fr_FR": "Autre"
+		}
+	]
+}

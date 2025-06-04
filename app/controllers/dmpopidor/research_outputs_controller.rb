@@ -4,7 +4,7 @@ module Dmpopidor
   # Customized code for ResearchOutputsController
   # rubocop:disable Metrics/ModuleLength
   module ResearchOutputsController
-    include Dmpopidor::ErrorHelper
+    include ErrorHelper
     # GET /plans/:plan_id/research_outputs
     def index
       @plan = ::Plan.find(params[:plan_id])
@@ -18,7 +18,7 @@ module Dmpopidor
     end
 
     def show
-      @research_output = ::ResearchOutput.find(params[:id])
+      @research_output = ResearchOutput.find(params[:id])
       authorize @research_output
 
       render json: @research_output.serialize_json
@@ -26,7 +26,7 @@ module Dmpopidor
 
     # rubocop:disable Metrics/AbcSize,Metrics/MethodLength
     def create
-      authorize @plan
+      authorize ResearchOutput.new(plan: @plan)
       I18n.with_locale @plan.template.locale do
         max_order = @plan.research_outputs.empty? ? 1 : @plan.research_outputs.maximum('display_order') + 1
         created_ro = @plan.research_outputs.create!(
@@ -53,7 +53,7 @@ module Dmpopidor
 
     # rubocop:disable Metrics/AbcSize, Metrics/MethodLength
     def update
-      @research_output = ::ResearchOutput.find(params[:id])
+      @research_output = ResearchOutput.find(params[:id])
       plan =  @research_output.plan
       attrs = research_output_params
 
@@ -63,6 +63,7 @@ module Dmpopidor
 
         updated_data = research_output_description.data.merge({
                                                                 title: params[:title],
+                                                                shortName: params[:abbreviation],
                                                                 type: params[:type],
                                                                 containsPersonalData: params[:configuration][:hasPersonalData] ? _('Yes') : _('No') # rubocop:disable Layout/LineLength
                                                               })
@@ -74,7 +75,7 @@ module Dmpopidor
                                    payload: research_output_description.get_full_fragment(with_ids: true)
                                  })
 
-        research_outputs = ::ResearchOutput.where(plan_id: params[:plan_id])
+        research_outputs = ResearchOutput.where(plan_id: params[:plan_id])
 
         @research_output.update!(attrs)
 
@@ -93,7 +94,7 @@ module Dmpopidor
 
     # rubocop:disable Metrics/AbcSize
     def destroy
-      @research_output = ::ResearchOutput.find(params[:id])
+      @research_output = ResearchOutput.find(params[:id])
       research_output_fragment = @research_output.json_fragment
       plan = @research_output.plan
       authorize @research_output
@@ -115,15 +116,15 @@ module Dmpopidor
     # rubocop:disable Metrics/AbcSize, Metrics/MethodLength
     def import
       body = JSON.parse(request.body.string)
-      research_output = ::ResearchOutput.find_by(uuid: body['uuid'])
+      research_output = ResearchOutput.find_by(uuid: body['uuid'])
       research_output_fragment = research_output.json_fragment
+      data_type = research_output_fragment.additional_info['dataType']
 
       authorize research_output
 
-      target_plan = ::Plan.find(params[:plan_id])
+      target_plan = ::Plan.includes(:template).find(params[:plan_id])
 
-      # rubocop:disable Metrics/BlockLength
-      I18n.with_locale target_plan.template.locale do
+      I18n.with_locale target_plan.template.locale do # rubocop:disable Metrics/BlockLength
         pos = target_plan.research_outputs.length + 1
 
         research_output_copy = target_plan.research_outputs.create!(
@@ -131,6 +132,8 @@ module Dmpopidor
           title: "#{_('Research output')} #{pos} [#{_('Copy of')} #{research_output.title}]",
           display_order: pos
         )
+
+        module_tplt = Template.module(data_type:, locale: target_plan.template.locale)
 
         # Creates the main ResearchOutput fragment
         research_output_copy_fragment = Fragment::ResearchOutput.create(
@@ -140,19 +143,21 @@ module Dmpopidor
           madmp_schema: research_output_fragment.madmp_schema,
           dmp_id: target_plan.json_fragment.id,
           parent_id: target_plan.json_fragment.id,
-          additional_info: research_output_fragment.additional_info
+          additional_info: research_output_fragment.additional_info.merge(
+            'moduleId' => module_tplt&.id
+          )
         )
 
-        research_output.answers.each do |answer|
-          answer_copy = ::Answer.deep_copy(answer)
-          answer_copy.plan_id = target_plan.id
-          answer_copy.research_output_id = research_output_copy.id
-          answer_copy.save!
-          MadmpFragment.deep_copy(answer.madmp_fragment, answer_copy.id, research_output_copy_fragment)
-        end
+        template = module_tplt || target_plan.template
 
-        # module_id = research_output_copy_fragment.additional_info['moduleId']
-        # template = module_id ? ::Template.find(module_id) : target_plan.template
+        Import::PlanImportService.import_research_output(
+          research_output_copy_fragment,
+          research_output_fragment.get_full_fragment,
+          target_plan,
+          template
+        )
+        research_output_copy_fragment.research_output_description
+                                     .update_research_output_parameters(skip_broadcast: true)
 
         render json: {
           id: target_plan.id,
@@ -161,7 +166,6 @@ module Dmpopidor
           research_outputs: target_plan.research_outputs.order(:display_order).map(&:serialize_json)
         }
       end
-      # rubocop:enable Metrics/BlockLength
     end
     # rubocop:enable Metrics/AbcSize, Metrics/MethodLength
 
@@ -174,15 +178,15 @@ module Dmpopidor
         @persons = @plan.json_fragment.persons
         max_order = @plan.research_outputs.maximum('display_order') + 1
 
-        registry_values = Registry.find_by(name: 'ResearchDataType').registry_values
-        registry = registry_values.find { |entry| entry['data']['en_GB'] == 'Dataset' }
+        registry_values = Registry.find_by(name: 'ResearchDataType').values
+        reg_val = registry_values.find { |entry| entry['en_GB'] == 'Dataset' }
 
         created_ro = @plan.research_outputs.create(
           abbreviation: "#{_('RO')} #{max_order}",
           title: "#{_('Research output')} #{max_order}",
           is_default: false,
           display_order: max_order,
-          output_type_description: registry['data'][@plan.template.locale.tr('-', '_')]
+          output_type_description: reg_val[@plan.template.locale.tr('-', '_')]
         )
         created_ro.create_json_fragments
 
@@ -201,7 +205,7 @@ module Dmpopidor
     # rubocop:disable Metrics/AbcSize
     def destroy_remote
       @plan = ::Plan.find(params[:plan_id])
-      @research_output = ::ResearchOutput.find(params[:id])
+      @research_output = ResearchOutput.find(params[:id])
       @persons = @plan.json_fragment.persons
       authorize @plan
       if @research_output.destroy
@@ -216,7 +220,7 @@ module Dmpopidor
     # rubocop:disable Metrics/AbcSize, Metrics/MethodLength
     def update_remote
       @plan = ::Plan.find(params[:plan_id])
-      @research_output = ::ResearchOutput.find(params[:id])
+      @research_output = ResearchOutput.find(params[:id])
       @persons = @plan.json_fragment.persons
       attrs = research_output_params
       contact_id = params[:contact_id]
@@ -251,7 +255,7 @@ module Dmpopidor
       @plan = ::Plan.find(params[:plan_id])
       authorize @plan
       params[:updated_order].each_with_index do |id, index|
-        ::ResearchOutput.find(id).update(display_order: index + 1)
+        ResearchOutput.find(id).update(display_order: index + 1)
       end
       head :ok
     end

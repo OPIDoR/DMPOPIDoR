@@ -1,0 +1,28 @@
+{
+    "OrganizationIdSystem": [
+        {
+            "fr_FR": "ROR ID",
+            "en_GB": "ROR ID"
+        },
+        {
+            "fr_FR": "Crossref funder ID",
+            "en_GB": "Crossref funder ID"
+        },
+        {
+            "fr_FR": "ISNI",
+            "en_GB": "ISNI"
+        },
+        {
+            "fr_FR": "IdRef",
+            "en_GB": "IdRef"
+        },
+        {
+            "fr_FR": "URL",
+            "en_GB": "URL"
+        },
+        {
+            "fr_FR": "RNSR",
+            "en_GB": "RNSR"
+        }
+    ]
+}

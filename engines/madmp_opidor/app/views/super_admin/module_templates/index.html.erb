@@ -1,0 +1,23 @@
+<%# Available locals: orgs %>
+<% title _('Module Templates') %>
+<div class="row">
+  <div class="col-md-12">
+    <h1>
+      <%= _('Module Templates') %>
+      <% link = request.path.include?('super_admin') ? new_super_admin_template_path(type: "module") : new_org_admin_template_path(type: "module") %>
+      <a href="<%= link %>"
+         class="btn btn-primary float-end"><%= _('Create a module template') %></a>
+    </h1>
+  </div>
+</div>
+<div class="row">
+  <div class="col-md-12">
+    <%= paginable_renderise(
+          partial: "paginable/templates/modules",
+          controller: 'paginable/templates',
+          action: 'modules',
+          remote: true,
+          scope: @templates,
+          query_params: { sort_field: 'templates.title', sort_direction: :asc }) %>
+  </div>
+</div>

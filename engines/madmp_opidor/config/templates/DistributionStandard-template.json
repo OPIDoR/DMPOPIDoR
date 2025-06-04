@@ -3,6 +3,7 @@
     "$id": "../Documentation/Implementation/data_model/Json/",
     "title": "DistributionStandard",
     "description": "DistributionStandard template",
+    "dataTypes": null,
     "type": "object",
     "class": "DistributionStandard",
     "properties": {
@@ -21,8 +22,8 @@
             "inputType": "textarea",
             "label@fr_FR": "Description",
             "label@en_GB": "Description",
-            "tooltip@fr_FR": "Description du contenu de la distribution",
-            "tooltip@en_GB": "Description of the distribution content",
+            "tooltip@fr_FR": "Résumé décrivant le fichier et ses variables",
+            "tooltip@en_GB": "Summary describing the file and its variables",
             "form_label@fr_FR": "Description",
             "form_label@en_GB": "Description"
         },
@@ -32,7 +33,8 @@
             "description": "Date à laquelle les donnés sont publiées",
             "label@fr_FR": "Date de diffusion",
             "label@en_GB": "Release date",
-            "tooltip": null,
+            "tooltip@fr_FR": "Date à laquelle les données sont disponibles",
+            "tooltip@en_GB": "Date when data is available",
             "form_label@fr_FR": "Date de diffusion",
             "form_label@en_GB": "Release date"
         },
@@ -45,6 +47,7 @@
             "registries": [
                 "DataAccess"
             ],
+            "registryCategory": "Access",
             "tooltip": null,
             "form_label@fr_FR": "Mode d'accès",
             "form_label@en_GB": "DataAccess"
@@ -58,6 +61,7 @@
             "registries": [
                 "MediaType"
             ],
+            "registryCategory": "MediaType",
             "overridable": true,
             "tooltip@fr_FR": "Format sous forme MIME type",
             "tooltip@en_GB": "Format expressed as MIME type",
@@ -94,6 +98,7 @@
             "registries": [
                 "VolumeUnit"
             ],
+            "registryCategory": "VolumeUnit",
             "overridable": true,
             "tooltip": null,
             "form_label@fr_FR": "Unité",
@@ -150,8 +155,10 @@
             "registries": [
                 "DataLicenses"
             ],
+            "registryCategory": "License",
             "overridable": true,
-            "tooltip": null,
+            "tooltip@fr_FR": "Choisir une licence pour définir les conditions de réutilisation des données",
+            "tooltip@en_GB": "Choose a license to define the conditions for reuse of the data",
             "form_label@fr_FR": "Licence",
             "form_label@en_GB": "License"
         },

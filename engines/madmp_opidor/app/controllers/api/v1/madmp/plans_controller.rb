@@ -3,10 +3,12 @@
 module Api
   module V1
     module Madmp
+
       # Handles CRUD operations for MadmpSchemas in API V1
       class PlansController < BaseApiController
         respond_to :json
         include MadmpExportHelper
+        include ErrorHelper
         # GET /api/v1/madmp/plans/:id(/research_outputs/:uuid)
         # GET /api/v1/madmp/plans/research_outputs/:uuid
         # rubocop:disable Metrics/AbcSize, Metrics/MethodLength
@@ -41,64 +43,48 @@ module Api
         end
         # rubocop:enable Metrics/AbcSize, Metrics/MethodLength
 
-        # rubocop:disable Metrics/AbcSize, Metrics/MethodLength
-        # rubocop:disable Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
+        # POST /api/v1/madmp/plans/import
         def import
-          json_data = JSON.parse(request.raw_post)
-          import_format = params[:import_format]
-          template = Template.default
-          # rubocop:disable Metrics/BlockLength
-          Plan.transaction do
-            plan = Plan.new
-            errs = Import::PlanImportService.validate(json_data, import_format)
-            render_error(errors: errs, status: :bad_request) and return if errs.any?
+          return forbidden(_('You are not allowed to create plan')) unless Api::V0::PlansPolicy.new(client, Plan).create?
 
-            if import_format.eql?('rda')
-              json_data = Import::Converters::RdaToStandardConverter.convert(json_data['dmp'])
-            end
+          body = request.body.read
+          json = JSON.parse(body)
 
-            # Try to determine the Plan's owner
-            owner = determine_owner(client:, dmp: json_data)
-            if owner.nil?
-              render_error(
-                errors: [_('Unable to determine owner of the DMP, please specify an existing user as the contact')],
-                status: :bad_request
-              )
-              return
-            end
-            plan.org = owner.org if owner.present? && plan.org.blank?
+          file = Tempfile.new(['plan', '.json'])
+          file.write(json['data'].to_json)
+          file.rewind
 
-            plan.visibility = Rails.configuration.x.plans.default_visibility
-            plan.template = template
+          plan = ::Plan.new
 
-            plan.title = format(_('%{user_name} Plan'), user_name: "#{owner.firstname}'s")
+          begin
+            plan_importer = Import::Plan.new
+            data = plan_importer.import(plan, {
+              locale: params[:locale],
+              context: params[:context],
+              format: params[:import_format],
+              json_file: file
+            }, determine_owner(client: client, dmp: json['data']))
 
-            if plan.save
-              plan.add_user!(owner.id, :creator)
-              plan.create_plan_fragments
-
-              Import::PlanImportService.import(plan, json_data, 'standard')
-
-              respond_with plan
-            else
-              render_error(errors: [_('Invalid JSON')], status: :bad_request)
-            end
+            render json: { status: 201, message: _('Plan imported successfully'), data: data }, status: :created
+          rescue StandardError => errs
+            Rails.logger.error errs.backtrace
+            bad_request(errs)
+          rescue IOError
+            bad_request(_('Unvalid file'))
           rescue JSON::ParserError
-            render_error(errors: [_('Invalid JSON')], status: :bad_request)
+            bad_request(_('File should contain JSON'))
+          rescue StandardError => e
+            Rails.logger.error e.backtrace
+            bad_request("#{_('An error has occured: ')} #{e.message}")
           end
-          # rubocop:enable Metrics/BlockLength
         end
-        # rubocop:enable Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
-        # rubocop:enable Metrics/AbcSize, Metrics/MethodLength
-
-        private
 
         # Get the Plan's owner
         def determine_owner(client:, dmp:)
           if client.is_a?(User)
             client
           else
-            contact = dmp.dig('meta', 'contact', 'person')
+            contact = dmp.dig('meta', 'contact', 0, 'person')
             user = User.find_by(email: contact['mbox'])
             return user if user.present?
 
@@ -109,6 +95,8 @@ module Api
                            org: }, User.first) # invite! needs a User, put the SuperAdmin as the inviter
           end
         end
+
+        private
 
         def select_research_output(plan_fragment, _selected_research_outputs)
           plan_fragment.data['researchOutput'] = plan_fragment.data['researchOutput'].select do |r|

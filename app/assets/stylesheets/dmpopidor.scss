@@ -8,19 +8,22 @@
 
 @use './dmpopidor/accessibility' as *;
 @use './dmpopidor/accordions' as *;
+@use './dmpopidor/autocomplete' as *;
 @use './dmpopidor/buttons' as *;
 @use './dmpopidor/checkbox' as *;
 @use './dmpopidor/dropdowns' as *;
+@use './dmpopidor/forms' as *;
 @use './dmpopidor/html' as *;
 @use './dmpopidor/navs' as *;
 @use './dmpopidor/new_window_popup' as *;
 @use './dmpopidor/overlay' as *;
 @use './dmpopidor/tables' as *;
+@use './dmpopidor/template_filters' as *;
 
 @use './dmpopidor/footer' as *;
 @use './dmpopidor/header' as *;
 @use './dmpopidor/homepage' as *;
-@use './dmpopidor/news' as *;
+@use './dmpopidor/welcome' as *;
 @use './dmpopidor/notes' as *;
 @use './dmpopidor/plan' as *;
 @use './dmpopidor/user_profile' as *;
@@ -30,10 +33,11 @@
 @use './dmpopidor/signin_form' as *;
 @use './dmpopidor/contact_us' as *;
 @use './dmpopidor/cookiebanner' as *;
+@use './dmpopidor/search_addon' as *;
 @use './dmpopidor/share_form' as *;
-@use './dmpopidor/beta_ribbons' as *;
-@use './dmpopidor/import_plan' as *;
 @use './dmpopidor/sweet_alert' as *;
+
+@use './dmpopidor/ribbon' as *;
 
 @use './dmpopidor/_react_tooltip.scss' as *;
 
@@ -101,41 +105,11 @@ body div a.btn {
       }
     }
   }
+  
 
-  /** tooltips */
-  .tooltip {
-    .tooltip-arrow {
-      color: $blue;
-      border-bottom-color: $blue;
-    }
-
-    .tooltip-inner {
-      background-color: $blue;
-      font-size: 14px;
-      font-weight: 600;
-      text-align: center;
-      min-width: initial;
-    }
+  .bg-info {
+    background-color: $dmpopidor-blue !important;
   }
-
-  .label-info {
-    background-color: $blue;
-  }
-
-  /** Focus outline required for accessibility */
-  // input,
-  // select,
-  // .form-control {
-
-  //   &:focus,
-  //   &:hover,
-  //   &:active {
-  //     outline-style: solid !important;
-  //     outline-color: $blue !important;
-  //     outline-width: 2px !important;
-  //   }
-  // }
-
 
   input.btn[type="button"] {
 
@@ -179,7 +153,7 @@ body div a.btn {
     */
   // Progress bar 
   .progress-bar {
-    background-color: $blue;
+    background-color: $dmpopidor-blue;
   }
 
   // example answer
@@ -188,13 +162,13 @@ body div a.btn {
 
     .example-answer-link {
       cursor: pointer;
-      background-color: $blue;
+      background-color: $dmpopidor-blue;
       display: block;
     }
   }
 
   // main border
-  .plan-content.panel-default {
+  .plan-content.card-default {
     border: none;
     box-shadow: none;
   }
@@ -219,14 +193,6 @@ body div a.btn {
   //     }
   // }
 
-  // Plan Download
-
-  #download_form {
-    #json-formatting {
-      display: none;
-    }
-  }
-
   // News
   .question-divider {
     border-bottom: 2px solid $very-very-light-blue;
@@ -239,19 +205,19 @@ body div a.btn {
   &.super-admin {
 
     a {
-      color: $black;
+      color: #000;
       text-decoration: underline;
     }
 
     .combobox-clear-button,
     .combobox-clear-button:hover,
     .combobox-clear-button:focus {
-      color: $yellow;
+      color: $dmpopidor-yellow;
     }
 
 
     .btn-link {
-      color: $black;
+      color: #000;
       text-decoration: underline;
     }
 

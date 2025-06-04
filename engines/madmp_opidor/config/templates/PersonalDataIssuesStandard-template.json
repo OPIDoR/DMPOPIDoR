@@ -3,6 +3,7 @@
     "$id": "../Documentation/Implementation/data_model/Json/",
     "title": "PersonalDataIssuesStandard",
     "description": "PersonalDataIssuesStandard template",
+    "dataTypes": null,
     "type": "object",
     "class": "PersonalDataIssuesStandard",
     "properties": {
@@ -60,8 +61,8 @@
             "description": "Personne(s) en charge d'assurer la protection des données personnelles",
             "label@fr_FR": "Personnes impliquées dans la protection des données personnelles",
             "label@en_GB": "Persons in charge of data protection",
-            "tooltip@fr_FR": "Le responsable peut être une personne, une équipe, un service",
-            "tooltip@en_GB": "Person in charge can be a person, a team, a department",
+            "tooltip@fr_FR": "Il peut s'agir d'une ou plusieurs personnes, d'une équipe, d'un service",
+            "tooltip@en_GB": "It can be one or more people, a team, a department",
             "form_label@fr_FR": "Personnes impliquées dans la protection des données personnelles",
             "form_label@en_GB": "Persons in charge of data protection"
         }

@@ -6,7 +6,7 @@ services:
       context: .
       target: dev
       args:
-        - NODE_MAJOR=${NODE_MAJOR:-18}
+        - NODE_MAJOR=${NODE_MAJOR:-22}
     depends_on:
       postgres:
         condition: service_healthy

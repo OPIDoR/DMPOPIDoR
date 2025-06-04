@@ -57,13 +57,6 @@ class User < ApplicationRecord
   include ConditionalUserMailer
   include DateRangeable
   include Identifiable
-  # --------------------------------
-  # Start DMP OPIDoR Customization
-  # --------------------------------
-  prepend Dmpopidor::User
-  # --------------------------------
-  # End DMP OPIDoR Customization
-  # --------------------------------
 
   extend UniqueRandom
 
@@ -155,22 +148,12 @@ class User < ApplicationRecord
     if date_range?(term: term)
       by_date_range(:created_at, term)
     else
-      search_pattern = "%#{term}%"
-      # MySQL does not support standard string concatenation and since concat_ws
-      # or concat functions do not exist for sqlite, we have to come up with this
-      # conditional
-      if mysql_db?
-        where("lower(concat_ws(' ', firstname, surname)) LIKE lower(?) OR " \
-              'lower(email) LIKE lower(?)',
-              search_pattern, search_pattern)
-      else
-        joins(:org)
-          .where("lower(firstname || ' ' || surname) LIKE lower(:search_pattern)
-                    OR lower(email) LIKE lower(:search_pattern)
-                    OR lower(orgs.name) LIKE lower (:search_pattern)
-                    OR lower(orgs.abbreviation) LIKE lower (:search_pattern) ",
-                 search_pattern: search_pattern)
-      end
+      joins(:org)
+        .where("lower(firstname || ' ' || surname) LIKE lower(:search_pattern)
+                OR lower(email) LIKE lower(:search_pattern)
+                OR lower(orgs.name) LIKE lower (:search_pattern)
+                OR lower(orgs.abbreviation) LIKE lower (:search_pattern) ",
+               search_pattern: "%#{term}%")
     end
   }
 
@@ -433,18 +416,16 @@ class User < ApplicationRecord
     notifications << notification if notification.dismissable?
   end
 
-  # --------------------------------
-  # Start DMP OPIDoR Customization
-  # CHANGES : changed firstname & lastname, deleted user_identifiers & added some log
-  # --------------------------------
   # remove personal data from the user account and save
   # leave account in-place, with org for statistics (until we refactor those)
   #
   # Returns boolean
+  # CHANGES : changed firstname & lastname, deleted user_identifiers & added some log
   # rubocop:disable Metrics/AbcSize
   def archive
     suffix = Rails.configuration.x.application.fetch(:archived_accounts_email_suffix, '@example.org')
-    self.firstname = 'Deleted'
+    copy = dup
+    self.firstname = 'Anonymous'
     self.surname = 'User'
     self.email = User.unique_random(field_name: 'email',
                                     prefix: 'user_',
@@ -456,11 +437,15 @@ class User < ApplicationRecord
     self.last_sign_in_ip = nil
     self.current_sign_in_ip = nil
     self.active = false
+
+    identifiers.destroy_all
+
+    Rails.logger.info "User #{id} anonymized : email was #{copy.email}"
+    p "User #{id} anonymized : email was #{copy.email}"
+    ::UserMailer.anonymization_notice(copy).deliver_now
+
     save
   end
-  # --------------------------------
-  # End DMP OPIDoR Customization
-  # --------------------------------
   # rubocop:enable Metrics/AbcSize
 
   # rubocop:disable Metrics/AbcSize

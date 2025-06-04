@@ -1,0 +1,31 @@
+{
+	"SoftwareCatalogs": [
+		{
+			"label": {
+				"en_GB": "HAL, Archive ouverte HAL",
+				"fr_FR": "HAL, Archive ouverte HAL"
+			},
+			"title": "HAL",
+			"technicalResourceId": "https://cat.opidor.fr/index.php/HAL",
+			"idType": "URL",
+			"serviceContact": "hal.support@ccsd.cnrs.fr"
+		},
+		{
+			"label": {
+				"en_GB": "Zenodo",
+				"fr_FR": "Zenodo"
+			},
+			"title": "Zenodo",
+			"technicalResourceId": "https://cat.opidor.fr/index.php/Zenodo",
+			"idType": "URL",
+			"serviceContact": "https://about.zenodo.org/contact/"
+		},
+		{
+			"label": {
+				"en_GB": "None",
+				"fr_FR": "Aucun"
+			},
+			"title": "Aucun"
+		}
+	]
+}

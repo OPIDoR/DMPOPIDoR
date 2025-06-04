@@ -3,6 +3,7 @@
     "$id": "../Documentation/Implementation/data_model/Json/",
     "title": "DataCollectionStandard",
     "description": "DataCollectionStandard template",
+    "dataTypes": null,
     "type": "object",
     "class": "DataCollectionStandard",
     "properties": {
@@ -36,6 +37,7 @@
             "registries": [
                 "DataNature"
             ],
+            "registryCategory": "DataNature",
             "overridable": true,
             "tooltip@fr_FR": "Sélectionner dans la liste déroulante la nature du produit de recherche",
             "tooltip@en_GB": "Choose in the dropdown the research output data nature",
@@ -65,6 +67,7 @@
             "registries": [
                 "CollectionServices"
             ],
+            "registryCategory": "CollectionService",
             "overridable": true,
             "tooltip": null,
             "form_label@fr_FR": "Equipements, plateaux techniques utilisés pour la production ou l'acquisition de données",
@@ -113,8 +116,8 @@
             "description": "Personne(s) impliquée(s) dans la collecte/acquisition des données",
             "label@fr_FR": "Personnes impliquées dans la production ou la collecte des données",
             "label@en_GB": "Data producers or collectors",
-            "tooltip@fr_FR": "Le responsable peut être une personne, une équipe, un service",
-            "tooltip@en_GB": "Person in charge can be a person, a team, a department",
+            "tooltip@fr_FR": "Il peut s'agir d'une ou plusieurs personnes, d'une équipe, d'un service",
+            "tooltip@en_GB": "It can be one or more people, a team, a department",
             "form_label@fr_FR": "Personnes impliquées dans la production ou la collecte des données",
             "form_label@en_GB": "Data producers or collectors"
         },

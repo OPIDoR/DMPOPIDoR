@@ -3,14 +3,14 @@
 # Controller for the MadmpFragments, handle structures forms
 class MadmpFragmentsController < ApplicationController
   after_action :verify_authorized
-  include Dmpopidor::ErrorHelper
+  include ErrorHelper
 
   # rubocop:disable Metrics/AbcSize, Metrics/MethodLength
   def create
     body = JSON.parse(request.body.string)
     dmp = Fragment::Dmp.find(body['dmp_id'])
     plan = dmp.plan
-    research_output = body['research_output_id'] ? ::ResearchOutput.find(body['research_output_id']) : nil
+    research_output = body['research_output_id'] ? ResearchOutput.find(body['research_output_id']) : nil
     madmp_schema = MadmpSchema.find(body['schema_id'])
     defaults = madmp_schema.defaults(plan.template.locale)
     classname = madmp_schema.classname
@@ -27,7 +27,7 @@ class MadmpFragmentsController < ApplicationController
     @fragment.classname = classname
     authorize @fragment
     unless classname.eql?('person')
-      @fragment.answer = ::Answer.create!(
+      @fragment.answer = Answer.create!(
         research_output_id: research_output.id,
         plan_id: plan.id,
         question_id: body['question_id'],

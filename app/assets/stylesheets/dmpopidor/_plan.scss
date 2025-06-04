@@ -234,7 +234,7 @@
       }
     }
 
-    .form-group {
+    .form-control {
       margin: 0;
     }
 
@@ -267,12 +267,14 @@
             cursor: pointer;
           }
 
-          &.form-group {
+          &.form-control {
             flex-direction: column;
           }
+
           select {
             width: 90%;
           }
+
           .contributor-link {
             align-self: center;
           }
@@ -289,7 +291,7 @@
         display: flex;
         align-items: center;
         justify-content: space-around;
-        color: $blue;
+        color: $dmpopidor-blue;
 
         .handle,
         .edit,
@@ -298,7 +300,7 @@
         }
 
         a {
-          color: $blue;
+          color: $dmpopidor-blue;
         }
       }
     }
@@ -343,16 +345,20 @@
 .write-plan {
   display: flex;
 
-  &.panel-body {
+  &.card-body {
     padding: 15px 5px;
   }
 
   .research-output-content {
-    background-color: $white;
-    border: 1px solid $blue;
+    background-color: #fff;
+    border: 1px solid $dmpopidor-blue;
 
     &.multiple-research-output {
       border-top-color: transparent;
+    }
+
+    .card {
+      border: none;
     }
   }
 
@@ -364,9 +370,10 @@
     li {
       flex: 1 1 15%;
       text-align: center;
+
       &.disabled {
         cursor: not-allowed;
-  
+
         a {
           pointer-events: none;
         }
@@ -400,20 +407,25 @@
     border: none;
 
     .question-text {
-      background-color: $white;
+      background-color: #fff;
       color: $dark-blue;
       border-bottom: 2px solid $dark-blue;
       border-right: 2px solid $dark-blue;
 
-      .panel-title {
+      .card-title {
         color: $dark-blue;
         font-weight: bold;
+        font-size: 16px;
 
         a {
           display: inline;
           padding: 0;
           margin: 0;
-          background-color: $white;
+          background-color: #fff;
+        }
+
+        i {
+          font-size: 16px;
         }
       }
     }
@@ -431,14 +443,14 @@
           position: absolute;
           top: 0;
           right: 0;
-          background-color: $blue;
-          color: $white;
+          background-color: $dmpopidor-blue;
+          color: #fff;
           padding: 10px 5px;
           cursor: pointer;
-  
+
           text-orientation: mixed;
           writing-mode: vertical-rl;
-  
+
           &.disabled {
             background-color: $light-grey;
             cursor: not-allowed;
@@ -467,12 +479,12 @@
   .guidance-section {
     flex: 4;
     display: none;
-    border-left: 5px solid $blue;
+    border-left: 5px solid $dmpopidor-blue;
     padding-left: 5px;
 
     // Guidances 
-    .panel-title {
-      color: $white;
+    .card-title {
+      color: #fff;
     }
 
     .plan-guidance-tab {
@@ -489,7 +501,7 @@
           display: none;
 
           &.valid {
-            color: $green;
+            color: $dmpopidor-green;
           }
 
           &.invalid {
@@ -508,8 +520,8 @@
         }
 
         .reload-button {
-          background-color: $green;
-          color: $white;
+          background-color: $dmpopidor-green;
+          color: #fff;
           display: none;
         }
       }
@@ -572,7 +584,7 @@
 .plan-form {
   .tab-content {
     padding: 25px 25px 50px 25px;
-    border: 1px solid $blue;
+    border: 1px solid $dmpopidor-blue;
   }
 
   .form-tabs {
@@ -594,11 +606,11 @@
     li.active>span,
     li.active>span:focus,
     li.active>span:hover {
-      color: $white;
+      color: #fff;
       border-bottom-color: transparent;
-      background-color: $white;
-      color: $blue;
-      border: 1px solid $blue;
+      background-color: #fff;
+      color: $dmpopidor-blue;
+      border: 1px solid $dmpopidor-blue;
       border-bottom-color: transparent;
 
       i {
@@ -614,7 +626,7 @@
 
 #available-templates {
   .message-block {
-    color: $blue;
+    color: $dmpopidor-blue;
   }
 }
 
@@ -625,5 +637,31 @@
 #create-research-output-tabs {
   .nav-tabs {
     background-color: white;
+  }
+}
+
+// ##################################
+// Plan Download
+// ##################################
+
+#download_form {
+  #json-formatting {
+    display: none;
+
+    .export-msg {
+      color: $rust;
+      font-size: smaller;
+    }
+  }
+
+  legend {
+    display: block;
+    width: 100%;
+    padding: 0;
+    margin-bottom: 20px;
+    font-size: 21px;
+    line-height: inherit;
+    color: #333333;
+    border-bottom: 1px solid #e5e5e5;
   }
 }

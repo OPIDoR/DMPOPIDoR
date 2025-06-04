@@ -4,7 +4,7 @@ module Dmpopidor
   # rubocop:disable Metrics/ModuleLength
   # Customized code for NotesController
   module NotesController
-    include Dmpopidor::ErrorHelper
+    include ErrorHelper
 
     # CHANGES
     # Delivered mail contains the name of the collaborator leaving the note
@@ -40,14 +40,14 @@ module Dmpopidor
         @note = ::Note.new
         @note.user_id = user_id
 
-        ::Answer.transaction do
-          @answer = ::Answer.find_by(
+        Answer.transaction do
+          @answer = Answer.find_by(
             plan_id: plan_id,
             question_id: note_params[:question_id],
             research_output_id: note_params[:research_output_id]
           )
           if @answer.blank?
-            @answer             = ::Answer.new
+            @answer             = Answer.new
             @answer.plan_id     = plan_id
             @answer.question_id = note_params[:question_id]
             @answer.user_id     = @note.user_id

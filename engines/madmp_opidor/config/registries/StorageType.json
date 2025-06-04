@@ -1,0 +1,36 @@
+{
+    "StorageType": [
+        {
+            "en_GB": "Hard disk drive",
+            "fr_FR": "Disque dur"
+        },
+        {
+            "en_GB": "Solid state drive",
+            "fr_FR": "Disque SSD"
+        },
+        {
+            "en_GB": "USB key",
+            "fr_FR": "Clé USB"
+        },
+        {
+            "en_GB": "NAS server",
+            "fr_FR": "Serveur NAS"
+        },
+        {
+            "en_GB": "Cloud",
+            "fr_FR": "Cloud"
+        },
+        {
+            "en_GB": "CD",
+            "fr_FR": "CD"
+        },
+        {
+            "en_GB": "DVD",
+            "fr_FR": "DVD"
+        },
+        {
+            "en_GB": "Magnetic tape",
+            "fr_FR": "Bande magnétique"
+        }
+    ]
+}

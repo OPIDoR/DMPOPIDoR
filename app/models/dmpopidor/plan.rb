@@ -29,7 +29,7 @@ module Dmpopidor
 
     # CHANGES : Reviewer can be from a different org of the plan owner
     def reviewable_by?(user_id)
-      reviewer = ::User.find(user_id)
+      reviewer = User.find(user_id)
       feedback_requested? &&
         reviewer.present? &&
         reviewer.org_id == feedback_requestor&.org_id &&
@@ -58,7 +58,7 @@ module Dmpopidor
     # rubocop:disable Metrics/AbcSize, Metrics/MethodLength
     def create_plan_fragments(json_data = nil)
       template_locale = template.locale.eql?('en-GB') ? 'eng' : 'fra'
-      dmp_template_name = template.research_entity? ? 'DMPResearchEntity' : 'DMPResearchProject'
+      dmp_template_name = research_entity? ? 'DMPResearchEntity' : 'DMPResearchProject'
       # rubocop:disable Metrics/BlockLength
       I18n.with_locale template.locale do
         dmp_fragment = Fragment::Dmp.create!(
@@ -75,7 +75,7 @@ module Dmpopidor
         if owner.present?
           person = Fragment::Person.create!(
             data: {
-              'nameType' => _('Personal'),
+              'nameType' => 'Personal',
               'lastName' => owner.surname,
               'firstName' => owner.firstname,
               'mbox' => owner.email
@@ -93,17 +93,17 @@ module Dmpopidor
           },
           dmp_id: dmp_fragment.id,
           parent_id: nil,
-          madmp_schema: MadmpSchema.find_by(name: 'ContributorStandard'),
+          madmp_schema: MadmpSchema.find_by(name: 'ContributorConstantRole'),
           additional_info: { property_name: 'contact' }
         )
 
         #################################
         # META & PROJECT FRAGMENTS
         #################################
-        if template.research_entity?
+        if research_entity?
           handle_research_entity(dmp_fragment.id, json_data.present? ? json_data['research_entity'] : nil)
         else
-          handle_research_project(dmp_fragment.id, person)
+          handle_research_project(dmp_fragment.id)
         end
 
         meta = Fragment::Meta.create!(
@@ -113,7 +113,7 @@ module Dmpopidor
             'lastModifiedDate' => updated_at.strftime('%F'),
             'dmpLanguage' => template_locale,
             'dmpId' => identifier,
-            'contact' => { 'dbid' => dmp_coordinator.id }
+            'contact' => [{ 'dbid' => dmp_coordinator.id }]
           },
           dmp_id: dmp_fragment.id,
           parent_id: dmp_fragment.id,
@@ -127,35 +127,20 @@ module Dmpopidor
     end
     # rubocop:enable Metrics/AbcSize, Metrics/MethodLength
 
-    # rubocop:disable Metrics/MethodLength
-    def handle_research_project(dmp_id, person)
+    def handle_research_project(dmp_id)
       project_schema = MadmpSchema.find_by(name: 'ProjectStandard')
 
-      project_coordinator = Fragment::Contributor.create!(
-        data: {
-          'person' => person.present? ? { 'dbid' => person.id } : nil,
-          'role' => _('Project coordinator')
-        },
-        dmp_id: dmp_id,
-        parent_id: nil,
-        madmp_schema: MadmpSchema.find_by(name: 'ContributorStandard'),
-        additional_info: { property_name: 'principalInvestigator' }
-      )
-
-      project = Fragment::Project.create!(
+      Fragment::Project.create!(
         data: {
           'title' => title,
-          'description' => description,
-          'principalInvestigator' => { 'dbid' => project_coordinator.id }
+          'description' => description
         },
         dmp_id: dmp_id,
         parent_id: dmp_id,
         madmp_schema: project_schema,
         additional_info: { property_name: 'project' }
       )
-      project_coordinator.update(parent_id: project.id)
     end
-    # rubocop:enable Metrics/MethodLength
 
     def handle_research_entity(dmp_id, research_entity = nil)
       entity_schema = MadmpSchema.find_by(name: 'ResearchEntityStandard')
@@ -175,7 +160,7 @@ module Dmpopidor
       )
     end
 
-    # rubocop:disable Metrics/AbcSize
+    # rubocop:disable Metrics/AbcSize, Metrics/MethodLength
     def copy_plan_fragments(plan)
       create_plan_fragments if json_fragment.nil?
 
@@ -199,7 +184,7 @@ module Dmpopidor
           )
         end
 
-        if plan.template.context == 'research_entity'
+        if research_entity?
           json_fragment.research_entity.raw_import(raw_project, json_fragment.research_entity.madmp_schema)
         else
           json_fragment.project.raw_import(raw_project, json_fragment.project.madmp_schema)
@@ -207,7 +192,7 @@ module Dmpopidor
         json_fragment.meta.raw_import(raw_meta, json_fragment.meta.madmp_schema)
       end
     end
-    # rubocop:enable Metrics/AbcSize
+    # rubocop:enable Metrics/AbcSize, Metrics/MethodLength
 
     def add_api_client!(api_client)
       return unless api_client.present? && api_client_roles.where(api_client_id: api_client.id).none?
@@ -219,7 +204,11 @@ module Dmpopidor
     end
 
     def grant_identifier
-      json_fragment.project.fundings.pluck(Arel.sql("data->'grantId'")).join(', ')
+      if research_entity?
+        json_fragment.research_entity.fundings.pluck(Arel.sql("data->'grantId'")).join(', ')
+      else
+        json_fragment.project.fundings.pluck(Arel.sql("data->'grantId'")).join(', ')
+      end
     end
   end
   # rubocop:enable Metrics/ModuleLength

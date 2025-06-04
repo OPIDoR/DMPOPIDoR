@@ -3,6 +3,10 @@
     "$id": "../Documentation/Implementation/data_model/Json/",
     "title": "ControlledKeywordStandard",
     "description": "ControlledKeywordStandard template",
+    "dataTypes": [
+        "software",
+        "none"
+    ],
     "type": "object",
     "class": "ControlledKeywordStandard",
     "properties": {

@@ -144,11 +144,13 @@ class UserMailer < ActionMailer::Base
                            tool_name: tool_name, plan_title: @plan.title))
     end
   end
+
   # rubocop:enable Metrics/AbcSize
   # --------------------------------
   # End DMP OPIDoR Customization
   # --------------------------------
 
+  # rubocop:disable Metrics/AbcSize
   def plan_visibility(user, plan)
     return unless user.active?
 
@@ -164,6 +166,7 @@ class UserMailer < ActionMailer::Base
            subject: format(_('DMP Visibility Changed: %{plan_title}'), plan_title: @plan.title))
     end
   end
+  # rubocop:enable Metrics/AbcSize
 
   # --------------------------------
   # Start DMP OPIDoR Customization

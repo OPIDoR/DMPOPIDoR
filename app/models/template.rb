@@ -39,14 +39,6 @@
 class Template < ApplicationRecord
   include GlobalHelpers
   extend UniqueRandom
-  # --------------------------------
-  # Start DMP OPIDoR Customization
-  # SEE app/models/dmpopidor/template.rb
-  # --------------------------------
-  prepend Dmpopidor::Template
-  # --------------------------------
-  # End DMP OPIDoR Customization
-  # --------------------------------
 
   validates_with TemplateLinksValidator
 
@@ -269,10 +261,10 @@ class Template < ApplicationRecord
     where(is_recommended: true, published: true, type: 'structured', context:, locale:).last
   end
 
-  def self.module(data_type: nil, context: 'research_project', locale: 'fr-FR')
+  def self.module(data_type: nil, locale: 'fr-FR')
     return nil if data_type.nil?
 
-    where(published: true, type: 'module', data_type:, context:, locale:).last
+    where(published: true, type: 'module', data_type:, locale:).last
   end
 
   def self.current(family_id)
@@ -373,16 +365,14 @@ class Template < ApplicationRecord
   # Is this the latest version of the current Template's family?
   #
   # Returns Boolean
-  # --------------------------------
-  # Start DMP OPIDoR Customization
-  # SEE app/models/dmpopidor/template.rb
-  # --------------------------------
+  # CHANGES : Added module template support
   def latest?
-    id == Template.latest_version(family_id).pluck('templates.id').first
+    id == if module?
+            Template.latest_module_version(family_id).pluck('templates.id').first
+          else
+            Template.latest_version(family_id).pluck('templates.id').first
+          end
   end
-  # --------------------------------
-  # End DMP OPIDoR Customization
-  # --------------------------------
 
   # Determines whether or not a new version should be generated
   def generate_version?
@@ -415,17 +405,15 @@ class Template < ApplicationRecord
     !published && !Template.published(family_id).empty?
   end
 
-  # --------------------------------
-  # Start DMP OPIDoR Customization
-  # SEE app/models/dmpopidor/template.rb
-  # --------------------------------
+  # CHANGES : Added module template support
   def removable?
     versions = Template.includes(:plans).where(family_id: family_id)
-    versions.reject { |version| version.plans.empty? }.empty?
+    if type.eql?('module')
+      Fragment::ResearchOutput.where("(additional_info->>'moduleId')::int IN (?)", versions.pluck(:id)).empty?
+    else
+      versions.reject { |version| version.plans.empty? }.empty?
+    end
   end
-  # --------------------------------
-  # End DMP OPIDoR Customization
-  # --------------------------------
 
   # Returns a new unpublished copy of self with a new family_id, version = zero
   # for the specified org
@@ -541,6 +529,27 @@ class Template < ApplicationRecord
       random = rand 2_147_483_647
       break random unless Template.exists?(family_id: random)
     end
+  end
+
+  def serialize_json
+    section_data = sections.as_json(
+      include: {
+        questions: {
+          only: %w[id text number default_value question_format_id],
+          include: { madmp_schema: { only: %w[id classname] } }
+        }
+      }
+    )
+    {
+      id: id,
+      locale: locale,
+      title: title,
+      version: version,
+      org: org&.name,
+      structured: structured?,
+      publishedDate: updated_at.to_date,
+      sections: section_data
+    }
   end
 
   private

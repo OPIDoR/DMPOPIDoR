@@ -25,10 +25,6 @@
           <td><%= raw template.description %></td>
           <td><%= l(template.updated_at.to_date, formats: :short) %></td>
           <td class="text-center">
-            <%= link_to template_export_path(template.family_id, format: :docx), target: '_blank' do %>
-               <i class="fas fa-file-word" aria-hidden="true"></i>
-               <em class="sr-only"><%= _('(new window)') %></em>
-            <% end %>
             <%= link_to template_export_path(template.family_id, format: :pdf), target: '_blank' do %>
                <i class="fas fa-file-pdf" aria-hidden="true"></i>
                <em class="sr-only"><%= _('(new window)') %></em>
