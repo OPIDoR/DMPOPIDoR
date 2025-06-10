@@ -2,6 +2,11 @@
 
 **Attention** Cette liste de changements concerne les déploiements sur nos serveurs de test en interne.
 
+## 04/06/2025
+
+- Correction du problème d'ouverture des questions non répondues dans les plans en lecture seules
+- Correction du libellé concernant les Renseignements sur les entitées dans l'export de plan (#13338)
+
 ## 21/05/2025
 
 - Ajout de le requête "publicPlans" dans l'API GraphQL pour récupérer la liste des plans public sans authentification (#)

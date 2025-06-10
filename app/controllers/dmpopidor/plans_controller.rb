@@ -443,7 +443,7 @@ module Dmpopidor
 
     def import_params
       params.require(:import)
-            .permit(:format, :template_id, :json_file)
+            .permit(:format, :template_id, :json_file, :context, :locale)
     end
 
     def import_errors(errs)
