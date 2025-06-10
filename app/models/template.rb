@@ -62,9 +62,6 @@ class Template < ApplicationRecord
   # The Project Form is replaced by a Structure Form in the General information tab.
   # New features might be added in the future
   enum :context, %i[research_project research_entity]
-  # --------------------------------
-  # End DMP OPIDoR Customization
-  # --------------------------------
 
   # Stores links as an JSON object:
   # {funder: [{"link":"www.example.com","text":"foo"}, ...],

@@ -76,6 +76,8 @@ class PlansController < ApplicationController
       @plan.template = Template.find(plan_params[:template_id])
       # rubocop:disable Metrics/BlockLength
       I18n.with_locale @plan.template.locale do
+        @plan.context = plan_params[:context]
+
         @plan.visibility = Rails.configuration.x.plans.default_visibility
 
         @plan.template = Template.find(plan_params[:template_id])
@@ -215,7 +217,7 @@ class PlansController < ApplicationController
   end
 
   # PUT /plans/1
-  # rubocop:disable Metrics/MethodLength
+  # rubocop:disable Metrics/MethodLength, Metrics/AbcSize
   def update
     @plan = Plan.find(params[:id])
     authorize @plan
@@ -261,8 +263,7 @@ class PlansController < ApplicationController
     end
     # rubocop:enable Metrics/BlockLength
   end
-
-  # rubocop:enable Metrics/MethodLength
+  # rubocop:enable Metrics/MethodLength, Metrics/AbcSize
 
   # GET /plans/:id/budget
   def budget
@@ -680,7 +681,7 @@ class PlansController < ApplicationController
           .permit(:template_id, :title, :visibility, :description, :identifier,
                   :start_date, :end_date, :org_id, :org_name, :org_crosswalk,
                   :ethical_issues, :ethical_issues_description, :ethical_issues_report,
-                  :funding_status,
+                  :funding_status, :context,
                   grant: %i[name value],
                   org: %i[id org_id org_name org_sources org_crosswalk],
                   funder: %i[id org_id org_name org_sources org_crosswalk])

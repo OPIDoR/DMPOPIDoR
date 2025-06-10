@@ -89,6 +89,11 @@ class Plan < ApplicationRecord
 
   enum :funding_status, %i[planned funded denied]
 
+  # Context describes if the DMP is for a Research Project ou a Research Entity
+  # The Project Form is replaced by a Structure Form in the General information tab.
+  # New features might be added in the future
+  enum :context, %i[research_project research_entity]
+
   alias_attribute :name, :title
 
   # ================
