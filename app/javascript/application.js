@@ -19,6 +19,7 @@ import 'bootstrap';
 import '@hotwired/turbo-rails';
 import { Application } from '@hotwired/stimulus';
 import ReactController from './controllers/react_controller.js';
+import ResetFormController from './controllers/reset_form_controller.js';
 
 // Uncomment to copy all static images under ../images to the output folder and reference
 // them with the image_pack_tag helper in views (e.g <%= image_pack_tag 'rails.png' %>)
@@ -108,3 +109,4 @@ window.toggleSpinner = toggleSpinner;
 // Register Stimulus controllers
 window.Stimulus = Application.start();
 window.Stimulus.register('react', ReactController);
+window.Stimulus.register('resetForm', ResetFormController);

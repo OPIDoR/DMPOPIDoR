@@ -9,7 +9,7 @@ $(() => {
         updatedOrder.push($(this).find('.research-output-id').val());
       });
       $.ajax({
-        url: '/research_outputs/sort',
+        url: '/classic_research_outputs/sort',
         method: 'post',
         data: {
           plan_id: planId,

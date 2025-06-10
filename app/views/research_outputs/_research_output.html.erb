@@ -1,0 +1,54 @@
+
+<% research_output_description = research_output&.json_fragment&.research_output_description %>
+<% research_output_data = research_output_description.data if research_output_description.present? %>
+<% contact = research_output_description.contact %>
+
+<%= turbo_frame_tag research_output do %>
+  <li class="research-output-element">
+    <%= hidden_field_tag 'research-output-id', research_output.id, class: 'research-output-id' %>
+    <div class='research-output-fields'>
+      <div class='research-output-field form-control research-output-abbreviation'>
+        <span class="fw-bold"><%= _('Abbreviated Name (20 chars max.)') %></span>
+        <span><%= research_output.abbreviation %></span>
+      </div>
+      <div class='research-output-field form-control research-output-title'>
+        <span class="fw-bold"><%= _('Full Name') %></span>
+        <span><%= research_output_data['title'] %></span>
+      </div>
+      <div class='research-output-field form-control research-output-type'>
+        <span class="fw-bold"><%= _('Type') %></span>
+        <span><%= research_output_data['type'] %></span>
+      </div>
+      <div class='research-output-field form-control research-output-contact'>
+        <span class="fw-bold"><%= _('Contact') %></span>
+        <span><%= contact&.person.present? ? contact.person.to_s : nil %></span>
+      </div>
+      <div class='research-output-field form-control research-output-pid'>
+        <span class="fw-bold"><%= _('Persistent Identifier') %></span>
+        <span><%= research_output_data['datasetId'] %></span>
+      </div>
+    </div>
+    <% if research_output.plan.editable_by?(current_user.id) %>
+      <div class='research-output-actions'>
+        <%= link_to(edit_classic_research_output_path(id: research_output, plan_id: research_output.plan_id), data: { turbo_frame: dom_id(research_output) }) do %>
+          <i class="fas fa-pen-to-square edit" aria-hidden="true" data-toggle="tooltip" 
+                  data-original-title="<%= _('Edit research output') %>"></i>
+        <% end %>
+        <% if research_output.plan.research_outputs.length > 1 %>
+          <i class="fas fa-up-down-left-right handle" aria-hidden="true" data-toggle="tooltip" 
+                  data-original-title="<%= _('Move research output') %>"></i>
+          <%= link_to classic_research_output_path(plan_id: research_output.plan_id, id: research_output.id), 
+                                class: "fas fa-xmark delete",
+                                data: { 
+                                  turbo_confirm: _('Deleting this research output will remove the associated answers. Do you confirm ?'),
+                                  turbo_method: :delete
+                                } do %>
+                      <i aria-hidden="true" data-toggle="tooltip" 
+                            data-original-title="<%= _('Delete research output') %>" %></i>
+                    <% end %>
+                    
+        <% end %>
+      </div>
+    <% end %>
+  </li>
+<% end %>

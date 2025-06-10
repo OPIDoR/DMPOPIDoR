@@ -1,37 +1,42 @@
-<% title "#{@plan.title} - research outputs" %>
-
-<div class="row">
-  <div class="col-md-12">
-    <!-- render the project title -->
-    <h1><%= @plan.title %></h1>
-  </div>
-</div>
+<%# locals: { plan, research_outputs, research_output_types } %>
+<% title "#{@plan.title}" %>
 
 <% content_for :plan_tab_body do %>
-  <div class="row">
-    <div class="col-md-12">
-      <p>
-        <%= _("Please list your anticipated research output(s).") %>
-      </p>
-      <br/>
-
-      <% if @research_outputs.any? %>
-        <%= paginable_renderise partial: "/paginable/research_outputs/index",
-                                controller: "paginable/research_outputs",
-                                action: "index",
-                                scope: @research_outputs,
-                                locals: { plan: @plan },
-                                query_params: {
-                                  sort_field: 'research_outputs.title',
-                                  sort_direction: :asc } %>
+  <% if @plan.template.classic? %>
+    <div id="research-outputs" class="fragment-<%= @plan.json_fragment.id%>">
+      <%= hidden_field_tag 'plan_id', @plan.id %>
+      <h2><%= _('Research outputs') %></h2>
+      <h3><%= _('Dataset, software, workflow, sample, protocol...') %></h3>
+      <div class="display-readonly-textarea-content">
+        <p><%= _('Please fill in separately for research outputs requireing a management specific to their nature or discipline.') %></p>
+      </div>
+      <% I18n.with_locale @plan.template.locale do %>
+        <ul id='research-outputs-list'>
+          <%= turbo_frame_tag "research_outputs" do %>
+            <%= render @research_outputs %>
+            
+          <% end %>
+        </ul>
       <% end %>
-
-      <% if @plan.administerable_by?(current_user.id) %>
-        <%= link_to _("Add a research output"), new_plan_research_output_path(@plan),
-                                            class: "btn btn-primary" %>
+      <% if @plan.editable_by?(current_user.id) %>
+        <div class='links'>
+          <%= button_to _('Add a research output'), classic_research_outputs_url(plan_id: @plan.id), 
+            {
+              form: { data: { turbo: true, turbo_stream: true } },
+              class: "add-research-output btn btn-primary",
+              data: {
+                toggle: "tooltip",
+                'original-title': _("Click here to add a new research output")
+              }
+            }
+          %>
+        </div>
       <% end %>
     </div>
-  </div>
+  <% else %>
+    <div id="research-outputs" class="fragment-<%= @plan.json_fragment.id%>">
+      <%= _('This tab is used by classic plans, if you want to manage your research output, please go to the "Write Plan" tab.') %>
+    </div>
+  <% end %>
 <% end %>
-
 <%= render partial: "plans/navigation", locals: { plan: @plan } %>

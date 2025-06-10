@@ -158,9 +158,6 @@ Rails.application.routes.draw do
     resource :export, only: [:show], controller: 'plan_exports'
 
     resources :contributors, except: %i[show]
-
-    resources :research_outputs, except: %i[show]
-
     member do
       get 'structured_edit'
       get 'answer'
@@ -178,22 +175,16 @@ Rails.application.routes.draw do
       post 'set_test', constraints: { format: [:json] }
       get 'overview'
     end
-    resources :research_outputs, only: %i[index update destroy], controller: 'research_outputs'
+    resources :research_outputs, only: %i[index], controller: 'classic_research_outputs'
   end
 
-  resources :research_outputs, only: %i[index show create destroy update], constraints: { format: [:json] } do
-    get 'create_remote', on: :collection
-    delete 'destroy_remote', on: :collection
-    patch 'update_remote', on: :collection
-    post 'sort', on: :collection
+  resources :research_outputs, only: %i[show create destroy update], constraints: { format: [:json] } do
     post 'import', on: :collection, constraints: { format: [:json] }
   end
 
-  resources :research_outputs, only: [] do
+  resources :classic_research_outputs, only: %i[index create edit destroy update],
+                                       controller: 'classic_research_outputs' do
     post 'sort', on: :collection
-
-    # Ajax endpoint for ResearchOutput.output_type selection
-    get 'output_type_selection', controller: 'research_outputs', action: 'select_output_type'
   end
 
   resources :usage, only: [:index]
