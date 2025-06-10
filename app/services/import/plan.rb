@@ -5,8 +5,7 @@ module Import
     def import(plan, import_params, current_user)
       import_format = import_params[:format].eql?('null') ? 'standard' : import_params[:format]
       Plan.transaction do
-        recommended_template = Template.recommend(context: import_params[:context],
-                                                  locale: import_params[:locale]) || Template.default
+        recommended_template = Template.recommend(locale: import_params[:locale]) || Template.default
         plan.template = recommended_template
 
         # pre-select org's guidance and the default org's guidance
@@ -31,6 +30,7 @@ module Import
 
         raise StandardError, errs if errs.any?
 
+        plan.context = import_params[:context]
         plan.visibility = Rails.configuration.x.plans.default_visibility
 
         plan.title = format(_("%{user_name}'s Plan"), user_name: current_user.firstname)

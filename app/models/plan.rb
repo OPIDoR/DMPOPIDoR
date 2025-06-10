@@ -979,14 +979,6 @@ class Plan < ApplicationRecord
     end
   end
 
-  def research_project?
-    template.research_project?
-  end
-
-  def research_entity?
-    template.research_entity?
-  end
-
   def structured?
     template.structured?
   end

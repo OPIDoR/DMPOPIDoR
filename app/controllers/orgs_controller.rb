@@ -11,31 +11,21 @@ class OrgsController < ApplicationController
 
   # Returns a list of active orgs in json
   # Removes current user's org from the list
-  # rubocop:disable Metrics/AbcSize
   def list
-    orgs_with_context = Org.joins(:templates).managed
-                           .where(
-                             active: true,
-                             templates: {
-                               published: true,
-                               archived: false,
-                               is_recommended: false,
-                               context: params[:context],
-                               locale: params[:locale],
-                               type: %w[classic structured]
-                             }
-                           )
-    @orgs = if params[:type] == 'org'
-              (orgs_with_context.organisation + orgs_with_context.institution + orgs_with_context.default_orgs)
-            else
-              [orgs_with_context.funder]
-            end
-    @orgs = @orgs.flatten.uniq.sort_by(&:name)
+    @orgs = Org.joins(:templates).managed
+               .where(
+                 active: true,
+                 templates: {
+                   published: true,
+                   archived: false,
+                   is_recommended: false,
+                   locale: params[:locale],
+                   type: %w[classic structured]
+                 }
+               ).to_a.flatten.uniq.sort_by(&:name)
     authorize Org.new, :list?
     render json: @orgs.as_json(only: %i[id name])
   end
-  # rubocop:enable Metrics/AbcSize
-
   # TODO: Refactor this one along with super_admin/orgs_controller. Consider moving
   #       to a new `admin` namespace, leaving public facing actions in here and
   #       moving all of the `admin_` ones to the `admin` namespaced controller
