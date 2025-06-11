@@ -3,7 +3,6 @@
     "$id": "../Documentation/Implementation/data_model/Json/",
     "title": "GenOuestRequest",
     "description": "GenOuestRequest template",
-    "dataTypes": null,
     "type": "object",
     "class": "GenOuestRequest",
     "properties": {
@@ -36,7 +35,6 @@
             "registries": [
                 "VolumeUnit"
             ],
-            "registryCategory": "VolumeUnit",
             "overridable": true,
             "tooltip": null,
             "example@fr_FR": "Go",

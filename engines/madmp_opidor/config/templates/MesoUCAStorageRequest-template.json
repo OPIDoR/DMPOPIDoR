@@ -39,7 +39,7 @@
             "tooltip@fr_FR": "Ex : Demande d'espace de stockage de 10 To pour 3 ans",
             "tooltip@en_GB": "Ex: Request for 10 TB storage space for 3 years",
             "form_label@fr_FR": "Volume de stockage (en To)",
-            "form_label@en_GB": "Storage volum (in Tb)"
+            "form_label@en_GB": "Storage volume (in Tb)"
         },
         "volumeUnit": {
             "type": "string",

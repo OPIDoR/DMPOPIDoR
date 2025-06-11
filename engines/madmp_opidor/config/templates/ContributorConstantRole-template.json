@@ -28,17 +28,10 @@
         "role": {
             "type": "string",
             "description": "Rôle d'une personne dans la gestion et production des données",
-            "inputType": "dropdown",
             "label@fr_FR": "Rôle",
             "label@en_GB": "Role",
+            "tooltip": null,
             "isConst": true,
-            "registries": [
-                "Role",
-                "SoftwareRoles"
-            ],
-            "registryCategory": "Role",
-            "tooltip@fr_FR": "Sélectionner dans la liste déroulante le rôle du contributeur",
-            "tooltip@en_GB": "Choose in the dropdown the contributor's role",
             "form_label@fr_FR": "Rôle",
             "form_label@en_GB": "Role"
         }

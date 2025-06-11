@@ -36,11 +36,11 @@
             },
             "description": "Identification des opérations archéologiques associées (optionnel)",
             "label@fr_FR": "Opération(s) archéologique(s) associée(s) aux données réutilisées (optionnel)",
-            "label@en_GB": "Archaelological operation(s) associated with reused data (optional)",
+            "label@en_GB": "Archaeological operation associated with reused data (optional)",
             "tooltip@fr_FR": "Cette section n'est à renseigner que si le projet de recherche est étroitement lié à une ou des opérations archéologiques : publication de sites, SIG, etc.",
             "tooltip@en_GB": "This section should only be completed if the research project is closely linked to one or more archaeological operations: publication of sites, GIS, etc.",
             "form_label@fr_FR": "Opération(s) archéologique(s) associée(s) aux données réutilisées (optionnel)",
-            "form_label@en_GB": "Archaelological operation(s) associated with reused data (optional)"
+            "form_label@en_GB": "Archaeological operation associated with reused data (optional)"
         },
         "reusedData": {
             "type": "array",

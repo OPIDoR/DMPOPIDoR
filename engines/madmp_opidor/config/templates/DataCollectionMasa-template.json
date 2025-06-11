@@ -11,11 +11,10 @@
             "type": "string",
             "description": "Titre de la collecte",
             "label@fr_FR": "Nom de la méthode",
-            "label@en_GB": "Name of the method",
-            "tooltip@fr_FR": "Nom d'une méthode (ou étape) de collecte",
-            "tooltip@en_GB": "Name of a data collection method (or step)",
+            "label@en_GB": "Name of the implemented method",
+            "tooltip": null,
             "form_label@fr_FR": "Nom de la méthode",
-            "form_label@en_GB": "Name of the method"
+            "form_label@en_GB": "Name of the implemented method"
         },
         "archeoOperation": {
             "type": "array",
@@ -35,11 +34,11 @@
             },
             "description": "Identification des opérations archéologiques associées (optionnel)",
             "label@fr_FR": "Opération(s) archéologique(s) associée(s) aux données (optionnel)",
-            "label@en_GB": "Archaeological operation(s) associated with data (optional)",
+            "label@en_GB": "Archaeological operation(s) associated with data set (optional)",
             "tooltip@fr_FR": "Cette section n'est à renseigner que si le projet de recherche est étroitement lié à une ou des opérations archéologiques : publication de sites, SIG, etc.",
             "tooltip@en_GB": "This section should only be completed if the research project is closely linked to one or more archaeological operations: publication of sites, GIS, etc.",
             "form_label@fr_FR": "Opération(s) archéologique(s) associée(s) aux données (optionnel)",
-            "form_label@en_GB": "Archaelological operation(s) associated with data (optional)"
+            "form_label@en_GB": "Archaelological operation(s) associated with data set (optional)"
         },
         "description": {
             "type": "string",

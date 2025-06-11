@@ -9,48 +9,37 @@
     "type": "object",
     "class": "SoftwarePreservationStandard",
     "properties": {
-        "title": {
-            "type": "string",
-            "description": "Titre de l'archive dans lequel sera archivé le logiciel, s'il existe",
-            "inputType": "dropdown",
-            "label@fr_FR": "Archive",
-            "label@en_GB": "Archive",
-            "registries": [
-                "SoftwareArchives"
-            ],
-            "registryCategory": "Archive",
-            "overridable": true,
-            "tooltip": null,
-            "form_label@fr_FR": "Votre logiciel est-il archivé dans l'archive Software Heritage ou dans une autre archive ?",
-            "form_label@en_GB": "Is your software archived in the Software Heritage archive or another archive?"
-        },
         "identifier": {
             "type": "string",
-            "description": "Identifiant pérenne attribué au logiciel dans l'archive",
-            "label@fr_FR": "Identifiant SWHID ou autre identifiant",
-            "label@en_GB": "SWHID Identifier or other identifier",
-            "tooltip": null,
-            "form_label@fr_FR": "Indiquer l'identifiant SWHID de votre dépôt chez Software Heritage ou l'identifiant chez une autre archive (s'il existe)",
-            "form_label@en_GB": "Indicate the SWHID identifier at Software Heritage or the identifier at another archive (if applicable)"
+            "format": "url",
+            "description": "Identifiant SWHID attribué au logiciel dans l'archive Software Heritage",
+            "label@fr_FR": "Identifiant SWHID",
+            "label@en_GB": "SWHID Identifier",
+            "tooltip@fr_FR": "Pour obtenir l'identifiant SWHID, aller sur la page de votre projet. Déplier l'onglet Permalinks puis cliquer sur Copy permalink. Ne pas décocher la case Add contextual information",
+            "tooltip@en_GB": "To get the SWHID, go to your project page. Expand the Permalinks tab and click Copy permalink. Do not uncheck the Add contextual information box.",
+            "form_label@fr_FR": "Si votre logiciel est archivé dans l'archive Software Heritage, indiquer l'identifiant SWHID du dépôt",
+            "form_label@en_GB": "If your software is archived in the Software Heritage archive, indicate the SWHID identifier of the repository"
         },
-        "IdType": {
+        "idType": {
             "type": "string",
             "description": "Type d'identifiant de la ressource",
-            "inputType": "dropdown",
             "label@fr_FR": "Type d'identifiant",
             "label@en_GB": "Identifier type",
-            "registries": [
-                "PIDSystem"
-            ],
-            "registryCategory": "PIDSystem",
-            "overridable": true,
             "tooltip": null,
+            "hidden": true,
+            "isConst": true,
             "form_label@fr_FR": "Puis préciser le type d'identifiant",
             "form_label@en_GB": "Then specify the ID type"
         }
     },
-    "required": [
-        "title"
-    ],
-    "to_string": []
+    "required": [],
+    "to_string": [],
+    "default": {
+        "fr_FR": {
+            "idType": "SWHID"
+        },
+        "en_GB": {
+            "idType": "SWHID"
+        }
+    }
 }

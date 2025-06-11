@@ -1,0 +1,1292 @@
+{
+	"AnsesProjects": [
+		{
+			"label": {
+				"fr_FR": "miR-Ex-HAP - Utilisation des miARN circulants comme indicateurs d’exposition aux hydrocarbures aromatiques polycycliques seuls et en mélange [ANSES-19-EST-010]",
+				"en_GB": "miR-Ex-HAP - Circulating miARNs as biomarkers of exposure to polycyclic aromatic hydrocarbon alone and in mixtures [ANSES-19-EST-010]"
+			},
+			"value": "ANSES-19-EST-010"
+		},
+		{
+			"label": {
+				"fr_FR": "DECHLORMETH - Dégradation de la chlordécone dans les effluents d'élevage par voie méthanogène [ANSES-19-EST-015]",
+				"en_GB": "DECHLORMETH - Chlordecone degradation in livestock manure using methanogenic pathway [ANSES-19-EST-015]"
+			},
+			"value": "ANSES-19-EST-015"
+		},
+		{
+			"label": {
+				"fr_FR": "AFLAFrance - Emergence des aflatoxines en France dans un contexte de changements climatiques [ANSES-19-EST-016]",
+				"en_GB": "AFLAFrance - Emergence of aflatoxins in France in a context of climate change [ANSES-19-EST-016]"
+			},
+			"value": "ANSES-19-EST-016"
+		},
+		{
+			"label": {
+				"fr_FR": "ToxPARK - Evaluation de l’impact des pesticides de la famille des carbamates sur l’activite de la proteine PARK7 et sur la voie de glycation [ANSES-19-EST-025]",
+				"en_GB": "ToxPARK - Impact of carbamates pesticides on PARK7 protein and glycation pathway [ANSES-19-EST-025]"
+			},
+			"value": "ANSES-19-EST-025"
+		},
+		{
+			"label": {
+				"fr_FR": "BiodiTox - Toxicité sublétale des produits phytosanitaires: Niveaux d’exposition et tests expérimentaux sur la biodiversité ordinaire [ANSES-19-EST-031]",
+				"en_GB": "BiodiTox - Sublethal toxicity of agrochemicals: Exposition levels and experimental tests on biodiversity [ANSES-19-EST-031]"
+			},
+			"value": "ANSES-19-EST-031"
+		},
+		{
+			"label": {
+				"fr_FR": "HyPAxE - Exposition prénatale à des perturbateurs endocriniens à courte demi-vie, axe hypothalamo-hypophysaire et neurodéveloppement de l’enfant. [ANSES-19-EST-039]",
+				"en_GB": "HyPAxE - Prenatal exposure to a family of short half-life endocrine disruptors, dysregulation of the hypothalamic–pituitary–adrenal axis and potential implication for child neurodevelopment at early age. [ANSES-19-EST-039]"
+			},
+			"value": "ANSES-19-EST-039"
+		},
+		{
+			"label": {
+				"fr_FR": "IRAM - Identification in silico et in vivo de répulsifs anti-moustiques faiblement (éco)toxiques [ANSES-19-EST-041]",
+				"en_GB": "IRAM - In silico and in vivo identification of weakly (eco)toxic mosquito repellents [ANSES-19-EST-041]"
+			},
+			"value": "ANSES-19-EST-041"
+		},
+		{
+			"label": {
+				"fr_FR": "Cancer-Watch - Association entre exposition aux polluants dans l'eau de boisson et cancers du sein et du colon. [ANSES-19-EST-049]",
+				"en_GB": "Cancer-Watch - Risk of colorectal and breast cancer with widespread drinking water chemical contaminants [ANSES-19-EST-049]"
+			},
+			"value": "ANSES-19-EST-049"
+		},
+		{
+			"label": {
+				"fr_FR": "NIGHTLIGHTSIGHT - Lumière de nuit et santé visuelle : approches expérimentales [ANSES-19-EST-054]",
+				"en_GB": "NIGHTLIGHTSIGHT - ARTIFICIAL LIGHT AT NIGHT AND VISUAL HEALTH: EXPERIMENTAL STUDIES [ANSES-19-EST-054]"
+			},
+			"value": "ANSES-19-EST-054"
+		},
+		{
+			"label": {
+				"fr_FR": "TigeRisk2 - Evaluation du risque de résistance aux insecticides chez le moustique tigre – Une approche prédictive combinant sélection expérimentale et marqeurs moléculaires [ANSES-19-EST-055]",
+				"en_GB": "TigeRisk2 - Insecticide resistance risk assesment in the tiger mosquito – A predicitve approach combining experimental selection and molecular markers [ANSES-19-EST-055]"
+			},
+			"value": "ANSES-19-EST-055"
+		},
+		{
+			"label": {
+				"fr_FR": "Molrisk - Un nouvel outil pour inférer le risque de transmission des maladies infectieuses transmises par les mollusques en Europe [ANSES-19-EST-059]",
+				"en_GB": "Molrisk - A new tool for snail-borne infectious disease risk assessment in Europe [ANSES-19-EST-059]"
+			},
+			"value": "ANSES-19-EST-059"
+		},
+		{
+			"label": {
+				"fr_FR": "NaPeauLi - Développement d’un modèle expérimental pour l’étude de la décontamination de la peau après une exposition cutanée aux nanoparticules métalliques [ANSES-19-EST-087]",
+				"en_GB": "NaPeauLi - Development of an experimental model for the study of skin decontamination following cutaneous exposure to metallic nanoparticles [ANSES-19-EST-087]"
+			},
+			"value": "ANSES-19-EST-087"
+		},
+		{
+			"label": {
+				"fr_FR": "AS-CONTROL - Utilisation du protiste symbiotique Ascogregarina taiwanensis dans la lutte antivectorielle contre le moustique tigre (Aedes albopictus). [ANSES-19-EST-095]",
+				"en_GB": "AS-CONTROL - Antivectorial control of the Asian tiger mosquito (Aedes albopictus) based on the symbiotic protist Ascogregarina taiwanensis [ANSES-19-EST-095]"
+			},
+			"value": "ANSES-19-EST-095"
+		},
+		{
+			"label": {
+				"fr_FR": "Chimair-Methyl - Impact de l’exposition à la pollution chimique de l’air dans des crèches sur la méthylation de l’ADN chez de jeunes enfants [ANSES-19-EST-097]",
+				"en_GB": "Chimair-Methyl - Impact of exposure to chemical air pollution in daycare on DNA methylation in young children [ANSES-19-EST-097]"
+			},
+			"value": "ANSES-19-EST-097"
+		},
+		{
+			"label": {
+				"fr_FR": "CoFePMAi - Identification des Particules Minérales Allongées (fibres asbestiformes et fragments de clivage) dans des corps ferrugineux chez des travailleurs exposés aux poussières minérales [ANSES-19-EST-098]",
+				"en_GB": "CoFePMAi - Identification of Elongated Mineral Particles (asbestiform fibers and cleavage fragments) in ferruginous bodies in workers exposed to mineral dust [ANSES-19-EST-098]"
+			},
+			"value": "ANSES-19-EST-098"
+		},
+		{
+			"label": {
+				"fr_FR": "Lilli - Exposition nocturne à la lumière et qualité du sommeil [ANSES-19-EST-108]",
+				"en_GB": "Lilli - Light at night exposure and sleep quality [ANSES-19-EST-108]"
+			},
+			"value": "ANSES-19-EST-108"
+		},
+		{
+			"label": {
+				"fr_FR": "NormThyr3D - Modèles in vitro 3D humains pour l’évaluation des risques de carcinogenèse thyroïdienne après exposition à des facteurs environementaux [ANSES-19-EST-111]",
+				"en_GB": "NormThyr3D - Human in vitro 3D models to evaluate the carcinogenic risk for thyroid cancers associated with exposure to environmental factors [ANSES-19-EST-111]"
+			},
+			"value": "ANSES-19-EST-111"
+		},
+		{
+			"label": {
+				"fr_FR": "ThECA - Outil intégré pour l’identification et la quantification des perturbateurs endocrines chez les crustacés. [ANSES-19-EST-112]",
+				"en_GB": "ThECA - Integrated testing tool to identify and quantify new endocrine disrupting chemicals in crustaceans [ANSES-19-EST-112]"
+			},
+			"value": "ANSES-19-EST-112"
+		},
+		{
+			"label": {
+				"fr_FR": "MISSTICK - Caractérisation du transfert et du métabolisme cutané des principaux bisphénols et autres révélateurs de coloration dans les papiers thermiques utilisés en France [ANSES-19-EST-113]",
+				"en_GB": "MISSTICK - Missing data about color revelators currently in use in France in thermal papers: structure, transfer, dermal metabolism and biological activity [ANSES-19-EST-113]"
+			},
+			"value": "ANSES-19-EST-113"
+		},
+		{
+			"label": {
+				"fr_FR": "PoDéMos - Effets de la POllution de l´air sur le risque de Démence et sur ses Marqueurs biOlogiqueS dans la cohorte des 3C [ANSES-19-EST-116]",
+				"en_GB": "PoDéMos - Effect of Air POllution on the risk of DEmentia and on its Main biOmarkerS [ANSES-19-EST-116]"
+			},
+			"value": "ANSES-19-EST-116"
+		},
+		{
+			"label": {
+				"fr_FR": "Z-MENACE - La larve de poisson-zèbre comme modèle d’étude in vivo pour évaluer les effets cocktail de perturbateurs endocriniens sur la progression pathologique des NAFLD [ANSES-19-EST-128]",
+				"en_GB": "Z-MENACE - Zebrafish larva as an in vivo Model to Evaluate NAFLD Advancement following exposure to Cocktail of EDC [ANSES-19-EST-128]"
+			},
+			"value": "ANSES-19-EST-128"
+		},
+		{
+			"label": {
+				"fr_FR": "PE-Lipidom - Neurotoxicité des Perturbateurs Endocriniens : Evaluation de l’impact du bisphénol A sur la myélinisation par une approche lipidomique globale [ANSES-19-EST-157]",
+				"en_GB": "PE-Lipidom - Neurotoxicity of Endocrine Disruptors: Evaluation of bisphenol A impacts on myelination by a global lipidomic approach [ANSES-19-EST-157]"
+			},
+			"value": "ANSES-19-EST-157"
+		},
+		{
+			"label": {
+				"fr_FR": "ToxMining - Approche de toxicologie prédictive pour la priorisation de l’évaluation des agents chimiques [ANSES-19-EST-164]",
+				"en_GB": "ToxMining - Predictive toxicology approach for chemical agent evaluation priorisation [ANSES-19-EST-164]"
+			},
+			"value": "ANSES-19-EST-164"
+		},
+		{
+			"label": {
+				"fr_FR": "FREEDOM - Effets in vitro de mélanges représentatifs de l’exposition alimentaire à des perturbateurs endocriniens [ANSES-19-EST-168]",
+				"en_GB": "FREEDOM - In vitro effects of representative mixtures of dietary exposure to endocrine disruptors [ANSES-19-EST-168]"
+			},
+			"value": "ANSES-19-EST-168"
+		},
+		{
+			"label": {
+				"fr_FR": "NanOCo - Impact sur les fonctions endocrines de NANoparticules métalliques seules et en mélange avec des composés Organiques perturbateurs endocriniens pour l’analyse de l’effet COcktail [ANSES-19-EST-184]",
+				"en_GB": "NanOCo - Impact on endocrine functions of metal NANoparticles alone and mixed with Organic endocrine disruptors for the assessment of the COcktail effect [ANSES-19-EST-184]"
+			},
+			"value": "ANSES-19-EST-184"
+		},
+		{
+			"label": {
+				"fr_FR": "EpiMetCan\nSOHO - Impact de l’utilisation des fongicides SDHi : évaluation épidémiologique,épigénétique et métabolique en lien avec le cancer [ANSES-19-EST-186]",
+				"en_GB": "EpiMetCan\nSOHO - Impact of the use of SDHi : Epidemiological, epigenetic and metabolic evaluation in relation to cancer [ANSES-19-EST-186]"
+			},
+			"value": "ANSES-19-EST-186"
+		},
+		{
+			"label": {
+				"fr_FR": "Stemcellair - Pollution de l'air et régénération pulmonaire [ANSES-19-EST-200]",
+				"en_GB": "Stemcellair - Air pollution and lung regeneration [ANSES-19-EST-200]"
+			},
+			"value": "ANSES-19-EST-200"
+		},
+		{
+			"label": {
+				"fr_FR": "LuLi - Développement d’un dispositif innovant in vitro pour l’évaluation toxicologique de xénobiotiques inhalés : Poumon/Foie [ANSES-19-EST-215]",
+				"en_GB": "LuLi - Development of a new in vitro device for risk assessment of inhaled xenobiotics: Lung/Liver [ANSES-19-EST-215]"
+			},
+			"value": "ANSES-19-EST-215"
+		},
+		{
+			"label": {
+				"fr_FR": "ILEDET - Impact des expositions aux mélanges de perturbateurs endocriniens à faibles doses sur l’œil et la dent : mise en place de marqueurs précoces et d’outils de diagnostic [ANSES-19-EST-230]",
+				"en_GB": "ILEDET - Impact of exposures to Low-dose Endocrine Disruptor mixtures on Eyes and Teeth: early markers and diagnostic tools [ANSES-19-EST-230]"
+			},
+			"value": "ANSES-19-EST-230"
+		},
+		{
+			"label": {
+				"fr_FR": "ExPEC-TEEN - Exposition prénatale aux contaminants environnementaux et santé cardiovasculaire et métabolique de l'adolescent [ANSES-19-EST-233]",
+				"en_GB": "ExPEC-TEEN - Prenatal exposure to environmental pollutants and cardiovascular and metabolic health of the teenagers [ANSES-19-EST-233]"
+			},
+			"value": "ANSES-19-EST-233"
+		},
+		{
+			"label": {
+				"fr_FR": "INDEE - Caractérisation et identification de perturbateurs endocriniens environnementaux dans les milieux aquatiques : une approche inter-espèces [ANSES-19-EST-237]",
+				"en_GB": "INDEE - INterspecies Differences relative to Endocrine activities in the aquatic Environment [ANSES-19-EST-237]"
+			},
+			"value": "ANSES-19-EST-237"
+		},
+		{
+			"label": {
+				"fr_FR": "EXPOSOMFPI - Influence des facteurs socioéconomiques et environnementaux sur l’histoire naturelle de la fibrose pulmonaire idiopathique [ANSES-19-EST-241]",
+				"en_GB": "EXPOSOMFPI - Influence of socioeconomic and environmental factors on the natural history of idiopathic pulmonary fibrosis [ANSES-19-EST-241]"
+			},
+			"value": "ANSES-19-EST-241"
+		},
+		{
+			"label": {
+				"fr_FR": "APoPCO - Evaluation de la pollution atmosphérique globale et risque de cancer du sein dans la cohorte E3N avec prise en compte de l’activité physique liée aux trajets résidence-travail [ANSES-19-EST-242]",
+				"en_GB": "APoPCO - Assessment of global air pollution and breast cancer risk in the E3N cohort with consideration of physical activity related to commutes [ANSES-19-EST-242]"
+			},
+			"value": "ANSES-19-EST-242"
+		},
+		{
+			"label": {
+				"fr_FR": "EXPO-ENFANTS - Caractérisation des usages et de l’exposition réelle ponctuelle et cumulée aux radiofréquences de dispositifs mobile communicants – y compris nouvelles technologies – chez les enfants à différents âges [ANSES-19-RF-04]",
+				"en_GB": "EXPO-ENFANTS - Characterization of uses and of real and cumulative exposure to radiofrequency electromagnetic fields from mobile communication devices – including new technologies – in children of different ages [ANSES-19-RF-04]"
+			},
+			"value": "ANSES-19-RF-04"
+		},
+		{
+			"label": {
+				"fr_FR": "CoExpO - Analyse de la voie de réponse aux dommages à l’ADN en réponse à une co-exposition comprenant les ondes millimétriques [ANSES-19-RF-16]",
+				"en_GB": "CoExpO - Analysis of the DNA damage response pathway in response to a co-exposure including millimeter waves [ANSES-19-RF-16]"
+			},
+			"value": "ANSES-19-RF-16"
+		},
+		{
+			"label": {
+				"fr_FR": "5G-SAMU - Signaux 5G et expositions multiples: Recherche d'effets cellulaires et moléculaires. [ANSES-19-RF-18]",
+				"en_GB": "5G-SAMU - 5G Signal And MUltiple Exposures: insight in cellular and molecular effects [ANSES-19-RF-18]"
+			},
+			"value": "ANSES-19-RF-18"
+		},
+		{
+			"label": {
+				"fr_FR": "NANOWAVE - Evaluation de la co-exposition de nanomatériaux avec des ondes radiofréquences [ANSES-19-RF-25]",
+				"en_GB": "NANOWAVE - Evaluation of the co-exposure of nanomaterials with radiofrequency waves [ANSES-19-RF-25]"
+			},
+			"value": "ANSES-19-RF-25"
+		},
+		{
+			"label": {
+				"fr_FR": "PolLumiFem - Impact d'une pollution lumineuse nocturne sur le métabolisme et la fertilité féminine chez un modèle animal diurne [ANSES-20-EST-018]",
+				"en_GB": "PolLumiFem - Impact of light at night on metabolism and female fertility in a diurnal mammalian model [ANSES-20-EST-018]"
+			},
+			"value": "ANSES-20-EST-018"
+		},
+		{
+			"label": {
+				"fr_FR": "RESEDCHrepro - Impact des résidus d’anti-inflammatoires non steroïdiens et d’hormones dans les eaux destinées à la consommation humaine sur la fonction de reproduction et la fertilité [ANSES-20-EST-025]",
+				"en_GB": "RESEDCHrepro - Impact of non-steroidal anti-inflammatory drugs and hormones residues in surface and drinking water on reproductive function and fertility [ANSES-20-EST-025]"
+			},
+			"value": "ANSES-20-EST-025"
+		},
+		{
+			"label": {
+				"fr_FR": "ETAP-ASD - Expositions environnementales précoces à la pollution atmosphérique et TSA [ANSES-20-EST-031]",
+				"en_GB": "ETAP-ASD - Environmental exposures To Airborne Pollution and ASD in children [ANSES-20-EST-031]"
+			},
+			"value": "ANSES-20-EST-031"
+		},
+		{
+			"label": {
+				"fr_FR": "SENTINEL - SurvEillance des Norovirus humains et des indicaTeurs de la contamINation virale dans un contexte de santé publique : développement d’une approche d’Encagement d’invertébrés couplée à de la modéLisation. [ANSES-20-EST-038]",
+				"en_GB": "SENTINEL - Monitoring of human Noroviruses and viral contamination indicators in a public health context: development of an approach of invertebrate encagement coupled with modelling. [ANSES-20-EST-038]"
+			},
+			"value": "ANSES-20-EST-038"
+		},
+		{
+			"label": {
+				"fr_FR": "Neo_F3_2020 - L'évaluation des effets épigénétiques transgénérationnels potentiellement promus par le néonicotinoïde, thiaclopride, chez la souris male [ANSES-20-EST-040]",
+				"en_GB": "Neo_F3_2020 - The assessment of transgenerational epigenetic effects potentially promoted by neonicotinoid, Thiacloprid, in male mice [ANSES-20-EST-040]"
+			},
+			"value": "ANSES-20-EST-040"
+		},
+		{
+			"label": {
+				"fr_FR": "CONETRE - Exposition professionnelle aux produits de NETtoyage et de désinfection et santé REspiratoire dans la cohorte COnstances [ANSES-20-EST-047]",
+				"en_GB": "CONETRE - Occupational exposure to cleaning products and disinfectants and respiratory health in the CONSTANCES cohort [ANSES-20-EST-047]"
+			},
+			"value": "ANSES-20-EST-047"
+		},
+		{
+			"label": {
+				"fr_FR": "Halocomendis - Évaluation de l’activité sur différents récepteurs nucléaires de dérivés halogénés du bisphénol A, des parabènes et de leur implication dans la croissance tumorale [ANSES-20-EST-059]",
+				"en_GB": "Halocomendis - Evaluation of the effects of halogenated derivatives of bisphenol A and parabens on the activity of nuclear receptors and their implication in tumor progression [ANSES-20-EST-059]"
+			},
+			"value": "ANSES-20-EST-059"
+		},
+		{
+			"label": {
+				"fr_FR": "CoPoBois - Couplage innovant pour l'évaluation de l'effet sur les voies respiratoires de la polyexposition aux émissions particulaires et gazeuses issues de la transformation mécanique du bois [ANSES-20-EST-084]",
+				"en_GB": "CoPoBois - Innovative coupling tool for evaluation of the effects on respiratory tract of polyexposure to gaseous and particulate emissions from wood machining [ANSES-20-EST-084]"
+			},
+			"value": "ANSES-20-EST-084"
+		},
+		{
+			"label": {
+				"fr_FR": "PartEnR - Identification de protéines Partenaires de perturbateurs Endocriniens par protéolyse limitée et spectRométrie de masse [ANSES-20-EST-092]",
+				"en_GB": "PartEnR - Identification of protein targets for endocrine disruptors by limited proteolysis and mass spectrometry [ANSES-20-EST-092]"
+			},
+			"value": "ANSES-20-EST-092"
+		},
+		{
+			"label": {
+				"fr_FR": "POMELO - Plateforme multi-OMiques haut-dÉbit pour l’anaLyse du stress perturbateur endOcrinien chez le poisson [ANSES-20-EST-102]",
+				"en_GB": "POMELO - High-throughput multi-omics analysis for investigating endocrine disruption in fish. [ANSES-20-EST-102]"
+			},
+			"value": "ANSES-20-EST-102"
+		},
+		{
+			"label": {
+				"fr_FR": "CRABMAYO - Risques sanitaires et environnementaux associés à l’utilisation de pesticides en milieu insulaire. Utilisation d’indicateurs « crabes » dans les mangroves de Mayotte [ANSES-20-EST-110]",
+				"en_GB": "CRABMAYO - Health and environmental risks associated with the use of pesticides in an island environment. Use of \"crab\" indicators in the mangroves of Mayotte [ANSES-20-EST-110]"
+			},
+			"value": "ANSES-20-EST-110"
+		},
+		{
+			"label": {
+				"fr_FR": "VECTRAP - Applicabilité et durabilité de la stratégie de piégeage de masse en milieu urbain contre Aedes albopictus et Aedes aegypti, vecteurs des virus de la dengue, du chikungunya et du Zika [ANSES-20-EST-114]",
+				"en_GB": "VECTRAP - Applicability and sustainability of urban mass trapping strategy against Aedes albopictus and Aedes aegypti, vectors of dengue, chikungunya and Zika viruses. [ANSES-20-EST-114]"
+			},
+			"value": "ANSES-20-EST-114"
+		},
+		{
+			"label": {
+				"fr_FR": "QAC-BIoM - Etude exploratoire préliminaire de l’impact des ammonium quaternaires sur la perméabilité et le microbiote intestinal, conséquences pour les maladies inflammatoires chroniques de l’intestin [ANSES-20-EST-116]",
+				"en_GB": "QAC-BIoM - Preliminary exploration of the impact of quaternary ammonium compounds on Inflammatory Bowel Diseases by dissecting the intestinal Microbiota and Barrier [ANSES-20-EST-116]"
+			},
+			"value": "ANSES-20-EST-116"
+		},
+		{
+			"label": {
+				"fr_FR": "OSTils - Occurrence Spatiale et Temporelle des chenilles urticantes de processionnaire du pin, et outILS de prévention des risques [ANSES-20-EST-118]",
+				"en_GB": "OSTils - Spatial and temporal occurrence of the urticating pine processionary caterpillars and tools for risk prevention [ANSES-20-EST-118]"
+			},
+			"value": "ANSES-20-EST-118"
+		},
+		{
+			"label": {
+				"fr_FR": "Transplast - Effets des micro-plastiques et nano-plastiques sur l'activité des transporteurs membranaires de xénobiotiques [ANSES-20-EST-124]",
+				"en_GB": "Transplast - Effecxts of microplastics and nanoplastics on xenobiotic transporter activity [ANSES-20-EST-124]"
+			},
+			"value": "ANSES-20-EST-124"
+		},
+		{
+			"label": {
+				"fr_FR": "MOSQUITWO - Transmission de deux arbovirus (West Nile et Usutu) par les moustiques du nord de la France [ANSES-20-EST-129]",
+				"en_GB": "MOSQUITWO - Transmission of two arboviruses (West Nile and Usutu) by mosquitoes from Northern France [ANSES-20-EST-129]"
+			},
+			"value": "ANSES-20-EST-129"
+		},
+		{
+			"label": {
+				"fr_FR": "GinFiz - Inhibition de l’aromatase gonadique et autres chemins de toxicité conduisant à une diminution de la fécondité chez le poisson zèbre : de l’événement initiateur aux impacts sur les populations [ANSES-20-EST-133]",
+				"en_GB": "GinFiz - Gonadal aromatase inhibition and other toxicity pathways leading to Fecundity Inhibition in Zebrafish: from initiating events to population impacts. [ANSES-20-EST-133]"
+			},
+			"value": "ANSES-20-EST-133"
+		},
+		{
+			"label": {
+				"fr_FR": "ATB_Biofilm - Mise au point d’un modèle de biofilm in vitro pour l’étude de l’effet cocktail des antibiotiques sur les communautés bactériennes des égouts [ANSES-20-EST-142]",
+				"en_GB": "ATB_Biofilm - Development of an in vitro biofilm model to test the cocktail effect of antibiotics on sewer bacterial communities [ANSES-20-EST-142]"
+			},
+			"value": "ANSES-20-EST-142"
+		},
+		{
+			"label": {
+				"fr_FR": "PE_AGRO_EVAL - Dynamique de 2 perturbateurs endocriniens chez 2 plantes cultivées et évaluation de leurs effets sur un insecte polyphage et la souris [ANSES-20-EST-143]",
+				"en_GB": "PE_AGRO_EVAL - Dynamics of 2 endocrine disruptors in 2 cultivated plants and evaluation of their effects on a polyphagous insect and the mouse [ANSES-20-EST-143]"
+			},
+			"value": "ANSES-20-EST-143"
+		},
+		{
+			"label": {
+				"fr_FR": "ASPI - Abeilles sauvages en ville : effets des polluants urbains sur la santé des insectes et sur les interactions plantes - pollinisateurs [ANSES-20-EST-163]",
+				"en_GB": "ASPI - Wild bees and the city: effects of urban pollutants on insects’ health and on plant - pollinator interactions [ANSES-20-EST-163]"
+			},
+			"value": "ANSES-20-EST-163"
+		},
+		{
+			"label": {
+				"fr_FR": "MOUSTIC - Analyse des résidus plastiques issus de la digestion humaine simulée de moules contaminées par des microplastiques, à l’aide du couplage entre la microscopie électronique à balayage et la spectroscopie Raman [ANSES-20-EST-188]",
+				"en_GB": "MOUSTIC - Coupling MEB and Raman spectroscopy for the characterisation of microplastics in both the environment of mussels’ breeding and the human digestive tract mimicked in vitro [ANSES-20-EST-188]"
+			},
+			"value": "ANSES-20-EST-188"
+		},
+		{
+			"label": {
+				"fr_FR": "CadPaSte - Effet d'une exposition au cadmium sur l'activation des cellules stellaires pancréatiques humaines [ANSES-20-EST-195]",
+				"en_GB": "CadPaSte - Effect of cadmium exposure on human pancreatic stellate cell activation [ANSES-20-EST-195]"
+			},
+			"value": "ANSES-20-EST-195"
+		},
+		{
+			"label": {
+				"fr_FR": "Allergosil - Etude des effets pro-allergisants des nanoparticules de silice amorphe en réponse aux pneumallergènes [ANSES-20-EST-199]",
+				"en_GB": "Allergosil - Pro-allergenic effects of amorphous silica nanoparticles in response to pneumallergens [ANSES-20-EST-199]"
+			},
+			"value": "ANSES-20-EST-199"
+		},
+		{
+			"label": {
+				"fr_FR": "EpiKids-PK - Réaliser un outil prédictif de la concentration interne d’exposition des enfants à de multiples contaminants persistants : Un outil associant modélisation pharmacocinétique et données épidémiologiques longitudinales de la période prénatale à l’adolescence [ANSES-20-EST-204]",
+				"en_GB": "EpiKids-PK - Achieve a predictive tool for the internal concentration of children's exposure to multiple persistent contaminants: A tool combining pharmacokinetic modeling and longitudinal epidemiological data from prenatal to teenage periods. [ANSES-20-EST-204]"
+			},
+			"value": "ANSES-20-EST-204"
+		},
+		{
+			"label": {
+				"fr_FR": "AROMATOX - Caractérisation, compréhension et modélisation de la toxicité des mélanges de BTEX [ANSES-20-EST-208]",
+				"en_GB": "AROMATOX - Characterization, understanding and modelling of the toxicity of BTEX mixtures [ANSES-20-EST-208]"
+			},
+			"value": "ANSES-20-EST-208"
+		},
+		{
+			"label": {
+				"fr_FR": "EVALSUB - Evaluation in vitro et modélisation des effets isolés et cocktails, chez l’homme et l’abeille, des néonicotinoïdes et de leurs nouveaux représentants : sulfoximines et buténolides [ANSES-20-EST-214]",
+				"en_GB": "EVALSUB - In vitro evaluation and modelling of the single and cocktails effects, in human and bee, of neonicotinoids and their new representatives : sulfoximines and butenolides [ANSES-20-EST-214]"
+			},
+			"value": "ANSES-20-EST-214"
+		},
+		{
+			"label": {
+				"fr_FR": "PESTINTER - Evaluation des effets multiples (environnementaux et sociétaux) de la contamination des écosystèmes aquatiques par les PESTicides : le cas d’un site pilote INTERdisciplinaire (la Cleurie, Vosges) [ANSES-20-EST-245]",
+				"en_GB": "PESTINTER - Assessment of the multiple effects (environmental and social) of the contamination of aquatic ecosystems by PESTicides: the case of an INTERdisciplinary study site (La Cleurie, Vosges). [ANSES-20-EST-245]"
+			},
+			"value": "ANSES-20-EST-245"
+		},
+		{
+			"label": {
+				"fr_FR": "VITEXPENTE - Exposition des viticulteurs aux produits phytopharmaceutiques dans les vignes en forte pente [ANSES-20-EST-251]",
+				"en_GB": "VITEXPENTE - Operator exposure to pesticides in vineyards with slopes greater than or equal to 30% [ANSES-20-EST-251]"
+			},
+			"value": "ANSES-20-EST-251"
+		},
+		{
+			"label": {
+				"fr_FR": "LumEnColor - Bénéfices et risques d’une exposition lumineuse artificielle: caractérisation des effets physiologiques et comportementaux de différentes longueurs d’onde [ANSES-20-EST-258]",
+				"en_GB": "LumEnColor - Bright and dark side of artificial lighting: Influence of various wavelengths on physiology and behavior [ANSES-20-EST-258]"
+			},
+			"value": "ANSES-20-EST-258"
+		},
+		{
+			"label": {
+				"fr_FR": "EXPOAUTO - Exposition cumulative induites par des champs électromagnétiques radiofréquences induits chez les humains par les nouvelles technologies associées aux services automobiles et aux objets connectés [ANSES-20-RF-05]",
+				"en_GB": "EXPOAUTO - Cumulative real smart car exposure to radiofrequency electromagnetic fields in people of different ages from new technologies in automotive services and connected objects [ANSES-20-RF-05]"
+			},
+			"value": "ANSES-20-RF-05"
+		},
+		{
+			"label": {
+				"fr_FR": "MOTHERR - Modélisation numérique de l’interaction des champs RF sur les récepteurs thermiques – Mécanismes et expérimentations vivo et vitro [ANSES-20-RF-08]",
+				"en_GB": "MOTHERR - Numerical MOdelling of RF interaction with THERmal Receptors – Mechanisms and vivo/vitro experiments [ANSES-20-RF-08]"
+			},
+			"value": "ANSES-20-RF-08"
+		},
+		{
+			"label": {
+				"fr_FR": "RADIODEP - Effet des radiofréquences (5G, 2 fréquences) chez le sujet sain et dépressif: approches comportementale et neurobiologique de l'hypersensibilité électromagnétique (EHS) chez le rat [ANSES-20-RF-12]",
+				"en_GB": "RADIODEP - Effects of radiofrequency (5G, 2 frequencies) in healthy and depressive subjects : behavioral and neurobiological approaches of electromagnetic hypersensitivity (EHS) in the rat. [ANSES-20-RF-12]"
+			},
+			"value": "ANSES-20-RF-12"
+		},
+		{
+			"label": {
+				"fr_FR": "4-5G-Cerv - Impacts moléculaires et fonctionnels des radiofrequences de la téléphonie mobile 4G et 5G sur le cerveau [ANSES-20-RF-14]",
+				"en_GB": "4-5G-Cerv - Molecular and functional impacts of mobile phone-related 4G and 5G radiofrequencies on the brain [ANSES-20-RF-14]"
+			},
+			"value": "ANSES-20-RF-14"
+		},
+		{
+			"label": {
+				"fr_FR": "NanoMuc - Etude de l’interaction entre les nanoparticules et le mucus dans le poumon [ANSES-21-EST-016]",
+				"en_GB": "NanoMuc - Study of interaction between nanoparticles and the mucus in the lung [ANSES-21-EST-016]"
+			},
+			"value": "ANSES-21-EST-016"
+		},
+		{
+			"label": {
+				"fr_FR": "UTILE - Exploration et utilisation des levures environnementales comme moyen de lutte anti-vectorielle contre le moustique tigre [ANSES-21-EST-018]",
+				"en_GB": "UTILE - Exploration and use of environmental yeasts as vector control strategy against the tiger mosquito [ANSES-21-EST-018]"
+			},
+			"value": "ANSES-21-EST-018"
+		},
+		{
+			"label": {
+				"fr_FR": "PopsDim - Exposition alimentaire aux perturbateurs endocriniens, individuellement et en mélanges, et le risque d'obésité, diabète de type 2, cancer du sein et la mortalité: primer étude Européen [ANSES-21-EST-020]",
+				"en_GB": "PopsDim - Dietary exposure to endocrine disruptors, individually and in mixtures, and the risk of obesity, type 2 diabetes, breast cancer and mortality: first European study [ANSES-21-EST-020]"
+			},
+			"value": "ANSES-21-EST-020"
+		},
+		{
+			"label": {
+				"fr_FR": "EMESIBAT - Etude sur la Maitrise d’Exposition aux particules de SIlice cristalline lors d’opérations sur des matériaux de construction dans le domaine du BATiment [ANSES-21-EST-021]",
+				"en_GB": "EMESIBAT - Study on exposure control of airborne crystalline silica particles during operations on construction materials in the building sector [ANSES-21-EST-021]"
+			},
+			"value": "ANSES-21-EST-021"
+		},
+		{
+			"label": {
+				"fr_FR": "PolyExpoTMS - Etude de l’impact de la co-exposition professionnelle aux agents chimiques neurotoxiques et aux facteurs de risque biomécaniques de troubles musculo-squelettiques au cours de la carrière professionnelle sur le syndrome du canal carpien (cas symptomatiques et cas chirurgicaux) – Approche par matrices emplois-expositions [ANSES-21-EST-030]",
+				"en_GB": "PolyExpoTMS - Study of the impact of occupational co-exposure to neurotoxic chemical and biomechanical risk factors for musculoskeletal disorders over the working life on carpal tunnel syndrome (symptomatic and surgical cases) – Job exposure matrix approach [ANSES-21-EST-030]"
+			},
+			"value": "ANSES-21-EST-030"
+		},
+		{
+			"label": {
+				"fr_FR": "TIQoJARDIN - Risque lié à la présence de TIQues dans les JARDINs privés en zone urbaine et péri-urbaine [ANSES-21-EST-050]",
+				"en_GB": "TIQoJARDIN - Risk linked to the presence of ticks in private gardens in urban and peri-urban areas [ANSES-21-EST-050]"
+			},
+			"value": "ANSES-21-EST-050"
+		},
+		{
+			"label": {
+				"fr_FR": "OMICS4TOOL - Quelle est la place des omiques en tant qu’outil d’évaluation des risques et de surveillance environnementale ? [ANSES-21-EST-072]",
+				"en_GB": "OMICS4TOOL - What role can play omics as a tool for risk assessment and environmental monitoring? [ANSES-21-EST-072]"
+			},
+			"value": "ANSES-21-EST-072"
+		},
+		{
+			"label": {
+				"fr_FR": "EXMINA - Évaluation de l'exposition orale aux micro et nanoplastiques et de leur translocation dans les barrières gastro-intestinales humaines. [ANSES-21-EST-077]",
+				"en_GB": "EXMINA - Assesment of oral exposure to micro- and nanoplastics and their translocation into human gastro-intestinal barriers. [ANSES-21-EST-077]"
+			},
+			"value": "ANSES-21-EST-077"
+		},
+		{
+			"label": {
+				"fr_FR": "PHARE - Production des Acides HAloacétiques non réglementés lors de situations à Risque liées à un contexte de changement climatiquE [ANSES-21-EST-089]",
+				"en_GB": "PHARE - Production of unregulated HAloacetic Acids in health Risk situations related to a climatE change context [ANSES-21-EST-089]"
+			},
+			"value": "ANSES-21-EST-089"
+		},
+		{
+			"label": {
+				"fr_FR": "CRAFT - Effet synergique de la carence gestationnelle en folate et de l’exposition aux toxiques environnementaux sur le développement cérébral : impact sur le transport des folates au niveau des interfaces sang-cerveau [ANSES-21-EST-094]",
+				"en_GB": "CRAFT - Synergistic effect of gestational folate deficiency and exposure to environmental toxicants on cerebral development: impact on folate transport in blood-brain interfaces. [ANSES-21-EST-094]"
+			},
+			"value": "ANSES-21-EST-094"
+		},
+		{
+			"label": {
+				"fr_FR": "PAH-ProMetGen - Signatures biologiques (protéomique, métabolomique et génotoxique) associées à l’exposition professionnelle à des mélanges d’HAP et liens avec les biomarqueurs d’exposition: aide à l'élaboration de valeurs limites biologiques [ANSES-21-EST-107]",
+				"en_GB": "PAH-ProMetGen - Biological signatures (proteomics, metabolomics and genotoxicity) associated with occupational exposures to PAH mixtures and links with biomarkers of exposure: guidance for derivation of biological limit values [ANSES-21-EST-107]"
+			},
+			"value": "ANSES-21-EST-107"
+		},
+		{
+			"label": {
+				"fr_FR": "PlasToxPreg - Impact des micro/nanoplastiques sur la barrière placentaire humaine : conséquences physiopathologiques sur l’issue de grossesse. [ANSES-21-EST-121]",
+				"en_GB": "PlasToxPreg - Impact of micro / nanoplastics on the human placental barrier: pathophysiological consequences on pregnancy outcome. [ANSES-21-EST-121]"
+			},
+			"value": "ANSES-21-EST-121"
+		},
+		{
+			"label": {
+				"fr_FR": "FiltreUV - Emission, devenir et effets environnementaux des filtres UV issus de crèmes solaires – Avantages et risques des substances chimiques ou nanoparticulaires. [ANSES-21-EST-126]",
+				"en_GB": "FiltreUV - Environmantal release, fate and effects of UV filters from sunscreens – Benefits and risks of chemical or nanoparticulate substances [ANSES-21-EST-126]"
+			},
+			"value": "ANSES-21-EST-126"
+		},
+		{
+			"label": {
+				"fr_FR": "ED-SCREEN - Criblage virtuel des modalités de perturbation du système endocrinien [ANSES-21-EST-131]",
+				"en_GB": "ED-SCREEN - Virtual Screening of endocrine disruption modes of action [ANSES-21-EST-131]"
+			},
+			"value": "ANSES-21-EST-131"
+		},
+		{
+			"label": {
+				"fr_FR": "ToxiPulFraCAm - Etude comparative de la toxicité pulmonaire de fragments de clivage d’actinolite et de fibres d’amiante [ANSES-21-EST-137]",
+				"en_GB": "ToxiPulFraCAm - Comparative pulmonary toxicity study of actinolite cleavage fragments and asbestos fibres [ANSES-21-EST-137]"
+			},
+			"value": "ANSES-21-EST-137"
+		},
+		{
+			"label": {
+				"fr_FR": "POLLUSPORT - Pollution de l’air, santé et sport [ANSES-21-EST-142]",
+				"en_GB": "POLLUSPORT - Air Pollution, Sport-related health and well-being [ANSES-21-EST-142]"
+			},
+			"value": "ANSES-21-EST-142"
+		},
+		{
+			"label": {
+				"fr_FR": "NEMESIS - écologie du pathobiome et du résistome marins pour la gestion de la santé et de l'alimentation [ANSES-21-EST-149]",
+				"en_GB": "NEMESIS - Unravelling the ecology of the mariNE pathobioME and reSIStome for health and food management [ANSES-21-EST-149]"
+			},
+			"value": "ANSES-21-EST-149"
+		},
+		{
+			"label": {
+				"fr_FR": "CIPROP - Cinétique de formation et caractérisation des produits de dégradation des plastiques dans l‘environnement marin [ANSES-21-EST-169]",
+				"en_GB": "CIPROP - Kinetics of formation and characterization of plastics degradation products in the marine environment [ANSES-21-EST-169]"
+			},
+			"value": "ANSES-21-EST-169"
+		},
+		{
+			"label": {
+				"fr_FR": "AGING - Estimation de la structure d’âge des populations de moustiques Aedes aegypti par Spectrométrie de Masse MALDI-TOF couplée à l’Intelligence Artificielle. [ANSES-21-EST-184]",
+				"en_GB": "AGING - Estimation of the age structure of Aedes aegypti mosquito populations using MALDI-TOF Mass Spectrometry coupled with Artificial Intelligence. [ANSES-21-EST-184]"
+			},
+			"value": "ANSES-21-EST-184"
+		},
+		{
+			"label": {
+				"fr_FR": "COREXCA - COmposante Radiologique de l’EXposome, poly-expositions et risques de CAncers dans la cohorte Constances [ANSES-21-EST-188]",
+				"en_GB": "COREXCA - Radiological component of the exposome, multiple exposures and risk of cancer in the Constances Cohort [ANSES-21-EST-188]"
+			},
+			"value": "ANSES-21-EST-188"
+		},
+		{
+			"label": {
+				"fr_FR": "MAM-HOPES - Perturbation de la hiérarchie mammaire et tumorigénèse, un nouvel effet cocktail associé aux hydrocarbures aromatiques polycycliques (HAPs) et aux esters organophosphorés (OPEs) [ANSES-21-EST-201]",
+				"en_GB": "MAM-HOPES - Disruption of the mammary hierarchy and tumorigenesis, a new cocktail effect associated with polycyclic aromatic hydrocarbons (PAHs) and organophosphorus esters (OPEs) [ANSES-21-EST-201]"
+			},
+			"value": "ANSES-21-EST-201"
+		},
+		{
+			"label": {
+				"fr_FR": "MOLDASTH - Moisissures dans les habitations, inflammation et réponse immunitaire, et endotypes d'asthme dans la cohorte CONSTANCES [ANSES-21-EST-202]",
+				"en_GB": "MOLDASTH - Moulds in dwellings, inflammation and the immune response, and asthma endotypes in the CONSTANCES cohort [ANSES-21-EST-202]"
+			},
+			"value": "ANSES-21-EST-202"
+		},
+		{
+			"label": {
+				"fr_FR": "DEEP - Impact d’une exposition chronique à un mélange de faibles doses de pesticides sur l’apparition de la maladie de Parkinson et du diabète de type 2 dans des modèles murins transgéniques, et étude des liens entre ces deux pathologies [ANSES-21-EST-217]",
+				"en_GB": "DEEP - Impact of a chronic exposure to a low­dose pesticide cocktail on Parkinson’s disease and type 2 diabetes onset in transgenic mouse models, and study of the links between these two diseases [ANSES-21-EST-217]"
+			},
+			"value": "ANSES-21-EST-217"
+		},
+		{
+			"label": {
+				"fr_FR": "Elimalkyl - Analyse des mécanismes d’élimination des composés alkyls perfluorés pour une démarche préventive de leur bioaccumulation [ANSES-21-EST-226]",
+				"en_GB": "Elimalkyl - Analysis of the mechanisms of elimination of perfluorinated alkyl compounds for a preventive approach to their bioaccumulation [ANSES-21-EST-226]"
+			},
+			"value": "ANSES-21-EST-226"
+		},
+		{
+			"label": {
+				"fr_FR": "MANGA - Perturbations endocriniennes et altérations métaboliques dans le foie et le tissue hématopoïétique induites par l’exposition chronique à de faibles doses de pesticide contenant du manganèse [ANSES-21-EST-239]",
+				"en_GB": "MANGA - Endocrine disruption and metabolic alterations in the Liver and Hematopoietic tissue induced by chronic exposure to low doses of manganese containing pesticide [ANSES-21-EST-239]"
+			},
+			"value": "ANSES-21-EST-239"
+		},
+		{
+			"label": {
+				"fr_FR": "5G-EYE - Effets oculaires de l'expositon chronique aux radiofréquences 5G [ANSES-21-RF-05]",
+				"en_GB": "5G-EYE - Ocular Effects of Chronic Exposure to 5G Radio Frequencies [ANSES-21-RF-05]"
+			},
+			"value": "ANSES-21-RF-05"
+		},
+		{
+			"label": {
+				"fr_FR": "EXSOCAR - Etude des effets d’une EXposition de type 5G sur le SOmmeil, la thermorégulation et la fonction CARdiovasculaire [ANSES-21-RF-10]",
+				"en_GB": "EXSOCAR - Study of the effects of 5G exposure on sleep, thermoregulation and cardiovascular function [ANSES-21-RF-10]"
+			},
+			"value": "ANSES-21-RF-10"
+		},
+		{
+			"label": {
+				"fr_FR": "ReMéta5G - Recherche de signatures Métabolomiques d'Exposition à la 5G [ANSES-21-RF-14]",
+				"en_GB": "ReMéta5G - Search for Metabolomic Signatures of 5G Exposure [ANSES-21-RF-14]"
+			},
+			"value": "ANSES-21-RF-14"
+		},
+		{
+			"label": {
+				"fr_FR": "BELIEFS - Comportements et anticipations expliquant les liens entre interoception, exposition perçue aux ondes électromagnétiques et symptômes somatiques fonctionnels [ANSES-21-RF-17]",
+				"en_GB": "BELIEFS - Behaviors and Expectations Linking Interoception, perceived exposure to Electromagnetic fields and and Functional somatic Symptoms [ANSES-21-RF-17]"
+			},
+			"value": "ANSES-21-RF-17"
+		},
+		{
+			"label": {
+				"fr_FR": "5G-HumBO - Impact des radiofréquences associées à la technologie 5G sur le développement cérébral à partir d’organoïdes cérébraux humains [ANSES-21-RF-24]",
+				"en_GB": "5G-HumBO - Impact of 5G radiofrequency signals on brain development using human brain organoids [ANSES-21-RF-24]"
+			},
+			"value": "ANSES-21-RF-24"
+		},
+		{
+			"label": {
+				"fr_FR": "RFM Expo - Radiofréquences et femmes enceintes : spécificité et modulation de l’exposition [ANSES-21-RF-25]",
+				"en_GB": "RFM Expo - Radiofrequency Electromagnetic Fields and Pregnancy: Exposure Specificities and Evolution [ANSES-21-RF-25]"
+			},
+			"value": "ANSES-21-RF-25"
+		},
+		{
+			"label": {
+				"fr_FR": "EXEMA-Scléro - Expositions professionnelles évaluées par matrice emploi exposition et sévérité de la sclérodermie systémique [ANSES-22-EST-010]",
+				"en_GB": "EXEMA-Scléro - Occupational exposure evaluated through job exposure matrix and severity of systemic sclerosis. [ANSES-22-EST-010]"
+			},
+			"value": "ANSES-22-EST-010"
+		},
+		{
+			"label": {
+				"fr_FR": "RENAAME - RElargage de Nano-objets, leurs Agrégats et Agglomérats depuis des MasquEs [ANSES-22-EST-023]",
+				"en_GB": "RENAAME - Release of Nano-objects, their aggregates and agglomerates from Masks [ANSES-22-EST-023]"
+			},
+			"value": "ANSES-22-EST-023"
+		},
+		{
+			"label": {
+				"fr_FR": "ReprObesED - Malbouffe, contaminants environnementaux et santé reproductive : effets de l’exposition combinée à un régime obésogène et aux phtalates sur le contrôle central de la reproduction chez les souris adultes mâles et femelles [ANSES-22-EST-024]",
+				"en_GB": "ReprObesED - Junk Food, environmental contaminants and reproductive health: effects of combined exposure to an obesogenic diet and phthalates on the central regulation of male and female reproduction [ANSES-22-EST-024]"
+			},
+			"value": "ANSES-22-EST-024"
+		},
+		{
+			"label": {
+				"fr_FR": "TECHSAN - Nouvelles Technologies, Télétravail, et Santé au Travail [ANSES-22-EST-028]",
+				"en_GB": "TECHSAN - New Technology, Telework, and Occupational Health [ANSES-22-EST-028]"
+			},
+			"value": "ANSES-22-EST-028"
+		},
+		{
+			"label": {
+				"fr_FR": " BECOME -  Analyse du risque de décès par tumeur cérébrale chez des professionnels médicaux exposés professionnellement aux rayonnements ionisants à faible dose [ANSES-22-EST-033]",
+				"en_GB": " BECOME - Brain CancEr risk in joint cOhort of MEdical workers exposed to Ionizing radiation in France, Korea and USA [ANSES-22-EST-033]"
+			},
+			"value": "ANSES-22-EST-033"
+		},
+		{
+			"label": {
+				"fr_FR": "SUSPECT - Evaluation des effets potentiels du Fluorure de Sodium, substance perturbatrice endocrinienne suspectée, sur le système thyroïdien, l’immunité et le microbiote de la truite arc-en-ciel, Oncorhynchus mykiss [ANSES-22-EST-050]",
+				"en_GB": "SUSPECT - Assessment of Sodium Fluoride, suspected endocrine disruptor, on the thyroid system, immunity and microbiota of Rainbow trout, Oncorhynchus mykiss [ANSES-22-EST-050]"
+			},
+			"value": "ANSES-22-EST-050"
+		},
+		{
+			"label": {
+				"fr_FR": "OptoFish - Approches basées sur l'imagerie chez le poisson zèbre pour l'évaluation de la neurotoxicité et de la cardiotoxicité induites par les analogues de bisphénols environnementaux [ANSES-22-EST-053]",
+				"en_GB": "OptoFish - Optic-based zebrafish toolkit for assessing neuro and cardiotoxicity induced by environmental bisphenol analogues [ANSES-22-EST-053]"
+			},
+			"value": "ANSES-22-EST-053"
+		},
+		{
+			"label": {
+				"fr_FR": "BeeMed - Résilience des abeilles aux changements planétaires au travers du prisme de l'auto-médication [ANSES-22-EST-063]",
+				"en_GB": "BeeMed - Bee resilience in a changing world through the lens of selfmedication [ANSES-22-EST-063]"
+			},
+			"value": "ANSES-22-EST-063"
+		},
+		{
+			"label": {
+				"fr_FR": "PharmOneHealth - Exposition et adaptation des communautés microbiennes aux substances pharmaceutiques et agents microbiologiques dans les milieux aquatiques : Conséquences sur le développement et la dissémination des pathogènes et des structures génétiques impliquées dans l’antibiorésistance [ANSES-22-EST-066]",
+				"en_GB": "PharmOneHealth - Exposure and adaptation of microbial communities to pharmaceutical substances and microbiological agents in aquatic environments: Implications for the development and dissemination of antibiotic resistance determinants and pathogens [ANSES-22-EST-066]"
+			},
+			"value": "ANSES-22-EST-066"
+		},
+		{
+			"label": {
+				"fr_FR": "HOSP_ATB - Etude de l'impact d’eaux usées hospitalières sur la dissémination de résistance aux antibiotiques dans les eaux usées [ANSES-22-EST-073]",
+				"en_GB": "HOSP_ATB - Study of the impact of hospital effluents on the dissemination of antibiotic resistance in wastewater [ANSES-22-EST-073]"
+			},
+			"value": "ANSES-22-EST-073"
+		},
+		{
+			"label": {
+				"fr_FR": "TICOV - Transmission des coronavirus à l’interface entre les chauves-souris et la population Réunionnaise [ANSES-22-EST-074]",
+				"en_GB": "TICOV - Coronavirus transmission at the bat-human interface on Reunion Island [ANSES-22-EST-074]"
+			},
+			"value": "ANSES-22-EST-074"
+		},
+		{
+			"label": {
+				"fr_FR": "MARDI - Analyse en flux des MicroplAstiques par Raman et Diélectrophorèse [ANSES-22-EST-077]",
+				"en_GB": "MARDI - High-thoughput Microplastic Analysis by Raman and DIelectrophoresis [ANSES-22-EST-077]"
+			},
+			"value": "ANSES-22-EST-077"
+		},
+		{
+			"label": {
+				"fr_FR": "TOPENSUZ - Transformations des pesticides et du cycle de l'azote dans la zone saturée et non saturée de captages d'eau potable [ANSES-22-EST-087]",
+				"en_GB": "TOPENSUZ - Transformations Of Pesticides and Nitrogen cycle in the Saturated and Unsaturated Zone of drinking well supplies [ANSES-22-EST-087]"
+			},
+			"value": "ANSES-22-EST-087"
+		},
+		{
+			"label": {
+				"fr_FR": "BEERISK  - La surveillance des taux de mortalité quotidiens chez l’abeille domestique pour améliorer l’évaluation des risques liés aux pesticides [ANSES-22-EST-088]",
+				"en_GB": "BEERISK  - The surveillance of honeybee daily mortality rates to improve pesticide risk assessment [ANSES-22-EST-088]"
+			},
+			"value": "ANSES-22-EST-088"
+		},
+		{
+			"label": {
+				"fr_FR": "FIPOLL - Pollution atmosphérique et fibrose pulmonaire [ANSES-22-EST-089]",
+				"en_GB": "FIPOLL - Air pollution and pulmonary fibrosis [ANSES-22-EST-089]"
+			},
+			"value": "ANSES-22-EST-089"
+		},
+		{
+			"label": {
+				"fr_FR": "HANTARIS - Risque associé à l’hantavirus Seoul à Cotonou, Bénin [ANSES-22-EST-090]",
+				"en_GB": "HANTARIS - Seoul Hantavirus-associated risk in Cotonou, Benin [ANSES-22-EST-090]"
+			},
+			"value": "ANSES-22-EST-090"
+		},
+		{
+			"label": {
+				"fr_FR": "EXPODOM-PID - Exposition Environnementale Domestique et progression des Pneumopathies Interstitielles Diffuses fibrosantes - une étude cas témoin exploratoire [ANSES-22-EST-093]",
+				"en_GB": "EXPODOM-PID - Domestic environmental exposure and progressive fibrosing interstitial lung disease - an exploratory case-control study [ANSES-22-EST-093]"
+			},
+			"value": "ANSES-22-EST-093"
+		},
+		{
+			"label": {
+				"fr_FR": "ToxModel - Evaluation des effets ecotoxicologiques de cyanotoxines et cyanopeptides émergents sur des organismes modèles [ANSES-22-EST-111]",
+				"en_GB": "ToxModel - Evaluation of ecoToxicological effects of cyanotoxins and emerging cyanopeptides on Model organisms [ANSES-22-EST-111]"
+			},
+			"value": "ANSES-22-EST-111"
+		},
+		{
+			"label": {
+				"fr_FR": "EVER-CAN - Caractérisation des Espaces VErts urbains et risque de cancer dans la cohorte E3N entre 990-2014) [ANSES-22-EST-123]",
+				"en_GB": "EVER-CAN - Characterization of Urban green spaces and risk of cancer in the E3N Cohort between 1990 and 2014) [ANSES-22-EST-123]"
+			},
+			"value": "ANSES-22-EST-123"
+		},
+		{
+			"label": {
+				"fr_FR": "Bluetox  - Questions émergentes en matière de phototoxicité rétinienne pour l'évaluation des risques liés à la lumière bleue et son utilisation dans l'éclairage et d'affichage numérique [ANSES-22-EST-134]",
+				"en_GB": "Bluetox  - Emerging issues in retinal phototoxicity for risk assessment of blue light and its use in lighting and digital display. [ANSES-22-EST-134]"
+			},
+			"value": "ANSES-22-EST-134"
+		},
+		{
+			"label": {
+				"fr_FR": "XALUD - Impact de l'exposition périnatale aux nanoparticules sur le développement pulmonaire [ANSES-22-EST-138]",
+				"en_GB": "XALUD - Effects of perinatal exposure to nanoparticles on lung development [ANSES-22-EST-138]"
+			},
+			"value": "ANSES-22-EST-138"
+		},
+		{
+			"label": {
+				"fr_FR": "SAPROPHITE - Est-ce que la présence de pollution organique exacerbe la virulence des bactéries pathogènes dans les milieux aquatiques ? [ANSES-22-EST-141]",
+				"en_GB": "SAPROPHITE - Does the presence of organic pollution exacerbate the virulence of pathogenic bacteria in aquatic environments? [ANSES-22-EST-141]"
+			},
+			"value": "ANSES-22-EST-141"
+		},
+		{
+			"label": {
+				"fr_FR": "HOME-HP - Pneumopathies d'hypersensibilité d'origine domestique: investigation des microorganismes en cause et amélioration du diagnostic sérologique [ANSES-22-EST-155]",
+				"en_GB": "HOME-HP - Home-induced hypersensitivity pneumonitis: Investigation of causative microorganisms and improvement of serological diagnosis. [ANSES-22-EST-155]"
+			},
+			"value": "ANSES-22-EST-155"
+		},
+		{
+			"label": {
+				"fr_FR": "PENDALIRE - Exposition précoce aux Perturbateurs ENDocriniens via l’ALImentation et santé REspiratoire des enfants [ANSES-22-EST-169]",
+				"en_GB": "PENDALIRE - Early-life exposure to endocrine disruptors via diet and respiratory health in children [ANSES-22-EST-169]"
+			},
+			"value": "ANSES-22-EST-169"
+		},
+		{
+			"label": {
+				"fr_FR": "ASMAPUF - Impact de l’exposition de souris gestantes aux particules atmosphériques ultrafines sur la suceptibilité à l’asthme de la descendance [ANSES-22-EST-170]",
+				"en_GB": "ASMAPUF - Impact of exposure of pregnant mice to ultrafine airborne particles on the susceptibility of offspring to asthma [ANSES-22-EST-170]"
+			},
+			"value": "ANSES-22-EST-170"
+		},
+		{
+			"label": {
+				"fr_FR": "ILDEX-CT - Pneumopathies Interstitielles Diffuses et Expositions professionnelles et environnementales, une étude cas-témoins [ANSES-22-EST-171]",
+				"en_GB": "ILDEX-CT - Interstial Lung Diseases and occupational and environmental exposures. A case-control study [ANSES-22-EST-171]"
+			},
+			"value": "ANSES-22-EST-171"
+		},
+		{
+			"label": {
+				"fr_FR": "AlterED - Conséquences métaboliques et neuroinflammatoires d’une exposition périnatale au TBBPA associée à une alimentation occidentale à l'âge adulte [ANSES-22-EST-172]",
+				"en_GB": "AlterED - MetAbolic and neuroinfLammatory consequences of perinatal exposure to TBBPA associated with wEsteRn diEt in aDulthood [ANSES-22-EST-172]"
+			},
+			"value": "ANSES-22-EST-172"
+		},
+		{
+			"label": {
+				"fr_FR": "GENIFER - Améliorer la connaissance sur les facteurs acoustiques de la gêne due au bruit ferroviaire [ANSES-22-EST-182]",
+				"en_GB": "GENIFER - Improve knowledge of acoustic factors involved in railway noise annoyance [ANSES-22-EST-182]"
+			},
+			"value": "ANSES-22-EST-182"
+		},
+		{
+			"label": {
+				"fr_FR": "GEOCAP-AIR  - Pollution de l’air et cancers de l’enfant en France [ANSES-22-EST-186]",
+				"en_GB": "GEOCAP-AIR  - Air pollution and childhood cancer in France [ANSES-22-EST-186]"
+			},
+			"value": "ANSES-22-EST-186"
+		},
+		{
+			"label": {
+				"fr_FR": "CLEOPART - Exposition chronique à long terme aux composés des particules en suspension et le risque de cancer du sein dans une étude cas-témoin nichée dans la cohorte E3N [ANSES-22-EST-195]",
+				"en_GB": "CLEOPART - Chronic long term exposure to components of particulate matter and breast cancer risk in a case-control study nested in the E3N cohort [ANSES-22-EST-195]"
+			},
+			"value": "ANSES-22-EST-195"
+		},
+		{
+			"label": {
+				"fr_FR": "MAPEMONDE - Mise au point de méthodes de quantification fiables des produits de transformation de la chlordécone [ANSES-22-EST-201]",
+				"en_GB": "MAPEMONDE - Development of reliable methods for the quantification of chlordecone transformation products [ANSES-22-EST-201]"
+			},
+			"value": "ANSES-22-EST-201"
+		},
+		{
+			"label": {
+				"fr_FR": "PremaBacEnv - Source environnementale et virulence des souches de Bacillus cereus responsables d'infections sévères chez les nouveau-nés prématurés [ANSES-22-EST-203]",
+				"en_GB": "PremaBacEnv - Environmental source and virulence of Bacillus cereus strains responsible for severe infections in preterm infants [ANSES-22-EST-203]"
+			},
+			"value": "ANSES-22-EST-203"
+		},
+		{
+			"label": {
+				"fr_FR": "PROTOXOMICS - Identification d’une signature « omique » d’exposition au protoxyde d’azote dans un modèle in vitro de barrière alvéolo-capillaire [ANSES-22-EST-207]",
+				"en_GB": "PROTOXOMICS - Identification of an \"omics\" signature of nitrous oxide exposure in a model of the alveolar-capillary barrier [ANSES-22-EST-207]"
+			},
+			"value": "ANSES-22-EST-207"
+		},
+		{
+			"label": {
+				"fr_FR": "BetterSupport - Evaluation socioéconomique des effets sur la santé des salariés et bénéficiaires d’une organisation du travail innovante dans l’aide à domicile [ANSES-22-EST-209]",
+				"en_GB": "BetterSupport - Socioeconomic assessment of the effects on the health of employees and beneficiaries of an innovative work organization in home care [ANSES-22-EST-209]"
+			},
+			"value": "ANSES-22-EST-209"
+		},
+		{
+			"label": {
+				"fr_FR": "EXPOL - Approche Exposome pour l'identification de causes environnementales du Cancer du Poumon chez les femmes non-fumeuses [ANSES-22-EST-210]",
+				"en_GB": "EXPOL - Exposome-wide approach to identify environmental causes of Lung Cancer in non-smoking women [ANSES-22-EST-210]"
+			},
+			"value": "ANSES-22-EST-210"
+		},
+		{
+			"label": {
+				"fr_FR": "CIRE-RF - Cancers infantiles en relation avec les radiofréquences émises par les stations de télévision et de radio [ANSES-22-RF-02]",
+				"en_GB": "CIRE-RF - Cancers infantiles en relation avec les radiofréquences émises par les stations de télévision et de radio [ANSES-22-RF-02]"
+			},
+			"value": "ANSES-22-RF-02"
+		},
+		{
+			"label": {
+				"fr_FR": "CHARLINE - CHAmps Radiofréquences en néonatoLogie : exposition et Impact sur le système NErveux [ANSES-22-RF-06]",
+				"en_GB": "CHARLINE - CHAmps Radiofréquences en néonatoLogie : exposition et Impact sur le système NErveux [ANSES-22-RF-06]"
+			},
+			"value": "ANSES-22-RF-06"
+		},
+		{
+			"label": {
+				"fr_FR": "5G-SKINUV - L'exposition aux radiofréquences 5G potentialise-t-elle l'effet carcinogène des UV-B ? [ANSES-22-RF-08]",
+				"en_GB": "5G-SKINUV - L'exposition aux radiofréquences 5G potentialise-t-elle l'effet carcinogène des UV-B ? [ANSES-22-RF-08]"
+			},
+			"value": "ANSES-22-RF-08"
+		},
+		{
+			"label": {
+				"fr_FR": "EWSens - Impact des ondes électromagnétiques sur le développement d'un organe sensoriel chez la drosophile [ANSES-22-RF-10]",
+				"en_GB": "EWSens - Impact des ondes électromagnétiques sur le développement d'un organe sensoriel chez la drosophile [ANSES-22-RF-10]"
+			},
+			"value": "ANSES-22-RF-10"
+		},
+		{
+			"label": {
+				"fr_FR": "5G-Sens-SKIN - Evaluation des effets des radiofréquences 5G sur la fonction barrière et sur les communautés bactériennes de la peau sensible [ANSES-22-RF-11]",
+				"en_GB": "5G-Sens-SKIN - Evaluation des effets des radiofréquences 5G sur la fonction barrière et sur les communautés bactériennes de la peau sensible [ANSES-22-RF-11]"
+			},
+			"value": "ANSES-22-RF-11"
+		},
+		{
+			"label": {
+				"fr_FR": "MetaCold-RF - Radiofréquences 5G sur le récepteur au froid: induction thermogénique et adaptation métabolique. [ANSES-22-RF-13]",
+				"en_GB": "MetaCold-RF - Radiofréquences 5G sur le récepteur au froid: induction thermogénique et adaptation métabolique. [ANSES-22-RF-13]"
+			},
+			"value": "ANSES-22-RF-13"
+		},
+		{
+			"label": {
+				"fr_FR": "Antibio-Inv - Dynamique spatio-temporelle de l’invasion de communautés naturelles de cours d’eau par l’antibiorésistance [ANSES-23-EST-008]",
+				"en_GB": "Antibio-Inv - Spatio-temporal dynamics of the invasion of natural river communities by antibiotic resistances [ANSES-23-EST-008]"
+			},
+			"value": "ANSES-23-EST-008"
+		},
+		{
+			"label": {
+				"fr_FR": "BIOMATICK - Identification de marqueurs d'exposition aux piqûres de tiques chez l'être humain et l'animal [ANSES-23-EST-019]",
+				"en_GB": "BIOMATICK - Identification of biomarkers of tick bite exposure for both humans and animals [ANSES-23-EST-019]"
+			},
+			"value": "ANSES-23-EST-019"
+		},
+		{
+			"label": {
+				"fr_FR": "ECO-DETOX - Prédire la toxicité des furanes environnementaux à l'aide d'un modèle électrochimique [ANSES-23-EST-021]",
+				"en_GB": "ECO-DETOX - Electrochemical oxidation model to assess the toxicity of environmental furans [ANSES-23-EST-021]"
+			},
+			"value": "ANSES-23-EST-021"
+		},
+		{
+			"label": {
+				"fr_FR": "HEALTHSEA - Approche intégrative de l’évaluation des effets du changement global sur la robustesse du Bar Européen (Dicentrarchus labrax) [ANSES-23-EST-030]",
+				"en_GB": "HEALTHSEA - Integrative approach to assess the effects of global change on the robustness of European sea bass (Dicentrarchus labrax) [ANSES-23-EST-030]"
+			},
+			"value": "ANSES-23-EST-030"
+		},
+		{
+			"label": {
+				"fr_FR": "COMBO - Combinaison de la métabolomique et du machine learning pour identifier les facteurs environnementaux conditionnant l'hétérogénéité spatial des métabolomes microbiens au sein des biofilms aquatiques [ANSES-23-EST-033]",
+				"en_GB": "COMBO - Combination of metabolomics and machine learning to unravel environmental drivers of spatial heterogeneity of microbial metabolome assemblage in aquatic biofilm [ANSES-23-EST-033]"
+			},
+			"value": "ANSES-23-EST-033"
+		},
+		{
+			"label": {
+				"fr_FR": "OZONO-TOX - Comparaison de la toxicité des résidus de fumée d’incendie présents sur les tenues de protection des sapeurs-pompiers, avant et après décontamination par ozonolyse [ANSES-23-EST-040]",
+				"en_GB": "OZONO-TOX - Comparison of the toxicity of fire smoke residues on firefighters' protective clothing before and after chemical decontamination by ozonolysis [ANSES-23-EST-040]"
+			},
+			"value": "ANSES-23-EST-040"
+		},
+		{
+			"label": {
+				"fr_FR": "WORK4HEALTH - Impact des facteurs psychosociaux au travail sur la santé et le recours aux soins via les données médico-administratives du SNDS [ANSES-23-EST-041]",
+				"en_GB": "WORK4HEALTH - Impact of psychosocial work factors on health and health care via SNDS medico-administrative data [ANSES-23-EST-041]"
+			},
+			"value": "ANSES-23-EST-041"
+		},
+		{
+			"label": {
+				"fr_FR": "ALPHA - AnaLyse du PatHobiome des tiques et risques sanitaires Associés [ANSES-23-EST-042]",
+				"en_GB": "ALPHA - AnaLysis of the tick PatHobiome and Associated health risks [ANSES-23-EST-042]"
+			},
+			"value": "ANSES-23-EST-042"
+		},
+		{
+			"label": {
+				"fr_FR": "NanoPlastX - Exposition orale à des nanoplastiques : devenir, transformations physico-chimiques et toxicité sur l'écosystème digestif [ANSES-23-EST-043]",
+				"en_GB": "NanoPlastX - Oral exposure to nanoplastics: fate, physicochemical transformations and toxicity on the digestive ecosystem [ANSES-23-EST-043]"
+			},
+			"value": "ANSES-23-EST-043"
+		},
+		{
+			"label": {
+				"fr_FR": "CRESPI-SCOP - Intérêt du Ménag’Score® pour identifier les produits de nettoyage ayant un impact délétère sur la santé respiratoire au travail [ANSES-23-EST-046]",
+				"en_GB": "CRESPI-SCOP - Interest of the Ménag’Score® to identify cleaning products with a deleterious impact on respiratory health of workers [ANSES-23-EST-046]"
+			},
+			"value": "ANSES-23-EST-046"
+		},
+		{
+			"label": {
+				"fr_FR": "BIP - Bioessais in vitro pour l’identification et l’évaluation du danger lié à la présence de produits phytopharmaceutiques dans les milieux aquatiques. [ANSES-23-EST-047]",
+				"en_GB": "BIP - In vitro BIoassays to identify and assess the hazard of Phytopharmaceutical products in aquatic ecosystems. [ANSES-23-EST-047]"
+			},
+			"value": "ANSES-23-EST-047"
+		},
+		{
+			"label": {
+				"fr_FR": "ProtAqua - Etude du transfert et du devenir de parasites protozoaires pathogènes dans les milieux aquatiques [ANSES-23-EST-061]",
+				"en_GB": "ProtAqua - Study of the transport and fate of pathogen protozoan parasites in aquatic environments [ANSES-23-EST-061]"
+			},
+			"value": "ANSES-23-EST-061"
+		},
+		{
+			"label": {
+				"fr_FR": "PESTIFOL - Déterminants socio-économiques de l’exposome et de ses conséquences génotoxiques chez les enfants [ANSES-23-EST-071]",
+				"en_GB": "PESTIFOL - Socioeconomic determinants of the exposome and its genotoxic effects in children [ANSES-23-EST-071]"
+			},
+			"value": "ANSES-23-EST-071"
+		},
+		{
+			"label": {
+				"fr_FR": "NEOMIX - Multiexposition néonatale aux plastifiants des dispositifs médicaux: effets cocktails de perturbation endocrinienne et neurodéveloppement [ANSES-23-EST-073]",
+				"en_GB": "NEOMIX - NEOnatal multiexposure to medical devices plasticizers: endocrine disruption MIXture effects and neurodevelopmental disorders [ANSES-23-EST-073]"
+			},
+			"value": "ANSES-23-EST-073"
+		},
+		{
+			"label": {
+				"fr_FR": "DETECTOR - Développements en chimie analytique pour l’analyse multi-omique chez une espèce sentinelle : preuve de concept et démonstration de l’intérêt dans le cas des perturbateurs endocriniens [ANSES-23-EST-077]",
+				"en_GB": "DETECTOR - Analytical chemistry developments for multi-omic studies in a sentinel species: proof of concept and demonstration of relevance with endocrine disruptors [ANSES-23-EST-077]"
+			},
+			"value": "ANSES-23-EST-077"
+		},
+		{
+			"label": {
+				"fr_FR": "TOPEEC - Développement d’un modèle TOxicocinétique pour relier exposition interne aux PErturbateurs Endocriniens et concentration dans les Cheveux (TOPEEC). [ANSES-23-EST-079]",
+				"en_GB": "TOPEEC - Development of a toxicokinetic model to correlate internal exposure to endocrine disruptors with concentrations assessed in hair samples. [ANSES-23-EST-079]"
+			},
+			"value": "ANSES-23-EST-079"
+		},
+		{
+			"label": {
+				"fr_FR": "EXPEND-RA - EXpositions aux Polluants et perturbateurs ENDocriniens atmosphériques et risque de polyarthRite rhumAtoïde dans la cohorte de femmes françaises E3N [ANSES-23-EST-085]",
+				"en_GB": "EXPEND-RA - EXposure to airborne Pollutants and ENdocrine Disruptors and the risk of Rheumatoid Arthritis in the E3N cohort of French women [ANSES-23-EST-085]"
+			},
+			"value": "ANSES-23-EST-085"
+		},
+		{
+			"label": {
+				"fr_FR": "MOA-ID - Méthode d’identification des modes d’action des perturbateurs thyroïdiens par une combinaison de tests sur Eleuthero-embryons [ANSES-23-EST-098]",
+				"en_GB": "MOA-ID - Combining Eleuthero-embryo assays to identify the mode of action of thyroid disrupters. [ANSES-23-EST-098]"
+			},
+			"value": "ANSES-23-EST-098"
+		},
+		{
+			"label": {
+				"fr_FR": "CRYONOV - Optimisation du Bioessai embryolarvaire Copépodes (BASIC) par la CRYoconservation des œufs d' Eurytemora affinis : première étape vers le développement d’un NOuVeau kit «clé en main» d’évaluation de la toxicité de composés chimiques en milieu estuarien [ANSES-23-EST-104]",
+				"en_GB": "CRYONOV - Optimisation of the Copepod embryo bioassay (BASIC) by CRYoconservation of Eurytemora affinis eggs: first step towards the development of a new \"turnkey\" tool for toxicity evaluation of chemical compounds in estuarine environment [ANSES-23-EST-104]"
+			},
+			"value": "ANSES-23-EST-104"
+		},
+		{
+			"label": {
+				"fr_FR": "VENDETTA - Réacteur d’antibiorésistance : rôle des bivalves dans la production, la dissémination et la surveillance de l’antibiorésistance dans le milieu aquatique [ANSES-23-EST-108]",
+				"en_GB": "VENDETTA - Antibiotic resistance reactor: role of bivalves in the production, dissemination and monitoring of antibiotic resistance in the aquatic environment [ANSES-23-EST-108]"
+			},
+			"value": "ANSES-23-EST-108"
+		},
+		{
+			"label": {
+				"fr_FR": "TOX-MIX - Modèles Toxico-Dynamique pour l’évaluation de la toxicité des mélanges de contaminants dans les milieux aquatiques : outils d’aide aux politiques publiques [ANSES-23-EST-116]",
+				"en_GB": "TOX-MIX - Toxico-Dynamic models for the assessment of the toxicity of contaminant mixtures in aquatic environments: tools to help public policies [ANSES-23-EST-116]"
+			},
+			"value": "ANSES-23-EST-116"
+		},
+		{
+			"label": {
+				"fr_FR": "HepaPECAN - Etude des effets cocktail de perturbateurs endocriniens et cancérogènes chimiques dans le développement des maladies chroniques hépatiques chez l'homme [ANSES-23-EST-117]",
+				"en_GB": "HepaPECAN - Study of the cocktail effects of endocrine disruptors and chemical carcinogens in the development of chronic liver diseases in humans [ANSES-23-EST-117]"
+			},
+			"value": "ANSES-23-EST-117"
+		},
+		{
+			"label": {
+				"fr_FR": "CIBOULO - Neurotoxicité développementale des retardateurs de flamme et plastifiants esters organophosphorés dans un contexte d'exposition cumulée: approche épidémiologique [ANSES-23-EST-118]",
+				"en_GB": "CIBOULO - Developmental neurotoxicity of organophosphate ester flame retardants and plasticizers in the context of cumulative exposure: an epidemiological approach [ANSES-23-EST-118]"
+			},
+			"value": "ANSES-23-EST-118"
+		},
+		{
+			"label": {
+				"fr_FR": "Ah’airBtoC - Impact de la pollution atmosphérique sur les trajectoires pathogéniques de la DBP à la BPCO, une origine précoce AhR-dépendante ? [ANSES-23-EST-121]",
+				"en_GB": "Ah’airBtoC - Pollution stress on pathogenesis trajectories from BPD to COPD, an early AhR-dependent origin ? [ANSES-23-EST-121]"
+			},
+			"value": "ANSES-23-EST-121"
+		},
+		{
+			"label": {
+				"fr_FR": "PICT-HYPHO - Evaluation de la pertinence de l’approche PICT (Pollution Induced Community Tolerance) appliquée aux communautés d’hyphomycètes aquatiques pour la caractérisation des contaminations des cours d’eau par les pesticides [ANSES-23-EST-122]",
+				"en_GB": "PICT-HYPHO - Evaluating the relevance of the PICT (Pollution Induced Community Tolerance) approach using aquatic hyphomycete communities to monitor stream contamination by pesticides [ANSES-23-EST-122]"
+			},
+			"value": "ANSES-23-EST-122"
+		},
+		{
+			"label": {
+				"fr_FR": "UPEX-Paris - Évaluation de l'exposition aux particules ultrafines à Paris et de leur impact sur la santé dans la cohorte Constances [ANSES-23-EST-123]",
+				"en_GB": "UPEX-Paris - Ultrafine particles exposure assessment in Paris and its health impact in the Constances cohort [ANSES-23-EST-123]"
+			},
+			"value": "ANSES-23-EST-123"
+		},
+		{
+			"label": {
+				"fr_FR": "Envi-dep - Expositions environnementales et dépression périnatale : données de la cohorte nationale Elfe [ANSES-23-EST-127]",
+				"en_GB": "Envi-dep - Environmental exposures and perinatal depression: data from the Elfe national birth cohort [ANSES-23-EST-127]"
+			},
+			"value": "ANSES-23-EST-127"
+		},
+		{
+			"label": {
+				"fr_FR": "IPIAMA - Evaluation de l’intelligibilité de la parole dans le bruit par des méthodes d’intelligence artificielle pour des travailleurs malentendants appareillés [ANSES-23-EST-133]",
+				"en_GB": "IPIAMA - Assessment of speech intelligibility in noise by artificial intelligence methods for hearing-impaired workers with hearing aids [ANSES-23-EST-133]"
+			},
+			"value": "ANSES-23-EST-133"
+		},
+		{
+			"label": {
+				"fr_FR": "ChemVax - Effets de l'exposition aux substances perfluorées alkylées sur les réponses vaccinales au Covid 19 chez l'homme. [ANSES-23-EST-136]",
+				"en_GB": "ChemVax - Effects of exposure to perfluorinated alkylated substances on Covid 19 vaccine responses in Human. [ANSES-23-EST-136]"
+			},
+			"value": "ANSES-23-EST-136"
+		},
+		{
+			"label": {
+				"fr_FR": "EXAMEN - EXposition des Agents de MENage aux contaminants de l’air intérieur liée à leur pratique professionnelle: identifier les opportunités à encourager pour diminuer leur exposition [ANSES-23-EST-145]",
+				"en_GB": "EXAMEN - Exposure of household workers to indoor air contaminants related to their professional practice: opportunities and mitigation solutions [ANSES-23-EST-145]"
+			},
+			"value": "ANSES-23-EST-145"
+		},
+		{
+			"label": {
+				"fr_FR": "EMOTIONAL - Estimation des iMpacts de la pOlluTion soNore chez les bivALves [ANSES-23-EST-150]",
+				"en_GB": "EMOTIONAL - EstiMation of nOise polluTion Impact ON bivALves [ANSES-23-EST-150]"
+			},
+			"value": "ANSES-23-EST-150"
+		},
+		{
+			"label": {
+				"fr_FR": "METRONOME - Mesure En Temps Réel du potentiel Oxydant, NOuvelle Métrique de l’Exposition aux aérosols en hygiène industrielle et en air ambiant [ANSES-23-EST-163]",
+				"en_GB": "METRONOME - Real time monitoring of oxidative potential, a new proxy for occupational and environmental aerosol exposure assessment [ANSES-23-EST-163]"
+			},
+			"value": "ANSES-23-EST-163"
+		},
+		{
+			"label": {
+				"fr_FR": "B-CubePUF - Exposition aux particules ultrafines de la pollution de l’air ambiant et intérieur et vieillissement cérébral [ANSES-23-EST-166]",
+				"en_GB": "B-CubePUF - Exposure to ultrafine particles from ambient and indoor air pollution and brain aging [ANSES-23-EST-166]"
+			},
+			"value": "ANSES-23-EST-166"
+		},
+		{
+			"label": {
+				"fr_FR": "RICOTTA - Charge toxique des particules fines urbaines selon leur classe et contamination en composés perturbateurs endocriniens : approches combinées pour identifier un indicateur de qualité sanitaire de l’air. [ANSES-23-EST-169]",
+				"en_GB": "RICOTTA - Toxic load of uRban fIne partiCles according to their class and contamination with endOcrine-disrupTing compounds: combined approaches to identify an air health qualiTy indicAtor. [ANSES-23-EST-169]"
+			},
+			"value": "ANSES-23-EST-169"
+		},
+		{
+			"label": {
+				"fr_FR": "PESTIMIN - Analyse multiple de pesticides dans les matrices biologiques (cheveu, sérum et liquide céphalospinal) issues de la biocollection du registre national français de la mort inattendue du nourrisson OMIN [ANSES-23-EST-174]",
+				"en_GB": "PESTIMIN - Multiple pesticide analysis in hair, serum and cerebrospinal fluid samples of sudden unexpected death in children from the French prospective multisite registry (OMIN) [ANSES-23-EST-174]"
+			},
+			"value": "ANSES-23-EST-174"
+		},
+		{
+			"label": {
+				"fr_FR": "PANAMA - Dose inhalée de pollution atmosphérique - une approche intégrative vers une évaluation personnalisée de l'exposition à la pollution atmosphérique chez des participants avec et sans maladies respiratoires [ANSES-23-EST-177]",
+				"en_GB": "PANAMA - Inhaled dose of air pollution - an integrative approach towards personalized assessment of air pollution exposure in participants with and without respiratory diseases [ANSES-23-EST-177]"
+			},
+			"value": "ANSES-23-EST-177"
+		},
+		{
+			"label": {
+				"fr_FR": "CLEAR-ISU - Caractérisation de L’Exposition Aux Rayonnements électromagnétiques de l’Individu Selon des Usages réalistes [ANSES-23-RF-2]",
+				"en_GB": "CLEAR-ISU - Characterisation of Individuals Exposure to Electromagnetic Radiation in Realistic Scenarios [ANSES-23-RF-2]"
+			},
+			"value": "ANSES-23-RF-2"
+		},
+		{
+			"label": {
+				"fr_FR": "EXPO-5G - Nouvelle approche multi-physique pour évaluation réaliste d’exposition à des fréquences émergentes pour 5G / 6G [ANSES-23-RF-3]",
+				"en_GB": "EXPO-5G - Novel multi-physics approach for realistic user exposure assessment to emerging 5G/6G technologies [ANSES-23-RF-3]"
+			},
+			"value": "ANSES-23-RF-3"
+		},
+		{
+			"label": {
+				"fr_FR": "CHILD_5G - Étude déterministe et stochastique chez les infants et les femmes enceintes exposés aux fréquences 5G [ANSES-23-RF-7]",
+				"en_GB": "CHILD_5G - dEterministic and stochastic eXPosure assessment Of children and pregnant women at emerging 5G frequencies [ANSES-23-RF-7]"
+			},
+			"value": "ANSES-23-RF-7"
+		},
+		{
+			"label": {
+				"fr_FR": "5G RETINASKIN - Evaluation in vitro de l’impact des ondes RF dont 5G sur modèles biologiques de peau et rétine [ANSES-23-RF-9]",
+				"en_GB": "5G RETINASKIN - In vitro evaluation of the impact of RF waves including 5G on biological models of skin and retina [ANSES-23-RF-9]"
+			},
+			"value": "ANSES-23-RF-9"
+		},
+		{
+			"label": {
+				"fr_FR": "5G-S-CARE - 5G-26 GHz Radiofréquences et nanoparticules dérivées des produits de soin corporel et cosmétiques : évaluation des effets structuraux et fonctionnels sur la cellule après co-exposition aiguë et chronique [ANSES-23-RF-10]",
+				"en_GB": "5G-S-CARE - 5G-26 GHz Radiofrequencies and Personal Care/Cosmetic Products Derived Nanoparticle Co-Exposure: Evaluation of Structural and Functional Cellular Alterations after Acute and Chronic Exposure [ANSES-23-RF-10]"
+			},
+			"value": "ANSES-23-RF-10"
+		},
+		{
+			"label": {
+				"fr_FR": "ECEPCO - Effet de l’exposition aux champs électromagnétiques sur les performances et la charge mentale perçue lors de la réalisation de tâches cognitives impliquant l’attention et la mémoire de travail en fonction du niveau de sensibilité électromagnétique [ANSES-23-RF-20]",
+				"en_GB": "ECEPCO - Effect of electromagnetic field exposure on performance and perceived mental workload during cognitive tasks involving attention and working memory as a function of electromagnetic sensitivity level [ANSES-23-RF-20]"
+			},
+			"value": "ANSES-23-RF-20"
+		}
+	]
+}

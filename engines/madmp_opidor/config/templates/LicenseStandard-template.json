@@ -23,7 +23,7 @@
         },
         "licenseUrl": {
             "type": "string",
-            "format": "uri",
+            "format": "url",
             "description": "Url de référence de la licence",
             "label@fr_FR": "URL",
             "label@en_GB": "URL",

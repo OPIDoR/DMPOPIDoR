@@ -77,30 +77,6 @@
             "form_label@fr_FR": "Quelles sont les dépendances requises pour l'utilisation du logiciel ?",
             "form_label@en_GB": "What are the dependencies required to use the software?"
         },
-        "cost": {
-            "type": "array",
-            "table_header@fr_FR": "Type de coût : montant",
-            "table_header@en_GB": "Cost type: amount",
-            "items": {
-                "type": "object",
-                "class": "Cost",
-                "properties": {
-                    "dbid": {
-                        "type": "number"
-                    }
-                },
-                "template_name": "CostStandard",
-                "required": [
-                    "dbid"
-                ]
-            },
-            "description": "Coûts éventuels liés à l'environnement d'exécution",
-            "label@fr_FR": "Coûts",
-            "label@en_GB": "Costs",
-            "tooltip": null,
-            "form_label@fr_FR": "Coûts liés à l'environnement d'exécution",
-            "form_label@en_GB": "Costs related to the execution environment"
-        },
         "description": {
             "type": "string",
             "description": "Informations complémentaires sur l'environnement d'exécution",

@@ -19,7 +19,7 @@
             "required": [
                 "dbid"
             ],
-            "description": "Catalogue(s) ou entrepôt(s) dans lequel le logiciel est référencé",
+            "description": "Catalogue ou entrepôt dans lequel le logiciel est référencé",
             "label@fr_FR": "Catalogues",
             "label@en_GB": "Catalogues",
             "inputType": "dropdown",
@@ -29,8 +29,8 @@
             "registryCategory": "Repository",
             "overridable": true,
             "tooltip": null,
-            "form_label@fr_FR": "Indiquer le ou les catalogues (ou entrepôt) dans lesquels est signalé le logiciel",
-            "form_label@en_GB": "Indicate the catalogues (or repository) in which the software is referenced"
+            "form_label@fr_FR": "Indiquer ou ajouter le catalogue (ou entrepôt) dans lequel est signalé le logiciel",
+            "form_label@en_GB": "Indicate or add the catalogue (or repository) in which the software is referenced"
         },
         "identifier": {
             "type": "string",
@@ -38,8 +38,8 @@
             "label@fr_FR": "Identifiant pérenne du logiciel",
             "label@en_GB": "Software persistent ID",
             "tooltip": null,
-            "form_label@fr_FR": "Indiquer l'identifiant pérenne (DOI, HAL Id…) ou l'URL du dépôt (facultatif)",
-            "form_label@en_GB": "Indicate the catalogue (required)"
+            "form_label@fr_FR": "Indiquer l'identifiant pérenne (DOI, HAL Id…) ou l'URL du dépôt",
+            "form_label@en_GB": "Indicate the persistent identifier (DOI, HAL Id, etc.) or the URL of the repository"
         },
         "idType": {
             "type": "string",

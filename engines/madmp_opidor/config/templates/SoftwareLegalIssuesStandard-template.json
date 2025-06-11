@@ -21,7 +21,7 @@
                         "type": "number"
                     }
                 },
-                "template_name": "ContributorStandard",
+                "template_name": "ContributorConstantRole",
                 "required": [
                     "dbid"
                 ]
@@ -30,7 +30,8 @@
             "description": "Auteur(s) du logiciel : personnes qui ont le droit d'auteur sur le logiciel",
             "label@fr_FR": "Auteurs du logiciel",
             "label@en_GB": "Software authors",
-            "tooltip": null,
+            "tooltip@fr_FR": "Un auteur est une personne ou une organisation qui a apporté une contribution significative et intellectuelle au développement du logiciel. Par principe, l’auteur est le titulaire des droits sur le logiciel, c'est-à-dire la personne physique ou morale qui détient les droits de propriété. Les contributeurs non auteurs sont les personnes ou organisation qui ont contribué de façon non substantielle à la version du code publié et qui ne sont pas les titulaires des droits",
+            "tooltip@en_GB": "An author is a person or organization who has made a significant intellectual contribution to the development of the software. In principle, the author is the copyright holder of the software, i.e., the natural or legal person who holds the property rights. Non-author contributors are individuals or organizations who have made non-substantial contributions to the published version of the code and are not the copyright holders",
             "form_label@fr_FR": "Lister les auteurs du logiciel",
             "form_label@en_GB": "List the authors of the software"
         },
@@ -86,34 +87,10 @@
             ],
             "registryCategory": "License",
             "overridable": true,
-            "tooltip": null,
+            "tooltip@fr_FR": "L'usage de licences libres est recommandé. Une licence libre est une licence s’appliquant à un logiciel par laquelle l'auteur concède tous les droits ou une partie des droits que lui confère le droit d’auteur. Un logiciel sous licence libre (logiciel libre) fait référence à la liberté pour les utilisateurs d’exécuter, de copier, de distribuer, d’étudier, de modifier et d’améliorer le logiciel. Consulter le lien suivant : https://code.gouv.fr/fr/doc/licences-libres-dinum/",
+            "tooltip@en_GB": "The use of free licenses is recommended. A free license is a license that applies to software by which the author grants all or part of the rights granted by copyright. Free software (open source software) refers to the freedom for users to run, copy, distribute, study, modify, and improve the software. Consult the following link: https://code.gouv.fr/fr/doc/licences-libres-dinum/",
             "form_label@fr_FR": "Sous quelles licences est ou sera diffusé le logiciel ?",
             "form_label@en_GB": "Under what licenses is or will the software be distributed?"
-        },
-        "cost": {
-            "type": "array",
-            "table_header@fr_FR": "Type de coût : montant",
-            "table_header@en_GB": "Cost type: amount",
-            "items": {
-                "type": "object",
-                "class": "Cost",
-                "properties": {
-                    "dbid": {
-                        "type": "number"
-                    }
-                },
-                "template_name": "CostStandard",
-                "required": [
-                    "dbid"
-                ]
-            },
-            "description": "Coûts éventuels liés au conseil juridique pour le logiciel",
-            "label@fr_FR": "Coûts",
-            "label@en_GB": "Costs",
-            "tooltip@fr_FR": "Par exemple, recours à un conseil juridique",
-            "tooltip@en_GB": "For example, seeking legal advice",
-            "form_label@fr_FR": "Coûts liés aux aspects juridiques",
-            "form_label@en_GB": "Costs related to legal aspects"
         },
         "description": {
             "type": "string",

@@ -28,33 +28,10 @@
             "description": "Référence(s) de protocoles /méthodes utilisées",
             "label@fr_FR": "Références associées",
             "label@en_GB": "Related references",
-            "tooltip": null,
+            "tooltip@fr_FR": "Associer a minima un document README (LISEZMOI) au code. Une documentation plus complète à destination des utilisateurs et des développeurs peut s’avérer nécessaire selon l’évolution du logiciel",
+            "tooltip@en_GB": "At a minimum, include a README document with the code. More comprehensive documentation for users and developers may be necessary as the software evolves",
             "form_label@fr_FR": "Indiquer les liens vers la documentation utilisateur et/ou développeur si elle est disponible",
             "form_label@en_GB": "Provide links to user and/or developer documentation if available"
-        },
-        "cost": {
-            "type": "array",
-            "table_header@fr_FR": "Type de coût : montant",
-            "table_header@en_GB": "Cost type: amount",
-            "items": {
-                "type": "object",
-                "class": "Cost",
-                "properties": {
-                    "dbid": {
-                        "type": "number"
-                    }
-                },
-                "template_name": "CostStandard",
-                "required": [
-                    "dbid"
-                ]
-            },
-            "description": "Coûts éventuels liés à la documentation du logiciel",
-            "label@fr_FR": "Coûts",
-            "label@en_GB": "Costs",
-            "tooltip": null,
-            "form_label@fr_FR": "Coûts liés à la documentation",
-            "form_label@en_GB": "Costs related to documentation"
         },
         "description": {
             "type": "string",

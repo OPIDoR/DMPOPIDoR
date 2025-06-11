@@ -110,7 +110,8 @@
         },
         "principalInvestigator": {
             "type": "array",
-            "table_header": null,
+            "table_header@fr_FR": "Nom",
+            "table_header@en_GB": "Name",
             "items": {
                 "type": "object",
                 "class": "Contributor",
