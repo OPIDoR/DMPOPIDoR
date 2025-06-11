@@ -33,4 +33,8 @@ class MadmpFragmentPolicy < ApplicationPolicy
   def project_search?
     @record.plan.editable_by?(@user.id) || @user == @record.plan.owner
   end
+
+  def share?
+    @record.plan.editable_by?(@user.id) || @user == @record.plan.owner
+  end
 end

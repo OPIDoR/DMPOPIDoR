@@ -22,6 +22,7 @@ Rails.application.routes.draw do
 
   get '/codebase/run', to: 'madmp_codebase#run', constraints: { format: [:json] }
   get '/codebase/project_search', to: 'madmp_codebase#project_search', constraints: { format: [:json] }
+  get '/codebase/share', to: 'madmp_codebase#share', constraints: { format: [:json] }
 
   resources :guided_tour, only: %i[get_tour end_tour] do
     get ':tour', action: :get_tour, on: :collection, constraints: { format: [:json] }

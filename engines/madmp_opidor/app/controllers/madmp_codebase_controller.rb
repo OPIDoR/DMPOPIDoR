@@ -76,6 +76,34 @@ class MadmpCodebaseController < ApplicationController
   # rubocop:enable Metrics/PerceivedComplexity, Metrics/CyclomaticComplexity
   # rubocop:enable Metrics/AbcSize, Metrics/MethodLength
 
+  def share
+    begin
+      fragment = MadmpFragment.find(params[:fragment_id])
+      plan = fragment.plan
+
+      authorize fragment
+
+      api_client = ApiClient.find_by(name: params[:api_client])
+      client_reader = ApiClientRole.new(read: true)
+      client_role = ApiClientRole.new({
+                                        plan_id: plan.id,
+                                        access: client_reader.access,
+                                        api_client_id: api_client.id
+                                      })
+      client_role.api_client = api_client
+      unless ApiClientRole.exists?(plan: client_role.plan, api_client:)
+        if client_role.save!
+          if api_client.send_notification
+            ::UserMailer.client_sharing_notification(client_role, current_user).deliver_now
+          end
+        end
+      end
+      render json: { status: 200, message: 'Shared' }, status: 200
+    rescue StandardError => e
+      render json: { status: 500, message: e }, status: 500
+    end
+  end
+
   # rubocop:disable Metrics/AbcSize, Metrics/MethodLength
   def project_search
     project_id = params[:project_id]
