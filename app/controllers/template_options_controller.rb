@@ -3,31 +3,21 @@
 # Controller that determines which templates are displayed/selected for the user when
 # they are creating a new plan
 class TemplateOptionsController < ApplicationController
-  # --------------------------------
-  # Start DMP OPIDoR Customization
-  # --------------------------------
-  prepend Dmpopidor::TemplateOptionsController
-  # --------------------------------
-  # End DMP OPIDoR Customization
-  # --------------------------------
   include OrgSelectable
 
   after_action :verify_authorized
 
-  # --------------------------------
-  # Start DMP OPIDoR Customization
-  # SEE app/controllers/dmpopidor/plans_controller.rb
+  # GET /template_options  (AJAX)
+  # Collect all of the templates available for the org+funder combination
   # CHANGES:
   #   - Default template is displayed in the list
   #   - Customized funder templates are displayed in the list, with a 'Customized by' label
-  # --------------------------------
-  # GET /template_options  (AJAX)
-  # Collect all of the templates available for the org+funder combination
   # rubocop:disable Metrics/AbcSize, Metrics/MethodLength
   # rubocop:disable Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
   def index
     org_hash = plan_params.fetch(:research_org_id, {})
     funder_hash = plan_params.fetch(:funder_id, {})
+    template_context = Template.contexts[plan_params[:context]] || 'research_project'
     authorize Template.new, :template_options?
 
     org = org_from_params(params_in: { org_id: org_hash.to_json }) if org_hash.present?
@@ -38,12 +28,10 @@ class TemplateOptionsController < ApplicationController
     if (org.present? && !org.new_record?) ||
        (funder.present? && !funder.new_record?)
       if funder.present? && !funder.new_record?
-        # Load the funder's template(s) minus the default template (that gets swapped
-        # in below if NO other templates are available)
         @templates = Template.latest_customizable
-                             .where(org_id: funder.id, is_default: false).to_a
+                             .where(org_id: funder.id).to_a
         if org.present? && !org.new_record?
-          # Swap out any organisational cusotmizations of a funder template
+          # Swap out any organisational customizations of a funder template
           @templates = @templates.map do |tmplt|
             customization = Template.published
                                     .latest_customized_version(tmplt.family_id,
@@ -64,29 +52,56 @@ class TemplateOptionsController < ApplicationController
       # If the no funder was specified OR the funder matches the org
       if funder.blank? || funder.id == org&.id
         # Retrieve the Org's templates
-        @templates << Template.published
-                              .organisationally_visible
-                              .where(org_id: org.id, customization_of: nil).to_a
+        @templates << Template.published.where(
+          org_id: org&.id,
+          context: template_context,
+          type: %w[classic structured]
+        ).to_a
       end
-      @templates = @templates.flatten.uniq
+
+    else
+      @templates = Template.published
+                           .where(
+                             org_id: current_user.org.id,
+                             context: template_context,
+                             type: %w[classic structured]
+                           ).to_a
     end
 
-    # If no templates were available use the default template
-    if @templates.empty? && Template.default.present?
-      customization = Template.published
-                              .latest_customized_version(Template.default.family_id,
-                                                         org&.id).first
+    @templates = @templates.flatten.uniq
 
-      @templates << (customization.present? ? customization : Template.default)
+    @templates.each do |template|
+      template.title += " (#{_('Customized by ')} #{template.org.name})" if template.customization_of.present?
     end
 
     @templates = @templates.sort_by(&:title)
+    res = @templates.map do |template|
+      {
+        id: template.id,
+        locale: template.locale,
+        title: template.title,
+        description: template.description || '',
+        structured: template.structured?
+      }
+    end.as_json
+    render json: res
   end
-  # rubocop:enable Metrics/AbcSize, Metrics/MethodLength
   # rubocop:enable Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
-  # --------------------------------
-  # End DMP OPIDoR Customization
-  # --------------------------------
+  # rubocop:enable Metrics/AbcSize, Metrics/MethodLength
+
+  def recommend
+    recommended_template = Template.recommend(context: params[:context],
+                                              locale: params[:locale]) || Template.default
+    authorize Template.new, :template_options?
+
+    render json: {
+      id: recommended_template.id,
+      title: recommended_template.title,
+      locale: recommended_template.locale,
+      description: recommended_template.description || '',
+      structured: recommended_template.structured?
+    }
+  end
 
   private
 

@@ -5,20 +5,16 @@ module TemplateHelper
   def template_details_path(template)
     if template_modifiable?(template)
       template&.module? ? edit_super_admin_template_path(template) : edit_org_admin_template_path(template)
-    else
-      if template.persisted?
-        if template&.module?
-          super_admin_template_path(template)
-        else
-          org_admin_template_path(template)
-        end
+    elsif template.persisted?
+      if template&.module?
+        super_admin_template_path(template)
       else
-        if template&.module?
-          super_admin_templates_path
-        else
-          org_admin_templates_path
-        end
+        org_admin_template_path(template)
       end
+    elsif template&.module?
+      super_admin_templates_path
+    else
+      org_admin_templates_path
     end
   end
 
@@ -57,7 +53,7 @@ module TemplateHelper
     cls = text.nil? ? 'direct-link' : 'direct-link btn btn-secondary'
     style = hidden ? 'display: none' : ''
 
-    link_to(plans_url(plan: params), method: :post, title: _('Create plan'),
+    link_to(plans_url(plan: params), data: { turbo_method: :post }, title: _('Create plan'),
                                      class: cls, id: id, style: style) do
       if text.nil?
         '<span class="fas fa-square-plus"></span>'.html_safe

@@ -21,22 +21,19 @@
 #  uuid                    :string
 #  created_at              :datetime         not null
 #  updated_at              :datetime         not null
-#  license_id              :bigint(8)
 #  plan_id                 :integer
 #
 # Indexes
 #
-#  index_research_outputs_on_license_id  (license_id)
 #  index_research_outputs_on_plan_id     (plan_id)
 #
 # Foreign Keys
 #
-#  fk_rails_...  (license_id => licenses.id)
 #  fk_rails_...  (plan_id => plans.id)
 #
 FactoryBot.define do
   factory :research_output do
-    license
+    plan
     abbreviation            { Faker::Lorem.unique.word }
     access                  { ResearchOutput.accesses.keys.sample }
     byte_size               { Faker::Number.number }
@@ -49,16 +46,5 @@ FactoryBot.define do
     release_date            { Time.now + 1.month }
     sensitive_data          { [nil, true, false].sample }
     title                   { Faker::Music::PearlJam.song }
-
-    transient do
-      repositories_count { 1 }
-      metadata_standards_count { 1 }
-    end
-
-    after(:create) do |research_output, evaluator|
-      research_output.repositories = create_list(:repository, evaluator.repositories_count)
-      research_output.metadata_standards = create_list(:metadata_standard,
-                                                       evaluator.metadata_standards_count)
-    end
   end
 end

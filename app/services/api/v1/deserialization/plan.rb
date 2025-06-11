@@ -91,7 +91,7 @@ module Api
               else
                 # For URL based identifiers
                 begin
-                  plan = ::Plan.find_by(id: id.split('/').last.to_i)
+                  plan = Plan.find_by(id: id.split('/').last.to_i)
                 rescue StandardError
                   # Catches scenarios where the dmp_id is NOT one of our URLs
                   plan = nil
@@ -101,7 +101,7 @@ module Api
             return plan if plan.present?
 
             template = find_template(json: json)
-            ::Plan.new(title: json[:title], template: template)
+            Plan.new(title: json[:title], template: template)
           end
 
           # Deserialize the datasets and attach to plan

@@ -20,9 +20,6 @@ describe 'api/v1/orgs/_show.json.jbuilder' do
     it 'includes :abbreviation' do
       expect(@json[:abbreviation]).to eql(@org.abbreviation)
     end
-    it 'includes :region' do
-      expect(@json[:region]).to eql(@org.region.abbreviation)
-    end
     it 'includes :affiliation_id' do
       expect(@json[:affiliation_id][:type]).to eql(@ident.identifier_format)
       expect(@json[:affiliation_id][:identifier]).to eql(@ident.value)

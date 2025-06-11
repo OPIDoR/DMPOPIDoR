@@ -27,9 +27,10 @@
       </div>
 
       <div class="form-control mb-3 col-xs-12" id="super-admin-user-org-controls">
-        <%= render partial: "shared/org_selectors/combined",
+        <%= render partial: "shared/org_selectors/local_only",
                locals: {
                  form: f,
+                 orgs: @orgs,
                  default_org: @user.org,
                  required: true
                } %>
@@ -61,7 +62,7 @@
         <%= f.button(_('Save'), class: 'btn btn-secondary', type: "submit", id: "personal_details_registration_form_submit") %>
 
         <%= link_to _('Archive'), archive_super_admin_user_path(id: @user.id),
-            data: { method: :put, confirm: _("You are about to archive %{user_name}.  This will remove their personal information, but retain their plans, answers, and comments.  They will be unable to sign-in. Are you sure?") % {user_name: @user.name } },
+            data: { turbo_method: :put, turbo_confirm: _("You are about to archive %{user_name}.  This will remove their personal information, but retain their plans, answers, and comments.  They will be unable to sign-in. Are you sure?") % {user_name: @user.name } },
             class: 'btn btn-secondary', role: 'button' %>
       </div>
     <% end %>
@@ -75,8 +76,8 @@
     <% end %>
 
   </div>
-  <div class="col-md-5">
-    <div class="row mx-3">
+  <div class="col-xs-5">
+    <div class="row">
       <h2>
         <%= _('Merge Accounts') %>
       </h2>
@@ -87,7 +88,7 @@
         <%= form_tag(search_super_admin_user_path(@user), method: 'get', remote: true, class: 'form-inline', id: 'merge_form') do %>
           <div class="form-control mb-3">
             <div class="input-group">
-              <span class="input-group-text" id="search-addon">
+              <span class="input-group-addon" id="search-addon">
                 <span class="fas fa-magnifying-glass" aria-hidden="true"></span>
               </span>
             <%= text_field_tag(:email, nil, class: "form-control", placeholder: _("Email")) %>

@@ -52,15 +52,6 @@ RSpec.describe ResearchOutput, type: :model do
   end
 
   context 'instance methods' do
-    xit 'licenses should have tests once implemented' do
-      true
-    end
-    xit 'repositories should have tests once implemented' do
-      true
-    end
-    xit 'metadata_standards should have tests once implemented' do
-      true
-    end
     xit 'resource_types should have tests once implemented' do
       true
     end

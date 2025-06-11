@@ -55,18 +55,18 @@
               <% if customization.present? && customization.created_at >= template.created_at %>
                 <li><%= link_to _('History'), history_org_admin_template_path(customization.id), class: 'dropdown-item px-3' %></li>
                 <% if customization.draft? || customization.published? %>
-                  <li><%= link_to _('Unpublish'), unpublish_org_admin_template_path(customization.id), 'data-method': 'patch', class: 'dropdown-item px-3' %></li>
+                  <li><%= link_to _('Unpublish'), unpublish_org_admin_template_path(customization.id), 'data-turbo-method': 'patch', class: 'dropdown-item px-3' %></li>
                 <% end %>
                 <% if customization.draft? %>
-                  <li><%= link_to _('Publish changes'), publish_org_admin_template_path(customization.id), 'data-method': 'patch', class: 'dropdown-item px-3' %></li>
+                  <li><%= link_to _('Publish changes'), publish_org_admin_template_path(customization.id), 'data-turbo-method': 'patch', class: 'dropdown-item px-3' %></li>
                 <% elsif !customization.published? %>
-                    <li><%= link_to _('Publish'), publish_org_admin_template_path(customization.id), 'data-method': 'patch', class: 'dropdown-item px-3' %></li>
+                    <li><%= link_to _('Publish'), publish_org_admin_template_path(customization.id), 'data-turbo-method': 'patch', class: 'dropdown-item px-3' %></li>
                 <% end %>
                 <% if customization.removable? %>
                   <li>
                     <%= link_to _('Remove'), org_admin_template_path(id: customization.id),
-                                  'data-method': 'delete', rel: 'nofollow',
-                                  'data-confirm': _('Are you sure you want to remove your customization of "%{template_title}"? Any published versions will become unavailable to users.') % { template_title: customization.title},
+                                  'data-turbo-method': 'delete', rel: 'nofollow',
+                                  'data-turbo-confirm': _('Are you sure you want to remove your customization of "%{template_title}"? Any published versions will become unavailable to users.') % { template_title: customization.title},
                                   class: 'dropdown-item px-3' %>
                   </li>
                 <% end %>

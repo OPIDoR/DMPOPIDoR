@@ -247,17 +247,6 @@ module DMPRoadmap
     # --------------------------------------------------- #
     # Enable/disable functionality on the Project Details tab
     config.x.madmp.enable_ethical_issues = ENV.fetch('MADMP_ENABLE_ETHICAL_ISSUES', true).to_s.casecmp('true').zero?
-    config.x.madmp.enable_research_domain = ENV.fetch('MADMP_ENABLE_RESEARCH_DOMAIN', true).to_s.casecmp('true').zero?
-
-    # This flag will enable/disable the entire Research Outputs tab. The others below will
-    # just enable/disable specific functionality on the Research Outputs tab
-    config.x.madmp.enable_research_outputs = ENV.fetch('MADMP_ENABLE_RESEARCH_OUTPUTS', true).to_s.casecmp('true').zero?
-    config.x.madmp.enable_license_selection = ENV.fetch('MADMP_ENABLE_LICENSE_SELECTION',
-                                                        true).to_s.casecmp('true').zero?
-    config.x.madmp.enable_metadata_standard_selection = ENV.fetch('MADMP_ENABLE_METADATA_STANDARD_SELECTION',
-                                                                  true).to_s.casecmp('true').zero?
-    config.x.madmp.enable_repository_selection = ENV.fetch('MADMP_ENABLE_REPOSITORY_SELECTION',
-                                                           true).to_s.casecmp('true').zero?
 
     # The following flags will allow the system to include the question and answer in the JSON output
     #   - questions with a theme equal to 'Preservation'

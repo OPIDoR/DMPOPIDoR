@@ -4,9 +4,9 @@ module Import
   class Plan
     def import(plan, import_params, current_user)
       import_format = import_params[:format].eql?('null') ? 'standard' : import_params[:format]
-      ::Plan.transaction do
-        recommended_template = ::Template.recommend(context: import_params[:context],
-                                                    locale: import_params[:locale]) || ::Template.default
+      Plan.transaction do
+        recommended_template = Template.recommend(context: import_params[:context],
+                                                  locale: import_params[:locale]) || Template.default
         plan.template = recommended_template
 
         # pre-select org's guidance and the default org's guidance
@@ -14,7 +14,7 @@ module Import
 
         language = Language.find_by(abbreviation: plan.template.locale)
 
-        ggs = ::GuidanceGroup.where(org_id: ids, optional_subset: false, published: true, language_id: language.id)
+        ggs = GuidanceGroup.where(org_id: ids, optional_subset: false, published: true, language_id: language.id)
 
         plan.guidance_groups << ggs unless ggs.empty?
 

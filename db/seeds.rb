@@ -91,35 +91,11 @@ languages = [
   {abbreviation: 'en_GB',
    description: '',
    name: 'English (GB)',
-   default_language: true},
-  {abbreviation: 'en-US',
-   description: '',
-   name: 'English (US)',
    default_language: false},
-  {abbreviation: 'fr-FR',
+  {abbreviation: 'fr_FR',
    description: '',
    name: 'Français (FR)',
-   default_language: false},
-   {abbreviation: 'fr-CA',
-    description: '',
-    name: 'Français (CA)',
-    default_language: false},
-  {abbreviation: 'de',
-   description: '',
-   name: 'Deutsch',
-   default_language: false},
-  {abbreviation: 'es',
-   description: '',
-   name: 'Español',
-   default_language: false},
-  {abbreviation: 'pt-BR',
-   description: '',
-   name: 'Português (Brasil)',
-   default_language: false},
-  {abbreviation: 'tr-TR',
-   description: '',
-   name: 'Türk',
-   default_language: false}
+   default_language: true}
 ]
 languages.each { |l| Language.find_or_create_by(l) }
 default_language = Language.find_by(abbreviation: default_locale)
@@ -141,51 +117,6 @@ default_language = Language.find_by(abbreviation: default_locale)
 #   end
 # end
 
-# Regions (create the super regions first and then create the rest)
-# -------------------------------------------------------
-regions = [
-  {abbreviation: 'horizon',
-   description: 'European super region',
-   name: 'Horizon2020',
-
-   sub_regions: [
-     {abbreviation: 'uk',
-      description: 'United Kingdom',
-      name: 'UK'},
-     {abbreviation: 'de',
-      description: 'Germany',
-      name: 'DE'},
-     {abbreviation: 'fr',
-      description: 'France',
-      name: 'FR'},
-     {abbreviation: 'es',
-      description: 'Spain',
-      name: 'ES'}
-  ]},
-  {abbreviation: 'us',
-   description: 'United States of America',
-   name: 'US'}
-]
-
-# Create the region. If it has subregions create them and then connect them
-regions.each do |r|
-  srs = r[:sub_regions]
-  r.delete(:sub_regions) unless r[:sub_regions].nil?
-
-  if Region.find_by(abbreviation: r[:abbreviation]).nil?
-    region = Region.create!(r)
-
-    unless srs.nil?
-      srs.each do |sr|
-        if Region.find_by(abbreviation: sr[:abbreviation]).nil?
-          sr[:super_region] = region
-          Region.create!((sr))
-        end
-      end
-    end
-
-  end
-end
 
 # Perms
 # -------------------------------------------------------
@@ -235,23 +166,22 @@ token_permission_types.each{ |tpt| TokenPermissionType.find_or_create_by(tpt) }
 
 # Create our generic organisation, a funder and a University
 # -------------------------------------------------------
-region = Region.first
 orgs = [
   {name: Rails.configuration.x.organisation.name,
    abbreviation: Rails.configuration.x.organisation.abbreviation,
    org_type: 4, links: {"org":[]},
-   language: default_language, region: region,
+   language: default_language,
    token_permission_types: TokenPermissionType.all,
    is_other: true, managed: true},
   {name: 'Government Agency',
    abbreviation: 'GA',
    org_type: 2, links: {"org":[]},
-   language: default_language, region: region,
+   language: default_language,
    is_other: false, managed: true},
   {name: 'University of Exampleland',
    abbreviation: 'UOS',
    org_type: 1, links: {"org":[]},
-   language: default_language, region: region,
+   language: default_language,
    is_other: false, managed: true}
 ]
 orgs.each { |o| Org.create!(o) unless Org.find_by(name: o[:name]).present? }

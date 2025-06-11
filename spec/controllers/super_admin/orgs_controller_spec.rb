@@ -17,7 +17,6 @@ RSpec.describe SuperAdmin::OrgsController, type: :controller do
     create(:identifier, identifiable: @from_org, identifier_scheme: nil)
     create(:identifier, identifiable: @from_org, identifier_scheme: @scheme)
     create(:plan, funder: @from_org)
-    create(:tracker, org: @from_org)
     create(:user, org: @from_org)
 
     @from_org.reload

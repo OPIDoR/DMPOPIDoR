@@ -7,7 +7,7 @@
     border: none;
     margin: 0;
 
-    li a[rel="nofollow"][data-method="patch"] {
+    li a[rel="nofollow"][data-turbo-method="patch"] {
 
       &:first-of-type,
       &:last-of-type {

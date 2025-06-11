@@ -273,11 +273,6 @@
 | MADMP_CODEBASE_RUN_PATH | String | MADMP Codebase script execution path ``(default: scripts/%s/run)`` |
 | MADMP_CODEBASE_SCRIPTS_PATH | String | MADMP Codebase scripts path ``(default: scripts)`` |
 | MADMP_ENABLE_ETHICAL_ISSUES | Boolean | MADMP ethical issues activation ``(default: true)`` |
-| MADMP_ENABLE_LICENSE_SELECTION | Boolean | MADMP license selection activation ``(default: true)`` |
-| MADMP_ENABLE_METADATA_STANDARD_SELECTION | Boolean | MADMP metadata standards selection activation ``(default: true)`` |
-| MADMP_ENABLE_REPOSITORY_SELECTION | Boolean | MADMP repository selection activation ``(default: true)`` |
-| MADMP_ENABLE_RESEARCH_DOMAIN | Boolean | MADMP research domain activation ``(default: true)`` |
-| MADMP_ENABLE_RESEARCH_OUTPUTS | Boolean | MADMP research outputs activation ``(default: true)`` |
 | MADMP_EXTRACT_DATA_QUALITY_STATEMENTS_FROM_THEMED_QUESTIONS | Boolean | MADMP data quality statements extraction from themed questions ``(default: false)`` |
 | MADMP_EXTRACT_PRESERVATION_STATEMENTS_FROM_THEMED_QUESTIONS | Boolean | MADMP preservation statements extraction from themed questions ``(default: false)`` |
 | MADMP_EXTRACT_SECURITY_PRIVACY_STATEMENTS_FROM_THEMED_QUESTIONS | Boolean | MADMP security and privacy statements extraction from themed questions ``(default: false)`` |
@@ -363,26 +358,6 @@
 | RAILS_SERVE_STATIC_FILES | Boolean | Serve Rails static files ``(default: false)`` |
 | RAILS_LOG_TO_STDOUT | Boolean | Rails logging to STDOUT ``(default: true)`` |
 | RAILS_LOG_LEVEL | Symbol | Rails logging level ``(default: :info)`` |
-
-### RDAMSC
-
-| Name | Type | Description |
-| ---- | ---- | ----------- |
-| RDAMSC_ACTIVE | Boolean | RDAMSC active ``(default: true)`` |
-| RDAMSC_API_BASE_URL | String | RDAMSC API base URL ``(default: https://rdamsc.bath.ac.uk/)`` |
-| RDAMSC_LANDING_PAGE_URL | String | RDAMSC landing page URL ``(default: http://rdamsc.bath.ac.uk)`` |
-| RDAMSC_SCEHEMES_PATH | String | RDAMSC schemes path ``(default: api2/m)`` |
-| RDAMSC_THESAURUS_PATH | String | RDAMSC thesaurus path ``(default: api2/thesaurus/concepts)`` |
-
-### Re3data
-
-| Name | Type | Description |
-| ---- | ---- | ----------- |
-| RE3DATA_ACTIVE | Boolean | Re3data active ``(default: true)`` |
-| RE3DATA_API_BASE_URL | String | Re3data API base URL ``(default: https://www.re3data.org/api/v1/)`` |
-| RE3DATA_LANDING_PAGE | String | Re3data landing page ``(default: https://www.re3data.org/)`` |
-| RE3DATA_LIST_PATH | String | Re3data list path ``(default: repositories)`` |
-| RE3DATA_RESPOSITORY_PATH | String | Re3data repository path ``(default: repository/)`` |
 
 ### Recaptcha
 

@@ -24,7 +24,6 @@
 #  funder_id                  :integer
 #  grant_id                   :integer
 #  org_id                     :integer
-#  research_domain_id         :bigint(8)
 #  template_id                :integer
 #
 # Indexes
@@ -32,7 +31,6 @@
 #  index_plans_on_funder_id           (funder_id)
 #  index_plans_on_grant_id            (grant_id)
 #  index_plans_on_org_id              (org_id)
-#  index_plans_on_research_domain_id  (research_domain_id)
 #  plans_template_id_idx              (template_id)
 #
 # Foreign Keys

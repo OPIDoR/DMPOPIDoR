@@ -11,7 +11,7 @@ module DataCleanup
         end
 
         def call
-          ::<%= model_name %>.where(nil).update_all({})
+          <%= model_name %>.where(nil).update_all({})
         end
       end
     end

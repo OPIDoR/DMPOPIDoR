@@ -6,6 +6,10 @@ Rails.application.routes.draw do
   mount Rswag::Ui::Engine => ENV.fetch('RSWAG_UI', '/api-docs')
   mount Rswag::Api::Engine => ENV.fetch('RSWAG_API', '/api-docs')
 
+  if Rails.env.development? || ENV.fetch('ENABLE_GRAPHIQL', false).to_s.casecmp('true').zero?
+    mount GraphiQL::Rails::Engine, at: '/api/graphiql', graphql_path: '/api/graphql'
+  end
+
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
 
   devise_for(:users, controllers: {
@@ -154,9 +158,6 @@ Rails.application.routes.draw do
     resource :export, only: [:show], controller: 'plan_exports'
 
     resources :contributors, except: %i[show]
-
-    resources :research_outputs, except: %i[show]
-
     member do
       get 'structured_edit'
       get 'answer'
@@ -174,30 +175,16 @@ Rails.application.routes.draw do
       post 'set_test', constraints: { format: [:json] }
       get 'overview'
     end
-    resources :research_outputs, only: %i[index update destroy], controller: 'research_outputs'
+    resources :research_outputs, only: %i[index], controller: 'classic_research_outputs'
   end
 
-  resources :research_outputs, only: %i[index show create destroy update], constraints: { format: [:json] } do
-    get 'create_remote', on: :collection
-    delete 'destroy_remote', on: :collection
-    patch 'update_remote', on: :collection
-    post 'sort', on: :collection
+  resources :research_outputs, only: %i[show create destroy update], constraints: { format: [:json] } do
     post 'import', on: :collection, constraints: { format: [:json] }
   end
 
-  resources :research_outputs, only: [] do
+  resources :classic_research_outputs, only: %i[index create edit destroy update],
+                                       controller: 'classic_research_outputs' do
     post 'sort', on: :collection
-
-    # Ajax endpoint for ResearchOutput.output_type selection
-    get 'output_type_selection', controller: 'research_outputs', action: 'select_output_type'
-
-    # Ajax endpoint for ResearchOutput.license_id selection
-    get 'license_selection', controller: 'research_outputs', action: 'select_license'
-
-    # AJAX endpoints for repository search and selection
-    get :repository_search, controller: 'research_outputs'
-    # AJAX endpoints for metadata standards search and selection
-    get :metadata_standard_search, controller: 'research_outputs'
   end
 
   resources :usage, only: [:index]
@@ -220,7 +207,38 @@ Rails.application.routes.draw do
     resources :plans, only: [:update]
   end
 
+  resources :madmp_fragments, only: %i[show create update destroy] do
+    get 'load_fragments', action: :load_fragments, on: :collection
+    delete 'destroy_contributor', action: :destroy_contributor, on: :collection, constraints: { format: [:json] }
+  end
+
+  resources :madmp_schemas, only: %i[index show] do
+    get 'by_name/:name', action: :by_name, on: :collection
+  end
+
+  get '/codebase/run', to: 'madmp_codebase#run', constraints: { format: [:json] }
+  get '/codebase/project_search', to: 'madmp_codebase#project_search', constraints: { format: [:json] }
+
+  resources :guided_tour, only: %i[get_tour end_tour] do
+    get ':tour', action: :get_tour, on: :collection, constraints: { format: [:json] }
+    post ':tour', action: :end_tour, on: :collection, constraints: { format: [:json] }
+  end
+
+  resources :registries, only: %i[index] do
+    get 'load_values', action: :load_values, on: :collection
+    get 'by_name/:name', action: :by_name, on: :collection
+    get 'suggest', action: :suggest, on: :collection
+  end
+
+  resources :api_client_roles, only: %i[create update destroy]
+
+  resources :templates, only: %i[show], constraints: { format: [:json] } do
+    post 'set_recommended', action: :set_recommended
+  end
+
   namespace :api, defaults: { format: :json } do
+    post '/graphql', to: 'graphql#execute'
+
     namespace :v0 do
       resources :departments, only: %i[create index] do
         collection do
@@ -249,6 +267,13 @@ Rails.application.routes.draw do
           get 'extract', to: 'themes#extract'
         end
       end
+      namespace :madmp do
+        get 'dmp_fragments/:id', controller: "madmp_fragments", action: 'dmp_fragments'
+        resources :dmp_fragments, controller: "madmp_fragments", action: "dmp_fragments"
+        resources :madmp_fragments, only: %i[show update], controller: "madmp_fragments", path: "fragments"
+        resources :madmp_schemas, only: [:show], controller: "madmp_schemas", path: "schemas"
+        resources :plans, only: [:show]
+      end
     end
 
     namespace :v1 do
@@ -261,6 +286,25 @@ Rails.application.routes.draw do
       resources :themes, param: :slug, only: [] do
         member do
           get 'extract', to: 'themes#extract'
+        end
+      end
+      namespace :madmp do
+        get 'dmp_fragments/:id', controller: "madmp_fragments", action: 'dmp_fragments'
+        resources :madmp_fragments, only: %i[show update], controller: "madmp_fragments", path: "fragments"
+        resources :madmp_schemas, only: %i[index show], controller: "madmp_schemas", path: "schemas"
+        resources :registries, only: %i[index show], controller: "registries", param: :name
+        resources :plans, only: %i[show import] do
+          get 'research_outputs/:uuid', action: :show, on: :collection, as: :show
+          collection do
+            post :import
+          end
+        end
+        resources :services do
+          resources :items, only: %i[ror orcid]
+          get 'ror', action: :ror, on: :collection, as: :ror
+          get 'orcid', action: :orcid, on: :collection, as: :orcid
+          get 'loterre/*path', action: :loterre, on: :collection, as: :loterre
+          get 'metadore', action: :metadore, on: :collection, as: :metadore
         end
       end
     end
@@ -340,6 +384,14 @@ Rails.application.routes.draw do
     resources :api_clients, only: [] do
       get 'index/:page', action: :index, on: :collection, as: :index
     end
+    # Paginable actions for registries
+    resources :registries, only: [] do
+      get 'index/:page', action: :index, on: :collection, as: :index
+    end
+    # Paginable actions for madmp schemas
+    resources :madmp_schemas, only: [] do
+      get 'index/:page', action: :index, on: :collection, as: :index
+    end
   end
 
   resources :template_options, only: [:index], constraints: { format: /json/ } do
@@ -414,11 +466,11 @@ Rails.application.routes.draw do
       resources :customizations, only: [:create], controller: 'template_customizations'
 
       resources :copies, only: [:create],
-                controller: 'template_copies',
-                constraints: { format: [:json] }
+                         controller: 'template_copies',
+                         constraints: { format: [:json] }
 
       resources :customization_transfers, only: [:create],
-                controller: 'template_customization_transfers'
+                                          controller: 'template_customization_transfers'
 
       member do
         get 'history'
@@ -482,6 +534,13 @@ Rails.application.routes.draw do
         get :refresh_credentials
       end
     end
+
+    resources :registries do
+      post 'sort_values', on: :collection
+      get 'download'
+    end
+    resources :madmp_schemas, only: %i[index new create edit update destroy]
+    resources :module_templates, only: %i[index]
   end
 
   get 'research_projects/search', action: 'search',
@@ -493,7 +552,5 @@ Rails.application.routes.draw do
                                    constraints: { format: 'json' }
 
   get "healthz" => "rails/health#show", as: :rails_health_check
-
-  # mount MadmpOpidor::Engine => '/madmp_opidor', as: 'madmp_opidor'
 end
 # rubocop:enable Metrics/BlockLength

@@ -268,8 +268,8 @@ group :test do
   gem 'database_cleaner', require: false
 
   # Making tests easy on the fingers and eyes
-  # (https://github.com/thoughtbot/shoulda)
-  gem 'shoulda', require: false
+  # (https://github.com/thoughtbot/shoulda-matchers)
+  gem 'shoulda-matchers', require: false
 
   # Mocking and stubbing library (http://gofreerange.com/mocha/docs)
   gem 'mocha', require: false
@@ -370,7 +370,6 @@ end
 # ======================#
 # MADMP OPIDOR FEATURES #
 # ===================== #
-gem 'madmp_opidor', path: 'engines/madmp_opidor' # , git: 'https://github.com/OPIDoR/madmp_opidor.git'
 
 group :build do
   gem 'activerecord-nulldb-adapter'

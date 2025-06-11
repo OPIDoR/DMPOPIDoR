@@ -13,7 +13,13 @@ import 'regenerator-runtime/runtime';
 // Pull in Bootstrap JS functionality
 import 'bootstrap';
 
-import Rails from '@rails/ujs';
+// TODO: Disabled turbo for the time being because our custom JS is not
+//       properly setup to work with it. We should review the docs:
+//       https://github.com/hotwired/turbo-rails
+import '@hotwired/turbo-rails';
+import { Application } from '@hotwired/stimulus';
+import ReactController from './controllers/react_controller.js';
+import ResetFormController from './controllers/reset_form_controller.js';
 
 // Uncomment to copy all static images under ../images to the output folder and reference
 // them with the image_pack_tag helper in views (e.g <%= image_pack_tag 'rails.png' %>)
@@ -89,20 +95,8 @@ import './src/superAdmin/staticPages/edit';
 import './src/superAdmin/themes/newEdit';
 import './src/superAdmin/users/edit';
 
-import './react.jsx';
-
-// TODO: Disabled turbo for the time being because our custom JS is not
-//       properly setup to work with it. We should review the docs:
-//       https://github.com/hotwired/turbo-rails
-// import "@hotwired/turbo-rails".
 // require("@rails/activestorage").start()
 // require("@rails/actioncable").start()
-
-// Since we're using Webpacker to manage JS we need to startup Rails' Unobtrusive JS
-// and Turbo. ActiveStorage and ActionCable would also need to be in here
-// if we decide to implement either before Rails 6
-Rails.start();
-
 // Setup JS functions/libraries so that they're available within the js.erb templates
 window.$ = jQuery;
 window.jQuery = jQuery;
@@ -111,3 +105,8 @@ window.jQuery = jQuery;
 window.renderAlert = renderAlert;
 window.renderNotice = renderNotice;
 window.toggleSpinner = toggleSpinner;
+
+// Register Stimulus controllers
+window.Stimulus = Application.start();
+window.Stimulus.register('react', ReactController);
+window.Stimulus.register('resetForm', ResetFormController);

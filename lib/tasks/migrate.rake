@@ -151,35 +151,6 @@ namespace :migrate do
       language.default_language = details[:default_language]
       language.save!
     end
-
-    # seed regions to database
-    regions = {
-      'UK' => {
-        abbreviation: 'uk',
-        description: 'default region',
-        name: 'UK'
-      },
-      'DE' => {
-        abbreviation: 'de',
-        description: '',
-        name: 'DE'
-      },
-      'Horizon2020' => {
-        abbreviation: 'horizon',
-        description: 'European super region',
-        name: 'Horizon2020'
-      }
-    }
-
-    regions.each_value do |details|
-      next unless Region.where(name: details[:name]).empty?
-
-      region = Region.new
-      region.abbreviation = details[:abbreviation]
-      region.description = details[:description]
-      region.name = details[:name]
-      region.save!
-    end
   end
 
   desc 'replaces languages in incorrect formats and seeds all correct formats'

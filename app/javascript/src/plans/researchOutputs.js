@@ -9,7 +9,7 @@ $(() => {
         updatedOrder.push($(this).find('.research-output-id').val());
       });
       $.ajax({
-        url: '/research_outputs/sort',
+        url: '/classic_research_outputs/sort',
         method: 'post',
         data: {
           plan_id: planId,
@@ -27,13 +27,13 @@ $(() => {
     const form = $(e.target).parents('form');
     form.find('.research-output-fields .edit').fadeIn().css('display', 'flex');
     form.find('.research-output-fields .cancel').show();
-    form.find('.research-output-fields  .readonly').hide();
+    form.find('.research-output-fields .readonly').hide();
   });
   $('#research-outputs').on('click', '.research-output-fields .cancel', (e) => {
     const form = $(e.target).parents('form');
     form.find('.research-output-fields .readonly').show();
-    form.find('.research-output-fields  .edit').hide();
-    form.find('.research-output-fields  .cancel').hide();
+    form.find('.research-output-fields .edit').hide();
+    form.find('.research-output-fields .cancel').hide();
   });
   $('#research-outputs').on('click', '.research-output-fields .research-output-uuid .copy', (e) => {
     const uuidField = $(e.target).parents('.research-output-uuid');

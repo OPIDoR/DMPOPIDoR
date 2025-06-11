@@ -41,8 +41,6 @@ RSpec.describe Org, type: :model do
   context 'associations' do
     it { should belong_to(:language) }
 
-    it { should belong_to(:region).optional }
-
     it { should have_many(:guidance_groups).dependent(:destroy) }
 
     it { should have_many(:templates) }
@@ -474,7 +472,6 @@ RSpec.describe Org, type: :model do
       create(:identifier, identifiable: @to_be_merged, identifier_scheme: nil)
       create(:identifier, identifiable: @to_be_merged, identifier_scheme: @scheme)
       create(:plan, funder_id: @to_be_merged.id)
-      create(:tracker, org: @to_be_merged)
       create(:user, org: @to_be_merged)
       @to_be_merged.reload
     end
@@ -538,11 +535,6 @@ RSpec.describe Org, type: :model do
       @org.merge!(to_be_merged: @to_be_merged)
       expect(@org.token_permission_types.length).to eql(expected)
     end
-    it 'merges associated :tracker' do
-      expected = @to_be_merged.tracker.code
-      @org.merge!(to_be_merged: @to_be_merged)
-      expect(@org.tracker.code).to eql(expected)
-    end
     it 'merges associated :users' do
       expected = @org.users.length + @to_be_merged.users.length
       @org.merge!(to_be_merged: @to_be_merged)
@@ -566,7 +558,6 @@ RSpec.describe Org, type: :model do
         @to_be_merged = create(:org, :funder, templates: 1, plans: 2, managed: true,
                                               feedback_enabled: true,
                                               is_other: true,
-                                              region: create(:region),
                                               language: create(:language, abbreviation: 'org-mdl'))
       end
 
@@ -592,7 +583,6 @@ RSpec.describe Org, type: :model do
         expect(org.name).not_to eql(original.name)
         expect(org.organisation?).to eql(true)
         expect(org.funder?).to eql(false)
-        expect(org.region).not_to eql(original.region)
         expect(org.language).not_to eql(original.language)
       end
     end

@@ -73,8 +73,7 @@
           _('Delete'),
           super_admin_notification_path(@notification),
           class: 'btn btn-secondary',
-          method: :delete,
-          data: { confirm: _('Are you sure you want to delete the notification "%{title}"') % { title: @notification.title }}) unless @notification.new_record? %>
+          data: { turbo_method: :delete, turbo_confirm: _('Are you sure you want to delete the notification "%{title}"') % { title: @notification.title }}) unless @notification.new_record? %>
     <%= link_to _('Cancel'), super_admin_notifications_path, class: 'btn btn-secondary', role: 'button' %>
   </div>
 <% end %>
