@@ -51,28 +51,6 @@
   </p>
 </div>
 
-<div class="form-control mb-3 col-xs-8">
-  <%= f.label(:context, _('Context'), class: "form-label") %>
-  <% if f.object.new_record? %>
-    <%= select_tag(:context,
-        options_for_select(
-          [["Research Project", "research_project"], ["Research Entity", "research_entity"]],
-          f.object.context
-        ),
-        disabled: f.object.module?,
-        class: "form-select",
-        name: 'template[context]') %>
-  <% else %>
-    <p class="form-control-static">
-      <% if f.object.research_entity? %>
-        <%= _('Research Entity') %>
-      <% else %>
-        <%= _('Research Project') %>
-      <% end %>
-    </p>
-  <% end %>
-</div>
-
 <% if f.object.module? %>
   <div class="form-control mb-3 col-xs-8">
     <%= f.label(:data_type, _('Data type'), class: "form-label") %>

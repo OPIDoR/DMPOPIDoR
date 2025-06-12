@@ -17,7 +17,6 @@ class TemplateOptionsController < ApplicationController
   def index
     org_hash = plan_params.fetch(:research_org_id, {})
     funder_hash = plan_params.fetch(:funder_id, {})
-    template_context = Template.contexts[plan_params[:context]] || 'research_project'
     authorize Template.new, :template_options?
 
     org = org_from_params(params_in: { org_id: org_hash.to_json }) if org_hash.present?
@@ -54,7 +53,6 @@ class TemplateOptionsController < ApplicationController
         # Retrieve the Org's templates
         @templates << Template.published.where(
           org_id: org&.id,
-          context: template_context,
           type: %w[classic structured]
         ).to_a
       end
@@ -63,7 +61,6 @@ class TemplateOptionsController < ApplicationController
       @templates = Template.published
                            .where(
                              org_id: current_user.org.id,
-                             context: template_context,
                              type: %w[classic structured]
                            ).to_a
     end
@@ -90,8 +87,7 @@ class TemplateOptionsController < ApplicationController
   # rubocop:enable Metrics/AbcSize, Metrics/MethodLength
 
   def recommend
-    recommended_template = Template.recommend(context: params[:context],
-                                              locale: params[:locale]) || Template.default
+    recommended_template = Template.recommend(locale: params[:locale]) || Template.default
     authorize Template.new, :template_options?
 
     render json: {

@@ -2,6 +2,10 @@
 
 # rubocop:disable Naming/VariableNumber
 namespace :dmpopidor_upgrade do
+  desc 'Upgrade to 4.4.0'
+  task V4_4_0: :environment do
+    Rake::Task['dmpopidor_upgrade:migrate_context_to_plans'].execute
+  end
   desc 'Upgrade to 4.3.0'
   task V4_3_0: :environment do
     Rake::Task['dmpopidor_upgrade:add_default_data_type_to_research_outputs'].execute
@@ -29,6 +33,14 @@ namespace :dmpopidor_upgrade do
   desc 'Upgrade to 2.3.0'
   task v2_3_0: :environment do
     Rake::Task['dmpopidor_upgrade:close_existing_feedback_plans'].execute
+  end
+
+  desc 'Migrate context from templates to plans'
+  task migrate_context_to_plans: :environment do
+    Plan.all.each do |plan|
+      p "Migrating plan #{plan.id}"
+      plan.update(context: plan.template.context)
+    end
   end
 
   desc 'Add default data_type to research outputs'
