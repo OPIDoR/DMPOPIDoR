@@ -142,7 +142,7 @@ Rails.application.routes.draw do
   # Question Formats controller, currently just the one action
   get 'question_formats/rda_api_address' => 'question_formats#rda_api_address'
 
-  resources :notes, only: %i[create update archive] do
+  resources :notes, only: %i[create update] do
     member do
       post 'create', constraints: { format: [:json] }
       patch 'archive', constraints: { format: [:json] }
@@ -219,7 +219,7 @@ Rails.application.routes.draw do
   get '/codebase/run', to: 'madmp_codebase#run', constraints: { format: [:json] }
   get '/codebase/project_search', to: 'madmp_codebase#project_search', constraints: { format: [:json] }
 
-  resources :guided_tour, only: %i[get_tour end_tour] do
+  resources :guided_tour do
     get ':tour', action: :get_tour, on: :collection, constraints: { format: [:json] }
     post ':tour', action: :end_tour, on: :collection, constraints: { format: [:json] }
   end
@@ -293,14 +293,14 @@ Rails.application.routes.draw do
         resources :madmp_fragments, only: %i[show update], controller: "madmp_fragments", path: "fragments"
         resources :madmp_schemas, only: %i[index show], controller: "madmp_schemas", path: "schemas"
         resources :registries, only: %i[index show], controller: "registries", param: :name
-        resources :plans, only: %i[show import] do
+        resources :plans, only: %i[show] do
           get 'research_outputs/:uuid', action: :show, on: :collection, as: :show
           collection do
             post :import
           end
         end
         resources :services do
-          resources :items, only: %i[ror orcid]
+          resources :items
           get 'ror', action: :ror, on: :collection, as: :ror
           get 'orcid', action: :orcid, on: :collection, as: :orcid
           get 'loterre/*path', action: :loterre, on: :collection, as: :loterre
