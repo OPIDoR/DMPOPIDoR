@@ -1,28 +1,37 @@
 {
-  "FundersWithImport": [
-    {
-      "label": {
-        "fr_FR": "Agence Nationale de la Recherche (ANR)",
-        "en_GB": "French National Research Agency (ANR)"
-      },
-      "scriptName": "AnrProjectDataFetcher",
-      "registry": "AnrProjects"
-    },
-	{
-      "label": {
-        "fr_FR": "Agence Nationale de Sécurité sanitaire, de l'Alimentation, de l'Environnement et du Travail (ANSES)",
-        "en_GB": "French Agency for Food, Environmental and Occupational Health & Safety (ANSES)"
-      },
-      "scriptName": "AnsesProjectDataFetcher",
-      "registry": "AnsesProjects"
-    },
-    {
-      "label": {
-        "fr_FR": "Commission Européenne",
-        "en_GB": "European Commission"
-      },
-      "scriptName": "CordisDataFetcher",
-      "registry": "CordisProjects"
-    }
-  ]
+	"FundersWithImport": [
+		{
+			"label": {
+				"fr_FR": "Agence de la transition écologique (ADEME)",
+				"en_GB": "French Agency for Ecological Transition (ADEME)"
+			},
+			"scriptName": "AdemeProjectsDataFetcher",
+			"registry": "AdemeProjects"
+		},
+		{
+			"label": {
+				"fr_FR": "Agence Nationale de la Recherche (ANR)",
+				"en_GB": "French National Research Agency (ANR)"
+			},
+			"scriptName": "AnrProjectDataFetcher",
+			"registry": "AnrProjects",
+			"apiClient": "ANR"
+		},
+		{
+			"label": {
+				"fr_FR": "Agence nationale de sécurité sanitaire de l'alimentation, de l'environnement et du travail (Anses)",
+				"en_GB": "French Agency for Food, Environmental and Occupational Health & Safety (ANSES)"
+			},
+			"scriptName": "AnsesProjectsDataFetcher",
+			"registry": "AnsesProjects"
+		},
+		{
+			"label": {
+				"fr_FR": "Commission Européenne",
+				"en_GB": "European Commission"
+			},
+			"scriptName": "CordisDataFetcher",
+			"registry": "CordisProjects"
+		}
+	]
 }

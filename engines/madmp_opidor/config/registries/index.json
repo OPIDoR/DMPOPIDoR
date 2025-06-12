@@ -126,11 +126,6 @@
         "category": "Keyword",
         "path": "GEMET.json"
     },
-    "GenOuestServiceType": {
-        "dataTypes": null,
-        "category": "GenOuestServiceType",
-        "path": "GenOuestServiceType.json"
-    },
     "IntegrationTools": {
         "dataTypes": [
             "software"
@@ -168,11 +163,6 @@
         "dataTypes": null,
         "category": "MediaType",
         "path": "MediaType.json"
-    },
-    "Thésaurus MeSH Istex Loterre": {
-        "dataTypes": null,
-        "category": "Keyword",
-        "path": "Thésaurus MeSH Istex Loterre.json"
     },
     "MesoatLRServiceType": {
         "dataTypes": null,
@@ -262,6 +252,13 @@
         "category": "ProgrammingLanguage",
         "path": "ProgrammingLanguages.json"
     },
+    "RelationType": {
+        "dataTypes": [
+            "software"
+        ],
+        "category": "RelationType",
+        "path": "RelationType.json"
+    },
     "Repositories": {
         "dataTypes": null,
         "category": "Repository",
@@ -292,13 +289,6 @@
         "category": "Access",
         "path": "SoftwareAccess.json"
     },
-    "SoftwareArchives": {
-        "dataTypes": [
-            "software"
-        ],
-        "category": "Archive",
-        "path": "SoftwareArchives.json"
-    },
     "SoftwareCatalogs": {
         "dataTypes": [
             "software"
@@ -306,12 +296,12 @@
         "category": "Repository",
         "path": "SoftwareCatalogs.json"
     },
-    "SoftwareCategories": {
+    "SoftwareTypologies": {
         "dataTypes": [
             "software"
         ],
-        "category": "SoftwareCategory",
-        "path": "SoftwareCategories.json"
+        "category": "SoftwareTypology",
+        "path": "SoftwareTypologies.json"
     },
     "SoftwareDocumentationAudience": {
         "dataTypes": [
@@ -370,6 +360,11 @@
         "dataTypes": null,
         "category": "Keyword",
         "path": "Thésaurus INRAE.json"
+    },
+    "Thésaurus MeSH Istex Loterre": {
+        "dataTypes": null,
+        "category": "Keyword",
+        "path": "Thésaurus MeSH Istex Loterre.json"
     },
     "VersionControls": {
         "dataTypes": [

@@ -25,7 +25,10 @@
 				"en_GB": "None",
 				"fr_FR": "Aucun"
 			},
-			"title": "Aucun"
+			"title": "Aucun",
+			"technicalResourceId": null,
+			"idType": null,
+			"serviceContact": null
 		}
 	]
 }

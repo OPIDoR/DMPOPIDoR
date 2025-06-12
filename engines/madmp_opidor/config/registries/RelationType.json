@@ -1,0 +1,25 @@
+{
+  "RelationType": [
+    {
+      "label": {
+        "fr_FR": "le logiciel est cité dans cette publication",
+        "en_GB": "The software is cited in this publication"
+      },
+      "value": "isCitedBy"
+    },
+	    {
+      "label": {
+        "fr_FR": "le logiciel est décrit dans cette publication",
+        "en_GB": "The software is described in this publication"
+      },
+      "value": "isDescribedBy"
+    },
+    {
+      "label": {
+        "fr_FR": "le logiciel est documenté dans cette publication",
+        "en_GB": "The software is documented in this publication"
+      },
+      "value": "isDocumentedBy"
+    }
+  ]
+}

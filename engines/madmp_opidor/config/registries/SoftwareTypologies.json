@@ -1,0 +1,28 @@
+{
+	"SoftwareTypologies": [
+		{
+			"en_GB": "Standalone software, application software, simulation tool",
+			"fr_FR": "Logiciel autonome, logiciel applicatif, outil de simulation"
+		},
+		{
+			"en_GB": "Library",
+			"fr_FR": "Bibliothèque (Library)"
+		},
+			{
+			"en_GB": "Infrastructure (development framework, middleware, operating system)",
+			"fr_FR": "Infrastructure (framework de développement, middleware, système d'exploitation)"
+		},
+			{
+			"en_GB": "Plug-in or module (subset intended to be integrated into a framework, into a development environment, into an application ecosystem)",
+			"fr_FR": "Plug-in ou module (sous-ensemble destiné à être intégré dans un framework, dans un environnement de développement, dans un écosystème applicatif)"
+		},
+			{
+			"en_GB": "Development tool",
+			"fr_FR": "Outil de développement"
+		},
+			{
+			"en_GB": "Embedded, buried software",
+			"fr_FR": "Logiciel embarqué, enfoui"
+		}
+	]
+}

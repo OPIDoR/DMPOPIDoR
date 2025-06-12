@@ -1,12 +1,18 @@
 {
-    "NameTypeValues": [
-        {
-            "fr_FR": "Personne",
-            "en_GB": "Personal"
-        },
-        {
-            "fr_FR": "Organisation (par ex : équipe, unité ou groupe de recherche)",
-            "en_GB": "Organizational (e.g. a research team, unit or group)"
-        }
-    ]
+	"NameTypeValues": [
+		{
+			"label": {
+				"fr_FR": "Personne",
+				"en_GB": "Personal"
+			},
+			"value": "Personal"
+		},
+		{
+			"label": {
+				"fr_FR": "Organisation (par ex : équipe, unité ou groupe de recherche)",
+				"en_GB": "Organizational (e.g. a research team, unit or group)"
+			},
+			"value": "Organizational"
+		}
+	]
 }
