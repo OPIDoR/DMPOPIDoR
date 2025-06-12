@@ -98,7 +98,10 @@ class MadmpCodebaseController < ApplicationController
           end
         end
       end
-      render json: { status: 200, message: 'Shared' }, status: 200
+      render json: {
+        status: 200,
+        clients: plan.api_client_roles.map { |client_role| ApiClient.where(id: client_role.api_client_id).select(:name).first }
+      }, status: 200
     rescue StandardError => e
       render json: { status: 500, message: e }, status: 500
     end
