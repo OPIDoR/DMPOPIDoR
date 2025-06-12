@@ -24,17 +24,14 @@
 #  created_at       :datetime         not null
 #  updated_at       :datetime         not null
 #  language_id      :integer
-#  region_id        :integer
 #
 # Indexes
 #
 #  orgs_language_id_idx  (language_id)
-#  orgs_region_id_idx    (region_id)
 #
 # Foreign Keys
 #
 #  fk_rails_...  (language_id => languages.id)
-#  fk_rails_...  (region_id => regions.id)
 #
 
 # Object that represents an Organization/Institution/Funder
@@ -67,16 +64,6 @@ class Org < ApplicationRecord
   # ================
 
   belongs_to :language
-
-  belongs_to :region, optional: true
-
-  has_one :tracker, dependent: :destroy
-  accepts_nested_attributes_for :tracker
-  validates_associated :tracker
-
-  has_one :tracker, dependent: :destroy
-  accepts_nested_attributes_for :tracker
-  validates_associated :tracker
 
   has_many :guidance_groups, dependent: :destroy
 
@@ -303,10 +290,10 @@ class Org < ApplicationRecord
   def org_admin_plans
     combined_plan_ids = affiliated_plan_ids.flatten.uniq
 
-    ::Plan.includes(:template, :phases, :roles, :users).where(id: combined_plan_ids)
-          .where.not(visibility: ::Plan.visibilities[:privately_visible])
-          .where.not(visibility: ::Plan.visibilities[:is_test])
-          .where(roles: { active: true })
+    Plan.includes(:template, :phases, :roles, :users).where(id: combined_plan_ids)
+        .where.not(visibility: Plan.visibilities[:privately_visible])
+        .where.not(visibility: Plan.visibilities[:is_test])
+        .where(roles: { active: true })
   end
 
   def grant_api!(token_permission_type)
@@ -336,7 +323,6 @@ class Org < ApplicationRecord
 
       to_be_merged.templates.update_all(org_id: id)
       merge_token_permission_types!(to_be_merged: to_be_merged)
-      self.tracker = to_be_merged.tracker unless tracker.present?
       to_be_merged.users.update_all(org_id: id)
 
       # Terminate the transaction if the resulting Org is not valid

@@ -24,17 +24,14 @@
 #  created_at       :datetime         not null
 #  updated_at       :datetime         not null
 #  language_id      :integer
-#  region_id        :integer
 #
 # Indexes
 #
 #  orgs_language_id_idx  (language_id)
-#  orgs_region_id_idx    (region_id)
 #
 # Foreign Keys
 #
 #  fk_rails_...  (language_id => languages.id)
-#  fk_rails_...  (region_id => regions.id)
 #
 
 FactoryBot.define do
@@ -43,7 +40,6 @@ FactoryBot.define do
     links { { 'org' => [] } }
     abbreviation { SecureRandom.hex(6) }
     feedback_enabled { false }
-    region { Region.first || create(:region) }
     language { Language.default }
     is_other { false }
     contact_email { Faker::Internet.email }

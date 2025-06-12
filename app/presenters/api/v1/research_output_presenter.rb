@@ -4,7 +4,7 @@ module Api
   module V1
     # Helper methods for research outputs
     class ResearchOutputPresenter
-      attr_reader :dataset_id, :preservation_statement, :security_and_privacy, :license_start_date,
+      attr_reader :dataset_id, :preservation_statement, :security_and_privacy,
                   :data_quality_assurance, :distributions, :metadata, :technical_resources
 
       def initialize(output:)
@@ -15,21 +15,12 @@ module Api
         @dataset_id = identifier
 
         load_narrative_content
-
-        @license_start_date = determine_license_start_date(output: output)
       end
 
       private
 
       def identifier
         Identifier.new(identifiable: @research_output, value: @research_output.id)
-      end
-
-      def determine_license_start_date(output:)
-        return nil unless output.present?
-        return output.release_date.to_formatted_s(:iso8601) if output.release_date.present?
-
-        output.created_at.to_formatted_s(:iso8601)
       end
 
       def load_narrative_content

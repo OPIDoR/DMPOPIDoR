@@ -98,7 +98,6 @@ module Mocks
                 affiliation: {
                   name: Faker::TvShows::Simpsons.location,
                   abbreviation: Faker::Lorem.word.upcase,
-                  region: Faker::Space.planet,
                   affiliation_id: {
                     type: 'ror',
                     identifier: SecureRandom.uuid

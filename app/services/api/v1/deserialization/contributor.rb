@@ -69,11 +69,11 @@ module Api
 
             if json[:mbox].present?
               # Try to find by email
-              contrib = ::Contributor.where('LOWER(email) = ?', json[:mbox]&.downcase).last
+              contrib = Contributor.where('LOWER(email) = ?', json[:mbox]&.downcase).last
               return duplicate_contributor(contributor: contrib) if contrib.present?
             end
 
-            ::Contributor.new(name: json[:name], email: json[:mbox])
+            Contributor.new(name: json[:name], email: json[:mbox])
           end
 
           def duplicate_contributor(contributor:)

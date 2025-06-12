@@ -1,36 +1,25 @@
 <% title "#{@plan.title} - contributors" %>
 
-<div class="row">
-  <div class="col-md-12">
-    <!-- render the project title -->
-    <h1><%= @plan.title %></h1>
-  </div>
-</div>
+<% locale = @plan.template.locale %>
 
 <% content_for :plan_tab_body do %>
   <div class="row">
+    <% I18n.with_locale locale do %>
+      <div class="col-md-12">
+        <p>
+          <%= _("List of person responsible for research data management during a project and their roles.") %>
+        </p>
+        <p>
+          <%= _("Assigning a role to a person is done in the \"General information\" tab, in the \"Write Plan\" tab for the structured templates or in the \"Research Outputs\" tab for other templates.") %>
+        </p>
+      </div>
+    <% end %>
     <div class="col-md-12">
-      <p>
-        <%= _("Please list the project’s Principal Investigator(s) and those responsible for data management.") %>
-      </p>
-      <br/>
-
-      <% if @contributors.any? %>
-        <%= paginable_renderise partial: "/paginable/contributors/index",
-                                controller: "paginable/contributors",
-                                action: "index",
-                                remote: true,
-                                scope: @contributors,
-                                locals: { plan: @plan },
-                                query_params: {
-                                  sort_field: 'contributors.name',
-                                  sort_direction: :asc } %>
-      <% else %>
-        <p><%= _("No contributors have been defined.") %></p>
-      <% end %>
-
-      <%= link_to _("Add a contributor"), new_plan_contributor_path(@plan),
-                                          class: "btn btn-primary" %>
+      <%= react("ContributorsTabLayout", props: { 
+        locale: LocaleService.to_gettext(locale: locale),
+        planId: @plan.id,
+        readonly: !@plan.editable_by?(current_user.id)
+      }) %>
     </div>
   </div>
 <% end %>

@@ -25,6 +25,6 @@ class Jbuilder
   end
 
   def target!
-    @prettify ? ::JSON.pretty_generate(@attributes) : _original_target
+    @prettify ? JSON.pretty_generate(@attributes) : _original_target
   end
 end

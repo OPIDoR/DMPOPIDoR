@@ -102,7 +102,7 @@ module SuperAdmin
 
     # POST /super_admin/:id/merge_analyze
     def merge_analyze
-      @org = Org.includes(:templates, :tracker, :annotations,
+      @org = Org.includes(:templates, :annotations,
                           :departments, :token_permission_types, :funded_plans,
                           identifiers: [:identifier_scheme],
                           guidance_groups: [guidances: [:themes]],
@@ -113,7 +113,7 @@ module SuperAdmin
       lookup = OrgSelection::HashToOrgService.to_org(
         hash: JSON.parse(merge_params[:id]), allow_create: false
       )
-      @target_org = Org.includes(:templates, :tracker, :annotations,
+      @target_org = Org.includes(:templates, :annotations,
                                  :departments, :token_permission_types, :funded_plans,
                                  identifiers: [:identifier_scheme],
                                  guidance_groups: [guidances: [:themes]],

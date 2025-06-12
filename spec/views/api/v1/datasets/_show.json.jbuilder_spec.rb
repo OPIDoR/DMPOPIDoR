@@ -80,35 +80,8 @@ describe 'api/v1/datasets/_show.json.jbuilder' do
           expect(@distribution[:format]).to eql(nil)
         end
       end
-      it 'includes :metadata' do
-        expect(@json[:metadata]).not_to eql([])
-        expect(@json[:metadata].first[:description].present?).to eql(true)
-        expect(@json[:metadata].first[:metadata_standard_id].present?).to eql(true)
-        expect(@json[:metadata].first[:metadata_standard_id][:type].present?).to eql(true)
-        expect(@json[:metadata].first[:metadata_standard_id][:identifier].present?).to eql(true)
-      end
       it 'includes :technical_resources' do
         expect(@json[:technical_resources]).to eql(nil)
-      end
-    end
-
-    describe 'includes all of the repository info as attributes' do
-      before(:each) do
-        @host = @json[:distribution].first[:host]
-        @expected = @output.repositories.last
-      end
-      it 'includes :title' do
-        expect(@host[:title]).to eql(@expected.name)
-      end
-      it 'includes :description' do
-        expect(@host[:description]).to eql(@expected.description)
-      end
-      it 'includes :url' do
-        expect(@host[:url]).to eql(@expected.homepage)
-      end
-      it 'includes :dmproadmap_host_id' do
-        expect(@host[:dmproadmap_host_id][:type]).to eql('url')
-        expect(@host[:dmproadmap_host_id][:identifier]).to eql(@expected.uri)
       end
     end
 

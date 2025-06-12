@@ -442,7 +442,7 @@ class User < ApplicationRecord
 
     Rails.logger.info "User #{id} anonymized : email was #{copy.email}"
     p "User #{id} anonymized : email was #{copy.email}"
-    ::UserMailer.anonymization_notice(copy).deliver_now
+    UserMailer.anonymization_notice(copy).deliver_now
 
     save
   end

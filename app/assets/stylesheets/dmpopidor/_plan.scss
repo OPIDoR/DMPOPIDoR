@@ -221,18 +221,14 @@
       }
     }
   }
-
+  button.add-research-output {
+    display: block;
+    margin: auto;
+    width: 80%;
+  }
   #research-outputs-list {
     width: 100%;
     padding: 20px;
-
-    &+div.links {
-      a.add-research-output {
-        display: block;
-        margin: auto;
-        width: 80%;
-      }
-    }
 
     .form-control {
       margin: 0;

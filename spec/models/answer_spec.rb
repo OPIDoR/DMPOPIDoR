@@ -12,9 +12,11 @@ RSpec.describe Answer, type: :model do
 
     it { is_expected.to validate_presence_of(:question) }
 
+    it { is_expected.to validate_presence_of(:research_output) }
+
     it {
       is_expected.to validate_uniqueness_of(:question)
-        .scoped_to(:plan_id)
+        .scoped_to(%i[plan_id research_output_id])
         .with_message('must be unique')
     }
   end

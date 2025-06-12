@@ -18,7 +18,6 @@ RSpec.describe 'SuperAdmins Merge Orgs', type: :feature do
     create(:identifier, identifiable: @from_org, identifier_scheme: nil)
     create(:identifier, identifiable: @from_org, identifier_scheme: @scheme)
     create(:plan, funder: @from_org)
-    create(:tracker, org: @from_org)
     create(:user, org: @from_org)
 
     @to_org = create(:org, :institution, plans: 2, managed: false)

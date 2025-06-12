@@ -21,17 +21,14 @@
 #  uuid                    :string
 #  created_at              :datetime         not null
 #  updated_at              :datetime         not null
-#  license_id              :bigint(8)
 #  plan_id                 :integer
 #
 # Indexes
 #
-#  index_research_outputs_on_license_id  (license_id)
 #  index_research_outputs_on_plan_id     (plan_id)
 #
 # Foreign Keys
 #
-#  fk_rails_...  (license_id => licenses.id)
 #  fk_rails_...  (plan_id => plans.id)
 #
 
@@ -63,10 +60,6 @@ class ResearchOutput < ApplicationRecord
   # ================
 
   belongs_to :plan, optional: true, touch: true
-  belongs_to :license, optional: true
-
-  has_and_belongs_to_many :metadata_standards
-  has_and_belongs_to_many :repositories
 
   has_many :answers, dependent: :destroy
 
@@ -100,20 +93,6 @@ class ResearchOutput < ApplicationRecord
   # ====================
   # = Instance methods =
   # ====================
-
-  # Helper method to convert selected repository form params into Repository objects
-  def repositories_attributes=(params)
-    params.each_value do |repository_params|
-      repositories << Repository.find_by(id: repository_params[:id])
-    end
-  end
-
-  # Helper method to convert selected metadata standard form params into MetadataStandard objects
-  def metadata_standards_attributes=(params)
-    params.each_value do |metadata_standard_params|
-      metadata_standards << MetadataStandard.find_by(id: metadata_standard_params[:id])
-    end
-  end
 
   def main?
     display_order.eql?(1)
@@ -239,9 +218,9 @@ class ResearchOutput < ApplicationRecord
     module_id = ro_fragment.additional_info['moduleId']
     template = module_id ? Template.find(module_id) : plan.template
 
-    guidance_presenter = ::GuidancePresenter.new(plan)
+    guidance_presenter = GuidancePresenter.new(plan)
     questions_with_guidance = template.questions.select do |q|
-      question = ::Question.find(q.id)
+      question = Question.find(q.id)
       guidance_presenter.any?(question:)
     end.pluck(:id)
 

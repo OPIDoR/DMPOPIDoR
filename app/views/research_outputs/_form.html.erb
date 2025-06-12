@@ -1,192 +1,81 @@
-<%# locals: form, path, method, plan, research_output %>
+<% template_locale = LocaleService.to_gettext(locale: research_output.plan.template.locale) %>
 
-<%
-presenter = ResearchOutputPresenter.new(research_output: research_output)
-
-abbrev_tooltip = _("Your research output abbreviation can be used as a reference when answering this plan's questions.")
-personal_data_tooltip = _("Any data that could potentially identify a specific individual. Any information that can be used to distinguish one person from another and can be used for de-anonymizing anonymous data can be considered personally identifiable data. (From https://codata.org/rdm-glossary/personally-identifiable-information/)")
-repository_tooltip = _("Repositories preserve, manage, and provide access to many types of digital materials in a variety of formats. Materials in online repositories are curated to enable search, discovery, and reuse. There must be sufficient control for the digital material to be authentic, reliable, accessible and usable on a continuing basis. (From https://codata.org/rdm-glossary/personally-identifiable-information/)")
-%>
-
-<%= form_with model: @research_output, url: path, method: method, local: true do |f| %>
-  <div class="form-control mb-3 row">
-    <div class="col-md-12">
-      <span class="col-md-3"><%= label(:output_type, _("Type"), class: "form-label") %></span>
-      <span class="col-md-5 output-type-description <%= research_output.other? ? "" : "visually-hidden-focusable" %>">
-        <%= f.label(:output_type_description, _("Please describe the output type"), class: "form-label") %>
-      </span>
-    </div>
-    <div class="col-md-3">
-      <span class="col-md-3">
-        <%= f.select :output_type, options_for_select(presenter.selectable_output_types, f.object.output_type),
-                     {
-                       include_blank: _("- Please select one -"),
-                       selected: (research_output.output_type.present? ? research_output.output_type : "" )
-                     }, {
-                       class: "form-control",
-                       aria: { required: true, label: _("Research output type") },
-                       data: { remote: true, url: plan_output_type_selection_path(plan), method: :get }
-                     } %>
-      </span>
-      <span class="col-md-3 output-type-description <%= research_output.other? ? "" : "visually-hidden-focusable" %>">
-        <%= f.text_field :output_type_description, class: "form-control",
-                                                   aria: { required: research_output.other? } %>
-      </span>
-    </div>
-  </div>
-
-  <div class="form-control mb-3 row">
-    <div class="d-flex justify-content-start col-md-12">
-      <span class="col pe-md-6">
-        <%= f.label(:title, _("Title"), class: "form-label") %>
-      </span>
-      <span class="col px-md-3">
-        <%= f.label(:abbreviation, _("Abbreviation"), class: "form-label") %>
-      </span>
-    </div>
-    <div class="d-flex justify-content-start col-md-12">
-      <span class="col px-md-6">
-        <%= f.text_field :title, class: "form-control", aria: { required: true } %>
-      </span>
-      <span class="col px-md-4">
-        <%= f.text_field :abbreviation, class: "form-control", title: abbrev_tooltip,
-                                        maxlength: 10, data: { toggle: "tooltip" } %>
-      </span>
-    </div>
-  </div>
-  <div class="form-control mb-3 row">
-    <div class="col-md-12">
-      <span class="col-md-12"><%= f.label(:description, _("Description"), class: "form-label", id: 'research-output-description') %></span>
-    </div>
-    <div class="col-md-12">
-      <span class="col-md-8">
-        <%= f.text_area :description, rows: 4, class: 'form-control tinymce', data: { toggle: "tooltip" }, aria: { labelledby: 'research-output-description' } %>
-      </span>
-    </div>
-  </div>
-
-  <div class="form-control mb-3 row">
-    <div class="d-flex col-md-12">
-      <span class="col-md-4">
-        <%= f.label :sensitive_data do %>
-          <%= f.check_box :sensitive_data, data: { toggle: "tooltip" } %>
-          <%= _('May contain sensitive data?') %>
-        <% end %>
-      </span>
-      <span class="col-md-8">
-        <%= f.label :personal_data do %>
-          <%= f.check_box :personal_data, data: { toggle: "tooltip" },
-                          title: personal_data_tooltip %>
-          <%= _('May contain personally identifiable information?') %>
-        <% end %>
-      </span>
-    </div>
-  </div>
-
-  <% if Rails.configuration.x.madmp.enable_repository_selection && Repository.all.any? %>
-    <div class="form-control mb-3 row">
-      <div class="col-md-12">
-        <span class="col-md-12">
-          <h3><%= label_tag _("Intended repositories") %></h3>
-        </span>
+<%= turbo_frame_tag research_output do %>
+  <% form_for research_output, url: classic_research_output_path(:id => research_output.id, :plan_id => research_output.plan_id), data: { turbo_stream: true, controller:"reset-form", action: "turbo:submit-end->reset-form#reset" } do |f| %>
+    <% research_output_description = research_output&.json_fragment&.research_output_description %>
+    <% research_output_data = research_output_description.data if research_output_description.present?%>
+    <% contact = research_output_description.contact%>
+    <div class='research-output-element'>
+      <%= hidden_field_tag 'research-output-id', research_output.id, class: 'research-output-id' %>
+      <div class='research-output-fields'>
+        <div class='research-output-field form-control mb-3 research-output-abbreviation'>
+          <%= f.label :abbreviation, _('Abbreviated Name (20 chars max.)'), class: 'form-label' %>
+          <%= f.text_field :abbreviation, maxlength: 20, 
+                          class: 'form-control',
+                          aria: { required: true, label: _('Abbreviated Name (20 chars max.)') },
+                          required: true,
+                          "data-toggle": "tooltip", title: _('Research output name (20 chars max.)') %>
+        </div>
+        <div class='research-output-field form-control mb-3 research-output-title'>
+          <%= f.label :title, _('Full Name'),  class: 'form-label' %>
+          <%= f.text_field :title, value: research_output_data['title'],
+                          class: 'form-control',
+                          aria: { required: true, label: _('Research output title') },
+                          required: true,
+                          "data-toggle": "tooltip", title: _('Research output title')   %>
+        </div>
+        <div class='research-output-field form-control mb-3 research-output-type'>
+          <% registryValues = Registry.find_by(name:"ResearchDataType").values %>
+          <%= f.label :output_type_description, _('Type'),  class: 'form-label' %>
+          <%= select_tag "research_output[output_type_description]",
+                      options_for_select(
+                          registryValues.map {|v| [ 
+                                  v[template_locale], 
+                                  v[template_locale]
+                              ] 
+                          },
+                          selected: research_output_data['type']
+                      ),
+                      include_blank: true,
+                      "data-toggle": "tooltip",
+                      class: "form-select",
+                      aria: { required: true, label: _('Research output type') },
+                      id: "output_type_description"  %>
+        </div>
+        <div class='research-output-field form-control mb-3 research-output-contact'>
+          <%= f.label "contact_id", _('Contact'),  class: 'form-label' %>
+          <div class="edit">
+            <%= select_tag "contact_id",
+              options_for_select(
+                @persons.map {|p| [
+                    p.to_s, 
+                    p.id
+                  ] 
+                },
+                selected: contact&.person.present? ? contact.person.id : nil
+              ),
+              disabled: !@plan.editable_by?(current_user.id),
+              include_blank: true,
+              aria: { label: _('Contact') },
+              class: "form-select" %>
+            <a href="<%= plan_contributors_path(research_output.plan) %>" target="_blank"
+              class="contributor-link"
+              aria-hidden="true" data-toggle="tooltip" 
+              data-original-title="<%= _('Add a person in the Contributors tab. Please save before clicking on +') %>">
+                <i class="fas fa-plus"></i>
+            </a>
+          </div>
+        </div>
+        <div class='research-output-field form-control mb-3 research-output-pid'>
+          <%= f.label :pid, _('Persistent Identifier'),  class: 'form-label' %>
+          <%= f.text_field :pid, value: research_output_data['datasetId'], class: 'form-control', "aria-required": true,
+                      'data-toggle': 'tooltip', title: _('If exists, please fill in the research output persistant identifier.')   %>
+        </div>
+        <div class='research-output-actions float-end' style="width:25%">
+          <%= f.submit _('Save'), class: "btn btn-primary" %>
+          <button type="button" class="btn btn-secondary"><%= _('Cancel') %></button>
+        </div>
       </div>
     </div>
-
-    <div class="form-control mb-3 row">
-      <%= render partial: "layouts/modal_search/selections",
-                locals: {
-                  namespace: "repositories",
-                  button_label: _("Add a repository"),
-                  item_name_attr: :name,
-                  results: research_output.repositories,
-                  selected: true,
-                  result_partial: "research_outputs/repositories/search_result",
-                  search_path: plan_repository_search_path(research_output.plan),
-                  search_method: :get
-                } %>
-    </div>
   <% end %>
-
-  <% if Rails.configuration.x.madmp.enable_metadata_standard_selection && MetadataStandard.all.any? %>
-    <div class="form-control mb-3 row">
-      <div class="col-md-12">
-        <span class="col-md-12">
-          <h3><%= f.label(:metadata_standard, _("Metadata standards"), class: "form-label") %></h3>
-        </span>
-      </div>
-    </div>
-    <div class="form-control mb-3 row">
-      <%= render partial: "layouts/modal_search/selections",
-                locals: {
-                  namespace: "metadata_standards",
-                  button_label: _("Add a metadata standard"),
-                  item_name_attr: :title,
-                  results: research_output.metadata_standards,
-                  selected: true,
-                  result_partial: "research_outputs/metadata_standards/search_result",
-                  search_path: plan_metadata_standard_search_path(research_output.plan),
-                  search_method: :get
-                } %>
-    </div>
-  <% end %>
-
-  <div class="form-control mb-3 row">
-    <div class="d-flex col-md-12">
-      <span class="col pe-md-4">
-        <%= f.label(:release_date, _("Anticipated release date"), class: "form-label") %>
-        <%= f.date_field :release_date, class: "form-control" %>
-      </span>
-      <span class="col px-md-4">
-        <%= f.label(:access, _("Initial access level"), class: "form-label") %>
-        <%= f.select :access, options_for_select(presenter.selectable_access_types, f.object.access),
-                              { selected: f.object.access },
-                              { class: "form-control" } %>
-      </span>
-    </div>
-  </div>
-
-  <% if Rails.configuration.x.madmp.enable_license_selection && License.all.any? %>
-    <div class="form-control mb-3 row license-selection">
-      <%= render partial: "research_outputs/licenses/form",
-                locals: { research_output: research_output, presenter: presenter } %>
-    </div>
-  <% end %>
-
-  <div class="form-control mb-3 row file-details-section <%= presenter.byte_sizable? ? "" : "d-none" %>">
-    <div class="d-flex col-md-12">
-      <span class="col-md-3">
-        <%= f.label(:byte_size, _("Anticipated file size"), class: "form-label") %>
-      </span>
-    </div>
-    <div class="d-flex justify-content-start col-md-12">
-      <span class="col-md-2">
-        <% file_size = presenter.converted_file_size(size: f.object.byte_size) %>
-        <%= f.number_field "file_size", min: 1, step: 0.1, value: file_size[:size], class: "form-control", aria: { label: _("Anticipated file size") } %>
-      </span>
-      <span class="col-md-1">
-        <%= f.select "file_size_unit", options_for_select(presenter.selectable_size_units, file_size[:unit]),
-                                       { selected: file_size[:unit] },
-                                       { class: "form-control float-start",
-                                         aria: { label: _('File size units') } } %>
-      </span>
-    </div>
-  </div>
-
-  <div class="form-control mb-3 row">
-    <div class="col-md-12">
-      <div class="col-md-6">
-        <%= f.button(_("Save"), class: "btn btn-secondary", type: "submit") %>
-        <% unless research_output.new_record? %>
-          <%= link_to _("Remove"), plan_research_output_path(plan, research_output),
-                                   data: { turbo_method: :delete }, class: "btn btn-secondary" %>
-          <% end %>
-          <%= link_to _("Cancel"), plan_research_outputs_path(plan),
-                                   class: "btn btn-secondary" %>
-      </div>
-    </div>
-  </div>
 <% end %>
-
-<%= render partial: "research_outputs/repositories/search", locals: { research_output: research_output } %>
-
-<%= render partial: "research_outputs/metadata_standards/search", locals: { research_output: research_output } %>

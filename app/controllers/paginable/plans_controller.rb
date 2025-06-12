@@ -81,7 +81,7 @@ module Paginable
 
       paginable_renderise(
         partial: 'administrator_visible',
-        scope: ::Plan.org_admin_visible(current_user),
+        scope: Plan.org_admin_visible(current_user),
         query_params: { sort_field: 'plans.updated_at', sort_direction: :desc },
         format: :json
       )

@@ -41,17 +41,17 @@ module Api
 
         # Translates the role in the json to a Contributor role
         def translate_role(role:)
-          default = ::Contributor.role_default
+          default = Contributor.role_default
           return default unless role.present?
 
           role = role.to_s unless role.is_a?(String)
 
           # Strip off the URL if present
-          url = ::Contributor::ONTOLOGY_BASE_URL
+          url = Contributor::ONTOLOGY_BASE_URL
           role = role.gsub("#{url}/", '').downcase if role.include?(url)
 
           # Return the role if its a valid one otherwise defualt
-          return role if ::Contributor.new.all_roles.include?(role.downcase.to_sym)
+          return role if Contributor.new.all_roles.include?(role.downcase.to_sym)
 
           default
         end
@@ -72,8 +72,8 @@ module Api
 
           # The format must match a DOI or ARK and a DOI IdentifierScheme
           # must also be present!
-          identifier = ::Identifier.new(value: value)
-          scheme = ::IdentifierScheme.find_by(name: 'doi')
+          identifier = Identifier.new(value: value)
+          scheme = IdentifierScheme.find_by(name: 'doi')
           %w[ark doi].include?(identifier.identifier_format) && scheme.present?
         end
 

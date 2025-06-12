@@ -25,63 +25,11 @@ class ResearchOutputPresenter
     [%w[MB mb], %w[GB gb], %w[TB tb], %w[PB pb], ['bytes', '']]
   end
 
-  # Returns the options for metadata standards
-  def selectable_metadata_standards(category:)
-    out = MetadataStandard.all.order(:title).map { |ms| [ms.title, ms.id] }
-    return out unless category.present?
-
-    MetadataStandard.where(descipline_specific: (category == 'disciplinary'))
-                    .map { |ms| [ms.title, ms.id] }
-  end
-
-  # Returns the available licenses for a select tag
-  def complete_licenses
-    License.selectable
-           .sort_by(&:identifier)
-           .map { |license| [license.identifier, license.id] }
-  end
-
-  # Returns the available licenses for a select tag
-  def preferred_licenses
-    License.preferred.map { |license| [license.identifier, license.id] }
-  end
-
   # Returns whether or not we should capture the byte_size based on the output_type
   def byte_sizable?
     @research_output.audiovisual? || @research_output.sound? || @research_output.image? ||
       @research_output.model_representation? ||
       @research_output.data_paper? || @research_output.dataset? || @research_output.text?
-  end
-
-  # Returns the options for subjects for the repository filter
-  def self.selectable_subjects
-    [
-      '23-Agriculture, Forestry, Horticulture and Veterinary Medicine',
-      '21-Biology',
-      '31-Chemistry',
-      '44-Computer Science, Electrical and System Engineering',
-      '45-Construction Engineering and Architecture',
-      '34-Geosciences (including Geography)',
-      '11-Humanities',
-      '43-Materials Science and Engineering',
-      '33-Mathematics',
-      '41-Mechanical and industrial Engineering',
-      '22-Medicine',
-      '32-Physics',
-      '12-Social and Behavioural Sciences',
-      '42-Thermal Engineering/Process Engineering'
-    ].map do |subject|
-      [subject.split('-').last, subject.tr('-', ' ')]
-    end
-  end
-
-  # Returns the options for the repository type
-  def self.selectable_repository_types
-    [
-      [_('Generalist (multidisciplinary)'), 'other'],
-      [_('Discipline specific'), 'disciplinary'],
-      [_('Institutional'), 'institutional']
-    ]
   end
 
   # Converts the byte_size into a more friendly value (e.g. 15.4 MB)
@@ -112,27 +60,6 @@ class ResearchOutputPresenter
     return @research_output.output_type_description if @research_output.other?
 
     @research_output.output_type.tr('_', ' ').capitalize
-  end
-
-  # Returns the display name(s) of the repository(ies)
-  def display_repository
-    return [_('None specified')] unless @research_output.repositories.any?
-
-    @research_output.repositories.map(&:name)
-  end
-
-  # Returns the display the license name
-  def display_license
-    return _('None specified') unless @research_output.license.present?
-
-    @research_output.license.name
-  end
-
-  # Returns the display name(s) of the repository(ies)
-  def display_metadata_standard
-    return [_('None specified')] unless @research_output.metadata_standards.any?
-
-    @research_output.metadata_standards.map(&:title)
   end
 
   # Returns the humanized version of the access enum variable

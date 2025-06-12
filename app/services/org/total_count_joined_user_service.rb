@@ -14,7 +14,7 @@ class Org
       private
 
       def for_orgs(filtered)
-        result = ::StatJoinedUser
+        result = StatJoinedUser
                  .where(filtered: filtered)
                  .includes(:org)
                  .select(:'orgs.name', :count)
@@ -26,7 +26,7 @@ class Org
       end
 
       def for_org(org, filtered)
-        result = ::StatJoinedUser.where(org: org, filtered: filtered).sum(:count)
+        result = StatJoinedUser.where(org: org, filtered: filtered).sum(:count)
         build_model(org_name: org.name, count: result)
       end
 
