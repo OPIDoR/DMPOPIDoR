@@ -76,11 +76,9 @@ GEM
       uri (>= 0.13.1)
     addressable (2.8.7)
       public_suffix (>= 2.0.2, < 7.0)
-    annotate (2.6.5)
-      activerecord (>= 2.3.0)
-      rake (>= 0.8.7)
     annotate_gem (0.0.14)
       bundler (>= 1.1)
+    annotaterb (4.15.0)
     api-pagination (6.0.0)
     ast (2.4.3)
     autoprefixer-rails (10.4.21.0)
@@ -643,8 +641,8 @@ PLATFORMS
 
 DEPENDENCIES
   activerecord-nulldb-adapter
-  annotate
   annotate_gem
+  annotaterb
   api-pagination
   autoprefixer-rails
   better_errors

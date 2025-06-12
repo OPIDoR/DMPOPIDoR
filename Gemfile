@@ -347,9 +347,8 @@ group :development do
   # Profiles loading speed for rack applications. (http://miniprofiler.com)
   gem 'rack-mini-profiler'
 
-  # Annotates Rails Models, routes, fixtures, and others based on the
-  # database schema. (http://github.com/ctran/annotate_models)
-  gem 'annotate'
+  # database schema. (https://github.com/drwl/annotaterb)
+  gem 'annotaterb'
 
   # Add comments to your Gemfile with each dependency's description.
   # (https://github.com/ivantsepp/annotate_gem)
