@@ -202,6 +202,8 @@ class ApplicationController < ActionController::Base
   def set_nav_static_pages
     @nav_static_pages = []
 
+    return if Rails.env.test?
+
     query = '
         query {
           static_pages(filter: { status: { _eq: "published" } }) {
