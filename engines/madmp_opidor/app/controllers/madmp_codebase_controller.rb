@@ -19,19 +19,25 @@ class MadmpCodebaseController < ApplicationController
     # rubocop:disable Metrics/BlockLength
     I18n.with_locale plan.template.locale do
       # EXAMPLE DATA
-      # file_path = Rails.root.join("engines/madmp_opidor/config/example_data/codebase_example_data.json")
-      # response = JSON.load(File.open(file_path))
-      # fragment.raw_import(response, fragment.madmp_schema)
-      # render json: {
-      #   'fragment' => fragment.get_full_fragment(with_ids: true),
-      #   'needs_reload' => true
-      # }, status: 200
-      # return
-      # render json: {
-      #   'message' => _('Notification has been sent'),
-      #   'needs_reload' => false
-      # }, status: 200
-      # return
+      if Rails.configuration.x.madmp_codebase.mock == true
+        fragment.plan.add_api_client!(fragment.madmp_schema.api_client) if script_name.downcase.include?('notifyer')
+
+        # file_path = Rails.root.join("engines/madmp_opidor/config/example_data/codebase_example_data.json")
+        # response = JSON.load(File.open(file_path))
+        # fragment.raw_import(response, fragment.madmp_schema)
+        # render json: {
+        #   'fragment' => fragment.get_full_fragment(with_ids: true),
+        #   'clients' => plan.api_clients.pluck(:name),
+        #   'needs_reload' => true
+        # }, status: 200
+        # return
+        render json: {
+          'message' => _('Notification has been sent'),
+          'clients' => plan.api_clients.pluck(:name),
+          'needs_reload' => false
+        }, status: 200
+        return
+      end
 
       fragment.plan.add_api_client!(fragment.madmp_schema.api_client) if script_name.downcase.include?('notifyer')
       begin
@@ -48,12 +54,14 @@ class MadmpCodebaseController < ApplicationController
           if response['data'].empty?
             render json: {
               'message' => _('Notification has been sent'),
+              'clients' => plan.api_clients.pluck(:name),
               'needs_reload' => false
             }, status: 200
           else
             fragment.import_with_instructions(response['data'], fragment.madmp_schema)
             render json: {
               'fragment' => fragment.get_full_fragment(with_ids: true),
+              'clients' => plan.api_clients.pluck(:name),
               'needs_reload' => true
             }, status: 200
           end
@@ -77,34 +85,28 @@ class MadmpCodebaseController < ApplicationController
   # rubocop:enable Metrics/AbcSize, Metrics/MethodLength
 
   def share
-    begin
-      fragment = MadmpFragment.find(params[:fragment_id])
-      plan = fragment.plan
+    fragment = MadmpFragment.find(params[:fragment_id])
+    plan = fragment.plan
 
-      authorize fragment
+    authorize fragment
 
-      api_client = ApiClient.find_by(name: params[:api_client])
-      client_reader = ApiClientRole.new(read: true)
-      client_role = ApiClientRole.new({
-                                        plan_id: plan.id,
-                                        access: client_reader.access,
-                                        api_client_id: api_client.id
-                                      })
-      client_role.api_client = api_client
-      unless ApiClientRole.exists?(plan: client_role.plan, api_client:)
-        if client_role.save!
-          if api_client.send_notification
-            ::UserMailer.client_sharing_notification(client_role, current_user).deliver_now
-          end
-        end
-      end
-      render json: {
-        status: 200,
-        clients: plan.api_client_roles.map { |client_role| ApiClient.where(id: client_role.api_client_id).select(:name).first }
-      }, status: 200
-    rescue StandardError => e
-      render json: { status: 500, message: e }, status: 500
+    api_client = ApiClient.find_by(name: params[:api_client])
+    client_reader = ApiClientRole.new(read: true)
+    client_role = ApiClientRole.new({
+                                      plan_id: plan.id,
+                                      access: client_reader.access,
+                                      api_client_id: api_client.id
+                                    })
+    client_role.api_client = api_client
+    if !ApiClientRole.exists?(plan: client_role.plan, api_client:) && client_role.save! && api_client.send_notification
+      ::UserMailer.client_sharing_notification(client_role, current_user).deliver_now
     end
+    render json: {
+      status: 200,
+      clients: plan.api_clients.pluck(:name)
+    }, status: 200
+  rescue StandardError => e
+    render json: { status: 500, message: e }, status: 500
   end
 
   # rubocop:disable Metrics/AbcSize, Metrics/MethodLength
@@ -119,14 +121,12 @@ class MadmpCodebaseController < ApplicationController
       api_client = ApiClient.find_by(name: params[:api_client])
       client_reader = ApiClientRole.new(read: true)
       client_role = ApiClientRole.new({
-        plan_id: plan.id,
-        access: client_reader.access,
-        api_client_id: api_client.id
-      })
+                                        plan_id: plan.id,
+                                        access: client_reader.access,
+                                        api_client_id: api_client.id
+                                      })
       client_role.api_client = api_client
-      unless ApiClientRole.exists?(plan: client_role.plan, api_client:)
-        client_role.save!
-      end
+      client_role.save! unless ApiClientRole.exists?(plan: client_role.plan, api_client:)
     end
 
     authorize fragment
@@ -136,7 +136,7 @@ class MadmpCodebaseController < ApplicationController
       # EXAMPLE DATA
       if Rails.configuration.x.madmp_codebase.mock == true
         begin
-          file_path = Rails.root.join("engines/madmp_opidor/config/example_data/anr_example_data.json")
+          file_path = Rails.root.join('engines/madmp_opidor/config/example_data/anr_example_data.json')
           response = JSON.load(File.open(file_path))
           dmp_fragment.raw_import(response, dmp_fragment.madmp_schema)
           dmp_fragment.update_meta_fragment
@@ -146,11 +146,11 @@ class MadmpCodebaseController < ApplicationController
             'persons' => dmp_fragment.persons.map do |f|
               {
                 **f.get_full_fragment(with_ids: true),
-                'to_string' => f.to_s,
+                'to_string' => f.to_s
               }
             end,
-            'clients' => plan.api_client_roles.map { |client_role| ApiClient.where(id: client_role.api_client_id).select(:name).first },
-            "message" => _('New data have been added to your plan, please click on the "Reload" button.')
+            'clients' => plan.api_clients.pluck(:name),
+            'message' => _('New data have been added to your plan, please click on the "Reload" button.')
           }, status: 200
         rescue StandardError => e
           # Rails.cache.delete(["codebase_run", fragment.id])
@@ -181,8 +181,8 @@ class MadmpCodebaseController < ApplicationController
               'to_string' => f.to_s
             }
           end,
-          'clients' => plan.api_client_roles.map { |client_role| ApiClient.where(id: client_role.api_client_id).select(:name).first },
-          'message' => _('Project data have successfully been imported.'),
+          'clients' => plan.api_clients.pluck(:name),
+          'message' => _('Project data have successfully been imported.')
         }, status: 200
         update_run_log(dmp_fragment, script_name)
       else

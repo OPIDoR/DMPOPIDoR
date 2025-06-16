@@ -37,6 +37,7 @@ services:
       - MADMP_ENABLE_RESEARCH_DOMAIN=false
       - ACTION_MAILER_SMTP_HOST=maildev
       - ACTION_MAILER_SMTP_PORT=1025
+      - MADMP_CODEBASE_MOCK
     volumes:
       - ./:/app
     command:

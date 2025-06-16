@@ -99,7 +99,7 @@
     </div>
   </div>
   <div style="display: flex; justify-content: flex-end; align-items: flex-end; width: 100%; position: relative; margin-right: 100px;">
-    <%= react("SharedLabelLayout", props: { planId: plan.id, clients: plan.api_client_roles.map { |client_role| ApiClient.where(id: client_role.api_client_id).select(:name).first } }) %>
+    <%= react("SharedLabelLayout", props: { planId: plan.id, clients: plan.api_clients.pluck(:name) }) %>
   </div>
   <div id="content" role="tabpanel" class="tab-pane active row col-md-12">
     <div class="plan-content card card-default">
