@@ -25,6 +25,7 @@ FactoryBot.define do
   factory :guidance_group do
     name { Faker::Lorem.unique.word }
     org
+    language { Language.default }
     published { true }
     optional_subset { false }
     trait :unpublished do
