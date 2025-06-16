@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.2].define(version: 2024_12_16_112001) do
+ActiveRecord::Schema[7.2].define(version: 2025_04_02_085235) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
   enable_extension "unaccent"
@@ -106,6 +106,7 @@ ActiveRecord::Schema[7.2].define(version: 2024_12_16_112001) do
     t.datetime "created_at", precision: nil, null: false
     t.datetime "updated_at", precision: nil, null: false
     t.integer "org_id"
+    t.boolean "send_notification", default: false, null: false
     t.index ["name"], name: "index_api_clients_on_name"
   end
 
