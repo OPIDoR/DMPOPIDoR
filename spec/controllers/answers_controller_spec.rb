@@ -9,6 +9,7 @@ RSpec.describe AnswersController, type: :controller do
     template = create(:template, phases: 1, sections: 1, questions: 1)
     @section = template.sections.first
     @plan = create(:plan, :creator, template: template)
+    @research_output = create(:research_output, plan: @plan)
     @user = @plan.owner
 
     ActionMailer::Base.deliveries = []
@@ -25,7 +26,7 @@ RSpec.describe AnswersController, type: :controller do
       before(:each) do
         @question = create(:question, :textarea, section: @section)
         @args = { text: Faker::Lorem.paragraph, user_id: @user.id,
-                  question_id: @question.id, plan_id: @plan.id }
+                  question_id: @question.id, plan_id: @plan.id, research_output: @research_output }
       end
 
       it 'succeeds in creating' do
@@ -34,12 +35,14 @@ RSpec.describe AnswersController, type: :controller do
         expect(answer.present?).to eql(true)
         expect(answer.question).to eql(@question)
         expect(answer.plan).to eql(@plan)
+        expect(answer.research_output).to eql(@research_output)
         expect(answer.user).to eql(@user)
 
         json = JSON.parse(response.body).with_indifferent_access
         expect(json[:plan].present?).to eql(true)
         expect(json[:plan][:progress]).to eql('')
         expect(json[:plan][:id]).to eql(@plan.id)
+        expect(json[:research_output][:id]).to eql(@research_output.id)
         expect(json[:question].present?).to eql(true)
         expect(json[:question][:answer_lock_version]).to eql(answer.lock_version)
         expect(json[:question][:answer_status]).to eql('')
@@ -82,7 +85,7 @@ RSpec.describe AnswersController, type: :controller do
       before(:each) do
         @question = create(:question, :rda_metadata, section: @section)
         @args = { text: Faker::Lorem.paragraph, standards: { foo: 'bar' },
-                  user_id: @user.id, question_id: @question.id, plan_id: @plan.id }
+                  user_id: @user.id, question_id: @question.id, plan_id: @plan.id, research_output: @research_output }
       end
 
       it 'succeeds in creating' do
@@ -91,12 +94,14 @@ RSpec.describe AnswersController, type: :controller do
         expect(answer.present?).to eql(true)
         expect(answer.question).to eql(@question)
         expect(answer.plan).to eql(@plan)
+        expect(answer.research_output).to eql(@research_output)
         expect(answer.user).to eql(@user)
 
         json = JSON.parse(response.body).with_indifferent_access
         expect(json[:plan].present?).to eql(true)
         expect(json[:plan][:progress]).to eql('')
         expect(json[:plan][:id]).to eql(@plan.id)
+        expect(json[:research_output][:id]).to eql(@research_output.id)
         expect(json[:question].present?).to eql(true)
         expect(json[:question][:answer_lock_version]).to eql(answer.lock_version)
         expect(json[:question][:answer_status]).to eql('')
@@ -199,6 +204,15 @@ RSpec.describe AnswersController, type: :controller do
       @question = create(:question, :textarea, section: @section)
       @args = { text: Faker::Lorem.paragraph, user_id: @user.id,
                 question_id: @question.id }
+      post :create_or_update, params: { answer: @args }
+      json = JSON.parse(response.body).with_indifferent_access
+      expect(json[:msg].present?).to eql(true)
+    end
+
+    it 'fails due to ResearchOutput not found' do
+      @question = create(:question, :textarea, section: @section)
+      @args = { text: Faker::Lorem.paragraph, user_id: @user.id,
+                question_id: @question.id, plan_id: @plan.id }
       post :create_or_update, params: { answer: @args }
       json = JSON.parse(response.body).with_indifferent_access
       expect(json[:msg].present?).to eql(true)
