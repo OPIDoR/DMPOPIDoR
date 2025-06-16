@@ -114,6 +114,10 @@ class Template < ApplicationRecord
 
   validates :family_id, presence: { message: PRESENCE_MESSAGE }
 
+  validates :data_type, presence: { message: PRESENCE_MESSAGE }
+
+  validates :type, presence: { message: PRESENCE_MESSAGE }
+
   # =============
   # = Callbacks =
   # =============

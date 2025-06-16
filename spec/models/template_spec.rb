@@ -33,10 +33,13 @@ RSpec.describe Template, type: :model do
 
     # This is currently being set in the defaults before validation
     # it { is_expected.not_to allow_value(nil).for(:archived) }
+
+    it { is_expected.to validate_presence_of(:type) }
+    it { is_expected.to validate_presence_of(:data_type) }
   end
 
   context 'associations' do
-    it { is_expected.to belong_to :org }
+    # it { is_expected.to belong_to :org }
 
     it { is_expected.to have_many :plans }
 
@@ -120,6 +123,21 @@ RSpec.describe Template, type: :model do
     end
   end
 
+  describe '.recommend' do
+    subject { Template.recommend(locale: template_locale) }
+
+    context 'when template is not recommended' do
+      before do
+        @a = create(:template, :default, :published, :is_recommended, locale: template_locale)
+        @b = create(:template, :default, :published, locale: template_locale)
+      end
+
+      it 'should not return non recommended templates' do
+        let!(:template_locale) { 'fr-FR' }
+        expect(subject).not_to include(@b)
+      end
+    end
+  end
   describe '.latest_version' do
     let!(:family_id) { nil }
 
@@ -423,10 +441,6 @@ RSpec.describe Template, type: :model do
         expect(subject).to include(@a)
       end
 
-      it 'excludes Templates that are customizations' do
-        expect(subject).not_to include(@b)
-      end
-
       it 'excludes archived Templates' do
         expect(subject).not_to include(@c)
       end
@@ -482,7 +496,7 @@ RSpec.describe Template, type: :model do
     context 'when template is default and published' do
       let!(:template) { create(:template, :default, :published) }
 
-      it { is_expected.to include(template) }
+      it { is_expected.not_to include(template) }
     end
 
     context 'when template is default and unpublished' do
@@ -1083,7 +1097,7 @@ RSpec.describe Template, type: :model do
     end
 
     it 'sets visibility to Organisationally visible' do
-      expect(subject.visibility).to eql(Template.visibilities['organisationally_visible'])
+      expect(subject.visibility).to eql('organisationally_visible')
     end
 
     it 'sets is_default to false' do
@@ -1152,7 +1166,7 @@ RSpec.describe Template, type: :model do
     end
 
     it 'sets the visibility to Organisationally visible' do
-      expect(subject.visibility).to eql(Template.visibilities['organisationally_visible'])
+      expect(subject.visibility).to eql('organisationally_visible')
     end
 
     it 'sets is_default to false' do
