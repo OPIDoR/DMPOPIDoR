@@ -20,13 +20,14 @@
             ],
             "registryCategory": "CodeRepository",
             "overridable": true,
-            "tooltip": null,
+            "tooltip@fr_FR": "Une forge logicielle est un système de gestion de rédaction, de partage et de maintenance collaborative de texte. C’est un environnement web constitué d’un ensemble d’outils, issus en particulier du génie logiciel, afin de faciliter le développement de codes sources",
+            "tooltip@en_GB": "A software forge is a system for managing the writing, sharing, and collaborative maintenance of text. It is a web environment consisting of a set of tools, particularly from software engineering, to facilitate the development of source codes",
             "form_label@fr_FR": "Utilisez-vous une forge logicielle ?",
             "form_label@en_GB": "Do you use a software forge?"
         },
         "codeRepositoryUrl": {
             "type": "string",
-            "format": "uri",
+            "format": "url",
             "description": "URL de référence de la forge",
             "label@fr_FR": "URL de la forge logicielle",
             "label@en_GB": "URL of software forge",
@@ -97,37 +98,13 @@
         },
         "continuousIntegrationUrl": {
             "type": "string",
-            "format": "uri",
+            "format": "url",
             "description": "URL du framework d'intégration continue, s'il existe",
             "label@fr_FR": "URL du framework d'intégration continue, s'il existe ?",
             "label@en_GB": "URL of testing framework if any",
             "tooltip": null,
             "form_label@fr_FR": "URL du framework d'intégration continue, s'il existe ?",
             "form_label@en_GB": "URL of testing framework if any"
-        },
-        "cost": {
-            "type": "array",
-            "table_header@fr_FR": "Type de coût : montant",
-            "table_header@en_GB": "Cost type: amount",
-            "items": {
-                "type": "object",
-                "class": "Cost",
-                "properties": {
-                    "dbid": {
-                        "type": "number"
-                    }
-                },
-                "template_name": "CostStandard",
-                "required": [
-                    "dbid"
-                ]
-            },
-            "description": "Coûts éventuels liés à l'environnement de développement",
-            "label@fr_FR": "Coûts",
-            "label@en_GB": "Costs",
-            "tooltip": null,
-            "form_label@fr_FR": "Coûts liés à l'environnement de développement",
-            "form_label@en_GB": "Costs related to the development environment"
         },
         "description": {
             "type": "string",

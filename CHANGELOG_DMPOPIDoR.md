@@ -2,6 +2,11 @@
 
 **Attention** Cette liste de changements concerne les déploiements sur nos serveurs de test en interne.
 
+## 17/06/2025
+
+- Amélioration de l'affichage des fragments avec des liens longs, sur Chrome (#13440)
+- L'étiquette d'indication de partage affiche désormais tous les clients avec lesquels le plan est partagé (#13439)
+
 ## 04/06/2025
 
 - Correction du problème d'ouverture des questions non répondues dans les plans en lecture seules

@@ -116,7 +116,7 @@
         },
         "accessUrl": {
             "type": "string",
-            "format": "uri",
+            "format": "url",
             "description": "URL d'une ressource qui donne accès au fichier de données (landing page, SPARQL endpoint, feed)",
             "label@fr_FR": "URL d'accès",
             "label@en_GB": "Access URL",
@@ -127,7 +127,7 @@
         },
         "downloadUrl": {
             "type": "string",
-            "format": "uri",
+            "format": "url",
             "description": "URL du fichier à télécharger dans un format donné",
             "label@fr_FR": "URL de téléchargement",
             "label@en_GB": "Download URL",

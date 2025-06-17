@@ -11,49 +11,49 @@
             "type": "string",
             "description": "Longitude ouest d'un rectangle de délimitation géographique",
             "label@fr_FR": "Longitude ouest",
-            "label@en_GB": "Western longitude",
+            "label@en_GB": "West Longitude",
             "tooltip@fr_FR": "Coordonnée (en degrés décimaux) les plus à l'ouest délimitant l'étendue géographique du jeu de données. Valeur comprise entre -180.0 et 180.0.",
             "tooltip@en_GB": "Western coordinate (in decimal degrees) delimiting the most geographic extent of the dataset. Value between -180.0 and 180.0.",
             "example@fr_FR": "-58.38",
             "example@en_GB": "-58.38",
             "form_label@fr_FR": "Longitude ouest",
-            "form_label@en_GB": "Western longitude"
+            "form_label@en_GB": "West Longitude"
         },
         "eastBoundLongitude": {
             "type": "string",
             "description": "Longitude est d'un rectangle de délimitation géographique",
             "label@fr_FR": "Longitude est",
-            "label@en_GB": "Eastern longitude",
+            "label@en_GB": "East Longitude",
             "tooltip@fr_FR": "Coordonnée (en degrés décimaux) les plus à l'est délimitant l'étendue géographique du jeu de données. Valeur comprise entre -180.0 et 180.0.",
             "tooltip@en_GB": "Eastern coordinate (in decimal degrees) delimiting the most geographic extent of the dataset. Value between -180.0 and 180.0.",
             "example@fr_FR": "45.97",
             "example@en_GB": "45.97",
             "form_label@fr_FR": "Longitude est",
-            "form_label@en_GB": "Eastern longitude"
+            "form_label@en_GB": "East Longitude"
         },
         "northBoundLatitude": {
             "type": "string",
             "description": "Latitude nord d'un rectangle de délimitation géographique",
             "label@fr_FR": "Latitude nord",
-            "label@en_GB": "Northern latitude",
+            "label@en_GB": "North Latitude",
             "tooltip@fr_FR": "Coordonnée (en degrés décimaux) les plus au nord délimitant l'étendue géographique du jeu de données. Valeur comprise entre -90.0 et 90.0.",
             "tooltip@en_GB": "Northern coordinate (in decimal degrees) delimiting the most geographic extent of the dataset. Value between -90.0 and 90.0.",
             "example@fr_FR": "-53.84",
             "example@en_GB": "-53.84",
             "form_label@fr_FR": "Latitude nord",
-            "form_label@en_GB": "Northern latitude"
+            "form_label@en_GB": "North Latitude"
         },
         "southBoundLatitude": {
             "type": "string",
             "description": "Latitude sud d'un rectangle de délimitation géographique",
             "label@fr_FR": "Latitude sud",
-            "label@en_GB": "Southern latitude",
+            "label@en_GB": "South Latitude",
             "tooltip@fr_FR": "Coordonnée (en degrés décimaux) les plus au sud délimitant l'étendue géographique du jeu de données. Valeur comprise entre -90.0 et 90.0.",
             "tooltip@en_GB": "Southern coordinate (in decimal degrees) delimiting the most geographic extent of the dataset. Value between -90.0 and 90.0.",
             "example@fr_FR": "47.96",
             "example@en_GB": "47.96",
             "form_label@fr_FR": "Latitude sud",
-            "form_label@en_GB": "Southern latitude"
+            "form_label@en_GB": "South Latitude"
         }
     },
     "required": [

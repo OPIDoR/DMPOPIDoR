@@ -1,22 +1,6 @@
 {
 	"Role": [
 		{
-			"en_GB": "Project Coordinator",
-			"fr_FR": "Coordinateur du projet"
-		},
-		{
-			"en_GB": "DMP Manager",
-			"fr_FR": "Responsable du plan"
-		},
-		{
-			"en_GB": "Contact Person",
-			"fr_FR": "Personne contact"
-		},
-		{
-			"en_GB": "Entity's Manager",
-			"fr_FR": "Responsable de l'entité"
-		},
-		{
 			"en_GB": "Data Collector",
 			"fr_FR": "Collecteur de données"
 		},
@@ -27,6 +11,10 @@
 		{
 			"en_GB": "Data Manager",
 			"fr_FR": "Gestionnaire de données"
+		},
+		{
+			"en_GB": "Entity's Manager",
+			"fr_FR": "Responsable de l'entité"
 		},
 		{
 			"en_GB": "Data Protection Officer (from GDPR)",
@@ -104,7 +92,7 @@
 			"en_GB": "Sponsor",
 			"fr_FR": "Sponsor"
 		},
-				{
+		{
 			"en_GB": "Translator",
 			"fr_FR": "Traducteur"
 		},

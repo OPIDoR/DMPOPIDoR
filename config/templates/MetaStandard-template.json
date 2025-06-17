@@ -91,7 +91,8 @@
         },
         "contact": {
             "type": "array",
-            "table_header": null,
+            "table_header@fr_FR": "Nom",
+            "table_header@en_GB": "Name",
             "items": {
                 "type": "object",
                 "class": "Contributor",
@@ -105,6 +106,7 @@
                     "dbid"
                 ]
             },
+            "minItems": 1,
             "description": "Personne responsable de la réalisation et suivi du plan de gestion de données",
             "label@fr_FR": "Responsable du plan",
             "label@en_GB": "DMP manager",

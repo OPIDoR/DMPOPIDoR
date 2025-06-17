@@ -125,7 +125,8 @@
         },
         "contact": {
             "type": "array",
-            "table_header": null,
+            "table_header@fr_FR": "Nom",
+            "table_header@en_GB": "Name",
             "items": {
                 "type": "object",
                 "class": "Contributor",
@@ -139,6 +140,7 @@
                     "dbid"
                 ]
             },
+            "minItems": 1,
             "description": "Producteur ou titulaire des données",
             "label@fr_FR": "Personne contact",
             "label@en_GB": "Contact Person",
@@ -227,6 +229,7 @@
         "type",
         "controlledKeyword",
         "language",
+        "contact",
         "containsPersonalData",
         "containsSensitiveData",
         "hasEthicalIssues"

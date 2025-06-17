@@ -34,7 +34,7 @@
         },
         "keywordUrl": {
             "type": "string",
-            "format": "uri",
+            "format": "url",
             "description": "Identifiant du concept",
             "label@fr_FR": "URL",
             "label@en_GB": "URL",

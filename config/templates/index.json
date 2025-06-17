@@ -13,7 +13,7 @@
         ]
     },
     {
-        "path": "ContributorConstantRole-template.json",
+        "path": "ContributorStandard-template.json",
         "classname": "contributor",
         "dataTypes": [
             "software",
@@ -21,7 +21,7 @@
         ]
     },
     {
-        "path": "ContributorStandard-template.json",
+        "path": "ContributorConstantRole-template.json",
         "classname": "contributor",
         "dataTypes": [
             "software",
@@ -105,11 +105,6 @@
         "dataTypes": null
     },
     {
-        "path": "DataStorageGenOuest-template.json",
-        "classname": "data_storage",
-        "dataTypes": null
-    },
-    {
         "path": "DataStorageMesoatLR-template.json",
         "classname": "data_storage",
         "dataTypes": null
@@ -177,16 +172,6 @@
             "software",
             "none"
         ]
-    },
-    {
-        "path": "GenOuestRequest-template.json",
-        "classname": "specific_data",
-        "dataTypes": null
-    },
-    {
-        "path": "GenOuestServiceRequest-template.json",
-        "classname": "specific_data",
-        "dataTypes": null
     },
     {
         "path": "GeoLocationBox-template.json",

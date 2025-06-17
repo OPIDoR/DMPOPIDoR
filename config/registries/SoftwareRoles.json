@@ -1,52 +1,81 @@
 {
 	"SoftwareRoles": [
 		{
-			"en_GB": "All roles",
-			"fr_FR": "Tous les rôles"
+			"label": {
+				"en_GB": "Architecture",
+				"fr_FR": "Architecture"
+			},
+			"value": "Architecture"
 		},
 		{
-			"en_GB": "Development",
-			"fr_FR": "Développement"
+			"label": {
+				"en_GB": "Design",
+				"fr_FR": "Conception"
+			},
+			"value": "Conception"
 		},
 		{
-			"en_GB": "Maintenance",
-			"fr_FR": "Maintenance"
+			"label": {
+				"en_GB": "Debugging",
+				"fr_FR": "Débogage"
+			},
+			"value": "Débogage"
 		},
 		{
-			"en_GB": "Design",
-			"fr_FR": "Conception"
+			"label": {
+				"en_GB": "Development",
+				"fr_FR": "Développement"
+			},
+			"value": "Développement"
 		},
 		{
-			"en_GB": "Architecture",
-			"fr_FR": "Architecture"
+			"label": {
+				"en_GB": "Documentation",
+				"fr_FR": "Documentation"
+			},
+			"value": "Documentation"
 		},
 		{
-			"en_GB": "Debugging",
-			"fr_FR": "Débogage"
+			"label": {
+				"en_GB": "Maintenance",
+				"fr_FR": "Maintenance"
+			},
+			"value": "Maintenance"
 		},
 		{
-			"en_GB": "Documentation",
-			"fr_FR": "Documentation"
+			"label": {
+				"en_GB": "Management",
+				"fr_FR": "Management"
+			},
+			"value": "Management"
 		},
 		{
-			"en_GB": "Test",
-			"fr_FR": "Test"
+			"label": {
+				"en_GB": "Support",
+				"fr_FR": "Support"
+			},
+			"value": "Support"
 		},
 		{
-			"en_GB": "Support",
-			"fr_FR": "Support"
+			"label": {
+				"en_GB": "Test",
+				"fr_FR": "Test"
+			},
+			"value": "Test"
 		},
 		{
-			"en_GB": "Management",
-			"fr_FR": "Management"
+			"label": {
+				"fr_FR": "Tous les rôles",
+				"en_GB": "All roles"
+			},
+			"value": "Architecture, Conception, Débogage, Développement, Documentation, Maintenance, Management, Support, Test"
 		},
 		{
-			"en_GB": "Author",
-			"fr_FR": "Auteur"
-		},
-		{
-			"en_GB": "Other",
-			"fr_FR": "Autre"
+			"label": {
+				"en_GB": "Other",
+				"fr_FR": "Autre"
+			},
+			"value": "Autre"
 		}
 	]
 }

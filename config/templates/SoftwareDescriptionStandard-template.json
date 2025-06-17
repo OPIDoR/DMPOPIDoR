@@ -14,7 +14,8 @@
             "description": "Nom complet du logiciel",
             "label@fr_FR": "Nom complet du logiciel",
             "label@en_GB": "Software name",
-            "tooltip": null,
+            "tooltip@fr_FR": "Veiller à vérifier la disponibilité du nom, en particulier au regard de droits antérieurs de tiers en consultant la page de l’INPI",
+            "tooltip@en_GB": "Be sure to check the availability of the name, in particular with regard to prior third-party rights, by consulting the INPI page",
             "form_label@fr_FR": "Nom complet du logiciel",
             "form_label@en_GB": "Software name"
         },
@@ -34,7 +35,8 @@
             "inputType": "textarea",
             "label@fr_FR": "Description",
             "label@en_GB": "Description",
-            "tooltip": null,
+            "tooltip@fr_FR": "Préciser quel est l’objectif du logiciel et indiquer à quel public potentiel (cible) le logiciel s’adresse",
+            "tooltip@en_GB": "Specify the purpose of the software and indicate the potential (target) audience the software is aimed at",
             "form_label@fr_FR": "Description de votre logiciel",
             "form_label@en_GB": "Software description"
         },
@@ -51,7 +53,7 @@
         },
         "webSiteUrl": {
             "type": "string",
-            "format": "uri",
+            "format": "url",
             "description": "URL du site de présentation du logiciel",
             "label@fr_FR": "URL du site de présentation du logiciel (ou du projet)",
             "label@en_GB": "URL of the software (or project) presentation site",
@@ -65,21 +67,21 @@
             "type": "string",
             "format": "date",
             "description": "Date de création : Année de début du développement",
-            "label@fr_FR": "Date de création",
-            "label@en_GB": "Creation date",
+            "label@fr_FR": "Date de début du développement",
+            "label@en_GB": "Development start date",
             "tooltip": null,
-            "form_label@fr_FR": "Date de création : Année de début du développement",
-            "form_label@en_GB": "Creation Date: Year development began"
+            "form_label@fr_FR": "Date de début du développement",
+            "form_label@en_GB": "Development start date"
         },
         "releasedDate": {
             "type": "string",
             "format": "date",
             "description": "Année de la première version mise en production",
-            "label@fr_FR": "Année de la première version mise en production",
-            "label@en_GB": "Year of first version put into production",
+            "label@fr_FR": "Date de première version",
+            "label@en_GB": "Date of first version",
             "tooltip": null,
-            "form_label@fr_FR": "Année de la première version mise en production",
-            "form_label@en_GB": "Year of first version put into production"
+            "form_label@fr_FR": "Date de première version",
+            "form_label@en_GB": "Date of first version"
         },
         "applicationField": {
             "type": "array",
@@ -107,7 +109,8 @@
             "description": "Autres domaines d'application (texte libre)",
             "label@fr_FR": "Autres domaines d'application",
             "label@en_GB": "Others application fields",
-            "tooltip": null,
+            "tooltip@fr_FR": "Préciser si votre logiciel peut s’appliquer à d’autre domaines",
+            "tooltip@en_GB": "Specify whether your software can be applied to other areas",
             "form_label@fr_FR": "Autres domaines d'application",
             "form_label@en_GB": "Others application fields"
         },
@@ -139,26 +142,31 @@
             "description": "Numéro de version du logiciel",
             "label@fr_FR": "Numéro de version du logiciel",
             "label@en_GB": "Software version number",
-            "tooltip": null,
-            "example@fr_FR": "v4.0",
-            "example@en_GB": "v4.0",
+            "tooltip@fr_FR": "En début de projet, cela peut être la version 0. Utiliser de préférence le format \"n\", ou \"n.n\", ou \"n.n.n\" (exemple : 1 ou 1.1 ou 0.6.1)",
+            "tooltip@en_GB": "At the beginning of the project, this can be version 0. Preferably use the format \"n\", or \"n.n\", or \"n.n.n\" (example: 1 or 1.1 or 0.6.1)",
+            "example@fr_FR": "4.0",
+            "example@en_GB": "4.0",
             "form_label@fr_FR": "Numéro de version du logiciel",
             "form_label@en_GB": "Software version number"
         },
-        "category": {
-            "type": "string",
-            "description": "Catégorie du logiciel",
+        "typology": {
+            "type": "array",
+            "items": {
+                "type": "string"
+            },
+            "minItems": 1,
+            "description": "Typologies du logiciel",
             "inputType": "dropdown",
-            "label@fr_FR": "Catégorie du logiciel",
-            "label@en_GB": "Software category",
+            "label@fr_FR": "Typologies du logiciel",
+            "label@en_GB": "Software typologies",
             "registries": [
-                "SoftwareCategories"
+                "SoftwareTypologies"
             ],
-            "registryCategory": "SoftwareCategory",
+            "registryCategory": "SoftwareTypology",
             "overridable": true,
             "tooltip": null,
-            "form_label@fr_FR": "Quelle est la catégorie du logiciel ?",
-            "form_label@en_GB": "What is the software's category?"
+            "form_label@fr_FR": "Quelle est la (ou les) typologie(s) du logiciel ?",
+            "form_label@en_GB": "What is the software's typologies?"
         },
         "relatedOutput": {
             "type": "array",
@@ -179,23 +187,54 @@
             "description": "Liens avec d'autres produits de recherche de ce plan",
             "label@fr_FR": "Liens avec d’autres produits de recherche de ce plan",
             "label@en_GB": "Links to other research products in this plan",
-            "tooltip@fr_FR": "Penser à faire le lien entre votre code et les autres produits de recherche du projet, par exemple les données traitées via le logiciel",
-            "tooltip@en_GB": "Consider linking your code to other research products in the project, such as data processed through the software",
-            "form_label@fr_FR": "Votre logiciel est-il lié à d'autres produits de recherche du projet ?",
-            "form_label@en_GB": "Is your software related to other research products in the project?"
+            "tooltip@fr_FR": "Relier les autres produits, par exemple des jeux de données, nécessaires pour nécessaire pour tester, utiliser le logiciel. L’usage des identifiants pérennes est recommandé. S’il agit d’un autre produit du projet, il est possible d’indiquer son titre et URL interne",
+            "tooltip@en_GB": "Link other products, such as datasets, needed to test and use the software. We recommend using persistent identifiers. If it is another product of the project, you can indicate its title and internal URL",
+            "form_label@fr_FR": "Votre logiciel est-il lié à d'autres produits de recherche ?",
+            "form_label@en_GB": "Is your software related to other research products ?"
+        },
+        "cost": {
+            "type": "array",
+            "table_header@fr_FR": "Type de coût : montant",
+            "table_header@en_GB": "Cost type: amount",
+            "items": {
+                "type": "object",
+                "class": "Cost",
+                "properties": {
+                    "dbid": {
+                        "type": "number"
+                    }
+                },
+                "template_name": "CostStandard",
+                "required": [
+                    "dbid"
+                ]
+            },
+            "description": "Coûts liés au développement du logiciel",
+            "label@fr_FR": "Coûts de développement du logiciel",
+            "label@en_GB": "Software development costs",
+            "tooltip@fr_FR": "Indiquer, par exemple, les coûts liés à des prestations externes ou à du stockage",
+            "tooltip@en_GB": "For example, indicate costs related to external services or storage",
+            "form_label@fr_FR": "Le développement de votre logiciel implique-t-il des coûts ?",
+            "form_label@en_GB": "Does developing your software involve costs?"
         },
         "contact": {
-            "type": "object",
-            "class": "Contributor",
-            "properties": {
-                "dbid": {
-                    "type": "number"
-                }
+            "type": "array",
+            "table_header@fr_FR": "Nom",
+            "table_header@en_GB": "Name",
+            "items": {
+                "type": "object",
+                "class": "Contributor",
+                "properties": {
+                    "dbid": {
+                        "type": "number"
+                    }
+                },
+                "template_name": "ContributorConstantRole",
+                "required": [
+                    "dbid"
+                ]
             },
-            "template_name": "ContributorStandard",
-            "required": [
-                "dbid"
-            ],
+            "minItems": 1,
             "description": "Contact pour le logiciel",
             "label@fr_FR": "Personne contact",
             "label@en_GB": "Contact Person",
@@ -211,7 +250,7 @@
         "type",
         "creationDate",
         "applicationField",
-        "category",
+        "typology",
         "contact"
     ],
     "to_string": [],

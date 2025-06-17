@@ -12,8 +12,8 @@
 		},
 		{
 			"label": {
-				"en_GB": "3Soleil, Surveillance sol du Soleil et du rayonnement solaire (3Soleil)",
-				"fr_FR": "3Soleil, Surveillance sol du Soleil et du rayonnement solaire (3Soleil)"
+				"en_GB": "3Soleil, Surveillance sol du Soleil et du rayonnement solaire",
+				"fr_FR": "3Soleil, Surveillance sol du Soleil et du rayonnement solaire"
 			},
 			"title": "3Soleil",
 			"hostId": "https://cat.opidor.fr/index.php/3Soleil",
@@ -153,6 +153,15 @@
 		},
 		{
 			"label": {
+				"en_GB": "ATLASea data portal",
+				"fr_FR": "ATLASea data portal"
+			},
+			"title": "ATLASea data portal",
+			"hostId": "https://cat.opidor.fr/index.php/ATLASea data portal",
+			"idType": "URL"
+		},
+		{
+			"label": {
 				"en_GB": "AVISO+, Archiving, Validation and Interpretation of Satellite Oceanographic data",
 				"fr_FR": "AVISO+, Archiving, Validation and Interpretation of Satellite Oceanographic data"
 			},
@@ -173,8 +182,8 @@
 		},
 		{
 			"label": {
-				"en_GB": "Aeris, Pôle de données et de services pour l'atmosphère, Pôle thématique Aeris, Pôle thématique atmosphère",
-				"fr_FR": "Aeris, Pôle de données et de services pour l'atmosphère, Pôle thématique Aeris, Pôle thématique atmosphère"
+				"en_GB": "Aeris, Pôle de données et de services pour l'atmosphère Aeris, Pôle thématique Aeris, Pôle thématique atmosphère",
+				"fr_FR": "Aeris, Pôle de données et de services pour l'atmosphère Aeris, Pôle thématique Aeris, Pôle thématique atmosphère"
 			},
 			"title": "Aeris",
 			"hostId": "https://cat.opidor.fr/index.php/Aeris",
@@ -227,6 +236,15 @@
 		},
 		{
 			"label": {
+				"en_GB": "Archipel",
+				"fr_FR": "Archipel"
+			},
+			"title": "Archipel",
+			"hostId": "https://cat.opidor.fr/index.php/Archipel",
+			"idType": "URL"
+		},
+		{
+			"label": {
 				"en_GB": "Archives diplomatiques, Inventaire et archives en ligne",
 				"fr_FR": "Archives diplomatiques, Inventaire et archives en ligne"
 			},
@@ -257,6 +275,15 @@
 		},
 		{
 			"label": {
+				"en_GB": "Argonautica",
+				"fr_FR": "Argonautica"
+			},
+			"title": "Argonautica",
+			"hostId": "https://cat.opidor.fr/index.php/Argonautica",
+			"idType": "URL"
+		},
+		{
+			"label": {
 				"en_GB": "ArkeOpen",
 				"fr_FR": "ArkeOpen"
 			},
@@ -267,8 +294,8 @@
 		},
 		{
 			"label": {
-				"en_GB": "ArkeoGIS, Partage et utilisation de données spatialisées sur le passé, (CoSO)",
-				"fr_FR": "ArkeoGIS, Partage et utilisation de données spatialisées sur le passé, (CoSO)"
+				"en_GB": "ArkeoGIS, Partage et utilisation de données spatialisées sur le passé (CoSO)",
+				"fr_FR": "ArkeoGIS, Partage et utilisation de données spatialisées sur le passé (CoSO)"
 			},
 			"title": "ArkeoGIS",
 			"hostId": "https://cat.opidor.fr/index.php/ArkeoGIS",
@@ -282,6 +309,26 @@
 			"geoLocation": "FR",
 			"certification": [
 				"Spatio",
+				"CoSO",
+				"CoRTecS"
+			]
+		},
+		{
+			"label": {
+				"en_GB": "ArrayExpress (CoSO)",
+				"fr_FR": "ArrayExpress (CoSO)"
+			},
+			"title": "ArrayExpress",
+			"hostId": "https://cat.opidor.fr/index.php/ArrayExpress",
+			"idType": "URL",
+			"pidSystem": [
+				"other"
+			],
+			"metadataStandard": [
+				"Repository-Developed Metadata Schemas"
+			],
+			"geoLocation": "GB",
+			"certification": [
 				"CoSO"
 			]
 		},
@@ -307,8 +354,8 @@
 		},
 		{
 			"label": {
-				"en_GB": "BAOBAB, Portail de données Afrique de l'Ouest",
-				"fr_FR": "BAOBAB, Portail de données Afrique de l'Ouest"
+				"en_GB": "BAOBAB, Base Afrique de l’Ouest Beyond AMMA Base, Portail de données Afrique de l'Ouest",
+				"fr_FR": "BAOBAB, Base Afrique de l’Ouest Beyond AMMA Base, Portail de données Afrique de l'Ouest"
 			},
 			"title": "BAOBAB",
 			"hostId": "https://cat.opidor.fr/index.php/BAOBAB",
@@ -327,8 +374,8 @@
 		},
 		{
 			"label": {
-				"en_GB": "BASS2000, Base de données solaire Sol. Solar Survey Archive",
-				"fr_FR": "BASS2000, Base de données solaire Sol. Solar Survey Archive"
+				"en_GB": "BASS2000, Base de données solaire Sol, Solar Survey Archive",
+				"fr_FR": "BASS2000, Base de données solaire Sol, Solar Survey Archive"
 			},
 			"title": "BASS2000",
 			"hostId": "https://cat.opidor.fr/index.php/BASS2000",
@@ -486,8 +533,8 @@
 		},
 		{
 			"label": {
-				"en_GB": "Bureau central de l'IDS, IDS Central Bureau, Central Bureau-International DORIS Service",
-				"fr_FR": "Bureau central de l'IDS, IDS Central Bureau, Central Bureau-International DORIS Service"
+				"en_GB": "Bureau central de l'IDS, Central Bureau-International DORIS Service, IDS Central Bureau",
+				"fr_FR": "Bureau central de l'IDS, Central Bureau-International DORIS Service, IDS Central Bureau"
 			},
 			"title": "Bureau central de l'IDS",
 			"hostId": "https://cat.opidor.fr/index.php/Bureau central de l'IDS",
@@ -496,8 +543,8 @@
 		},
 		{
 			"label": {
-				"en_GB": "CADE, Centre d’Analyse de Données Etendues",
-				"fr_FR": "CADE, Centre d’Analyse de Données Etendues"
+				"en_GB": "CADE, Centre d’Analyse de Données Étendues",
+				"fr_FR": "CADE, Centre d’Analyse de Données Étendues"
 			},
 			"title": "CADE",
 			"hostId": "https://cat.opidor.fr/index.php/CADE",
@@ -509,8 +556,8 @@
 		},
 		{
 			"label": {
-				"en_GB": "CALLISTO, CALmip Launches an Interface for Semantic Tollbox Online,",
-				"fr_FR": "CALLISTO, CALmip Launches an Interface for Semantic Tollbox Online,"
+				"en_GB": "CALLISTO, CALmip Launches an Interface for Semantic Tollbox Online",
+				"fr_FR": "CALLISTO, CALmip Launches an Interface for Semantic Tollbox Online"
 			},
 			"title": "CALLISTO",
 			"hostId": "https://cat.opidor.fr/index.php/CALLISTO",
@@ -519,8 +566,8 @@
 		},
 		{
 			"label": {
-				"en_GB": "CASD, Centre d’accès sécurisé aux données, GIP CASD",
-				"fr_FR": "CASD, Centre d’accès sécurisé aux données, GIP CASD"
+				"en_GB": "CASD, Centre d’Accès Sécurisé aux Données, GIP CASD",
+				"fr_FR": "CASD, Centre d’Accès Sécurisé aux Données, GIP CASD"
 			},
 			"title": "CASD",
 			"hostId": "https://cat.opidor.fr/index.php/CASD",
@@ -566,8 +613,8 @@
 		},
 		{
 			"label": {
-				"en_GB": "CDGP, Centre de données de géothermie profonde",
-				"fr_FR": "CDGP, Centre de données de géothermie profonde"
+				"en_GB": "CDGP, Centre de données de géothermie profonde, Data Center for Deep Geothermal Energy",
+				"fr_FR": "CDGP, Centre de données de géothermie profonde, Data Center for Deep Geothermal Energy"
 			},
 			"title": "CDGP",
 			"hostId": "https://cat.opidor.fr/index.php/CDGP",
@@ -576,8 +623,8 @@
 		},
 		{
 			"label": {
-				"en_GB": "CDOS OSUG, Centre de Données d’Observation et de Services de l’Observatoire des Sciences de l'Univers de Grenoble, Centre de données de l’OSUG, OSUG Data Centre, (OSUG-DC ancien nom)",
-				"fr_FR": "CDOS OSUG, Centre de Données d’Observation et de Services de l’Observatoire des Sciences de l'Univers de Grenoble, Centre de données de l’OSUG, OSUG Data Centre, (OSUG-DC ancien nom)"
+				"en_GB": "CDOS OSUG, Centre de Données d’Observation et de Services de l’Observatoire des Sciences de l'Univers de Grenoble, Centre de données de l’OSUG, OSUG Data Centre, OSUG-DC (ancien nom)",
+				"fr_FR": "CDOS OSUG, Centre de Données d’Observation et de Services de l’Observatoire des Sciences de l'Univers de Grenoble, Centre de données de l’OSUG, OSUG Data Centre, OSUG-DC (ancien nom)"
 			},
 			"title": "CDOS OSUG",
 			"hostId": "https://cat.opidor.fr/index.php/CDOS OSUG",
@@ -589,8 +636,8 @@
 		},
 		{
 			"label": {
-				"en_GB": "CDPP, Centre de données pour la physiques des plasmas naturels du système solaire, Plasma Physics Data Center",
-				"fr_FR": "CDPP, Centre de données pour la physiques des plasmas naturels du système solaire, Plasma Physics Data Center"
+				"en_GB": "CDPP, Centre de Données pour la Physiques des Plasmas naturels du système solaire, Plasma Physics Data Center",
+				"fr_FR": "CDPP, Centre de Données pour la Physiques des Plasmas naturels du système solaire, Plasma Physics Data Center"
 			},
 			"title": "CDPP",
 			"hostId": "https://cat.opidor.fr/index.php/CDPP",
@@ -602,8 +649,8 @@
 		},
 		{
 			"label": {
-				"en_GB": "CDS, IR CDS, Centre de Données astronomiques de Strasbourg, Strasbourg astronomical Data Center (CoSO)",
-				"fr_FR": "CDS, IR CDS, Centre de Données astronomiques de Strasbourg, Strasbourg astronomical Data Center (CoSO)"
+				"en_GB": "CDS, Centre de Données astronomiques de Strasbourg, IR CDS, Strasbourg astronomical Data Center (CoSO)",
+				"fr_FR": "CDS, Centre de Données astronomiques de Strasbourg, IR CDS, Strasbourg astronomical Data Center (CoSO)"
 			},
 			"title": "CDS",
 			"hostId": "https://cat.opidor.fr/index.php/CDS",
@@ -622,7 +669,8 @@
 				"CoreTrustSeal",
 				"WDS",
 				"Centre de référence thématique",
-				"CoSO"
+				"CoSO",
+				"CoRTecS"
 			]
 		},
 		{
@@ -645,8 +693,8 @@
 		},
 		{
 			"label": {
-				"en_GB": "CDS-IS, CDS-in situ, Centres de données et Services in situ - ODATIS",
-				"fr_FR": "CDS-IS, CDS-in situ, Centres de données et Services in situ - ODATIS"
+				"en_GB": "CDS-IS, ntres de données et Services in situ - ODATIS, CDS-in situ",
+				"fr_FR": "CDS-IS, ntres de données et Services in situ - ODATIS, CDS-in situ"
 			},
 			"title": "CDS-IS",
 			"hostId": "https://cat.opidor.fr/index.php/CDS-IS",
@@ -713,8 +761,8 @@
 		},
 		{
 			"label": {
-				"en_GB": "CERSAT, CDS-SAT-CERSAT, Centre d'Exploitation et de Recherche SATellitaire, Centre ERS d'Archivage et de Traitement",
-				"fr_FR": "CERSAT, CDS-SAT-CERSAT, Centre d'Exploitation et de Recherche SATellitaire, Centre ERS d'Archivage et de Traitement"
+				"en_GB": "CERSAT, Centre d'Exploitation et de Recherche SATellitaire, CDS-SAT-CERSAT, Centre ERS d'Archivage et de Traitement",
+				"fr_FR": "CERSAT, Centre d'Exploitation et de Recherche SATellitaire, CDS-SAT-CERSAT, Centre ERS d'Archivage et de Traitement"
 			},
 			"title": "CERSAT",
 			"hostId": "https://cat.opidor.fr/index.php/CERSAT",
@@ -723,8 +771,8 @@
 		},
 		{
 			"label": {
-				"en_GB": "CESBIO, Centre d'études spatiales de la biosphère, UMR 5126",
-				"fr_FR": "CESBIO, Centre d'études spatiales de la biosphère, UMR 5126"
+				"en_GB": "CESBIO, Centre d’Études Spatiales de la BIOsphère, UMR 5126",
+				"fr_FR": "CESBIO, Centre d’Études Spatiales de la BIOsphère, UMR 5126"
 			},
 			"title": "CESBIO",
 			"hostId": "https://cat.opidor.fr/index.php/CESBIO",
@@ -743,8 +791,8 @@
 		},
 		{
 			"label": {
-				"en_GB": "CMEMS, Copernicus Marine Service, Copernicus Marine Environment Monitoring Service, Service de Surveillance de l'Environnement Marin de Copernicus",
-				"fr_FR": "CMEMS, Copernicus Marine Service, Copernicus Marine Environment Monitoring Service, Service de Surveillance de l'Environnement Marin de Copernicus"
+				"en_GB": "CMEMS, Copernicus Marine Environment Monitoring Service, Copernicus Marine Service, Service de Surveillance de l'Environnement Marin de Copernicus",
+				"fr_FR": "CMEMS, Copernicus Marine Environment Monitoring Service, Copernicus Marine Service, Service de Surveillance de l'Environnement Marin de Copernicus"
 			},
 			"title": "CMEMS",
 			"hostId": "https://cat.opidor.fr/index.php/CMEMS",
@@ -1047,8 +1095,8 @@
 		},
 		{
 			"label": {
-				"en_GB": "ChArMEx database, Chemistry-Aerosol Mediterranean eXperiment",
-				"fr_FR": "ChArMEx database, Chemistry-Aerosol Mediterranean eXperiment"
+				"en_GB": "ChArMEx database, Chemistry-Aerosol Mediterranean eXperiment database",
+				"fr_FR": "ChArMEx database, Chemistry-Aerosol Mediterranean eXperiment database"
 			},
 			"title": "ChArMEx database",
 			"hostId": "https://cat.opidor.fr/index.php/ChArMEx database",
@@ -1091,8 +1139,8 @@
 		},
 		{
 			"label": {
-				"en_GB": "Cid.curie.fr, Curie Image Database,iManage, OpenImadis",
-				"fr_FR": "Cid.curie.fr, Curie Image Database,iManage, OpenImadis"
+				"en_GB": "Cid.curie.fr, Curie Image Database, iManage, OpenImadis",
+				"fr_FR": "Cid.curie.fr, Curie Image Database, iManage, OpenImadis"
 			},
 			"title": "Cid.curie.fr",
 			"hostId": "https://cat.opidor.fr/index.php/Cid.curie.fr",
@@ -1130,8 +1178,8 @@
 		},
 		{
 			"label": {
-				"en_GB": "CoCoON, Collections de Corpus Oraux Numériques - anciennement Centre de Ressources pour la Description de l'Oral (CRDO) - Groupe Gestion documentaire et réservoir de données (CoSO)",
-				"fr_FR": "CoCoON, Collections de Corpus Oraux Numériques - anciennement Centre de Ressources pour la Description de l'Oral (CRDO) - Groupe Gestion documentaire et réservoir de données (CoSO)"
+				"en_GB": "CoCoON, Collections de Corpus Oraux Numériques, Centre de Ressources pour la Description de l'Oral (ancien nom), Groupe Gestion documentaire et réservoir de données (ancien nom) (CoSO)",
+				"fr_FR": "CoCoON, Collections de Corpus Oraux Numériques, Centre de Ressources pour la Description de l'Oral (ancien nom), Groupe Gestion documentaire et réservoir de données (ancien nom) (CoSO)"
 			},
 			"title": "CoCoON",
 			"hostId": "https://cat.opidor.fr/index.php/CoCoON",
@@ -1171,8 +1219,8 @@
 		},
 		{
 			"label": {
-				"en_GB": "Coriolis, CDS-IS-Coriolis, Centre de données et services in situ Coriolis, Coriolis-CD,",
-				"fr_FR": "Coriolis, CDS-IS-Coriolis, Centre de données et services in situ Coriolis, Coriolis-CD,"
+				"en_GB": "Coriolis, Centre de données et services in situ Coriolis, CDS-IS-Coriolis, Coriolis-CD",
+				"fr_FR": "Coriolis, Centre de données et services in situ Coriolis, CDS-IS-Coriolis, Coriolis-CD"
 			},
 			"title": "Coriolis",
 			"hostId": "https://cat.opidor.fr/index.php/Coriolis",
@@ -1181,6 +1229,17 @@
 			"certification": [
 				"CoreTrustSeal"
 			]
+		},
+		{
+			"label": {
+				"en_GB": "Corpus Humanum - UMPV, Espace institutionnel de l'Université de Montpellier Paul-Valéry",
+				"fr_FR": "Corpus Humanum - UMPV, Espace institutionnel de l'Université de Montpellier Paul-Valéry"
+			},
+			"title": "Corpus Humanum - UMPV",
+			"hostId": "https://cat.opidor.fr/index.php/Corpus Humanum - UMPV",
+			"idType": "URL",
+			"geoLocation": "FR",
+			"policyUrl": "https://www.univ-montp3.fr/fr/unités-de-recherche/charte-sciences-ouvertes"
 		},
 		{
 			"label": {
@@ -1204,35 +1263,13 @@
 		},
 		{
 			"label": {
-				"en_GB": "Cybergeo Dataverse, European journal of geography, Revue européenne de géographie",
-				"fr_FR": "Cybergeo Dataverse, European journal of geography, Revue européenne de géographie"
+				"en_GB": "Cybergeo Dataverse, Revue européenne de géographie, European journal of geography",
+				"fr_FR": "Cybergeo Dataverse, Revue européenne de géographie, European journal of geography"
 			},
 			"title": "Cybergeo Dataverse",
 			"hostId": "https://cat.opidor.fr/index.php/Cybergeo Dataverse",
 			"idType": "URL",
 			"geoLocation": "US"
-		},
-		{
-			"label": {
-				"en_GB": "DANDI, The DANDI Archive, Distributed Archives for Neurophysiology Data Integration (CoSO)",
-				"fr_FR": "DANDI, The DANDI Archive, Distributed Archives for Neurophysiology Data Integration (CoSO)"
-			},
-			"title": "DANDI",
-			"hostId": "https://cat.opidor.fr/index.php/DANDI",
-			"idType": "URL",
-			"pidSystem": [
-				"DOI",
-				"other"
-			],
-			"metadataStandard": [
-				"DataCite Metadata Schema",
-				"PROV",
-				"Repository-Developed Metadata Schemas"
-			],
-			"geoLocation": "US",
-			"certification": [
-				"CoSO"
-			]
 		},
 		{
 			"label": {
@@ -1258,8 +1295,8 @@
 		},
 		{
 			"label": {
-				"en_GB": "DAT'AMU, Entrepôt de données de recherche d'Aix-Marseille Université, Espace institutionnel de données d'Aix-Marseille Université",
-				"fr_FR": "DAT'AMU, Entrepôt de données de recherche d'Aix-Marseille Université, Espace institutionnel de données d'Aix-Marseille Université"
+				"en_GB": "DAT'AMU, Espace institutionnel de données d'Aix-Marseille Université, Entrepôt de données de recherche d'Aix-Marseille Université",
+				"fr_FR": "DAT'AMU, Espace institutionnel de données d'Aix-Marseille Université, Entrepôt de données de recherche d'Aix-Marseille Université"
 			},
 			"title": "DAT'AMU",
 			"hostId": "https://cat.opidor.fr/index.php/DAT'AMU",
@@ -1316,8 +1353,8 @@
 		},
 		{
 			"label": {
-				"en_GB": "DYNALIT, Dynamique du litoral et trait de la côte",
-				"fr_FR": "DYNALIT, Dynamique du litoral et trait de la côte"
+				"en_GB": "DYNALIT, Dynamique du littoral et trait de la côte",
+				"fr_FR": "DYNALIT, Dynamique du littoral et trait de la côte"
 			},
 			"title": "DYNALIT",
 			"hostId": "https://cat.opidor.fr/index.php/DYNALIT",
@@ -1344,6 +1381,16 @@
 			},
 			"title": "Dat@UBFC Portail",
 			"hostId": "https://cat.opidor.fr/index.php/Dat@UBFC Portail",
+			"idType": "URL",
+			"geoLocation": "FR"
+		},
+		{
+			"label": {
+				"en_GB": "Data ASNR, Espace institutionnel de l'Autorité de sûreté nucléaire et de radioprotection",
+				"fr_FR": "Data ASNR, Espace institutionnel de l'Autorité de sûreté nucléaire et de radioprotection"
+			},
+			"title": "Data ASNR",
+			"hostId": "https://cat.opidor.fr/index.php/Data ASNR",
 			"idType": "URL",
 			"geoLocation": "FR"
 		},
@@ -1378,8 +1425,8 @@
 		},
 		{
 			"label": {
-				"en_GB": "Data INRAE, Portail Data INRAE, Portail des données Inrae, Espace institutionnel de données INRAE",
-				"fr_FR": "Data INRAE, Portail Data INRAE, Portail des données Inrae, Espace institutionnel de données INRAE"
+				"en_GB": "Data INRAE, Espace institutionnel de données INRAE, Portail Data INRAE, Portail des données Inrae",
+				"fr_FR": "Data INRAE, Espace institutionnel de données INRAE, Portail Data INRAE, Portail des données Inrae"
 			},
 			"title": "Data INRAE",
 			"hostId": "https://cat.opidor.fr/index.php/Data INRAE",
@@ -1393,16 +1440,6 @@
 				"Dublin Core",
 				"ISA-Tab"
 			],
-			"geoLocation": "FR"
-		},
-		{
-			"label": {
-				"en_GB": "Data IRSN, Espace institutionnel de l'Institut de radioprotection et de sûreté nucléaire",
-				"fr_FR": "Data IRSN, Espace institutionnel de l'Institut de radioprotection et de sûreté nucléaire"
-			},
-			"title": "Data IRSN",
-			"hostId": "https://cat.opidor.fr/index.php/Data IRSN",
-			"idType": "URL",
 			"geoLocation": "FR"
 		},
 		{
@@ -1437,8 +1474,8 @@
 		},
 		{
 			"label": {
-				"en_GB": "Data Repository Grenoble Alpes, DRGA, Espace institutionnel de l'Université Grenoble Alpes",
-				"fr_FR": "Data Repository Grenoble Alpes, DRGA, Espace institutionnel de l'Université Grenoble Alpes"
+				"en_GB": "Data Repository Grenoble Alpes, Espace institutionnel de l'Université Grenoble Alpes, DRGA",
+				"fr_FR": "Data Repository Grenoble Alpes, Espace institutionnel de l'Université Grenoble Alpes, DRGA"
 			},
 			"title": "Data Repository Grenoble Alpes",
 			"hostId": "https://cat.opidor.fr/index.php/Data Repository Grenoble Alpes",
@@ -1487,8 +1524,8 @@
 		},
 		{
 			"label": {
-				"en_GB": "Data Unicaen, Espace institutionnel de l'Université de Caen Normandie",
-				"fr_FR": "Data Unicaen, Espace institutionnel de l'Université de Caen Normandie"
+				"en_GB": "Data Unicaen",
+				"fr_FR": "Data Unicaen"
 			},
 			"title": "Data Unicaen",
 			"hostId": "https://cat.opidor.fr/index.php/Data Unicaen",
@@ -1497,8 +1534,8 @@
 		},
 		{
 			"label": {
-				"en_GB": "Data Univ Gustave Eiffel, Données de recherche de l'Université Gustave Eiffel, Espace institutionnel de l'Université Gustave Eiffel",
-				"fr_FR": "Data Univ Gustave Eiffel, Données de recherche de l'Université Gustave Eiffel, Espace institutionnel de l'Université Gustave Eiffel"
+				"en_GB": "Data Univ Gustave Eiffel, Espace institutionnel de l'Université Gustave Eiffel, Données de recherche de l'Université Gustave Eiffel",
+				"fr_FR": "Data Univ Gustave Eiffel, Espace institutionnel de l'Université Gustave Eiffel, Données de recherche de l'Université Gustave Eiffel"
 			},
 			"title": "Data Univ Gustave Eiffel",
 			"hostId": "https://cat.opidor.fr/index.php/Data Univ Gustave Eiffel",
@@ -1642,6 +1679,16 @@
 		},
 		{
 			"label": {
+				"en_GB": "DataV",
+				"fr_FR": "DataV"
+			},
+			"title": "DataV",
+			"hostId": "https://cat.opidor.fr/index.php/DataV",
+			"idType": "URL",
+			"geoLocation": "FR"
+		},
+		{
+			"label": {
 				"en_GB": "Datagora",
 				"fr_FR": "Datagora"
 			},
@@ -1701,8 +1748,8 @@
 		},
 		{
 			"label": {
-				"en_GB": "EBAS, Climate relevant Aerosol Properties (CLAP), Bases de données chimie de l'atmosphère",
-				"fr_FR": "EBAS, Climate relevant Aerosol Properties (CLAP), Bases de données chimie de l'atmosphère"
+				"en_GB": "EBAS, Bases de données chimie de l'atmosphère, Climate relevant Aerosol Properties (CLAP)",
+				"fr_FR": "EBAS, Bases de données chimie de l'atmosphère, Climate relevant Aerosol Properties (CLAP)"
 			},
 			"title": "EBAS",
 			"hostId": "https://cat.opidor.fr/index.php/EBAS",
@@ -1724,8 +1771,8 @@
 		},
 		{
 			"label": {
-				"en_GB": "EBRAINS Knowledge Graph, European Brain ReseArch INfrastructureS Knowledge Graph",
-				"fr_FR": "EBRAINS Knowledge Graph, European Brain ReseArch INfrastructureS Knowledge Graph"
+				"en_GB": "EBRAINS Knowledge Graph, European Brain ReseArch INfrastructureS Knowledge Graph (CoSO)",
+				"fr_FR": "EBRAINS Knowledge Graph, European Brain ReseArch INfrastructureS Knowledge Graph (CoSO)"
 			},
 			"title": "EBRAINS Knowledge Graph",
 			"hostId": "https://cat.opidor.fr/index.php/EBRAINS Knowledge Graph",
@@ -1733,7 +1780,10 @@
 			"pidSystem": [
 				"DOI"
 			],
-			"geoLocation": "CH"
+			"geoLocation": "CH",
+			"certification": [
+				"CoSO"
+			]
 		},
 		{
 			"label": {
@@ -1750,13 +1800,29 @@
 		},
 		{
 			"label": {
-				"en_GB": "EELS Data Base, EELS DB. Electron Energy Loss Spectroscopy Data Base. Inner & Outer Shell Excitation Spectrum Repository",
-				"fr_FR": "EELS Data Base, EELS DB. Electron Energy Loss Spectroscopy Data Base. Inner & Outer Shell Excitation Spectrum Repository"
+				"en_GB": "EELS Data Base, Electron Energy Loss Spectroscopy Data Base, EELS DB, Inner & Outer Shell Excitation Spectrum Repository (CoSO)",
+				"fr_FR": "EELS Data Base, Electron Energy Loss Spectroscopy Data Base, EELS DB, Inner & Outer Shell Excitation Spectrum Repository (CoSO)"
 			},
 			"title": "EELS Data Base",
 			"hostId": "https://cat.opidor.fr/index.php/EELS Data Base",
 			"idType": "URL",
-			"geoLocation": "FR"
+			"geoLocation": "FR",
+			"certification": [
+				"CoSO"
+			]
+		},
+		{
+			"label": {
+				"en_GB": "EGA, European Genome-phenome Archive (CoSO)",
+				"fr_FR": "EGA, European Genome-phenome Archive (CoSO)"
+			},
+			"title": "EGA",
+			"hostId": "https://cat.opidor.fr/index.php/EGA",
+			"idType": "URL",
+			"geoLocation": "ES",
+			"certification": [
+				"CoSO"
+			]
 		},
 		{
 			"label": {
@@ -1770,6 +1836,22 @@
 				"Handle"
 			],
 			"geoLocation": "DE",
+			"certification": [
+				"CoSO"
+			]
+		},
+		{
+			"label": {
+				"en_GB": "EMPIAR, Electron Microscopy Public Image Archive (CoSO)",
+				"fr_FR": "EMPIAR, Electron Microscopy Public Image Archive (CoSO)"
+			},
+			"title": "EMPIAR",
+			"hostId": "https://cat.opidor.fr/index.php/EMPIAR",
+			"idType": "URL",
+			"pidSystem": [
+				"DOI"
+			],
+			"geoLocation": "GB",
 			"certification": [
 				"CoSO"
 			]
@@ -1809,8 +1891,8 @@
 		},
 		{
 			"label": {
-				"en_GB": "ESPRI, Ensemble de Services Pour la Recherche à l'IPSL, Centre de données et de services ESPRI, CDS ESPRI, ex. Ether",
-				"fr_FR": "ESPRI, Ensemble de Services Pour la Recherche à l'IPSL, Centre de données et de services ESPRI, CDS ESPRI, ex. Ether"
+				"en_GB": "ESPRI, Ensemble de Services Pour la Recherche à l'IPSL, Centre de données et de services ESPRI, CDS ESPRI, Ether (ancien nom)",
+				"fr_FR": "ESPRI, Ensemble de Services Pour la Recherche à l'IPSL, Centre de données et de services ESPRI, CDS ESPRI, Ether (ancien nom)"
 			},
 			"title": "ESPRI",
 			"hostId": "https://cat.opidor.fr/index.php/ESPRI",
@@ -1840,8 +1922,8 @@
 		},
 		{
 			"label": {
-				"en_GB": "ESTHER database, ESTerases and alpha/beta-Hydrolase Enzymes and Relatives",
-				"fr_FR": "ESTHER database, ESTerases and alpha/beta-Hydrolase Enzymes and Relatives"
+				"en_GB": "ESTHER database, ESTerases and alpha/beta-Hydrolase Enzymes and Relatives database",
+				"fr_FR": "ESTHER database, ESTerases and alpha/beta-Hydrolase Enzymes and Relatives database"
 			},
 			"title": "ESTHER database",
 			"hostId": "https://cat.opidor.fr/index.php/ESTHER database",
@@ -1880,8 +1962,8 @@
 		},
 		{
 			"label": {
-				"en_GB": "Earth Orientation Center, IERS EOP PC, International Earth Rotation et Reference Systems Service, Earth Orientation Parameter Product Center, Service de la rotation de la Terre",
-				"fr_FR": "Earth Orientation Center, IERS EOP PC, International Earth Rotation et Reference Systems Service, Earth Orientation Parameter Product Center, Service de la rotation de la Terre"
+				"en_GB": "Earth Orientation Center, Earth Orientation Parameter Product Centre of the International Earth Rotation and Reference Systems Service, IERS EOP PC, Service de la rotation de la Terre",
+				"fr_FR": "Earth Orientation Center, Earth Orientation Parameter Product Centre of the International Earth Rotation and Reference Systems Service, IERS EOP PC, Service de la rotation de la Terre"
 			},
 			"title": "Earth Orientation Center",
 			"hostId": "https://cat.opidor.fr/index.php/Earth Orientation Center",
@@ -1893,8 +1975,8 @@
 		},
 		{
 			"label": {
-				"en_GB": "Eaufrance, EauFrance, Portail Eaufrance, Portail SIE, Portail Service public d'information sur l'eau, Portail Système d'information sur l'eau",
-				"fr_FR": "Eaufrance, EauFrance, Portail Eaufrance, Portail SIE, Portail Service public d'information sur l'eau, Portail Système d'information sur l'eau"
+				"en_GB": "Eaufrance, Portail Service public d'information sur l'eau, EauFrance, Portail Eaufrance, Portail SIE, Portail Système d'information sur l'eau",
+				"fr_FR": "Eaufrance, Portail Service public d'information sur l'eau, EauFrance, Portail Eaufrance, Portail SIE, Portail Système d'information sur l'eau"
 			},
 			"title": "Eaufrance",
 			"hostId": "https://cat.opidor.fr/index.php/Eaufrance",
@@ -1908,16 +1990,6 @@
 			},
 			"title": "EcoTaxa",
 			"hostId": "https://cat.opidor.fr/index.php/EcoTaxa",
-			"idType": "URL",
-			"geoLocation": "FR"
-		},
-		{
-			"label": {
-				"en_GB": "Ecole des Ponts ParisTech : Entrepôt, Espace institutionnel de l’École des Ponts ParisTech",
-				"fr_FR": "Ecole des Ponts ParisTech : Entrepôt, Espace institutionnel de l’École des Ponts ParisTech"
-			},
-			"title": "Ecole des Ponts ParisTech : Entrepôt",
-			"hostId": "https://cat.opidor.fr/index.php/Ecole des Ponts ParisTech : Entrepôt",
 			"idType": "URL",
 			"geoLocation": "FR"
 		},
@@ -1965,11 +2037,11 @@
 		},
 		{
 			"label": {
-				"en_GB": "Entrepôt de données INSHEA, Espace institutionnel de l'Institut national supérieur de formation et de recherche pour l'éducation des jeunes handicapés et les enseignements adaptés",
-				"fr_FR": "Entrepôt de données INSHEA, Espace institutionnel de l'Institut national supérieur de formation et de recherche pour l'éducation des jeunes handicapés et les enseignements adaptés"
+				"en_GB": "Entrepôt de données INSEI, Espace institutionnel de l'Institut National Supérieur de formation et de recherche pour l’Éducation Inclusive",
+				"fr_FR": "Entrepôt de données INSEI, Espace institutionnel de l'Institut National Supérieur de formation et de recherche pour l’Éducation Inclusive"
 			},
-			"title": "Entrepôt de données INSHEA",
-			"hostId": "https://cat.opidor.fr/index.php/Entrepôt de données INSHEA",
+			"title": "Entrepôt de données INSEI",
+			"hostId": "https://cat.opidor.fr/index.php/Entrepôt de données INSEI",
 			"idType": "URL",
 			"geoLocation": "FR"
 		},
@@ -2103,8 +2175,8 @@
 		},
 		{
 			"label": {
-				"en_GB": "GBIF portail France, Portail GBIF France, Système Mondial d'Information sur la Biodiversité France, Global Biodiversity Information Facility France",
-				"fr_FR": "GBIF portail France, Portail GBIF France, Système Mondial d'Information sur la Biodiversité France, Global Biodiversity Information Facility France"
+				"en_GB": "GBIF portail France, Global Biodiversity Information Facility France, Portail GBIF France, Système Mondial d'Information sur la Biodiversité France",
+				"fr_FR": "GBIF portail France, Global Biodiversity Information Facility France, Portail GBIF France, Système Mondial d'Information sur la Biodiversité France"
 			},
 			"title": "GBIF portail France",
 			"hostId": "https://cat.opidor.fr/index.php/GBIF portail France",
@@ -2123,8 +2195,8 @@
 		},
 		{
 			"label": {
-				"en_GB": "GEOSCOPE, Observatoire Réseau global de stations sismologiques large bande GEOSOPE, Réseau global français de stations sismologiques large bande",
-				"fr_FR": "GEOSCOPE, Observatoire Réseau global de stations sismologiques large bande GEOSOPE, Réseau global français de stations sismologiques large bande"
+				"en_GB": "GEOSCOPE, Observatoire Réseau global de stations sismologiques large bande GEOSCOPE, Réseau global français de stations sismologiques large bande",
+				"fr_FR": "GEOSCOPE, Observatoire Réseau global de stations sismologiques large bande GEOSCOPE, Réseau global français de stations sismologiques large bande"
 			},
 			"title": "GEOSCOPE",
 			"hostId": "https://cat.opidor.fr/index.php/GEOSCOPE",
@@ -2169,8 +2241,8 @@
 		},
 		{
 			"label": {
-				"en_GB": "Ganoub, Base de données de la  Phonothèque de la MMSH",
-				"fr_FR": "Ganoub, Base de données de la  Phonothèque de la MMSH"
+				"en_GB": "Ganoub, Base de données de la Phonothèque de la MMSH",
+				"fr_FR": "Ganoub, Base de données de la Phonothèque de la MMSH"
 			},
 			"title": "Ganoub",
 			"hostId": "https://cat.opidor.fr/index.php/Ganoub",
@@ -2182,8 +2254,8 @@
 		},
 		{
 			"label": {
-				"en_GB": "GenomeHubs, South Green Genome Hub Genome Hub",
-				"fr_FR": "GenomeHubs, South Green Genome Hub Genome Hub"
+				"en_GB": "GenomeHubs, South Green Genome Hub",
+				"fr_FR": "GenomeHubs, South Green Genome Hub"
 			},
 			"title": "GenomeHubs",
 			"hostId": "https://cat.opidor.fr/index.php/GenomeHubs",
@@ -2195,8 +2267,8 @@
 		},
 		{
 			"label": {
-				"en_GB": "GeoDRIIHM, Portail Labex DRIIHM, Portail Dispositif de Recherche Interdisciplinaire sur les Interactions Hommes-Milieux",
-				"fr_FR": "GeoDRIIHM, Portail Labex DRIIHM, Portail Dispositif de Recherche Interdisciplinaire sur les Interactions Hommes-Milieux"
+				"en_GB": "GeoDRIIHM, Portail Dispositif de Recherche Interdisciplinaire sur les Interactions Hommes-Milieux, Portail Labex DRIIHM",
+				"fr_FR": "GeoDRIIHM, Portail Dispositif de Recherche Interdisciplinaire sur les Interactions Hommes-Milieux, Portail Labex DRIIHM"
 			},
 			"title": "GeoDRIIHM",
 			"hostId": "https://cat.opidor.fr/index.php/GeoDRIIHM",
@@ -2236,8 +2308,8 @@
 		},
 		{
 			"label": {
-				"en_GB": "GnpIS, Genetic and Genomic Information System",
-				"fr_FR": "GnpIS, Genetic and Genomic Information System"
+				"en_GB": "GnpIS, Genetic and Genomic Information System (CoSO)",
+				"fr_FR": "GnpIS, Genetic and Genomic Information System (CoSO)"
 			},
 			"title": "GnpIS",
 			"hostId": "https://cat.opidor.fr/index.php/GnpIS",
@@ -2250,7 +2322,8 @@
 			],
 			"geoLocation": "FR",
 			"certification": [
-				"ELIXIR Data Resources"
+				"ELIXIR Data Resources",
+				"CoSO"
 			]
 		},
 		{
@@ -2265,8 +2338,8 @@
 		},
 		{
 			"label": {
-				"en_GB": "GéoBretagne",
-				"fr_FR": "GéoBretagne"
+				"en_GB": "GéoBretagne, Plate-forme d’échanges de données pour la connaissance des territoires en Bretagne",
+				"fr_FR": "GéoBretagne, Plate-forme d’échanges de données pour la connaissance des territoires en Bretagne"
 			},
 			"title": "GéoBretagne",
 			"hostId": "https://cat.opidor.fr/index.php/GéoBretagne",
@@ -2275,8 +2348,8 @@
 		},
 		{
 			"label": {
-				"en_GB": "GéoSAS, Portail de l’information géographique de l’Unité Mixte de Recherche Sol Agro et hydrosystèmes, Spatialisation (UMR SAS) INRAE – Institut Agro sur les sites de Rennes et de Quimper.",
-				"fr_FR": "GéoSAS, Portail de l’information géographique de l’Unité Mixte de Recherche Sol Agro et hydrosystèmes, Spatialisation (UMR SAS) INRAE – Institut Agro sur les sites de Rennes et de Quimper."
+				"en_GB": "GéoSAS, Portail de l’information géographique de l’Unité Mixte de Recherche Sol Agro et hydrosystèmes, Spatialisation (UMR SAS) INRAE – Institut Agro sur les sites de Rennes et de Quimper",
+				"fr_FR": "GéoSAS, Portail de l’information géographique de l’Unité Mixte de Recherche Sol Agro et hydrosystèmes, Spatialisation (UMR SAS) INRAE – Institut Agro sur les sites de Rennes et de Quimper"
 			},
 			"title": "GéoSAS",
 			"hostId": "https://cat.opidor.fr/index.php/GéoSAS",
@@ -2311,12 +2384,20 @@
 			"title": "HAL",
 			"hostId": "https://cat.opidor.fr/index.php/HAL",
 			"idType": "URL",
-			"geoLocation": "FR"
+			"metadataStandard": [
+				"DataCite Metadata Schema",
+				"Dublin Core",
+				"OAI-ORE (Open Archives Initiative Object Reuse and Exchange)"
+			],
+			"geoLocation": "FR",
+			"certification": [
+				"CoreTrustSeal"
+			]
 		},
 		{
 			"label": {
-				"en_GB": "HC-DC, High Contrast Data Centre, Centre de données HC-DC, (SPHERE Data Center ancien nom)",
-				"fr_FR": "HC-DC, High Contrast Data Centre, Centre de données HC-DC, (SPHERE Data Center ancien nom)"
+				"en_GB": "HC-DC, High Contrast Data Centre, Centre de données HC-DC, SPHERE Data Center (ancien nom)",
+				"fr_FR": "HC-DC, High Contrast Data Centre, Centre de données HC-DC, SPHERE Data Center (ancien nom)"
 			},
 			"title": "HC-DC",
 			"hostId": "https://cat.opidor.fr/index.php/HC-DC",
@@ -2398,8 +2479,8 @@
 		},
 		{
 			"label": {
-				"en_GB": "HyMeX database, Hydrological cycle in the Mediterranean eXperiment",
-				"fr_FR": "HyMeX database, Hydrological cycle in the Mediterranean eXperiment"
+				"en_GB": "HyMeX database, Hydrological cycle in the Mediterranean eXperiment database",
+				"fr_FR": "HyMeX database, Hydrological cycle in the Mediterranean eXperiment database"
 			},
 			"title": "HyMeX database",
 			"hostId": "https://cat.opidor.fr/index.php/HyMeX database",
@@ -2415,8 +2496,8 @@
 		},
 		{
 			"label": {
-				"en_GB": "HyperLEDA, Database for physics of galaxies, Lyon-Meudon Extragalactic Database , LEDA database, Hyper-Linked Extragalactic Databases and Archives  ",
-				"fr_FR": "HyperLEDA, Database for physics of galaxies, Lyon-Meudon Extragalactic Database , LEDA database, Hyper-Linked Extragalactic Databases and Archives  "
+				"en_GB": "HyperLEDA, Hyper-Linked Extragalactic Databases and Archives  , Database for physics of galaxies, Lyon-Meudon Extragalactic Database , LEDA database",
+				"fr_FR": "HyperLEDA, Hyper-Linked Extragalactic Databases and Archives  , Database for physics of galaxies, Lyon-Meudon Extragalactic Database , LEDA database"
 			},
 			"title": "HyperLEDA",
 			"hostId": "https://cat.opidor.fr/index.php/HyperLEDA",
@@ -2448,8 +2529,8 @@
 		},
 		{
 			"label": {
-				"en_GB": "IASI, Portail de données  issues de l'instrument IASI, IASI Portal, Atmospheric composition data products",
-				"fr_FR": "IASI, Portail de données  issues de l'instrument IASI, IASI Portal, Atmospheric composition data products"
+				"en_GB": "IASI, Portail de données issues de l'instrument IASI, IASI Portal, Atmospheric composition data products",
+				"fr_FR": "IASI, Portail de données issues de l'instrument IASI, IASI Portal, Atmospheric composition data products"
 			},
 			"title": "IASI",
 			"hostId": "https://cat.opidor.fr/index.php/IASI",
@@ -2468,8 +2549,8 @@
 		},
 		{
 			"label": {
-				"en_GB": "ICARE, Centre de données et de services ICARE, Interaction Clouds Aerosols Radiations, CDS-ICARE, UMS 2877",
-				"fr_FR": "ICARE, Centre de données et de services ICARE, Interaction Clouds Aerosols Radiations, CDS-ICARE, UMS 2877"
+				"en_GB": "ICARE, Interaction Clouds Aerosols Radiations, Centre de données et de services ICARE, CDS-ICARE,  UAR 2877",
+				"fr_FR": "ICARE, Interaction Clouds Aerosols Radiations, Centre de données et de services ICARE, CDS-ICARE,  UAR 2877"
 			},
 			"title": "ICARE",
 			"hostId": "https://cat.opidor.fr/index.php/ICARE",
@@ -2487,13 +2568,14 @@
 			"idType": "URL",
 			"geoLocation": "FR",
 			"certification": [
-				"ISO 9001"
+				"ISO 9001",
+				"CoRTecS"
 			]
 		},
 		{
 			"label": {
-				"en_GB": "IDOC-DATA, IDOC-DATA, Integrated Data and Operation Center, OSUPS Data Centre, Centre de données des Sciences de l'Univers de Paris Saclay, Centre de données de l'OSUPS, OSUPS-DC",
-				"fr_FR": "IDOC-DATA, IDOC-DATA, Integrated Data and Operation Center, OSUPS Data Centre, Centre de données des Sciences de l'Univers de Paris Saclay, Centre de données de l'OSUPS, OSUPS-DC"
+				"en_GB": "IDOC-DATA, Integrated Data and Operation Center, IDOC-DATA, OSUPS Data Centre, Centre de données des Sciences de l'Univers de Paris Saclay, Centre de données de l'OSUPS, OSUPS-DC",
+				"fr_FR": "IDOC-DATA, Integrated Data and Operation Center, IDOC-DATA, OSUPS Data Centre, Centre de données des Sciences de l'Univers de Paris Saclay, Centre de données de l'OSUPS, OSUPS-DC"
 			},
 			"title": "IDOC-DATA",
 			"hostId": "https://cat.opidor.fr/index.php/IDOC-DATA",
@@ -2549,8 +2631,8 @@
 		},
 		{
 			"label": {
-				"en_GB": "IMCCE Ephémérides portail, Portail des éphémérides de l'Institut de Mécanique Céleste et de Calcul des Ephémérides (IMCEE)",
-				"fr_FR": "IMCCE Ephémérides portail, Portail des éphémérides de l'Institut de Mécanique Céleste et de Calcul des Ephémérides (IMCEE)"
+				"en_GB": "IMCCE Ephémérides portail, Portail des éphémérides de l'Institut de Mécanique Céleste et de Calcul des Éphémérides",
+				"fr_FR": "IMCCE Ephémérides portail, Portail des éphémérides de l'Institut de Mécanique Céleste et de Calcul des Éphémérides"
 			},
 			"title": "IMCCE Ephémérides portail",
 			"hostId": "https://cat.opidor.fr/index.php/IMCCE Ephémérides portail",
@@ -2571,10 +2653,10 @@
 			"geoLocation": "FR",
 			"certification": [
 				"IBiSA",
-				"ISO 9001:2015",
-				"NFX 50-900",
 				"ELIXIR Data Resources",
-				"GPTR"
+				"GPTR",
+				"ISO 9001:2015",
+				"NFX 50-900:2016"
 			]
 		},
 		{
@@ -2656,8 +2738,8 @@
 		},
 		{
 			"label": {
-				"en_GB": "IPGP-DC, Centre de données de l'IPGP, IPGP Data Center",
-				"fr_FR": "IPGP-DC, Centre de données de l'IPGP, IPGP Data Center"
+				"en_GB": "IPGP-DC, IPGP Data Center, Centre de données de l'IPGP",
+				"fr_FR": "IPGP-DC, IPGP Data Center, Centre de données de l'IPGP"
 			},
 			"title": "IPGP-DC",
 			"hostId": "https://cat.opidor.fr/index.php/IPGP-DC",
@@ -2669,11 +2751,21 @@
 		},
 		{
 			"label": {
-				"en_GB": "IPPI-DB, Base de données sur les inhibiteurs des interactions protéine-protéine, Inhibitors of Protein-Protein Interaction Database",
-				"fr_FR": "IPPI-DB, Base de données sur les inhibiteurs des interactions protéine-protéine, Inhibitors of Protein-Protein Interaction Database"
+				"en_GB": "IPPI-DB, Inhibitors of Protein-Protein Interaction Database, Base de données sur les inhibiteurs des interactions protéine-protéine",
+				"fr_FR": "IPPI-DB, Inhibitors of Protein-Protein Interaction Database, Base de données sur les inhibiteurs des interactions protéine-protéine"
 			},
 			"title": "IPPI-DB",
 			"hostId": "https://cat.opidor.fr/index.php/IPPI-DB",
+			"idType": "URL",
+			"geoLocation": "FR"
+		},
+		{
+			"label": {
+				"en_GB": "ISAE-SUPAERO : Entrepôt, Institut Supérieur de l'Aéronautique et de l'Espace : Entrepôt, Espace Recherche Data Gouv dédié aux données de recherche de l'Institut Supérieur de l'Aéronautique et de l'Espace, Espace institutionnel de l'ISAE-SUPAERO",
+				"fr_FR": "ISAE-SUPAERO : Entrepôt, Institut Supérieur de l'Aéronautique et de l'Espace : Entrepôt, Espace Recherche Data Gouv dédié aux données de recherche de l'Institut Supérieur de l'Aéronautique et de l'Espace, Espace institutionnel de l'ISAE-SUPAERO"
+			},
+			"title": "ISAE-SUPAERO : Entrepôt",
+			"hostId": "https://cat.opidor.fr/index.php/ISAE-SUPAERO : Entrepôt",
 			"idType": "URL",
 			"geoLocation": "FR"
 		},
@@ -2699,8 +2791,8 @@
 		},
 		{
 			"label": {
-				"en_GB": "ISGI, Service International des Indices Géomagnétiques, International Service of Geomagnetic Indices",
-				"fr_FR": "ISGI, Service International des Indices Géomagnétiques, International Service of Geomagnetic Indices"
+				"en_GB": "ISGI, International Service of Geomagnetic Indices, Service International des Indices Géomagnétiques",
+				"fr_FR": "ISGI, International Service of Geomagnetic Indices, Service International des Indices Géomagnétiques"
 			},
 			"title": "ISGI",
 			"hostId": "https://cat.opidor.fr/index.php/ISGI",
@@ -2779,7 +2871,8 @@
 			"title": "Institut Pasteur : Entrepôt",
 			"hostId": "https://cat.opidor.fr/index.php/Institut Pasteur : Entrepôt",
 			"idType": "URL",
-			"geoLocation": "FR"
+			"geoLocation": "FR",
+			"policyUrl": "https://www.pasteur.fr/fr/file/40521/download"
 		},
 		{
 			"label": {
@@ -2821,6 +2914,16 @@
 			},
 			"title": "IrsteaData",
 			"hostId": "https://cat.opidor.fr/index.php/IrsteaData",
+			"idType": "URL",
+			"geoLocation": "FR"
+		},
+		{
+			"label": {
+				"en_GB": "Isara : Entrepôt, Espace institutionnel de l'Isara",
+				"fr_FR": "Isara : Entrepôt, Espace institutionnel de l'Isara"
+			},
+			"title": "Isara : Entrepôt",
+			"hostId": "https://cat.opidor.fr/index.php/Isara : Entrepôt",
 			"idType": "URL",
 			"geoLocation": "FR"
 		},
@@ -2947,8 +3050,8 @@
 		},
 		{
 			"label": {
-				"en_GB": "LIENSs Portail de données, LIttoral ENvironnement et Sociétés",
-				"fr_FR": "LIENSs Portail de données, LIttoral ENvironnement et Sociétés"
+				"en_GB": "LIENSs Portail de données, LIttoral ENvironnement et Sociétés Portail de données",
+				"fr_FR": "LIENSs Portail de données, LIttoral ENvironnement et Sociétés Portail de données"
 			},
 			"title": "LIENSs Portail de données",
 			"hostId": "https://cat.opidor.fr/index.php/LIENSs Portail de données",
@@ -2962,6 +3065,16 @@
 			},
 			"title": "LOCUS",
 			"hostId": "https://cat.opidor.fr/index.php/LOCUS",
+			"idType": "URL",
+			"geoLocation": "FR"
+		},
+		{
+			"label": {
+				"en_GB": "La Rochelle Université : Entrepôt, Espace institutionnel de La Rochelle Université",
+				"fr_FR": "La Rochelle Université : Entrepôt, Espace institutionnel de La Rochelle Université"
+			},
+			"title": "La Rochelle Université : Entrepôt",
+			"hostId": "https://cat.opidor.fr/index.php/La Rochelle Université : Entrepôt",
 			"idType": "URL",
 			"geoLocation": "FR"
 		},
@@ -3008,8 +3121,19 @@
 		},
 		{
 			"label": {
-				"en_GB": "MAP Database, Mapping Ancient Polytheisms",
-				"fr_FR": "MAP Database, Mapping Ancient Polytheisms"
+				"en_GB": "M3C, Médiathèque Culturelle de la Corse et des Corses, M3C",
+				"fr_FR": "M3C, Médiathèque Culturelle de la Corse et des Corses, M3C"
+			},
+			"title": "M3C",
+			"hostId": "https://cat.opidor.fr/index.php/M3C",
+			"idType": "URL",
+			"geoLocation": "FR",
+			"policyUrl": "https://dmp.opidor.fr/public_plans?page=1&search=M3C"
+		},
+		{
+			"label": {
+				"en_GB": "MAP Database, Mapping Ancient Polytheisms Database",
+				"fr_FR": "MAP Database, Mapping Ancient Polytheisms Database"
 			},
 			"title": "MAP Database",
 			"hostId": "https://cat.opidor.fr/index.php/MAP Database",
@@ -3018,8 +3142,8 @@
 		},
 		{
 			"label": {
-				"en_GB": "MASER, Mesures, Analyses et Simulation d'Emissions Radio,\nMeasurements, Analyses, Simulations of Emission in the Radio range",
-				"fr_FR": "MASER, Mesures, Analyses et Simulation d'Emissions Radio,\nMeasurements, Analyses, Simulations of Emission in the Radio range"
+				"en_GB": "MASER, Mesures Analyses et Simulation d'Emissions Radio, Measurements Analyses Simulations of Emission in the Radio range",
+				"fr_FR": "MASER, Mesures Analyses et Simulation d'Emissions Radio, Measurements Analyses Simulations of Emission in the Radio range"
 			},
 			"title": "MASER",
 			"hostId": "https://cat.opidor.fr/index.php/MASER",
@@ -3079,8 +3203,8 @@
 		},
 		{
 			"label": {
-				"en_GB": "MISTRALS database, MISTRALS data portal, Mediterranean Integrated Studies at Regional and Local Scales, Portail de données du programme MISTRALS",
-				"fr_FR": "MISTRALS database, MISTRALS data portal, Mediterranean Integrated Studies at Regional and Local Scales, Portail de données du programme MISTRALS"
+				"en_GB": "MISTRALS database, Mediterranean Integrated Studies at Regional and Local Scales database, MISTRALS data portal, Portail de données du programme MISTRALS",
+				"fr_FR": "MISTRALS database, Mediterranean Integrated Studies at Regional and Local Scales database, MISTRALS data portal, Portail de données du programme MISTRALS"
 			},
 			"title": "MISTRALS database",
 			"hostId": "https://cat.opidor.fr/index.php/MISTRALS database",
@@ -3218,7 +3342,10 @@
 			"title": "MédiHAL",
 			"hostId": "https://cat.opidor.fr/index.php/MédiHAL",
 			"idType": "URL",
-			"geoLocation": "FR"
+			"geoLocation": "FR",
+			"certification": [
+				"CoreTrustSeal"
+			]
 		},
 		{
 			"label": {
@@ -3268,8 +3395,8 @@
 		},
 		{
 			"label": {
-				"en_GB": "Naturefrance, Système d'information sur la biodiversité, NatureFrance, Portail NatureFrance, Portail SIB",
-				"fr_FR": "Naturefrance, Système d'information sur la biodiversité, NatureFrance, Portail NatureFrance, Portail SIB"
+				"en_GB": "Naturefrance, Service public d'information sur la biodiversité, NatureFrance, Portail NatureFrance, Portail SIB, Système d'information sur la biodiversité",
+				"fr_FR": "Naturefrance, Service public d'information sur la biodiversité, NatureFrance, Portail NatureFrance, Portail SIB, Système d'information sur la biodiversité"
 			},
 			"title": "Naturefrance",
 			"hostId": "https://cat.opidor.fr/index.php/Naturefrance",
@@ -3285,19 +3412,6 @@
 			"hostId": "https://cat.opidor.fr/index.php/Navigae",
 			"idType": "URL",
 			"geoLocation": "FR"
-		},
-		{
-			"label": {
-				"en_GB": "NeMO Archive, The Neuroscience Multi-Omic Archive (CoSO)",
-				"fr_FR": "NeMO Archive, The Neuroscience Multi-Omic Archive (CoSO)"
-			},
-			"title": "NeMO Archive",
-			"hostId": "https://cat.opidor.fr/index.php/NeMO Archive",
-			"idType": "URL",
-			"geoLocation": "US",
-			"certification": [
-				"CoSO"
-			]
 		},
 		{
 			"label": {
@@ -3369,8 +3483,8 @@
 		},
 		{
 			"label": {
-				"en_GB": "OCA-DC (Domino), Centre de données de l'Observatoire des Sciences de l'Univers de la Côte d’Azur, Centre de données de l'OCA, OCA Data Centre (DOMINO)",
-				"fr_FR": "OCA-DC (Domino), Centre de données de l'Observatoire des Sciences de l'Univers de la Côte d’Azur, Centre de données de l'OCA, OCA Data Centre (DOMINO)"
+				"en_GB": "OCA-DC (Domino), OCA Data Centre (DOMINO), Centre de données de l'OCA, Centre de données de l'Observatoire des Sciences de l'Univers de la Côte d’Azur",
+				"fr_FR": "OCA-DC (Domino), OCA Data Centre (DOMINO), Centre de données de l'OCA, Centre de données de l'Observatoire des Sciences de l'Univers de la Côte d’Azur"
 			},
 			"title": "OCA-DC (Domino)",
 			"hostId": "https://cat.opidor.fr/index.php/OCA-DC (Domino)",
@@ -3382,8 +3496,8 @@
 		},
 		{
 			"label": {
-				"en_GB": "ODATIS, Pôle de données Océan-ODATIS, Données et Services pour l'océan, Pole thématique ODATIS,  Pôle thématique Océan",
-				"fr_FR": "ODATIS, Pôle de données Océan-ODATIS, Données et Services pour l'océan, Pole thématique ODATIS,  Pôle thématique Océan"
+				"en_GB": "ODATIS, Pôle de données Océan-ODATIS, Données et Services pour l'océan, Pôle thématique ODATIS, Pôle thématique Océan",
+				"fr_FR": "ODATIS, Pôle de données Océan-ODATIS, Données et Services pour l'océan, Pôle thématique ODATIS, Pôle thématique Océan"
 			},
 			"title": "ODATIS",
 			"hostId": "https://cat.opidor.fr/index.php/ODATIS",
@@ -3405,8 +3519,8 @@
 		},
 		{
 			"label": {
-				"en_GB": "OLKi Platform, Plateforme OLKi, Open Language and Knowledge for Citizens",
-				"fr_FR": "OLKi Platform, Plateforme OLKi, Open Language and Knowledge for Citizens"
+				"en_GB": "OLKi Platform, Open Language and Knowledge for Citizens, Plateforme OLKi",
+				"fr_FR": "OLKi Platform, Open Language and Knowledge for Citizens, Plateforme OLKi"
 			},
 			"title": "OLKi Platform",
 			"hostId": "https://cat.opidor.fr/index.php/OLKi Platform",
@@ -3445,21 +3559,29 @@
 		},
 		{
 			"label": {
-				"en_GB": "OPGC: Entrepôt",
-				"fr_FR": "OPGC: Entrepôt"
+				"en_GB": "OPGC : Entrepôt, Observatoire de Physique du Globe de Clermont-Ferrand : Entrepôt",
+				"fr_FR": "OPGC : Entrepôt, Observatoire de Physique du Globe de Clermont-Ferrand : Entrepôt"
 			},
-			"title": "OPGC: Entrepôt",
-			"hostId": "https://cat.opidor.fr/index.php/OPGC: Entrepôt",
+			"title": "OPGC : Entrepôt",
+			"hostId": "https://cat.opidor.fr/index.php/OPGC : Entrepôt",
 			"idType": "URL",
+			"pidSystem": [
+				"DOI"
+			],
+			"metadataStandard": [
+				"DCAT (Data Catalog Vocabulary)",
+				"DataCite Metadata Schema",
+				"ISO 19115"
+			],
 			"geoLocation": "FR"
 		},
 		{
 			"label": {
-				"en_GB": "OPGC: Observatoire virtuel, Observatoire virtuel OPGC",
-				"fr_FR": "OPGC: Observatoire virtuel, Observatoire virtuel OPGC"
+				"en_GB": "OPGC : Observatoire virtuel, Observatoire virtuel OPGC",
+				"fr_FR": "OPGC : Observatoire virtuel, Observatoire virtuel OPGC"
 			},
-			"title": "OPGC: Observatoire virtuel",
-			"hostId": "https://cat.opidor.fr/index.php/OPGC: Observatoire virtuel",
+			"title": "OPGC : Observatoire virtuel",
+			"hostId": "https://cat.opidor.fr/index.php/OPGC : Observatoire virtuel",
 			"idType": "URL",
 			"geoLocation": "FR",
 			"certification": [
@@ -3518,8 +3640,8 @@
 		},
 		{
 			"label": {
-				"en_GB": "OSURIS, OSUR Information Système, Géoportail OSURIS de l'OSUR",
-				"fr_FR": "OSURIS, OSUR Information Système, Géoportail OSURIS de l'OSUR"
+				"en_GB": "OSURIS, OSERen Information Système, Géoportail OSURIS de l'OSERen",
+				"fr_FR": "OSURIS, OSERen Information Système, Géoportail OSURIS de l'OSERen"
 			},
 			"title": "OSURIS",
 			"hostId": "https://cat.opidor.fr/index.php/OSURIS",
@@ -3528,8 +3650,8 @@
 		},
 		{
 			"label": {
-				"en_GB": "Observatoire des SHS, OSHS, Observatoire des SHS",
-				"fr_FR": "Observatoire des SHS, OSHS, Observatoire des SHS"
+				"en_GB": "Observatoire des SHS, OSHS",
+				"fr_FR": "Observatoire des SHS, OSHS"
 			},
 			"title": "Observatoire des SHS",
 			"hostId": "https://cat.opidor.fr/index.php/Observatoire des SHS",
@@ -3538,8 +3660,8 @@
 		},
 		{
 			"label": {
-				"en_GB": "Observil, SNO Observil, Service National d’Observation Observil",
-				"fr_FR": "Observil, SNO Observil, Service National d’Observation Observil"
+				"en_GB": "Observil, Service National d’Observation Observil, SNO Observil",
+				"fr_FR": "Observil, Service National d’Observation Observil, SNO Observil"
 			},
 			"title": "Observil",
 			"hostId": "https://cat.opidor.fr/index.php/Observil",
@@ -3575,8 +3697,8 @@
 		},
 		{
 			"label": {
-				"en_GB": "OnoMap IDS, Open noise Map, Infrastructure de Données Spatiales OnoMap",
-				"fr_FR": "OnoMap IDS, Open noise Map, Infrastructure de Données Spatiales OnoMap"
+				"en_GB": "OnoMap IDS, Infrastructure de Données Spatiales Open noise Map, Infrastructure de Données Spatiales OnoMap, Open noise Map",
+				"fr_FR": "OnoMap IDS, Infrastructure de Données Spatiales Open noise Map, Infrastructure de Données Spatiales OnoMap, Open noise Map"
 			},
 			"title": "OnoMap IDS",
 			"hostId": "https://cat.opidor.fr/index.php/OnoMap IDS",
@@ -3615,8 +3737,8 @@
 		},
 		{
 			"label": {
-				"en_GB": "OpenData ESR, Open Data sur l'enseignement supérieur et la recherche; data.enseignementsup-recherche.gouv.fr ; Open data ESR",
-				"fr_FR": "OpenData ESR, Open Data sur l'enseignement supérieur et la recherche; data.enseignementsup-recherche.gouv.fr ; Open data ESR"
+				"en_GB": "OpenData ESR, Open Data sur l'enseignement supérieur et la recherche, data.enseignementsup-recherche.gouv.fr, Open data ESR",
+				"fr_FR": "OpenData ESR, Open Data sur l'enseignement supérieur et la recherche, data.enseignementsup-recherche.gouv.fr, Open data ESR"
 			},
 			"title": "OpenData ESR",
 			"hostId": "https://cat.opidor.fr/index.php/OpenData ESR",
@@ -3635,27 +3757,8 @@
 		},
 		{
 			"label": {
-				"en_GB": "OpenNeuro (CoSO)",
-				"fr_FR": "OpenNeuro (CoSO)"
-			},
-			"title": "OpenNeuro",
-			"hostId": "https://cat.opidor.fr/index.php/OpenNeuro",
-			"idType": "URL",
-			"pidSystem": [
-				"DOI"
-			],
-			"metadataStandard": [
-				"ABCD (Access to Biological Collection Data)"
-			],
-			"geoLocation": "US",
-			"certification": [
-				"CoSO"
-			]
-		},
-		{
-			"label": {
-				"en_GB": "OpenObs, Requêteur National sur les données biodiversité",
-				"fr_FR": "OpenObs, Requêteur National sur les données biodiversité"
+				"en_GB": "OpenObs, Portail français d'accès aux données d'observation sur les espèces, Requêteur National sur les données biodiversité",
+				"fr_FR": "OpenObs, Portail français d'accès aux données d'observation sur les espèces, Requêteur National sur les données biodiversité"
 			},
 			"title": "OpenObs",
 			"hostId": "https://cat.opidor.fr/index.php/OpenObs",
@@ -3678,24 +3781,24 @@
 		},
 		{
 			"label": {
-				"en_GB": "Orphanet, Plateforme d'information et de services pour les maladies rares et les médicaments orphelins,US 14",
-				"fr_FR": "Orphanet, Plateforme d'information et de services pour les maladies rares et les médicaments orphelins,US 14"
+				"en_GB": "Orphanet, Plateforme d'information et de services pour les maladies rares et les médicaments orphelins, US 14",
+				"fr_FR": "Orphanet, Plateforme d'information et de services pour les maladies rares et les médicaments orphelins, US 14"
 			},
 			"title": "Orphanet",
 			"hostId": "https://cat.opidor.fr/index.php/Orphanet",
 			"idType": "URL",
 			"geoLocation": "FR",
 			"certification": [
-				"RDiRC Recognized Resources",
-				"ELIXIR Core Data Resource",
-				"ELIXIR Data Resources"
+				"ELIXIR Data Resources",
+				"IRDiRC Recognized Resources",
+				"ELIXIR Core Data Resources"
 			],
 			"policyUrl": "https://www.orpha.net/consor/cgi-bin/Education_Procedure.php?lng=FR"
 		},
 		{
 			"label": {
-				"en_GB": "Ortolang, Outils et Ressources pour un Traitement Optimisé de la LANGue, Open Resources and TOols for LanGuage (CoSO)",
-				"fr_FR": "Ortolang, Outils et Ressources pour un Traitement Optimisé de la LANGue, Open Resources and TOols for LanGuage (CoSO)"
+				"en_GB": "Ortolang, Plate-forme d'Outils et de Ressources linguistiques pour un Traitement Optimisé de la LANGue française, Open Resources and TOols for LanGuage, Outils et Ressources pour un Traitement Optimisé de la LANGue (CoSO)",
+				"fr_FR": "Ortolang, Plate-forme d'Outils et de Ressources linguistiques pour un Traitement Optimisé de la LANGue française, Open Resources and TOols for LanGuage, Outils et Ressources pour un Traitement Optimisé de la LANGue (CoSO)"
 			},
 			"title": "Ortolang",
 			"hostId": "https://cat.opidor.fr/index.php/Ortolang",
@@ -3716,8 +3819,8 @@
 		},
 		{
 			"label": {
-				"en_GB": "PACEA Collections, PACEA Collections",
-				"fr_FR": "PACEA Collections, PACEA Collections"
+				"en_GB": "PACEA Collections",
+				"fr_FR": "PACEA Collections"
 			},
 			"title": "PACEA Collections",
 			"hostId": "https://cat.opidor.fr/index.php/PACEA Collections",
@@ -3779,6 +3882,22 @@
 				"CoreTrustSeal",
 				"WMO Information System",
 				"WDS",
+				"CoSO"
+			]
+		},
+		{
+			"label": {
+				"en_GB": "PDBe, Protein Data Bank in Europe (CoSO)",
+				"fr_FR": "PDBe, Protein Data Bank in Europe (CoSO)"
+			},
+			"title": "PDBe",
+			"hostId": "https://cat.opidor.fr/index.php/PDBe",
+			"idType": "URL",
+			"pidSystem": [
+				"DOI"
+			],
+			"geoLocation": "GB",
+			"certification": [
 				"CoSO"
 			]
 		},
@@ -3878,19 +3997,6 @@
 				"URN"
 			],
 			"geoLocation": "GB",
-			"certification": [
-				"CoSO"
-			]
-		},
-		{
-			"label": {
-				"en_GB": "PRIME-DE, PRIMatE Data Exchange (CoSO)",
-				"fr_FR": "PRIME-DE, PRIMatE Data Exchange (CoSO)"
-			},
-			"title": "PRIME-DE",
-			"hostId": "https://cat.opidor.fr/index.php/PRIME-DE",
-			"idType": "URL",
-			"geoLocation": "US",
 			"certification": [
 				"CoSO"
 			]
@@ -4077,6 +4183,18 @@
 		},
 		{
 			"label": {
+				"en_GB": "Portail archeoViz, archeoViz Portal",
+				"fr_FR": "Portail archeoViz, archeoViz Portal"
+			},
+			"title": "Portail archeoViz",
+			"hostId": "https://cat.opidor.fr/index.php/Portail archeoViz",
+			"idType": "URL",
+			"pidSystem": [
+				"DOI"
+			]
+		},
+		{
+			"label": {
 				"en_GB": "Portail de données marines, Ifremer-SISMER Portail de données marines",
 				"fr_FR": "Portail de données marines, Ifremer-SISMER Portail de données marines"
 			},
@@ -4104,6 +4222,16 @@
 			},
 			"title": "Portail spatial IGN",
 			"hostId": "https://cat.opidor.fr/index.php/Portail spatial IGN",
+			"idType": "URL",
+			"geoLocation": "FR"
+		},
+		{
+			"label": {
+				"en_GB": "Pratinada",
+				"fr_FR": "Pratinada"
+			},
+			"title": "Pratinada",
+			"hostId": "https://cat.opidor.fr/index.php/Pratinada",
 			"idType": "URL",
 			"geoLocation": "FR"
 		},
@@ -4172,8 +4300,8 @@
 		},
 		{
 			"label": {
-				"en_GB": "RCSB PDB, RCSB Protein Data Bank (CoSO)",
-				"fr_FR": "RCSB PDB, RCSB Protein Data Bank (CoSO)"
+				"en_GB": "RCSB PDB, RCSB Protein Data Bank",
+				"fr_FR": "RCSB PDB, RCSB Protein Data Bank"
 			},
 			"title": "RCSB PDB",
 			"hostId": "https://cat.opidor.fr/index.php/RCSB PDB",
@@ -4182,14 +4310,13 @@
 				"DOI"
 			],
 			"certification": [
-				"CoreTrustSeal",
-				"CoSO"
+				"CoreTrustSeal"
 			]
 		},
 		{
 			"label": {
-				"en_GB": "RELMIN, Le statut légal des minorités religieuses dans l’espace euro-méditerranéen (Vème –XVème siècles), The legal status of religious minorities in the Euro-Mediterranean world (5th -15th centuries)",
-				"fr_FR": "RELMIN, Le statut légal des minorités religieuses dans l’espace euro-méditerranéen (Vème –XVème siècles), The legal status of religious minorities in the Euro-Mediterranean world (5th -15th centuries)"
+				"en_GB": "RELMIN, The legal status of religious minorities in the Euro-Mediterranean world (5th -15th centuries), Le statut légal des minorités religieuses dans l’espace euro-méditerranéen (Vème –XVème siècles)",
+				"fr_FR": "RELMIN, The legal status of religious minorities in the Euro-Mediterranean world (5th -15th centuries), Le statut légal des minorités religieuses dans l’espace euro-méditerranéen (Vème –XVème siècles)"
 			},
 			"title": "RELMIN",
 			"hostId": "https://cat.opidor.fr/index.php/RELMIN",
@@ -4331,8 +4458,8 @@
 		},
 		{
 			"label": {
-				"en_GB": "SDC Epos-France, Centre de données Epos-France",
-				"fr_FR": "SDC Epos-France, Centre de données Epos-France"
+				"en_GB": "SDC Epos-France, Seismological Data Center Epos-France, Centre de données sismologiques Epos-France",
+				"fr_FR": "SDC Epos-France, Seismological Data Center Epos-France, Centre de données sismologiques Epos-France"
 			},
 			"title": "SDC Epos-France",
 			"hostId": "https://cat.opidor.fr/index.php/SDC Epos-France",
@@ -4382,6 +4509,22 @@
 		},
 		{
 			"label": {
+				"en_GB": "SHARE DATA, Survey of Health, Ageing and Retirement in Europe",
+				"fr_FR": "SHARE DATA, Survey of Health, Ageing and Retirement in Europe"
+			},
+			"title": "SHARE DATA",
+			"hostId": "https://cat.opidor.fr/index.php/SHARE DATA",
+			"idType": "URL",
+			"pidSystem": [
+				"DOI"
+			],
+			"metadataStandard": [
+				"DDI (Data Documentation Initiative)"
+			],
+			"geoLocation": "NL"
+		},
+		{
+			"label": {
 				"en_GB": "SI OLA",
 				"fr_FR": "SI OLA"
 			},
@@ -4412,8 +4555,8 @@
 		},
 		{
 			"label": {
-				"en_GB": "SILL, Socle interministériel de logiciels libres",
-				"fr_FR": "SILL, Socle interministériel de logiciels libres"
+				"en_GB": "SILL, Socle Interministériel de Logiciels Libres",
+				"fr_FR": "SILL, Socle Interministériel de Logiciels Libres"
 			},
 			"title": "SILL",
 			"hostId": "https://cat.opidor.fr/index.php/SILL",
@@ -4422,8 +4565,8 @@
 		},
 		{
 			"label": {
-				"en_GB": "SIMBAD, SIMBAD Astronomical Database, Set of Identifications, Measurements, and Bibliography for Astronomical Data",
-				"fr_FR": "SIMBAD, SIMBAD Astronomical Database, Set of Identifications, Measurements, and Bibliography for Astronomical Data"
+				"en_GB": "SIMBAD, Set of Identifications, Measurements, and Bibliography for Astronomical Data, SIMBAD Astronomical Database",
+				"fr_FR": "SIMBAD, Set of Identifications, Measurements, and Bibliography for Astronomical Data, SIMBAD Astronomical Database"
 			},
 			"title": "SIMBAD",
 			"hostId": "https://cat.opidor.fr/index.php/SIMBAD",
@@ -4445,8 +4588,8 @@
 		},
 		{
 			"label": {
-				"en_GB": "SINP, Système d’Information de l’iNventaire du Patrimoine naturel,Système d'Information sur la Nature et les Paysages",
-				"fr_FR": "SINP, Système d’Information de l’iNventaire du Patrimoine naturel,Système d'Information sur la Nature et les Paysages"
+				"en_GB": "SINP, Système d’Information de l’iNventaire du Patrimoine naturel, Système d'Information sur la Nature et les Paysages",
+				"fr_FR": "SINP, Système d’Information de l’iNventaire du Patrimoine naturel, Système d'Information sur la Nature et les Paysages"
 			},
 			"title": "SINP",
 			"hostId": "https://cat.opidor.fr/index.php/SINP",
@@ -4455,8 +4598,8 @@
 		},
 		{
 			"label": {
-				"en_GB": "SKATE, SNO SKATE, Service national d'observation SKATE",
-				"fr_FR": "SKATE, SNO SKATE, Service national d'observation SKATE"
+				"en_GB": "SKATE, Service national d'observation SKATE, SNO SKATE",
+				"fr_FR": "SKATE, Service national d'observation SKATE, SNO SKATE"
 			},
 			"title": "SKATE",
 			"hostId": "https://cat.opidor.fr/index.php/SKATE",
@@ -4640,7 +4783,8 @@
 			"geoLocation": "CH",
 			"certification": [
 				"CoSO"
-			]
+			],
+			"policyUrl": "https://www.pasteur.fr/fr/file/40521/download"
 		},
 		{
 			"label": {
@@ -4661,7 +4805,7 @@
 			"hostId": "https://cat.opidor.fr/index.php/Software Heritage",
 			"idType": "URL",
 			"pidSystem": [
-				"SWHID"
+				"other"
 			],
 			"geoLocation": "FR"
 		},
@@ -4803,8 +4947,8 @@
 		},
 		{
 			"label": {
-				"en_GB": "Technothèque",
-				"fr_FR": "Technothèque"
+				"en_GB": "Technothèque, Technothèque Jacques Tixier",
+				"fr_FR": "Technothèque, Technothèque Jacques Tixier"
 			},
 			"title": "Technothèque",
 			"hostId": "https://cat.opidor.fr/index.php/Technothèque",
@@ -4843,8 +4987,8 @@
 		},
 		{
 			"label": {
-				"en_GB": "TerMEx database, Terra Mediterranean eXperiment",
-				"fr_FR": "TerMEx database, Terra Mediterranean eXperiment"
+				"en_GB": "TerMEx database, Terra Mediterranean eXperiment database",
+				"fr_FR": "TerMEx database, Terra Mediterranean eXperiment database"
 			},
 			"title": "TerMEx database",
 			"hostId": "https://cat.opidor.fr/index.php/TerMEx database",
@@ -4853,8 +4997,8 @@
 		},
 		{
 			"label": {
-				"en_GB": "Theia, Pôle de données et de services pour les surfaces continentales, Pôle Theia, Pôle thématique surfaces continentales",
-				"fr_FR": "Theia, Pôle de données et de services pour les surfaces continentales, Pôle Theia, Pôle thématique surfaces continentales"
+				"en_GB": "Theia, Pôle de données et de services pour les surfaces continentales Theia, Pôle Theia, Pôle thématique surfaces continentales",
+				"fr_FR": "Theia, Pôle de données et de services pour les surfaces continentales Theia, Pôle Theia, Pôle thématique surfaces continentales"
 			},
 			"title": "Theia",
 			"hostId": "https://cat.opidor.fr/index.php/Theia",
@@ -4870,6 +5014,38 @@
 			"hostId": "https://cat.opidor.fr/index.php/Theia/OZCAR-SI",
 			"idType": "URL",
 			"geoLocation": "FR"
+		},
+		{
+			"label": {
+				"en_GB": "UCLR",
+				"fr_FR": "UCLR"
+			},
+			"title": "UCLR",
+			"hostId": "https://cat.opidor.fr/index.php/UCLR",
+			"idType": "URL",
+			"geoLocation": "FR"
+		},
+		{
+			"label": {
+				"en_GB": "UK Data Service, Qualidata (UK Data Service) (CoSO)",
+				"fr_FR": "UK Data Service, Qualidata (UK Data Service) (CoSO)"
+			},
+			"title": "UK Data Service",
+			"hostId": "https://cat.opidor.fr/index.php/UK Data Service",
+			"idType": "URL",
+			"pidSystem": [
+				"DOI"
+			],
+			"metadataStandard": [
+				"DDI (Data Documentation Initiative)",
+				"DataCite Metadata Schema",
+				"Dublin Core",
+				"QuDEx (Qualitative Data Exchange Format)"
+			],
+			"geoLocation": "GB",
+			"certification": [
+				"CoSO"
+			]
 		},
 		{
 			"label": {
@@ -4897,6 +5073,16 @@
 			},
 			"title": "Université Le Havre Normandie : Entrepôt",
 			"hostId": "https://cat.opidor.fr/index.php/Université Le Havre Normandie : Entrepôt",
+			"idType": "URL",
+			"geoLocation": "FR"
+		},
+		{
+			"label": {
+				"en_GB": "Université Paris 1 Panthéon-Sorbonne : Entrepôt, Espace institutionnel de l'Université Paris 1 Panthéon-Sorbonne",
+				"fr_FR": "Université Paris 1 Panthéon-Sorbonne : Entrepôt, Espace institutionnel de l'Université Paris 1 Panthéon-Sorbonne"
+			},
+			"title": "Université Paris 1 Panthéon-Sorbonne : Entrepôt",
+			"hostId": "https://cat.opidor.fr/index.php/Université Paris 1 Panthéon-Sorbonne : Entrepôt",
 			"idType": "URL",
 			"geoLocation": "FR"
 		},
@@ -4963,6 +5149,16 @@
 		},
 		{
 			"label": {
+				"en_GB": "Université de Haute-Alsace : Entrepôt, Entrepôt des données de la recherche de l'Université de Haute-Alsace",
+				"fr_FR": "Université de Haute-Alsace : Entrepôt, Entrepôt des données de la recherche de l'Université de Haute-Alsace"
+			},
+			"title": "Université de Haute-Alsace : Entrepôt",
+			"hostId": "https://cat.opidor.fr/index.php/Université de Haute-Alsace : Entrepôt",
+			"idType": "URL",
+			"geoLocation": "FR"
+		},
+		{
+			"label": {
 				"en_GB": "Université de Rennes : Entrepôt, Espace institutionnel de l'Université de Rennes",
 				"fr_FR": "Université de Rennes : Entrepôt, Espace institutionnel de l'Université de Rennes"
 			},
@@ -4978,6 +5174,16 @@
 			},
 			"title": "Université de Strasbourg : Entrepôt",
 			"hostId": "https://cat.opidor.fr/index.php/Université de Strasbourg : Entrepôt",
+			"idType": "URL",
+			"geoLocation": "FR"
+		},
+		{
+			"label": {
+				"en_GB": "Université de Technologie de Compiègne : Entrepôt, Entrepôt de données ouvertes de l'Université de Technologie de Compiègne, Université de Technologie de Compiègne open data repository",
+				"fr_FR": "Université de Technologie de Compiègne : Entrepôt, Entrepôt de données ouvertes de l'Université de Technologie de Compiègne, Université de Technologie de Compiègne open data repository"
+			},
+			"title": "Université de Technologie de Compiègne : Entrepôt",
+			"hostId": "https://cat.opidor.fr/index.php/Université de Technologie de Compiègne : Entrepôt",
 			"idType": "URL",
 			"geoLocation": "FR"
 		},
@@ -5062,8 +5268,8 @@
 		},
 		{
 			"label": {
-				"en_GB": "WDCC, WDC Climate, World Data Center of Climate (CoSO)",
-				"fr_FR": "WDCC, WDC Climate, World Data Center of Climate (CoSO)"
+				"en_GB": "WDCC, World Data Center of Climate, WDC Climate (CoSO)",
+				"fr_FR": "WDCC, World Data Center of Climate, WDC Climate (CoSO)"
 			},
 			"title": "WDCC",
 			"hostId": "https://cat.opidor.fr/index.php/WDCC",
@@ -5086,22 +5292,13 @@
 		},
 		{
 			"label": {
-				"en_GB": "WURM Project, WURM Database, Database of computed physical properties of minerals",
-				"fr_FR": "WURM Project, WURM Database, Database of computed physical properties of minerals"
+				"en_GB": "WURM Project, Database of computed physical properties of minerals, WURM Database",
+				"fr_FR": "WURM Project, Database of computed physical properties of minerals, WURM Database"
 			},
 			"title": "WURM Project",
 			"hostId": "https://cat.opidor.fr/index.php/WURM Project",
 			"idType": "URL",
 			"geoLocation": "FR"
-		},
-		{
-			"label": {
-				"en_GB": "WebOAI, Catalogue OAI du Consortium CAHIER",
-				"fr_FR": "WebOAI, Catalogue OAI du Consortium CAHIER"
-			},
-			"title": "WebOAI",
-			"hostId": "https://cat.opidor.fr/index.php/WebOAI",
-			"idType": "URL"
 		},
 		{
 			"label": {
@@ -5115,8 +5312,8 @@
 		},
 		{
 			"label": {
-				"en_GB": "XMM-Newton / SSC, SSC / XMM Newton, Survey Science Centre du satellite XMM-Newton, Survey Science Centre d’XMM-Newton,",
-				"fr_FR": "XMM-Newton / SSC, SSC / XMM Newton, Survey Science Centre du satellite XMM-Newton, Survey Science Centre d’XMM-Newton,"
+				"en_GB": "XMM-Newton / SSC, Survey Science Centre du satellite XMM-Newton, SSC / XMM Newton, Survey Science Centre d’XMM-Newton",
+				"fr_FR": "XMM-Newton / SSC, Survey Science Centre du satellite XMM-Newton, SSC / XMM Newton, Survey Science Centre d’XMM-Newton"
 			},
 			"title": "XMM-Newton / SSC",
 			"hostId": "https://cat.opidor.fr/index.php/XMM-Newton / SSC",
@@ -5190,6 +5387,16 @@
 			},
 			"title": "E-RECOLNAT",
 			"hostId": "https://cat.opidor.fr/index.php/E-RECOLNAT",
+			"idType": "URL",
+			"geoLocation": "FR"
+		},
+		{
+			"label": {
+				"en_GB": "École des Ponts ParisTech : Entrepôt, Espace institutionnel de l’École des Ponts ParisTech",
+				"fr_FR": "École des Ponts ParisTech : Entrepôt, Espace institutionnel de l’École des Ponts ParisTech"
+			},
+			"title": "École des Ponts ParisTech : Entrepôt",
+			"hostId": "https://cat.opidor.fr/index.php/École des Ponts ParisTech : Entrepôt",
 			"idType": "URL",
 			"geoLocation": "FR"
 		}

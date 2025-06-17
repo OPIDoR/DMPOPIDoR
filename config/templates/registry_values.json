@@ -101,6 +101,24 @@
             "en_GB": "Closed"
         }
     ],
+    "DataNature": [
+        {
+            "fr_FR": "Observation",
+            "en_GB": "Observation"
+        },
+        {
+            "fr_FR": "Données expérimentales",
+            "en_GB": "Experimental Data"
+        },
+        {
+            "fr_FR": "Simulation",
+            "en_GB": "Simulation"
+        },
+        {
+            "fr_FR": "Modèle",
+            "en_GB": "Model"
+        }
+    ],
     "DMPVersion": [
         {
             "fr_FR": "Version initiale",
@@ -131,6 +149,63 @@
         {
             "fr_FR": "Rejeté",
             "en_GB": "Rejected"
+        }
+    ],
+    "GenOuestServiceType": [
+        {
+            "fr_FR": "Cluster",
+            "en_GB": "Cluster"
+        },
+        {
+            "fr_FR": "Projet sur cluster",
+            "en_GB": "Cluster project"
+        },
+        {
+            "fr_FR": "Cloud privé",
+            "en_GB": "Private cloud"
+        },
+        {
+            "fr_FR": "Portail web",
+            "en_GB": "Web portal"
+        }
+    ],
+    "MesoatLRServiceType": [
+        {
+            "fr_FR": "Stockage inférieur à 100 To",
+            "en_GB": "Storage less than 100 TB",
+            "cost": 55
+        },
+        {
+            "fr_FR": "Stockage supérieur ou égal à 100 To",
+            "en_GB": "Stockage greater than or equal to 100 TB",
+            "cost": 50
+        },
+        {
+            "fr_FR": "Stockage associé au calcul Meso",
+            "en_GB": "Storage associated with Meso compute",
+            "cost": 45
+        }
+    ],
+    "MesoatLRStorageTime": [
+        {
+            "fr_FR": "12",
+            "en_GB": "12"
+        },
+        {
+            "fr_FR": "18",
+            "en_GB": "18"
+        },
+        {
+            "fr_FR": "24",
+            "en_GB": "24"
+        },
+        {
+            "fr_FR": "30",
+            "en_GB": "30"
+        },
+        {
+            "fr_FR": "36",
+            "en_GB": "36"
         }
     ],
     "ISO3166-alpha2": [
@@ -221,43 +296,14 @@
             "en_GB": "SGD"
         }
     ],
-    "MesoatLRServiceType": [
+    "NameTypeValues": [
         {
-            "fr_FR": "Stockage inférieur à 100 To",
-            "en_GB": "Storage less than 100 TB",
-            "cost": 55
+            "fr_FR": "Personne",
+            "en_GB": "Personal"
         },
         {
-            "fr_FR": "Stockage supérieur ou égal à 100 To",
-            "en_GB": "Stockage greater than or equal to 100 TB",
-            "cost": 50
-        },
-        {
-            "fr_FR": "Stockage associé au calcul Meso",
-            "en_GB": "Storage associated with Meso compute",
-            "cost": 45
-        }
-    ],
-    "MesoatLRStorageTime": [
-        {
-            "fr_FR": "12",
-            "en_GB": "12"
-        },
-        {
-            "fr_FR": "18",
-            "en_GB": "18"
-        },
-        {
-            "fr_FR": "24",
-            "en_GB": "24"
-        },
-        {
-            "fr_FR": "30",
-            "en_GB": "30"
-        },
-        {
-            "fr_FR": "36",
-            "en_GB": "36"
+            "fr_FR": "Organisation (par ex : équipe, unité ou groupe de recherche)",
+            "en_GB": "Organizational (e.g. a research team, unit or group)"
         }
     ],
     "OrganizationIdSystem": [
@@ -298,10 +344,6 @@
         {
             "fr_FR": "Handle",
             "en_GB": "Handle"
-        },
-        {
-            "fr_FR": "HAL Id",
-            "en_GB": "HAL Id"
         },
         {
             "fr_FR": "IGSN",
@@ -390,50 +432,6 @@
         {
             "fr_FR": "IGSN",
             "en_GB": "IGSN"
-        }
-    ],
-    "SoftwareDocumentationAudience": [
-        {
-            "fr_FR": "Développeur",
-            "en_GB": "Développer"
-        },
-        {
-            "fr_FR": "Utilisateur",
-            "en_GB": "User"
-        }
-    ],
-    "SoftwareTestTypes": [
-        {
-            "fr_FR": "Aucun",
-            "en_GB": "None"
-        },
-        {
-            "fr_FR": "Tests unitaires",
-            "en_GB": "Unit tests"
-        },
-        {
-            "fr_FR": "Tests d'intégration",
-            "en_GB": "Integration tests"
-        },
-        {
-            "fr_FR": "Tests fonctionnels",
-            "en_GB": "Functional tests"
-        },
-        {
-            "fr_FR": "Tests de bout en bout",
-            "en_GB": "End-to-end tests"
-        },
-        {
-            "fr_FR": "Tests d'acceptation",
-            "en_GB": "Acceptance testing"
-        },
-        {
-            "fr_FR": "Tests de performance",
-            "en_GB": "Performance testing"
-        },
-        {
-            "fr_FR": "Smoke tests",
-            "en_GB": "Smoke testing"
         }
     ],
     "StorageType": [

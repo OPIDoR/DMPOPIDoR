@@ -28,7 +28,8 @@
             "description": "Publications scientifiques dédiées au logiciel",
             "label@fr_FR": "Le logiciel a-t-il fait l'objet d’une publication scientifique dédiée ?",
             "label@en_GB": "Has the software been the subject of a dedicated scientific publication?",
-            "tooltip": null,
+            "tooltip@fr_FR": "Indiquer la publication revue par les pairs décrivant spécifiquement le logiciel, appelé Software paper, dans un journal dédié comme par exemple The Journal of Open Source Software",
+            "tooltip@en_GB": "Indicate the peer-reviewed publication specifically describing the software, called Software paper, in a dedicated journal such as The Journal of Open Source Software",
             "form_label@fr_FR": "Le logiciel a-t-il fait l'objet d’une publication scientifique dédiée ?",
             "form_label@en_GB": "Has the software been the subject of a dedicated scientific publication?"
         },
@@ -51,35 +52,10 @@
             "description": "Références de publications scientifiques éventuels à relier associées au logiciel",
             "label@fr_FR": "Le logiciel a-t-il été associé à des publications scientifiques ?",
             "label@en_GB": "Has the software been associated with any scientific publications?",
-            "tooltip@fr_FR": "Indiquer les publications dans lesquelles votre logiciel a été cité",
-            "tooltip@en_GB": "Indicate the publications in which your software has been cited",
+            "tooltip@fr_FR": "Indiquer les publications auxquelles votre logiciel est lié",
+            "tooltip@en_GB": "Indicate the publications to which your software is linked",
             "form_label@fr_FR": "Le logiciel a-t-il été associé à des publications scientifiques ?",
             "form_label@en_GB": "Has the software been associated with any scientific publications?"
-        },
-        "cost": {
-            "type": "array",
-            "table_header@fr_FR": "Type de coût : montant",
-            "table_header@en_GB": "Cost type: amount",
-            "items": {
-                "type": "object",
-                "class": "Cost",
-                "properties": {
-                    "dbid": {
-                        "type": "number"
-                    }
-                },
-                "template_name": "CostStandard",
-                "required": [
-                    "dbid"
-                ]
-            },
-            "description": "Coûts éventuels liés à la valorisation scientifique",
-            "label@fr_FR": "Coûts",
-            "label@en_GB": "Costs",
-            "tooltip@fr_FR": "Par exemple, coûts liés aux APCs (frais publication)",
-            "tooltip@en_GB": "For example, costs related to APCs (Article Processing Charges)",
-            "form_label@fr_FR": "Coûts liés à la valorisation scientifique",
-            "form_label@en_GB": "Costs related to scientific development"
         }
     },
     "required": [],

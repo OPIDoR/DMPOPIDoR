@@ -29,7 +29,8 @@
             "description": "Informations sur le référencement du logiciel (catalogues et identifiants)",
             "label@fr_FR": "Informations sur le référencement du logiciel",
             "label@en_GB": "Software registration software",
-            "tooltip": null,
+            "tooltip@fr_FR": "Un logiciel référencé dans un catalogue est plus facile à identifier, à citer et à rattacher à d’autres travaux académiques. L’archive ouverte nationale HAL permet le dépôt du code source d’un logiciel et son archivage est pris en charge par l’infrastructure Software Heritage. Si le catalogue dans lequel est, ou sera, référencé votre logiciel n’est pas listé, il est possible d’en ajouter un en cliquant sur le « + »",
+            "tooltip@en_GB": "Software referenced in a catalog is easier to identify, cite, and link to other academic works. The national open archive HAL allows the deposit of software source code, and its archiving is handled by the Software Heritage infrastructure. If the catalog in which your software is, or will be, referenced is not listed, you can add one by clicking on the« + »",
             "form_label@fr_FR": "Indiquer le ou les catalogues dans lequel est signalé le logiciel ainsi que son identifiant pérenne (ou l'URL du dépôt)",
             "form_label@en_GB": "Indicate the catalog(s) in which the software is reported as well as its persistent identifier (or the URL of the repository)"
         },
