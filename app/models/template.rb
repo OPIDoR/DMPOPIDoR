@@ -8,6 +8,7 @@
 #  archived         :boolean
 #  context          :integer          default("research_project"), not null
 #  customization_of :integer
+#  data_type        :string           default("none"), not null
 #  description      :text
 #  is_default       :boolean
 #  is_recommended   :boolean          default(FALSE)

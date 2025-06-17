@@ -5,9 +5,12 @@
 # Table name: registries
 #
 #  id          :integer          not null, primary key
+#  category    :string
+#  data_types  :string           default(["none"]), not null, is an Array
 #  description :string
 #  name        :string           not null
 #  uri         :string
+#  values      :json
 #  version     :integer
 #  created_at  :datetime         not null
 #  updated_at  :datetime         not null

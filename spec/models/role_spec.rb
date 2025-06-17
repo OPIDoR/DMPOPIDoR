@@ -1,5 +1,27 @@
 # frozen_string_literal: true
 
+# == Schema Information
+#
+# Table name: roles
+#
+#  id         :integer          not null, primary key
+#  access     :integer          default(0), not null
+#  active     :boolean          default(TRUE)
+#  created_at :datetime
+#  updated_at :datetime
+#  plan_id    :integer
+#  user_id    :integer
+#
+# Indexes
+#
+#  roles_plan_id_idx  (plan_id)
+#  roles_user_id_idx  (user_id)
+#
+# Foreign Keys
+#
+#  fk_rails_...  (plan_id => plans.id)
+#  fk_rails_...  (user_id => users.id)
+#
 require 'rails_helper'
 
 RSpec.describe Role, type: :model do

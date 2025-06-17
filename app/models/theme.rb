@@ -5,10 +5,12 @@
 # Table name: themes
 #
 #  id           :integer          not null, primary key
+#  data_type    :string           default("none"), not null
 #  description  :text
-#  translations :json
+#  number       :integer
 #  slug         :string
 #  title        :string
+#  translations :json
 #  created_at   :datetime         not null
 #  updated_at   :datetime         not null
 #

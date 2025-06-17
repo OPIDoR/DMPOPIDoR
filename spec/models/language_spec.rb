@@ -1,5 +1,15 @@
 # frozen_string_literal: true
 
+# == Schema Information
+#
+# Table name: languages
+#
+#  id               :integer          not null, primary key
+#  abbreviation     :string
+#  default_language :boolean
+#  description      :string
+#  name             :string
+#
 require 'rails_helper'
 
 RSpec.describe Language, type: :model do
