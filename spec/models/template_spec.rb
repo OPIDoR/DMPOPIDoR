@@ -124,17 +124,39 @@ RSpec.describe Template, type: :model do
   end
 
   describe '.recommend' do
+    let!(:template_locale) { 'fr-FR' }
+    let!(:template_locale_en) { 'en-GB' }
     subject { Template.recommend(locale: template_locale) }
 
     context 'when template is not recommended' do
       before do
-        @a = create(:template, :default, :published, :is_recommended, locale: template_locale)
-        @b = create(:template, :default, :published, locale: template_locale)
+        @a = create(:template, :published, is_recommended: true, locale: template_locale)
+        @b = create(:template, :published, locale: template_locale)
       end
 
       it 'should not return non recommended templates' do
-        let!(:template_locale) { 'fr-FR' }
-        expect(subject).not_to include(@b)
+        expect(subject).not_to eql(@b)
+      end
+    end
+
+    context 'when template is not published' do
+      before do
+        @a = create(:template, published: false, is_recommended: true, locale: template_locale)
+      end
+
+      it 'should not return non published templates' do
+        expect(subject).not_to eql(@a)
+      end
+    end
+
+    context 'when template has wrong locale' do
+      before do
+        @a = create(:template, :published, is_recommended: true, locale: template_locale)
+        @a = create(:template, :published, is_recommended: true, locale: template_locale_en)
+      end
+
+      it 'should not return template with wrong locale' do
+        expect(subject).not_to eql(@b)
       end
     end
   end
