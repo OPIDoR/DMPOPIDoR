@@ -16,6 +16,7 @@ class ResearchOutputsController < ApplicationController
   # POST /plans/:plan_id/research_outputs
   # rubocop:disable Metrics/AbcSize,Metrics/MethodLength
   def create
+    @plan = Plan.find(params[:plan_id])
     authorize ResearchOutput.new(plan: @plan)
     I18n.with_locale @plan.template.locale do
       max_order = @plan.research_outputs.empty? ? 1 : @plan.research_outputs.maximum('display_order') + 1
