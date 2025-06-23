@@ -78,6 +78,12 @@ FactoryBot.define do
       end
     end
 
+    trait :administrator_visible do
+      after(:create) do |plan|
+        plan.update(visibility: Plan.visibilities[:administrator_visible])
+      end
+    end
+
     trait :publicly_visible do
       after(:create) do |plan|
         plan.update(visibility: Plan.visibilities[:publicly_visible])

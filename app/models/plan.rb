@@ -486,15 +486,8 @@ class Plan < ApplicationRecord
   def request_feedback(user)
     Plan.transaction do
       self.feedback_requested = true
-      # --------------------------------
-      # Start DMP OPIDoR Customization
-      # CHANGES : Added feedback_requestor & request_date columns
-      # --------------------------------
       self.feedback_requestor_id = user.id
       self.feedback_request_date = DateTime.current
-      # --------------------------------
-      # End DMP OPIDoR Customization
-      # --------------------------------
       return false unless save!
 
       # Send an email to the org-admin contact
@@ -729,7 +722,7 @@ class Plan < ApplicationRecord
   #
   # Returns Boolean
   def visibility_allowed?
-    !is_test? && phases.any? { |phase| phase.visibility_allowed?(self) }
+    !is_test?
   end
 
   # Determines whether or not a question (given its id) exists for the self plan

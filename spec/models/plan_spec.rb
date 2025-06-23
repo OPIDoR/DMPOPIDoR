@@ -335,6 +335,8 @@ describe Plan do
 
     let!(:plan) { create(:plan, :creator, template: template) }
 
+    let!(:research_output) { create(:research_output, plan: plan) }
+
     let!(:phase) { create(:phase, template: template) }
 
     let!(:section) { create(:section, phase: phase) }
@@ -884,7 +886,10 @@ describe Plan do
       it 'of the same org and feedback requested' do
         # All reviewers of the same org should be able to comment
         plan.feedback_requested = true
+        feedback_user = create(:user, org: plan.owner.org)
+        plan.feedback_requestor = feedback_user
         plan.save
+
         expect(subject.commentable_by?(user.id)).to eql(true)
       end
 
@@ -979,10 +984,27 @@ describe Plan do
       user.org = plan.owner.org
       user.save
       user.perms << Perm.review_plans
+
+      feedback_user = create(:user, org: subject.owner.org)
+      plan.feedback_requestor = feedback_user
+      plan.save
+
       expect(subject.owner.org).to eql(user.org)
       expect(user.can_review_plans?).to eql(true)
       expect(plan.feedback_requested?).to eql(true)
       expect(subject.reviewable_by?(user.id)).to eql(true)
+    end
+
+    it 'when feedback_requestor is not from the same org' do
+      user.org = plan.owner.org
+      user.save
+      user.perms << Perm.review_plans
+
+      feedback_user = create(:user, org: create(:org))
+      plan.feedback_requestor = feedback_user
+      plan.save
+
+      expect(subject.reviewable_by?(user.id)).to eql(false)
     end
   end
 
@@ -1234,26 +1256,13 @@ describe Plan do
 
     subject { plan.visibility_allowed? }
 
-    before do
-      @phase     = create(:phase, template: template)
-      @section   = create(:section, phase: @phase)
-      @questions = create_list(:question, 4, :textarea, section: @section)
-      @questions.take(3).each do |question|
-        create(:answer, question: question, plan: plan, research_output: research_output)
-      end
-    end
-
-    context 'when requisite number of questions answered' do
-      before do
-        Rails.configuration.x.plans.default_percentage_answered = 75
-      end
-
+    context 'when plan is not test' do
       it { is_expected.to eql(true) }
     end
 
-    context 'when requisite number of questions not answered' do
+    context 'when plan is test' do
       before do
-        Rails.configuration.x.plans.default_percentage_answered = 76
+        plan.update(visibility: Plan.visibilities[:is_test])
       end
 
       it { is_expected.to eql(false) }
