@@ -1,5 +1,27 @@
 # frozen_string_literal: true
 
+# == Schema Information
+#
+# Table name: api_clients
+#
+#  id                :integer          not null, primary key
+#  client_secret     :string           not null
+#  contact_email     :string           not null
+#  contact_name      :string
+#  description       :string
+#  homepage          :string
+#  last_access       :datetime
+#  name              :string           not null
+#  send_notification :boolean          default(FALSE), not null
+#  created_at        :datetime         not null
+#  updated_at        :datetime         not null
+#  client_id         :string           not null
+#  org_id            :integer
+#
+# Indexes
+#
+#  index_api_clients_on_name  (name)
+#
 require 'rails_helper'
 
 RSpec.describe ApiClient, type: :model do
