@@ -34,19 +34,4 @@ class RegistriesController < ApplicationController
       values: registry.values
     }
   end
-
-  # rubocop:disable Metrics/AbcSize
-  def load_values
-    registry = Registry.find(params[:id])
-    plan = Plan.find(params[:plan_id])
-    locale = plan.template.locale
-    search_term = params[:term] || ''
-    formatted_list = registry.values.select { |v| v.to_s(locale:).downcase.include?(search_term.downcase) }
-                             .map { |v| { 'id' => select_value(v, locale), 'text' => v.to_s(locale:) } }
-    authorize plan
-    render json: {
-      'results' => formatted_list
-    }
-  end
-  # rubocop:enable Metrics/AbcSize
 end
