@@ -269,7 +269,7 @@ class RegistrationsController < Devise::RegistrationsController
     else
       flash[:alert] = message.blank? ? failure_message(current_user, _('save')) : message
       @orgs = Org.order('name')
-      render 'edit'
+      redirect_to edit_user_registration_path
     end
   end
   # rubocop:enable Metrics/AbcSize, Metrics/MethodLength

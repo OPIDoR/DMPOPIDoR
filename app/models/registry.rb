@@ -70,10 +70,10 @@ class Registry < ApplicationRecord
       if json_values.key?(registry.name)
         registry.update(values: json_values[registry.name])
       else
-        flash.now[:alert] = 'Wrong values file format'
+        flash[:alert] = 'Wrong values file format'
       end
     rescue JSON::ParserError
-      flash.now[:alert] = 'File should contain JSON'
+      flash[:alert] = 'File should contain JSON'
     end
   end
   # rubocop:enable Metrics/AbcSize

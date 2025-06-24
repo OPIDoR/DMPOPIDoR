@@ -144,7 +144,7 @@ class OrgsController < ApplicationController
     # if the ``@orgs` array has items ... it renders the shibboleth_ds view
     # rubocop:disable Style/GuardClause, Style/RedundantReturn
     if @orgs.empty?
-      flash.now[:alert] = _('No organisations are currently registered.')
+      flash[:alert] = _('No organisations are currently registered.')
       redirect_to user_shibboleth_omniauth_authorize_path
       return
     end
