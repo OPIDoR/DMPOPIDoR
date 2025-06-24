@@ -38,6 +38,10 @@ class Registry < ApplicationRecord
 
   validates :name, presence: { message: PRESENCE_MESSAGE }
 
+  validates :data_types, presence: { message: PRESENCE_MESSAGE }
+
+  validates :topics, presence: { message: PRESENCE_MESSAGE }
+
   # ==========
   # = Scopes =
   # ==========
@@ -51,7 +55,7 @@ class Registry < ApplicationRecord
   }
 
   scope :paginable, lambda {
-    select(:id, :name, :version, :description, :uri, :category, :data_types)
+    select(:id, :name, :version, :description, :uri, :category, :data_types, :topics)
   }
 
   # rubocop:disable Metrics/AbcSize
