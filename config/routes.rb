@@ -226,7 +226,6 @@ Rails.application.routes.draw do
   end
 
   resources :registries, only: %i[index] do
-    get 'load_values', action: :load_values, on: :collection
     get 'by_name/:name', action: :by_name, on: :collection
     get 'suggest', action: :suggest, on: :collection
   end
