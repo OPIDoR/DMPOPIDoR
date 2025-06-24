@@ -23,10 +23,10 @@ module SuperAdmin
       if @registry.save
         flash.now[:notice] = success_message(@registry, _('created'))
         Registry.load_values(attrs[:values], @registry)
-        render :edit
+        redirect_to edit_super_admin_registry_path(@registry)
       else
         flash.now[:alert] = failure_message(@registry, _('create'))
-        render :new
+        redirect_to new_super_admin_registry_path(@registry)
       end
     end
     # rubocop:enable Metrics/AbcSize
@@ -48,7 +48,7 @@ module SuperAdmin
       end
       Registry.load_values(attrs[:values], @registry)
 
-      render :edit
+      redirect_to edit_super_admin_registry_path(@registry)
     end
     # rubocop:enable Metrics/AbcSize
 
