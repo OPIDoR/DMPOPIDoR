@@ -157,7 +157,7 @@ Rails.application.routes.draw do
     post 'import', action: :import_plan, on: :collection
     resource :export, only: [:show], controller: 'plan_exports'
 
-    resources :contributors, except: %i[show]
+    resources :contributors, only: %i[index]
     member do
       get 'structured_edit'
       get 'answer'
