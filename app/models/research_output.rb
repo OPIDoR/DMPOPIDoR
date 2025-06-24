@@ -36,18 +36,11 @@
 class ResearchOutput < ApplicationRecord
   include Identifiable
   include ValidationMessages
-
-  # --------------------------------
-  # Start DMP OPIDoR Customization
-  # --------------------------------
   extend UniqueRandom
 
   attribute :uuid, :string, default: -> { unique_uuid(field_name: 'uuid') }
 
   after_destroy :destroy_json_fragment
-  # --------------------------------
-  # End DMP OPIDoR Customization
-  # --------------------------------
 
   enum :output_type, %i[audiovisual collection data_paper dataset event image
                         interactive_resource model_representation physical_object
@@ -83,6 +76,8 @@ class ResearchOutput < ApplicationRecord
   validates :abbreviation, presence: { message: PRESENCE_MESSAGE }
 
   validates :plan, presence: { message: PRESENCE_MESSAGE }
+
+  validates :topic, presence: { message: PRESENCE_MESSAGE }
 
   # ==========
   # = Scopes =
@@ -231,6 +226,7 @@ class ResearchOutput < ApplicationRecord
         abbreviation: abbreviation,
         title: title,
         order: display_order,
+        topic: topic,
         type: ro_fragment.research_output_description['data']['type'] || nil,
         configuration: ro_fragment.additional_info,
         answers: answers.map do |a|

@@ -2,7 +2,7 @@
 
 # Controller to handle CRUD operations for the Research Outputs tab
 class ResearchOutputsController < ApplicationController
-  helper ErrorHelper
+  include ErrorHelper
   helper PaginableHelper
   after_action :verify_authorized
 
@@ -17,13 +17,15 @@ class ResearchOutputsController < ApplicationController
   # rubocop:disable Metrics/AbcSize,Metrics/MethodLength
   def create
     @plan = Plan.find(params[:plan_id])
+    attrs = research_output_params
     authorize ResearchOutput.new(plan: @plan)
     I18n.with_locale @plan.template.locale do
       max_order = @plan.research_outputs.empty? ? 1 : @plan.research_outputs.maximum('display_order') + 1
       created_ro = @plan.research_outputs.create!(
-        abbreviation: params[:abbreviation] || "#{_('RO')} #{max_order}",
-        title: params[:title] || "#{_('Research output')} #{max_order}",
+        abbreviation: attrs[:abbreviation] || "#{_('RO')} #{max_order}",
+        title: attrs[:title] || "#{_('Research output')} #{max_order}",
         output_type_description: params[:type],
+        topic: attrs[:topic] || 'standard',
         is_default: false,
         display_order: max_order
       )
@@ -54,8 +56,8 @@ class ResearchOutputsController < ApplicationController
       research_output_description = @research_output.json_fragment.research_output_description
 
       updated_data = research_output_description.data.merge({
-                                                              title: params[:title],
-                                                              shortName: params[:abbreviation],
+                                                              title: attrs[:title],
+                                                              shortName: attrs[:abbreviation],
                                                               type: params[:type],
                                                               containsPersonalData: params[:configuration][:hasPersonalData] ? _('Yes') : _('No') # rubocop:disable Layout/LineLength
                                                             })
@@ -67,7 +69,7 @@ class ResearchOutputsController < ApplicationController
                                  payload: research_output_description.get_full_fragment(with_ids: true)
                                })
 
-      research_outputs = ResearchOutput.where(plan_id: params[:plan_id])
+      research_outputs = ResearchOutput.where(plan_id: attrs[:plan_id])
 
       @research_output.update!(attrs)
 
@@ -165,6 +167,7 @@ class ResearchOutputsController < ApplicationController
 
   def research_output_params
     params.require(:research_output)
-          .permit(:id, :plan_id, :abbreviation, :title, :pid, :output_type_description, :contact_id)
+          .permit(:id, :plan_id, :abbreviation, :title, :type, :contact_id, :topic,
+                  configuration: {})
   end
 end
