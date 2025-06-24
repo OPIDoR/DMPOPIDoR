@@ -59,6 +59,8 @@ class GuidanceGroup < ApplicationRecord
   validates :published, inclusion: { in: BOOLEAN_VALUES,
                                      message: INCLUSION_MESSAGE }
 
+  validates :topics, presence: { message: PRESENCE_MESSAGE }
+
   # EVALUATE CLASS AND INSTANCE METHODS BELOW
   #
   # What do they do? do they do it efficiently, and do we need them?

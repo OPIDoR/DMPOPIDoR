@@ -47,8 +47,9 @@ class MadmpSchema < ApplicationRecord
   validates :name, presence: { message: PRESENCE_MESSAGE },
                    uniqueness: { message: UNIQUENESS_MESSAGE }
 
-  # validates :schema, presence:  { message: PRESENCE_MESSAGE },
-  #                     json: true
+  validates :data_type, presence: { message: PRESENCE_MESSAGE }
+
+  validates :topics, presence: { message: PRESENCE_MESSAGE }
 
   # ==========
   # = Constants =
