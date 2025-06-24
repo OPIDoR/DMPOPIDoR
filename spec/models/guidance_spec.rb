@@ -1,5 +1,25 @@
 # frozen_string_literal: true
 
+# == Schema Information
+#
+# Table name: guidances
+#
+#  id                :integer          not null, primary key
+#  locale            :string           default("fr-FR")
+#  published         :boolean
+#  text              :text
+#  created_at        :datetime         not null
+#  updated_at        :datetime         not null
+#  guidance_group_id :integer
+#
+# Indexes
+#
+#  guidances_guidance_group_id_idx  (guidance_group_id)
+#
+# Foreign Keys
+#
+#  fk_rails_...  (guidance_group_id => guidance_groups.id)
+#
 require 'rails_helper'
 
 RSpec.describe Guidance, type: :model do

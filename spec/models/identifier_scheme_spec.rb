@@ -1,5 +1,19 @@
 # frozen_string_literal: true
 
+# == Schema Information
+#
+# Table name: identifier_schemes
+#
+#  id                :integer          not null, primary key
+#  active            :boolean
+#  context           :integer
+#  description       :string
+#  identifier_prefix :string
+#  logo_url          :string
+#  name              :string
+#  created_at        :datetime
+#  updated_at        :datetime
+#
 require 'rails_helper'
 
 RSpec.describe IdentifierScheme, type: :model do

@@ -1,5 +1,28 @@
 # frozen_string_literal: true
 
+# == Schema Information
+#
+# Table name: phases
+#
+#  id             :integer          not null, primary key
+#  description    :text
+#  modifiable     :boolean
+#  number         :integer
+#  title          :string
+#  created_at     :datetime
+#  updated_at     :datetime
+#  template_id    :integer
+#  versionable_id :string(36)
+#
+# Indexes
+#
+#  index_phases_on_versionable_id  (versionable_id)
+#  phases_template_id_idx          (template_id)
+#
+# Foreign Keys
+#
+#  fk_rails_...  (template_id => templates.id)
+#
 require 'rails_helper'
 
 RSpec.describe Phase, type: :model do

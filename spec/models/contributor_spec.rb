@@ -1,5 +1,26 @@
 # frozen_string_literal: true
 
+# == Schema Information
+#
+# Table name: contributors
+#
+#  id         :integer          not null, primary key
+#  email      :string
+#  name       :string
+#  phone      :string
+#  roles      :integer          not null
+#  created_at :datetime
+#  updated_at :datetime
+#  org_id     :integer
+#  plan_id    :integer          not null
+#
+# Indexes
+#
+#  index_contributors_on_email    (email)
+#  index_contributors_on_org_id   (org_id)
+#  index_contributors_on_plan_id  (plan_id)
+#  index_contributors_on_roles    (roles)
+#
 require 'rails_helper'
 
 RSpec.describe Contributor, type: :model do

@@ -2,14 +2,14 @@
 
 source 'https://rubygems.org'
 
-ruby '>= 3.3'
+ruby '>= 3.4'
 
 # ===========#
 # CORE RAILS #
 # ===========#
 
 # Full-stack web application framework. (http://rubyonrails.org)
-gem 'rails', '~> 7.2'
+gem 'rails', '~> 8.0'
 
 # TODO: Remove this once Rails addresses the issue with its dependency on mimemagic. Mimemagic had
 #       an MIT license but was using some incompatible GPL license code.
@@ -347,9 +347,8 @@ group :development do
   # Profiles loading speed for rack applications. (http://miniprofiler.com)
   gem 'rack-mini-profiler'
 
-  # Annotates Rails Models, routes, fixtures, and others based on the
-  # database schema. (http://github.com/ctran/annotate_models)
-  gem 'annotate'
+  # database schema. (https://github.com/drwl/annotaterb)
+  gem 'annotaterb'
 
   # Add comments to your Gemfile with each dependency's description.
   # (https://github.com/ivantsepp/annotate_gem)
