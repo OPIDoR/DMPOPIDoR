@@ -4,7 +4,7 @@
 class AnswersController < ApplicationController
   respond_to :html
   include ConditionsHelper
-  helper ErrorHelper
+  include ErrorHelper
 
   # rubocop:disable Metrics/AbcSize
   def new_form
