@@ -15,21 +15,17 @@ module SuperAdmin
       @registry = Registry.new
     end
 
-    # rubocop:disable Metrics/AbcSize
     def create
       authorize(Registry)
       attrs = permitted_params
       @registry = Registry.new(attrs.except(:values))
       if @registry.save
-        flash.now[:notice] = success_message(@registry, _('created'))
         Registry.load_values(attrs[:values], @registry)
-        redirect_to edit_super_admin_registry_path(@registry)
+        redirect_to edit_super_admin_registry_path(@registry), notice: success_message(@registry, _('created'))
       else
-        flash.now[:alert] = failure_message(@registry, _('create'))
-        redirect_to new_super_admin_registry_path(@registry)
+        redirect_to edit_super_admin_registry_path(@registry), alert: success_message(@registry, _('create'))
       end
     end
-    # rubocop:enable Metrics/AbcSize
 
     def edit
       authorize(Registry)
@@ -42,13 +38,11 @@ module SuperAdmin
       attrs = permitted_params
       @registry = Registry.find(params[:id])
       if @registry.update(attrs.except(:values))
-        flash.now[:notice] = success_message(@registry, _('updated'))
+        Registry.load_values(attrs[:values], @registry)
+        redirect_to edit_super_admin_registry_path(@registry), notice: success_message(@registry, _('updated'))
       else
-        flash.now[:alert] = failure_message(@registry, _('update'))
+        redirect_to edit_super_admin_registry_path(@registry), alert: failure_message(@registry, _('update'))
       end
-      Registry.load_values(attrs[:values], @registry)
-
-      redirect_to edit_super_admin_registry_path(@registry)
     end
     # rubocop:enable Metrics/AbcSize
 
@@ -56,11 +50,9 @@ module SuperAdmin
       authorize(Registry)
       @registry = Registry.find(params[:id])
       if @registry.destroy
-        msg = success_message(@registry, _('deleted'))
-        redirect_to super_admin_registries_path, notice: msg
+        redirect_to super_admin_registries_path, notice: success_message(@registry, _('deleted'))
       else
-        flash.now[:alert] = failure_message(@registry, _('delete'))
-        render :edit
+        redirect_to edit_super_admin_registry_path(@registry), alert: failure_message(@registry, _('delete'))
       end
     end
 
