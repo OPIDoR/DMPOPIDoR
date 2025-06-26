@@ -6,7 +6,6 @@
 
 - Création de plan:
   - Modification des intitulés dans le choix du modèle
-  - Séléction par défaut du modèle recommendé
   - Ajout du text ``Recommandé par le réseau Science Ouverte des agences de financement françaises...``
 - Ajout d'un spinner et désactivation des champs (ajouter/importer/éditer un produit de recherche)
 
