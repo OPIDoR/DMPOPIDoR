@@ -2,6 +2,14 @@
 
 **Attention** Cette liste de changements concerne les déploiements sur nos serveurs de test en interne.
 
+## 26/06/2025
+
+- Création de plan:
+  - Modification des intitulés dans le choix du modèle
+  - Séléction par défaut du modèle recommendé
+  - Ajout du text ``Recommandé par le réseau Science Ouverte des agences de financement françaises...``
+- Ajout d'un spinner et désactivation des champs (ajouter/importer/éditer un produit de recherche)
+
 ## 17/06/2025
 
 - Amélioration de l'affichage des fragments avec des liens longs, sur Chrome (#13440)
