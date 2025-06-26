@@ -9,15 +9,7 @@ module OrgAdmin
       @user = User.find(params[:id])
       authorize @user
       @departments = @user.org.departments.order(:name)
-      # --------------------------------
-      # Start DMP OPIDoR Customization
-      # CHANGES : Org Admin only should access plan with administrator,
-      #           organisation & public plan when editing a user
-      # --------------------------------
       @plans = Plan.org_admin_visible(@user).page(1)
-      # --------------------------------
-      # End DMP OPIDoR Customization
-      # --------------------------------
       render 'org_admin/users/edit',
              locals: { user: @user,
                        departments: @departments,
@@ -33,36 +25,20 @@ module OrgAdmin
       @user = User.find(params[:id])
       authorize @user
       @departments = @user.org.departments.order(:name)
-      # --------------------------------
-      # Start DMP OPIDoR Customization
-      # CHANGES : Org Admin only should access plan with administrator,
-      #           organisation & public plan when editing a user
-      # --------------------------------
       @plans = Plan.org_admin_visible(@user).page(1)
-      # --------------------------------
-      # End DMP OPIDoR Customization
-      # --------------------------------
       if @user.update(user_params)
-        flash.now[:notice] = success_message(@user, _('updated'))
+        flash[:notice] = success_message(@user, _('updated'))
       else
-        flash.now[:alert] = failure_message(@user, _('update'))
+        flash[:alert] = failure_message(@user, _('update'))
       end
-      render :edit
+      redirect_to new_org_admin_user_path(@user)
     end
     # rubocop:enable Metrics/AbcSize
 
     def user_plans
       @user = User.find(params[:id])
       authorize @user
-      # --------------------------------
-      # Start DMP OPIDoR Customization
-      # CHANGES : Org Admin only should access plan with administrator,
-      #           organisation & public plan when editing a user
-      # --------------------------------
       @plans = Plan.org_admin_visible(@user).page(1)
-      # --------------------------------
-      # End DMP OPIDoR Customization
-      # --------------------------------
       render 'org_admin/users/plans'
     end
 

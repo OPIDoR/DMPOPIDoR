@@ -23,13 +23,13 @@ module OrgAdmin
       authorize @department
 
       if @department.save
-        flash.now[:notice] = success_message(@department, _('created'))
+        flash[:notice] = success_message(@department, _('created'))
         # reset value
         @department = nil
       else
-        flash.now[:alert] = failure_message(@department, _('create'))
+        flash[:alert] = failure_message(@department, _('create'))
       end
-      render :new
+      redirect_to new_org_department_path(@department)
     end
 
     # GET /departments/1/edit
@@ -47,11 +47,11 @@ module OrgAdmin
       authorize @department
 
       if @department.update(department_params)
-        flash.now[:notice] = success_message(@department, _('saved'))
+        flash[:notice] = success_message(@department, _('saved'))
       else
-        flash.now[:alert] = failure_message(@department, _('save'))
+        flash[:alert] = failure_message(@department, _('save'))
       end
-      render :edit
+      redirect_to edit_org_department_path(@department)
     end
     # rubocop:enable Metrics/AbcSize
 

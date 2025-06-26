@@ -25,7 +25,7 @@
 #
 # Indexes
 #
-#  index_research_outputs_on_plan_id     (plan_id)
+#  index_research_outputs_on_plan_id  (plan_id)
 #
 # Foreign Keys
 #

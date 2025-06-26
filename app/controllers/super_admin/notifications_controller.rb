@@ -35,11 +35,11 @@ module SuperAdmin
       # Will eventually need to be removed if we introduce new notification types
       @notification.notification_type = 'global'
       if @notification.save
-        flash.now[:notice] = success_message(@notification, _('created'))
+        flash[:notice] = success_message(@notification, _('created'))
         redirect_to edit_super_admin_notification_path(@notification)
       else
-        flash.now[:alert] = failure_message(@notification, _('create'))
-        render :new
+        flash[:alert] = failure_message(@notification, _('create'))
+        redirect_to new_super_admin_notification_path(@notification)
       end
     end
     # rubocop:enable Metrics/AbcSize
@@ -49,12 +49,11 @@ module SuperAdmin
     def update
       authorize(Notification)
       if @notification.update(notification_params)
-        flash.now[:notice] = success_message(@notification, _('updated'))
-        return redirect_to edit_super_admin_notification_path(@notification)
+        flash[:notice] = success_message(@notification, _('updated'))
       else
-        flash.now[:alert] = failure_message(@notification, _('update'))
+        flash[:alert] = failure_message(@notification, _('update'))
       end
-      render :edit
+      redirect_to edit_super_admin_notification_path(@notification)
     end
 
     # edit active field displayed in the table
@@ -85,8 +84,8 @@ module SuperAdmin
         msg = success_message(@notification, _('deleted'))
         redirect_to super_admin_notifications_path, notice: msg
       else
-        flash.now[:alert] = failure_message(@notification, _('delete'))
-        render :edit
+        flash[:alert] = failure_message(@notification, _('delete'))
+        redirect_to edit_super_admin_notification_path(@notification)
       end
     end
 

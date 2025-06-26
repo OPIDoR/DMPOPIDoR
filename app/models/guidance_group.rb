@@ -8,11 +8,13 @@
 # Table name: guidance_groups
 #
 #  id              :integer          not null, primary key
+#  description     :string
 #  name            :string
 #  optional_subset :boolean          default(TRUE), not null
 #  published       :boolean          default(FALSE), not null
 #  created_at      :datetime         not null
 #  updated_at      :datetime         not null
+#  language_id     :integer          default(0)
 #  org_id          :integer
 #
 # Indexes

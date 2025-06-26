@@ -26,7 +26,7 @@ class GuidancesController < ApplicationController
     @guidance = Guidance.new
     authorize @guidance
     @locales = Language.all
-    render :new_edit
+    redirect_to admin_edit_guidance_path(@guidance)
   end
 
   # GET /org/admin/guidance/:id/admin_edit
@@ -37,7 +37,7 @@ class GuidancesController < ApplicationController
 
     @locales = Language.all
 
-    render :new_edit
+    redirect_to admin_edit_guidance_path(@guidance)
   end
 
   # POST /org/admin/guidance/:id/admin_create
@@ -56,11 +56,11 @@ class GuidancesController < ApplicationController
           guidance_group.save
         end
       end
-      flash.now[:notice] = success_message(@guidance, _('created'))
+      flash[:notice] = success_message(@guidance, _('created'))
     else
-      flash.now[:alert] = failure_message(@guidance, _('create'))
+      flash[:alert] = failure_message(@guidance, _('create'))
     end
-    render :new_edit
+    redirect_to admin_edit_guidance_path(@guidance)
   end
   # rubocop:enable Metrics/AbcSize
 
@@ -116,11 +116,11 @@ class GuidancesController < ApplicationController
           guidance_group.save
         end
       end
-      flash.now[:notice] = success_message(@guidance, _('saved'))
+      flash[:notice] = success_message(@guidance, _('saved'))
     else
-      flash.now[:alert] = failure_message(@guidance, _('save'))
+      flash[:alert] = failure_message(@guidance, _('save'))
     end
-    render :new_edit
+    redirect_to admin_edit_guidance_path(@guidance)
   end
   # rubocop:enable Metrics/AbcSize
 

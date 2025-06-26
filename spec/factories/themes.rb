@@ -4,13 +4,15 @@
 #
 # Table name: themes
 #
-#  id          :integer          not null, primary key
-#  description :text
-#  locale      :string
-#  slug        :string
-#  title       :string
-#  created_at  :datetime         not null
-#  updated_at  :datetime         not null
+#  id           :integer          not null, primary key
+#  data_type    :string           default("none"), not null
+#  description  :text
+#  number       :integer
+#  slug         :string
+#  title        :string
+#  translations :json
+#  created_at   :datetime         not null
+#  updated_at   :datetime         not null
 #
 
 FactoryBot.define do

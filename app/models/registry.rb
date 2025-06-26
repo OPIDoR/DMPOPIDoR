@@ -5,9 +5,12 @@
 # Table name: registries
 #
 #  id          :integer          not null, primary key
+#  category    :string
+#  data_types  :string           default(["none"]), not null, is an Array
 #  description :string
 #  name        :string           not null
 #  uri         :string
+#  values      :json
 #  version     :integer
 #  created_at  :datetime         not null
 #  updated_at  :datetime         not null
@@ -74,10 +77,10 @@ class Registry < ApplicationRecord
       if json_values.key?(registry.name)
         registry.update(values: json_values[registry.name])
       else
-        flash.now[:alert] = 'Wrong values file format'
+        flash[:alert] = 'Wrong values file format'
       end
     rescue JSON::ParserError
-      flash.now[:alert] = 'File should contain JSON'
+      flash[:alert] = 'File should contain JSON'
     end
   end
   # rubocop:enable Metrics/AbcSize

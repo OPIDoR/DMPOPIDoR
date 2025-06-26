@@ -61,7 +61,7 @@ module SuperAdmin
           msg = success_message(org, _('created'))
           redirect_to admin_edit_org_path(org.id), notice: msg
         else
-          flash.now[:alert] = failure_message(org, _('create'))
+          flash[:alert] = failure_message(org, _('create'))
           @org = org
           @org.links = { org: [] } unless org.links.present?
           render 'super_admin/orgs/new'

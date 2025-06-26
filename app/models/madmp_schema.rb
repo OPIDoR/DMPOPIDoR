@@ -6,6 +6,7 @@
 #
 #  id            :integer          not null, primary key
 #  classname     :string
+#  data_type     :string           default("none"), not null
 #  label         :string
 #  name          :string
 #  schema        :json

@@ -30,11 +30,11 @@ class GuidanceGroupsController < ApplicationController
     @locales = Language.all
 
     if @guidance_group.save
-      flash.now[:notice] = success_message(@guidance_group, _('created'))
-      render :admin_edit
+      flash[:notice] = success_message(@guidance_group, _('created'))
+      redirect_to admin_edit_guidance_group_path(@guidance_group)
     else
-      flash.now[:alert] = failure_message(@guidance_group, _('create'))
-      render :admin_new
+      flash[:alert] = failure_message(@guidance_group, _('create'))
+      redirect_to admin_new_guidance_group_path(@guidance_group)
     end
   end
   # rubocop:enable Metrics/AbcSize
@@ -56,11 +56,11 @@ class GuidanceGroupsController < ApplicationController
     @locales = Language.all
 
     if @guidance_group.update(guidance_group_params)
-      flash.now[:notice] = success_message(@guidance_group, _('saved'))
+      flash[:notice] = success_message(@guidance_group, _('saved'))
     else
-      flash.now[:alert] = failure_message(@guidance_group, _('save'))
+      flash[:alert] = failure_message(@guidance_group, _('save'))
     end
-    render :admin_edit
+    redirect_to admin_edit_guidance_group_path(@guidance_group)
   end
   # rubocop:enable Metrics/AbcSize
 
