@@ -79,8 +79,9 @@ module Paginable
       )
       # If this was an ajax call then render as JSON
       if options[:format] == :json
-        render json: { html: render_to_string(layout: '/layouts/paginable',
-                                              partial: partial, locals: locals) }
+        render turbo_stream: turbo_stream.replace('paginable_results', layout: '/layouts/paginable',
+                                                                       partial: partial, locals: locals)
+
       elsif partial.present?
         render(layout: '/layouts/paginable', partial: partial, locals: locals)
       else
