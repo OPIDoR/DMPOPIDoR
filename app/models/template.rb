@@ -6,7 +6,7 @@
 #
 #  id               :integer          not null, primary key
 #  archived         :boolean
-#  context          :integer          default("research_project"), not null
+#  context          :integer          default(0), not null
 #  customization_of :integer
 #  data_type        :string           default("none"), not null
 #  description      :text

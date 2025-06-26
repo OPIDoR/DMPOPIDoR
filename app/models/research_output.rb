@@ -18,6 +18,7 @@
 #  release_date            :datetime
 #  sensitive_data          :boolean
 #  title                   :string
+#  topic                   :string           default("standard"), not null
 #  uuid                    :string
 #  created_at              :datetime         not null
 #  updated_at              :datetime         not null
