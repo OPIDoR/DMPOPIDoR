@@ -100,6 +100,9 @@ services:
       - CORS_ENABLED=true
       - CORS_ORIGIN=true
       - CORS_METHODS=GET,POST
+      - CONTENT_SECURITY_POLICY_USE_DEFAULT=true
+      - CONTENT_SECURITY_POLICY_DIRECTIVES__FRAME_SRC=www.canal-u.tv
+      - TELEMETRY=false
     volumes:
       - directus_uploads:/directus/uploads
     healthcheck:
