@@ -11,13 +11,13 @@
   <tbody>
     <% scope.each do |notification| %>
       <tr>
-        <td><%= link_to notification.title, edit_super_admin_notification_path(notification) %></td>
+        <td><%= link_to notification.title, edit_super_admin_notification_path(notification), data: { turbo_frame: "_top" } %></td>
         <td><%= notification.level %></td>
         <td><%= notification.starts_at %></td>
         <td><%= notification.expires_at %></td>
         <td class="enable_notification">
           <%= check_box_tag(:enabled, "1", notification.enabled, "aria-label": "active",
-                            data: { remote: true, method: :post, url: enable_super_admin_notification_path(notification) } ) %>
+                            data: { remote: true, turbo_method: :post, url: enable_super_admin_notification_path(notification) } ) %>
         </td>
       </tr>
     <% end %>

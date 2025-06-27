@@ -11,7 +11,7 @@
   <tbody id="themes">
     <% scope.each do |theme| %>
       <tr class="theme">
-        <td><%= link_to(theme.title, edit_super_admin_theme_path(theme)) %></td>
+        <td><%= link_to(theme.title, edit_super_admin_theme_path(theme), data: { turbo_frame: "_top" }) %></td>
         <td><%= sanitize(theme.description) %></td>
         <td><%= theme.data_type %></td>
         <td>

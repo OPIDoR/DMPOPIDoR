@@ -25,7 +25,7 @@
           <td><%= l(plan.updated_at.to_date, formats: :short) %></td>
           <td class="text-center">
             <%= link_to plan_export_path(plan, format: :pdf, export: { question_headings: true }),
-                class: "dmp_table_link has-new-window-popup-info", target: '_blank' do %>
+                class: "dmp_table_link has-new-window-popup-info", target: '_blank', data: {turbo_frame: "_top"} do %>
               <i class="fas fa-file-pdf" aria-hidden="true"></i>
               <em class="sr-only"><%= _('(new window)') %></em>
               <span class="new-window-popup-info"><%= _('Opens in new window') %></span>

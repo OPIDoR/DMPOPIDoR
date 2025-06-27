@@ -1,3 +1,4 @@
+<%= turbo_page_requires_reload %>
 <div class="table-responsive">
   <table class="table table-hover" id="my-plans">
     <thead>
@@ -19,7 +20,7 @@
         <tr id="<%= dom_id(plan) %>">
           <td>
             <%= link_to "#{plan.title.length > 100 ? "#{plan.title[0..99]} ..." : plan.title}",
-                plan_path(plan) %>
+                plan_path(plan), data: {turbo_frame: "_top"}  %>
           </td>
           <td><%= plan.template.title %></td>
           <td><%= l(plan.updated_at.to_date, formats: :short) %></td>
@@ -33,7 +34,7 @@
                                           aria: {
                                             label: "#{plan.title} - test plan flag"
                                           },
-                                          data: { remote: true, method: :post,
+                                          data: { remote: true, turbo_method: :post,
                                                   url: set_test_plan_path(plan) } %>
               <label for="is_test_<%= plan.id %>">
                 <span class="visually-hidden"><%= _('Test plan ?') %></span>
@@ -71,24 +72,28 @@
 
               <ul class="dropdown-menu dmpopidor-dropdown" aria-labelledby="plan-<%= plan.id %>-actions">
               <% if plan.editable_by?(current_user.id) then %>
-                <li class="nav-item"><%= link_to _('Edit'), plan_path(plan), class: 'dropdown-item  px-3' %></li>
+                <li class="nav-item"><%= link_to _('Edit'), plan_path(plan), class: 'dropdown-item  px-3', data: {turbo_frame: "_top"}  %></li>
 
                 <% if plan.administerable_by?(current_user.id) %>
-                  <li class="nav-item"><%= link_to _('Share'), share_plan_path(plan), class: 'dropdown-item  px-3' %></li>
+                  <li class="nav-item"><%= link_to _('Share'), share_plan_path(plan), class: 'dropdown-item  px-3', data: {turbo_frame: "_top"}  %></li>
                 <% end %>
 
                 <li class="nav-item"><%= link_to _('Download'), download_plan_path(plan), class: 'dropdown-item  px-3' %></li>
-                <li class="copy-plan nav-item"><%= link_to(_('Copy'), duplicate_plan_path(plan), data: { turbo_method: :post }, class: 'dropdown-item  px-3') %></li>
+                <li class="copy-plan nav-item"><%= link_to(_('Copy'), duplicate_plan_path(plan), data: { turbo_method: :post, turbo_frame: "_top" }, class: 'dropdown-item  px-3') %></li>
               <% else %>
-                <li class="nav-item"><%= link_to _('View'), plan_path(plan), class: 'dropdown-item  px-3' %></li>
+                <li class="nav-item"><%= link_to _('View'), plan_path(plan), class: 'dropdown-item  px-3', data: {turbo_frame: "_top"}  %></li>
 
                 <% if !plan.reviewable_by?(current_user.id) %>
-                  <li class="nav-item"><%= link_to _('Download'), download_plan_path(plan), class: 'dropdown-item  px-3' %></li>
+                  <li class="nav-item"><%= link_to _('Download'), download_plan_path(plan), class: 'dropdown-item  px-3', data: {turbo_frame: "_top"}  %></li>
                 <% end %>
               <% end %>
               <% role = my_plan_roles.first %>
               <% conf = (role.creator? && plan.publicly_visible?) ? _("Are you sure you wish to remove this public plan? This will remove it from the Public DMPs page but any collaborators will still be able to access it.") : _("Are you sure you wish to remove this plan? Any collaborators will still be able to access it.") %>
-              <li class="nav-item"><%= link_to _('Remove'), deactivate_role_path(role), class: 'dropdown-item  px-3', 'data-turbo-method': 'put', rel: 'nofollow', 'data-turbo-confirm': conf %></li>
+              <li class="nav-item">
+                <%= link_to _('Remove'), deactivate_role_path(role), class: 'dropdown-item  px-3', 'data-turbo-method': 'put', rel: 'nofollow',
+                    data: { turbo_frame: "_top", turbo_confirm: conf } 
+                 %>
+              </li>
             </ul>
           </div>
           </td>
