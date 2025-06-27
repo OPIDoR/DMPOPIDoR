@@ -357,9 +357,7 @@ class PlansController < ApplicationController
       # Start DMP OPIDoR Customization
       # --------------------------------
       @plan_client_roles = @plan.api_client_roles
-      @api_clients = ApiClient.all.select do |client|
-        client.org&.funder?
-      end
+      @api_clients = ApiClient.all
       # --------------------------------
       # End DMP OPIDoR Customization
       # --------------------------------
