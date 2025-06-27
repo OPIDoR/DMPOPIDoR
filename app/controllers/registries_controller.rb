@@ -13,16 +13,15 @@ class RegistriesController < ApplicationController
 
   def show
     registry = Registry.find(params[:id])
-
     skip_authorization
-    render json: registry.values
+    render json: registry.present? ? registry.values : []
   end
 
   def by_name
     registry = Registry.find_by(name: params[:name])
-
+    values = registry.present? ? registry.values : []
     skip_authorization
-    render json: params[:page] ? registry.values.page(params[:page]) : registry.values
+    render json: params[:page] ? values.page(params[:page]) : values
   end
 
   def suggest
