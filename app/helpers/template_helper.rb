@@ -53,7 +53,7 @@ module TemplateHelper
     cls = text.nil? ? 'direct-link' : 'direct-link btn btn-secondary'
     style = hidden ? 'display: none' : ''
 
-    link_to(plans_url(plan: params), data: { turbo_method: :post }, title: _('Create plan'),
+    link_to(plans_url(plan: params), data: { turbo_method: :post, turbo_frame: '_top' }, title: _('Create plan'),
                                      class: cls, id: id, style: style) do
       if text.nil?
         '<span class="fas fa-square-plus"></span>'.html_safe

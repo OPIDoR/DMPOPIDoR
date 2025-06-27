@@ -21,6 +21,7 @@
         </td>
         <td class="text-center">
           <%= link_to template_export_org_admin_template_url(template, format: :pdf),
+                      data: { turbo_frame: "_top" },
                       target: '_blank',
                       title: _("Opens in new window") do %>
             <i class="fas fa-file-pdf" aria-hidden="true"></i>
@@ -41,15 +42,15 @@
           <% edit_link = template&.module? ? edit_super_admin_template_path(id: template.id) : edit_org_admin_template_path(id: template.id) %>
           <% if template.customization_of.present? %>
             <% if template.latest? %>
-              <%= link_to  _('Edit customizations'), link, class: "dmp_table_link" %>
+              <%= link_to  _('Edit customizations'), link, class: "dmp_table_link", data: { turbo_frame: "_top" } %>
             <% else %>
-              <%= link_to  _('View customizations'), link, class: "dmp_table_link" %>
+              <%= link_to  _('View customizations'), link, class: "dmp_table_link", data: { turbo_frame: "_top" } %>
             <% end %>
           <% else %>
             <% if template.latest? %>
-              <%= link_to _('Edit'), edit_link, class: "dmp_table_link" %>
+              <%= link_to _('Edit'), edit_link, class: "dmp_table_link", data: { turbo_frame: "_top" } %>
             <% else %>
-              <%= link_to  _('View'), link, class: "dmp_table_link" %>
+              <%= link_to  _('View'), link, class: "dmp_table_link", data: { turbo_frame: "_top" } %>
             <% end %>
           <% end %>
         </td>

@@ -33,7 +33,7 @@
                 <td class="text-center">
                   <%= link_to plan_export_path(plan, format: :pdf, export: { question_headings: true }),
                       target: '_blank', 
-                      title: _("Opens in new window") do %>
+                      title: _("Opens in new window"), data: {turbo_frame: "_top"} do %>
                     <i class="fas fa-file-pdf" aria-hidden="true"></i>
                     <em class="sr-only"><%= _('(new window)') %></em>
                   <% end %>

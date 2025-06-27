@@ -13,10 +13,10 @@
     <% scope.each do |static_page| %>
       <tr>
         <td>
-          <%= link_to static_page.name, edit_super_admin_static_page_path(static_page) %>
+          <%= link_to static_page.name, edit_super_admin_static_page_path(static_page), data: { turbo_frame: "_top" } %>
         </td>
         <td>
-          <%= link_to static_page.url, static_path(static_page.url) %>
+          <%= link_to static_page.url, static_path(static_page.url), data: { turbo_frame: "_top" } %>
         </td>
       </tr>
     <% end %>
