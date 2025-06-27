@@ -434,7 +434,7 @@ class PlansController < ApplicationController
   def set_test
     plan = Plan.find(params[:id])
     authorize plan
-    plan.visibility = (params[:is_test] == '1' ? :is_test : :privately_visible)
+    plan.visibility = (params[:checked] ? :is_test : :privately_visible)
     if plan.save
       render json: {
         code: 1,

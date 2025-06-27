@@ -15,9 +15,8 @@
         <td><%= notification.level %></td>
         <td><%= notification.starts_at %></td>
         <td><%= notification.expires_at %></td>
-        <td class="enable_notification">
-          <%= check_box_tag(:enabled, "1", notification.enabled, "aria-label": "active",
-                            data: { remote: true, turbo_method: :post, url: enable_super_admin_notification_path(notification) } ) %>
+        <td class="enable_notification" data-controller="checkbox" data-checkbox-url="<%= enable_super_admin_notification_path(notification) %>">
+            <%= check_box_tag(:enabled, "1", notification.enabled, "aria-label": "active", data: { checkbox_target: "checkbox", action: "change->checkbox#toggle"} ) %>
         </td>
       </tr>
     <% end %>

@@ -18,6 +18,7 @@ import 'bootstrap';
 //       https://github.com/hotwired/turbo-rails
 import '@hotwired/turbo-rails';
 import { Application } from '@hotwired/stimulus';
+import CheckboxController from './controllers/checkbox_controller.js';
 import ReactController from './controllers/react_controller.js';
 import ResetFormController from './controllers/reset_form_controller.js';
 
@@ -108,5 +109,6 @@ window.toggleSpinner = toggleSpinner;
 
 // Register Stimulus controllers
 window.Stimulus = Application.start();
+window.Stimulus.register('checkbox', CheckboxController);
 window.Stimulus.register('react', ReactController);
 window.Stimulus.register('resetForm', ResetFormController);

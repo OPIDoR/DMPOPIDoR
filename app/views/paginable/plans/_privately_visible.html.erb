@@ -26,7 +26,8 @@
           <td><%= l(plan.updated_at.to_date, formats: :short) %></td>
           <td><%= display_role(my_plan_roles.first) %></td>
           <td><%= display_owner(plan.owner) %></td>
-          <td class="text-center set-test-td">
+
+          <td class="text-center set-test-td" data-controller="checkbox" data-checkbox-url="<%= set_test_plan_path(plan)   %>">
             <% if plan.administerable_by?(current_user.id) then %>
               <%= check_box_tag "is_test", "1", (plan.visibility === "is_test"),
                                           id: "is_test_#{plan.id}",
@@ -34,8 +35,8 @@
                                           aria: {
                                             label: "#{plan.title} - test plan flag"
                                           },
-                                          data: { remote: true, turbo_method: :post,
-                                                  url: set_test_plan_path(plan) } %>
+                                          checkbox_target: "checkbox", action: "change->checkbox#toggle"
+                                         %>
               <label for="is_test_<%= plan.id %>">
                 <span class="visually-hidden"><%= _('Test plan ?') %></span>
               </label>

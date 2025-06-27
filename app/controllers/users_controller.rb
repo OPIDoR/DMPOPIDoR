@@ -147,7 +147,7 @@ class UsersController < ApplicationController
     return unless user.present?
 
     begin
-      user.active = !user.active
+      user.active = params[:checked]
       user.save!
       render json: {
         code: 1,
