@@ -25,6 +25,17 @@
           name: 'madmp_schema[data_type]') %>
     </div>
     <div class="form-control mb-3">
+      <%= f.label(:topics, _('Topics'), class: 'form-label') %>
+      <%= select_tag(:topics,
+          options_for_select(
+            select_values_from_registry(@topics, @current_locale.to_s),
+            f.object.topics
+          ),
+          multiple: true,
+          class: "form-select",
+          name: 'madmp_schema[topics][]') %>
+    </div>
+    <div class="form-control mb-3">
       <%= f.label(:version, _('Version'), class: 'form-label') %>
       <%= f.number_field(:version, class: "form-control", spellcheck: true, "aria-required": true) %>
     </div>
