@@ -197,4 +197,8 @@ class MadmpSchema < ApplicationRecord
                   end
     }
   end
+
+  def self.suggest(classname, data_type, topic)
+    find_by(Arel.sql("'#{topic}' = ANY(topics) AND data_type='#{data_type}' AND classname='#{classname}'"))
+  end
 end
