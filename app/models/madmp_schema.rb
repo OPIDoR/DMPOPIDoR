@@ -94,7 +94,7 @@ class MadmpSchema < ApplicationRecord
   }
 
   scope :paginable, lambda {
-    select(:id, :label, :name, :classname, :api_client_id, :version)
+    select(:id, :label, :name, :classname, :topics, :api_client_id, :version)
   }
 
   # =================
