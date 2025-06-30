@@ -26,25 +26,31 @@
           <td><%= l(plan.updated_at.to_date, formats: :short) %></td>
           <td><%= display_role(my_plan_roles.first) %></td>
           <td><%= display_owner(plan.owner) %></td>
+
           <td class="text-center set-test-td">
             <% if plan.administerable_by?(current_user.id) then %>
-              <%= check_box_tag "is_test", "1", (plan.visibility === "is_test"),
+              <%= check_box_tag "is_test", "1", (plan.is_test?),
                                           id: "is_test_#{plan.id}",
                                           class: "set_test_plan",
                                           aria: {
                                             label: "#{plan.title} - test plan flag"
                                           },
-                                          data: { remote: true, turbo_method: :post,
-                                                  url: set_test_plan_path(plan) } %>
+                                          data: { 
+                                            checkbox_target: "checkbox", 
+                                            controller: 'checkbox',
+                                            action: "change->checkbox#toggle", 
+                                            checkbox_url: set_test_plan_path(plan),
+                                          }
+                                         %>
               <label for="is_test_<%= plan.id %>">
                 <span class="visually-hidden"><%= _('Test plan ?') %></span>
               </label>
             <% else %>
-              <%= plan.visibility === 'is_test' ? _('Yes') : _('No') %>
+              <%= plan.is_test? ? _('Yes') : _('No') %>
             <% end %>
           </td>
           <td class="plan-visibility">
-            <%= plan.visibility === 'is_test' ? _('N/A') : sanitize(display_visibility(plan.visibility)) %>
+            <%= plan.is_test? ? _('N/A') : sanitize(display_visibility(plan.visibility)) %>
           </td>
           <% if plan.shared? %>
             <% 

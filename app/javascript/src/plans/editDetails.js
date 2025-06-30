@@ -13,10 +13,6 @@ $(() => {
     Tinymce.init({ selector: 'textarea#plan_description' });
     Tinymce.init({ selector: 'textarea#plan_ethical_issues_description' });
 
-    $('#is_test').click((e) => {
-      $('#plan_visibility').val($(e.target).is(':checked') ? 'is_test' : 'privately_visible');
-    });
-
     const ethicalIssues = $('#plan_ethical_issues');
     const funderId = $('#plan_org_id');
 

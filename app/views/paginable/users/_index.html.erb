@@ -81,13 +81,12 @@
                       <%= link_to( _('Edit'), admin_grant_permissions_user_path(user), data: { turbo_frame: "_top" }) %>
                     <% end %>
                   </td>
-                  <td class="text-center user-status">
+                  <td class="text-center user-status"  data-controller="checkbox" data-checkbox-url="<%= activate_user_path(user) %>" data-checkbox-method="PUT">
                     <% if is_super_admin %>
-                      <%= check_box_tag :is_test, "1", user.active,
+                      <%= check_box_tag :active, "1", user.active,
                                                   class: "activate-user",
                                                   authenticity_token: true,
-                                                  data: { remote: true, method: :put,
-                                                          url: activate_user_path(user) } %>
+                                                  data: { checkbox_target: "checkbox", action: "change->checkbox#toggle"} %>
                     <% else %>
                       <%= user.active? ? _('Yes') : _('No') %>
                     <% end %>
