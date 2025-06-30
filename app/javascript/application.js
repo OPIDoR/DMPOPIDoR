@@ -62,7 +62,6 @@ import './src/orgs/adminEdit';
 import './src/orgs/shibbolethDs';
 import './src/plans/download';
 import './src/plans/index.js.erb';
-import './src/plans/new';
 import './src/plans/import';
 import './src/plans/researchOutputs';
 import './src/plans/share';
