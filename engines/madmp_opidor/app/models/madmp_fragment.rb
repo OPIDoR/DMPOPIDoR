@@ -121,7 +121,7 @@ class MadmpFragment < ApplicationRecord
 
   def plan
     if dmp.nil?
-      Plan.find(data['plan_id'])
+      Plan.includes(:tempalte, :api_clients).find(data['plan_id'])
     else
       dmp.plan
     end
