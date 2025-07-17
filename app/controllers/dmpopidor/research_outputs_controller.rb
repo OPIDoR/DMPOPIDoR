@@ -7,7 +7,7 @@ module Dmpopidor
     include ErrorHelper
     # GET /plans/:plan_id/research_outputs
     def index
-      @plan = ::Plan.find(params[:plan_id])
+      @plan = ::Plan.includes(:research_outputs, template: { phases: { sections: :questions } }).find(params[:plan_id])
       @research_outputs = @plan.research_outputs
       @persons = @plan.json_fragment.persons
       authorize @plan
@@ -18,7 +18,7 @@ module Dmpopidor
     end
 
     def show
-      @research_output = ResearchOutput.find(params[:id])
+      @research_output = ResearchOutput.includes(:answers, plan: { template: { phases: { sections: :questions } } }).find(params[:id])
       authorize @research_output
 
       render json: @research_output.serialize_json
@@ -53,7 +53,7 @@ module Dmpopidor
 
     # rubocop:disable Metrics/AbcSize, Metrics/MethodLength
     def update
-      @research_output = ResearchOutput.find(params[:id])
+      @research_output = ResearchOutput.includes(plan: [ :template, :research_outputs ] ).find(params[:id])
       plan =  @research_output.plan
       attrs = research_output_params
 

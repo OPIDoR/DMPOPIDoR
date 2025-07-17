@@ -400,7 +400,7 @@ module Dmpopidor
     # rubocop:enable Metrics/AbcSize
 
     def research_outputs_data
-      plan = ::Plan.find(params[:id])
+      plan = ::Plan.includes(:research_outputs, template: { phases: { sections: :questions } }).find(params[:id])
       authorize plan
 
       render json: {
