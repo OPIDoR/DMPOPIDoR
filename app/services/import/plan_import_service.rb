@@ -100,7 +100,7 @@ module Import
             )
             fragment.save!
           else
-            fragment = MadmpFragment.find(research_output_fragment.data[prop]['dbid'])
+            fragment = MadmpFragment.includes(:madmp_schema).find(research_output_fragment.data[prop]['dbid'])
           end
           fragment.raw_import(content, fragment.madmp_schema, fragment.id)
         end

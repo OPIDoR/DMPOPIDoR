@@ -20,7 +20,7 @@ class PublicPagesController < ApplicationController
     templates = Template.live(Template.families(::Org.all.pluck(:id)).pluck(:family_id))
                         .pluck(:id) <<
                 Template.where(is_default: true).unarchived.published.pluck(:id)
-    @templates = Template.includes(:org)
+    @templates = Template.includes(:org).order('templates.type desc')
                          .where(id: templates.uniq.flatten)
                          .unarchived.published.order('orgs.name asc')
   end

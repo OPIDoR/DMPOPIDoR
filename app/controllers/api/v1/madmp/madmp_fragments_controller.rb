@@ -13,7 +13,7 @@ module Api
         # GET /api/v1/madmp/fragments/:id
         # rubocop:disable Metrics/AbcSize
         def show
-          @fragment = MadmpFragment.find(params[:id])
+          @fragment = MadmpFragment.includes(:madmp_schema).find(params[:id])
           # check if the user has permissions to use the API
           unless Api::V1::Madmp::MadmpFragmentsPolicy.new(client, @fragment).show?
             render_error(errors: 'Unauthorized to access plan', status: :unauthorized)

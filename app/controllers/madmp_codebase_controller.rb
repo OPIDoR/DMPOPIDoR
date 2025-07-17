@@ -7,7 +7,7 @@ class MadmpCodebaseController < ApplicationController
   # rubocop:disable Metrics/AbcSize, Metrics/MethodLength
   # rubocop:disable Metrics/PerceivedComplexity, Metrics/CyclomaticComplexity
   def run
-    fragment = MadmpFragment.find(params[:fragment_id])
+    fragment = MadmpFragment.includes(:madmp_schema).find(params[:fragment_id])
     plan = fragment.plan
     script_name = params[:script_name]
     schema_run = fragment.madmp_schema.extract_run_parameters(script_name:)
@@ -20,7 +20,7 @@ class MadmpCodebaseController < ApplicationController
     I18n.with_locale plan.template.locale do
       # EXAMPLE DATA
       if Rails.configuration.x.madmp_codebase.mock == true
-        fragment.plan.add_api_client!(fragment.madmp_schema.api_client) if script_name.downcase.include?('notifyer')
+        plan.add_api_client!(fragment.madmp_schema.api_client) if script_name.downcase.include?('notifyer')
 
         # file_path = Rails.root.join("engines/madmp_opidor/config/example_data/codebase_example_data.json")
         # response = JSON.load(File.open(file_path))
@@ -39,7 +39,7 @@ class MadmpCodebaseController < ApplicationController
         return
       end
 
-      fragment.plan.add_api_client!(fragment.madmp_schema.api_client) if script_name.downcase.include?('notifyer')
+      plan.add_api_client!(fragment.madmp_schema.api_client) if script_name.downcase.include?('notifyer')
       begin
         response = fetch_run_data(fragment, script_name, script_owner, body: {
                                     data: fragment.data,
@@ -112,7 +112,7 @@ class MadmpCodebaseController < ApplicationController
   # rubocop:disable Metrics/AbcSize, Metrics/MethodLength
   def project_search
     project_id = params[:project_id]
-    fragment = MadmpFragment.find(params[:fragment_id])
+    fragment = MadmpFragment.includes(:dmp).find(params[:fragment_id])
     plan = fragment.plan
     dmp_fragment = fragment.dmp
     script_name = params[:script_name]
