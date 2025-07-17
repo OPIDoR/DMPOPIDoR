@@ -7,6 +7,8 @@
 - Correction du problème d'affichage des onglets des produits de recherche lors du défilement de la page (#13461)
 - Ajout de l'affichage de la description des groupes de recommandations dans la page d'export et dans l'export PDF (#13632)
 - Affichage des modèles structurés en tête du tableau des modèles (#13506)
+- Ajout d'un chargement lors d'un changement de produit de recherche
+- Tentative d'amélioration des temps de chargement et de la charge sur la base dans l'onglet Rédiger
 
 ## 26/06/2025
 
