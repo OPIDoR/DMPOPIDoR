@@ -2,6 +2,21 @@
 
 **Attention** Cette liste de changements concerne les déploiements sur nos serveurs de test en interne.
 
+## 17/07/2025
+
+- Correction du problème d'affichage des onglets des produits de recherche lors du défilement de la page (#13461)
+- Ajout de l'affichage de la description des groupes de recommandations dans la page d'export et dans l'export PDF (#13632)
+- Affichage des modèles structurés en tête du tableau des modèles (#13506)
+- Ajout d'un chargement lors d'un changement de produit de recherche
+- Tentative d'amélioration des temps de chargement et de la charge sur la base dans l'onglet Rédiger
+
+## 26/06/2025
+
+- Création de plan:
+  - Modification des intitulés dans le choix du modèle
+  - Ajout du text ``Recommandé par le réseau Science Ouverte des agences de financement françaises...``
+- Ajout d'un spinner et désactivation des champs (ajouter/importer/éditer un produit de recherche)
+
 ## 17/06/2025
 
 - Amélioration de l'affichage des fragments avec des liens longs, sur Chrome (#13440)

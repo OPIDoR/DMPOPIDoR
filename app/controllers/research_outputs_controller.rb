@@ -7,7 +7,8 @@ class ResearchOutputsController < ApplicationController
   after_action :verify_authorized
 
   def show
-    @research_output = ResearchOutput.find(params[:id])
+    @research_output = ResearchOutput.includes(:answers, plan: { template: { phases: { sections: :questions } } })
+                                     .find(params[:id])
     authorize @research_output
 
     render json: @research_output.serialize_json
@@ -16,7 +17,7 @@ class ResearchOutputsController < ApplicationController
   # POST /plans/:plan_id/research_outputs
   # rubocop:disable Metrics/AbcSize,Metrics/MethodLength
   def create
-    @plan = Plan.find(params[:plan_id])
+    @plan = Plan.includes(:template, :research_outputs).find_by(id: params[:plan_id])
     authorize ResearchOutput.new(plan: @plan)
     I18n.with_locale @plan.template.locale do
       max_order = @plan.research_outputs.empty? ? 1 : @plan.research_outputs.maximum('display_order') + 1
@@ -45,7 +46,7 @@ class ResearchOutputsController < ApplicationController
   # PATCH/PUT /plans/:plan_id/research_outputs/:id
   # rubocop:disable Metrics/AbcSize, Metrics/MethodLength
   def update
-    @research_output = ResearchOutput.find(params[:id])
+    @research_output = ResearchOutput.includes(plan: %i[template research_outputs]).find(params[:id])
     plan =  @research_output.plan
     attrs = research_output_params
 

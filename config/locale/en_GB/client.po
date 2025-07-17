@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: app 1.0\n"
 "Report-Msgid-Bugs-To: contact@translation.io\n"
-"POT-Creation-Date: 2025-06-04 10:44+0200\n"
-"PO-Revision-Date: 2025-06-04 10:44+0200\n"
+"POT-Creation-Date: 2025-06-18 09:58+0200\n"
+"PO-Revision-Date: 2025-06-18 09:58+0200\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: English\n"
 "Language: en_GB\n"
@@ -313,8 +313,8 @@ msgstr ""
 
 #: ../../app/controllers/dmpopidor/plans_controller.rb:397
 #: ../../engines/madmp_opidor/app/controllers/api/v1/madmp/plans_controller.rb:78
-#: ../../engines/madmp_opidor/app/controllers/madmp_codebase_controller.rb:64
-#: ../../engines/madmp_opidor/app/controllers/madmp_codebase_controller.rb:160
+#: ../../engines/madmp_opidor/app/controllers/madmp_codebase_controller.rb:72
+#: ../../engines/madmp_opidor/app/controllers/madmp_codebase_controller.rb:191
 #: ../../engines/madmp_opidor/app/graphql/mutations/create_plan.rb:45
 msgid "An error has occured: "
 msgstr ""
@@ -3500,8 +3500,7 @@ msgstr ""
 #: ../../app/views/branded/plans/_share_third_party.html.erb:13
 msgid ""
 "If your project is funded by the ANR, you are invited to share your DMP by cho"
-"osing ANR in the organizations list below. Find out how to do this here: <wait"
-"ing for the link>"
+"osing ANR in the organizations list below."
 msgstr ""
 
 #: ../../app/views/branded/plans/_share_third_party.html.erb:28
@@ -4412,15 +4411,16 @@ msgstr ""
 msgid "Successfully changed the permissions for %{api_client}."
 msgstr ""
 
-#: ../../engines/madmp_opidor/app/controllers/madmp_codebase_controller.rb:50
+#: ../../engines/madmp_opidor/app/controllers/madmp_codebase_controller.rb:35
+#: ../../engines/madmp_opidor/app/controllers/madmp_codebase_controller.rb:56
 msgid "Notification has been sent"
 msgstr ""
 
-#: ../../engines/madmp_opidor/app/controllers/madmp_codebase_controller.rb:122
+#: ../../engines/madmp_opidor/app/controllers/madmp_codebase_controller.rb:153
 msgid "New data have been added to your plan, please click on the \"Reload\" button."
 msgstr ""
 
-#: ../../engines/madmp_opidor/app/controllers/madmp_codebase_controller.rb:154
+#: ../../engines/madmp_opidor/app/controllers/madmp_codebase_controller.rb:185
 msgid "Project data have successfully been imported."
 msgstr ""
 

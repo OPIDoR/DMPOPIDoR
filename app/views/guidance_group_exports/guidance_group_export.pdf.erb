@@ -59,6 +59,9 @@
   </head>
   <body>
     <h1><%= "#{@guidance_group.org}: #{@guidance_group.name} (#{@guidance_group.language.name})" %></h1>
+    <p>
+      <%= @guidance_group.description %>
+    </p>
     <% language = @guidance_group.language.abbreviation %>
     <% @themes.each do |theme|%>
       <% @guidances.where(themes: { id: theme.id } ).each do |guidance|%>

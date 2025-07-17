@@ -133,7 +133,7 @@ class ClassicResearchOutputsController < ApplicationController
   # =============
 
   def fetch_plan
-    @plan = Plan.find_by(id: params[:plan_id])
+    @plan = Plan.includes(:template, :research_outputs).find_by(id: params[:plan_id])
     return true if @plan.present?
 
     redirect_to root_path, alert: _('plan not found')

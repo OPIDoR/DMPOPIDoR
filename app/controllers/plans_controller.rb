@@ -284,9 +284,7 @@ class PlansController < ApplicationController
       # Start DMP OPIDoR Customization
       # --------------------------------
       @plan_client_roles = @plan.api_client_roles
-      @api_clients = ApiClient.all.select do |client|
-        client.org&.funder?
-      end
+      @api_clients = ApiClient.all
       # --------------------------------
       # End DMP OPIDoR Customization
       # --------------------------------
@@ -622,7 +620,7 @@ class PlansController < ApplicationController
   # rubocop:enable Metrics/AbcSize
 
   def research_outputs_data
-    plan = Plan.find(params[:id])
+    plan = Plan.includes(:research_outputs, template: { phases: { sections: :questions } }).find(params[:id])
     authorize plan
 
     render json: {
