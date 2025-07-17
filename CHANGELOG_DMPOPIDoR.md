@@ -2,6 +2,12 @@
 
 **Attention** Cette liste de changements concerne les déploiements sur nos serveurs de test en interne.
 
+## 17/07/2025
+
+- Correction du problème d'affichage des onglets des produits de recherche lors du défilement de la page (#13461)
+- Ajout de l'affichage de la description des groupes de recommandations dans la page d'export et dans l'export PDF (#13632)
+- Affichage des modèles structurés en tête du tableau des modèles (#13506)
+
 ## 26/06/2025
 
 - Création de plan:
