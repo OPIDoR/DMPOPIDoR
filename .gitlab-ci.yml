@@ -24,10 +24,10 @@ brakeman:
     when: on_success
     expire_in: 30 days
     reports:
-      junit: './brakeman.junit'
+      junit: './report.junit'
   before_script: *before_script
   script:
-    - brakeman -A --color -o brakeman.junit
+    - bundle exec brakeman -A --color -o report.junit
   # rules:
   #  - if: '$CI_MERGE_REQUEST_TARGET_BRANCH_NAME == "main"'
   #    when: always
