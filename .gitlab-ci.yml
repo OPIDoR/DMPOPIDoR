@@ -1,0 +1,34 @@
+image: ruby:3.4
+
+stages:
+  - brakeman
+
+cache:
+  key:
+    files:
+      - Gemfile.lock
+  paths:
+    - vendor/ruby
+
+before_script: &before_script
+  - ruby -v
+  # - apt-get update -q && apt-get install nodejs -yqq
+  - bundle config set --local deployment true
+  - bundle config set --local path './vendor/ruby'
+  - bundle install --with ci development test
+
+brakeman:
+  stage: brakeman
+  artifacts:
+    untracked: false
+    when: on_success
+    expire_in: 30 days
+    reports:
+      junit: './brakeman.junit'
+  before_script: *before_script
+  script:
+    - brakeman -A --color -o brakeman.junit
+  # rules:
+  #  - if: '$CI_MERGE_REQUEST_TARGET_BRANCH_NAME == "main"'
+  #    when: always
+  #  - when: never
