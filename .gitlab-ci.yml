@@ -1,5 +1,5 @@
 default:
-  image: ruby:3.2
+  image: ruby:3.4
   before_script:
     - ruby -v
     - gem install bundler
