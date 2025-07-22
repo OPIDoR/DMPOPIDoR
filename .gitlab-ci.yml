@@ -1,4 +1,11 @@
-image: ruby:3.4
+default:
+  image: ruby:3.2
+  before_script:
+    - ruby -v
+    - gem install bundler
+    - bundle config set --local deployment true
+    - bundle config set --local path 'vendor/ruby'
+    - bundle install --with ci development test
 
 stages:
   - ci
@@ -10,16 +17,8 @@ cache:
   paths:
     - vendor/ruby
 
-before_script: &before_script
-  - ruby -v
-  # - apt-get update -q && apt-get install nodejs -yqq
-  - bundle config set --local deployment true
-  - bundle config set --local path './vendor/ruby'
-  - bundle install --with ci development test
-
 brakeman:
   stage: ci
-  before_script: *before_script
   script:
     - bundle exec brakeman -A --color -o brakeman-report.junit
   artifacts:
@@ -35,9 +34,8 @@ brakeman:
 
 rubocop:
   stage: ci
-  before_script: *before_script
   script:
-    -bundle exec rubocop --format junit --out rubocop-report.xml
+    - bundle exec rubocop --format junit --out rubocop-report.xml
   artifacts:
     untracked: false
     when: on_success
