@@ -2,6 +2,7 @@ image: ruby:3.4
 
 stages:
   - brakeman
+  - eslint
 
 cache:
   key:
@@ -32,3 +33,22 @@ brakeman:
   #  - if: '$CI_MERGE_REQUEST_TARGET_BRANCH_NAME == "main"'
   #    when: always
   #  - when: never
+
+eslint:
+  stage: eslint
+  image: node:22.17.1-alpine3.22
+  cache:
+    key: ${CI_COMMIT_REF_SLUG}
+    paths:
+      - node_modules/
+  before_script:
+    - yarn install
+  script:
+    - yarn run eslint app/javascript/**/*.js --ext .js
+  # rules:
+  #  - if: '$CI_PIPELINE_SOURCE == "merge_request_event"'
+  #    when: always
+  # - if: '$CI_PIPELINE_SOURCE == "push"'
+  #   when: always
+  # - when: never
+
