@@ -20,7 +20,7 @@ cache:
 brakeman:
   stage: ci
   script:
-    - bundle exec brakeman -A --color -o brakeman-report.junit
+    - bundle exec brakeman -A -o brakeman-report.junit
   artifacts:
     untracked: false
     when: on_success
@@ -41,7 +41,7 @@ rubocop:
     when: on_success
     expire_in: 30 days
     reports:
-      junit: './rubocop-report.junit'
+      junit: './rubocop-report.xml'
 
 eslint:
   stage: ci
