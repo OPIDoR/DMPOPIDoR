@@ -6,6 +6,10 @@ default:
     - bundle config set --local deployment true
     - bundle config set --local path 'vendor/ruby'
     - bundle install --with ci development test
+  tags:
+    - docker
+    - shared
+
 
 stages:
   - ci
