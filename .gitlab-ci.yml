@@ -1,8 +1,7 @@
 image: ruby:3.4
 
 stages:
-  - brakeman
-  - eslint
+  - ci
 
 cache:
   key:
@@ -19,7 +18,7 @@ before_script: &before_script
   - bundle install --with ci development test
 
 brakeman:
-  stage: brakeman
+  stage: ci
   artifacts:
     untracked: false
     when: on_success
@@ -35,7 +34,7 @@ brakeman:
   #  - when: never
 
 eslint:
-  stage: eslint
+  stage: ci
   image: node:22.17.1-alpine3.22
   cache:
     key: ${CI_COMMIT_REF_SLUG}
