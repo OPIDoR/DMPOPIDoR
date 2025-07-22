@@ -19,19 +19,31 @@ before_script: &before_script
 
 brakeman:
   stage: ci
+  before_script: *before_script
+  script:
+    - bundle exec brakeman -A --color -o brakeman-report.junit
   artifacts:
     untracked: false
     when: on_success
     expire_in: 30 days
     reports:
-      junit: './report.junit'
-  before_script: *before_script
-  script:
-    - bundle exec brakeman -A --color -o report.junit
+      junit: './brakeman-report.junit'
   # rules:
   #  - if: '$CI_MERGE_REQUEST_TARGET_BRANCH_NAME == "main"'
   #    when: always
   #  - when: never
+
+rubocop:
+  stage: ci
+  before_script: *before_script
+  script:
+    -bundle exec rubocop --format junit --out rubocop-report.xml
+  artifacts:
+    untracked: false
+    when: on_success
+    expire_in: 30 days
+    reports:
+      junit: './rubocop-report.junit'
 
 eslint:
   stage: ci
@@ -44,10 +56,3 @@ eslint:
     - yarn install
   script:
     - yarn run eslint app/javascript/**/*.js --ext .js
-  # rules:
-  #  - if: '$CI_PIPELINE_SOURCE == "merge_request_event"'
-  #    when: always
-  # - if: '$CI_PIPELINE_SOURCE == "push"'
-  #   when: always
-  # - when: never
-
