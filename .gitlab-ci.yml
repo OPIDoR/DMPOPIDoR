@@ -12,7 +12,6 @@ default:
 
 stages:
   - ci
-  - test
 
 cache:
   key:
@@ -60,7 +59,7 @@ eslint:
     - yarn run eslint app/javascript/**/*.js --ext .js
 
 test:
-  stage: test
+  stage: ci
   image: docker:28.3.2-dind
   before_script:
     - docker-compose build
