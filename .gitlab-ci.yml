@@ -61,9 +61,11 @@ eslint:
 test:
   stage: ci
   image: docker:28.3.2-dind
+  variables:
+    ALLOWED_HOSTS: dmpopidor,localhost,0.0.0.0
   before_script:
-    - docker-compose build
-    - docker compose run --rm dmpopidor sh -c 'ruby bin/docker postgres'
+    - docker compose build
+    - docker compose run --rm dmpopidor sh -c 'ruby bin/docker postgres' --build-arg http_proxy=$http_proxy --build-arg https_proxy=$https_proxy
     - docker compose run --rm dmpopidor sh -c 'bin/rails db:environment:set RAILS_ENV=development; ruby bin/docker db:setup'
     - docker compose run --rm dmpopidor sh -c 'bundle exec rails db:setup RAILS_ENV=test'
     - docker compose run --rm dmpopidor sh -c 'bundle exec rails db:migrate RAILS_ENV=test'
