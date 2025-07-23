@@ -314,6 +314,8 @@ group :ci, :development do
 
   # Performance checks by Rubocop
   gem 'rubocop-performance', require: false
+
+  gem 'rspec_junit_formatter'
 end
 
 group :development do

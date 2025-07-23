@@ -10,9 +10,9 @@ default:
     - docker
     - shared
 
-
 stages:
   - ci
+  - test
 
 cache:
   key:
@@ -58,3 +58,44 @@ eslint:
     - yarn install
   script:
     - yarn run eslint app/javascript/**/*.js --ext .js
+
+test:
+  stage: test
+  image: docker:28.3.2-dind
+  before_script:
+    - docker-compose build
+    - docker compose run --rm dmpopidor sh -c 'ruby bin/docker postgres'
+    - docker compose run --rm dmpopidor sh -c 'bin/rails db:environment:set RAILS_ENV=development; ruby bin/docker db:setup'
+    - docker compose run --rm dmpopidor sh -c 'bundle exec rails db:setup RAILS_ENV=test'
+    - docker compose run --rm dmpopidor sh -c 'bundle exec rails db:migrate RAILS_ENV=test'
+    - docker compose up -d
+  script:
+    - echo "Run Rspec Unit and Functional Tests"
+    - docker compose exec -it dmpopidor sh -c '
+        bundle exec rspec \
+          spec/models/ \
+          spec/policies/ \
+          spec/services/ \
+          spec/helpers/ \
+          spec/controllers/ \
+          spec/presenters/ \
+          spec/requests/ \
+          spec/views \
+          spec/mixins/
+          --format RspecJunitFormatter \
+          --out rspec-unit-functional-tests.xml
+      '
+    - echo "Run Integration Tests"
+    - docker compose exec -it dmpopidor sh -c 'bundle exec rspec spec/features/ --format RspecJunitFormatter --out rspec-integration-tests.xml'
+  after_script:
+    - docker compose down
+  artifacts:
+    when: always
+    expire_in: 30 days
+    reports:
+      junit:
+        - rspec-unit-functional-tests.xml
+        - rspec-integration-tests.xml
+    paths:
+      - rspec-unit-functional-tests.xml
+      - rspec-integration-tests.xml
