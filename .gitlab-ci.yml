@@ -61,7 +61,12 @@ eslint:
 test:
   stage: ci
   image: docker:28.3.2-dind
+  services:
+    - docker:28.3.2-dind
   variables:
+    DOCKER_HOST: tcp://docker:2375/
+    DOCKER_DRIVER: overlay2
+    RAILS_ENV: test
     ALLOWED_HOSTS: dmpopidor,localhost,0.0.0.0
   before_script:
     - docker compose build
