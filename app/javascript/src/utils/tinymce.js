@@ -17,6 +17,7 @@ import 'tinymce/plugins/autoresize';
 import 'tinymce/plugins/link';
 import 'tinymce/plugins/advlist';
 import 'tinymce/plugins/autolink';
+import 'tinymce/plugins/charmap';
 
 // Other dependencies
 import { isObject, isString, isUndefined } from './isType';
