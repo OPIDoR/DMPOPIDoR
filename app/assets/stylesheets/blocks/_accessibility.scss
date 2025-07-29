@@ -3,7 +3,9 @@
 @use '../variables/typography' as *;
 
 /* Setting font-family for improving screen legibility */
-body, .tooltip, .popover {
+body,
+.tooltip,
+.popover {
   font-family: $font-family;
 }
 
@@ -24,18 +26,18 @@ body, .tooltip, .popover {
 
 /* Skip to main content link styling */
 div.skip a {
-  position:absolute;
-  left:-10000px;
-  top:auto;
-  width:1px;
-  height:1px;
+  position: absolute;
+  left: -10000px;
+  top: auto;
+  width: 1px;
+  height: 1px;
   overflow: hidden !important;
 }
 
 div.skip a:focus {
-  width:auto;
-  height:auto;
-  overflow:visible !important;
+  width: auto;
+  height: auto;
+  overflow: visible !important;
 }
 
 /** Focus outline required for accessibility */
@@ -50,6 +52,7 @@ div.skip a:focus {
 // }
 
 ul.header-links li {
+
   ul,
   .divider {
     padding: 0;
@@ -57,28 +60,42 @@ ul.header-links li {
   }
 
   &:not(.delimiter):not(.divider) {
-      padding: 0;
+    padding: 0;
   }
 }
-  
-  /** button outline-width increased for better visibility of outline */
-  // button {
 
-  //   &:focus,
-  //   &:hover,
-  //   &:active {
-  //     outline-style: solid !important;
-  //     outline-color: $color-focus-outline !important;
-  //     outline-width: 3px !important;
-  //   }
-  // }
-  
-  td {
-    &:focus-within,
-    &:focus,
-    &:hover {
-      outline-style: solid !important;
-      outline-color: #fff !important;
-      outline-width: 2px !important;
-    }
+/** button outline-width increased for better visibility of outline */
+// button {
+
+//   &:focus,
+//   &:hover,
+//   &:active {
+//     outline-style: solid !important;
+//     outline-color: $color-focus-outline !important;
+//     outline-width: 3px !important;
+//   }
+// }
+
+td {
+
+  &:focus-within,
+  &:focus,
+  &:hover {
+    outline-style: solid !important;
+    outline-color: #fff !important;
+    outline-width: 2px !important;
   }
+}
+
+.sr-only,
+.fa-sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border-width: 0;
+}

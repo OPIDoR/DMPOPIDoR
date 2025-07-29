@@ -946,51 +946,46 @@
   resolved "https://registry.yarnpkg.com/@floating-ui/utils/-/utils-0.2.10.tgz#a2a1e3812d14525f725d011a73eceb41fef5bc1c"
   integrity sha512-aGTxbpbg8/b5JfU1HXSrbH3wXZuLPJcNEcZQFMxLs3oSzgtVu6nFPkbbGGUvBcUjKV2YyB9Wxxabo+HEH9tcRQ==
 
-"@fortawesome/fontawesome-free@^6.4.0":
-  version "6.7.2"
-  resolved "https://registry.yarnpkg.com/@fortawesome/fontawesome-free/-/fontawesome-free-6.7.2.tgz#8249de9b7e22fcb3ceb5e66090c30a1d5492b81a"
-  integrity sha512-JUOtgFW6k9u4Y+xeIaEiLr3+cjoUPiAuLXoyKOJSia6Duzb7pq+A76P9ZdPDoAoxHdHzq6gE9/jKBGXlZT8FbA==
+"@fortawesome/fontawesome-free@^7.0.0":
+  version "7.0.0"
+  resolved "https://registry.yarnpkg.com/@fortawesome/fontawesome-free/-/fontawesome-free-7.0.0.tgz#e4a6788a2d395ea97e7812a096e29bf9c95b944c"
+  integrity sha512-X48nISrSOa89zu2VMljC4XaRf8NmgTwQBVHfS2Nu5G00ZwM31oOVrAtGxZF3b6wDYf9lJsf/Eq4cCSFKIkOWPQ==
 
-"@graphiql/plugin-doc-explorer@^0.2.2":
-  version "0.2.2"
-  resolved "https://registry.yarnpkg.com/@graphiql/plugin-doc-explorer/-/plugin-doc-explorer-0.2.2.tgz#fe1449b4b3547a15eb5f3973b1c90415c1d470d3"
-  integrity sha512-0Pj0vsNFfZJZJ3moC7O9xF1Dt2KWyvdxke+cFFZQLN1L2VxdTUa4cfGSg5ujv/ikDUUyyPQNTZuyXzagM4NG5g==
+"@graphiql/plugin-doc-explorer@^0.4.1":
+  version "0.4.1"
+  resolved "https://registry.yarnpkg.com/@graphiql/plugin-doc-explorer/-/plugin-doc-explorer-0.4.1.tgz#9fa7d2fec92827a63444c822fd81bfbcb6d9e2e3"
+  integrity sha512-+ram1dDDGMqJn/f9n5I8E6grTvxcM9JZYt/HhtYLuCvkN8kERI6/E3zBHBshhIUnQZoXioZ03fAzXg7JOn0Kyg==
   dependencies:
-    "@graphiql/react" "^0.34.1"
     "@headlessui/react" "^2.2"
-    react-compiler-runtime "19.1.0-rc.1"
     zustand "^5"
 
-"@graphiql/plugin-history@^0.2.2":
-  version "0.2.2"
-  resolved "https://registry.yarnpkg.com/@graphiql/plugin-history/-/plugin-history-0.2.2.tgz#e65da1a4e8ec5837aad0c1c658ed02a6dac60237"
-  integrity sha512-ta1k8ichGVfMg6eDwRYa/2e92PfLPh+wgtJTuTQagmXBLXhM7g8Hbk+CaE2clUahQ8/4CZOIRXJHbQ7B5tI9dg==
+"@graphiql/plugin-history@^0.4.1":
+  version "0.4.1"
+  resolved "https://registry.yarnpkg.com/@graphiql/plugin-history/-/plugin-history-0.4.1.tgz#2a1574570c9b200159c44ef19568dd8672a3f4b4"
+  integrity sha512-UyGI/Nm5tzKNMB71li41p6TfkthLqHkmNi9CgHzAM1zKgPIrtSq7Q8WCWKHLOEB5n4/8X8sXFeyQfHgnGYTXYg==
   dependencies:
-    "@graphiql/react" "^0.34.1"
     "@graphiql/toolkit" "^0.11.3"
-    react-compiler-runtime "19.1.0-rc.1"
     zustand "^5"
 
-"@graphiql/react@^0.34.1":
-  version "0.34.1"
-  resolved "https://registry.yarnpkg.com/@graphiql/react/-/react-0.34.1.tgz#911856b80856eb4db1052604a8a0bec561c7d420"
-  integrity sha512-Ykqt5uzIRKcbriyVisr/y6BwxK9ZIsilaJFPbajDAcoDiXlGEx/Pl86OcJNjslsqn79M9BkrphWvWa7cBGz3Sw==
+"@graphiql/react@^0.37.1":
+  version "0.37.1"
+  resolved "https://registry.yarnpkg.com/@graphiql/react/-/react-0.37.1.tgz#533d55907fbbdb48533678a4ae04ccd9a2f78841"
+  integrity sha512-28XtNUzzQeQ2NFS26tG/F6d3SGm/nNrXtKpGhPmCNfLRYiUeaieAond3t9UsSJ8GFgf1NnJHiJDD3kFSpqVDng==
   dependencies:
     "@graphiql/toolkit" "^0.11.3"
     "@radix-ui/react-dialog" "^1.1"
     "@radix-ui/react-dropdown-menu" "^2.1"
     "@radix-ui/react-tooltip" "^1.2"
     "@radix-ui/react-visually-hidden" "^1.2"
-    "@types/codemirror" "^5.60.8"
     clsx "^1.2.1"
-    codemirror "^5.65.3"
-    codemirror-graphql "^2.2.1"
-    copy-to-clipboard "^3.2.0"
-    framer-motion "^12"
+    framer-motion "^12.12"
     get-value "^3.0.1"
-    graphql-language-service "^5.3.1"
+    graphql-language-service "^5.5.0"
+    jsonc-parser "^3.3.1"
     markdown-it "^14.1.0"
-    react-compiler-runtime "19.1.0-rc.1"
+    monaco-editor "^0.52.2"
+    monaco-graphql "^1.7.2"
+    prettier "^3.5.3"
     set-value "^4.1.0"
     zustand "^5"
 
@@ -1619,20 +1614,6 @@
   resolved "https://registry.yarnpkg.com/@tanstack/virtual-core/-/virtual-core-3.13.12.tgz#1dff176df9cc8f93c78c5e46bcea11079b397578"
   integrity sha512-1YBOJfRHV4sXUmWsFSf5rQor4Ss82G8dQWLRbnk3GA4jeP8hQt1hxXh0tmflpC0dz3VgEv/1+qwPyLeWkQuPFA==
 
-"@types/codemirror@^0.0.90":
-  version "0.0.90"
-  resolved "https://registry.yarnpkg.com/@types/codemirror/-/codemirror-0.0.90.tgz#9c5edafce2a780b4f8bc5e3b699fe1f4727c8f17"
-  integrity sha512-8Z9+tSg27NPRGubbUPUCrt5DDG/OWzLph5BvcDykwR5D7RyZh5mhHG0uS1ePKV1YFCA+/cwc4Ey2AJAEFfV3IA==
-  dependencies:
-    "@types/tern" "*"
-
-"@types/codemirror@^5.60.8":
-  version "5.60.16"
-  resolved "https://registry.yarnpkg.com/@types/codemirror/-/codemirror-5.60.16.tgz#1f462f9771113bd8e1c6130c666b17db8e1087c2"
-  integrity sha512-V/yHdamffSS075jit+fDxaOAmdP2liok8NSNJnAZfDJErzOheuygHZEhAJrfmk5TEyM32MhkZjwo/idX791yxw==
-  dependencies:
-    "@types/tern" "*"
-
 "@types/cors@^2.8.12":
   version "2.8.19"
   resolved "https://registry.yarnpkg.com/@types/cors/-/cors-2.8.19.tgz#d93ea2673fd8c9f697367f5eeefc2bbfa94f0342"
@@ -1701,13 +1682,6 @@
   version "4.0.2"
   resolved "https://registry.yarnpkg.com/@types/parse-json/-/parse-json-4.0.2.tgz#5950e50960793055845e956c427fc2b0d70c5239"
   integrity sha512-dISoDXWWQwUquiKsyZ4Ng+HX2KsPL7LyHKHQwgGFEA3IaKac4Obd+h2a/a6waisAoepJlBcx9paWqjA8/HVjCw==
-
-"@types/tern@*":
-  version "0.23.9"
-  resolved "https://registry.yarnpkg.com/@types/tern/-/tern-0.23.9.tgz#6f6093a4a9af3e6bb8dde528e024924d196b367c"
-  integrity sha512-ypzHFE/wBzh+BlH6rrBgS5I/Z7RD21pGhZ2rltb/+ZrVM1awdZwjx7hE5XfuYgHWk9uvV5HLZN3SloevCAp3Bw==
-  dependencies:
-    "@types/estree" "*"
 
 "@types/yargs-parser@*":
   version "21.0.3"
@@ -2315,19 +2289,6 @@ clsx@^2.0.0:
   resolved "https://registry.yarnpkg.com/clsx/-/clsx-2.1.1.tgz#eed397c9fd8bd882bfb18deab7102049a2f32999"
   integrity sha512-eYm0QWBtUrBWZWG0d386OGAw16Z995PiOVo2B7bjWSbHedGl5e0ZWaq65kOGgUSNesEIDkB9ISbTg/JK9dhCZA==
 
-codemirror-graphql@^2.2.1:
-  version "2.2.4"
-  resolved "https://registry.yarnpkg.com/codemirror-graphql/-/codemirror-graphql-2.2.4.tgz#e0a0e48795d0c6e5d441439526e457ea6c608dc7"
-  integrity sha512-VW4rpbAqgAIEWKXwE3nDFz2QEaY5Cme0CnKET43ZE3RSKAAeOaUcecR6wBf3LYfxWwOyyzeCzqxRoUj+HNAEQA==
-  dependencies:
-    "@types/codemirror" "^0.0.90"
-    graphql-language-service "5.5.0"
-
-codemirror@^5.65.3:
-  version "5.65.19"
-  resolved "https://registry.yarnpkg.com/codemirror/-/codemirror-5.65.19.tgz#71016c701d6a4b6e1982b0f6e7186be65e49653d"
-  integrity sha512-+aFkvqhaAVr1gferNMuN8vkTSrWIFvzlMV9I2KBLCWS2WpZ2+UAkZjlMZmEuT+gcXTi6RrGQCkWq1/bDtGqhIA==
-
 color-convert@^2.0.1:
   version "2.0.1"
   resolved "https://registry.yarnpkg.com/color-convert/-/color-convert-2.0.1.tgz#72d3a68d598c9bdb3af2ad1e84f21d896abd4de3"
@@ -2389,13 +2350,6 @@ cookie@~0.7.2:
   version "0.7.2"
   resolved "https://registry.yarnpkg.com/cookie/-/cookie-0.7.2.tgz#556369c472a2ba910f2979891b526b3436237ed7"
   integrity sha512-yki5XnKuf750l50uGTllt6kKILY4nQ1eNIQatoXEByZ5dWgnKqbnqmTrBE5B4N7lrMJKQ2ytWMiTO2o0v6Ew/w==
-
-copy-to-clipboard@^3.2.0:
-  version "3.3.3"
-  resolved "https://registry.yarnpkg.com/copy-to-clipboard/-/copy-to-clipboard-3.3.3.tgz#55ac43a1db8ae639a4bd99511c148cdd1b83a1b0"
-  integrity sha512-2KV8NhB5JqC3ky0r9PMCAZKbUHSwtEo4CwCs0KXgruG43gX5PMqDEBbVU4OUzw2MuAWUfsuFmWvEKG5QRfSnJA==
-  dependencies:
-    toggle-selection "^1.0.6"
 
 core-js-compat@^3.43.0:
   version "3.44.0"
@@ -3166,7 +3120,7 @@ foreground-child@^3.1.0:
     cross-spawn "^7.0.6"
     signal-exit "^4.0.1"
 
-framer-motion@^12:
+framer-motion@^12.12:
   version "12.23.11"
   resolved "https://registry.yarnpkg.com/framer-motion/-/framer-motion-12.23.11.tgz#7a50a2d7a1dd370ca95bf0c04e88a7cdfabc393d"
   integrity sha512-VzNi+exyI3bn7Pzvz1Fjap1VO9gQu8mxrsSsNamMidsZ8AA8W2kQsR+YQOciEUbMtkKAWIbPHPttfn5e9jqqJQ==
@@ -3344,17 +3298,17 @@ graphemer@^1.4.0:
   resolved "https://registry.yarnpkg.com/graphemer/-/graphemer-1.4.0.tgz#fb2f1d55e0e3a1849aeffc90c4fa0dd53a0e66c6"
   integrity sha512-EtKwoO6kxCL9WO5xipiHTZlSzBm7WLT627TqC/uVRd0HKmq8NXyebnNYxDoBi7wt8eTWrUrKXCOVaFq9x1kgag==
 
-graphiql@^4.0.2:
-  version "4.1.2"
-  resolved "https://registry.yarnpkg.com/graphiql/-/graphiql-4.1.2.tgz#5c60965b1095f0f674278adcfd4d6d2c40f6e17e"
-  integrity sha512-rNlzQIAzm6i2KBXmVQWBgLvt0TloxFVB2d18bukvdsvjEuFDHsKx5IVOomL1W1o5WW+tE54+ioHb2AEKzO2cUg==
+graphiql@^5.0.0:
+  version "5.2.0"
+  resolved "https://registry.yarnpkg.com/graphiql/-/graphiql-5.2.0.tgz#e2e5a10ac562ac5f126a2f95bfab0845ec787924"
+  integrity sha512-nf+3cmwTANNaJCLHzfSBFxR00ckXXpUcQAKt2O1bNLiqhHavfFlZie+sZrYz26sQVxa9LfxPYUJvjF4x8C24Nw==
   dependencies:
-    "@graphiql/plugin-doc-explorer" "^0.2.2"
-    "@graphiql/plugin-history" "^0.2.2"
-    "@graphiql/react" "^0.34.1"
+    "@graphiql/plugin-doc-explorer" "^0.4.1"
+    "@graphiql/plugin-history" "^0.4.1"
+    "@graphiql/react" "^0.37.1"
     react-compiler-runtime "19.1.0-rc.1"
 
-graphql-language-service@5.5.0, graphql-language-service@^5.3.1:
+graphql-language-service@^5.5.0:
   version "5.5.0"
   resolved "https://registry.yarnpkg.com/graphql-language-service/-/graphql-language-service-5.5.0.tgz#2e68b23bd5384f2fbf1e9391e907106e8246d025"
   integrity sha512-9EvWrLLkF6Y5e29/2cmFoAO6hBPPAZlCyjznmpR11iFtRydfkss+9m6x+htA8h7YznGam+TtJwS6JuwoWWgb2Q==
@@ -3888,6 +3842,11 @@ json5@^2.2.3:
   resolved "https://registry.yarnpkg.com/json5/-/json5-2.2.3.tgz#78cd6f1a19bdc12b73db5ad0c61efd66c1e29283"
   integrity sha512-XmOWe7eyHYH14cLdVPoyg+GOH3rYX++KpzrylJwSW98t3Nk+U8XOl8FWKOgwtzdb8lXGf6zYwDUzeHMWfxasyg==
 
+jsonc-parser@^3.3.1:
+  version "3.3.1"
+  resolved "https://registry.yarnpkg.com/jsonc-parser/-/jsonc-parser-3.3.1.tgz#f2a524b4f7fd11e3d791e559977ad60b98b798b4"
+  integrity sha512-HUgH65KyejrUFPvHFPbqOY0rsFip3Bo5wb4ngvdi1EpCYWUQDC5V+Y7mZws+DLkr4M//zQJoanu1SP+87Dv1oQ==
+
 jsonfile@^4.0.0:
   version "4.0.0"
   resolved "https://registry.yarnpkg.com/jsonfile/-/jsonfile-4.0.0.tgz#8771aae0799b64076b76640fca058f9c10e33ecb"
@@ -4186,6 +4145,19 @@ mkdirp@^0.5.5:
   dependencies:
     minimist "^1.2.6"
 
+monaco-editor@^0.52.2:
+  version "0.52.2"
+  resolved "https://registry.yarnpkg.com/monaco-editor/-/monaco-editor-0.52.2.tgz#53c75a6fcc6802684e99fd1b2700299857002205"
+  integrity sha512-GEQWEZmfkOGLdd3XK8ryrfWz3AIP8YymVXiPHEdewrUq7mh0qrKrfHLNCXcbB6sTnMLnOZ3ztSiKcciFUkIJwQ==
+
+monaco-graphql@^1.7.2:
+  version "1.7.2"
+  resolved "https://registry.yarnpkg.com/monaco-graphql/-/monaco-graphql-1.7.2.tgz#f26ad8acf1022792cf995173c5622f2b04355e12"
+  integrity sha512-iLw1L+pfQOISXGTLWRwjSrxcdP3pjS9ljJmerf2EfvTLBjGc1uwhRd+hnA8/LQVr7RXjrHVPkR6ToKVAvTOBEA==
+  dependencies:
+    graphql-language-service "^5.5.0"
+    picomatch-browser "^2.2.6"
+
 motion-dom@^12.23.9:
   version "12.23.9"
   resolved "https://registry.yarnpkg.com/motion-dom/-/motion-dom-12.23.9.tgz#f6768cdeb19c69f07c31083da12418d4e9f3e8c9"
@@ -4459,6 +4431,11 @@ picocolors@^1.1.1:
   resolved "https://registry.yarnpkg.com/picocolors/-/picocolors-1.1.1.tgz#3d321af3eab939b083c8f929a1d12cda81c26b6b"
   integrity sha512-xceH2snhtb5M9liqDsmEw56le376mTZkEX/jEb/RxNFyegNul7eNslCXP9FDj/Lcu0X8KEyMceP2ntpaHrDEVA==
 
+picomatch-browser@^2.2.6:
+  version "2.2.6"
+  resolved "https://registry.yarnpkg.com/picomatch-browser/-/picomatch-browser-2.2.6.tgz#e0626204575eb49f019f2f2feac24fc3b53e7a8a"
+  integrity sha512-0ypsOQt9D4e3hziV8O4elD9uN0z/jtUEfxVRtNaAAtXIyUx9m/SzlO020i8YNL2aL/E6blOvvHQcin6HZlFy/w==
+
 picomatch@^2.0.4, picomatch@^2.2.1, picomatch@^2.2.3, picomatch@^2.3.1:
   version "2.3.1"
   resolved "https://registry.yarnpkg.com/picomatch/-/picomatch-2.3.1.tgz#3ba3833733646d9d3e4995946c1365a67fb07a42"
@@ -4530,6 +4507,11 @@ prelude-ls@^1.2.1:
   version "1.2.1"
   resolved "https://registry.yarnpkg.com/prelude-ls/-/prelude-ls-1.2.1.tgz#debc6489d7a6e6b0e7611888cec880337d316396"
   integrity sha512-vkcDPrRZo1QZLbn5RLGPpg/WmIQ65qoWWhcGKf/b5eplkkarX0m9z8ppCat4mlOqUsWpyNuYgO3VRyrYHSzX5g==
+
+prettier@^3.5.3:
+  version "3.6.2"
+  resolved "https://registry.yarnpkg.com/prettier/-/prettier-3.6.2.tgz#ccda02a1003ebbb2bfda6f83a074978f608b9393"
+  integrity sha512-I7AIg5boAr5R0FFtJ6rCfD+LFsWHp81dolrFD8S79U9tb8Az2nGrJncnMSnys+bpQJfRUzqs9hnA81OAA3hCuQ==
 
 prop-types@^15.8.1:
   version "15.8.1"
@@ -5271,10 +5253,10 @@ timeago.js@^4.0.2:
   resolved "https://registry.yarnpkg.com/timeago.js/-/timeago.js-4.0.2.tgz#724e8c8833e3490676c7bb0a75f5daf20e558028"
   integrity sha512-a7wPxPdVlQL7lqvitHGGRsofhdwtkoSXPGATFuSOA2i1ZNQEPLrGnj68vOp2sOJTCFAQVXPeNMX/GctBaO9L2w==
 
-tinymce@^7.0.0:
-  version "7.9.1"
-  resolved "https://registry.yarnpkg.com/tinymce/-/tinymce-7.9.1.tgz#1b18bad9cb7a3b4b12e3e5a7f29fc7daad0713d7"
-  integrity sha512-zaOHwmiP1EqTeLRXAvVriDb00JYnfEjWGPdKEuac7MiZJ5aiDMZ4Unc98Gmajn+PBljOmO1GKV6G0KwWn3+k8A==
+tinymce@^8.0.0:
+  version "8.0.1"
+  resolved "https://registry.yarnpkg.com/tinymce/-/tinymce-8.0.1.tgz#268903624c44be574c72daeedcf8ae36bf37f0ba"
+  integrity sha512-KQ/+KaWmkIzSkNCYmqhXD2mftt+EEhz1bd1QCVopa2DNkoJ/rYFXhMnYGg1gVcRQa43xkmmv0Jj0ph+05VY0hQ==
 
 tmp@^0.2.1:
   version "0.2.3"
@@ -5287,11 +5269,6 @@ to-regex-range@^5.0.1:
   integrity sha512-65P7iz6X5yEr1cwcgvQxbbIw7Uk3gOy5dIdtZ4rDveLqhrdJP+Li/Hx6tyK0NEb+2GCyneCMJiGqrADCSNk8sQ==
   dependencies:
     is-number "^7.0.0"
-
-toggle-selection@^1.0.6:
-  version "1.0.6"
-  resolved "https://registry.yarnpkg.com/toggle-selection/-/toggle-selection-1.0.6.tgz#6e45b1263f2017fa0acc7d89d78b15b8bf77da32"
-  integrity sha512-BiZS+C1OS8g/q2RRbJmy59xpyghNBqrr6k5L/uKBGRsTfxmu3ffiRnd8mlGPUVayg8pvfi5urfnu8TU7DVOkLQ==
 
 toidentifier@1.0.1:
   version "1.0.1"
