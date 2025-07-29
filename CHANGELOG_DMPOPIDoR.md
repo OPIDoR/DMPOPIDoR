@@ -2,6 +2,12 @@
 
 **Attention** Cette liste de changements concerne les déploiements sur nos serveurs de test en interne.
 
+## 29/07/2025
+
+- Mise à jour vers Tinymce V8, FontAwesome V7 et d'autres librairies (Rien ne devrait avoir changé à part quelques icones sur à la mise à jour de FontAwesome)
+- Ajout du logo Opéré par l'INIST et retrait du logo Roadmap (#13548)
+- Amélioration de l'affichage des modèles structurés dans la création de plan (#13667)
+
 ## 17/07/2025
 
 - Correction du problème d'affichage des onglets des produits de recherche lors du défilement de la page (#13461)
