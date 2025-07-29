@@ -28,6 +28,8 @@ RSpec.describe ApiClient, type: :model do
   context 'validations' do
     it { is_expected.to validate_presence_of(:name) }
     it { is_expected.to validate_presence_of(:contact_email) }
+    it { is_expected.to validate_presence_of(:client_id) }
+    it { is_expected.to validate_presence_of(:client_secret) }
 
     # Uniqueness validation
     it {
@@ -53,6 +55,9 @@ RSpec.describe ApiClient, type: :model do
 
   context 'Associations' do
     it { is_expected.to belong_to(:org).optional }
+    it { is_expected.to have_many(:plans) }
+    it { is_expected.to have_many(:roles) }
+    it { is_expected.to have_many(:madmp_schemas) }
   end
 
   context 'Instance Methods' do
