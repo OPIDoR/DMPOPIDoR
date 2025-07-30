@@ -2,6 +2,11 @@
 
 **Attention** Cette liste de changements concerne les déploiements sur nos serveurs de test en interne.
 
+## 30/07/2025
+
+- Ajout des boutons supplémentaires aux éditeurs des plans classiques & des recommandations
+- Correction d'un problème de licence des éditeurs des commentaires provoquant l'affichage d'un message furtif
+
 ## 29/07/2025
 
 - Mise à jour vers Tinymce V8, FontAwesome V7 et d'autres librairies (Rien ne devrait avoir changé à part quelques icones sur à la mise à jour de FontAwesome)
