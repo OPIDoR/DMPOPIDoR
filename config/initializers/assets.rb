@@ -15,7 +15,13 @@ Rails.application.config.assets.paths << Rails.root.join('node_modules/@fortawes
 # folder are already added.
 # Rails.application.config.assets.precompile += %w( admin.js admin.css )
 
-# Bootstrap and TinyMCE expect their files to live in a specific place, so copy them over
+# Bootstrap, FontAwesome and TinyMCE expect their files to live in a specific place, so copy them over
+puts "Copying FontAwesome webfonts to the public directory ..."
+source_dir = Dir.glob(Rails.root.join('node_modules', '@fortawesome', 'fontawesome-free', 'webfonts'))
+destination_dir = Rails.root.join('public')
+FileUtils.mkdir_p(destination_dir)
+
+FileUtils.cp_r(source_dir, destination_dir)
 puts "Copying Bootstrap glyphicons to the public directory ..."
 source_dir = Dir.glob(Rails.root.join('node_modules', 'bootstrap', 'fonts', 'glyphicons-halflings-regular.*'))
 destination_dir = Rails.root.join('public', 'fonts', 'bootstrap')
