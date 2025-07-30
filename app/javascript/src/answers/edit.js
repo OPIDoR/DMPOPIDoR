@@ -30,7 +30,7 @@ const showOrHideQuestions = (data) => {
     getQuestionDiv(questionid).slideDown();
   });
 };
-const toolbar = 'bold italic underline | fontsizeselect forecolor | bullist numlist | link | table';
+const toolbar = 'bold italic underline | fontfamily fontsize | fontsizeselect forecolor | alignleft aligncenter alignright alignjustify | subscript superscript | bullist numlist indent outdent | link | table | charmap';
 /*
   * A map of debounced functions, one for each input, textarea or select change at any
   * form with class form-answer. The key represents a question id and the value holds
