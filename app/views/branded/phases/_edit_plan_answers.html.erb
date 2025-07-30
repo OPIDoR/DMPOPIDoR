@@ -18,9 +18,6 @@
         </span>
       </div>
     </div>
-
-    <div id="progress-data" data-sections="<%= sections_info(plan).to_json %>" data-remove="<%= remove_list(plan).to_json %>">
-    </div>
     
     <div class="accordion" id="sections">
       <% phase.sections.sort {|a,b| a.number <=> b.number }.each do |section| %>

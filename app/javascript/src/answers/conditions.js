@@ -4,9 +4,11 @@ $(() => {
   if ($('.answering-phase').length > 0) { // check phase has (standard) questions
     // hide already removed questions on load
     const removeData = $('#progress-data').data('remove');
-    removeData.forEach((id) => {
-      getQuestionDiv(id).hide();
-    });
+    if (removeData) {
+      removeData.forEach((id) => {
+        getQuestionDiv(id).hide();
+      });
+    }
 
     // update progress on section panel on load
     const sectionsInfo = $('#progress-data').data('sections');
