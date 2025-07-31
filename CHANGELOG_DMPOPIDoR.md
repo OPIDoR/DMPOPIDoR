@@ -7,6 +7,8 @@
 - Ajout de l'éditeur de texteà la description des groupes de recommandations
 - Ajout d'une exclusion des balises `pre` aux éditeurs
 - Correction du problème permettant d'éditer les valeurs constantes dans une modale.
+- Affichage du formatage HTML de la description des groupes de recommandations dans l'export et le choix des recommandations
+- Affichage des organismes tiers dans les plans accessibles en lecture seule
 
 
 ## 30/07/2025
