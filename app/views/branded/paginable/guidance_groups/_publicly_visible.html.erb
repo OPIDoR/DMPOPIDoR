@@ -2,8 +2,8 @@
   <table class="table table-hover">
     <thead>
       <tr>
-        <th scope="col"><%= _('Guidance group') %>&nbsp;</th>
         <th scope="col"><%= _('Organisation Name') %>&nbsp;</th>
+        <th scope="col"><%= _('Guidance group') %>&nbsp;</th>
         <th scope="col"><%= _('Description') %>&nbsp;</th>
         <th scope="col" class="date-column"><%= _('Last Updated') %>&nbsp;</th>
         <th scope="col" class="sorter-false text-center download-column"><%= _('Download') %></th>
@@ -13,10 +13,10 @@
       <% scope.each do |guidance_group| %>
         <% if guidance_group.published = "true"%>
           <tr id="<%= dom_id(guidance_group) %>">
+            <td><%= guidance_group.org.name %></td>
             <td>
               <%= guidance_group.name %>
             </td>
-            <td><%= guidance_group.org.name %></td>
             <td><%= raw guidance_group.description %></td>
             <td class="text-center"><%= l guidance_group.updated_at.to_date, formats: :short %></td>
 
