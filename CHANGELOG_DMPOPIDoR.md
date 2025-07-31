@@ -2,6 +2,13 @@
 
 **Attention** Cette liste de changements concerne les déploiements sur nos serveurs de test en interne.
 
+## 31/07/2025
+
+- Ajout de l'éditeur de texteà la description des groupes de recommandations
+- Ajout d'une exclusion des balises `pre` aux éditeurs
+- Correction du problème permettant d'éditer les valeurs constantes dans une modale.
+
+
 ## 30/07/2025
 
 - Ajout des boutons supplémentaires aux éditeurs des plans classiques & des recommandations
