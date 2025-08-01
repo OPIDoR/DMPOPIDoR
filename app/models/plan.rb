@@ -9,7 +9,7 @@
 #
 #  id                         :integer          not null, primary key
 #  complete                   :boolean          default(FALSE)
-#  context                    :integer          default(0), not null
+#  context                    :integer          default("research_project"), not null
 #  description                :text
 #  end_date                   :datetime
 #  ethical_issues             :boolean
