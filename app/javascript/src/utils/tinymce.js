@@ -41,6 +41,7 @@ export const defaultOptions = {
   autoresize_bottom_margin: 10,
   branding: false,
   extended_valid_elements: 'iframe[tooltip] , a[href|target=_blank]',
+  invalid_elements: 'pre',
   paste_as_text: false,
   paste_block_drop: true,
   paste_merge_formats: true,
