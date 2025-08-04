@@ -70,6 +70,7 @@ node_modules
 /public/fonts
 /public/locales
 /public/system
+/public/webfonts
 
 spec/examples.txt
 .postcssrc.yml

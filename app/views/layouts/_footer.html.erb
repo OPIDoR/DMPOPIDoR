@@ -1,4 +1,4 @@
-<% 
+<%
   # Override the default Rails route helper for the contact_us page IF an alternate contact_us url was defined
   # in the dmproadmap.rb initializer
   contact_us = Rails.configuration.x.organisation.contact_us_url || contact_us_path
@@ -47,13 +47,17 @@
     </span>
   </div>
 </div>
+<span style="margin-bottom: 20px">
+  <%= link_to(Rails.configuration.x.organisation.url, title: Rails.configuration.x.organisation.abbreviation + " - " + _("Opens in new window"), target: '_blank')  do %>
+    <%= image_tag("operated-by-inist-cnrs.png", alt: 'OPIDoR logo (opens in a new window)', width: '120px') %>
+  <% end %>
+</span>
 <div class="footer-cc">
   <div class="footer-infos">
     <span>
-      <%= link_to("#{Rails.configuration.x.organisation.url}", 
-                  title: _("INIST website") + " - " + _("Opens in new window"), target: '_blank' ) do %>
-        <%= sanitize("&copy; 2016 - #{Time.now.year} #{Rails.configuration.x.organisation.abbreviation}") %>
-        <% end %>
+      <%= link_to("/") do %>
+        <%= sanitize("&copy; 2016 - #{Time.now.year} #{Rails.configuration.x.application.name}") %>
+      <% end %>
     </span>
     <span class="delimiter">&#x25cf;</span>
     <span><%= Rails.configuration.x.application.version %></span>
@@ -64,15 +68,10 @@
         <i class="far fa-comments"></i>
       </a>
     </span>
-    <span>
+    <span style="margin-left: 10px; filter: brightness(0) invert(1);">
       <a title="<%= _('Canal-U') %> - <%= _("Opens in new window") %>"  target="_blank" href="<%= Rails.configuration.x.application.canalu_url %>">
         <%= image_tag("canalu.svg", alt: 'Canal-U (opens in a new window)') %>
       </a>
-    </span>
-    <span>
-      <%= link_to("https://github.com/DMPRoadmap/roadmap", title: "DMPRoadmap Github - " + _("Opens in new window"), target: '_blank') do %>
-        <%= image_tag("roadmap_logo_orange_white.png", alt: 'DMPRoadmap Github (opens in a new window)') %>
-      <% end %>
     </span>
   </div>
 </div>

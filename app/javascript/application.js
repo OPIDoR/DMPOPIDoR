@@ -56,6 +56,7 @@ import './src/devise/invitations/edit';
 import './src/devise/passwords/edit';
 import './src/devise/registrations/edit';
 import './src/devise/registrations/new';
+import './src/guidanceGroups/newEdit';
 import './src/guidances/newEdit';
 import './src/notes/index';
 import './src/orgs/adminEdit';
