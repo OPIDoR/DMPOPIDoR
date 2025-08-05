@@ -13,6 +13,7 @@ module SuperAdmin
     def new
       authorize(Registry)
       @registry = Registry.new
+      @topics = Registry.find_by(name: 'Topics')&.values || []
     end
 
     def create
@@ -30,6 +31,7 @@ module SuperAdmin
     def edit
       authorize(Registry)
       @registry = Registry.find(params[:id])
+      @topics = Registry.find_by(name: 'Topics')&.values || []
     end
 
     # rubocop:disable Metrics/AbcSize
@@ -81,7 +83,8 @@ module SuperAdmin
     private
 
     def permitted_params
-      params.require(:registry).permit(:name, :description, :uri, :category, :version, :values, data_types: [])
+      params.require(:registry).permit(:name, :description, :uri, :category, :version, :values, data_types: [],
+                                                                                                topics: [])
     end
   end
 end

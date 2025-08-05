@@ -9,6 +9,7 @@
 #  data_types  :string           default(["none"]), not null, is an Array
 #  description :string
 #  name        :string           not null
+#  topics      :string           default(["standard"]), not null, is an Array
 #  uri         :string
 #  values      :json
 #  version     :integer
@@ -41,6 +42,10 @@ class Registry < ApplicationRecord
 
   validates :name, presence: { message: PRESENCE_MESSAGE }
 
+  validates :data_types, presence: { message: PRESENCE_MESSAGE }
+
+  validates :topics, presence: { message: PRESENCE_MESSAGE }
+
   # ==========
   # = Scopes =
   # ==========
@@ -54,7 +59,7 @@ class Registry < ApplicationRecord
   }
 
   scope :paginable, lambda {
-    select(:id, :name, :version, :description, :uri, :category, :data_types)
+    select(:id, :name, :version, :description, :uri, :category, :data_types, :topics)
   }
 
   # rubocop:disable Metrics/AbcSize

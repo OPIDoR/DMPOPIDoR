@@ -27,6 +27,17 @@ description_text_tooltip =  _('Enter your description here. You can include link
       class: "form-select",
       name: 'guidance_group[language_id]') %>
 </div>
+<div class="form-group mb-3 col-xs-12">
+  <%= form.label(:topics, _('Topics'), class: 'form-label') %>
+  <%= select_tag(:topics,
+      options_for_select(
+        select_values_from_registry(@topics, @current_locale.to_s),
+        @guidance_group.topics
+      ),
+      multiple: true,
+      class: "form-select",
+      name: 'guidance_group[topics][]') %>
+</div>
 
 <div class='form-input col-xs-8'>
   <%= form.check_box :published, data: { toggle: 'tooltip' }, title: published_tip %>

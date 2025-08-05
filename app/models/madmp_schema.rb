@@ -10,6 +10,7 @@
 #  label         :string
 #  name          :string
 #  schema        :json
+#  topics        :string           default(["standard"]), not null, is an Array
 #  version       :integer
 #  created_at    :datetime         not null
 #  updated_at    :datetime         not null
@@ -48,8 +49,9 @@ class MadmpSchema < ApplicationRecord
   validates :name, presence: { message: PRESENCE_MESSAGE },
                    uniqueness: { message: UNIQUENESS_MESSAGE }
 
-  # validates :schema, presence:  { message: PRESENCE_MESSAGE },
-  #                     json: true
+  validates :data_type, presence: { message: PRESENCE_MESSAGE }
+
+  validates :topics, presence: { message: PRESENCE_MESSAGE }
 
   # ==========
   # = Constants =
@@ -92,7 +94,7 @@ class MadmpSchema < ApplicationRecord
   }
 
   scope :paginable, lambda {
-    select(:id, :label, :name, :classname, :api_client_id, :version)
+    select(:id, :label, :name, :classname, :topics, :api_client_id, :version)
   }
 
   # =================
@@ -194,5 +196,9 @@ class MadmpSchema < ApplicationRecord
                     }
                   end
     }
+  end
+
+  def self.suggest(classname, data_type, topic)
+    find_by(Arel.sql("'#{topic}' = ANY(topics) AND data_type='#{data_type}' AND classname='#{classname}'"))
   end
 end

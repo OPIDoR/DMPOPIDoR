@@ -15,6 +15,7 @@ class GuidanceGroupsController < ApplicationController
   def admin_new
     @guidance_groups = GuidanceGroup.where(org_id: current_user.org.id)
     @guidance_group = GuidanceGroup.new(org_id: current_user.org.id)
+    @topics = Registry.find_by(name: 'Topics')&.values || []
     authorize @guidance_group
     @locales = Language.all
   end
@@ -43,6 +44,7 @@ class GuidanceGroupsController < ApplicationController
   def admin_edit
     @guidance_groups = GuidanceGroup.where(org_id: current_user.org.id)
     @guidance_group = GuidanceGroup.find(params[:id])
+    @topics = Registry.find_by(name: 'Topics')&.values || []
     authorize @guidance_group
     @locales = Language.all
   end
@@ -109,6 +111,7 @@ class GuidanceGroupsController < ApplicationController
   private
 
   def guidance_group_params
-    params.require(:guidance_group).permit(:org_id, :name, :description, :published, :optional_subset, :language_id)
+    params.require(:guidance_group).permit(:org_id, :name, :description, :published, :optional_subset, :language_id,
+                                           topics: [])
   end
 end

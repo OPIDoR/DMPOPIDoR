@@ -10,6 +10,7 @@
 #  label         :string
 #  name          :string
 #  schema        :json
+#  topics        :string           default(["standard"]), not null, is an Array
 #  version       :integer
 #  created_at    :datetime         not null
 #  updated_at    :datetime         not null

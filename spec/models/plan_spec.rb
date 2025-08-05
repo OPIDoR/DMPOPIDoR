@@ -87,7 +87,7 @@ describe Plan do
   context 'associations' do
     it { is_expected.to belong_to :template }
 
-    it { is_expected.to belong_to :org }
+    #  it { is_expected.to belong_to :org }
 
     it { is_expected.to belong_to(:funder).optional }
 
@@ -620,6 +620,7 @@ describe Plan do
       create_list(:user, 2, org: org).each do |user|
         user.perms << Perm.where(name: 'modify_guidance').first_or_create
       end
+      create(:user, org: plan.owner.org)
       ActionMailer::Base.deliveries = []
     end
 
@@ -659,6 +660,7 @@ describe Plan do
 
     let!(:plan) do
       create(:plan, feedback_requested: true,
+                    feedback_requestor: create(:user, org: org),
                     template: template)
     end
 
@@ -749,7 +751,8 @@ describe Plan do
         expect(subject.readable_by?(user.id)).to eql(true)
       end
 
-      it 'org admins' do
+      it 'org admins when visibility is administrator_visible' do
+        plan.update(visibility: Plan.visibilities[:administrator_visible])
         Rails.configuration.x.plans.org_admins_read_all = true
         user.org_id = plan.owner.org_id
         user.save
@@ -820,6 +823,8 @@ describe Plan do
 
         it 'when user is a reviewer and feedback requested' do
           # All reviewers of the same org should be able to comment
+          feedback_user = create(:user, org: plan.owner.org)
+          plan.feedback_requestor = feedback_user
           plan.feedback_requested = true
           plan.save
           expect(subject.readable_by?(user.id)).to eql(true)

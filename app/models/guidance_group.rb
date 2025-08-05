@@ -12,6 +12,7 @@
 #  name            :string
 #  optional_subset :boolean          default(TRUE), not null
 #  published       :boolean          default(FALSE), not null
+#  topics          :string           default(["standard"]), not null, is an Array
 #  created_at      :datetime         not null
 #  updated_at      :datetime         not null
 #  language_id     :integer          default(0)
@@ -60,6 +61,8 @@ class GuidanceGroup < ApplicationRecord
 
   validates :published, inclusion: { in: BOOLEAN_VALUES,
                                      message: INCLUSION_MESSAGE }
+
+  validates :topics, presence: { message: PRESENCE_MESSAGE }
 
   # EVALUATE CLASS AND INSTANCE METHODS BELOW
   #
