@@ -5,6 +5,7 @@ namespace :dmpopidor_upgrade do
   desc 'Upgrade to 4.4.0'
   task V4_4_0: :environment do
     Rake::Task['dmpopidor_upgrade:migrate_context_to_plans'].execute
+    Rake::Task['dmpopidor_upgrade:migrate_guidance_groups_to_research_outputs'].execute
   end
   desc 'Upgrade to 4.3.0'
   task V4_3_0: :environment do
@@ -35,9 +36,22 @@ namespace :dmpopidor_upgrade do
     Rake::Task['dmpopidor_upgrade:close_existing_feedback_plans'].execute
   end
 
+  desc 'Migrate guidance groups from plans to research_outputs in structured plans'
+  task migrate_guidance_groups_to_research_outputs: :environment do
+    Plan.includes(:template, :research_outputs, :guidance_groups).all.each do |plan|
+      next unless plan.structured?
+
+      p "Migrating guidance groups for plan #{plan.id}"
+      plan.research_outputs.each do |ro|
+        ro.guidance_groups << plan.guidance_groups.all
+      end
+      plan.guidance_groups.destroy_all
+    end
+  end
+
   desc 'Migrate context from templates to plans'
   task migrate_context_to_plans: :environment do
-    Plan.all.each do |plan|
+    Plan.includes(:template).all.each do |plan|
       p "Migrating plan #{plan.id}"
       plan.update(context: plan.template.context)
     end
