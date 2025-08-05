@@ -1,0 +1,18 @@
+{
+	"Topics": [
+		{
+			"label": {
+				"fr_FR": "Standard",
+				"en_GB": "Standard"
+			},
+			"value": "standard"
+		},
+		{
+			"label": {
+				"fr_FR": "Biologie",
+				"en_GB": "Biology"
+			},
+			"value": "biology"
+		}
+	]
+}
