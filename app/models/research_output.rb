@@ -57,6 +57,8 @@ class ResearchOutput < ApplicationRecord
 
   has_many :answers, dependent: :destroy
 
+  has_and_belongs_to_many :guidance_groups, join_table: :guidance_groups_research_outputs
+
   # ===============
   # = Validations =
   # ===============
