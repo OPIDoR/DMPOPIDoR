@@ -469,7 +469,7 @@ class PlansController < ApplicationController
   # rubocop:disable Metrics/MethodLength, Metrics/AbcSize
   # rubocop:disable Metrics/PerceivedComplexity, Metrics/CyclomaticComplexity
   def select_guidance_groups
-    @plan = Plan.find(params[:id])
+    @plan = Plan.includes(:template).find(params[:id])
     template = @plan.template
     authorize @plan
 
@@ -498,8 +498,7 @@ class PlansController < ApplicationController
         status: 200,
         message: "Guidances updated for plan [#{params[:id]}]",
         guidance_groups: @all_ggs_grouped_by_org,
-        questions_with_guidance: template.questions.select do |q|
-          question = Question.find(q.id)
+        questions_with_guidance: template.questions.select do |question|
           guidance_presenter.any?(question:)
         end.pluck(:id)
       }, status: :ok

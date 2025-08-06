@@ -180,6 +180,10 @@ Rails.application.routes.draw do
 
   resources :research_outputs, only: %i[show create destroy update], constraints: { format: [:json] } do
     post 'import', on: :collection, constraints: { format: [:json] }
+    member do
+      get 'guidance_groups', constraints: { format: [:json] }
+      post 'guidance_groups', action: :select_guidance_groups, constraints: { format: [:json] }
+    end
   end
 
   resources :classic_research_outputs, only: %i[index create edit destroy update],

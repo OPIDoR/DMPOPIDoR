@@ -3,6 +3,7 @@
 # Controller to handle CRUD operations for the Research Outputs tab
 class ResearchOutputsController < ApplicationController
   include ErrorHelper
+
   helper PaginableHelper
   after_action :verify_authorized
 
@@ -164,6 +165,64 @@ class ResearchOutputsController < ApplicationController
   end
   # rubocop:enable Metrics/AbcSize, Metrics/MethodLength
 
+  def guidance_groups
+    @all_ggs_grouped_by_org = get_guidances_groups(params[:id])
+    render json: {
+      status: 200,
+      message: 'Guidance groups',
+      data: @all_ggs_grouped_by_org
+    }, status: :ok
+  end
+
+  # rubocop:disable Metrics/MethodLength, Metrics/AbcSize
+  # rubocop:disable Metrics/PerceivedComplexity
+  def select_guidance_groups
+    @research_output = ResearchOutput.includes(:guidance_groups, plan: [:template]).find(params[:id])
+    module_id = @research_output.json_fragment.additional_info['moduleId']
+    template = module_id ? Template.find(module_id) : @research_output.plan.template
+    authorize @research_output
+
+    body = JSON.parse(request.raw_post)
+
+    selected_ids = body['guidance_group_ids']
+
+    guidance_group_ids = if selected_ids.blank?
+                           []
+                         else
+                           selected_ids.map(&:to_i).uniq
+                         end
+
+    @research_output.guidance_groups = GuidanceGroup.where(id: guidance_group_ids)
+
+    guidance_presenter = GuidancePresenter.new(@research_output.plan)
+
+    if @research_output.save
+      @all_ggs_grouped_by_org = get_guidances_groups(params[:id])
+      render json: {
+        status: 200,
+        message: "Guidances updated for plan [#{params[:id]}]",
+        guidance_groups: @all_ggs_grouped_by_org,
+        questions_with_guidance: template.questions.select do |question|
+          guidance_presenter.any?(question:)
+        end.pluck(:id)
+      }, status: :ok
+    else
+      Rails.logger.error("Plan [#{params[:id]}] not updated")
+      internal_server_error("Plan [#{params[:id]}] not updated")
+    end
+  rescue ActiveRecord::RecordNotFound
+    Rails.logger.error("Plan [#{params[:id]}] not found")
+    not_found("Plan [#{params[:id]}] not found")
+  rescue JSON::ParserError, TypeError
+    Rails.logger.error('Bad request - Invalid JSON data')
+    bad_request('Bad request - Invalid JSON data')
+  rescue StandardError => e
+    Rails.logger.error("Internal server error - #{e.message}")
+    internal_server_error("Internal server error - #{e.message}")
+  end
+  # rubocop:enable Metrics/PerceivedComplexity
+  # rubocop:enable Metrics/MethodLength, Metrics/AbcSize
+
   private
 
   def research_output_params
@@ -171,4 +230,42 @@ class ResearchOutputsController < ApplicationController
           .permit(:id, :plan_id, :abbreviation, :title, :type, :contact_id, :topic,
                   configuration: {})
   end
+
+  # rubocop:disable Metrics/MethodLength, Metrics/AbcSize
+  def get_guidances_groups(id)
+    @research_output = ResearchOutput.includes(
+      :guidance_groups, plan: [template: [:phases]]
+    ).find(id)
+    @plan = @research_output.plan
+    authorize @research_output
+    current_locale = Language.where(abbreviation: @plan.template.locale).first
+
+    @all_guidance_groups = if @plan.structured?.eql?(true)
+                             GuidanceGroup.published.where(language_id: current_locale.id)
+                           else
+                             @plan.guidance_group_options.where(language_id: current_locale.id)
+                           end
+    @all_ggs_grouped_by_org = @all_guidance_groups.sort.group_by(&:org)
+    @selected_guidance_groups = @research_output.guidance_groups.ids.to_set
+
+    @default_orgs = Org.default_orgs
+
+    @all_ggs_grouped_by_org.map do |key, group|
+      {
+        name: key.name,
+        id: key.id,
+        important: @default_orgs.include?(key) || group.any? { |item| @selected_guidance_groups.include?(item.id) },
+        guidance_groups: group.map do |item|
+          {
+            id: item.id,
+            name: item.name,
+            selected: @selected_guidance_groups.include?(item.id),
+            description: item.description,
+            language_id: item.language_id
+          }
+        end
+      }
+    end
+  end
+  # rubocop:enable Metrics/MethodLength, Metrics/AbcSize
 end
