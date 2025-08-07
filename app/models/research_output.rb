@@ -217,8 +217,7 @@ class ResearchOutput < ApplicationRecord
     template = module_id ? Template.find(module_id) : plan.template
 
     guidance_presenter = GuidancePresenter.new(plan)
-    questions_with_guidance = template.questions.select do |q|
-      question = Question.find(q.id)
+    questions_with_guidance = template.questions.select do |question|
       guidance_presenter.any?(question:)
     end.pluck(:id)
 
