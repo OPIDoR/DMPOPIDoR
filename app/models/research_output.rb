@@ -216,11 +216,6 @@ class ResearchOutput < ApplicationRecord
     module_id = ro_fragment.additional_info['moduleId']
     template = module_id ? Template.find(module_id) : plan.template
 
-    guidance_presenter = GuidancePresenter.new(plan)
-    questions_with_guidance = template.questions.select do |question|
-      guidance_presenter.any?(question:)
-    end.pluck(:id)
-
     I18n.with_locale plan.template.locale do
       return {
         id: id,
@@ -239,7 +234,6 @@ class ResearchOutput < ApplicationRecord
             madmp_schema_id: a.madmp_fragment.madmp_schema_id
           }
         end,
-        questions_with_guidance:,
         template: template.serialize_json
       }
     end

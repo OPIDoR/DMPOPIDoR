@@ -467,7 +467,7 @@ class PlansController < ApplicationController
   end
 
   # rubocop:disable Metrics/MethodLength, Metrics/AbcSize
-  # rubocop:disable Metrics/PerceivedComplexity, Metrics/CyclomaticComplexity
+  # rubocop:disable Metrics/PerceivedComplexity
   def select_guidance_groups
     @plan = Plan.includes(:template).find(params[:id])
     template = @plan.template
@@ -490,17 +490,12 @@ class PlansController < ApplicationController
 
     @plan.guidance_groups = GuidanceGroup.where(id: guidance_group_ids)
 
-    guidance_presenter = GuidancePresenter.new(@plan)
-
     if @plan.save
       @all_ggs_grouped_by_org = get_guidances_groups(params[:id])
       render json: {
         status: 200,
         message: "Guidances updated for plan [#{params[:id]}]",
-        guidance_groups: @all_ggs_grouped_by_org,
-        questions_with_guidance: template.questions.select do |question|
-          guidance_presenter.any?(question:)
-        end.pluck(:id)
+        guidance_groups: @all_ggs_grouped_by_org
       }, status: :ok
     else
       Rails.logger.error("Plan [#{params[:id]}] not updated")
@@ -516,7 +511,7 @@ class PlansController < ApplicationController
     Rails.logger.error("Internal server error - #{e.message}")
     internal_server_error("Internal server error - #{e.message}")
   end
-  # rubocop:enable Metrics/PerceivedComplexity, Metrics/CyclomaticComplexity
+  # rubocop:enable Metrics/PerceivedComplexity
   # rubocop:enable Metrics/MethodLength, Metrics/AbcSize
 
   # rubocop:disable Metrics/AbcSize, Metrics/MethodLength
