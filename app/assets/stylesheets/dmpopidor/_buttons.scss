@@ -2,7 +2,13 @@
 
 .dmpopidor-branding {
 
-  .btn {
+  .btn,
+  .btn:hover,
+  .btn:focus,
+  .btn:active,
+  .btn:visited,
+  .btn:active:hover,
+  .btn.active:hover {
     border-radius: 10px;
     font-size: large;
   }
