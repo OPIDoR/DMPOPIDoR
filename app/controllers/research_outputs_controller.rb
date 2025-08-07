@@ -118,16 +118,21 @@ class ResearchOutputsController < ApplicationController
 
     authorize research_output
 
-    target_plan = Plan.includes(:template).find(params[:plan_id])
+    target_plan = ::Plan.includes(:template).find(params[:plan_id])
 
     I18n.with_locale target_plan.template.locale do # rubocop:disable Metrics/BlockLength
       pos = target_plan.research_outputs.length + 1
 
+      prefix_text = body['duplicate'] ? _('Copy of') : _('Import of')
+
       research_output_copy = target_plan.research_outputs.create!(
-        abbreviation: "#{_('RO')} #{pos} [#{_('Copy of')} #{research_output.abbreviation}]",
-        title: "#{_('Research output')} #{pos} [#{_('Copy of')} #{research_output.title}]",
-        display_order: pos
+        abbreviation: "#{_('RO')} #{pos} [#{prefix_text} #{research_output.abbreviation}]",
+        title: "#{_('Research output')} #{pos} [#{prefix_text} #{research_output.title}]",
+        display_order: pos,
+        output_type_description: research_output.output_type_description,
+        output_type: research_output.output_type
       )
+      research_output_copy.create_json_fragments(research_output_fragment.additional_info.deep_symbolize_keys)
 
       module_tplt = Template.module(data_type:, locale: target_plan.template.locale)
 
@@ -136,10 +141,10 @@ class ResearchOutputsController < ApplicationController
         data: {
           'research_output_id' => research_output_copy.id
         },
-        madmp_schema: research_output_fragment.madmp_schema,
+        madmp_schema: research_output_copy.json_fragment.madmp_schema,
         dmp_id: target_plan.json_fragment.id,
         parent_id: target_plan.json_fragment.id,
-        additional_info: research_output_fragment.additional_info.merge(
+        additional_info: research_output_copy.json_fragment.additional_info.merge(
           'moduleId' => module_tplt&.id
         )
       )
@@ -148,12 +153,12 @@ class ResearchOutputsController < ApplicationController
 
       Import::PlanImportService.import_research_output(
         research_output_copy_fragment,
-        research_output_fragment.get_full_fragment,
+        research_output_copy.json_fragment.get_full_fragment,
         target_plan,
         template
       )
-      research_output_copy_fragment.research_output_description
-                                   .update_research_output_parameters(skip_broadcast: true)
+      research_output_copy.json_fragment.research_output_description
+                          .update_research_output_parameters(skip_broadcast: true)
 
       render json: {
         id: target_plan.id,
