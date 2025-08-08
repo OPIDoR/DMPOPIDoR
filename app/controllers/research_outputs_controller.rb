@@ -172,7 +172,7 @@ class ResearchOutputsController < ApplicationController
 
   # rubocop:disable Metrics/AbcSize
   def has_guidances # rubocop:disable Naming/PredicatePrefix
-    research_output = ResearchOutput.includes(guidance_groups: [:guidances => [:themes]]).find(params[:id])
+    research_output = ResearchOutput.includes(:themes).find(params[:id])
     authorize research_output
     question = Question.includes(:annotations, :themes).find(params[:question])
     has_guidances = if question.annotations.where(type: 'guidance').any?
@@ -331,13 +331,10 @@ class ResearchOutputsController < ApplicationController
     ).find(id)
     @plan = @research_output.plan
     authorize @research_output
+    topic = @research_output.topic
     current_locale = Language.where(abbreviation: @plan.template.locale).first
 
-    @all_guidance_groups = if @plan.structured?.eql?(true)
-                             GuidanceGroup.published.where(language_id: current_locale.id)
-                           else
-                             @plan.guidance_group_options.where(language_id: current_locale.id)
-                           end
+    @all_guidance_groups = GuidanceGroup.published.where(Arel.sql("'#{topic}' = ANY(topics) AND language_id='#{current_locale.id}'"))
     @all_ggs_grouped_by_org = @all_guidance_groups.sort.group_by(&:org)
     @selected_guidance_groups = @research_output.guidance_groups.ids.to_set
 
