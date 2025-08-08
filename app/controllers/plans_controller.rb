@@ -467,18 +467,11 @@ class PlansController < ApplicationController
   end
 
   # rubocop:disable Metrics/MethodLength, Metrics/AbcSize
-  # rubocop:disable Metrics/PerceivedComplexity
   def select_guidance_groups
     @plan = Plan.includes(:template).find(params[:id])
-    template = @plan.template
     authorize @plan
 
     body = JSON.parse(request.raw_post)
-    if body['ro_id'].present?
-      research_output = ResearchOutput.find(body['ro_id'])
-      module_id = research_output.json_fragment.additional_info['moduleId']
-      template = module_id ? Template.find(module_id) : @plan.template
-    end
 
     selected_ids = body['guidance_group_ids']
 
@@ -511,87 +504,7 @@ class PlansController < ApplicationController
     Rails.logger.error("Internal server error - #{e.message}")
     internal_server_error("Internal server error - #{e.message}")
   end
-  # rubocop:enable Metrics/PerceivedComplexity
   # rubocop:enable Metrics/MethodLength, Metrics/AbcSize
-
-  # rubocop:disable Metrics/AbcSize, Metrics/MethodLength
-  # rubocop:disable Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
-  def question_guidances
-    plan_id = params[:id]
-    unless plan_id&.to_i&.positive?
-      bad_request("Plan [#{plan_id}] id, must be present or positive value")
-      return
-    end
-
-    question_id = params[:question]
-    unless question_id&.to_i&.positive?
-      bad_request("Question [#{question_id}] id, must be present or positive value")
-      return
-    end
-
-    begin
-      @plan = Plan.find(plan_id)
-    rescue ActiveRecord::RecordNotFound => e
-      Rails.logger.error("Plan [#{plan_id}] not found")
-      Rails.logger.error(e.backtrace.join("\n"))
-      not_found('No plan found')
-      return
-    rescue StandardError => e
-      Rails.logger.error('An error occured during retriving plan data')
-      Rails.logger.error(e.backtrace.join("\n"))
-      internal_server_error(e.message)
-      return
-    end
-
-    begin
-      authorize @plan
-    rescue Pundit::NotAuthorizedError => e
-      Rails.logger.error('An error occurred while checking authorisations')
-      Rails.logger.error(e.backtrace.join("\n"))
-      forbidden
-      return
-    end
-
-    begin
-      question = Question.find(question_id)
-    rescue ActiveRecord::RecordNotFound => e
-      Rails.logger.error("Question [#{plan_id}] not found")
-      Rails.logger.error(e.backtrace.join("\n"))
-      not_found('No plan found')
-      return
-    rescue StandardError => e
-      Rails.logger.error('An error occured during retriving question data')
-      Rails.logger.error(e.backtrace.join("\n"))
-      internal_server_error(e.message)
-      return
-    end
-
-    begin
-      guidance_presenter = GuidancePresenter.new(@plan)
-      guidances = guidance_presenter.tablist(question)
-    rescue StandardError => e
-      Rails.logger.error('Cannot create guidance presenter')
-      Rails.logger.error(e.backtrace.join("\n"))
-      internal_server_error('An error occured during guidance presenter creation')
-      return
-    end
-
-    guidances = guidances.map do |guidance|
-      {
-        name: guidance[:name],
-        groups: guidance[:groups].to_a,
-        annotations: guidance[:annotations]
-      }
-    end
-
-    render json: {
-             status: 200, message: "Guidances for plan [#{plan_id}] and question [#{question_id}]",
-             guidances: guidances
-           },
-           status: :ok
-  end
-  # rubocop:enable Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
-  # rubocop:enable Metrics/AbcSize, Metrics/MethodLength
 
   # rubocop:disable Metrics/AbcSize
   def import_plan

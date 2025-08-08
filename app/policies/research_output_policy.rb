@@ -50,7 +50,11 @@ class ResearchOutputPolicy < ApplicationPolicy
     @research_output.plan.administerable_by?(@user.id)
   end
 
-  def guidances?
+  def has_guidances? # rubocop:disable Naming/PredicatePrefix
+    @research_output.plan.readable_by?(@user.id)
+  end
+
+  def question_guidances?
     @research_output.plan.readable_by?(@user.id)
   end
 

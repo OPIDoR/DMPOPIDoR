@@ -181,7 +181,8 @@ Rails.application.routes.draw do
   resources :research_outputs, only: %i[show create destroy update], constraints: { format: [:json] } do
     post 'import', on: :collection, constraints: { format: [:json] }
     member do
-      get 'has_guidances', action: :guidances?, constraints: { format: [:json] }
+      get 'guidances', action: :question_guidances, constraints: { format: [:json] }
+      get 'has_guidances', constraints: { format: [:json] }
       get 'guidance_groups', constraints: { format: [:json] }
       post 'guidance_groups', action: :select_guidance_groups, constraints: { format: [:json] }
     end

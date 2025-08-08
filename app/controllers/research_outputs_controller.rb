@@ -170,9 +170,10 @@ class ResearchOutputsController < ApplicationController
   end
   # rubocop:enable Metrics/AbcSize, Metrics/MethodLength
 
-  def guidances?
+  # rubocop:disable Metrics/AbcSize
+  def has_guidances # rubocop:disable Naming/PredicatePrefix
     research_output = ResearchOutput.includes(guidance_groups: [:guidances => [:themes]]).find(params[:id])
-    authorize research_output, :guidances?
+    authorize research_output
     question = Question.includes(:annotations, :themes).find(params[:question])
     has_guidances = if question.annotations.where(type: 'guidance').any?
                       true
@@ -185,6 +186,86 @@ class ResearchOutputsController < ApplicationController
       has_guidances:
     }, status: :ok
   end
+  # rubocop:enable Metrics/AbcSize
+
+  # rubocop:disable Metrics/AbcSize, Metrics/MethodLength
+  # rubocop:disable Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
+  def question_guidances
+    ro_id = params[:id]
+    unless ro_id&.to_i&.positive?
+      bad_request("Research output [#{ro_id}] id, must be present or positive value")
+      return
+    end
+
+    question_id = params[:question]
+    unless question_id&.to_i&.positive?
+      bad_request("Question [#{question_id}] id, must be present or positive value")
+      return
+    end
+
+    begin
+      @research_output = ResearchOutput.includes(plan: [:template]).find(ro_id)
+    rescue ActiveRecord::RecordNotFound => e
+      Rails.logger.error("Research output [#{ro_id}] not found")
+      Rails.logger.error(e.backtrace.join("\n"))
+      not_found('No research output found')
+      return
+    rescue StandardError => e
+      Rails.logger.error('An error occured during retriving research output data')
+      Rails.logger.error(e.backtrace.join("\n"))
+      internal_server_error(e.message)
+      return
+    end
+
+    begin
+      authorize @research_output
+    rescue Pundit::NotAuthorizedError => e
+      Rails.logger.error('An error occurred while checking authorisations')
+      Rails.logger.error(e.backtrace.join("\n"))
+      forbidden
+      return
+    end
+
+    begin
+      question = Question.includes(:themes).find(question_id)
+    rescue ActiveRecord::RecordNotFound => e
+      Rails.logger.error("Question [#{plan_id}] not found")
+      Rails.logger.error(e.backtrace.join("\n"))
+      not_found('No plan found')
+      return
+    rescue StandardError => e
+      Rails.logger.error('An error occured during retriving question data')
+      Rails.logger.error(e.backtrace.join("\n"))
+      internal_server_error(e.message)
+      return
+    end
+
+    begin
+      guidance_presenter = GuidancePresenter.new(@research_output)
+      guidances = guidance_presenter.tablist(question)
+    rescue StandardError => e
+      Rails.logger.error('Cannot create guidance presenter')
+      Rails.logger.error(e.backtrace.join("\n"))
+      internal_server_error('An error occured during guidance presenter creation')
+      return
+    end
+
+    guidances = guidances.map do |guidance|
+      {
+        name: guidance[:name],
+        groups: guidance[:groups].to_a,
+        annotations: guidance[:annotations]
+      }
+    end
+
+    render json: {
+             status: 200, message: "Guidances for research output [#{ro_id}] and question [#{question_id}]",
+             guidances: guidances
+           },
+           status: :ok
+  end
+  # rubocop:enable Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
+  # rubocop:enable Metrics/AbcSize, Metrics/MethodLength
 
   def guidance_groups
     @all_ggs_grouped_by_org = get_guidances_groups(params[:id])
