@@ -59,6 +59,10 @@ class ResearchOutput < ApplicationRecord
 
   has_and_belongs_to_many :guidance_groups, join_table: :guidance_groups_research_outputs
 
+  has_many :guidances, through: :guidance_groups
+
+  has_many :themes, through: :guidances
+
   # ===============
   # = Validations =
   # ===============

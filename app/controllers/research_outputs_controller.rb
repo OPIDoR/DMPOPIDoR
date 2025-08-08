@@ -170,6 +170,22 @@ class ResearchOutputsController < ApplicationController
   end
   # rubocop:enable Metrics/AbcSize, Metrics/MethodLength
 
+  def guidances?
+    research_output = ResearchOutput.includes(guidance_groups: [:guidances => [:themes]]).find(params[:id])
+    authorize research_output, :guidances?
+    question = Question.includes(:annotations, :themes).find(params[:question])
+    has_guidances = if question.annotations.where(type: 'guidance').any?
+                      true
+                    elsif research_output.guidance_groups.any?
+                      research_output.theme_ids.intersect?(question.theme_ids.uniq)
+                    else
+                      false
+                    end
+    render json: {
+      has_guidances:
+    }, status: :ok
+  end
+
   def guidance_groups
     @all_ggs_grouped_by_org = get_guidances_groups(params[:id])
     render json: {
@@ -182,8 +198,6 @@ class ResearchOutputsController < ApplicationController
   # rubocop:disable Metrics/MethodLength, Metrics/AbcSize
   def select_guidance_groups
     @research_output = ResearchOutput.includes(:guidance_groups, plan: [:template]).find(params[:id])
-    module_id = @research_output.json_fragment.additional_info['moduleId']
-    template = module_id ? Template.find(module_id) : @research_output.plan.template
     authorize @research_output
 
     body = JSON.parse(request.raw_post)

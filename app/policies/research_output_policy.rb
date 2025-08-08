@@ -50,6 +50,10 @@ class ResearchOutputPolicy < ApplicationPolicy
     @research_output.plan.administerable_by?(@user.id)
   end
 
+  def guidances?
+    @research_output.plan.readable_by?(@user.id)
+  end
+
   def guidance_groups?
     @research_output.plan.readable_by?(@user.id)
   end
