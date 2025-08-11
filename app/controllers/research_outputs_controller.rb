@@ -350,7 +350,8 @@ class ResearchOutputsController < ApplicationController
             name: item.name,
             selected: @selected_guidance_groups.include?(item.id),
             description: item.description,
-            language_id: item.language_id
+            language_id: item.language_id,
+            topics: item.topics
           }
         end
       }
