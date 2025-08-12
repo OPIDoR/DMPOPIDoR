@@ -78,7 +78,7 @@
                   <li>
                     <%= link_to _('Remove'), org_admin_template_path(id: customization.id),
                                   data: {
-                                    turbo_frame: "_top"
+                                    turbo_frame: "_top",
                                     turbo_method: 'delete',
                                     turbo_confirm: _('Are you sure you want to remove your customization of "%{template_title}"? Any published versions will become unavailable to users.') % { template_title: customization.title}
                                   },
