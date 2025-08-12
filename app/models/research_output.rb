@@ -131,7 +131,8 @@ class ResearchOutput < ApplicationRecord
   end
 
   # rubocop:disable Metrics/AbcSize, Metrics/MethodLength
-  def create_json_fragments(configuration = {})
+  # rubocop:disable Metrics/CyclomaticComplexity,Metrics/PerceivedComplexity
+  def create_json_fragments(configuration = {}, duplicate: false)
     # rubocop:disable Metrics/BlockLength
     I18n.with_locale plan.template.locale do
       fragment = json_fragment
@@ -175,7 +176,7 @@ class ResearchOutput < ApplicationRecord
           additional_info: { property_name: 'contact' }
         )
 
-        if description_question.present? && plan.structured?
+        if description_question.present? && plan.structured? && !duplicate
           # Create a new answer for the ResearchOutputDescription Question
           # This answer will be displayed in the Write Plan tab,
           # pre filled with the ResearchOutputDescription info
@@ -200,6 +201,7 @@ class ResearchOutput < ApplicationRecord
     end
     # rubocop:enable Metrics/BlockLength
   end
+  # rubocop:enable Metrics/CyclomaticComplexity,Metrics/PerceivedComplexity
   # rubocop:enable Metrics/AbcSize, Metrics/MethodLength
 
   def serialize_infobox_data

@@ -145,7 +145,8 @@ class ResearchOutputsController < ApplicationController
         output_type_description: research_output.output_type_description,
         output_type: research_output.output_type
       )
-      research_output_copy.create_json_fragments(research_output_fragment.additional_info.deep_symbolize_keys)
+      research_output_copy.create_json_fragments(research_output_fragment.additional_info.deep_symbolize_keys,
+                                                 duplicate:)
 
       module_tplt = Template.module(data_type:, locale: target_plan.template.locale)
 
@@ -188,6 +189,7 @@ class ResearchOutputsController < ApplicationController
       }
     end
   end
+  # rubocop:enable Metrics/CyclomaticComplexity
   # rubocop:enable Metrics/AbcSize, Metrics/MethodLength
 
   # rubocop:disable Metrics/AbcSize
