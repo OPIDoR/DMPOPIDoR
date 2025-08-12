@@ -17,8 +17,9 @@ class ResearchOutputsController < ApplicationController
 
   # POST /plans/:plan_id/research_outputs
   # rubocop:disable Metrics/AbcSize,Metrics/MethodLength
+  # rubocop:disable Metrics/CyclomaticComplexity
   def create
-    @plan = Plan.includes(:template, :research_outputs).find_by(id: params[:plan_id])
+    @plan = Plan.includes(:template, :research_outputs, :roles).find_by(id: params[:plan_id])
     attrs = research_output_params
     authorize ResearchOutput.new(plan: @plan)
     I18n.with_locale @plan.template.locale do
@@ -33,6 +34,15 @@ class ResearchOutputsController < ApplicationController
       )
       created_ro.create_json_fragments(params[:configuration])
 
+      # pre-select owner org's guidance and the default org's guidance
+      ids = (::Org.default_orgs.pluck(:id) << @plan.owner.org_id).flatten.uniq
+
+      language = Language.find_by(abbreviation: @plan.template.locale)
+
+      ggs = GuidanceGroup.where(org_id: ids, optional_subset: false, published: true, language_id: language.id)
+
+      created_ro.guidance_groups << ggs unless ggs.empty?
+
       render json: {
         id: @plan.id,
         created_ro_id: created_ro.id,
@@ -44,6 +54,7 @@ class ResearchOutputsController < ApplicationController
       internal_server_error(e.message)
     end
   end
+  # rubocop:enable Metrics/CyclomaticComplexity
   # rubocop:enable Metrics/AbcSize,Metrics/MethodLength
 
   # PATCH/PUT /plans/:plan_id/research_outputs/:id

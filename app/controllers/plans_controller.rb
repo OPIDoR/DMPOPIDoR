@@ -90,14 +90,16 @@ class PlansController < ApplicationController
                         format(_("%{user_name}'s Plan"), user_name: current_user.firstname)
                       end
         if @plan.save
-          # pre-select org's guidance and the default org's guidance
-          ids = (::Org.default_orgs.pluck(:id) << current_user.org_id).flatten.uniq
+          # classic plans : pre-select org's guidance and the default org's guidance
+          if @plan.structured? == false
+            ids = (::Org.default_orgs.pluck(:id) << current_user.org_id).flatten.uniq
 
-          language = Language.find_by(abbreviation: @plan.template.locale)
+            language = Language.find_by(abbreviation: @plan.template.locale)
 
-          ggs = GuidanceGroup.where(org_id: ids, optional_subset: false, published: true, language_id: language.id)
+            ggs = GuidanceGroup.where(org_id: ids, optional_subset: false, published: true, language_id: language.id)
 
-          @plan.guidance_groups << ggs unless ggs.empty?
+            @plan.guidance_groups << ggs unless ggs.empty?
+          end
 
           default = Template.default
 
