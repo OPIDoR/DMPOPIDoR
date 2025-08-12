@@ -121,11 +121,13 @@ class ResearchOutputsController < ApplicationController
   # rubocop:enable Metrics/AbcSize
 
   # rubocop:disable Metrics/AbcSize, Metrics/MethodLength
+  # rubocop:disable Metrics/CyclomaticComplexity
   def import
     body = JSON.parse(request.body.string)
     research_output = ResearchOutput.find_by(uuid: body['uuid'])
     research_output_fragment = research_output.json_fragment
     data_type = research_output_fragment.additional_info['dataType']
+    duplicate = body['duplicate']
 
     authorize research_output
 
@@ -134,7 +136,7 @@ class ResearchOutputsController < ApplicationController
     I18n.with_locale target_plan.template.locale do # rubocop:disable Metrics/BlockLength
       pos = target_plan.research_outputs.length + 1
 
-      prefix_text = body['duplicate'] ? _('Copy of') : _('Import of')
+      prefix_text = duplicate ? _('Copy of') : _('Import of')
 
       research_output_copy = target_plan.research_outputs.create!(
         abbreviation: "#{_('RO')} #{pos} [#{prefix_text} #{research_output.abbreviation}]",
@@ -170,6 +172,13 @@ class ResearchOutputsController < ApplicationController
       )
       research_output_copy.json_fragment.research_output_description
                           .update_research_output_parameters(skip_broadcast: true)
+
+      # If the RO is duplicated through the UI, copy the guidance groups associated to the target RO
+      if duplicate
+        research_output.guidance_groups.each do |guidance_group|
+          research_output_copy.guidance_groups << guidance_group if guidance_group.present?
+        end
+      end
 
       render json: {
         id: target_plan.id,
