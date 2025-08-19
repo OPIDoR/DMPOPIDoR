@@ -1,4 +1,4 @@
-FROM ruby:3.3.9-slim AS base
+FROM ruby:3.3.9-slim-bookworm AS base
 WORKDIR /app
 RUN apt update -y && apt install -y --no-install-recommends \
   build-essential \
