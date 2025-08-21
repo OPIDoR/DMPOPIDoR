@@ -61,16 +61,7 @@ module Dmpopidor
 
       authorize @research_output
       I18n.with_locale plan.template.locale do
-        research_output_description = @research_output.json_fragment.research_output_description
-
-        updated_data = research_output_description.data.merge({
-                                                                title: params[:title],
-                                                                shortName: params[:abbreviation],
-                                                                type: params[:type],
-                                                                containsPersonalData: params[:configuration][:hasPersonalData] ? _('Yes') : _('No') # rubocop:disable Layout/LineLength
-                                                              })
-        research_output_description.update(data: updated_data)
-        research_output_description.update_research_output_parameters(skip_broadcast: true)
+        @research_output.update_description
         PlanChannel.broadcast_to(plan, {
                                    target: 'dynamic_form',
                                    fragment_id: research_output_description.id,
@@ -163,8 +154,7 @@ module Dmpopidor
           target_plan,
           template
         )
-        research_output_copy_fragment.research_output_description
-                                     .update_research_output_parameters(skip_broadcast: true)
+        research_output_copy.update_description
 
         render json: {
           id: target_plan.id,
@@ -266,6 +256,8 @@ module Dmpopidor
       end
       head :ok
     end
+
+    private
 
     def research_output_params
       params.require(:research_output)
