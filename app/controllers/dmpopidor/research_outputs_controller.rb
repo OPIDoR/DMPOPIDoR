@@ -61,7 +61,7 @@ module Dmpopidor
 
       authorize @research_output
       I18n.with_locale plan.template.locale do
-        @research_output.update_description
+        research_output_description = @research_output.update_description
         PlanChannel.broadcast_to(plan, {
                                    target: 'dynamic_form',
                                    fragment_id: research_output_description.id,

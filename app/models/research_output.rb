@@ -279,6 +279,7 @@ class ResearchOutput < ApplicationRecord
                                                           })
     research_output_description.update(data: updated_data)
     research_output_description.update_research_output_parameters(skip_broadcast: true)
+    research_output_description
   end
 
   def personal_data?
