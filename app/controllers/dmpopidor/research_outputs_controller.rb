@@ -5,6 +5,7 @@ module Dmpopidor
   # rubocop:disable Metrics/ModuleLength
   module ResearchOutputsController
     include ErrorHelper
+
     # GET /plans/:plan_id/research_outputs
     def index
       @plan = ::Plan.includes(:research_outputs, template: { phases: { sections: :questions } }).find(params[:plan_id])
@@ -18,7 +19,8 @@ module Dmpopidor
     end
 
     def show
-      @research_output = ResearchOutput.includes(:answers, plan: { template: { phases: { sections: :questions } } }).find(params[:id])
+      @research_output = ResearchOutput.includes(:answers,
+                                                 plan: { template: { phases: { sections: :questions } } }).find(params[:id])
       authorize @research_output
 
       render json: @research_output.serialize_json
@@ -53,31 +55,21 @@ module Dmpopidor
 
     # rubocop:disable Metrics/AbcSize, Metrics/MethodLength
     def update
-      @research_output = ResearchOutput.includes(plan: [ :template, :research_outputs ] ).find(params[:id])
+      @research_output = ResearchOutput.includes(plan: %i[template research_outputs]).find(params[:id])
       plan =  @research_output.plan
       attrs = research_output_params
 
       authorize @research_output
       I18n.with_locale plan.template.locale do
-        research_output_description = @research_output.json_fragment.research_output_description
+        research_outputs = ResearchOutput.where(plan_id: params[:plan_id])
 
-        updated_data = research_output_description.data.merge({
-                                                                title: params[:title],
-                                                                shortName: params[:abbreviation],
-                                                                type: params[:type],
-                                                                containsPersonalData: params[:configuration][:hasPersonalData] ? _('Yes') : _('No') # rubocop:disable Layout/LineLength
-                                                              })
-        research_output_description.update(data: updated_data)
-        research_output_description.update_research_output_parameters(skip_broadcast: true)
+        @research_output.update!(attrs)
+        research_output_description = @research_output.update_description
         PlanChannel.broadcast_to(plan, {
                                    target: 'dynamic_form',
                                    fragment_id: research_output_description.id,
                                    payload: research_output_description.get_full_fragment(with_ids: true)
                                  })
-
-        research_outputs = ResearchOutput.where(plan_id: params[:plan_id])
-
-        @research_output.update!(attrs)
 
         render json: {
                  status: 200,
@@ -119,6 +111,7 @@ module Dmpopidor
       research_output = ResearchOutput.find_by(uuid: body['uuid'])
       research_output_fragment = research_output.json_fragment
       data_type = research_output_fragment.additional_info['dataType']
+      duplicate = body['duplicate']
 
       authorize research_output
 
@@ -127,7 +120,7 @@ module Dmpopidor
       I18n.with_locale target_plan.template.locale do # rubocop:disable Metrics/BlockLength
         pos = target_plan.research_outputs.length + 1
 
-        prefix_text = body['duplicate'] ? _('Copy of') : _('Import of')
+        prefix_text = duplicate ? _('Copy of') : _('Import of')
 
         research_output_copy = target_plan.research_outputs.create!(
           abbreviation: "#{_('RO')} #{pos} [#{prefix_text} #{research_output.abbreviation}]",
@@ -136,7 +129,6 @@ module Dmpopidor
           output_type_description: research_output.output_type_description,
           output_type: research_output.output_type
         )
-        research_output_copy.create_json_fragments(research_output_fragment.additional_info.deep_symbolize_keys)
 
         module_tplt = Template.module(data_type:, locale: target_plan.template.locale)
 
@@ -145,10 +137,10 @@ module Dmpopidor
           data: {
             'research_output_id' => research_output_copy.id
           },
-          madmp_schema: research_output_copy.json_fragment.madmp_schema,
+          madmp_schema: research_output_fragment.madmp_schema,
           dmp_id: target_plan.json_fragment.id,
           parent_id: target_plan.json_fragment.id,
-          additional_info: research_output_copy.json_fragment.additional_info.merge(
+          additional_info: research_output_fragment.additional_info.merge(
             'moduleId' => module_tplt&.id
           )
         )
@@ -157,12 +149,11 @@ module Dmpopidor
 
         Import::PlanImportService.import_research_output(
           research_output_copy_fragment,
-          research_output_copy.json_fragment.get_full_fragment,
+          research_output_fragment.get_full_fragment,
           target_plan,
           template
         )
-        research_output_copy.json_fragment.research_output_description
-                                     .update_research_output_parameters(skip_broadcast: true)
+        research_output_copy.update_description
 
         render json: {
           id: target_plan.id,
@@ -264,6 +255,8 @@ module Dmpopidor
       end
       head :ok
     end
+
+    private
 
     def research_output_params
       params.require(:research_output)
