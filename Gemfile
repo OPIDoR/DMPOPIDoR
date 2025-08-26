@@ -377,4 +377,4 @@ end
 gem 'graphiql-rails', '~> 1.10'
 gem 'graphql', '~> 2.3'
 
-gem 'foreman', '~> 0.88.1'
+gem 'foreman', '~> 0.90.0'

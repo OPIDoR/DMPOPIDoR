@@ -66,25 +66,15 @@ class ResearchOutputsController < ApplicationController
 
     authorize @research_output
     I18n.with_locale plan.template.locale do
-      research_output_description = @research_output.json_fragment.research_output_description
+      research_outputs = ResearchOutput.where(plan_id: params[:plan_id])
 
-      updated_data = research_output_description.data.merge({
-                                                              title: attrs[:title],
-                                                              shortName: attrs[:abbreviation],
-                                                              type: params[:type],
-                                                              containsPersonalData: params[:configuration][:hasPersonalData] ? _('Yes') : _('No') # rubocop:disable Layout/LineLength
-                                                            })
-      research_output_description.update(data: updated_data)
-      research_output_description.update_research_output_parameters(skip_broadcast: true)
+      @research_output.update!(attrs)
+      research_output_description = @research_output.update_description
       PlanChannel.broadcast_to(plan, {
                                  target: 'dynamic_form',
                                  fragment_id: research_output_description.id,
                                  payload: research_output_description.get_full_fragment(with_ids: true)
                                })
-
-      research_outputs = ResearchOutput.where(plan_id: attrs[:plan_id])
-
-      @research_output.update!(attrs)
 
       render json: {
                status: 200,
@@ -145,8 +135,6 @@ class ResearchOutputsController < ApplicationController
         output_type_description: research_output.output_type_description,
         output_type: research_output.output_type
       )
-      research_output_copy.create_json_fragments(research_output_fragment.additional_info.deep_symbolize_keys,
-                                                 duplicate:)
 
       module_tplt = Template.module(data_type:, locale: target_plan.template.locale)
 
@@ -155,10 +143,10 @@ class ResearchOutputsController < ApplicationController
         data: {
           'research_output_id' => research_output_copy.id
         },
-        madmp_schema: research_output_copy.json_fragment.madmp_schema,
+        madmp_schema: research_output_copy_fragment.madmp_schema,
         dmp_id: target_plan.json_fragment.id,
         parent_id: target_plan.json_fragment.id,
-        additional_info: research_output_copy.json_fragment.additional_info.merge(
+        additional_info: research_output_copy_fragment.additional_info.merge(
           'moduleId' => module_tplt&.id
         )
       )
@@ -171,8 +159,7 @@ class ResearchOutputsController < ApplicationController
         target_plan,
         template
       )
-      research_output_copy.json_fragment.research_output_description
-                          .update_research_output_parameters(skip_broadcast: true)
+      research_output_copy.update_description
 
       # If the RO is duplicated through the UI, copy the guidance groups associated to the target RO
       if duplicate
