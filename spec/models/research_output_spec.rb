@@ -6,17 +6,12 @@
 #
 #  id                      :integer          not null, primary key
 #  abbreviation            :string
-#  access                  :integer          default("open"), not null
-#  byte_size               :bigint(8)
 #  description             :text
 #  display_order           :integer
 #  is_default              :boolean          default(FALSE)
 #  output_type             :integer          default("dataset"), not null
 #  output_type_description :string
-#  personal_data           :boolean
 #  pid                     :string
-#  release_date            :datetime
-#  sensitive_data          :boolean
 #  title                   :string
 #  topic                   :string           default("standard"), not null
 #  uuid                    :string
@@ -36,7 +31,11 @@ require 'rails_helper'
 
 RSpec.describe ResearchOutput, type: :model do
   context 'associations' do
-    it { is_expected.to belong_to(:plan).optional.touch(true) }
+    it { is_expected.to belong_to(:plan) }
+    it { is_expected.to have_many(:answers) }
+    it { should have_and_belong_to_many(:guidance_groups) }
+    it { should have_many(:guidances).through(:guidance_groups) }
+    it { should have_many(:themes).through(:guidances) }
   end
 
   context 'validations' do
@@ -46,6 +45,7 @@ RSpec.describe ResearchOutput, type: :model do
     it { is_expected.to define_enum_for(:access).with_values(ResearchOutput.accesses.keys) }
     it { is_expected.to define_enum_for(:output_type).with_values(ResearchOutput.output_types.keys) }
 
+    it { is_expected.to validate_presence_of(:plan) }
     it { is_expected.to validate_presence_of(:output_type) }
     it { is_expected.to validate_presence_of(:access) }
     it { is_expected.to validate_presence_of(:title) }

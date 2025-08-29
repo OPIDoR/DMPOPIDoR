@@ -6,17 +6,12 @@
 #
 #  id                      :integer          not null, primary key
 #  abbreviation            :string
-#  access                  :integer          default("open"), not null
-#  byte_size               :bigint(8)
 #  description             :text
 #  display_order           :integer
 #  is_default              :boolean          default(FALSE)
 #  output_type             :integer          default("dataset"), not null
 #  output_type_description :string
-#  personal_data           :boolean
 #  pid                     :string
-#  release_date            :datetime
-#  sensitive_data          :boolean
 #  title                   :string
 #  topic                   :string           default("standard"), not null
 #  uuid                    :string
@@ -46,8 +41,6 @@ class ResearchOutput < ApplicationRecord
   enum :output_type, %i[audiovisual collection data_paper dataset event image
                         interactive_resource model_representation physical_object
                         service software sound text workflow other]
-
-  enum :access, %i[open embargoed restricted closed]
 
   # ================
   # = Associations =
