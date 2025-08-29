@@ -60,7 +60,7 @@ class ResearchOutput < ApplicationRecord
   # = Validations =
   # ===============
 
-  validates_presence_of :output_type, :access, :title, message: PRESENCE_MESSAGE
+  validates_presence_of :output_type, :title, message: PRESENCE_MESSAGE
   validates_uniqueness_of :title, { case_sensitive: false, scope: :plan_id,
                                     message: UNIQUENESS_MESSAGE }
   validates_uniqueness_of :abbreviation, { case_sensitive: false, scope: :plan_id,
