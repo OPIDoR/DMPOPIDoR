@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2025_08_05_071338) do
+ActiveRecord::Schema[8.0].define(version: 2025_08_29_093340) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
   enable_extension "unaccent"
@@ -470,11 +470,6 @@ ActiveRecord::Schema[8.0].define(version: 2025_08_05_071338) do
     t.string "output_type_description"
     t.string "title"
     t.text "description"
-    t.integer "access", default: 0, null: false
-    t.datetime "release_date", precision: nil
-    t.boolean "personal_data"
-    t.boolean "sensitive_data"
-    t.bigint "byte_size"
     t.string "uuid"
     t.string "topic", default: "standard", null: false
     t.index ["plan_id"], name: "index_research_outputs_on_plan_id"

@@ -55,13 +55,6 @@ describe 'api/v1/datasets/_show.json.jbuilder' do
         expected = Api::V1::ApiPresenter.boolean_to_yes_no_unknown(value: @output.personal_data)
         expect(@json[:personal_data]).to eql(expected)
       end
-      it 'includes :sensitive_data' do
-        expected = Api::V1::ApiPresenter.boolean_to_yes_no_unknown(value: @output.sensitive_data)
-        expect(@json[:sensitive_data]).to eql(expected)
-      end
-      it 'includes :issued' do
-        expect(@json[:issued]).to eql(@output.release_date&.to_formatted_s(:iso8601))
-      end
       it 'includes :dataset_id' do
         expect(@json[:dataset_id][:type]).to eql('other')
         expect(@json[:dataset_id][:identifier]).to eql(@output.id.to_s)
@@ -69,9 +62,6 @@ describe 'api/v1/datasets/_show.json.jbuilder' do
       context ':distribution info' do
         before(:each) do
           @distribution = @json[:distribution].first
-        end
-        it 'includes :byte_size' do
-          expect(@distribution[:byte_size]).to eql(@output.byte_size)
         end
         it 'includes :data_access' do
           expect(@distribution[:data_access]).to eql(@output.access)

@@ -119,7 +119,6 @@ module ExportablePlan
     # Start DMP OPIDoR Customization
     # Changes: Added Research outputs
     # --------------------------------
-    # hash[:research_outputs] = prepare_research_outputs
     hash[:research_outputs] = research_outputs
     # --------------------------------
     # End DMP OPIDoR Customization
@@ -175,26 +174,6 @@ module ExportablePlan
     end
     hash[:customizer] = customizer
     hash
-  end
-  # rubocop:enable Metrics/AbcSize
-
-  # rubocop:disable Metrics/AbcSize
-  def prepare_research_outputs
-    research_outputs.map do |research_output|
-      presenter = ResearchOutputPresenter.new(research_output: research_output)
-      size_hash = presenter.converted_file_size(size: research_output.byte_size)
-
-      {
-        title: research_output.title,
-        description: research_output.description,
-        type: presenter.display_type,
-        anticipated_release_date: presenter.display_release,
-        initial_access_level: presenter.display_access,
-        anticipated_file_size: "#{size_hash[:size]} #{size_hash[:unit]&.upcase}",
-        may_contain_sensitive_data: presenter.display_boolean(value: research_output.sensitive_data),
-        may_contain_pii: presenter.display_boolean(value: research_output.personal_data)
-      }
-    end
   end
   # rubocop:enable Metrics/AbcSize
 

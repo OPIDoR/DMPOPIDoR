@@ -25,13 +25,6 @@ class ResearchOutputPresenter
     [%w[MB mb], %w[GB gb], %w[TB tb], %w[PB pb], ['bytes', '']]
   end
 
-  # Returns whether or not we should capture the byte_size based on the output_type
-  def byte_sizable?
-    @research_output.audiovisual? || @research_output.sound? || @research_output.image? ||
-      @research_output.model_representation? ||
-      @research_output.data_paper? || @research_output.dataset? || @research_output.text?
-  end
-
   # Converts the byte_size into a more friendly value (e.g. 15.4 MB)
   # rubocop:disable Metrics/AbcSize, Metrics/CyclomaticComplexity
   def converted_file_size(size:)
@@ -67,13 +60,6 @@ class ResearchOutputPresenter
     return _('Unspecified') unless @research_output.access.present?
 
     @research_output.access.capitalize
-  end
-
-  # Returns the release date as a date
-  def display_release
-    return _('Unspecified') unless @research_output.release_date.present?
-
-    @research_output.release_date.to_date
   end
 
   # Return 'Yes', 'No' or 'Unspecified' depending on the value
