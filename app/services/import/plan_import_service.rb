@@ -83,12 +83,12 @@ module Import
                                                                                   })
             next if associated_question.nil?
 
-            fragment = MadmpFragment.new(
+            fragment = MadmpFragment.find_or_initialize_by(
               dmp_id:,
               parent_id: research_output_fragment.id,
-              madmp_schema: associated_question.madmp_schema,
-              additional_info: { 'property_name' => prop }
+              madmp_schema_id: associated_question.madmp_schema_id
             )
+            fragment.additional_info = { 'property_name' => prop }
             fragment.classname = associated_question.madmp_schema.classname
             next if associated_question.nil?
 

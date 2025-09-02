@@ -2,11 +2,12 @@
 
 # Helper class for the guidance pages
 class GuidancePresenter
-  attr_accessor :plan, :guidance_groups
+  attr_accessor :plan, :research_output, :guidance_groups
 
-  def initialize(plan)
-    @plan = plan
-    @guidance_groups = plan.guidance_groups.where(published: true)
+  def initialize(obj)
+    @research_output = obj.is_a?(ResearchOutput) ? obj : nil
+    @plan = obj.is_a?(Plan) ? obj : obj.plan
+    @guidance_groups = obj.guidance_groups.where(published: true)
   end
 
   # rubocop:disable Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
@@ -78,12 +79,12 @@ class GuidancePresenter
     return @orgs if defined?(@orgs)
 
     @orgs = []
-    orgs_from_annotations.each { |org| @orgs << org unless org_found(@orgs, org) }
-    orgs_from_guidance_groups.each { |org| @orgs << org unless org_found(@orgs, org) }
+    orgs_from_annotations.each { |org| @orgs << org unless org_found?(@orgs, org) }
+    orgs_from_guidance_groups.each { |org| @orgs << org unless org_found?(@orgs, org) }
     @orgs
   end
 
-  def org_found(orgs, org)
+  def org_found?(orgs, org)
     orgs.find do |lookup_org|
       lookup_org.id == org.id
     end.present?

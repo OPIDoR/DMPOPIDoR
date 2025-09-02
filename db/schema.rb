@@ -10,9 +10,9 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.2].define(version: 2025_06_23_092519) do
+ActiveRecord::Schema[8.0].define(version: 2025_08_29_093340) do
   # These are extensions that must be enabled in order to support this database
-  enable_extension "plpgsql"
+  enable_extension "pg_catalog.plpgsql"
   enable_extension "unaccent"
 
   # Custom types defined in this database.
@@ -148,6 +148,12 @@ ActiveRecord::Schema[7.2].define(version: 2025_06_23_092519) do
     t.integer "language_id", default: 0
     t.string "topics", default: ["standard"], null: false, array: true
     t.index ["org_id"], name: "guidance_groups_org_id_idx"
+  end
+
+
+  create_table "guidance_groups_research_outputs", id: false, force: :cascade do |t|
+    t.bigint "research_output_id", null: false
+    t.bigint "guidance_group_id", null: false
   end
 
 
@@ -464,11 +470,6 @@ ActiveRecord::Schema[7.2].define(version: 2025_06_23_092519) do
     t.string "output_type_description"
     t.string "title"
     t.text "description"
-    t.integer "access", default: 0, null: false
-    t.datetime "release_date", precision: nil
-    t.boolean "personal_data"
-    t.boolean "sensitive_data"
-    t.bigint "byte_size"
     t.string "uuid"
     t.string "topic", default: "standard", null: false
     t.index ["plan_id"], name: "index_research_outputs_on_plan_id"
