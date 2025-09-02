@@ -417,9 +417,6 @@ class Plan < ApplicationRecord
         end
       end
     end
-    plan.guidance_groups.each do |guidance_group|
-      plan_copy.guidance_groups << guidance_group if guidance_group.present?
-    end
     plan_copy
   end
   # rubocop:enable Metrics/AbcSize, Metrics/MethodLength

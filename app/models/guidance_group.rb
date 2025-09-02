@@ -45,6 +45,8 @@ class GuidanceGroup < ApplicationRecord
 
   has_and_belongs_to_many :plans, join_table: :plans_guidance_groups
 
+  has_and_belongs_to_many :research_outputs, join_table: :guidance_groups_research_outputs
+
   # ===============
   # = Validations =
   # ===============

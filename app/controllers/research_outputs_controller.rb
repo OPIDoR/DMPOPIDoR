@@ -3,6 +3,7 @@
 # Controller to handle CRUD operations for the Research Outputs tab
 class ResearchOutputsController < ApplicationController
   include ErrorHelper
+
   helper PaginableHelper
   after_action :verify_authorized
 
@@ -16,8 +17,9 @@ class ResearchOutputsController < ApplicationController
 
   # POST /plans/:plan_id/research_outputs
   # rubocop:disable Metrics/AbcSize,Metrics/MethodLength
+  # rubocop:disable Metrics/CyclomaticComplexity
   def create
-    @plan = Plan.includes(:template, :research_outputs).find_by(id: params[:plan_id])
+    @plan = Plan.includes(:template, :research_outputs, :roles).find_by(id: params[:plan_id])
     attrs = research_output_params
     authorize ResearchOutput.new(plan: @plan)
     I18n.with_locale @plan.template.locale do
@@ -32,6 +34,15 @@ class ResearchOutputsController < ApplicationController
       )
       created_ro.create_json_fragments(params[:configuration])
 
+      # pre-select owner org's guidance and the default org's guidance
+      ids = (::Org.default_orgs.pluck(:id) << @plan.owner.org_id).flatten.uniq
+
+      language = Language.find_by(abbreviation: @plan.template.locale)
+
+      ggs = GuidanceGroup.where(org_id: ids, optional_subset: false, published: true, language_id: language.id)
+
+      created_ro.guidance_groups << ggs unless ggs.empty?
+
       render json: {
         id: @plan.id,
         created_ro_id: created_ro.id,
@@ -43,6 +54,7 @@ class ResearchOutputsController < ApplicationController
       internal_server_error(e.message)
     end
   end
+  # rubocop:enable Metrics/CyclomaticComplexity
   # rubocop:enable Metrics/AbcSize,Metrics/MethodLength
 
   # PATCH/PUT /plans/:plan_id/research_outputs/:id
@@ -54,25 +66,15 @@ class ResearchOutputsController < ApplicationController
 
     authorize @research_output
     I18n.with_locale plan.template.locale do
-      research_output_description = @research_output.json_fragment.research_output_description
+      research_outputs = ResearchOutput.where(plan_id: params[:plan_id])
 
-      updated_data = research_output_description.data.merge({
-                                                              title: attrs[:title],
-                                                              shortName: attrs[:abbreviation],
-                                                              type: params[:type],
-                                                              containsPersonalData: params[:configuration][:hasPersonalData] ? _('Yes') : _('No') # rubocop:disable Layout/LineLength
-                                                            })
-      research_output_description.update(data: updated_data)
-      research_output_description.update_research_output_parameters(skip_broadcast: true)
+      @research_output.update!(attrs)
+      research_output_description = @research_output.update_description
       PlanChannel.broadcast_to(plan, {
                                  target: 'dynamic_form',
                                  fragment_id: research_output_description.id,
                                  payload: research_output_description.get_full_fragment(with_ids: true)
                                })
-
-      research_outputs = ResearchOutput.where(plan_id: attrs[:plan_id])
-
-      @research_output.update!(attrs)
 
       render json: {
                status: 200,
@@ -109,23 +111,29 @@ class ResearchOutputsController < ApplicationController
   # rubocop:enable Metrics/AbcSize
 
   # rubocop:disable Metrics/AbcSize, Metrics/MethodLength
+  # rubocop:disable Metrics/CyclomaticComplexity
   def import
     body = JSON.parse(request.body.string)
     research_output = ResearchOutput.find_by(uuid: body['uuid'])
     research_output_fragment = research_output.json_fragment
     data_type = research_output_fragment.additional_info['dataType']
+    duplicate = body['duplicate']
 
     authorize research_output
 
-    target_plan = Plan.includes(:template).find(params[:plan_id])
+    target_plan = ::Plan.includes(:template).find(params[:plan_id])
 
     I18n.with_locale target_plan.template.locale do # rubocop:disable Metrics/BlockLength
       pos = target_plan.research_outputs.length + 1
 
+      prefix_text = duplicate ? _('Copy of') : _('Import of')
+
       research_output_copy = target_plan.research_outputs.create!(
-        abbreviation: "#{_('RO')} #{pos} [#{_('Copy of')} #{research_output.abbreviation}]",
-        title: "#{_('Research output')} #{pos} [#{_('Copy of')} #{research_output.title}]",
-        display_order: pos
+        abbreviation: "#{_('RO')} #{pos} [#{prefix_text} #{research_output.abbreviation}]",
+        title: "#{_('Research output')} #{pos} [#{prefix_text} #{research_output.title}]",
+        display_order: pos,
+        output_type_description: research_output.output_type_description,
+        output_type: research_output.output_type
       )
 
       module_tplt = Template.module(data_type:, locale: target_plan.template.locale)
@@ -135,10 +143,10 @@ class ResearchOutputsController < ApplicationController
         data: {
           'research_output_id' => research_output_copy.id
         },
-        madmp_schema: research_output_fragment.madmp_schema,
+        madmp_schema: research_output_copy_fragment.madmp_schema,
         dmp_id: target_plan.json_fragment.id,
         parent_id: target_plan.json_fragment.id,
-        additional_info: research_output_fragment.additional_info.merge(
+        additional_info: research_output_copy_fragment.additional_info.merge(
           'moduleId' => module_tplt&.id
         )
       )
@@ -147,12 +155,18 @@ class ResearchOutputsController < ApplicationController
 
       Import::PlanImportService.import_research_output(
         research_output_copy_fragment,
-        research_output_fragment.get_full_fragment,
+        research_output_copy.json_fragment.get_full_fragment,
         target_plan,
         template
       )
-      research_output_copy_fragment.research_output_description
-                                   .update_research_output_parameters(skip_broadcast: true)
+      research_output_copy.update_description
+
+      # If the RO is duplicated through the UI, copy the guidance groups associated to the target RO
+      if duplicate
+        research_output.guidance_groups.each do |guidance_group|
+          research_output_copy.guidance_groups << guidance_group if guidance_group.present?
+        end
+      end
 
       render json: {
         id: target_plan.id,
@@ -162,7 +176,154 @@ class ResearchOutputsController < ApplicationController
       }
     end
   end
+  # rubocop:enable Metrics/CyclomaticComplexity
   # rubocop:enable Metrics/AbcSize, Metrics/MethodLength
+
+  # rubocop:disable Metrics/AbcSize
+  def has_guidances # rubocop:disable Naming/PredicatePrefix
+    research_output = ResearchOutput.includes(:themes).find(params[:id])
+    authorize research_output
+    question = Question.includes(:annotations, :themes).find(params[:question])
+    has_guidances = if question.annotations.where(type: 'guidance').any?
+                      true
+                    elsif research_output.guidance_groups.any?
+                      research_output.theme_ids.intersect?(question.theme_ids.uniq)
+                    else
+                      false
+                    end
+    render json: {
+      has_guidances:
+    }, status: :ok
+  end
+  # rubocop:enable Metrics/AbcSize
+
+  # rubocop:disable Metrics/AbcSize, Metrics/MethodLength
+  # rubocop:disable Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
+  def question_guidances
+    ro_id = params[:id]
+    unless ro_id&.to_i&.positive?
+      bad_request("Research output [#{ro_id}] id, must be present or positive value")
+      return
+    end
+
+    question_id = params[:question]
+    unless question_id&.to_i&.positive?
+      bad_request("Question [#{question_id}] id, must be present or positive value")
+      return
+    end
+
+    begin
+      @research_output = ResearchOutput.includes(plan: [:template]).find(ro_id)
+    rescue ActiveRecord::RecordNotFound => e
+      Rails.logger.error("Research output [#{ro_id}] not found")
+      Rails.logger.error(e.backtrace.join("\n"))
+      not_found('No research output found')
+      return
+    rescue StandardError => e
+      Rails.logger.error('An error occured during retriving research output data')
+      Rails.logger.error(e.backtrace.join("\n"))
+      internal_server_error(e.message)
+      return
+    end
+
+    begin
+      authorize @research_output
+    rescue Pundit::NotAuthorizedError => e
+      Rails.logger.error('An error occurred while checking authorisations')
+      Rails.logger.error(e.backtrace.join("\n"))
+      forbidden
+      return
+    end
+
+    begin
+      question = Question.includes(:themes).find(question_id)
+    rescue ActiveRecord::RecordNotFound => e
+      Rails.logger.error("Question [#{plan_id}] not found")
+      Rails.logger.error(e.backtrace.join("\n"))
+      not_found('No plan found')
+      return
+    rescue StandardError => e
+      Rails.logger.error('An error occured during retriving question data')
+      Rails.logger.error(e.backtrace.join("\n"))
+      internal_server_error(e.message)
+      return
+    end
+
+    begin
+      guidance_presenter = GuidancePresenter.new(@research_output)
+      guidances = guidance_presenter.tablist(question)
+    rescue StandardError => e
+      Rails.logger.error('Cannot create guidance presenter')
+      Rails.logger.error(e.backtrace.join("\n"))
+      internal_server_error('An error occured during guidance presenter creation')
+      return
+    end
+
+    guidances = guidances.map do |guidance|
+      {
+        name: guidance[:name],
+        groups: guidance[:groups].to_a,
+        annotations: guidance[:annotations]
+      }
+    end
+
+    render json: {
+             status: 200, message: "Guidances for research output [#{ro_id}] and question [#{question_id}]",
+             guidances: guidances
+           },
+           status: :ok
+  end
+  # rubocop:enable Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
+  # rubocop:enable Metrics/AbcSize, Metrics/MethodLength
+
+  def guidance_groups
+    @all_ggs_grouped_by_org = get_guidances_groups(params[:id])
+    render json: {
+      status: 200,
+      message: 'Guidance groups',
+      data: @all_ggs_grouped_by_org
+    }, status: :ok
+  end
+
+  # rubocop:disable Metrics/MethodLength, Metrics/AbcSize
+  def select_guidance_groups
+    @research_output = ResearchOutput.includes(:guidance_groups, plan: [:template]).find(params[:id])
+    authorize @research_output
+
+    body = JSON.parse(request.raw_post)
+
+    selected_ids = body['guidance_group_ids']
+
+    guidance_group_ids = if selected_ids.blank?
+                           []
+                         else
+                           selected_ids.map(&:to_i).uniq
+                         end
+
+    @research_output.guidance_groups = GuidanceGroup.where(id: guidance_group_ids)
+
+    if @research_output.save
+      @all_ggs_grouped_by_org = get_guidances_groups(params[:id])
+      render json: {
+        status: 200,
+        message: "Guidances updated for plan [#{params[:id]}]",
+        guidance_groups: @all_ggs_grouped_by_org
+      }, status: :ok
+    else
+      Rails.logger.error("Plan [#{params[:id]}] not updated")
+      internal_server_error("Plan [#{params[:id]}] not updated")
+    end
+  rescue ActiveRecord::RecordNotFound
+    Rails.logger.error("Plan [#{params[:id]}] not found")
+    not_found("Plan [#{params[:id]}] not found")
+  rescue JSON::ParserError, TypeError
+    Rails.logger.error('Bad request - Invalid JSON data')
+    bad_request('Bad request - Invalid JSON data')
+  rescue StandardError => e
+    Rails.logger.error("Internal server error - #{e.message}")
+    internal_server_error("Internal server error - #{e.message}")
+  end
+  # rubocop:enable Metrics/MethodLength, Metrics/AbcSize
 
   private
 
@@ -171,4 +332,39 @@ class ResearchOutputsController < ApplicationController
           .permit(:id, :plan_id, :abbreviation, :title, :type, :contact_id, :topic,
                   configuration: {})
   end
+
+  # rubocop:disable Metrics/MethodLength, Metrics/AbcSize
+  def get_guidances_groups(id)
+    @research_output = ResearchOutput.includes(
+      :guidance_groups, plan: [template: [:phases]]
+    ).find(id)
+    @plan = @research_output.plan
+    authorize @research_output
+    current_locale = Language.where(abbreviation: @plan.template.locale).first
+
+    @all_guidance_groups = GuidanceGroup.published.where(language_id: current_locale.id)
+    @all_ggs_grouped_by_org = @all_guidance_groups.sort.group_by(&:org)
+    @selected_guidance_groups = @research_output.guidance_groups.ids.to_set
+
+    @default_orgs = Org.default_orgs
+
+    @all_ggs_grouped_by_org.map do |key, group|
+      {
+        name: key.name,
+        id: key.id,
+        important: @default_orgs.include?(key) || group.any? { |item| @selected_guidance_groups.include?(item.id) },
+        guidance_groups: group.map do |item|
+          {
+            id: item.id,
+            name: item.name,
+            selected: @selected_guidance_groups.include?(item.id),
+            description: item.description,
+            language_id: item.language_id,
+            topics: item.topics
+          }
+        end
+      }
+    end
+  end
+  # rubocop:enable Metrics/MethodLength, Metrics/AbcSize
 end

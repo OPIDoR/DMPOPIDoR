@@ -6,17 +6,12 @@
 #
 #  id                      :integer          not null, primary key
 #  abbreviation            :string
-#  access                  :integer          default("open"), not null
-#  byte_size               :bigint(8)
 #  description             :text
 #  display_order           :integer
 #  is_default              :boolean          default(FALSE)
 #  output_type             :integer          default("dataset"), not null
 #  output_type_description :string
-#  personal_data           :boolean
 #  pid                     :string
-#  release_date            :datetime
-#  sensitive_data          :boolean
 #  title                   :string
 #  topic                   :string           default("standard"), not null
 #  uuid                    :string
@@ -47,30 +42,31 @@ class ResearchOutput < ApplicationRecord
                         interactive_resource model_representation physical_object
                         service software sound text workflow other]
 
-  enum :access, %i[open embargoed restricted closed]
-
   # ================
   # = Associations =
   # ================
 
-  belongs_to :plan, optional: true, touch: true
+  belongs_to :plan
 
   has_many :answers, dependent: :destroy
+
+  has_and_belongs_to_many :guidance_groups, join_table: :guidance_groups_research_outputs
+
+  has_many :guidances, through: :guidance_groups
+
+  has_many :themes, through: :guidances
 
   # ===============
   # = Validations =
   # ===============
 
-  validates_presence_of :output_type, :access, :title, message: PRESENCE_MESSAGE
+  validates_presence_of :output_type, :title, message: PRESENCE_MESSAGE
   validates_uniqueness_of :title, { case_sensitive: false, scope: :plan_id,
                                     message: UNIQUENESS_MESSAGE }
   validates_uniqueness_of :abbreviation, { case_sensitive: false, scope: :plan_id,
                                            allow_nil: true, allow_blank: true,
                                            message: UNIQUENESS_MESSAGE }
 
-  validates_numericality_of :byte_size, greater_than: 0, less_than_or_equal_to: 2**63,
-                                        allow_blank: true,
-                                        message: '(Anticipated file size) is too large. Please enter a smaller value.'
   # Ensure presence of the :output_type_description if the user selected 'other'
   validates_presence_of :output_type_description, if: -> { other? }, message: PRESENCE_MESSAGE
 
@@ -101,7 +97,9 @@ class ResearchOutput < ApplicationRecord
 
   def common_answers?(section_id)
     answers.each do |answer|
-      return true if answer.question_id.in?(Section.find(section_id).questions.pluck(:id)) && answer.is_common
+      if answer.question_id.in?(Section.includes(:questions).find(section_id).questions.pluck(:id)) && answer.is_common
+        return true
+      end
     end
     false
   end
@@ -113,7 +111,9 @@ class ResearchOutput < ApplicationRecord
   end
 
   def get_answers_for_section(section_id)
-    answers.select { |answer| answer.question_id.in?(Section.find(section_id).questions.pluck(:id)) }
+    answers.select do |answer|
+      answer.question_id.in?(Section.includes(:questions).find(section_id).questions.pluck(:id))
+    end
   end
 
   def json_fragment
@@ -125,7 +125,8 @@ class ResearchOutput < ApplicationRecord
   end
 
   # rubocop:disable Metrics/AbcSize, Metrics/MethodLength
-  def create_json_fragments(configuration = {})
+  # rubocop:disable Metrics/CyclomaticComplexity,Metrics/PerceivedComplexity
+  def create_json_fragments(configuration = {}, duplicate: false)
     # rubocop:disable Metrics/BlockLength
     I18n.with_locale plan.template.locale do
       fragment = json_fragment
@@ -169,7 +170,7 @@ class ResearchOutput < ApplicationRecord
           additional_info: { property_name: 'contact' }
         )
 
-        if description_question.present? && plan.structured?
+        if description_question.present? && plan.structured? && !duplicate
           # Create a new answer for the ResearchOutputDescription Question
           # This answer will be displayed in the Write Plan tab,
           # pre filled with the ResearchOutputDescription info
@@ -194,6 +195,7 @@ class ResearchOutput < ApplicationRecord
     end
     # rubocop:enable Metrics/BlockLength
   end
+  # rubocop:enable Metrics/CyclomaticComplexity,Metrics/PerceivedComplexity
   # rubocop:enable Metrics/AbcSize, Metrics/MethodLength
 
   def serialize_infobox_data
@@ -214,12 +216,6 @@ class ResearchOutput < ApplicationRecord
     module_id = ro_fragment.additional_info['moduleId']
     template = module_id ? Template.find(module_id) : plan.template
 
-    guidance_presenter = GuidancePresenter.new(plan)
-    questions_with_guidance = template.questions.select do |q|
-      question = Question.find(q.id)
-      guidance_presenter.any?(question:)
-    end.pluck(:id)
-
     I18n.with_locale plan.template.locale do
       return {
         id: id,
@@ -238,7 +234,6 @@ class ResearchOutput < ApplicationRecord
             madmp_schema_id: a.madmp_fragment.madmp_schema_id
           }
         end,
-        questions_with_guidance:,
         template: template.serialize_json
       }
     end
