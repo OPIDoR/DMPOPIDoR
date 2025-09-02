@@ -37,5 +37,6 @@ FactoryBot.define do
     output_type             { ResearchOutput.output_types.keys.sample }
     output_type_description { Faker::Lorem.sentence }
     title                   { Faker::Music::PearlJam.song }
+    topic                   { 'standard' }
   end
 end

@@ -97,7 +97,9 @@ class ResearchOutput < ApplicationRecord
 
   def common_answers?(section_id)
     answers.each do |answer|
-      return true if answer.question_id.in?(Section.find(section_id).questions.pluck(:id)) && answer.is_common
+      if answer.question_id.in?(Section.includes(:questions).find(section_id).questions.pluck(:id)) && answer.is_common
+        return true
+      end
     end
     false
   end
@@ -109,7 +111,9 @@ class ResearchOutput < ApplicationRecord
   end
 
   def get_answers_for_section(section_id)
-    answers.select { |answer| answer.question_id.in?(Section.find(section_id).questions.pluck(:id)) }
+    answers.select do |answer|
+      answer.question_id.in?(Section.includes(:questions).find(section_id).questions.pluck(:id))
+    end
   end
 
   def json_fragment

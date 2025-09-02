@@ -30,5 +30,10 @@ FactoryBot.define do
     data { {} }
     answer
     madmp_schema
+    dmp
+
+    trait :dmp do
+      classname { 'dmp' }
+    end
   end
 end

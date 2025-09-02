@@ -42,12 +42,11 @@ RSpec.describe ResearchOutput, type: :model do
     before(:each) do
       @subject = create(:research_output, plan: create(:plan))
     end
-    it { is_expected.to define_enum_for(:access).with_values(ResearchOutput.accesses.keys) }
     it { is_expected.to define_enum_for(:output_type).with_values(ResearchOutput.output_types.keys) }
 
     it { is_expected.to validate_presence_of(:plan) }
+    it { is_expected.to validate_presence_of(:topic) }
     it { is_expected.to validate_presence_of(:output_type) }
-    it { is_expected.to validate_presence_of(:access) }
     it { is_expected.to validate_presence_of(:title) }
 
     it {
@@ -83,9 +82,58 @@ RSpec.describe ResearchOutput, type: :model do
     end
   end
 
-  context 'instance methods' do
-    xit 'resource_types should have tests once implemented' do
-      true
+  describe '.main?' do
+    let!(:research_output) { build(:research_output, display_order: 1) }
+
+    subject { research_output.main? }
+
+    context 'when display_order is equal to 1' do
+      it { is_expected.to eql(true) }
+    end
+
+    context 'when display_order is not equal to 1' do
+      before do
+        research_output.update(display_order: 2)
+      end
+      it { is_expected.to eql(false) }
+    end
+  end
+
+  describe '.main' do
+    let!(:plan) { build(:plan) }
+    let!(:main_research_output) { create(:research_output, plan: plan, display_order: 1) }
+    let!(:subj_research_output) { create(:research_output, plan: plan, display_order: 2) }
+
+    subject { subj_research_output.main }
+
+    context 'return first research output' do
+      it { is_expected.to eql(main_research_output) }
+    end
+  end
+
+  describe '.generate_uuid!' do
+    let!(:research_output) { create(:research_output, uuid: 'uuid') }
+
+    subject { research_output.generate_uuid! }
+
+    context 'uuid should have changed' do
+      it { is_expected.to_not eql('uuid') }
+    end
+  end
+
+  describe '.json_fragment' do
+    let!(:plan) { create(:plan) }
+    let!(:dmp_fragment) { create(:madmp_fragment, :dmp, data: { plan_id: plan.id }).becomes(Fragment::Dmp) }
+    let!(:research_output) { create(:research_output, plan:) }
+    let!(:research_output_fragment) do
+      create(:madmp_fragment, :research_output, data: { research_output_id: research_output.id },
+                                                parent: dmp_fragment, dmp: dmp_fragment).becomes(Fragment::ResearchOutput)
+    end
+
+    subject { research_output.json_fragment }
+
+    context 'return the proper MadmpFragment' do
+      it { is_expected.to eql(research_output_fragment) }
     end
   end
 end

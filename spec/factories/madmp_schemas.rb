@@ -28,7 +28,20 @@
 #  fk_rails_...  (org_id => orgs.id)
 #
 FactoryBot.define do
-  factory :madmp_schemas do
-    data { {} }
+  factory :madmp_schema do
+    name { Faker::Lorem.sentence }
+    data_type { 'none' }
+    topics { ['standard'] }
+    schema { {} }
+
+    trait :dmp do
+      classname { 'dmp' }
+      schema { MadmpSchema.find_by(name: 'DmpStandard').schema }
+    end
+
+    trait :research_output do
+      classname { 'research_output' }
+      schema { MadmpSchema.find_by(name: 'ResearchOutputStandard').schema }
+    end
   end
 end
