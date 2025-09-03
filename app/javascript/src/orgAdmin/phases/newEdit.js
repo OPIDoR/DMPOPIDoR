@@ -115,7 +115,4 @@ $(() => {
   if (currentUpdatedSection.length > 0) {
     initSection(`${currentUpdatedSection.attr('id')}`);
   }
-  // Handle the new section
-  // initSection('#new_section_section_description');
-  Tinymce.init({ selector: '#new_section_section_description' });
 });
