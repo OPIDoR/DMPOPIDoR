@@ -3,12 +3,15 @@ import { Controller } from '@hotwired/stimulus';
 export default class extends Controller {
   static targets = ['input'];
 
-  static values = { callback: Boolean };
+  static values = {
+    callback: Boolean,
+    selector: String,
+  };
 
   initialize() {
     this.defaults = {
       license_key: 'gpl',
-      selector: '.tinymce',
+      selector: this.hasSelectorValue ? this.selectorValue : '.tinymce',
       statusbar: true,
       menubar: false,
       toolbar: 'bold italic underline | fontfamily fontsize | fontsizeselect forecolor | alignleft aligncenter alignright alignjustify | subscript superscript | bullist numlist indent outdent | link | table | charmap',
@@ -47,7 +50,6 @@ export default class extends Controller {
       target: this.inputTarget,
       setup: (editor) => {
         editor.on('Change', () => {
-          console.log('callback', this.callbackValue, this);
           if (this.callbackValue) {
             this.handleChange(editor);
           }
@@ -63,7 +65,6 @@ export default class extends Controller {
   }
 
   handleChange(editor) {
-    console.log('callback handleChange');
     const textEditor = editor.targetElm;
     // Remonte jusqu'au fieldset parent
     const fieldset = textEditor.closest('fieldset');

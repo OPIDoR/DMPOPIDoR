@@ -20,7 +20,13 @@
     <!--Question text -->
     <div class="form-control mb-3 col-md-10">
       <%= f.label(:text, _('Question text'), class: "form-label") %>
-      <%= f.text_area(:text, class: "question", spellcheck: true, "aria-required": true) %>
+      <%= f.text_area(:text, class: "question", spellcheck: true,
+                      data: {
+                        controller: "tinymce",
+                        tinymce_target: "input",
+                        tinymce_callback_value: "true",
+                        tinymce_selector_value: "#question_#{question.id} .question"
+                      }, "aria-required": true) %>
     </div>
 
     <% if template.classic? %>

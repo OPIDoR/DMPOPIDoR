@@ -45,8 +45,11 @@ end
       <div class="form-group mb-3" data-toggle="tooltip" title="<%= guidance_text_tooltip %>">
         <em class="sr-only"><%= guidance_text_tooltip %></em>
         <%= f.label :text, class: 'form-label' %>
-        <%= f.text_area :text, rows: 10, class: "form-control", spellcheck: true,
-                        aria: { required: true } %>
+        <%= f.text_area :text, rows: 10, class: "form-control tinymce", spellcheck: true,
+                        data: {
+                          controller: "tinymce",
+                          tinymce_target: "input"
+                        }, aria: { required: true } %>
       </div>
       <div id="theme-selector">
         <%= render partial: 'org_admin/shared/theme_selector',

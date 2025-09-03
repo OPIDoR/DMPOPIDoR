@@ -1,14 +1,6 @@
 import getConstant from '../utils/constants';
-import { isUndefined, isObject } from '../utils/isType';
-import { Tinymce } from '../utils/tinymce.js';
 
 $(() => {
-  const form = $('.research_output_form');
-
-  if (!isUndefined(form) && isObject(form)) {
-    Tinymce.init({ selector: '#research_output_description' });
-  }
-
   // Expands/Collapses the search results 'More info'/'Less info' section
   $('body').on('click', '.modal-search-result .more-info a.more-info-link', (e) => {
     e.preventDefault();

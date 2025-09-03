@@ -18,7 +18,11 @@
 
 <div class="form-control mb-3 col-md-10" data-toggle="tooltip" title="<%= _("Enter a basic description. This will be presented to users on the 'Admin Plan' tab, above the summary of the sections and questions which they will be asked to answer.") %>">
   <%= f.label(:description, _('Description'), class: "form-label") %>
-  <%= f.text_area(:description, class: "phase", spellcheck: true) %>
+  <%= f.text_area(:description, class: "phase tinymce", spellcheck: true,
+                  data: {
+                    controller: "tinymce",
+                    tinymce_target: "input"
+                  }) %>
 </div>
 
 <div class="form-control mb-3 col-md-4 float-end">

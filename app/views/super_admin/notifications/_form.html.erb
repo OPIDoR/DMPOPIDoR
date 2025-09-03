@@ -63,6 +63,11 @@
           class: 'form-control notification-text',
           value: @notification.body,
           spellcheck: true,
+          data: {
+            controller: "tinymce",
+            tinymce_target: "input",
+            tinymce_selector_value: "#notification_body"
+          },
           "aria-required": true %>
     </div>
   </div>
