@@ -1,8 +1,8 @@
 import getConstant from './constants';
 
 // Globally ensure that any URLs that are directing the user offsite open in a new tab/window
-$(() => {
-  $('body').click('a[href^="http"]', (e) => {
+document.addEventListener('turbo:load', () => {
+  $('body').on('click', 'a[href^="http"]', (e) => {
     const link = $(e.target);
     const protocol = new RegExp('^https?');
     const regex = new RegExp(`^https?://${getConstant('HOST')}`);

@@ -35,7 +35,7 @@ eachLinks.done = (cb) => {
   }
 };
 
-$(() => {
+document.addEventListener('turbo:load', () => {
   const regExp = /([^\d]*)(\d)+/;
   const replacer = (match, p1, p2) => `${p1}${(p2 * 1) + 1}`;
   const replacerFor = (i, el) => $(el).attr('for', $(el).attr('for').replace(regExp, replacer));

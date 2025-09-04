@@ -31,7 +31,7 @@ export const addAsterisks = (el) => {
   });
 };
 
-$(() => {
+document.addEventListener('turbo:load', () => {
   asterisk = `<span class="red" title="${getConstant('REQUIRED_FIELD_TEXT')}">* </span>`;
   addAsterisks('body');
 });

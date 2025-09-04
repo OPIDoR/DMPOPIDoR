@@ -1,6 +1,6 @@
 import getConstant from '../utils/constants';
 
-$(() => {
+document.addEventListener('turbo:load', () => {
   $('#show_list').click((e) => {
     e.preventDefault();
     if ($('#full_list').is('.hidden')) {

@@ -2,7 +2,7 @@ import * as notifier from '../utils/notificationHelper';
 import getConstant from '../utils/constants';
 import { paginableSelector } from '../utils/paginable';
 
-$(() => {
+document.addEventListener('turbo:load', () => {
   $(paginableSelector).on('ajax:success', 'input.set_test_plan', (e) => {
     const checkbox = $(e.target);
     const data = e.detail[0]; 

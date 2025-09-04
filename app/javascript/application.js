@@ -64,7 +64,6 @@ import './src/plans/index.js.erb';
 import './src/plans/researchOutputs';
 import './src/plans/share';
 import './src/publicTemplates/show';
-import './src/researchOutputs/form';
 import './src/roles/edit';
 import './src/shared/createAccountForm';
 import './src/shared/signInForm';
@@ -88,7 +87,6 @@ import './src/orgAdmin/templates/new';
 // SuperAdmin view specific JS
 import './src/superAdmin/apiClients/form';
 import './src/superAdmin/notifications/edit';
-import './src/superAdmin/registries/show';
 import './src/superAdmin/themes/newEdit';
 import './src/superAdmin/users/edit';
 

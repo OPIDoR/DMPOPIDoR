@@ -3,7 +3,7 @@ import { isString } from '../../utils/isType';
 import { isValidPassword } from '../../utils/isValidInputType';
 import { addMatchingPasswordValidator, togglisePasswords } from '../../utils/passwordHelper';
 
-$(() => {
+document.addEventListener('turbo:load', () => {
   addMatchingPasswordValidator({ selector: '#password_details_registration_form' });
   togglisePasswords({ selector: '#password_details_registration_form' });
   initAutocomplete('#profile-org-controls .autocomplete');

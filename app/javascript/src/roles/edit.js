@@ -2,7 +2,7 @@ import { renderNotice, renderAlert } from '../utils/notificationHelper';
 import { isString, isObject } from '../utils/isType';
 import { scrollTo } from '../utils/scrollTo';
 
-$(() => {
+document.addEventListener('turbo:load', () => {
   $('form.edit_role select').on('change', (e) => {
     $(e.target).closest('form').submit();
   });

@@ -5,7 +5,7 @@ import { Tinymce } from '../utils/tinymce.js';
 import { eachLinks } from '../utils/links';
 import { initAutocomplete, scrubOrgSelectionParamsOnSubmit } from '../utils/autoComplete';
 
-$(() => {
+document.addEventListener('turbo:load', () => {
   const toggleFeedback = () => {
     const editor = Tinymce.findEditorById('org_feedback_msg');
     if (isObject(editor)) {

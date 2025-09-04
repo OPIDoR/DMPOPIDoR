@@ -2,7 +2,7 @@ import { isObject, isString } from '../utils/isType';
 import { renderNotice, renderAlert } from '../utils/notificationHelper';
 import { scrollTo } from '../utils/scrollTo';
 
-$(() => {
+document.addEventListener('turbo:load', () => {
   // Activate/Deactivate user account
   $('body').on('ajax:success', '.activate-user', (e) => {
     const data = e.detail[0];
@@ -70,9 +70,7 @@ $(() => {
     }
     $('#modal-permissions').modal('hide');
   });
-});
 
-$(() => {
   $('body').on('click', '#org_admin_privileges', () => {
     if ($('#org_admin_privileges').prop('checked')) {
       $('.org_grant_privileges:checkbox').prop('checked', true);
@@ -87,9 +85,7 @@ $(() => {
       $('#org_admin_privileges').prop('checked', false);
     }
   });
-});
 
-$(() => {
   $('body').on('click', '#super_admin_privileges', () => {
     if ($('#super_admin_privileges').prop('checked')) {
       $('.super_grant_privileges:checkbox').prop('checked', true);

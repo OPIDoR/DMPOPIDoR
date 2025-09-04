@@ -1,6 +1,6 @@
 import { isUndefined, isObject } from '../utils/isType';
 
-$(() => {
+document.addEventListener('turbo:load', () => {
   // url for the api we will be querying
   let url = '';
 

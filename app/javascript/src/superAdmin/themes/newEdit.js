@@ -1,4 +1,4 @@
-$(() => {
+document.addEventListener('turbo:load', () => {
   const sortableThemes = () => {
     $('#themes').sortable({
       items: '.theme',
@@ -15,13 +15,15 @@ $(() => {
             updated_order: updatedOrder,
           },
         });
-      }
+      },
     });
   };
-  
+
   // Needs to re-apply sortable function after ajax paginable call
-  $('body').on('ajax:success',
+  $('body').on(
+    'ajax:success',
     'a.paginable-action[data-remote="true"]',
-    sortableThemes);
+    sortableThemes,
+  );
   sortableThemes();
 });

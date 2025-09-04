@@ -3,7 +3,7 @@ import getConstant from '../utils/constants';
 import toggleSpinner from '../utils/spinner';
 import { paginableSelector } from '../utils/paginable';
 
-$(() => {
+document.addEventListener('turbo:load', () => {
   $(paginableSelector).on('ajax:success', 'input.set_test_plan', (e) => {
     const checkbox = $(e.target);
     const data = e.detail[0]; 

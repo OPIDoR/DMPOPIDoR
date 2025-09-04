@@ -1,6 +1,6 @@
 import { initAutocomplete, scrubOrgSelectionParamsOnSubmit } from '../../utils/autoComplete';
 
-$(() => {
+document.addEventListener('turbo:load', () => {
   const updateMergeConfirmation = (userSelect) => {
     // update the confirmation dialogue with the selected user's email address
     const editingUserEmail = $('#superadmin_user_email').val();

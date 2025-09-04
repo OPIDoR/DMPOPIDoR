@@ -1,4 +1,4 @@
-$(() => {
+document.addEventListener('turbo:load', () => {
   // This bit of code currently only closes dropdown
   // menus in a table when the focus is no longer in the containing cell.
 

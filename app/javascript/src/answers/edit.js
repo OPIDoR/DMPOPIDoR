@@ -210,7 +210,7 @@ const attachEventHandlers = (jQueryForm) => {
   });
 };
 
-$(() => {
+document.addEventListener('turbo:load', () => {
   datePicker();
 
   // Example answer toggle

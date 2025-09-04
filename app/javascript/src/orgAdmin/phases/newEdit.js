@@ -8,7 +8,7 @@ import onChangeQuestionFormat, { onChangeQuestionClassname } from '../questions/
 import initQuestionOption from '../questionOptions/index';
 import updateConditions from '../conditions/updateConditions';
 
-$(() => {
+document.addEventListener('turbo:load', () => {
   const parentSelector = '.section-group';
 
   const initQuestion = (context) => {

@@ -1,7 +1,7 @@
 import 'jquery-ui/ui/widgets/sortable';
 import { renderAlert } from '../../utils/notificationHelper';
 
-$(() => {
+document.addEventListener('turbo:load', () => {
   // Is there already one prefix section on this Phase?
   //
   // draggableSections - A jQuery object, the sortable element.

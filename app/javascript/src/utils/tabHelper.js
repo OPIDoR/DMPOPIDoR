@@ -1,6 +1,6 @@
 /* eslint-env browser */ // This allows us to reference 'window' below
 
-$(() => {
+document.addEventListener('turbo:load', () => {
   // If the URL contains a tab reference then show that tab
   const loc = window.location.hash;
   if (loc) {

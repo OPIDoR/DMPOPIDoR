@@ -99,7 +99,7 @@ n*
  *
  */
 
-$(() => $('body').on('click', '.accordion-controls a[data-toggle-direction]', (e) => {
+document.addEventListener('turbo:load', () => $('body').on('click', '.accordion-controls a[data-toggle-direction]', (e) => {
   e.preventDefault();
   const currentTarget = $(e.currentTarget);
   const target = $(e.target);

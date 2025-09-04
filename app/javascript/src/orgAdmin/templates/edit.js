@@ -3,7 +3,7 @@ import { isObject, isString } from '../../utils/isType';
 import { renderNotice, renderAlert } from '../../utils/notificationHelper';
 import { scrollTo } from '../../utils/scrollTo';
 
-$(() => {
+document.addEventListener('turbo:load', () => {
   $('.edit_template').on('ajax:before', () => {
     const links = {};
     eachLinks((ctx, value) => {

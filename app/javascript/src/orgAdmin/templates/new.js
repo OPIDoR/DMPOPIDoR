@@ -1,6 +1,6 @@
 import { eachLinks } from '../../utils/links';
 
-$(() => {
+document.addEventListener('turbo:load', () => {
   $('.new_template').on('submit', () => {
     const links = {};
     eachLinks((ctx, value) => {

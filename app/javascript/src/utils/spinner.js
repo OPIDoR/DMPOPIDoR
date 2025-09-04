@@ -12,7 +12,7 @@ const toggleSpinner = (visible) => {
   }
 };
 
-$(() => {
+document.addEventListener('turbo:load', () => {
   $('body').on('ajax:beforeSend', () => {
     toggleSpinner(true);
   });
