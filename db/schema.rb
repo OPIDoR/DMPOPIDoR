@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2025_08_29_093340) do
+ActiveRecord::Schema[8.0].define(version: 2025_09_04_115940) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
   enable_extension "unaccent"
@@ -523,27 +523,6 @@ ActiveRecord::Schema[8.0].define(version: 2025_08_29_093340) do
   end
 
 
-  create_table "static_page_contents", id: :serial, force: :cascade do |t|
-    t.string "title"
-    t.text "content"
-    t.integer "static_page_id", null: false
-    t.integer "language_id", null: false
-    t.datetime "created_at", precision: nil, null: false
-    t.datetime "updated_at", precision: nil, null: false
-    t.index ["language_id"], name: "index_static_page_contents_on_language_id"
-    t.index ["static_page_id"], name: "index_static_page_contents_on_static_page_id"
-  end
-
-
-  create_table "static_pages", id: :serial, force: :cascade do |t|
-    t.string "name", null: false
-    t.string "url", null: false
-    t.boolean "in_navigation", default: true
-    t.datetime "created_at", precision: nil, null: false
-    t.datetime "updated_at", precision: nil, null: false
-  end
-
-
   create_table "stats", id: :serial, force: :cascade do |t|
     t.bigint "count", default: 0
     t.date "date", null: false
@@ -705,8 +684,6 @@ ActiveRecord::Schema[8.0].define(version: 2025_08_29_093340) do
   add_foreign_key "roles", "plans", deferrable: :deferred
   add_foreign_key "roles", "users", deferrable: :deferred
   add_foreign_key "sections", "phases", deferrable: :deferred
-  add_foreign_key "static_page_contents", "languages"
-  add_foreign_key "static_page_contents", "static_pages"
   add_foreign_key "templates", "orgs", deferrable: :deferred
   add_foreign_key "themes_in_guidance", "guidances", deferrable: :deferred
   add_foreign_key "themes_in_guidance", "themes", deferrable: :deferred
