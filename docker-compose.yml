@@ -34,7 +34,6 @@ services:
       - ENABLE_SHIBBOLETH=${ENABLE_SHIBBOLETH:-false}
       - WEB_CONCURRENCY=${WEB_CONCURRENCY:-2}
       - RAILS_MAX_THREADS=${RAILS_MAX_THREADS:-5}
-      - WICKED_PDF_PATH=${WICKED_PDF_PATH:-/usr/local/bin/wkhtmltopdf}
       - DRAGONFLY_AWS=${DRAGONFLY_AWS:-false}
       - SECRET_KEY_BASE=${SECRET_KEY_BASE:-my_secret_key}
       - SECRET_KEY=${SECRET_KEY:-my_secret_key}
