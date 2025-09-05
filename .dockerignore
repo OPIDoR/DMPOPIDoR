@@ -91,6 +91,20 @@ cloud9-start.sh
 
 puma.pid
 
-!/directus/**/*
-
 .git
+
+engines/*/spec
+
+Makefile
+docker-compose*.yml
+.rubocop.yml
+.eslintrc.json
+.editorconfig
+spec
+nginx
+doc
+directus
+.github
+babel.config.js
+app/javascript/dmp_opidor_react/node_modules
+app/javascript/dmp_opidor_react/.github

@@ -11,12 +11,6 @@ ruby '>= 3.3'
 # Full-stack web application framework. (http://rubyonrails.org)
 gem 'rails', '~> 7.2'
 
-# TODO: Remove this once Rails addresses the issue with its dependency on mimemagic. Mimemagic had
-#       an MIT license but was using some incompatible GPL license code.
-#       Versions of mimemagic that were yanked: https://rubygems.org/gems/mimemagic/versions
-#       Analysis of the issue: https://www.theregister.com/2021/03/25/ruby_rails_code/
-gem 'mimemagic'
-
 # Use Puma as the app server
 gem 'puma', group: :puma, require: false
 

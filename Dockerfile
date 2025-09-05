@@ -1,4 +1,4 @@
-FROM ruby:3.3.10-slim-bookworm AS base
+FROM ruby:3.3.10-slim-trixie AS base
 WORKDIR /app
 RUN apt update -y && apt install -y --no-install-recommends \
   build-essential \
@@ -7,8 +7,10 @@ RUN apt update -y && apt install -y --no-install-recommends \
   gnupg \
   libpq-dev \
   libyaml-dev \
-  wkhtmltopdf \
   imagemagick \
+  libxrender1 \
+  libxext6 \
+  libfontconfig1 \
   tzdata \
   gnupg2 && \
   apt-get clean && rm -rf /var/lib/apt/lists/*
@@ -17,9 +19,7 @@ RUN curl -sS https://dl.yarnpkg.com/debian/pubkey.gpg | gpg --dearmor -o /usr/sh
   /etc/apt/sources.list.d/yarn.list && \
   apt-get update -y && apt-get install -y --no-install-recommends yarn && \
   apt-get clean && rm -rf /var/lib/apt/lists/*
-RUN ln -sf /usr/share/zoneinfo/Europe/Paris /etc/localtime && \
-  ln -sf /usr/bin/wkhtmltopdf /usr/local/bin/wkhtmltopdf && \
-  chmod +x /usr/local/bin/wkhtmltopdf
+RUN ln -sf /usr/share/zoneinfo/Europe/Paris /etc/localtime
 
 FROM base AS dev
 ARG NODE_MAJOR=24
@@ -43,7 +43,8 @@ ARG DB_ADAPTER \
 RUN bin/docker ${DB_ADAPTER:-postgres} && \
   RAILS_ENV=build DISABLE_SPRING=1 NODE_OPTIONS=--openssl-legacy-provider rails assets:precompile && \
   bundle config set --local without 'thin test ci aws development build' && \
-  bundle install --jobs=4 --retry=3
+  bundle install --jobs=4 --retry=3 && \
+  rm -rf /usr/local/bundle/cache
 
 FROM base AS production
 COPY . .
