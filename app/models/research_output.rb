@@ -269,13 +269,13 @@ class ResearchOutput < ApplicationRecord
   end
   # rubocop:enable Metrics/AbcSize, Metrics/MethodLength
 
-  def update_description
+  def update_description(contains_personal_data: true)
     research_output_description = json_fragment.research_output_description
     updated_data = research_output_description.data.merge({
                                                             title:,
                                                             shortName: abbreviation,
                                                             type: output_type_description,
-                                                            containsPersonalData: json_fragment.additional_info['hasPersonalData'] ? _('Yes') : _('No') # rubocop:disable Layout/LineLength
+                                                            containsPersonalData: contains_personal_data ? _('Yes') : _('No') # rubocop:disable Layout/LineLength
                                                           })
     research_output_description.update(data: updated_data)
     research_output_description.update_research_output_parameters(skip_broadcast: true)

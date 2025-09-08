@@ -64,7 +64,9 @@ module Dmpopidor
         research_outputs = ResearchOutput.where(plan_id: params[:plan_id])
 
         @research_output.update!(attrs)
-        research_output_description = @research_output.update_description
+        research_output_description = @research_output.update_description(
+          contains_personal_data: params[:configuration][:hasPersonalData]
+        )
         PlanChannel.broadcast_to(plan, {
                                    target: 'dynamic_form',
                                    fragment_id: research_output_description.id,
@@ -153,7 +155,9 @@ module Dmpopidor
           target_plan,
           template
         )
-        research_output_copy.update_description
+        research_output_copy.update_description(
+          contains_personal_data: research_output_fragment.additional_info['hasPersonalData']
+        )
 
         render json: {
           id: target_plan.id,
