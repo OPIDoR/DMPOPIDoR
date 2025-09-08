@@ -44,16 +44,8 @@
       p {
         margin: 0.25em 0;
       }
-      .question {
-        margin-top: 15px;
-        margin-bottom: 10px;
-      }
-      .question:first-child {
-        margin-top: 0;
-      }
-      .annotations {
-        margin-left: 15px;
-        margin-bottom: 10px;
+      .guidance-text {
+        margin-top: 10px;
       }
     </style>
   </head>
@@ -70,7 +62,7 @@
         <% elsif language == "en-GB" %>
           <h2><%= theme.translations.dig('en-GB', 'title')  %></h2>
         <% end%>
-        <p><%= sanitize guidance.text %></p>
+        <p class="guidance-text"><%= sanitize guidance.text %></p>
       <% end %>
     <% end %>
   </body>
