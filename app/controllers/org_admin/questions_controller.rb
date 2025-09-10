@@ -80,26 +80,26 @@ module OrgAdmin
       @madmp_schemas = MadmpSchema.where(classname: @available_classnames, data_type: template.data_type)
       @available_themes = Theme.where(data_type: template.data_type).order('title')
       authorize question
-      render json: { html: render_to_string(partial: 'form', locals: {
-                                              template: template,
-                                              section: section,
-                                              question: question,
-                                              method: 'post',
-                                              url: if template&.module?
-                                                     super_admin_template_phase_section_questions_path(
-                                                       template_id: template.id,
-                                                       phase_id: section.phase.id,
-                                                       id: section.id
-                                                     )
-                                                   else
-                                                     org_admin_template_phase_section_questions_path(
-                                                       template_id: template.id,
-                                                       phase_id: section.phase.id,
-                                                       id: section.id
-                                                     )
-                                                   end,
-                                              question_formats: question_formats
-                                            }) }
+      render turbo_stream: turbo_stream.replace("new_question_section_#{section.id}", partial: 'form', locals: {
+                                                  template: template,
+                                                  section: section,
+                                                  question: question,
+                                                  method: 'post',
+                                                  url: if template&.module?
+                                                         super_admin_template_phase_section_questions_path(
+                                                           template_id: template.id,
+                                                           phase_id: section.phase.id,
+                                                           id: section.id
+                                                         )
+                                                       else
+                                                         org_admin_template_phase_section_questions_path(
+                                                           template_id: template.id,
+                                                           phase_id: section.phase.id,
+                                                           id: section.id
+                                                         )
+                                                       end,
+                                                  question_formats: question_formats
+                                                })
     end
     # rubocop:enable Metrics/AbcSize, Metrics/MethodLength
 

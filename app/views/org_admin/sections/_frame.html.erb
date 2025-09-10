@@ -1,0 +1,4 @@
+<turbo-frame id="section_<%= section.id %>">
+  <% partial = "org_admin/sections/#{section.modifiable? ? 'edit' : 'show'}" %>
+  <%= render partial: partial, locals: { section: section, template: template, phase: phase } %>
+</turbo-frame>

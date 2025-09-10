@@ -38,14 +38,17 @@ export default class extends Controller {
       table_default_attributes: {
         border: 1,
       },
-      // editorManager.baseURL is not resolved properly for IE since document.currentScript
-      // is not supported, see issue https://github.com/tinymce/tinymce/issues/358
       skin_url: '/tinymce/skins/oxide',
       content_css: [],
     };
   }
 
   connect() {
+    this.initializeEditor();
+    this.element.addEventListener('turbo:frame-load', this.initializeEditor.bind(this));
+  }
+
+  initializeEditor() {
     const config = {
       target: this.inputTarget,
       setup: (editor) => {
@@ -57,11 +60,15 @@ export default class extends Controller {
       },
       ...this.defaults,
     };
+
+    // Initialisation de TinyMCE sur les champs cibles
     tinymce.init(config);
   }
 
   disconnect() {
-    if (!this.preview) tinymce.remove();
+    if (!this.preview) {
+      tinymce.remove();
+    }
   }
 
   handleChange(editor) {
@@ -83,5 +90,4 @@ export default class extends Controller {
       document.documentElement.hasAttribute('data-turbo-preview')
     );
   }
-
 }

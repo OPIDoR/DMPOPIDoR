@@ -22,6 +22,7 @@ import CheckboxController from './controllers/checkbox_controller.js';
 import ReactController from './controllers/react_controller.js';
 import ResetFormController from './controllers/reset_form_controller.js';
 import TinyMceController from './controllers/tinymce_controller.js';
+import TemplateController from './controllers/template_controller.js';
 
 // Uncomment to copy all static images under ../images to the output folder and reference
 // them with the image_pack_tag helper in views (e.g <%= image_pack_tag 'rails.png' %>)
@@ -107,3 +108,4 @@ window.Stimulus.register('checkbox', CheckboxController);
 window.Stimulus.register('react', ReactController);
 window.Stimulus.register('resetForm', ResetFormController);
 window.Stimulus.register('tinymce', TinyMceController);
+window.Stimulus.register('template', TemplateController);

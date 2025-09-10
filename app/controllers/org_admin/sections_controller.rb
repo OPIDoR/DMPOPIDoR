@@ -34,11 +34,14 @@ module OrgAdmin
     def show
       @section = Section.find(params[:id])
       authorize @section
-      @section = Section.includes(questions: %i[annotations question_options])
+      @section = Section.includes(:phase, questions: %i[annotations question_options])
                         .find(params[:id])
       @template = Template.find(params[:template_id])
-      render json: { html: render_to_string(partial: 'show',
-                                            locals: { template: @template, section: @section }) }
+      respond_to do |format|
+        format.html do
+          render partial: 'frame', locals: { template: @template, section: @section, phase: @section.phase }
+        end
+      end
     end
 
     # GET /org_admin/templates/[:template_id]/phases/[:phase_id]/sections/[:id]/edit
@@ -47,19 +50,11 @@ module OrgAdmin
                                  questions: [:question_options, { annotations: :org }])
                        .find(params[:id])
       authorize section
-      # User cannot edit a section if its not modifiable or the template is not the
-      # latest redirect to show
-      partial_name = if section.modifiable? && section.phase.template.latest?
-                       'edit'
-                     else
-                       'show'
-                     end
-      render json: { html: render_to_string(partial: partial_name,
-                                            locals: {
-                                              template: section.phase.template,
-                                              phase: section.phase,
-                                              section: section
-                                            }) }
+      respond_to do |format|
+        format.html do
+          render partial: 'frame', locals: { template: section.template, section: section, phase: section.phase }
+        end
+      end
     end
 
     # POST /org_admin/templates/[:template_id]/phases/[:phase_id]/sections
