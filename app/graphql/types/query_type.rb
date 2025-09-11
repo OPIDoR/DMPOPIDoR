@@ -3,21 +3,13 @@
 module Types
   # QueryType
   class QueryType < Types::BaseObject
-    SHARED_PLAN_ARGUMENTS = Proc.new do
-      argument :filter, Types::LogicalFilterInput, required: false, description: 'Optional filter to refine the list of plans'
-      argument :size, Integer, required: false, default_value: 10, description: 'Number of items to retrieve per page'
-      argument :page, Integer, required: false, default_value: 1, description: 'Page number for pagination'
-      argument :test, GraphQL::Types::Boolean, required: false, default_value: false, description: 'Display tests plans'
-      argument :order_by, Types::OrderByFilterInput, required: false, description: 'Specifies sorting order and field for the query'
-    end
-
     field :plans, Types::PlanResultType, null: false do
-      instance_eval(&SHARED_PLAN_ARGUMENTS)
+      instance_eval(&Types::SharedFields::SHARED_PLAN_ARGUMENTS)
       description 'Retrieve a paginated list of plans with optional filtering'
     end
 
     field :public_plans, Types::PlanResultType, null: false do
-      instance_eval(&SHARED_PLAN_ARGUMENTS)
+      instance_eval(&Types::SharedFields::SHARED_PLAN_ARGUMENTS)
       description 'Retrieve a paginated list of public plans with optional filtering'
     end
 
