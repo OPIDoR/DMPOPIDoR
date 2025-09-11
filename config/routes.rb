@@ -59,6 +59,7 @@ Rails.application.routes.draw do
   get 'terms', to: 'static/static_pages#show', name: 'termsuse'
   get 'privacy', to: 'static/static_pages#show', name: 'privacy'
   get 'roadmap', to: 'static/static_pages#show', name: 'roadmap'
+  get 'accessibility', to: 'static/static_pages#show', name: 'accessibility'
   get 'research_output_types', to: 'static/static_pages#show', name: 'research_output_types'
   get 'about_registries', to: 'static/static_pages#show', name: 'about_registries'
 
