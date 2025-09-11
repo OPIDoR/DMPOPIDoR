@@ -304,6 +304,7 @@ Rails.application.routes.draw do
           get 'research_outputs/:uuid', action: :show, on: :collection, as: :show
           collection do
             post :import
+            get :public
           end
         end
         resources :services do
