@@ -12,6 +12,8 @@
 - Mise à jour de la documentation (schema) GraphQL
 - Utilisation de driver.js en remplacement de joyride pour la visite guidée
 - Élargissement du produit de recherche (côté gauche) dans la partie rédiger
+- Correction "Tout développer/Tout réduire" des modèles classique
+- Correction de la case à cocher "Plan test" dans la partie "Renseignements sur le plan" des "Informations générales"
 
 ## 04/09/2025
 
