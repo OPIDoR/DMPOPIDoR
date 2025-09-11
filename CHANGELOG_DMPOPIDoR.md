@@ -11,6 +11,7 @@
 - Correction de la persistance du filtre de pays (import ROR)
 - Mise à jour de la documentation (schema) GraphQL
 - Utilisation de driver.js en remplacement de joyride pour la visite guidée
+- Élargissement du produit de recherche (côté gauche) dans la partie rédiger
 
 ## 04/09/2025
 
