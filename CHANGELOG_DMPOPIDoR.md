@@ -2,6 +2,16 @@
 
 **Attention** Cette liste de changements concerne les déploiements sur nos serveurs de test en interne.
 
+## 11/09/2025
+
+- Ajout de la page "Accessibilité" (création de page dans directus)
+- Correction de l'export JSON d'un plan
+- Ajout d'une route d'API REST (API V1) pour récupérer les plans publics
+- Mise à jour de l'API ROR (utilisation de l'API V2)
+- Correction de la persistance du filtre de pays (import ROR)
+- Mise à jour de la documentation (schema) GraphQL
+- Utilisation de driver.js en remplacement de joyride pour la visite guidée
+
 ## 04/09/2025
 
 - Refonte des plans pour les entités de recherche : l'information du contexte est désormais attachée aux plans. Il n'est plus nécessaire d'avoir des modèles spécifiques pour les entités (#12963)
