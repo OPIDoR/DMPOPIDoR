@@ -544,7 +544,6 @@ Rails.application.routes.draw do
     end
 
     resources :registries do
-      post 'sort_values', on: :collection
       get 'download'
     end
     resources :madmp_schemas, only: %i[index new create edit update destroy]

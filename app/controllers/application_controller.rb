@@ -18,6 +18,7 @@ class ApplicationController < ActionController::Base
 
   include GlobalHelpers
   include Pundit::Authorization
+
   helper_method GlobalHelpers.instance_methods
 
   rescue_from Pundit::NotAuthorizedError, with: :user_not_authorized
@@ -131,8 +132,7 @@ class ApplicationController < ActionController::Base
       User: obj == current_user ? _('profile') : _('user'),
       QuestionOption: _('question option'),
       MadmpSchema: _('schema'),
-      Registry: _('registry'),
-      RegistryValue: _('registry value')
+      Registry: _('registry')
     }
     if obj.respond_to?(:customization_of) && obj.send(:customization_of).present?
       display_name[:Template] = 'customization'

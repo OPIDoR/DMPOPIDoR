@@ -58,15 +58,6 @@ module SuperAdmin
       end
     end
 
-    def sort_values
-      @registry = Registry.find(params[:id])
-      authorize @registry
-      params[:updated_order].each_with_index do |id, index|
-        RegistryValue.find(id).update!(order: index + 1)
-      end
-      head :ok
-    end
-
     def download
       registry = Registry.find(params[:registry_id])
       authorize registry

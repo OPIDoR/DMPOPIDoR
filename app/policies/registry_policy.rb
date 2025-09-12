@@ -30,10 +30,6 @@ class RegistryPolicy < ApplicationPolicy
     @user.can_super_admin?
   end
 
-  def sort_values?
-    @user.can_super_admin?
-  end
-
   def download?
     @user.can_super_admin?
   end
