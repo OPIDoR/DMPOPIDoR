@@ -157,12 +157,6 @@ class MadmpFragmentsController < ApplicationController
   end
   # rubocop:enable Metrics/AbcSize,  Metrics/CyclomaticComplexity
 
-  # Get the parameters conresponding to the schema
-  def schema_params(schema, flat: false)
-    s_params = schema.generate_strong_params(flat:)
-    params.require(:madmp_fragment).permit(s_params)
-  end
-
   def permitted_params
     permit_arr = [:id, :dmp_id, :parent_id, :schema_id, :source, :template_locale,
                   :property_name, :query_id,

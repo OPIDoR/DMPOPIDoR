@@ -302,12 +302,6 @@ class AnswersController < ApplicationController
     question.madmp_schema
   end
 
-  # Get the parameters corresponding to the schema
-  def schema_params(data, schema, flat: false)
-    s_params = schema.generate_strong_params(flat: flat)
-    data.require(:answer).permit(s_params)
-  end
-
   # rubocop:disable Metrics/AbcSize
   def permitted_params
     permitted = params.require(:answer)

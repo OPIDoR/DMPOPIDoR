@@ -608,12 +608,6 @@ class PlansController < ApplicationController
     msg
   end
 
-  # Get the parameters corresponding to the schema
-  def schema_params(schema, form_prefix, flat: false)
-    s_params = schema.generate_strong_params(flat: flat)
-    params.require(:plan)[form_prefix].permit(s_params)
-  end
-
   # different versions of the same template have the same family_id
   # but different version numbers so for each set of templates with the
   # same family_id choose the highest version number.
