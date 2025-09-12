@@ -2,6 +2,21 @@
 
 **Attention** Cette liste de changements concerne les déploiements sur nos serveurs de test en interne.
 
+## 11/09/2025
+
+- Ajout de la page "Accessibilité" (création de page dans directus)
+- Correction de l'export JSON d'un plan
+- Ajout d'une route d'API REST (API V1) pour récupérer les plans publics
+- Mise à jour de l'API ROR (utilisation de l'API V2)
+- Correction de la persistance du filtre de pays (import ROR)
+- Mise à jour de la documentation (schema) GraphQL
+- Utilisation de driver.js en remplacement de joyride pour la visite guidée
+- Élargissement du produit de recherche (côté gauche) dans la partie rédiger
+- Correction "Tout développer/Tout réduire" des modèles classiques
+- Correction de la case à cocher "Plan test" dans la partie "Renseignements sur le plan" des "Informations générales"
+- Ouverture du groupe de produit de recherche courant à la création
+- Après suppression d’un produit, le produit courant se positionne désormais sur le produit précédent (N-1) dans la liste de recherche.
+
 ## 04/09/2025
 
 - Refonte des plans pour les entités de recherche : l'information du contexte est désormais attachée aux plans. Il n'est plus nécessaire d'avoir des modèles spécifiques pour les entités (#12963)

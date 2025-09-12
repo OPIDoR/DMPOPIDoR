@@ -6,6 +6,7 @@ module Api
       # Handles CRUD operations for MadmpSchemas in API V1
       class PlansController < BaseApiController
         respond_to :json
+        before_action :authorize_request, except: %i[public]
         include MadmpExportHelper
         include ErrorHelper
         # GET /api/v1/madmp/plans/:id(/research_outputs/:uuid)
@@ -41,6 +42,39 @@ module Api
           render_error(errors: [_('Plan not found')], status: :not_found)
         end
         # rubocop:enable Metrics/AbcSize, Metrics/MethodLength
+
+        def public
+          page = (params[:page] || 1).to_i
+          size = (params[:size] || 10).to_i
+          order_params = {
+            'updated_at' => (params[:order].to_s.downcase.presence || 'desc').to_sym
+          }
+          order_dir = params[:order].to_s.downcase == "asc" ? :asc : :desc
+
+          return bad_request(_('Invalid page (must be >= 1)')) if page < 1
+          return bad_request(_('Invalid size (must be between 1 and 1000)')) if size < 1 || size > 1000
+
+          offset = (page - 1) * size
+
+          plans = Plan.where(visibility: Plan.visibilities[:publicly_visible])
+                      .where.not(visibility: Plan.visibilities[:is_test])
+                      .order(order_params)
+                      .limit(size)
+                      .offset(offset)
+                      .map { |plan| plan.json_fragment.get_full_fragment }
+
+          total_items = plans.length
+          total_pages = (total_items.to_f / size).ceil
+
+          return bad_request(_("Invalid page (must be <= #{total_pages})")) if page > total_pages
+
+          render json: { status: 200, message: _('Publicly plans'), data: plans, pageInfo: {
+            total: total_items,
+            totalPages: total_pages,
+            page: page,
+            size: size,
+          } }, status: :ok
+        end
 
         # POST /api/v1/madmp/plans/import
         def import

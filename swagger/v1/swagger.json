@@ -108,6 +108,57 @@
             }
         }
       },
+      "/api/v1/madmp/plans/public": {
+        "get": {
+          "tags": [
+            "Plans"
+          ],
+          "summary": "Returns public plans.",
+          "security": [],
+          "parameters": [
+            {
+              "name": "size",
+              "in": "query",
+              "description": "Number of items to retrieve per page (must be between 1 and 1000)",
+              "required": false,
+              "schema": {
+                "type": "integer",
+                "default": "10"
+              }
+            },
+            {
+              "name": "page",
+              "in": "query",
+              "description": "Page number for pagination (must be greater than 0)",
+              "required": false,
+              "schema": {
+                "type": "integer",
+                "default": "1"
+              }
+            },
+            {
+              "name": "order",
+              "in": "query",
+              "description": "Specifies sorting order (asc, desc)",
+              "required": false,
+              "schema": {
+                "type": "string",
+                "default": "desc",
+                "enum": [
+                  "asc",
+                  "desc"
+                ]
+              }
+            }
+          ],
+          "responses": {
+            "200": {
+              "description": "successful",
+              "content": {}
+            }
+          }
+        }
+      },
       "/api/v1/madmp/plans/import": {
         "post": {
           "tags": [
