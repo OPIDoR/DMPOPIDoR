@@ -20,7 +20,8 @@ module Dmpopidor
 
     def show
       @research_output = ResearchOutput.includes(:answers,
-                                                 plan: { template: { phases: { sections: :questions } } }).find(params[:id])
+                                                 plan: { template: { phases: { sections: :questions } } })
+                                       .find(params[:id])
       authorize @research_output
 
       render json: @research_output.serialize_json
@@ -56,14 +57,17 @@ module Dmpopidor
     # rubocop:disable Metrics/AbcSize, Metrics/MethodLength
     def update
       @research_output = ResearchOutput.includes(plan: %i[template research_outputs]).find(params[:id])
-      plan =  @research_output.plan
-      attrs = research_output_params
+      plan = @research_output.plan
 
       authorize @research_output
       I18n.with_locale plan.template.locale do
         research_outputs = ResearchOutput.where(plan_id: params[:plan_id])
 
-        @research_output.update!(attrs)
+        @research_output.update!(
+          abbreviation: params[:abbreviation],
+          title: params[:title],
+          output_type_description: params[:type]
+        )
         research_output_description = @research_output.update_description(
           contains_personal_data: params[:configuration][:hasPersonalData]
         )
