@@ -79,4 +79,8 @@ RSpec.configure do |config|
   config.include Devise::Test::ControllerHelpers, type: :controller
   config.include Devise::Test::ControllerHelpers, type: :view
   config.include Pundit::Matchers, type: :policy
+  config.include RSpec::Rails::ControllerExampleGroup, type: :controller
+  config.mock_with :rspec do |mocks|
+    mocks.verify_partial_doubles = true
+  end
 end
