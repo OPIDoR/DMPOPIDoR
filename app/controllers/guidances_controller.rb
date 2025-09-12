@@ -26,7 +26,7 @@ class GuidancesController < ApplicationController
     @guidance = Guidance.new
     authorize @guidance
     @locales = Language.all
-    redirect_to admin_edit_guidance_path(@guidance)
+    render :new_edit
   end
 
   # GET /org/admin/guidance/:id/admin_edit
@@ -37,7 +37,7 @@ class GuidancesController < ApplicationController
 
     @locales = Language.all
 
-    redirect_to admin_edit_guidance_path(@guidance)
+    render :new_edit
   end
 
   # POST /org/admin/guidance/:id/admin_create
