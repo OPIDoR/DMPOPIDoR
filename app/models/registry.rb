@@ -64,7 +64,7 @@ class Registry < ApplicationRecord
 
   # rubocop:disable Metrics/AbcSize
   def self.load_values(values_file, registry)
-    return if values_file.nil?
+    return :no_file if values_file.nil?
 
     if values_file.respond_to?(:read)
       values_data = values_file.read
@@ -72,16 +72,18 @@ class Registry < ApplicationRecord
       values_data = File.read(values_file.path)
     else
       logger.error "Bad values_file: #{values_file.class.name}: #{values_file.inspect}"
+      return :bad_file
     end
     begin
       json_values = JSON.parse(values_data)
       if json_values.key?(registry.name)
         registry.update(values: json_values[registry.name])
+        :success
       else
-        flash[:alert] = 'Wrong values file format'
+        :wrong_format
       end
     rescue JSON::ParserError
-      flash[:alert] = 'File should contain JSON'
+      :invalid_json
     end
   end
   # rubocop:enable Metrics/AbcSize

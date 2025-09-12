@@ -20,9 +20,22 @@ module SuperAdmin
       authorize(Registry)
       attrs = permitted_params
       @registry = Registry.new(attrs.except(:values))
+
       if @registry.save
-        Registry.load_values(attrs[:values], @registry)
-        redirect_to edit_super_admin_registry_path(@registry), notice: success_message(@registry, _('created'))
+        result = Registry.load_values(attrs[:values], @registry)
+
+        case result
+        when :success
+          flash[:notice] = success_message(@registry, _('created'))
+        when :wrong_format
+          flash[:alert] = _('Wrong values file format')
+        when :invalid_json
+          flash[:alert] = _('File should contain JSON')
+        when :bad_file
+          flash[:alert] = _('Unrecognized file input')
+        end
+
+        redirect_to edit_super_admin_registry_path(@registry)
       else
         redirect_to edit_super_admin_registry_path(@registry), alert: success_message(@registry, _('create'))
       end
