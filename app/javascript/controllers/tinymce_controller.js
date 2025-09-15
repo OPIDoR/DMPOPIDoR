@@ -17,7 +17,7 @@ export default class extends Controller {
       toolbar: 'bold italic underline | fontfamily fontsize | fontsizeselect forecolor | alignleft aligncenter alignright alignjustify | subscript superscript | bullist numlist indent outdent | link | table | charmap',
       plugins: 'table autoresize link advlist lists autolink charmap',
       browser_spellcheck: true,
-      advlist_bullet_styles: 'circle,disc,square', // Only disc bullets display on htmltoword
+      advlist_bullet_styles: 'circle,disc,square',
       target_list: false,
       elementpath: false,
       resize: true,
@@ -41,11 +41,22 @@ export default class extends Controller {
       skin_url: '/tinymce/skins/oxide',
       content_css: [],
     };
+
+    this.reinitializeEditor = this.reinitializeEditor.bind(this);
   }
 
   connect() {
     this.initializeEditor();
-    this.element.addEventListener('turbo:frame-load', this.initializeEditor.bind(this));
+
+    document.addEventListener('turbo:render', this.reinitializeEditor);
+    document.addEventListener('turbo:frame-render', this.reinitializeEditor);
+  }
+
+  disconnect() {
+    tinymce.remove();
+
+    document.removeEventListener('turbo:render', this.reinitializeEditor);
+    document.removeEventListener('turbo:frame-render', this.reinitializeEditor);
   }
 
   initializeEditor() {
@@ -61,24 +72,22 @@ export default class extends Controller {
       ...this.defaults,
     };
 
-    // Initialisation de TinyMCE sur les champs cibles
     tinymce.init(config);
   }
 
-  disconnect() {
-    if (!this.preview) {
-      tinymce.remove();
-    }
+  reinitializeEditor() {
+    tinymce.remove();
+    this.initializeEditor();
   }
 
   handleChange(editor) {
     const textEditor = editor.targetElm;
-    // Remonte jusqu'au fieldset parent
     const fieldset = textEditor.closest('fieldset');
     if (!fieldset) return;
-    // Trouve le champ caché dont l'ID se termine par "_destroy"
+
     const hiddenField = Array.from(fieldset.querySelectorAll('input[type="hidden"]'))
       .find(input => input.id.endsWith('_destroy'));
+
     if (hiddenField) {
       hiddenField.value = editor.getContent() === '' ? '1' : '0';
     }
