@@ -17,12 +17,12 @@ module OrgAdmin
                                    section: { phase: :template })
                          .find(params[:id])
       authorize question
-      render json: { html: render_to_string(partial: 'show', locals: {
-                                              template: question.section.phase.template,
-                                              section: question.section,
-                                              question: question,
-                                              conditions: question.conditions
-                                            }) }
+      render turbo_stream: turbo_stream.update("question_#{question.id}", partial: 'show', locals: {
+                                                 template: question.section.phase.template,
+                                                 section: question.section,
+                                                 question: question,
+                                                 conditions: question.conditions
+                                               })
     end
 
     # TODO: Shouldn't this live on the conditions controller as :index?
@@ -53,13 +53,13 @@ module OrgAdmin
       @madmp_schemas = MadmpSchema.where(classname: @available_classnames, data_type: template.data_type)
       @available_themes = Theme.where(data_type: template.data_type).order('title')
       authorize question
-      render json: { html: render_to_string(partial: 'edit', locals: {
-                                              template: template,
-                                              section: question.section,
-                                              question: question,
-                                              question_formats: allowed_question_formats,
-                                              conditions: question.conditions
-                                            }) }
+      render turbo_stream: turbo_stream.update("question_#{question.id}", partial: 'edit', locals: {
+                                                 template: template,
+                                                 section: question.section,
+                                                 question: question,
+                                                 question_formats: allowed_question_formats,
+                                                 conditions: question.conditions
+                                               })
     end
     # rubocop:enable Metrics/AbcSize
 
@@ -110,7 +110,7 @@ module OrgAdmin
       authorize question
       begin
         question = get_new(question)
-        section = question.section
+        section = Section.includes(phase: :template).find(params[:section_id])
         if question.save
           flash[:notice] = success_message(question, _('created'))
         else
@@ -119,11 +119,10 @@ module OrgAdmin
       rescue StandardError
         flash[:alert] = _('Unable to create a new version of this template.')
       end
-      path_helper = section.phase.template&.module? ? :edit_super_admin_template_phase_path : :edit_org_admin_template_phase_path
-      redirect_to send(path_helper,
-                       template_id: section.phase.template.id,
-                       id: section.phase.id,
-                       section: section.id)
+      render turbo_stream: turbo_stream.replace(section,
+                                                partial: 'org_admin/sections/frame',
+                                                locals: { section: section, template: question.template,
+                                                          phase: question.phase })
     end
     # rubocop:enable Metrics/AbcSize
 
@@ -131,7 +130,8 @@ module OrgAdmin
     # rubocop:disable Metrics/AbcSize, Metrics/MethodLength
     # rubocop:disable Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
     def update
-      question = Question.find(params[:id])
+      question = Question.includes(section: { phase: :template }).find(params[:id])
+      section = question.section
       authorize question
 
       new_version = question.template.generate_version?
@@ -189,19 +189,10 @@ module OrgAdmin
       else
         flash[:alert] = flash[:alert] = failure_message(question, _('update'))
       end
-      if question.section.phase.template.customization_of.present?
-        path_helper = question.section.phase.template&.module? ? :super_admin_template_phase_path : :org_admin_template_phase_path
-        redirect_to send(path_helper,
-                         template_id: question.section.phase.template.id,
-                         id: question.section.phase.id,
-                         section: question.section.id)
-      else
-        path_helper = question.section.phase.template&.module? ? :edit_super_admin_template_phase_path : :edit_org_admin_template_phase_path
-        redirect_to send(path_helper,
-                         template_id: question.section.phase.template.id,
-                         id: question.section.phase.id,
-                         section: question.section.id)
-      end
+      render turbo_stream: turbo_stream.replace(section,
+                                                partial: 'org_admin/sections/frame',
+                                                locals: { section: section, template: question.template,
+                                                          phase: question.phase })
     end
     # rubocop:enable Metrics/AbcSize, Metrics/MethodLength
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
@@ -209,11 +200,11 @@ module OrgAdmin
     # DELETE /org_admin/templates/:template_id/phases/:phase_id/sections/:section_id/questions/:id
     # rubocop:disable Metrics/AbcSize
     def destroy
-      question = Question.find(params[:id])
+      question = Question.includes(section: { phase: :template }).find(params[:id])
+      section = question.section
       authorize question
       begin
         question = get_modifiable(question)
-        section = question.section
         if question.destroy!
           flash[:notice] = success_message(question, _('deleted'))
         else
@@ -222,11 +213,10 @@ module OrgAdmin
       rescue StandardError
         flash[:alert] = _('Unable to create a new version of this template.')
       end
-      path_helper = question.section.phase.template&.module? ? :edit_super_admin_template_phase_path : :edit_org_admin_template_phase_path
-      redirect_to send(path_helper,
-                       template_id: section.phase.template.id,
-                       id: section.phase.id,
-                       section: section.id)
+      render turbo_stream: turbo_stream.replace(section,
+                                                partial: 'org_admin/sections/frame',
+                                                locals: { section: section, template: question.template,
+                                                          phase: question.phase })
     end
     # rubocop:enable Metrics/AbcSize
 

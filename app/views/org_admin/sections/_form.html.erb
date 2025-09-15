@@ -9,12 +9,12 @@
   <div class="form-control mb-3 col-md-10" data-toggle="tooltip" title="<%= description_tooltip %>">
     <em class="sr-only"><%= description_tooltip %></em>
     <%= f.label(:description, _('Description'), class: "form-label") %>
-    <%= f.text_area(:description, class: "section",
+    <%= f.text_area(:description, class: "section tinymce",
                       data: {
                         controller: "tinymce",
                         tinymce_target: "input",
                         tinymce_callback_value: "true",
-                        tinymce_selector_value: "#new_section_section_description, #collapseSection#{section.id} .section"
+                        tinymce_selector_value: "#collapseSectionNew .section, #collapseSection#{section.id} .section"
                       }, spellcheck: true) %>
   </div>
 
