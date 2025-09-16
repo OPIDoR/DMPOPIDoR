@@ -80,7 +80,6 @@ services:
       - dmpopidor_network
 
   directus:
-    container_name: directus_app
     image: directus/directus:${DIRECTUS_VERSION:-11.0}
     restart: always
     depends_on:
