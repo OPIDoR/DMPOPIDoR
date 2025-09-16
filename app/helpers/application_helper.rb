@@ -47,4 +47,10 @@ module ApplicationHelper
     record_id = record_key_for_dom_id(record) || record.object_id
     "#{klass}_#{record_id}"
   end
+
+  def turbo_id_for(model, context = nil)
+    base = model.model_name.plural
+    context_id = context.try(:id) || context.to_s
+    context ? "#{base}_results-#{context_id}" : "#{base}_results"
+  end
 end

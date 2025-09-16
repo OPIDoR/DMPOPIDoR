@@ -3,7 +3,9 @@
 # Provides support for pagination/searching/sorting of table data
 # rubocop:disable Metrics/ModuleLength
 module Paginable
+  include ApplicationHelper
   extend ActiveSupport::Concern
+
   require 'sort_direction'
 
   ##
@@ -62,6 +64,8 @@ module Paginable
     # Additional path_params passed to this function got special treatment
     # (e.g. it is taking into account when building base_url)
     @paginable_path_params = path_params.symbolize_keys
+
+    @context = locals[:context]
     if @args[:page] == 'ALL' &&
        @args[:search].blank? &&
        @paginable_options[:view_all] == false
@@ -79,8 +83,9 @@ module Paginable
       )
       # If this was an ajax call then render as JSON
       if options[:format] == :json
-        render turbo_stream: turbo_stream.replace('paginable_results', layout: '/layouts/paginable',
-                                                                       partial: partial, locals: locals)
+        render turbo_stream: turbo_stream.replace(turbo_id_for(@refined_scope, @context),
+                                                  layout: '/layouts/paginable',
+                                                  partial: partial, locals: locals)
 
       elsif partial.present?
         render(layout: '/layouts/paginable', partial: partial, locals: locals)
