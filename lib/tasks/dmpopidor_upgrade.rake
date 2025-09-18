@@ -2,6 +2,10 @@
 
 # rubocop:disable Naming/VariableNumber
 namespace :dmpopidor_upgrade do
+  desc 'Upgrade to 4.3.4'
+  task V4_3_4: :environment do
+    Rake::Task['data_migration:V4_3_4'].execute
+  end
   desc 'Upgrade to 4.3.0'
   task V4_3_0: :environment do
     Rake::Task['dmpopidor_upgrade:add_default_data_type_to_research_outputs'].execute

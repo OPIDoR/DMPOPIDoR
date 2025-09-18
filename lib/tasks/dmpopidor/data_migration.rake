@@ -3,6 +3,13 @@
 # rubocop:disable Naming/VariableNumber
 namespace :data_migration do
   desc 'Cleaning data'
+  task V4_3_4: :environment do
+    p 'Upgrading to DMP OPIDoR v4.3.4'
+    p '------------------------------------------------------------------------'
+    Rake::Task['data_migration:update_research_output_description'].execute
+    p 'Upgrade complete'
+  end
+  desc 'Cleaning data'
   task V4_3_0: :environment do
     p 'Upgrading to DMP OPIDoR v4.3.0'
     p '------------------------------------------------------------------------'
@@ -26,6 +33,18 @@ namespace :data_migration do
     Rake::Task['data_migration:clean_empty_host'].execute
     p '------------------------------------------------------------------------'
     p 'Upgrade complete'
+  end
+  desc 'Update empty research output output_type_description with fragment description'
+  task update_research_output_description: :environment do
+    Fragment::ResearchOutput.all.each do |fragment|
+      research_output = fragment.research_output
+      fragment_type = fragment.research_output_description.data['type']
+      fragment_data_type = fragment.additional_info['dataType'].eql?('none') ? 'dataset' : fragment.additional_info['dataType'] # rubocop:disable Layout/LineLength
+      if fragment_type.present?
+        research_output.update_columns(output_type_description: fragment_type,
+                                       output_type: fragment_data_type)
+      end
+    end
   end
   desc 'Migrate DocumentationQuality.documentationSoftware to string array'
   task documentationquality_documentationsoftware_to_string_array: :environment do
