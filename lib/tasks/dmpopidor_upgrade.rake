@@ -6,6 +6,9 @@ namespace :dmpopidor_upgrade do
   task V4_4_0: :environment do
     Rake::Task['dmpopidor_upgrade:migrate_context_to_plans'].execute
     Rake::Task['dmpopidor_upgrade:migrate_guidance_groups_to_research_outputs'].execute
+  desc 'Upgrade to 4.3.4'
+  task V4_3_4: :environment do
+    Rake::Task['data_migration:V4_3_4'].execute
   end
   desc 'Upgrade to 4.3.0'
   task V4_3_0: :environment do

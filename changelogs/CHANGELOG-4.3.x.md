@@ -1,5 +1,12 @@
 # Liste des changements versions 4.2.0->4.3.x
 
+## 19/09/2025
+
+- Import RoR : correction du problème de persistance de la valeur du pays sélectionné (#13896)
+- Augmentation de la largeur des onglets Produits de recherche (#13893)
+- Les groupes contenant les onglets de Produit de Recherche restent désormais ouverts lorsque l'on crée un nouveau produit (#13734)
+- Ajout d'un traitement corrigeant le type présent dans la table research_outputs. 
+
 ## 31/07/2025
 
 - Ajout de l'éditeur de texteà la description des groupes de recommandations

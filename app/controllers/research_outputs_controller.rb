@@ -8,7 +8,8 @@ class ResearchOutputsController < ApplicationController
   after_action :verify_authorized
 
   def show
-    @research_output = ResearchOutput.includes(:answers, plan: { template: { phases: { sections: :questions } } })
+    @research_output = ResearchOutput.includes(:answers,
+                                               plan: { template: { phases: { sections: :questions } } })
                                      .find(params[:id])
     authorize @research_output
 
@@ -61,15 +62,20 @@ class ResearchOutputsController < ApplicationController
   # rubocop:disable Metrics/AbcSize, Metrics/MethodLength
   def update
     @research_output = ResearchOutput.includes(plan: %i[template research_outputs]).find(params[:id])
-    plan =  @research_output.plan
-    attrs = research_output_params
+    plan = @research_output.plan
 
     authorize @research_output
     I18n.with_locale plan.template.locale do
       research_outputs = ResearchOutput.where(plan_id: params[:plan_id])
 
-      @research_output.update!(attrs)
-      research_output_description = @research_output.update_description
+      @research_output.update!(
+        abbreviation: params[:abbreviation],
+        title: params[:title],
+        output_type_description: params[:type]
+      )
+      research_output_description = @research_output.update_description(
+        contains_personal_data: params[:configuration][:hasPersonalData]
+      )
       PlanChannel.broadcast_to(plan, {
                                  target: 'dynamic_form',
                                  fragment_id: research_output_description.id,
