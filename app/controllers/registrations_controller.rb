@@ -262,7 +262,7 @@ class RegistrationsController < Devise::RegistrationsController
       set_locale
       set_flash_message :notice, success_message(current_user, _('saved'))
       # Sign in the user bypassing validation in case his password changed
-      sign_in current_user, bypass: true
+      bypass_sign_in(current_user)
       redirect_to "#{edit_user_registration_path}#personal-details",
                   notice: success_message(current_user, _('saved'))
 
@@ -293,7 +293,7 @@ class RegistrationsController < Devise::RegistrationsController
       # Method defined at controllers/application_controller.rb#set_locale
       set_flash_message :notice, success_message(current_user, _('saved'))
       # TODO: this method is deprecated
-      sign_in current_user, bypass: true
+      bypass_sign_in(current_user)
       redirect_to "#{edit_user_registration_path}#password-details",
                   notice: success_message(current_user, _('saved'))
 
