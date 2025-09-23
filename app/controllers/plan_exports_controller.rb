@@ -13,8 +13,8 @@ class PlanExportsController < ApplicationController
   # rubocop:disable Metrics/AbcSize, Metrics/MethodLength
   # rubocop:disable Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
   def show
-    @plan = Plan.includes(:answers, :research_outputs, {
-                            template: { phases: { sections: :questions } }
+    @plan = Plan.includes(:answers, {
+                            research_outputs: :guidance_groups, template: { phases: { sections: :questions } }
                           }).find(params[:plan_id])
 
     if privately_authorized? && export_params[:form].present?
@@ -46,13 +46,6 @@ class PlanExportsController < ApplicationController
     if params.key?(:selected_phases)
       @hash[:phases] = @hash[:phases].select { |p| params[:selected_phases].include?(p[:id].to_s) }
     end
-
-    # Added contributors to coverage of plans.
-    # Users will see both roles and contributor names if the role is filled
-    # @hash[:data_curation] = Contributor.where(plan_id: @plan.id).data_curation
-    # @hash[:investigation] = Contributor.where(plan_id: @plan.id).investigation
-    # @hash[:pa] = Contributor.where(plan_id: @plan.id).project_administration
-    # @hash[:other] = Contributor.where(plan_id: @plan.id).other
 
     if params.key?(:research_outputs)
       @hash[:research_outputs] = @hash[:research_outputs].order(display_order: :asc).select do |d|
