@@ -135,7 +135,20 @@
       }
     }
   }
+  
+  .legend-inline {
+    font-size: 0.95rem;
+    color: #2c3e50;
 
+    i {
+      margin-right: 6px;
+      color: #34495e;
+    }
+
+    i + i {
+      margin-left: 20px;
+    }
+  }
 
   /*
     ADMIN AREA

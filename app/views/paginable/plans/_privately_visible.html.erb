@@ -1,4 +1,8 @@
 <%= turbo_page_requires_reload %>
+<p class="legend-inline">
+  <i class="fas fa-university"></i> <%= _('Research Entity') %>&nbsp;&nbsp;
+  <i class="fas fa-vial"></i> <%= _('Research Project') %>
+</p>
 <div class="table-responsive">
   <table class="table table-hover" id="my-plans">
     <thead>
@@ -19,6 +23,7 @@
         <% my_plan_roles = plan.roles.select(&:active).select { |r| r.user_id == current_user.id } %>
         <tr id="<%= dom_id(plan) %>">
           <td>
+            <i class="fa-solid <%= plan.research_entity? ? "fas fa-university" : "fas fa-vial" %>"></i>
             <%= link_to "#{plan.title.length > 100 ? "#{plan.title[0..99]} ..." : plan.title}",
                 plan_path(plan), data: {turbo_frame: "_top"}  %>
           </td>
