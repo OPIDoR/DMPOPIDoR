@@ -9,7 +9,8 @@ class MadmpSchemasController < ApplicationController
     topic = params[:topic] || 'standard'
     authorize(MadmpSchema)
     render json: MadmpSchema.where(
-      Arel.sql("'#{topic}' = ANY(topics) AND data_type='#{data_type}' AND classname='#{params[:classname]}'")
+      # Arel.sql("'#{topic}' = ANY(topics) AND data_type='#{data_type}' AND classname='#{params[:classname]}'")
+      Arel.sql("data_type='#{data_type}' AND classname='#{params[:classname]}'")
     ).select(%w[
                id name label schema
              ])
