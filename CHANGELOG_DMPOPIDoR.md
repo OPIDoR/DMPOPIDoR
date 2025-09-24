@@ -2,6 +2,19 @@
 
 **Attention** Cette liste de changements concerne les déploiements sur nos serveurs de test en interne.
 
+## 24/09/2025
+
+- Correction de la case à cocher Recommandé dans la liste des modèles
+- Ajout d'icones et d'une légende au Tableau de bord, indiquant les plans projets et entité
+- Modification de l'affichage des formulaires en fonction de la thématique :
+  - Le formulaire lié à la question est proposé par défaut
+  - A REVOIR : Le choix des formulaires ne prend plus en compte la thématique (à revoir car idéalement la liste devrait proposer les formulaires thématiques + Mesocentres + formulaire par défaut)
+- Ajout de la liste des recommendations sélectionnées aux exports PDF/DOCX et JSON
+- Ajout de la liste des recommentations sélectionnées au dessus de l'infobox et déplacement de la zone de sélection en dessous de l'infobox
+- Correction du problème empêchant la modification du profil utilisateur
+- Correction du probllème de sélection/déselection du pays dans l'import RoR
+- Correction d'un problème d'édition de l'infobox
+
 ## 11/09/2025
 
 - Ajout de la page "Accessibilité" (création de page dans directus)
