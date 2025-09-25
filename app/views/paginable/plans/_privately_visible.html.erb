@@ -40,10 +40,10 @@
                                           aria: {
                                             label: "#{plan.title} - test plan flag"
                                           },
-                                          data: { 
-                                            checkbox_target: "checkbox", 
+                                          data: {
+                                            checkbox_target: "checkbox",
                                             controller: 'checkbox',
-                                            action: "change->checkbox#toggle", 
+                                            action: "change->checkbox#toggle",
                                             checkbox_url: set_test_plan_path(plan),
                                           }
                                          %>
@@ -58,7 +58,7 @@
             <%= plan.is_test? ? _('N/A') : sanitize(display_visibility(plan.visibility)) %>
           </td>
           <% if plan.shared? %>
-            <% 
+            <%
               api_clients = plan.api_client_roles.joins(:api_client).pluck('api_clients.name').join(',')
               collab_number = plan.roles.length - 1
               shared_tooltip = _('Shared with:<br/>')
@@ -89,7 +89,7 @@
                   <li class="nav-item"><%= link_to _('Share'), share_plan_path(plan), class: 'dropdown-item  px-3', data: {turbo_frame: "_top"}  %></li>
                 <% end %>
 
-                <li class="nav-item"><%= link_to _('Download'), download_plan_path(plan), class: 'dropdown-item  px-3' %></li>
+                <li class="nav-item"><%= link_to _('Download'), download_plan_path(plan), class: 'dropdown-item  px-3', data: {turbo_frame: "_top"} %></li>
                 <li class="copy-plan nav-item"><%= link_to(_('Copy'), duplicate_plan_path(plan), data: { turbo_method: :post, turbo_frame: "_top" }, class: 'dropdown-item  px-3') %></li>
               <% else %>
                 <li class="nav-item"><%= link_to _('View'), plan_path(plan), class: 'dropdown-item  px-3', data: {turbo_frame: "_top"}  %></li>
@@ -102,7 +102,7 @@
               <% conf = (role.creator? && plan.publicly_visible?) ? _("Are you sure you wish to remove this public plan? This will remove it from the Public DMPs page but any collaborators will still be able to access it.") : _("Are you sure you wish to remove this plan? Any collaborators will still be able to access it.") %>
               <li class="nav-item">
                 <%= link_to _('Remove'), deactivate_role_path(role), class: 'dropdown-item  px-3', 'data-turbo-method': 'put', rel: 'nofollow',
-                    data: { turbo_frame: "_top", turbo_confirm: conf } 
+                    data: { turbo_frame: "_top", turbo_confirm: conf }
                  %>
               </li>
             </ul>
