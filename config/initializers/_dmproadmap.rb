@@ -7,7 +7,7 @@ require 'json'
 #
 # This file is a consolidation of the old custom configuration previously spread
 # across the application.rb, branding.yml and the contact_us, devise, recaptcha,
-# constants and wicked_pdf initializers
+# constants
 #
 # It works in conjunction with the new Rails 5 config/credentials.yml.enc file
 # for information on how to use the credentials file see:
