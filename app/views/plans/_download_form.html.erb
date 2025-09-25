@@ -5,7 +5,7 @@
     <%= link_to _('Create or import research output'), structured_edit_plan_path, class: 'btn btn-primary', id: 'edit-btn' %>
   </div>
 <% else %>
-  <%= form_tag(plan_export_path(@plan), method: :get, target: '_blank', id: 'download_form') do |f| %>
+  <%= form_tag(plan_export_path(@plan), method: :get, target: '_blank', id: 'download_form', data: { turbo: false }) do |f| %>
     <h2><%= _("Download settings") %></h2>
     <%= hidden_field_tag 'export[form]', true %>
     <% if @research_outputs.length > 1 %>
