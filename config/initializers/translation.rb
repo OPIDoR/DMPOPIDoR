@@ -20,42 +20,14 @@ DEFAULT_LOCALE = ENV.fetch('DEFAULT_LOCALE', 'fr-FR')
 #
 # When generating the translations, the rake:tasks will need to be run with each
 # domain specified in order to generate both sets of translation keys.
-if !ENV['DOMAIN'] || ENV.fetch('DOMAIN', 'app') == 'app'
-  TranslationIO.configure do |config|
-    config.api_key              = ENV.fetch('TRANSLATION_API_ROADMAP', nil)
-    config.source_locale        = 'en'
-    config.target_locales       = SUPPORTED_LOCALES
-    config.text_domain          = 'app'
-    config.bound_text_domains   = %w[app client]
-    config.ignored_source_paths = Dir.glob('**/*').select { |f| File.directory? f }
-                                     .collect { |name| "#{name}/" }
-                                     .select do |path|
-                                       path.include?('branded/') || path.include?('dmpopidor/') ||
-                                         path.include?('engines/')
-                                     end
-    config.locales_path         = Rails.root.join('config', 'locale')
-  end
-elsif ENV.fetch('DOMAIN', 'client') == 'client'
-  TranslationIO.configure do |config|
-    config.api_key              = ENV.fetch('TRANSLATION_API_CLIENT',
-                                            Rails.application.credentials.tranlation_io.translation_api_key)
-    config.source_locale        = 'en'
-    config.target_locales       = CLIENT_LOCALES
-    config.text_domain          = 'client'
-    config.bound_text_domains   = ['client']
-    config.ignored_source_paths = Dir.glob('**/*').select { |f| File.directory? f }
-                                     .collect { |name| "#{name}/" }
-                                     .reject do |path|
-                                       path == 'app/' || path == 'app/views/' ||
-                                         path == 'app/controllers/' || path == 'app/models/' ||
-                                         path == 'app/helpers/' || path == 'app/mailers/' ||
-                                         path.include?('engines/') ||
-                                         path.include?('branded/') || path.include?('dmpopidor/') ||
-                                         path.include?('research_output')
-                                     end
-    config.disable_yaml         = true
-    config.locales_path         = Rails.root.join('config', 'locale')
-  end
+
+TranslationIO.configure do |config|
+  config.api_key              = ENV.fetch('TRANSLATION_API_DMPOPIDOR', nil)
+  config.source_locale        = 'en'
+  config.target_locales       = SUPPORTED_LOCALES
+  config.text_domain          = 'app'
+  config.bound_text_domains   = %w[app client]
+  config.locales_path         = Rails.root.join('config', 'locale')
 end
 
 # Setup languages
