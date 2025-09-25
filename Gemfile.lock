@@ -266,6 +266,10 @@ GEM
     hashie (5.0.0)
     highline (3.1.2)
       reline
+    hotwire-livereload (2.0.0)
+      actioncable (>= 7.0.0)
+      listen (>= 3.0.0)
+      railties (>= 7.0.0)
     htmltoword (1.1.1)
       actionpack
       nokogiri
@@ -513,6 +517,8 @@ GEM
     regexp_parser (2.11.3)
     reline (0.6.2)
       io-console (~> 0.5)
+    rerun (0.14.0)
+      listen (~> 3.0)
     responders (3.1.1)
       actionpack (>= 5.2)
       railties (>= 5.2)
@@ -678,6 +684,7 @@ DEPENDENCIES
   graphiql-rails (~> 1.10)
   graphql (~> 2.3)
   guard
+  hotwire-livereload (~> 2.0)
   htmltoword
   httparty
   inline_svg
@@ -710,6 +717,7 @@ DEPENDENCIES
   recaptcha
   redis
   redis-actionpack
+  rerun
   rollbar
   rspec-collection_matchers
   rspec-rails

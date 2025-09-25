@@ -46,6 +46,13 @@ Rails.application.configure do
 
   config.action_mailer.perform_deliveries = true
 
+  # Hotwire livereload
+  config.hotwire_livereload.reload_method = :turbo_stream
+  config.hotwire_livereload.skip_listen_paths = [
+    Rails.root.join('log'),
+    Rails.root.join('tmp')
+  ]
+
   # Rails 6+ adds middleware to prevent DNS rebinding attacks:
   #    https://guides.rubyonrails.org/configuring.html#actiondispatch-hostauthorization
   #
