@@ -4,7 +4,7 @@ module Import
   class Plan
     def import(plan, import_params, current_user)
       import_format = import_params[:format].eql?('null') ? 'standard' : import_params[:format]
-      Plan.transaction do
+      ::Plan.transaction do
         recommended_template = Template.recommend(locale: import_params[:locale]) || Template.default
         plan.template = recommended_template
 
