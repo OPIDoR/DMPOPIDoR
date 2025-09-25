@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: app 1.0\n"
 "Report-Msgid-Bugs-To: contact@translation.io\n"
-"POT-Creation-Date: 2025-09-18 13:54+0200\n"
-"PO-Revision-Date: 2025-09-18 13:54+0200\n"
+"POT-Creation-Date: 2025-09-25 11:05+0200\n"
+"PO-Revision-Date: 2025-09-25 11:05+0200\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: French\n"
 "Language: fr_FR\n"
@@ -1504,11 +1504,11 @@ msgstr ""
 #: ../../app/views/branded/contact_us/contacts/new.html.erb:12
 #: ../../app/views/branded/layouts/_branding.html.erb:37
 #: ../../app/views/branded/layouts/_footer.html.erb:22
-#: ../../app/views/branded/layouts/_footer.html.erb:36
-#: ../../app/views/branded/layouts/_footer.html.erb:44
-#: ../../app/views/branded/layouts/_footer.html.erb:51
-#: ../../app/views/branded/layouts/_footer.html.erb:67
-#: ../../app/views/branded/layouts/_footer.html.erb:72
+#: ../../app/views/branded/layouts/_footer.html.erb:40
+#: ../../app/views/branded/layouts/_footer.html.erb:47
+#: ../../app/views/branded/layouts/_footer.html.erb:63
+#: ../../app/views/branded/layouts/_footer.html.erb:68
+#: ../../app/views/branded/layouts/_footer.html.erb:73
 #: ../../app/views/branded/layouts/_navigation.html.erb:5
 #: ../../app/views/branded/paginable/plans/_organisationally_or_publicly_visible.html.erb:36
 #: ../../app/views/branded/paginable/plans/_publicly_visible.html.erb:31
@@ -1913,19 +1913,23 @@ msgstr "Mentions légales"
 msgid "Privacy statement"
 msgstr "Politique de confidentialité"
 
-#: ../../app/views/branded/layouts/_footer.html.erb:42
+#: ../../app/views/branded/layouts/_footer.html.erb:35
+msgid "Accessibility: not compliant"
+msgstr "Accessibilité : non conforme"
+
+#: ../../app/views/branded/layouts/_footer.html.erb:38
 msgid "Ecosystem"
 msgstr "Écosystème"
 
-#: ../../app/views/branded/layouts/_footer.html.erb:44
+#: ../../app/views/branded/layouts/_footer.html.erb:40
 msgid "OPIDoR website"
 msgstr "Site web OPIDoR"
 
-#: ../../app/views/branded/layouts/_footer.html.erb:67
+#: ../../app/views/branded/layouts/_footer.html.erb:68
 msgid "Mailing list"
 msgstr "Liste de diffusion"
 
-#: ../../app/views/branded/layouts/_footer.html.erb:72
+#: ../../app/views/branded/layouts/_footer.html.erb:73
 msgid "Canal-U"
 msgstr "Canal-U"
 
