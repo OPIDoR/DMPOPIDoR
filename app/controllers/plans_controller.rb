@@ -6,7 +6,7 @@ class PlansController < ApplicationController
   include ConditionalUserMailer
   include OrgSelectable
 
-  helper ErrorHelper
+  include ErrorHelper
   helper PaginableHelper
   helper SettingsTemplateHelper
 
