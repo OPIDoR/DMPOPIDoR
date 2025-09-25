@@ -364,6 +364,8 @@ group :development do
 
   # TomDoc for YARD (http://rubyworks.github.com/yard-tomdoc)
   gem 'yard-tomdoc'
+
+  gem "hotwire-livereload", "~> 2.0"
 end
 
 # ======================#
