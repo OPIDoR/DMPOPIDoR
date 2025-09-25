@@ -29,7 +29,7 @@
       <% end %>
     <% end %>
     <!-- End Google Analytics -->
-    <title><%= content_for?(:title) ? yield(:title) : _('%{application_name}') % { :application_name => ApplicationService.application_name } %> 
+    <title><%= content_for?(:title) ? yield(:title) : _('%{application_name}') % { :application_name => ApplicationService.application_name } %>
     </title>
     <%= favicon_link_tag "favicon.ico" %>
     <!--[ if lte IE 9]>
@@ -59,8 +59,8 @@
           });
         </script>
     <![endif]-->
-    <%= javascript_include_tag "application", "data-turbo-track": "reload", defer: true %>
-    <%= stylesheet_link_tag "application", "data-turbo-track": "reload" %>
+    <%= javascript_include_tag "application", "data-turbo-track": Rails.env.production? ? "reload" : "", defer: true %>
+    <%= stylesheet_link_tag "application", "data-turbo-track": Rails.env.production? ? "reload" : "" %>
     <%= csrf_meta_tags %>
     <%= action_cable_meta_tag %>
 
@@ -73,7 +73,7 @@
   </head>
   <body>
     <div class="skip">
-      <a href="#maincontent"> _('Skip to main content') </a> 
+      <a href="#maincontent"> _('Skip to main content') </a>
     </div>
     <!-- header rendering -->
     <header class="dmpopidor-branding">
@@ -81,7 +81,7 @@
     </header>
 
     <!-- main page content rendering -->
-    <% 
+    <%
       user_access_class = if request.path.starts_with?('/super_admin')
                             "super-admin"
                           elsif request.path.starts_with?('/org_admin') ||
@@ -90,7 +90,7 @@
                             "org-admin"
                           else
                             ""
-                          end 
+                          end
     %>
     <main class="container dmpopidor-branding <%= user_access_class %>" id="maincontent">
       <%# <div class="ribbon">Version d'essai Bootstrap 5</div> %>
@@ -101,7 +101,7 @@
       <div class="spinner-border d-none" role="status">
         <span class="visually-hidden"><%spinner_msg = _("Loading...") %></span>
       </div>
-    
+
       <%= render "layouts/contact_icons" %>
     </main>
 
