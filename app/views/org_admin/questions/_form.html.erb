@@ -47,7 +47,7 @@
       <%= f.hidden_field :question_format_id, value: QuestionFormat.id_for("structured")%>
       <!-- Structured Data Schemas -->
       <div class="form-control mb-3 col-md-10">
-        <%= label_tag "data_type", _('Data Type'), class: "form-label" %>
+        <%= label_tag "data_type", _('Data type'), class: "form-label" %>
         <%= select_tag "data_type",
           options_for_select(
             @available_classnames.map{ |type| [type.camelize, type] }.sort,

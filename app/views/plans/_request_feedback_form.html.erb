@@ -3,7 +3,7 @@
 <% if administerable  %>
   <div class="col-xs-12">
     <% if plan.owner_and_coowners.include?(current_user) && current_user.org.feedback_enabled? %>
-      <h2><%= _('Request expert feedback') %></h2>
+      <h2><%= _('Request feedback') %></h2>
       <p>
       <%= 
       _("Click below to give data management staff at %{org_name}, the Plan Owner's org, access to read and comment on your plan.") % { 

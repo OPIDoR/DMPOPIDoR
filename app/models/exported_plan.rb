@@ -186,7 +186,7 @@ class ExportedPlan < ApplicationRecord
           output += "\n* #{qtext}"
         end
         if answer.nil?
-          output += _('Question not answered.\n')
+          output += "#{_('Question not answered.')}\n"
         else
           q_format = question.question_format
           if q_format.option_based?

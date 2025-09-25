@@ -3,6 +3,7 @@
 # Controller that handles adding/updating/removing collaborators from a plan
 class RolesController < ApplicationController
   include ConditionalUserMailer
+
   respond_to :html
 
   after_action :verify_authorized
@@ -68,7 +69,7 @@ class RolesController < ApplicationController
         end
       end
     else
-      flash[:alert] = _('Please enter an email address')
+      flash[:alert] = _('Please enter an email address. ')
     end
     redirect_to controller: 'plans', action: 'share', id: @role.plan.id
   end

@@ -54,13 +54,13 @@ module PlansHelper
     when 'organisationally_visible'
       _('Organisation: anyone at my organisation can view.')
     when 'publicly_visible'
-      _('Public: anyone can view.')
+      _('Public: anyone can view')
     # --------------------------------
     # Start DMP OPIDoR Customization
     # CHANGES : Added administrator_visible visibility
     # --------------------------------
     when 'administrator_visible'
-      _('Administrator: visible to me, specified collaborators and administrators at my organisation.')
+      _('Administrator: visible to me, specified collaborators and administrators at my organisation')
     # --------------------------------
     # End DMP OPIDoR Customization
     # --------------------------------

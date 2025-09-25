@@ -63,10 +63,10 @@ module UsageHelper
   def plans_per_template_ranges
     [
       [_('Last month'), Date.today.last_month.end_of_month],
-      [_('Last 3 months'), Date.today.months_ago(3).end_of_month],
-      [_('Last 6 months'), Date.today.months_ago(6).end_of_month],
-      [_('Last 9 months'), Date.today.months_ago(9).end_of_month],
-      [_('Last 12 months'), Date.today.months_ago(12).end_of_month]
+      [format(_('Last %{number} months'), number: 3), Date.today.months_ago(3).end_of_month],
+      [format(_('Last %{number} months'), number: 6), Date.today.months_ago(6).end_of_month],
+      [format(_('Last %{number} months'), number: 9), Date.today.months_ago(9).end_of_month],
+      [format(_('Last %{number} months'), number: 12), Date.today.months_ago(12).end_of_month]
     ]
   end
   # rubocop:enable Metrics/AbcSize
