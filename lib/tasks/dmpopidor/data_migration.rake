@@ -38,7 +38,7 @@ namespace :data_migration do
   task update_research_output_description: :environment do
     Fragment::ResearchOutput.all.each do |fragment|
       research_output = fragment.research_output
-      fragment_type = fragment.research_output_description.data['type']
+      fragment_type = fragment.research_output_description&.data&.[]('type')
       fragment_data_type = fragment.additional_info['dataType'].eql?('none') ? 'dataset' : fragment.additional_info['dataType'] # rubocop:disable Layout/LineLength
       if fragment_type.present?
         research_output.update_columns(output_type_description: fragment_type,
