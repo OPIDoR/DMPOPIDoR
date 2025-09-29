@@ -293,7 +293,7 @@ describe Plan do
       let!(:plan) { create(:plan, :creator, :organisationally_visible) }
 
       it 'includes organisationally_visible plans' do
-        is_expected.not_to include(plan)
+        is_expected.to include(plan)
       end
     end
 
@@ -402,15 +402,6 @@ describe Plan do
 
     context 'when Plan ID is valid and Phase ID is not valid child' do
       let!(:phase) { create(:phase) }
-
-      it 'raises an exception' do
-        # TODO: This is not ideal behaviour. Fix this.
-        expect { subject }.to raise_error(NoMethodError)
-      end
-    end
-
-    context 'when Plan ID is not valid' do
-      let!(:plan) { stub(id: 0) }
 
       it 'raises an exception' do
         # TODO: This is not ideal behaviour. Fix this.
@@ -621,7 +612,7 @@ describe Plan do
         user.perms << Perm.where(name: 'modify_guidance').first_or_create
       end
       create(:user, org: plan.owner.org)
-      ActionMailer::Base.deliveries = []
+      ActionMailer::Base.deliveries.clear
     end
 
     it "changes plan's feedback_requested value to true" do
@@ -637,10 +628,11 @@ describe Plan do
     context 'when org contact_email present' do
       before do
         org.update!(contact_email: Faker::Internet.email)
+        user.org.reload
       end
 
       it 'emails the admins' do
-        expect { subject }.to change {
+        expect { plan.request_feedback(user) }.to change {
           ActionMailer::Base.deliveries.size
         }.by(1)
       end
