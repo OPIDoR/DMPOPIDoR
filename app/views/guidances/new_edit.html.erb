@@ -53,7 +53,7 @@ end
       </div>
       <div id="theme-selector">
         <%= render partial: 'org_admin/shared/theme_selector',
-                   locals: { f: f, all_themes: Theme.all.order("title"), as_radio: true, required: true,
+                   locals: { f: f, all_themes: Theme.where(data_type: @guidance&.guidance_group&.data_types).order("title"), as_radio: true, required: true,
                              in_error: @guidance.errors[:themes].present?,
                              selected_theme: @guidance&.themes[0]&.title || nil,
                              locale_id: @guidance&.guidance_group&.language_id || Language.where(abbreviation: 'fr-FR'),

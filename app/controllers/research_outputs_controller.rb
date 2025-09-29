@@ -344,11 +344,15 @@ class ResearchOutputsController < ApplicationController
     @research_output = ResearchOutput.includes(
       :guidance_groups, plan: [template: [:phases]]
     ).find(id)
+    research_output_fragment = @research_output.json_fragment
+    data_type = research_output_fragment.additional_info['dataType']
     @plan = @research_output.plan
     authorize @research_output
     current_locale = Language.where(abbreviation: @plan.template.locale).first
 
-    @all_guidance_groups = GuidanceGroup.published.where(language_id: current_locale.id)
+    @all_guidance_groups = GuidanceGroup.includes(:org).where(
+      Arel.sql("'#{data_type}' = ANY(data_types) AND language_id = #{current_locale.id}")
+    )
     @all_ggs_grouped_by_org = @all_guidance_groups.sort.group_by(&:org)
     @selected_guidance_groups = @research_output.guidance_groups.ids.to_set
 

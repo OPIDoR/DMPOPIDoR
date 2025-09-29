@@ -32,6 +32,17 @@ description_text_tooltip =  _('Enter your description here. You can include link
       name: 'guidance_group[language_id]') %>
 </div>
 <div class="form-group mb-3 col-xs-12">
+  <%= form.label(:data_types, _('Data Types'), class: 'form-label') %>
+  <%= select_tag(:data_types,
+      options_for_select(
+        data_type_select_values,
+        @guidance_group.data_types
+      ),
+      multiple: true,
+      class: "form-select",
+      name: 'guidance_group[data_types][]') %>
+</div>
+<div class="form-group mb-3 col-xs-12">
   <%= form.label(:topics, _('Topics'), class: 'form-label') %>
   <%= select_tag(:topics,
       options_for_select(
