@@ -80,7 +80,7 @@ class GuidancesController < ApplicationController
         partial: 'org_admin/shared/theme_selector',
         locals: {
           f: form_builder_for(guidance || Guidance.new),
-          all_themes: Theme.all.order('title'),
+          all_themes: Theme.where(data_type: guidance_group&.data_types).order('title'),
           as_radio: true,
           required: true,
           in_error: false,
@@ -91,8 +91,10 @@ class GuidancesController < ApplicationController
       }
     )
 
-    render json: { status: 200, error: 'Themes results', data: { partial: rendered_partial, locale: language.name } },
-           status: :ok
+    render json: { status: 200, error: 'Themes results', data: {
+      partial: rendered_partial,
+      locale: guidance_group.language.name
+    } }, status: :ok
   end
   # rubocop:enable Metrics/AbcSize, Metrics/MethodLength
 

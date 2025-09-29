@@ -33,7 +33,7 @@ end
                                  title: _('Select which group this guidance relates to.'),
                                  class: 'form-select',
                                  'aria-required': true,
-                                 onchange: "updateLocale(this, #{@guidance.id})"}) %>
+                                 onchange: "updateThemes(this, #{@guidance.id})"}) %>
 
       </div>
 
@@ -77,7 +77,7 @@ end
 </div>
 
 <script>
-  function updateLocale(e, guidance_id) {
+  function updateThemes(e, guidance_id) {
     $.ajax({
       url: '/org/admin/guidance/render_themes',
       type: 'POST',
