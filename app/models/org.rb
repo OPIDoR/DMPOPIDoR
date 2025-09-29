@@ -41,6 +41,7 @@ class Org < ApplicationRecord
   include Identifiable
 
   extend Dragonfly::Model::Validations
+
   validates_with OrgLinksValidator
 
   LOGO_FORMATS = %w[jpeg png gif jpg bmp].freeze
@@ -288,7 +289,7 @@ class Org < ApplicationRecord
 
   # This replaces the old plans method. We now use the native plans method and this.
   def org_admin_plans
-    combined_plan_ids = affiliated_plan_ids.flatten.uniq
+    combined_plan_ids = native_plan_ids + affiliated_plan_ids.flatten.uniq
 
     Plan.includes(:template, :phases, :roles, :users).where(id: combined_plan_ids)
         .where.not(visibility: Plan.visibilities[:privately_visible])
