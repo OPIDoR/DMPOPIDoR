@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2025_09_04_115940) do
+ActiveRecord::Schema[8.0].define(version: 2025_09_29_114500) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
   enable_extension "unaccent"
@@ -147,6 +147,7 @@ ActiveRecord::Schema[8.0].define(version: 2025_09_04_115940) do
     t.string "description"
     t.integer "language_id", default: 0
     t.string "topics", default: ["standard"], null: false, array: true
+    t.string "data_types", default: ["none"], null: false, array: true
     t.index ["org_id"], name: "guidance_groups_org_id_idx"
   end
 
