@@ -2,6 +2,17 @@
 
 **Attention** Cette liste de changements concerne les déploiements sur nos serveurs de test en interne.
 
+## 01/10/2025
+
+- Le choix de formulaire inclus désormais les formulaires liés à la thématique "standard" et à la thématique éventuellement choisie (#14016)
+- Mise à jour des traductions (#13977)
+- Ajout du type de données aux groupes de recommandations (#13957)
+  - Ajout du type de données aux formulaires des groupes de reco
+  - Affichage des groupes de recommandations disponibles en fonction du type de PR
+- Correction de la langue par défaut de l'application (#13968)
+- (Turbo) Correction du problème empêchant l'export PDF & DOCX (#13971/13972)
+- Correction d'un problème de mise à jour du choix des recommandations lors de la création d'un nouveau PR
+
 ## 24/09/2025
 
 - Correction de la case à cocher Recommandé dans la liste des modèles
