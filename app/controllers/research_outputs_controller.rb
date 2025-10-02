@@ -21,6 +21,7 @@ class ResearchOutputsController < ApplicationController
   # rubocop:disable Metrics/CyclomaticComplexity
   def create
     @plan = Plan.includes(:template, :research_outputs, :roles).find_by(id: params[:plan_id])
+    language = Language.find_by(abbreviation: @plan.template.locale)
     attrs = research_output_params
     authorize ResearchOutput.new(plan: @plan)
     I18n.with_locale @plan.template.locale do
@@ -30,24 +31,24 @@ class ResearchOutputsController < ApplicationController
         title: attrs[:title] || "#{_('Research output')} #{max_order}",
         output_type_description: params[:type],
         topic: attrs[:topic] || 'standard',
-        is_default: false,
-        display_order: max_order
+        is_default: false, display_order: max_order
       )
       created_ro.create_json_fragments(params[:configuration])
 
       # pre-select owner org's guidance and the default org's guidance
       ids = (::Org.default_orgs.pluck(:id) << @plan.owner.org_id).flatten.uniq
+      org_ggs = GuidanceGroup.where(org_id: ids, optional_subset: false, published: true, language_id: language.id)
+      topic_ggs = if created_ro.topic.eql?('standard')
+                    []
+                  else
+                    GuidanceGroup.where(Arel.sql("'#{created_ro.topic}' = ANY(topics) AND published=true AND language_id=#{language.id}"))
+                  end
 
-      language = Language.find_by(abbreviation: @plan.template.locale)
-
-      ggs = GuidanceGroup.where(org_id: ids, optional_subset: false, published: true, language_id: language.id)
-
-      created_ro.guidance_groups << ggs unless ggs.empty?
+      created_ro.guidance_groups << org_ggs unless org_ggs.empty?
+      created_ro.guidance_groups << topic_ggs unless topic_ggs.empty?
 
       render json: {
-        id: @plan.id,
-        created_ro_id: created_ro.id,
-        dmp_id: @plan.json_fragment.id,
+        id: @plan.id, created_ro_id: created_ro.id, dmp_id: @plan.json_fragment.id,
         research_outputs: @plan.research_outputs.order(:display_order).map(&:serialize_json)
       }
     rescue ActiveRecord::RecordInvalid => e
