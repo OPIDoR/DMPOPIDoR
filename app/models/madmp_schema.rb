@@ -148,6 +148,7 @@ class MadmpSchema < ApplicationRecord
       name: schema.name,
       label: schema.label,
       schema: schema.schema,
+      topics: schema.topics,
       api_client: if schema.api_client.present?
                     {
                       id: schema.api_client_id,

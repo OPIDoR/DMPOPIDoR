@@ -20,9 +20,11 @@ class AnswersController < ApplicationController
     render json: MadmpFragment.render_fragment_json(fragment, fragment.madmp_schema)
     nil
   rescue ActiveRecord::RecordNotFound
+    madmp_schema = MadmpSchema.suggest(question.madmp_schema.classname, question.template.data_type,
+                                       research_output.topic) || question.madmp_schema
     authorize Answer.new(plan_id: research_output.plan_id)
     render json: {
-      template: MadmpSchema.serialize_json_response(question.madmp_schema)
+      template: MadmpSchema.serialize_json_response(madmp_schema)
     }
     nil
   end
