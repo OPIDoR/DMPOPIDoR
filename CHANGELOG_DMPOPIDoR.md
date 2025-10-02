@@ -2,7 +2,7 @@
 
 **Attention** Cette liste de changements concerne les déploiements sur nos serveurs de test en interne.
 
-## 01/10/2025
+## 02/10/2025
 
 - Le choix de formulaire inclus désormais les formulaires liés à la thématique "standard" et à la thématique éventuellement choisie (#14016)
 - Mise à jour des traductions (#13977)
@@ -12,6 +12,9 @@
 - Correction de la langue par défaut de l'application (#13968)
 - (Turbo) Correction du problème empêchant l'export PDF & DOCX (#13971/13972)
 - Correction d'un problème de mise à jour du choix des recommandations lors de la création d'un nouveau PR
+- Si disponible, le formulaire thématique est affiché par défaut
+- La sélection des formulaires ne s'affiche désormais que lorsqu'un formulaire thématique n'est pas disponible
+- Les recommandations thématiques sont désormais sélectionnées par défaut
 
 ## 24/09/2025
 
