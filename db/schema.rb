@@ -146,7 +146,7 @@ ActiveRecord::Schema[8.0].define(version: 2025_09_29_114500) do
     t.boolean "published", default: false, null: false
     t.string "description"
     t.integer "language_id", default: 0
-    t.string "topics", default: ["standard"], null: false, array: true
+    t.string "topics", default: ["generic"], null: false, array: true
     t.string "data_types", default: ["none"], null: false, array: true
     t.index ["org_id"], name: "guidance_groups_org_id_idx"
   end
@@ -239,7 +239,7 @@ ActiveRecord::Schema[8.0].define(version: 2025_09_29_114500) do
     t.datetime "updated_at", precision: nil, null: false
     t.bigint "api_client_id"
     t.string "data_type", default: "none", null: false
-    t.string "topics", default: ["standard"], null: false, array: true
+    t.string "topics", default: ["generic"], null: false, array: true
     t.index ["api_client_id"], name: "index_madmp_schemas_on_api_client_id"
     t.index ["org_id"], name: "index_madmp_schemas_on_org_id"
   end
@@ -454,7 +454,7 @@ ActiveRecord::Schema[8.0].define(version: 2025_09_29_114500) do
     t.string "data_types", default: ["none"], null: false, array: true
     t.string "category"
     t.json "values"
-    t.string "topics", default: ["standard"], null: false, array: true
+    t.string "topics", default: ["generic"], null: false, array: true
     t.index ["org_id"], name: "index_registries_on_org_id"
   end
 
@@ -472,7 +472,7 @@ ActiveRecord::Schema[8.0].define(version: 2025_09_29_114500) do
     t.string "title"
     t.text "description"
     t.string "uuid"
-    t.string "topic", default: "standard", null: false
+    t.string "topic", default: "generic", null: false
     t.index ["plan_id"], name: "index_research_outputs_on_plan_id"
   end
 

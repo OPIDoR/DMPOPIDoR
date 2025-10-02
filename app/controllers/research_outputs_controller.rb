@@ -30,7 +30,7 @@ class ResearchOutputsController < ApplicationController
         abbreviation: attrs[:abbreviation] || "#{_('RO')} #{max_order}",
         title: attrs[:title] || "#{_('Research output')} #{max_order}",
         output_type_description: params[:type],
-        topic: attrs[:topic] || 'standard',
+        topic: attrs[:topic] || 'generic',
         is_default: false, display_order: max_order
       )
       created_ro.create_json_fragments(params[:configuration])
@@ -38,7 +38,7 @@ class ResearchOutputsController < ApplicationController
       # pre-select owner org's guidance and the default org's guidance
       ids = (::Org.default_orgs.pluck(:id) << @plan.owner.org_id).flatten.uniq
       org_ggs = GuidanceGroup.where(org_id: ids, optional_subset: false, published: true, language_id: language.id)
-      topic_ggs = if created_ro.topic.eql?('standard')
+      topic_ggs = if created_ro.topic.eql?('generic')
                     []
                   else
                     GuidanceGroup.where(Arel.sql("'#{created_ro.topic}' = ANY(topics) AND published=true AND language_id=#{language.id}"))

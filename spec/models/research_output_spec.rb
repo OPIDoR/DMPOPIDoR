@@ -13,7 +13,7 @@
 #  output_type_description :string
 #  pid                     :string
 #  title                   :string
-#  topic                   :string           default("standard"), not null
+#  topic                   :string           default("generic"), not null
 #  uuid                    :string
 #  created_at              :datetime         not null
 #  updated_at              :datetime         not null

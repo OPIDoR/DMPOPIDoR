@@ -10,7 +10,7 @@
 #  label         :string
 #  name          :string
 #  schema        :json
-#  topics        :string           default(["standard"]), not null, is an Array
+#  topics        :string           default(["generic"]), not null, is an Array
 #  version       :integer
 #  created_at    :datetime         not null
 #  updated_at    :datetime         not null
@@ -31,7 +31,7 @@ FactoryBot.define do
   factory :madmp_schema do
     name { Faker::Lorem.sentence }
     data_type { 'none' }
-    topics { ['standard'] }
+    topics { ['generic'] }
     schema { {} }
 
     trait :dmp do

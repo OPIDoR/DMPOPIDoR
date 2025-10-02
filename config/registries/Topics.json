@@ -2,10 +2,10 @@
 	"Topics": [
 		{
 			"label": {
-				"fr_FR": "Standard",
-				"en_GB": "Standard"
+				"fr_FR": "Générique",
+				"en_GB": "Generic"
 			},
-			"value": "standard"
+			"value": "generic"
 		},
 		{
 			"label": {

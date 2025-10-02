@@ -6,7 +6,7 @@ class MadmpSchemasController < ApplicationController
 
   def index
     data_type = params[:data_type] || 'none'
-    topics = [params[:topic], 'standard'].compact.uniq
+    topics = [params[:topic], 'generic'].compact.uniq
     authorize(MadmpSchema)
     condition = Arel.sql("topics && ARRAY[#{topics.map { |t| "'#{t}'" }.join(',')}]::varchar[]")
     render json: MadmpSchema.where(condition).where(data_type: data_type, classname: params[:classname])

@@ -7,7 +7,7 @@
 #  data_types  :string           default(["none"]), not null, is an Array
 #  description :string
 #  name        :string           not null
-#  topics      :string           default(["standard"]), not null, is an Array
+#  topics      :string           default(["generic"]), not null, is an Array
 #  uri         :string
 #  values      :json
 #  version     :integer

@@ -13,7 +13,7 @@
 #  output_type_description :string
 #  pid                     :string
 #  title                   :string
-#  topic                   :string           default("standard"), not null
+#  topic                   :string           default("generic"), not null
 #  uuid                    :string
 #  created_at              :datetime         not null
 #  updated_at              :datetime         not null
@@ -37,6 +37,6 @@ FactoryBot.define do
     output_type             { ResearchOutput.output_types.keys.sample }
     output_type_description { Faker::Lorem.sentence }
     title                   { Faker::Music::PearlJam.song }
-    topic                   { 'standard' }
+    topic                   { 'generic' }
   end
 end
