@@ -2,6 +2,16 @@
 
 **Attention** Cette liste de changements concerne les déploiements sur nos serveurs de test en interne.
 
+## 06/10/2025
+
+- Ajout des contextes (`contexts`) au modèle de plans.
+  - Le contexte fournit lors de la création de plan permet de filtrer les modèles
+  - Un modèle peut avoir plusieurs contextes. 
+  - Ajout d'un icone indiquant les contextes d'un modèle aux différentes listes de modèles
+  - Ajout d'une tâche permettant de récupérer le contexte précédemment rempli
+- Ajout du type de données à la liste des recommandations
+- Correction des problèmes d'affichage des formulaires par défaut et de la boite d'affichage des formulaires (#14044)
+
 ## 02/10/2025
 
 - Le choix de formulaire inclus désormais les formulaires liés à la thématique "standard" et à la thématique éventuellement choisie (#14016)
