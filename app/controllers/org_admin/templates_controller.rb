@@ -428,14 +428,8 @@ module OrgAdmin
       #         }
       # While this is working as-is we should consider folding these into
       # the template: :links context.
-      # --------------------------------
-      # Start DMP OPIDoR Customization
-      # CHANGES : Added Locale, Type & DataType
-      # --------------------------------
-      params.require(:template).permit(:title, :description, :visibility, :links, :locale, :type, :data_type)
-      # --------------------------------
-      # End DMP OPIDoR Customization
-      # --------------------------------
+      params.require(:template).permit(:title, :description, :visibility, :links, :locale, :type, :data_type,
+                                       contexts: [])
     end
 
     def parse_visibility(args, org)
