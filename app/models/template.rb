@@ -256,8 +256,10 @@ class Template < ApplicationRecord
     where(is_default: true, published: true).last
   end
 
-  def self.recommend(locale: 'fr-FR')
-    where(is_recommended: true, published: true, type: 'structured', locale:).last
+  def self.recommend(context: 'research_project', locale: 'fr-FR')
+    where(is_recommended: true, published: true, type: 'structured', locale:).where(
+      'templates.contexts @> ARRAY[?]::varchar[]', context
+    ).last
   end
 
   def self.module(data_type: nil, locale: 'fr-FR')

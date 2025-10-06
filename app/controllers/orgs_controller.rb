@@ -22,7 +22,8 @@ class OrgsController < ApplicationController
                    locale: params[:locale],
                    type: %w[classic structured]
                  }
-               ).to_a.flatten.uniq.sort_by(&:name)
+               ).where('templates.contexts @> ARRAY[?]::varchar[]', params[:context])
+               .to_a.flatten.uniq.sort_by(&:name)
     authorize Org.new, :list?
     render json: @orgs.as_json(only: %i[id name])
   end
