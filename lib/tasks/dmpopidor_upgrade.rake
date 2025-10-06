@@ -5,6 +5,7 @@ namespace :dmpopidor_upgrade do
   desc 'Upgrade to 4.4.0'
   task V4_4_0: :environment do
     Rake::Task['dmpopidor_upgrade:migrate_context_to_plans'].execute
+    Rake::Task['dmpopidor_upgrade:migrate_template_context_to_contexts'].execute
     Rake::Task['dmpopidor_upgrade:migrate_guidance_groups_to_research_outputs'].execute
   end
   desc 'Upgrade to 4.3.4'
@@ -50,6 +51,14 @@ namespace :dmpopidor_upgrade do
         ro.guidance_groups << plan.guidance_groups.all
       end
       plan.guidance_groups.destroy_all
+    end
+  end
+
+  desc 'Migrate from templates.context to template.contexts'
+  task migrate_template_context_to_contexts: :environment do
+    Template.all.each do |template|
+      p "Migrating template #{template.id}"
+      template.update(contexts: [template.context.eql?(0) ? 'research_project' : 'research_entity'])
     end
   end
 
