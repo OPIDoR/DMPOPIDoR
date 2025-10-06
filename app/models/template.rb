@@ -7,6 +7,7 @@
 #  id               :integer          not null, primary key
 #  archived         :boolean
 #  context          :integer          default(0), not null
+#  contexts         :string           default(["research_project"]), not null, is an Array
 #  customization_of :integer
 #  data_type        :string           default("none"), not null
 #  description      :text
@@ -548,6 +549,14 @@ class Template < ApplicationRecord
       publishedDate: updated_at.to_date,
       sections: section_data
     }
+  end
+
+  def research_entity?
+    contexts.include?('research_entity')
+  end
+
+  def research_project?
+    contexts.include?('research_project')
   end
 
   private

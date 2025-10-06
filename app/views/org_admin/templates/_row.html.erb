@@ -1,5 +1,11 @@
 <tr id="<%= dom_id(template) %>">
   <td>
+    <% if template.research_entity? %>
+      <i class="fa-solid fas fa-university"></i>
+    <% end %>
+    <% if template.research_project? %>
+      <i class="fa-solid fas fa-vial"></i>
+    <% end %>
     <%= "#{template.is_default? ? '* ' : ''}#{template.title}" %>
   </td>
   <td>

@@ -1,6 +1,9 @@
 <% # locals: templates %>
 <% export_as_pdf = _('Download') %>
-
+<p class="legend-inline">
+  <i class="fas fa-university"></i> <%= _('Research Entity') %>&nbsp;&nbsp;
+  <i class="fas fa-vial"></i> <%= _('Research Project') %>
+</p>
 <div class="table-responsive">
   <table class="table table-hover table-bordered">
     <thead>
@@ -23,6 +26,12 @@
     <% scope.each do |template| %>
       <tr id="<%= dom_id(template) %>">
         <td>
+          <% if template.research_entity? %>
+            <i class="fa-solid fas fa-university"></i>
+          <% end %>
+          <% if template.research_project? %>
+            <i class="fa-solid fas fa-vial"></i>
+          <% end %>
           <%= link_to "#{template.title}", edit_org_admin_template_path(template.id), data: { turbo_frame: "_top" } %>
         </td>
           <td>
