@@ -2,6 +2,16 @@
 
 **Attention** Cette liste de changements concerne les déploiements sur nos serveurs de test en interne.
 
+
+## 09/10/2025
+
+- Retrait du caractère "*" indiquant un modèle par défaut dans la liste des modèles
+- Seuls les groupes de recommandations publiés n'apparaissent dans la liste des recos (#14070)
+- Correction du problème d'affichage des recommandations sélectionnées dans un PR
+- Correction du problème de fonctionnement de la case à cocher 'modèle recommandé' (#14056)
+- Mise à jour des traductions de la Rédaction de plan et Infos Générales (#13977)
+- Le filtre se réinitialise lors de la sauvegarde des recommandations sélectionnées
+
 ## 06/10/2025
 
 - Ajout des contextes (`contexts`) au modèle de plans.
