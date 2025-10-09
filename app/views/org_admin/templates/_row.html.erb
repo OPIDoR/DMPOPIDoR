@@ -6,7 +6,7 @@
     <% if template.research_project? %>
       <i class="fa-solid fas fa-vial"></i>
     <% end %>
-    <%= "#{template.is_default? ? '* ' : ''}#{template.title}" %>
+    <%= template.title %>
   </td>
   <td>
     <%= template.org.name %>

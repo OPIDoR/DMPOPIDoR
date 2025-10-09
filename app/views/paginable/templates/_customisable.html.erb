@@ -15,7 +15,7 @@
       <% customization = customizations.find{ |customization| customization.customization_of == template.family_id } %>
       <tr id="<%= dom_id(template) %>">
         <td>
-          <%= link_to_customizable_template "#{template.is_default ? '* ' : ''}#{template.title}", customization, template, false %>
+          <%= link_to_customizable_template template.title, customization, template, false %>
         </td>
         <td>
           <%= template.org.name %>
