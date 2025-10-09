@@ -351,7 +351,7 @@ class ResearchOutputsController < ApplicationController
     authorize @research_output
     current_locale = Language.where(abbreviation: @plan.template.locale).first
 
-    @all_guidance_groups = GuidanceGroup.includes(:org).where(
+    @all_guidance_groups = GuidanceGroup.published.includes(:org).where(
       Arel.sql("'#{data_type}' = ANY(data_types) AND language_id = #{current_locale.id}")
     )
     @all_ggs_grouped_by_org = @all_guidance_groups.sort.group_by(&:org)
