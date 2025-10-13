@@ -3,6 +3,12 @@
 **Attention** Cette liste de changements concerne les déploiements sur nos serveurs de test en interne.
 
 
+## 13/10/2025
+
+- Tentative de résoudre le problème d'affichage après la création d'un nouveau produit de recherche (#14041)
+- Ajout du topic dans l'export JSON (#14071)
+- Ajout du support du topic dans l'import de produits de recherche et de plans
+
 ## 09/10/2025
 
 - Retrait du caractère "*" indiquant un modèle par défaut dans la liste des modèles
