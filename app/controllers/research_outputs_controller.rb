@@ -140,7 +140,8 @@ class ResearchOutputsController < ApplicationController
         title: "#{_('Research output')} #{pos} [#{prefix_text} #{research_output.title}]",
         display_order: pos,
         output_type_description: research_output.output_type_description,
-        output_type: research_output.output_type
+        output_type: research_output.output_type,
+        topic: research_output.topic
       )
 
       module_tplt = Template.module(data_type:, locale: target_plan.template.locale)
@@ -150,10 +151,10 @@ class ResearchOutputsController < ApplicationController
         data: {
           'research_output_id' => research_output_copy.id
         },
-        madmp_schema: research_output_copy_fragment.madmp_schema,
+        madmp_schema: research_output_fragment.madmp_schema,
         dmp_id: target_plan.json_fragment.id,
         parent_id: target_plan.json_fragment.id,
-        additional_info: research_output_copy_fragment.additional_info.merge(
+        additional_info: research_output_fragment.additional_info.merge(
           'moduleId' => module_tplt&.id
         )
       )
@@ -162,7 +163,7 @@ class ResearchOutputsController < ApplicationController
 
       Import::PlanImportService.import_research_output(
         research_output_copy_fragment,
-        research_output_copy.json_fragment.get_full_fragment,
+        research_output_fragment.get_full_fragment,
         target_plan,
         template
       )

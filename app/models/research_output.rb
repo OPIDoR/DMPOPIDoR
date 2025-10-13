@@ -303,6 +303,7 @@ class ResearchOutput < ApplicationRecord
         {
           property_name: 'researchOutput',
           dataType: configuration[:dataType],
+          topic: topic,
           moduleId: Template.module(data_type: configuration[:dataType], locale:)&.id
         },
         {
@@ -316,6 +317,7 @@ class ResearchOutput < ApplicationRecord
         {
           property_name: 'researchOutput',
           hasPersonalData: configuration[:hasPersonalData] || false,
+          topic: topic,
           dataType: 'none'
         },
         {

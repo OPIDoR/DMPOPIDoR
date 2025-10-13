@@ -38,6 +38,7 @@ module Import
             research_output = plan.research_outputs.create!(
               abbreviation: ro_data[description_prop_name]['shortName'] || "#{_('RO')} #{max_order}",
               title: ro_data[description_prop_name]['title'] || "#{_('Research output')} #{max_order}",
+              topic: configuration['topic'] || 'generic',
               is_default: idx.eql?(0),
               display_order: idx + 1
             )
