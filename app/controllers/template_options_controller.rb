@@ -17,7 +17,6 @@ class TemplateOptionsController < ApplicationController
   def index
     org_hash = plan_params.fetch(:research_org_id, {})
     funder_hash = plan_params.fetch(:funder_id, {})
-    template_context = plan_params[:context] || 'research_project'
     authorize Template.new, :template_options?
 
     org = org_from_params(params_in: { org_id: org_hash.to_json }) if org_hash.present?

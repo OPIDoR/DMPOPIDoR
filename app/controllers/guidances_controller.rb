@@ -65,6 +65,7 @@ class GuidancesController < ApplicationController
   # rubocop:enable Metrics/AbcSize
 
   # rubocop:disable Metrics/AbcSize, Metrics/MethodLength
+  # rubocop:disable Metrics/CyclomaticComplexity
   def render_themes
     authorize Guidance
     guidance_group = GuidanceGroup.find(params[:guidance_group_id])
@@ -96,6 +97,7 @@ class GuidancesController < ApplicationController
       locale: guidance_group.language.name
     } }, status: :ok
   end
+  # rubocop:enable Metrics/CyclomaticComplexity
   # rubocop:enable Metrics/AbcSize, Metrics/MethodLength
 
   def form_builder_for(object)
