@@ -27,7 +27,8 @@ module Import
       end
       # rubocop:enable Metrics/AbcSize
 
-      # rubocop:disable Metrics/AbcSize
+      # rubocop:disable Metrics/AbcSize, Metrics/MethodLength
+      # rubocop:disable Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
       def handle_research_outputs(plan, research_outputs)
         I18n.with_locale plan.template.locale do
           research_outputs.each_with_index do |ro_data, idx|
@@ -38,6 +39,8 @@ module Import
             research_output = plan.research_outputs.create!(
               abbreviation: ro_data[description_prop_name]['shortName'] || "#{_('RO')} #{max_order}",
               title: ro_data[description_prop_name]['title'] || "#{_('Research output')} #{max_order}",
+              output_type: configuration['dataType'].eql?('none') ? 'dataset' : configuration['dataType'],
+              output_type_description: ro_data[description_prop_name]['type'] || _('Dataset'),
               topic: configuration['topic'] || 'generic',
               is_default: idx.eql?(0),
               display_order: idx + 1
@@ -51,7 +54,8 @@ module Import
           end
         end
       end
-      # rubocop:enable Metrics/AbcSize
+      # rubocop:enable Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
+      # rubocop:enable Metrics/AbcSize, Metrics/MethodLength
 
       def handle_contributors(dmp_fragment, contributors)
         schema = MadmpSchema.find_by(name: 'PersonStandard')
