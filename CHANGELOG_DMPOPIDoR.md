@@ -2,12 +2,14 @@
 
 **Attention** Cette liste de changements concerne les déploiements sur nos serveurs de test en interne.
 
-
 ## 13/10/2025
 
 - Tentative de résoudre le problème d'affichage après la création d'un nouveau produit de recherche (#14041)
 - Ajout du topic dans l'export JSON (#14071)
 - Ajout du support du topic dans l'import de produits de recherche et de plans
+- Correction d'un souci de traduction (#14080)
+- Correction d'import de données ROR, le champs de filtre (pays) ne disparait plus (#13979)
+- Ajout du "Kit Communication" dans le pied de page (#12080)
 
 ## 09/10/2025
 
