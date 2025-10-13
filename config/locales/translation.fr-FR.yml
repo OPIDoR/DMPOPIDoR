@@ -127,9 +127,6 @@ fr-FR:
       x_seconds:
         one: 1 seconde
         other: "%{count} secondes"
-      x_years:
-        one: 1 an
-        other: "%{count} ans"
     prompts:
       day: Jour
       hour: Heure
@@ -281,11 +278,6 @@ fr-FR:
       wrong_length:
         one: ne fait pas la bonne longueur (doit comporter un seul caractère)
         other: ne fait pas la bonne longueur (doit comporter %{count} caractères)
-    template:
-      body: 'Veuillez vérifier les champs suivants : '
-      header:
-        one: 'Impossible d''enregistrer ce(tte) %{model} : 1 erreur'
-        other: 'Impossible d''enregistrer ce(tte) %{model} : %{count} erreurs'
     unacceptable_request: Une version prise en charge est attendue dans l'en-tête
       Accept.
     unavailable_session: |-
