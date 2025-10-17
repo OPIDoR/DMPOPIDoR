@@ -6,10 +6,10 @@
   background: $rust;
   border-radius: 5px;
   padding: 20px;
-  max-width: 425px;
+  max-width: 350px;
   position: relative;
-  top: -190px;
-  left: -100px;
+  top: -230px;
+  left: calc(-100vw / 2 + 300px);
   cursor: pointer;
   display: grid;
   grid-template-columns: 5fr 0.1fr;
@@ -45,6 +45,7 @@
     margin: 20px 20px 10px 0;
     color: white;
     font-weight: bold;
+    font-size: 2em;
   }
 
   @keyframes beat {
