@@ -136,7 +136,7 @@ class MadmpCodebaseController < ApplicationController
       # EXAMPLE DATA
       if Rails.configuration.x.madmp_codebase.mock == true
         begin
-          file_path = Rails.root.join('engines/madmp_opidor/config/example_data/anr_example_data.json')
+          file_path = Rails.root.join('config/example_data/anr_example_data.json')
           response = JSON.load(File.open(file_path))
           dmp_fragment.raw_import(response, dmp_fragment.madmp_schema)
           dmp_fragment.update_meta_fragment
