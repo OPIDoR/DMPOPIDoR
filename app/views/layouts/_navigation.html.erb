@@ -9,8 +9,8 @@
         class: "me-sm-auto navbar-brand" , title: ApplicationService.application_name), root_path) %>
     </div>
   </div>
-  <button class="navbar-toggler" type="button" data-bs-toggle="collapse" 
-          data-bs-target="#app-navbar-menu" aria-controls="app-navbar-menu" 
+  <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
+          data-bs-target="#app-navbar-menu" aria-controls="app-navbar-menu"
           aria-expanded="false" aria-label="Toggle navigation">
               <span class="sr-only">Toggle navigation</span>
               <span class="navbar-toggler-icon"></span>
@@ -25,14 +25,14 @@
             <%= _('My plans') %>
             <span class="caret"></span>
           </a>
-          <ul class="dropdown-menu dmpopidor-dropdown" 
+          <ul class="dropdown-menu dmpopidor-dropdown"
               data-bs-popper="static" aria-labelledby="my-plans-menu">
             <li class="nav-item">
               <%= link_to _('My Dashboard'), plans_path+"#content", class: 'dropdown-item  px-3' %>
             </li>
             <li><hr class="dropdown-divider"></li>
             <li class="nav-item <%= ' active' if active_page?(public_templates_path, true) %>">
-              <%= link_to _('Create plan'), new_plan_path+"#content", class: 'dropdown-item  px-3' %>
+              <%= link_to _('Create plan'), new_plan_path+"#content" %>
             </li>
           </ul>
         </li>
@@ -50,7 +50,7 @@
           <%= _('Plans & Templates') %>
           <span class="caret"></span>
         </a>
-        <ul class="dropdown-menu dmpopidor-dropdown" 
+        <ul class="dropdown-menu dmpopidor-dropdown"
             data-bs-popper="static" aria-labelledby="plans-templates-menu">
           <li class="nav-item <%= ' active' if active_page?(public_plans_path, true) %>">
             <%= link_to _('Public DMPs'), public_plans_path+"#content", class: 'dropdown-item  px-3' %>
@@ -72,7 +72,7 @@
           <%= _('Learn more')%>
           <span class="caret"></span>
         </a>
-        <ul class="dropdown-menu dmpopidor-dropdown" 
+        <ul class="dropdown-menu dmpopidor-dropdown"
             data-bs-popper="static" aria-labelledby="static-pages-menu">
           <li class="nav-item <%= ' active' if active_page?(glossary_path, true) %>">
             <%= link_to _("Glossary"), glossary_path+"#content", class: 'dropdown-item px-3' %>

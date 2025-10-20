@@ -14,6 +14,8 @@ class ApplicationController < ActionController::Base
 
   before_action :set_locale
 
+  before_action :store_redirect_location
+
   after_action :store_location
 
   include GlobalHelpers
@@ -67,8 +69,14 @@ class ApplicationController < ActionController::Base
     end
   end
 
+  def store_redirect_location
+    if params[:redirect_to].present?
+      session[:user_redirect_path] = params[:redirect_to]
+    end
+  end
+
   def after_sign_in_path_for(_resource)
-    plans_path(anchor: 'content')
+    session.delete(:user_redirect_path) || stored_location_for(_resource) || plans_path(anchor: 'content')
   end
 
   def after_sign_up_path_for(_resource)
