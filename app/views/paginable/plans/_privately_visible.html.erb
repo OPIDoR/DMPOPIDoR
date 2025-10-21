@@ -67,10 +67,10 @@
             %>
             <td data-toggle="tooltip" data-bs-html="true" title="<%= shared_tooltip %>">
               <em class="sr-only"><%= shared_tooltip %></em>
-              <%= link_to _('Yes'), share_plan_path(plan) %>
+              <%= link_to _('Yes'), share_plan_path(plan), data: { turbo: false } %>
             </td>
           <% else %>
-            <td><%= link_to _('No'), share_plan_path(plan) %></td>
+            <td><%= link_to _('No'), share_plan_path(plan), data: { turbo: false } %></td>
           <% end  %>
           <td class="text-center">
             <div class="dropdown plan-actions">
