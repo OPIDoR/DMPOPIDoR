@@ -3,7 +3,7 @@
 
 <% content_for :plan_tab_body do %>
   <% if @plan.template.classic? %>
-    <div id="research-outputs" class="fragment-<%= @plan.json_fragment.id%>">
+    <div id="research-outputs-container" class="fragment-<%= @plan.json_fragment.id%>">
       <%= hidden_field_tag 'plan_id', @plan.id %>
       <h2><%= _('Research outputs') %></h2>
       <h3><%= _('Dataset, software, workflow, sample, protocol...') %></h3>
@@ -14,22 +14,17 @@
         <ul id='research-outputs-list'>
           <%= turbo_frame_tag "research_outputs" do %>
             <%= render @research_outputs %>
-            
           <% end %>
         </ul>
       <% end %>
       <% if @plan.editable_by?(current_user.id) %>
         <div class='links'>
-          <%= button_to _('Add a research output'), classic_research_outputs_url(plan_id: @plan.id), 
-            {
-              form: { data: { turbo: true, turbo_stream: true } },
-              class: "add-research-output btn btn-primary",
-              data: {
-                toggle: "tooltip",
-                'original-title': _("Click here to add a new research output")
-              }
-            }
-          %>
+          <%= form_with url: classic_research_outputs_url(plan_id: @plan.id), method: :post, data: { turbo: true }, html: { class: "d-inline" } do %>
+            <%= submit_tag _('Add a research output'), class: "add-research-output btn btn-primary", data: {
+              toggle: "tooltip",
+              'original-title': _("Click here to add a new research output")
+            } %>
+          <% end %>
         </div>
       <% end %>
     </div>

@@ -198,7 +198,7 @@
 // ##################################
 // RESEARCH OUTPUTS 
 // ##################################
-#research-outputs {
+#research-outputs-container {
   border-radius: 20px;
 
   h2 {
@@ -221,7 +221,7 @@
       }
     }
   }
-  button.add-research-output {
+  .add-research-output {
     display: block;
     margin: auto;
     width: 80%;
