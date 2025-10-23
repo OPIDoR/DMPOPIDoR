@@ -1,5 +1,7 @@
 # frozen_string_literal: true
 
+require 'jwt'
+
 module Users
   # Controller that handles callbacks from OmniAuth integrations (e.g. Shibboleth and ORCID)
   class OmniauthCallbacksController < Devise::OmniauthCallbacksController
@@ -18,6 +20,12 @@ module Users
       email = auth.info.email
       first_name = auth.info.first_name
       last_name = auth.info.last_name
+
+      token = auth.credentials.token
+      decoded_token = JWT.decode(token, nil, false)
+
+      # TODO: manage roles by keycloak
+      # roles = decoded_token.first["resource_access"]["dmpopidor"]["roles"]
 
       @user = User.find_by(kc_uid: kc_uid) || User.find_by(email: email)
       @user ||= User.new
