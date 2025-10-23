@@ -170,6 +170,34 @@ services:
     networks:
       - dmpopidor_network
 
+  keycloak:
+    image: quay.io/keycloak/keycloak:26.4.1
+    container_name: keycloak
+    environment:
+      - KC_BOOTSTRAP_ADMIN_USERNAME=${KEYCLOCK_ADMIN_USERNAME:-admin}
+      - KC_BOOTSTRAP_ADMIN_PASSWORD=${KEYCLOCK_ADMIN_PASSWORD:-admin}
+      - KC_DB=postgres
+      - KC_DB_URL_HOST=${DB_HOST:-postgres}
+      - KC_DB_URL_DATABASE=keycloak
+      - KC_DB_USERNAME=${DB_USERNAME:-postgres}
+      - KC_DB_PASSWORD=${DB_PASSWORD:-changeme}
+      - KC_DB_SCHEMA=public
+      - KC_HTTP_ENABLED=true
+      - KC_PROXY=edge
+      - KC_PROXY_HEADERS=xforwarded
+      - KC_HOSTNAME_STRICT=false
+      - KC_HOSTNAME=http://localhost:8080/keycloak
+      - KC_HTTP_RELATIVE_PATH=/keycloak
+      - PROXY_ADDRESS_FORWARDING=true
+    command: start
+    depends_on:
+      postgres:
+        condition: service_healthy
+    volumes:
+      - keycloak_data:/opt/keycloak/data
+    networks:
+      - dmpopidor_network
+
 networks:
   dmpopidor_network:
     driver: "bridge"
@@ -177,3 +205,4 @@ networks:
 volumes:
   directus_uploads:
   pg-data:
+  keycloak_data:

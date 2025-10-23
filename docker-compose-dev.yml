@@ -62,6 +62,11 @@ services:
     networks:
       - dmpopidor_network
 
+  keycloak:
+    command: start-dev
+    networks:
+      - dmpopidor_network
+
   maildev:
     image: maildev/maildev:2.1.0
     ports:

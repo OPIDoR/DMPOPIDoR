@@ -12,6 +12,38 @@ module Users
       end
     end
 
+    def keycloak
+      auth = request.env["omniauth.auth"]
+      kc_uid = auth.uid
+      email = auth.info.email
+      first_name = auth.info.first_name
+      last_name = auth.info.last_name
+
+      @user = User.find_by(kc_uid: kc_uid) || User.find_by(email: email)
+      @user ||= User.new
+
+      @user.assign_attributes(
+        kc_uid: kc_uid,
+        email: email,
+        firstname: first_name,
+        surname: last_name
+      )
+
+      @user.password ||= Devise.friendly_token[0, 20] if @user.new_record?
+
+      # TODO: org doit être null et séléctionné après authentification pour un nouvel utilisateur
+      @user.org = Org.find_by(abbreviation: Rails.configuration.x.organisation.abbreviation) if @user.new_record?
+
+      if @user.save
+        sign_in_and_redirect @user, event: :authentication
+        set_flash_message(:notice, :success, kind: "Keycloak") if is_navigational_format?
+      else
+        Rails.logger.error("Impossible de sauvegarder l'utilisateur Keycloak : #{@user.errors.full_messages.join(', ')}")
+        session["devise.keycloak_data"] = auth.except(:extra)
+        redirect_to new_user_registration_url
+      end
+    end
+
     # Processes callbacks from an omniauth provider and directs the user to
     # the appropriate page:
     #   Not logged in and uid had no match ---> Sign Up page

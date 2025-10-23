@@ -294,6 +294,32 @@ Devise.setup do |config|
     extra_fields: shibboleth_extra_fields
   }
 
+  keycloak_base_url = ENV.fetch('KEYCLOAK_BASE_URL', 'http://localhost:8080/keycloak').chomp('/')
+  keycloak_realm_name = ENV.fetch('KEYCLOAK_REALM_NAME', 'dmpopidor')
+  keycloak_client_name = ENV.fetch('KEYCLOAK_CLIENT_NAME', 'dmpopidor')
+  keycloak_client_secret = ENV.fetch('KEYCLOAK_CLIENT_SECRET', 'changeme')
+
+  config.omniauth :openid_connect, {
+    name: :keycloak,
+    scope: [:openid, :email, :profile],
+    response_type: :code,
+    discovery: false,
+    issuer: "#{keycloak_base_url}/realms/#{keycloak_realm_name}",
+    client_options: {
+      scheme: "http",
+      host: "keycloak",
+      port: 8080,
+      base_url: "/keycloak",
+      authorization_endpoint: "#{keycloak_base_url}/realms/#{keycloak_realm_name}/protocol/openid-connect/auth",
+      token_endpoint: "http://keycloak:8080/keycloak/realms/#{keycloak_realm_name}/protocol/openid-connect/token",
+      userinfo_endpoint: "http://keycloak:8080/keycloak/realms/#{keycloak_realm_name}/protocol/openid-connect/userinfo",
+      jwks_uri: "http://keycloak:8080/keycloak/realms/#{keycloak_realm_name}/protocol/openid-connect/certs",
+      identifier: keycloak_client_name,
+      secret: keycloak_client_secret,
+      redirect_uri: "http://localhost:8080/users/auth/keycloak/callback"
+    }
+  }
+
   # ==> Warden configuration
   # If you want to use other strategies, that are not supported by Devise, or
   # change the failure app, you can configure them inside the config.warden block.

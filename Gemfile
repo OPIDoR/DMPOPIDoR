@@ -87,7 +87,7 @@ gem 'devise_invitable'
 
 # A generalized Rack framework for multiple-provider authentication.
 # (https://github.com/omniauth/omniauth)
-gem 'omniauth'
+gem 'omniauth', '~> 2.1', '>= 2.1.4'
 
 # OmniAuth Shibboleth strategies for OmniAuth 1.x
 # https://github.com/toyokazu/omniauth-shibboleth
@@ -96,6 +96,8 @@ gem 'omniauth-shibboleth'
 # ORCID OAuth 2.0 Strategy for OmniAuth 1.0
 # (https://github.com/datacite/omniauth-orcid)
 gem 'omniauth-orcid'
+
+gem 'omniauth_openid_connect', '~> 0.8.0'
 
 # This gem provides a mitigation against CVE-2015-9284 (Cross-Site Request
 # Forgery on the request phase when using OmniAuth gem with a Ruby on Rails
@@ -359,7 +361,7 @@ group :development do
   # TomDoc for YARD (http://rubyworks.github.com/yard-tomdoc)
   gem 'yard-tomdoc'
 
-  gem "hotwire-livereload", "~> 2.0"
+  gem 'hotwire-livereload', '~> 2.0'
 end
 
 # ======================#

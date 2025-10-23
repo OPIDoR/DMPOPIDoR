@@ -55,6 +55,7 @@ server {
   location @rails {
     proxy_set_header X-Real-IP $remote_addr;
     proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+    proxy_set_header X-Forwarded-Proto $scheme;
     proxy_set_header Host $http_host;
     proxy_redirect off;
     proxy_pass http://dmpopidor:3000;
@@ -74,5 +75,13 @@ server {
 
   location /directus/ {
     proxy_pass http://directus:8055/;
+  }
+
+  location /keycloak/ {
+    proxy_pass http://keycloak:8080/keycloak/;
+    proxy_set_header X-Forwarded-For $proxy_protocol_addr;
+    proxy_set_header X-Forwarded-Proto $scheme;
+    proxy_set_header X-Forwarded-Host $host;
+    proxy_set_header X-Forwarded-Prefix /keycloak;
   }
 }
