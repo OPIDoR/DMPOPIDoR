@@ -18,14 +18,12 @@
         </ul>
       <% end %>
       <% if @plan.editable_by?(current_user.id) %>
-        <div class='links'>
           <%= form_with url: classic_research_outputs_url(plan_id: @plan.id), method: :post, data: { turbo: true }, html: { class: "d-inline" } do %>
             <%= submit_tag _('Add a research output'), class: "add-research-output btn btn-primary", data: {
               toggle: "tooltip",
               'original-title': _("Click here to add a new research output")
             } %>
           <% end %>
-        </div>
       <% end %>
     </div>
   <% else %>
