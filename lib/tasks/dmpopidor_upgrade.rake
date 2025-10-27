@@ -58,7 +58,7 @@ namespace :dmpopidor_upgrade do
   task migrate_template_context_to_contexts: :environment do
     Template.all.each do |template|
       p "Migrating template #{template.id}"
-      template.update(contexts: [template.context.eql?(0) ? 'research_project' : 'research_entity'])
+      template.update_column(:contexts, [template.context.eql?(0) ? 'research_project' : 'research_entity'])
     end
   end
 
@@ -66,7 +66,7 @@ namespace :dmpopidor_upgrade do
   task migrate_context_to_plans: :environment do
     Plan.includes(:template).all.each do |plan|
       p "Migrating plan #{plan.id}"
-      plan.update(context: plan.template.context)
+      plan.update_column(:context, plan.template.context)
     end
   end
 
