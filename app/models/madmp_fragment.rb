@@ -451,11 +451,10 @@ class MadmpFragment < ApplicationRecord
       parent_id:,
       classname:
     ).where.not(id: current_fragment_id)
-
-    filtered_incoming_data = data.to_h.delete_if { |_, v| v.nil? || v.empty? }.slice(*unicity_properties)
+    filtered_incoming_data = data.to_h.delete_if { |_, v| v.nil? || v.to_s.empty? }.slice(*unicity_properties)
 
     dmp_fragments.each do |fragment|
-      filtered_db_data = fragment.data.delete_if { |_, v| v.nil? || v.empty? }.slice(*unicity_properties)
+      filtered_db_data = fragment.data.delete_if { |_, v| v.nil? || v.to_s.empty? }.slice(*unicity_properties)
       next if filtered_db_data.nil? || filtered_db_data.empty?
 
       return fragment if filtered_db_data.eql?(filtered_incoming_data)
