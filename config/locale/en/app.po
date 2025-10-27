@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: app 1.0\n"
 "Report-Msgid-Bugs-To: contact@translation.io\n"
-"POT-Creation-Date: 2025-10-13 16:41+0200\n"
-"PO-Revision-Date: 2025-10-13 16:41+0200\n"
+"POT-Creation-Date: 2025-10-27 11:17+0100\n"
+"PO-Revision-Date: 2025-10-27 11:17+0100\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: English\n"
 "Language: en\n"
@@ -223,79 +223,79 @@ msgstr "Successfully changed the permissions for %{api_client}."
 msgid "Access removed"
 msgstr "Access removed"
 
-#: ../../app/controllers/application_controller.rb:40
+#: ../../app/controllers/application_controller.rb:42
 msgid "You are not authorized to perform this action."
 msgstr "You are not authorized to perform this action."
 
-#: ../../app/controllers/application_controller.rb:44
+#: ../../app/controllers/application_controller.rb:46
 msgid "You need to sign in or sign up before continuing."
 msgstr "You need to sign in or sign up before continuing."
 
-#: ../../app/controllers/application_controller.rb:103
+#: ../../app/controllers/application_controller.rb:111
 msgid "Unable to %{action} the %{object}. %{errors}"
 msgstr "Unable to %{action} the %{object}. %{errors}"
 
-#: ../../app/controllers/application_controller.rb:109
+#: ../../app/controllers/application_controller.rb:117
 msgid "Successfully %{action} the %{object}."
 msgstr "Successfully %{action} the %{object}."
 
-#: ../../app/controllers/application_controller.rb:123
+#: ../../app/controllers/application_controller.rb:131
 msgid "API client"
 msgstr "API client"
 
-#: ../../app/controllers/application_controller.rb:124
+#: ../../app/controllers/application_controller.rb:132
 msgid "research output"
 msgstr "research output"
 
-#: ../../app/controllers/application_controller.rb:125
+#: ../../app/controllers/application_controller.rb:133
 msgid "plan"
 msgstr "plan"
 
-#: ../../app/controllers/application_controller.rb:126
+#: ../../app/controllers/application_controller.rb:134
 msgid "guidance group"
 msgstr "guidance group"
 
-#: ../../app/controllers/application_controller.rb:127
+#: ../../app/controllers/application_controller.rb:135
 msgid "comment"
 msgstr "comment"
 
-#: ../../app/controllers/application_controller.rb:128
+#: ../../app/controllers/application_controller.rb:136
 msgid "organisation"
 msgstr "organisation"
 
-#: ../../app/controllers/application_controller.rb:129
+#: ../../app/controllers/application_controller.rb:137
 msgid "permission"
 msgstr "permission"
 
-#: ../../app/controllers/application_controller.rb:130
+#: ../../app/controllers/application_controller.rb:138
 msgid "preferences"
 msgstr "preferences"
 
-#: ../../app/controllers/application_controller.rb:131
+#: ../../app/controllers/application_controller.rb:139
 msgid "department"
 msgstr "department"
 
-#: ../../app/controllers/application_controller.rb:132
+#: ../../app/controllers/application_controller.rb:140
 msgid "profile"
 msgstr "profile"
 
-#: ../../app/controllers/application_controller.rb:132
+#: ../../app/controllers/application_controller.rb:140
 msgid "user"
 msgstr "user"
 
-#: ../../app/controllers/application_controller.rb:133
+#: ../../app/controllers/application_controller.rb:141
 msgid "question option"
 msgstr "question option"
 
-#: ../../app/controllers/application_controller.rb:134
+#: ../../app/controllers/application_controller.rb:142
 msgid "schema"
 msgstr "schema"
 
-#: ../../app/controllers/application_controller.rb:135
+#: ../../app/controllers/application_controller.rb:143
 msgid "registry"
 msgstr "registry"
 
-#: ../../app/controllers/application_controller.rb:181
+#: ../../app/controllers/application_controller.rb:189
 msgid "Record Not Found"
 msgstr "Record Not Found"
 
@@ -1468,6 +1468,7 @@ msgid "<p>The following %{object_types} will be moved over to '%{org_name}':</p>
 msgstr "<p>The following %{object_types} will be moved over to '%{org_name}':</p>"
 
 #: ../../app/helpers/template_helper.rb:56
+#: ../../app/views/home/_welcome.html.erb:15
 #: ../../app/views/layouts/_navigation.html.erb:35
 #: ../../app/views/plans/index.html.erb:27
 #: ../../app/views/shared/_create_plan_modal.html.erb:6
@@ -3127,14 +3128,6 @@ msgstr "News"
 #: ../../app/views/layouts/_paginable.html.erb:44
 msgid "View all"
 msgstr "View all"
-
-#: ../../app/views/home/_welcome.html.erb:10
-msgid "First time visiting?"
-msgstr "First time visiting?"
-
-#: ../../app/views/home/_welcome.html.erb:11
-msgid "Discover DMP OPIDoR in three minutes!"
-msgstr "Discover DMP OPIDoR in three minutes!"
 
 #: ../../app/views/kaminari/_first_page.html.erb:10
 msgid "First"
@@ -5743,11 +5736,11 @@ msgstr ""
 msgid "Add a research output"
 msgstr "Add a research output"
 
-#: ../../app/views/research_outputs/index.html.erb:29
+#: ../../app/views/research_outputs/index.html.erb:25
 msgid "Click here to add a new research output"
 msgstr "Click here to add a new research output"
 
-#: ../../app/views/research_outputs/index.html.erb:38
+#: ../../app/views/research_outputs/index.html.erb:33
 msgid ""
 "This tab is used by classic plans, if you want to manage your research output,"
 " please go to the \"Write Plan\" tab."

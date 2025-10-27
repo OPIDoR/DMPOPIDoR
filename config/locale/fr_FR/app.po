@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: app 1.0\n"
 "Report-Msgid-Bugs-To: contact@translation.io\n"
-"POT-Creation-Date: 2025-10-13 16:41+0200\n"
-"PO-Revision-Date: 2025-10-13 16:41+0200\n"
+"POT-Creation-Date: 2025-10-27 11:17+0100\n"
+"PO-Revision-Date: 2025-10-27 11:17+0100\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: French\n"
 "Language: fr_FR\n"
@@ -226,79 +226,79 @@ msgstr "Autorisations pour %{api_client} modifiées avec succès."
 msgid "Access removed"
 msgstr "Accès retiré"
 
-#: ../../app/controllers/application_controller.rb:40
+#: ../../app/controllers/application_controller.rb:42
 msgid "You are not authorized to perform this action."
 msgstr "Vous n'êtes pas autorisé à effectuer cette opération."
 
-#: ../../app/controllers/application_controller.rb:44
+#: ../../app/controllers/application_controller.rb:46
 msgid "You need to sign in or sign up before continuing."
 msgstr "Vous devez vous connecter ou vous inscrire pour continuer."
 
-#: ../../app/controllers/application_controller.rb:103
+#: ../../app/controllers/application_controller.rb:111
 msgid "Unable to %{action} the %{object}. %{errors}"
 msgstr "Impossible de %{action} le %{object}. %{errors}"
 
-#: ../../app/controllers/application_controller.rb:109
+#: ../../app/controllers/application_controller.rb:117
 msgid "Successfully %{action} the %{object}."
 msgstr "%{object} %{action} avec succès."
 
-#: ../../app/controllers/application_controller.rb:123
+#: ../../app/controllers/application_controller.rb:131
 msgid "API client"
 msgstr "Client API"
 
-#: ../../app/controllers/application_controller.rb:124
+#: ../../app/controllers/application_controller.rb:132
 msgid "research output"
 msgstr "produit de recherche"
 
-#: ../../app/controllers/application_controller.rb:125
+#: ../../app/controllers/application_controller.rb:133
 msgid "plan"
 msgstr "plan"
 
-#: ../../app/controllers/application_controller.rb:126
+#: ../../app/controllers/application_controller.rb:134
 msgid "guidance group"
 msgstr "Groupe de recommandations"
 
-#: ../../app/controllers/application_controller.rb:127
+#: ../../app/controllers/application_controller.rb:135
 msgid "comment"
 msgstr "Commentaire"
 
-#: ../../app/controllers/application_controller.rb:128
+#: ../../app/controllers/application_controller.rb:136
 msgid "organisation"
 msgstr "organisme"
 
-#: ../../app/controllers/application_controller.rb:129
+#: ../../app/controllers/application_controller.rb:137
 msgid "permission"
 msgstr "autorisation"
 
-#: ../../app/controllers/application_controller.rb:130
+#: ../../app/controllers/application_controller.rb:138
 msgid "preferences"
 msgstr "préférences"
 
-#: ../../app/controllers/application_controller.rb:131
+#: ../../app/controllers/application_controller.rb:139
 msgid "department"
 msgstr "département"
 
-#: ../../app/controllers/application_controller.rb:132
+#: ../../app/controllers/application_controller.rb:140
 msgid "profile"
 msgstr "profil"
 
-#: ../../app/controllers/application_controller.rb:132
+#: ../../app/controllers/application_controller.rb:140
 msgid "user"
 msgstr "utilisateur"
 
-#: ../../app/controllers/application_controller.rb:133
+#: ../../app/controllers/application_controller.rb:141
 msgid "question option"
 msgstr "option de question"
 
-#: ../../app/controllers/application_controller.rb:134
+#: ../../app/controllers/application_controller.rb:142
 msgid "schema"
 msgstr "schéma"
 
-#: ../../app/controllers/application_controller.rb:135
+#: ../../app/controllers/application_controller.rb:143
 msgid "registry"
 msgstr "référentiel"
 
-#: ../../app/controllers/application_controller.rb:181
+#: ../../app/controllers/application_controller.rb:189
 msgid "Record Not Found"
 msgstr "Enregistrement non trouvé"
 
@@ -1485,6 +1485,7 @@ msgid "<p>The following %{object_types} will be moved over to '%{org_name}':</p>
 msgstr "<p>Les %{object_types} suivant(e)s seront déplacé(e)s vers '%{org_name}' :</p>"
 
 #: ../../app/helpers/template_helper.rb:56
+#: ../../app/views/home/_welcome.html.erb:15
 #: ../../app/views/layouts/_navigation.html.erb:35
 #: ../../app/views/plans/index.html.erb:27
 #: ../../app/views/shared/_create_plan_modal.html.erb:6
@@ -3165,14 +3166,6 @@ msgstr "Actualités"
 msgid "View all"
 msgstr "Voir tout"
 
-#: ../../app/views/home/_welcome.html.erb:10
-msgid "First time visiting?"
-msgstr "Première visite chez nous ?"
-
-#: ../../app/views/home/_welcome.html.erb:11
-msgid "Discover DMP OPIDoR in three minutes!"
-msgstr "Découvrez DMP OPIDoR en 180 secondes !"
-
 #: ../../app/views/kaminari/_first_page.html.erb:10
 msgid "First"
 msgstr "Premier"
@@ -3246,7 +3239,7 @@ msgstr "Documentation API"
 
 #: ../../app/views/layouts/_footer.html.erb:28
 msgid "Communication Kit"
-msgstr ""
+msgstr "Kit de communication"
 
 #: ../../app/views/layouts/_footer.html.erb:31
 #: ../../app/views/layouts/_footer.html.erb:33
@@ -5816,11 +5809,11 @@ msgstr ""
 msgid "Add a research output"
 msgstr "Ajouter un produit"
 
-#: ../../app/views/research_outputs/index.html.erb:29
+#: ../../app/views/research_outputs/index.html.erb:25
 msgid "Click here to add a new research output"
 msgstr "Cliquez ici pour ajouter un nouveau produit"
 
-#: ../../app/views/research_outputs/index.html.erb:38
+#: ../../app/views/research_outputs/index.html.erb:33
 msgid ""
 "This tab is used by classic plans, if you want to manage your research output,"
 " please go to the \"Write Plan\" tab."
