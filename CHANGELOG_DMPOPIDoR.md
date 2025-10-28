@@ -2,6 +2,14 @@
 
 **Attention** Cette liste de changements concerne les déploiements sur nos serveurs de test en interne.
 
+## 28/10/2025
+
+- Mise à jour des traductions
+- L'import et la duplication des produits de recherche garde les formulaires sélectionnés (#14100)
+- Correction du problème de création des produits de recherche dans les plans classiques (#13962)
+- Les recommandations par défaut sont désormais sélectionnées lors de l'import/duplication d'un produit de recherche (#14099)
+- Les référentiels des sous formulaires s'affichent selon la thématique sélectionnée (#14137)
+
 ## 13/10/2025
 
 - Tentative de résoudre le problème d'affichage après la création d'un nouveau produit de recherche (#14041)
