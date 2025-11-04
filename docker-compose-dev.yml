@@ -63,7 +63,7 @@ services:
       - dmpopidor_network
 
   maildev:
-    image: maildev/maildev:2.1.0
+    image: maildev/maildev:2.2.1
     ports:
       - 1080:1080
     healthcheck:
