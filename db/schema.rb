@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2025_10_03_145136) do
+ActiveRecord::Schema[8.0].define(version: 2025_11_03_161750) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
   enable_extension "unaccent"
@@ -54,6 +54,7 @@ ActiveRecord::Schema[8.0].define(version: 2025_10_03_145136) do
     t.integer "answer_id", null: false
     t.integer "question_option_id", null: false
     t.index ["answer_id"], name: "answers_question_options_answer_id_idx"
+    t.index ["question_option_id", "answer_id"], name: "idx_on_question_option_id_answer_id_86c1aca654", unique: true
     t.index ["question_option_id"], name: "answers_question_options_question_option_id_idx"
   end
 
