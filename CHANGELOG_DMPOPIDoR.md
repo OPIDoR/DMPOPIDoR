@@ -2,6 +2,13 @@
 
 **Attention** Cette liste de changements concerne les déploiements sur nos serveurs de test en interne.
 
+## 04/11/2025
+
+- Correction du problème de fusion des organismes (#14161)
+- Amélioration du bouton Créer un Plan sur la page d'accueil (#11964)
+- Amélioration de l'affichage des tooltips des groupes de recommandations (#13735)
+- Amélioration de l'import de produit de recherche avec des réponses utilisant des formulaires personnalisés (#14100)
+
 ## 28/10/2025
 
 - Mise à jour des traductions
