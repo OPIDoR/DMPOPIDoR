@@ -1,0 +1,7 @@
+<div class="col-md-12">
+  <% if from_org.present? && to_org.present? %>
+    <%= render partial: "super_admin/orgs/analysis", locals: { org: from_org, target_org: to_org } %>
+  <% else %>
+    <%= _("Something went wrong and we were unable to analyze a merge between these two organisations.") %>
+  <% end %>
+</div>

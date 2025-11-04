@@ -119,6 +119,11 @@ module SuperAdmin
                                  guidance_groups: [guidances: [:themes]],
                                  users: [identifiers: [:identifier_scheme]])
                        .find(lookup.id)
+      render turbo_stream: turbo_stream.replace(
+        'merge-analysis',
+        partial: 'super_admin/orgs/merge_analyze',
+        locals: { from_org: @org, to_org: @target_org }
+      )
     end
 
     # POST /super_admin/:id/merge_commit
