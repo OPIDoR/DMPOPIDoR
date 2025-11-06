@@ -7,6 +7,7 @@ class PlansController < ApplicationController
   include OrgSelectable
 
   include ErrorHelper
+
   helper PaginableHelper
   helper SettingsTemplateHelper
 
@@ -221,7 +222,7 @@ class PlansController < ApplicationController
   # PUT /plans/1
   # rubocop:disable Metrics/MethodLength, Metrics/AbcSize
   def update
-    @plan = Plan.find(params[:id])
+    @plan = Plan.includes(:guidance_groups).find(params[:id])
     authorize @plan
     # rubocop:disable Metrics/BlockLength
     respond_to do |format|
@@ -278,18 +279,12 @@ class PlansController < ApplicationController
 
   # GET /plans/:id/share
   def share
-    @plan = Plan.find(params[:id])
+    @plan = Plan.includes(:roles, :api_client_roles).find(params[:id])
     if @plan.present?
       authorize @plan
       @plan_roles = @plan.roles.where(active: true)
-      # --------------------------------
-      # Start DMP OPIDoR Customization
-      # --------------------------------
       @plan_client_roles = @plan.api_client_roles
       @api_clients = ApiClient.all
-      # --------------------------------
-      # End DMP OPIDoR Customization
-      # --------------------------------
     else
       redirect_to(plans_path)
     end
@@ -299,7 +294,7 @@ class PlansController < ApplicationController
   #       as a PUT verb?
   # GET /plans/:id/request_feedback
   def request_feedback
-    @plan = Plan.find(params[:id])
+    @plan = Plan.includes(:roles).find(params[:id])
     if @plan.present?
       authorize @plan
       @plan_roles = @plan.roles.where(active: true)
@@ -360,16 +355,10 @@ class PlansController < ApplicationController
 
   # GET /plans/:id/download
   def download
-    @plan = Plan.find(params[:id])
+    @plan = Plan.includes(:phases, :research_outputs).find(params[:id])
     authorize @plan
 
-    # --------------------------------
-    # Start DMP OPIDoR Customization
-    # --------------------------------
     @research_outputs = @plan.research_outputs
-    # --------------------------------
-    # End DMP OPIDoR Customization
-    # --------------------------------
 
     @phase_options = @plan.phases.order(:number).pluck(:title, :id)
     @phase_options.insert(0, ['All phases', 'All']) if @phase_options.length > 1
@@ -380,7 +369,7 @@ class PlansController < ApplicationController
   # POST /plans/:id/duplicate
   # rubocop:disable Metrics/AbcSize
   def duplicate
-    plan = Plan.find(params[:id])
+    plan = Plan.includes(:research_outputs).find(params[:id])
     authorize plan
     @plan = plan.structured?.eql?(true) ? Plan.structured_deep_copy(plan) : Plan.deep_copy(plan)
     respond_to do |format|
