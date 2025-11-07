@@ -62,18 +62,11 @@ class Plan < ApplicationRecord
   # Returns visibility message given a Symbol type visibility passed, otherwise
   # nil
   VISIBILITY_MESSAGE = {
-    organisationally_visible: 'organisational',
-    publicly_visible: 'public',
-    is_test: 'test',
-    # --------------------------------
-    # Start DMP OPIDoR Customization
-    # CHANGES : Administrator visibility
-    # --------------------------------
-    administrator_visible: 'Administrator',
-    # --------------------------------
-    # End DMP OPIDoR Customization
-    # --------------------------------
-    privately_visible: 'private'
+    organisationally_visible: _('organisational'),
+    publicly_visible: _('public'),
+    is_test: _('test'),
+    administrator_visible: _('administrator'),
+    privately_visible: _('private')
   }.freeze
 
   FUNDING_STATUS = {

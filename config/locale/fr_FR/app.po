@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: app 1.0\n"
 "Report-Msgid-Bugs-To: contact@translation.io\n"
-"POT-Creation-Date: 2025-10-27 11:17+0100\n"
-"PO-Revision-Date: 2025-10-27 11:17+0100\n"
+"POT-Creation-Date: 2025-11-07 14:14+0100\n"
+"PO-Revision-Date: 2025-11-07 13:14+0000\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: French\n"
 "Language: fr_FR\n"
@@ -144,14 +144,14 @@ msgid "Plan imported successfully"
 msgstr "Plan importé avec succès"
 
 #: ../../app/controllers/api/v1/madmp/plans_controller.rb:107
-#: ../../app/controllers/plans_controller.rb:521
+#: ../../app/controllers/plans_controller.rb:510
 #: ../../app/graphql/mutations/create_plan.rb:43
 #: ../../app/services/import/plan.rb:26
 msgid "Unvalid file"
 msgstr "Fichier non valide"
 
 #: ../../app/controllers/api/v1/madmp/plans_controller.rb:109
-#: ../../app/controllers/plans_controller.rb:523
+#: ../../app/controllers/plans_controller.rb:512
 #: ../../app/controllers/super_admin/registries_controller.rb:33
 #: ../../app/graphql/mutations/create_plan.rb:45
 msgid "File should contain JSON"
@@ -160,7 +160,7 @@ msgstr "Le fichier doit contenir du JSON"
 #: ../../app/controllers/api/v1/madmp/plans_controller.rb:112
 #: ../../app/controllers/madmp_codebase_controller.rb:72
 #: ../../app/controllers/madmp_codebase_controller.rb:191
-#: ../../app/controllers/plans_controller.rb:526
+#: ../../app/controllers/plans_controller.rb:515
 #: ../../app/graphql/mutations/create_plan.rb:47
 msgid "An error has occured: "
 msgstr "Une erreur s'est produite :"
@@ -303,22 +303,22 @@ msgid "Record Not Found"
 msgstr "Enregistrement non trouvé"
 
 #: ../../app/controllers/classic_research_outputs_controller.rb:21
-#: ../../app/controllers/plans_controller.rb:458
+#: ../../app/controllers/plans_controller.rb:447
 msgid "There is no plan associated with id %{id}"
 msgstr "Il n'existe aucun plan associé à l'identifiant %{id}"
 
 #: ../../app/controllers/classic_research_outputs_controller.rb:36
-#: ../../app/controllers/plans_controller.rb:134
-#: ../../app/controllers/research_outputs_controller.rb:30
-#: ../../app/controllers/research_outputs_controller.rb:139
+#: ../../app/controllers/plans_controller.rb:135
+#: ../../app/controllers/research_outputs_controller.rb:28
+#: ../../app/controllers/research_outputs_controller.rb:125
 #: ../../app/services/import/plan_import_service.rb:40
 msgid "RO"
 msgstr "PR"
 
 #: ../../app/controllers/classic_research_outputs_controller.rb:37
-#: ../../app/controllers/plans_controller.rb:135
-#: ../../app/controllers/research_outputs_controller.rb:31
-#: ../../app/controllers/research_outputs_controller.rb:140
+#: ../../app/controllers/plans_controller.rb:136
+#: ../../app/controllers/research_outputs_controller.rb:29
+#: ../../app/controllers/research_outputs_controller.rb:126
 #: ../../app/services/import/plan_import_service.rb:41
 msgid "Research output"
 msgstr "Produit de recherche"
@@ -331,7 +331,7 @@ msgstr "Produit de recherche"
 #: ../../app/controllers/org_admin/question_options_controller.rb:24
 #: ../../app/controllers/org_admin/questions_controller.rb:209
 #: ../../app/controllers/org_admin/sections_controller.rb:133
-#: ../../app/controllers/plans_controller.rb:329
+#: ../../app/controllers/plans_controller.rb:324
 #: ../../app/controllers/super_admin/api_clients_controller.rb:81
 #: ../../app/controllers/super_admin/madmp_schemas_controller.rb:56
 #: ../../app/controllers/super_admin/notifications_controller.rb:84
@@ -348,8 +348,8 @@ msgstr "supprimé"
 #: ../../app/controllers/org_admin/question_options_controller.rb:26
 #: ../../app/controllers/org_admin/questions_controller.rb:211
 #: ../../app/controllers/org_admin/sections_controller.rb:135
-#: ../../app/controllers/plans_controller.rb:334
-#: ../../app/controllers/research_outputs_controller.rb:114
+#: ../../app/controllers/plans_controller.rb:329
+#: ../../app/controllers/research_outputs_controller.rb:101
 #: ../../app/controllers/super_admin/api_clients_controller.rb:84
 #: ../../app/controllers/super_admin/madmp_schemas_controller.rb:59
 #: ../../app/controllers/super_admin/notifications_controller.rb:87
@@ -366,7 +366,7 @@ msgstr "Personne contact pour les données"
 #: ../../app/controllers/org_admin/phases_controller.rb:150
 #: ../../app/controllers/org_admin/questions_controller.rb:190
 #: ../../app/controllers/org_admin/users_controller.rb:32
-#: ../../app/controllers/plans_controller.rb:415
+#: ../../app/controllers/plans_controller.rb:404
 #: ../../app/controllers/super_admin/api_clients_controller.rb:70
 #: ../../app/controllers/super_admin/madmp_schemas_controller.rb:47
 #: ../../app/controllers/super_admin/notifications_controller.rb:54
@@ -474,7 +474,7 @@ msgstr "Une assistance conseil a été demandée."
 #: ../../app/controllers/org_admin/questions_controller.rb:115
 #: ../../app/controllers/org_admin/sections_controller.rb:74
 #: ../../app/controllers/org_admin/templates_controller.rb:204
-#: ../../app/controllers/plans_controller.rb:106
+#: ../../app/controllers/plans_controller.rb:107
 #: ../../app/controllers/super_admin/api_clients_controller.rb:44
 #: ../../app/controllers/super_admin/madmp_schemas_controller.rb:26
 #: ../../app/controllers/super_admin/notifications_controller.rb:38
@@ -492,7 +492,7 @@ msgstr "créé"
 #: ../../app/controllers/org_admin/questions_controller.rb:117
 #: ../../app/controllers/org_admin/sections_controller.rb:85
 #: ../../app/controllers/org_admin/templates_controller.rb:206
-#: ../../app/controllers/plans_controller.rb:151
+#: ../../app/controllers/plans_controller.rb:152
 #: ../../app/controllers/super_admin/api_clients_controller.rb:50
 #: ../../app/controllers/super_admin/madmp_schemas_controller.rb:29
 #: ../../app/controllers/super_admin/notifications_controller.rb:41
@@ -508,8 +508,8 @@ msgstr "créer"
 #: ../../app/controllers/org_admin/sections_controller.rb:105
 #: ../../app/controllers/org_admin/templates_controller.rb:228
 #: ../../app/controllers/orgs_controller.rb:120
-#: ../../app/controllers/plans_controller.rb:241
-#: ../../app/controllers/plans_controller.rb:244
+#: ../../app/controllers/plans_controller.rb:242
+#: ../../app/controllers/plans_controller.rb:245
 #: ../../app/controllers/registrations_controller.rb:263
 #: ../../app/controllers/registrations_controller.rb:267
 #: ../../app/controllers/registrations_controller.rb:294
@@ -526,10 +526,10 @@ msgstr "enregistré"
 #: ../../app/controllers/org_admin/sections_controller.rb:107
 #: ../../app/controllers/org_admin/templates_controller.rb:233
 #: ../../app/controllers/orgs_controller.rb:122
-#: ../../app/controllers/plans_controller.rb:250
-#: ../../app/controllers/plans_controller.rb:253
-#: ../../app/controllers/plans_controller.rb:257
-#: ../../app/controllers/plans_controller.rb:260
+#: ../../app/controllers/plans_controller.rb:251
+#: ../../app/controllers/plans_controller.rb:254
+#: ../../app/controllers/plans_controller.rb:258
+#: ../../app/controllers/plans_controller.rb:261
 #: ../../app/controllers/registrations_controller.rb:270
 #: ../../app/controllers/registrations_controller.rb:301
 msgid "save"
@@ -647,7 +647,7 @@ msgstr "Impossible de créer une nouvelle version de ce modèle.<br>"
 #: ../../app/controllers/org_admin/phases_controller.rb:148
 #: ../../app/controllers/org_admin/questions_controller.rb:187
 #: ../../app/controllers/org_admin/users_controller.rb:30
-#: ../../app/controllers/plans_controller.rb:412
+#: ../../app/controllers/plans_controller.rb:401
 #: ../../app/controllers/super_admin/api_clients_controller.rb:68
 #: ../../app/controllers/super_admin/madmp_schemas_controller.rb:45
 #: ../../app/controllers/super_admin/notifications_controller.rb:52
@@ -746,7 +746,7 @@ msgid "Unable to delete this version of the template."
 msgstr "Impossible de supprimer cette version du modèle."
 
 #: ../../app/controllers/org_admin/template_copies_controller.rb:20
-#: ../../app/controllers/plans_controller.rb:391
+#: ../../app/controllers/plans_controller.rb:380
 msgid "copy"
 msgstr "copier"
 
@@ -812,32 +812,32 @@ msgstr "Veuillez choisir un organisme"
 msgid "Your organisation does not seem to be properly configured."
 msgstr "Votre organisme ne semble pas être correctement configurée."
 
-#: ../../app/controllers/plans_controller.rb:73
+#: ../../app/controllers/plans_controller.rb:74
 msgid "Unable to identify a suitable template for your plan."
 msgstr "Impossible d'identifier un modèle approprié à votre plan."
 
-#: ../../app/controllers/plans_controller.rb:88
+#: ../../app/controllers/plans_controller.rb:89
 msgid "My Plan (%{title})"
 msgstr "Mon plan (%{title})"
 
-#: ../../app/controllers/plans_controller.rb:90
+#: ../../app/controllers/plans_controller.rb:91
 #: ../../app/services/import/plan.rb:36
 msgid "%{user_name}'s Plan"
 msgstr "Plan de %{user_name}"
 
-#: ../../app/controllers/plans_controller.rb:110
+#: ../../app/controllers/plans_controller.rb:111
 msgid "This plan is based on the default template."
 msgstr "Ce plan est basé sur le modèle par défaut."
 
-#: ../../app/controllers/plans_controller.rb:115
+#: ../../app/controllers/plans_controller.rb:116
 msgid "This plan is based on the"
 msgstr "Ce plan est basé sur le"
 
-#: ../../app/controllers/plans_controller.rb:115
+#: ../../app/controllers/plans_controller.rb:116
 msgid "template with customisations by the"
 msgstr "modèle personnalisé par"
 
-#: ../../app/controllers/plans_controller.rb:119
+#: ../../app/controllers/plans_controller.rb:120
 #: ../../app/views/phases/_edit_plan_answers.html.erb:9
 #: ../../app/views/plans/_overview_details.html.erb:9
 msgid ""
@@ -845,11 +845,11 @@ msgid ""
 "."
 msgstr "Ce plan est basé sur le modèle  \"%{template_title}\" fourni par %{org_name}."
 
-#: ../../app/controllers/plans_controller.rb:389
+#: ../../app/controllers/plans_controller.rb:378
 msgid "copied"
 msgstr "copié"
 
-#: ../../app/controllers/plans_controller.rb:420
+#: ../../app/controllers/plans_controller.rb:409
 msgid ""
 "Unable to change the plan's status since it is needed at least %{percentage} p"
 "ercentage responded"
@@ -857,27 +857,27 @@ msgstr ""
 "Impossible de changer le statut du plan, au moins %{percentage} % de questions"
 " répondues sont nécessaires"
 
-#: ../../app/controllers/plans_controller.rb:426
+#: ../../app/controllers/plans_controller.rb:415
 msgid "Unable to find plan id %{plan_id}"
 msgstr "Impossible de trouver le plan avec l'identifiant %{plan_id}"
 
-#: ../../app/controllers/plans_controller.rb:441
+#: ../../app/controllers/plans_controller.rb:430
 msgid "Your project is now a test."
 msgstr "Votre projet est maintenant un test."
 
-#: ../../app/controllers/plans_controller.rb:441
+#: ../../app/controllers/plans_controller.rb:430
 msgid "Your project is no longer a test."
 msgstr "Votre projet n'est plus un test."
 
-#: ../../app/controllers/plans_controller.rb:445
+#: ../../app/controllers/plans_controller.rb:434
 msgid "Unable to change the plan's test status"
 msgstr "Impossible de changer le statut du plan"
 
-#: ../../app/controllers/plans_controller.rb:519
+#: ../../app/controllers/plans_controller.rb:508
 msgid "imported"
 msgstr "importé"
 
-#: ../../app/controllers/plans_controller.rb:603
+#: ../../app/controllers/plans_controller.rb:592
 msgid "Invalid JSON: "
 msgstr "JSON non valide :"
 
@@ -980,11 +980,11 @@ msgstr "Veuillez confirmer votre mot de passe"
 msgid "Password and confirmation must match"
 msgstr "Le mot de passe et la confirmation doivent correspondre"
 
-#: ../../app/controllers/research_outputs_controller.rb:136
+#: ../../app/controllers/research_outputs_controller.rb:122
 msgid "Copy of"
 msgstr "Copie de"
 
-#: ../../app/controllers/research_outputs_controller.rb:136
+#: ../../app/controllers/research_outputs_controller.rb:122
 msgid "Import of"
 msgstr "Import de"
 
@@ -1098,15 +1098,15 @@ msgstr "Organisme inconnue."
 msgid "There seems to be a problem with your logo. Please upload it again."
 msgstr "Il y a un problème avec votre logo. Veuillez le télécharger à nouveau."
 
-#: ../../app/controllers/super_admin/orgs_controller.rb:137
+#: ../../app/controllers/super_admin/orgs_controller.rb:142
 msgid "An error occurred while trying to merge the Organisations."
 msgstr "Une erreur s'est produite lors de la tentative de fusion des organismes."
 
-#: ../../app/controllers/super_admin/orgs_controller.rb:141
+#: ../../app/controllers/super_admin/orgs_controller.rb:146
 msgid "Unable to merge the two Organisations at this time."
 msgstr "Impossible de fusionner les deux organismes pour le moment."
 
-#: ../../app/controllers/super_admin/orgs_controller.rb:145
+#: ../../app/controllers/super_admin/orgs_controller.rb:150
 msgid "Unable to determine what records need to be merged."
 msgstr "Impossible de déterminer quels enregistrements doivent être fusionnés."
 
@@ -1503,64 +1503,64 @@ msgstr "Le mois dernier"
 msgid "Last %{number} months"
 msgstr "%{number} derniers mois"
 
-#: ../../app/mailers/user_mailer.rb:17
+#: ../../app/mailers/user_mailer.rb:18
 #: ../../app/views/devise/mailer/invitation_instructions.html.erb:5
 #: ../../app/views/devise/mailer/reset_password_instructions.html.erb:5
 #: ../../app/views/user_mailer/_email_signature.html.erb:2
 msgid "Query or feedback related to %{tool_name}"
 msgstr "Requête ou suggestion liée à %{tool_name}"
 
-#: ../../app/mailers/user_mailer.rb:25
+#: ../../app/mailers/user_mailer.rb:26
 msgid "Welcome to %{tool_name}"
 msgstr "Bienvenue sur %{tool_name}"
 
-#: ../../app/mailers/user_mailer.rb:66 ../../app/models/user.rb:389
+#: ../../app/mailers/user_mailer.rb:67 ../../app/models/user.rb:389
 msgid "%{user_name} has shared a Data Management Plan with you in %{tool_name}"
 msgstr ""
 "%{user_name} a partagé un plan de gestion des données avec vous dans %{tool_na"
 "me}"
 
-#: ../../app/mailers/user_mailer.rb:87
+#: ../../app/mailers/user_mailer.rb:88
 msgid "Changed permissions on a Data Management Plan in %{tool_name}"
 msgstr "Modification des autorisations sur un plan de %{tool_name}"
 
-#: ../../app/mailers/user_mailer.rb:104
+#: ../../app/mailers/user_mailer.rb:105
 msgid "Permissions removed on a DMP in %{tool_name}"
 msgstr "Autorisations retirées d'un plan de %{tool_name}"
 
-#: ../../app/mailers/user_mailer.rb:123
+#: ../../app/mailers/user_mailer.rb:124
 msgid "%{user_name} has requested feedback on a %{tool_name} plan"
 msgstr "%{user_name} a demandé une assistance conseil pour un plan %{tool_name}"
 
-#: ../../app/mailers/user_mailer.rb:149
+#: ../../app/mailers/user_mailer.rb:150
 msgid "%{tool_name}: Expert feedback has been provided for %{plan_title}"
 msgstr "%{tool_name} : Une assistance conseil a été fournie pour %{plan_title}"
 
-#: ../../app/mailers/user_mailer.rb:172
+#: ../../app/mailers/user_mailer.rb:173
 msgid "DMP Visibility Changed: %{plan_title}"
 msgstr "Changement de visibilité d'un plan : %{plan_title}"
 
-#: ../../app/mailers/user_mailer.rb:210
+#: ../../app/mailers/user_mailer.rb:211
 msgid "%{tool_name}: A new comment was added to %{plan_title}"
 msgstr "%{tool_name}: Un nouveau commentaire a été ajouté à %{plan_title}"
 
-#: ../../app/mailers/user_mailer.rb:229
+#: ../../app/mailers/user_mailer.rb:230
 msgid "Administrator privileges granted in %{tool_name}"
 msgstr "Droits administrateur attribués dans %{tool_name}"
 
-#: ../../app/mailers/user_mailer.rb:246
+#: ../../app/mailers/user_mailer.rb:247
 msgid "%{tool_name} API client created/updated"
 msgstr "Création/Modification du client API %{tool_name}"
 
-#: ../../app/mailers/user_mailer.rb:260
+#: ../../app/mailers/user_mailer.rb:261
 msgid "Account expiration in %{tool_name}"
 msgstr "Expiration du compte dans %{tool_name}"
 
-#: ../../app/mailers/user_mailer.rb:269
+#: ../../app/mailers/user_mailer.rb:270
 msgid "Account expired in %{tool_name}"
 msgstr "Compte %{tool_name} expiré"
 
-#: ../../app/mailers/user_mailer.rb:291
+#: ../../app/mailers/user_mailer.rb:292
 #: ../../app/views/user_mailer/client_sharing_notification.html.erb:5
 msgid "%{username} has granted access to their Data Management Plan in %{tool_name}"
 msgstr ""
@@ -1812,7 +1812,7 @@ msgstr "a déjà une valeur attribuée"
 msgid "\"%{entity_name}\" entity DMP"
 msgstr "Plan de l'entité \"%{entity_name}\""
 
-#: ../../app/models/madmp_fragment.rb:396 ../../app/models/plan.rb:872
+#: ../../app/models/madmp_fragment.rb:396 ../../app/models/plan.rb:867
 msgid "\"%{project_title}\" project DMP"
 msgstr "PGD du projet \"%{project_title}\""
 
@@ -1828,29 +1828,49 @@ msgstr "doit être dans l'un des formats suivants : jpeg, jpg, png, gif, bmp"
 msgid "can't be larger than 500KB"
 msgstr "ne peut peser plus de 500ko"
 
-#: ../../app/models/plan.rb:80
+#: ../../app/models/plan.rb:65
+msgid "organisational"
+msgstr "organisme"
+
+#: ../../app/models/plan.rb:66
+msgid "public"
+msgstr "public"
+
+#: ../../app/models/plan.rb:67
+msgid "test"
+msgstr "test"
+
+#: ../../app/models/plan.rb:68
+msgid "administrator"
+msgstr "administrateur"
+
+#: ../../app/models/plan.rb:69
+msgid "private"
+msgstr "privé"
+
+#: ../../app/models/plan.rb:73
 msgid "Planned"
 msgstr "Planifié"
 
-#: ../../app/models/plan.rb:81
+#: ../../app/models/plan.rb:74
 msgid "Funded"
 msgstr "Financé"
 
-#: ../../app/models/plan.rb:82
+#: ../../app/models/plan.rb:75
 msgid "Denied"
 msgstr "Refusé"
 
-#: ../../app/models/plan.rb:350 ../../app/models/plan.rb:356
-#: ../../app/models/plan.rb:390 ../../app/models/plan.rb:396
-#: ../../app/models/plan.rb:937
+#: ../../app/models/plan.rb:343 ../../app/models/plan.rb:350
+#: ../../app/models/plan.rb:384 ../../app/models/plan.rb:391
+#: ../../app/models/plan.rb:932
 msgid "Copy of %{title}"
 msgstr "Copie de %{title}"
 
-#: ../../app/models/plan.rb:853
+#: ../../app/models/plan.rb:848
 msgid "DMP manager"
 msgstr "Responsable du plan"
 
-#: ../../app/models/plan.rb:986
+#: ../../app/models/plan.rb:981
 msgid "must be after the start date"
 msgstr "doit être postérieur à la date de début"
 
@@ -2172,15 +2192,15 @@ msgstr "Impossible de créer un plan."
 msgid "Import of %{title}"
 msgstr "Import de %{title}"
 
-#: ../../app/services/import/plan_import_service.rb:118
+#: ../../app/services/import/plan_import_service.rb:119
 msgid "Invalid JSON data"
 msgstr "Données JSON invalides"
 
-#: ../../app/services/import/plan_import_service.rb:119
+#: ../../app/services/import/plan_import_service.rb:120
 msgid "Invalid format"
 msgstr "Format invalide"
 
-#: ../../app/services/import/plan_import_service.rb:123
+#: ../../app/services/import/plan_import_service.rb:124
 msgid "File should begin with :dmp property"
 msgstr "Le fichier doit commencer par la propriété :dmp"
 
@@ -4139,7 +4159,7 @@ msgstr "réservé à l'usage interne de %{org_name}"
 
 #: ../../app/views/org_admin/templates/_form.html.erb:46
 msgid "Contexts"
-msgstr ""
+msgstr "Contextes"
 
 #: ../../app/views/org_admin/templates/_form.html.erb:59
 #: ../../app/views/paginable/plans/_privately_visible.html.erb:3
@@ -4483,7 +4503,7 @@ msgstr ""
 "posées. Notez qu'aucune modification n'aura lieu tant que vous n'aurez pas exa"
 "miné et approuvé les changements."
 
-#: ../../app/views/orgs/_merge_form.html.erb:18
+#: ../../app/views/orgs/_merge_form.html.erb:19
 msgid "Analyze"
 msgstr "Analyser"
 
@@ -5805,15 +5825,15 @@ msgstr ""
 "A renseigner séparément pour des produits de recherche nécessitant une gestion"
 " spécifique à leur nature ou discipline."
 
-#: ../../app/views/research_outputs/index.html.erb:23
+#: ../../app/views/research_outputs/index.html.erb:22
 msgid "Add a research output"
 msgstr "Ajouter un produit"
 
-#: ../../app/views/research_outputs/index.html.erb:25
+#: ../../app/views/research_outputs/index.html.erb:24
 msgid "Click here to add a new research output"
 msgstr "Cliquez ici pour ajouter un nouveau produit"
 
-#: ../../app/views/research_outputs/index.html.erb:33
+#: ../../app/views/research_outputs/index.html.erb:31
 msgid ""
 "This tab is used by classic plans, if you want to manage your research output,"
 " please go to the \"Write Plan\" tab."
@@ -6267,17 +6287,17 @@ msgstr ""
 msgid "Merge records"
 msgstr "Fusionner les enregistrements"
 
-#: ../../app/views/super_admin/orgs/index.html.erb:8
-msgid "Create Organisation"
-msgstr "Créer un organisme"
-
-#: ../../app/views/super_admin/orgs/merge_analyze.js.erb:7
+#: ../../app/views/super_admin/orgs/_merge_analyze.html.erb:5
 msgid ""
 "Something went wrong and we were unable to analyze a merge between these two o"
 "rganisations."
 msgstr ""
 "Quelque chose s'est mal passé et nous n'avons pas pu analyser la fusion entre "
 "ces deux organismes."
+
+#: ../../app/views/super_admin/orgs/index.html.erb:8
+msgid "Create Organisation"
+msgstr "Créer un organisme"
 
 #: ../../app/views/super_admin/orgs/new.html.erb:4
 msgid "New organisation"
