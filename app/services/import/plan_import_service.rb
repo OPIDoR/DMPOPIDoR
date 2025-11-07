@@ -77,6 +77,7 @@ module Import
         dmp_id = target_ro_fragment.dmp_id
         imported_data.each do |prop, content| # rubocop:disable Metrics/BlockLength
           next if prop.eql?('research_output_id')
+          next if content.nil?
 
           schema_prop = target_ro_fragment.madmp_schema.schema['properties'][prop]
           next if schema_prop&.dig('type').nil?
