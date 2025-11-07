@@ -353,6 +353,7 @@ class Plan < ApplicationRecord
     I18n.with_locale plan.template.locale do
       plan_copy.title = format(_('Copy of %{title}'), title: plan.title)
       plan_copy.feedback_requested = false
+      plan_copy.visibility = Rails.configuration.x.plans.default_visibility
       plan_copy.save!
       plan_copy.copy_plan_fragments(plan)
       plan.research_outputs.each do |research_output|
@@ -393,6 +394,7 @@ class Plan < ApplicationRecord
     I18n.with_locale plan.template.locale do
       plan_copy.title = format(_('Copy of %{title}'), title: plan.title)
       plan_copy.feedback_requested = false
+      plan_copy.visibility = Rails.configuration.x.plans.default_visibility
       plan_copy.save!
       plan_copy.copy_plan_fragments(plan)
       plan.research_outputs.each do |research_output|
