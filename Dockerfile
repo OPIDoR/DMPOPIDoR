@@ -22,7 +22,7 @@ RUN curl -sS https://dl.yarnpkg.com/debian/pubkey.gpg | gpg --dearmor -o /usr/sh
 RUN ln -sf /usr/share/zoneinfo/Europe/Paris /etc/localtime
 
 FROM base AS dev
-ARG NODE_MAJOR=22
+ARG NODE_MAJOR=24
 COPY . .
 RUN mkdir -p /etc/apt/keyrings && \
   curl -fsSL https://deb.nodesource.com/gpgkey/nodesource-repo.gpg.key | gpg --dearmor -o /etc/apt/keyrings/nodesource.gpg && \
