@@ -2,6 +2,13 @@
 
 **Attention** Cette liste de changements concerne les déploiements sur nos serveurs de test en interne.
 
+## 12/11/2025
+
+- Correction du problème de traduction de la visibilité dans les mails de Changement de visibilité (#14155)
+- Correction du problème provoquant la création de formulaire vides lors de l'import d'un produit contenant des réponses non répondues (#14100)
+- Ajout des questions dans les exports de plans publics (#14201)
+- La visibilité des plans copiés est désormais "Privé" par défaut (#14199)
+
 ## 04/11/2025
 
 - Correction du problème de fusion des organismes (#14161)
