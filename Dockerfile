@@ -1,4 +1,4 @@
-FROM ruby:3.3.9-slim-bookworm AS base
+FROM ruby:3.3.10-slim-bookworm AS base
 WORKDIR /app
 RUN apt update -y && apt install -y --no-install-recommends \
   build-essential \
@@ -22,7 +22,7 @@ RUN ln -sf /usr/share/zoneinfo/Europe/Paris /etc/localtime && \
   chmod +x /usr/local/bin/wkhtmltopdf
 
 FROM base AS dev
-ARG NODE_MAJOR=22
+ARG NODE_MAJOR=24
 COPY . .
 RUN mkdir -p /etc/apt/keyrings && \
   curl -fsSL https://deb.nodesource.com/gpgkey/nodesource-repo.gpg.key | gpg --dearmor -o /etc/apt/keyrings/nodesource.gpg && \
