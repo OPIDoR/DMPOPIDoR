@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: app 1.0\n"
 "Report-Msgid-Bugs-To: contact@translation.io\n"
-"POT-Creation-Date: 2025-09-25 11:05+0200\n"
-"PO-Revision-Date: 2025-09-25 11:05+0200\n"
+"POT-Creation-Date: 2025-11-26 10:57+0100\n"
+"PO-Revision-Date: 2025-11-26 09:57+0000\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: French\n"
 "Language: fr_FR\n"
@@ -1123,8 +1123,8 @@ msgid "\"%{project_title}\" project DMP"
 msgstr "PGD du projet \"%{project_title}\""
 
 #: ../../app/models/dmpopidor/plan.rb:176 ../../app/models/plan.rb:354
-#: ../../app/models/plan.rb:360 ../../app/models/plan.rb:394
-#: ../../app/models/plan.rb:400
+#: ../../app/models/plan.rb:361 ../../app/models/plan.rb:395
+#: ../../app/models/plan.rb:402
 msgid "Copy of %{title}"
 msgstr "Copie de %{title}"
 
@@ -1192,7 +1192,7 @@ msgstr "Financé"
 msgid "Denied"
 msgstr "Refusé"
 
-#: ../../app/models/plan.rb:843
+#: ../../app/models/plan.rb:845
 msgid "must be after the start date"
 msgstr "doit être postérieur à la date de début"
 
@@ -1504,11 +1504,11 @@ msgstr ""
 #: ../../app/views/branded/contact_us/contacts/new.html.erb:12
 #: ../../app/views/branded/layouts/_branding.html.erb:37
 #: ../../app/views/branded/layouts/_footer.html.erb:22
-#: ../../app/views/branded/layouts/_footer.html.erb:40
-#: ../../app/views/branded/layouts/_footer.html.erb:47
-#: ../../app/views/branded/layouts/_footer.html.erb:63
-#: ../../app/views/branded/layouts/_footer.html.erb:68
-#: ../../app/views/branded/layouts/_footer.html.erb:73
+#: ../../app/views/branded/layouts/_footer.html.erb:41
+#: ../../app/views/branded/layouts/_footer.html.erb:48
+#: ../../app/views/branded/layouts/_footer.html.erb:64
+#: ../../app/views/branded/layouts/_footer.html.erb:69
+#: ../../app/views/branded/layouts/_footer.html.erb:74
 #: ../../app/views/branded/layouts/_navigation.html.erb:5
 #: ../../app/views/branded/paginable/plans/_organisationally_or_publicly_visible.html.erb:36
 #: ../../app/views/branded/paginable/plans/_publicly_visible.html.erb:31
@@ -1896,40 +1896,44 @@ msgstr "FAQ"
 msgid "API Documentation"
 msgstr "Documentation API"
 
-#: ../../app/views/branded/layouts/_footer.html.erb:30
-#: ../../app/views/branded/layouts/_footer.html.erb:32
+#: ../../app/views/branded/layouts/_footer.html.erb:28
+msgid "Communication Kit"
+msgstr "Kit de communication"
+
+#: ../../app/views/branded/layouts/_footer.html.erb:31
+#: ../../app/views/branded/layouts/_footer.html.erb:33
 msgid "About"
 msgstr "A propos"
 
-#: ../../app/views/branded/layouts/_footer.html.erb:31
+#: ../../app/views/branded/layouts/_footer.html.erb:32
 msgid "Action plan"
 msgstr "Plan d'action"
 
-#: ../../app/views/branded/layouts/_footer.html.erb:33
+#: ../../app/views/branded/layouts/_footer.html.erb:34
 msgid "Terms of use"
 msgstr "Mentions légales"
 
-#: ../../app/views/branded/layouts/_footer.html.erb:34
+#: ../../app/views/branded/layouts/_footer.html.erb:35
 msgid "Privacy statement"
 msgstr "Politique de confidentialité"
 
-#: ../../app/views/branded/layouts/_footer.html.erb:35
+#: ../../app/views/branded/layouts/_footer.html.erb:36
 msgid "Accessibility: not compliant"
 msgstr "Accessibilité : non conforme"
 
-#: ../../app/views/branded/layouts/_footer.html.erb:38
+#: ../../app/views/branded/layouts/_footer.html.erb:39
 msgid "Ecosystem"
 msgstr "Écosystème"
 
-#: ../../app/views/branded/layouts/_footer.html.erb:40
+#: ../../app/views/branded/layouts/_footer.html.erb:41
 msgid "OPIDoR website"
 msgstr "Site web OPIDoR"
 
-#: ../../app/views/branded/layouts/_footer.html.erb:68
+#: ../../app/views/branded/layouts/_footer.html.erb:69
 msgid "Mailing list"
 msgstr "Liste de diffusion"
 
-#: ../../app/views/branded/layouts/_footer.html.erb:73
+#: ../../app/views/branded/layouts/_footer.html.erb:74
 msgid "Canal-U"
 msgstr "Canal-U"
 
