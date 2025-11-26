@@ -113,7 +113,7 @@
           "tags": [
             "Plans"
           ],
-          "summary": "Allows for the import and creation of a new plan based on a DMP OPIDoR standard or RDA DMP Common Standard formats. Currently, only applicable if the plan is created in the context of a research project",
+          "summary": "Enables importing and creating a new plan from data compliant with the DMP OPIDoR standard or the RDA DMP Common Standard",
           "security":[
             {
               "bearerAuth": []
