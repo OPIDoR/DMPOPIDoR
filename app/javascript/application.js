@@ -11,7 +11,7 @@ import 'core-js/stable';
 import 'regenerator-runtime/runtime';
 
 // Pull in Bootstrap JS functionality
-import 'bootstrap';
+import * as bootstrap from 'bootstrap';
 
 import Rails from '@rails/ujs';
 
@@ -112,3 +112,4 @@ window.jQuery = jQuery;
 window.renderAlert = renderAlert;
 window.renderNotice = renderNotice;
 window.toggleSpinner = toggleSpinner;
+window.bootstrap = bootstrap

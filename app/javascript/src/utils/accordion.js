@@ -104,42 +104,25 @@ $(() => $('body').on('click', '.accordion-controls a[data-toggle-direction]', (e
   const currentTarget = $(e.currentTarget);
   const target = $(e.target);
   const direction = target.attr('data-toggle-direction');
-  const parentTargetName = currentTarget.parent().attr('data-parent');
+  const parentTargetName = currentTarget.parent().attr('data-bs-parent');
 
   if (direction) {
     // Selects all .accordion-item elements where the parent is
     // currentTarget.attr('data-parent') and
     // after gets the immediate children whose class selector is accordion-item
     const parentTarget = $(`#${parentTargetName}`).length ? $(`#${parentTargetName}`) : $(`.${parentTargetName}`);
-    parentTarget.children('.accordion-item').each((i, el) => {
-      // We use $() to get Jquery HTML element from native Dom element
-      const accordionItem = $(el);
-      // Not these are Jquery HTML elements, again using $()
-      const accordionHeader = $(accordionItem.children('.accordion-header').get(0));
-      const accordionButton = $(accordionHeader.children('.accordion-button').get(0));
-      const accordionCollapse = $(accordionItem.children('.accordion-collapse').get(0));
-      // Expands or collapses according to the
-      // direction passed (e.g. show --> expands, hide --> collapses)
-      if (direction === 'show') {
-        // To check if element with class .accordion-body has attribute data-loaded
-        // we use the native Dom element so we can use hasAttribute()
-        // and getAttribute() methods.
-        const accordionBodyNativeDomEl = accordionCollapse.children('.accordion-body').get(0);
-        if (accordionBodyNativeDomEl.hasAttribute('data-loaded')
-          && accordionBodyNativeDomEl.getAttribute('data-loaded') === 'false') {
-          // We need the native om element of the button to
-          // to trigger click as the jquery trigger('click')
-          // does not work for rails-ujs
-          const accordionButtonNativeDomEl = accordionHeader.children('.accordion-button').get(0);
-          accordionButtonNativeDomEl.click();
-        }
-        accordionButton.removeClass('collapsed');
-        accordionCollapse.addClass('show');
+    parentTarget.find('.accordion-item').each((i, el) => {
+      const accordionCollapse = $(el).children('.accordion-collapse').get(0);
+
+      let bsCollapse = bootstrap.Collapse.getInstance(accordionCollapse);
+      if (!bsCollapse) {
+        bsCollapse = new bootstrap.Collapse(accordionCollapse, { toggle: false });
       }
 
-      if (direction === 'hide') {
-        accordionButton.addClass('collapsed');
-        accordionCollapse.removeClass('show');
+      if (direction === 'show') {
+        bsCollapse.show();
+      } else if (direction === 'hide') {
+        bsCollapse.hide();
       }
     });
   }
