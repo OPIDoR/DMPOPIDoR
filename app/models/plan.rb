@@ -56,6 +56,7 @@ class Plan < ApplicationRecord
   # SEE app/models/dmpopidor/plan.rb
   # --------------------------------
   prepend Dmpopidor::Plan
+
   # --------------------------------
   # End DMP OPIDoR Customization
   # --------------------------------
@@ -242,6 +243,12 @@ class Plan < ApplicationRecord
         'NOT EXISTS (SELECT 1 FROM roles WHERE plan_id = plans.id AND user_id = ?)',
         user.id
       )
+  }
+
+  scope :publicly_visible_entity, lambda {
+    includes(:template, :roles)
+      .where(visibility: visibilities[:publicly_visible],
+             template: { context: :research_entity })
   }
 
   # --------------------------------
