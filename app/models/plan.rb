@@ -234,9 +234,8 @@ class Plan < ApplicationRecord
   }
 
   scope :publicly_visible_entity, lambda {
-    includes(:template, :roles)
-      .where(visibility: visibilities[:publicly_visible],
-             template: { context: :research_entity })
+    where(visibility: visibilities[:publicly_visible],
+          context: :research_entity)
   }
 
   # --------------------------------
