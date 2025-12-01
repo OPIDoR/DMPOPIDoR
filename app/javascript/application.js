@@ -11,7 +11,7 @@ import 'core-js/stable';
 import 'regenerator-runtime/runtime';
 
 // Pull in Bootstrap JS functionality
-import 'bootstrap';
+import * as bootstrap from 'bootstrap';
 
 // TODO: Disabled turbo for the time being because our custom JS is not
 //       properly setup to work with it. We should review the docs:
@@ -101,6 +101,8 @@ window.jQuery = jQuery;
 window.renderAlert = renderAlert;
 window.renderNotice = renderNotice;
 window.toggleSpinner = toggleSpinner;
+
+window.bootstrap = bootstrap;
 
 // Register Stimulus controllers
 window.Stimulus = Application.start();

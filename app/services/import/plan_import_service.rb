@@ -38,6 +38,8 @@ module Import
                                                                              plan.template.locale)
             research_output = plan.research_outputs.create!(
               abbreviation: ro_data[description_prop_name]['shortName'] || "#{_('RO')} #{max_order}",
+              output_type: configuration['dataType'].eql?('software') ? 'software' : 'dataset',
+              output_type_description: ro_data[description_prop_name]['type'] || _('Dataset'),
               title: ro_data[description_prop_name]['title'] || "#{_('Research output')} #{max_order}",
               output_type: configuration['dataType'].eql?('none') ? 'dataset' : configuration['dataType'],
               output_type_description: ro_data[description_prop_name]['type'] || _('Dataset'),

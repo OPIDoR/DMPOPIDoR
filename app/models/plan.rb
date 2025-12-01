@@ -233,6 +233,12 @@ class Plan < ApplicationRecord
       )
   }
 
+  scope :publicly_visible_entity, lambda {
+    includes(:template, :roles)
+      .where(visibility: visibilities[:publicly_visible],
+             template: { context: :research_entity })
+  }
+
   # --------------------------------
   # Start DMP OPIDoR Customization
   # CHANGES : Org admin can view all plans except private visibility

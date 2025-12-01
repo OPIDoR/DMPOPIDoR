@@ -19,8 +19,8 @@ class PlansController < ApplicationController
   def index
     authorize Plan
     @plans = if request.format.json?
-               Plan.includes(:roles).owner_or_coowner(current_user)
-                   .where.not(visibility: Plan.visibilities[:is_test])
+               Plan.active(current_user).where.not(visibility: ::Plan.visibilities[:is_test])
+                   .or(Plan.publicly_visible_entity)
              else
                Plan.includes(:roles, api_client_roles: :api_client).active(current_user)
              end
@@ -32,8 +32,8 @@ class PlansController < ApplicationController
     respond_to do |format|
       format.html
       format.json do
-        # plans = @plans.zip(@organisationally_or_publicly_visible).flatten.compact
-        plans = @plans.order('updated_at desc').filter(&:structured?).compact
+        # Sort plans by updated_at desc and filter only structured plans
+        plans = @plans.filter(&:structured?).compact.sort_by(&:updated_at).reverse
         plans = plans.map do |plan|
           {
             id: plan.id,
