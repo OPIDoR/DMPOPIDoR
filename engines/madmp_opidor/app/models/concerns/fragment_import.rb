@@ -227,9 +227,11 @@ module FragmentImport
         ####################################
         # ARRAY FIELDS
         ####################################
-        data_list = sub_data # TMP: for readability
+        data_list = sub_data.is_a?(Array) ? sub_data : [sub_data]
         sub_schema = MadmpSchema.find_by(name: schema_prop['items']['template_name'])
+
         data_list.each do |cb_data|
+          next if sub_schema.classname.eql?('contributor') && cb_data['person'].nil?
           next if cb_data['action'].nil?
 
           sub_fragment_id = cb_data['dbid'] || cb_data['id']
