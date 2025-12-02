@@ -43,7 +43,7 @@ class ResearchOutputPolicy < ApplicationPolicy
   end
 
   def import?
-    @research_output.plan.editable_by?(@user.id)
+    @research_output.plan.readable_by?(@user.id)
   end
 
   def select_output_type?
