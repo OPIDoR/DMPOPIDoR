@@ -2,6 +2,16 @@
 
 **Attention** Cette liste de changements concerne les déploiements sur nos serveurs de test en interne.
 
+## 02/12/2025
+
+- Ajout des corrections et fonctionnalités V4.3.5 : 
+  - Ajout des plans entité publics et de tous les plans accessibles (lecture et édition) aux plans accessibles à l'import de PR
+  - Correction d'un problème de sauvegarde des contributeurs avec un role constant (#14308)
+  - Correction d'un problème d'initialisation des informations d'un PR lors de l'import d'un plan (#14234)
+  - Correction du problème de fonctionnement des boutons "développer tout/réduire tout" dans les plans classiques (#13441)
+  - Modification de la description de la route `/api/v1/madmp/plans/import` dans le Swagger (#13532)
+- Ajout d'icones et d'un "placeholder" de chargement dans l'import de produit de recherche
+
 ## 12/11/2025
 
 - Correction du problème de traduction de la visibilité dans les mails de Changement de visibilité (#14155)
