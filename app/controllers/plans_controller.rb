@@ -38,6 +38,7 @@ class PlansController < ApplicationController
           {
             id: plan.id,
             title: plan.title,
+            context: plan.context,
             research_outputs: plan.research_outputs
           }
         end.reject do |plan| # rubocop:disable Style/MultilineBlockChain
