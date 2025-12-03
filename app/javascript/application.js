@@ -112,4 +112,4 @@ window.jQuery = jQuery;
 window.renderAlert = renderAlert;
 window.renderNotice = renderNotice;
 window.toggleSpinner = toggleSpinner;
-window.bootstrap = bootstrap
+window.bootstrap = bootstrap;
