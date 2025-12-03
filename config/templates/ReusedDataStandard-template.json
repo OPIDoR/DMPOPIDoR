@@ -4,6 +4,7 @@
     "title": "ReusedDataStandard",
     "description": "ReusedDataStandard template",
     "dataTypes": null,
+    "topics": null,
     "type": "object",
     "class": "ReusedDataStandard",
     "externalImports": {
@@ -45,9 +46,6 @@
             "inputType": "dropdown",
             "label@fr_FR": "Type d'identifiant",
             "label@en_GB": " Identifier type",
-            "registries": [
-                "PIDSystem"
-            ],
             "registryCategory": "PIDSystem",
             "overridable": true,
             "tooltip": null,
@@ -82,7 +80,6 @@
             "registries": [
                 "DataLicenses"
             ],
-            "registryCategory": "License",
             "overridable": true,
             "tooltip": null,
             "form_label@fr_FR": "Licence",

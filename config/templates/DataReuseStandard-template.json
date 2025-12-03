@@ -4,6 +4,7 @@
     "title": "DataReuseStandard",
     "description": "DataReuseStandard template",
     "dataTypes": null,
+    "topics": null,
     "type": "object",
     "class": "DataReuseStandard",
     "properties": {

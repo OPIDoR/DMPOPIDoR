@@ -4,6 +4,7 @@
     "title": "DataStorageStandard",
     "description": "DataStorageStandard template",
     "dataTypes": null,
+    "topics": null,
     "type": "object",
     "class": "DataStorageStandard",
     "properties": {
@@ -32,9 +33,6 @@
             "inputType": "dropdown",
             "label@fr_FR": "Unité",
             "label@en_GB": "Unit",
-            "registries": [
-                "VolumeUnit"
-            ],
             "registryCategory": "VolumeUnit",
             "overridable": true,
             "tooltip": null,
@@ -61,9 +59,6 @@
             "label@fr_FR": "Equipements, plateaux techniques",
             "label@en_GB": "Equipments, technical platforms",
             "inputType": "dropdown",
-            "registries": [
-                "StorageServices"
-            ],
             "registryCategory": "StorageService",
             "overridable": true,
             "tooltip": null,
@@ -99,6 +94,7 @@
             "inputType": "textarea",
             "label@fr_FR": "Mesures prises pour la sécurité des données",
             "label@en_GB": "Measures taken for data security",
+            "overridable": true,
             "tooltip@fr_FR": "Décrire les mesures de sécurité des données, en particulier si vos données sont sensibles (données à caractère personnel, secrets commerciaux…) et indiquer qui aura accès aux données",
             "tooltip@en_GB": "Describe the data security measures, in particular if your data is sensitive (personal data, trade secrets, etc.) and indicate who will have access to the data",
             "form_label@fr_FR": "Décrire les mesures prises pour assurer la sécurité des données",

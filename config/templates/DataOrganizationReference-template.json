@@ -4,6 +4,7 @@
     "title": "DataOrganizationReference",
     "description": "DataOrganizationReference template",
     "dataTypes": null,
+    "topics": null,
     "type": "object",
     "class": "DataOrganizationReference",
     "properties": {
@@ -31,9 +32,6 @@
             "inputType": "dropdown",
             "label@fr_FR": "Type d'identifiant",
             "label@en_GB": "Identifier type",
-            "registries": [
-                "PIDSystem"
-            ],
             "registryCategory": "PIDSystem",
             "overridable": true,
             "tooltip": null,

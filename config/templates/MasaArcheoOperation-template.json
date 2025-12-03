@@ -4,12 +4,13 @@
     "title": "MasaArcheoOperation",
     "description": "MasaArcheoOperation template",
     "dataTypes": null,
+    "topics": null,
     "type": "object",
     "class": "MasaArcheoOperation",
     "properties": {
         "archeoOperationName": {
             "type": "string",
-            "description": "Intitulé de l'opération archéologique",
+            "description": "Name of the archaeological operation",
             "label@fr_FR": "Intitulé de l'opération",
             "label@en_GB": "Survey title",
             "tooltip": null,
@@ -18,7 +19,7 @@
         },
         "archeoOperationIdentifier": {
             "type": "string",
-            "description": "Identifiant de l'opération archéologique",
+            "description": "Archaelogical operation identifier",
             "label@fr_FR": "Identifiant de l'opération",
             "label@en_GB": "Archaeological operation identifier",
             "tooltip": null,
@@ -27,7 +28,7 @@
         },
         "archeoOperationIdType": {
             "type": "string",
-            "description": "Type d'dentifiant de l'opération archéologique",
+            "description": "Identifier type of the archaeological operation",
             "label@fr_FR": "Type d'identifiant",
             "label@en_GB": "Identifier type",
             "tooltip": null,
@@ -36,7 +37,7 @@
         },
         "archeoOperationStatus": {
             "type": "string",
-            "description": "Statut administratif de l'opération  archéologique",
+            "description": "Administrative status of the archaeological operation",
             "label@fr_FR": "Statut administratif de l'opération",
             "label@en_GB": "Administrative status of the archaelogical operation",
             "tooltip": null,
@@ -47,7 +48,7 @@
         },
         "archeoOperationNature": {
             "type": "string",
-            "description": "Nature de l'opération archéologique",
+            "description": "Nature of the archaelogical operation",
             "label@fr_FR": "Nature de l'opération",
             "label@en_GB": "Nature of the archaeological operation",
             "tooltip": null,
@@ -68,7 +69,7 @@
             "required": [
                 "dbid"
             ],
-            "description": "Coordonnées géographiques d'une zone spatiale (exprimées sous la forme d’un rectangle de délimitation)",
+            "description": "Geographical coordinates of the operation (expressed as a bounding rectangle)",
             "label@fr_FR": "Coordonnées géographiques de l'opération (pour une zone géographique)",
             "label@en_GB": "Archaeological operation geographical coordinates (area)",
             "tooltip@fr_FR": "Étendue de l'opération archéologique dans l'espace géographique, exprimée sous la forme d'un rectangle de délimitation (définies par des longitudes ouest et est et des latitudes nord et sud)",
@@ -88,7 +89,7 @@
             "required": [
                 "dbid"
             ],
-            "description": "Coordonnées géographiques d'un lieu nommé (exprimées sous la forme d’un point géographique)",
+            "description": "Geographical coordinates of the operation (expressed as a point location in space)",
             "label@fr_FR": "Coordonnées géographiques de l'opération (pour un point géographique)",
             "label@en_GB": "Archaeological operation spatial coordinates (point)",
             "tooltip": null,
@@ -100,7 +101,7 @@
             "items": {
                 "type": "string"
             },
-            "description": "Responsable(s) de l'opération archéologique",
+            "description": "Director(s) of the excavations",
             "label@fr_FR": "Responsable(s) de l'opération archéologique",
             "label@en_GB": "Archaeological operation supervisor",
             "tooltip": null,

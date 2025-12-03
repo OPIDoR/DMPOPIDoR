@@ -4,6 +4,7 @@
     "title": "CostStorageMesoUCA",
     "description": "CostStorageMesoUCA template",
     "dataTypes": null,
+    "topics": null,
     "type": "object",
     "class": "CostStorageMesoUCA",
     "properties": {

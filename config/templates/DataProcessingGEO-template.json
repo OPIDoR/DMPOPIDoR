@@ -1,12 +1,14 @@
 {
     "$schema": "http://json-schema.org/draft-07/schema#",
     "$id": "../Documentation/Implementation/data_model/Json/",
-    "title": "DataProcessingStandard",
-    "description": "DataProcessingStandard template",
+    "title": "DataProcessingGEO",
+    "description": "DataProcessingGEO template",
     "dataTypes": null,
-    "topics": null,
+    "topics": [
+        "Earth observation"
+    ],
     "type": "object",
-    "class": "DataProcessingStandard",
+    "class": "DataProcessingGEO",
     "properties": {
         "description": {
             "type": "string",
@@ -14,9 +16,7 @@
             "inputType": "textarea",
             "label@fr_FR": "Description",
             "label@en_GB": "Description",
-            "tooltip": null,
-            "form_label@fr_FR": "Décrire les méthodes ou protocoles de traitement des données",
-            "form_label@en_GB": "Describe data processing methods or protocols"
+            "tooltip": null
         },
         "methodReference": {
             "type": "array",
@@ -37,9 +37,7 @@
             "description": "Ressource de référence d'une méthode ou un protocole, d'un workflow d'analyse",
             "label@fr_FR": "Références associées",
             "label@en_GB": "Related references",
-            "tooltip": null,
-            "form_label@fr_FR": "Indiquer les références associées",
-            "form_label@en_GB": "Indicate related references"
+            "tooltip": null
         },
         "facility": {
             "type": "array",
@@ -60,12 +58,7 @@
             "description": "Ressource technique utilisée pour réaliser les traitements",
             "label@fr_FR": "Equipements, plateaux techniques",
             "label@en_GB": "Equipments, technical platforms",
-            "inputType": "dropdown",
-            "registryCategory": "ProcessingService",
-            "overridable": true,
-            "tooltip": null,
-            "form_label@fr_FR": "Equipements, plateaux techniques utilisés pour le traitement et l'analyse des données",
-            "form_label@en_GB": "Equipments, technical platforms used for data processing and analysis"
+            "tooltip": null
         },
         "contributor": {
             "type": "array",
@@ -112,9 +105,7 @@
             "description": "Coûts éventuels liés aux traitements des données",
             "label@fr_FR": "Coûts",
             "label@en_GB": "Costs",
-            "tooltip": null,
-            "form_label@fr_FR": "Coûts liés au traitement/analyse des données",
-            "form_label@en_GB": "Data treatment/analysis associated costs"
+            "tooltip": null
         }
     },
     "required": [

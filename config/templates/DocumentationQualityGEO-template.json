@@ -1,12 +1,12 @@
 {
     "$schema": "http://json-schema.org/draft-07/schema#",
     "$id": "../Documentation/Implementation/data_model/Json/",
-    "title": "DocumentationQualityStandard",
-    "description": "DocumentationQualityStandard template",
+    "title": "DocumentationQualityGEO",
+    "description": "DocumentationQualityGEO template",
     "dataTypes": null,
     "topics": null,
     "type": "object",
-    "class": "DocumentationQualityStandard",
+    "class": "DocumentationQualityGEO",
     "properties": {
         "description": {
             "type": "string",
@@ -14,10 +14,9 @@
             "inputType": "textarea",
             "label@fr_FR": "Description",
             "label@en_GB": "Description",
-            "tooltip@fr_FR": "Indiquer par exemple : la convention de nommage des fichiers et leur organisation, les normes, standards de métadonnées et vocabulaires utilisés pour décrire les données, le contrôle des versions des jeux de données, le dictionnaire de données associé au fichier explicitant les variables",
-            "tooltip@en_GB": "Indicate for example: the naming convention of the files and their organization, the norms, metadata standards and vocabularies used to describe the data, the version control of the datasets, the data dictionary associated with the file explaining the variables",
-            "form_label@fr_FR": "Décrire l'organisation, la structuration et la documentation des données",
-            "form_label@en_GB": "Describe data organization, structuration and  documentation"
+            "tooltip": null,
+            "form_label@fr_FR": "Indiquer par exemple : la convention de nommage des fichiers et leur organisation, les normes, standards de métadonnées et vocabulaires utilisés pour décrire les données, le contrôle des versions des jeux de données, le dictionnaire de données associé au fichier explicitant les variables",
+            "form_label@en_GB": "Indicate for example: the naming convention of the files and their organization, the norms, metadata standards and vocabularies used to describe the data, the version control of the datasets, the data dictionary associated with the file explaining the variables"
         },
         "dataOrganizationReference": {
             "type": "array",
@@ -38,9 +37,7 @@
             "description": "Références des resources produites pour la structuration des données (ex. dictionnaire de données, modèle de données, organisation des répertoire, …)",
             "label@fr_FR": "Références associées",
             "label@en_GB": "Related references",
-            "tooltip": null,
-            "form_label@fr_FR": "Indiquer le ou les documents en lien avec l'organisation des données",
-            "form_label@en_GB": "Indicate the document(s) related to the organization of the data"
+            "tooltip": null
         },
         "metadataStandard": {
             "type": "array",
@@ -65,9 +62,7 @@
             "inputType": "dropdown",
             "registryCategory": "Standard",
             "overridable": true,
-            "tooltip": null,
-            "form_label@fr_FR": "Lister les standards de métadonnées/données utilisés",
-            "form_label@en_GB": "List the metadata/data standards used"
+            "tooltip": null
         },
         "metadataLanguage": {
             "type": "string",
@@ -78,26 +73,18 @@
             "label@en_GB": "Metadata language code",
             "registryCategory": "ISO639-3",
             "tooltip": null,
-            "form_label@fr_FR": "Code langue des métadonnées",
-            "form_label@en_GB": "Metadata language code"
+            "form_label@fr_FR": "Code de la langue des métadonnées, annotations",
+            "form_label@en_GB": "Language code of metadata or annotation"
         },
         "documentationSoftware": {
-            "type": "array",
-            "items": {
-                "type": "string"
-            },
+            "type": "string",
             "description": "Outil choisi pour saisir les métadonnées et documentation",
-            "inputType": "dropdown",
             "label@fr_FR": "Logiciel de documentation",
             "label@en_GB": "Documentation software",
-            "registryCategory": "MetadataTool",
-            "overridable": true,
-            "tooltip@fr_FR": "Logiciels/outils utilisés pour la saisie des métadonnées comme par exemple Morpho pour le standard de métadonnées EML (pour en savoir plus : consulter l’onglet « A propos des réferentiels »)",
-            "tooltip@en_GB": "Software/tools used for entering metadata, such as Morpho for the EML metadata standard (for more information: see “About registries”",
-            "example@fr_FR": "Morpho, Metacat, OMERO, SEEKS, DdiEditor, ...",
-            "example@en_GB": "Morpho, Metacat, OMERO, SEEKS, DdiEditor, ...",
-            "form_label@fr_FR": "Logiciel de documentation",
-            "form_label@en_GB": "Documentation software"
+            "tooltip@fr_FR": "Morpho, Metacat, OMERO, SEEKS, DdiEditor, ...",
+            "tooltip@en_GB": "Morpho, Metacat, OMERO, SEEKS, DdiEditor, ...",
+            "form_label@fr_FR": "Logiciels/outils utilisés pour la saisie des métadonnées comme par exemple Morpho pour le standard de métadonnées EML (pour en savoir plus : consulter l’onglet « A propos des réferentiels »)",
+            "form_label@en_GB": "Software/tools used for entering metadata, such as Morpho for the EML metadata standard (for more information: see “About registries”"
         },
         "contributor": {
             "type": "array",
@@ -144,9 +131,7 @@
             "description": "Côuts éventuels en terme de ressources humaines ou acquisition de logiciels pour la documentation des données",
             "label@fr_FR": "Coûts",
             "label@en_GB": "Costs",
-            "tooltip": null,
-            "form_label@fr_FR": "Coûts liés à la documentation",
-            "form_label@en_GB": "Documentation related costs"
+            "tooltip": null
         }
     },
     "required": [

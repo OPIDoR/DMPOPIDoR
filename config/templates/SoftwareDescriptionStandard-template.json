@@ -6,22 +6,22 @@
     "dataTypes": [
         "software"
     ],
+    "topics": null,
     "type": "object",
     "class": "SoftwareDescriptionStandard",
     "properties": {
         "title": {
             "type": "string",
-            "description": "Nom complet du logiciel",
+            "description": "Full name of the software",
             "label@fr_FR": "Nom complet du logiciel",
-            "label@en_GB": "Software name",
-            "tooltip@fr_FR": "Veiller à vérifier la disponibilité du nom, en particulier au regard de droits antérieurs de tiers en consultant la page de l’INPI",
-            "tooltip@en_GB": "Be sure to check the availability of the name, in particular with regard to prior third-party rights, by consulting the INPI page",
+            "label@en_GB": "Full name of the software",
+            "tooltip": null,
             "form_label@fr_FR": "Nom complet du logiciel",
-            "form_label@en_GB": "Software name"
+            "form_label@en_GB": "Full name of the software"
         },
         "shortName": {
             "type": "string",
-            "description": "Nom abrégé du logiciel",
+            "description": "Short name of the software",
             "label@fr_FR": "Nom abrégé",
             "label@en_GB": "Short name",
             "tooltip": null,
@@ -31,18 +31,18 @@
         },
         "description": {
             "type": "string",
-            "description": "Description du logiciel pendant le projet",
+            "description": "Description of the software produced during the project",
             "inputType": "textarea",
             "label@fr_FR": "Description",
             "label@en_GB": "Description",
-            "tooltip@fr_FR": "Préciser quel est l’objectif du logiciel et indiquer à quel public potentiel (cible) le logiciel s’adresse",
-            "tooltip@en_GB": "Specify the purpose of the software and indicate the potential (target) audience the software is aimed at",
-            "form_label@fr_FR": "Description de votre logiciel",
-            "form_label@en_GB": "Software description"
+            "tooltip@fr_FR": "Préciser quel est l’objectif du logiciel et indiquer à quel public potentiel (cible) le logiciel s’adresse.",
+            "tooltip@en_GB": "Specify the purpose of the software and indicate its potential target audience.",
+            "form_label@fr_FR": "Description du logiciel",
+            "form_label@en_GB": "Description of the software"
         },
         "type": {
             "type": "string",
-            "description": "Type de produit de recherche généré",
+            "description": "Type of the generated research output",
             "label@fr_FR": "Type",
             "label@en_GB": "Type",
             "tooltip@fr_FR": "Les types de produits de recherche sont issus du schéma DataCite 4.6.",
@@ -54,19 +54,19 @@
         "webSiteUrl": {
             "type": "string",
             "format": "url",
-            "description": "URL du site de présentation du logiciel",
+            "description": "URL of the software presentation site",
             "label@fr_FR": "URL du site de présentation du logiciel (ou du projet)",
-            "label@en_GB": "URL of the software (or project) presentation site",
+            "label@en_GB": "URL of the site describing the software (or project)",
             "tooltip": null,
             "example@fr_FR": "https://www.monsite.com/fr",
             "example@en_GB": "https://www.monsite.com/fr",
             "form_label@fr_FR": "URL du site de présentation du logiciel (ou du projet)",
-            "form_label@en_GB": "URL of the software (or project) presentation site"
+            "form_label@en_GB": "URL of the site describing the software (or project)"
         },
         "creationDate": {
             "type": "string",
             "format": "date",
-            "description": "Date de création : Année de début du développement",
+            "description": "Date of creation: Year of start of development",
             "label@fr_FR": "Date de début du développement",
             "label@en_GB": "Development start date",
             "tooltip": null,
@@ -76,12 +76,12 @@
         "releasedDate": {
             "type": "string",
             "format": "date",
-            "description": "Année de la première version mise en production",
+            "description": "Year of the first version put into production",
             "label@fr_FR": "Date de première version",
-            "label@en_GB": "Date of first version",
+            "label@en_GB": "First version release date",
             "tooltip": null,
             "form_label@fr_FR": "Date de première version",
-            "form_label@en_GB": "Date of first version"
+            "form_label@en_GB": "First version release date"
         },
         "applicationField": {
             "type": "array",
@@ -89,30 +89,27 @@
                 "type": "string"
             },
             "minItems": 1,
-            "description": "Principaux domaines d'application principaux",
+            "description": "Principal application fields",
             "inputType": "dropdown",
             "label@fr_FR": "Principaux domaines d'application",
-            "label@en_GB": "Principal application field(s)",
-            "registries": [
-                "ClassificationOCDE"
-            ],
+            "label@en_GB": "Principal areas of application",
             "registryCategory": "Subject",
             "tooltip": null,
             "form_label@fr_FR": "Principaux domaines d'application",
-            "form_label@en_GB": "Principal application fields"
+            "form_label@en_GB": "Principal areas of application"
         },
         "uncontrolledApplicationField": {
             "type": "array",
             "items": {
                 "type": "string"
             },
-            "description": "Autres domaines d'application (texte libre)",
+            "description": "Others application fields (free text)",
             "label@fr_FR": "Autres domaines d'application",
-            "label@en_GB": "Others application fields",
-            "tooltip@fr_FR": "Préciser si votre logiciel peut s’appliquer à d’autre domaines",
-            "tooltip@en_GB": "Specify whether your software can be applied to other areas",
+            "label@en_GB": "Others applications",
+            "tooltip@fr_FR": "Préciser si votre logiciel peut s’appliquer à d’autre domaines.",
+            "tooltip@en_GB": "Indicate if the software could have applications in other fields.",
             "form_label@fr_FR": "Autres domaines d'application",
-            "form_label@en_GB": "Others application fields"
+            "form_label@en_GB": "Others applications"
         },
         "controlledKeyword": {
             "type": "array",
@@ -130,20 +127,20 @@
                     "dbid"
                 ]
             },
-            "description": "Mot(s)-clé(s) issu(s) de vocabulaire(s) contrôlé(s) ou d'ontologie(s)",
+            "description": "Keywords from controlled vocabularies (thesauri, subject indexing schemes, ontology, taxonomies, other knowledge organization systems)",
             "label@fr_FR": "Mots-clés",
             "label@en_GB": "Keywords",
             "tooltip": null,
             "form_label@fr_FR": "Mots clés contrôlés (vocabulaire, thésaurus, lexique...)",
-            "form_label@en_GB": "Controlled keywords (vocabulary, thesaurus, lexicon...)"
+            "form_label@en_GB": "Keywords (incude vocabulary, thesaurus or  lexicon)"
         },
         "version": {
             "type": "string",
-            "description": "Numéro de version du logiciel",
+            "description": "Software version number",
             "label@fr_FR": "Numéro de version du logiciel",
             "label@en_GB": "Software version number",
-            "tooltip@fr_FR": "En début de projet, cela peut être la version 0. Utiliser de préférence le format \"n\", ou \"n.n\", ou \"n.n.n\" (exemple : 1 ou 1.1 ou 0.6.1)",
-            "tooltip@en_GB": "At the beginning of the project, this can be version 0. Preferably use the format \"n\", or \"n.n\", or \"n.n.n\" (example: 1 or 1.1 or 0.6.1)",
+            "tooltip@fr_FR": "Une bonne pratique pour les numéros de version est le « semantic versioning » qui est expliqué ici : https://semver.org/lang/fr/.",
+            "tooltip@en_GB": "A good practice for version numbers is “semantic versioning”, which is explained here: https://semver.org/.",
             "example@fr_FR": "4.0",
             "example@en_GB": "4.0",
             "form_label@fr_FR": "Numéro de version du logiciel",
@@ -155,18 +152,15 @@
                 "type": "string"
             },
             "minItems": 1,
-            "description": "Typologies du logiciel",
+            "description": "Software typologies",
             "inputType": "dropdown",
             "label@fr_FR": "Typologies du logiciel",
             "label@en_GB": "Software typologies",
-            "registries": [
-                "SoftwareTypologies"
-            ],
             "registryCategory": "SoftwareTypology",
             "overridable": true,
             "tooltip": null,
             "form_label@fr_FR": "Quelle est la (ou les) typologie(s) du logiciel ?",
-            "form_label@en_GB": "What is the software's typologies?"
+            "form_label@en_GB": "What is (or are) the software typology(ies)?"
         },
         "relatedOutput": {
             "type": "array",
@@ -184,13 +178,13 @@
                     "dbid"
                 ]
             },
-            "description": "Liens avec d'autres produits de recherche de ce plan",
+            "description": "Links to other research products in this plan",
             "label@fr_FR": "Liens avec d’autres produits de recherche de ce plan",
             "label@en_GB": "Links to other research products in this plan",
-            "tooltip@fr_FR": "Relier les autres produits, par exemple des jeux de données, nécessaires pour nécessaire pour tester, utiliser le logiciel. L’usage des identifiants pérennes est recommandé. S’il agit d’un autre produit du projet, il est possible d’indiquer son titre et URL interne",
-            "tooltip@en_GB": "Link other products, such as datasets, needed to test and use the software. We recommend using persistent identifiers. If it is another product of the project, you can indicate its title and internal URL",
+            "tooltip@fr_FR": "Relier les autres produits, par exemple des jeux de données, nécessaires pour tester et/ou utiliser le logiciel. L’usage des identifiants pérennes est recommandé. S’il agit d’un autre produit du projet, il est possible d’indiquer son titre et URL interne.",
+            "tooltip@en_GB": "Provide links to any other products, such as datasets, that are needed to test and/or use the software. The use of persistent identifiers for these links is recommended. If the link is to another product of the same project, its title and internal URL can be used.",
             "form_label@fr_FR": "Votre logiciel est-il lié à d'autres produits de recherche ?",
-            "form_label@en_GB": "Is your software related to other research products ?"
+            "form_label@en_GB": "Is your software linked to any other research products?"
         },
         "cost": {
             "type": "array",
@@ -209,13 +203,13 @@
                     "dbid"
                 ]
             },
-            "description": "Coûts liés au développement du logiciel",
+            "description": "Costs associated with software development",
             "label@fr_FR": "Coûts de développement du logiciel",
             "label@en_GB": "Software development costs",
-            "tooltip@fr_FR": "Indiquer, par exemple, les coûts liés à des prestations externes ou à du stockage",
-            "tooltip@en_GB": "For example, indicate costs related to external services or storage",
+            "tooltip@fr_FR": "Indiquer, par exemple, les coûts liés à des prestations externes ou à du stockage.",
+            "tooltip@en_GB": "Include, for example, costs associated with external services or storage.",
             "form_label@fr_FR": "Le développement de votre logiciel implique-t-il des coûts ?",
-            "form_label@en_GB": "Does developing your software involve costs?"
+            "form_label@en_GB": "Does the development of this software involve costs?"
         },
         "contact": {
             "type": "array",
@@ -235,13 +229,13 @@
                 ]
             },
             "minItems": 1,
-            "description": "Contact pour le logiciel",
+            "description": "Contact point for the software",
             "label@fr_FR": "Personne contact",
-            "label@en_GB": "Contact Person",
-            "tooltip@fr_FR": "Personne contact pour le logiciel. Il est important d'indiquer le courriel de la personne contact pour assurer le suivi du produit de recherche",
-            "tooltip@en_GB": "Person to contact about this software. It is important to indicate the email of the contact person to ensure the follow-up of the research product",
+            "label@en_GB": "Contact person",
+            "tooltip@fr_FR": "Personne contact pour le logiciel. Il est important d'indiquer le courriel de la personne contact pour assurer le suivi du produit de recherche.",
+            "tooltip@en_GB": "It is important to provide a contact address for someone/the team who will continue to monitor this research product.",
             "form_label@fr_FR": "Personne contact",
-            "form_label@en_GB": "Contact Person"
+            "form_label@en_GB": "Contact person"
         }
     },
     "required": [

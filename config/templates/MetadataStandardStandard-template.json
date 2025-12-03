@@ -4,6 +4,7 @@
     "title": "MetadataStandardStandard",
     "description": "MetadataStandardStandard template",
     "dataTypes": null,
+    "topics": null,
     "type": "object",
     "class": "MetadataStandardStandard",
     "properties": {
@@ -47,9 +48,6 @@
             "inputType": "dropdown",
             "label@fr_FR": "Type d'identifiant",
             "label@en_GB": "Identifier type",
-            "registries": [
-                "PIDSystem"
-            ],
             "registryCategory": "PIDSystem",
             "overridable": true,
             "tooltip": null,

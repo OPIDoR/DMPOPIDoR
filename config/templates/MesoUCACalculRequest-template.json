@@ -4,6 +4,7 @@
     "title": "MesoUCACalculRequest",
     "description": "MesoUCACalculRequest template",
     "dataTypes": null,
+    "topics": null,
     "type": "object",
     "class": "MesoUCACalculRequest",
     "properties": {
@@ -13,9 +14,6 @@
             "inputType": "dropdown",
             "label@fr_FR": "Agents",
             "label@en_GB": "Agents",
-            "registries": [
-                "MesoUCACalculAgents"
-            ],
             "registryCategory": "MesoUCACalculAgent",
             "tooltip": null,
             "form_label@fr_FR": "Utilisateurs",
@@ -27,9 +25,6 @@
             "inputType": "dropdown",
             "label@fr_FR": "Type de calcul",
             "label@en_GB": "Computational type",
-            "registries": [
-                "MesoUCACalculTypes"
-            ],
             "registryCategory": "MesoUCACalculType",
             "tooltip": null,
             "form_label@fr_FR": "Type de calcul",

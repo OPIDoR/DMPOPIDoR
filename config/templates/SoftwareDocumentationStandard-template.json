@@ -6,6 +6,7 @@
     "dataTypes": [
         "software"
     ],
+    "topics": null,
     "type": "object",
     "class": "SoftwareDocumentationStandard",
     "properties": {
@@ -25,25 +26,25 @@
                     "dbid"
                 ]
             },
-            "description": "Référence(s) de protocoles /méthodes utilisées",
+            "description": "Reference(s) of protocols/methods used",
             "label@fr_FR": "Références associées",
-            "label@en_GB": "Related references",
-            "tooltip@fr_FR": "Associer a minima un document README (LISEZMOI) au code. Une documentation plus complète à destination des utilisateurs et des développeurs peut s’avérer nécessaire selon l’évolution du logiciel",
-            "tooltip@en_GB": "At a minimum, include a README document with the code. More comprehensive documentation for users and developers may be necessary as the software evolves",
+            "label@en_GB": "Linked references",
+            "tooltip@fr_FR": "Penser à rédiger au minimum un fichier README avec les éléments permettant l’installation du code (dépendances, …) et la façon de l’utiliser. Idéalement, intégrer des exemples d’utilisation. Et si l’objectif est d’avoir des contributions externes, il est nécessaire de prévoir une documentation développeur.",
+            "tooltip@en_GB": "At least, write a README file with all the elements required to install the code (dependencies, etc.) and how to use it. Ideally, include examples of how to use it.  And if you're looking for external contributions, you'll need to include developer documentation.",
             "form_label@fr_FR": "Indiquer les liens vers la documentation utilisateur et/ou développeur si elle est disponible",
-            "form_label@en_GB": "Provide links to user and/or developer documentation if available"
+            "form_label@en_GB": "Provide links to user and/or developer documentation, if possible"
         },
         "description": {
             "type": "string",
-            "description": "Informations complémentaires en lien avec la documentation du code et l'utilisation du logiciel",
+            "description": "Additional information related to code documentation and software usage",
             "inputType": "textarea",
             "label@fr_FR": "Informations complémentaires",
-            "label@en_GB": "Additional informations",
+            "label@en_GB": "Additional information",
             "tooltip": null,
-            "example@fr_FR": "Vous pouvez ici compléter la description des méthodes et/ou outils adoptés pour documenter le code et l'utilisation du logiciel",
-            "example@en_GB": "Here you can complete the description of the methods and/or tools adopted to document the code and use of the software",
+            "example@fr_FR": "Vous pouvez ici compléter la description des méthodes et/ou outils adoptés pour documenter le code et l'utilisation du logiciel.",
+            "example@en_GB": "Include here descriptions of the methods or tools used to document the code and se of the software.",
             "form_label@fr_FR": "Informations complémentaires",
-            "form_label@en_GB": "Additional informations"
+            "form_label@en_GB": "Additional information"
         }
     },
     "required": [

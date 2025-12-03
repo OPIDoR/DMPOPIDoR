@@ -7,6 +7,7 @@
         "software",
         "none"
     ],
+    "topics": null,
     "type": "object",
     "class": "FunderStandard",
     "externalImports": {
@@ -41,9 +42,6 @@
             "inputType": "dropdown",
             "label@fr_FR": "Type d'identifiant",
             "label@en_GB": "Identifier type",
-            "registries": [
-                "OrganizationIdSystem"
-            ],
             "registryCategory": "OrganizationIdSystem",
             "overridable": true,
             "tooltip": null,

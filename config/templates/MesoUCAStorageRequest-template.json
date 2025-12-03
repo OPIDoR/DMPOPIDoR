@@ -4,6 +4,7 @@
     "title": "MesoUCAStorageRequest",
     "description": "MesoUCAStorageRequest template",
     "dataTypes": null,
+    "topics": null,
     "type": "object",
     "class": "MesoUCAStorageRequest",
     "properties": {
@@ -13,9 +14,6 @@
             "inputType": "dropdown",
             "label@fr_FR": "Agents",
             "label@en_GB": "Agents",
-            "registries": [
-                "MesoUCAStorageAgents"
-            ],
             "registryCategory": "MesoUCAStorageAgent",
             "tooltip": null,
             "form_label@fr_FR": "Utilisateurs",
@@ -57,9 +55,6 @@
             "inputType": "dropdown",
             "label@fr_FR": "Durée de stockage en mois",
             "label@en_GB": "Storage time (in months)",
-            "registries": [
-                "MesoUCAStorageTimes"
-            ],
             "registryCategory": "MesoUCAStorageTime",
             "tooltip": null,
             "form_label@fr_FR": "Durée de stockage (en mois)",

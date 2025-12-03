@@ -4,6 +4,7 @@
     "title": "DataStorageMesoatLR",
     "description": "DataStorageMesoatLR template",
     "dataTypes": null,
+    "topics": null,
     "type": "object",
     "class": "DataStorageMesoatLR",
     "properties": {

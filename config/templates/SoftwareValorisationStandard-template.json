@@ -6,6 +6,7 @@
     "dataTypes": [
         "software"
     ],
+    "topics": null,
     "type": "object",
     "class": "SoftwareValorisationStandard",
     "properties": {
@@ -25,13 +26,13 @@
                     "dbid"
                 ]
             },
-            "description": "Publications scientifiques dédiées au logiciel",
+            "description": "Scientific publications dedicated to software",
             "label@fr_FR": "Le logiciel a-t-il fait l'objet d’une publication scientifique dédiée ?",
-            "label@en_GB": "Has the software been the subject of a dedicated scientific publication?",
-            "tooltip@fr_FR": "Indiquer la publication revue par les pairs décrivant spécifiquement le logiciel, appelé Software paper, dans un journal dédié comme par exemple The Journal of Open Source Software",
-            "tooltip@en_GB": "Indicate the peer-reviewed publication specifically describing the software, called Software paper, in a dedicated journal such as The Journal of Open Source Software",
+            "label@en_GB": "Has information about this software already been published?",
+            "tooltip@fr_FR": "Indiquer la publication revue par les pairs décrivant spécifiquement le logiciel, appelé Software paper, dans un journal dédié comme par exemple \"The Journal of Open Source Software\" (https://joss.theoj.org).",
+            "tooltip@en_GB": "Include here any published article that describes the software specifically. This is known as a software paper and it should appear in a peer-reviewed publication published in a dedicated journal, such as \"The Journal of Open Source Software\" (https://joss.theoj.org).",
             "form_label@fr_FR": "Le logiciel a-t-il fait l'objet d’une publication scientifique dédiée ?",
-            "form_label@en_GB": "Has the software been the subject of a dedicated scientific publication?"
+            "form_label@en_GB": "Has information about this software already been published?"
         },
         "resourceReference": {
             "type": "array",
@@ -49,13 +50,13 @@
                     "dbid"
                 ]
             },
-            "description": "Références de publications scientifiques éventuels à relier associées au logiciel",
+            "description": "References of possible scientific publications to be linked associated with the software",
             "label@fr_FR": "Le logiciel a-t-il été associé à des publications scientifiques ?",
-            "label@en_GB": "Has the software been associated with any scientific publications?",
-            "tooltip@fr_FR": "Indiquer les publications auxquelles votre logiciel est lié",
-            "tooltip@en_GB": "Indicate the publications to which your software is linked",
+            "label@en_GB": "Is this software associated with one or more scientific publications?",
+            "tooltip@fr_FR": " Indiquer les principales publications liées au logiciel.",
+            "tooltip@en_GB": "List the main publications related to the software.",
             "form_label@fr_FR": "Le logiciel a-t-il été associé à des publications scientifiques ?",
-            "form_label@en_GB": "Has the software been associated with any scientific publications?"
+            "form_label@en_GB": "Is this software associated with one or more scientific publications?"
         }
     },
     "required": [],

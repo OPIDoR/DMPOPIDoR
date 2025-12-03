@@ -4,6 +4,9 @@
     "title": "DataReuseMasa",
     "description": "DataReuseMasa template",
     "dataTypes": null,
+    "topics": [
+        "Archeology"
+    ],
     "type": "object",
     "class": "DataReuseMasa",
     "properties": {
@@ -34,7 +37,7 @@
                     "dbid"
                 ]
             },
-            "description": "Identification des opérations archéologiques associées (optionnel)",
+            "description": "Identification of associated archaeological operations (optional)",
             "label@fr_FR": "Opération(s) archéologique(s) associée(s) aux données réutilisées (optionnel)",
             "label@en_GB": "Archaeological operation associated with reused data (optional)",
             "tooltip@fr_FR": "Cette section n'est à renseigner que si le projet de recherche est étroitement lié à une ou des opérations archéologiques : publication de sites, SIG, etc.",
