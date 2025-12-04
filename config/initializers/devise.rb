@@ -263,6 +263,7 @@ Devise.setup do |config|
   # well as an identifier_schemes.schemes section in each locale file!
   OmniAuth.config.full_host = ENV.fetch('OMNI_AUTH_FULL_HOST', 'https://my_service.hostname')
   OmniAuth.config.allowed_request_methods = [ENV.fetch('DEVISE_ALLOWED_REQUEST_METHODS', :post)&.to_sym]
+  OmniAuth.config.request_validation_phase = OmniAuth::AuthenticityTokenProtection.new(key: :_csrf_token)
 
   config.omniauth :orcid, ENV.fetch('DEVISE_ORCID_CLIENT_ID', 'client_id'),
                   ENV.fetch('DEVISE_ORCID_CLIENT_SECRET', 'client_secret'), { sandbox: true, scope: '/authenticate' }
