@@ -2,6 +2,11 @@
 
 **Attention** Cette liste de changements concerne les déploiements sur nos serveurs de test en interne.
 
+## 04/12/2025
+
+- Ajout du support de la déclaration des référentiels soit par la catégorie sous par une liste fixe (#14281)
+- Amélioration de l'affichage des groupes de recommandations disponible dans le choix des recommandations, désormais seul le nom de l'organisme est affiché lorsqu'il n'a qu'un group publié
+
 ## 02/12/2025
 
 - Ajout des corrections et fonctionnalités V4.3.5 : 
