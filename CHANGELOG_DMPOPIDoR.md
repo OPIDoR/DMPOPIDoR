@@ -2,6 +2,10 @@
 
 **Attention** Cette liste de changements concerne les déploiements sur nos serveurs de test en interne.
 
+## 09/12/2025
+
+- Refonte de l'interface de sélection des recommandations (#14052)
+
 ## 04/12/2025
 
 - Ajout du support de la déclaration des référentiels soit par la catégorie sous par une liste fixe (#14281)
