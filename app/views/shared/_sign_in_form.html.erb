@@ -1,19 +1,21 @@
-<%= form_for resource, as: 'user', namespace: 'signin', url: user_session_path, html: {id: "sign_in_form"} do |f| %>
-  <% if Rails.configuration.x.shibboleth.enabled %>
-  <p class="fontsize-h3"><%= _('Institutional Access')%></p>
+<% if Rails.configuration.x.shibboleth.enabled %>
+  <% target = (Rails.configuration.x.shibboleth.use_filtered_discovery_service ? shibboleth_ds_path : user_shibboleth_omniauth_authorize_path) %>
+  <%= form_tag(target, method: 'post') do %>
+    <%= hidden_field_tag :authenticity_token, form_authenticity_token %>
+    <p class="fontsize-h3"><%= _('Institutional Access')%></p>
     <% if session['devise.shibboleth_data'].nil? %>
       <div class="form-control mb-3">
         <span class="d-grid">
-          <% target = (Rails.configuration.x.shibboleth.use_filtered_discovery_service ? shibboleth_ds_path : user_shibboleth_omniauth_authorize_path) %>
-          <%= link_to _('Sign in'), target, data: { turbo_method: :post }, class: 'btn btn-secondary institution-login accessible' %>
+          <button type='submit' class="btn btn-secondary institution-login accessible"><%= _('Sign in') %></button>
         </span>
       </div>
     <% else %>
       <%= f.hidden_field :shibboleth_id, :value => session['devise.shibboleth_data']['uid'] %>
     <% end %>
-    <hr/>
+    <hr/> 
   <% end %>
-
+<% end %>
+<%= form_for resource, as: 'user', namespace: 'signin', url: user_session_path, html: {id: "sign_in_form"} do |f| %>
   <p class="fontsize-h3"><%= _('Individual Access')%></p>
   <div style="font-size: 14px; margin: -5px 0 10px 0">
     <%= _('Not registered yet?') %> <u><a href="<%= login_path %>?place=signup#content"><%= _('Create my account') %></a></u>
