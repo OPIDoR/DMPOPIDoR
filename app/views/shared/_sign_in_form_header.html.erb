@@ -8,9 +8,9 @@
         <span class="d-grid">
           <button type='submit' class="btn btn-secondary institution-login accessible"><%= _('Sign in') %></button>
         </span>
-      </div>
+      </d
     <% else %>
-      <%= f.hidden_field :shibboleth_id, :value => session['devise.shibboleth_data']['uid'] %>
+      <%= hidden_field_tag :shibboleth_id, :value => session['devise.shibboleth_data']['uid'] %>
     <% end %>
     <hr/> 
   <% end %>
