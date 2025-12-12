@@ -146,8 +146,8 @@ module MadmpExternalApis
             ror: item['id'],
             name: get_name(item:),
             links: (item&.dig('links') || [])
-                     .select { |link| link&.dig('type') == 'website' }
-                     .map { |link| link&.dig('value') },
+              .select { |link| link&.dig('type') == 'website' }
+              .map { |link| link&.dig('value') },
             country: get_country(item:),
             addresses: get_addresses(item:),
             acronyms: get_acronyms(item:),
@@ -170,42 +170,41 @@ module MadmpExternalApis
         }
       end
 
-      # rubocop:disable Metrics/AbcSize
       def get_name(item:)
         item&.dig('names')
-          .select { |name| name&.dig('types').include?('label') && name&.dig('lang') }
-          .map { |name| [name&.dig('lang')&.to_sym, name&.dig('value')]}
-          .to_h
+            &.select { |name| name&.dig('types')&.include?('label') && name&.dig('lang') }
+            &.map { |name| [name&.dig('lang')&.to_sym, name&.dig('value')] }
+            .to_h
       end
-      # rubocop:enable Metrics/AbcSize
 
       def get_addresses(item:)
         return [] unless item&.dig('locations')
 
-        item&.dig('locations').map do |location|
+        item&.dig('locations')&.map do |location|
           {
             city: location&.dig('geonames_details', 'name'),
             country: get_country(item:),
             pos: {
               lat: location&.dig('geonames_details', 'lat'),
-              lng: location&.dig('geonames_details', 'lng'),
+              lng: location&.dig('geonames_details', 'lng')
             }
           }
         end
       end
 
-      # rubocop:disable Metrics/AbcSize
       def get_acronyms(item:)
         item&.dig('names')
-          .select { |name| name&.dig('types')&.include?('acronym') && name&.dig('value') }
-          .map { |name| name&.dig('value')} || []
+            &.select { |name| name&.dig('types')&.include?('acronym') && name&.dig('value') }
+            &.map { |name| name&.dig('value') } || []
       end
-      # rubocop:enable Metrics/AbcSize
 
       def get_external_ids(item:)
         item&.dig('external_ids')
-          .map { |external_id| [external_id&.dig('type')&.to_sym, external_id&.dig('preferred') ? [external_id&.dig('preferred')] : external_id&.dig('all')] }
-          .to_h
+            &.map do |external_id|
+          [external_id&.dig('type')&.to_sym,
+           external_id&.dig('preferred') ? [external_id&.dig('preferred')] : external_id&.dig('all')]
+        end
+            .to_h
       end
 
       # Org names are not unique, so include the Org URL if available or
