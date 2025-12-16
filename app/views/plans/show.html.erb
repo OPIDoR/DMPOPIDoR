@@ -18,7 +18,7 @@
     researchContext: @plan.context,
     isTest: @plan.is_test?,
     isClassic: @plan.template.classic?,
-    readonly: !@plan.editable_by?(current_user.id)
+    writeable: @plan.editable_by?(current_user.id)
   }) %>
 <% end %>
 
