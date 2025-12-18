@@ -253,6 +253,9 @@ GEM
       multi_xml (>= 0.5.2)
     i18n (1.14.7)
       concurrent-ruby (~> 1.0)
+    image_processing (1.14.0)
+      mini_magick (>= 4.9.5, < 6)
+      ruby-vips (>= 2.0.17, < 3)
     inline_svg (1.10.0)
       activesupport (>= 3.0)
       nokogiri (>= 1.6)
@@ -314,6 +317,8 @@ GEM
       logger
       mime-types-data (~> 3.2025, >= 3.2025.0507)
     mime-types-data (3.2025.0924)
+    mini_magick (5.3.1)
+      logger
     mini_mime (1.1.5)
     minitest (5.27.0)
     mocha (2.8.2)
@@ -532,6 +537,9 @@ GEM
       rubocop (>= 1.75.0, < 2.0)
       rubocop-ast (>= 1.47.1, < 2.0)
     ruby-progressbar (1.13.0)
+    ruby-vips (2.3.0)
+      ffi (~> 1.12)
+      logger
     ruby2_keywords (0.0.5)
     ruby_dig (0.0.2)
     rubyzip (3.2.2)
@@ -643,6 +651,7 @@ DEPENDENCIES
   hotwire-livereload (~> 2.0)
   htmltoword
   httparty
+  image_processing
   inline_svg
   jbuilder
   jsbundling-rails
