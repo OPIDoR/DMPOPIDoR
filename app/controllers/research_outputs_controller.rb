@@ -334,8 +334,10 @@ class ResearchOutputsController < ApplicationController
     authorize @research_output
     current_locale = Language.where(abbreviation: @plan.template.locale).first
 
-    @all_guidance_groups = GuidanceGroup.published.includes(:org).where(
-      Arel.sql("'#{data_type}' = ANY(data_types) AND guidance_groups.language_id = #{current_locale.id}")
+    @all_guidance_groups = GuidanceGroup.published.includes(:org, :guidances).where(
+      Arel.sql("'#{data_type}' = ANY(data_types) " \
+               "AND guidance_groups.language_id = #{current_locale.id} " \
+               'AND EXISTS (select id from guidances where guidances.guidance_group_id = guidance_groups.id)')
     )
     @all_ggs_grouped_by_org = @all_guidance_groups.order('org.name asc').group_by(&:org)
     @selected_guidance_groups = @research_output.guidance_groups.ids.to_set
