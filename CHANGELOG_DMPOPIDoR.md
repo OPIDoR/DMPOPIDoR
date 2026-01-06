@@ -2,6 +2,11 @@
 
 **Attention** Cette liste de changements concerne les déploiements sur nos serveurs de test en interne.
 
+## 05/01/2026
+
+- Amélioration de l'interface de sélection des recommandations (#14391)
+- Correction d'un problème d'édition et suppression des commentaires dans les plans en lecture seule (#13879)
+
 ## 09/12/2025
 
 - Refonte de l'interface de sélection des recommandations (#14052)
