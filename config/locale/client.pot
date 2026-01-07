@@ -1,15 +1,15 @@
 # SOME DESCRIPTIVE TITLE.
-# Copyright (C) 2025 app
+# Copyright (C) 2026 app
 # This file is distributed under the same license as the app package.
-# FIRST AUTHOR <EMAIL@ADDRESS>, 2025.
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2026.
 #
 #, fuzzy
 msgid ""
 msgstr ""
 "Project-Id-Version: app 1.0\n"
 "Report-Msgid-Bugs-To: contact@translation.io\n"
-"POT-Creation-Date: 2025-11-26 10:57+0100\n"
-"PO-Revision-Date: 2025-11-26 10:57+0100\n"
+"POT-Creation-Date: 2026-01-07 10:13+0100\n"
+"PO-Revision-Date: 2026-01-07 10:13+0100\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "Language: \n"
@@ -113,8 +113,8 @@ msgstr ""
 
 #: ../../app/controllers/contributors_controller.rb:79
 #: ../../app/controllers/dmpopidor/orgs_controller.rb:106
-#: ../../app/controllers/dmpopidor/plans_controller.rb:187
-#: ../../app/controllers/dmpopidor/plans_controller.rb:190
+#: ../../app/controllers/dmpopidor/plans_controller.rb:188
+#: ../../app/controllers/dmpopidor/plans_controller.rb:191
 #: ../../app/controllers/guidance_groups_controller.rb:59
 #: ../../app/controllers/guidances_controller.rb:119
 #: ../../app/controllers/notes_controller.rb:103
@@ -134,10 +134,10 @@ msgstr ""
 #: ../../app/controllers/contributors_controller.rb:81
 #: ../../app/controllers/dmpopidor/notes_controller.rb:216
 #: ../../app/controllers/dmpopidor/orgs_controller.rb:108
-#: ../../app/controllers/dmpopidor/plans_controller.rb:196
-#: ../../app/controllers/dmpopidor/plans_controller.rb:199
-#: ../../app/controllers/dmpopidor/plans_controller.rb:203
-#: ../../app/controllers/dmpopidor/plans_controller.rb:206
+#: ../../app/controllers/dmpopidor/plans_controller.rb:197
+#: ../../app/controllers/dmpopidor/plans_controller.rb:200
+#: ../../app/controllers/dmpopidor/plans_controller.rb:204
+#: ../../app/controllers/dmpopidor/plans_controller.rb:207
 #: ../../app/controllers/guidance_groups_controller.rb:61
 #: ../../app/controllers/guidances_controller.rb:121
 #: ../../app/controllers/notes_controller.rb:121
@@ -200,7 +200,7 @@ msgid "registry value"
 msgstr ""
 
 #: ../../app/controllers/dmpopidor/notes_controller.rb:101
-#: ../../app/controllers/dmpopidor/plans_controller.rb:95
+#: ../../app/controllers/dmpopidor/plans_controller.rb:96
 #: ../../app/controllers/guidance_groups_controller.rb:33
 #: ../../app/controllers/guidances_controller.rb:59
 #: ../../app/controllers/notes_controller.rb:54
@@ -211,7 +211,7 @@ msgid "created"
 msgstr ""
 
 #: ../../app/controllers/dmpopidor/notes_controller.rb:123
-#: ../../app/controllers/dmpopidor/plans_controller.rb:140
+#: ../../app/controllers/dmpopidor/plans_controller.rb:141
 #: ../../app/controllers/guidance_groups_controller.rb:36
 #: ../../app/controllers/guidances_controller.rb:61
 #: ../../app/controllers/notes_controller.rb:73
@@ -241,37 +241,37 @@ msgstr ""
 msgid "Own Templates"
 msgstr ""
 
-#: ../../app/controllers/dmpopidor/plans_controller.rb:66
+#: ../../app/controllers/dmpopidor/plans_controller.rb:67
 #: ../../app/controllers/plans_controller.rb:89
 msgid "Unable to identify a suitable template for your plan."
 msgstr ""
 
-#: ../../app/controllers/dmpopidor/plans_controller.rb:79
+#: ../../app/controllers/dmpopidor/plans_controller.rb:80
 #: ../../app/controllers/plans_controller.rb:103
 msgid "My Plan (%{title})"
 msgstr ""
 
-#: ../../app/controllers/dmpopidor/plans_controller.rb:81
+#: ../../app/controllers/dmpopidor/plans_controller.rb:82
 #: ../../app/controllers/plans_controller.rb:105
 msgid "%{user_name}'s Plan"
 msgstr ""
 
-#: ../../app/controllers/dmpopidor/plans_controller.rb:99
+#: ../../app/controllers/dmpopidor/plans_controller.rb:100
 #: ../../app/controllers/plans_controller.rb:143
 msgid "This plan is based on the default template."
 msgstr ""
 
-#: ../../app/controllers/dmpopidor/plans_controller.rb:104
+#: ../../app/controllers/dmpopidor/plans_controller.rb:105
 #: ../../app/controllers/plans_controller.rb:148
 msgid "This plan is based on the"
 msgstr ""
 
-#: ../../app/controllers/dmpopidor/plans_controller.rb:104
+#: ../../app/controllers/dmpopidor/plans_controller.rb:105
 #: ../../app/controllers/plans_controller.rb:148
 msgid "template with customisations by the"
 msgstr ""
 
-#: ../../app/controllers/dmpopidor/plans_controller.rb:108
+#: ../../app/controllers/dmpopidor/plans_controller.rb:109
 #: ../../app/controllers/plans_controller.rb:156
 #: ../../app/views/branded/phases/_edit_plan_answers.html.erb:9
 msgid ""
@@ -279,7 +279,7 @@ msgid ""
 "."
 msgstr ""
 
-#: ../../app/controllers/dmpopidor/plans_controller.rb:123
+#: ../../app/controllers/dmpopidor/plans_controller.rb:124
 #: ../../app/controllers/dmpopidor/research_outputs_controller.rb:36
 #: ../../app/controllers/dmpopidor/research_outputs_controller.rb:132
 #: ../../app/controllers/dmpopidor/research_outputs_controller.rb:189
@@ -287,31 +287,31 @@ msgstr ""
 msgid "RO"
 msgstr ""
 
-#: ../../app/controllers/dmpopidor/plans_controller.rb:124
+#: ../../app/controllers/dmpopidor/plans_controller.rb:125
 #: ../../app/controllers/dmpopidor/research_outputs_controller.rb:37
 #: ../../app/controllers/dmpopidor/research_outputs_controller.rb:133
 #: ../../app/controllers/dmpopidor/research_outputs_controller.rb:190
-#: ../../engines/madmp_opidor/app/services/import/plan_import_service.rb:40
+#: ../../engines/madmp_opidor/app/services/import/plan_import_service.rb:42
 msgid "Research output"
 msgstr ""
 
-#: ../../app/controllers/dmpopidor/plans_controller.rb:390
+#: ../../app/controllers/dmpopidor/plans_controller.rb:391
 msgid "imported"
 msgstr ""
 
-#: ../../app/controllers/dmpopidor/plans_controller.rb:392
+#: ../../app/controllers/dmpopidor/plans_controller.rb:393
 #: ../../engines/madmp_opidor/app/controllers/api/v1/madmp/plans_controller.rb:73
 #: ../../engines/madmp_opidor/app/graphql/mutations/create_plan.rb:41
 msgid "Unvalid file"
 msgstr ""
 
-#: ../../app/controllers/dmpopidor/plans_controller.rb:394
+#: ../../app/controllers/dmpopidor/plans_controller.rb:395
 #: ../../engines/madmp_opidor/app/controllers/api/v1/madmp/plans_controller.rb:75
 #: ../../engines/madmp_opidor/app/graphql/mutations/create_plan.rb:43
 msgid "File should contain JSON"
 msgstr ""
 
-#: ../../app/controllers/dmpopidor/plans_controller.rb:397
+#: ../../app/controllers/dmpopidor/plans_controller.rb:398
 #: ../../engines/madmp_opidor/app/controllers/api/v1/madmp/plans_controller.rb:78
 #: ../../engines/madmp_opidor/app/controllers/madmp_codebase_controller.rb:72
 #: ../../engines/madmp_opidor/app/controllers/madmp_codebase_controller.rb:191
@@ -319,7 +319,7 @@ msgstr ""
 msgid "An error has occured: "
 msgstr ""
 
-#: ../../app/controllers/dmpopidor/plans_controller.rb:450
+#: ../../app/controllers/dmpopidor/plans_controller.rb:451
 msgid "Invalid JSON: "
 msgstr ""
 
@@ -1062,9 +1062,9 @@ msgstr ""
 msgid "\"%{project_title}\" project DMP"
 msgstr ""
 
-#: ../../app/models/dmpopidor/plan.rb:176 ../../app/models/plan.rb:354
-#: ../../app/models/plan.rb:361 ../../app/models/plan.rb:395
-#: ../../app/models/plan.rb:402
+#: ../../app/models/dmpopidor/plan.rb:176 ../../app/models/plan.rb:361
+#: ../../app/models/plan.rb:368 ../../app/models/plan.rb:402
+#: ../../app/models/plan.rb:409
 msgid "Copy of %{title}"
 msgstr ""
 
@@ -1120,19 +1120,19 @@ msgstr ""
 msgid "can't be larger than 500KB"
 msgstr ""
 
-#: ../../app/models/plan.rb:87
+#: ../../app/models/plan.rb:88
 msgid "Planned"
 msgstr ""
 
-#: ../../app/models/plan.rb:88
+#: ../../app/models/plan.rb:89
 msgid "Funded"
 msgstr ""
 
-#: ../../app/models/plan.rb:89
+#: ../../app/models/plan.rb:90
 msgid "Denied"
 msgstr ""
 
-#: ../../app/models/plan.rb:845
+#: ../../app/models/plan.rb:852
 msgid "must be after the start date"
 msgstr ""
 
@@ -1145,6 +1145,7 @@ msgid "Contact Person"
 msgstr ""
 
 #: ../../app/models/research_output.rb:214
+#: ../../engines/madmp_opidor/app/services/import/plan_import_service.rb:41
 msgid "Dataset"
 msgstr ""
 
@@ -1266,7 +1267,7 @@ msgid "Please wait, Standards are loading"
 msgstr ""
 
 #: ../../app/views/branded/answers/_new_edit.html.erb:73
-#: ../../app/views/branded/devise/registrations/_personal_details.html.erb:95
+#: ../../app/views/branded/devise/registrations/_personal_details.html.erb:75
 #: ../../app/views/branded/guidance_groups/_guidance_group_form.html.erb:47
 #: ../../app/views/branded/guidances/new_edit.html.erb:69
 #: ../../app/views/branded/notes/_edit.html.erb:10
@@ -1380,8 +1381,8 @@ msgstr ""
 #: ../../app/views/branded/paginable/users/_index.html.erb:21
 #: ../../app/views/branded/plans/_share_form.html.erb:21
 #: ../../app/views/branded/shared/_create_account_form.html.erb:12
-#: ../../app/views/branded/shared/_sign_in_form.html.erb:23
-#: ../../app/views/branded/shared/_sign_in_form_header.html.erb:23
+#: ../../app/views/branded/shared/_sign_in_form.html.erb:25
+#: ../../app/views/branded/shared/_sign_in_form_header.html.erb:25
 #: ../../app/views/branded/super_admin/users/edit.html.erb:15
 #: ../../app/views/branded/super_admin/users/edit.html.erb:94
 msgid "Email"
@@ -1581,7 +1582,7 @@ msgstr ""
 msgid "Organisational Admin"
 msgstr ""
 
-#: ../../app/views/branded/devise/registrations/_personal_details.html.erb:78
+#: ../../app/views/branded/devise/registrations/_personal_details.html.erb:87
 msgid "Institutional credentials"
 msgstr ""
 
@@ -1597,8 +1598,8 @@ msgstr ""
 
 #: ../../app/views/branded/devise/registrations/edit.html.erb:46
 #: ../../app/views/branded/shared/_create_account_form.html.erb:25
-#: ../../app/views/branded/shared/_sign_in_form.html.erb:29
-#: ../../app/views/branded/shared/_sign_in_form_header.html.erb:29
+#: ../../app/views/branded/shared/_sign_in_form.html.erb:31
+#: ../../app/views/branded/shared/_sign_in_form_header.html.erb:31
 msgid "Password"
 msgstr ""
 
@@ -3700,10 +3701,10 @@ msgid "Delete research output"
 msgstr ""
 
 #: ../../app/views/branded/shared/_access_controls.html.erb:7
-#: ../../app/views/branded/shared/_sign_in_form.html.erb:8
-#: ../../app/views/branded/shared/_sign_in_form.html.erb:41
-#: ../../app/views/branded/shared/_sign_in_form_header.html.erb:8
-#: ../../app/views/branded/shared/_sign_in_form_header.html.erb:41
+#: ../../app/views/branded/shared/_sign_in_form.html.erb:9
+#: ../../app/views/branded/shared/_sign_in_form.html.erb:43
+#: ../../app/views/branded/shared/_sign_in_form_header.html.erb:9
+#: ../../app/views/branded/shared/_sign_in_form_header.html.erb:43
 msgid "Sign in"
 msgstr ""
 
@@ -3745,33 +3746,33 @@ msgid ""
 "}</a>. You can also direct a complaint at a controlling body."
 msgstr ""
 
-#: ../../app/views/branded/shared/_sign_in_form.html.erb:3
-#: ../../app/views/branded/shared/_sign_in_form_header.html.erb:3
+#: ../../app/views/branded/shared/_sign_in_form.html.erb:5
+#: ../../app/views/branded/shared/_sign_in_form_header.html.erb:5
 msgid "Institutional Access"
 msgstr ""
 
-#: ../../app/views/branded/shared/_sign_in_form.html.erb:17
-#: ../../app/views/branded/shared/_sign_in_form_header.html.erb:17
+#: ../../app/views/branded/shared/_sign_in_form.html.erb:19
+#: ../../app/views/branded/shared/_sign_in_form_header.html.erb:19
 msgid "Individual Access"
 msgstr ""
 
-#: ../../app/views/branded/shared/_sign_in_form.html.erb:19
-#: ../../app/views/branded/shared/_sign_in_form_header.html.erb:19
+#: ../../app/views/branded/shared/_sign_in_form.html.erb:21
+#: ../../app/views/branded/shared/_sign_in_form_header.html.erb:21
 msgid "Not registered yet?"
 msgstr ""
 
-#: ../../app/views/branded/shared/_sign_in_form.html.erb:19
-#: ../../app/views/branded/shared/_sign_in_form_header.html.erb:19
+#: ../../app/views/branded/shared/_sign_in_form.html.erb:21
+#: ../../app/views/branded/shared/_sign_in_form_header.html.erb:21
 msgid "Create my account"
 msgstr ""
 
-#: ../../app/views/branded/shared/_sign_in_form.html.erb:37
-#: ../../app/views/branded/shared/_sign_in_form_header.html.erb:37
+#: ../../app/views/branded/shared/_sign_in_form.html.erb:39
+#: ../../app/views/branded/shared/_sign_in_form_header.html.erb:39
 msgid "Remember me"
 msgstr ""
 
-#: ../../app/views/branded/shared/_sign_in_form.html.erb:43
-#: ../../app/views/branded/shared/_sign_in_form_header.html.erb:43
+#: ../../app/views/branded/shared/_sign_in_form.html.erb:45
+#: ../../app/views/branded/shared/_sign_in_form_header.html.erb:45
 msgid "Forgot password?"
 msgstr ""
 
@@ -4451,15 +4452,15 @@ msgstr ""
 msgid "Import of %{title}"
 msgstr ""
 
-#: ../../engines/madmp_opidor/app/services/import/plan_import_service.rb:113
+#: ../../engines/madmp_opidor/app/services/import/plan_import_service.rb:115
 msgid "Invalid JSON data"
 msgstr ""
 
-#: ../../engines/madmp_opidor/app/services/import/plan_import_service.rb:114
+#: ../../engines/madmp_opidor/app/services/import/plan_import_service.rb:116
 msgid "Invalid format"
 msgstr ""
 
-#: ../../engines/madmp_opidor/app/services/import/plan_import_service.rb:118
+#: ../../engines/madmp_opidor/app/services/import/plan_import_service.rb:120
 msgid "File should begin with :dmp property"
 msgstr ""
 
