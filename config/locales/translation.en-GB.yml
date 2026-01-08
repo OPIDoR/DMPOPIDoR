@@ -132,6 +132,9 @@ en-GB:
       month: Month
       second: Seconds
       year: Year
+    relative:
+      future:
+      past:
   devise:
     confirmations:
       confirmed: Your email address has been successfully confirmed.

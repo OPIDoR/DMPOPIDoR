@@ -67,7 +67,7 @@ module Api
           @items = paginate_response(results: Plan.where(id: plan.id))
           render '/api/v1/plans/index', status: :created
         else
-          render_error(errors: [_('Invalid JSON!')], status: :bad_request)
+          render_error(errors: [_('Invalid JSON')], status: :bad_request)
         end
       rescue JSON::ParserError
         render_error(errors: [_('Invalid JSON')], status: :bad_request)

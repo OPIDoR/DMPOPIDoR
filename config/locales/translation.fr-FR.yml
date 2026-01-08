@@ -18,7 +18,7 @@ fr-FR:
   contact_us:
     contact_mailer:
       contact_email:
-        sent_by_contact_form: Envoyé depuis le fomulaire de contact par %{email}
+        sent_by_contact_form: Envoyé depuis le formulaire de contact par %{email}
         sent_by_name: Envoyé par %{name} depuis %{email}
         subject: Message 'Contactez nous' de %{email}
     contacts:
@@ -134,6 +134,9 @@ fr-FR:
       month: Mois
       second: Seconde
       year: Année
+    relative:
+      future: dans %{time}
+      past: il y a %{time}
   devise:
     confirmations:
       confirmed: Votre compte a bien été confirmé.
