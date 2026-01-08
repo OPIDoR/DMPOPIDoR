@@ -586,6 +586,7 @@ class Plan < ApplicationRecord
   # Returns Boolean
   # rubocop:disable Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
   def readable_by?(user_id)
+    return true if publicly_visible?
     return true if commentable_by?(user_id)
 
     current_user = User.find(user_id)
