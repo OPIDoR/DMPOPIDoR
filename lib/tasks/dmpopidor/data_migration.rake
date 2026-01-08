@@ -3,6 +3,15 @@
 # rubocop:disable Naming/VariableNumber
 namespace :data_migration do
   desc 'Cleaning data'
+  task V4_3_7: :environment do
+    p 'Upgrading to DMP OPIDoR v4.3.7'
+    p '------------------------------------------------------------------------'
+    Rake::Task['data_migration:update_orcid_id_types'].execute
+    Rake::Task['data_migration:update_ror_affiliation_id_types'].execute
+    Rake::Task['data_migration:update_ror_id_types'].execute
+    p 'Upgrade complete'
+  end
+  desc 'Cleaning data'
   task V4_3_4: :environment do
     p 'Upgrading to DMP OPIDoR v4.3.4'
     p '------------------------------------------------------------------------'
@@ -33,6 +42,63 @@ namespace :data_migration do
     Rake::Task['data_migration:clean_empty_host'].execute
     p '------------------------------------------------------------------------'
     p 'Upgrade complete'
+  end
+  desc 'Update ORCID idTypes in Person fragments from "ORCID iD" to "ORCID"'
+  task update_orcid_id_types: :environment do
+    p 'Updating ORCID idTypes in Person fragments...'
+    Fragment::Person.all.each do |person|
+      person_id = person.data['idType']
+      next unless person_id.present? && person_id.downcase == 'orcid id'
+
+      person.update_column(
+        :data, person.data.merge('idType' => 'ORCID')
+      )
+    end
+    p 'Done.'
+  end
+  desc 'Update ROR affiliationIdTypes in Person fragments from "ROR ID" to "ROR"'
+  task update_ror_affiliation_id_types: :environment do
+    p 'Updating ROR affiliationIdType in Person fragments...'
+    Fragment::Person.all.each do |person|
+      affiliation_id_type = person.data['affiliationIdType']
+      next unless affiliation_id_type.present? && affiliation_id_type.downcase == 'ror id'
+
+      person.update_column(
+        :data, person.data.merge('affiliationIdType' => 'ROR')
+      )
+    end
+    p 'Done.'
+  end
+  desc 'Update ROR idTypes in Funder, Partner & ResearchEntity fragments from "ROR ID" to "ROR"'
+  task update_ror_id_types: :environment do
+    p 'Updating ROR idType in Funder, Partner & ResearchEntity fragments...'
+    p 'Updating ROR idType in Funder...'
+    Fragment::Funder.all.each do |funder|
+      id_type = funder.data['idType']
+      next unless id_type.present? && id_type.downcase == 'ror id'
+
+      funder.update_column(
+        :data, funder.data.merge('idType' => 'ROR')
+      )
+    end
+    p 'Updating ROR idType in Partner...'
+    Fragment::Partner.all.each do |partner|
+      id_type = partner.data['idType']
+      next unless id_type.present? && id_type.downcase == 'ror id'
+
+      partner.update_column(
+        :data, partner.data.merge('idType' => 'ROR')
+      )
+    end
+    p 'Updating ROR idType in ResearchEntity...'
+    Fragment::ResearchEntity.all.each do |research_entity|
+      id_type = research_entity.data['idType']
+      next unless id_type.present? && id_type.downcase == 'ror id'
+
+      research_entity.update_column(
+        :data, research_entity.data.merge('idType' => 'ROR')
+      )
+    end
   end
   desc 'Update empty research output output_type_description with fragment description'
   task update_research_output_description: :environment do

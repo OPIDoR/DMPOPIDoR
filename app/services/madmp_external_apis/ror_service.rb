@@ -142,7 +142,7 @@ module MadmpExternalApis
 
         json['items']&.filter_map do |item|
           {
-            type: 'ROR ID',
+            type: 'ROR',
             ror: item['id'],
             name: get_name(item:),
             links: (item&.dig('links') || [])
@@ -201,8 +201,8 @@ module MadmpExternalApis
       def get_external_ids(item:)
         item&.dig('external_ids')
             &.map do |external_id|
-          [external_id&.dig('type')&.to_sym,
-           external_id&.dig('preferred') ? [external_id&.dig('preferred')] : external_id&.dig('all')]
+              [external_id&.dig('type')&.to_sym,
+               external_id&.dig('preferred') ? [external_id&.dig('preferred')] : external_id&.dig('all')]
         end
             .to_h
       end
