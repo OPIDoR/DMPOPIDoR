@@ -65,4 +65,8 @@ class ResearchOutputPolicy < ApplicationPolicy
   def select_guidance_groups?
     @research_output.plan.editable_by?(@user.id)
   end
+
+  def reinit_guidance_groups?
+    @research_output.plan.editable_by?(@user.id)
+  end
 end

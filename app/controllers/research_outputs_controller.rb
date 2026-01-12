@@ -16,7 +16,7 @@ class ResearchOutputsController < ApplicationController
     render json: @research_output.serialize_json
   end
 
-  # POST /plans/:plan_id/research_outputs
+  # POST /research_outputs
   # rubocop:disable Metrics/AbcSize,Metrics/MethodLength
   def create
     @plan = Plan.includes(:template, :research_outputs, :roles).find_by(id: params[:plan_id])
@@ -46,7 +46,7 @@ class ResearchOutputsController < ApplicationController
   end
   # rubocop:enable Metrics/AbcSize,Metrics/MethodLength
 
-  # PATCH/PUT /plans/:plan_id/research_outputs/:id
+  # PATCH/PUT /research_outputs/:id
   # rubocop:disable Metrics/AbcSize, Metrics/MethodLength
   def update
     @research_output = ResearchOutput.includes(plan: %i[template research_outputs]).find(params[:id])
@@ -306,6 +306,36 @@ class ResearchOutputsController < ApplicationController
   rescue ActiveRecord::RecordNotFound
     Rails.logger.error("Plan [#{params[:id]}] not found")
     not_found("Plan [#{params[:id]}] not found")
+  rescue JSON::ParserError, TypeError
+    Rails.logger.error('Bad request - Invalid JSON data')
+    bad_request('Bad request - Invalid JSON data')
+  rescue StandardError => e
+    Rails.logger.error("Internal server error - #{e.message}")
+    internal_server_error("Internal server error - #{e.message}")
+  end
+  # rubocop:enable Metrics/MethodLength, Metrics/AbcSize
+
+  # rubocop:disable Metrics/MethodLength, Metrics/AbcSize
+  def reinit_guidance_groups
+    @research_output = ResearchOutput.includes(:plan).find(params[:id])
+    authorize @research_output
+    @research_output.guidance_groups.clear
+    @research_output.guidance_groups << default_guidance_groups(@research_output.plan, @research_output.topic)
+
+    if @research_output.save
+      @all_ggs_grouped_by_org = get_guidances_groups(params[:id])
+      render json: {
+        status: 200,
+        message: "Guidances updated for plan [#{params[:id]}]",
+        guidance_groups: @all_ggs_grouped_by_org
+      }, status: :ok
+    else
+      Rails.logger.error("Research output [#{params[:id]}] not updated")
+      internal_server_error("Research output [#{params[:id]}] not updated")
+    end
+  rescue ActiveRecord::RecordNotFound
+    Rails.logger.error("Research output  [#{params[:id]}] not found")
+    not_found("Research output [#{params[:id]}] not found")
   rescue JSON::ParserError, TypeError
     Rails.logger.error('Bad request - Invalid JSON data')
     bad_request('Bad request - Invalid JSON data')

@@ -185,6 +185,7 @@ Rails.application.routes.draw do
       get 'guidances', action: :question_guidances, constraints: { format: [:json] }
       get 'has_guidances', constraints: { format: [:json] }
       get 'guidance_groups', constraints: { format: [:json] }
+      get 'reinit_guidance_groups', constraints: { format: [:json] }
       post 'guidance_groups', action: :select_guidance_groups, constraints: { format: [:json] }
     end
   end
