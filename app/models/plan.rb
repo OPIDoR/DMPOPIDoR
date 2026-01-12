@@ -723,7 +723,7 @@ class Plan < ApplicationRecord
   #
   # Returns Boolean
   def visibility_allowed?
-    !is_test?
+    !is_test? && research_outputs.length.positive?
   end
 
   # Determines whether or not a question (given its id) exists for the self plan
