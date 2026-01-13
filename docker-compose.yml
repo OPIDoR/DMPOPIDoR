@@ -136,7 +136,7 @@ services:
       - dmpopidor_network
 
   postgres:
-    image: postgres:16.8-alpine3.21
+    image: postgres:17.7-alpine3.22
     environment:
       - POSTGRES_USER=${DB_USERNAME:-postgres}
       - POSTGRES_PASSWORD=${DB_PASSWORD:-changeme}
