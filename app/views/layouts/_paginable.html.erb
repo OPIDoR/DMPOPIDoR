@@ -4,7 +4,7 @@
 %>
 <% total = paginable? ? scope.total_count : scope.length %>
 
-<%= turbo_frame_tag "#{turbo_id_for(scope, @context)}" do %>
+<%= turbo_frame_tag "#{turbo_id_for(scope, action)}" do %>
   <div class="paginable">
     <div class="paginable-search">
       <div class="row">

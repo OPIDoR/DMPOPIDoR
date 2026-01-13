@@ -11,6 +11,7 @@ module Paginable
 
       paginable_renderise(
         partial: 'privately_visible',
+        action: 'privately_visible',
         scope: Plan.includes(:roles).active(current_user),
         query_params: { sort_field: 'plans.updated_at', sort_direction: :desc },
         format: :json
@@ -23,6 +24,7 @@ module Paginable
 
       paginable_renderise(
         partial: 'organisationally_or_publicly_visible',
+        action: 'organisationally_or_publicly_visible',
         scope: Plan.organisationally_or_publicly_visible(current_user),
         query_params: { sort_field: 'plans.updated_at', sort_direction: :desc },
         format: :json
@@ -51,6 +53,7 @@ module Paginable
       paginable_renderise(
         partial: 'org_admin',
         scope: plans,
+        action: 'org_admin',
         view_all: !current_user.can_super_admin?,
         query_params: { sort_field: 'plans.updated_at', sort_direction: :desc },
         format: :json
@@ -82,6 +85,7 @@ module Paginable
       paginable_renderise(
         partial: 'administrator_visible',
         scope: Plan.org_admin_visible(current_user),
+        action: 'administrator_visible',
         query_params: { sort_field: 'plans.updated_at', sort_direction: :desc },
         format: :json
       )
