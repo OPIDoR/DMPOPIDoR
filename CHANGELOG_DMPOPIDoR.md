@@ -2,6 +2,21 @@
 
 **Attention** Cette liste de changements concerne les déploiements sur nos serveurs de test en interne.
 
+## 13/01/2026
+
+- Correction du problème affectant le changement des droits d'accès au plan (#14335)
+- Les plans sans produit de recherche ne peuvent plus changer de visibilité (#14338)
+- Amélioration de la traduction (#13977)
+- Améliorations de l'interface des recommandations (#14391)
+  - Possibilité de rechercher sur l'organisme et sur le nom des groupes
+  - Affichage de la barre de recherche
+  - Le bouton Réinitialiser permet de retrouver les recommandations par défaut d'un PR
+- Améliorations de la pagination des tableaux (#14242)
+- Améliorations de la V4.3.7 : 
+  - Correction du problème d'import des PGD publics (#14355)
+  - Correction du problème de mise à jour/suppression des commentaires dans les plans en lecture seule (#13879)
+  - Ajout de taches de correction des champs `idType` dans les fragments Person, Funder, Partner (ROR & ORCID) (#13773)
+
 ## 05/01/2026
 
 - Amélioration de l'interface de sélection des recommandations (#14391)
