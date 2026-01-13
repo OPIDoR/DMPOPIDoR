@@ -81,14 +81,13 @@
                         ["#{display_role(editor)}", editor.access],
                         ["#{display_role(commenter)}", commenter.access]
                       ] %>
-                      <%= f.select :access, options_for_select(options, role.access), {}, {
-                        authenticity_token: true,
-                        class: "toggle-existing-user-access",
-                        data: {
-                          remote: true,
-                          method: :patch,
-                          url: role_path(role)
-                        } } %>
+                      <%= f.select :access, 
+                                  options_for_select(options, role.access), {},
+                                  class: "toggle-existing-user-access",
+                                  data: { 
+                                    controller: "select",
+                                    action: "change->select#update", url: role_path(role) 
+                                  } %>
                     <% end %>
                   </div>
                 <% else %>
