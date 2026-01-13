@@ -69,10 +69,11 @@ module Types
       fragments_by_plan_id = MadmpFragment
                                .where("(data->>'plan_id')::int IN (?)", plans_scope.select(:id))
                                .order(order_params)
+                               .pluck(:id)
 
-      results = fragments_by_plan_id.flat_map do |fragment|
-        Resolvers::PlansFiltersResolver.apply(filter, fragment.id)[0]&.dmp&.get_full_fragment || []
-      end.compact # rubocop:disable Style/MultilineBlockChain
+      resolvers_results = Resolvers::PlansFiltersResolver.apply(filter, fragments_by_plan_id)
+
+      results = resolvers_results.map { |r| r&.dmp&.get_full_fragment }.compact.flatten
 
       total_items = results.length
       total_pages = (total_items.to_f / size).ceil
