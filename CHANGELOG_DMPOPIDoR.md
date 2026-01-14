@@ -2,6 +2,10 @@
 
 **Attention** Cette liste de changements concerne les déploiements sur nos serveurs de test en interne.
 
+## 14/01/2026
+- Optimisation GraphQL des requêtes SQL de récupérations des plans (récupération par liste d'identifiant de plan)
+- Optimisation GraphQL d'ajout de la partie configuration dans les produits de recherche
+
 ## 13/01/2026
 
 - Correction du problème affectant le changement des droits d'accès au plan (#14335)
