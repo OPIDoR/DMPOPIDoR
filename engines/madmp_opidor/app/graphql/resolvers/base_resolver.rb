@@ -4,8 +4,8 @@ require 'arel'
 
 module Resolvers
   class BaseResolver < GraphQL::Schema::Resolver
-    def self.apply(filter, dmps_id)
-      apply_filters(filter, dmps_id)
+    def self.apply(filter, dmps_id, order_by)
+      apply_filters(filter, dmps_id, order_by)
     end
 
     private
@@ -16,17 +16,21 @@ module Resolvers
       apply_single_filter(scope, filter)
     end
 
-    def self.apply_filters(filter, dmps_id)
+    def self.apply_filters(filter, dmps_id, order_by)
       return scope if filter.nil?
 
       if filter[:and].blank? && filter[:or].blank?
         raise GraphQL::ExecutionError, "The filter must contain at least one 'and', 'or' condition."
       end
 
-      apply_conditions(filter, dmps_id)
+      apply_conditions(filter, dmps_id, order_by)
     end
 
-    def self.apply_conditions(conditions, dmps_id)
+    def self.apply_conditions(conditions, dmps_id, order_by)
+      order_params = {
+        ("m1.#{order_by&.[](:field) || 'updated_at'}") => (order_by&.[](:order).presence || 'desc').to_sym
+      }
+
       and_operator_conditions = []
       or_operator_conditions = []
 
@@ -37,7 +41,7 @@ module Resolvers
 
       primary_alias = Arel::Table.new(table_name).alias("m1")
       and_operator_conditions << primary_alias[:dmp_id].in(dmps_id)
-      scope = MadmpFragment.from("#{table_name} m1").select("DISTINCT m1.dmp_id")
+      scope = MadmpFragment.from("#{table_name} m1").select("DISTINCT m1.dmp_id, #{order_params.keys.join(", ")}")
 
       joins = []
       sub_joins = []
