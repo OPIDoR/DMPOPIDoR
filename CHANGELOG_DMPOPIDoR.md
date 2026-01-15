@@ -4,6 +4,12 @@
 
 ## 15/01/2026
 - Amélioration de la résolution des noms avec repli sur la locale, le code pays ou le premier élément
+- Correction du problème d'affichage des notifications de changement de droit d'accès d'un plan
+- Améliorations de l'interface des recommandations (#14391)
+  - Changement de position des boutons Enregistrer et Réinitialiser
+  - Ajout de la recherche sans prendre en compte les accents
+- Améliorations de la V4.3.7 : 
+  - Amélioration des exports PDF (#14483)
 
 ## 14/01/2026
 - Optimisation GraphQL des requêtes SQL de récupérations des plans (récupération par liste d'identifiant de plan)
