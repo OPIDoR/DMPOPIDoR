@@ -2,6 +2,9 @@
 
 **Attention** Cette liste de changements concerne les déploiements sur nos serveurs de test en interne.
 
+## 15/01/2026
+- Amélioration de la résolution des noms avec repli sur la locale, le code pays ou le premier élément
+
 ## 14/01/2026
 - Optimisation GraphQL des requêtes SQL de récupérations des plans (récupération par liste d'identifiant de plan)
 - Optimisation GraphQL d'ajout de la partie configuration dans les produits de recherche
