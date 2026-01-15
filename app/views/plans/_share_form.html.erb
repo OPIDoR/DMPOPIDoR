@@ -86,7 +86,8 @@
                                   class: "toggle-existing-user-access",
                                   data: { 
                                     controller: "select",
-                                    action: "change->select#update", url: role_path(role) 
+                                    action: "change->select#update", 
+                                    select_url_value: role_path(role)
                                   } %>
                     <% end %>
                   </div>
