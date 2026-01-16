@@ -11,6 +11,7 @@ module Types
     field :templateName, String, null: true
     field :researchOutput, GraphQL::Types::JSON, null: true
 
+=begin
     def researchOutput
       ids = object["researchOutput"].map { |ro| ro["research_output_id"] }
 
@@ -31,5 +32,6 @@ module Types
         research_output_fragment
       end.compact
     end
+=end
   end
 end
