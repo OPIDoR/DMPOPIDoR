@@ -59,19 +59,21 @@ module Types
       end
 
       fragments_by_plan_id = MadmpFragment
+                               .where(classname: 'dmp')
                                .where("(data->>'plan_id')::int IN (?)", plans_scope.select(:id))
                                .pluck(:id)
 
-      resolvers_results_id = Resolvers::PlansFiltersResolver.apply(filter, fragments_by_plan_id, order_by).pluck("m1.dmp_id")
+      resolvers_results = Resolvers::PlansFiltersResolver.apply(filter, fragments_by_plan_id, order_by)
 
-      total_items = resolvers_results_id.length
+      total_items = MadmpFragment
+                      .from(resolvers_results, :subquery)
+                      .count
       total_pages = (total_items.to_f / size).ceil
-      offset = (page - 1) * size
 
-      paginated_results = plans_scope.limit(size)
-                                     .offset(offset)
-                                     .where(id: resolvers_results_id).order(order_params)
-      results = paginated_results.map { |plan| plan.json_fragment.get_full_fragment }
+      paginated_results = resolvers_results
+                            .limit(size)
+                            .offset(offset)
+                            .map { |result| result.plan.json_fragment.get_full_fragment }
 
       {
         pageInfo: {
@@ -79,7 +81,7 @@ module Types
           totalPages: total_pages,
           page: page,
         },
-        items: results
+        items: paginated_results
       }
     end
   end

@@ -118,7 +118,7 @@ module Resolvers
       end
 
       scope = scope.joins(joins.join(" ")) unless joins.empty?
-      scope.where(final_operators)
+      scope.order(order_params).where(final_operators)
     end
 
     def self.validate_conditions(conditions, operator)
