@@ -268,7 +268,7 @@ document.addEventListener('turbo:load', () => {
         $(el).removeClass('disabled');
       });
     }
-  }); // .click()
+  }); // .on('click', ...
   $('.question-content').on('show.bs.collapse', (e) => {
     const qId = $(e.target).attr('id');
     showLoadingOverlay($(`#${qId}`));

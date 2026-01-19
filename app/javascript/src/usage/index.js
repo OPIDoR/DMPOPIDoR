@@ -5,7 +5,7 @@ document.addEventListener('turbo:load', () => {
   // handles the checkbox for filtered-plans
   $('#filter_plans_form').on('click, change', 'input[type="checkbox"]', (e) => {
     const form = $(e.target).closest('form');
-    form.submit();
+    form.trigger('submit');
   });
 
   // fns to handle the separator character menu

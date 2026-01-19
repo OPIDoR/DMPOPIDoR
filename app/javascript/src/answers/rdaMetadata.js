@@ -144,7 +144,7 @@ document.addEventListener('turbo:load', () => {
     } else {
       // update all the dropdowns/ standards explore box (calling on subject
       // will suffice since it will necisarily update sub-subject)
-      $('.rda_metadata .subject select').change();
+      $('.rda_metadata .subject select').trigger('change');
       initStandards();
       initTypeahead();
     }
@@ -165,7 +165,7 @@ document.addEventListener('turbo:load', () => {
 
   function updateSaveStatus(group) {
     // update save/autosave status
-    group.next('form').find('fieldset input').change();
+    group.next('form').find('fieldset input').trigger('change');
   }
 
   // change sub-subjects and standards based on selected subject
@@ -181,7 +181,7 @@ document.addEventListener('turbo:load', () => {
       // hide sub-subject since there's no data for it
       subSubject.closest('div').hide();
       // update the standards display selector
-      $('.rda_metadata .sub-subject select').change();
+      $('.rda_metadata .sub-subject select').trigger('change');
     } else {
       // show the sub-subject incase it was previously hidden
       subSubject.closest('div').show();
@@ -192,7 +192,7 @@ document.addEventListener('turbo:load', () => {
       });
       // once we have updated the sub-standards, ensure the standards displayed
       // get updated as well
-      $('.rda_metadata .sub-subject select').change();
+      $('.rda_metadata .sub-subject select').trigger('change');
     }
   });
 
@@ -355,7 +355,7 @@ document.addEventListener('turbo:load', () => {
         $('<option />', { value: minTree[num].name, text: minTree[num].name }).appendTo(sub);
       });
     });
-    waitAndUpdate();// $(".rda_metadata .subject select").change();
+    waitAndUpdate();
   }
 
   // callback from url+subject-index

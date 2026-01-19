@@ -17,7 +17,7 @@ document.addEventListener('turbo:load', () => {
     }
   };
 
-  $('#edit_org_feedback_form input[type="radio"]').click(() => {
+  $('#edit_org_feedback_form input[type="radio"]').on('click', () => {
     toggleFeedback();
   });
 

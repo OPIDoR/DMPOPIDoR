@@ -18,7 +18,7 @@ document.addEventListener('turbo:load', () => {
     $('#merge_form_container').html(data.form);
     const userSelect = $('#merge_id');
     userSelect.on('change', () => updateMergeConfirmation(userSelect));
-    userSelect.change();
+    userSelect.trigger('change');
   });
 
   if ($('#super-admin-user-org-controls').length > 0) {
