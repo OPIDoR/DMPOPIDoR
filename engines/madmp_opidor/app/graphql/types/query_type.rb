@@ -66,16 +66,15 @@ module Types
         }
       end
 
+      plans_ids = plans_scope.pluck(:id)
       fragments_by_plan_id = MadmpFragment
                                .where(classname: 'dmp')
-                               .where("(data->>'plan_id')::int IN (?)", plans_scope.select(:id))
+                               .where("(data->>'plan_id')::int IN (?)", plans_ids)
                                .pluck(:id)
 
       resolvers_results = Resolvers::PlansFiltersResolver.apply(filter, fragments_by_plan_id, order_by)
 
-      total_items = MadmpFragment
-                      .from(resolvers_results, :subquery)
-                      .count
+      total_items = resolvers_results.length
       total_pages = (total_items.to_f / size).ceil
 
       paginated_results = resolvers_results
