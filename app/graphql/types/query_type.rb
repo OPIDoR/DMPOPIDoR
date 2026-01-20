@@ -26,13 +26,7 @@ module Types
     private
 
     def get_plans(filter, size, page, order_by, test, plans_scope)
-      if size < 1 || size > 1000
-        raise GraphQL::ExecutionError, "Size must be between 1 and 1000. Current size: #{size}."
-      end
-
-      order_params = {
-        (order_by&.[](:field) || 'updated_at') => (order_by&.[](:order).presence || 'desc').to_sym
-      }
+      offset = (page - 1) * size
 
       plans_scope = plans_scope.where.not(
         visibility: [
@@ -40,39 +34,20 @@ module Types
         ]
       ) unless test
 
-      if filter.nil?
-        total_items = plans_scope.count
-        total_pages = (total_items.to_f / size).ceil
-        offset = (page - 1) * size
-
-        return {
-          pageInfo: {
-            total: total_items,
-            totalPages: total_pages,
-            page: page,
-          },
-          items: plans_scope.order(order_params)
-                            .limit(size)
-                            .offset(offset)
-                            .map { |plan| plan.json_fragment.get_full_fragment }
-        }
+      plans_ids = plans_scope.pluck(:id)
+      order_params = order_by.map do |p|
+        Arel.sql("jsonb_path_query_first(data, '#{p.field}') #{p.order.to_s.upcase}")
       end
 
-      plans_ids = plans_scope.pluck(:id)
-      fragments_by_plan_id = MadmpFragment
-                               .where(classname: 'dmp')
-                               .where("(data->>'plan_id')::int IN (?)", plans_ids)
-                               .pluck(:id)
+      results = JsonPlan
+                        .yield_self { |rel| filter.present? ? rel.where(*build_jsonb_filters(filter)) : rel }
+                        .where(plan_id: plans_ids)
+                        .order(*order_params)
+                        .limit(size)
+                        .offset(offset)
 
-      resolvers_results = Resolvers::PlansFiltersResolver.apply(filter, fragments_by_plan_id, order_by)
-
-      total_items = resolvers_results.length
+      total_items = results.count
       total_pages = (total_items.to_f / size).ceil
-
-      paginated_results = resolvers_results
-                            .limit(size)
-                            .offset(offset)
-                            .map { |result| result.plan.json_fragment.get_full_fragment }
 
       {
         pageInfo: {
@@ -80,8 +55,47 @@ module Types
           totalPages: total_pages,
           page: page,
         },
-        items: paginated_results
+        items: results
       }
+    end
+
+    def build_jsonb_filters(filter)
+      return nil unless filter.present?
+
+      and_sql = if filter[:and].present?
+                  filter[:and].map { |c|
+                    jsonb_path_where(path: c[:field], value: c[:value], operator: c[:operator] || "eq")
+                  }.join(" AND ")
+                end
+
+      or_sql = if filter[:or].present?
+                 filter[:or].map { |c|
+                   jsonb_path_where(path: c[:field], value: c[:value], operator: c[:operator] || "eq")
+                 }.join(" OR ")
+               end
+
+      combined = []
+      combined << "(#{and_sql})" if and_sql.present?
+      combined << "(#{or_sql})"  if or_sql.present?
+
+      ["(#{combined.join(" OR ")})"]
+    end
+
+    def jsonb_path_where(path:, value:, operator: "eq")
+      operator_map = {
+        "eq"   => "==",
+        "neq"  => "!=",
+        "like" => "like_regex",
+        "regex" => "like_regex",
+        "gt"   => ">",
+        "lt"   => "<",
+        "gte"  => ">=",
+        "lte"  => "<=",
+      }
+
+      op = operator_map[operator] || raise("Unsupported operator #{operator}")
+
+      "jsonb_path_exists(data, '#{path} ? (@ #{op} #{value.inspect})')"
     end
   end
 end

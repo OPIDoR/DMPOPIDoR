@@ -147,6 +147,9 @@ class Plan < ApplicationRecord
   has_many :api_client_roles, dependent: :destroy
 
   has_many :api_clients, through: :api_client_roles
+
+  has_many :json_plans, dependent: :destroy
+
   # --------------------------------
   # End DMP OPIDoR Customization
   # --------------------------------
@@ -305,6 +308,8 @@ class Plan < ApplicationRecord
   before_validation lambda { |data|
     data.sanitize_fields(:title, :identifier, :description)
   }
+
+  after_save -> { JsonPlanJobScheduler.enqueue_or_reschedule(id) }
 
   # =================
   # = Class methods =
