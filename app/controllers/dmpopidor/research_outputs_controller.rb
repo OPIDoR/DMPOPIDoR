@@ -155,7 +155,7 @@ module Dmpopidor
 
         Import::PlanImportService.import_research_output(
           research_output_copy_fragment,
-          research_output_fragment.get_full_fragment,
+          research_output_fragment.get_full_fragment(with_ids: true),
           target_plan,
           template
         )
@@ -171,6 +171,7 @@ module Dmpopidor
         }
       end
     end
+
     # rubocop:enable Metrics/AbcSize, Metrics/MethodLength
 
     # DELETE AFTER V4 ?
