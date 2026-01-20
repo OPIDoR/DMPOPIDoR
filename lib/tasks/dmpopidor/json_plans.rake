@@ -6,7 +6,7 @@ namespace :json_plans do
   task job: :environment do
     p 'Retrieving all structured plans'
     p '------------------------------------------------------------------------'
-    plans = Plan.all.select(&:structured?)
+    plans = Plan.includes(:template).where(template: { type: 'structured' })
     p "> Total plans: #{plans.count}"
     p 'Adding plans in JSON format in table'
     plans.each do |plan|
