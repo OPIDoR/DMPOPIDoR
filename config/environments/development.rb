@@ -65,4 +65,7 @@ Rails.application.configure do
     'localhost', # The localhost reserved domain.
     *ENV.fetch('ALLOWED_HOSTS', 'dmpopidor').split(',') # Additional comma-separated hosts for development.
   ]
+
+
+  config.good_job.execution_mode = :async
 end
