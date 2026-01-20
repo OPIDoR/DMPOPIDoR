@@ -34,10 +34,6 @@ module Types
         ]
       ) unless test
 
-      p "================"
-      p order_by
-      p "===================="
-
       plans_ids = plans_scope.pluck(:id)
       order_params = if order_by.nil? || order_by.empty?
                        Arel.sql("jsonb_path_query_first(data, '$.meta.lastModifiedDate') DESC")
