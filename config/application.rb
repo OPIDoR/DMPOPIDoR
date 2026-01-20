@@ -203,6 +203,11 @@ module DMPRoadmap
                         host
                       end
     end
+
+    config.active_job.queue_adapter = :good_job
+    config.good_job.execution_mode = :external
+    config.good_job.queues = '*'
+    config.good_job.max_threads = 5
   end
 end
 
