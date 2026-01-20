@@ -34,10 +34,18 @@ module Types
         ]
       ) unless test
 
+      p "================"
+      p order_by
+      p "===================="
+
       plans_ids = plans_scope.pluck(:id)
-      order_params = order_by.map do |p|
-        Arel.sql("jsonb_path_query_first(data, '#{p.field}') #{p.order.to_s.upcase}")
-      end
+      order_params = if order_by.nil? || order_by.empty?
+                       Arel.sql("jsonb_path_query_first(data, '$.meta.lastModifiedDate') DESC")
+                     else
+                       order_by.map do |p|
+                         Arel.sql("jsonb_path_query_first(data, '#{p.field}') #{p.order.to_s.upcase}")
+                       end
+                     end
 
       results = JsonPlan
                         .yield_self { |rel| filter.present? ? rel.where(*build_jsonb_filters(filter)) : rel }
