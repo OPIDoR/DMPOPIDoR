@@ -2,6 +2,9 @@
 
 **Attention** Cette liste de changements concerne les déploiements sur nos serveurs de test en interne.
 
+## 21/01/2026
+- Utilisation de la table json_plans pour l'export JSON au format DMP OPIDoR
+
 ## 15/01/2026
 - Amélioration de la résolution des noms avec repli sur la locale, le code pays ou le premier élément
 - Correction du problème d'affichage des notifications de changement de droit d'accès d'un plan
