@@ -370,6 +370,6 @@ end
 gem 'graphiql-rails', '~> 1.10'
 gem 'graphql', '~> 2.3'
 
-gem 'foreman', '~> 0.90.0'
+gem 'foreman'
 
 gem 'good_job'
