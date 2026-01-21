@@ -9,6 +9,6 @@ class CreateJsonPlans < ActiveRecord::Migration[8.1]
       t.timestamps
     end
 
-    add_index :json_plans, :dmp_id
+    add_index :json_plans, :dmp_id, :data, using: :gin
   end
 end
