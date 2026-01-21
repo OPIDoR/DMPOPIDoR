@@ -5,26 +5,15 @@ module Api
   class GraphqlController < V1::BaseApiController
     respond_to :json
 
-    before_action :authorize_request, unless: -> { public_query?(params[:query]) }
+    before_action -> { @query = params[:query]; authorize_request unless public_query?(@query) }
 
     # rubocop:disable Metrics/AbcSize
     def execute
-      if public_query?(params[:query])
-        context = {}
-      else
-        authorize_request
-        context = { current_user: @client }
-      end
-
+      context = public_query?(@query) ? {} : { current_user: @client }
       variables = prepare_variables(params[:variables])
-      query = params[:query]
-      operation_name = params[:operationName]
-
-      result = DmpRoadmapSchema.execute(query, variables: variables, context: context, operation_name: operation_name)
+      result = DmpRoadmapSchema.execute(@query, variables: variables, context: context, operation_name: params[:operationName])
       render json: result
     rescue StandardError => e
-      raise e unless Rails.env.development?
-
       handle_error_in_development(e)
     end
     # rubocop:enable Metrics/AbcSize
