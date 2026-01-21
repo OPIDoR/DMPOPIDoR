@@ -120,12 +120,30 @@ class PlanExportsController < ApplicationController
   # CHANGES: Changed JSON export to use madmp_fragments
   def show_json
     skip_authorization
+
     json_plan = JsonPlan.find_by(plan_id: params[:plan_id])
-    json_plan = json_plan.data
-    json_plan["researchOutput"] = json_plan["researchOutput"].filter do |ro|
-      params["research_outputs"].include?(ro["research_output_id"].to_s)
+    return head :not_found unless json_plan
+
+    json_data = json_plan.data
+
+    if params["research_outputs"].present?
+      json_data["researchOutput"] = json_data["researchOutput"].filter do |ro|
+        params["research_outputs"].include?(ro["research_output_id"].to_s)
+      end
     end
-    send_data json_plan.to_json, filename: "#{file_name}_#{params[:json_format]}.json"
+
+    json_format = params[:json_format]
+
+    if json_format.eql?('rda')
+      rendered_json = render_to_string(
+        "shared/export/madmp_export_templates/#{json_format}/plan",
+        locals: { dmp: @plan.json_fragment, selected_research_outputs: params[:research_outputs]&.map(&:to_i) || @plan.research_output_ids }
+      )
+      return send_data rendered_json, filename: "#{file_name}_#{json_format}.json"
+    end
+
+
+    send_data json_data.to_json, filename: "#{file_name}_#{json_format}.json"
   end
 
   def file_name
