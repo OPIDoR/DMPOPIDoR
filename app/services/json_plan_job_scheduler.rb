@@ -1,9 +1,9 @@
 class JsonPlanJobScheduler
   class << self
-    def enqueue_or_reschedule(plan_id)
+    def enqueue_or_reschedule(plan_id, delay = 600)
       args = [{ plan_id: plan_id }]
 
-      delay_seconds = ENV.fetch('PLANS_ACTIVE_JOB_DELAY', 600).to_i # in seconds
+      delay_seconds = ENV.fetch('PLANS_ACTIVE_JOB_DELAY', delay).to_i # in seconds
 
       existing_job = GoodJob::Job.where("serialized_params->'arguments' @> ?", args.to_json)
                                  .where(finished_at: nil)

@@ -242,7 +242,7 @@ class MadmpFragment < ApplicationRecord
   # It integrates its children into the JSON
   # rubocop:disable Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
   # rubocop:disable Metrics/AbcSize, Metrics/MethodLength
-  def get_full_fragment(with_ids: false, with_template_name: false)
+  def get_full_fragment(with_ids: false, with_template_name: false, with_configuration: false)
     if additional_info['custom_value'].present?
       {
         'custom_value' => additional_info['custom_value']
@@ -264,7 +264,8 @@ class MadmpFragment < ApplicationRecord
                      else
                        child.get_full_fragment(
                          with_ids:,
-                         with_template_name:
+                         with_template_name:,
+                         with_configuration:
                        )
                      end
         editable_data = editable_data.merge(prop => child_data)
@@ -287,7 +288,8 @@ class MadmpFragment < ApplicationRecord
             fragment_tab.push(
               child_data.get_full_fragment(
                 with_ids:,
-                with_template_name:
+                with_template_name:,
+                with_configuration:
               )
             )
           else
@@ -302,6 +304,9 @@ class MadmpFragment < ApplicationRecord
     # rubocop:enable Metrics/BlockLength
     editable_data = { 'id' => id, 'schema_id' => madmp_schema_id }.merge(editable_data) if with_ids
     editable_data = { 'template_name' => madmp_schema.name }.merge(editable_data) if with_template_name
+    if with_configuration && classname.eql?('research_output')
+      editable_data = { 'configuration' => additional_info.except('moduleId', 'property_name') }.merge(editable_data)
+    end
 
     editable_data
   end
