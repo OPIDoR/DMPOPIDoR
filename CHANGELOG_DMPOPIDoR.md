@@ -2,6 +2,11 @@
 
 **Attention** Cette liste de changements concerne les déploiements sur nos serveurs de test en interne.
 
+## 22/01/2026
+- Améliorations de l'interface des recommandations (#14391)
+  - Changement de position du bouton Réinitialiser
+- Le champ Thématique est désormais masqué lors de la création d'un PR Logiciel (#14509)
+
 ## 21/01/2026
 - Utilisation de la table json_plans pour l'export JSON au format DMP OPIDoR
 
