@@ -45,13 +45,14 @@ module Types
 
       results = JsonPlan
                         .yield_self { |rel| filter.present? ? rel.where(*build_jsonb_filters(filter)) : rel }
-                        .where(plan_id: plans_ids)
-                        .order(*order_params)
-                        .limit(size)
-                        .offset(offset)
+                        .where(plan_id: plans_scope.select(:id))
 
       total_items = results.count
       total_pages = (total_items.to_f / size).ceil
+
+      results = results.order(*order_params)
+                   .limit(size)
+                   .offset(offset)
 
       {
         pageInfo: {
@@ -66,23 +67,19 @@ module Types
     def build_jsonb_filters(filter)
       return nil unless filter.present?
 
-      and_sql = if filter[:and].present?
-                  filter[:and].map { |c|
-                    jsonb_path_where(path: c[:field], value: c[:value], operator: c[:operator] || "eq")
-                  }.join(" AND ")
-                end
+      and_sql = build_conditions(filter[:and], "AND")
+      or_sql  = build_conditions(filter[:or],  "OR")
 
-      or_sql = if filter[:or].present?
-                 filter[:or].map { |c|
-                   jsonb_path_where(path: c[:field], value: c[:value], operator: c[:operator] || "eq")
-                 }.join(" OR ")
-               end
+      combined = [and_sql, or_sql].compact
+      ["(#{combined.join(" OR ")})"] unless combined.empty?
+    end
 
-      combined = []
-      combined << "(#{and_sql})" if and_sql.present?
-      combined << "(#{or_sql})"  if or_sql.present?
+    def build_conditions(conditions, operator)
+      return nil unless conditions.present?
 
-      ["(#{combined.join(" OR ")})"]
+      conditions.map { |c|
+        jsonb_path_where(path: c[:field], value: c[:value], operator: c[:operator] || "eq")
+      }.join(" #{operator} ")
     end
 
     def jsonb_path_where(path:, value:, operator: "eq")

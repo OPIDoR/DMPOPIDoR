@@ -12,6 +12,7 @@
 #
 # Indexes
 #
+#  idx_json_plans_data_gin      (data) USING gin
 #  index_json_plans_on_dmp_id   (dmp_id)
 #  index_json_plans_on_plan_id  (plan_id)
 #
