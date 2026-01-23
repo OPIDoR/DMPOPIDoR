@@ -44,21 +44,22 @@ module Types
                      end
 
       results = JsonPlan
-                        .yield_self { |rel| filter.present? ? rel.where(*build_jsonb_filters(filter)) : rel }
-                        .where(plan_id: plans_scope.select(:id))
+                .yield_self { |rel| filter.present? ? rel.where(*build_jsonb_filters(filter)) : rel }
+                .where(plan_id: plans_scope.select(:id))
 
       total_items = results.count
       total_pages = (total_items.to_f / size).ceil
 
       results = results.order(*order_params)
-                   .limit(size)
-                   .offset(offset)
+                       .limit(size)
+                       .offset(offset)
+                       .pluck(:data)
 
       {
         pageInfo: {
           total: total_items,
           totalPages: total_pages,
-          page: page,
+          page: page
         },
         items: results
       }
