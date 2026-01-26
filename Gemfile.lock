@@ -142,10 +142,10 @@ GEM
     database_cleaner-core (2.0.1)
     date (3.5.1)
     debug_inspector (1.2.0)
-    devise (4.9.4)
+    devise (5.0.0)
       bcrypt (~> 3.0)
       orm_adapter (~> 0.1)
-      railties (>= 4.1.0)
+      railties (>= 7.0)
       responders
       warden (~> 1.2.3)
     devise_invitable (2.0.11)
@@ -177,7 +177,7 @@ GEM
     factory_bot_rails (6.5.1)
       factory_bot (~> 6.5)
       railties (>= 6.1.0)
-    faker (3.5.3)
+    faker (3.6.0)
       i18n (>= 1.8.11, < 2)
     faraday (2.14.0)
       faraday-net_http (>= 2.0, < 3.5)
@@ -232,7 +232,7 @@ GEM
       thor (>= 1.0.0)
     graphiql-rails (1.10.5)
       railties
-    graphql (2.5.16)
+    graphql (2.5.18)
       base64
       fiber-storage
       logger
@@ -491,7 +491,7 @@ GEM
       actionpack (>= 5)
       redis-rack (>= 2.1.0, < 4)
       redis-store (>= 1.1.0, < 2)
-    redis-client (0.26.3)
+    redis-client (0.26.4)
       connection_pool
     redis-rack (3.0.0)
       rack-session (>= 0.2.0)

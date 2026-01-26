@@ -12,15 +12,15 @@ Rails.application.routes.draw do
 
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
 
-  devise_for(:users, controllers: {
+  devise_for :users,
+             controllers: {
                registrations: 'registrations',
                passwords: 'passwords',
                sessions: 'sessions',
                omniauth_callbacks: 'users/omniauth_callbacks',
                invitations: 'users/invitations'
-             }) do
-    get '/users/sign_out', to: 'devise/sessions#destroy'
-  end
+             }
+  get '/users/sign_out', to: 'devise/sessions#destroy'
 
   delete '/users/identifiers/:id', to: 'identifiers#destroy', as: 'destroy_user_identifier'
 
