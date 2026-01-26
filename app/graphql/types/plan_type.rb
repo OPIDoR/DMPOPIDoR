@@ -8,7 +8,7 @@ module Types
     field :project, GraphQL::Types::JSON, null: true
     field :researchEntity, GraphQL::Types::JSON, null: true
     field :budget, GraphQL::Types::JSON, null: true
-    field :templateName, String, null: true
+    # field :templateName, String, null: true
     field :researchOutput, GraphQL::Types::JSON, null: true
   end
 end
