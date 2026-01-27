@@ -3763,11 +3763,6 @@ jest-worker@^29.7.0:
     merge-stream "^2.0.0"
     supports-color "^8.0.0"
 
-jquery-ui-sass@^0.0.1:
-  version "0.0.1"
-  resolved "https://registry.yarnpkg.com/jquery-ui-sass/-/jquery-ui-sass-0.0.1.tgz#d117eb1a82fbf5072e6797e370c21b2446fb0861"
-  integrity sha512-O+59acNrMie/z/5xZghZ/JJ2cs2MUX1oUXP/z5ukyJuub4RKWrt34MywoYH9VECcduT39c8PgRR1YXbEy/A0Ng==
-
 jquery-ui@^1.12.1:
   version "1.14.1"
   resolved "https://registry.yarnpkg.com/jquery-ui/-/jquery-ui-1.14.1.tgz#ba342ea3ffff662b787595391f607d923313e040"
