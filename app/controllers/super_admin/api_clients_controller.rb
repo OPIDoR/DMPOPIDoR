@@ -95,12 +95,20 @@ module SuperAdmin
       @api_client.generate_credentials
       @api_client.save
       @success = original != @api_client.client_secret
+      respond_to do |format|
+        format.turbo_stream
+        format.html { redirect_to edit_super_admin_api_client_path(@api_client) }
+      end
     end
 
     # GET /api_clients/:id/email_credentials/
     def email_credentials
       @api_client = ApiClient.find(params[:id])
       UserMailer.api_credentials(@api_client).deliver_now if @api_client.present?
+      respond_to do |format|
+        format.turbo_stream
+        format.html { redirect_to edit_super_admin_api_client_path(@api_client) }
+      end
     end
 
     private

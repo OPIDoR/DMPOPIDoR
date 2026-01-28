@@ -539,8 +539,8 @@ Rails.application.routes.draw do
 
     resources :api_clients do
       member do
-        get :email_credentials
-        get :refresh_credentials
+        post :email_credentials
+        post :refresh_credentials
       end
     end
 
