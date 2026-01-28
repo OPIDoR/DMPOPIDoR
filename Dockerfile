@@ -13,13 +13,8 @@ RUN apt update -y && apt install -y --no-install-recommends \
   libfontconfig1 \
   tzdata \
   gnupg2 && \
-  apt-get clean && rm -rf /var/lib/apt/lists/*
-RUN curl -sS https://dl.yarnpkg.com/debian/pubkey.gpg | gpg --dearmor -o /usr/share/keyrings/yarnkey.gpg && \
-  echo "deb [signed-by=/usr/share/keyrings/yarnkey.gpg] https://dl.yarnpkg.com/debian/ stable main" > \
-  /etc/apt/sources.list.d/yarn.list && \
-  apt-get update -y && apt-get install -y --no-install-recommends yarn && \
-  apt-get clean && rm -rf /var/lib/apt/lists/*
-RUN ln -sf /usr/share/zoneinfo/Europe/Paris /etc/localtime
+  apt-get clean && rm -rf /var/lib/apt/lists/* && \
+  ln -sf /usr/share/zoneinfo/Europe/Paris /etc/localtime
 
 FROM base AS dev
 ARG NODE_MAJOR=24
@@ -30,7 +25,8 @@ RUN mkdir -p /etc/apt/keyrings && \
   apt-get update -y && \
   apt-get install -y --no-install-recommends nodejs && \
   apt-get clean && \
-  rm -rf /var/lib/apt/lists/*
+  rm -rf /var/lib/apt/lists/* && \
+  npm install -g yarn
 RUN bundle install --jobs=4 --retry=3
 RUN yarn install && \
   yarn --cwd app/javascript/dmp_opidor_react install && \
@@ -47,10 +43,12 @@ RUN bin/docker ${DB_ADAPTER:-postgres} && \
   rm -rf /usr/local/bundle/cache
 
 FROM base AS production
+RUN groupadd -r dmpopidor && useradd -r -g dmpopidor -d /app -s /bin/bash dmpopidor && \
+    chown -R dmpopidor:dmpopidor /app
 COPY . .
-COPY --from=production-builder /app/public ./public
-COPY --from=production-builder /app/config ./config
-COPY --from=production-builder /usr/local/bundle /usr/local/bundle
+COPY --chown=dmpopidor:dmpopidor --from=production-builder /app/public ./public
+COPY --chown=dmpopidor:dmpopidor --from=production-builder /app/config ./config
+COPY --chown=dmpopidor:dmpopidor --from=production-builder /usr/local/bundle /usr/local/bundle
+USER dmpopidor
 EXPOSE 3000
-RUN chmod a+x /app/bin/run
 CMD [ "/app/bin/run" ]
