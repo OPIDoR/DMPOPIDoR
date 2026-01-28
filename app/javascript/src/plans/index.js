@@ -1,11 +1,12 @@
 import * as notifier from '../utils/notificationHelper';
 import getConstant from '../utils/constants';
+import toggleSpinner from '../utils/spinner';
 import { paginableSelector } from '../utils/paginable';
 
 document.addEventListener('turbo:load', () => {
   $(paginableSelector).on('ajax:success', 'input.set_test_plan', (e) => {
     const checkbox = $(e.target);
-    const data = e.detail[0]; 
+    const data = e.detail[0];
     if (data.code === 1 && data.msg && data.msg !== '') {
       notifier.renderNotice(data.msg);
     } else {
@@ -23,6 +24,9 @@ document.addEventListener('turbo:load', () => {
   $(paginableSelector).on('ajax:error', 'input.set_test_plan', (e) => {
     const xhr = e.detail(2);
     notifier.renderAlert(xhr.responseText);
+  });
+  $(document).on('click', '.copy-plan', () => {
+    toggleSpinner(true);
   });
 
   $('#create-modal').modal('show');

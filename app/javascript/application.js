@@ -62,7 +62,7 @@ import './src/devise/registrations/new';
 import './src/orgs/adminEdit';
 import './src/orgs/shibbolethDs';
 import './src/plans/download';
-import './src/plans/index.js.erb';
+import './src/plans/index';
 import './src/plans/researchOutputs';
 import './src/plans/share';
 import './src/publicTemplates/show';
