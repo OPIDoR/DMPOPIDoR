@@ -16,7 +16,6 @@ export default class extends Controller {
   }
 
   destroyChart() {
-    console.log('Destroying chart if it exists', this.chart);
     if (this.chart) {
       this.chart.clear();
       this.chart.destroy();
@@ -25,7 +24,6 @@ export default class extends Controller {
   }
 
   drawChart() {
-    console.log('Drawing chart', this.chart);
     this.chart = drawHorizontalBar(
       this.canvasTarget,
       this.dataValue,
