@@ -1,6 +1,5 @@
 const path = require('path');
 const webpack = require('webpack');
-const erbLoader = require('./loaders/erb');
 
 const mode = process.env.NODE_ENV === 'development' ? 'development' : 'production';
 
@@ -32,7 +31,6 @@ module.exports = {
         test: /\.(png|jpe?g|gif|eot|woff2|woff|ttf|svg)$/i,
         type: 'asset/resource',
       },
-      erbLoader,
     ],
   },
   entry: {

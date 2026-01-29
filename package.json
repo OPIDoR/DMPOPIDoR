@@ -58,7 +58,6 @@
     "jquery-ui": "^1.12.1",
     "js-cookie": "^3.0.1",
     "number-to-text": "^0.4.1",
-    "rails-erb-loader": "^5.5.2",
     "react": "^19.1.0",
     "react-dom": "^19.1.0",
     "regenerator-runtime": "^0.14.0",
