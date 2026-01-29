@@ -2,6 +2,9 @@
 
 **Attention** Cette liste de changements concerne les déploiements sur nos serveurs de test en interne.
 
+# 28/01/2026
+- Modification GraphQL : le champ researchOutput accepte désormais des paramètres permettant de filtrer les produits de recherche d’un plan.
+
 ## 22/01/2026
 - Améliorations de l'interface des recommandations (#14391)
   - Changement de position du bouton Réinitialiser
