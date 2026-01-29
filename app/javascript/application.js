@@ -24,6 +24,7 @@ import ResetFormController from './controllers/reset_form_controller.js';
 import SelectController from './controllers/select_controller.js';
 import TinyMceController from './controllers/tinymce_controller.js';
 import TemplateController from './controllers/template_controller.js';
+import UsageController from './controllers/usage_controller.js';
 
 // Uncomment to copy all static images under ../images to the output folder and reference
 // them with the image_pack_tag helper in views (e.g <%= image_pack_tag 'rails.png' %>)
@@ -113,3 +114,4 @@ window.Stimulus.register('resetForm', ResetFormController);
 window.Stimulus.register('select', SelectController);
 window.Stimulus.register('tinymce', TinyMceController);
 window.Stimulus.register('template', TemplateController);
+window.Stimulus.register('usage', UsageController);

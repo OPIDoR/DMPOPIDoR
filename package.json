@@ -51,6 +51,7 @@
     "bootstrap": "^5.3.3",
     "chart.js": "^4.2.1",
     "core-js": "^3.6.5",
+    "dayjs": "^1.11.19",
     "graphiql": "^5.0.0",
     "graphql": "^16.9.0",
     "jquery": "^3.5.1",
@@ -63,7 +64,6 @@
     "regenerator-runtime": "^0.14.0",
     "sass": "^1.57.1",
     "sweetalert2": "^11.7.32",
-    "timeago.js": "^4.0.2",
     "tinymce": "^8.0.0"
   },
   "devDependencies": {
