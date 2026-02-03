@@ -29,8 +29,6 @@ import toggleSpinner from './src/utils/spinner';
 // View specific JS
 import './src/answers/conditions';
 import './src/answers/edit';
-import './src/answers/rdaMetadata';
-import './src/contributors/form';
 import './src/devise/invitations/edit';
 import './src/devise/passwords/edit';
 import './src/devise/registrations/edit';
