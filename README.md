@@ -26,7 +26,7 @@ Further detail on how to install Ruby on Rails applications are available from t
 
 L'application se lance par défaut en mode développement.
 
-## Developpment
+## Development
 
 #### Installation
 See the [Installation Guide](https://github.com/DMPRoadmap/roadmap/wiki/Installation) on the Wiki.
@@ -37,13 +37,6 @@ See the [Installation Guide](https://github.com/DMPRoadmap/roadmap/wiki/Installa
 - [Docker](https://www.docker.com/)
 - [Docker compose](https://docs.docker.com/compose/install/)
 
-#### Installation
-
-```bash
-# init submodule
-git clone https://github.com/OPIDoR/dmp_opidor_react.git app/javascript/dmp_opidor_react
-
-```
 
 ##### Directus
 
