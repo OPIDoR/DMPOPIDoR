@@ -1,0 +1,86 @@
+@import url("./variable.css");
+
+.question_title {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  color: var(--dark-blue);
+}
+.question_icons {
+  min-width: 160px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.down_icon {
+  color: var(--rust);
+}
+.down_icon_anr {
+  color: white;
+}
+
+.question_text {
+  display: flex;
+  align-items: center;
+  font-family: "Helvetica Neue", sans-serif;
+  margin: 35px;
+}
+
+.title {
+  font-size: 30px;
+  color: var(--rust);
+}
+.title_anr {
+  font-size: 30px;
+  color: white;
+}
+.card {
+  margin: 20px;
+  position: relative;
+}
+
+:global(.card-heading a) {
+  background-color: white;
+  text-decoration: none;
+  border-radius: 10px;
+}
+
+:global(.funder-import a) {
+  background-color: var(--dark-blue);
+}
+
+.card_body {
+  position: relative;
+}
+
+.container_anr {
+  border-top: 1px solid var(--white);
+  padding: 10px 0;
+}
+
+.funding_description {
+  color: var(--white);
+}
+
+.anr_sharing {
+  color: var(--white);
+  border-radius: 5px;
+  background-color: var(--rust);
+  width: 100%;
+  padding: 5px;
+  margin-top: 8px;
+}
+
+.label_anr {
+  color: var(--white);
+}
+
+.label_form_anr {
+  font-size: 18px;
+  color: var(--blue);
+  font-family: "Helvetica Neue", sans-serif;
+  margin: 20px 0px 15px 0px;
+  display: flex;
+  align-items: center;
+}

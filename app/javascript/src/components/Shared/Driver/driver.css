@@ -1,0 +1,87 @@
+.driver-popover.dmp-theme {
+  background-color: var(--rust);
+  color: var(--white);
+  min-width: 650px;
+  box-sizing: border-box;
+}
+
+.driver-popover.dmp-theme .driver-popover-title {
+  color: var(--white);
+  display: flex;
+  justify-content: space-between;
+  padding: 10px 0 20px 0;
+  box-sizing: border-box;
+  border-radius: 10px 10px 0 0;
+  align-items: center;
+}
+
+.driver-popover.dmp-theme .driver-popover-description {
+  color: var(--dark-blue);
+  padding: 10px;
+  border-radius: 10px;
+  box-sizing: border-box;
+  align-items: center;
+  background: var(--white);
+  min-height: 100px;
+}
+
+.driver-popover.dmp-theme .driver-popover-title,
+.driver-popover.dmp-theme .driver-popover-progress-text {
+  color: var(--white);
+}
+
+.driver-popover.dmp-theme button {
+  color: var(--white);
+  padding: 5px;
+  background: transparent;
+  border: none;
+  font-size: 10px;
+  min-width: 90px;
+  text-shadow: none;
+}
+
+.driver-popover.dmp-theme button.driver-popover-close-btn {
+  color: var(--white);
+  border-radius: none;
+  background: none;
+  border: none;
+  font-size: 32px;
+  margin: 8px 10px 0 0;
+}
+
+.driver-popover.dmp-theme button.driver-popover-next-btn,
+.driver-popover.dmp-theme button.driver-popover-prev-btn {
+  border-radius: 8px;
+  background: var(--rust);
+  color: var(--white);
+  border: 1px solid var(--white);
+  padding: 5px 10px 5px 10px;
+  font-size: 16px;
+  text-align: center;
+}
+
+.driver-popover.dmp-theme button:hover,
+.driver-popover.dmp-theme .driver-popover-close-btn:hover {
+  filter: brightness(90%);
+}
+
+.driver-popover.dmp-theme .driver-popover-footer {
+  margin-top: -5px;
+  height: 60px;
+}
+
+.driver-popover.dmp-theme .driver-popover-arrow-side-left.driver-popover-arrow {
+  border-left-color: var(--rust);
+}
+
+.driver-popover.dmp-theme .driver-popover-arrow-side-right.driver-popover-arrow {
+  border-right-color: var(--rust);
+}
+
+.driver-popover.dmp-theme .driver-popover-arrow-side-top.driver-popover-arrow {
+  border-top-color: var(--rust);
+}
+
+.driver-popover.dmp-theme .driver-popover-arrow-side-bottom.driver-popover-arrow {
+  border-bottom-color: var(--rust);
+}

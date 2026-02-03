@@ -1,0 +1,16 @@
+.container {
+  background-color: var(--dark-blue);
+  padding: 15px;
+  border-radius: 10px;
+}
+
+.label {
+  color: white;
+  font-weight: bold;
+}
+
+.form_change_toggle {
+  position: absolute;
+  right: 10px;
+  top: 10px;
+}

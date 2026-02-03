@@ -1,0 +1,23 @@
+.info_box {
+  border: solid;
+  padding: 15px;
+  border-width: 2px;
+  border-color: var(--dark-blue);
+  background-color: white;
+  margin: 0px 0px 20px 0px;
+}
+
+
+.legend {
+  color: var(--dark-blue);
+  text-transform: none;
+}
+
+
+.modal_tabs {
+  background-color: white;
+}
+
+.modal_tab {
+  font-size: 20px;
+}
