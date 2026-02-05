@@ -1,18 +1,21 @@
-import React, { useContext, useEffect, useState } from 'react';
-import { useFormContext, useController } from 'react-hook-form';
-import { useTranslation } from 'react-i18next';
-import { Tooltip as ReactTooltip } from 'react-tooltip';
-import uniqueId from 'lodash.uniqueid';
-import { FaXmark } from 'react-icons/fa6';
+import { useContext, useEffect, useState } from "react";
+import { useFormContext, useController } from "react-hook-form";
+import { useTranslation } from "react-i18next";
+import { Tooltip as ReactTooltip } from "react-tooltip";
+import uniqueId from "lodash.uniqueid";
+import { FaXmark } from "react-icons/fa6";
 
-import { service } from '../../../services/index.js';
-import { createOptions, createRegistryPlaceholder } from '../../../utils/GeneratorUtils.js';
-import { GlobalContext } from '../../context/Global.jsx';
-import * as styles from '../../assets/css/form.module.css';
-import CustomSelect from '../../Shared/CustomSelect.jsx';
-import { ASYNC_SELECT_OPTION_THRESHOLD } from '../../../config.js';
-import TooltipInfoIcon from '../TooltipInfoIcon.jsx';
-import { getErrorMessage } from '../../../utils/utils.js';
+import { service } from "../../../services/index.js";
+import {
+  createOptions,
+  createRegistryPlaceholder,
+} from "../../../utils/GeneratorUtils.js";
+import { GlobalContext } from "../../context/Global.jsx";
+import * as styles from "../../assets/css/form.module.css";
+import CustomSelect from "../../Shared/CustomSelect.jsx";
+import { ASYNC_SELECT_OPTION_THRESHOLD } from "../../../config.js";
+import TooltipInfoIcon from "../TooltipInfoIcon.jsx";
+import { getErrorMessage } from "../../../utils/utils.js";
 
 /* This is a functional component in JavaScript React that renders a select list with options fetched from a registry. It takes in several props such as
 label, name, changeValue, tooltip, registry, and schemaId. It uses the useState and useEffect hooks to manage the state of the options and to fetch
@@ -32,27 +35,35 @@ function SelectSingleString({
   const { t } = useTranslation();
   const { control } = useFormContext();
   const { field } = useController({ control, name: propName });
-  const [options, setOptions] = useState([{ value: '', label: '' }]);
-  const {
-    locale,
-    loadedRegistries, setLoadedRegistries,
-  } = useContext(GlobalContext);
+  const [options, setOptions] = useState([{ value: "", label: "" }]);
+  const { locale, loadedRegistries, setLoadedRegistries } =
+    useContext(GlobalContext);
   const [error, setError] = useState(null);
   const [selectedRegistry, setSelectedRegistry] = useState(null);
   const [availableRegistries, setAvailableRegistries] = useState([]);
-  const [selectedOption, setSelectedOption] = useState({ value: '', label: '' });
-  const tooltipId = uniqueId('select_single_list_tooltip_id_');
-  const inputId = uniqueId('select_single_list_id_');
+  const [selectedOption, setSelectedOption] = useState({
+    value: "",
+    label: "",
+  });
+  const tooltipId = uniqueId("select_single_list_tooltip_id_");
+  const inputId = uniqueId("select_single_list_id_");
 
   useEffect(() => {
     if (category) {
-      service.getAvailableRegistries(category, dataType, topic)
+      service
+        .getAvailableRegistries(category, dataType, topic)
         .then((res) => {
-          const registriesData = Array?.isArray(res.data) ? res.data.map((r) => r.name) : [res.data.name]; setAvailableRegistries(registriesData);
+          const registriesData = Array?.isArray(res.data)
+            ? res.data.map((r) => r.name)
+            : [res.data.name];
+          setAvailableRegistries(registriesData);
           if (registriesData.length === 1) {
             const registry = res.data[0];
             setSelectedRegistry(registry.name);
-            setLoadedRegistries({ ...loadedRegistries, [registry.name]: registry.values });
+            setLoadedRegistries({
+              ...loadedRegistries,
+              [registry.name]: registry.values,
+            });
             setOptions(createOptions(registry.values, locale));
           }
         })
@@ -93,9 +104,13 @@ function SelectSingleString({
       if (loadedRegistries[selectedRegistry]) {
         setOptions(createOptions(loadedRegistries[selectedRegistry], locale));
       } else {
-        service.getRegistryByName(selectedRegistry)
+        service
+          .getRegistryByName(selectedRegistry)
           .then((res) => {
-            setLoadedRegistries({ ...loadedRegistries, [selectedRegistry]: res.data });
+            setLoadedRegistries({
+              ...loadedRegistries,
+              [selectedRegistry]: res.data,
+            });
             setOptions(createOptions(res.data, locale));
           })
           .catch((error) => {
@@ -110,7 +125,7 @@ function SelectSingleString({
    * @param e - the event object
    */
   const handleSelectRegistryValue = (e) => {
-    if (!e) return { target: { name: propName, value: '' } };
+    if (!e) return { target: { name: propName, value: "" } };
 
     return field.onChange(e.value);
   };
@@ -126,28 +141,34 @@ function SelectSingleString({
     <div>
       <div className="form-group">
         <div className={styles.label_form}>
-          <label htmlFor={inputId} data-testid="select-single-string-label" data-tooltip-id={tooltipId}>
+          <label
+            htmlFor={inputId}
+            data-testid="select-single-string-label"
+            data-tooltip-id={tooltipId}
+          >
             {label}
-            {tooltip && (<TooltipInfoIcon />)}
+            {tooltip && <TooltipInfoIcon />}
           </label>
-          {
-            tooltip && (
-              <ReactTooltip
-                id={tooltipId}
-                place="bottom"
-                effect="solid"
-                variant="info" style={{ width: '300px', textAlign: 'center' }}
-                content={tooltip}
-              />
-            )
-          }
+          {tooltip && (
+            <ReactTooltip
+              id={tooltipId}
+              place="bottom"
+              effect="solid"
+              variant="info"
+              style={{ width: "300px", textAlign: "center" }}
+              content={tooltip}
+            />
+          )}
         </div>
 
         <span className={styles.errorMessage}>{error}</span>
         {/* ************Select registry************** */}
         <div className="row">
           {availableRegistries && availableRegistries.length > 1 && (
-            <div data-testid="select-single-string-registry-selector" className="col-md-6">
+            <div
+              data-testid="select-single-string-registry-selector"
+              className="col-md-6"
+            >
               <div className="row">
                 <div className={`col-md-11 ${styles.select_wrapper}`}>
                   <CustomSelect
@@ -159,17 +180,26 @@ function SelectSingleString({
                     }))}
                     name={propName}
                     selectedOption={
-                      selectedRegistry ? { value: selectedRegistry, label: selectedRegistry } : null
+                      selectedRegistry
+                        ? { value: selectedRegistry, label: selectedRegistry }
+                        : null
                     }
                     isDisabled={readonly}
-                    placeholder={t('selectRegistry')}
+                    placeholder={t("selectRegistry")}
                   />
                 </div>
               </div>
             </div>
           )}
 
-          <div className={availableRegistries && availableRegistries.length > 1 ? 'col-md-6' : 'col-md-12'} data-testid="select-single-string-div">
+          <div
+            className={
+              availableRegistries && availableRegistries.length > 1
+                ? "col-md-6"
+                : "col-md-12"
+            }
+            data-testid="select-single-string-div"
+          >
             <div className="row">
               <div className={`col-md-11 ${styles.select_wrapper}`}>
                 {options && (
@@ -181,7 +211,13 @@ function SelectSingleString({
                     selectedOption={selectedOption}
                     isDisabled={readonly || !selectedRegistry}
                     async={options.length > ASYNC_SELECT_OPTION_THRESHOLD}
-                    placeholder={createRegistryPlaceholder(availableRegistries.length, false, overridable, 'simple', t)}
+                    placeholder={createRegistryPlaceholder(
+                      availableRegistries.length,
+                      false,
+                      overridable,
+                      "simple",
+                      t,
+                    )}
                     overridable={overridable}
                   />
                 )}

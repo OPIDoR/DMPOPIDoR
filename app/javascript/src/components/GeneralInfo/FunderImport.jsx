@@ -1,23 +1,23 @@
-import React, { useContext, useEffect, useState } from 'react';
+import { useContext, useEffect, useState } from "react";
 
-import Button from 'react-bootstrap/Button';
-import Card from 'react-bootstrap/Card';
-import Collapse from 'react-bootstrap/Collapse';
+import Button from "react-bootstrap/Button";
+import Card from "react-bootstrap/Card";
+import Collapse from "react-bootstrap/Collapse";
 
-import { useTranslation } from 'react-i18next';
-import Swal from 'sweetalert2';
-import { TfiAngleDown, TfiAngleRight } from 'react-icons/tfi';
-import { toast } from 'react-hot-toast';
-import styled from 'styled-components';
+import { useTranslation } from "react-i18next";
+import Swal from "sweetalert2";
+import { TfiAngleDown, TfiAngleRight } from "react-icons/tfi";
+import { toast } from "react-hot-toast";
+import styled from "styled-components";
 
-import * as styles from '../assets/css/general_info.module.css';
-import { GlobalContext } from '../context/Global';
-import { generalInfo, service } from '../../services';
-import CustomError from '../Shared/CustomError';
-import CustomSpinner from '../Shared/CustomSpinner';
-import CustomSelect from '../Shared/CustomSelect';
-import { filterOptions } from '../../utils/GeneratorUtils';
-import { getErrorMessage, normalize } from '../../utils/utils';
+import * as styles from "../assets/css/general_info.module.css";
+import { GlobalContext } from "../context/Global";
+import { generalInfo, service } from "../../services";
+import CustomError from "../Shared/CustomError";
+import CustomSpinner from "../Shared/CustomSpinner";
+import CustomSelect from "../Shared/CustomSelect";
+import { filterOptions } from "../../utils/GeneratorUtils";
+import { getErrorMessage, normalize } from "../../utils/utils";
 
 export const ButtonSave = styled.button`+
 margin: 10px 2px 2px 0px;
@@ -29,7 +29,11 @@ margin: 10px 2px 2px 0px;
 `;
 
 function FunderImport({
-  projectFragmentId, metaFragmentId, researchContext, locale, isClassic,
+  projectFragmentId,
+  metaFragmentId,
+  researchContext,
+  locale,
+  isClassic,
 }) {
   const { t } = useTranslation();
   const { setFormData, setPersons } = useContext(GlobalContext);
@@ -45,7 +49,7 @@ function FunderImport({
   /* This `useEffect` hook is fetching data for funding organizations and setting the options for a `Select` component. It runs only once when the
   component mounts, as the dependency array `[]` is empty. */
   useEffect(() => {
-    service.getRegistryByName('FundersWithImport').then(({ data }) => {
+    service.getRegistryByName("FundersWithImport").then(({ data }) => {
       const options = data.map((funder, index) => ({
         value: funder.id || index,
         label: funder.label[locale],
@@ -64,12 +68,13 @@ function FunderImport({
     setSelectedFunder(e);
     setSelectedProject(null);
 
-    if (researchContext !== 'research_project') {
+    if (researchContext !== "research_project") {
       return;
     }
 
     setLoading(true);
-    return service.getRegistryByName(e.registry)
+    return service
+      .getRegistryByName(e.registry)
       .then((res) => {
         const options = res.data.map((option) => ({
           value: option.value,
@@ -80,7 +85,7 @@ function FunderImport({
       })
       .catch((error) => {
         setError(error);
-        toast.error(t('An error occurred'));
+        toast.error(t("An error occurred"));
       })
       .finally(() => setLoading(false));
   };
@@ -95,15 +100,18 @@ function FunderImport({
 
     if (selectedFunder?.apiClient && !isClassic) {
       return Swal.fire({
-        html: t('importedDataSharePlanPrompt', { title: selectedProject.title, label: selectedFunder.label }),
-        footer: `<div style="font-size: 16px">${t('considerDoingItLaterInShareTab')}</div>`,
-        icon: 'info',
-        width: '500px',
+        html: t("importedDataSharePlanPrompt", {
+          title: selectedProject.title,
+          label: selectedFunder.label,
+        }),
+        footer: `<div style="font-size: 16px">${t("considerDoingItLaterInShareTab")}</div>`,
+        icon: "info",
+        width: "500px",
         showCancelButton: true,
-        confirmButtonColor: '#2c7dad',
-        cancelButtonColor: '#c6503d',
-        cancelButtonText: t('no'),
-        confirmButtonText: t('yes'),
+        confirmButtonColor: "#2c7dad",
+        cancelButtonColor: "#c6503d",
+        cancelButtonText: t("no"),
+        confirmButtonText: t("yes"),
       }).then((result) => {
         if (result.isConfirmed) {
           return share(selectedFunder?.apiClient);
@@ -115,25 +123,36 @@ function FunderImport({
   const share = async (apiClient) => {
     let response;
     try {
-      response = await generalInfo.share(selectedProject.grantId, projectFragmentId, apiClient);
+      response = await generalInfo.share(
+        selectedProject.grantId,
+        projectFragmentId,
+        apiClient,
+      );
     } catch (error) {
       setLoading(false);
-      const errorMessage = getErrorMessage(error) || t('importErrorProject');
+      const errorMessage = getErrorMessage(error) || t("importErrorProject");
       return toast.error(errorMessage);
     }
 
     triggerRefresh({ clients: response?.data?.clients || [] });
 
-    toast.success(t('planSharedWithNames', { names: selectedFunder?.apiClient }), { style: { maxWidth: 500 } });
+    toast.success(
+      t("planSharedWithNames", { names: selectedFunder?.apiClient }),
+      { style: { maxWidth: 500 } },
+    );
   };
 
   const saveFunding = async () => {
     let response;
     try {
-      response = await generalInfo.importProject(selectedProject.grantId, projectFragmentId, selectedFunder.scriptName);
+      response = await generalInfo.importProject(
+        selectedProject.grantId,
+        projectFragmentId,
+        selectedFunder.scriptName,
+      );
     } catch (error) {
       setLoading(false);
-      const errorMessage = getErrorMessage(error) || t('importErrorProject');
+      const errorMessage = getErrorMessage(error) || t("importErrorProject");
       return toast.error(errorMessage);
     }
 
@@ -143,15 +162,19 @@ function FunderImport({
       [projectFragmentId]: response.data.fragment.project,
       [metaFragmentId]: response.data.fragment.meta,
     });
-    document.getElementById('plan-title').innerHTML = response.data.fragment.meta.title;
+    document.getElementById("plan-title").innerHTML =
+      response.data.fragment.meta.title;
     setPersons(response.data.persons);
-    toast.success(t('importSuccessProject', { projectTitle: selectedProject.title }), { style: { maxWidth: 500 } });
+    toast.success(
+      t("importSuccessProject", { projectTitle: selectedProject.title }),
+      { style: { maxWidth: 500 } },
+    );
 
     setLoading(false);
   };
 
   const triggerRefresh = (message) => {
-    const event = new CustomEvent('trigger-refresh-shared-label', {
+    const event = new CustomEvent("trigger-refresh-shared-label", {
       detail: { message },
     });
     window.dispatchEvent(event);
@@ -161,14 +184,22 @@ function FunderImport({
     <Card
       className={styles.card}
       style={{
-        border: '2px solid var(--dark-blue)',
-        borderRadius: '10px',
-      }}>
+        border: "2px solid var(--dark-blue)",
+        borderRadius: "10px",
+      }}
+    >
       {loading && <CustomSpinner isOverlay={true} />}
       {error && <CustomError error={error} />}
-      <Card.Header className="funder-import" style={{ background: 'var(--dark-blue)', borderBottom: 'none' }}>
+      <Card.Header
+        className="funder-import"
+        style={{ background: "var(--dark-blue)", borderBottom: "none" }}
+      >
         <Button
-          style={{ backgroundColor: 'var(--dark-blue)', width: '100%', border: 'none' }}
+          style={{
+            backgroundColor: "var(--dark-blue)",
+            width: "100%",
+            border: "none",
+          }}
           onClick={() => setIsOpenFunderImport(!isOpenFunderImport)}
           aria-controls="funder-import-collapse"
           aria-expanded={isOpenFunderImport}
@@ -176,13 +207,21 @@ function FunderImport({
           <Card.Title>
             <div className={styles.question_title}>
               <div className={styles.question_text}>
-                <div className={styles.title_anr}>{t('importFundedInfo')}</div>
+                <div className={styles.title_anr}>{t("importFundedInfo")}</div>
               </div>
               <span className={styles.question_icons}>
                 {isOpenFunderImport ? (
-                  <TfiAngleDown style={{ minWidth: '35px' }} size={35} className={styles.down_icon_anr} />
+                  <TfiAngleDown
+                    style={{ minWidth: "35px" }}
+                    size={35}
+                    className={styles.down_icon_anr}
+                  />
                 ) : (
-                  <TfiAngleRight style={{ minWidth: '35px' }} size={35} className={styles.down_icon_anr} />
+                  <TfiAngleRight
+                    style={{ minWidth: "35px" }}
+                    size={35}
+                    className={styles.down_icon_anr}
+                  />
                 )}
               </span>
             </div>
@@ -191,14 +230,24 @@ function FunderImport({
       </Card.Header>
       <Collapse in={isOpenFunderImport}>
         <div id="funder-import-collapse">
-          <Card.Body className={styles.card_body} style={{ background: 'var(--dark-blue)', borderRadius: '0px 0px 10px 10px' }}>
+          <Card.Body
+            className={styles.card_body}
+            style={{
+              background: "var(--dark-blue)",
+              borderRadius: "0px 0px 10px 10px",
+            }}
+          >
             {!error && funders && (
               <div className={styles.container_anr}>
-                <p className={styles.funding_description}>{t('funderImportInfo')}</p>
+                <p className={styles.funding_description}>
+                  {t("funderImportInfo")}
+                </p>
                 {funders.length > 1 && (
                   <div>
                     <div className={styles.label_form_anr}>
-                      <label className={styles.label_anr}>{t('selectFunder')}</label>
+                      <label className={styles.label_anr}>
+                        {t("selectFunder")}
+                      </label>
                     </div>
                     <CustomSelect
                       options={funders}
@@ -207,28 +256,47 @@ function FunderImport({
                     />
                   </div>
                 )}
-                {!isClassic && normalize(selectedFunder?.apiClient) === 'anr' && <div className={styles.anr_sharing}>
-                  {t('anrShareInvitation')}
-                </div>}
+                {!isClassic &&
+                  normalize(selectedFunder?.apiClient) === "anr" && (
+                    <div className={styles.anr_sharing}>
+                      {t("anrShareInvitation")}
+                    </div>
+                  )}
                 {fundedProjects.length > 0 && (
                   <div className="form-group">
                     <div className={styles.label_form_anr}>
-                      <label className={styles.label_anr}>{t('selectProjectDetails')}</label>
+                      <label className={styles.label_anr}>
+                        {t("selectProjectDetails")}
+                      </label>
                     </div>
                     <CustomSelect
                       options={fundedProjects}
-                      selectedOption={selectedProject ? { value: selectedProject.grantId, label: selectedProject.title } : null}
-                      onSelectChange={(e) => setSelectedProject(e ? e.object : null)}
+                      selectedOption={
+                        selectedProject
+                          ? {
+                              value: selectedProject.grantId,
+                              label: selectedProject.title,
+                            }
+                          : null
+                      }
+                      onSelectChange={(e) =>
+                        setSelectedProject(e ? e.object : null)
+                      }
                       async={true}
-                      asyncCallback={(value) => filterOptions(fundedProjects, value)}
+                      asyncCallback={(value) =>
+                        filterOptions(fundedProjects, value)
+                      }
                       isClearable={true}
                       isSearchable={true}
                     />
                   </div>
                 )}
                 {selectedProject && (
-                  <ButtonSave className="btn btn-light" onClick={handleSaveFunding}>
-                    {t('save')}
+                  <ButtonSave
+                    className="btn btn-light"
+                    onClick={handleSaveFunding}
+                  >
+                    {t("save")}
                   </ButtonSave>
                 )}
               </div>

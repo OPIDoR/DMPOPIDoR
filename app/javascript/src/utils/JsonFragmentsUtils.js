@@ -1,4 +1,4 @@
-import { exists, pick } from './utils';
+import { exists, pick } from "./utils";
 
 /**
  * This method builds a select options list from a contributor array
@@ -11,8 +11,13 @@ export function createPersonsOptions(contributorsList) {
     object: option,
   }));
 }
-export function checkFragmentExists(fragmentList, newFragment, unicityCriteria) {
-  if (unicityCriteria === undefined || unicityCriteria.length === 0) return false;
+export function checkFragmentExists(
+  fragmentList,
+  newFragment,
+  unicityCriteria,
+) {
+  if (unicityCriteria === undefined || unicityCriteria.length === 0)
+    return false;
   if (fragmentList.length === 0) return false;
 
   // the filter method is here to remove the fragment from the list based on its id

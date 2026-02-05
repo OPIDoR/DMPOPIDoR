@@ -1,12 +1,12 @@
-import { useEffect } from 'react';
-import { useTranslation } from 'react-i18next';
-import { Tooltip as ReactTooltip } from 'react-tooltip';
-import styled from 'styled-components';
-import { MdOutlineCookie } from 'react-icons/md';
-import * as cookieConsent from 'vanilla-cookieconsent';
-import 'vanilla-cookieconsent/dist/cookieconsent.css';
+import { useEffect } from "react";
+import { useTranslation } from "react-i18next";
+import { Tooltip as ReactTooltip } from "react-tooltip";
+import styled from "styled-components";
+import { MdOutlineCookie } from "react-icons/md";
+import * as cookieConsent from "vanilla-cookieconsent";
+import "vanilla-cookieconsent/dist/cookieconsent.css";
 
-import config from './config';
+import config from "./config";
 
 const CookieButton = styled.div`
   position: fixed;
@@ -34,7 +34,7 @@ const CookieConsent = () => {
   const { t, i18n } = useTranslation();
 
   useEffect(() => {
-    cookieConsent.setLanguage(i18n.resolvedLanguage || 'fr');
+    cookieConsent.setLanguage(i18n.resolvedLanguage || "fr");
     cookieConsent.run(config);
   }, []);
 
@@ -50,7 +50,7 @@ const CookieConsent = () => {
         place="right"
         effect="solid"
         variant="info"
-        content={t('cookiePreferences')}
+        content={t("cookiePreferences")}
       />
       <CookieButton
         data-tooltip-id="cookie-settings-button"

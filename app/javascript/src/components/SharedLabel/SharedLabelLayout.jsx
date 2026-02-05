@@ -1,7 +1,7 @@
-import React, { StrictMode, useEffect, useState } from 'react';
-import { useTranslation } from 'react-i18next';
+import { StrictMode, useEffect, useState } from "react";
+import { useTranslation } from "react-i18next";
 
-import '../../i18n.js';
+import "../../i18n.js";
 
 export default function SharedLabelLayout({ planId, clients }) {
   const { t } = useTranslation();
@@ -12,10 +12,10 @@ export default function SharedLabelLayout({ planId, clients }) {
       setClientsData(e.detail.message.clients);
     };
 
-    window.addEventListener('trigger-refresh-shared-label', handleRefresh);
+    window.addEventListener("trigger-refresh-shared-label", handleRefresh);
 
     return () => {
-      window.removeEventListener('trigger-refresh-shared-label', handleRefresh);
+      window.removeEventListener("trigger-refresh-shared-label", handleRefresh);
     };
   }, []);
 
@@ -24,11 +24,11 @@ export default function SharedLabelLayout({ planId, clients }) {
       <span>
         {clientsData?.length > 0 && (
           <a href={`/plans/${planId}/share`}>
-            <button className="btn btn-primary">{
-              t('planSharedWithNames', {
-                names: clientsData.join(', '),
-              })
-            }</button>
+            <button className="btn btn-primary">
+              {t("planSharedWithNames", {
+                names: clientsData.join(", "),
+              })}
+            </button>
           </a>
         )}
       </span>

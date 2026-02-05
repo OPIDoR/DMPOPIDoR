@@ -1,4 +1,4 @@
-import styled from 'styled-components';
+import styled from "styled-components";
 
 export const StyledUl = styled.ul`
   display: flex;
@@ -25,7 +25,7 @@ export const StyledLi = styled.li`
   font-weight: 900;
 
   &:not(:last-child)::after {
-    content: '●';
+    content: "●";
     margin: 0 20px 0 20px;
     display: inline-block;
     vertical-align: middle;

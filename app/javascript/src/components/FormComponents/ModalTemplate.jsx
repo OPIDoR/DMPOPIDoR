@@ -1,21 +1,21 @@
-import React, { useContext, useEffect, useState } from 'react';
-import { useFormContext, useFieldArray } from 'react-hook-form';
-import Swal from 'sweetalert2';
-import toast from 'react-hot-toast';
-import { useTranslation } from 'react-i18next';
-import { Tooltip as ReactTooltip } from 'react-tooltip';
-import uniqueId from 'lodash.uniqueid';
+import { useContext, useEffect, useState } from "react";
+import { useFormContext, useFieldArray } from "react-hook-form";
+import Swal from "sweetalert2";
+import toast from "react-hot-toast";
+import { useTranslation } from "react-i18next";
+import { Tooltip as ReactTooltip } from "react-tooltip";
+import uniqueId from "lodash.uniqueid";
 
-import { GlobalContext } from '../context/Global.jsx';
-import { service } from '../../services/index.js';
-import CustomButton from '../Styled/CustomButton.jsx';
-import * as styles from '../assets/css/form.module.css';
-import FragmentList from './FragmentList.jsx';
-import ModalForm from '../Forms/ModalForm.jsx';
-import swalUtils from '../../utils/swalUtils.js';
-import { getErrorMessage } from '../../utils/utils.js';
-import { checkFragmentExists } from '../../utils/JsonFragmentsUtils.js';
-import TooltipInfoIcon from './TooltipInfoIcon.jsx';
+import { GlobalContext } from "../context/Global.jsx";
+import { service } from "../../services/index.js";
+import CustomButton from "../Styled/CustomButton.jsx";
+import * as styles from "../assets/css/form.module.css";
+import FragmentList from "./FragmentList.jsx";
+import ModalForm from "../Forms/ModalForm.jsx";
+import swalUtils from "../../utils/swalUtils.js";
+import { getErrorMessage } from "../../utils/utils.js";
+import { checkFragmentExists } from "../../utils/JsonFragmentsUtils.js";
+import TooltipInfoIcon from "./TooltipInfoIcon.jsx";
 
 /**
  * It takes a template name as an argument, loads the template file, and then
@@ -37,28 +37,33 @@ function ModalTemplate({
 }) {
   const { t } = useTranslation();
   const [show, setShow] = useState(false);
-  const {
-    loadedTemplates, setLoadedTemplates,
-  } = useContext(GlobalContext);
+  const { loadedTemplates, setLoadedTemplates } = useContext(GlobalContext);
   const { control } = useFormContext();
-  const { fields, append, update } = useFieldArray({ control, name: propName, keyName: '_id' });
+  const { fields, append, update } = useFieldArray({
+    control,
+    name: propName,
+    keyName: "_id",
+  });
   const [editedFragment, setEditedFragment] = useState({});
   const [index, setIndex] = useState(null);
   const [error, setError] = useState(null);
-  const tooltipId = uniqueId('modal_template_tooltip_id_');
+  const tooltipId = uniqueId("modal_template_tooltip_id_");
 
   const [template, setTemplate] = useState(null);
 
-  const filteredFragmentList = fields.filter((el) => el.action !== 'delete');
+  const filteredFragmentList = fields.filter((el) => el.action !== "delete");
 
   useEffect(() => {
     if (!loadedTemplates[templateName]) {
-      service.getSchemaByName(templateName).then((res) => {
-        setTemplate(res.data);
-        setLoadedTemplates({ ...loadedTemplates, [templateName]: res.data });
-      }).catch((error) => {
-        setError(getErrorMessage(error));
-      });
+      service
+        .getSchemaByName(templateName)
+        .then((res) => {
+          setTemplate(res.data);
+          setLoadedTemplates({ ...loadedTemplates, [templateName]: res.data });
+        })
+        .catch((error) => {
+          setError(getErrorMessage(error));
+        });
     } else {
       setTemplate(loadedTemplates[templateName]);
     }
@@ -81,19 +86,19 @@ function ModalTemplate({
     if (!data) return handleClose();
 
     if (checkFragmentExists(fields, data, template.schema.unicity)) {
-      setError(t('recordAlreadyExists'));
+      setError(t("recordAlreadyExists"));
     } else {
       if (index !== null) {
         const updatedFragment = {
           ...fields[index],
           ...data,
-          action: fields[index].action || 'update',
+          action: fields[index].action || "update",
         };
         update(index, updatedFragment);
       } else {
         handleSaveNew(data);
       }
-      toast.success(t('saveSuccess'));
+      toast.success(t("saveSuccess"));
     }
     handleClose();
   };
@@ -103,7 +108,7 @@ function ModalTemplate({
    * the modalData is set to null, and the modal is closed.
    */
   const handleSaveNew = (data) => {
-    append({ ...data, action: 'create' });
+    append({ ...data, action: "create" });
     handleClose();
   };
 
@@ -115,7 +120,7 @@ function ModalTemplate({
   const handleDelete = (idx) => {
     Swal.fire(swalUtils.defaultConfirmConfig(t)).then((result) => {
       if (result.isConfirmed) {
-        update(idx, { ...fields[idx], action: 'delete' });
+        update(idx, { ...fields[idx], action: "delete" });
       }
     });
   };
@@ -135,19 +140,18 @@ function ModalTemplate({
         <div className={styles.label_form}>
           <label data-tooltip-id={tooltipId}>
             {formLabel}
-            {tooltip && (<TooltipInfoIcon tooltipId={tooltipId} />)}
+            {tooltip && <TooltipInfoIcon tooltipId={tooltipId} />}
           </label>
-          {
-            tooltip && (
-              <ReactTooltip
-                id={tooltipId}
-                place="bottom"
-                effect="solid"
-                variant="info" style={{ width: '300px', textAlign: 'center' }}
-                content={tooltip}
-              />
-            )
-          }
+          {tooltip && (
+            <ReactTooltip
+              id={tooltipId}
+              place="bottom"
+              effect="solid"
+              variant="info"
+              style={{ width: "300px", textAlign: "center" }}
+              content={tooltip}
+            />
+          )}
         </div>
         <span className={styles.errorMessage}>{error}</span>
         {template && filteredFragmentList.length > 0 && (
@@ -168,7 +172,7 @@ function ModalTemplate({
               setShow(true);
               setIndex(null);
             }}
-            title={t('addElement')}
+            title={t("addElement")}
             buttonColor="rust"
             position="start"
           ></CustomButton>
@@ -180,12 +184,17 @@ function ModalTemplate({
           template={template}
           mainFormDataType={dataType}
           mainFormTopic={topic}
-          label={index !== null ? `${t('edit')} : ${label}` : `${t('add')} : ${label}`}
+          label={
+            index !== null
+              ? `${t("edit")} : ${label}`
+              : `${t("add")} : ${label}`
+          }
           readonly={isConst ? true : readonly}
           show={show}
           handleSave={handleSave}
           handleClose={handleClose}
-        />)}
+        />
+      )}
     </>
   );
 }

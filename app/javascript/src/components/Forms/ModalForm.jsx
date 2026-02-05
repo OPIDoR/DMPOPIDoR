@@ -1,21 +1,27 @@
-import React, { useContext, useEffect } from 'react';
-import { useForm, FormProvider } from 'react-hook-form';
-import Button from 'react-bootstrap/Button';
-import Modal from 'react-bootstrap/Modal';
-import { useTranslation } from 'react-i18next';
+import { useContext, useEffect } from "react";
+import { useForm, FormProvider } from "react-hook-form";
+import Button from "react-bootstrap/Button";
+import Modal from "react-bootstrap/Modal";
+import { useTranslation } from "react-i18next";
 
-import { GlobalContext } from '../context/Global.jsx';
-import FormBuilder from './FormBuilder';
-import { ExternalImport } from '../ExternalImport';
-import { formatDefaultValues } from '../../utils/GeneratorUtils';
+import { GlobalContext } from "../context/Global.jsx";
+import FormBuilder from "./FormBuilder";
+import { ExternalImport } from "../ExternalImport";
+import { formatDefaultValues } from "../../utils/GeneratorUtils";
 
 function ModalForm({
-  data, template, mainFormDataType, mainFormTopic, label, readonly, show, handleSave, handleClose,
+  data,
+  template,
+  mainFormDataType,
+  mainFormTopic,
+  label,
+  readonly,
+  show,
+  handleSave,
+  handleClose,
 }) {
   const { t } = useTranslation();
-  const {
-    locale,
-  } = useContext(GlobalContext);
+  const { locale } = useContext(GlobalContext);
   const methods = useForm({ defaultValues: data });
 
   const externalImports = template?.schema?.externalImports || {};
@@ -38,7 +44,7 @@ function ModalForm({
   };
 
   const onInvalid = () => {
-    console.log('Modal form errors', methods.errors);
+    console.log("Modal form errors", methods.errors);
   };
 
   const handleModalSubmit = (e) => {
@@ -51,18 +57,41 @@ function ModalForm({
     methods.reset();
   };
 
-  const setValues = (data) => Object.keys(data)
-    .forEach((k) => methods.setValue(k, data[k], { shouldDirty: true }));
+  const setValues = (data) =>
+    Object.keys(data).forEach((k) =>
+      methods.setValue(k, data[k], { shouldDirty: true }),
+    );
 
   return (
-    <Modal enforceFocus={false} size="xl" className="dmpopidor-branding" show={show} backdrop={ 'static' } onHide={handleModalClose}>
+    <Modal
+      enforceFocus={false}
+      size="xl"
+      className="dmpopidor-branding"
+      show={show}
+      backdrop={"static"}
+      onHide={handleModalClose}
+    >
       <Modal.Header>
-        <Modal.Title style={{ color: 'var(--rust)', fontWeight: 'bold' }}>{label}</Modal.Title>
+        <Modal.Title style={{ color: "var(--rust)", fontWeight: "bold" }}>
+          {label}
+        </Modal.Title>
       </Modal.Header>
-      <Modal.Body style={{ padding: '20px !important' }}>
-        {Object.keys(externalImports)?.length > 0 && <ExternalImport fragment={methods} setFragment={setValues} externalImports={externalImports} locale={locale} />}
+      <Modal.Body style={{ padding: "20px !important" }}>
+        {Object.keys(externalImports)?.length > 0 && (
+          <ExternalImport
+            fragment={methods}
+            setFragment={setValues}
+            externalImports={externalImports}
+            locale={locale}
+          />
+        )}
         <FormProvider {...methods}>
-          <form name="modal-form" id="modal-form" style={{ margin: '15px' }} onSubmit={(e) => handleModalSubmit(e)}>
+          <form
+            name="modal-form"
+            id="modal-form"
+            style={{ margin: "15px" }}
+            onSubmit={(e) => handleModalSubmit(e)}
+          >
             <FormBuilder
               template={template.schema}
               dataType={mainFormDataType}
@@ -73,12 +102,15 @@ function ModalForm({
         </FormProvider>
       </Modal.Body>
       <Modal.Footer>
-        <Button onClick={handleModalClose}>
-          {t('close')}
-        </Button>
+        <Button onClick={handleModalClose}>{t("close")}</Button>
         {!readonly && (
-          <Button variant="primary" type="submit" form="modal-form" disabled={!methods.formState.isDirty}>
-            {t('save')}
+          <Button
+            variant="primary"
+            type="submit"
+            form="modal-form"
+            disabled={!methods.formState.isDirty}
+          >
+            {t("save")}
           </Button>
         )}
       </Modal.Footer>

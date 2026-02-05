@@ -1,21 +1,24 @@
-import React, { useEffect, useMemo, useState } from 'react';
-import { useTranslation, Trans } from 'react-i18next';
-import Swal from 'sweetalert2';
-import { toast } from 'react-hot-toast';
-import { FaInfoCircle } from 'react-icons/fa';
-import { PiTreeStructureDuotone, PiBank } from 'react-icons/pi';
-import { HiOutlineBuildingOffice2 } from 'react-icons/hi2';
-import { TbBulbFilled } from 'react-icons/tb';
+import { useEffect, useMemo, useState } from "react";
+import { useTranslation, Trans } from "react-i18next";
+import Swal from "sweetalert2";
+import { toast } from "react-hot-toast";
+import { FaInfoCircle } from "react-icons/fa";
+import { PiTreeStructureDuotone, PiBank } from "react-icons/pi";
+import { HiOutlineBuildingOffice2 } from "react-icons/hi2";
+import { TbBulbFilled } from "react-icons/tb";
 
-import * as styles from '../../assets/css/steps.module.css';
-import { CustomButton } from '../../Styled';
-import { CustomSpinner, CustomError, CustomSelect } from '../../Shared';
-import { clearLocalStorage, getErrorMessage } from '../../../utils/utils';
-import getTemplates from './data';
-import { planCreation } from '../../../services';
+import * as styles from "../../assets/css/steps.module.css";
+import { CustomButton } from "../../Styled";
+import { CustomSpinner, CustomError, CustomSelect } from "../../Shared";
+import { clearLocalStorage, getErrorMessage } from "../../../utils/utils";
+import getTemplates from "./data";
+import { planCreation } from "../../../services";
 
 function TemplateSelection({
-  prevStep, set, params: selectionData, setUrlParams,
+  prevStep,
+  set,
+  params: selectionData,
+  setUrlParams,
 }) {
   const { t } = useTranslation();
 
@@ -24,7 +27,7 @@ function TemplateSelection({
   const [error, setError] = useState(null);
   const [toogleDescription, setToogleDescription] = useState({});
 
-  const placeHolder = t('beginTyping');
+  const placeHolder = t("beginTyping");
 
   const params = useMemo(() => selectionData, [selectionData]);
 
@@ -32,16 +35,21 @@ function TemplateSelection({
   useEffect(() => {
     const tmpls = {
       default: {
-        title: t('structuredCommonTemplate'),
-        description: params.researchContext === 'research_project'
-          ? (<Trans t={t} i18nKey="recommendedByOpenScienceNetwork" components={{ strong: <strong /> }} />)
-          : null,
+        title: t("structuredCommonTemplate"),
+        description:
+          params.researchContext === "research_project" ? (
+            <Trans
+              t={t}
+              i18nKey="recommendedByOpenScienceNetwork"
+              components={{ strong: <strong /> }}
+            />
+          ) : null,
         templates: [],
       },
       others: {
-        id: 'others',
-        title: t('otherTemplates'),
-        type: 'select',
+        id: "others",
+        title: t("otherTemplates"),
+        type: "select",
         data: [],
       },
     };
@@ -75,15 +83,18 @@ function TemplateSelection({
   const handleSendTemplateId = async () => {
     if (!params.selectedTemplate) {
       return Swal.fire({
-        icon: 'error',
-        title: 'Oops...',
-        text: t('mustChooseTemplate'),
+        icon: "error",
+        title: "Oops...",
+        text: t("mustChooseTemplate"),
       });
     }
 
     let response;
     try {
-      response = await planCreation.createPlan(params.selectedTemplate, params.researchContext);
+      response = await planCreation.createPlan(
+        params.selectedTemplate,
+        params.researchContext,
+      );
     } catch (error) {
       const errorMessage = getErrorMessage(error);
 
@@ -115,31 +126,34 @@ function TemplateSelection({
   };
 
   const createList = ({ index, templates }) => {
-    if (templates.length === 0) { return []; }
+    if (templates.length === 0) {
+      return [];
+    }
 
     return templates.map((template) => (
       <div key={`template-content-${index}-${template.id}`}>
         <div
           key={`template-row-${index}-${template.id}`}
           style={{
-            display: 'flex',
-            width: '100%',
-            alignItems: 'center',
-          }}>
+            display: "flex",
+            width: "100%",
+            alignItems: "center",
+          }}
+        >
           <div
-            className={`${styles.step_list} ${template.id === params.selectedTemplate ? styles.checked : ''}`}
+            className={`${styles.step_list} ${template.id === params.selectedTemplate ? styles.checked : ""}`}
             key={`template-${index}-${template.id}`}
             style={{
-              cursor: 'pointer',
-              display: 'flex',
+              cursor: "pointer",
+              display: "flex",
               flex: 1,
-              justifyContent: 'space-between',
-              marginLeft: '20px',
+              justifyContent: "space-between",
+              marginLeft: "20px",
               marginTop: 0,
             }}
             onClick={() => {
-              localStorage.setItem('templateId', template.id);
-              localStorage.setItem('templateName', template.title);
+              localStorage.setItem("templateId", template.id);
+              localStorage.setItem("templateName", template.title);
               if (params.selectedTemplate === template.id) {
                 return set(null);
               }
@@ -149,12 +163,17 @@ function TemplateSelection({
             <div
               key={`template-${index}-title`}
               style={{
-                display: 'flex',
-                alignItems: 'center',
-                justifyContent: 'space-between',
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "space-between",
               }}
             >
-              {template?.structured && <PiTreeStructureDuotone size="18" style={{ marginRight: '10px' }} />}
+              {template?.structured && (
+                <PiTreeStructureDuotone
+                  size="18"
+                  style={{ marginRight: "10px" }}
+                />
+              )}
               {template.title}
             </div>
           </div>
@@ -163,21 +182,33 @@ function TemplateSelection({
               key={`template-${index}-magnifier`}
               size={18}
               onClick={() => {
-                if (!Object.prototype.hasOwnProperty.call(toogleDescription, template.id)) {
+                if (
+                  !Object.prototype.hasOwnProperty.call(
+                    toogleDescription,
+                    template.id,
+                  )
+                ) {
                   setToogleDescription((prevState) => ({
-                    ...Object.fromEntries(Object.entries(prevState).map(([key]) => [key, false])),
+                    ...Object.fromEntries(
+                      Object.entries(prevState).map(([key]) => [key, false]),
+                    ),
                     [template.id]: true,
                   }));
                 } else {
-                  setToogleDescription((prevState) => Object.keys(prevState).reduce((updatedState, key) => {
-                    updatedState[key] = Number.parseInt(key, 10) === template?.id ? !prevState[key] : false;
-                    return updatedState;
-                  }, {}));
+                  setToogleDescription((prevState) =>
+                    Object.keys(prevState).reduce((updatedState, key) => {
+                      updatedState[key] =
+                        Number.parseInt(key, 10) === template?.id
+                          ? !prevState[key]
+                          : false;
+                      return updatedState;
+                    }, {}),
+                  );
                 }
               }}
               style={{
-                margin: '-10px 10px 0 20px',
-                cursor: 'pointer',
+                margin: "-10px 10px 0 20px",
+                cursor: "pointer",
               }}
             />
           )}
@@ -186,12 +217,12 @@ function TemplateSelection({
           <div
             key={`description-content-${template.id}`}
             style={{
-              border: '1px solid var(--dark-blue)',
-              padding: '10px',
-              boxSizing: 'border-box',
-              borderRadius: '5px',
-              marginBottom: '20px',
-              boxShadow: '0px 0px 20px -10px var(--dark-blue)',
+              border: "1px solid var(--dark-blue)",
+              padding: "10px",
+              boxSizing: "border-box",
+              borderRadius: "5px",
+              marginBottom: "20px",
+              boxShadow: "0px 0px 20px -10px var(--dark-blue)",
             }}
             dangerouslySetInnerHTML={{
               __html: template?.description?.trim(),
@@ -203,7 +234,11 @@ function TemplateSelection({
   };
 
   const displayTemplatesByCategory = (index) => {
-    const noModelAvailable = (<p style={{ margin: '-10px 0 0 0' }} className={styles.subtitle}><i>{t('noModelAvailable')}</i></p>);
+    const noModelAvailable = (
+      <p style={{ margin: "-10px 0 0 0" }} className={styles.subtitle}>
+        <i>{t("noModelAvailable")}</i>
+      </p>
+    );
 
     if (!planTemplates[index].type) {
       const { templates } = planTemplates[index];
@@ -223,15 +258,20 @@ function TemplateSelection({
 
     const type = planTemplates?.[index].id;
 
-    data = data.map(({
-      name, id, templates, selected, type: dataType,
-    }) => {
+    data = data.map(({ name, id, templates, selected, type: dataType }) => {
       const types = {
-        org: <HiOutlineBuildingOffice2 size="18" style={{ margin: '0 10px 0 0' }} />,
-        funder: <PiBank size="18" style={{ margin: '0 10px 0 0' }} />,
+        org: (
+          <HiOutlineBuildingOffice2
+            size="18"
+            style={{ margin: "0 10px 0 0" }}
+          />
+        ),
+        funder: <PiBank size="18" style={{ margin: "0 10px 0 0" }} />,
       };
 
-      const hasSelectedTemplate = templates.some(({ id }) => id === params.selectedTemplate);
+      const hasSelectedTemplate = templates.some(
+        ({ id }) => id === params.selectedTemplate,
+      );
 
       return {
         label: name,
@@ -250,68 +290,81 @@ function TemplateSelection({
       }
     });
 
-    return structuredTemplates.length <= 0 ? noModelAvailable : <div style={{ marginLeft: '20px' }}>
-      <CustomSelect
-        key={`select-${index}-${type}`}
-        placeholder={placeHolder}
-        options={data}
-        onSelectChange={handleSelectedList}
-        selectedOption={data.find(({ selected }) => selected)}
-      />
-      <div key={`template-${index}-${type}`} style={{ margin: '10px 0 10px 20px' }}>
-        {createList({
-          index,
-          templates: data.find(({ selected }) => selected)?.templates || [],
-        })}
+    return structuredTemplates.length <= 0 ? (
+      noModelAvailable
+    ) : (
+      <div style={{ marginLeft: "20px" }}>
+        <CustomSelect
+          key={`select-${index}-${type}`}
+          placeholder={placeHolder}
+          options={data}
+          onSelectChange={handleSelectedList}
+          selectedOption={data.find(({ selected }) => selected)}
+        />
+        <div
+          key={`template-${index}-${type}`}
+          style={{ margin: "10px 0 10px 20px" }}
+        >
+          {createList({
+            index,
+            templates: data.find(({ selected }) => selected)?.templates || [],
+          })}
+        </div>
       </div>
-    </div>;
+    );
   };
 
   return (
     <div>
-      <h2>{t('chooseTemplate')}</h2>
+      <h2>{t("chooseTemplate")}</h2>
       {loading && <CustomSpinner />}
       {!loading && error && <CustomError error={error} />}
       {!loading && !error && (
         <>
           <div className="column">
-            {
-              Object.keys(planTemplates).map((index) => (
-                <div key={`category-${index}`}>
-                  <label key={`category-label-${index}`} className={`${styles.title}`}>
-                    {planTemplates?.[index]?.title}
-                  </label>
-                  {planTemplates?.[index]?.description && (
-                    <div className={'alert alert-info'} style={{
-                      borderRadius: '8px',
-                      margin: '-8px 0 8px 0',
-                      fontSize: '15px',
-                    }}>
-                      <TbBulbFilled
-                        fill={'var(--rust)'}
-                        size={24}
-                        style={{
-                          margin: '-8px 8px 0 0',
-                          color: 'var(--rust)',
-                        }}
-                      />
-                      {planTemplates?.[index]?.description}
-                    </div>
-                  )}
-                  {displayTemplatesByCategory(index)}
-                </div>
-              ))
-            }
+            {Object.keys(planTemplates).map((index) => (
+              <div key={`category-${index}`}>
+                <label
+                  key={`category-label-${index}`}
+                  className={`${styles.title}`}
+                >
+                  {planTemplates?.[index]?.title}
+                </label>
+                {planTemplates?.[index]?.description && (
+                  <div
+                    className={"alert alert-info"}
+                    style={{
+                      borderRadius: "8px",
+                      margin: "-8px 0 8px 0",
+                      fontSize: "15px",
+                    }}
+                  >
+                    <TbBulbFilled
+                      fill={"var(--rust)"}
+                      size={24}
+                      style={{
+                        margin: "-8px 8px 0 0",
+                        color: "var(--rust)",
+                      }}
+                    />
+                    {planTemplates?.[index]?.description}
+                  </div>
+                )}
+                {displayTemplatesByCategory(index)}
+              </div>
+            ))}
           </div>
-          <div style={{
-            display: 'flex',
-            justifyContent: 'space-between',
-          }}>
+          <div
+            style={{
+              display: "flex",
+              justifyContent: "space-between",
+            }}
+          >
             {prevStep}
-            <div className="row" style={{ margin: '0 0 0 25px' }}>
+            <div className="row" style={{ margin: "0 0 0 25px" }}>
               <CustomButton
                 handleClick={handleSendTemplateId}
-                title={t('confirmChoice')}
+                title={t("confirmChoice")}
                 position="end"
                 disabled={!params.selectedTemplate}
               />

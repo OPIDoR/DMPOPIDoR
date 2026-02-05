@@ -1,4 +1,4 @@
-import { createConsumer } from '@rails/actioncable';
+import { createConsumer } from "@rails/actioncable";
 
 const consumer = createConsumer();
 

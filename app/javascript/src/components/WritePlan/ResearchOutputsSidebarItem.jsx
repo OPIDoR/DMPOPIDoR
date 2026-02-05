@@ -1,21 +1,23 @@
-import React, { useContext, useEffect, useState } from 'react';
+import { useContext, useEffect, useState } from "react";
 
-import { GlobalContext } from '../context/Global';
-import { researchOutput } from '../../services';
+import { GlobalContext } from "../context/Global";
+import { researchOutput } from "../../services";
 
 function ResearchOutputsSidebarItem({ item, setLoading, children }) {
-  const {
-    setDisplayedResearchOutput,
-    setUrlParams,
-  } = useContext(GlobalContext);
-  const [selectedResearchOutputId, setSelectedResearchOutputId] = useState(null);
+  const { setDisplayedResearchOutput, setUrlParams } =
+    useContext(GlobalContext);
+  const [selectedResearchOutputId, setSelectedResearchOutputId] =
+    useState(null);
 
   useEffect(() => {
     if (selectedResearchOutputId) {
       setLoading(true);
-      researchOutput.get(selectedResearchOutputId).then((res) => {
-        setDisplayedResearchOutput(res.data);
-      }).finally(() => setLoading(false));
+      researchOutput
+        .get(selectedResearchOutputId)
+        .then((res) => {
+          setDisplayedResearchOutput(res.data);
+        })
+        .finally(() => setLoading(false));
     }
   }, [selectedResearchOutputId]);
 

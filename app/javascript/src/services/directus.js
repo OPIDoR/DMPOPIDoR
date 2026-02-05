@@ -1,4 +1,4 @@
-import { createDirectus, graphql } from '@directus/sdk';
+import { createDirectus, graphql } from "@directus/sdk";
 
 const createClient = (url) => {
   const client = createDirectus(url).with(graphql());

@@ -1,22 +1,20 @@
-import React, { useContext, useMemo } from 'react';
+import { useContext, useMemo } from "react";
 
-import { GlobalContext } from '../context/Global.jsx';
-import InputText from '../FormComponents/InputText.jsx';
-import InputTextArray from '../FormComponents/InputTextArray.jsx';
-import ModalTemplate from '../FormComponents/ModalTemplate';
-import SelectContributorMultiple from '../FormComponents/SelectContributorMultiple.jsx';
-import SelectContributorSingle from '../FormComponents/SelectContributorSingle.jsx';
-import SelectMultipleString from '../FormComponents/registries/SelectMultipleString.jsx';
-import SelectSingleString from '../FormComponents/registries/SelectSingleString.jsx';
-import SelectSingleObject from '../FormComponents/registries/SelectSingleObject.jsx';
-import SelectMultipleObject from '../FormComponents/registries/SelectMultipleObject.jsx';
-import TinyArea from '../FormComponents/TinyArea';
-import SubForm from '../FormComponents/SubForm.jsx';
-import { createFormLabel } from '../../utils/GeneratorUtils.js';
+import { GlobalContext } from "../context/Global.jsx";
+import InputText from "../FormComponents/InputText.jsx";
+import InputTextArray from "../FormComponents/InputTextArray.jsx";
+import ModalTemplate from "../FormComponents/ModalTemplate";
+import SelectContributorMultiple from "../FormComponents/SelectContributorMultiple.jsx";
+import SelectContributorSingle from "../FormComponents/SelectContributorSingle.jsx";
+import SelectMultipleString from "../FormComponents/registries/SelectMultipleString.jsx";
+import SelectSingleString from "../FormComponents/registries/SelectSingleString.jsx";
+import SelectSingleObject from "../FormComponents/registries/SelectSingleObject.jsx";
+import SelectMultipleObject from "../FormComponents/registries/SelectMultipleObject.jsx";
+import TinyArea from "../FormComponents/TinyArea";
+import SubForm from "../FormComponents/SubForm.jsx";
+import { createFormLabel } from "../../utils/GeneratorUtils.js";
 
-function FormBuilder({
-  template, dataType, topic, readonly,
-}) {
+function FormBuilder({ template, dataType, topic, readonly }) {
   const { locale } = useContext(GlobalContext);
   if (!template) return false;
   const properties = template.properties;
@@ -25,7 +23,7 @@ function FormBuilder({
 
   // si type shema is an object
   // retun est code html
-  if (template.type === 'object') {
+  if (template.type === "object") {
     for (const [key, prop] of Object.entries(properties)) {
       const formLabel = createFormLabel(prop, locale);
       const tooltip = prop[`tooltip@${locale}`];
@@ -34,13 +32,18 @@ function FormBuilder({
       /**
        * REGISTRIES
        */
-      if (prop.inputType === 'dropdown'
-        && (Object.prototype.hasOwnProperty.call(prop, 'registryCategory') || Object.prototype.hasOwnProperty.call(prop, 'registries'))
+      if (
+        prop.inputType === "dropdown" &&
+        (Object.prototype.hasOwnProperty.call(prop, "registryCategory") ||
+          Object.prototype.hasOwnProperty.call(prop, "registries"))
       ) {
-        const registries = useMemo(() => prop?.registries ?? [], [prop?.registries]);
+        const registries = useMemo(
+          () => prop?.registries ?? [],
+          [prop?.registries],
+        );
 
         // COMPLEX REGISTRY, ONE VALUE SELECTABLE
-        if (prop.template_name && prop.type === 'object') {
+        if (prop.template_name && prop.type === "object") {
           formFields.push(
             <SelectSingleObject
               key={key}
@@ -59,11 +62,11 @@ function FormBuilder({
           continue;
         }
         // COMPLEX REGISTRY, MULTIPLE VALUES SELECTABLE
-        if (prop.items?.template_name && prop.type === 'array') {
+        if (prop.items?.template_name && prop.type === "array") {
           formFields.push(
             <SelectMultipleObject
               key={key}
-              label={prop[`label@${locale}`] || 'No label defined'}
+              label={prop[`label@${locale}`] || "No label defined"}
               formLabel={formLabel}
               propName={key}
               tooltip={tooltip}
@@ -81,7 +84,7 @@ function FormBuilder({
           continue;
         }
         // SIMPLE REGISTRY, ONE VALUE SELECTABLE
-        if (prop.type === 'string') {
+        if (prop.type === "string") {
           formFields.push(
             <SelectSingleString
               key={key}
@@ -99,7 +102,7 @@ function FormBuilder({
           continue;
         }
         // MULTIPLE VALUES SELECTABLE
-        if (prop.type === 'array') {
+        if (prop.type === "array") {
           formFields.push(
             <SelectMultipleString
               key={key}
@@ -122,7 +125,10 @@ function FormBuilder({
        */
 
       // CONTRIBUTOR
-      if (prop.class === 'Contributor' || prop.class === 'ContributorStandard') {
+      if (
+        prop.class === "Contributor" ||
+        prop.class === "ContributorStandard"
+      ) {
         const defaultRole = defaults?.[key]?.role;
         formFields.push(
           <SelectContributorSingle
@@ -139,7 +145,7 @@ function FormBuilder({
         );
         continue;
       }
-      if (prop.template_name && prop.type === 'object') {
+      if (prop.template_name && prop.type === "object") {
         formFields.push(
           <SubForm
             key={key}
@@ -158,8 +164,15 @@ function FormBuilder({
       /**
        * SUB FRAGMENTS LIST
        */
-      if (prop.type === 'array' && prop.items.type === 'object' && prop.items.template_name) {
-        if (prop.items.class === 'Contributor' || prop.items.class === 'ContributorStandard') {
+      if (
+        prop.type === "array" &&
+        prop.items.type === "object" &&
+        prop.items.template_name
+      ) {
+        if (
+          prop.items.class === "Contributor" ||
+          prop.items.class === "ContributorStandard"
+        ) {
           const defaultRole = defaults?.[key]?.role;
           formFields.push(
             <SelectContributorMultiple
@@ -183,7 +196,7 @@ function FormBuilder({
               propName={key}
               dataType={dataType}
               topic={topic}
-              label={prop[`label@${locale}`] || 'No label defined'}
+              label={prop[`label@${locale}`] || "No label defined"}
               formLabel={formLabel}
               tooltip={tooltip}
               header={prop[`table_header@${locale}`]}
@@ -199,7 +212,7 @@ function FormBuilder({
       /**
        * ARRAY FIELDS
        */
-      if (prop.type === 'array' && prop.items.type === 'string') {
+      if (prop.type === "array" && prop.items.type === "string") {
         formFields.push(
           <InputTextArray
             key={key}
@@ -217,9 +230,9 @@ function FormBuilder({
        * TEXT FIELDS
        * TEXT & TEXTAREA
        */
-      if (prop.type === 'string' || prop.type === 'number') {
+      if (prop.type === "string" || prop.type === "number") {
         //   TEXTAREA
-        if (prop.inputType === 'textarea') {
+        if (prop.inputType === "textarea") {
           formFields.push(
             <TinyArea
               key={key}
@@ -243,7 +256,7 @@ function FormBuilder({
               tooltip={tooltip}
               hidden={prop.hidden}
               readonly={readonly || isConst}
-              min={prop.type === 'number' ? 0 : undefined}
+              min={prop.type === "number" ? 0 : undefined}
             ></InputText>,
           );
         }

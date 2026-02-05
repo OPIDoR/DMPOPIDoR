@@ -1,6 +1,4 @@
-import React, {
-  createContext, useReducer, useState,
-} from 'react';
+import { createContext, useReducer, useState } from "react";
 
 /**
  * If the incomingFormData is null, remove the formData from localStorage,
@@ -31,7 +29,7 @@ export const GlobalContext = createContext();
  * @returns The GlobalContext.Provider is being returned.
  */
 function Global({ children }) {
-  const [locale, setLocale] = useState('fr_FR');
+  const [locale, setLocale] = useState("fr_FR");
   const [dmpId, setDmpId] = useState(null);
   const [persons, setPersons] = useState([]);
   // Plan Creation
@@ -64,15 +62,21 @@ function Global({ children }) {
   // }, [researchOutputs]);
 
   const setUrlParams = (data = {}) => {
-    const currentParams = Object.fromEntries(new URLSearchParams(window.location.search));
+    const currentParams = Object.fromEntries(
+      new URLSearchParams(window.location.search),
+    );
     const mergedParams = { ...currentParams, ...data };
     Object.keys(mergedParams).forEach((key) => {
-      if (!mergedParams[key] || mergedParams[key] === '') {
+      if (!mergedParams[key] || mergedParams[key] === "") {
         delete mergedParams[key];
       }
     });
     const newSearchParams = new URLSearchParams(mergedParams);
-    window.history.replaceState(null, '', `${window.location.pathname}?${newSearchParams.toString()}`);
+    window.history.replaceState(
+      null,
+      "",
+      `${window.location.pathname}?${newSearchParams.toString()}`,
+    );
   };
 
   return (

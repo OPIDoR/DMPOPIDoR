@@ -1,12 +1,12 @@
-import js from '@eslint/js';
-import globals from 'globals';
-import react from 'eslint-plugin-react';
-import reactCompiler from 'eslint-plugin-react-compiler';
-import { defineConfig } from 'eslint/config';
-import { FlatCompat } from '@eslint/eslintrc';
-import { fixupConfigRules, fixupPluginRules } from '@eslint/compat';
-import path from 'node:path';
-import { fileURLToPath } from 'node:url';
+import js from "@eslint/js";
+import globals from "globals";
+import react from "eslint-plugin-react";
+import reactCompiler from "eslint-plugin-react-compiler";
+import { defineConfig } from "eslint/config";
+import { FlatCompat } from "@eslint/eslintrc";
+import { fixupConfigRules, fixupPluginRules } from "@eslint/compat";
+import path from "node:path";
+import { fileURLToPath } from "node:url";
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -17,16 +17,16 @@ const compat = new FlatCompat({
 
 export default defineConfig([
   {
-    files: ['**/*.{js,mjs,cjs,jsx,ts,tsx}'],
+    files: ["**/*.{js,mjs,cjs,jsx,ts,tsx}"],
 
     extends: [
       ...fixupConfigRules(
         compat.extends(
-          'plugin:react/recommended',
-          'plugin:react-hooks/recommended',
-          'plugin:react/jsx-runtime',
-          'plugin:prettier/recommended'
-        )
+          "plugin:react/recommended",
+          "plugin:react-hooks/recommended",
+          "plugin:react/jsx-runtime",
+          "plugin:prettier/recommended",
+        ),
       ),
       js.configs.recommended,
       reactCompiler.configs.recommended,
@@ -38,7 +38,7 @@ export default defineConfig([
 
     languageOptions: {
       ecmaVersion: 2022,
-      sourceType: 'module',
+      sourceType: "module",
       parserOptions: { ecmaFeatures: { jsx: true } },
       globals: {
         ...globals.node,
@@ -52,13 +52,14 @@ export default defineConfig([
     },
 
     settings: {
-      react: { version: 'detect' },
+      react: { version: "detect" },
     },
 
     rules: {
-      'prettier/prettier': 'error',
-      'react/no-deprecated': 'warn',
-      'react/no-direct-mutation-state': 'error',
+      "prettier/prettier": "error",
+      "react/no-deprecated": "warn",
+      "react/no-direct-mutation-state": "error",
+      "react/prop-types": "off", // TODO: disable this rule for now, need to be removed after migrating to TS
     },
   },
 ]);

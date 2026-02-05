@@ -1,24 +1,19 @@
-import React, { StrictMode } from 'react';
-import { Toaster } from 'react-hot-toast';
-import { useTranslation } from 'react-i18next';
+import { StrictMode } from "react";
+import { Toaster } from "react-hot-toast";
+import { useTranslation } from "react-i18next";
 
-import Global from '../context/Global.jsx';
-import WritePlan from './WritePlan.jsx';
-import '../../i18n.js';
+import Global from "../context/Global.jsx";
+import WritePlan from "./WritePlan.jsx";
+import "../../i18n.js";
 
-import Driver from '../Shared/Driver/index.jsx';
-import { writePlanSteps } from '../Shared/Tours';
+import Driver from "../Shared/Driver/index.jsx";
+import { writePlanSteps } from "../Shared/Tours";
 
 const toastOptions = {
   duration: 5000,
 };
 
-function WritePlanLayout({
-  planId,
-  locale = 'en_GB',
-  userId,
-  readonly,
-}) {
+function WritePlanLayout({ planId, locale = "en_GB", userId, readonly }) {
   const { t } = useTranslation();
 
   return (
@@ -33,7 +28,11 @@ function WritePlanLayout({
             className="research-outputs-tabs"
           />
         </Driver>
-        <Toaster position="bottom-right" toastOptions={toastOptions} reverseOrder={false} />
+        <Toaster
+          position="bottom-right"
+          toastOptions={toastOptions}
+          reverseOrder={false}
+        />
       </Global>
     </StrictMode>
   );

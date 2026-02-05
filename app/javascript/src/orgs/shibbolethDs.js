@@ -1,14 +1,18 @@
-import getConstant from '../utils/constants';
+import getConstant from "../utils/constants";
 
-document.addEventListener('turbo:load', () => {
-  $('#show_list').on('click', (e) => {
+document.addEventListener("turbo:load", () => {
+  $("#show_list").on("click", (e) => {
     e.preventDefault();
-    if ($('#full_list').is('.hidden')) {
-      $('#full_list').removeClass('hidden').attr('aria-hidden', 'false');
-      $(e.currentTarget).html(getConstant('SHIBBOLETH_DISCOVERY_SERVICE_HIDE_LIST'));
+    if ($("#full_list").is(".hidden")) {
+      $("#full_list").removeClass("hidden").attr("aria-hidden", "false");
+      $(e.currentTarget).html(
+        getConstant("SHIBBOLETH_DISCOVERY_SERVICE_HIDE_LIST"),
+      );
     } else {
-      $('#full_list').addClass('hidden').attr('aria-hidden', 'true');
-      $(e.currentTarget).html(getConstant('SHIBBOLETH_DISCOVERY_SERVICE_SHOW_LIST'));
+      $("#full_list").addClass("hidden").attr("aria-hidden", "true");
+      $(e.currentTarget).html(
+        getConstant("SHIBBOLETH_DISCOVERY_SERVICE_SHOW_LIST"),
+      );
     }
   });
 });

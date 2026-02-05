@@ -1,5 +1,5 @@
-import React from 'react';
-import * as styles from '../assets/css/stepper.module.css';
+import React from "react";
+import * as styles from "../assets/css/stepper.module.css";
 
 export function Stepper({ activeStep, children }) {
   const steps = React.Children.toArray(children);
@@ -17,9 +17,17 @@ export function Stepper({ activeStep, children }) {
         return (
           <div key={index} className={styles.step_item}>
             {index > 0 && (
-              <div className={`${styles.connector} ${index <= activeStep ? styles.connector_completed : ''}`}/>
+              <div
+                className={`${styles.connector} ${index <= activeStep ? styles.connector_completed : ""}`}
+              />
             )}
-            <div className={circleClass} onClick={isCompleted ? step.props.onClick : null} style={{ cursor: 'pointer' }} >{index + 1}</div>
+            <div
+              className={circleClass}
+              onClick={isCompleted ? step.props.onClick : null}
+              style={{ cursor: "pointer" }}
+            >
+              {index + 1}
+            </div>
             <div className={styles.step_label}> {step.props.label} </div>
           </div>
         );
@@ -29,9 +37,5 @@ export function Stepper({ activeStep, children }) {
 }
 
 export function Step({ label, onClick }) {
-  return (
-    <div onClick={onClick}>
-      {label}
-    </div>
-  );
+  return <div onClick={onClick}>{label}</div>;
 }

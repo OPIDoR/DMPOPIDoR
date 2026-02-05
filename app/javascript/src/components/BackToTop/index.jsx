@@ -1,7 +1,7 @@
-import styled from 'styled-components';
-import { FaChevronUp } from 'react-icons/fa';
-import { useTranslation } from 'react-i18next';
-import { Tooltip as ReactTooltip } from 'react-tooltip';
+import styled from "styled-components";
+import { FaChevronUp } from "react-icons/fa";
+import { useTranslation } from "react-i18next";
+import { Tooltip as ReactTooltip } from "react-tooltip";
 
 const BackToTopButton = styled.div`
   position: fixed;
@@ -29,7 +29,7 @@ const BackToTop = () => {
   const { t } = useTranslation();
 
   const scrollToTop = () => {
-    window.scrollTo({ top: 0, behavior: 'smooth' });
+    window.scrollTo({ top: 0, behavior: "smooth" });
   };
 
   return (
@@ -39,7 +39,7 @@ const BackToTop = () => {
         place="left"
         effect="solid"
         variant="info"
-        content={t('backToTop')}
+        content={t("backToTop")}
       />
       <BackToTopButton
         data-tooltip-id="back-to-top-button"

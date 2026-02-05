@@ -1,9 +1,7 @@
-import React, { useState, useEffect } from 'react';
-import { t } from 'i18next';
+import { useState, useEffect } from "react";
+import { t } from "i18next";
 
-const Pagination = ({
-  items, onChangePage, initialPage = 1, pageSize = 9,
-}) => {
+const Pagination = ({ items, onChangePage, initialPage = 1, pageSize = 9 }) => {
   const [pager, setPager] = useState({});
 
   useEffect(() => {
@@ -27,8 +25,8 @@ const Pagination = ({
   const getPager = (totalItems, currentPage = 1, pageSize = 10) => {
     const totalPages = Math.ceil(totalItems / pageSize);
 
-    let startPage; let
-      endPage;
+    let startPage;
+    let endPage;
     if (totalPages <= 10) {
       startPage = 1;
       endPage = totalPages;
@@ -45,7 +43,9 @@ const Pagination = ({
 
     const startIndex = (currentPage - 1) * pageSize;
     const endIndex = Math.min(startIndex + pageSize - 1, totalItems - 1);
-    const pages = [...Array(endPage + 1 - startPage).keys()].map((i) => startPage + i);
+    const pages = [...Array(endPage + 1 - startPage).keys()].map(
+      (i) => startPage + i,
+    );
 
     return {
       totalItems,
@@ -65,33 +65,49 @@ const Pagination = ({
   }
 
   return (
-    <div className="dataTables_paginate paging_simple_numbers" id="hr-table_paginate">
+    <div
+      className="dataTables_paginate paging_simple_numbers"
+      id="hr-table_paginate"
+    >
       <ul className="pagination">
-        <li className={pager.currentPage === 1 ? 'page-item' : ''}>
+        <li className={pager.currentPage === 1 ? "page-item" : ""}>
           <a className="page-link" onClick={() => setPage(1)}>
-            {'<<'}
+            {"<<"}
           </a>
         </li>
-        <li className={pager.currentPage === 1 ? 'page-item' : ''}>
-          <a className="page-link" onClick={() => setPage(pager.currentPage - 1)}>
-            {t('previous')}...
+        <li className={pager.currentPage === 1 ? "page-item" : ""}>
+          <a
+            className="page-link"
+            onClick={() => setPage(pager.currentPage - 1)}
+          >
+            {t("previous")}...
           </a>
         </li>
         {pager.pages.map((page, index) => (
-          <li key={index} className={pager.currentPage === page ? 'page-item active' : ''}>
+          <li
+            key={index}
+            className={pager.currentPage === page ? "page-item active" : ""}
+          >
             <a className="page-link" onClick={() => setPage(page)}>
               {page}
             </a>
           </li>
         ))}
-        <li className={pager.currentPage === pager.totalPages ? 'page-item' : ''}>
-          <a className="page-link" onClick={() => setPage(pager.currentPage + 1)}>
-            {t('next')}...
+        <li
+          className={pager.currentPage === pager.totalPages ? "page-item" : ""}
+        >
+          <a
+            className="page-link"
+            onClick={() => setPage(pager.currentPage + 1)}
+          >
+            {t("next")}...
           </a>
         </li>
-        <li className={pager.currentPage === pager.totalPages ? 'page-item' : ''}>
+        <li
+          className={pager.currentPage === pager.totalPages ? "page-item" : ""}
+        >
           <a className="page-link" onClick={() => setPage(pager.totalPages)}>
-            {'>>'}
+            {">>"}
           </a>
         </li>
       </ul>
