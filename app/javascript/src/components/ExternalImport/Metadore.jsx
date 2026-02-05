@@ -28,20 +28,6 @@ function Metadore({ fragment, setFragment, mapping = {} }) {
   const [researchDataTypes, setResearchDataTypes] = useState(null);
   const [researchDataType, setResearchDataType] = useState(null);
 
-  useEffect(() => {
-    service
-      .getRegistryByName("DataLicenses")
-      .then(({ data }) => setRegistry(data));
-    service.getRegistryByName("ResearchDataType").then(({ data }) =>
-      setResearchDataTypes(
-        data.map((type) => ({
-          value: type.en_GB,
-          label: type[locales[i18n.language] || locales.fr],
-        })),
-      ),
-    );
-  }, []);
-
   /**
    * The function `getData` makes an API call to get data, sets the retrieved data in state variables, and creates an array of distinct countries from the
    * data.
@@ -172,6 +158,28 @@ function Metadore({ fragment, setFragment, mapping = {} }) {
     setData([]);
     setCurrentData([]);
   };
+
+  /**
+   * USE EFFECTS
+   */
+
+  useEffect(() => {
+    service
+      .getRegistryByName("DataLicenses")
+      .then(({ data }) => setRegistry(data));
+    service.getRegistryByName("ResearchDataType").then(({ data }) =>
+      setResearchDataTypes(
+        data.map((type) => ({
+          value: type.en_GB,
+          label: type[locales[i18n.language] || locales.fr],
+        })),
+      ),
+    );
+  }, []);
+
+  /**
+   * RENDERING
+   */
 
   return (
     <div style={{ position: "relative" }}>

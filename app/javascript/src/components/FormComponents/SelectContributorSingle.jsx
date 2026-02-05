@@ -62,26 +62,6 @@ function SelectContributorSingle({
   const [isRoleConst, setIsRoleConst] = useState(false);
   const tooltipId = uniqueId("select_contributor_single_tooltip_id_");
 
-  useEffect(() => {
-    setContributor(field.value);
-  }, [field.value]);
-
-  /* A hook that is called when the component is mounted. */
-  useEffect(() => {
-    if (roleCategory && !isRoleConst) {
-      fetchRoles();
-    }
-  }, [roleCategory, isRoleConst]);
-
-  useEffect(() => {
-    if (persons.length > 0) {
-      setOptions(createPersonsOptions(persons));
-    } else {
-      fetchPersons();
-      setOptions(null);
-    }
-  }, [persons]);
-
   const fetchPersons = () => {
     service.getPersons(dmpId).then((res) => {
       setPersons(res.data.results);
@@ -98,45 +78,6 @@ function SelectContributorSingle({
       setRoleOptions(options);
     });
   };
-
-  /* A hook that is called when the component is mounted. */
-  useEffect(() => {
-    if (!loadedTemplates[templateName]) {
-      service
-        .getSchemaByName(templateName)
-        .then((res) => {
-          const contributorTemplate = res.data;
-          setLoadedTemplates({ ...loadedTemplates, [templateName]: res.data });
-          const contributorProps =
-            contributorTemplate?.schema?.properties || {};
-          const personTemplateName = contributorProps.person.template_name;
-          setOverridableRole(contributorProps.role.overridable || false);
-          setIsRoleConst(contributorProps.role.isConst || false);
-          setRoleCategory(contributorProps.role.registryCategory || null);
-          service
-            .getSchemaByName(personTemplateName)
-            .then((resSchema) => {
-              setTemplate(resSchema.data);
-              setLoadedTemplates({
-                ...loadedTemplates,
-                [personTemplateName]: res.data,
-              });
-            })
-            .catch((error) => {
-              setError(getErrorMessage(error));
-            });
-        })
-        .catch((error) => {
-          setError(getErrorMessage(error));
-        });
-    } else {
-      const contributorTemplate = loadedTemplates[templateName];
-      const contributorProps = contributorTemplate?.schema?.properties || {};
-      const personTemplateName = contributorProps.person.template_name;
-      setOverridableRole(contributorProps.role.overridable || false);
-      setTemplate(loadedTemplates[personTemplateName]);
-    }
-  }, [templateName]);
 
   /**
    * It closes the modal and resets the state of the modal.
@@ -262,6 +203,72 @@ function SelectContributorSingle({
     setEditedPerson(contributor.person);
     setShow(true);
   };
+
+  /**
+   * USE EFFECTS
+   */
+
+  useEffect(() => {
+    setContributor(field.value);
+  }, [field.value]);
+
+  /* A hook that is called when the component is mounted. */
+  useEffect(() => {
+    if (roleCategory && !isRoleConst) {
+      fetchRoles();
+    }
+  }, [roleCategory, isRoleConst]);
+
+  useEffect(() => {
+    if (persons.length > 0) {
+      setOptions(createPersonsOptions(persons));
+    } else {
+      fetchPersons();
+      setOptions(null);
+    }
+  }, [persons]);
+
+  useEffect(() => {
+    if (!loadedTemplates[templateName]) {
+      service
+        .getSchemaByName(templateName)
+        .then((res) => {
+          const contributorTemplate = res.data;
+          setLoadedTemplates({ ...loadedTemplates, [templateName]: res.data });
+          const contributorProps =
+            contributorTemplate?.schema?.properties || {};
+          const personTemplateName = contributorProps.person.template_name;
+          setOverridableRole(contributorProps.role.overridable || false);
+          setIsRoleConst(contributorProps.role.isConst || false);
+          setRoleCategory(contributorProps.role.registryCategory || null);
+          service
+            .getSchemaByName(personTemplateName)
+            .then((resSchema) => {
+              setTemplate(resSchema.data);
+              setLoadedTemplates({
+                ...loadedTemplates,
+                [personTemplateName]: res.data,
+              });
+            })
+            .catch((error) => {
+              setError(getErrorMessage(error));
+            });
+        })
+        .catch((error) => {
+          setError(getErrorMessage(error));
+        });
+    } else {
+      const contributorTemplate = loadedTemplates[templateName];
+      const contributorProps = contributorTemplate?.schema?.properties || {};
+      const personTemplateName = contributorProps.person.template_name;
+      setOverridableRole(contributorProps.role.overridable || false);
+      setTemplate(loadedTemplates[personTemplateName]);
+    }
+  }, [templateName]);
+
+  /**
+   * RENDERING
+   */
 
   return (
     <>

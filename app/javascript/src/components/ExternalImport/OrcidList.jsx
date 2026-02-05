@@ -21,10 +21,6 @@ function OrcidList({ fragment, setFragment, mapping = {} }) {
   const [text, setText] = useState("");
   const { locale } = useContext(GlobalContext);
 
-  useEffect(() => {
-    i18n.changeLanguage(locale.substring(0, 2));
-  }, [locale]);
-
   /**
    * The function `getData` makes an API call to get data, sets the retrieved data in state variables, and creates an array of distinct countries from the
    * data.
@@ -122,6 +118,18 @@ function OrcidList({ fragment, setFragment, mapping = {} }) {
     setData([]);
     setCurrentData([]);
   };
+
+  /**
+   * USE EFFECTS
+   */
+
+  useEffect(() => {
+    i18n.changeLanguage(locale.substring(0, 2));
+  }, [locale]);
+
+  /**
+   * RENDERING
+   */
 
   return (
     <div style={{ position: "relative" }}>

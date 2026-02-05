@@ -46,21 +46,6 @@ function FunderImport({
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
 
-  /* This `useEffect` hook is fetching data for funding organizations and setting the options for a `Select` component. It runs only once when the
-  component mounts, as the dependency array `[]` is empty. */
-  useEffect(() => {
-    service.getRegistryByName("FundersWithImport").then(({ data }) => {
-      const options = data.map((funder, index) => ({
-        value: funder.id || index,
-        label: funder.label[locale],
-        scriptName: funder.scriptName,
-        registry: funder.registry,
-        apiClient: funder.apiClient,
-      }));
-      setFunders(options);
-    });
-  }, []);
-
   /**
    * The function logs the value of an event and sets a grant ID to "ProjectStandard".
    */
@@ -179,6 +164,28 @@ function FunderImport({
     });
     window.dispatchEvent(event);
   };
+
+  /**
+   * USE EFFECTS
+   */
+  /* This `useEffect` hook is fetching data for funding organizations and setting the options for a `Select` component. It runs only once when the
+  component mounts, as the dependency array `[]` is empty. */
+  useEffect(() => {
+    service.getRegistryByName("FundersWithImport").then(({ data }) => {
+      const options = data.map((funder, index) => ({
+        value: funder.id || index,
+        label: funder.label[locale],
+        scriptName: funder.scriptName,
+        registry: funder.registry,
+        apiClient: funder.apiClient,
+      }));
+      setFunders(options);
+    });
+  }, []);
+
+  /**
+   * RENDERING
+   */
 
   return (
     <Card

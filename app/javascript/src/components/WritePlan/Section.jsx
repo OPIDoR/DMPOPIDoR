@@ -12,6 +12,10 @@ function Section({ planId, section, readonly }) {
     useContext(GlobalContext);
   const [sectionId, setSectionId] = useState(section.id);
 
+  /**
+   * USE EFFECTS
+   */
+
   useEffect(() => {
     setSectionId(section.id);
   }, [section]);
@@ -35,6 +39,10 @@ function Section({ planId, section, readonly }) {
       [displayedResearchOutput.id]: updatedState,
     });
   };
+
+  /**
+   * RENDERING
+   */
 
   return (
     <>

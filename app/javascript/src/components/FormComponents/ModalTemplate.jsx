@@ -53,22 +53,6 @@ function ModalTemplate({
 
   const filteredFragmentList = fields.filter((el) => el.action !== "delete");
 
-  useEffect(() => {
-    if (!loadedTemplates[templateName]) {
-      service
-        .getSchemaByName(templateName)
-        .then((res) => {
-          setTemplate(res.data);
-          setLoadedTemplates({ ...loadedTemplates, [templateName]: res.data });
-        })
-        .catch((error) => {
-          setError(getErrorMessage(error));
-        });
-    } else {
-      setTemplate(loadedTemplates[templateName]);
-    }
-  }, [templateName]);
-
   /**
    * The function sets the show state to false
    */
@@ -133,6 +117,30 @@ function ModalTemplate({
     setShow(true);
     setIndex(idx);
   };
+
+  /**
+   * USE EFFECTS
+   */
+
+  useEffect(() => {
+    if (!loadedTemplates[templateName]) {
+      service
+        .getSchemaByName(templateName)
+        .then((res) => {
+          setTemplate(res.data);
+          setLoadedTemplates({ ...loadedTemplates, [templateName]: res.data });
+        })
+        .catch((error) => {
+          setError(getErrorMessage(error));
+        });
+    } else {
+      setTemplate(loadedTemplates[templateName]);
+    }
+  }, [templateName]);
+
+  /**
+   * RENDERING
+   */
 
   return (
     <>

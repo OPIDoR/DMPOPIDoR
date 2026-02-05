@@ -37,6 +37,24 @@ function FormSelector({
   const { setFormSelector, loadedTemplates, setLoadedTemplates } =
     useContext(GlobalContext);
 
+  const handleSelectTemplate = (e) => {
+    setSelectedTemplate(e.object);
+    setLoading(true);
+    service
+      .getSchemaByName(e.object.name)
+      .then((res) => {
+        setTemplate(res.data);
+        setTemplateId(res.data.id);
+        setLoadedTemplates({ ...loadedTemplates, [e.object.name]: res.data });
+      })
+      .catch(console.error)
+      .finally(() => setLoading(false));
+  };
+
+  /**
+   * USE EFFECTS
+   */
+
   useEffect(() => {
     service
       .getAvailableForms(classname, dataType, topic)
@@ -51,19 +69,9 @@ function FormSelector({
       .finally(() => setLoading(false));
   }, [classname, dataType]);
 
-  const handleSelectTemplate = (e) => {
-    setSelectedTemplate(e.object);
-    setLoading(true);
-    service
-      .getSchemaByName(e.object.name)
-      .then((res) => {
-        setTemplate(res.data);
-        setTemplateId(res.data.id);
-        setLoadedTemplates({ ...loadedTemplates, [e.object.name]: res.data });
-      })
-      .catch(console.error)
-      .finally(() => setLoading(false));
-  };
+  /**
+   * RENDERING
+   */
 
   return (
     <>

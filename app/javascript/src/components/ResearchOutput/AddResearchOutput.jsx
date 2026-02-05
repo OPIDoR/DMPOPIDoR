@@ -54,62 +54,6 @@ function AddResearchOutput({
   const topicTooltipId = uniqueId("topic_tooltip_id_");
   const [loading, setLoading] = useState(false);
 
-  useEffect(() => {
-    if (displayedResearchOutput && inEdition) {
-      setAbbreviation(displayedResearchOutput.abbreviation);
-      setTitle(displayedResearchOutput.title);
-      setHasPersonalData(displayedResearchOutput.configuration.hasPersonalData);
-      setType(displayedResearchOutput.type);
-      handlePersonalData(displayedResearchOutput.type);
-    }
-
-    if (!displayedResearchOutput && !inEdition) {
-      const maxOrder =
-        researchOutputs.length > 0
-          ? Math.max(...researchOutputs.map((ro) => ro.order))
-          : 0;
-      setAbbreviation(`${t("ro")} ${maxOrder + 1}`);
-      setTitle(`${t("researchOutput")} ${maxOrder + 1}`);
-      setHasPersonalData(true);
-    }
-    if (!inEdition) {
-      const pos = Math.max(...researchOutputs.map(({ order }) => order));
-      const nextOrder =
-        pos < researchOutputs.length ? researchOutputs.length + 1 : pos + 1;
-      setAbbreviation(`${t("ro")} ${nextOrder}`);
-      setTitle(`${t("researchOutput")} ${nextOrder}`);
-      setHasPersonalData(true);
-    }
-
-    setDisableTypeChange(inEdition);
-  }, [displayedResearchOutput, inEdition]);
-
-  useEffect(() => {
-    service.getRegistryByName("ResearchDataType").then((res) => {
-      const typeOpts = createOptions(res.data, locale);
-      setTypeOptions(typeOpts);
-      if (inEdition) {
-        setSelectedType(
-          typeOpts.find(({ value }) => value === displayedResearchOutput.type),
-        );
-      }
-    });
-  }, []);
-
-  useEffect(() => {
-    service.getRegistryByName("Topics").then((res) => {
-      const topicsOpts = createOptions(res.data, locale);
-      setTopicOptions(topicsOpts);
-      if (inEdition) {
-        setSelectedTopic(
-          topicsOpts.find(
-            ({ value }) => value === displayedResearchOutput.topic,
-          ),
-        );
-      }
-    });
-  }, []);
-
   /**
    * This is a function that handles the selection of a value and sets it as the type.
    */
@@ -210,6 +154,70 @@ function AddResearchOutput({
       setHasPersonalData(false);
     }
   };
+
+  /**
+   * USE EFFECTS
+   */
+
+  useEffect(() => {
+    if (displayedResearchOutput && inEdition) {
+      setAbbreviation(displayedResearchOutput.abbreviation);
+      setTitle(displayedResearchOutput.title);
+      setHasPersonalData(displayedResearchOutput.configuration.hasPersonalData);
+      setType(displayedResearchOutput.type);
+      handlePersonalData(displayedResearchOutput.type);
+    }
+
+    if (!displayedResearchOutput && !inEdition) {
+      const maxOrder =
+        researchOutputs.length > 0
+          ? Math.max(...researchOutputs.map((ro) => ro.order))
+          : 0;
+      setAbbreviation(`${t("ro")} ${maxOrder + 1}`);
+      setTitle(`${t("researchOutput")} ${maxOrder + 1}`);
+      setHasPersonalData(true);
+    }
+    if (!inEdition) {
+      const pos = Math.max(...researchOutputs.map(({ order }) => order));
+      const nextOrder =
+        pos < researchOutputs.length ? researchOutputs.length + 1 : pos + 1;
+      setAbbreviation(`${t("ro")} ${nextOrder}`);
+      setTitle(`${t("researchOutput")} ${nextOrder}`);
+      setHasPersonalData(true);
+    }
+
+    setDisableTypeChange(inEdition);
+  }, [displayedResearchOutput, inEdition]);
+
+  useEffect(() => {
+    service.getRegistryByName("ResearchDataType").then((res) => {
+      const typeOpts = createOptions(res.data, locale);
+      setTypeOptions(typeOpts);
+      if (inEdition) {
+        setSelectedType(
+          typeOpts.find(({ value }) => value === displayedResearchOutput.type),
+        );
+      }
+    });
+  }, []);
+
+  useEffect(() => {
+    service.getRegistryByName("Topics").then((res) => {
+      const topicsOpts = createOptions(res.data, locale);
+      setTopicOptions(topicsOpts);
+      if (inEdition) {
+        setSelectedTopic(
+          topicsOpts.find(
+            ({ value }) => value === displayedResearchOutput.topic,
+          ),
+        );
+      }
+    });
+  }, []);
+
+  /**
+   * RENDERING
+   */
 
   return (
     <div style={{ margin: "25px" }}>

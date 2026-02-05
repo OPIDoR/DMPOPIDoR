@@ -9,9 +9,17 @@ import { clearLocalStorage } from "../../utils/utils";
 const queryClient = new QueryClient();
 
 function PlanCreationLayout({ locale }) {
+  /**
+   * USE EFFECTS
+   */
+
   useEffect(() => {
     window.addEventListener("beforeunload", () => clearLocalStorage());
   }, []);
+
+  /**
+   * RENDERING
+   */
 
   return (
     <StrictMode>

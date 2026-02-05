@@ -26,18 +26,6 @@ function ModalForm({
 
   const externalImports = template?.schema?.externalImports || {};
 
-  useEffect(() => {
-    if (Object.keys(methods.formState.dirtyFields).length > 0) {
-      methods.reset(methods.formState.dirtyFields);
-    }
-  }, [data]);
-
-  useEffect(() => {
-    if (!data?.id && template) {
-      methods.reset(formatDefaultValues(template.schema.default?.[locale]));
-    }
-  }, [template, data]);
-
   const onValid = (formData) => {
     handleSave(formData);
     methods.reset();
@@ -61,6 +49,26 @@ function ModalForm({
     Object.keys(data).forEach((k) =>
       methods.setValue(k, data[k], { shouldDirty: true }),
     );
+
+  /**
+   * USE EFFECTS
+   */
+
+  useEffect(() => {
+    if (Object.keys(methods.formState.dirtyFields).length > 0) {
+      methods.reset(methods.formState.dirtyFields);
+    }
+  }, [data]);
+
+  useEffect(() => {
+    if (!data?.id && template) {
+      methods.reset(formatDefaultValues(template.schema.default?.[locale]));
+    }
+  }, [template, data]);
+
+  /**
+   * RENDERING
+   */
 
   return (
     <Modal

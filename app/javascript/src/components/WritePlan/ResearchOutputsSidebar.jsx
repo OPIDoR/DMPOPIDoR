@@ -111,12 +111,6 @@ function ResearchOutputsSidebar({ planId, readonly, setLoading }) {
 
   const [openGroups, setOpenGroups] = useState(new Set([activeGroupIndex]));
 
-  useEffect(() => {
-    if (activeGroupIndex !== -1) {
-      setOpenGroups((prev) => new Set([...prev, activeGroupIndex]));
-    }
-  }, [activeGroupIndex]);
-
   /**
    * The function handleClose sets the state of setShow to false.
    */
@@ -258,6 +252,20 @@ function ResearchOutputsSidebar({ planId, readonly, setLoading }) {
 
     return setResearchOutputs([...updatedItems]);
   };
+
+  /**
+   * USE EFFECTS
+   */
+
+  useEffect(() => {
+    if (activeGroupIndex !== -1) {
+      setOpenGroups((prev) => new Set([...prev, activeGroupIndex]));
+    }
+  }, [activeGroupIndex]);
+
+  /**
+   * RENDERING
+   */
 
   return (
     <>

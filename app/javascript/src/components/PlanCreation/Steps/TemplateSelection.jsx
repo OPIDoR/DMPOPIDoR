@@ -31,52 +31,6 @@ function TemplateSelection({
 
   const params = useMemo(() => selectionData, [selectionData]);
 
-  /* A hook that is called when the component is mounted. It is used to fetch data from an API. */
-  useEffect(() => {
-    const tmpls = {
-      default: {
-        title: t("structuredCommonTemplate"),
-        description:
-          params.researchContext === "research_project" ? (
-            <Trans
-              t={t}
-              i18nKey="recommendedByOpenScienceNetwork"
-              components={{ strong: <strong /> }}
-            />
-          ) : null,
-        templates: [],
-      },
-      others: {
-        id: "others",
-        title: t("otherTemplates"),
-        type: "select",
-        data: [],
-      },
-    };
-
-    const fetchTemplates = async (opts) => {
-      if (!params.templateName) {
-        setLoading(true);
-      }
-
-      let templatesData;
-      try {
-        templatesData = await getTemplates(opts);
-      } catch (error) {
-        setError(error);
-        return setLoading(false);
-      }
-
-      tmpls.default.templates = templatesData.default;
-      tmpls.others.data = templatesData.others;
-
-      setPlanTemplates(tmpls);
-      setLoading(false);
-    };
-
-    fetchTemplates(params);
-  }, [params.researchContext, params.templateLanguage, setPlanTemplates]);
-
   /**
    * The function checks if a template ID exists in a context object and logs it, or displays an error message if it doesn't exist.
    */
@@ -313,6 +267,59 @@ function TemplateSelection({
       </div>
     );
   };
+
+  /**
+   * USE EFFECTS
+   */
+
+  useEffect(() => {
+    const tmpls = {
+      default: {
+        title: t("structuredCommonTemplate"),
+        description:
+          params.researchContext === "research_project" ? (
+            <Trans
+              t={t}
+              i18nKey="recommendedByOpenScienceNetwork"
+              components={{ strong: <strong /> }}
+            />
+          ) : null,
+        templates: [],
+      },
+      others: {
+        id: "others",
+        title: t("otherTemplates"),
+        type: "select",
+        data: [],
+      },
+    };
+
+    const fetchTemplates = async (opts) => {
+      if (!params.templateName) {
+        setLoading(true);
+      }
+
+      let templatesData;
+      try {
+        templatesData = await getTemplates(opts);
+      } catch (error) {
+        setError(error);
+        return setLoading(false);
+      }
+
+      tmpls.default.templates = templatesData.default;
+      tmpls.others.data = templatesData.others;
+
+      setPlanTemplates(tmpls);
+      setLoading(false);
+    };
+
+    fetchTemplates(params);
+  }, [params.researchContext, params.templateLanguage, setPlanTemplates]);
+
+  /**
+   * RENDERING
+   */
 
   return (
     <div>

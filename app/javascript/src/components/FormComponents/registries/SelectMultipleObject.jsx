@@ -65,79 +65,6 @@ function SelectMultipleObject({
 
   const filteredFragmentList = fields.filter((el) => el.action !== "delete");
 
-  useEffect(() => {
-    if (category) {
-      service
-        .getAvailableRegistries(category, dataType, topic)
-        .then((res) => {
-          const registriesData = Array?.isArray(res.data)
-            ? res.data.map((r) => r.name)
-            : [res.data.name];
-          setAvailableRegistries(registriesData);
-          if (registriesData.length === 1) {
-            const registry = res.data[0];
-            setSelectedRegistry(registry.name);
-            setLoadedRegistries({
-              ...loadedRegistries,
-              [registry.name]: registry.values,
-            });
-            setOptions(createOptions(registry.values, locale));
-          }
-        })
-        .catch((error) => {
-          setError(getErrorMessage(error));
-        });
-    } else if (registries) {
-      setAvailableRegistries(registries);
-      if (registries.length === 1) {
-        setSelectedRegistry(registries[0]);
-      }
-    }
-  }, [category, dataType, topic, registries]);
-
-  /* A hook that is called when the component is mounted.
-  It is used to set the options of the select list. */
-  useEffect(() => {
-    if (!loadedTemplates[templateName]) {
-      service
-        .getSchemaByName(templateName)
-        .then((res) => {
-          setTemplate(res.data);
-          setLoadedTemplates({ ...loadedTemplates, [templateName]: res.data });
-        })
-        .catch((error) => {
-          setError(getErrorMessage(error));
-        });
-    } else {
-      setTemplate(loadedTemplates[templateName]);
-    }
-  }, [templateName]);
-
-  /* A hook that is called when the component is mounted.
-  It is used to set the options of the select list. */
-  useEffect(() => {
-    if (registries.length === 0 && availableRegistries.length === 1) return;
-
-    if (selectedRegistry) {
-      if (loadedRegistries[selectedRegistry]) {
-        setOptions(createOptions(loadedRegistries[selectedRegistry], locale));
-      } else if (selectedRegistry) {
-        service
-          .getRegistryByName(selectedRegistry)
-          .then((res) => {
-            setLoadedRegistries({
-              ...loadedRegistries,
-              [selectedRegistry]: res.data,
-            });
-            setOptions(createOptions(res.data, locale));
-          })
-          .catch((error) => {
-            setError(getErrorMessage(error));
-          });
-      }
-    }
-  }, [selectedRegistry]);
-
   const handleClose = () => {
     setShow(false);
     setEditedFragment(null);
@@ -219,6 +146,87 @@ function SelectMultipleObject({
   const handleSelectRegistry = (e) => {
     setSelectedRegistry(e.value);
   };
+
+  /**
+   * USE EFFECTS
+   */
+
+  useEffect(() => {
+    if (category) {
+      service
+        .getAvailableRegistries(category, dataType, topic)
+        .then((res) => {
+          const registriesData = Array?.isArray(res.data)
+            ? res.data.map((r) => r.name)
+            : [res.data.name];
+          setAvailableRegistries(registriesData);
+          if (registriesData.length === 1) {
+            const registry = res.data[0];
+            setSelectedRegistry(registry.name);
+            setLoadedRegistries({
+              ...loadedRegistries,
+              [registry.name]: registry.values,
+            });
+            setOptions(createOptions(registry.values, locale));
+          }
+        })
+        .catch((error) => {
+          setError(getErrorMessage(error));
+        });
+    } else if (registries) {
+      setAvailableRegistries(registries);
+      if (registries.length === 1) {
+        setSelectedRegistry(registries[0]);
+      }
+    }
+  }, [category, dataType, topic, registries]);
+
+  /* A hook that is called when the component is mounted.
+  It is used to set the options of the select list. */
+  useEffect(() => {
+    if (!loadedTemplates[templateName]) {
+      service
+        .getSchemaByName(templateName)
+        .then((res) => {
+          setTemplate(res.data);
+          setLoadedTemplates({ ...loadedTemplates, [templateName]: res.data });
+        })
+        .catch((error) => {
+          setError(getErrorMessage(error));
+        });
+    } else {
+      setTemplate(loadedTemplates[templateName]);
+    }
+  }, [templateName]);
+
+  /* A hook that is called when the component is mounted.
+  It is used to set the options of the select list. */
+  useEffect(() => {
+    if (registries.length === 0 && availableRegistries.length === 1) return;
+
+    if (selectedRegistry) {
+      if (loadedRegistries[selectedRegistry]) {
+        setOptions(createOptions(loadedRegistries[selectedRegistry], locale));
+      } else if (selectedRegistry) {
+        service
+          .getRegistryByName(selectedRegistry)
+          .then((res) => {
+            setLoadedRegistries({
+              ...loadedRegistries,
+              [selectedRegistry]: res.data,
+            });
+            setOptions(createOptions(res.data, locale));
+          })
+          .catch((error) => {
+            setError(getErrorMessage(error));
+          });
+      }
+    }
+  }, [selectedRegistry]);
+
+  /**
+   * RENDERING
+   */
 
   return (
     <div>

@@ -4,12 +4,6 @@ import { t } from "i18next";
 const Pagination = ({ items, onChangePage, initialPage = 1, pageSize = 9 }) => {
   const [pager, setPager] = useState({});
 
-  useEffect(() => {
-    if (items && items.length) {
-      setPage(initialPage);
-    }
-  }, [items, initialPage]);
-
   const setPage = (page) => {
     if (page < 1 || page > pager.totalPages) {
       return;
@@ -59,6 +53,20 @@ const Pagination = ({ items, onChangePage, initialPage = 1, pageSize = 9 }) => {
       pages,
     };
   };
+
+  /**
+   * USE EFFECTS
+   */
+
+  useEffect(() => {
+    if (items && items.length) {
+      setPage(initialPage);
+    }
+  }, [items, initialPage]);
+
+  /**
+   * RENDERING
+   */
 
   if (!pager.pages || pager.pages.length <= 1) {
     return null;

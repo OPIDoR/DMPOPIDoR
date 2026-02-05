@@ -7,6 +7,10 @@ export default function SharedLabelLayout({ planId, clients }) {
   const { t } = useTranslation();
   const [clientsData, setClientsData] = useState(clients);
 
+  /**
+   * USE EFFECTS
+   */
+
   useEffect(() => {
     const handleRefresh = (e) => {
       setClientsData(e.detail.message.clients);
@@ -18,6 +22,10 @@ export default function SharedLabelLayout({ planId, clients }) {
       window.removeEventListener("trigger-refresh-shared-label", handleRefresh);
     };
   }, []);
+
+  /**
+   * RENDERING
+   */
 
   return (
     <StrictMode>

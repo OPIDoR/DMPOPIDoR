@@ -26,30 +26,6 @@ function ImportResearchOutput({ planId, handleClose }) {
   const [selectedResearchOutput, setSelectedResearchOutput] = useState({});
   const [loading, setLoading] = useState(false);
 
-  useEffect(() => {
-    setLoading(true);
-    researchOutput.getPlans().then(({ data }) => {
-      const plans = data?.plans?.map((plan) => ({
-        value: plan.id,
-        prependIcon:
-          plan.context === "research_entity" ? (
-            <FaUniversity style={{ marginRight: "8px" }} />
-          ) : (
-            <FaVial style={{ marginRight: "8px" }} />
-          ),
-        label: plan.title,
-        ...plan,
-        researchOutputs: plan.research_outputs.map((ro) => ({
-          value: ro.id,
-          label: ro.title,
-          ...ro,
-        })),
-      }));
-      setPlans(plans || []);
-      setLoading(false);
-    });
-  }, []);
-
   /**
    * This is a function that handles the selection of a value and sets it as the type.
    */
@@ -89,6 +65,38 @@ function ImportResearchOutput({ planId, handleClose }) {
         return toast.error(t("importError"));
       });
   };
+
+  /**
+   * USE EFFECTS
+   */
+
+  useEffect(() => {
+    setLoading(true);
+    researchOutput.getPlans().then(({ data }) => {
+      const plans = data?.plans?.map((plan) => ({
+        value: plan.id,
+        prependIcon:
+          plan.context === "research_entity" ? (
+            <FaUniversity style={{ marginRight: "8px" }} />
+          ) : (
+            <FaVial style={{ marginRight: "8px" }} />
+          ),
+        label: plan.title,
+        ...plan,
+        researchOutputs: plan.research_outputs.map((ro) => ({
+          value: ro.id,
+          label: ro.title,
+          ...ro,
+        })),
+      }));
+      setPlans(plans || []);
+      setLoading(false);
+    });
+  }, []);
+
+  /**
+   * RENDERING
+   */
 
   return (
     <>

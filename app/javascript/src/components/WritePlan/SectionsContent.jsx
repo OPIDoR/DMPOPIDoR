@@ -48,33 +48,6 @@ function SectionsContent({ planId, readonly }) {
     [displayedResearchOutput, setDisplayedResearchOutput, setFormData],
   );
 
-  useEffect(() => {
-    if (subscriptionRef.current) subscriptionRef.current.unsubscribe();
-    subscriptionRef.current = consumer.subscriptions.create(
-      { channel: "PlanChannel", id: planId },
-      {
-        connected: () => console.log("connected!"),
-        disconnected: () => console.log("disconnected !"),
-        received: (data) => handleWebsocketData(data),
-      },
-    );
-    return () => {
-      consumer.disconnect();
-    };
-  }, [planId, handleWebsocketData]);
-
-  useEffect(() => {
-    if (!displayedResearchOutput) return;
-
-    if (!openedQuestions || !openedQuestions[displayedResearchOutput.id]) {
-      const updatedCollapseState = {
-        ...openedQuestions,
-        [displayedResearchOutput.id]: {},
-      };
-      setOpenedQuestions(updatedCollapseState);
-    }
-  }, [displayedResearchOutput]);
-
   /**
    * The function handles the deletion of a product from a research output and displays a confirmation message using the SweetAlert library.
    */
@@ -158,6 +131,41 @@ function SectionsContent({ planId, readonly }) {
     setShow(false);
     setEdit(false);
   };
+
+  /**
+   * USE EFFECTS
+   */
+
+  useEffect(() => {
+    if (subscriptionRef.current) subscriptionRef.current.unsubscribe();
+    subscriptionRef.current = consumer.subscriptions.create(
+      { channel: "PlanChannel", id: planId },
+      {
+        connected: () => console.log("connected!"),
+        disconnected: () => console.log("disconnected !"),
+        received: (data) => handleWebsocketData(data),
+      },
+    );
+    return () => {
+      consumer.disconnect();
+    };
+  }, [planId, handleWebsocketData]);
+
+  useEffect(() => {
+    if (!displayedResearchOutput) return;
+
+    if (!openedQuestions || !openedQuestions[displayedResearchOutput.id]) {
+      const updatedCollapseState = {
+        ...openedQuestions,
+        [displayedResearchOutput.id]: {},
+      };
+      setOpenedQuestions(updatedCollapseState);
+    }
+  }, [displayedResearchOutput]);
+
+  /**
+   * RENDERING
+   */
 
   return (
     <div style={{ position: "relative" }}>

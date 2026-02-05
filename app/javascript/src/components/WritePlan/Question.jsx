@@ -60,23 +60,6 @@ function Question({
   const isQuestionOpened =
     !!openedQuestions?.[displayedResearchOutput?.id]?.[sectionId]?.[questionId];
 
-  useEffect(() => {
-    const ans = displayedResearchOutput?.answers?.find(
-      (a) => question?.id === a?.question_id,
-    );
-    setAnswer(ans);
-  }, [displayedResearchOutput, question.id]);
-
-  useEffect(() => {
-    if (isQuestionOpened) {
-      guidances
-        .hasQuestionGuidances(questionId, displayedResearchOutput?.id)
-        .then((res) => {
-          setHasGuidances(res.data?.has_guidances || false);
-        });
-    }
-  }, [isQuestionOpened, questionId]);
-
   /**
    * Handles toggling the open/collapse state of a question.
    * This function is called when a question is collapsed or expanded.
@@ -115,6 +98,31 @@ function Question({
     }
     setShowModals({ ...closedModalState, [modalType]: isOpened });
   };
+
+  /**
+   * USE EFFECTS
+   */
+
+  useEffect(() => {
+    const ans = displayedResearchOutput?.answers?.find(
+      (a) => question?.id === a?.question_id,
+    );
+    setAnswer(ans);
+  }, [displayedResearchOutput, question.id]);
+
+  useEffect(() => {
+    if (isQuestionOpened) {
+      guidances
+        .hasQuestionGuidances(questionId, displayedResearchOutput?.id)
+        .then((res) => {
+          setHasGuidances(res.data?.has_guidances || false);
+        });
+    }
+  }, [isQuestionOpened, questionId]);
+
+  /**
+   * RENDERING
+   */
 
   return (
     <>

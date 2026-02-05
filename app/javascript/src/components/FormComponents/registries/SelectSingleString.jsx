@@ -48,6 +48,26 @@ function SelectSingleString({
   const tooltipId = uniqueId("select_single_list_tooltip_id_");
   const inputId = uniqueId("select_single_list_id_");
 
+  /**
+   * It takes the value of the input field and adds it to the list array.
+   * @param e - the event object
+   */
+  const handleSelectRegistryValue = (e) => {
+    if (!e) return { target: { name: propName, value: "" } };
+
+    return field.onChange(e.value);
+  };
+
+  /**
+   * The handleChange function updates the registry name based on the value of the input field.
+   */
+  const handleSelectRegistry = (e) => {
+    setSelectedRegistry(e.value);
+  };
+
+  /**
+   * USE EFFECTS
+   */
   useEffect(() => {
     if (category) {
       service
@@ -93,10 +113,6 @@ function SelectSingleString({
     }
   }, [field.value, options]);
 
-  /*
-  A hook that is called when the component is mounted.
-  It is used to set the options of the select list.
-  */
   useEffect(() => {
     if (registries.length === 0 && availableRegistries.length === 1) return;
 
@@ -121,21 +137,8 @@ function SelectSingleString({
   }, [selectedRegistry]);
 
   /**
-   * It takes the value of the input field and adds it to the list array.
-   * @param e - the event object
+   * RENDERING
    */
-  const handleSelectRegistryValue = (e) => {
-    if (!e) return { target: { name: propName, value: "" } };
-
-    return field.onChange(e.value);
-  };
-
-  /**
-   * The handleChange function updates the registry name based on the value of the input field.
-   */
-  const handleSelectRegistry = (e) => {
-    setSelectedRegistry(e.value);
-  };
 
   return (
     <div>

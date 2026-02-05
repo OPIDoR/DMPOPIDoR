@@ -47,53 +47,6 @@ function GuidanceSelector({
 
   const savedGuidancesIds = savedGuidances.map((g) => g.id);
 
-  /**
-   * Fetches recommendations and updates state variables.
-   */
-  useEffect(() => {
-    const fetchGuidanceGroups =
-      context === "plan"
-        ? guidances.getPlanGuidanceGroups(planId)
-        : guidances.getResearchOutputGuidanceGroups(researchOutputId);
-
-    setLoading(true);
-    fetchGuidanceGroups
-      .then((res) => {
-        const { data } = res.data;
-        const savedGuidances = formatSelectedGuidances(data, "init");
-        setSavedGuidances(savedGuidances);
-        setSelectedGuidancesIds(
-          data.flatMap((org) =>
-            org.guidance_groups
-              .filter((group) => group.selected)
-              .map((group) => group.id),
-          ),
-        );
-        setGuidancesData(data);
-      })
-      .catch((error) => {
-        setError(error);
-      })
-      .finally(() => setLoading(false));
-    setSearchCriteria("");
-  }, [planId, researchOutputId]);
-
-  // Apply debounce whenever searchCriteria changes
-  useEffect(() => {
-    // Create a debounced function that updates debouncedCriteria
-    const handler = debounce(() => {
-      setDebouncedCriteria(normalize(searchCriteria));
-    }, 500);
-
-    // Call the debounced function
-    handler();
-
-    // Cleanup: cancel pending debounce when component unmounts or searchCriteria changes
-    return () => {
-      handler.cancel();
-    };
-  }, [searchCriteria]);
-
   const formatSelectedGuidances = (guidanceData, action) =>
     guidanceData.flatMap((org) =>
       org.guidance_groups
@@ -184,6 +137,61 @@ function GuidanceSelector({
     if (normalize(org.name).includes(debouncedCriteria)) return true;
     return false;
   };
+
+  /**
+   * USE EFFECTS
+   */
+
+  /**
+   * Fetches recommendations and updates state variables.
+   */
+  useEffect(() => {
+    const fetchGuidanceGroups =
+      context === "plan"
+        ? guidances.getPlanGuidanceGroups(planId)
+        : guidances.getResearchOutputGuidanceGroups(researchOutputId);
+
+    setLoading(true);
+    fetchGuidanceGroups
+      .then((res) => {
+        const { data } = res.data;
+        const savedGuidances = formatSelectedGuidances(data, "init");
+        setSavedGuidances(savedGuidances);
+        setSelectedGuidancesIds(
+          data.flatMap((org) =>
+            org.guidance_groups
+              .filter((group) => group.selected)
+              .map((group) => group.id),
+          ),
+        );
+        setGuidancesData(data);
+      })
+      .catch((error) => {
+        setError(error);
+      })
+      .finally(() => setLoading(false));
+    setSearchCriteria("");
+  }, [planId, researchOutputId]);
+
+  // Apply debounce whenever searchCriteria changes
+  useEffect(() => {
+    // Create a debounced function that updates debouncedCriteria
+    const handler = debounce(() => {
+      setDebouncedCriteria(normalize(searchCriteria));
+    }, 500);
+
+    // Call the debounced function
+    handler();
+
+    // Cleanup: cancel pending debounce when component unmounts or searchCriteria changes
+    return () => {
+      handler.cancel();
+    };
+  }, [searchCriteria]);
+
+  /**
+   * RENDERING
+   */
 
   if (guidancesData?.length === 0) {
     return (

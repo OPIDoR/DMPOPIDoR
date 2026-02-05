@@ -43,31 +43,6 @@ function CommentList({
   const [isUpdate, setIsUpdate] = useState(false);
   const [comment, setComment] = useState(null);
 
-  useEffect(() => {
-    setLoading(true);
-    commentsService
-      .get(answerId)
-      .then(({ data }) => {
-        setComments(data?.notes || []);
-      })
-      .catch((error) =>
-        setError({
-          code: error?.response?.status,
-          message: error?.response?.statusText,
-          error: error?.response?.data?.message || "",
-          home: false,
-        }),
-      )
-      .finally(() => setLoading(false));
-  }, [answerId]);
-
-  useEffect(() => {
-    updateTitle(comments || []);
-    if (setCommentsNumber) {
-      setCommentsNumber(comments.length || 0);
-    }
-  }, [comments]);
-
   /**
    * "updateParentText" is a function that takes in a parameter called "updatedText" and then sets the value of "editorContentRef.current" to
    * "updatedText".
@@ -231,6 +206,39 @@ function CommentList({
 
     return isUpdate ? update(newText, comment) : createComment(newText);
   };
+
+  /**
+   * USE EFFECTS
+   */
+
+  useEffect(() => {
+    setLoading(true);
+    commentsService
+      .get(answerId)
+      .then(({ data }) => {
+        setComments(data?.notes || []);
+      })
+      .catch((error) =>
+        setError({
+          code: error?.response?.status,
+          message: error?.response?.statusText,
+          error: error?.response?.data?.message || "",
+          home: false,
+        }),
+      )
+      .finally(() => setLoading(false));
+  }, [answerId]);
+
+  useEffect(() => {
+    updateTitle(comments || []);
+    if (setCommentsNumber) {
+      setCommentsNumber(comments.length || 0);
+    }
+  }, [comments]);
+
+  /**
+   * RENDERING
+   */
 
   return (
     <Global>

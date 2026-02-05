@@ -50,17 +50,6 @@ function Global({ children }) {
   const [savedGuidances, setSavedGuidances] = useState([]);
   const [commentablePlan, setCommentablePlan] = useState(false);
 
-  /* It's setting the formData in sessionStorage. */
-  // useEffect(() => {
-  //   /* It's setting the form in localStorage. */
-  //   localStorage.setItem('formData', JSON.stringify(formData));
-  // }, [formData]);
-
-  /* It's setting the researchOutputs in sessionStorage. */
-  // useEffect(() => {
-  //   sessionStorage.setItem("researchOutputs", JSON.stringify(researchOutputs));
-  // }, [researchOutputs]);
-
   const setUrlParams = (data = {}) => {
     const currentParams = Object.fromEntries(
       new URLSearchParams(window.location.search),

@@ -40,13 +40,6 @@ function GeneralInfo({
       ? t("projectDetails")
       : t("entityDetails");
 
-  useEffect(() => {
-    setLocale(locale);
-    i18n.changeLanguage(locale.substring(0, 2));
-
-    setDmpId(dmpId);
-  }, [dmpId, locale]);
-
   const handleClickIsTestPlan = async (e) => {
     const checked = e.target.checked;
     setIsTestPlan(checked);
@@ -61,6 +54,21 @@ function GeneralInfo({
 
     return toast.success(response?.data?.msg);
   };
+
+  /**
+   * USE EFFECTS
+   */
+
+  useEffect(() => {
+    setLocale(locale);
+    i18n.changeLanguage(locale.substring(0, 2));
+
+    setDmpId(dmpId);
+  }, [dmpId, locale]);
+
+  /**
+   * RENDERING
+   */
 
   return (
     <>

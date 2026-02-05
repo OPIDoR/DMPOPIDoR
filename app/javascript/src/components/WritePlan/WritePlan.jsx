@@ -33,37 +33,6 @@ function WritePlan({ locale = "en_GB", planId, userId, readonly }) {
   const [template, setTemplate] = useState(null);
   const tooltipedLabelId = uniqueId("create_research_output_tooltip_id_");
 
-  useEffect(() => {
-    i18n.changeLanguage(locale.substring(0, 2));
-  }, [locale]);
-
-  /* A hook that is called when the component is mounted. It is used to fetch data from the API. */
-  // TODO update this , it can make error
-  useEffect(() => {
-    setLoading(true);
-
-    const queryParameters = new URLSearchParams(window.location.search);
-    const researchOutputId = queryParameters.get("research_output");
-
-    setUserId(userId);
-    setLocale(locale);
-
-    loadData(planId, researchOutputId);
-
-    const handleRefresh = (e) => {
-      loadData(
-        e?.detail?.message?.planId || planId,
-        e?.detail?.message?.roId || researchOutputId,
-      );
-    };
-
-    window.addEventListener("trigger-refresh-ro-data", handleRefresh);
-
-    return () => {
-      window.removeEventListener("trigger-refresh-ro-data", handleRefresh);
-    };
-  }, [planId]);
-
   const loadData = (planId, researchOutputId) => {
     writePlan
       .getPlanData(planId)
@@ -96,6 +65,45 @@ function WritePlan({ locale = "en_GB", planId, userId, readonly }) {
       .catch((error) => setError(error))
       .finally(() => setLoading(false));
   };
+
+  /**
+   * USE EFFECTS
+   */
+
+  useEffect(() => {
+    i18n.changeLanguage(locale.substring(0, 2));
+  }, [locale]);
+
+  /* A hook that is called when the component is mounted. It is used to fetch data from the API. */
+  // TODO update this , it can make error
+  useEffect(() => {
+    setLoading(true);
+
+    const queryParameters = new URLSearchParams(window.location.search);
+    const researchOutputId = queryParameters.get("research_output");
+
+    setUserId(userId);
+    setLocale(locale);
+
+    loadData(planId, researchOutputId);
+
+    const handleRefresh = (e) => {
+      loadData(
+        e?.detail?.message?.planId || planId,
+        e?.detail?.message?.roId || researchOutputId,
+      );
+    };
+
+    window.addEventListener("trigger-refresh-ro-data", handleRefresh);
+
+    return () => {
+      window.removeEventListener("trigger-refresh-ro-data", handleRefresh);
+    };
+  }, [planId]);
+
+  /**
+   * RENDERING
+   */
 
   return (
     <div style={{ position: "relative" }}>

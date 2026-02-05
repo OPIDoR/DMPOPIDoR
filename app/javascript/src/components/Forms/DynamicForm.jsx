@@ -52,83 +52,6 @@ function DynamicForm({
   const dataType = displayedResearchOutput?.configuration?.dataType || "none";
   const topic = displayedResearchOutput?.topic || "generic";
 
-  useEffect(() => {
-    setLoading(true);
-    if (fragmentId) {
-      if (formData[fragmentId]) {
-        if (loadedTemplates[formData[fragmentId].template_name]) {
-          setTemplate(loadedTemplates[formData[fragmentId].template_name]);
-        } else {
-          service
-            .getSchema(formData[fragmentId].schema_id)
-            .then((res) => {
-              setTemplate(res.data);
-              setExternalImports(template?.schema?.externalImports || {});
-              setLoadedTemplates({
-                ...loadedTemplates,
-                [res.data.name]: res.data,
-              });
-            })
-            .catch(console.error);
-        }
-        methods.reset({ ...emptyDefaults, ...formData[fragmentId] });
-      } else {
-        service
-          .getFragment(fragmentId)
-          .then((res) => {
-            setTemplate(res.data.template);
-            setLoadedTemplates({
-              ...loadedTemplates,
-              [res.data.template.name]: res.data.template,
-            });
-            handleFragmentData(res.data);
-          })
-          .catch(console.error);
-      }
-    } else {
-      service
-        .getNewForm(questionId, displayedResearchOutput.id)
-        .then((res) => {
-          const tplt = res.data.template;
-          setTemplate(tplt);
-          setTemplateId(tplt.id);
-          setExternalImports(tplt.schema.externalImports || {});
-          setLoadedTemplates({ ...loadedTemplates, [tplt.name]: tplt });
-          if (res.data.fragment) handleFragmentData(res.data);
-        })
-        .catch(console.error);
-    }
-    setLoading(false);
-  }, [fragmentId]);
-
-  useEffect(() => {
-    methods.reset({ ...emptyDefaults, ...formData[fragmentId] });
-  }, [formData[fragmentId]]);
-
-  useEffect(() => {
-    if (
-      setScriptsData &&
-      template?.schema?.run &&
-      template.schema.run.length > 0
-    ) {
-      setScriptsData({
-        scripts: template.schema.run,
-        apiClient: template.api_client,
-      });
-    } else if (setScriptsData) {
-      setScriptsData({ scripts: [] });
-    }
-    setExternalImports(template?.schema?.externalImports || {});
-  }, [template]);
-
-  useEffect(() => {
-    if (!fragmentId && template) {
-      const defaults = formatDefaultValues(template.schema.default?.[locale]);
-      Object.keys(defaults).length > 0
-        ? methods.reset(defaults)
-        : methods.reset(generateEmptyDefaults(template.schema.properties));
-    }
-  }, [template, fragmentId]);
   /**
    * It checks if the form is filled in correctly.
    * @param e - the event object
@@ -213,6 +136,92 @@ function DynamicForm({
     }
     methods.reset(data.fragment);
   };
+
+  /**
+   * USE EFFECTS
+   */
+
+  useEffect(() => {
+    setLoading(true);
+    if (fragmentId) {
+      if (formData[fragmentId]) {
+        if (loadedTemplates[formData[fragmentId].template_name]) {
+          setTemplate(loadedTemplates[formData[fragmentId].template_name]);
+        } else {
+          service
+            .getSchema(formData[fragmentId].schema_id)
+            .then((res) => {
+              setTemplate(res.data);
+              setExternalImports(template?.schema?.externalImports || {});
+              setLoadedTemplates({
+                ...loadedTemplates,
+                [res.data.name]: res.data,
+              });
+            })
+            .catch(console.error);
+        }
+        methods.reset({ ...emptyDefaults, ...formData[fragmentId] });
+      } else {
+        service
+          .getFragment(fragmentId)
+          .then((res) => {
+            setTemplate(res.data.template);
+            setLoadedTemplates({
+              ...loadedTemplates,
+              [res.data.template.name]: res.data.template,
+            });
+            handleFragmentData(res.data);
+          })
+          .catch(console.error);
+      }
+    } else {
+      service
+        .getNewForm(questionId, displayedResearchOutput.id)
+        .then((res) => {
+          const tplt = res.data.template;
+          setTemplate(tplt);
+          setTemplateId(tplt.id);
+          setExternalImports(tplt.schema.externalImports || {});
+          setLoadedTemplates({ ...loadedTemplates, [tplt.name]: tplt });
+          if (res.data.fragment) handleFragmentData(res.data);
+        })
+        .catch(console.error);
+    }
+    setLoading(false);
+  }, [fragmentId]);
+
+  useEffect(() => {
+    methods.reset({ ...emptyDefaults, ...formData[fragmentId] });
+  }, [formData[fragmentId]]);
+
+  useEffect(() => {
+    if (
+      setScriptsData &&
+      template?.schema?.run &&
+      template.schema.run.length > 0
+    ) {
+      setScriptsData({
+        scripts: template.schema.run,
+        apiClient: template.api_client,
+      });
+    } else if (setScriptsData) {
+      setScriptsData({ scripts: [] });
+    }
+    setExternalImports(template?.schema?.externalImports || {});
+  }, [template]);
+
+  useEffect(() => {
+    if (!fragmentId && template) {
+      const defaults = formatDefaultValues(template.schema.default?.[locale]);
+      Object.keys(defaults).length > 0
+        ? methods.reset(defaults)
+        : methods.reset(generateEmptyDefaults(template.schema.properties));
+    }
+  }, [template, fragmentId]);
+
+  /**
+   * RENDERING
+   */
 
   return (
     <>

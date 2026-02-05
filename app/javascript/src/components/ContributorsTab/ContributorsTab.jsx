@@ -24,24 +24,6 @@ function ContributorsTab({ planId, locale, readonly }) {
   const [error, setError] = useState(null);
   const [loading, setLoading] = useState(false);
 
-  useEffect(() => {
-    setLoading(true);
-    service
-      .getContributors(planId)
-      .then((res) => {
-        setContributors(res.data.contributors);
-        setTemplate(res.data.template);
-        setDmpId(res.data.dmp_id);
-      })
-      .catch((error) => setError(error))
-      .finally(() => setLoading(false));
-  }, [planId]);
-
-  useEffect(() => {
-    setLocale(locale);
-    i18n.changeLanguage(locale.substring(0, 2));
-  }, [planId, locale]);
-
   const handleSave = async (data) => {
     const newContributorsList = [...contributors];
     setLoading(true);
@@ -117,6 +99,32 @@ function ContributorsTab({ planId, locale, readonly }) {
       }
     });
   };
+
+  /**
+   * USE EFFECTS
+   */
+
+  useEffect(() => {
+    setLoading(true);
+    service
+      .getContributors(planId)
+      .then((res) => {
+        setContributors(res.data.contributors);
+        setTemplate(res.data.template);
+        setDmpId(res.data.dmp_id);
+      })
+      .catch((error) => setError(error))
+      .finally(() => setLoading(false));
+  }, [planId]);
+
+  useEffect(() => {
+    setLocale(locale);
+    i18n.changeLanguage(locale.substring(0, 2));
+  }, [planId, locale]);
+
+  /**
+   * RENDERING
+   */
 
   return (
     <div style={{ position: "relative" }}>

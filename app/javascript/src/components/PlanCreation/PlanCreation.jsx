@@ -129,6 +129,31 @@ function PlanCreation({ locale = "en_GB" }) {
     },
   ];
 
+  const prevStep = (
+    <CustomButton
+      handleClick={() => handleStep(currentStep - 1)}
+      title={t("goBackToPreviousStep")}
+      position="start"
+    />
+  );
+
+  const nextStep = () => {
+    handleStep(currentStep + 1);
+  };
+
+  const handleStep = (index) => {
+    if (index < 0 || index > steps.length) {
+      return;
+    }
+
+    setCurrentStep(index);
+    setUrlParams({ step: index });
+  };
+
+  /**
+   * USE EFFECTS
+   */
+
   useEffect(() => {
     setLocale(locale);
     i18n.changeLanguage(locale.substring(0, 2));
@@ -172,26 +197,9 @@ function PlanCreation({ locale = "en_GB" }) {
     setUrlParams({ step: `${step || 0}` });
   }, [locale, currentStep, currentAction, params.templateName]);
 
-  const prevStep = (
-    <CustomButton
-      handleClick={() => handleStep(currentStep - 1)}
-      title={t("goBackToPreviousStep")}
-      position="start"
-    />
-  );
-
-  const nextStep = () => {
-    handleStep(currentStep + 1);
-  };
-
-  const handleStep = (index) => {
-    if (index < 0 || index > steps.length) {
-      return;
-    }
-
-    setCurrentStep(index);
-    setUrlParams({ step: index });
-  };
+  /**
+   * RENDERING
+   */
 
   return (
     <div className="container">

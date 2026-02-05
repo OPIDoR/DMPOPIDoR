@@ -16,6 +16,29 @@ function Driver({ locale = "fr_FR", tourName, children, steps }) {
 
   const driverRef = useRef(null);
 
+  const handleRenderedChildren = (childrenTags) => {
+    const allChildrenRendered = childrenTags.every(
+      (tag) => document.querySelector(tag) !== null,
+    );
+
+    if (!allChildrenRendered) {
+      return setTimeout(() => handleRenderedChildren(childrenTags), 100);
+    }
+
+    return guidedTour.getTour(tourName).then(({ data }) => {
+      const open = isOpen || !data?.tour?.ended;
+      setIsOpen(open);
+      setIsEnded(data?.tour?.ended);
+      if (open) {
+        driverRef?.current.drive();
+      }
+    });
+  };
+
+  /**
+   * USE EFFECTS
+   */
+
   useEffect(() => {
     if (!driverRef.current) {
       driverRef.current = driver({
@@ -56,24 +79,9 @@ function Driver({ locale = "fr_FR", tourName, children, steps }) {
     handleRenderedChildren(steps.map(({ element }) => element));
   }, [isOpen]);
 
-  const handleRenderedChildren = (childrenTags) => {
-    const allChildrenRendered = childrenTags.every(
-      (tag) => document.querySelector(tag) !== null,
-    );
-
-    if (!allChildrenRendered) {
-      return setTimeout(() => handleRenderedChildren(childrenTags), 100);
-    }
-
-    return guidedTour.getTour(tourName).then(({ data }) => {
-      const open = isOpen || !data?.tour?.ended;
-      setIsOpen(open);
-      setIsEnded(data?.tour?.ended);
-      if (open) {
-        driverRef?.current.drive();
-      }
-    });
-  };
+  /**
+   * RENDERING
+   */
 
   return children;
 }

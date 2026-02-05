@@ -37,26 +37,6 @@ function SubForm({
   const tooltipId = uniqueId("sub_form_tooltip_id_");
   const ViewEditComponent = readonly ? FaEye : FaPenToSquare;
 
-  useEffect(() => {
-    setEditedFragment(field.value || {});
-  }, [field.value]);
-
-  useEffect(() => {
-    if (!loadedTemplates[templateName]) {
-      service
-        .getSchemaByName(templateName)
-        .then((res) => {
-          setTemplate(res.data);
-          setLoadedTemplates({ ...loadedTemplates, [templateName]: res.data });
-        })
-        .catch((error) => {
-          setError(getErrorMessage(error));
-        });
-    } else {
-      setTemplate(loadedTemplates[templateName]);
-    }
-  }, [templateName]);
-
   const handleSaveNestedForm = (data) => {
     if (!data) return setShowNestedForm(false);
     const newFragment = {
@@ -82,6 +62,34 @@ function SubForm({
       }
     });
   };
+
+  /**
+   * USE EFFECTS
+   */
+
+  useEffect(() => {
+    setEditedFragment(field.value || {});
+  }, [field.value]);
+
+  useEffect(() => {
+    if (!loadedTemplates[templateName]) {
+      service
+        .getSchemaByName(templateName)
+        .then((res) => {
+          setTemplate(res.data);
+          setLoadedTemplates({ ...loadedTemplates, [templateName]: res.data });
+        })
+        .catch((error) => {
+          setError(getErrorMessage(error));
+        });
+    } else {
+      setTemplate(loadedTemplates[templateName]);
+    }
+  }, [templateName]);
+
+  /**
+   * RENDERING
+   */
 
   return (
     <div>

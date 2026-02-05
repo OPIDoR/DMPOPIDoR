@@ -33,15 +33,23 @@ const CookieButton = styled.div`
 const CookieConsent = () => {
   const { t, i18n } = useTranslation();
 
+  const resetCookieConsent = () => {
+    cookieConsent.show(true);
+    cookieConsent.run(config);
+  };
+
+  /**
+   * USE EFFECTS
+   */
+
   useEffect(() => {
     cookieConsent.setLanguage(i18n.resolvedLanguage || "fr");
     cookieConsent.run(config);
   }, []);
 
-  const resetCookieConsent = () => {
-    cookieConsent.show(true);
-    cookieConsent.run(config);
-  };
+  /**
+   * RENDERING
+   */
 
   return (
     <>

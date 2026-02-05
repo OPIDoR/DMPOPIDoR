@@ -47,53 +47,6 @@ function GuidanceModal({ shown, hide, questionId, researchOutputId }) {
     whiteSpace: "nowrap",
   });
 
-  /* A hook that is called when the component is mounted. */
-  useEffect(() => {
-    if (!questionId) {
-      return;
-    }
-
-    setLoading(true);
-
-    guidances
-      .getGuidances(researchOutputId, questionId)
-      .then(({ data }) => {
-        const guidancesData = data?.guidances.map((guidance) => {
-          const groups = guidance.groups.reduce((acc, group) => {
-            const [groupInfo, guidanceInfo] = group;
-            const groupName = groupInfo.name;
-
-            const descriptionKey = Object.keys(guidanceInfo).find(
-              (key) => key !== "id",
-            );
-
-            acc[groupName] = {
-              title: descriptionKey,
-              guidances: Array.isArray(guidanceInfo[descriptionKey])
-                ? guidanceInfo[descriptionKey]
-                : [],
-            };
-
-            return acc;
-          }, {});
-
-          const title = Object.values(groups)?.at(0)?.title || "";
-
-          return {
-            name: guidance.name,
-            title,
-            groups,
-            annotations: guidance.annotations || [],
-          };
-        });
-
-        setData(guidancesData);
-        setActiveTab(guidancesData?.at(0)?.name || "");
-      })
-      .catch((error) => setError(error))
-      .finally(() => setLoading(false));
-  }, [researchOutputId, questionId]);
-
   /**
    * getContent function returns JSX with a scrollable container (<ScrollNav>) containing a body (<NavBody>) and text (<NavBodyText>).
    * Text is based on data and indexTab. If data[indexTab].annotations[0].text exists, it's displayed using dangerouslySetInnerHTML for HTML rendering.
@@ -145,6 +98,60 @@ function GuidanceModal({ shown, hide, questionId, researchOutputId }) {
       </NavBodyText>
     </NavBody>
   );
+
+  /**
+   * USE EFFECTS
+   */
+
+  useEffect(() => {
+    if (!questionId) {
+      return;
+    }
+
+    setLoading(true);
+
+    guidances
+      .getGuidances(researchOutputId, questionId)
+      .then(({ data }) => {
+        const guidancesData = data?.guidances.map((guidance) => {
+          const groups = guidance.groups.reduce((acc, group) => {
+            const [groupInfo, guidanceInfo] = group;
+            const groupName = groupInfo.name;
+
+            const descriptionKey = Object.keys(guidanceInfo).find(
+              (key) => key !== "id",
+            );
+
+            acc[groupName] = {
+              title: descriptionKey,
+              guidances: Array.isArray(guidanceInfo[descriptionKey])
+                ? guidanceInfo[descriptionKey]
+                : [],
+            };
+
+            return acc;
+          }, {});
+
+          const title = Object.values(groups)?.at(0)?.title || "";
+
+          return {
+            name: guidance.name,
+            title,
+            groups,
+            annotations: guidance.annotations || [],
+          };
+        });
+
+        setData(guidancesData);
+        setActiveTab(guidancesData?.at(0)?.name || "");
+      })
+      .catch((error) => setError(error))
+      .finally(() => setLoading(false));
+  }, [researchOutputId, questionId]);
+
+  /**
+   * RENDERING
+   */
 
   return (
     <InnerModal show={shown} ref={modalRef}>

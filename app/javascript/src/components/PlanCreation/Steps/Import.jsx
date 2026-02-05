@@ -55,38 +55,6 @@ function Import({ prevStep, params, set, setUrlParams }) {
   const [selectedTemplate, setSelectedTemplate] = useState(null);
   const dropZoneRef = useRef();
 
-  useEffect(() => {
-    const fetchTemplates = async (opts) => {
-      setLoading(true);
-
-      let templatesData;
-      try {
-        templatesData = await getTemplates(opts, true);
-      } catch {
-        return setLoading(false);
-      }
-
-      const templates = [
-        ...templatesData.default,
-        ...templatesData.others.map(({ templates }) => templates).flat(),
-      ].map(({ id, title }) => ({
-        value: id,
-        label: title,
-      }));
-
-      setTemplates(templates);
-      handleSelectedTemplate(
-        templates.find(({ label }) =>
-          normalize(label)?.startsWith("science europe"),
-        ),
-      );
-
-      setLoading(false);
-    };
-
-    fetchTemplates(params);
-  }, []);
-
   const handleSelectedTemplate = (tmpl) => {
     set(tmpl.value, tmpl.label);
     localStorage.setItem("templateId", tmpl.value);
@@ -142,6 +110,46 @@ function Import({ prevStep, params, set, setUrlParams }) {
 
     return dropZoneRef.current.classList.remove("overlay");
   };
+
+  /**
+   * USE EFFECTS
+   */
+
+  useEffect(() => {
+    const fetchTemplates = async (opts) => {
+      setLoading(true);
+
+      let templatesData;
+      try {
+        templatesData = await getTemplates(opts, true);
+      } catch {
+        return setLoading(false);
+      }
+
+      const templates = [
+        ...templatesData.default,
+        ...templatesData.others.map(({ templates }) => templates).flat(),
+      ].map(({ id, title }) => ({
+        value: id,
+        label: title,
+      }));
+
+      setTemplates(templates);
+      handleSelectedTemplate(
+        templates.find(({ label }) =>
+          normalize(label)?.startsWith("science europe"),
+        ),
+      );
+
+      setLoading(false);
+    };
+
+    fetchTemplates(params);
+  }, []);
+
+  /**
+   * RENDERING
+   */
 
   return (
     <div>
