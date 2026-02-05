@@ -29,7 +29,6 @@ RUN mkdir -p /etc/apt/keyrings && \
   npm install -g yarn
 RUN bundle install --jobs=4 --retry=3
 RUN yarn install && \
-  yarn --cwd app/javascript/dmp_opidor_react install && \
   yarn cache clean
 
 FROM dev AS production-builder

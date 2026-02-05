@@ -1,5 +1,7 @@
 const path = require('path');
 const webpack = require('webpack');
+const { EsbuildPlugin } = require('esbuild-loader');
+const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 
 const mode = process.env.NODE_ENV === 'development' ? 'development' : 'production';
 
@@ -8,24 +10,29 @@ module.exports = {
   devtool: mode === 'development' ? 'eval-cheap-module-source-map' : 'source-map',
   module: {
     rules: [
+      // Use esbuild to compile JavaScript & TypeScript
       {
-        test: /\.(js|jsx)$/,
-        exclude: /node_modules/,
-        use: [{
-          loader: 'babel-loader',
-          options: {
-            presets: [
-              ['@babel/preset-env', {
-                targets: 'defaults',
-              }],
-              '@babel/preset-react',
-            ],
-          },
-        }],
+        // Match `.js`, `.jsx`, `.ts` or `.tsx` files
+        test: /\.[jt]sx?$/,
+        loader: 'esbuild-loader',
+        options: {
+          // JavaScript version to compile to
+          target: 'es2015',
+        },
       },
       {
         test: /\.css$/i,
-        use: ['style-loader', 'css-loader'],
+        use: [
+          MiniCssExtractPlugin.loader,
+          'style-loader',
+          'css-loader',
+          {
+            loader: 'esbuild-loader',
+            options: {
+              minify: true,
+            },
+          },
+        ],
       },
       {
         test: /\.(png|jpe?g|gif|eot|woff2|woff|ttf|svg)$/i,
@@ -37,7 +44,12 @@ module.exports = {
     application: './app/javascript/application.js',
   },
   optimization: {
-    moduleIds: 'deterministic',
+    minimizer: [
+      new EsbuildPlugin({
+        target: 'es2015',
+        css: true,
+      })
+    ]
   },
   output: {
     filename: '[name].js',
@@ -45,6 +57,7 @@ module.exports = {
     path: path.resolve(__dirname, '..', '..', 'app/assets/builds'),
   },
   plugins: [
+    new MiniCssExtractPlugin(),
     new webpack.optimize.LimitChunkCountPlugin({
       maxChunks: 1,
     }),
