@@ -1,0 +1,66 @@
+@import url("./variable.css");
+
+.write_plan_block {
+  border-radius: 0px 8px 8px 8px;
+  border: solid;
+  border-color: var(--dark-blue);
+  border-width: 1px;
+  margin: 0px;
+  padding: 35px;
+}
+.title {
+  font-weight: bold;
+  font-size: 30px;
+  color: var(--rust);
+}
+
+.collapse_title {
+  margin: 10px 0px 10px 0px;
+  font-family:  "Helvetica Neue", sans-serif;
+}
+
+.sub_title {
+  font-weight: bold;
+  font-size: 16px;
+  color: var(--blue);
+}
+
+.question_title {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  color: var(--dark-blue);
+}
+
+.question_icons {
+  max-width: 160px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.card_icon {
+  color: var(--dark-blue);
+  margin: 0px 5px 0px 0px;
+}
+
+.question_number {
+  font-size: 18px;
+  font-weight: bold;
+  color: var(--blue);
+  margin-right: 10px;
+}
+
+.question_text {
+  display: flex;
+  font-family:  "Helvetica Neue", sans-serif;
+}
+
+.svg_size {
+  height: 55px !important;
+  width: 55px !important;
+}
+
+.card_title p {
+  margin: 0 !important;
+}
