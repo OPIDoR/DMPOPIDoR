@@ -112,7 +112,6 @@
     "karma-jquery": "^0.2.4",
     "karma-json-fixtures-preprocessor": "^0.0.6",
     "karma-webpack": "^5.0.0",
-    "mini-css-extract-plugin": "^2.10.0",
     "prettier": "^3.8.1",
     "react-select-event": "^5.5.1",
     "react-test-renderer": "^19.1.0",
