@@ -1,4 +1,4 @@
-import { useContext, useEffect, useState } from "react";
+import { useContext, useEffect, useMemo, useState } from "react";
 import toast from "react-hot-toast";
 import { useTranslation } from "react-i18next";
 import { useForm, FormProvider } from "react-hook-form";
@@ -44,13 +44,27 @@ function DynamicForm({
   const [error] = useState(null);
   const [template, setTemplate] = useState(null);
   const [templateId, setTemplateId] = useState(madmpSchemaId);
-  const [externalImports, setExternalImports] = useState({});
 
-  const emptyDefaults = template
-    ? generateEmptyDefaults(template.schema.properties)
-    : {};
-  const dataType = displayedResearchOutput?.configuration?.dataType || "none";
-  const topic = displayedResearchOutput?.topic || "generic";
+  /**
+   * Memoized values
+   */
+  const dataType = useMemo(
+    () => displayedResearchOutput?.configuration?.dataType || "none",
+    [displayedResearchOutput],
+  );
+  const topic = useMemo(
+    () => displayedResearchOutput?.topic || "generic",
+    [displayedResearchOutput],
+  );
+
+  const externalImports = useMemo(() => {
+    return template?.schema?.externalImports || {};
+  }, [template]);
+
+  const emptyDefaults = useMemo(
+    () => (template ? generateEmptyDefaults(template.schema.properties) : {}),
+    [template],
+  );
 
   /**
    * It checks if the form is filled in correctly.
@@ -151,7 +165,6 @@ function DynamicForm({
             .getSchema(formData[fragmentId].schema_id)
             .then((res) => {
               setTemplate(res.data);
-              setExternalImports(template?.schema?.externalImports || {});
               setLoadedTemplates({
                 ...loadedTemplates,
                 [res.data.name]: res.data,
@@ -182,14 +195,12 @@ function DynamicForm({
           const tplt = res.data.template;
           setTemplate(tplt);
           setTemplateId(tplt.id);
-          setExternalImports(tplt.schema.externalImports || {});
           setLoadedTemplates({ ...loadedTemplates, [tplt.name]: tplt });
           if (res.data.fragment) handleFragmentData(res.data);
         })
         .catch(console.error)
         .finally(() => setLoading(false));
     }
-    setLoading(false);
   }, [fragmentId]);
 
   useEffect(() => {
@@ -209,7 +220,6 @@ function DynamicForm({
     } else if (setScriptsData) {
       setScriptsData({ scripts: [] });
     }
-    setExternalImports(template?.schema?.externalImports || {});
   }, [template]);
 
   useEffect(() => {
