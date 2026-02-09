@@ -14,7 +14,7 @@ const headerStyle = {
   alignItems: "center",
 };
 
-const InnerModalHeader = forwardRef((props, ref) => {
+const InnerModalHeader = forwardRef((props, parentRef) => {
   const {
     closeButton = false,
     expandButton = false,
@@ -25,25 +25,27 @@ const InnerModalHeader = forwardRef((props, ref) => {
   } = props;
 
   const [isExpanded, setIsExpanded] = useState(false);
-  const parentRef = ref?.current || null;
 
   const expand = (value) => {
-    if (!parentRef) {
+    if (!parentRef?.current) {
       return;
     }
 
     if (value) {
       setIsExpanded(true);
-      // eslint-disable-next-line react-compiler/react-compiler
-      return (parentRef.style.width = "calc(100% - 30px)");
+      return (parentRef.current.style.width = "calc(100% - 30px)");
     }
 
     setIsExpanded(false);
-    return (parentRef.style.width = "540px");
+    return (parentRef.current.style.width = "540px");
   };
 
   return (
-    <div ref={ref} style={{ ...headerStyle, ...style }} className={className}>
+    <div
+      ref={parentRef}
+      style={{ ...headerStyle, ...style }}
+      className={className}
+    >
       <div>{children}</div>
       <div id="inner-modal-header-actions">
         {expandButton && isExpanded && (
