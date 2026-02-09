@@ -1,4 +1,4 @@
-import { createContext, useReducer, useState } from "react";
+import { createContext, useMemo, useReducer, useState } from "react";
 
 /**
  * If the incomingFormData is null, remove the formData from localStorage,
@@ -68,48 +68,67 @@ function Global({ children }) {
     );
   };
 
+  const contextValue = useMemo(
+    () => ({
+      locale,
+      setLocale,
+      dmpId,
+      setDmpId,
+      persons,
+      setPersons,
+      researchContext,
+      setResearchContext,
+      formData,
+      setFormData,
+      loadedRegistries,
+      setLoadedRegistries,
+      loadedTemplates,
+      setLoadedTemplates,
+      loadedSectionsData,
+      setLoadedSectionsData,
+      researchOutputs,
+      setResearchOutputs,
+      displayedResearchOutput,
+      setDisplayedResearchOutput,
+      openedQuestions,
+      setOpenedQuestions,
+      userId,
+      setUserId,
+      setUrlParams,
+      selectedTemplate,
+      setSelectedTemplate,
+      formSelectors,
+      setFormSelector,
+      configuration,
+      setConfiguration,
+      savedGuidances,
+      setSavedGuidances,
+      commentablePlan,
+      setCommentablePlan,
+    }),
+    [
+      locale,
+      dmpId,
+      persons,
+      researchContext,
+      formData,
+      loadedRegistries,
+      loadedTemplates,
+      loadedSectionsData,
+      researchOutputs,
+      displayedResearchOutput,
+      openedQuestions,
+      userId,
+      selectedTemplate,
+      formSelectors,
+      configuration,
+      savedGuidances,
+      commentablePlan,
+    ],
+  );
+
   return (
-    <GlobalContext.Provider
-      value={{
-        locale,
-        setLocale,
-        dmpId,
-        setDmpId,
-        persons,
-        setPersons,
-        researchContext,
-        setResearchContext,
-        // Dynamic form
-        formData,
-        setFormData,
-        loadedRegistries,
-        setLoadedRegistries,
-        loadedTemplates,
-        setLoadedTemplates,
-        // Write Plan
-        loadedSectionsData,
-        setLoadedSectionsData,
-        researchOutputs,
-        setResearchOutputs,
-        displayedResearchOutput,
-        setDisplayedResearchOutput,
-        openedQuestions,
-        setOpenedQuestions,
-        userId,
-        setUserId,
-        setUrlParams,
-        selectedTemplate,
-        setSelectedTemplate,
-        formSelectors,
-        setFormSelector,
-        configuration,
-        setConfiguration,
-        savedGuidances,
-        setSavedGuidances,
-        commentablePlan,
-        setCommentablePlan,
-      }}
-    >
+    <GlobalContext.Provider value={contextValue}>
       {children}
     </GlobalContext.Provider>
   );
