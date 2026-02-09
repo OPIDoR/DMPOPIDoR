@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useState } from "react";
+import React, { useContext, useEffect, useMemo, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { Step, Stepper } from "./BootstrapStepper.jsx";
 import { Toaster } from "react-hot-toast";
@@ -35,107 +35,123 @@ function PlanCreation({ locale = "en_GB" }) {
 
   const [currentStep, setCurrentStep] = useState(0);
 
-  const actions = {
-    import: t("importAnExistingPlan"),
-    create: t("createNewPlan"),
-  };
+  /**
+   * Memoized values
+   */
 
-  const formats = {
-    standard: t("dmpOpidorFormat"),
-    rda: t("rdaDmpCommonStandardFormat"),
-  };
-
-  const context = {
-    research_project: t("forProject"),
-    research_entity: t("forEntity"),
-  };
-
-  const languages = {
-    "fr-FR": "Français",
-    "en-GB": "English (UK)",
-  };
-
-  const [currentAction, setCurrentAction] = useState("create");
-
-  const [steps, setSteps] = useState([]);
-  const dataSteps = [
-    {
-      label: t("actionSelection"),
-      component: <ActionSelection />,
-      value: actions[params.action],
-      set: (action) =>
-        setParams({
-          ...params,
-          action,
-        }),
-      actions: ["create", "import"],
-    },
-    {
-      label: t("contextSelection"),
-      component: <ContextSelection />,
-      value: context[params.researchContext],
-      set: (researchContext) =>
-        setParams({
-          ...params,
-          researchContext,
-        }),
-      actions: ["create", "import"],
-    },
-    {
-      label: t("languageSelection"),
-      component: <LangSelection />,
-      value: languages[params.templateLanguage],
-      set: (templateLanguage) =>
-        setParams({
-          ...params,
-          templateLanguage,
-        }),
-      actions: ["create", "import"],
-    },
-    {
-      label: t("templateSelection"),
-      component: <TemplateSelection />,
-      value: params.templateName,
-      set: (selectedTemplate, templateName) =>
-        setParams({
-          ...params,
-          selectedTemplate,
-          templateName,
-        }),
-      actions: ["create"],
-    },
-    {
-      label: t("formatSelection"),
-      component: <FormatSelection />,
-      value: formats[params.format],
-      set: (format) =>
-        setParams({
-          ...params,
-          format,
-        }),
-      actions: ["import"],
-    },
-    {
-      label: t("templateSelection"),
-      component: <Import />,
-      value: params.templateName,
-      set: (selectedTemplate, templateName) =>
-        setParams({
-          ...params,
-          selectedTemplate,
-          templateName,
-        }),
-      actions: ["import"],
-    },
-  ];
-
-  const prevStep = (
-    <CustomButton
-      handleClick={() => handleStep(currentStep - 1)}
-      title={t("goBackToPreviousStep")}
-      position="start"
-    />
+  const actions = useMemo(
+    () => ({
+      import: t("importAnExistingPlan"),
+      create: t("createNewPlan"),
+    }),
+    [t],
   );
+
+  const formats = useMemo(
+    () => ({
+      standard: t("dmpOpidorFormat"),
+      rda: t("rdaDmpCommonStandardFormat"),
+    }),
+    [t],
+  );
+
+  const context = useMemo(
+    () => ({
+      research_project: t("forProject"),
+      research_entity: t("forEntity"),
+    }),
+    [t],
+  );
+
+  const languages = useMemo(
+    () => ({
+      "fr-FR": "Français",
+      "en-GB": "English (UK)",
+    }),
+    [],
+  );
+
+  const steps = useMemo(
+    () => [
+      {
+        label: t("actionSelection"),
+        component: <ActionSelection />,
+        value: actions[params.action],
+        set: (action) =>
+          setParams({
+            ...params,
+            action,
+          }),
+        actions: ["create", "import"],
+      },
+      {
+        label: t("contextSelection"),
+        component: <ContextSelection />,
+        value: context[params.researchContext],
+        set: (researchContext) =>
+          setParams({
+            ...params,
+            researchContext,
+          }),
+        actions: ["create", "import"],
+      },
+      {
+        label: t("languageSelection"),
+        component: <LangSelection />,
+        value: languages[params.templateLanguage],
+        set: (templateLanguage) =>
+          setParams({
+            ...params,
+            templateLanguage,
+          }),
+        actions: ["create", "import"],
+      },
+      {
+        label: t("templateSelection"),
+        component: <TemplateSelection />,
+        value: params.templateName,
+        set: (selectedTemplate, templateName) =>
+          setParams({
+            ...params,
+            selectedTemplate,
+            templateName,
+          }),
+        actions: ["create"],
+      },
+      {
+        label: t("formatSelection"),
+        component: <FormatSelection />,
+        value: formats[params.format],
+        set: (format) =>
+          setParams({
+            ...params,
+            format,
+          }),
+        actions: ["import"],
+      },
+      {
+        label: t("templateSelection"),
+        component: <Import />,
+        value: params.templateName,
+        set: (selectedTemplate, templateName) =>
+          setParams({
+            ...params,
+            selectedTemplate,
+            templateName,
+          }),
+        actions: ["import"],
+      },
+    ],
+    [actions, context, formats, languages, params, t],
+  );
+
+  const currentAction = useMemo(() => {
+    return localStorage.getItem("action") || "create";
+  }, []);
+
+  /**
+   * Handlers
+   */
 
   const nextStep = () => {
     handleStep(currentStep + 1);
@@ -150,6 +166,14 @@ function PlanCreation({ locale = "en_GB" }) {
     setUrlParams({ step: index });
   };
 
+  const prevStep = (
+    <CustomButton
+      handleClick={() => handleStep(currentStep - 1)}
+      title={t("goBackToPreviousStep")}
+      position="start"
+    />
+  );
+
   /**
    * USE EFFECTS
    */
@@ -158,19 +182,14 @@ function PlanCreation({ locale = "en_GB" }) {
     setLocale(locale);
     i18n.changeLanguage(locale.substring(0, 2));
 
-    setSteps(dataSteps);
-
     const isStructuredValue = localStorage.getItem("isStructured");
 
     const researchContext =
       params.researchContext || localStorage.getItem("researchContext") || null;
 
-    const action = localStorage.getItem("action");
-    setCurrentAction(action);
-
     setParams({
       ...params,
-      action,
+      action: currentAction,
       format: localStorage.getItem("format"),
       researchContext,
       templateLanguage: localStorage.getItem("templateLanguage"),
@@ -188,8 +207,7 @@ function PlanCreation({ locale = "en_GB" }) {
     const queryParameters = new URLSearchParams(window.location.search);
     let step = Number.parseInt(queryParameters.get("step") || 0, 10);
 
-    if (!action) {
-      setCurrentAction("create");
+    if (!currentAction) {
       step = 0;
     }
 
