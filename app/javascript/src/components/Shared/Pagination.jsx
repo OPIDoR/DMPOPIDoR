@@ -4,18 +4,6 @@ import { t } from "i18next";
 const Pagination = ({ items, onChangePage, initialPage = 1, pageSize = 9 }) => {
   const [pager, setPager] = useState({});
 
-  const setPage = (page) => {
-    if (page < 1 || page > pager.totalPages) {
-      return;
-    }
-
-    const newPager = getPager(items.length, page, pageSize);
-    const pageOfItems = items.slice(newPager.startIndex, newPager.endIndex + 1);
-
-    setPager(newPager);
-    onChangePage(pageOfItems, page);
-  };
-
   const getPager = (totalItems, currentPage = 1, pageSize = 10) => {
     const totalPages = Math.ceil(totalItems / pageSize);
 
@@ -52,6 +40,18 @@ const Pagination = ({ items, onChangePage, initialPage = 1, pageSize = 9 }) => {
       endIndex,
       pages,
     };
+  };
+
+  const setPage = (page) => {
+    if (page < 1 || page > pager.totalPages) {
+      return;
+    }
+
+    const newPager = getPager(items.length, page, pageSize);
+    const pageOfItems = items.slice(newPager.startIndex, newPager.endIndex + 1);
+
+    setPager(newPager);
+    onChangePage(pageOfItems, page);
   };
 
   /**
