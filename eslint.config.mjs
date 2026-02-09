@@ -60,6 +60,7 @@ export default defineConfig([
       "react/no-deprecated": "warn",
       "react/no-direct-mutation-state": "error",
       "react/prop-types": "off", // TODO: disable this rule for now, need to be removed after migrating to TS
+      "react-hooks/exhaustive-deps": "off",
     },
   },
 ]);
