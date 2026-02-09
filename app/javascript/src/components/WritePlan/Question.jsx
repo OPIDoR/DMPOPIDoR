@@ -1,4 +1,4 @@
-import { useContext, useEffect, useState } from "react";
+import { useContext, useEffect, useMemo, useState } from "react";
 import { useTranslation } from "react-i18next";
 import DOMPurify from "dompurify";
 
@@ -41,8 +41,9 @@ function Question({
     setOpenedQuestions,
     displayedResearchOutput,
     commentablePlan,
+    formSelectors,
   } = useContext(GlobalContext);
-  const [questionId] = useState(question.id);
+  const { t } = useTranslation();
   const [hasGuidances, setHasGuidances] = useState(false);
   const [answer, setAnswer] = useState(null);
   const [scriptsData, setScriptsData] = useState({ scripts: [] });
@@ -53,12 +54,15 @@ function Question({
     formSelector: true,
   });
 
-  const { formSelectors } = useContext(GlobalContext);
-
-  const { t } = useTranslation();
-
-  const isQuestionOpened =
-    !!openedQuestions?.[displayedResearchOutput?.id]?.[sectionId]?.[questionId];
+  /**
+   * Memoized values
+   */
+  const questionId = useMemo(() => question.id, [question.id]);
+  const isQuestionOpened = useMemo(() => {
+    return !!openedQuestions?.[displayedResearchOutput?.id]?.[sectionId]?.[
+      questionId
+    ];
+  }, [openedQuestions, displayedResearchOutput, sectionId, questionId]);
 
   /**
    * Handles toggling the open/collapse state of a question.
@@ -105,10 +109,10 @@ function Question({
 
   useEffect(() => {
     const ans = displayedResearchOutput?.answers?.find(
-      (a) => question?.id === a?.question_id,
+      (a) => questionId === a?.question_id,
     );
     setAnswer(ans);
-  }, [displayedResearchOutput, question.id]);
+  }, [displayedResearchOutput, questionId]);
 
   useEffect(() => {
     if (isQuestionOpened) {
@@ -128,7 +132,7 @@ function Question({
     <>
       {
         <Card
-          id={`question-card-${question.id}`}
+          id={`question-card-${questionId}`}
           style={{
             borderRadius: "10px",
             borderWidth: "2px",
@@ -155,7 +159,7 @@ function Question({
                 borderRadius: "0",
               }}
               onClick={() => handleQuestionCollapse(!isQuestionOpened)}
-              aria-controls={`card-collapse-${question.id}`}
+              aria-controls={`card-collapse-${questionId}`}
               aria-expanded={isQuestionOpened}
             >
               <Card.Title>
@@ -318,9 +322,9 @@ function Question({
             </Button>
           </Card.Header>
           <Collapse in={isQuestionOpened}>
-            <div id={`card-collapse-${question.id}`}>
+            <div id={`card-collapse-${questionId}`}>
               <Card.Body
-                id={`card-body-${question.id}`}
+                id={`card-body-${questionId}`}
                 style={{ position: "relative", paddingTop: "0" }}
               >
                 {isQuestionOpened && (
@@ -344,7 +348,7 @@ function Question({
                       setAnswer={setAnswer}
                       researchOutputId={displayedResearchOutput.id}
                       planId={planId}
-                      questionId={question.id}
+                      questionId={questionId}
                       commentable={commentablePlan}
                     />
                     {hasGuidances && (
@@ -368,7 +372,7 @@ function Question({
                         fragmentId={answer?.fragment_id}
                         className={question?.madmp_schema?.classname}
                         setScriptsData={setScriptsData}
-                        questionId={question.id}
+                        questionId={questionId}
                         madmpSchemaId={question.madmp_schema?.id}
                         setAnswer={setAnswer}
                         readonly={readonly}
