@@ -1,4 +1,4 @@
-import { useContext, useEffect, useState } from "react";
+import { useCallback, useContext, useEffect, useMemo, useState } from "react";
 import { useFormContext, useController } from "react-hook-form";
 import { useTranslation } from "react-i18next";
 import { Tooltip as ReactTooltip } from "react-tooltip";
@@ -24,6 +24,8 @@ import {
 } from "../../../utils/utils.js";
 import swalUtils from "../../../utils/swalUtils.js";
 import TooltipInfoIcon from "../TooltipInfoIcon.jsx";
+import useLoadTemplate from "../../../hooks/useLoadTemplate.js";
+import useLoadRegistry from "../../../hooks/useLoadRegistry.js";
 
 /* This is a functional component in JavaScript React that renders a select list with options fetched from a registry. It takes in several props such as
 label, name, changeValue, tooltip, registry, and schemaId. It uses the useState and useEffect hooks to manage the state of the options and to fetch
@@ -44,27 +46,41 @@ function SelectSingleObject({
   const { t } = useTranslation();
   const { control } = useFormContext();
   const { field } = useController({ control, name: propName });
-  const [options, setOptions] = useState([{ value: "", label: "" }]);
-  const {
-    locale,
-    loadedTemplates,
-    setLoadedTemplates,
-    loadedRegistries,
-    setLoadedRegistries,
-  } = useContext(GlobalContext);
+  const { locale } = useContext(GlobalContext);
   const [error, setError] = useState(null);
   const [editedFragment, setEditedFragment] = useState({});
-  const [template, setTemplate] = useState({});
-  const [selectedRegistry, setSelectedRegistry] = useState(null);
-  const [availableRegistries, setAvailableRegistries] = useState([]);
-  const [selectedValue, setSelectedValue] = useState(null);
-  const [selectedOption, setSelectedOption] = useState({
-    value: "",
-    label: "",
-  });
+  const [availableRegistries, setAvailableRegistries] = useState(registries);
+  const [selectedRegistry, setSelectedRegistry] = useState(
+    availableRegistries[0],
+  );
   const [showNestedForm, setShowNestedForm] = useState(false);
-  const tooltipId = uniqueId("select_single_object_tooltip_id_");
-  const inputId = uniqueId("select_single_object_id_");
+  /**
+   * Memoized values
+   */
+  const registryValues = useLoadRegistry(selectedRegistry);
+  const template = useLoadTemplate(templateName);
+  const tooltipId = useMemo(
+    () => uniqueId("select_single_object_tooltip_id_"),
+    [],
+  );
+  const inputId = useMemo(() => uniqueId("select_single_object_id_"), []);
+
+  const selectedValue = useMemo(
+    () => except(field.value, ["template_name", "id", "schema_id"]) || null,
+    [field.value],
+  );
+  const options = useMemo(
+    () =>
+      registryValues
+        ? createOptions(registryValues, locale)
+        : [{ value: "", label: "" }],
+    [registryValues, locale],
+  );
+
+  /**
+   * Refs
+   */
+  // const loadingRegistriesRef = useRef(new Set());
 
   const ViewEditComponent = readonly ? FaEye : FaPenToSquare;
 
@@ -72,47 +88,73 @@ function SelectSingleObject({
    * It takes the value of the input field and adds it to the list array.
    * @param e - the event object
    */
-  const handleSelectRegistryValue = (e) => {
-    if (!e) return { target: { name: propName, value: "" } };
 
-    const action = field.value?.id ? "update" : "create";
-    const value = { ...field.value, ...e.object, action };
-    field.onChange(value);
-  };
+  const handleSelectRegistryValue = useCallback(
+    (e) => {
+      if (!e) return { target: { name: propName, value: "" } };
+      const action = field.value?.id ? "update" : "create";
+      const value = { ...field.value, ...e.object, action };
+      field.onChange(value);
+    },
+    [field, propName],
+  );
 
   /**
    * The handleChange function updates the registry name based on the value of the input field.
    */
-  const handleSelectRegistry = (e) => {
+  const handleSelectRegistry = useCallback((e) => {
     setSelectedRegistry(e.value);
-  };
+  }, []);
 
-  const handleSaveNestedForm = (data) => {
-    if (!data) return setShowNestedForm(false);
+  const handleSaveNestedForm = useCallback(
+    (data) => {
+      if (!data) return setShowNestedForm(false);
 
-    const newFragment = {
-      ...field.value,
-      ...data,
-      action: data.action || "create",
-    };
-    field.onChange(newFragment);
+      const newFragment = {
+        ...field.value,
+        ...data,
+        action: data.action || "create",
+      };
+      field.onChange(newFragment);
 
+      setEditedFragment({});
+      setShowNestedForm(false);
+    },
+    [field],
+  );
+
+  const handleDeleteList = useCallback(
+    (e) => {
+      e.preventDefault();
+      e.stopPropagation();
+      Swal.fire(swalUtils.defaultConfirmConfig(t)).then((result) => {
+        if (result.isConfirmed) {
+          field.onChange({ id: field.value.id, action: "delete" });
+
+          setEditedFragment({});
+          setShowNestedForm(false);
+        }
+      });
+    },
+    [t, field],
+  );
+
+  const handleCloseNestedForm = useCallback(() => {
     setEditedFragment({});
     setShowNestedForm(false);
-  };
+  }, []);
 
-  const handleDeleteList = (e) => {
-    e.preventDefault();
-    e.stopPropagation();
-    Swal.fire(swalUtils.defaultConfirmConfig(t)).then((result) => {
-      if (result.isConfirmed) {
-        field.onChange({ id: field.value.id, action: "delete" });
+  const handleEditFragment = useCallback(() => {
+    setEditedFragment({ ...field.value, action: "update" });
+    setShowNestedForm(true);
+  }, [field.value]);
 
-        setEditedFragment({});
-        setShowNestedForm(false);
-      }
+  const handleAddFragment = useCallback(() => {
+    setShowNestedForm(true);
+    setEditedFragment({
+      action: field.value?.id ? "update" : "create",
     });
-  };
+  }, [field.value]);
 
   /**
    * USE EFFECTS
@@ -130,73 +172,13 @@ function SelectSingleObject({
           if (registriesData.length === 1) {
             const registry = res.data[0];
             setSelectedRegistry(registry.name);
-            setLoadedRegistries({
-              ...loadedRegistries,
-              [registry.name]: registry.values,
-            });
-            setOptions(createOptions(registry.values, locale));
           }
         })
         .catch((error) => {
           setError(getErrorMessage(error));
         });
-    } else if (registries) {
-      setAvailableRegistries(registries);
-      if (registries.length === 1) {
-        setSelectedRegistry(registries[0]);
-      }
     }
-  }, [category, dataType, topic, registries]);
-
-  useEffect(() => {
-    setSelectedValue(
-      except(field.value, ["template_name", "id", "schema_id"]) || null,
-    );
-  }, [field.value]);
-
-  useEffect(() => {
-    if (!options) return;
-    setSelectedOption(null);
-  }, [options]);
-
-  useEffect(() => {
-    if (registries.length === 0 && availableRegistries.length === 1) return;
-
-    if (selectedRegistry) {
-      if (loadedRegistries[selectedRegistry]) {
-        setOptions(createOptions(loadedRegistries[selectedRegistry], locale));
-      } else if (selectedRegistry) {
-        service
-          .getRegistryByName(selectedRegistry)
-          .then((res) => {
-            setLoadedRegistries({
-              ...loadedRegistries,
-              [selectedRegistry]: res.data,
-            });
-            setOptions(createOptions(res.data, locale));
-          })
-          .catch((error) => {
-            setError(getErrorMessage(error));
-          });
-      }
-    }
-  }, [selectedRegistry]);
-
-  useEffect(() => {
-    if (!loadedTemplates[templateName]) {
-      service
-        .getSchemaByName(templateName)
-        .then((res) => {
-          setTemplate(res.data);
-          setLoadedTemplates({ ...loadedTemplates, [templateName]: res.data });
-        })
-        .catch((error) => {
-          setError(getErrorMessage(error));
-        });
-    } else {
-      setTemplate(loadedTemplates[templateName]);
-    }
-  }, [templateName]);
+  }, [category, dataType, topic]);
 
   /**
    * RENDERING
@@ -272,7 +254,7 @@ function SelectSingleObject({
                     inputId={inputId}
                     onSelectChange={handleSelectRegistryValue}
                     options={options}
-                    selectedOption={selectedOption}
+                    selectedOption={{ value: "", label: "" }}
                     isDisabled={showNestedForm || readonly || !selectedRegistry}
                     async={options.length > ASYNC_SELECT_OPTION_THRESHOLD}
                     placeholder={createRegistryPlaceholder(
@@ -297,12 +279,7 @@ function SelectSingleObject({
                   />
                   <FaPlus
                     data-tooltip-id="select-single-list-add-button"
-                    onClick={() => {
-                      setShowNestedForm(true);
-                      setEditedFragment({
-                        action: field.value?.id ? "update" : "create",
-                      });
-                    }}
+                    onClick={handleAddFragment}
                     className={styles.icon}
                   />
                 </div>
@@ -324,10 +301,7 @@ function SelectSingleObject({
             mainFormTopic={topic}
             readonly={readonly}
             handleSave={handleSaveNestedForm}
-            handleClose={() => {
-              setShowNestedForm(false);
-              setEditedFragment(null);
-            }}
+            handleClose={handleCloseNestedForm}
           />
         )}
 
@@ -347,10 +321,7 @@ function SelectSingleObject({
                   </td>
                   <td style={{ width: "10%" }}>
                     <ViewEditComponent
-                      onClick={() => {
-                        setShowNestedForm(true);
-                        setEditedFragment({ ...field.value, action: "update" });
-                      }}
+                      onClick={handleEditFragment}
                       className={styles.icon}
                     />
                     <FaXmark

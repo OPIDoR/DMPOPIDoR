@@ -1,4 +1,4 @@
-import { useContext, useEffect, useState } from "react";
+import { useContext, useEffect, useMemo, useState } from "react";
 import { useFormContext, useController } from "react-hook-form";
 import { useTranslation } from "react-i18next";
 import { Tooltip as ReactTooltip } from "react-tooltip";
@@ -16,6 +16,7 @@ import CustomSelect from "../../Shared/CustomSelect.jsx";
 import { ASYNC_SELECT_OPTION_THRESHOLD } from "../../../config.js";
 import TooltipInfoIcon from "../TooltipInfoIcon.jsx";
 import { getErrorMessage } from "../../../utils/utils.js";
+import useLoadRegistry from "../../../hooks/useLoadRegistry.js";
 
 /* This is a functional component in JavaScript React that renders a select list with options fetched from a registry. It takes in several props such as
 label, name, changeValue, tooltip, registry, and schemaId. It uses the useState and useEffect hooks to manage the state of the options and to fetch
@@ -35,18 +36,29 @@ function SelectSingleString({
   const { t } = useTranslation();
   const { control } = useFormContext();
   const { field } = useController({ control, name: propName });
-  const [options, setOptions] = useState([{ value: "", label: "" }]);
-  const { locale, loadedRegistries, setLoadedRegistries } =
-    useContext(GlobalContext);
+  const { locale } = useContext(GlobalContext);
   const [error, setError] = useState(null);
   const [selectedRegistry, setSelectedRegistry] = useState(null);
-  const [availableRegistries, setAvailableRegistries] = useState([]);
-  const [selectedOption, setSelectedOption] = useState({
-    value: "",
-    label: "",
-  });
-  const tooltipId = uniqueId("select_single_list_tooltip_id_");
-  const inputId = uniqueId("select_single_list_id_");
+  const [availableRegistries, setAvailableRegistries] = useState(registries);
+
+  let selectedOption = { value: "", label: "" };
+
+  /**
+   * Memoized values
+   */
+  const registryValues = useLoadRegistry(selectedRegistry);
+  const tooltipId = useMemo(
+    () => uniqueId("select_single_list_tooltip_id_"),
+    [],
+  );
+  const inputId = useMemo(() => uniqueId("select_single_list_id_"), []);
+  const options = useMemo(
+    () =>
+      registryValues.length > 0
+        ? createOptions(registryValues, locale)
+        : [{ value: "", label: "" }],
+    [registryValues, locale],
+  );
 
   /**
    * It takes the value of the input field and adds it to the list array.
@@ -66,6 +78,23 @@ function SelectSingleString({
   };
 
   /**
+   * SET STATES
+   */
+
+  if (options) {
+    if (field.value) {
+      const selectedOpt = options.find((o) => o.value === field.value) || null;
+      if (selectedOpt === null && overridable === true) {
+        selectedOption = { value: field.value, label: field.value };
+      } else {
+        selectedOption = selectedOpt;
+      }
+    } else {
+      selectedOption = null;
+    }
+  }
+
+  /**
    * USE EFFECTS
    */
   useEffect(() => {
@@ -80,61 +109,13 @@ function SelectSingleString({
           if (registriesData.length === 1) {
             const registry = res.data[0];
             setSelectedRegistry(registry.name);
-            setLoadedRegistries({
-              ...loadedRegistries,
-              [registry.name]: registry.values,
-            });
-            setOptions(createOptions(registry.values, locale));
           }
         })
         .catch((error) => {
           setError(getErrorMessage(error));
         });
-    } else if (registries) {
-      setAvailableRegistries(registries);
-      if (registries.length === 1) {
-        setSelectedRegistry(registries[0]);
-      }
     }
-  }, [category, dataType, topic, registries]);
-
-  useEffect(() => {
-    if (!options) return;
-
-    if (field.value) {
-      const selectedOpt = options.find((o) => o.value === field.value) || null;
-      if (selectedOpt === null && overridable === true) {
-        setSelectedOption({ value: field.value, label: field.value });
-      } else {
-        setSelectedOption(selectedOpt);
-      }
-    } else {
-      setSelectedOption(null);
-    }
-  }, [field.value, options]);
-
-  useEffect(() => {
-    if (registries.length === 0 && availableRegistries.length === 1) return;
-
-    if (selectedRegistry) {
-      if (loadedRegistries[selectedRegistry]) {
-        setOptions(createOptions(loadedRegistries[selectedRegistry], locale));
-      } else {
-        service
-          .getRegistryByName(selectedRegistry)
-          .then((res) => {
-            setLoadedRegistries({
-              ...loadedRegistries,
-              [selectedRegistry]: res.data,
-            });
-            setOptions(createOptions(res.data, locale));
-          })
-          .catch((error) => {
-            setError(getErrorMessage(error));
-          });
-      }
-    }
-  }, [selectedRegistry]);
+  }, [category, dataType, topic]);
 
   /**
    * RENDERING

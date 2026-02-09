@@ -1,4 +1,4 @@
-import { useContext, useEffect, useState } from "react";
+import { useContext, useEffect, useMemo, useState } from "react";
 import { useFormContext, useFieldArray } from "react-hook-form";
 import Swal from "sweetalert2";
 import toast from "react-hot-toast";
@@ -23,8 +23,8 @@ import CustomSelect from "../Shared/CustomSelect.jsx";
 import PersonsList from "./PersonsList.jsx";
 import ModalForm from "../Forms/ModalForm.jsx";
 import swalUtils from "../../utils/swalUtils.js";
-import { getErrorMessage } from "../../utils/utils.js";
 import TooltipInfoIcon from "./TooltipInfoIcon.jsx";
+import useLoadTemplate from "../../hooks/useLoadTemplate.js";
 
 function SelectContributorMultiple({
   label,
@@ -46,42 +46,37 @@ function SelectContributorMultiple({
   });
   const [show, setShow] = useState(false);
   const [error, setError] = useState(null);
-  const [options, setOptions] = useState(null);
   const {
     locale,
     dmpId,
     persons,
     setPersons,
-    loadedTemplates,
-    setLoadedTemplates,
     loadedRegistries,
     setLoadedRegistries,
   } = useContext(GlobalContext);
   const [index, setIndex] = useState(null);
-  const [template, setTemplate] = useState(null);
-  const [roleCategory, setRoleCategory] = useState(null);
   const [editedPerson, setEditedPerson] = useState({});
   const [roleOptions, setRoleOptions] = useState(null);
-  const [overridableRole, setOverridableRole] = useState(false);
-  const [isRoleConst, setIsRoleConst] = useState(false);
-  const tooltipId = uniqueId("select_contributor_multiple_tooltip_id_");
+  const tooltipId = useMemo(
+    () => uniqueId("select_contributor_multiple_tooltip_id_"),
+    [],
+  );
+  const options = persons.length > 0 ? createPersonsOptions(persons) : null;
 
-  const fetchPersons = () => {
-    service.getPersons(dmpId).then((res) => {
-      setPersons(res.data.results);
-    });
-  };
-
-  const fetchRoles = () => {
-    service.suggestRegistry(roleCategory, dataType).then((res) => {
-      setLoadedRegistries({
-        ...loadedRegistries,
-        [res.data.name]: res.data.values,
-      });
-      const options = createOptions(res.data.values, locale);
-      setRoleOptions(options);
-    });
-  };
+  /**
+   * Memoized values
+   */
+  const template = useLoadTemplate(templateName);
+  const personTemplate = useLoadTemplate("PersonStandard");
+  const overridableRole = useMemo(() => {
+    return template?.schema?.properties?.role?.overridable || false;
+  }, [template]);
+  const isRoleConst = useMemo(() => {
+    return template?.schema?.properties?.role?.isConst || false;
+  }, [template]);
+  const roleCategory = useMemo(() => {
+    return template?.schema?.properties?.role?.registryCategory || null;
+  }, [template]);
 
   /**
    * It closes the modal and resets the state of the modal.
@@ -217,60 +212,22 @@ function SelectContributorMultiple({
 
   useEffect(() => {
     if (roleCategory && !isRoleConst) {
-      fetchRoles();
-    }
-  }, [roleCategory, isRoleConst]);
-
-  useEffect(() => {
-    if (persons.length > 0) {
-      setOptions(createPersonsOptions(persons));
-    } else {
-      fetchPersons();
-      setOptions(null);
-    }
-  }, [persons]);
-
-  useEffect(() => {
-    if (!loadedTemplates[templateName]) {
-      service
-        .getSchemaByName(templateName)
-        .then((res) => {
-          const contributorTemplate = res.data;
-          setLoadedTemplates({
-            ...loadedTemplates,
-            [templateName]: contributorTemplate,
-          });
-          const contributorProps =
-            contributorTemplate?.schema?.properties || {};
-          const personTemplateName = contributorProps.person.template_name;
-          setOverridableRole(contributorProps.role.overridable || false);
-          setIsRoleConst(contributorProps.role.isConst || false);
-          setRoleCategory(contributorProps.role.registryCategory || null);
-          service
-            .getSchemaByName(personTemplateName)
-            .then((resSchema) => {
-              const personTemplate = resSchema.data;
-              setTemplate(personTemplate);
-              setLoadedTemplates({
-                ...loadedTemplates,
-                [personTemplateName]: personTemplate,
-              });
-            })
-            .catch((error) => {
-              setError(getErrorMessage(error));
-            });
-        })
-        .catch((error) => {
-          setError(getErrorMessage(error));
+      service.suggestRegistry(roleCategory, dataType).then((res) => {
+        setLoadedRegistries({
+          ...loadedRegistries,
+          [res.data.name]: res.data.values,
         });
-    } else {
-      const contributorTemplate = loadedTemplates[templateName];
-      const contributorProps = contributorTemplate?.schema?.properties || {};
-      const personTemplateName = contributorProps.person.template_name;
-      setOverridableRole(contributorProps.role.overridable || false);
-      setTemplate(loadedTemplates[personTemplateName]);
+        const options = createOptions(res.data.values, locale);
+        setRoleOptions(options);
+      });
     }
-  }, [templateName]);
+  }, [roleCategory, isRoleConst, dataType]);
+
+  useEffect(() => {
+    service.getPersons(dmpId).then((res) => {
+      setPersons(res.data.results);
+    });
+  }, [dmpId]);
 
   /**
    * RENDERING
@@ -337,7 +294,7 @@ function SelectContributorMultiple({
             roleOptions={roleOptions}
             handleSelectRole={handleSelectRole}
             defaultRole={defaultRole}
-            templateToString={template?.schema?.to_string}
+            templateToString={personTemplate?.schema?.to_string}
             tableHeader={header}
             overridable={overridableRole}
             readonly={readonly}
@@ -349,7 +306,7 @@ function SelectContributorMultiple({
         {template && show && (
           <ModalForm
             data={editedPerson}
-            template={template}
+            template={personTemplate}
             mainFormDataType={dataType}
             mainFormTopic={topic}
             label={index !== null ? t("editPersonOrOrg") : t("addPersonOrOrg")}

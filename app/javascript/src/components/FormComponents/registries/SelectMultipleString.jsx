@@ -1,4 +1,4 @@
-import { useContext, useEffect, useState } from "react";
+import { useContext, useEffect, useMemo, useState } from "react";
 import { useFormContext, useController } from "react-hook-form";
 import Swal from "sweetalert2";
 import { useTranslation } from "react-i18next";
@@ -18,6 +18,7 @@ import { ASYNC_SELECT_OPTION_THRESHOLD } from "../../../config.js";
 import swalUtils from "../../../utils/swalUtils.js";
 import TooltipInfoIcon from "../TooltipInfoIcon.jsx";
 import { getErrorMessage } from "../../../utils/utils.js";
+import useLoadRegistry from "../../../hooks/useLoadRegistry.js";
 
 function SelectMultipleString({
   label,
@@ -32,26 +33,46 @@ function SelectMultipleString({
   readonly = false,
 }) {
   const { t } = useTranslation();
+  const { locale } = useContext(GlobalContext);
   const { control } = useFormContext();
   const { field } = useController({ control, name: propName });
-  const [selectedValues, setSelectedValues] = useState([]);
-  const [options, setOptions] = useState([]);
   const [error, setError] = useState(null);
   const [selectedRegistry, setSelectedRegistry] = useState(null);
-  const [availableRegistries, setAvailableRegistries] = useState([]);
-  const tooltipId = uniqueId("select_multiple_list_tooltip_id_");
-  const inputId = uniqueId("select_multiple_list_id_");
+  const [availableRegistries, setAvailableRegistries] = useState(registries);
 
-  const { locale, loadedRegistries, setLoadedRegistries } =
-    useContext(GlobalContext);
+  /**
+   * Memoized values
+   */
+  const registryValues = useLoadRegistry(selectedRegistry);
+  const tooltipId = useMemo(
+    () => uniqueId("select_multiple_list_tooltip_id_"),
+    [],
+  );
+  const inputId = useMemo(() => uniqueId("select_multiple_list_id_"), []);
 
+  const options = useMemo(
+    () =>
+      registryValues
+        ? createOptions(registryValues, locale)
+        : [{ value: "", label: "" }],
+    [registryValues, locale],
+  );
+
+  const selectedValues = useMemo(
+    () =>
+      field.value
+        ? Array.isArray(field.value)
+          ? field.value
+          : [field.value]
+        : [],
+    [field.value],
+  );
   /**
    * It takes the value of the input field and adds it to the list array.
    * @param e - the event object
    */
   const handleSelectRegistryValue = (e) => {
     const newList = [...(selectedValues || []), e.value];
-    setSelectedValues(newList);
     field.onChange(newList);
   };
 
@@ -68,7 +89,6 @@ function SelectMultipleString({
         if (idx > -1) {
           newList.splice(idx, 1); // 2nd parameter means remove one item only
         }
-        setSelectedValues(newList);
         field.onChange(newList);
       }
     });
@@ -97,55 +117,13 @@ function SelectMultipleString({
           if (registriesData.length === 1) {
             const registry = res.data[0];
             setSelectedRegistry(registry.name);
-            setLoadedRegistries({
-              ...loadedRegistries,
-              [registry.name]: registry.values,
-            });
-            setOptions(createOptions(registry.values, locale));
           }
         })
         .catch((error) => {
           setError(getErrorMessage(error));
         });
-    } else if (registries) {
-      setAvailableRegistries(registries);
-      if (registries.length === 1) {
-        setSelectedRegistry(registries[0]);
-      }
     }
-  }, [category, dataType, topic, registries]);
-
-  useEffect(() => {
-    if (registries.length === 0 && availableRegistries.length === 1) return;
-
-    if (selectedRegistry) {
-      if (loadedRegistries[selectedRegistry]) {
-        setOptions(createOptions(loadedRegistries[selectedRegistry], locale));
-      } else if (selectedRegistry) {
-        service
-          .getRegistryByName(selectedRegistry)
-          .then((res) => {
-            setLoadedRegistries({
-              ...loadedRegistries,
-              [selectedRegistry]: res.data,
-            });
-            setOptions(createOptions(res.data, locale));
-          })
-          .catch((error) => {
-            setError(getErrorMessage(error));
-          });
-      }
-    }
-  }, [selectedRegistry]);
-
-  useEffect(() => {
-    if (field.value) {
-      const value = Array.isArray(field.value) ? field.value : [field.value];
-      setSelectedValues(value);
-    } else {
-      setSelectedValues([]);
-    }
-  }, [field.value]);
+  }, [category, dataType, topic]);
 
   /**
    * RENDERING
