@@ -1,4 +1,4 @@
-import { useContext, useEffect, useState } from "react";
+import { useCallback, useMemo, useState } from "react";
 import { useFormContext, useFieldArray } from "react-hook-form";
 import Swal from "sweetalert2";
 import toast from "react-hot-toast";
@@ -6,16 +6,14 @@ import { useTranslation } from "react-i18next";
 import { Tooltip as ReactTooltip } from "react-tooltip";
 import uniqueId from "lodash.uniqueid";
 
-import { GlobalContext } from "../context/Global.jsx";
-import { service } from "../../services/index.js";
 import CustomButton from "../Styled/CustomButton.jsx";
 import * as styles from "../assets/css/form.module.css";
 import FragmentList from "./FragmentList.jsx";
 import ModalForm from "../Forms/ModalForm.jsx";
 import swalUtils from "../../utils/swalUtils.js";
-import { getErrorMessage } from "../../utils/utils.js";
 import { checkFragmentExists } from "../../utils/JsonFragmentsUtils.js";
 import TooltipInfoIcon from "./TooltipInfoIcon.jsx";
+import useLoadTemplate from "../../hooks/useLoadTemplate.js";
 
 /**
  * It takes a template name as an argument, loads the template file, and then
@@ -37,7 +35,6 @@ function ModalTemplate({
 }) {
   const { t } = useTranslation();
   const [show, setShow] = useState(false);
-  const { loadedTemplates, setLoadedTemplates } = useContext(GlobalContext);
   const { control } = useFormContext();
   const { fields, append, update } = useFieldArray({
     control,
@@ -47,19 +44,37 @@ function ModalTemplate({
   const [editedFragment, setEditedFragment] = useState({});
   const [index, setIndex] = useState(null);
   const [error, setError] = useState(null);
-  const tooltipId = uniqueId("modal_template_tooltip_id_");
 
-  const [template, setTemplate] = useState(null);
-
-  const filteredFragmentList = fields.filter((el) => el.action !== "delete");
+  /** Memoized values */
+  const template = useLoadTemplate(templateName);
+  const tooltipId = useMemo(() => uniqueId("modal_template_tooltip_id_"), []);
+  const filteredFragmentList = useMemo(
+    () => fields.filter((el) => el.action !== "delete"),
+    [fields],
+  );
 
   /**
    * The function sets the show state to false
    */
-  const handleClose = () => {
+  const handleClose = useCallback(() => {
     setShow(false);
     setEditedFragment(null);
     setIndex(null);
+  }, []);
+
+  const handleAddNew = useCallback(() => {
+    setEditedFragment(null);
+    setShow(true);
+    setIndex(null);
+  }, []);
+
+  /**
+   * When the user clicks the save button, the form is updated with the new data,
+   * the modalData is set to null, and the modal is closed.
+   */
+  const handleSaveNew = (data) => {
+    append({ ...data, action: "create" });
+    handleClose();
   };
 
   /**
@@ -88,15 +103,6 @@ function ModalTemplate({
   };
 
   /**
-   * When the user clicks the save button, the form is updated with the new data,
-   * the modalData is set to null, and the modal is closed.
-   */
-  const handleSaveNew = (data) => {
-    append({ ...data, action: "create" });
-    handleClose();
-  };
-
-  /**
    * It creates a new array, then removes the item at the index specified
    * by the parameter, then sets the state to the new array.
    * @param idx - the index of the item in the array
@@ -117,26 +123,6 @@ function ModalTemplate({
     setShow(true);
     setIndex(idx);
   };
-
-  /**
-   * USE EFFECTS
-   */
-
-  useEffect(() => {
-    if (!loadedTemplates[templateName]) {
-      service
-        .getSchemaByName(templateName)
-        .then((res) => {
-          setTemplate(res.data);
-          setLoadedTemplates({ ...loadedTemplates, [templateName]: res.data });
-        })
-        .catch((error) => {
-          setError(getErrorMessage(error));
-        });
-    } else {
-      setTemplate(loadedTemplates[templateName]);
-    }
-  }, [templateName]);
 
   /**
    * RENDERING
@@ -175,11 +161,7 @@ function ModalTemplate({
         )}
         {!readonly && (
           <CustomButton
-            handleClick={() => {
-              setEditedFragment(null);
-              setShow(true);
-              setIndex(null);
-            }}
+            handleClick={handleAddNew}
             title={t("addElement")}
             buttonColor="rust"
             position="start"
