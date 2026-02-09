@@ -24,7 +24,7 @@ function ImportResearchOutput({ planId, handleClose }) {
   const [plans, setPlans] = useState([]);
   const [selectedPlan, setSelectedPlan] = useState({});
   const [selectedResearchOutput, setSelectedResearchOutput] = useState({});
-  const [loading, setLoading] = useState(false);
+  const [loading, setLoading] = useState(true);
 
   /**
    * This is a function that handles the selection of a value and sets it as the type.
@@ -71,7 +71,6 @@ function ImportResearchOutput({ planId, handleClose }) {
    */
 
   useEffect(() => {
-    setLoading(true);
     researchOutput.getPlans().then(({ data }) => {
       const plans = data?.plans?.map((plan) => ({
         value: plan.id,

@@ -28,7 +28,7 @@ function WritePlan({ locale = "en_GB", planId, userId, readonly }) {
     setResearchOutputs,
     setCommentablePlan,
   } = useContext(GlobalContext);
-  const [loading, setLoading] = useState(false);
+  const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const [template, setTemplate] = useState(null);
   const tooltipedLabelId = uniqueId("create_research_output_tooltip_id_");
@@ -77,8 +77,6 @@ function WritePlan({ locale = "en_GB", planId, userId, readonly }) {
   /* A hook that is called when the component is mounted. It is used to fetch data from the API. */
   // TODO update this , it can make error
   useEffect(() => {
-    setLoading(true);
-
     const queryParameters = new URLSearchParams(window.location.search);
     const researchOutputId = queryParameters.get("research_output");
 

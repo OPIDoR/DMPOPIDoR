@@ -19,7 +19,7 @@ function GuidanceModal({ shown, hide, questionId, researchOutputId }) {
   const { t } = useTranslation();
   const [activeTab, setActiveTab] = useState("Science Europe");
   const [data, setData] = useState(null);
-  const [loading, setLoading] = useState(false);
+  const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const [indexTab, setIndexTab] = useState(0);
   const modalRef = useRef(null);
@@ -107,8 +107,6 @@ function GuidanceModal({ shown, hide, questionId, researchOutputId }) {
     if (!questionId) {
       return;
     }
-
-    setLoading(true);
 
     guidances
       .getGuidances(researchOutputId, questionId)

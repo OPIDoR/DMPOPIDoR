@@ -22,7 +22,7 @@ function ContributorsTab({ planId, locale, readonly }) {
   const [fragmentId, setFragmentId] = useState(null);
   const [editedPerson, setEditedPerson] = useState({});
   const [error, setError] = useState(null);
-  const [loading, setLoading] = useState(false);
+  const [loading, setLoading] = useState(true);
 
   const handleSave = async (data) => {
     const newContributorsList = [...contributors];
@@ -105,7 +105,6 @@ function ContributorsTab({ planId, locale, readonly }) {
    */
 
   useEffect(() => {
-    setLoading(true);
     service
       .getContributors(planId)
       .then((res) => {

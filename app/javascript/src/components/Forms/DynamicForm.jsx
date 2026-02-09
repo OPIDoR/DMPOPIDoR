@@ -40,7 +40,7 @@ function DynamicForm({
     setLoadedTemplates,
   } = useContext(GlobalContext);
   const methods = useForm({ defaultValues: {} });
-  const [loading, setLoading] = useState(false);
+  const [loading, setLoading] = useState(true);
   const [error] = useState(null);
   const [template, setTemplate] = useState(null);
   const [templateId, setTemplateId] = useState(madmpSchemaId);
@@ -142,7 +142,6 @@ function DynamicForm({
    */
 
   useEffect(() => {
-    setLoading(true);
     if (fragmentId) {
       if (formData[fragmentId]) {
         if (loadedTemplates[formData[fragmentId].template_name]) {
@@ -158,7 +157,8 @@ function DynamicForm({
                 [res.data.name]: res.data,
               });
             })
-            .catch(console.error);
+            .catch(console.error)
+            .finally(() => setLoading(false));
         }
         methods.reset({ ...emptyDefaults, ...formData[fragmentId] });
       } else {
@@ -172,7 +172,8 @@ function DynamicForm({
             });
             handleFragmentData(res.data);
           })
-          .catch(console.error);
+          .catch(console.error)
+          .finally(() => setLoading(false));
       }
     } else {
       service
@@ -185,7 +186,8 @@ function DynamicForm({
           setLoadedTemplates({ ...loadedTemplates, [tplt.name]: tplt });
           if (res.data.fragment) handleFragmentData(res.data);
         })
-        .catch(console.error);
+        .catch(console.error)
+        .finally(() => setLoading(false));
     }
     setLoading(false);
   }, [fragmentId]);

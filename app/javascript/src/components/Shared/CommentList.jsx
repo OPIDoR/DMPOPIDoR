@@ -38,7 +38,7 @@ function CommentList({
   const editorContentRef = useRef(null);
   const [text, setText] = useState(null);
   const [comments, setComments] = useState([]);
-  const [loading, setLoading] = useState(false);
+  const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const [isUpdate, setIsUpdate] = useState(false);
   const [comment, setComment] = useState(null);
@@ -212,7 +212,6 @@ function CommentList({
    */
 
   useEffect(() => {
-    setLoading(true);
     commentsService
       .get(answerId)
       .then(({ data }) => {

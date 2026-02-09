@@ -37,7 +37,7 @@ function GuidanceSelector({
   const { t } = useTranslation();
   const { savedGuidances, setSavedGuidances } = useContext(GlobalContext);
   const [guidancesData, setGuidancesData] = useState([]);
-  const [loading, setLoading] = useState(false);
+  const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const [isOpen, setIsOpen] = useState(false);
   const [selectedGuidancesIds, setSelectedGuidancesIds] = useState([]);
@@ -151,7 +151,6 @@ function GuidanceSelector({
         ? guidances.getPlanGuidanceGroups(planId)
         : guidances.getResearchOutputGuidanceGroups(researchOutputId);
 
-    setLoading(true);
     fetchGuidanceGroups
       .then((res) => {
         const { data } = res.data;
