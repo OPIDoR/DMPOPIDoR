@@ -66,6 +66,12 @@ function WritePlan({ locale = "en_GB", planId, userId, readonly }) {
       .finally(() => setLoading(false));
   };
 
+  const handleRefresh = (e, researchOutputId) => {
+    loadData(
+      e?.detail?.message?.planId || planId,
+      e?.detail?.message?.roId || researchOutputId,
+    );
+  };
   /**
    * USE EFFECTS
    */
@@ -85,14 +91,9 @@ function WritePlan({ locale = "en_GB", planId, userId, readonly }) {
 
     loadData(planId, researchOutputId);
 
-    const handleRefresh = (e) => {
-      loadData(
-        e?.detail?.message?.planId || planId,
-        e?.detail?.message?.roId || researchOutputId,
-      );
-    };
-
-    window.addEventListener("trigger-refresh-ro-data", handleRefresh);
+    window.addEventListener("trigger-refresh-ro-data", (e) =>
+      handleRefresh(e, researchOutputId),
+    );
 
     return () => {
       window.removeEventListener("trigger-refresh-ro-data", handleRefresh);
