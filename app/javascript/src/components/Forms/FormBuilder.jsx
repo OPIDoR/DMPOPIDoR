@@ -1,4 +1,4 @@
-import { useContext, useMemo } from "react";
+import { useContext } from "react";
 
 import { GlobalContext } from "../context/Global.jsx";
 import InputText from "../FormComponents/InputText.jsx";
@@ -37,10 +37,7 @@ function FormBuilder({ template, dataType, topic, readonly }) {
         (Object.prototype.hasOwnProperty.call(prop, "registryCategory") ||
           Object.prototype.hasOwnProperty.call(prop, "registries"))
       ) {
-        const registries = useMemo(
-          () => prop?.registries ?? [],
-          [prop?.registries],
-        );
+        const registries = prop?.registries ?? [];
 
         // COMPLEX REGISTRY, ONE VALUE SELECTABLE
         if (prop.template_name && prop.type === "object") {
