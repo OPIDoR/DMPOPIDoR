@@ -4,32 +4,11 @@ import AsyncCreatableSelect from "react-select/async-creatable";
 import CreatableSelect from "react-select/creatable";
 import { useTranslation } from "react-i18next";
 import { filterOptions } from "../../utils/GeneratorUtils";
+import { useMemo } from "react";
 
-function CustomSelect({
-  inputId = null,
-  propName = null,
-  options,
-  selectedOption = null,
-  onSelectChange,
-  async = false,
-  isDisabled = false,
-  isClearable = false,
-  isSearchable = true,
-  placeholder = null,
-  overridable = false,
-}) {
-  const { t } = useTranslation();
-  const SelectComponent = getSelectComponent();
+const CustomOption = (props) => {
   const { Option } = components;
-
-  function getSelectComponent() {
-    if (async) {
-      return overridable ? AsyncCreatableSelect : AsyncSelect;
-    }
-    return overridable ? CreatableSelect : Select;
-  }
-
-  const CustomOption = (props) => (
+  return (
     <Option {...props}>
       <div
         style={{
@@ -46,6 +25,26 @@ function CustomSelect({
       </div>
     </Option>
   );
+};
+
+function CustomSelect({
+  inputId = null,
+  propName = null,
+  options,
+  selectedOption = null,
+  onSelectChange,
+  async = false,
+  isDisabled = false,
+  isClearable = false,
+  isSearchable = true,
+  placeholder = null,
+  overridable = false,
+}) {
+  const { t } = useTranslation();
+  const SelectComponent = useMemo(() => {
+    if (async) return overridable ? AsyncCreatableSelect : AsyncSelect;
+    return overridable ? CreatableSelect : Select;
+  }, [async, overridable]);
 
   return (
     <SelectComponent
