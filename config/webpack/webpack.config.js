@@ -11,13 +11,10 @@ module.exports = {
     mode === "development" ? "eval-cheap-module-source-map" : "source-map",
   module: {
     rules: [
-      // Use esbuild to compile JavaScript & TypeScript
       {
-        // Match `.js`, `.jsx`, `.ts` or `.tsx` files
         test: /\.[jt]sx?$/,
         loader: "esbuild-loader",
         options: {
-          // JavaScript version to compile to
           target: "es2015",
         },
       },
@@ -28,6 +25,10 @@ module.exports = {
       {
         test: /\.(png|jpe?g|gif|eot|woff2|woff|ttf|svg)$/i,
         type: "asset/resource",
+      },
+      {
+        test: /\.json$/,
+        type: "json",
       },
     ],
   },
@@ -60,7 +61,7 @@ module.exports = {
     }),
   ],
   resolve: {
-    extensions: [".*", ".js", ".jsx"],
+    extensions: [".*", ".js", ".jsx", ".json"],
     alias: {
       react: path.resolve("./node_modules/react"),
     },
