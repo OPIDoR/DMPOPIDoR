@@ -2,6 +2,14 @@
 
 **Attention** Cette liste de changements concerne les déploiements sur nos serveurs de test en interne.
 
+# 10/02/2026
+
+- Création de plan : Abandon de react-form-stepper & réécriture d'un composant interne. (la librairie n'était plus maintenue)
+- Les points suivant concernent du travail de fond et de la dette technique
+  - Abandon du dépot de code séparé & Intégration du code ReactJS au code DMP OPIDoR (Meilleure maintenance et )
+  - Migration vers esbuild-loader (amélioration de la vitesse de construction du code)
+  - Amélioration de la configuration eslint (règles de codage pour améliorer le code)
+
 # 28/01/2026
 - Modification GraphQL : le champ researchOutput accepte désormais des paramètres permettant de filtrer les produits de recherche d’un plan.
 
