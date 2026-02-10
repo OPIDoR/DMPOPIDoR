@@ -10,6 +10,17 @@ export default [
   // Base Javascript configuration
   js.configs.recommended,
 
+  // Ignore files & directories
+  {
+    ignores: [
+      "**/node_modules/**",
+      "**/dist/**",
+      "**/build/**",
+      "app/assets/builds/**",
+      "app/javascript/locales/**",
+    ],
+  },
+
   // React files configuration
   {
     files: ["**/*.{jsx,tsx}"],
@@ -70,7 +81,6 @@ export default [
         ...globals.browser,
         ...globals.jquery,
         ...globals.jasmine,
-        // Rails/Stimulus/Turbo specific globals
         Stimulus: "readonly",
         Turbo: "readonly",
         timeago: "readonly",

@@ -4,7 +4,7 @@
   "description": "DMPOPIDoR javascript dependencies",
   "main": "null",
   "scripts": {
-    "lint": "yarn run eslint --ext .js,.jsx app/javascript/**/ --ignore-pattern '**/__tests__/**'",
+    "lint": "eslint app/javascript --ignore-pattern 'locales/**' --ignore-pattern '**/__tests__/**'",
     "test": "karma start spec/karma/unit.js",
     "test:react": "jest",
     "build": "webpack --config ./config/webpack/webpack.config.js",
@@ -116,12 +116,6 @@
     "terser-webpack-plugin": "^5.3.9",
     "webpack": "^5.75.0",
     "webpack-cli": "^6.0.1"
-  },
-  "eslintConfig": {
-    "extends": [
-      "react-app",
-      "react-app/jest"
-    ]
   },
   "resolutions": {
     "webpack": "^5.75.0",
