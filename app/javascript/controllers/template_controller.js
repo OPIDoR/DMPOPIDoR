@@ -3,7 +3,7 @@ import { Controller } from "@hotwired/stimulus";
 import { Collapse } from "bootstrap";
 
 export default class extends Controller {
-  openSection(event) {
+  openSection() {
     // Laisse Turbo gérer la navigation
     // Mais déclenche manuellement le collapse
     const targetId = this.element.getAttribute("aria-controls");
