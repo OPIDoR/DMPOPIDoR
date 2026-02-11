@@ -48,10 +48,11 @@ module Types
         ]
       ) unless test
 
+      offset = (page - 1) * size
+
       if filter.nil?
         total_items = plans_scope.count
         total_pages = (total_items.to_f / size).ceil
-        offset = (page - 1) * size
 
         return {
           pageInfo: {
@@ -73,6 +74,7 @@ module Types
                                .pluck(:id)
 
       resolvers_results = Resolvers::PlansFiltersResolver.apply(filter, fragments_by_plan_id, order_by)
+
 
       total_items = resolvers_results.length
       total_pages = (total_items.to_f / size).ceil
