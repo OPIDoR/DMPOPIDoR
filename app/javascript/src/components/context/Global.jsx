@@ -1,4 +1,10 @@
-import { createContext, useMemo, useReducer, useState } from "react";
+import {
+  createContext,
+  useCallback,
+  useMemo,
+  useReducer,
+  useState,
+} from "react";
 
 /**
  * If the incomingFormData is null, remove the formData from localStorage,
@@ -42,6 +48,15 @@ function Global({ children }) {
   const [loadedSectionsData, setLoadedSectionsData] = useState({});
   const [researchOutputs, setResearchOutputs] = useState([]);
   const [displayedResearchOutput, setDisplayedResearchOutput] = useState(null);
+  const updateResearchOutputAnswer = useCallback((questionId, newAnswer) => {
+    setDisplayedResearchOutput((prev) => ({
+      ...prev,
+      answers: prev.answers.map((a) =>
+        a.question_id === questionId ? newAnswer : a,
+      ),
+    }));
+  }, []);
+
   const [openedQuestions, setOpenedQuestions] = useState(null);
   const [userId, setUserId] = useState(-1);
   const [selectedTemplate, setSelectedTemplate] = useState(null);
@@ -90,6 +105,7 @@ function Global({ children }) {
       setResearchOutputs,
       displayedResearchOutput,
       setDisplayedResearchOutput,
+      updateResearchOutputAnswer,
       openedQuestions,
       setOpenedQuestions,
       userId,

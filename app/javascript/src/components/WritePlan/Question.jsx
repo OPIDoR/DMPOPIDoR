@@ -40,12 +40,12 @@ function Question({
     openedQuestions,
     setOpenedQuestions,
     displayedResearchOutput,
+    updateResearchOutputAnswer,
     commentablePlan,
     formSelectors,
   } = useContext(GlobalContext);
   const { t } = useTranslation();
   const [hasGuidances, setHasGuidances] = useState(false);
-  const [answer, setAnswer] = useState(null);
   const [scriptsData, setScriptsData] = useState({ scripts: [] });
   const [showModals, setShowModals] = useState({
     guidance: false,
@@ -63,6 +63,14 @@ function Question({
       questionId
     ];
   }, [openedQuestions, displayedResearchOutput, sectionId, questionId]);
+
+  const answer = useMemo(() => {
+    return (
+      displayedResearchOutput?.answers?.find(
+        (a) => questionId === a?.question_id,
+      ) || null
+    );
+  }, [displayedResearchOutput.answers, questionId]);
 
   /**
    * Handles toggling the open/collapse state of a question.
@@ -106,13 +114,6 @@ function Question({
   /**
    * USE EFFECTS
    */
-
-  useEffect(() => {
-    const ans = displayedResearchOutput?.answers?.find(
-      (a) => questionId === a?.question_id,
-    );
-    setAnswer(ans);
-  }, [displayedResearchOutput, questionId]);
 
   useEffect(() => {
     if (isQuestionOpened) {
@@ -345,7 +346,9 @@ function Question({
                       shown={showModals.comment === true}
                       hide={(e) => setModalOpened(e, "comment", false)}
                       answerId={answer?.id}
-                      setAnswer={setAnswer}
+                      setAnswer={(newAnswer) =>
+                        updateResearchOutputAnswer(questionId, newAnswer)
+                      }
                       researchOutputId={displayedResearchOutput.id}
                       planId={planId}
                       questionId={questionId}
@@ -374,7 +377,9 @@ function Question({
                         setScriptsData={setScriptsData}
                         questionId={questionId}
                         madmpSchemaId={question.madmp_schema?.id}
-                        setAnswer={setAnswer}
+                        setAnswer={(newAnswer) =>
+                          updateResearchOutputAnswer(questionId, newAnswer)
+                        }
                         readonly={readonly}
                         formSelector={{
                           shown: showModals.formSelector === true,
