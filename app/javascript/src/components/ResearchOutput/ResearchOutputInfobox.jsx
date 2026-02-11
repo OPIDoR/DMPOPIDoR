@@ -127,15 +127,13 @@ function ResearchOutputInfobox({
             {t("name")} : <strong>{displayedResearchOutput.title}</strong>
           </li>
           <li>
-            {t("type")} :{" "}
-            <strong>{t(displayedResearchOutput.type || "-")}</strong>
+            {t("type")} : <strong>{displayedResearchOutput.type || "-"}</strong>
           </li>
 
           {displayedResearchOutput?.type &&
             displayTopics(displayedResearchOutput.type) && (
               <li>
-                {t("topic")} :{" "}
-                <strong>{t(displayedResearchOutput.topic)}</strong>
+                {t("topic")} : <strong>{displayedResearchOutput.topic}</strong>
               </li>
             )}
           {displayedResearchOutput?.type &&
