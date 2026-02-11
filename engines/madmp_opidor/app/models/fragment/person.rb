@@ -67,13 +67,13 @@ module Fragment
         end
         if include_ro_names
           if research_outputs.size.eql?(1)
-            roles_list.push(c.data['role'])
+            roles_list.push(c.data['role']) unless roles_list.include?(c.data['role'])
             next
           end
           ro = research_outputs.find(c.research_output_id)
-          if roles_aggregate[c.data['role']].nil?
-            roles_aggregate[c.data['role']] = [ro.abbreviation]
-          else
+
+          roles_aggregate[c.data['role']] = [ro.abbreviation] if roles_aggregate[c.data['role']].nil?
+          unless roles_aggregate[c.data['role']].include?(ro.abbreviation)
             roles_aggregate[c.data['role']].push(ro.abbreviation)
           end
         else
