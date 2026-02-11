@@ -126,7 +126,8 @@ function DynamicForm({
           unionBy(researchOutputs, [updatedResearchOutput], "id"),
         );
       })
-      .catch(console.error);
+      .catch(console.error)
+      .finally(() => setLoading(false));
   };
 
   const setValues = (data) =>
