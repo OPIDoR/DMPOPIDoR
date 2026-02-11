@@ -41,7 +41,7 @@ module Resolvers
 
       primary_alias = Arel::Table.new(table_name).alias("m1")
       and_operator_conditions << primary_alias[:dmp_id].in(dmps_id)
-      scope = MadmpFragment.from("#{table_name} m1").select("DISTINCT m1.dmp_id, #{order_params.keys.join(", ")}")
+      scope = MadmpFragment.from("#{table_name} m1").select("DISTINCT ON (m1.dmp_id) m1.dmp_id, #{order_params.keys.join(", ")}")
 
       joins = []
       sub_joins = []
@@ -118,7 +118,7 @@ module Resolvers
       end
 
       scope = scope.joins(joins.join(" ")) unless joins.empty?
-      scope.order(order_params).where(final_operators)
+      scope.order(['m1.dmp_id', order_params]).where(final_operators)
     end
 
     def self.validate_conditions(conditions, operator)
