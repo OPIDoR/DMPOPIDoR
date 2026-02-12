@@ -60,27 +60,6 @@ export function getErrorMessage(error) {
   return null;
 }
 
-export function clearLocalStorage() {
-  if (localStorage.getItem("action")) {
-    localStorage.removeItem("action");
-  }
-  if (localStorage.getItem("format")) {
-    localStorage.removeItem("format");
-  }
-  if (localStorage.getItem("researchContext")) {
-    localStorage.removeItem("researchContext");
-  }
-  if (localStorage.getItem("templateId")) {
-    localStorage.removeItem("templateId");
-  }
-  if (localStorage.getItem("templateName")) {
-    localStorage.removeItem("templateName");
-  }
-  if (localStorage.getItem("templateLanguage")) {
-    localStorage.removeItem("templateLanguage");
-  }
-}
-
 export function flattenObject(obj, prefix = "", result = {}) {
   for (const key in obj) {
     if (Object.prototype.hasOwnProperty.call(obj, key)) {

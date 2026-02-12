@@ -7,7 +7,7 @@ import { IoCloudUploadOutline } from "react-icons/io5";
 
 import { CustomButton } from "../../Styled";
 import { CustomSpinner } from "../../Shared";
-import { clearLocalStorage, normalize } from "../../../utils/utils";
+import { normalize } from "../../../utils/utils";
 import getTemplates from "./data";
 import { planCreation } from "../../../services";
 
@@ -47,7 +47,7 @@ const Dropzone = styled.div`
   }
 `;
 
-function Import({ prevStep, params, set, setUrlParams }) {
+function Import({ prevStep, params, set }) {
   const { t } = useTranslation();
   const [loading, setLoading] = useState(false);
   const [templates, setTemplates] = useState([]);
@@ -57,8 +57,6 @@ function Import({ prevStep, params, set, setUrlParams }) {
 
   const handleSelectedTemplate = (tmpl) => {
     set(tmpl.value, tmpl.label);
-    localStorage.setItem("templateId", tmpl.value);
-    localStorage.setItem("templateName", tmpl.label);
     setSelectedTemplate(tmpl);
   };
 
@@ -91,9 +89,6 @@ function Import({ prevStep, params, set, setUrlParams }) {
       );
     }
 
-    setUrlParams({ step: undefined });
-
-    clearLocalStorage();
     toast.success(t("importWasSuccessful"));
 
     setLoading(false);

@@ -10,16 +10,11 @@ import { TbBulbFilled } from "react-icons/tb";
 import * as styles from "../../assets/css/steps.module.css";
 import { CustomButton } from "../../Styled";
 import { CustomSpinner, CustomError, CustomSelect } from "../../Shared";
-import { clearLocalStorage, getErrorMessage } from "../../../utils/utils";
+import { getErrorMessage } from "../../../utils/utils";
 import getTemplates from "./data";
 import { planCreation } from "../../../services";
 
-function TemplateSelection({
-  prevStep,
-  set,
-  params: selectionData,
-  setUrlParams,
-}) {
+function TemplateSelection({ prevStep, set, params: selectionData }) {
   const { t } = useTranslation();
 
   const [planTemplates, setPlanTemplates] = useState({});
@@ -54,11 +49,6 @@ function TemplateSelection({
 
       return toast.error(errorMessage);
     }
-
-    setUrlParams({ step: undefined });
-
-    clearLocalStorage();
-
     if (response?.data?.id) {
       window.location = `/plans/${response?.data?.id}`;
     }
@@ -106,8 +96,6 @@ function TemplateSelection({
               marginTop: 0,
             }}
             onClick={() => {
-              localStorage.setItem("templateId", template.id);
-              localStorage.setItem("templateName", template.title);
               if (params.selectedTemplate === template.id) {
                 return set(null);
               }

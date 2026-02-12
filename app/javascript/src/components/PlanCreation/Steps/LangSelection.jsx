@@ -26,7 +26,6 @@ function LangSelection({ prevStep, nextStep, set, params }) {
           key={`first-step-${index}-container`}
           className={`${styles.step_list}  ${params.templateLanguage === value ? styles.checked : ""}`}
           onClick={() => {
-            localStorage.setItem("templateLanguage", value);
             set(value);
             return nextStep();
           }}

@@ -4,7 +4,6 @@ import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import Global from "../context/Global.jsx";
 import PlanCreation from "./PlanCreation.jsx";
 import "../../i18n.js";
-import { clearLocalStorage } from "../../utils/utils";
 
 const queryClient = new QueryClient();
 
@@ -14,7 +13,11 @@ function PlanCreationLayout({ locale }) {
    */
 
   useEffect(() => {
-    window.addEventListener("beforeunload", () => clearLocalStorage());
+    window.addEventListener("beforeunload", () => {
+      if (localStorage.getItem("action")) {
+        localStorage.removeItem("action");
+      }
+    });
   }, []);
 
   /**

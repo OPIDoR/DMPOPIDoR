@@ -21,16 +21,22 @@ const toastOptions = {
 
 function PlanCreation({ locale = "en_GB" }) {
   const { t, i18n } = useTranslation();
-  const { setLocale, setUrlParams } = useContext(GlobalContext);
+  const { setLocale } = useContext(GlobalContext);
 
+  /**
+   * States
+   */
+  const [currentAction] = useState(
+    () => localStorage.getItem("action") || "create",
+  );
   const [params, setParams] = useState({
-    action: null,
+    action: currentAction,
     researchContext: null,
     templateLanguage: null,
     selectedTemplate: null,
     format: null,
     templateName: null,
-    isStructured: false,
+    isStructured: null,
   });
 
   const [currentStep, setCurrentStep] = useState(0);
@@ -71,83 +77,96 @@ function PlanCreation({ locale = "en_GB" }) {
     [],
   );
 
+  const stepComponents = useMemo(
+    () => ({
+      ActionSelection: <ActionSelection />,
+      ContextSelection: <ContextSelection />,
+      LangSelection: <LangSelection />,
+      TemplateSelection: <TemplateSelection />,
+      FormatSelection: <FormatSelection />,
+      Import: <Import />,
+    }),
+    [],
+  );
+
   const steps = useMemo(
     () => [
       {
         label: t("actionSelection"),
-        component: <ActionSelection />,
+        component: stepComponents.ActionSelection,
         value: actions[params.action],
         set: (action) =>
-          setParams({
-            ...params,
+          setParams((prev) => ({
+            ...prev,
             action,
-          }),
+          })),
         actions: ["create", "import"],
       },
       {
         label: t("contextSelection"),
-        component: <ContextSelection />,
+        component: stepComponents.ContextSelection,
         value: context[params.researchContext],
         set: (researchContext) =>
-          setParams({
-            ...params,
+          setParams((prev) => ({
+            ...prev,
             researchContext,
-          }),
+          })),
         actions: ["create", "import"],
       },
       {
         label: t("languageSelection"),
-        component: <LangSelection />,
+        component: stepComponents.LangSelection,
         value: languages[params.templateLanguage],
         set: (templateLanguage) =>
-          setParams({
-            ...params,
+          setParams((prev) => ({
+            ...prev,
             templateLanguage,
-          }),
+          })),
         actions: ["create", "import"],
       },
       {
         label: t("templateSelection"),
-        component: <TemplateSelection />,
+        component: stepComponents.TemplateSelection,
         value: params.templateName,
         set: (selectedTemplate, templateName) =>
-          setParams({
-            ...params,
+          setParams((prev) => ({
+            ...prev,
             selectedTemplate,
             templateName,
-          }),
+          })),
         actions: ["create"],
       },
       {
         label: t("formatSelection"),
-        component: <FormatSelection />,
+        component: stepComponents.FormatSelection,
         value: formats[params.format],
         set: (format) =>
-          setParams({
-            ...params,
+          setParams((prev) => ({
+            ...prev,
             format,
-          }),
+          })),
         actions: ["import"],
       },
       {
         label: t("templateSelection"),
-        component: <Import />,
+        component: stepComponents.Import,
         value: params.templateName,
         set: (selectedTemplate, templateName) =>
-          setParams({
-            ...params,
+          setParams((prev) => ({
+            ...prev,
             selectedTemplate,
             templateName,
-          }),
+          })),
         actions: ["import"],
       },
     ],
     [actions, context, formats, languages, params, t],
   );
 
-  const currentAction = useMemo(() => {
-    return localStorage.getItem("action") || "create";
-  }, []);
+  const visibleSteps = useMemo(
+    () => steps.filter(({ actions }) => actions.includes(currentAction)),
+    [steps, currentAction],
+  );
 
   /**
    * Handlers
@@ -163,16 +182,7 @@ function PlanCreation({ locale = "en_GB" }) {
     }
 
     setCurrentStep(index);
-    setUrlParams({ step: index });
   };
-
-  const prevStep = (
-    <CustomButton
-      handleClick={() => handleStep(currentStep - 1)}
-      title={t("goBackToPreviousStep")}
-      position="start"
-    />
-  );
 
   /**
    * USE EFFECTS
@@ -181,39 +191,7 @@ function PlanCreation({ locale = "en_GB" }) {
   useEffect(() => {
     setLocale(locale);
     i18n.changeLanguage(locale.substring(0, 2));
-
-    const isStructuredValue = localStorage.getItem("isStructured");
-
-    const researchContext =
-      params.researchContext || localStorage.getItem("researchContext") || null;
-
-    setParams({
-      ...params,
-      action: currentAction,
-      format: localStorage.getItem("format"),
-      researchContext,
-      templateLanguage: localStorage.getItem("templateLanguage"),
-      selectedTemplate:
-        params.selectedTemplate ||
-        Number.parseInt(localStorage.getItem("templateId"), 10) ||
-        null,
-      templateName: params.templateName || localStorage.getItem("templateName"),
-      isStructured:
-        params.isStructured || isStructuredValue
-          ? isStructuredValue === "true"
-          : null,
-    });
-
-    const queryParameters = new URLSearchParams(window.location.search);
-    let step = Number.parseInt(queryParameters.get("step") || 0, 10);
-
-    if (!currentAction) {
-      step = 0;
-    }
-
-    setCurrentStep(step);
-    setUrlParams({ step: `${step || 0}` });
-  }, [locale, currentStep, currentAction, params.templateName]);
+  }, [locale]);
 
   /**
    * RENDERING
@@ -226,39 +204,41 @@ function PlanCreation({ locale = "en_GB" }) {
           <h1>{t("createPlan")}</h1>
           <div className={`${stepperStyles.main}`}>
             <Stepper activeStep={currentStep}>
-              {steps
-                .filter(({ actions }) => actions.includes(currentAction))
-                .map(({ label, value }, index) => (
-                  <Step
-                    key={`step-${index}`}
-                    label={
-                      <>
-                        {label}
-                        <br />
-                        <small>
-                          <i>{value && `(${value})`}</i>
-                        </small>
-                      </>
-                    }
-                    onClick={() => handleStep(index)}
-                  />
-                ))}
+              {visibleSteps.map(({ label, value }, index) => (
+                <Step
+                  key={`step-${index}`}
+                  label={
+                    <>
+                      {label}
+                      <br />
+                      <small>
+                        <i>{value && `(${value})`}</i>
+                      </small>
+                    </>
+                  }
+                  onClick={() => handleStep(index)}
+                />
+              ))}
             </Stepper>
             <div style={{ padding: "20px", boxSizing: "border-box" }}>
-              {steps
-                .filter(({ actions }) => actions.includes(currentAction))
-                .map(
-                  ({ component, set }, index) =>
-                    currentStep === index &&
-                    React.cloneElement(component, {
-                      key: `step-${index}-component`,
-                      nextStep,
-                      prevStep: index > 0 ? prevStep : undefined,
-                      set,
-                      params,
-                      setUrlParams,
-                    }),
-                )}
+              {visibleSteps.map(
+                ({ component, set }, index) =>
+                  currentStep === index &&
+                  React.cloneElement(component, {
+                    key: `step-${index}-component`,
+                    nextStep,
+                    prevStep:
+                      index > 0 ? (
+                        <CustomButton
+                          handleClick={() => handleStep(currentStep - 1)}
+                          title={t("goBackToPreviousStep")}
+                          position="start"
+                        />
+                      ) : undefined,
+                    set,
+                    params,
+                  }),
+              )}
             </div>
           </div>
         </div>

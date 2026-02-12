@@ -32,7 +32,6 @@ function ContextSelection({ prevStep, nextStep, set, params }) {
           key={`first-step-${id}-container`}
           className={`${styles.step_list}  ${params.researchContext === id ? styles.checked : ""}`}
           onClick={() => {
-            localStorage.setItem("researchContext", id);
             set(id);
             return nextStep();
           }}
