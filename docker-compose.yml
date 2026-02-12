@@ -66,6 +66,7 @@ services:
       - DIRECTUS_URL=http://directus:8055
       - DIRECTUS_PUBLIC_URL=http://${DMP_SERVER_NAME:-0.0.0.0}:${NGINX_PORT:-8080}/directus
       - ENABLE_GRAPHIQL=true
+      - ENABLE_TOPICS=${ENABLE_TOPICS:-true}
     working_dir: /app
     volumes:
       - ./log:/app/log

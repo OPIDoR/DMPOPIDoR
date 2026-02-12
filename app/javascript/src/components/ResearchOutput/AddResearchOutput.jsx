@@ -30,6 +30,7 @@ function AddResearchOutput({
     setResearchOutputs,
     setUrlParams,
     researchOutputs,
+    configuration,
   } = useContext(GlobalContext);
   const { t } = useTranslation();
   const [typeOptions, setTypeOptions] = useState([{ value: '', label: '' }]);
@@ -254,7 +255,7 @@ function AddResearchOutput({
           />
         )}
       </div>
-      {type && displayTopics(type) && (
+      {type && displayTopics(type, configuration?.enableTopics) && (
         <div className="form-group">
           <div className={stylesForm.label_form}>
             <label data-tooltip-id={topicTooltipId}>

@@ -20,6 +20,7 @@ function WritePlan({
   planId,
   userId,
   readonly,
+  configuration,
 }) {
   const { t, i18n } = useTranslation();
   const {
@@ -31,6 +32,7 @@ function WritePlan({
     setLoadedSectionsData,
     researchOutputs, setResearchOutputs,
     setCommentablePlan,
+    setConfiguration,
   } = useContext(GlobalContext);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
@@ -40,6 +42,10 @@ function WritePlan({
   useEffect(() => {
     i18n.changeLanguage(locale.substring(0, 2));
   }, [locale]);
+
+  useEffect(() => {
+    setConfiguration(configuration);
+  }, []);
 
   /* A hook that is called when the component is mounted. It is used to fetch data from the API. */
   // TODO update this , it can make error
