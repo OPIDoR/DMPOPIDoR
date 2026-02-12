@@ -160,8 +160,9 @@ export function displayPersonalData(researchOutputType) {
   return !typesWithoutPersonalData.includes(researchOutputType?.toLowerCase());
 }
 
-export function displayTopics(researchOutputType) {
-  const typesWithoutTopics = ["software", "logiciel"];
+export function displayTopics(researchOutputType, enableTopics = true) {
+  if (!enableTopics) return false;
 
+  const typesWithoutTopics = ["software", "logiciel"];
   return !typesWithoutTopics.includes(researchOutputType?.toLowerCase());
 }

@@ -15,7 +15,13 @@ import TooltipInfoIcon from "../FormComponents/TooltipInfoIcon";
 import ResearchOutputsSidebar from "./ResearchOutputsSidebar";
 import WritePlanPlaceholder from "./Placeholders/WritePlanPlaceholder";
 
-function WritePlan({ locale = "en_GB", planId, userId, readonly }) {
+function WritePlan({
+  locale = "en_GB",
+  planId,
+  userId,
+  readonly,
+  configuration,
+}) {
   const { t, i18n } = useTranslation();
   const {
     setFormData,
@@ -27,6 +33,7 @@ function WritePlan({ locale = "en_GB", planId, userId, readonly }) {
     researchOutputs,
     setResearchOutputs,
     setCommentablePlan,
+    setConfiguration,
   } = useContext(GlobalContext);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
@@ -79,6 +86,10 @@ function WritePlan({ locale = "en_GB", planId, userId, readonly }) {
   useEffect(() => {
     i18n.changeLanguage(locale.substring(0, 2));
   }, [locale]);
+
+  useEffect(() => {
+    setConfiguration(configuration);
+  }, []);
 
   /* A hook that is called when the component is mounted. It is used to fetch data from the API. */
   // TODO update this , it can make error

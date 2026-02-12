@@ -13,7 +13,13 @@ const toastOptions = {
   duration: 5000,
 };
 
-function WritePlanLayout({ planId, locale = "en_GB", userId, readonly }) {
+function WritePlanLayout({
+  planId,
+  locale = "en_GB",
+  userId,
+  readonly,
+  configuration = {},
+}) {
   const { t } = useTranslation();
 
   return (
@@ -25,6 +31,7 @@ function WritePlanLayout({ planId, locale = "en_GB", userId, readonly }) {
             locale={locale}
             userId={userId}
             readonly={readonly}
+            configuration={configuration}
             className="research-outputs-tabs"
           />
         </Driver>
