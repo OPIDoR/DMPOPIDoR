@@ -1,4 +1,4 @@
-import { useContext, useEffect, useState } from "react";
+import { useContext, useEffect, useMemo, useState } from "react";
 import { Button, Alert, Spinner } from "react-bootstrap";
 import { Trans, useTranslation } from "react-i18next";
 import { toast } from "react-hot-toast";
@@ -42,17 +42,47 @@ function AddResearchOutput({
     configuration,
   } = useContext(GlobalContext);
   const { t } = useTranslation();
+  /**
+   * Memoized values
+   */
+
+  const typeTooltipId = useMemo(() => uniqueId("type_tooltip_id_"), []);
+  const topicTooltipId = useMemo(() => uniqueId("topic_tooltip_id_"), []);
+  const pos = useMemo(
+    () =>
+      researchOutputs.length > 0
+        ? Math.max(...researchOutputs.map(({ order }) => order))
+        : 0,
+    [researchOutputs],
+  );
+  const nextOrder = useMemo(
+    () => (pos < researchOutputs.length ? researchOutputs.length + 1 : pos + 1),
+    [pos, researchOutputs],
+  );
+
+  /**
+   * States
+   */
   const [typeOptions, setTypeOptions] = useState([{ value: "", label: "" }]);
   const [topicOptions, setTopicOptions] = useState([{ value: "", label: "" }]);
-  const [abbreviation, setAbbreviation] = useState(undefined);
-  const [title, setTitle] = useState(undefined);
-  const [type, setType] = useState(null);
-  const [hasPersonalData, setHasPersonalData] = useState(false);
+  const [abbreviation, setAbbreviation] = useState(() =>
+    inEdition
+      ? displayedResearchOutput?.abbreviation
+      : `${t("ro")} ${nextOrder}`,
+  );
+  const [title, setTitle] = useState(() =>
+    inEdition
+      ? displayedResearchOutput?.title
+      : `${t("researchOutput")} ${nextOrder}`,
+  );
+  const [type, setType] = useState(() =>
+    inEdition ? displayedResearchOutput?.type : null,
+  );
+  const [hasPersonalData, setHasPersonalData] = useState(() =>
+    inEdition ? displayedResearchOutput?.configuration.hasPersonalData : true,
+  );
   const [selectedType, setSelectedType] = useState({ value: "", label: "" });
   const [selectedTopic, setSelectedTopic] = useState({ value: "", label: "" });
-  const [disableTypeChange, setDisableTypeChange] = useState(false);
-  const typeTooltipId = uniqueId("type_tooltip_id_");
-  const topicTooltipId = uniqueId("topic_tooltip_id_");
   const [loading, setLoading] = useState(false);
 
   /**
@@ -61,7 +91,8 @@ function AddResearchOutput({
   const handleSelectType = (e) => {
     setSelectedType(typeOptions.find(({ value }) => value === e.value));
     setType(e.value);
-    handlePersonalData(e.value);
+
+    setHasPersonalData(displayPersonalData(e.value));
   };
 
   /**
@@ -113,6 +144,7 @@ function AddResearchOutput({
       setUrlParams({ research_output: displayedResearchOutput.id });
 
       toast.success(t("saveSuccess"));
+      setLoading(false);
       return handleClose();
     }
 
@@ -147,73 +179,35 @@ function AddResearchOutput({
     return handleClose();
   };
 
-  const handlePersonalData = (researchOutputType) => {
-    if (inEdition) return;
-    if (displayPersonalData(researchOutputType)) {
-      setHasPersonalData(true);
-    } else {
-      setHasPersonalData(false);
-    }
-  };
-
   /**
    * USE EFFECTS
    */
-
   useEffect(() => {
-    if (displayedResearchOutput && inEdition) {
-      setAbbreviation(displayedResearchOutput.abbreviation);
-      setTitle(displayedResearchOutput.title);
-      setHasPersonalData(displayedResearchOutput.configuration.hasPersonalData);
-      setType(displayedResearchOutput.type);
-      handlePersonalData(displayedResearchOutput.type);
-    }
+    const loadOptions = async () => {
+      const [typesRes, topicsRes] = await Promise.all([
+        service.getRegistryByName("ResearchDataType"),
+        service.getRegistryByName("Topics"),
+      ]);
 
-    if (!displayedResearchOutput && !inEdition) {
-      const maxOrder =
-        researchOutputs.length > 0
-          ? Math.max(...researchOutputs.map((ro) => ro.order))
-          : 0;
-      setAbbreviation(`${t("ro")} ${maxOrder + 1}`);
-      setTitle(`${t("researchOutput")} ${maxOrder + 1}`);
-      setHasPersonalData(true);
-    }
-    if (!inEdition) {
-      const pos = Math.max(...researchOutputs.map(({ order }) => order));
-      const nextOrder =
-        pos < researchOutputs.length ? researchOutputs.length + 1 : pos + 1;
-      setAbbreviation(`${t("ro")} ${nextOrder}`);
-      setTitle(`${t("researchOutput")} ${nextOrder}`);
-      setHasPersonalData(true);
-    }
+      const typeOpts = createOptions(typesRes.data, locale);
+      const topicsOpts = createOptions(topicsRes.data, locale);
 
-    setDisableTypeChange(inEdition);
-  }, [displayedResearchOutput, inEdition]);
-
-  useEffect(() => {
-    service.getRegistryByName("ResearchDataType").then((res) => {
-      const typeOpts = createOptions(res.data, locale);
       setTypeOptions(typeOpts);
+      setTopicOptions(topicsOpts);
+
       if (inEdition) {
         setSelectedType(
           typeOpts.find(({ value }) => value === displayedResearchOutput.type),
         );
-      }
-    });
-  }, []);
-
-  useEffect(() => {
-    service.getRegistryByName("Topics").then((res) => {
-      const topicsOpts = createOptions(res.data, locale);
-      setTopicOptions(topicsOpts);
-      if (inEdition) {
         setSelectedTopic(
           topicsOpts.find(
             ({ value }) => value === displayedResearchOutput.topic,
           ),
         );
       }
-    });
+    };
+
+    loadOptions();
   }, []);
 
   /**
@@ -286,9 +280,9 @@ function AddResearchOutput({
             onSelectChange={handleSelectType}
             options={typeOptions}
             selectedOption={selectedType}
-            placeholder={t("Select a value from the list")}
+            placeholder={t("selectValueFromList")}
             overridable={false}
-            isDisabled={disableTypeChange}
+            isDisabled={inEdition || loading}
           />
         )}
       </div>
@@ -316,9 +310,9 @@ function AddResearchOutput({
               }
               options={topicOptions}
               selectedOption={selectedTopic}
-              placeholder={t("Select a value from the list")}
+              placeholder={t("selectValueFromList")}
               overridable={false}
-              isDisabled={disableTypeChange || loading}
+              isDisabled={inEdition || loading}
             />
           )}
         </div>
