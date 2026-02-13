@@ -26,16 +26,14 @@ function FormSelector({
   dataType,
   topic,
   displayedTemplate,
-  setTemplate,
-  setTemplateId,
+  setTemplateName,
   formSelector,
 }) {
   const { t } = useTranslation();
   const [loading, setLoading] = useState(true);
   const [availableTemplates, setAvailableTemplates] = useState([]);
   const [selectedTemplate, setSelectedTemplate] = useState(displayedTemplate);
-  const { setFormSelector, loadedTemplates, setLoadedTemplates } =
-    useContext(GlobalContext);
+  const { setFormSelector, setLoadedTemplates } = useContext(GlobalContext);
 
   const handleSelectTemplate = (e) => {
     setSelectedTemplate(e.object);
@@ -43,9 +41,8 @@ function FormSelector({
     service
       .getSchemaByName(e.object.name)
       .then((res) => {
-        setTemplate(res.data);
-        setTemplateId(res.data.id);
-        setLoadedTemplates({ ...loadedTemplates, [e.object.name]: res.data });
+        setTemplateName(e.object.name);
+        setLoadedTemplates((prev) => ({ ...prev, [e.object.name]: res.data }));
       })
       .catch(console.error)
       .finally(() => setLoading(false));
@@ -62,7 +59,10 @@ function FormSelector({
         setAvailableTemplates(data);
         setFormSelector((prev) => ({ ...prev, [classname]: data?.length > 1 }));
         data.forEach((template) => {
-          setLoadedTemplates({ ...loadedTemplates, [template.name]: template });
+          setLoadedTemplates((prev) => ({
+            ...prev,
+            [template.name]: template,
+          }));
         });
       })
       .catch(console.error)

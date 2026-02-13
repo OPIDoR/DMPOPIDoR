@@ -41,13 +41,20 @@ function DynamicForm({
   } = useContext(GlobalContext);
   const methods = useForm({ defaultValues: {} });
   const [loading, setLoading] = useState(true);
-  const [error] = useState(null);
-  const [template, setTemplate] = useState(null);
-  const [templateId, setTemplateId] = useState(madmpSchemaId);
-
+  const [templateName, setTemplateName] = useState(null);
   /**
    * Memoized values
    */
+  const template = useMemo(() => {
+    if (fragmentId && formData[fragmentId]) {
+      return loadedTemplates[formData[fragmentId].template_name] ?? null;
+    }
+    if (!fragmentId && templateName) {
+      return loadedTemplates[templateName] ?? null;
+    }
+    return null;
+  }, [fragmentId, formData, loadedTemplates, templateName]);
+
   const dataType = useMemo(
     () => displayedResearchOutput?.configuration?.dataType || "none",
     [displayedResearchOutput],
@@ -65,6 +72,9 @@ function DynamicForm({
     () => (template ? generateEmptyDefaults(template.schema.properties) : {}),
     [template],
   );
+
+  const templateId = template?.id || madmpSchemaId;
+  const topics = template?.topics || [];
 
   /**
    * It checks if the form is filled in correctly.
@@ -108,8 +118,8 @@ function DynamicForm({
         const fragment = res.data.fragment;
         const tplt = res.data.template;
         const answerId = res.data.answer_id;
-        setLoadedTemplates({ ...loadedTemplates, [tplt.name]: tplt });
-        setTemplate(tplt);
+        setTemplateName(tplt.name);
+        setLoadedTemplates((prev) => ({ ...prev, [tplt.name]: tplt }));
         setFormData({ [fragment.id]: fragment });
         setAnswer({
           id: answerId,
@@ -157,56 +167,51 @@ function DynamicForm({
    */
 
   useEffect(() => {
-    if (fragmentId) {
-      if (formData[fragmentId]) {
-        if (loadedTemplates[formData[fragmentId].template_name]) {
-          setTemplate(loadedTemplates[formData[fragmentId].template_name]);
-        } else {
-          service
-            .getSchema(formData[fragmentId].schema_id)
-            .then((res) => {
-              setTemplate(res.data);
-              setLoadedTemplates({
-                ...loadedTemplates,
-                [res.data.name]: res.data,
-              });
-            })
-            .catch(console.error)
-            .finally(() => setLoading(false));
-        }
-        methods.reset({ ...emptyDefaults, ...formData[fragmentId] });
-      } else {
-        service
-          .getFragment(fragmentId)
-          .then((res) => {
-            setTemplate(res.data.template);
-            setLoadedTemplates({
-              ...loadedTemplates,
-              [res.data.template.name]: res.data.template,
-            });
-            handleFragmentData(res.data);
-          })
-          .catch(console.error)
-          .finally(() => setLoading(false));
-      }
-    } else {
+    if (!fragmentId) {
       service
         .getNewForm(questionId, displayedResearchOutput.id)
         .then((res) => {
           const tplt = res.data.template;
-          setTemplate(tplt);
-          setTemplateId(tplt.id);
-          setLoadedTemplates({ ...loadedTemplates, [tplt.name]: tplt });
+          setTemplateName(tplt.name);
+          setLoadedTemplates((prev) => ({ ...prev, [tplt.name]: tplt }));
           if (res.data.fragment) handleFragmentData(res.data);
         })
         .catch(console.error)
         .finally(() => setLoading(false));
+      return;
     }
-  }, [fragmentId]);
-
-  useEffect(() => {
-    methods.reset({ ...emptyDefaults, ...formData[fragmentId] });
-  }, [formData[fragmentId]]);
+    if (!formData[fragmentId]) {
+      // no fragment data, fetch fragment (which includes template)
+      service
+        .getFragment(fragmentId)
+        .then((res) => {
+          setTemplateName(res.data.template.name);
+          setLoadedTemplates((prev) => ({
+            ...prev,
+            [res.data.template.name]: res.data.template,
+          }));
+          handleFragmentData(res.data);
+        })
+        .catch(console.error)
+        .finally(() => setLoading(false));
+      return;
+    }
+    if (!loadedTemplates[formData[fragmentId].template_name]) {
+      // fragment exists but template not loaded, fetch template
+      service
+        .getSchema(formData[fragmentId].schema_id)
+        .then((res) => {
+          setTemplateName(res.data.name);
+          setLoadedTemplates((prev) => ({
+            ...prev,
+            [res.data.name]: res.data,
+          }));
+        })
+        .catch(console.error)
+        .finally(() => setLoading(false));
+      return;
+    }
+  }, []);
 
   useEffect(() => {
     if (
@@ -224,6 +229,10 @@ function DynamicForm({
   }, [template]);
 
   useEffect(() => {
+    methods.reset({ ...emptyDefaults, ...formData[fragmentId] });
+  }, [formData[fragmentId]]);
+
+  useEffect(() => {
     if (!fragmentId && template) {
       const defaults = formatDefaultValues(template.schema.default?.[locale]);
       Object.keys(defaults).length > 0
@@ -239,8 +248,7 @@ function DynamicForm({
   return (
     <>
       {loading && <CustomSpinner isOverlay={true} />}
-      {error && <p>error</p>}
-      {!error && template && (
+      {template && (
         <>
           {!readonly && Object.keys(externalImports)?.length > 0 && (
             <ExternalImport
@@ -250,14 +258,13 @@ function DynamicForm({
               locale={locale}
             />
           )}
-          {!readonly && !fragmentId && template.topics.includes("generic") && (
+          {!readonly && !fragmentId && topics.includes("generic") && (
             <FormSelector
               classname={className}
               dataType={dataType}
               topic={topic}
               displayedTemplate={template}
-              setTemplateId={setTemplateId}
-              setTemplate={setTemplate}
+              setTemplateName={setTemplateName}
               formSelector={formSelector}
             />
           )}
