@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: app 1.0\n"
 "Report-Msgid-Bugs-To: contact@translation.io\n"
-"POT-Creation-Date: 2026-01-07 10:13+0100\n"
-"PO-Revision-Date: 2026-01-07 09:13+0000\n"
+"POT-Creation-Date: 2026-02-13 14:56+0100\n"
+"PO-Revision-Date: 2026-02-13 13:56+0000\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: English\n"
 "Language: en_GB\n"
@@ -282,7 +282,7 @@ msgstr ""
 #: ../../app/controllers/dmpopidor/plans_controller.rb:124
 #: ../../app/controllers/dmpopidor/research_outputs_controller.rb:36
 #: ../../app/controllers/dmpopidor/research_outputs_controller.rb:132
-#: ../../app/controllers/dmpopidor/research_outputs_controller.rb:189
+#: ../../app/controllers/dmpopidor/research_outputs_controller.rb:190
 #: ../../engines/madmp_opidor/app/services/import/plan_import_service.rb:39
 msgid "RO"
 msgstr ""
@@ -290,7 +290,7 @@ msgstr ""
 #: ../../app/controllers/dmpopidor/plans_controller.rb:125
 #: ../../app/controllers/dmpopidor/research_outputs_controller.rb:37
 #: ../../app/controllers/dmpopidor/research_outputs_controller.rb:133
-#: ../../app/controllers/dmpopidor/research_outputs_controller.rb:190
+#: ../../app/controllers/dmpopidor/research_outputs_controller.rb:191
 #: ../../engines/madmp_opidor/app/services/import/plan_import_service.rb:42
 msgid "Research output"
 msgstr ""
@@ -319,7 +319,7 @@ msgstr ""
 msgid "An error has occured: "
 msgstr ""
 
-#: ../../app/controllers/dmpopidor/plans_controller.rb:451
+#: ../../app/controllers/dmpopidor/plans_controller.rb:454
 msgid "Invalid JSON: "
 msgstr ""
 
@@ -335,7 +335,7 @@ msgid "There is no plan associated with id %{id}"
 msgstr ""
 
 #: ../../app/controllers/dmpopidor/research_outputs_controller.rb:108
-#: ../../app/controllers/dmpopidor/research_outputs_controller.rb:218
+#: ../../app/controllers/dmpopidor/research_outputs_controller.rb:219
 #: ../../app/controllers/guidance_groups_controller.rb:104
 #: ../../app/controllers/guidances_controller.rb:140
 #: ../../app/controllers/plans_controller.rb:405
@@ -352,7 +352,7 @@ msgstr ""
 msgid "Import of"
 msgstr ""
 
-#: ../../app/controllers/dmpopidor/research_outputs_controller.rb:216
+#: ../../app/controllers/dmpopidor/research_outputs_controller.rb:217
 #: ../../app/controllers/guidance_groups_controller.rb:102
 #: ../../app/controllers/guidances_controller.rb:138
 #: ../../app/controllers/plans_controller.rb:400
@@ -361,11 +361,11 @@ msgstr ""
 msgid "deleted"
 msgstr ""
 
-#: ../../app/controllers/dmpopidor/research_outputs_controller.rb:240
+#: ../../app/controllers/dmpopidor/research_outputs_controller.rb:241
 msgid "Data contact"
 msgstr ""
 
-#: ../../app/controllers/dmpopidor/research_outputs_controller.rb:252
+#: ../../app/controllers/dmpopidor/research_outputs_controller.rb:253
 #: ../../app/controllers/plans_controller.rb:486
 #: ../../engines/madmp_opidor/app/controllers/super_admin/madmp_schemas_controller.rb:45
 #: ../../engines/madmp_opidor/app/controllers/super_admin/registries_controller.rb:47
@@ -1132,7 +1132,7 @@ msgstr ""
 msgid "Denied"
 msgstr ""
 
-#: ../../app/models/plan.rb:852
+#: ../../app/models/plan.rb:853
 msgid "must be after the start date"
 msgstr ""
 
@@ -1441,7 +1441,7 @@ msgstr ""
 #: ../../app/views/branded/paginable/templates/_history.html.erb:25
 #: ../../app/views/branded/paginable/templates/_modules.html.erb:85
 #: ../../app/views/branded/paginable/templates/_organisational.html.erb:90
-#: ../../app/views/branded/plans/_download_form.html.erb:192
+#: ../../app/views/branded/plans/_download_form.html.erb:184
 msgid "Opens in new window"
 msgstr ""
 
@@ -3140,72 +3140,68 @@ msgid "unanswered questions"
 msgstr ""
 
 #: ../../app/views/branded/plans/_download_form.html.erb:76
-msgid "export complete data"
-msgstr ""
-
-#: ../../app/views/branded/plans/_download_form.html.erb:84
 msgid "supplementary section(s) not requested by funding organisation"
 msgstr ""
 
-#: ../../app/views/branded/plans/_download_form.html.erb:90
+#: ../../app/views/branded/plans/_download_form.html.erb:82
 msgid "Format"
 msgstr ""
 
-#: ../../app/views/branded/plans/_download_form.html.erb:105
+#: ../../app/views/branded/plans/_download_form.html.erb:97
 msgid "JSON format"
 msgstr ""
 
-#: ../../app/views/branded/plans/_download_form.html.erb:110
+#: ../../app/views/branded/plans/_download_form.html.erb:102
 msgid "DMP OPIDoR format"
 msgstr ""
 
-#: ../../app/views/branded/plans/_download_form.html.erb:118
-msgid "RDA DMP Common Standard format"
+#: ../../app/views/branded/plans/_download_form.html.erb:110
+msgid "RDA DMP Common Standard format (v1.0)"
 msgstr ""
 
-#: ../../app/views/branded/plans/_download_form.html.erb:120
+#: ../../app/views/branded/plans/_download_form.html.erb:112
 msgid ""
 "This format is not compatible with the Software type, the research outputs usi"
 "ng this type won't be exported."
 msgstr ""
 
-#: ../../app/views/branded/plans/_download_form.html.erb:127
+#: ../../app/views/branded/plans/_download_form.html.erb:119
 msgid "PDF formatting"
 msgstr ""
 
-#: ../../app/views/branded/plans/_download_form.html.erb:130
+#: ../../app/views/branded/plans/_download_form.html.erb:122
 msgid "Font"
 msgstr ""
 
-#: ../../app/views/branded/plans/_download_form.html.erb:133
+#: ../../app/views/branded/plans/_download_form.html.erb:125
 msgid "Margin (mm)"
 msgstr ""
 
-#: ../../app/views/branded/plans/_download_form.html.erb:138
+#: ../../app/views/branded/plans/_download_form.html.erb:130
 msgid "Face"
 msgstr ""
 
-#: ../../app/views/branded/plans/_download_form.html.erb:146
+#: ../../app/views/branded/plans/_download_form.html.erb:138
 msgid "Size"
 msgstr ""
 
-#: ../../app/views/branded/plans/_download_form.html.erb:154
+#: ../../app/views/branded/plans/_download_form.html.erb:146
 msgid "Top"
 msgstr ""
 
-#: ../../app/views/branded/plans/_download_form.html.erb:163
+#: ../../app/views/branded/plans/_download_form.html.erb:155
 msgid "Bottom"
 msgstr ""
 
-#: ../../app/views/branded/plans/_download_form.html.erb:172
+#: ../../app/views/branded/plans/_download_form.html.erb:164
 msgid "Left"
 msgstr ""
 
-#: ../../app/views/branded/plans/_download_form.html.erb:181
+#: ../../app/views/branded/plans/_download_form.html.erb:173
 msgid "Right"
 msgstr ""
 
-#: ../../app/views/branded/plans/_download_form.html.erb:192
+#: ../../app/views/branded/plans/_download_form.html.erb:184
 msgid "Download Plan"
 msgstr ""
 
