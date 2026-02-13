@@ -143,6 +143,7 @@ function ContributorsList({
         <div className="row text-right">
           <div className="mx-auto">
             <Pagination
+              key={contributors}
               items={contributors}
               onChangePage={onChangePage}
               pageSize={pageSize}

@@ -354,6 +354,7 @@ function RorList({ fragment, setFragment, mapping = {}, locale }) {
               <div className="mx-auto"></div>
               <div className="mx-auto">
                 <Pagination
+                  key={filteredData}
                   items={filteredData}
                   onChangePage={onChangePage}
                   pageSize={pageSize}

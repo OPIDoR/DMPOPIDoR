@@ -265,6 +265,7 @@ function OrcidList({ fragment, setFragment, mapping = {} }) {
               <div className="mx-auto"></div>
               <div className="mx-auto">
                 <Pagination
+                  key={data}
                   items={data}
                   onChangePage={onChangePage}
                   pageSize={pageSize}
