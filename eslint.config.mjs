@@ -86,6 +86,7 @@ export default [
         timeago: "readonly",
         fixture: "readonly",
         spyOnEvent: "readonly",
+        tinymce: "readonly",
       },
     },
 
