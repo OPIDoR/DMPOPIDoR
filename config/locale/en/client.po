@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: app 1.0\n"
 "Report-Msgid-Bugs-To: contact@translation.io\n"
-"POT-Creation-Date: 2026-02-13 14:56+0100\n"
-"PO-Revision-Date: 2026-02-13 14:56+0100\n"
+"POT-Creation-Date: 2026-02-16 16:40+0100\n"
+"PO-Revision-Date: 2026-02-16 16:40+0100\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: English\n"
 "Language: en\n"
@@ -3323,8 +3323,8 @@ msgid "DMP OPIDoR format"
 msgstr "DMP OPIDoR format"
 
 #: ../../app/views/branded/plans/_download_form.html.erb:110
-msgid "RDA DMP Common Standard format (v1.0)"
-msgstr "RDA DMP Common Standard format (v1.0)"
+msgid "RDA DMP Common Standard format (v1.1)"
+msgstr "RDA DMP Common Standard format (v1.1)"
 
 #: ../../app/views/branded/plans/_download_form.html.erb:112
 msgid ""
