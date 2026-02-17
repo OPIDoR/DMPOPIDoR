@@ -15,11 +15,11 @@ import ResearchOutputInfobox from "../ResearchOutput/ResearchOutputInfobox";
 import * as styles from "../assets/css/write_plan.module.css";
 import consumer from "../../utils/cable";
 import SelectedGuidances from "../GuidanceChoice/SavedGuidances";
+import { setUrlParams } from "../../utils/utils.js";
 
 function SectionsContent({ planId, readonly }) {
   const { t } = useTranslation();
-  const { openedQuestions, setOpenedQuestions, setUrlParams } =
-    useContext(GlobalContext);
+  const { openedQuestions, setOpenedQuestions } = useContext(GlobalContext);
   const { setFormData } = useContext(FormsContext);
   const {
     setResearchOutputs,

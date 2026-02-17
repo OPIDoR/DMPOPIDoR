@@ -84,3 +84,21 @@ export function normalize(str) {
     .replace(/[\u0300-\u036f]/g, "") // supprime les diacritiques
     .toLowerCase(); // optionnel : ignore la casse
 }
+
+export function setUrlParams(data = {}) {
+  const currentParams = Object.fromEntries(
+    new URLSearchParams(window.location.search),
+  );
+  const mergedParams = { ...currentParams, ...data };
+  Object.keys(mergedParams).forEach((key) => {
+    if (!mergedParams[key] || mergedParams[key] === "") {
+      delete mergedParams[key];
+    }
+  });
+  const newSearchParams = new URLSearchParams(mergedParams);
+  window.history.replaceState(
+    null,
+    "",
+    `${window.location.pathname}?${newSearchParams.toString()}`,
+  );
+}

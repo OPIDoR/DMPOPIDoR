@@ -18,7 +18,7 @@ import {
   researchOutputTypeToDataType,
 } from "../../utils/GeneratorUtils";
 import CustomSelect from "../Shared/CustomSelect";
-import { getErrorMessage } from "../../utils/utils";
+import { getErrorMessage, setUrlParams } from "../../utils/utils";
 import TooltipInfoIcon from "../FormComponents/TooltipInfoIcon";
 
 const EndButton = styled.div`
@@ -32,7 +32,7 @@ function AddResearchOutput({
   inEdition = false,
   close = true,
 }) {
-  const { locale, setUrlParams, configuration } = useContext(GlobalContext);
+  const { locale, configuration } = useContext(GlobalContext);
   const {
     displayedResearchOutput,
     setDisplayedResearchOutput,

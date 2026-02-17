@@ -7,11 +7,11 @@ import { FaVial } from "react-icons/fa6";
 import { FaUniversity } from "react-icons/fa";
 
 import * as stylesForm from "../assets/css/form.module.css";
-import { GlobalContext } from "../context/GlobalContext.jsx";
 import { ResearchOutputsContext } from "../context/ResearchOutputsContext.jsx";
 import { researchOutput } from "../../services";
 import CustomSelect from "../Shared/CustomSelect";
 import ImportResearchOutputPlaceholder from "./Placeholders/ImportResearchOutputPlaceholder";
+import { setUrlParams } from "../../utils/utils.js";
 
 const EndButton = styled.div`
   display: flex;
@@ -19,7 +19,6 @@ const EndButton = styled.div`
 `;
 
 function ImportResearchOutput({ planId, handleClose }) {
-  const { setUrlParams } = useContext(GlobalContext);
   const { setResearchOutputs, setDisplayedResearchOutput } = useContext(
     ResearchOutputsContext,
   );

@@ -28,24 +28,6 @@ function Global({
   const [configuration, setConfiguration] = useState({});
   const [savedGuidances, setSavedGuidances] = useState([]);
 
-  const setUrlParams = (data = {}) => {
-    const currentParams = Object.fromEntries(
-      new URLSearchParams(window.location.search),
-    );
-    const mergedParams = { ...currentParams, ...data };
-    Object.keys(mergedParams).forEach((key) => {
-      if (!mergedParams[key] || mergedParams[key] === "") {
-        delete mergedParams[key];
-      }
-    });
-    const newSearchParams = new URLSearchParams(mergedParams);
-    window.history.replaceState(
-      null,
-      "",
-      `${window.location.pathname}?${newSearchParams.toString()}`,
-    );
-  };
-
   const contextValue = useMemo(
     () => ({
       locale,
@@ -55,7 +37,6 @@ function Global({
       openedQuestions,
       setOpenedQuestions,
       userId,
-      setUrlParams,
       configuration,
       setConfiguration,
       savedGuidances,
