@@ -157,7 +157,7 @@ function SelectContributorMultiple({
    */
   const handleSaveNew = (data) => {
     service
-      .createFragment(data, template.id, dmpId)
+      .createFragment(data, personTemplate.id, dmpId)
       .then((res) => {
         const savedFragment = res.data.fragment;
         savedFragment.action = "update";
@@ -166,7 +166,10 @@ function SelectContributorMultiple({
           ...persons,
           {
             ...savedFragment,
-            to_string: parsePattern(savedFragment, template?.schema?.to_string),
+            to_string: parsePattern(
+              savedFragment,
+              personTemplate?.schema?.to_string,
+            ),
           },
         ]);
       })
