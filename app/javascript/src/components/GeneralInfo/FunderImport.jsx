@@ -11,7 +11,6 @@ import { toast } from "react-hot-toast";
 import styled from "styled-components";
 
 import * as styles from "../assets/css/general_info.module.css";
-import { GlobalContext } from "../context/GlobalContext.jsx";
 import { FormsContext } from "../context/FormsContext";
 import { generalInfo, service } from "../../services";
 import CustomError from "../Shared/CustomError";
@@ -37,8 +36,7 @@ function FunderImport({
   isClassic,
 }) {
   const { t } = useTranslation();
-  const { setPersons } = useContext(GlobalContext);
-  const { setFormData } = useContext(FormsContext);
+  const { setFormData, setPersons } = useContext(FormsContext);
   const [isOpenFunderImport, setIsOpenFunderImport] = useState(true);
   const [funders, setFunders] = useState([]);
   const [selectedFunder, setSelectedFunder] = useState(null);

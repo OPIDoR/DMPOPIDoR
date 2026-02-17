@@ -22,7 +22,6 @@ function Global({
   const dmpId = initialDmpId;
   const userId = initialUserId;
   const commentablePlan = initialCommentablePlan;
-  const [persons, setPersons] = useState([]);
 
   const [openedQuestions, setOpenedQuestions] = useState(null);
   const [configuration, setConfiguration] = useState({});
@@ -32,8 +31,6 @@ function Global({
     () => ({
       locale,
       dmpId,
-      persons,
-      setPersons,
       openedQuestions,
       setOpenedQuestions,
       userId,
@@ -46,7 +43,6 @@ function Global({
     [
       locale,
       dmpId,
-      persons,
       openedQuestions,
       userId,
       configuration,

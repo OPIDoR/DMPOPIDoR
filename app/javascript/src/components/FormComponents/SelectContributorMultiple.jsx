@@ -47,8 +47,9 @@ function SelectContributorMultiple({
   });
   const [show, setShow] = useState(false);
   const [error, setError] = useState(null);
-  const { locale, dmpId, persons, setPersons } = useContext(GlobalContext);
-  const { loadedRegistries, setLoadedRegistries } = useContext(FormsContext);
+  const { locale, dmpId } = useContext(GlobalContext);
+  const { loadedRegistries, setLoadedRegistries, setPersons, persons } =
+    useContext(FormsContext);
   const [index, setIndex] = useState(null);
   const [editedPerson, setEditedPerson] = useState({});
   const [roleOptions, setRoleOptions] = useState(null);

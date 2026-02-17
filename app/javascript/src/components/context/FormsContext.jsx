@@ -13,6 +13,7 @@ function Forms({ children }) {
   const [loadedRegistries, setLoadedRegistries] = useState({});
   const [loadedTemplates, setLoadedTemplates] = useState({});
   const [formSelectors, setFormSelector] = useState({});
+  const [persons, setPersons] = useState([]);
 
   const contextValue = useMemo(
     () => ({
@@ -24,8 +25,10 @@ function Forms({ children }) {
       setLoadedTemplates,
       formSelectors,
       setFormSelector,
+      persons,
+      setPersons,
     }),
-    [formData, loadedRegistries, loadedTemplates, formSelectors],
+    [formData, loadedRegistries, loadedTemplates, formSelectors, persons],
   );
 
   return (
