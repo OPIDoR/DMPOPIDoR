@@ -23,14 +23,12 @@ function GeneralInfoLayout({
 }) {
   return (
     <StrictMode>
-      <Global>
+      <Global initialLocale={locale} initialDmpId={dmpId}>
         {isClassic && !readonly && (
           <GuidanceSelector planId={planId} context={"plan"} />
         )}
         <GeneralInfo
-          locale={locale}
           planId={planId}
-          dmpId={dmpId}
           projectFragmentId={projectFragmentId}
           metaFragmentId={metaFragmentId}
           researchContext={researchContext}

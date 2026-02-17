@@ -12,8 +12,8 @@ const toastOptions = {
 function ContributorsTabLayout({ planId, locale, readonly }) {
   return (
     <StrictMode>
-      <Global>
-        <ContributorsTab planId={planId} locale={locale} readonly={readonly} />
+      <Global initialLocale={locale}>
+        <ContributorsTab planId={planId} readonly={readonly} />
         <Toaster
           position="bottom-right"
           toastOptions={toastOptions}

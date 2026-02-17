@@ -26,9 +26,9 @@ function PlanCreationLayout({ locale }) {
 
   return (
     <StrictMode>
-      <Global>
+      <Global initialLocale={locale}>
         <QueryClientProvider client={queryClient}>
-          <PlanCreation locale={locale} />
+          <PlanCreation />
         </QueryClientProvider>
       </Global>
     </StrictMode>

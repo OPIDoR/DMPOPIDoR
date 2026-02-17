@@ -11,16 +11,22 @@ export const GlobalContext = createContext();
  * properties: form and setform.
  * @returns The GlobalContext.Provider is being returned.
  */
-function Global({ children }) {
-  const [locale, setLocale] = useState("fr_FR");
-  const [dmpId, setDmpId] = useState(null);
+function Global({
+  children,
+  initialLocale = "fr_FR",
+  initialDmpId = null,
+  initialUserId = -1,
+  initialCommentablePlan = false,
+}) {
+  const locale = initialLocale;
+  const dmpId = initialDmpId;
+  const userId = initialUserId;
+  const commentablePlan = initialCommentablePlan;
   const [persons, setPersons] = useState([]);
 
   const [openedQuestions, setOpenedQuestions] = useState(null);
-  const [userId, setUserId] = useState(-1);
   const [configuration, setConfiguration] = useState({});
   const [savedGuidances, setSavedGuidances] = useState([]);
-  const [commentablePlan, setCommentablePlan] = useState(false);
 
   const setUrlParams = (data = {}) => {
     const currentParams = Object.fromEntries(
@@ -43,22 +49,18 @@ function Global({ children }) {
   const contextValue = useMemo(
     () => ({
       locale,
-      setLocale,
       dmpId,
-      setDmpId,
       persons,
       setPersons,
       openedQuestions,
       setOpenedQuestions,
       userId,
-      setUserId,
       setUrlParams,
       configuration,
       setConfiguration,
       savedGuidances,
       setSavedGuidances,
       commentablePlan,
-      setCommentablePlan,
     }),
     [
       locale,

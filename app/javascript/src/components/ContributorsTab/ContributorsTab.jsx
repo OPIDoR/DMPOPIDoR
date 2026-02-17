@@ -13,9 +13,9 @@ import CustomSpinner from "../Shared/CustomSpinner";
 import * as styles from "../assets/css/form.module.css";
 import { checkFragmentExists } from "../../utils/JsonFragmentsUtils";
 
-function ContributorsTab({ planId, locale, readonly }) {
+function ContributorsTab({ planId, readonly }) {
   const { t, i18n } = useTranslation();
-  const { setLocale, dmpId, setDmpId } = useContext(GlobalContext);
+  const { locale, dmpId } = useContext(GlobalContext);
   const [show, setShow] = useState(false);
   const [index, setIndex] = useState(null);
   const [template, setTemplate] = useState(null);
@@ -111,14 +111,12 @@ function ContributorsTab({ planId, locale, readonly }) {
       .then((res) => {
         setContributors(res.data.contributors);
         setTemplate(res.data.template);
-        setDmpId(res.data.dmp_id);
       })
       .catch((error) => setError(error))
       .finally(() => setLoading(false));
   }, [planId]);
 
   useEffect(() => {
-    setLocale(locale);
     i18n.changeLanguage(locale.substring(0, 2));
   }, [planId, locale]);
 

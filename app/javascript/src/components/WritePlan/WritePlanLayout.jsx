@@ -16,8 +16,10 @@ const toastOptions = {
 
 function WritePlanLayout({
   planId,
+  dmpId,
   locale = "en_GB",
   userId,
+  commentablePlan = false,
   readonly,
   configuration = {},
 }) {
@@ -25,7 +27,12 @@ function WritePlanLayout({
 
   return (
     <StrictMode>
-      <Global>
+      <Global
+        initialLocale={locale}
+        initialDmpId={dmpId}
+        initialUserId={userId}
+        initialCommentablePlan={commentablePlan}
+      >
         <ResearchOutputs>
           <Driver
             tourName="write_plan"
@@ -34,8 +41,6 @@ function WritePlanLayout({
           >
             <WritePlan
               planId={planId}
-              locale={locale}
-              userId={userId}
               readonly={readonly}
               configuration={configuration}
               className="research-outputs-tabs"

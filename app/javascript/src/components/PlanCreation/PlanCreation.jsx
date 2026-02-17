@@ -19,9 +19,9 @@ const toastOptions = {
   duration: 5000,
 };
 
-function PlanCreation({ locale = "en_GB" }) {
+function PlanCreation() {
   const { t, i18n } = useTranslation();
-  const { setLocale } = useContext(GlobalContext);
+  const { locale } = useContext(GlobalContext);
 
   /**
    * States
@@ -189,7 +189,6 @@ function PlanCreation({ locale = "en_GB" }) {
    */
 
   useEffect(() => {
-    setLocale(locale);
     i18n.changeLanguage(locale.substring(0, 2));
   }, [locale]);
 

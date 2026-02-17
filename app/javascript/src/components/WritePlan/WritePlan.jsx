@@ -17,21 +17,9 @@ import TooltipInfoIcon from "../FormComponents/TooltipInfoIcon";
 import ResearchOutputsSidebar from "./ResearchOutputsSidebar";
 import WritePlanPlaceholder from "./Placeholders/WritePlanPlaceholder";
 
-function WritePlan({
-  locale = "en_GB",
-  planId,
-  userId,
-  readonly,
-  configuration,
-}) {
+function WritePlan({ planId, readonly, configuration }) {
   const { t, i18n } = useTranslation();
-  const {
-    setDmpId,
-    setUserId,
-    setLocale,
-    setCommentablePlan,
-    setConfiguration,
-  } = useContext(GlobalContext);
+  const { locale, setConfiguration } = useContext(GlobalContext);
   const { setDisplayedResearchOutput, researchOutputs, setResearchOutputs } =
     useContext(ResearchOutputsContext);
   const [loading, setLoading] = useState(true);
@@ -43,9 +31,7 @@ function WritePlan({
     writePlan
       .getPlanData(planId)
       .then((res) => {
-        setDmpId(res.data.dmp_id);
         setTemplate(res.data.template);
-        setCommentablePlan(res.data.commentable);
 
         const { research_outputs } = res.data;
 
@@ -91,10 +77,6 @@ function WritePlan({
   useEffect(() => {
     const queryParameters = new URLSearchParams(window.location.search);
     const researchOutputId = queryParameters.get("research_output");
-
-    setUserId(userId);
-    setLocale(locale);
-
     loadData(planId, researchOutputId);
 
     window.addEventListener("trigger-refresh-ro-data", (e) =>
