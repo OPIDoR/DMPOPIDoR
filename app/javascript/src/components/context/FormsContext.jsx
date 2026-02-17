@@ -12,6 +12,7 @@ function Forms({ children }) {
   const [formData, setFormData] = useReducer(reducer, {});
   const [loadedRegistries, setLoadedRegistries] = useState({});
   const [loadedTemplates, setLoadedTemplates] = useState({});
+  const [formSelectors, setFormSelector] = useState({});
 
   const contextValue = useMemo(
     () => ({
@@ -21,8 +22,10 @@ function Forms({ children }) {
       setLoadedRegistries,
       loadedTemplates,
       setLoadedTemplates,
+      formSelectors,
+      setFormSelector,
     }),
-    [formData, loadedRegistries, loadedTemplates],
+    [formData, loadedRegistries, loadedTemplates, formSelectors],
   );
 
   return (

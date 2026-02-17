@@ -15,6 +15,7 @@ import { IoShuffleOutline } from "react-icons/io5";
 
 import { GlobalContext } from "../context/GlobalContext.jsx";
 import { ResearchOutputsContext } from "../context/ResearchOutputsContext.jsx";
+import { FormsContext } from "../context/FormsContext.jsx";
 import * as styles from "../assets/css/write_plan.module.css";
 import DynamicForm from "../Forms/DynamicForm";
 import GuidanceModal from "./GuidanceModal";
@@ -37,12 +38,9 @@ function Question({
   sectionNumber,
   readonly,
 }) {
-  const {
-    openedQuestions,
-    setOpenedQuestions,
-    commentablePlan,
-    formSelectors,
-  } = useContext(GlobalContext);
+  const { openedQuestions, setOpenedQuestions, commentablePlan } =
+    useContext(GlobalContext);
+  const { formSelectors } = useContext(FormsContext);
   const { displayedResearchOutput, updateResearchOutputAnswer } = useContext(
     ResearchOutputsContext,
   );

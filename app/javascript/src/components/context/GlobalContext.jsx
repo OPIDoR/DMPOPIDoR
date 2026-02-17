@@ -18,7 +18,6 @@ function Global({ children }) {
 
   const [openedQuestions, setOpenedQuestions] = useState(null);
   const [userId, setUserId] = useState(-1);
-  const [formSelectors, setFormSelector] = useState({});
   const [configuration, setConfiguration] = useState({});
   const [savedGuidances, setSavedGuidances] = useState([]);
   const [commentablePlan, setCommentablePlan] = useState(false);
@@ -54,8 +53,6 @@ function Global({ children }) {
       userId,
       setUserId,
       setUrlParams,
-      formSelectors,
-      setFormSelector,
       configuration,
       setConfiguration,
       savedGuidances,
@@ -69,7 +66,6 @@ function Global({ children }) {
       persons,
       openedQuestions,
       userId,
-      formSelectors,
       configuration,
       savedGuidances,
       commentablePlan,
