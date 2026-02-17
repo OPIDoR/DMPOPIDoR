@@ -8,7 +8,7 @@ import { format } from "date-fns";
 import { fr, enGB } from "date-fns/locale";
 import { BiEdit } from "react-icons/bi";
 import { FaTrash } from "react-icons/fa6";
-import Global from "../context/Global.jsx";
+import Global from "../context/GlobalContext.jsx";
 import EditorComment from "../WritePlan/EditorComment.jsx";
 import CustomSpinner from "./CustomSpinner.jsx";
 import CustomError from "./CustomError.jsx";

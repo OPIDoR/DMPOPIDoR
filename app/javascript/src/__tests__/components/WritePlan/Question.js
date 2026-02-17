@@ -1,7 +1,7 @@
 import React from "react";
 import { act, render } from "@testing-library/react";
 import Question from "../../../components/WritePlan/Question";
-import Global from "../../../components/context/Global";
+import Global from "../../../components/context/GlobalContext";
 
 const props = {
   planId: 1,

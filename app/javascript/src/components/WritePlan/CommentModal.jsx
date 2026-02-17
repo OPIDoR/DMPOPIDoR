@@ -1,6 +1,6 @@
 import { useRef, useContext, useState } from "react";
 import { useTranslation } from "react-i18next";
-import { GlobalContext } from "../context/Global";
+import { GlobalContext } from "../context/GlobalContext.jsx";
 import InnerModal from "../Shared/InnerModal/InnerModal";
 import CommentList from "../Shared/CommentList";
 

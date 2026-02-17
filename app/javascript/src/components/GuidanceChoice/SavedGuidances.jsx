@@ -1,7 +1,7 @@
 import { useContext } from "react";
 import { useTranslation } from "react-i18next";
 import { FaEye } from "react-icons/fa6";
-import { GlobalContext } from "../context/Global";
+import { GlobalContext } from "../context/GlobalContext.jsx";
 
 function SavedGuidances() {
   const { t } = useTranslation();

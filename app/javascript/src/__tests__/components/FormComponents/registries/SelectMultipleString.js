@@ -11,7 +11,7 @@ import selectEvent from "react-select-event";
 import SelectMultipleString from "../../../../components/FormComponents/registries/SelectMultipleString";
 
 import { Wrapper } from "../../../__utils__/reactHookFormHelpers";
-import Global from "../../../../components/context/Global";
+import Global from "../../../../components/context/GlobalContext";
 import { service } from "../../../../services/index";
 
 jest.mock("react-i18next", () => ({

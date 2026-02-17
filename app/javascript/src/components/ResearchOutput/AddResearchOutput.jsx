@@ -8,7 +8,7 @@ import uniqueId from "lodash.uniqueid";
 import DOMPurify from "dompurify";
 
 import * as stylesForm from "../assets/css/form.module.css";
-import { GlobalContext } from "../context/Global";
+import { GlobalContext } from "../context/GlobalContext.jsx";
 import { researchOutput, service } from "../../services";
 import {
   createOptions,

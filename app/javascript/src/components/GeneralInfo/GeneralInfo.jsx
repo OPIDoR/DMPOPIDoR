@@ -10,7 +10,7 @@ import { toast } from "react-hot-toast";
 
 import * as styles from "../assets/css/general_info.module.css";
 import { generalInfo } from "../../services/index.js";
-import { GlobalContext } from "../context/Global";
+import { GlobalContext } from "../context/GlobalContext.jsx";
 import DynamicForm from "../Forms/DynamicForm";
 import FunderImport from "./FunderImport.jsx";
 import { getErrorMessage } from "../../utils/utils";

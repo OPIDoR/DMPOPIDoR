@@ -1,27 +1,4 @@
-import {
-  createContext,
-  useCallback,
-  useMemo,
-  useReducer,
-  useState,
-} from "react";
-
-/**
- * If the incomingFormData is null, remove the formData from localStorage,
- * otherwise return the formData with the incomingFormData.
- * @param formData - the current state of the form
- * @param incomingFormData - This is the object that contains the form data.
- * @returns The reducer is returning a new object that is a combination of the
- * formData object and the incomingFormData object.
- */
-const reducer = (formData, incomingFormData) => {
-  if (incomingFormData === null) {
-    // localStorage.removeItem('formData');
-    // sessionStorage.removeItem("researchOutputs");
-    return {};
-  }
-  return { ...formData, ...incomingFormData };
-};
+import { createContext, useCallback, useMemo, useState } from "react";
 
 /* It's getting the form from localStorage. */
 // const formLocalState = JSON.parse(localStorage.getItem('formData'));
@@ -38,10 +15,6 @@ function Global({ children }) {
   const [locale, setLocale] = useState("fr_FR");
   const [dmpId, setDmpId] = useState(null);
   const [persons, setPersons] = useState([]);
-  // Dynamic form
-  const [formData, setFormData] = useReducer(reducer, {});
-  const [loadedRegistries, setLoadedRegistries] = useState({});
-  const [loadedTemplates, setLoadedTemplates] = useState({});
   // Write Plan
   const [researchOutputs, setResearchOutputs] = useState([]);
   const [displayedResearchOutput, setDisplayedResearchOutput] = useState(null);
@@ -87,12 +60,6 @@ function Global({ children }) {
       setDmpId,
       persons,
       setPersons,
-      formData,
-      setFormData,
-      loadedRegistries,
-      setLoadedRegistries,
-      loadedTemplates,
-      setLoadedTemplates,
       researchOutputs,
       setResearchOutputs,
       displayedResearchOutput,
@@ -116,9 +83,6 @@ function Global({ children }) {
       locale,
       dmpId,
       persons,
-      formData,
-      loadedRegistries,
-      loadedTemplates,
       researchOutputs,
       displayedResearchOutput,
       openedQuestions,

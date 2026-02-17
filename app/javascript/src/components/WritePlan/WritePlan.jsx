@@ -6,7 +6,7 @@ import uniqueId from "lodash.uniqueid";
 
 import SectionsContent from "./SectionsContent";
 import { writePlan } from "../../services";
-import { GlobalContext } from "../context/Global";
+import { GlobalContext } from "../context/GlobalContext.jsx";
 import CustomError from "../Shared/CustomError";
 import * as styles from "../assets/css/sidebar.module.css";
 import PlanInformations from "./PlanInformations";
@@ -14,6 +14,7 @@ import ResearchOutputForm from "../ResearchOutput/ResearchOutputForm";
 import TooltipInfoIcon from "../FormComponents/TooltipInfoIcon";
 import ResearchOutputsSidebar from "./ResearchOutputsSidebar";
 import WritePlanPlaceholder from "./Placeholders/WritePlanPlaceholder";
+import { FormsContext } from "../context/FormsContext";
 
 function WritePlan({
   locale = "en_GB",
@@ -24,7 +25,6 @@ function WritePlan({
 }) {
   const { t, i18n } = useTranslation();
   const {
-    setFormData,
     setDmpId,
     setUserId,
     setLocale,
@@ -34,6 +34,7 @@ function WritePlan({
     setCommentablePlan,
     setConfiguration,
   } = useContext(GlobalContext);
+  const { setFormData } = useContext(FormsContext);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const [template, setTemplate] = useState(null);

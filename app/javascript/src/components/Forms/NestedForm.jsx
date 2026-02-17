@@ -4,7 +4,7 @@ import { useForm, FormProvider } from "react-hook-form";
 import { useTranslation } from "react-i18next";
 import Button from "react-bootstrap/Button";
 
-import { GlobalContext } from "../context/Global.jsx";
+import { GlobalContext } from "../context/GlobalContext.jsx";
 import { ExternalImport } from "../ExternalImport";
 import * as styles from "../assets/css/form.module.css";
 import FormBuilder from "./FormBuilder";

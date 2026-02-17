@@ -7,14 +7,16 @@ import CustomSpinner from "../Shared/CustomSpinner";
 import InnerModal from "../Shared/InnerModal/InnerModal";
 import { createFormLabel } from "../../utils/GeneratorUtils";
 import CustomButton from "../Styled/CustomButton";
-import { GlobalContext } from "../context/Global";
+import { GlobalContext } from "../context/GlobalContext.jsx";
+import { FormsContext } from "../context/FormsContext";
 import { service } from "../../services";
 import swalUtils from "../../utils/swalUtils";
 import { getErrorMessage } from "../../utils/utils";
 
 function RunsModal({ shown, hide, scriptsData, fragmentId }) {
   const { t } = useTranslation();
-  const { locale, setFormData } = useContext(GlobalContext);
+  const { locale } = useContext(GlobalContext);
+  const { setFormData } = useContext(FormsContext);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
   const [success, setSuccess] = useState(null);

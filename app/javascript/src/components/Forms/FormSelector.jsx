@@ -6,7 +6,8 @@ import { FaXmark } from "react-icons/fa6";
 import * as styles from "../assets/css/form_selector.module.css";
 import CustomSpinner from "../Shared/CustomSpinner";
 import service from "../../services/service";
-import { GlobalContext } from "../context/Global";
+import { GlobalContext } from "../context/GlobalContext.jsx";
+import { FormsContext } from "../context/FormsContext";
 import CustomSelect from "../Shared/CustomSelect";
 
 const headerStyle = {
@@ -33,7 +34,8 @@ function FormSelector({
   const [loading, setLoading] = useState(true);
   const [availableTemplates, setAvailableTemplates] = useState([]);
   const [selectedTemplate, setSelectedTemplate] = useState(displayedTemplate);
-  const { setFormSelector, setLoadedTemplates } = useContext(GlobalContext);
+  const { setFormSelector } = useContext(GlobalContext);
+  const { setLoadedTemplates } = useContext(FormsContext);
 
   const handleSelectTemplate = (e) => {
     setSelectedTemplate(e.object);

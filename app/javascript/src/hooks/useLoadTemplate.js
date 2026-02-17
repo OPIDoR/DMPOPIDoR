@@ -1,9 +1,9 @@
 import { useContext, useEffect, useRef } from "react";
-import { GlobalContext } from "../components/context/Global";
+import { FormsContext } from "../components/context/FormsContext";
 import { service } from "../services";
 
 function useLoadTemplate(templateName) {
-  const { loadedTemplates, setLoadedTemplates } = useContext(GlobalContext);
+  const { loadedTemplates, setLoadedTemplates } = useContext(FormsContext);
   const loadingRef = useRef(new Set());
 
   useEffect(() => {

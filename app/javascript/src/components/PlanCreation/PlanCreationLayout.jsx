@@ -1,7 +1,7 @@
 import { StrictMode, useEffect } from "react";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 
-import Global from "../context/Global.jsx";
+import Global from "../context/GlobalContext.jsx";
 import PlanCreation from "./PlanCreation.jsx";
 import "../../i18n.js";
 

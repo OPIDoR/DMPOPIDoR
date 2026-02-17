@@ -7,7 +7,7 @@ import { Tooltip as ReactTooltip } from "react-tooltip";
 import uniqueId from "lodash.uniqueid";
 import { FaPlus } from "react-icons/fa6";
 
-import { GlobalContext } from "../../context/Global.jsx";
+import { GlobalContext } from "../../context/GlobalContext.jsx";
 import {
   createOptions,
   createRegistryPlaceholder,

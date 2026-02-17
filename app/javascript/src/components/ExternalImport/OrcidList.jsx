@@ -8,7 +8,7 @@ import CustomSpinner from "../Shared/CustomSpinner";
 import Pagination from "../Shared/Pagination";
 import { flattenObject, normalize } from "../../utils/utils";
 
-import { GlobalContext } from "../context/Global";
+import { GlobalContext } from "../context/GlobalContext.jsx";
 
 function OrcidList({ fragment, setFragment, mapping = {} }) {
   const { t, i18n } = useTranslation();

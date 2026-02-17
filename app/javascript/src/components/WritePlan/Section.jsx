@@ -2,7 +2,7 @@ import { useContext, useEffect, useState } from "react";
 import DOMPurify from "dompurify";
 import { useTranslation } from "react-i18next";
 
-import { GlobalContext } from "../context/Global";
+import { GlobalContext } from "../context/GlobalContext.jsx";
 import * as styles from "../assets/css/write_plan.module.css";
 import Question from "./Question";
 

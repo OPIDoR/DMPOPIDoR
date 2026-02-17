@@ -6,7 +6,7 @@ import { service } from "../../services";
 import CustomButton from "../Styled/CustomButton";
 import ContributorsList from "./ContributorsList";
 import ModalForm from "../Forms/ModalForm";
-import { GlobalContext } from "../context/Global";
+import { GlobalContext } from "../context/GlobalContext.jsx";
 import swalUtils from "../../utils/swalUtils";
 import CustomSpinner from "../Shared/CustomSpinner";
 import * as styles from "../assets/css/form.module.css";

@@ -7,7 +7,7 @@ import { FaVial } from "react-icons/fa6";
 import { FaUniversity } from "react-icons/fa";
 
 import * as stylesForm from "../assets/css/form.module.css";
-import { GlobalContext } from "../context/Global";
+import { GlobalContext } from "../context/GlobalContext.jsx";
 import { researchOutput } from "../../services";
 import CustomSelect from "../Shared/CustomSelect";
 import ImportResearchOutputPlaceholder from "./Placeholders/ImportResearchOutputPlaceholder";

@@ -10,7 +10,7 @@ import {
   createOptions,
   createRegistryPlaceholder,
 } from "../../../utils/GeneratorUtils.js";
-import { GlobalContext } from "../../context/Global.jsx";
+import { GlobalContext } from "../../context/GlobalContext.jsx";
 import * as styles from "../../assets/css/form.module.css";
 import CustomSelect from "../../Shared/CustomSelect.jsx";
 import { ASYNC_SELECT_OPTION_THRESHOLD } from "../../../config.js";

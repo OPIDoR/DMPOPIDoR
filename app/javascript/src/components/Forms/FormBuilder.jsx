@@ -1,6 +1,6 @@
 import { useContext } from "react";
 
-import { GlobalContext } from "../context/Global.jsx";
+import { GlobalContext } from "../context/GlobalContext.jsx";
 import InputText from "../FormComponents/InputText.jsx";
 import InputTextArray from "../FormComponents/InputTextArray.jsx";
 import ModalTemplate from "../FormComponents/ModalTemplate";

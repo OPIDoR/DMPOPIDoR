@@ -1,6 +1,6 @@
 import { useContext, useEffect, useState } from "react";
 
-import { GlobalContext } from "../context/Global";
+import { GlobalContext } from "../context/GlobalContext.jsx";
 import { researchOutput } from "../../services";
 
 function ResearchOutputsSidebarItem({ item, setLoading, children }) {

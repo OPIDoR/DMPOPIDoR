@@ -10,7 +10,7 @@ import { TbBulbFilled } from "react-icons/tb";
 import { useTranslation, Trans } from "react-i18next";
 import toast from "react-hot-toast";
 import { GUIDANCES_GROUPS_LIMIT } from "../../config.js";
-import { GlobalContext } from "../context/Global.jsx";
+import { GlobalContext } from "../context/GlobalContext.jsx";
 import { guidances } from "../../services/index.js";
 import { CustomSpinner, CustomError } from "../Shared/index.jsx";
 import CustomButton from "../Styled/CustomButton.jsx";

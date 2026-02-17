@@ -1,9 +1,9 @@
 import { useContext, useEffect, useRef } from "react";
-import { GlobalContext } from "../components/context/Global";
+import { FormsContext } from "../components/context/FormsContext";
 import { service } from "../services";
 
 function useLoadRegistry(registryName) {
-  const { loadedRegistries, setLoadedRegistries } = useContext(GlobalContext);
+  const { loadedRegistries, setLoadedRegistries } = useContext(FormsContext);
   const loadingRef = useRef(new Set());
 
   useEffect(() => {

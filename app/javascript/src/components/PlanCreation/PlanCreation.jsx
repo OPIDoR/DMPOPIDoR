@@ -13,7 +13,7 @@ import {
   Import,
 } from "./Steps";
 import * as stepperStyles from "../assets/css/stepper.module.css";
-import { GlobalContext } from "../context/Global";
+import { GlobalContext } from "../context/GlobalContext.jsx";
 
 const toastOptions = {
   duration: 5000,

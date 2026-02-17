@@ -13,7 +13,7 @@ import { BsGear } from "react-icons/bs";
 import { TbBulbFilled } from "react-icons/tb";
 import { IoShuffleOutline } from "react-icons/io5";
 
-import { GlobalContext } from "../context/Global";
+import { GlobalContext } from "../context/GlobalContext.jsx";
 import * as styles from "../assets/css/write_plan.module.css";
 import DynamicForm from "../Forms/DynamicForm";
 import GuidanceModal from "./GuidanceModal";

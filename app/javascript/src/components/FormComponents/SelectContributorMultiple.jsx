@@ -16,7 +16,7 @@ import {
   checkFragmentExists,
   createPersonsOptions,
 } from "../../utils/JsonFragmentsUtils.js";
-import { GlobalContext } from "../context/Global.jsx";
+import { GlobalContext } from "../context/GlobalContext.jsx";
 import { service } from "../../services/index.js";
 import * as styles from "../assets/css/form.module.css";
 import CustomSelect from "../Shared/CustomSelect.jsx";
@@ -25,6 +25,7 @@ import ModalForm from "../Forms/ModalForm.jsx";
 import swalUtils from "../../utils/swalUtils.js";
 import TooltipInfoIcon from "./TooltipInfoIcon.jsx";
 import useLoadTemplate from "../../hooks/useLoadTemplate.js";
+import { FormsContext } from "../context/FormsContext.jsx";
 
 function SelectContributorMultiple({
   label,
@@ -46,14 +47,8 @@ function SelectContributorMultiple({
   });
   const [show, setShow] = useState(false);
   const [error, setError] = useState(null);
-  const {
-    locale,
-    dmpId,
-    persons,
-    setPersons,
-    loadedRegistries,
-    setLoadedRegistries,
-  } = useContext(GlobalContext);
+  const { locale, dmpId, persons, setPersons } = useContext(GlobalContext);
+  const { loadedRegistries, setLoadedRegistries } = useContext(FormsContext);
   const [index, setIndex] = useState(null);
   const [editedPerson, setEditedPerson] = useState({});
   const [roleOptions, setRoleOptions] = useState(null);
