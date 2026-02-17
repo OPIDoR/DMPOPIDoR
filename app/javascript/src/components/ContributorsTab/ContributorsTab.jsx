@@ -7,6 +7,7 @@ import CustomButton from "../Styled/CustomButton";
 import ContributorsList from "./ContributorsList";
 import ModalForm from "../Forms/ModalForm";
 import { GlobalContext } from "../context/GlobalContext.jsx";
+import Forms from "../context/FormsContext.jsx";
 import swalUtils from "../../utils/swalUtils";
 import CustomSpinner from "../Shared/CustomSpinner";
 import * as styles from "../assets/css/form.module.css";
@@ -126,42 +127,44 @@ function ContributorsTab({ planId, locale, readonly }) {
    */
 
   return (
-    <div style={{ position: "relative" }}>
-      {loading && <CustomSpinner isOverlay={true} />}
-      <span className={styles.errorMessage}>{error}</span>
-      <ContributorsList
-        contributors={contributors}
-        template={template}
-        handleEdit={handleEdit}
-        handleDelete={handleDelete}
-        readonly={readonly}
-      />
-      {template && show && (
-        <ModalForm
-          fragmentId={fragmentId}
-          data={editedPerson}
+    <Forms>
+      <div style={{ position: "relative" }}>
+        {loading && <CustomSpinner isOverlay={true} />}
+        <span className={styles.errorMessage}>{error}</span>
+        <ContributorsList
+          contributors={contributors}
           template={template}
-          mainFormDataType={"none"}
-          mainFormTopic={"generic"}
-          label={t("editPersonOrOrg")}
+          handleEdit={handleEdit}
+          handleDelete={handleDelete}
           readonly={readonly}
-          show={show}
-          handleSave={handleSave}
-          handleClose={handleClose}
         />
-      )}
-      {!readonly && (
-        <CustomButton
-          handleClick={() => {
-            setShow(true);
-            setIndex(null);
-          }}
-          title={t("addPersonOrOrg")}
-          buttonColor="rust"
-          position="start"
-        ></CustomButton>
-      )}
-    </div>
+        {template && show && (
+          <ModalForm
+            fragmentId={fragmentId}
+            data={editedPerson}
+            template={template}
+            mainFormDataType={"none"}
+            mainFormTopic={"generic"}
+            label={t("editPersonOrOrg")}
+            readonly={readonly}
+            show={show}
+            handleSave={handleSave}
+            handleClose={handleClose}
+          />
+        )}
+        {!readonly && (
+          <CustomButton
+            handleClick={() => {
+              setShow(true);
+              setIndex(null);
+            }}
+            title={t("addPersonOrOrg")}
+            buttonColor="rust"
+            position="start"
+          ></CustomButton>
+        )}
+      </div>
+    </Forms>
   );
 }
 

@@ -7,6 +7,7 @@ import uniqueId from "lodash.uniqueid";
 import SectionsContent from "./SectionsContent";
 import { writePlan } from "../../services";
 import { GlobalContext } from "../context/GlobalContext.jsx";
+import Forms from "../context/FormsContext.jsx";
 import CustomError from "../Shared/CustomError";
 import * as styles from "../assets/css/sidebar.module.css";
 import PlanInformations from "./PlanInformations";
@@ -14,7 +15,6 @@ import ResearchOutputForm from "../ResearchOutput/ResearchOutputForm";
 import TooltipInfoIcon from "../FormComponents/TooltipInfoIcon";
 import ResearchOutputsSidebar from "./ResearchOutputsSidebar";
 import WritePlanPlaceholder from "./Placeholders/WritePlanPlaceholder";
-import { FormsContext } from "../context/FormsContext";
 
 function WritePlan({
   locale = "en_GB",
@@ -34,7 +34,6 @@ function WritePlan({
     setCommentablePlan,
     setConfiguration,
   } = useContext(GlobalContext);
-  const { setFormData } = useContext(FormsContext);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const [template, setTemplate] = useState(null);
@@ -64,7 +63,6 @@ function WritePlan({
           setDisplayedResearchOutput(currentResearchOutput);
           researchOutputs.length === 0 && setResearchOutputs(research_outputs);
         }
-        setFormData(null);
       })
       .catch((error) => setError(error))
       .finally(() => setLoading(false));
@@ -129,7 +127,9 @@ function WritePlan({
                 />
                 <div className={styles.main}>
                   {planId && (
-                    <SectionsContent planId={planId} readonly={readonly} />
+                    <Forms>
+                      <SectionsContent planId={planId} readonly={readonly} />
+                    </Forms>
                   )}
                 </div>
               </div>
