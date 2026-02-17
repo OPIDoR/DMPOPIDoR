@@ -54,7 +54,6 @@ function ImportResearchOutput({ planId, handleClose }) {
           research_outputs.find(({ id }) => id === created_ro_id),
         );
         setResearchOutputs(research_outputs);
-        // setLoadedSectionsData({ [currentResearchOutput.template.id]: currentResearchOutput.template })
         setUrlParams({ research_output: created_ro_id });
 
         toast.success(t("importOutputSuccess"));

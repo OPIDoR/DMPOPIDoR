@@ -38,14 +38,11 @@ function Global({ children }) {
   const [locale, setLocale] = useState("fr_FR");
   const [dmpId, setDmpId] = useState(null);
   const [persons, setPersons] = useState([]);
-  // Plan Creation
-  const [researchContext, setResearchContext] = useState(null);
   // Dynamic form
   const [formData, setFormData] = useReducer(reducer, {});
   const [loadedRegistries, setLoadedRegistries] = useState({});
   const [loadedTemplates, setLoadedTemplates] = useState({});
   // Write Plan
-  const [loadedSectionsData, setLoadedSectionsData] = useState({});
   const [researchOutputs, setResearchOutputs] = useState([]);
   const [displayedResearchOutput, setDisplayedResearchOutput] = useState(null);
   const updateResearchOutputAnswer = useCallback((questionId, newAnswer) => {
@@ -59,7 +56,6 @@ function Global({ children }) {
 
   const [openedQuestions, setOpenedQuestions] = useState(null);
   const [userId, setUserId] = useState(-1);
-  const [selectedTemplate, setSelectedTemplate] = useState(null);
   const [formSelectors, setFormSelector] = useState({});
   const [configuration, setConfiguration] = useState({});
   const [savedGuidances, setSavedGuidances] = useState([]);
@@ -91,16 +87,12 @@ function Global({ children }) {
       setDmpId,
       persons,
       setPersons,
-      researchContext,
-      setResearchContext,
       formData,
       setFormData,
       loadedRegistries,
       setLoadedRegistries,
       loadedTemplates,
       setLoadedTemplates,
-      loadedSectionsData,
-      setLoadedSectionsData,
       researchOutputs,
       setResearchOutputs,
       displayedResearchOutput,
@@ -111,8 +103,6 @@ function Global({ children }) {
       userId,
       setUserId,
       setUrlParams,
-      selectedTemplate,
-      setSelectedTemplate,
       formSelectors,
       setFormSelector,
       configuration,
@@ -126,16 +116,13 @@ function Global({ children }) {
       locale,
       dmpId,
       persons,
-      researchContext,
       formData,
       loadedRegistries,
       loadedTemplates,
-      loadedSectionsData,
       researchOutputs,
       displayedResearchOutput,
       openedQuestions,
       userId,
-      selectedTemplate,
       formSelectors,
       configuration,
       savedGuidances,

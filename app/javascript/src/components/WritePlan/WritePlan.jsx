@@ -29,7 +29,6 @@ function WritePlan({
     setUserId,
     setLocale,
     setDisplayedResearchOutput,
-    setLoadedSectionsData,
     researchOutputs,
     setResearchOutputs,
     setCommentablePlan,
@@ -62,9 +61,6 @@ function WritePlan({
           }
 
           setDisplayedResearchOutput(currentResearchOutput);
-          setLoadedSectionsData({
-            [currentResearchOutput.template.id]: currentResearchOutput.template,
-          });
           researchOutputs.length === 0 && setResearchOutputs(research_outputs);
         }
         setFormData(null);

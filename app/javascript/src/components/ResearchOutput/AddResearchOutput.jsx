@@ -35,7 +35,6 @@ function AddResearchOutput({
     locale,
     displayedResearchOutput,
     setDisplayedResearchOutput,
-    setLoadedSectionsData,
     setResearchOutputs,
     setUrlParams,
     researchOutputs,
@@ -161,9 +160,6 @@ function AddResearchOutput({
       ({ id }) => id === res?.data?.created_ro_id,
     );
     setDisplayedResearchOutput(createdResearchOutput);
-    setLoadedSectionsData({
-      [createdResearchOutput.template.id]: createdResearchOutput.template,
-    });
     setResearchOutputs(res?.data?.research_outputs);
     setUrlParams({ research_output: res?.data?.created_ro_id });
 
