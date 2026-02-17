@@ -9,6 +9,7 @@ import DOMPurify from "dompurify";
 
 import * as stylesForm from "../assets/css/form.module.css";
 import { GlobalContext } from "../context/GlobalContext.jsx";
+import { ResearchOutputsContext } from "../context/ResearchOutputsContext.jsx";
 import { researchOutput, service } from "../../services";
 import {
   createOptions,
@@ -31,15 +32,13 @@ function AddResearchOutput({
   inEdition = false,
   close = true,
 }) {
+  const { locale, setUrlParams, configuration } = useContext(GlobalContext);
   const {
-    locale,
     displayedResearchOutput,
     setDisplayedResearchOutput,
-    setResearchOutputs,
-    setUrlParams,
     researchOutputs,
-    configuration,
-  } = useContext(GlobalContext);
+    setResearchOutputs,
+  } = useContext(ResearchOutputsContext);
   const { t } = useTranslation();
   /**
    * Memoized values

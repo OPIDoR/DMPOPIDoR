@@ -9,7 +9,7 @@ import { DndContext } from "@dnd-kit/core";
 import { SortableContext, useSortable } from "@dnd-kit/sortable";
 import { CSS } from "@dnd-kit/utilities";
 
-import { GlobalContext } from "../context/GlobalContext.jsx";
+import { ResearchOutputsContext } from "../context/ResearchOutputsContext.jsx";
 import ResearchOutputModal from "../ResearchOutput/ResearchOutputModal";
 import { RESEARCH_OUTPUTS_PER_PAGE } from "../../config";
 import * as styles from "../assets/css/sidebar.module.css";
@@ -90,7 +90,7 @@ const AccordionItem = styled.div`
 function ResearchOutputsSidebar({ planId, readonly, setLoading }) {
   const { t } = useTranslation();
   const { researchOutputs, setResearchOutputs, displayedResearchOutput } =
-    useContext(GlobalContext);
+    useContext(ResearchOutputsContext);
   const [show, setShow] = useState(false);
   const [isDragging, setIsDragging] = useState(false);
 

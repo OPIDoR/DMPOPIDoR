@@ -6,7 +6,7 @@ import { FaTrash } from "react-icons/fa6";
 import { BiDuplicate } from "react-icons/bi";
 import { useTranslation } from "react-i18next";
 
-import { GlobalContext } from "../context/GlobalContext.jsx";
+import { ResearchOutputsContext } from "../context/ResearchOutputsContext.jsx";
 import { displayPersonalData, displayTopics } from "../../utils/GeneratorUtils";
 
 function ResearchOutputInfobox({
@@ -16,8 +16,9 @@ function ResearchOutputInfobox({
   readonly,
 }) {
   const { t } = useTranslation();
-  const { researchOutputs, displayedResearchOutput } =
-    useContext(GlobalContext);
+  const { researchOutputs, displayedResearchOutput } = useContext(
+    ResearchOutputsContext,
+  );
 
   return (
     <Card

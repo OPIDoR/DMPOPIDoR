@@ -1,4 +1,4 @@
-import { createContext, useCallback, useMemo, useState } from "react";
+import { createContext, useMemo, useState } from "react";
 
 /* It's getting the form from localStorage. */
 // const formLocalState = JSON.parse(localStorage.getItem('formData'));
@@ -15,17 +15,6 @@ function Global({ children }) {
   const [locale, setLocale] = useState("fr_FR");
   const [dmpId, setDmpId] = useState(null);
   const [persons, setPersons] = useState([]);
-  // Write Plan
-  const [researchOutputs, setResearchOutputs] = useState([]);
-  const [displayedResearchOutput, setDisplayedResearchOutput] = useState(null);
-  const updateResearchOutputAnswer = useCallback((questionId, newAnswer) => {
-    setDisplayedResearchOutput((prev) => ({
-      ...prev,
-      answers: prev.answers.map((a) =>
-        a.question_id === questionId ? newAnswer : a,
-      ),
-    }));
-  }, []);
 
   const [openedQuestions, setOpenedQuestions] = useState(null);
   const [userId, setUserId] = useState(-1);
@@ -60,11 +49,6 @@ function Global({ children }) {
       setDmpId,
       persons,
       setPersons,
-      researchOutputs,
-      setResearchOutputs,
-      displayedResearchOutput,
-      setDisplayedResearchOutput,
-      updateResearchOutputAnswer,
       openedQuestions,
       setOpenedQuestions,
       userId,
@@ -83,8 +67,6 @@ function Global({ children }) {
       locale,
       dmpId,
       persons,
-      researchOutputs,
-      displayedResearchOutput,
       openedQuestions,
       userId,
       formSelectors,

@@ -8,6 +8,7 @@ import { FaUniversity } from "react-icons/fa";
 
 import * as stylesForm from "../assets/css/form.module.css";
 import { GlobalContext } from "../context/GlobalContext.jsx";
+import { ResearchOutputsContext } from "../context/ResearchOutputsContext.jsx";
 import { researchOutput } from "../../services";
 import CustomSelect from "../Shared/CustomSelect";
 import ImportResearchOutputPlaceholder from "./Placeholders/ImportResearchOutputPlaceholder";
@@ -18,8 +19,10 @@ const EndButton = styled.div`
 `;
 
 function ImportResearchOutput({ planId, handleClose }) {
-  const { setResearchOutputs, setDisplayedResearchOutput, setUrlParams } =
-    useContext(GlobalContext);
+  const { setUrlParams } = useContext(GlobalContext);
+  const { setResearchOutputs, setDisplayedResearchOutput } = useContext(
+    ResearchOutputsContext,
+  );
   const { t } = useTranslation();
   const [plans, setPlans] = useState([]);
   const [selectedPlan, setSelectedPlan] = useState({});

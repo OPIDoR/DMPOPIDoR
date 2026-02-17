@@ -4,7 +4,9 @@ import toast from "react-hot-toast";
 import { useTranslation } from "react-i18next";
 
 import { researchOutput } from "../../services";
+import { FormsContext } from "../context/FormsContext";
 import { GlobalContext } from "../context/GlobalContext.jsx";
+import { ResearchOutputsContext } from "../context/ResearchOutputsContext.jsx";
 import CustomError from "../Shared/CustomError";
 import Section from "./Section";
 import GuidanceSelector from "../GuidanceChoice/GuidanceSelector";
@@ -13,19 +15,17 @@ import ResearchOutputInfobox from "../ResearchOutput/ResearchOutputInfobox";
 import * as styles from "../assets/css/write_plan.module.css";
 import consumer from "../../utils/cable";
 import SelectedGuidances from "../GuidanceChoice/SavedGuidances";
-import { FormsContext } from "../context/FormsContext";
 
 function SectionsContent({ planId, readonly }) {
   const { t } = useTranslation();
-  const {
-    openedQuestions,
-    setOpenedQuestions,
-    setResearchOutputs,
-    displayedResearchOutput,
-    setDisplayedResearchOutput,
-    setUrlParams,
-  } = useContext(GlobalContext);
+  const { openedQuestions, setOpenedQuestions, setUrlParams } =
+    useContext(GlobalContext);
   const { setFormData } = useContext(FormsContext);
+  const {
+    setResearchOutputs,
+    setDisplayedResearchOutput,
+    displayedResearchOutput,
+  } = useContext(ResearchOutputsContext);
   const subscriptionRef = useRef(null);
   const [show, setShow] = useState(false);
   const [edit, setEdit] = useState(false);

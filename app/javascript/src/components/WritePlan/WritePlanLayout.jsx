@@ -3,6 +3,7 @@ import { Toaster } from "react-hot-toast";
 import { useTranslation } from "react-i18next";
 
 import Global from "../context/GlobalContext.jsx";
+import ResearchOutputs from "../context/ResearchOutputsContext.jsx";
 import WritePlan from "./WritePlan.jsx";
 import "../../i18n.js";
 
@@ -25,21 +26,27 @@ function WritePlanLayout({
   return (
     <StrictMode>
       <Global>
-        <Driver tourName="write_plan" steps={writePlanSteps(t)} locale={locale}>
-          <WritePlan
-            planId={planId}
+        <ResearchOutputs>
+          <Driver
+            tourName="write_plan"
+            steps={writePlanSteps(t)}
             locale={locale}
-            userId={userId}
-            readonly={readonly}
-            configuration={configuration}
-            className="research-outputs-tabs"
+          >
+            <WritePlan
+              planId={planId}
+              locale={locale}
+              userId={userId}
+              readonly={readonly}
+              configuration={configuration}
+              className="research-outputs-tabs"
+            />
+          </Driver>
+          <Toaster
+            position="bottom-right"
+            toastOptions={toastOptions}
+            reverseOrder={false}
           />
-        </Driver>
-        <Toaster
-          position="bottom-right"
-          toastOptions={toastOptions}
-          reverseOrder={false}
-        />
+        </ResearchOutputs>
       </Global>
     </StrictMode>
   );

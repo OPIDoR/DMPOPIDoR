@@ -1,11 +1,12 @@
 import { useContext, useEffect, useState } from "react";
 
 import { GlobalContext } from "../context/GlobalContext.jsx";
+import { ResearchOutputsContext } from "../context/ResearchOutputsContext.jsx";
 import { researchOutput } from "../../services";
 
 function ResearchOutputsSidebarItem({ item, setLoading, children }) {
-  const { setDisplayedResearchOutput, setUrlParams } =
-    useContext(GlobalContext);
+  const { setUrlParams } = useContext(GlobalContext);
+  const { setDisplayedResearchOutput } = useContext(ResearchOutputsContext);
   const [selectedResearchOutputId, setSelectedResearchOutputId] =
     useState(null);
 

@@ -6,6 +6,8 @@ import unionBy from "lodash.unionby";
 
 import FormBuilder from "./FormBuilder.jsx";
 import { GlobalContext } from "../context/GlobalContext.jsx";
+import { FormsContext } from "../context/FormsContext.jsx";
+import { ResearchOutputsContext } from "../context/ResearchOutputsContext.jsx";
 import { service } from "../../services/index.js";
 import CustomSpinner from "../Shared/CustomSpinner.jsx";
 import CustomButton from "../Styled/CustomButton.jsx";
@@ -16,7 +18,6 @@ import {
   formatDefaultValues,
   generateEmptyDefaults,
 } from "../../utils/GeneratorUtils.js";
-import { FormsContext } from "../context/FormsContext.jsx";
 
 function DynamicForm({
   fragmentId,
@@ -29,15 +30,11 @@ function DynamicForm({
   readonly,
 }) {
   const { t } = useTranslation();
-  const {
-    dmpId,
-    locale,
-    displayedResearchOutput,
-    researchOutputs,
-    setResearchOutputs,
-  } = useContext(GlobalContext);
+  const { dmpId, locale } = useContext(GlobalContext);
   const { formData, setFormData, loadedTemplates, setLoadedTemplates } =
     useContext(FormsContext);
+  const { displayedResearchOutput, researchOutputs, setResearchOutputs } =
+    useContext(ResearchOutputsContext);
   const methods = useForm({ defaultValues: {} });
   const [loading, setLoading] = useState(true);
   const [templateName, setTemplateName] = useState(null);
