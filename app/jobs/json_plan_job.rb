@@ -9,7 +9,7 @@ class JsonPlanJob < ApplicationJob
     json_plan.assign_attributes(
       dmp_id: plan.json_fragment.id,
       research_outputs_uuids: plan.research_outputs.pluck(:uuid),
-      data: plan.json_fragment.get_full_fragment(with_configuration: true)
+      data: plan.json_fragment.get_full_fragment(with_configuration: true, with_guidance_groups: true)
     )
     json_plan.save!
   end

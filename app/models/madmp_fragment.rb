@@ -242,7 +242,8 @@ class MadmpFragment < ApplicationRecord
   # It integrates its children into the JSON
   # rubocop:disable Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
   # rubocop:disable Metrics/AbcSize, Metrics/MethodLength
-  def get_full_fragment(with_ids: false, with_template_name: false, with_configuration: false)
+  def get_full_fragment(with_ids: false, with_template_name: false, with_configuration: false,
+                        with_guidance_groups: false)
     if additional_info['custom_value'].present?
       {
         'custom_value' => additional_info['custom_value']
@@ -265,7 +266,8 @@ class MadmpFragment < ApplicationRecord
                        child.get_full_fragment(
                          with_ids:,
                          with_template_name:,
-                         with_configuration:
+                         with_configuration:,
+                         with_guidance_groups:
                        )
                      end
         editable_data = editable_data.merge(prop => child_data)
@@ -289,7 +291,8 @@ class MadmpFragment < ApplicationRecord
               child_data.get_full_fragment(
                 with_ids:,
                 with_template_name:,
-                with_configuration:
+                with_configuration:,
+                with_guidance_groups:
               )
             )
           else
@@ -306,6 +309,11 @@ class MadmpFragment < ApplicationRecord
     editable_data = { 'template_name' => madmp_schema.name }.merge(editable_data) if with_template_name
     if with_configuration && classname.eql?('research_output')
       editable_data = { 'configuration' => additional_info.except('moduleId', 'property_name') }.merge(editable_data)
+    end
+    if with_guidance_groups && classname.eql?('research_output')
+      editable_data = { 'guidance_groups' => research_output.guidance_groups.map do |gg|
+        { 'id' => gg.id, 'name' => gg.name }
+      end }.merge(editable_data)
     end
 
     editable_data
