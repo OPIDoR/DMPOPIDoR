@@ -2,15 +2,14 @@ import { useContext, useEffect, useState } from "react";
 import DOMPurify from "dompurify";
 import { useTranslation } from "react-i18next";
 
-import { GlobalContext } from "../context/GlobalContext.jsx";
-import { ResearchOutputsContext } from "../context/ResearchOutputsContext.jsx";
+import { SectionsContext } from "../context/SectionsContext.jsx";
 import * as styles from "../assets/css/write_plan.module.css";
 import Question from "./Question";
 
 function Section({ planId, section, readonly }) {
   const { t } = useTranslation();
-  const { openedQuestions, setOpenedQuestions } = useContext(GlobalContext);
-  const { displayedResearchOutput } = useContext(ResearchOutputsContext);
+  const { openedQuestions, setOpenedQuestions, displayedResearchOutput } =
+    useContext(SectionsContext);
   const [sectionId, setSectionId] = useState(section.id);
 
   /**

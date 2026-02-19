@@ -10,7 +10,7 @@ import { TbBulbFilled } from "react-icons/tb";
 import { useTranslation, Trans } from "react-i18next";
 import toast from "react-hot-toast";
 import { GUIDANCES_GROUPS_LIMIT } from "../../config.js";
-import { GlobalContext } from "../context/GlobalContext.jsx";
+import { SectionsContext } from "../context/SectionsContext.jsx";
 import { guidances } from "../../services/index.js";
 import { CustomSpinner, CustomError } from "../Shared/index.jsx";
 import CustomButton from "../Styled/CustomButton.jsx";
@@ -35,7 +35,7 @@ function GuidanceSelector({
   context = "research_output",
 }) {
   const { t } = useTranslation();
-  const { savedGuidances, setSavedGuidances } = useContext(GlobalContext);
+  const { savedGuidances, setSavedGuidances } = useContext(SectionsContext);
   const [guidancesData, setGuidancesData] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);

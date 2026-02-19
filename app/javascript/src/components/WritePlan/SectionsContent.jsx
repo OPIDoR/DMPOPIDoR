@@ -5,8 +5,7 @@ import { useTranslation } from "react-i18next";
 
 import { researchOutput } from "../../services";
 import { FormsContext } from "../context/FormsContext";
-import { GlobalContext } from "../context/GlobalContext.jsx";
-import { ResearchOutputsContext } from "../context/ResearchOutputsContext.jsx";
+import { SectionsContext } from "../context/SectionsContext.jsx";
 import CustomError from "../Shared/CustomError";
 import Section from "./Section";
 import GuidanceSelector from "../GuidanceChoice/GuidanceSelector";
@@ -19,13 +18,14 @@ import { setUrlParams } from "../../utils/utils.js";
 
 function SectionsContent({ planId, readonly }) {
   const { t } = useTranslation();
-  const { openedQuestions, setOpenedQuestions } = useContext(GlobalContext);
   const { setFormData } = useContext(FormsContext);
   const {
+    openedQuestions,
+    setOpenedQuestions,
     setResearchOutputs,
     setDisplayedResearchOutput,
     displayedResearchOutput,
-  } = useContext(ResearchOutputsContext);
+  } = useContext(SectionsContext);
   const subscriptionRef = useRef(null);
   const [show, setShow] = useState(false);
   const [edit, setEdit] = useState(false);

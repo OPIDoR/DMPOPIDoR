@@ -7,7 +7,7 @@ import unionBy from "lodash.unionby";
 import FormBuilder from "./FormBuilder.jsx";
 import { GlobalContext } from "../context/GlobalContext.jsx";
 import { FormsContext } from "../context/FormsContext.jsx";
-import { ResearchOutputsContext } from "../context/ResearchOutputsContext.jsx";
+import { SectionsContext } from "../context/SectionsContext.jsx";
 import { service } from "../../services/index.js";
 import CustomSpinner from "../Shared/CustomSpinner.jsx";
 import CustomButton from "../Styled/CustomButton.jsx";
@@ -34,7 +34,7 @@ function DynamicForm({
   const { formData, setFormData, loadedTemplates, setLoadedTemplates } =
     useContext(FormsContext);
   const { displayedResearchOutput, researchOutputs, setResearchOutputs } =
-    useContext(ResearchOutputsContext);
+    useContext(SectionsContext);
   const methods = useForm({ defaultValues: {} });
   const [loading, setLoading] = useState(true);
   const [templateName, setTemplateName] = useState(null);

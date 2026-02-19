@@ -3,7 +3,7 @@ import { Toaster } from "react-hot-toast";
 import { useTranslation } from "react-i18next";
 
 import Global from "../context/GlobalContext.jsx";
-import ResearchOutputs from "../context/ResearchOutputsContext.jsx";
+import SectionsProvider from "../context/SectionsContext.jsx";
 import WritePlan from "./WritePlan.jsx";
 import "../../i18n.js";
 
@@ -33,7 +33,7 @@ function WritePlanLayout({
         initialUserId={userId}
         initialCommentablePlan={commentablePlan}
       >
-        <ResearchOutputs>
+        <SectionsProvider>
           <Driver
             tourName="write_plan"
             steps={writePlanSteps(t)}
@@ -51,7 +51,7 @@ function WritePlanLayout({
             toastOptions={toastOptions}
             reverseOrder={false}
           />
-        </ResearchOutputs>
+        </SectionsProvider>
       </Global>
     </StrictMode>
   );

@@ -14,7 +14,7 @@ import { TbBulbFilled } from "react-icons/tb";
 import { IoShuffleOutline } from "react-icons/io5";
 
 import { GlobalContext } from "../context/GlobalContext.jsx";
-import { ResearchOutputsContext } from "../context/ResearchOutputsContext.jsx";
+import { SectionsContext } from "../context/SectionsContext.jsx";
 import { FormsContext } from "../context/FormsContext.jsx";
 import * as styles from "../assets/css/write_plan.module.css";
 import DynamicForm from "../Forms/DynamicForm";
@@ -38,12 +38,14 @@ function Question({
   sectionNumber,
   readonly,
 }) {
-  const { openedQuestions, setOpenedQuestions, commentablePlan } =
-    useContext(GlobalContext);
+  const { commentablePlan } = useContext(GlobalContext);
   const { formSelectors } = useContext(FormsContext);
-  const { displayedResearchOutput, updateResearchOutputAnswer } = useContext(
-    ResearchOutputsContext,
-  );
+  const {
+    openedQuestions,
+    setOpenedQuestions,
+    displayedResearchOutput,
+    updateResearchOutputAnswer,
+  } = useContext(SectionsContext);
   const { t } = useTranslation();
   const [hasGuidances, setHasGuidances] = useState(false);
   const [scriptsData, setScriptsData] = useState({ scripts: [] });

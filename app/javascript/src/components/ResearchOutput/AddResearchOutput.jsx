@@ -9,7 +9,7 @@ import DOMPurify from "dompurify";
 
 import * as stylesForm from "../assets/css/form.module.css";
 import { GlobalContext } from "../context/GlobalContext.jsx";
-import { ResearchOutputsContext } from "../context/ResearchOutputsContext.jsx";
+import { SectionsContext } from "../context/SectionsContext.jsx";
 import { researchOutput, service } from "../../services";
 import {
   createOptions,
@@ -38,7 +38,7 @@ function AddResearchOutput({
     setDisplayedResearchOutput,
     researchOutputs,
     setResearchOutputs,
-  } = useContext(ResearchOutputsContext);
+  } = useContext(SectionsContext);
   const { t } = useTranslation();
   /**
    * Memoized values

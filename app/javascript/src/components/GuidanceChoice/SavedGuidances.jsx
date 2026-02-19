@@ -1,11 +1,11 @@
 import { useContext } from "react";
 import { useTranslation } from "react-i18next";
 import { FaEye } from "react-icons/fa6";
-import { GlobalContext } from "../context/GlobalContext.jsx";
+import { SectionsContext } from "../context/SectionsContext.jsx";
 
 function SavedGuidances() {
   const { t } = useTranslation();
-  const { savedGuidances } = useContext(GlobalContext);
+  const { savedGuidances } = useContext(SectionsContext);
   return (
     <>
       {savedGuidances.length > 0 && (

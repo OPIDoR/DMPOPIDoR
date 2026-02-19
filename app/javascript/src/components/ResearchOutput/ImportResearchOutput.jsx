@@ -7,7 +7,7 @@ import { FaVial } from "react-icons/fa6";
 import { FaUniversity } from "react-icons/fa";
 
 import * as stylesForm from "../assets/css/form.module.css";
-import { ResearchOutputsContext } from "../context/ResearchOutputsContext.jsx";
+import { SectionsContext } from "../context/SectionsContext.jsx";
 import { researchOutput } from "../../services";
 import CustomSelect from "../Shared/CustomSelect";
 import ImportResearchOutputPlaceholder from "./Placeholders/ImportResearchOutputPlaceholder";
@@ -19,9 +19,8 @@ const EndButton = styled.div`
 `;
 
 function ImportResearchOutput({ planId, handleClose }) {
-  const { setResearchOutputs, setDisplayedResearchOutput } = useContext(
-    ResearchOutputsContext,
-  );
+  const { setResearchOutputs, setDisplayedResearchOutput } =
+    useContext(SectionsContext);
   const { t } = useTranslation();
   const [plans, setPlans] = useState([]);
   const [selectedPlan, setSelectedPlan] = useState({});

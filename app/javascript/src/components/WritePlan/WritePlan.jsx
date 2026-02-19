@@ -7,7 +7,7 @@ import uniqueId from "lodash.uniqueid";
 import SectionsContent from "./SectionsContent";
 import { writePlan } from "../../services";
 import { GlobalContext } from "../context/GlobalContext.jsx";
-import { ResearchOutputsContext } from "../context/ResearchOutputsContext.jsx";
+import { SectionsContext } from "../context/SectionsContext.jsx";
 import Forms from "../context/FormsContext.jsx";
 import CustomError from "../Shared/CustomError";
 import * as styles from "../assets/css/sidebar.module.css";
@@ -21,7 +21,7 @@ function WritePlan({ planId, readonly, configuration }) {
   const { t, i18n } = useTranslation();
   const { locale, setConfiguration } = useContext(GlobalContext);
   const { setDisplayedResearchOutput, researchOutputs, setResearchOutputs } =
-    useContext(ResearchOutputsContext);
+    useContext(SectionsContext);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const [template, setTemplate] = useState(null);

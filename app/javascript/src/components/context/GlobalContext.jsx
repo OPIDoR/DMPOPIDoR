@@ -23,32 +23,18 @@ function Global({
   const userId = initialUserId;
   const commentablePlan = initialCommentablePlan;
 
-  const [openedQuestions, setOpenedQuestions] = useState(null);
   const [configuration, setConfiguration] = useState({});
-  const [savedGuidances, setSavedGuidances] = useState([]);
 
   const contextValue = useMemo(
     () => ({
       locale,
       dmpId,
-      openedQuestions,
-      setOpenedQuestions,
       userId,
       configuration,
       setConfiguration,
-      savedGuidances,
-      setSavedGuidances,
       commentablePlan,
     }),
-    [
-      locale,
-      dmpId,
-      openedQuestions,
-      userId,
-      configuration,
-      savedGuidances,
-      commentablePlan,
-    ],
+    [locale, dmpId, userId, configuration, commentablePlan],
   );
 
   return (

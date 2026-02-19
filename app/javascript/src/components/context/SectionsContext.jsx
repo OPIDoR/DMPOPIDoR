@@ -3,7 +3,7 @@ import { createContext, useCallback, useMemo, useState } from "react";
 /* It's getting the form from localStorage. */
 // const formLocalState = JSON.parse(localStorage.getItem('formData'));
 // const researchOutputsLocalState = JSON.parse(sessionStorage.getItem("researchOutputs"));
-export const ResearchOutputsContext = createContext();
+export const SectionsContext = createContext();
 
 /**
  * It's a function that takes a prop called children and returns a GlobalContext.Provider
@@ -11,7 +11,9 @@ export const ResearchOutputsContext = createContext();
  * properties: form and setform.
  * @returns The GlobalContext.Provider is being returned.
  */
-function ResearchOutputs({ children }) {
+function SectionsProvider({ children }) {
+  const [openedQuestions, setOpenedQuestions] = useState(null);
+  const [savedGuidances, setSavedGuidances] = useState([]);
   const [researchOutputs, setResearchOutputs] = useState([]);
   const [displayedResearchOutput, setDisplayedResearchOutput] = useState(null);
   const updateResearchOutputAnswer = useCallback((questionId, newAnswer) => {
@@ -25,20 +27,24 @@ function ResearchOutputs({ children }) {
 
   const contextValue = useMemo(
     () => ({
+      openedQuestions,
+      setOpenedQuestions,
+      savedGuidances,
+      setSavedGuidances,
       researchOutputs,
       setResearchOutputs,
       displayedResearchOutput,
       setDisplayedResearchOutput,
       updateResearchOutputAnswer,
     }),
-    [researchOutputs, displayedResearchOutput],
+    [openedQuestions, savedGuidances, researchOutputs, displayedResearchOutput],
   );
 
   return (
-    <ResearchOutputsContext.Provider value={contextValue}>
+    <SectionsContext.Provider value={contextValue}>
       {children}
-    </ResearchOutputsContext.Provider>
+    </SectionsContext.Provider>
   );
 }
 
-export default ResearchOutputs;
+export default SectionsProvider;
