@@ -1,3 +1,8 @@
+
+<p class="legend-inline">
+  <i class="fas fa-university"></i> <%= _('Research Entity') %>&nbsp;&nbsp;
+  <i class="fas fa-vial"></i> <%= _('Research Project') %>
+</p>
 <div class="table-responsive">
   <table class="table table-hover">
     <thead>
@@ -18,7 +23,7 @@
         <% dmp_fragment = plan.json_fragment %>
         <% meta = dmp_fragment.meta %>
         <tr class="table-data">
-          <td><%= plan.title %></td>
+          <td><i class="fa-solid <%= plan.research_entity? ? "fas fa-university" : "fas fa-vial" %>"></i> <%= plan.title %></td>
           <td><%= plan.template.title %></td>
           <td><%= meta.data['dmpKeyword'].join('; ') if meta.data['dmpKeyword'].present? %></td>
           <td><%= (plan.owner.nil? || plan.owner.org.nil? ? _('Not Applicable') : plan.owner.org.name) %></td>

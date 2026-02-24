@@ -54,10 +54,13 @@ export default async function getTemplates(opts, onlyStructured = false) {
 
     templates.others.push({
       ...org,
-      type: "org",
+      type: org.org_type_to_s === "Funder" ? "funder" : "org",
       templates:
         orgTemplatesRes?.data
-          .map((obj) => ({ ...obj, type: "org" }))
+          .map((obj) => ({
+            ...obj,
+            type: org.org_type_to_s === "Funder" ? "funder" : "org",
+          }))
           .sort((a, b) => normalize(a.title).localeCompare(normalize(b.title)))
           .filter(({ id }) => id !== defaultTemplateID)
           .filter(

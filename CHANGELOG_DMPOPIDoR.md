@@ -2,6 +2,12 @@
 
 **Attention** Cette liste de changements concerne les déploiements sur nos serveurs de test en interne.
 
+## 19/02/2026
+- Ajout d'une option de configuration pour désactiver l'ajout de la thématique aux PR
+- Ajout des groupes de recommandations manquants dans l'export JSON (#14672)
+- Améliorations des textes de l'interface de sélection des recommandations 
+- Correction du problème de changement de mot de passe (#14641)
+
 # 10/02/2026
 
 - Création de plan : Abandon de react-form-stepper & réécriture d'un composant interne. (la librairie n'était plus maintenue)

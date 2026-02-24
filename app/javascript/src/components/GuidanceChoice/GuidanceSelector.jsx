@@ -293,12 +293,9 @@ function GuidanceSelector({
               </div>
               {!loading && !error && guidancesData && (
                 <>
-                  <div className="row" style={{ padding: "10px" }}>
-                    <div
-                      className="col-md-12"
-                      style={{ padding: "10px 0", color: "var(--rust)" }}
-                    >
-                      {t("filterAvailableGuidances")}
+                  <div className="row" style={{ padding: "10px 0" }}>
+                    <div className="col-md-12" style={{ color: "var(--rust)" }}>
+                      {t("clickGuidanceToSelect")}
                     </div>
                   </div>
                   <div
@@ -312,7 +309,7 @@ function GuidanceSelector({
                       <FormControl
                         type="text"
                         name="guidanceSearch"
-                        placeholder={t("selectAnOrganisation")}
+                        placeholder={t("searchGuidance")}
                         value={searchCriteria}
                         onChange={(e) => setSearchCriteria(e.target.value)}
                       />
