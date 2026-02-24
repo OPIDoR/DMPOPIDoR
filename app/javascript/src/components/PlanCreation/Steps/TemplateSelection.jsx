@@ -3,9 +3,10 @@ import { useTranslation, Trans } from 'react-i18next';
 import Swal from 'sweetalert2';
 import { toast } from 'react-hot-toast';
 import { FaInfoCircle } from 'react-icons/fa';
-import { PiTreeStructureDuotone, PiBank } from 'react-icons/pi';
+import { PiTreeStructureDuotone } from 'react-icons/pi';
 import { HiOutlineBuildingOffice2 } from 'react-icons/hi2';
 import { TbBulbFilled } from 'react-icons/tb';
+import { MdOutlineEuroSymbol } from "react-icons/md";
 
 import * as styles from '../../assets/css/steps.module.css';
 import { CustomButton } from '../../Styled';
@@ -228,7 +229,7 @@ function TemplateSelection({
     }) => {
       const types = {
         org: <HiOutlineBuildingOffice2 size="18" style={{ margin: '0 10px 0 0' }} />,
-        funder: <PiBank size="18" style={{ margin: '0 10px 0 0' }} />,
+        funder: <MdOutlineEuroSymbol size="18" style={{ margin: '0 10px 0 0' }} />,
       };
 
       const hasSelectedTemplate = templates.some(({ id }) => id === params.selectedTemplate);
