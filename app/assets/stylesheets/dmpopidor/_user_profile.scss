@@ -4,6 +4,9 @@
   .profile-form {
     @include dmpopidor-accordion-large;
   }
+  .preferences {
+    .form-check { padding-left: 1.5em;}
+  }
   #api-token {
     a {
       text-decoration: underline;
