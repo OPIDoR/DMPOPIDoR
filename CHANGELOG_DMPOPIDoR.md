@@ -2,6 +2,14 @@
 
 **Attention** Cette liste de changements concerne les déploiements sur nos serveurs de test en interne.
 
+## 26/02/2026
+- Correction du problème de contributeur vide créé à la copie de plan (#14561)
+- Mise à jour du texte de partages à un service externe (#14663)
+- Ajout d'un icone pour les financeurs dans la création de plan (#14681)
+- Ajout des icones des plans projet/entité dans les plans publics (#14680)
+- Correction du problème d'affichage des préférences de notifications (#14639)
+- Correction affectant le changement de mot de passe (#14641)
+
 ## 19/02/2026
 - Ajout d'une option de configuration pour désactiver l'ajout de la thématique aux PR
 - Ajout des groupes de recommandations manquants dans l'export JSON (#14672)
