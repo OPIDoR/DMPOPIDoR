@@ -372,10 +372,14 @@ class PlansController < ApplicationController
   def duplicate
     plan = Plan.includes(:research_outputs).find(params[:id])
     authorize plan
-    @plan = plan.structured?.eql?(true) ? Plan.structured_deep_copy(plan) : Plan.deep_copy(plan)
+    @plan = if plan.structured?.eql?(true)
+              Plan.structured_deep_copy(plan,
+                                        current_user.id)
+            else
+              Plan.deep_copy(plan, current_user.id)
+            end
     respond_to do |format|
       if @plan.save
-        @plan.add_user!(current_user.id, :creator)
         format.html { redirect_to @plan, notice: success_message(@plan, _('copied')) }
       else
         format.html { redirect_to plans_path, alert: failure_message(@plan, _('copy')) }
