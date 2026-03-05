@@ -7,6 +7,7 @@ RUN apt update -y && apt install -y --no-install-recommends \
   gnupg \
   libpq-dev \
   libyaml-dev \
+  libffi-dev \
   imagemagick \
   libxrender1 \
   libxext6 \
