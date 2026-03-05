@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: app 1.0\n"
 "Report-Msgid-Bugs-To: contact@translation.io\n"
-"POT-Creation-Date: 2026-02-16 16:40+0100\n"
-"PO-Revision-Date: 2026-02-16 16:40+0100\n"
+"POT-Creation-Date: 2026-03-05 17:00+0100\n"
+"PO-Revision-Date: 2026-03-05 17:00+0100\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "Language: \n"
@@ -3503,8 +3503,8 @@ msgstr ""
 
 #: ../../app/views/branded/plans/_share_third_party.html.erb:12
 msgid ""
-"If your project is funded by the ANR, you are invited to share your DMP by cho"
-"osing ANR in the organizations list below."
+"Please note: if your project is funded by the ANR, you are invited to share yo"
+"ur DMP by choosing ANR in the organizations list below."
 msgstr ""
 
 #: ../../app/views/branded/plans/_share_third_party.html.erb:28
