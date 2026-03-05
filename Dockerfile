@@ -10,6 +10,7 @@ RUN apt update -y && apt install -y --no-install-recommends \
   imagemagick \
   libxrender1 \
   libxext6 \
+  libffi-dev \
   libfontconfig1 \
   tzdata \
   gnupg2 && \
