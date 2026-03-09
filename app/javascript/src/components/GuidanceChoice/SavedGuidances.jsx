@@ -11,8 +11,8 @@ function SavedGuidances() {
   return (
     <>
       {savedGuidances.length > 0 && (
-        <div style={{ margin: '20px' }}>
-          <h3>{t('followingGuidancesApplyToThisResearchOutput')}</h3>
+        <div style={{ paddingLeft: '20px', flex: 1 }}>
+          <h3 style={{fontWeight: "bold"}}>{t('followingGuidancesApplyToThisResearchOutput')}</h3>
           <ul>
             {savedGuidances.map((guidance) => (
               <li key={guidance.id}>

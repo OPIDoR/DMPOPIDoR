@@ -20,11 +20,13 @@ function ResearchOutputInfobox({
 
   return (
     <Card
-      className="card-default"
+      className="card-default col-md-6"
       style={{
+        height: 'fit-content',
         borderRadius: '10px',
         borderWidth: '2px',
         borderColor: 'var(--dark-blue)',
+        flex: 1,
       }}
     >
       <Card.Header style={{

@@ -147,13 +147,15 @@ function SectionsContent({ planId, readonly }) {
       {!error && displayedResearchOutput?.template?.sections && (
         <>
           <div className={styles.write_plan_block} id="sections-content">
-            <ResearchOutputInfobox
-              handleEdit={handleEdit}
-              handleDelete={handleDelete}
-              handleDuplicate={handleDuplicate}
-              readonly={readonly}
-            />
-            <SelectedGuidances />
+            <div style={{display: 'flex'}}>
+              <ResearchOutputInfobox
+                handleEdit={handleEdit}
+                handleDelete={handleDelete}
+                handleDuplicate={handleDuplicate}
+                readonly={readonly}
+              />
+              <SelectedGuidances />
+            </div>
             {!readonly
               && <GuidanceSelector planId={planId}
                 researchOutputId={displayedResearchOutput?.id}
