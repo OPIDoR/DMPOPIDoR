@@ -19,6 +19,10 @@
 #
 #  index_madmp_fragments_on_answer_id        (answer_id)
 #  index_madmp_fragments_on_madmp_schema_id  (madmp_schema_id)
+#  madmp_fragments_dmp_id_idx                (dmp_id)
+#  madmp_fragments_parent_id_idx             (parent_id)
+#  madmp_fragments_plan_id_idx               (((data ->> 'plan_id'::text)))
+#  madmp_fragments_research_output_id_idx    (((data ->> 'research_output_id'::text)))
 #
 # Foreign Keys
 #

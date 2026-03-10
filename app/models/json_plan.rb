@@ -16,10 +16,6 @@
 #  index_json_plans_on_dmp_id   (dmp_id)
 #  index_json_plans_on_plan_id  (plan_id)
 #
-# Foreign Keys
-#
-#  fk_rails_...  (plan_id => plans.id)
-#
 class JsonPlan < ApplicationRecord
   belongs_to :plan
 end
