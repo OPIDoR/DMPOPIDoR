@@ -257,7 +257,7 @@
   "anrShareInvitation": "Pour les projets financés par l’ANR, vous êtes invité à partager votre plan avec l’ANR.",
   "errorSendingNotification": "Une erreur s'est produite lors de l'envoie de la notification",
   "searchGuidance": "Rechercher une recommandation",
-  "followingGuidancesApplyToThisResearchOutput": "Les recommandations suivantes s'appliquent à ce produit de recherche :",
+  "followingGuidancesApplyToThisResearchOutput": "Les recommandations suivantes s'appliquent à ce produit de recherche",
   "providedBy": "fourni par",
   "importError": "Une erreur s'est produite lors de l'import !",
   "selectValueFromList": "Sélectionnez une valeur dans la liste",
@@ -267,5 +267,6 @@
   "researchEntity": "Entité de recherche",
   "researchProject": "Projet de recherche",
   "availableGuidances": "Recommandations disponibles",
-  "selectedGuidances": "Recommandations sélectionnées"
+  "selectedGuidances": "Recommandations sélectionnées",
+  "savedGuidancesInfo": "Les recommandations sélectionnées s’affichent au niveau de chaque question en cliquant sur l’ampoule"
 }

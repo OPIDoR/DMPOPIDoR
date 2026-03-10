@@ -260,7 +260,7 @@
   "anrShareInvitation": "For ANR funded project, You are invited to share your plan with the ANR.",
   "errorSendingNotification": "An error occurred while sending the notification",
   "searchGuidance": "Search a guidance",
-  "followingGuidancesApplyToThisResearchOutput": "The following guidances apply to this research output:",
+  "followingGuidancesApplyToThisResearchOutput": "The following guidances apply to this research output",
   "providedBy": "provided by",
   "importError": "An error occured during import !",
   "selectValueFromList": "Select a value from the list",
@@ -270,5 +270,6 @@
   "researchEntity": "Research Entity",
   "researchProject": "Research Project",
   "availableGuidances": "Available Guidances",
-  "selectedGuidances": "Selected Guidances"
+  "selectedGuidances": "Selected Guidances",
+  "savedGuidancesInfo": "The selected guidances are displayed for each question when you click on the lightbulb"
 }
