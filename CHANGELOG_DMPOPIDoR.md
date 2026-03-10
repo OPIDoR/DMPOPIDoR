@@ -2,6 +2,10 @@
 
 **Attention** Cette liste de changements concerne les déploiements sur nos serveurs de test en interne.
 
+## 10/03/2026
+- La sélection d'une thématique est obligatoire lors de la création d'un PR (#14755)
+- Amélioration de l'affichage des recommandations sélectionnées (#14746)
+
 ## 26/02/2026
 - Correction du problème de contributeur vide créé à la copie de plan (#14561)
 - Mise à jour du texte de partages à un service externe (#14663)
