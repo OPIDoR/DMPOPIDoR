@@ -114,7 +114,10 @@ function AddResearchOutput({
       return toast.error(t('typeRequiredToCreateResearchOutput'));
     }
 
-    if (!selectedTopic?.value || selectedTopic?.value.length === 0) {
+    if (
+      displayTopics(type, configuration?.enableTopics) &&
+      (!selectedTopic?.value || selectedTopic?.value.length === 0)
+    ) {
       setLoading(false);
       return toast.error(t("topicRequiredToCreateResearchOutput"));
     }
