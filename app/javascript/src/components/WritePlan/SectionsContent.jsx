@@ -30,6 +30,8 @@ function SectionsContent({ planId, readonly }) {
   const [show, setShow] = useState(false);
   const [edit, setEdit] = useState(false);
   const [error, setError] = useState(null);
+  const [onDelete, setOnDelete] = useState(false);
+  const [onDuplicate, setOnDuplicate] = useState(false);
 
   const handleWebsocketData = useCallback((data) => {
     if (data.target === 'research_output_infobox' && displayedResearchOutput.id === data.research_output_id) {
@@ -71,8 +73,9 @@ function SectionsContent({ planId, readonly }) {
    * The function handles the deletion of a product from a research output and displays a confirmation message using the SweetAlert library.
    */
   const handleDelete = (e) => {
-    e.preventDefault();
-    e.stopPropagation();
+    e?.preventDefault();
+    e?.stopPropagation();
+
     Swal.fire({
       title: t('deleteConfirm'),
       text: t('deleteOutputWarning'),
@@ -85,6 +88,7 @@ function SectionsContent({ planId, readonly }) {
     }).then((result) => {
       if (result.isConfirmed) {
         // delete
+        setOnDelete(true);
         researchOutput.deleteResearchOutput(displayedResearchOutput.id).then(({ data }) => {
           setResearchOutputs(data.research_outputs);
 
@@ -95,8 +99,12 @@ function SectionsContent({ planId, readonly }) {
           setDisplayedResearchOutput(data.research_outputs.at(-1));
           setUrlParams({ research_output: data.research_outputs.at(-1).id });
           toast.success(t('deleteOutputSuccess'));
+          setOnDelete(false);
         })
-          .catch((error) => setError(error));
+        .catch((error) => {
+          setError(error);
+          setOnDelete(false);
+        });
       }
     });
   };
@@ -109,8 +117,8 @@ function SectionsContent({ planId, readonly }) {
   };
 
   const handleDuplicate = async (e) => {
-    e.preventDefault();
-    e.stopPropagation();
+    e?.preventDefault();
+    e?.stopPropagation();
 
     Swal.fire({
       title: t('doYouWantToDuplicateSearchOutput'),
@@ -123,6 +131,7 @@ function SectionsContent({ planId, readonly }) {
       confirmButtonText: t('yesDuplicate'),
     }).then(async (result) => {
       if (result.isConfirmed) {
+        setOnDuplicate(true);
         researchOutput.importResearchOutput({ planId, uuid: displayedResearchOutput.uuid, duplicate: true }).then((res) => {
           const { research_outputs, created_ro_id } = res.data;
           setDisplayedResearchOutput(research_outputs.find(({ id }) => id === created_ro_id));
@@ -130,7 +139,11 @@ function SectionsContent({ planId, readonly }) {
           setUrlParams({ research_output: created_ro_id });
 
           toast.success(t('importOutputSuccess'));
-        }).catch(() => toast.error(t('importError')));
+          setOnDuplicate(false);
+        }).catch(() => {
+          toast.error(t('importError'));
+          setOnDuplicate(false);
+        });
       }
     });
   };
@@ -151,7 +164,9 @@ function SectionsContent({ planId, readonly }) {
               <ResearchOutputInfobox
                 handleEdit={handleEdit}
                 handleDelete={handleDelete}
+                onDelete={onDelete}
                 handleDuplicate={handleDuplicate}
+                onDuplicate={onDuplicate}
                 readonly={readonly}
               />
               <SelectedGuidances />
