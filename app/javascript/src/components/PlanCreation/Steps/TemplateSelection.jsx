@@ -6,6 +6,7 @@ import { FaInfoCircle } from 'react-icons/fa';
 import { PiTreeStructureDuotone } from 'react-icons/pi';
 import { HiOutlineBuildingOffice2 } from 'react-icons/hi2';
 import { GiReceiveMoney } from "react-icons/gi";
+import { TbBulbFilled } from "react-icons/tb";
 
 import * as styles from '../../assets/css/steps.module.css';
 import { CustomButton } from '../../Styled';
