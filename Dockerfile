@@ -7,9 +7,11 @@ RUN apt update -y && apt install -y --no-install-recommends \
   gnupg \
   libpq-dev \
   libyaml-dev \
+  libffi-dev \
   imagemagick \
   libxrender1 \
   libxext6 \
+  libffi-dev \
   libfontconfig1 \
   tzdata \
   gnupg2 && \
@@ -42,9 +44,9 @@ RUN bin/docker ${DB_ADAPTER:-postgres} && \
   rm -rf /usr/local/bundle/cache
 
 FROM base AS production
+COPY . .
 RUN groupadd -r dmpopidor && useradd -r -g dmpopidor -d /app -s /bin/bash dmpopidor && \
     chown -R dmpopidor:dmpopidor /app
-COPY . .
 COPY --chown=dmpopidor:dmpopidor --from=production-builder /app/public ./public
 COPY --chown=dmpopidor:dmpopidor --from=production-builder /app/config ./config
 COPY --chown=dmpopidor:dmpopidor --from=production-builder /usr/local/bundle /usr/local/bundle

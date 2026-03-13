@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.1].define(version: 2026_01_21_143417) do
+ActiveRecord::Schema[8.1].define(version: 2026_03_10_144341) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
   enable_extension "unaccent"
@@ -333,8 +333,12 @@ ActiveRecord::Schema[8.1].define(version: 2026_01_21_143417) do
     t.integer "parent_id"
     t.integer "madmp_schema_id"
     t.json "additional_info"
+    t.index "((data ->> 'plan_id'::text))", name: "madmp_fragments_plan_id_idx"
+    t.index "((data ->> 'research_output_id'::text))", name: "madmp_fragments_research_output_id_idx"
     t.index ["answer_id"], name: "index_madmp_fragments_on_answer_id"
+    t.index ["dmp_id"], name: "madmp_fragments_dmp_id_idx"
     t.index ["madmp_schema_id"], name: "index_madmp_fragments_on_madmp_schema_id"
+    t.index ["parent_id"], name: "madmp_fragments_parent_id_idx"
   end
 
 

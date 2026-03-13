@@ -1,6 +1,7 @@
 import { useContext } from "react";
 import { useTranslation } from "react-i18next";
-import { FaEye } from "react-icons/fa6";
+import { FaEye, FaCircleInfo } from "react-icons/fa6";
+import { Tooltip as ReactTooltip } from "react-tooltip";
 import { SectionsContext } from "../context/SectionsContext.jsx";
 
 function SavedGuidances() {
@@ -9,8 +10,23 @@ function SavedGuidances() {
   return (
     <>
       {savedGuidances.length > 0 && (
-        <div style={{ margin: "20px" }}>
-          <h3>{t("followingGuidancesApplyToThisResearchOutput")}</h3>
+        <div style={{ paddingLeft: "20px", flex: 1 }}>
+          <h3 style={{ fontWeight: "bold" }}>
+            {t("followingGuidancesApplyToThisResearchOutput")}
+            <ReactTooltip
+              id="saved-guidances-info-tooltip"
+              place="bottom"
+              effect="solid"
+              variant="info"
+              content={t("savedGuidancesInfo")}
+              style={{ width: "30%" }}
+            />
+            <FaCircleInfo
+              data-tooltip-id="saved-guidances-info-tooltip"
+              size={18}
+              style={{ paddingLeft: "5px" }}
+            />
+          </h3>
           <ul>
             {savedGuidances.map((guidance) => (
               <li key={guidance.id}>

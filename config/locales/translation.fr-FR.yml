@@ -298,6 +298,297 @@ fr-FR:
         notice: "%{resource_name} a été détruit avec succès."
       update:
         notice: "%{resource_name} a été mis à jour avec succès."
+  good_job:
+    actions:
+      destroy: Supprimer
+      discard: Abandonner
+      force_discard: Forcer l'abandon
+      inspect: Inspecter
+      reschedule: Reprogrammer
+      retry: Réessayer
+    batches:
+      actions:
+        confirm_retry: Êtes-vous sûr de vouloir réessayer ce lot ?
+        retry: Réessayer
+      index:
+        older_batches: Lots plus anciens
+        title: Lots
+      jobs:
+        actions:
+          confirm_destroy: Êtes-vous sûr de vouloir détruire ce job ?
+          confirm_discard: Êtes-vous sûr de vouloir abandonner ce job ?
+          confirm_reschedule: Êtes-vous sûr de vouloir reprogrammer ce job ?
+          confirm_retry: Êtes-vous sûr de vouloir réessayer ce job ?
+          destroy: Détruire le job
+          discard: Abandonner le job
+          reschedule: Reprogrammer le job
+          retry: Réessayer le job
+          title: Actions
+        no_jobs_found: Aucun job trouvé
+      retry:
+        notice: Le lot a été réessayé
+      show:
+        attributes: Attributs
+        batched_jobs: Jobs en lot
+        callback_jobs: Jobs en rappel
+      table:
+        no_batches_found: Aucun lot n'a été trouvé.
+    cleaner:
+      index:
+        all: Tous
+        class: Classe
+        exception: Exception
+        grouped_by_class: Rejets regroupés par classe
+        grouped_by_exception: Rejets regroupés par exception
+        last_1_hour: La dernière heure
+        last_24_hours: Les dernières 24 heures
+        last_3_days: Les 3 derniers jours
+        last_3_hours: Les 3 dernières heures
+        last_7_days: 7 derniers jours
+        title:
+        total: Total
+    cron_entries:
+      actions:
+        confirm_disable:
+        confirm_enable:
+        confirm_enqueue:
+        disable:
+        enable:
+        enqueue:
+      disable:
+        notice:
+      enable:
+        notice:
+      enqueue:
+        notice:
+      index:
+        no_cron_schedules_found:
+        title:
+      show:
+        cron_entry_key:
+    datetime:
+      distance_in_words:
+        about_x_hours:
+          one: environ une heure
+          other: environ %{count} heures
+        about_x_months:
+          one: environ un mois
+          other: environ %{count} mois
+        about_x_years:
+          one: environ un an
+          other: environ %{count} ans
+        almost_x_years:
+          one: presqu'un an
+          other: presque %{count} ans
+        half_a_minute: une demi-minute
+        less_than_x_minutes:
+          one: moins d'une minute
+          other: moins de %{count} minutes
+        less_than_x_seconds:
+          one: moins d'une seconde
+          other: moins de %{count} secondes
+        over_x_years:
+          one: plus d'un an
+          other: plus de %{count} ans
+        x_days:
+          one: 1 jour
+          other: "%{count} jours"
+        x_minutes:
+          one: 1 minute
+          other: "%{count} minutes"
+        x_months:
+          one: 1 mois
+          other: "%{count} mois"
+        x_seconds:
+          one: 1 seconde
+          other: "%{count} secondes"
+        x_years:
+          one: 1 an
+          other: "%{count} ans"
+    duration:
+      hours: "%{hour}h %{min}m"
+      less_than_10_seconds: "%{sec}s"
+      milliseconds: "%{ms}ms"
+      minutes: "%{min}m %{sec}s"
+      seconds: "%{sec}s"
+    error_event:
+      discarded:
+      handled:
+      interrupted:
+      retried:
+      retry_stopped:
+      unhandled:
+    helpers:
+      relative_time:
+        future: dans %{time}
+        past: il y a %{time}
+    jobs:
+      actions:
+        confirm_destroy:
+        confirm_discard:
+        confirm_force_discard:
+        confirm_reschedule:
+        confirm_retry:
+        destroy:
+        discard:
+        force_discard:
+        reschedule:
+        retry:
+      destroy:
+        notice:
+      discard:
+        notice:
+      executions:
+        application_trace:
+        full_trace:
+        in_queue:
+        runtime:
+        title:
+      force_discard:
+        notice:
+      index:
+        job_pagination:
+        older_jobs:
+      reschedule:
+        notice:
+      retry:
+        notice:
+      show:
+        jobs:
+      table:
+        actions:
+          apply_to_all:
+            one:
+            other:
+          confirm_destroy_all:
+          confirm_discard_all:
+          confirm_reschedule_all:
+          confirm_retry_all:
+          destroy_all:
+          discard_all:
+          reschedule_all:
+          retry_all:
+          title: Actions
+        no_jobs_found:
+        toggle_actions:
+        toggle_all_jobs:
+    models:
+      batch:
+        created: Créé
+        created_at: Créé à
+        discarded:
+        discarded_at:
+        enqueued:
+        enqueued_at:
+        finished:
+        finished_at:
+        jobs:
+        name: Nom
+      cron:
+        class:
+        last_run:
+        next_scheduled:
+        schedule:
+        states:
+          active: Actif
+          paused:
+        status: Statut
+      job:
+        arguments:
+        attempts:
+        labels:
+        priority:
+        queue:
+    number:
+      format:
+        delimiter: ","
+        separator: "."
+      human:
+        decimal_units:
+          delimiter: ","
+          format: "%n%u"
+          separator: "."
+          units:
+            billion:
+            million:
+            quadrillion:
+            thousand:
+            trillion:
+    pauses:
+      index:
+        confirm_pause:
+        confirm_unpause:
+        disabled:
+        job_class:
+        label: Libellé
+        pause:
+        queue:
+        title:
+        type:
+        unpause:
+        value:
+    performance:
+      index:
+        average_duration:
+        chart_title:
+        executions:
+        job_class:
+        maximum_duration:
+        minimum_duration:
+        queue_name:
+        title:
+      show:
+        slow:
+        title:
+    processes:
+      index:
+        cron_enabled:
+        no_good_job_processes_found:
+        process:
+        schedulers:
+        started:
+        title:
+        updated: Mis à jour
+    shared:
+      boolean:
+        'false': Non
+        'true': Oui
+      error: Erreur
+      filter:
+        all: Tous
+        all_jobs:
+        all_queues:
+        clear:
+        job_name:
+        placeholder:
+        queue_name:
+        search: Rechercher
+      navbar:
+        batches:
+        cleaner:
+        cron_schedules:
+        jobs:
+        live_poll:
+        name: "GoodJob \U0001F44D"
+        pauses:
+        performance:
+        processes:
+        theme:
+          auto:
+          dark:
+          light:
+          theme: Thème
+      pending_migrations:
+      secondary_navbar:
+        inspiration:
+        last_updated: Dernière mise à jour
+    status:
+      discarded: Abandonné
+      queued: En attente
+      retried:
+      running:
+      scheduled:
+      succeeded:
   helpers:
     page_entries_info:
       entry:

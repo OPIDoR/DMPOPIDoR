@@ -174,7 +174,7 @@ Devise.setup do |config|
   # ==> Configuration for :timeoutable
   # The time you want to timeout the user session without activity. After this
   # time the user will be asked for credentials again. Default is 3 hours.
-  config.timeout_in = ENV.fetch('TIMEOUT_IN', 3.hours).to_i
+  config.timeout_in = ENV.fetch('TIMEOUT_IN', 3).to_i.hours
 
   # If true, expires auth token on session timeout.
   # config.expire_auth_token_on_timeout = false
@@ -210,7 +210,7 @@ Devise.setup do |config|
   # Time interval you can reset your password with a reset password key.
   # Don't put a too small interval or your users won't have the time to
   # change their passwords.
-  config.reset_password_within = ENV.fetch('RESET_PASSWORD_WITHIN', 6.hours).to_i
+  config.reset_password_within = ENV.fetch('RESET_PASSWORD_WITHIN', 6).to_i.hours
 
   # ==> Configuration for :encryptable
   # Allow you to use another encryption algorithm besides bcrypt (default). You can use

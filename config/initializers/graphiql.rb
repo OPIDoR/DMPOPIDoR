@@ -8,52 +8,39 @@ GraphiQL::Rails.config.initial_query = <<-'GRAPHQL'
 # Tips:
 # - Press Ctrl+Enter to execute a query
 # - Press Ctrl+Space for autocomplete
-# - Queries and mutations can be nested using filters
-
-#########################
-# Example Query: List Plans
-#########################
-{
-  plans(size: 5, page: 1, orderBy: { field: "updated_at", order: "desc" }) {
-    items {
-      planId
-      templateName
-      project
-      researchEntity
-      budget
-      meta
-      researchOutput
-    }
-    pageInfo {
-      page
-      total
-      totalPages
-    }
-  }
-}
-
-#########################
-# Example Query: List Public Plans
-#########################
-{
-  publicPlans(size: 5, page: 1) {
-    items {
-      planId
-      templateName
-      project
-    }
-    pageInfo {
-      page
-      total
-      totalPages
-    }
-  }
-}
+#
+# Authentication:
+# To execute authenticated queries or mutations, you must first obtain an accessToken and send it in the request headers.
+#
+# 1. Get an access token
+# You can obtain an access token using one of the following mutations:
+#   - authenticateAsUser
+#   - authenticateAsApiClient
+# Both return an object containing an `accessToken`.
+# Example response:
+# {
+#   "accessToken": "your-access-token"
+#   ...
+# }
+#
+# 2. Send the token in request headers
+# Use the accessToken in the Authorization header using the Bearer scheme.
+# Authorization: Bearer <accessToken>
+#
+# 3. GraphiQL example
+# In GraphiQL, open the Headers panel and add:
+# {
+#   "Authorization": "Bearer <accessToken>"
+# }
+#
+# Authenticated queries/mutations:
+# - plans
+# - createPlan
 
 #########################
 # Authenticate as a User
 #########################
-mutation authenticateUser {
+mutation authenticateAsUser {
   authenticate(
     input: {
       grantType: "authorization_code", # Auth type
@@ -71,7 +58,7 @@ mutation authenticateUser {
 #########################
 # Authenticate as a Client (API)
 #########################
-mutation authenticateClient {
+mutation authenticateAsApiClient {
   authenticate(
     input: {
       grantType: "client_credentials", # Auth type
@@ -83,6 +70,48 @@ mutation authenticateClient {
     tokenType
     expiresIn
     createdAt
+  }
+}
+
+#########################
+# Example Query: List Plans
+#########################
+query getPlans {
+  plans {
+    items {
+      planId
+      project
+      researchEntity
+      budget
+      meta
+      researchOutput
+    }
+    pageInfo {
+      page
+      total
+      totalPages
+    }
+  }
+}
+
+#########################
+# Example Query: List Public Plans
+#########################
+query getPublicPlans {
+  publicPlans {
+    items {
+      planId
+      project
+      researchEntity
+      budget
+      meta
+      researchOutput
+    }
+    pageInfo {
+      page
+      total
+      totalPages
+    }
   }
 }
 

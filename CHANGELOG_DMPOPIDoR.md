@@ -2,6 +2,24 @@
 
 **Attention** Cette liste de changements concerne les déploiements sur nos serveurs de test en interne.
 
+## 13/03/2026
+- Ajout d'un indicatif de chargement lors de la suppression d'un produit de recherche (#14756)
+- Mise à jour de l'icone des financeurs dans la création de plan (#14681)
+- Mise à jour du libellé de l'export RDA dans le téléchargement de plan (#14632)
+- Mise à jour des textes de la visité guidée (#14640)
+
+## 10/03/2026
+- La sélection d'une thématique est obligatoire lors de la création d'un PR (#14755)
+- Amélioration de l'affichage des recommandations sélectionnées (#14746)
+
+## 26/02/2026
+- Correction du problème de contributeur vide créé à la copie de plan (#14561)
+- Mise à jour du texte de partages à un service externe (#14663)
+- Ajout d'un icone pour les financeurs dans la création de plan (#14681)
+- Ajout des icones des plans projet/entité dans les plans publics (#14680)
+- Correction du problème d'affichage des préférences de notifications (#14639)
+- Correction affectant le changement de mot de passe (#14641)
+
 ## 19/02/2026
 - Ajout d'une option de configuration pour désactiver l'ajout de la thématique aux PR
 - Ajout des groupes de recommandations manquants dans l'export JSON (#14672)

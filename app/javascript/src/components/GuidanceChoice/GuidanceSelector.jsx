@@ -286,16 +286,16 @@ function GuidanceSelector({
           <Card.Body>
             <div style={description}>
               <div style={{ textAlign: "justify" }}>
-                <Trans
-                  i18nKey="guidanceListInfo"
-                  components={{ br: <br />, bold: <strong /> }}
-                />
+                <Trans i18nKey="guidanceListInfo" components={{ a: <a /> }} />
               </div>
               {!loading && !error && guidancesData && (
                 <>
                   <div className="row" style={{ padding: "10px 0" }}>
-                    <div className="col-md-12" style={{ color: "var(--rust)" }}>
-                      {t("clickGuidanceToSelect")}
+                    <div className="col-md-12">
+                      <Trans
+                        i18nKey="clickGuidanceToSelect"
+                        components={{ strong: <strong /> }}
+                      />
                     </div>
                   </div>
                   <div
