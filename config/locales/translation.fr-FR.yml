@@ -406,11 +406,11 @@ fr-FR:
           one: 1 an
           other: "%{count} ans"
     duration:
-      hours:
-      less_than_10_seconds:
-      milliseconds:
-      minutes:
-      seconds:
+      hours: "%{hour}h %{min}m"
+      less_than_10_seconds: "%{sec}s"
+      milliseconds: "%{ms}ms"
+      minutes: "%{min}m %{sec}s"
+      seconds: "%{sec}s"
     error_event:
       discarded:
       handled:
@@ -501,13 +501,13 @@ fr-FR:
         queue:
     number:
       format:
-        delimiter:
-        separator:
+        delimiter: ","
+        separator: "."
       human:
         decimal_units:
-          delimiter:
-          format:
-          separator:
+          delimiter: ","
+          format: "%n%u"
+          separator: "."
           units:
             billion:
             million:
@@ -553,7 +553,7 @@ fr-FR:
       boolean:
         'false': Non
         'true': Oui
-      error:
+      error: Erreur
       filter:
         all: Tous
         all_jobs:

@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: app 1.0\n"
 "Report-Msgid-Bugs-To: contact@translation.io\n"
-"POT-Creation-Date: 2026-02-26 11:38+0100\n"
-"PO-Revision-Date: 2026-02-26 10:38+0000\n"
+"POT-Creation-Date: 2026-03-13 09:34+0100\n"
+"PO-Revision-Date: 2026-03-13 08:35+0000\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: French\n"
 "Language: fr_FR\n"
@@ -144,14 +144,14 @@ msgid "Plan imported successfully"
 msgstr "Plan importé avec succès"
 
 #: ../../app/controllers/api/v1/madmp/plans_controller.rb:107
-#: ../../app/controllers/plans_controller.rb:511
+#: ../../app/controllers/plans_controller.rb:515
 #: ../../app/graphql/mutations/create_plan.rb:43
 #: ../../app/services/import/plan.rb:26
 msgid "Unvalid file"
 msgstr "Fichier non valide"
 
 #: ../../app/controllers/api/v1/madmp/plans_controller.rb:109
-#: ../../app/controllers/plans_controller.rb:513
+#: ../../app/controllers/plans_controller.rb:517
 #: ../../app/controllers/super_admin/registries_controller.rb:33
 #: ../../app/graphql/mutations/create_plan.rb:45
 msgid "File should contain JSON"
@@ -160,7 +160,7 @@ msgstr "Le fichier doit contenir du JSON"
 #: ../../app/controllers/api/v1/madmp/plans_controller.rb:112
 #: ../../app/controllers/madmp_codebase_controller.rb:72
 #: ../../app/controllers/madmp_codebase_controller.rb:191
-#: ../../app/controllers/plans_controller.rb:516
+#: ../../app/controllers/plans_controller.rb:520
 #: ../../app/graphql/mutations/create_plan.rb:47
 msgid "An error has occured: "
 msgstr "Une erreur s'est produite :"
@@ -300,7 +300,7 @@ msgid "Record Not Found"
 msgstr "Enregistrement non trouvé"
 
 #: ../../app/controllers/classic_research_outputs_controller.rb:21
-#: ../../app/controllers/plans_controller.rb:448
+#: ../../app/controllers/plans_controller.rb:452
 msgid "There is no plan associated with id %{id}"
 msgstr "Il n'existe aucun plan associé à l'identifiant %{id}"
 
@@ -363,7 +363,7 @@ msgstr "Personne contact pour les données"
 #: ../../app/controllers/org_admin/phases_controller.rb:150
 #: ../../app/controllers/org_admin/questions_controller.rb:190
 #: ../../app/controllers/org_admin/users_controller.rb:32
-#: ../../app/controllers/plans_controller.rb:405
+#: ../../app/controllers/plans_controller.rb:409
 #: ../../app/controllers/super_admin/api_clients_controller.rb:70
 #: ../../app/controllers/super_admin/madmp_schemas_controller.rb:47
 #: ../../app/controllers/super_admin/notifications_controller.rb:54
@@ -644,7 +644,7 @@ msgstr "Impossible de créer une nouvelle version de ce modèle.<br>"
 #: ../../app/controllers/org_admin/phases_controller.rb:148
 #: ../../app/controllers/org_admin/questions_controller.rb:187
 #: ../../app/controllers/org_admin/users_controller.rb:30
-#: ../../app/controllers/plans_controller.rb:402
+#: ../../app/controllers/plans_controller.rb:406
 #: ../../app/controllers/super_admin/api_clients_controller.rb:68
 #: ../../app/controllers/super_admin/madmp_schemas_controller.rb:45
 #: ../../app/controllers/super_admin/notifications_controller.rb:52
@@ -743,7 +743,7 @@ msgid "Unable to delete this version of the template."
 msgstr "Impossible de supprimer cette version du modèle."
 
 #: ../../app/controllers/org_admin/template_copies_controller.rb:20
-#: ../../app/controllers/plans_controller.rb:381
+#: ../../app/controllers/plans_controller.rb:385
 msgid "copy"
 msgstr "copier"
 
@@ -842,11 +842,11 @@ msgid ""
 "."
 msgstr "Ce plan est basé sur le modèle  \"%{template_title}\" fourni par %{org_name}."
 
-#: ../../app/controllers/plans_controller.rb:379
+#: ../../app/controllers/plans_controller.rb:383
 msgid "copied"
 msgstr "copié"
 
-#: ../../app/controllers/plans_controller.rb:410
+#: ../../app/controllers/plans_controller.rb:414
 msgid ""
 "Unable to change the plan's status since it is needed at least %{percentage} p"
 "ercentage responded"
@@ -854,27 +854,27 @@ msgstr ""
 "Impossible de changer le statut du plan, au moins %{percentage} % de questions"
 " répondues sont nécessaires"
 
-#: ../../app/controllers/plans_controller.rb:416
+#: ../../app/controllers/plans_controller.rb:420
 msgid "Unable to find plan id %{plan_id}"
 msgstr "Impossible de trouver le plan avec l'identifiant %{plan_id}"
 
-#: ../../app/controllers/plans_controller.rb:431
+#: ../../app/controllers/plans_controller.rb:435
 msgid "Your project is now a test."
 msgstr "Votre projet est maintenant un test."
 
-#: ../../app/controllers/plans_controller.rb:431
+#: ../../app/controllers/plans_controller.rb:435
 msgid "Your project is no longer a test."
 msgstr "Votre projet n'est plus un test."
 
-#: ../../app/controllers/plans_controller.rb:435
+#: ../../app/controllers/plans_controller.rb:439
 msgid "Unable to change the plan's test status"
 msgstr "Impossible de changer le statut du plan"
 
-#: ../../app/controllers/plans_controller.rb:509
+#: ../../app/controllers/plans_controller.rb:513
 msgid "imported"
 msgstr "importé"
 
-#: ../../app/controllers/plans_controller.rb:596
+#: ../../app/controllers/plans_controller.rb:600
 msgid "Invalid JSON: "
 msgstr "JSON non valide :"
 
@@ -1803,11 +1803,11 @@ msgstr "Question sans réponse."
 msgid "already assigned a value"
 msgstr "a déjà une valeur attribuée"
 
-#: ../../app/models/madmp_fragment.rb:401
+#: ../../app/models/madmp_fragment.rb:405
 msgid "\"%{entity_name}\" entity DMP"
 msgstr "Plan de l'entité \"%{entity_name}\""
 
-#: ../../app/models/madmp_fragment.rb:409 ../../app/models/plan.rb:878
+#: ../../app/models/madmp_fragment.rb:413 ../../app/models/plan.rb:880
 msgid "\"%{project_title}\" project DMP"
 msgstr "PGD du projet \"%{project_title}\""
 
@@ -1855,17 +1855,17 @@ msgstr "Financé"
 msgid "Denied"
 msgstr "Refusé"
 
-#: ../../app/models/plan.rb:353 ../../app/models/plan.rb:360
-#: ../../app/models/plan.rb:394 ../../app/models/plan.rb:401
-#: ../../app/models/plan.rb:943
+#: ../../app/models/plan.rb:353 ../../app/models/plan.rb:361
+#: ../../app/models/plan.rb:395 ../../app/models/plan.rb:403
+#: ../../app/models/plan.rb:945
 msgid "Copy of %{title}"
 msgstr "Copie de %{title}"
 
-#: ../../app/models/plan.rb:859
+#: ../../app/models/plan.rb:861
 msgid "DMP manager"
 msgstr "Responsable du plan"
 
-#: ../../app/models/plan.rb:992
+#: ../../app/models/plan.rb:994
 msgid "must be after the start date"
 msgstr "doit être postérieur à la date de début"
 
@@ -5207,8 +5207,8 @@ msgid "DMP OPIDoR format"
 msgstr "Format DMP OPIDoR"
 
 #: ../../app/views/plans/_download_form.html.erb:110
-msgid "RDA DMP Common Standard format"
-msgstr "Format RDA DMP Common Standard"
+msgid "RDA DMP Common Standard format (v1.1)"
+msgstr "Format RDA DMP Common Standard (v1.1)"
 
 #: ../../app/views/plans/_download_form.html.erb:112
 msgid ""
@@ -6716,7 +6716,7 @@ msgstr "Télécharger les utilisateurs"
 
 #: ../../app/views/users/refresh_token.turbo_stream.erb:8
 msgid "Successfully regenerated your API token."
-msgstr ""
+msgstr "La régénération de votre jeton API a été effectuée avec succès."
 
 #: ../../app/views/users/refresh_token.turbo_stream.erb:8
 msgid "Unable to regenerate your API token."
