@@ -2,7 +2,7 @@ import { StrictMode } from "react";
 
 import Global from "../context/GlobalContext.jsx";
 import GeneralInfo from "./GeneralInfo.jsx";
-import GuidanceSelector from "../GuidanceChoice/GuidanceSelector.jsx";
+import GuidanceSelector from "../GuidanceSelection/GuidanceSelector.jsx";
 import "../../i18n.js";
 import { Toaster } from "react-hot-toast";
 
