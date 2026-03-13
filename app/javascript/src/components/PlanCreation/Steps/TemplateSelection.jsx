@@ -5,7 +5,6 @@ import { toast } from 'react-hot-toast';
 import { FaInfoCircle } from 'react-icons/fa';
 import { PiTreeStructureDuotone } from 'react-icons/pi';
 import { HiOutlineBuildingOffice2 } from 'react-icons/hi2';
-import { TbBulbFilled } from 'react-icons/tb';
 import { GiReceiveMoney } from "react-icons/gi";
 
 import * as styles from '../../assets/css/steps.module.css';
