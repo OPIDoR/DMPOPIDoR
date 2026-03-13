@@ -10,6 +10,6 @@ module RegistryInFormHelper
   end
 
   def select_values_from_registry(values, locale)
-    values.map { |t| [t[LocaleService.to_gettext(locale:)], t[LocaleService.to_gettext(locale:)]] }
+    values.map { |t| [t['label'][LocaleService.to_gettext(locale:)], t['value']] }
   end
 end
