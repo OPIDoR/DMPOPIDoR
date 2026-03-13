@@ -2,6 +2,12 @@
 
 **Attention** Cette liste de changements concerne les déploiements sur nos serveurs de test en interne.
 
+## 13/03/2026
+- Ajout d'un indicatif de chargement lors de la suppression d'un produit de recherche (#14756)
+- Mise à jour de l'icone des financeurs dans la création de plan (#14681)
+- Mise à jour du libellé de l'export RDA dans le téléchargement de plan (#14632)
+- Mise à jour des textes de la visité guidée (#14640)
+
 ## 10/03/2026
 - La sélection d'une thématique est obligatoire lors de la création d'un PR (#14755)
 - Amélioration de l'affichage des recommandations sélectionnées (#14746)
