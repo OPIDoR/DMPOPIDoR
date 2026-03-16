@@ -104,7 +104,7 @@ RSpec.describe GuidancesController, type: :controller do
     it 'succeeds' do
       args = { published: true }
       put :admin_publish, params: { id: @guidance.id, guidance: args }
-      expect(response).to redirect_to(admin_index_guidance_path)
+      expect(response).to redirect_to(org_admin_guidances_path)
       expect(flash[:notice].present?).to eql(true)
       expect(@guidance.reload.published?).to eql(true)
     end
@@ -112,7 +112,7 @@ RSpec.describe GuidancesController, type: :controller do
       Guidance.any_instance.stubs(:update).returns(false)
       args = { published: false }
       put :admin_publish, params: { id: @guidance.id, guidance: args }
-      expect(response).to redirect_to(admin_index_guidance_path)
+      expect(response).to redirect_to(org_admin_guidances_path)
       expect(flash[:alert].present?).to eql(true)
       expect(@guidance.reload.published?).to eql(false)
     end
@@ -132,7 +132,7 @@ RSpec.describe GuidancesController, type: :controller do
     it 'succeeds' do
       args = { published: false }
       put :admin_unpublish, params: { id: @guidance.id, guidance: args }
-      expect(response).to redirect_to(admin_index_guidance_path)
+      expect(response).to redirect_to(org_admin_guidances_path)
       expect(flash[:notice].present?).to eql(true)
       expect(@guidance.reload.published?).to eql(false)
     end
@@ -140,7 +140,7 @@ RSpec.describe GuidancesController, type: :controller do
       Guidance.any_instance.stubs(:update).returns(false)
       args = { published: true }
       put :admin_unpublish, params: { id: @guidance.id, guidance: args }
-      expect(response).to redirect_to(admin_index_guidance_path)
+      expect(response).to redirect_to(org_admin_guidances_path)
       expect(flash[:alert].present?).to eql(true)
       expect(@guidance.reload.published?).to eql(true)
     end
@@ -161,14 +161,14 @@ RSpec.describe GuidancesController, type: :controller do
   describe 'DELETE /org/admin/guidance/:id/admin_destroy (:admin_destroy)' do
     it 'succeeds' do
       delete :admin_destroy, params: { id: @guidance.id }
-      expect(response).to redirect_to(admin_index_guidance_path)
+      expect(response).to redirect_to(org_admin_guidances_path)
       expect(flash[:notice].present?).to eql(true)
       expect(Guidance.where(id: @guidance.id).any?).to eql(false)
     end
     it 'fails' do
       Guidance.any_instance.stubs(:destroy).returns(false)
       delete :admin_destroy, params: { id: @guidance.id }
-      expect(response).to redirect_to(admin_index_guidance_path)
+      expect(response).to redirect_to(org_admin_guidances_path)
       expect(flash[:alert].present?).to eql(true)
     end
     it 'unpublishes the GuidanceGroup if there is no other published guidance' do

@@ -410,6 +410,21 @@ Rails.application.routes.draw do
 
   # ORG ADMIN specific pages
   namespace :org_admin do
+    resources :guidances, only: %i[index new create edit update destroy] do
+      member do
+        post 'render_themes'
+        put 'publish'
+        put 'unpublish'
+      end
+    end
+
+    resources :guidance_groups, only: %i[index new create edit update destroy] do
+      member do
+        put 'publish'
+        put 'unpublish'
+      end
+    end
+
     resources :users, only: %i[edit update], controller: 'users' do
       member do
         get 'user_plans'
