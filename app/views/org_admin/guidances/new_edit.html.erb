@@ -79,7 +79,7 @@ end
 <script>
   function updateThemes(e, guidance_id) {
     $.ajax({
-      url: '/org/admin/guidance/render_themes',
+      url: '/org_admin/guidances/render_themes',
       type: 'POST',
       data: {
         guidance_group_id: e.value,
