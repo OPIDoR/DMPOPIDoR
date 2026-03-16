@@ -1,9 +1,9 @@
 <%
 if @guidance.id.present?
-  url = admin_update_guidance_path(@guidance)
+  url = org_admin_guidance_path(@guidance)
   method = "PUT"
 else
-  url = admin_create_guidance_path
+  url = org_admin_guidances_path
   method = "POST"
 end
 %>
@@ -14,7 +14,7 @@ end
 <div class="row">
   <div class="col-xs-12">
     <h1><%= _('Guidance') %></h1>
-    <%= link_to _('View all guidance'), admin_index_guidance_path(current_user.org_id), class: 'btn btn-secondary float-end' %>
+    <%= link_to _('View all guidance'), org_admin_guidances_path, class: 'btn btn-secondary float-end' %>
   </div>
 </div>
 <div class="row">
@@ -70,7 +70,7 @@ end
       </div>
       <div class="form-group mb-3 clear-fix">
         <%= f.submit _('Save'), name: "edit_guidance_submit", class: "btn btn-primary" %>
-        <%= link_to _('Cancel'), admin_index_guidance_path, class: "btn btn-primary", role: 'button' %>    
+        <%= link_to _('Cancel'), org_admin_guidances_path, class: "btn btn-primary", role: 'button' %>    
       </div>
     <%end%>
   </div>
@@ -79,7 +79,7 @@ end
 <script>
   function updateThemes(e, guidance_id) {
     $.ajax({
-      url: '/org/admin/guidance/render_themes',
+      url: '/org_admin/guidances/render_themes',
       type: 'POST',
       data: {
         guidance_group_id: e.value,
