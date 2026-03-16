@@ -2,6 +2,12 @@
 
 **Attention** Cette liste de changements concerne les déploiements sur nos serveurs de test en interne.
 
+## 16/03/2026
+- Changement des URLS des pages de gestion des recommandations (#14797)
+  - Afin de préparer la mise à jour des recommandations (voir #14141), le code et les urls de gestion des recommandations a été changé pour adopter une approche plus "REST". C'est en principe transparent pour l'utilisateur, tous les liens dans l'interface ont été mis à jour. Les nouvelles URL sont décrites ci dessous.
+  - Recommandations : `org/admin/guidance/...` -> `org_admin/guidances`
+  - Groupes de Recommandations : `org/admin/guidancegroup/...` -> `org_admin/guidance_groups`
+
 ## 13/03/2026
 - Ajout d'un indicatif de chargement lors de la suppression d'un produit de recherche (#14756)
 - Mise à jour de l'icone des financeurs dans la création de plan (#14681)
