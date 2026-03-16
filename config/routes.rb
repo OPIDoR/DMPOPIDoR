@@ -96,43 +96,6 @@ Rails.application.routes.draw do
     resources :departments, controller: 'org_admin/departments'
   end
 
-  # This should be made more restful and placed within the `org_admin` or a new
-  # `admin` namespace. For example:
-  #     namespace :admin
-  #       resources :guidances, except: %i[show]
-  #     end
-  resources :guidances, path: 'org/admin/guidance', only: [] do
-    post 'render_themes', on: :collection, constraints: { format: [:json] }
-    member do
-      get 'admin_index'
-      get 'admin_edit'
-      get 'admin_new'
-      delete 'admin_destroy'
-      post 'admin_create'
-      put 'admin_update'
-      put 'admin_publish'
-      put 'admin_unpublish'
-    end
-  end
-
-  # This should be made more restful and placed within the `org_admin` or a new
-  # `admin` namespace. For example:
-  #     namespace :admin
-  #       resources :guidance_groups, except: %i[show]
-  #     end
-  resources :guidance_groups, path: 'org/admin/guidancegroup', only: [] do
-    member do
-      get 'admin_show'
-      get 'admin_new'
-      get 'admin_edit'
-      delete 'admin_destroy'
-      post 'admin_create'
-      put 'admin_update'
-      put 'admin_update_publish'
-      put 'admin_update_unpublish'
-    end
-  end
-
   resources :answers, only: [] do
     post 'create_or_update', on: :collection
     post 'set_answers_as_common', on: :collection
