@@ -79,7 +79,7 @@ RSpec.describe GuidanceGroupsController, type: :controller do
     it 'succeeds' do
       args = { published: true }
       put :admin_update_publish, params: { id: @guidance_group.id, guidance_group: args }
-      expect(response).to redirect_to(admin_index_guidance_path)
+      expect(response).to redirect_to(org_admin_guidances_path)
       expect(flash[:notice].present?).to eql(true)
       expect(@guidance_group.reload.published?).to eql(true)
     end
@@ -87,7 +87,7 @@ RSpec.describe GuidanceGroupsController, type: :controller do
       GuidanceGroup.any_instance.stubs(:update).returns(false)
       args = { published: false }
       put :admin_update_publish, params: { id: @guidance_group.id, guidance_group: args }
-      expect(response).to redirect_to(admin_index_guidance_path)
+      expect(response).to redirect_to(org_admin_guidances_path)
       expect(flash[:alert].present?).to eql(true)
       expect(@guidance_group.reload.published?).to eql(false)
     end
@@ -101,7 +101,7 @@ RSpec.describe GuidanceGroupsController, type: :controller do
     it 'succeeds' do
       args = { published: false }
       put :admin_update_unpublish, params: { id: @guidance_group.id, guidance_group: args }
-      expect(response).to redirect_to(admin_index_guidance_path)
+      expect(response).to redirect_to(org_admin_guidances_path)
       expect(flash[:notice].present?).to eql(true)
       expect(@guidance_group.reload.published?).to eql(false)
     end
@@ -109,7 +109,7 @@ RSpec.describe GuidanceGroupsController, type: :controller do
       GuidanceGroup.any_instance.stubs(:update).returns(false)
       args = { published: true }
       put :admin_update_unpublish, params: { id: @guidance_group.id, guidance_group: args }
-      expect(response).to redirect_to(admin_index_guidance_path)
+      expect(response).to redirect_to(org_admin_guidances_path)
       expect(flash[:alert].present?).to eql(true)
       expect(@guidance_group.reload.published?).to eql(true)
     end
@@ -118,14 +118,14 @@ RSpec.describe GuidanceGroupsController, type: :controller do
   describe 'DELETE /org/admin/guidancegroup/:id/admin_destroy (:admin_destroy)' do
     it 'succeeds' do
       delete :admin_destroy, params: { id: @guidance_group.id }
-      expect(response).to redirect_to(admin_index_guidance_path)
+      expect(response).to redirect_to(org_admin_guidances_path)
       expect(flash[:notice].present?).to eql(true)
       expect(GuidanceGroup.where(id: @guidance_group.id).any?).to eql(false)
     end
     it 'fails' do
       GuidanceGroup.any_instance.stubs(:destroy).returns(false)
       delete :admin_destroy, params: { id: @guidance_group.id }
-      expect(response).to redirect_to(admin_index_guidance_path)
+      expect(response).to redirect_to(org_admin_guidances_path)
       expect(flash[:alert].present?).to eql(true)
     end
   end

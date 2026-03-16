@@ -23,7 +23,7 @@
       scope: @guidance_groups,
       query_params: { sort_field: 'guidance_groups.name', sort_direction: :asc }) %>
     <div>
-      <a href="<%= admin_new_guidance_group_path %>" class="btn btn-primary"><%= _('Create a guidance group') %></a>
+      <a href="<%= new_org_admin_guidance_group_path %>" class="btn btn-primary"><%= _('Create a guidance group') %></a>
     </div>
 
     <h2><%= _('Guidance list') %></h2>
@@ -45,7 +45,7 @@
         query_params: { sort_field: 'guidances.text', sort_direction: :asc }) %>
 
     <div>
-      <a href="<%= admin_new_guidance_path %>" class="btn btn-primary" data-turbo-frame="_top"><%= _('Create guidance') %></a>
+      <a href="<%= new_org_admin_guidance_path %>" class="btn btn-primary" data-turbo-frame="_top"><%= _('Create guidance') %></a>
     </div>
   </div>
 </div>

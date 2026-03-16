@@ -5,31 +5,27 @@
 class GuidancePolicy < ApplicationPolicy
   # NOTE: @user is the signed_in_user and @record is an instance of Guidance
 
-  def admin_show?
+  def show?
     @user.can_modify_guidance? && @record.in_group_belonging_to?(@user.org_id)
   end
 
-  def admin_edit?
+  def edit?
     @user.can_modify_guidance? && @record.in_group_belonging_to?(@user.org_id)
   end
 
-  def admin_update?
+  def update?
     @user.can_modify_guidance? && @record.in_group_belonging_to?(@user.org_id)
   end
 
   def index?
-    admin_index?
-  end
-
-  def admin_index?
     @user.can_modify_guidance?
   end
 
-  def admin_new?
+  def new?
     @user.can_modify_guidance?
   end
 
-  def admin_create?
+  def create?
     @user.can_modify_guidance?
   end
 
@@ -37,15 +33,15 @@ class GuidancePolicy < ApplicationPolicy
     @user.can_modify_guidance?
   end
 
-  def admin_destroy?
+  def destroy?
     @user.can_modify_guidance? && @record.in_group_belonging_to?(@user.org_id)
   end
 
-  def admin_publish?
+  def publish?
     @user.can_modify_guidance?
   end
 
-  def admin_unpublish?
+  def unpublish?
     @user.can_modify_guidance?
   end
 end
