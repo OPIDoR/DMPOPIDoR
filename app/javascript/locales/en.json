@@ -271,5 +271,14 @@
   "researchProject": "Research Project",
   "availableGuidances": "Available Guidances",
   "selectedGuidances": "Selected Guidances",
-  "savedGuidancesInfo": "The selected guidances are displayed for each question when you click on the lightbulb"
+  "savedGuidancesInfo": "The selected guidances are displayed for each question when you click on the lightbulb",
+  "guidanceEditionInfo": "First create a guidance group. This could be organisation wide or a subset e.g. a particular College / School, Institute or department. When you create guidance you'll be asked to assign it to a guidance group.",
+  "guidanceGroupList": "Guidance group list",
+  "status": "Status",
+  "optionalSubset": "Optional subset",
+  "dataTypesTopics": "Data Types / Topics",
+  "locale": "Locale",
+  "lastUpdated": "Last updated",
+  "published": "Published",
+  "unpublished": "Unpublished"
 }

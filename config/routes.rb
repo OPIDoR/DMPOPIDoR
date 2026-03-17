@@ -388,6 +388,8 @@ Rails.application.routes.draw do
       end
     end
 
+    resources :guidances_edition, only: [:index], controller: 'guidances_edition'
+
     resources :users, only: %i[edit update], controller: 'users' do
       member do
         get 'user_plans'

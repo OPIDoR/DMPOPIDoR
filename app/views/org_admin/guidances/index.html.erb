@@ -1,5 +1,8 @@
 <!-- Admin index page for Guidance Groups and Guidance -->
 <% title _('Guidance') %>
+
+<%= react("GuidanceEditionLayout", props: { locale: LocaleService.to_gettext(locale: locale) }) %>
+
 <div class="row">
   <div class="col-md-12">
     <h1><%= _('Guidance') %></h1>

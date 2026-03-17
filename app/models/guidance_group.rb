@@ -120,7 +120,7 @@ class GuidanceGroup < ApplicationRecord
   # Returns Array
   def self.all_viewable(user)
     # first find all groups owned by the Default Orgs
-    default_org_groups = Org.includes(guidance_groups: [guidances: :themes])
+    default_org_groups = Org.includes(guidance_groups: [{ guidances: :themes }])
                             .default_orgs.collect(&:guidance_groups)
 
     # find all groups owned by  a Funder organisation
@@ -174,6 +174,25 @@ class GuidanceGroup < ApplicationRecord
 
       reload
     end
+  end
+  # rubocop:enable Metrics/AbcSize
+
+  # rubocop:disable Metrics/AbcSize
+  def self.serialize_json_response(guidance_group)
+    {
+      id: guidance_group.id,
+      name: guidance_group.name,
+      optional_subset: guidance_group.optional_subset.nil? || guidance_group.optional_subset == false,
+      published: guidance_group.published,
+      topics: guidance_group.topics,
+      data_types: guidance_group.data_types,
+      locale: if guidance_group.language_id.present?
+                Language.find_by(id: guidance_group.language_id)&.name || 'N/C'
+              else
+                'N/C'
+              end,
+      last_updated: guidance_group.updated_at.to_date.strftime('%d/%m/%Y')
+    }
   end
   # rubocop:enable Metrics/AbcSize
 end
