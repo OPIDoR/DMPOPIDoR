@@ -43,7 +43,7 @@
             "description": "Type of the generated research output",
             "label@fr_FR": "Type",
             "label@en_GB": "Type",
-            "inputType": "hidden",
+            "inputType": "dropdown",
             "registryCategory": "ResearchDataType",
             "tooltip@fr_FR": "Les types de produits de recherche sont issus du schéma DataCite 4.6.",
             "tooltip@en_GB": "The types of research outputs are based on resourceTypeGeneral property from DataCite Metadata Schema 4.6. ",

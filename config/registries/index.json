@@ -2,7 +2,7 @@
     "AgentIdSystem": {
         "dataTypes": [
             "software",
-            "none"
+            "dataset"
         ],
         "category": "AgentIdSystem",
         "path": "AgentIdSystem.json"
@@ -10,7 +10,7 @@
     "AnrProjects": {
         "dataTypes": [
             "software",
-            "none"
+            "dataset"
         ],
         "category": "AnrProjects",
         "path": "AnrProjects.json"
@@ -18,7 +18,7 @@
     "AnsesProjects": {
         "dataTypes": [
             "software",
-            "none"
+            "dataset"
         ],
         "category": "AnsesProjects",
         "path": "AnsesProjects.json"
@@ -41,7 +41,7 @@
     "ClassificationOCDE": {
         "dataTypes": [
             "software",
-            "none"
+            "dataset"
         ],
         "category": "Subject",
         "path": "ClassificationOCDE.json"
@@ -61,7 +61,7 @@
     "CordisProjects": {
         "dataTypes": [
             "software",
-            "none"
+            "dataset"
         ],
         "category": "CordisProjects",
         "path": "CordisProjects.json"
@@ -69,7 +69,7 @@
     "CostType": {
         "dataTypes": [
             "software",
-            "none"
+            "dataset"
         ],
         "category": "CostType",
         "path": "CostType.json"
@@ -92,7 +92,7 @@
     "DMPLicenses": {
         "dataTypes": [
             "software",
-            "none"
+            "dataset"
         ],
         "category": "DMPLicense",
         "path": "DMPLicenses.json"
@@ -100,7 +100,7 @@
     "DMPVersion": {
         "dataTypes": [
             "software",
-            "none"
+            "dataset"
         ],
         "category": "DMPVersion",
         "path": "DMPVersion.json"
@@ -108,7 +108,7 @@
     "FundersWithImport": {
         "dataTypes": [
             "software",
-            "none"
+            "dataset"
         ],
         "category": "FundersWithImport",
         "path": "FundersWithImport.json"
@@ -116,7 +116,7 @@
     "FundingStatus": {
         "dataTypes": [
             "software",
-            "none"
+            "dataset"
         ],
         "category": "FundingStatus",
         "path": "FundingStatus.json"
@@ -141,7 +141,7 @@
     "ISO4217": {
         "dataTypes": [
             "software",
-            "none"
+            "dataset"
         ],
         "category": "ISO4217",
         "path": "ISO4217.json"
@@ -154,7 +154,7 @@
     "ISO639-3_fra_eng": {
         "dataTypes": [
             "software",
-            "none"
+            "dataset"
         ],
         "category": "ISO639-3_fra_eng",
         "path": "ISO639-3_fra_eng.json"
@@ -202,7 +202,7 @@
     "NameTypeValues": {
         "dataTypes": [
             "software",
-            "none"
+            "dataset"
         ],
         "category": "NameTypeValue",
         "path": "NameTypeValues.json"
@@ -217,7 +217,7 @@
     "OrganizationIdSystem": {
         "dataTypes": [
             "software",
-            "none"
+            "dataset"
         ],
         "category": "OrganizationIdSystem",
         "path": "OrganizationIdSystem.json"
@@ -235,7 +235,7 @@
     "PIDSystem": {
         "dataTypes": [
             "software",
-            "none"
+            "dataset"
         ],
         "category": "PIDSystem",
         "path": "PIDSystem.json"
@@ -267,7 +267,7 @@
     "ResearchDataType": {
         "dataTypes": [
             "software",
-            "none"
+            "dataset"
         ],
         "category": "ResearchDataType",
         "path": "ResearchDataType.json"

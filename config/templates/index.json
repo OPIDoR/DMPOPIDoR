@@ -10,7 +10,7 @@
         "classname": "budget",
         "dataTypes": [
             "software",
-            "none"
+            "dataset"
         ],
         "topics": null
     },
@@ -19,7 +19,7 @@
         "classname": "contributor",
         "dataTypes": [
             "software",
-            "none"
+            "dataset"
         ],
         "topics": null
     },
@@ -28,7 +28,7 @@
         "classname": "contributor",
         "dataTypes": [
             "software",
-            "none"
+            "dataset"
         ],
         "topics": null
     },
@@ -37,7 +37,7 @@
         "classname": "controlled_keyword",
         "dataTypes": [
             "software",
-            "none"
+            "dataset"
         ],
         "topics": null
     },
@@ -58,7 +58,7 @@
         "classname": "cost",
         "dataTypes": [
             "software",
-            "none"
+            "dataset"
         ],
         "topics": null
     },
@@ -163,7 +163,7 @@
         "classname": "dmp",
         "dataTypes": [
             "software",
-            "none"
+            "dataset"
         ],
         "topics": null
     },
@@ -172,7 +172,7 @@
         "classname": "dmp",
         "dataTypes": [
             "software",
-            "none"
+            "dataset"
         ],
         "topics": null
     },
@@ -193,7 +193,7 @@
         "classname": "funder",
         "dataTypes": [
             "software",
-            "none"
+            "dataset"
         ],
         "topics": null
     },
@@ -202,7 +202,7 @@
         "classname": "funding",
         "dataTypes": [
             "software",
-            "none"
+            "dataset"
         ],
         "topics": null
     },
@@ -243,7 +243,7 @@
         "classname": "license",
         "dataTypes": [
             "software",
-            "none"
+            "dataset"
         ],
         "topics": null
     },
@@ -282,7 +282,7 @@
         "classname": "meta",
         "dataTypes": [
             "software",
-            "none"
+            "dataset"
         ],
         "topics": null
     },
@@ -297,7 +297,7 @@
         "classname": "partner",
         "dataTypes": [
             "software",
-            "none"
+            "dataset"
         ],
         "topics": null
     },
@@ -312,7 +312,7 @@
         "classname": "person",
         "dataTypes": [
             "software",
-            "none"
+            "dataset"
         ],
         "topics": null
     },
@@ -329,7 +329,7 @@
         "classname": "project",
         "dataTypes": [
             "software",
-            "none"
+            "dataset"
         ],
         "topics": null
     },
@@ -344,7 +344,7 @@
         "classname": "research_entity",
         "dataTypes": [
             "software",
-            "none"
+            "dataset"
         ],
         "topics": null
     },
@@ -373,7 +373,7 @@
         "classname": "resource_reference",
         "dataTypes": [
             "software",
-            "none"
+            "dataset"
         ],
         "topics": null
     },
@@ -466,7 +466,7 @@
         "classname": "specific_data",
         "dataTypes": [
             "software",
-            "none"
+            "dataset"
         ],
         "topics": null
     },
@@ -475,7 +475,7 @@
         "classname": "technical_resource",
         "dataTypes": [
             "software",
-            "none"
+            "dataset"
         ],
         "topics": null
     },
