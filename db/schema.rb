@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.1].define(version: 2026_03_10_144341) do
+ActiveRecord::Schema[8.1].define(version: 2026_03_17_101744) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
   enable_extension "unaccent"
@@ -244,7 +244,7 @@ ActiveRecord::Schema[8.1].define(version: 2026_03_10_144341) do
     t.string "description"
     t.integer "language_id", default: 0
     t.string "topics", default: ["generic"], null: false, array: true
-    t.string "data_types", default: ["none"], null: false, array: true
+    t.string "data_types", default: ["dataset"], null: false, array: true
     t.index ["org_id"], name: "guidance_groups_org_id_idx"
   end
 
@@ -352,7 +352,7 @@ ActiveRecord::Schema[8.1].define(version: 2026_03_10_144341) do
     t.datetime "created_at", precision: nil, null: false
     t.datetime "updated_at", precision: nil, null: false
     t.bigint "api_client_id"
-    t.string "data_type", default: "none", null: false
+    t.string "data_type", default: "dataset", null: false
     t.string "topics", default: ["generic"], null: false, array: true
     t.index ["api_client_id"], name: "index_madmp_schemas_on_api_client_id"
     t.index ["org_id"], name: "index_madmp_schemas_on_org_id"
@@ -565,7 +565,7 @@ ActiveRecord::Schema[8.1].define(version: 2026_03_10_144341) do
     t.integer "org_id"
     t.datetime "created_at", precision: nil, null: false
     t.datetime "updated_at", precision: nil, null: false
-    t.string "data_types", default: ["none"], null: false, array: true
+    t.string "data_types", default: ["dataset"], null: false, array: true
     t.string "category"
     t.json "values"
     t.string "topics", default: ["generic"], null: false, array: true
@@ -668,7 +668,7 @@ ActiveRecord::Schema[8.1].define(version: 2026_03_10_144341) do
     t.integer "type", default: 0, null: false
     t.integer "context", default: 0, null: false
     t.boolean "is_recommended", default: false
-    t.string "data_type", default: "none", null: false
+    t.string "data_type", default: "dataset", null: false
     t.string "contexts", default: ["research_project"], null: false, array: true
     t.index ["customization_of", "version", "org_id"], name: "templates_customization_of_version_org_id_key", unique: true
     t.index ["family_id", "version"], name: "templates_family_id_version_key", unique: true
@@ -684,7 +684,7 @@ ActiveRecord::Schema[8.1].define(version: 2026_03_10_144341) do
     t.string "slug"
     t.json "translations", default: {}
     t.integer "number"
-    t.string "data_type", default: "none", null: false
+    t.string "data_type", default: "dataset", null: false
   end
 
 
