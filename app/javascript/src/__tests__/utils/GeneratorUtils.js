@@ -278,8 +278,8 @@ describe('GeneratorUtils.researchOutputTypeToDataType', () => {
     const dataType = utils.researchOutputTypeToDataType('Logiciel');
     expect(dataType).toBe('software');
   });
-  test('researchOutputTypeToDataType should return "none" when "Something" is provided', () => {
+  test('researchOutputTypeToDataType should return "dataset" when "Something" is provided', () => {
     const dataType = utils.researchOutputTypeToDataType('Something');
-    expect(dataType).toBe('none');
+    expect(dataType).toBe('dataset');
   });
 });

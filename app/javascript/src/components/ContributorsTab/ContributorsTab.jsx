@@ -141,7 +141,7 @@ function ContributorsTab({ planId, readonly }) {
             fragmentId={fragmentId}
             data={editedPerson}
             template={template}
-            mainFormDataType={"none"}
+            mainFormDataType={"dataset"}
             mainFormTopic={"generic"}
             label={t("editPersonOrOrg")}
             readonly={readonly}

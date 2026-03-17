@@ -52,7 +52,7 @@ function DynamicForm({
   }, [fragmentId, formData, loadedTemplates, templateName]);
 
   const dataType = useMemo(
-    () => displayedResearchOutput?.configuration?.dataType || "none",
+    () => displayedResearchOutput?.configuration?.dataType || "dataset",
     [displayedResearchOutput],
   );
   const topic = useMemo(

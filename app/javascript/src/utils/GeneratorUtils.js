@@ -150,7 +150,7 @@ export function researchOutputTypeToDataType(type) {
     case "Software":
       return "software";
     default:
-      return "none";
+      return "dataset";
   }
 }
 
