@@ -4,6 +4,7 @@
     "title": "HostStandard",
     "description": "HostStandard template",
     "dataTypes": null,
+    "topics": null,
     "type": "object",
     "class": "HostStandard",
     "properties": {
@@ -31,9 +32,6 @@
             "inputType": "dropdown",
             "label@fr_FR": "Type d'identifiant",
             "label@en_GB": "Identifier type",
-            "registries": [
-                "PIDSystem"
-            ],
             "registryCategory": "PIDSystem",
             "overridable": true,
             "tooltip": null,
@@ -53,9 +51,6 @@
             "inputType": "dropdown",
             "label@fr_FR": "Localisation géographique (pays)",
             "label@en_GB": "Geo location (country)",
-            "registries": [
-                "ISO3166-alpha2"
-            ],
             "registryCategory": "ISO3166-alpha2",
             "tooltip": null,
             "form_label@fr_FR": "Localisation géographique (pays)",
@@ -70,9 +65,6 @@
             "inputType": "dropdown",
             "label@fr_FR": "Certification",
             "label@en_GB": "Certification",
-            "registries": [
-                "Certification"
-            ],
             "registryCategory": "Certification",
             "overridable": true,
             "tooltip": null,
@@ -88,9 +80,6 @@
             "inputType": "dropdown",
             "label@fr_FR": "Système d'identifiants",
             "label@en_GB": "PID system",
-            "registries": [
-                "PIDSystem"
-            ],
             "registryCategory": "PIDSystem",
             "overridable": true,
             "tooltip": null,
@@ -126,9 +115,6 @@
             "inputType": "dropdown",
             "label@fr_FR": "Standards de métadonnées disponibles",
             "label@en_GB": "Available metadata standards",
-            "registries": [
-                "StandardsShort"
-            ],
             "registryCategory": "StandardsShort",
             "overridable": true,
             "tooltip": null,

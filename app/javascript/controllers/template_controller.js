@@ -7,7 +7,6 @@ export default class extends Controller {
     // Laisse Turbo gérer la navigation
     // Mais déclenche manuellement le collapse
     const targetId = this.element.getAttribute('aria-controls');
-    console.log(targetId);
     const collapseEl = document.getElementById(targetId);
 
     if (collapseEl) {

@@ -5,6 +5,7 @@ class UserMailer < ActionMailer::Base
   prepend_view_path 'app/views/branded/'
 
   include MailerHelper
+
   helper MailerHelper
   helper FeedbacksHelper
 
@@ -165,7 +166,7 @@ class UserMailer < ActionMailer::Base
       @username        = @user.name
       @plan            = plan
       @plan_title      = @plan.title
-      @plan_visibility = _(::Plan::VISIBILITY_MESSAGE[@plan.visibility.to_sym])
+      @plan_visibility = Plan::VISIBILITY_MESSAGE[@plan.visibility.to_sym]
       @helpdesk_email = helpdesk_email(org: @plan.org)
 
       mail(to: @user.email,

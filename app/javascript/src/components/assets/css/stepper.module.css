@@ -1,0 +1,74 @@
+@import url("./variable.css");
+
+.main {
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  border: 2px solid var(--blue);
+  border-radius: 8px;
+  margin-top: 20px;
+}
+
+.stepper_container {
+  border-bottom: 2px solid var(--blue);
+  display: flex;
+  justify-content: space-between;
+  padding: 24px;
+  position: relative;
+}
+
+.step_item {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 300px;
+}
+
+/* Cercle */
+.step_circle {
+  width: 55px;
+  height: 55px;
+  border-radius: 50%;
+  border: 2px solid #e0e0e0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: #e0e0e0;
+  color: white;
+  font-weight: bold;
+  z-index: 2;
+  position: relative;
+}
+
+
+.active {
+  background-color: var(--rust);
+  border-color: var(--rust);
+}
+
+.completed {
+  background: #A10308;
+  border-color: #A10308;
+}
+
+.connector {
+  position: absolute;
+  top: calc(55px / 2);
+  right: calc(50% + 55px);
+  left: calc(-50% + 55px);
+  border-top: 1px solid #e0e0e0;
+  z-index: 1;
+  pointer-events: none;
+}
+
+.connector_completed {
+  border-top-color: var(--rust);
+}
+
+/* Label */
+.step_label {
+  margin-top: 10px;
+  font-size: 18px;
+  text-align: center;
+}

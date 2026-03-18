@@ -6,23 +6,24 @@
     "dataTypes": [
         "software"
     ],
+    "topics": null,
     "type": "object",
     "class": "SoftwarePreservationStandard",
     "properties": {
         "identifier": {
             "type": "string",
             "format": "url",
-            "description": "Identifiant SWHID attribué au logiciel dans l'archive Software Heritage",
+            "description": "SWHID identifier assigned to the software in the Software Heritage archive",
             "label@fr_FR": "Identifiant SWHID",
             "label@en_GB": "SWHID Identifier",
-            "tooltip@fr_FR": "Pour obtenir l'identifiant SWHID, aller sur la page de votre projet. Déplier l'onglet Permalinks puis cliquer sur Copy permalink. Ne pas décocher la case Add contextual information",
-            "tooltip@en_GB": "To get the SWHID, go to your project page. Expand the Permalinks tab and click Copy permalink. Do not uncheck the Add contextual information box.",
+            "tooltip@fr_FR": "Pour obtenir l'identifiant SWHID, aller sur la page de votre projet à partir de https://archive.softwareheritage.org/. Déplier l'onglet \"Permalinks\" puis cliquer sur \"Copy permalink\". Ne pas décocher la case \"Add contextual information\".",
+            "tooltip@en_GB": "To obtain the SWHID identifier, find your project page on https://archive.softwareheritage.org . Unfold the \"Permalinks\" tab then click \"Copy permalink\". Do not uncheck the \"Add contextual information\" box.",
             "form_label@fr_FR": "Si votre logiciel est archivé dans l'archive Software Heritage, indiquer l'identifiant SWHID du dépôt",
-            "form_label@en_GB": "If your software is archived in the Software Heritage archive, indicate the SWHID identifier of the repository"
+            "form_label@en_GB": "If the software is archived in the Software Heritage archive, indicate its SWHID identifier"
         },
         "idType": {
             "type": "string",
-            "description": "Type d'identifiant de la ressource",
+            "description": "Resource ID Type",
             "label@fr_FR": "Type d'identifiant",
             "label@en_GB": "Identifier type",
             "tooltip": null,

@@ -1,3 +1,8 @@
+
+<p class="legend-inline">
+  <i class="fas fa-university"></i> <%= _('Research Entity') %>&nbsp;&nbsp;
+  <i class="fas fa-vial"></i> <%= _('Research Project') %>
+</p>
 <div class="table-responsive">
   <table class="table table-hover">
     <thead>
@@ -18,11 +23,11 @@
         <% dmp_fragment = plan.json_fragment %>
         <% meta = dmp_fragment.meta %>
         <tr class="table-data">
-          <td><%= plan.title %></td>
+          <td><i class="fa-solid <%= plan.research_entity? ? "fas fa-university" : "fas fa-vial" %>"></i> <%= plan.title %></td>
           <td><%= plan.template.title %></td>
           <td><%= meta.data['dmpKeyword'].join('; ') if meta.data['dmpKeyword'].present? %></td>
           <td><%= (plan.owner.nil? || plan.owner.org.nil? ? _('Not Applicable') : plan.owner.org.name) %></td>
-          <td><%= l(plan.updated_at.to_date, formats: :short) %></td>
+          <td><%= l(meta.data['lastModifiedDate'].to_date, formats: :short) %></td>
           <td class="text-center">
             <%= link_to plan_export_path(plan, format: :pdf, export: { question_headings: true }),
                 class: "dmp_table_link has-new-window-popup-info", target: '_blank', data: {turbo_frame: "_top"} do %>

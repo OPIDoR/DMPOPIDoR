@@ -4,6 +4,7 @@
     "title": "DataProcessingStandard",
     "description": "DataProcessingStandard template",
     "dataTypes": null,
+    "topics": null,
     "type": "object",
     "class": "DataProcessingStandard",
     "properties": {
@@ -60,9 +61,6 @@
             "label@fr_FR": "Equipements, plateaux techniques",
             "label@en_GB": "Equipments, technical platforms",
             "inputType": "dropdown",
-            "registries": [
-                "ProcessingServices"
-            ],
             "registryCategory": "ProcessingService",
             "overridable": true,
             "tooltip": null,

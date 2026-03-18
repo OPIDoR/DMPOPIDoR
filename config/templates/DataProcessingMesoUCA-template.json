@@ -4,6 +4,7 @@
     "title": "DataProcessingMesoUCA",
     "description": "DataProcessingMesoUCA template",
     "dataTypes": null,
+    "topics": null,
     "type": "object",
     "class": "DataProcessingMesoUCA",
     "properties": {

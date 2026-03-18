@@ -4,6 +4,7 @@
     "title": "DistributionStandard",
     "description": "DistributionStandard template",
     "dataTypes": null,
+    "topics": null,
     "type": "object",
     "class": "DistributionStandard",
     "properties": {
@@ -30,7 +31,7 @@
         "releaseDate": {
             "type": "string",
             "format": "date",
-            "description": "Date à laquelle les donnés sont publiées",
+            "description": "Date à laquelle les données sont publiées",
             "label@fr_FR": "Date de diffusion",
             "label@en_GB": "Release date",
             "tooltip@fr_FR": "Date à laquelle les données sont disponibles",
@@ -44,9 +45,6 @@
             "inputType": "dropdown",
             "label@fr_FR": "Mode d'accès",
             "label@en_GB": "DataAccess",
-            "registries": [
-                "DataAccess"
-            ],
             "registryCategory": "Access",
             "tooltip": null,
             "form_label@fr_FR": "Mode d'accès",
@@ -58,9 +56,6 @@
             "inputType": "dropdown",
             "label@fr_FR": "Format du fichier",
             "label@en_GB": "File format",
-            "registries": [
-                "MediaType"
-            ],
             "registryCategory": "MediaType",
             "overridable": true,
             "tooltip@fr_FR": "Format sous forme MIME type",
@@ -95,9 +90,6 @@
             "inputType": "dropdown",
             "label@fr_FR": "Unité",
             "label@en_GB": "Unit",
-            "registries": [
-                "VolumeUnit"
-            ],
             "registryCategory": "VolumeUnit",
             "overridable": true,
             "tooltip": null,
@@ -152,9 +144,6 @@
             "label@fr_FR": "Licence",
             "label@en_GB": "License",
             "inputType": "dropdown",
-            "registries": [
-                "DataLicenses"
-            ],
             "registryCategory": "License",
             "overridable": true,
             "tooltip@fr_FR": "Choisir une licence pour définir les conditions de réutilisation des données",

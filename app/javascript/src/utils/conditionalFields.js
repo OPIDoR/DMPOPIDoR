@@ -25,7 +25,7 @@ export default function toggleConditionalFields(context, showThem) {
       });
     } else {
       // Clear the contents of any textarea select boxes or input fields
-      container.find('.toggleable-field').find('input, textarea, select').val('').change();
+      container.find('.toggleable-field').find('input, textarea, select').val('').trigger('change');
 
       // TODO: clear check boxes and radio buttons as needed
 

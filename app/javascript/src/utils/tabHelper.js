@@ -6,7 +6,7 @@ document.addEventListener('turbo:load', () => {
   if (loc) {
     $(`ul.nav a[href="${loc}"]`).tab('show');
   }
-  $('ul.nav a[data-toggle="tab"]').click((e) => {
+  $('ul.nav a[data-toggle="tab"]').on('click', (e) => {
     const target = $(e.target);
     $(target).tab('show');
     // Commented out because was causing screen to jump

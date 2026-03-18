@@ -4,6 +4,7 @@
     "title": "BackupPolicyStandard",
     "description": "BackupPolicyStandard template",
     "dataTypes": null,
+    "topics": null,
     "type": "object",
     "class": "BackupPolicyStandard",
     "properties": {
@@ -32,9 +33,6 @@
             "inputType": "dropdown",
             "label@fr_FR": "Type de sauvegarde",
             "label@en_GB": "Backup type",
-            "registries": [
-                "BackupType"
-            ],
             "registryCategory": "BackupType",
             "overridable": true,
             "tooltip": null,
@@ -50,9 +48,6 @@
             "inputType": "dropdown",
             "label@fr_FR": "Supports de stockage",
             "label@en_GB": "Storage types",
-            "registries": [
-                "StorageType"
-            ],
             "registryCategory": "StorageType",
             "overridable": true,
             "tooltip": null,

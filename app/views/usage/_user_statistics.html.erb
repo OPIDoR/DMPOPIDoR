@@ -59,12 +59,12 @@
       <div class="col-md-6 float-end">
           <ul class="list-inline">
             <li>
-              <%= form_for :usage, url: usage_plans_by_template_path, remote: true do |f| %>
+              <%= form_for :usage, url: usage_plans_by_template_path, data: { turbo_stream: true } do |f| %>
                 <div class="form-control mb-3">
                   <%= f.label :template_plans_range, _('Time period') %>
                   <ul class="list-inline">
                     <li>
-                      <%= f.select :template_plans_range, plans_per_template_ranges.reverse, {}, { class: "form-control" } %>
+                      <%= f.select :template_plans_range, plans_per_template_ranges.reverse, {}, class: "form-control" %>
                     </li>
                     <li>
                       <%= hidden_field_tag :filtered, @filtered %>

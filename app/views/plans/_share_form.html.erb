@@ -81,14 +81,14 @@
                         ["#{display_role(editor)}", editor.access],
                         ["#{display_role(commenter)}", commenter.access]
                       ] %>
-                      <%= f.select :access, options_for_select(options, role.access), {}, {
-                        authenticity_token: true,
-                        class: "toggle-existing-user-access",
-                        data: {
-                          remote: true,
-                          method: :patch,
-                          url: role_path(role)
-                        } } %>
+                      <%= f.select :access, 
+                                  options_for_select(options, role.access), {},
+                                  class: "toggle-existing-user-access",
+                                  data: { 
+                                    controller: "select",
+                                    action: "change->select#update", 
+                                    select_url_value: role_path(role)
+                                  } %>
                     <% end %>
                   </div>
                 <% else %>
@@ -113,7 +113,7 @@
   <div style="flex: 1; padding: 20px; border-left: 1px solid var(--dark-blue)">
     <h2><%= _('Set plan visibility') %></h2>
     <p class="form-control-static">
-      <%= _('Make fully or partially completed plans visible to administrators and the organization. They can also be made public. Plans marked as test projects remain private.') %>
+      <%= _('Make fully or partially completed plans visible to administrators and the organization. They can also be made public. Plans marked as test projects and plans without research outputs remain private.') %>
     </p>
     <% allow_visibility = @plan.visibility_allowed? %>
     <%= form_for(@plan, url: visibility_plan_path, method: :post, remote: true, html: { id: 'set_visibility' }) do |f| %>

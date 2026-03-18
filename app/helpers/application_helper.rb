@@ -48,9 +48,8 @@ module ApplicationHelper
     "#{klass}_#{record_id}"
   end
 
-  def turbo_id_for(model, context = nil)
+  def turbo_id_for(model, action = nil)
     base = model.model_name.plural
-    context_id = context.try(:id) || context.to_s
-    context ? "#{base}_results-#{context_id}" : "#{base}_results"
+    action ? "#{base}_results-#{action}" : "#{base}_results"
   end
 end

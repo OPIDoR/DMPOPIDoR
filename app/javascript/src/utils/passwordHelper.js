@@ -40,7 +40,7 @@ export const addMatchingPasswordValidator = (options) => {
         $(cnf).parent().append(getHelpBlock(id));
         $(cnf).attr('aria-describedby', id);
 
-        $(sbmt).click((e) => {
+        $(sbmt).on('click', (e) => {
           if (cnf.val() !== pwd.val()) {
             e.preventDefault();
             invalid(cnf, `#${id}`);

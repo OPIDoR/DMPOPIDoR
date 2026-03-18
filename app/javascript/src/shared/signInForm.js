@@ -15,14 +15,14 @@ document.addEventListener('turbo:load', () => {
     }
   };
   // Event handlers
-  rememberEmail.click(() => {
+  rememberEmail.on('click', () => {
     if (rememberEmail.is(':checked')) {
       setEmailCookie(userEmail.val());
     } else {
       setEmailCookie(null);
     }
   });
-  userEmail.change(() => {
+  userEmail.on('change', () => {
     if (rememberEmail.is(':checked')) {
       setEmailCookie(userEmail.val());
     }

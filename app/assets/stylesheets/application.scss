@@ -2,11 +2,7 @@
 @use "variables";
 
 // Pull in the webpacker managed copy of Bootstrap Stylesheets
-@import "../../../node_modules/bootstrap/scss/bootstrap";
-
-// Pull in the webapcker managed copy of JQuery-UI Stylesheets
-// we are using the Datepicker and Sortable at the very least
-@import "../../../node_modules/jquery-ui-sass/assets/sass/jquery-ui.scss";
+@import "bootstrap/scss/bootstrap";
 
 $fa-font-path: '.';
 @import '@fortawesome/fontawesome-free/scss/fontawesome';
@@ -20,21 +16,21 @@ $fa-font-path: '.';
 // Option B: Include parts of Bootstrap
 
 // 1. Include functions first (so you can manipulate colors, SVGs, calc, etc)
-@import "../../../node_modules/bootstrap/scss/functions";
+@import "bootstrap/scss/functions";
 
 // 2. Include any default variable overrides here
 
 // 3. Include remainder of required Bootstrap stylesheets
-@import "../../../node_modules/bootstrap/scss/variables";
-@import "../../../node_modules/bootstrap/scss/mixins";
+@import "bootstrap/scss/variables";
+@import "bootstrap/scss/mixins";
 
 // 4. Include any optional Bootstrap components as you like
-@import "../../../node_modules/bootstrap/scss/root";
-@import "../../../node_modules/bootstrap/scss/reboot";
-@import "../../../node_modules/bootstrap/scss/type";
-@import "../../../node_modules/bootstrap/scss/images";
-@import "../../../node_modules/bootstrap/scss/containers";
-@import "../../../node_modules/bootstrap/scss/grid";
+@import "bootstrap/scss/root";
+@import "bootstrap/scss/reboot";
+@import "bootstrap/scss/type";
+@import "bootstrap/scss/images";
+@import "bootstrap/scss/containers";
+@import "bootstrap/scss/grid";
 
 //Importing customised stylesheets after Bootstrap defaults
 @import "blocks";

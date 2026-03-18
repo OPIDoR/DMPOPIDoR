@@ -4,6 +4,7 @@
     "title": "CostMesoatLR",
     "description": "CostMesoatLR template",
     "dataTypes": null,
+    "topics": null,
     "type": "object",
     "class": "CostMesoatLR",
     "properties": {

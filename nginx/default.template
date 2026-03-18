@@ -50,6 +50,22 @@ server {
   ## client
   location / {
     try_files $uri @rails;
+      
+    if ($http_user_agent ~* "^Scrapy/2\.11\.2.*$"){
+      return 403;
+    }
+    if ($http_user_agent ~* "^Turnitin.*$"){
+      return 403;
+    }
+    if ($http_user_agent ~* "GPTBot"){
+      return 403;
+    }
+    if ($http_user_agent ~* "AhrefsBot"){
+      return 403;
+    }
+    if ($http_user_agent ~* "SemrushBot"){
+      return 403;
+    }
   }
 
   location @rails {

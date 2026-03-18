@@ -28,7 +28,6 @@ module.exports = function(config) {
 
     // list of files / patterns to load in the browser
     files: [
-      // 'node_modules/babel-polyfill/dist/polyfill.js',
       'node_modules/bootstrap/dist/js/bootstrap.min.js',
       'spec/javascripts/**/*Spec.js',
       'spec/javascripts/fixtures/*',

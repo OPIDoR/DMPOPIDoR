@@ -40,7 +40,7 @@ module Paginable
 
   # rubocop:disable Metrics/AbcSize, Metrics/MethodLength, Metrics/ParameterLists
   # rubocop:disable Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
-  def paginable_renderise(partial: nil, template: nil, controller: nil, action: nil,
+  def paginable_renderise(partial: nil, template: nil, controller: nil, action: 'index',
                           path_params: {}, query_params: {}, scope: nil,
                           locals: {}, **options)
     unless scope.is_a?(ActiveRecord::Relation)
@@ -76,6 +76,7 @@ module Paginable
     else
       @refined_scope = refine_query(scope)
       locals = locals.merge(
+        action: action,
         scope: @refined_scope,
         paginable_params: @args,
         search_term: @args[:search],
@@ -83,7 +84,7 @@ module Paginable
       )
       # If this was an ajax call then render as JSON
       if options[:format] == :json
-        render turbo_stream: turbo_stream.replace(turbo_id_for(@refined_scope, @context),
+        render turbo_stream: turbo_stream.replace(turbo_id_for(@refined_scope, action),
                                                   layout: '/layouts/paginable',
                                                   partial: partial, locals: locals)
 

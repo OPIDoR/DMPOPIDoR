@@ -7,6 +7,7 @@
         "software",
         "none"
     ],
+    "topics": null,
     "type": "object",
     "class": "CostStandard",
     "properties": {
@@ -16,9 +17,6 @@
             "inputType": "dropdown",
             "label@fr_FR": "Type de coût",
             "label@en_GB": "Cost type",
-            "registries": [
-                "CostType"
-            ],
             "registryCategory": "CostType",
             "overridable": true,
             "tooltip": null,
@@ -41,9 +39,6 @@
             "inputType": "dropdown",
             "label@fr_FR": "Devise",
             "label@en_GB": "Currency",
-            "registries": [
-                "ISO4217"
-            ],
             "registryCategory": "ISO4217",
             "tooltip": null,
             "form_label@fr_FR": "Devise",

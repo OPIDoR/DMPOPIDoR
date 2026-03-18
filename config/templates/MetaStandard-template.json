@@ -7,6 +7,7 @@
         "software",
         "none"
     ],
+    "topics": null,
     "type": "object",
     "class": "MetaStandard",
     "properties": {
@@ -37,9 +38,6 @@
             "inputType": "dropdown",
             "label@fr_FR": "Version",
             "label@en_GB": "Version",
-            "registries": [
-                "DMPVersion"
-            ],
             "registryCategory": "DMPVersion",
             "overridable": true,
             "tooltip": null,
@@ -66,9 +64,6 @@
             "inputType": "dropdown",
             "label@fr_FR": "Domaines de recherche (selon classification de l'OCDE)",
             "label@en_GB": "Fields of science and technology (from OECD classification)",
-            "registries": [
-                "ClassificationOCDE"
-            ],
             "registryCategory": "Subject",
             "tooltip": null,
             "form_label@fr_FR": "Domaines de recherche (selon classification de l'OCDE)",
@@ -81,9 +76,6 @@
             "inputType": "dropdown",
             "label@fr_FR": "Langue",
             "label@en_GB": "Language",
-            "registries": [
-                "ISO639-3_fra_eng"
-            ],
             "registryCategory": "ISO639-3_fra_eng",
             "tooltip": null,
             "form_label@fr_FR": "Langue de rédaction du plan",
@@ -154,9 +146,6 @@
             "inputType": "dropdown",
             "label@fr_FR": "Type d'identifiant",
             "label@en_GB": "Identifier type",
-            "registries": [
-                "PIDSystem"
-            ],
             "registryCategory": "PIDSystem",
             "overridable": true,
             "tooltip": null,
@@ -179,9 +168,6 @@
             "label@fr_FR": "Licence",
             "label@en_GB": "License",
             "inputType": "dropdown",
-            "registries": [
-                "DMPLicenses"
-            ],
             "registryCategory": "DMPLicense",
             "overridable": true,
             "tooltip@fr_FR": "Choisir une licence pour définir les conditions de réutilisation du PGD en cas de diffusion",
@@ -228,7 +214,7 @@
                     "dbid"
                 ]
             },
-            "description": "Autres plans de gestion de données en lien avec le projet ou l'activité de l'entité",
+            "description": "Autres plans de gestion de données en lien avec le projet ou avec l'activité de l'entité",
             "label@fr_FR": "Plans de gestion en lien avec le projet ou l'activité de l'entité",
             "label@en_GB": "Management plans related to the project or the entity's activity",
             "tooltip": null,

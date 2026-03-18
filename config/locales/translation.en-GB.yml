@@ -132,6 +132,9 @@ en-GB:
       month: Month
       second: Seconds
       year: Year
+    relative:
+      future:
+      past:
   devise:
     confirmations:
       confirmed: Your email address has been successfully confirmed.
@@ -289,6 +292,297 @@ en-GB:
         notice: "%{resource_name} was successfully destroyed."
       update:
         notice: "%{resource_name} was successfully updated."
+  good_job:
+    actions:
+      destroy: Destroy
+      discard:
+      force_discard:
+      inspect:
+      reschedule:
+      retry:
+    batches:
+      actions:
+        confirm_retry:
+        retry:
+      index:
+        older_batches:
+        title:
+      jobs:
+        actions:
+          confirm_destroy:
+          confirm_discard:
+          confirm_reschedule:
+          confirm_retry:
+          destroy:
+          discard:
+          reschedule:
+          retry:
+          title: Actions
+        no_jobs_found:
+      retry:
+        notice:
+      show:
+        attributes:
+        batched_jobs:
+        callback_jobs:
+      table:
+        no_batches_found:
+    cleaner:
+      index:
+        all: All
+        class:
+        exception:
+        grouped_by_class:
+        grouped_by_exception:
+        last_1_hour:
+        last_24_hours:
+        last_3_days:
+        last_3_hours:
+        last_7_days:
+        title:
+        total: Total
+    cron_entries:
+      actions:
+        confirm_disable:
+        confirm_enable:
+        confirm_enqueue:
+        disable:
+        enable:
+        enqueue:
+      disable:
+        notice:
+      enable:
+        notice:
+      enqueue:
+        notice:
+      index:
+        no_cron_schedules_found:
+        title:
+      show:
+        cron_entry_key:
+    datetime:
+      distance_in_words:
+        about_x_hours:
+          one: about 1 hour
+          other: about %{count} hours
+        about_x_months:
+          one: about 1 month
+          other: about %{count} months
+        about_x_years:
+          one: about 1 year
+          other: about %{count} years
+        almost_x_years:
+          one: almost 1 year
+          other: almost %{count} years
+        half_a_minute: half a minute
+        less_than_x_minutes:
+          one: less than a minute
+          other: less than %{count} minutes
+        less_than_x_seconds:
+          one: less than 1 second
+          other: less than %{count} seconds
+        over_x_years:
+          one: over 1 year
+          other: over %{count} years
+        x_days:
+          one: 1 day
+          other: "%{count} days"
+        x_minutes:
+          one: 1 minute
+          other: "%{count} minutes"
+        x_months:
+          one: 1 month
+          other: "%{count} months"
+        x_seconds:
+          one: 1 second
+          other: "%{count} seconds"
+        x_years:
+          one: 1 year
+          other: "%{count} years"
+    duration:
+      hours:
+      less_than_10_seconds:
+      milliseconds:
+      minutes:
+      seconds:
+    error_event:
+      discarded:
+      handled:
+      interrupted:
+      retried:
+      retry_stopped:
+      unhandled:
+    helpers:
+      relative_time:
+        future:
+        past:
+    jobs:
+      actions:
+        confirm_destroy:
+        confirm_discard:
+        confirm_force_discard:
+        confirm_reschedule:
+        confirm_retry:
+        destroy:
+        discard:
+        force_discard:
+        reschedule:
+        retry:
+      destroy:
+        notice:
+      discard:
+        notice:
+      executions:
+        application_trace:
+        full_trace:
+        in_queue:
+        runtime:
+        title:
+      force_discard:
+        notice:
+      index:
+        job_pagination:
+        older_jobs:
+      reschedule:
+        notice:
+      retry:
+        notice:
+      show:
+        jobs:
+      table:
+        actions:
+          apply_to_all:
+            one:
+            other:
+          confirm_destroy_all:
+          confirm_discard_all:
+          confirm_reschedule_all:
+          confirm_retry_all:
+          destroy_all:
+          discard_all:
+          reschedule_all:
+          retry_all:
+          title: Actions
+        no_jobs_found:
+        toggle_actions:
+        toggle_all_jobs:
+    models:
+      batch:
+        created: Created
+        created_at: Created at
+        discarded:
+        discarded_at:
+        enqueued:
+        enqueued_at:
+        finished:
+        finished_at:
+        jobs:
+        name: Name
+      cron:
+        class:
+        last_run:
+        next_scheduled:
+        schedule:
+        states:
+          active: Active
+          paused:
+        status: Status
+      job:
+        arguments:
+        attempts:
+        labels:
+        priority:
+        queue:
+    number:
+      format:
+        delimiter:
+        separator:
+      human:
+        decimal_units:
+          delimiter:
+          format:
+          separator:
+          units:
+            billion:
+            million:
+            quadrillion:
+            thousand:
+            trillion:
+    pauses:
+      index:
+        confirm_pause:
+        confirm_unpause:
+        disabled:
+        job_class:
+        label: Label
+        pause:
+        queue:
+        title:
+        type:
+        unpause:
+        value:
+    performance:
+      index:
+        average_duration:
+        chart_title:
+        executions:
+        job_class:
+        maximum_duration:
+        minimum_duration:
+        queue_name:
+        title:
+      show:
+        slow:
+        title:
+    processes:
+      index:
+        cron_enabled:
+        no_good_job_processes_found:
+        process:
+        schedulers:
+        started:
+        title:
+        updated: Updated
+    shared:
+      boolean:
+        'false': 'No'
+        'true': 'Yes'
+      error:
+      filter:
+        all: All
+        all_jobs:
+        all_queues:
+        clear:
+        job_name:
+        placeholder:
+        queue_name:
+        search: Search
+      navbar:
+        batches:
+        cleaner:
+        cron_schedules:
+        jobs:
+        live_poll:
+        name:
+        pauses:
+        performance:
+        processes:
+        theme:
+          auto:
+          dark:
+          light:
+          theme:
+      pending_migrations:
+      secondary_navbar:
+        inspiration:
+        last_updated: Last updated
+    status:
+      discarded:
+      queued:
+      retried:
+      running:
+      scheduled:
+      succeeded:
   helpers:
     page_entries_info:
       entry:

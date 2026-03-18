@@ -6,12 +6,13 @@
     "dataTypes": [
         "software"
     ],
+    "topics": null,
     "type": "object",
     "class": "SoftwareResourceReference",
     "properties": {
         "title": {
             "type": "string",
-            "description": "Titre d'une ressource",
+            "description": "Resource title",
             "label@fr_FR": "Titre",
             "label@en_GB": "Title",
             "tooltip": null,
@@ -20,7 +21,7 @@
         },
         "docIdentifier": {
             "type": "string",
-            "description": "Identifiant de la ressource",
+            "description": "Resource identifier",
             "label@fr_FR": "Identifiant",
             "label@en_GB": "Identifier",
             "tooltip": null,
@@ -29,13 +30,10 @@
         },
         "idType": {
             "type": "string",
-            "description": "Type d'identifiant de la ressource",
+            "description": "Resource's identifier type",
             "inputType": "dropdown",
             "label@fr_FR": "Type d'identifiant",
             "label@en_GB": "Identifier type",
-            "registries": [
-                "PIDSystem"
-            ],
             "registryCategory": "PIDSystem",
             "overridable": true,
             "tooltip": null,
@@ -48,9 +46,6 @@
             "inputType": "dropdown",
             "label@fr_FR": "Audience",
             "label@en_GB": "Audience",
-            "registries": [
-                "SoftwareDocumentationAudience"
-            ],
             "registryCategory": "SoftwareDocumentationAudience",
             "overridable": true,
             "tooltip": null,

@@ -27,6 +27,7 @@ class UsageController < ApplicationController
     args = default_query_args
     args[:start_date] = usage_params['template_plans_range'] if usage_params['template_plans_range'].present?
     plan_data(args: args, as_json: true)
+    respond_to(&:turbo_stream)
   end
 
   # GET

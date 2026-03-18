@@ -4,6 +4,7 @@
     "title": "DocumentationQualityStandard",
     "description": "DocumentationQualityStandard template",
     "dataTypes": null,
+    "topics": null,
     "type": "object",
     "class": "DocumentationQualityStandard",
     "properties": {
@@ -62,9 +63,6 @@
             "label@fr_FR": "Standards de métadonnées/données",
             "label@en_GB": "Metadata/data standards",
             "inputType": "dropdown",
-            "registries": [
-                "Standards"
-            ],
             "registryCategory": "Standard",
             "overridable": true,
             "tooltip": null,
@@ -78,9 +76,6 @@
             "inputType": "dropdown",
             "label@fr_FR": "Code langue des métadonnées",
             "label@en_GB": "Metadata language code",
-            "registries": [
-                "ISO639-3"
-            ],
             "registryCategory": "ISO639-3",
             "tooltip": null,
             "form_label@fr_FR": "Code langue des métadonnées",
@@ -95,9 +90,6 @@
             "inputType": "dropdown",
             "label@fr_FR": "Logiciel de documentation",
             "label@en_GB": "Documentation software",
-            "registries": [
-                "MetadataTools"
-            ],
             "registryCategory": "MetadataTool",
             "overridable": true,
             "tooltip@fr_FR": "Logiciels/outils utilisés pour la saisie des métadonnées comme par exemple Morpho pour le standard de métadonnées EML (pour en savoir plus : consulter l’onglet « A propos des réferentiels »)",

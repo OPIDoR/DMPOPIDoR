@@ -4,6 +4,7 @@
     "title": "CostCalculMesoUCA",
     "description": "CostCalculMesoUCA template",
     "dataTypes": null,
+    "topics": null,
     "type": "object",
     "class": "CostCalculMesoUCA",
     "properties": {

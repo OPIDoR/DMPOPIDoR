@@ -45,7 +45,7 @@ gem 'redis-actionpack'
 # gem "bcrypt", "~> 3.1.7"
 
 # Use Active Storage variant
-# gem "image_processing", "~> 1.2"
+gem 'image_processing'
 
 # Reduces boot times through caching; required in config/boot.rb
 gem 'bootsnap', require: false
@@ -286,9 +286,6 @@ group :test do
   # This gem brings back assigns to your controller tests as well as assert_template
   # to both controller and integration tests.
   gem 'rails-controller-testing'
-
-  # automating code review
-  gem 'danger'
 end
 
 group :ci, :development do
@@ -375,4 +372,6 @@ end
 gem 'graphiql-rails', '~> 1.10'
 gem 'graphql', '~> 2.3'
 
-gem 'foreman', '~> 0.90.0'
+gem 'foreman'
+
+gem 'good_job'

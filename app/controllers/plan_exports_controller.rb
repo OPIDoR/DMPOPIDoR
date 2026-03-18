@@ -13,16 +13,19 @@ class PlanExportsController < ApplicationController
   # rubocop:disable Metrics/AbcSize, Metrics/MethodLength
   # rubocop:disable Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
   def show
+    JsonPlanJob.perform_now(plan_id: params[:plan_id])
+
     @plan = Plan.includes(:answers, {
-                            research_outputs: :guidance_groups, template: { phases: { sections: :questions } }
-                          }).find(params[:plan_id])
+      research_outputs: :guidance_groups, template: { phases: { sections: :questions } }
+    }).find(params[:plan_id])
+
+    return show_json if request.format.json?
 
     if privately_authorized? && export_params[:form].present?
       skip_authorization
       @show_coversheet         = export_params[:project_details].present?
       @show_sections_questions = export_params[:question_headings].present?
       @show_unanswered         = export_params[:unanswered_questions].present?
-      @show_complete_data      = export_params[:complete_data].present?
       @show_custom_sections    = export_params[:custom_sections].present?
       @show_research_outputs   = true
       @public_plan             = false
@@ -59,10 +62,6 @@ class PlanExportsController < ApplicationController
       format.text { show_text }
       format.docx { show_docx }
       format.pdf  { show_pdf }
-      format.json do
-        selected_research_outputs = params[:research_outputs]&.map(&:to_i) || @plan.research_output_ids
-        show_json(selected_research_outputs, params[:json_format])
-      end
     end
   end
   # rubocop:enable Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
@@ -106,25 +105,45 @@ class PlanExportsController < ApplicationController
     render pdf: file_name,
            margin: @formatting[:margin],
            footer:
-           {
-             center: license_details,
-             font_size: 8,
-             spacing: (Integer(@formatting[:margin][:bottom]) / 2) - 4,
-             right: '[page] of [topage]',
-             encoding: 'utf8'
-           }
+             {
+               center: license_details,
+               font_size: 8,
+               spacing: (Integer(@formatting[:margin][:bottom]) / 2) - 4,
+               right: '[page] of [topage]',
+               encoding: 'utf8'
+             }
   end
   # rubocop:enable Metrics/AbcSize
 
   # --------------------------------
   # Start DMP OPIDoR Customization
   # CHANGES: Changed JSON export to use madmp_fragments
-  def show_json(selected_research_outputs, json_format)
-    send_data render_to_string("shared/export/madmp_export_templates/#{json_format}/plan",
-                               locals: {
-                                 dmp: @plan.json_fragment,
-                                 selected_research_outputs: selected_research_outputs
-                               }), filename: "#{file_name}_#{json_format}.json"
+  def show_json
+    skip_authorization
+
+    json_plan = JsonPlan.find_by(plan_id: params[:plan_id])
+    return head :not_found unless json_plan
+
+    json_data = json_plan.data
+
+    if params["research_outputs"].present?
+      json_data["researchOutput"] = json_data["researchOutput"].filter do |ro|
+        params["research_outputs"].include?(ro["research_output_id"].to_s)
+      end
+    end
+
+    json_format = params[:json_format]
+
+    if json_format.eql?('rda')
+      rendered_json = render_to_string(
+        "shared/export/madmp_export_templates/#{json_format}/plan",
+        locals: { dmp: @plan.json_fragment, selected_research_outputs: params[:research_outputs]&.map(&:to_i) || @plan.research_output_ids }
+      )
+      return send_data rendered_json, filename: "#{file_name}_#{json_format}.json"
+    end
+
+
+    send_data json_data.to_json, filename: "#{file_name}_#{json_format}.json"
   end
 
   def file_name
@@ -155,7 +174,7 @@ class PlanExportsController < ApplicationController
 
   def export_params
     params.fetch(:export, {})
-          .permit(:form, :project_details, :question_headings, :unanswered_questions, :complete_data,
+          .permit(:form, :project_details, :question_headings, :unanswered_questions,
                   :custom_sections, :research_outputs, :selected_phases,
                   formatting: [:font_face, :font_size, { margin: %i[top right bottom left] }])
   end

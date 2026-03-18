@@ -4,6 +4,7 @@
     "title": "SoftwareRegistrationStandard",
     "description": "SoftwareRegistrationStandard template",
     "dataTypes": null,
+    "topics": null,
     "type": "object",
     "class": "SoftwareRegistrationStandard",
     "properties": {
@@ -19,37 +20,32 @@
             "required": [
                 "dbid"
             ],
-            "description": "Catalogue ou entrepôt dans lequel le logiciel est référencé",
+            "description": "Catalog or repository in which the software is referenced",
             "label@fr_FR": "Catalogues",
             "label@en_GB": "Catalogues",
             "inputType": "dropdown",
-            "registries": [
-                "SoftwareCatalogs"
-            ],
             "registryCategory": "Repository",
             "overridable": true,
-            "tooltip": null,
-            "form_label@fr_FR": "Indiquer ou ajouter le catalogue (ou entrepôt) dans lequel est signalé le logiciel",
-            "form_label@en_GB": "Indicate or add the catalogue (or repository) in which the software is referenced"
+            "tooltip@fr_FR": "Si le catalogue dans lequel est référencé votre logiciel n’est pas proposé dans la liste déroulante, il est possible d’en ajouter un en cliquant sur le « + ».",
+            "tooltip@en_GB": "If the catalogue in which your software is referenced is not proposed in the drop-down list, please add its details using the '+' button.",
+            "form_label@fr_FR": "Sélectionner ou ajouter le catalogue (ou entrepôt) dans lequel est signalé le logiciel",
+            "form_label@en_GB": "Select or add the catalogue (or repository) in which the software is referenced"
         },
         "identifier": {
             "type": "string",
-            "description": "Identifiant de la resource",
-            "label@fr_FR": "Identifiant pérenne du logiciel",
-            "label@en_GB": "Software persistent ID",
+            "description": "Resource persistent iD",
+            "label@fr_FR": "Identifiant pérenne (DOI, HAL Id…) ou l'URL du dépôt",
+            "label@en_GB": "Persistent identifier (DOI, HAL Id, etc.) or the URL of the repository",
             "tooltip": null,
             "form_label@fr_FR": "Indiquer l'identifiant pérenne (DOI, HAL Id…) ou l'URL du dépôt",
             "form_label@en_GB": "Indicate the persistent identifier (DOI, HAL Id, etc.) or the URL of the repository"
         },
         "idType": {
             "type": "string",
-            "description": "Type d'identifiant de la ressource",
+            "description": "Resource ID Type",
             "inputType": "dropdown",
             "label@fr_FR": "Type d'identifiant",
             "label@en_GB": "Identifier type",
-            "registries": [
-                "PIDSystem"
-            ],
             "registryCategory": "PIDSystem",
             "overridable": true,
             "tooltip": null,

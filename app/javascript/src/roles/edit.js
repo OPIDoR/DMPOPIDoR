@@ -4,7 +4,7 @@ import { scrollTo } from '../utils/scrollTo';
 
 document.addEventListener('turbo:load', () => {
   $('form.edit_role select').on('change', (e) => {
-    $(e.target).closest('form').submit();
+    $(e.target).closest('form').trigger('submit');
   });
   $('form.edit_role').on('ajax:success', (e) => {
     const data = e.detail[0];

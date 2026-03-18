@@ -4,6 +4,9 @@
     "title": "DataCollectionMasa",
     "description": "DataCollectionMasa template",
     "dataTypes": null,
+    "topics": [
+        "Archeology"
+    ],
     "type": "object",
     "class": "DataCollectionMasa",
     "properties": {
@@ -32,7 +35,7 @@
                     "dbid"
                 ]
             },
-            "description": "Identification des opérations archéologiques associées (optionnel)",
+            "description": "Identification of associated archaeological operations (optional)",
             "label@fr_FR": "Opération(s) archéologique(s) associée(s) aux données (optionnel)",
             "label@en_GB": "Archaeological operation(s) associated with data set (optional)",
             "tooltip@fr_FR": "Cette section n'est à renseigner que si le projet de recherche est étroitement lié à une ou des opérations archéologiques : publication de sites, SIG, etc.",
@@ -57,9 +60,6 @@
             "inputType": "dropdown",
             "label@fr_FR": "Nature des données",
             "label@en_GB": "Data Nature",
-            "registries": [
-                "DataNature"
-            ],
             "registryCategory": "DataNature",
             "overridable": true,
             "tooltip@fr_FR": "Sélectionner dans la liste déroulante la nature du produit de recherche",
@@ -87,9 +87,6 @@
             "label@fr_FR": "Equipements, plateaux techniques utilisés",
             "label@en_GB": "Equipments, technical platforms used",
             "inputType": "dropdown",
-            "registries": [
-                "CollectionServices"
-            ],
             "registryCategory": "CollectionService",
             "overridable": true,
             "tooltip": null,

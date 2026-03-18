@@ -1,4 +1,4 @@
-import { isString, isObject } from './isType';
+import { isString } from './isType';
 
 /*
   Helpers that will display the specified message in in the notification
@@ -7,33 +7,32 @@ import { isString, isObject } from './isType';
 
 export function hideNotifications() {
   $('#notification-area')
-    .addClass('hide')
+    .addClass('d-none')
     .removeClass('notification-area--floating');
 }
 
 function renderMessage(options = {}) {
   const notificationArea = $('#notification-area');
 
-  if (isString(options.message) && isObject(notificationArea)) {
-    notificationArea
-      .removeClass('alert-info', 'alert-warning')
-      .addClass(options.className);
+  if (!isString(options.message) || notificationArea.length === 0) return;
+  notificationArea
+    .removeClass('alert-info alert-warning')
+    .addClass(options.className);
 
-    if (options.floating) {
-      notificationArea.addClass('notification-area--floating');
-    }
+  if (options.floating) {
+    notificationArea.addClass('notification-area--floating');
+  }
 
-    notificationArea.find('i, span').remove();
-    notificationArea.append(`
+  notificationArea.find('i, span').remove();
+  notificationArea.append(`
       <i class="fas fa-${options.icon}" aria-hidden="true"></i>
       <span>${options.message}</span>
     `);
 
-    notificationArea.removeClass('hide');
+  notificationArea.removeClass('d-none');
 
-    if (options.autoDismiss) {
-      setTimeout(() => { hideNotifications(); }, 5000);
-    }
+  if (options.autoDismiss) {
+    setTimeout(() => { hideNotifications(); }, 5000);
   }
 }
 

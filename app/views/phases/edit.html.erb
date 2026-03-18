@@ -8,7 +8,8 @@
       locale: locale,
       planId: plan.id,
       userId: @current_user.id,
-      readonly: !plan.editable_by?(current_user.id)
+      readonly: !plan.editable_by?(current_user.id),
+      configuration: Rails.configuration.x.dmpopidor.front
     }) %>
   <% else %>
     <%= render partial: 'phases/edit_plan_answers',

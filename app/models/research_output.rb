@@ -74,8 +74,6 @@ class ResearchOutput < ApplicationRecord
 
   validates :plan, presence: { message: PRESENCE_MESSAGE }
 
-  validates :topic, presence: { message: PRESENCE_MESSAGE }
-
   # ==========
   # = Scopes =
   # ==========

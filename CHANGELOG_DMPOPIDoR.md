@@ -2,6 +2,129 @@
 
 **Attention** Cette liste de changements concerne les déploiements sur nos serveurs de test en interne.
 
+## 16/03/2026
+- Changement des URLS des pages de gestion des recommandations (#14797)
+  - Afin de préparer la mise à jour des recommandations (voir #14141), le code et les urls de gestion des recommandations a été changé pour adopter une approche plus "REST". C'est en principe transparent pour l'utilisateur, tous les liens dans l'interface ont été mis à jour. Les nouvelles URL sont décrites ci dessous.
+  - Recommandations : `org/admin/guidance/...` -> `org_admin/guidances`
+  - Groupes de Recommandations : `org/admin/guidancegroup/...` -> `org_admin/guidance_groups`
+
+## 13/03/2026
+- Ajout d'un indicatif de chargement lors de la suppression d'un produit de recherche (#14756)
+- Mise à jour de l'icone des financeurs dans la création de plan (#14681)
+- Mise à jour du libellé de l'export RDA dans le téléchargement de plan (#14632)
+- Mise à jour des textes de la visité guidée (#14640)
+
+## 10/03/2026
+- La sélection d'une thématique est obligatoire lors de la création d'un PR (#14755)
+- Amélioration de l'affichage des recommandations sélectionnées (#14746)
+
+## 26/02/2026
+- Correction du problème de contributeur vide créé à la copie de plan (#14561)
+- Mise à jour du texte de partages à un service externe (#14663)
+- Ajout d'un icone pour les financeurs dans la création de plan (#14681)
+- Ajout des icones des plans projet/entité dans les plans publics (#14680)
+- Correction du problème d'affichage des préférences de notifications (#14639)
+- Correction affectant le changement de mot de passe (#14641)
+
+## 19/02/2026
+- Ajout d'une option de configuration pour désactiver l'ajout de la thématique aux PR
+- Ajout des groupes de recommandations manquants dans l'export JSON (#14672)
+- Améliorations des textes de l'interface de sélection des recommandations 
+- Correction du problème de changement de mot de passe (#14641)
+
+# 10/02/2026
+
+- Création de plan : Abandon de react-form-stepper & réécriture d'un composant interne. (la librairie n'était plus maintenue)
+- Les points suivant concernent du travail de fond et de la dette technique
+  - Abandon du dépot de code séparé & Intégration du code ReactJS au code DMP OPIDoR (Meilleure maintenance et )
+  - Migration vers esbuild-loader (amélioration de la vitesse de construction du code)
+  - Amélioration de la configuration eslint (règles de codage pour améliorer le code)
+
+# 28/01/2026
+- Modification GraphQL : le champ researchOutput accepte désormais des paramètres permettant de filtrer les produits de recherche d’un plan.
+
+## 22/01/2026
+- Améliorations de l'interface des recommandations (#14391)
+  - Changement de position du bouton Réinitialiser
+- Le champ Thématique est désormais masqué lors de la création d'un PR Logiciel (#14509)
+
+## 21/01/2026
+- Utilisation de la table json_plans pour l'export JSON au format DMP OPIDoR
+
+## 15/01/2026
+- Amélioration de la résolution des noms avec repli sur la locale, le code pays ou le premier élément
+- Correction du problème d'affichage des notifications de changement de droit d'accès d'un plan
+- Améliorations de l'interface des recommandations (#14391)
+  - Changement de position des boutons Enregistrer et Réinitialiser
+  - Ajout de la recherche sans prendre en compte les accents
+- Améliorations de la V4.3.7 : 
+  - Amélioration des exports PDF (#14483)
+
+## 14/01/2026
+- Optimisation GraphQL des requêtes SQL de récupérations des plans (récupération par liste d'identifiant de plan)
+- Optimisation GraphQL d'ajout de la partie configuration dans les produits de recherche
+
+## 13/01/2026
+
+- Correction du problème affectant le changement des droits d'accès au plan (#14335)
+- Les plans sans produit de recherche ne peuvent plus changer de visibilité (#14338)
+- Amélioration de la traduction (#13977)
+- Améliorations de l'interface des recommandations (#14391)
+  - Possibilité de rechercher sur l'organisme et sur le nom des groupes
+  - Affichage de la barre de recherche
+  - Le bouton Réinitialiser permet de retrouver les recommandations par défaut d'un PR
+- Améliorations de la pagination des tableaux (#14242)
+- Améliorations de la V4.3.7 : 
+  - Correction du problème d'import des PGD publics (#14355)
+  - Correction du problème de mise à jour/suppression des commentaires dans les plans en lecture seule (#13879)
+  - Ajout de taches de correction des champs `idType` dans les fragments Person, Funder, Partner (ROR & ORCID) (#13773)
+
+## 05/01/2026
+
+- Amélioration de l'interface de sélection des recommandations (#14391)
+- Correction d'un problème d'édition et suppression des commentaires dans les plans en lecture seule (#13879)
+
+## 09/12/2025
+
+- Refonte de l'interface de sélection des recommandations (#14052)
+
+## 04/12/2025
+
+- Ajout du support de la déclaration des référentiels soit par la catégorie sous par une liste fixe (#14281)
+- Amélioration de l'affichage des groupes de recommandations disponible dans le choix des recommandations, désormais seul le nom de l'organisme est affiché lorsqu'il n'a qu'un group publié
+
+## 02/12/2025
+
+- Ajout des corrections et fonctionnalités V4.3.5 : 
+  - Ajout des plans entité publics et de tous les plans accessibles (lecture et édition) aux plans accessibles à l'import de PR
+  - Correction d'un problème de sauvegarde des contributeurs avec un role constant (#14308)
+  - Correction d'un problème d'initialisation des informations d'un PR lors de l'import d'un plan (#14234)
+  - Correction du problème de fonctionnement des boutons "développer tout/réduire tout" dans les plans classiques (#13441)
+  - Modification de la description de la route `/api/v1/madmp/plans/import` dans le Swagger (#13532)
+- Ajout d'icones et d'un "placeholder" de chargement dans l'import de produit de recherche
+
+## 12/11/2025
+
+- Correction du problème de traduction de la visibilité dans les mails de Changement de visibilité (#14155)
+- Correction du problème provoquant la création de formulaire vides lors de l'import d'un produit contenant des réponses non répondues (#14100)
+- Ajout des questions dans les exports de plans publics (#14201)
+- La visibilité des plans copiés est désormais "Privé" par défaut (#14199)
+
+## 04/11/2025
+
+- Correction du problème de fusion des organismes (#14161)
+- Amélioration du bouton Créer un Plan sur la page d'accueil (#11964)
+- Amélioration de l'affichage des tooltips des groupes de recommandations (#13735)
+- Amélioration de l'import de produit de recherche avec des réponses utilisant des formulaires personnalisés (#14100)
+
+## 28/10/2025
+
+- Mise à jour des traductions
+- L'import et la duplication des produits de recherche garde les formulaires sélectionnés (#14100)
+- Correction du problème de création des produits de recherche dans les plans classiques (#13962)
+- Les recommandations par défaut sont désormais sélectionnées lors de l'import/duplication d'un produit de recherche (#14099)
+- Les référentiels des sous formulaires s'affichent selon la thématique sélectionnée (#14137)
+
 ## 13/10/2025
 
 - Tentative de résoudre le problème d'affichage après la création d'un nouveau produit de recherche (#14041)

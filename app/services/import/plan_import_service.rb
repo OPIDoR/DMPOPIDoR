@@ -38,6 +38,8 @@ module Import
                                                                              plan.template.locale)
             research_output = plan.research_outputs.create!(
               abbreviation: ro_data[description_prop_name]['shortName'] || "#{_('RO')} #{max_order}",
+              output_type: configuration['dataType'].eql?('software') ? 'software' : 'dataset',
+              output_type_description: ro_data[description_prop_name]['type'] || _('Dataset'),
               title: ro_data[description_prop_name]['title'] || "#{_('Research output')} #{max_order}",
               output_type: configuration['dataType'].eql?('none') ? 'dataset' : configuration['dataType'],
               output_type_description: ro_data[description_prop_name]['type'] || _('Dataset'),
@@ -73,15 +75,16 @@ module Import
 
       # rubocop:disable Metrics/AbcSize, Metrics/MethodLength
       # rubocop:disable Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
-      def import_research_output(research_output_fragment, research_output_data, plan, template)
-        dmp_id = research_output_fragment.dmp_id
-        research_output_data.each do |prop, content| # rubocop:disable Metrics/BlockLength
+      def import_research_output(target_ro_fragment, imported_data, plan, template)
+        dmp_id = target_ro_fragment.dmp_id
+        imported_data.each do |prop, content| # rubocop:disable Metrics/BlockLength
           next if prop.eql?('research_output_id')
+          next if content.nil?
 
-          schema_prop = research_output_fragment.madmp_schema.schema['properties'][prop]
+          schema_prop = target_ro_fragment.madmp_schema.schema['properties'][prop]
           next if schema_prop&.dig('type').nil?
 
-          if research_output_fragment.data[prop].nil?
+          if target_ro_fragment.data[prop].nil?
             # Fetch the associated question
             associated_question = template.questions.joins(:madmp_schema).find_by(madmp_schema: {
                                                                                     name: schema_prop['template_name']
@@ -90,8 +93,8 @@ module Import
 
             fragment = MadmpFragment.find_or_initialize_by(
               dmp_id:,
-              parent_id: research_output_fragment.id,
-              madmp_schema_id: associated_question.madmp_schema_id
+              parent_id: target_ro_fragment.id,
+              madmp_schema_id: content&.dig('schema_id') || associated_question.madmp_schema_id
             )
             fragment.additional_info = { 'property_name' => prop }
             fragment.classname = associated_question.madmp_schema.classname
@@ -100,12 +103,12 @@ module Import
             # Create a new answer for the question associated to the fragment
             fragment.answer = Answer.create(
               question_id: associated_question.id,
-              research_output_id: research_output_fragment.research_output_id,
+              research_output_id: target_ro_fragment.research_output_id,
               plan_id: plan.id, user_id: plan.owner.id
             )
             fragment.save!
           else
-            fragment = MadmpFragment.includes(:madmp_schema).find(research_output_fragment.data[prop]['dbid'])
+            fragment = MadmpFragment.includes(:madmp_schema).find(target_ro_fragment.data[prop]['dbid'])
           end
           fragment.raw_import(content, fragment.madmp_schema, fragment.id)
         end

@@ -7,6 +7,7 @@
         "software",
         "none"
     ],
+    "topics": null,
     "type": "object",
     "class": "PersonStandard",
     "externalImports": {
@@ -20,9 +21,6 @@
             "inputType": "dropdown",
             "label@fr_FR": "Type (personne ou organisation)",
             "label@en_GB": "Type (person or organisation)",
-            "registries": [
-                "NameTypeValues"
-            ],
             "registryCategory": "NameTypeValue",
             "tooltip": null,
             "form_label@fr_FR": "Type (personne ou organisation)",
@@ -66,9 +64,6 @@
             "inputType": "dropdown",
             "label@fr_FR": "Type d'identifiant",
             "label@en_GB": "Identifier type",
-            "registries": [
-                "AgentIdSystem"
-            ],
             "registryCategory": "AgentIdSystem",
             "overridable": true,
             "tooltip": null,
@@ -114,9 +109,6 @@
             "inputType": "dropdown",
             "label@fr_FR": "Type d'identifiant de l'affiliation",
             "label@en_GB": "Affiliation identifier type",
-            "registries": [
-                "OrganizationIdSystem"
-            ],
             "registryCategory": "OrganizationIdSystem",
             "overridable": true,
             "tooltip": null,

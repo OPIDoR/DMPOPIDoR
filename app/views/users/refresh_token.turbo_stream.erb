@@ -1,0 +1,10 @@
+<%= turbo_stream.replace "api-token" do %>
+  <%= render "/devise/registrations/api_token", user: current_user %>
+<% end %>
+
+<%= turbo_stream.after "api-token" do %>
+  <script>
+    toggleSpinner(false)
+    renderNotice("<%= j(@success ? _("Successfully regenerated your API token.") : _("Unable to regenerate your API token.")) %>")
+  </script>
+<% end %>

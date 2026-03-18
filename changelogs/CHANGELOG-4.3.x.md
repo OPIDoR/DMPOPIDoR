@@ -1,5 +1,17 @@
 # Liste des changements versions 4.2.0->4.3.x
 
+## 01/12/2025
+- Ajout des plans entité publics et de tous les plans accessibles (lecture et édition) aux plans accessibles à l'import de PR
+- Correction d'un problème de sauvegarde des contributeurs avec un role constant (#14308)
+- Correction d'un problème d'initialisation des informations d'un PR lors de l'import d'un plan (#14234)
+- Correction du problème de fonctionnement des boutons "développer tout/réduire tout" dans les plans classiques (#13441)
+- Correction du problème d'options dupliquées présentes lors de l'export d'un plan classique (#12974)
+- Modification de la description de la route `/api/v1/madmp/plans/import` dans le Swagger (#13532)
+- Ajout du lien vers le kit comm dans le pied de page (#12080)
+- Les plans copiés sont désormais privés (#14199)
+- Ajout des questions dans l'export de plans publics (#14201)
+- Amélioration de l'affichage des tooltips des groupes de recommandation dans le choix des recommandations (#13735)
+
 ## 19/09/2025
 
 - Import RoR : correction du problème de persistance de la valeur du pays sélectionné (#13896)

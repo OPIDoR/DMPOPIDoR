@@ -4,12 +4,15 @@
     "title": "GeoLocationBox",
     "description": "GeoLocationBox template",
     "dataTypes": null,
+    "topics": [
+        "Earth observation"
+    ],
     "type": "object",
     "class": "GeoLocationBox",
     "properties": {
         "westBoundLongitude": {
             "type": "string",
-            "description": "Longitude ouest d'un rectangle de délimitation géographique",
+            "description": "Western longitudinal dimension of a geographic bounding box",
             "label@fr_FR": "Longitude ouest",
             "label@en_GB": "West Longitude",
             "tooltip@fr_FR": "Coordonnée (en degrés décimaux) les plus à l'ouest délimitant l'étendue géographique du jeu de données. Valeur comprise entre -180.0 et 180.0.",
@@ -21,7 +24,7 @@
         },
         "eastBoundLongitude": {
             "type": "string",
-            "description": "Longitude est d'un rectangle de délimitation géographique",
+            "description": "Eastern longitudinal dimension of a geographic bounding box",
             "label@fr_FR": "Longitude est",
             "label@en_GB": "East Longitude",
             "tooltip@fr_FR": "Coordonnée (en degrés décimaux) les plus à l'est délimitant l'étendue géographique du jeu de données. Valeur comprise entre -180.0 et 180.0.",
@@ -33,7 +36,7 @@
         },
         "northBoundLatitude": {
             "type": "string",
-            "description": "Latitude nord d'un rectangle de délimitation géographique",
+            "description": "Northern latitudinal dimension of a geographic bounding box",
             "label@fr_FR": "Latitude nord",
             "label@en_GB": "North Latitude",
             "tooltip@fr_FR": "Coordonnée (en degrés décimaux) les plus au nord délimitant l'étendue géographique du jeu de données. Valeur comprise entre -90.0 et 90.0.",
@@ -45,7 +48,7 @@
         },
         "southBoundLatitude": {
             "type": "string",
-            "description": "Latitude sud d'un rectangle de délimitation géographique",
+            "description": "Southern latitudinal dimension of a geographic bounding box",
             "label@fr_FR": "Latitude sud",
             "label@en_GB": "South Latitude",
             "tooltip@fr_FR": "Coordonnée (en degrés décimaux) les plus au sud délimitant l'étendue géographique du jeu de données. Valeur comprise entre -90.0 et 90.0.",

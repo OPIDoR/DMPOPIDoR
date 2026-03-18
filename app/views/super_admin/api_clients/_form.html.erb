@@ -95,11 +95,13 @@ orgs = Org.where(is_other: false)
     <% unless @api_client.new_record? %>
       <%= link_to _("Refresh client ID and secret"),
                   refresh_credentials_super_admin_api_client_path(@api_client),
-                  class: "btn btn-secondary", remote: true %>
+                  class: "btn btn-secondary",
+                  data: { turbo_method: :post } %>
 
       <%= link_to _("Email credentials to contact"),
                   email_credentials_super_admin_api_client_path(@api_client),
-                  class: "btn btn-secondary", remote: true %>
+                  class: "btn btn-secondary",
+                  data: { turbo_method: :post } %>
 
       <% if @api_client.madmp_schemas.present? %>
         <button class='btn btn-secondary'

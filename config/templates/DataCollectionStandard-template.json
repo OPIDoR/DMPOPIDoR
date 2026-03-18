@@ -4,6 +4,7 @@
     "title": "DataCollectionStandard",
     "description": "DataCollectionStandard template",
     "dataTypes": null,
+    "topics": null,
     "type": "object",
     "class": "DataCollectionStandard",
     "properties": {
@@ -34,9 +35,6 @@
             "inputType": "dropdown",
             "label@fr_FR": "Nature des données",
             "label@en_GB": "Data Nature",
-            "registries": [
-                "DataNature"
-            ],
             "registryCategory": "DataNature",
             "overridable": true,
             "tooltip@fr_FR": "Sélectionner dans la liste déroulante la nature du produit de recherche",
@@ -64,9 +62,6 @@
             "label@fr_FR": "Equipements, plateaux techniques utilisés",
             "label@en_GB": "Equipments, technical platforms used",
             "inputType": "dropdown",
-            "registries": [
-                "CollectionServices"
-            ],
             "registryCategory": "CollectionService",
             "overridable": true,
             "tooltip": null,

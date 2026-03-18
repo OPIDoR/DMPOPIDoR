@@ -1,0 +1,66 @@
+@import url("./variable.css");
+
+.step_list {
+  border-radius: 8px;
+  border: solid;
+  border-color: grey;
+  border-width: 1px;
+  padding: 10px;
+  box-sizing: border-box;
+  margin: 10px 0;
+  transition: 0.3s;
+  cursor: pointer;
+
+  &:hover > .step_title {
+    color: var(--white);
+  }
+
+  &:hover {
+    background-color: var(--blue);
+    color: var(--white);
+  }
+}
+
+.step_title {
+  font-size: 25px;
+  margin: 5px 0px 10px 0;
+  color: var(--blue);
+  font-weight: bold;
+  transition: 0.3s;
+}
+
+.checked {
+  background-color: var(--dark-blue);
+  color: var(--white);
+}
+
+.checked > .step_title {
+  color: var(--white);
+}
+
+.disabled {
+  border-radius: 8px;
+  border: solid;
+  border-color: grey;
+  border-width: 1px;
+  padding: 10px;
+  box-sizing: border-box;
+  margin: 10px 0;
+  cursor: not-allowed !important;
+}
+
+.title {
+  font-size: 25px;
+  margin: 20px 0px 10px 0;
+  color: var(--blue);
+  font-weight: bold;
+  transition: 0.3s;
+
+  &:hover {
+    color: var(--dark-blue);
+  }
+}
+
+.subtitle {
+  color: grey;
+}

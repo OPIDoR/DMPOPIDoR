@@ -12,15 +12,15 @@ Rails.application.routes.draw do
 
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
 
-  devise_for(:users, controllers: {
+  devise_for :users,
+             controllers: {
                registrations: 'registrations',
                passwords: 'passwords',
                sessions: 'sessions',
                omniauth_callbacks: 'users/omniauth_callbacks',
                invitations: 'users/invitations'
-             }) do
-    get '/users/sign_out', to: 'devise/sessions#destroy'
-  end
+             }
+  get '/users/sign_out', to: 'devise/sessions#destroy'
 
   delete '/users/identifiers/:id', to: 'identifiers#destroy', as: 'destroy_user_identifier'
 
@@ -34,7 +34,7 @@ Rails.application.routes.draw do
 
     member do
       put 'update_email_preferences'
-      get 'refresh_token'
+      post 'refresh_token'
     end
 
     post '/acknowledge_notification', to: 'users#acknowledge_notification'
@@ -96,43 +96,6 @@ Rails.application.routes.draw do
     resources :departments, controller: 'org_admin/departments'
   end
 
-  # This should be made more restful and placed within the `org_admin` or a new
-  # `admin` namespace. For example:
-  #     namespace :admin
-  #       resources :guidances, except: %i[show]
-  #     end
-  resources :guidances, path: 'org/admin/guidance', only: [] do
-    post 'render_themes', on: :collection, constraints: { format: [:json] }
-    member do
-      get 'admin_index'
-      get 'admin_edit'
-      get 'admin_new'
-      delete 'admin_destroy'
-      post 'admin_create'
-      put 'admin_update'
-      put 'admin_publish'
-      put 'admin_unpublish'
-    end
-  end
-
-  # This should be made more restful and placed within the `org_admin` or a new
-  # `admin` namespace. For example:
-  #     namespace :admin
-  #       resources :guidance_groups, except: %i[show]
-  #     end
-  resources :guidance_groups, path: 'org/admin/guidancegroup', only: [] do
-    member do
-      get 'admin_show'
-      get 'admin_new'
-      get 'admin_edit'
-      delete 'admin_destroy'
-      post 'admin_create'
-      put 'admin_update'
-      put 'admin_update_publish'
-      put 'admin_update_unpublish'
-    end
-  end
-
   resources :answers, only: [] do
     post 'create_or_update', on: :collection
     post 'set_answers_as_common', on: :collection
@@ -185,6 +148,7 @@ Rails.application.routes.draw do
       get 'guidances', action: :question_guidances, constraints: { format: [:json] }
       get 'has_guidances', constraints: { format: [:json] }
       get 'guidance_groups', constraints: { format: [:json] }
+      get 'reinit_guidance_groups', constraints: { format: [:json] }
       post 'guidance_groups', action: :select_guidance_groups, constraints: { format: [:json] }
     end
   end
@@ -409,6 +373,21 @@ Rails.application.routes.draw do
 
   # ORG ADMIN specific pages
   namespace :org_admin do
+    resources :guidances, only: %i[index new create edit update destroy] do
+      member do
+        post 'render_themes'
+        put 'publish'
+        put 'unpublish'
+      end
+    end
+
+    resources :guidance_groups, only: %i[index new create edit update destroy] do
+      member do
+        put 'publish'
+        put 'unpublish'
+      end
+    end
+
     resources :users, only: %i[edit update], controller: 'users' do
       member do
         get 'user_plans'
@@ -538,8 +517,8 @@ Rails.application.routes.draw do
 
     resources :api_clients do
       member do
-        get :email_credentials
-        get :refresh_credentials
+        post :email_credentials
+        post :refresh_credentials
       end
     end
 

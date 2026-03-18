@@ -4,6 +4,7 @@
     "title": "DataPreservationStandard",
     "description": "DataPreservationStandard template",
     "dataTypes": null,
+    "topics": null,
     "type": "object",
     "class": "DataPreservationStandard",
     "properties": {
@@ -33,9 +34,6 @@
             "inputType": "dropdown",
             "label@fr_FR": "Unité",
             "label@en_GB": "Unit",
-            "registries": [
-                "VolumeUnit"
-            ],
             "registryCategory": "VolumeUnit",
             "overridable": true,
             "tooltip": null,
@@ -78,9 +76,6 @@
             "label@fr_FR": "Archive",
             "label@en_GB": "Archive",
             "inputType": "dropdown",
-            "registries": [
-                "Archives"
-            ],
             "registryCategory": "Archive",
             "overridable": true,
             "tooltip": null,

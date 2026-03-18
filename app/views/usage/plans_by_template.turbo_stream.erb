@@ -1,0 +1,4 @@
+<%= turbo_stream.replace "plans_by_template_chart_stream" do %>
+  <%= render partial: "usage/plans_by_template_chart",
+             locals: { data: @plans_per_month } %>
+<% end %>

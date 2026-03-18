@@ -1,0 +1,148 @@
+{
+    "$schema": "http://json-schema.org/draft-07/schema#",
+    "$id": "../Documentation/Implementation/data_model/Json/",
+    "title": "DataCollectionGEO",
+    "description": "DataCollectionGEO template",
+    "dataTypes": null,
+    "topics": [
+        "Earth observation"
+    ],
+    "type": "object",
+    "class": "DataCollectionGEO",
+    "properties": {
+        "title": {
+            "type": "string",
+            "description": "Titre de la collecte",
+            "label@fr_FR": "Nom de la méthode",
+            "label@en_GB": "Name of the method",
+            "tooltip": null,
+            "form_label@fr_FR": "Nom d'une méthode (ou étape) de collecte",
+            "form_label@en_GB": "Name of a data collection method (or step)"
+        },
+        "description": {
+            "type": "string",
+            "description": "Description de la collecte des données",
+            "inputType": "textarea",
+            "label@fr_FR": "Description",
+            "label@en_GB": "Description",
+            "tooltip": null,
+            "form_label@fr_FR": "Expliquer quelle méthodologie est utilisée pour produire, collecter les données. Préciser si besoin le contexte de production, la fréquence de collecte des données.",
+            "form_label@en_GB": "Explain the methodology used to produce and collect the data. Specify if necessary the context of production, the frequency of data collection."
+        },
+        "dataNature": {
+            "type": "string",
+            "description": "Nature des données (observation, expérimentale, …)",
+            "inputType": "dropdown",
+            "label@fr_FR": "Nature des données",
+            "label@en_GB": "Data Nature",
+            "registryCategory": "DataNature",
+            "overridable": true,
+            "tooltip": null,
+            "form_label@fr_FR": "Sélectionner dans la liste déroulante la nature du produit de recherche",
+            "form_label@en_GB": "Choose in the dropdown the research output data nature"
+        },
+        "location": {
+            "type": "string",
+            "description": "Describe geographical location of Research Output",
+            "label@fr_FR": "Où se développe le produit de recherche?",
+            "label@en_GB": "Where does the research output localize?",
+            "tooltip": null,
+            "form_label@fr_FR": "Où se développe le produit de recherche?",
+            "form_label@en_GB": "Where does the research output localize?"
+        },
+        "facility": {
+            "type": "array",
+            "table_header": null,
+            "items": {
+                "type": "object",
+                "class": "TechnicalResource",
+                "properties": {
+                    "dbid": {
+                        "type": "number"
+                    }
+                },
+                "template_name": "TechnicalResourceStandard",
+                "required": [
+                    "dbid"
+                ]
+            },
+            "description": "Usage d'une ressource technique pour acquérir les données",
+            "label@fr_FR": "Equipements, plateaux techniques utilisés",
+            "label@en_GB": "Equipments, technical platforms used",
+            "tooltip": null
+        },
+        "methodReference": {
+            "type": "array",
+            "table_header": null,
+            "items": {
+                "type": "object",
+                "class": "ResourceReferenceStandard",
+                "properties": {
+                    "dbid": {
+                        "type": "number"
+                    }
+                },
+                "template_name": "MethodReference",
+                "required": [
+                    "dbid"
+                ]
+            },
+            "description": "Référence(s) de protocoles /méthodes utilisées",
+            "label@fr_FR": "Références associées",
+            "label@en_GB": "Related references",
+            "tooltip": null
+        },
+        "contributor": {
+            "type": "array",
+            "table_header@fr_FR": "Nom",
+            "table_header@en_GB": "Name",
+            "items": {
+                "type": "object",
+                "class": "Contributor",
+                "properties": {
+                    "dbid": {
+                        "type": "number"
+                    }
+                },
+                "template_name": "ContributorStandard",
+                "required": [
+                    "dbid"
+                ]
+            },
+            "description": "Personne(s) impliquée(s) dans la collecte/acquisition des données",
+            "label@fr_FR": "Personnes impliquées dans la production ou la collecte des données",
+            "label@en_GB": "Data producers or collectors",
+            "tooltip@fr_FR": "Il peut s'agir d'une ou plusieurs personnes, d'une équipe, d'un service",
+            "tooltip@en_GB": "It can be one or more people, a team, a department",
+            "form_label@fr_FR": "Personnes impliquées dans la production ou la collecte des données",
+            "form_label@en_GB": "Data producers or collectors"
+        },
+        "cost": {
+            "type": "array",
+            "table_header@fr_FR": "Type de coût : montant",
+            "table_header@en_GB": "Cost type: amount",
+            "items": {
+                "type": "object",
+                "class": "Cost",
+                "properties": {
+                    "dbid": {
+                        "type": "number"
+                    }
+                },
+                "template_name": "CostStandard",
+                "required": [
+                    "dbid"
+                ]
+            },
+            "description": "Coûts éventuels liés à la collecte des données",
+            "label@fr_FR": "Coûts",
+            "label@en_GB": "Costs",
+            "tooltip": null
+        }
+    },
+    "required": [
+        "description",
+        "dataNature"
+    ],
+    "to_string": []
+}

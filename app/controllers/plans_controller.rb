@@ -7,6 +7,7 @@ class PlansController < ApplicationController
   include OrgSelectable
 
   include ErrorHelper
+
   helper PaginableHelper
   helper SettingsTemplateHelper
 
@@ -18,8 +19,8 @@ class PlansController < ApplicationController
   def index
     authorize Plan
     @plans = if request.format.json?
-               Plan.includes(:roles).owner_or_coowner(current_user)
-                   .where.not(visibility: Plan.visibilities[:is_test])
+               Plan.active(current_user).where.not(visibility: ::Plan.visibilities[:is_test])
+                   .or(Plan.publicly_visible_entity)
              else
                Plan.includes(:roles, api_client_roles: :api_client).active(current_user)
              end
@@ -31,12 +32,13 @@ class PlansController < ApplicationController
     respond_to do |format|
       format.html
       format.json do
-        # plans = @plans.zip(@organisationally_or_publicly_visible).flatten.compact
-        plans = @plans.order('updated_at desc').filter(&:structured?).compact
+        # Sort plans by updated_at desc and filter only structured plans
+        plans = @plans.filter(&:structured?).compact.sort_by(&:updated_at).reverse
         plans = plans.map do |plan|
           {
             id: plan.id,
             title: plan.title,
+            context: plan.context,
             research_outputs: plan.research_outputs
           }
         end.reject do |plan| # rubocop:disable Style/MultilineBlockChain
@@ -221,7 +223,7 @@ class PlansController < ApplicationController
   # PUT /plans/1
   # rubocop:disable Metrics/MethodLength, Metrics/AbcSize
   def update
-    @plan = Plan.find(params[:id])
+    @plan = Plan.includes(:guidance_groups).find(params[:id])
     authorize @plan
     # rubocop:disable Metrics/BlockLength
     respond_to do |format|
@@ -278,18 +280,12 @@ class PlansController < ApplicationController
 
   # GET /plans/:id/share
   def share
-    @plan = Plan.find(params[:id])
+    @plan = Plan.includes(:roles, :api_client_roles).find(params[:id])
     if @plan.present?
       authorize @plan
       @plan_roles = @plan.roles.where(active: true)
-      # --------------------------------
-      # Start DMP OPIDoR Customization
-      # --------------------------------
       @plan_client_roles = @plan.api_client_roles
       @api_clients = ApiClient.all
-      # --------------------------------
-      # End DMP OPIDoR Customization
-      # --------------------------------
     else
       redirect_to(plans_path)
     end
@@ -299,7 +295,7 @@ class PlansController < ApplicationController
   #       as a PUT verb?
   # GET /plans/:id/request_feedback
   def request_feedback
-    @plan = Plan.find(params[:id])
+    @plan = Plan.includes(:roles).find(params[:id])
     if @plan.present?
       authorize @plan
       @plan_roles = @plan.roles.where(active: true)
@@ -360,16 +356,10 @@ class PlansController < ApplicationController
 
   # GET /plans/:id/download
   def download
-    @plan = Plan.find(params[:id])
+    @plan = Plan.includes(:phases, :research_outputs).find(params[:id])
     authorize @plan
 
-    # --------------------------------
-    # Start DMP OPIDoR Customization
-    # --------------------------------
     @research_outputs = @plan.research_outputs
-    # --------------------------------
-    # End DMP OPIDoR Customization
-    # --------------------------------
 
     @phase_options = @plan.phases.order(:number).pluck(:title, :id)
     @phase_options.insert(0, ['All phases', 'All']) if @phase_options.length > 1
@@ -380,12 +370,16 @@ class PlansController < ApplicationController
   # POST /plans/:id/duplicate
   # rubocop:disable Metrics/AbcSize
   def duplicate
-    plan = Plan.find(params[:id])
+    plan = Plan.includes(:research_outputs).find(params[:id])
     authorize plan
-    @plan = plan.structured?.eql?(true) ? Plan.structured_deep_copy(plan) : Plan.deep_copy(plan)
+    @plan = if plan.structured?.eql?(true)
+              Plan.structured_deep_copy(plan,
+                                        current_user.id)
+            else
+              Plan.deep_copy(plan, current_user.id)
+            end
     respond_to do |format|
       if @plan.save
-        @plan.add_user!(current_user.id, :creator)
         format.html { redirect_to @plan, notice: success_message(@plan, _('copied')) }
       else
         format.html { redirect_to plans_path, alert: failure_message(@plan, _('copy')) }
@@ -528,17 +522,20 @@ class PlansController < ApplicationController
   end
   # rubocop:enable Metrics/AbcSize
 
+  # rubocop:disable Metrics/AbcSize
   def research_outputs_data
     plan = Plan.includes(:research_outputs, template: { phases: { sections: :questions } }).find(params[:id])
     authorize plan
 
     render json: {
       id: plan.id,
+      commentable: plan.commentable_by?(current_user.id),
       dmp_id: plan.json_fragment.id,
       template: plan.template.serialize_json,
       research_outputs: plan.research_outputs.order(:display_order).map(&:serialize_json)
     }
   end
+  # rubocop:enable Metrics/AbcSize
 
   # GET AJAX /plans/:id/contributors_data
   # rubocop:disable Metrics/MethodLength, Metrics/AbcSize

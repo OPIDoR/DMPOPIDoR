@@ -4,6 +4,7 @@
     "title": "QualityAssuranceMethodStandard",
     "description": "QualityAssuranceMethodStandard template",
     "dataTypes": null,
+    "topics": null,
     "type": "object",
     "class": "QualityAssuranceMethodStandard",
     "properties": {

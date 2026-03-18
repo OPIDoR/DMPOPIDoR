@@ -105,6 +105,3 @@ nginx
 doc
 directus
 .github
-babel.config.js
-app/javascript/dmp_opidor_react/node_modules
-app/javascript/dmp_opidor_react/.github

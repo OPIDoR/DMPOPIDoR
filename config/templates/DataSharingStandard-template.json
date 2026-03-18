@@ -4,6 +4,7 @@
     "title": "DataSharingStandard",
     "description": "DataSharingStandard template",
     "dataTypes": null,
+    "topics": null,
     "type": "object",
     "class": "DataSharingStandard",
     "properties": {
@@ -48,9 +49,6 @@
             "label@fr_FR": "Entrepôt/Catalogue de données",
             "label@en_GB": "Data repository/catalogs",
             "inputType": "dropdown",
-            "registries": [
-                "Repositories"
-            ],
             "registryCategory": "Repository",
             "overridable": true,
             "substitutable": true,

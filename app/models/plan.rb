@@ -62,18 +62,11 @@ class Plan < ApplicationRecord
   # Returns visibility message given a Symbol type visibility passed, otherwise
   # nil
   VISIBILITY_MESSAGE = {
-    organisationally_visible: 'organisational',
-    publicly_visible: 'public',
-    is_test: 'test',
-    # --------------------------------
-    # Start DMP OPIDoR Customization
-    # CHANGES : Administrator visibility
-    # --------------------------------
-    administrator_visible: 'Administrator',
-    # --------------------------------
-    # End DMP OPIDoR Customization
-    # --------------------------------
-    privately_visible: 'private'
+    organisationally_visible: _('organisational'),
+    publicly_visible: _('public'),
+    is_test: _('test'),
+    administrator_visible: _('administrator'),
+    privately_visible: _('private')
   }.freeze
 
   FUNDING_STATUS = {
@@ -154,6 +147,9 @@ class Plan < ApplicationRecord
   has_many :api_client_roles, dependent: :destroy
 
   has_many :api_clients, through: :api_client_roles
+
+  has_many :json_plans, dependent: :destroy
+
   # --------------------------------
   # End DMP OPIDoR Customization
   # --------------------------------
@@ -240,6 +236,11 @@ class Plan < ApplicationRecord
       )
   }
 
+  scope :publicly_visible_entity, lambda {
+    where(visibility: visibilities[:publicly_visible],
+          context: :research_entity)
+  }
+
   # --------------------------------
   # Start DMP OPIDoR Customization
   # CHANGES : Org admin can view all plans except private visibility
@@ -264,12 +265,12 @@ class Plan < ApplicationRecord
   #           OR lower(identifiers.value) LIKE lower(:search_pattern)",
   scope :search, lambda { |term|
     if date_range?(term: term)
-      joins(:template, roles: [user: :org])
+      joins(:template, roles: [{ user: :org }])
         .where(roles: { active: true })
         .by_date_range(:created_at, term)
     else
       search_pattern = "%#{term}%"
-      joins(:template, roles: [user: :org])
+      joins(:template, roles: [{ user: :org }])
         .left_outer_joins(:identifiers, :contributors)
         .where(roles: { active: true })
         .where("lower(plans.title) LIKE lower(:search_pattern)
@@ -308,6 +309,8 @@ class Plan < ApplicationRecord
     data.sanitize_fields(:title, :identifier, :description)
   }
 
+  after_save -> { JsonPlanJobScheduler.enqueue_or_reschedule(id) }
+
   # =================
   # = Class methods =
   # =================
@@ -344,12 +347,14 @@ class Plan < ApplicationRecord
   #
   # Returns Plan
   # rubocop:disable Metrics/AbcSize, Metrics/MethodLength
-  def self.deep_copy(plan)
+  def self.deep_copy(plan, creator_id)
     plan_copy = plan.dup
     I18n.with_locale plan.template.locale do
       plan_copy.title = format(_('Copy of %{title}'), title: plan.title)
       plan_copy.feedback_requested = false
+      plan_copy.visibility = Rails.configuration.x.plans.default_visibility
       plan_copy.save!
+      plan_copy.add_user!(creator_id, :creator)
       plan_copy.copy_plan_fragments(plan)
       plan.research_outputs.each do |research_output|
         research_output_copy = ResearchOutput.deep_copy(research_output)
@@ -384,12 +389,14 @@ class Plan < ApplicationRecord
   # rubocop:enable Metrics/AbcSize, Metrics/MethodLength
 
   # rubocop:disable Metrics/AbcSize, Metrics/MethodLength
-  def self.structured_deep_copy(plan)
+  def self.structured_deep_copy(plan, creator_id)
     plan_copy = plan.dup
     I18n.with_locale plan.template.locale do
       plan_copy.title = format(_('Copy of %{title}'), title: plan.title)
       plan_copy.feedback_requested = false
+      plan_copy.visibility = Rails.configuration.x.plans.default_visibility
       plan_copy.save!
+      plan_copy.add_user!(creator_id, :creator)
       plan_copy.copy_plan_fragments(plan)
       plan.research_outputs.each do |research_output|
         research_output_copy = ResearchOutput.deep_copy(research_output)
@@ -559,6 +566,7 @@ class Plan < ApplicationRecord
   # Returns Boolean
   # rubocop:disable Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
   def readable_by?(user_id)
+    return true if publicly_visible?
     return true if commentable_by?(user_id)
 
     current_user = User.find(user_id)
@@ -722,7 +730,7 @@ class Plan < ApplicationRecord
   #
   # Returns Boolean
   def visibility_allowed?
-    !is_test?
+    !is_test? && research_outputs.length.positive?
   end
 
   # Determines whether or not a question (given its id) exists for the self plan

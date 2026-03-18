@@ -2,7 +2,7 @@
 <% if Language.many? %>
   <li class="dropdown nav-item" id="change-language">
     <a href="#" class="dropdown-toggle nav-link" role="button" id="language-menu" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-    <i class="fa fa-language" aria-hidden="true"></i> <%= I18n.locale.to_s.split('-')[0] %></i>
+    <i class="fa fa-language" aria-hidden="true"></i> <%= I18n.locale.to_s.split('-')[0] %>
     </a>
     <ul class="dropdown-menu dmpopidor-dropdown"
         data-bs-popper="static" aria-labelledby="language-menu">
@@ -52,8 +52,8 @@
               </li>
             <% end %>
             <% if current_user.can_modify_guidance? %>
-              <li class="nav-item <%= ' active' if active_page?(admin_index_guidance_path(current_user.org_id)) %>">
-                <%= link_to _('Guidance'), admin_index_guidance_path(current_user.org_id)+"#content", class: 'nav-link' %>
+              <li class="nav-item <%= ' active' if active_page?(org_admin_guidances_path) %>">
+                <%= link_to _('Guidance'), org_admin_guidances_path+"#content", class: 'nav-link' %>
               </li>
             <% end %>
             <% if current_user.can_super_admin? %>

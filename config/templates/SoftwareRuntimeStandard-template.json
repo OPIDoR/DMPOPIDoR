@@ -6,6 +6,7 @@
     "dataTypes": [
         "software"
     ],
+    "topics": null,
     "type": "object",
     "class": "SoftwareRuntimeStandard",
     "properties": {
@@ -26,12 +27,12 @@
                 ]
             },
             "minItems": 1,
-            "description": "Langages de programmation utilisés dans le logiciel (nom et version)",
+            "description": "Programming languages ​​used in the software (name and version)",
             "label@fr_FR": "Langages de programmation",
             "label@en_GB": "Programming languages",
             "tooltip": null,
             "form_label@fr_FR": "Quels langages de programmation sont utilisés dans le logiciel ?",
-            "form_label@en_GB": "What programming languages ​​are used in the software?"
+            "form_label@en_GB": "What programming languages are used in the software?"
         },
         "operatingSystem": {
             "type": "array",
@@ -39,18 +40,15 @@
                 "type": "string"
             },
             "minItems": 1,
-            "description": "Systèmes d’exploitation sur lesquels le code s’exécute",
+            "description": "Operating systems the code runs on",
             "inputType": "dropdown",
             "label@fr_FR": "Systèmes d'exploitation",
             "label@en_GB": "Operating systems",
-            "registries": [
-                "OperatingSystems"
-            ],
             "registryCategory": "OperatingSystem",
             "overridable": true,
             "tooltip": null,
             "form_label@fr_FR": "Sur quels systèmes d'exploitation votre code s'exécute-t-il ?",
-            "form_label@en_GB": "What operating systems does your code run on?"
+            "form_label@en_GB": "What operating system(s) allows the code to run?"
         },
         "dependency": {
             "type": "array",
@@ -69,23 +67,23 @@
                 ]
             },
             "minItems": 1,
-            "description": "Dépendances",
+            "description": "Dépendencies",
             "label@fr_FR": "Dépendances",
             "label@en_GB": "Dependencies",
-            "tooltip@fr_FR": "Si vous avez un fichier 'Requirements', ajoutez-le comme élément en précisant son lien URL ou lister les dépendances individuellement",
-            "tooltip@en_GB": "If you have a 'Requirements' file, add it as an item with its URL link or list the dependencies individually",
+            "tooltip@fr_FR": "Si vous avez un fichier 'Requirements', ajoutez-le comme élément en précisant son lien URL ou lister les dépendances individuellement.",
+            "tooltip@en_GB": "If there is a “Requirements” file, add it here either by including its URL or by listing the dependencies individually.",
             "form_label@fr_FR": "Quelles sont les dépendances requises pour l'utilisation du logiciel ?",
-            "form_label@en_GB": "What are the dependencies required to use the software?"
+            "form_label@en_GB": "What dependencies are required to use the software?"
         },
         "description": {
             "type": "string",
-            "description": "Informations complémentaires sur l'environnement d'exécution",
+            "description": "Additional informations about runtime environment",
             "inputType": "textarea",
             "label@fr_FR": "Informations complémentaires",
-            "label@en_GB": "Additional informations",
+            "label@en_GB": "Additional information",
             "tooltip": null,
             "form_label@fr_FR": "Informations complémentaires",
-            "form_label@en_GB": "Additional informations"
+            "form_label@en_GB": "Additional information"
         }
     },
     "required": [
