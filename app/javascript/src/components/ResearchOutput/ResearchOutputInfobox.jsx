@@ -1,4 +1,4 @@
-import { useContext } from "react";
+import { useContext, useMemo } from "react";
 import Card from "react-bootstrap/Card";
 import { Tooltip } from "react-tooltip";
 import { AiOutlineEdit } from "react-icons/ai";
@@ -35,6 +35,19 @@ function ResearchOutputInfobox({
       }}
     />
   );
+
+  /**
+   * Memoized values
+   */
+
+  const dataType = useMemo(
+    () => displayedResearchOutput?.configuration?.dataType,
+    [displayedResearchOutput],
+  );
+
+  /**
+   * RENDERING
+   */
 
   return (
     <Card
@@ -159,26 +172,24 @@ function ResearchOutputInfobox({
             {t("name")} : <strong>{displayedResearchOutput.title}</strong>
           </li>
           <li>
-            {t("type")} : <strong>{displayedResearchOutput.type || "-"}</strong>
+            {t("type")} : <strong>{t(dataType || "-")}</strong>
           </li>
 
-          {displayedResearchOutput?.type &&
-            displayTopics(displayedResearchOutput.type) && (
-              <li>
-                {t("topic")} : <strong>{displayedResearchOutput.topic}</strong>
-              </li>
-            )}
-          {displayedResearchOutput?.type &&
-            displayPersonalData(displayedResearchOutput.type) && (
-              <li>
-                {t("containsPersonalData")} :{" "}
-                <strong>
-                  {displayedResearchOutput.configuration.hasPersonalData
-                    ? t("yes")
-                    : t("no")}
-                </strong>
-              </li>
-            )}
+          {dataType && displayTopics(dataType) && (
+            <li>
+              {t("topic")} : <strong>{displayedResearchOutput.topic}</strong>
+            </li>
+          )}
+          {dataType && displayPersonalData(dataType) && (
+            <li>
+              {t("containsPersonalData")} :{" "}
+              <strong>
+                {displayedResearchOutput.configuration.hasPersonalData
+                  ? t("yes")
+                  : t("no")}
+              </strong>
+            </li>
+          )}
         </ul>
       </Card.Body>
     </Card>
