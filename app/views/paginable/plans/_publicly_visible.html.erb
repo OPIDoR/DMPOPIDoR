@@ -25,7 +25,7 @@
         <tr class="table-data">
           <td><i class="fa-solid <%= plan.research_entity? ? "fas fa-university" : "fas fa-vial" %>"></i> <%= plan.title %></td>
           <td><%= plan.template.title %></td>
-          <td><%= meta.data['dmpKeyword'].join('; ') if meta.data['dmpKeyword'].present? %></td>
+          <td><%= plan.research_domains %></td>
           <td><%= (plan.owner.nil? || plan.owner.org.nil? ? _('Not Applicable') : plan.owner.org.name) %></td>
           <td><%= l(meta.data['lastModifiedDate'].to_date, formats: :short) %></td>
           <td class="text-center">

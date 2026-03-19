@@ -984,6 +984,13 @@ class Plan < ApplicationRecord
     template.structured?
   end
 
+  def research_domains
+    Rails.cache.fetch("plan_#{cache_key_with_version}_research_domains", expires_in: 12.hours) do
+      meta = json_fragment.meta
+      meta.data['dmpKeyword'].join('; ') if meta.data['dmpKeyword'].present?
+    end
+  end
+
   private
 
   # Validation to prevent end date from coming before the start date
