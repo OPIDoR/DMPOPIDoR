@@ -234,14 +234,7 @@
         }
     },
     "required": [
-        "researchOutputDescription",
-        "reuse",
-        "dataCollection",
-        "dataStorage",
-        "documentationQuality",
-        "qualityAssuranceMethod",
-        "sharing",
-        "preservationIssues"
+        "researchOutputDescription"
     ],
     "to_string": []
 }

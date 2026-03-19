@@ -10,7 +10,7 @@
     "properties": {
         "costType": {
             "type": "string",
-            "description": "Type de coût engagé",
+            "description": "Type of incurred cost",
             "label@fr_FR": "Type de coût",
             "label@en_GB": "Cost type",
             "tooltip": null,
@@ -20,7 +20,7 @@
         },
         "amount": {
             "type": "number",
-            "description": "Valeur numérique du montant",
+            "description": "Numerical value",
             "label@fr_FR": "Montant",
             "label@en_GB": "Amount",
             "tooltip": null,
@@ -29,7 +29,7 @@
         },
         "currency": {
             "type": "string",
-            "description": "Monnaie dans laquelle ce coût est exprimé (Référentiel des monnaies. (Voir ISO 4217))",
+            "description": "Currency (Currency codes : ISO 4217)",
             "label@fr_FR": "Devise",
             "label@en_GB": "Currency",
             "tooltip": null,
@@ -38,7 +38,7 @@
         },
         "title": {
             "type": "string",
-            "description": "Libellé du coût",
+            "description": "Cost label",
             "label@fr_FR": "Titre",
             "label@en_GB": "Title",
             "tooltip": null,

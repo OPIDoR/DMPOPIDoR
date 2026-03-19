@@ -12,7 +12,7 @@
     "properties": {
         "justification": {
             "type": "string",
-            "description": "Justification de la réutilisation ou non réutilisation de données existantes",
+            "description": "Explanation for the decision to reuse or not reuse existing data",
             "inputType": "textarea",
             "label@fr_FR": "Justification",
             "label@en_GB": "Justification",
@@ -61,7 +61,7 @@
                     "dbid"
                 ]
             },
-            "description": "Jeu de données réutilisé",
+            "description": "Information on reused data (dataset, software or other objects)",
             "label@fr_FR": "Données réutilisées",
             "label@en_GB": "Reused data",
             "tooltip": null,
@@ -85,7 +85,7 @@
                     "dbid"
                 ]
             },
-            "description": "Coûts éventuels liés à l'achat de données",
+            "description": "Potential costs related to the purchase of data",
             "label@fr_FR": "Coûts",
             "label@en_GB": "Costs",
             "tooltip": null,

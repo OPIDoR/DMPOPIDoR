@@ -10,7 +10,7 @@
     "properties": {
         "agentType": {
             "type": "string",
-            "description": "Classification des utilisateurs du Mésocentre Clermont-Auvergne",
+            "description": "Classification by the organisation of the agent",
             "inputType": "dropdown",
             "label@fr_FR": "Agents",
             "label@en_GB": "Agents",
@@ -21,7 +21,7 @@
         },
         "calculType": {
             "type": "string",
-            "description": "Type de calcul proposé par le Mésocentre UCA",
+            "description": "Calculation type",
             "inputType": "dropdown",
             "label@fr_FR": "Type de calcul",
             "label@en_GB": "Computational type",
@@ -32,7 +32,7 @@
         },
         "justification": {
             "type": "string",
-            "description": "Justification du besoin",
+            "description": "Need justification",
             "inputType": "textarea",
             "label@fr_FR": "Justification",
             "label@en_GB": "justification",
@@ -42,7 +42,7 @@
         },
         "processTime": {
             "type": "number",
-            "description": "Heures de calcul (par tranches de 1000 heures de CPU ou de GPU)",
+            "description": "Computing hours (in units of 1,000 CPU or GPU hours)",
             "label@fr_FR": "Nombre de tranches de 1 000 heures CPU ou GPU (exprimé en unités de 1 000 heures)",
             "label@en_GB": "Number of sets of 1000 CPU or GPU hours (per units of 1000 hours)",
             "tooltip@fr_FR": "Ex : Une demande de 10 000 heures de calcul correspond à 100 h sur 100 CPU ou encore 100 jobs de 10 CPU pendant 10 h",
@@ -54,7 +54,7 @@
         },
         "timeUnit": {
             "type": "string",
-            "description": "Unité de temps",
+            "description": "Time unit",
             "label@fr_FR": "Unité",
             "label@en_GB": "Unit",
             "tooltip": null,

@@ -10,7 +10,7 @@
     "properties": {
         "description": {
             "type": "string",
-            "description": "Description des méthodes/protocoles de traitement des données",
+            "description": "Description of methods/protocols for data processing",
             "inputType": "textarea",
             "label@fr_FR": "Description",
             "label@en_GB": "Description",
@@ -34,7 +34,7 @@
                     "dbid"
                 ]
             },
-            "description": "Ressource de référence d'une méthode ou un protocole, d'un workflow d'analyse",
+            "description": "Reference for a method or protocol developed or used",
             "label@fr_FR": "Références associées",
             "label@en_GB": "Related references",
             "tooltip": null,
@@ -57,7 +57,7 @@
                     "dbid"
                 ]
             },
-            "description": "Ressource technique utilisée pour réaliser les traitements",
+            "description": "Technical tool or infrastructure used for data processing",
             "label@fr_FR": "Equipements, plateaux techniques",
             "label@en_GB": "Equipments, technical platforms",
             "inputType": "dropdown",
@@ -84,7 +84,7 @@
                     "dbid"
                 ]
             },
-            "description": "Personnes impliquées dans le traitement des données",
+            "description": "Person(s) contributing to data processing",
             "label@fr_FR": "Personnes impliquées dans le traitement et l’analyse des données",
             "label@en_GB": "Research staff processing and analysing data",
             "tooltip@fr_FR": "Il peut s'agir d'une ou plusieurs personnes, d'une équipe, d'un service",
@@ -109,7 +109,7 @@
                     "dbid"
                 ]
             },
-            "description": "Coûts éventuels liés aux traitements des données",
+            "description": "Costs associated with data treatment and/or analysis",
             "label@fr_FR": "Coûts",
             "label@en_GB": "Costs",
             "tooltip": null,

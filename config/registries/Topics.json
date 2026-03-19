@@ -9,10 +9,17 @@
 		},
 		{
 			"label": {
-				"fr_FR": "Biologie",
-				"en_GB": "Biology"
+				"fr_FR": "Archéologie - Huma-Num",
+				"en_GB": "Archeology - Huma-Num"
 			},
-			"value": "biology"
+			"value": "archeology - Huma-Num"
+		},
+		{
+			"label": {
+				"fr_FR": "Observation de la terre - Group on Earth Observations",
+				"en_GB": "Earth observation - Group on Earth Observations"
+			},
+			"value": "earth observation - Group on Earth Observations"
 		}
 	]
 }

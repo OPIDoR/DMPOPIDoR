@@ -4,9 +4,7 @@
     "title": "GeoLocationBox",
     "description": "GeoLocationBox template",
     "dataTypes": null,
-    "topics": [
-        "Earth observation"
-    ],
+    "topics": null,
     "type": "object",
     "class": "GeoLocationBox",
     "properties": {
