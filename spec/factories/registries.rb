@@ -31,7 +31,7 @@ FactoryBot.define do
     category                { Faker::Lorem.unique.word }
     values                  { [] }
     topics                  { ['generic'] }
-    data_types              { ['none'] }
+    data_types              { ['dataset'] }
     version                 { 1 }
   end
 end

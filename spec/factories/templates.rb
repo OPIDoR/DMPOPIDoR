@@ -47,7 +47,7 @@ FactoryBot.define do
     archived { false }
     is_recommended { false }
     type { Template.types['structured'] }
-    data_type { 'none' }
+    data_type { 'dataset' }
     context { 'research_project' }
     sequence(:version)
 

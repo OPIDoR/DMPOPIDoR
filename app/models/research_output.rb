@@ -143,7 +143,7 @@ class ResearchOutput < ApplicationRecord
           data: {
             'research_output_id' => id
           },
-          madmp_schema: MadmpSchema.find_by(classname: 'research_output', data_type: data_type || 'none'),
+          madmp_schema: MadmpSchema.find_by(classname: 'research_output', data_type: data_type || 'dataset'),
           dmp_id: dmp_fragment.id,
           parent_id: dmp_fragment.id,
           additional_info: ro_additional_info
@@ -316,7 +316,7 @@ class ResearchOutput < ApplicationRecord
           property_name: 'researchOutput',
           hasPersonalData: configuration[:hasPersonalData] || false,
           topic: topic,
-          dataType: 'none'
+          dataType: 'dataset'
         },
         {
           'title' => title,

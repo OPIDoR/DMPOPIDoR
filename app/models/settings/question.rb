@@ -21,7 +21,7 @@ module Settings
   # Settings the questions
   class Question < RailsSettings::SettingObject
     AVAILABLE_CLASSNAMES = {
-      'none' => %w[
+      'dataset' => %w[
         research_output_description
         data_reuse
         personal_data_issues

@@ -30,7 +30,7 @@
 FactoryBot.define do
   factory :madmp_schema do
     name { Faker::Lorem.sentence }
-    data_type { 'none' }
+    data_type { 'dataset' }
     topics { ['generic'] }
     schema { {} }
 
