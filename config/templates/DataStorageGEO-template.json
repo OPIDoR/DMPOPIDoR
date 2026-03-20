@@ -1,12 +1,14 @@
 {
     "$schema": "http://json-schema.org/draft-07/schema#",
     "$id": "../Documentation/Implementation/data_model/Json/",
-    "title": "DataStorageStandard",
-    "description": "DataStorageStandard template",
+    "title": "DataStorageGEO",
+    "description": "DataStorageGEO template",
     "dataTypes": null,
-    "topics": null,
+    "topics": [
+        "Earth observation - GEO"
+    ],
     "type": "object",
-    "class": "DataStorageStandard",
+    "class": "DataStorageGEO",
     "properties": {
         "description": {
             "type": "string",
@@ -58,9 +60,6 @@
             "description": "Use of a technical resource for data storage and backup",
             "label@fr_FR": "Equipements, plateaux techniques",
             "label@en_GB": "Equipments, technical platforms",
-            "inputType": "dropdown",
-            "registryCategory": "StorageService",
-            "overridable": true,
             "tooltip": null,
             "form_label@fr_FR": "Equipements, plateaux techniques utilisés pour le stockage et sauvegarde des données",
             "form_label@en_GB": "Equipments, technical platforms used for data storage and backup"

@@ -13,7 +13,7 @@
         "identifier": {
             "type": "string",
             "format": "url",
-            "description": "SWHID identifier assigned to the software in the Software Heritage archive",
+            "description": "SWHID identifier assigned to the source code in the Software Heritage archive",
             "label@fr_FR": "Identifiant SWHID",
             "label@en_GB": "SWHID Identifier",
             "tooltip@fr_FR": "Pour obtenir l'identifiant SWHID, aller sur la page de votre projet à partir de https://archive.softwareheritage.org/. Déplier l'onglet \"Permalinks\" puis cliquer sur \"Copy permalink\". Ne pas décocher la case \"Add contextual information\".",

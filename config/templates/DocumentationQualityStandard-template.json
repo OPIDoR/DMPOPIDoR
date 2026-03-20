@@ -10,7 +10,7 @@
     "properties": {
         "description": {
             "type": "string",
-            "description": "Description générale concernant la documentation et les méthodes qualité appliquées aux données",
+            "description": "General description of documentation and quality methods applied to data",
             "inputType": "textarea",
             "label@fr_FR": "Description",
             "label@en_GB": "Description",
@@ -35,7 +35,7 @@
                     "dbid"
                 ]
             },
-            "description": "Références des resources produites pour la structuration des données (ex. dictionnaire de données, modèle de données, organisation des répertoire, …)",
+            "description": "Description of the organisation of the documents and data generated during the project",
             "label@fr_FR": "Références associées",
             "label@en_GB": "Related references",
             "tooltip": null,
@@ -59,7 +59,7 @@
                     "dbid"
                 ]
             },
-            "description": "Standard(s) de métadonnées ou données utilisé(s) en application des principes FAIR",
+            "description": "Metadata standard(s) or data used",
             "label@fr_FR": "Standards de métadonnées/données",
             "label@en_GB": "Metadata/data standards",
             "inputType": "dropdown",
@@ -72,7 +72,7 @@
         "metadataLanguage": {
             "type": "string",
             "length": "3",
-            "description": "Code langue des métadonnées",
+            "description": "Metadata language code",
             "inputType": "dropdown",
             "label@fr_FR": "Code langue des métadonnées",
             "label@en_GB": "Metadata language code",
@@ -86,7 +86,7 @@
             "items": {
                 "type": "string"
             },
-            "description": "Outil choisi pour saisir les métadonnées et documentation",
+            "description": "Chosen tool for capturing metadata and documentation",
             "inputType": "dropdown",
             "label@fr_FR": "Logiciel de documentation",
             "label@en_GB": "Documentation software",
@@ -116,7 +116,7 @@
                     "dbid"
                 ]
             },
-            "description": "Personne(s) impliquée(s) dans la documentation des données et/ou production des métadonnées",
+            "description": "Person(s) involved in data documentation, metadata generation and/or data quality assurance",
             "label@fr_FR": "Personnes impliquées dans la documentation des données",
             "label@en_GB": "Data documentation managers",
             "tooltip@fr_FR": "Il peut s'agir d'une ou plusieurs personnes, d'une équipe, d'un service",
@@ -141,7 +141,7 @@
                     "dbid"
                 ]
             },
-            "description": "Côuts éventuels en terme de ressources humaines ou acquisition de logiciels pour la documentation des données",
+            "description": "Possible costs in terms of human resources or acquisition of software for data documentation",
             "label@fr_FR": "Coûts",
             "label@en_GB": "Costs",
             "tooltip": null,

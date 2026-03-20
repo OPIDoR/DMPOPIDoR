@@ -123,7 +123,7 @@ function AddResearchOutput({
       abbreviation,
       title,
       type: t(dataType || "-"),
-      topic: selectedTopic.value,
+      topic: selectedTopic.value ? selectedTopic.value : null,
       configuration: {
         hasPersonalData,
         dataType,

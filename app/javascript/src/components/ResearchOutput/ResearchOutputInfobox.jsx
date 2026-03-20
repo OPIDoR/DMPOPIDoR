@@ -177,7 +177,8 @@ function ResearchOutputInfobox({
 
           {dataType && displayTopics(dataType) && (
             <li>
-              {t("topic")} : <strong>{displayedResearchOutput.topic}</strong>
+              {t("topic")} :{" "}
+              <strong>{displayedResearchOutput.topic_label}</strong>
             </li>
           )}
           {dataType && displayPersonalData(dataType) && (

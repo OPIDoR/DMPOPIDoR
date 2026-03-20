@@ -54,8 +54,18 @@
 		},
 		{
 			"label": {
-				"en_GB": "ATLAS, ATLAS Experiment, A Toroidal LHC ApparatuS",
-				"fr_FR": "ATLAS, ATLAS Experiment, A Toroidal LHC ApparatuS"
+				"en_GB": "ANTARES, Astronomy with a Neutrino Telescope and Abyss environmental RESearch",
+				"fr_FR": "ANTARES, Astronomy with a Neutrino Telescope and Abyss environmental RESearch"
+			},
+			"title": "ANTARES",
+			"technicalResourceId": "https://cat.opidor.fr/index.php/ANTARES",
+			"idType": "URL",
+			"serviceContact": "antares.spokesperson@in2p3.fr"
+		},
+		{
+			"label": {
+				"en_GB": "ATLAS, A Toroidal LHC ApparatuS, ATLAS Experiment",
+				"fr_FR": "ATLAS, A Toroidal LHC ApparatuS, ATLAS Experiment"
 			},
 			"title": "ATLAS",
 			"technicalResourceId": "https://cat.opidor.fr/index.php/ATLAS",
@@ -75,8 +85,8 @@
 		},
 		{
 			"label": {
-				"en_GB": "AniRA, plateforme régionale Ani-Rhone-Alpes",
-				"fr_FR": "AniRA, plateforme régionale Ani-Rhone-Alpes"
+				"en_GB": "AniRA, Plateforme régionale Ani-Rhone-Alpes",
+				"fr_FR": "AniRA, Plateforme régionale Ani-Rhone-Alpes"
 			},
 			"title": "AniRA",
 			"technicalResourceId": "https://cat.opidor.fr/index.php/AniRA",
@@ -85,8 +95,8 @@
 		},
 		{
 			"label": {
-				"en_GB": "Apollon, Laser Apollon",
-				"fr_FR": "Apollon, Laser Apollon"
+				"en_GB": "Apollon, Infrastructure laser Apollon, Laser Apollon, Apollon laser facility",
+				"fr_FR": "Apollon, Infrastructure laser Apollon, Laser Apollon, Apollon laser facility"
 			},
 			"title": "Apollon",
 			"technicalResourceId": "https://cat.opidor.fr/index.php/Apollon",
@@ -146,6 +156,26 @@
 		},
 		{
 			"label": {
+				"en_GB": "Bio2Mar, Biodiversité et Biotechnologies marines",
+				"fr_FR": "Bio2Mar, Biodiversité et Biotechnologies marines"
+			},
+			"title": "Bio2Mar",
+			"technicalResourceId": "https://cat.opidor.fr/index.php/Bio2Mar",
+			"idType": "URL",
+			"serviceContact": "karine.escoubeyrou@obs-banyuls.fr"
+		},
+		{
+			"label": {
+				"en_GB": "C2I OrgA, Centre d’Innovation et d’Ingénierie en chimie Organique et Analyse",
+				"fr_FR": "C2I OrgA, Centre d’Innovation et d’Ingénierie en chimie Organique et Analyse"
+			},
+			"title": "C2I OrgA",
+			"technicalResourceId": "https://cat.opidor.fr/index.php/C2I OrgA",
+			"idType": "URL",
+			"serviceContact": "C2iorga@insa-rouen.fr"
+		},
+		{
+			"label": {
 				"en_GB": "C2N Centrale de Micro et Nanotechnologie, Centrale de Micro et Nanotechnologie du C2N",
 				"fr_FR": "C2N Centrale de Micro et Nanotechnologie, Centrale de Micro et Nanotechnologie du C2N"
 			},
@@ -156,6 +186,16 @@
 		},
 		{
 			"label": {
+				"en_GB": "CASTAING, Centre de microcaractérisation Raimond Castaing, Centre Castaing, UAR 3623",
+				"fr_FR": "CASTAING, Centre de microcaractérisation Raimond Castaing, Centre Castaing, UAR 3623"
+			},
+			"title": "CASTAING",
+			"technicalResourceId": "https://cat.opidor.fr/index.php/CASTAING",
+			"idType": "URL",
+			"serviceContact": "contact@centre-castaing.fr"
+		},
+		{
+			"label": {
 				"en_GB": "CBMN-IECB : Plateforme RMN, Plateforme RMN du CBMN-IECB",
 				"fr_FR": "CBMN-IECB : Plateforme RMN, Plateforme RMN du CBMN-IECB"
 			},
@@ -163,6 +203,16 @@
 			"technicalResourceId": "https://cat.opidor.fr/index.php/CBMN-IECB : Plateforme RMN",
 			"idType": "URL",
 			"serviceContact": "a.grelard@iecb.u-bordeaux.fr"
+		},
+		{
+			"label": {
+				"en_GB": "CC3M, Centre de Compétences en Microscopies Electroniques et Microsondes",
+				"fr_FR": "CC3M, Centre de Compétences en Microscopies Electroniques et Microsondes"
+			},
+			"title": "CC3M",
+			"technicalResourceId": "https://cat.opidor.fr/index.php/CC3M",
+			"idType": "URL",
+			"serviceContact": "jaafar.ghanbaja@univ-lorraine.fr"
 		},
 		{
 			"label": {
@@ -318,14 +368,24 @@
 		},
 		{
 			"label": {
-				"en_GB": "CONSTANCES, Cohortes des Consultants des Centres d’Examens de Santé, Cohorte CONSTANCES, UMS 11",
-				"fr_FR": "CONSTANCES, Cohortes des Consultants des Centres d’Examens de Santé, Cohorte CONSTANCES, UMS 11"
+				"en_GB": "CONSTANCES, Cohorte des Consultants des Centres d’Examens de Santé, Cohorte CONSTANCES, UMS 11",
+				"fr_FR": "CONSTANCES, Cohorte des Consultants des Centres d’Examens de Santé, Cohorte CONSTANCES, UMS 11"
 			},
 			"title": "CONSTANCES",
 			"technicalResourceId": "https://cat.opidor.fr/index.php/CONSTANCES",
 			"idType": "URL",
 			"serviceContact": "contact@constances.fr",
-			"policyUrl": "https://www.constances.fr/charte.pdf"
+			"policyUrl": "https://www.constances.fr/espace-scientifique/acces-a-constances/"
+		},
+		{
+			"label": {
+				"en_GB": "CRCM:CIBI, plateforme de Bioinformatique Integrative CIBI, CRCM Integrative Bioinformatics",
+				"fr_FR": "CRCM:CIBI, plateforme de Bioinformatique Integrative CIBI, CRCM Integrative Bioinformatics"
+			},
+			"title": "CRCM:CIBI",
+			"technicalResourceId": "https://cat.opidor.fr/index.php/CRCM:CIBI",
+			"idType": "URL",
+			"serviceContact": "ghislain.bidaut@inserm.fr"
 		},
 		{
 			"label": {
@@ -339,8 +399,8 @@
 		},
 		{
 			"label": {
-				"en_GB": "CRMN de Lyon, Centre de RMN à Très Hauts Champs de Lyon, Centre de Résonance Magnétique Nucléaire à Très Hauts Champs de Lyon",
-				"fr_FR": "CRMN de Lyon, Centre de RMN à Très Hauts Champs de Lyon, Centre de Résonance Magnétique Nucléaire à Très Hauts Champs de Lyon"
+				"en_GB": "CRMN de Lyon, Centre de Résonance Magnétique Nucléaire à Très Hauts Champs de Lyon, Centre de RMN à Très Hauts Champs de Lyon",
+				"fr_FR": "CRMN de Lyon, Centre de Résonance Magnétique Nucléaire à Très Hauts Champs de Lyon, Centre de RMN à Très Hauts Champs de Lyon"
 			},
 			"title": "CRMN de Lyon",
 			"technicalResourceId": "https://cat.opidor.fr/index.php/CRMN de Lyon",
@@ -440,6 +500,16 @@
 		},
 		{
 			"label": {
+				"en_GB": "DAUM, Centre de Compétences Dépôts et Analyses sous Ultravide de nanoMatériaux",
+				"fr_FR": "DAUM, Centre de Compétences Dépôts et Analyses sous Ultravide de nanoMatériaux"
+			},
+			"title": "DAUM",
+			"technicalResourceId": "https://cat.opidor.fr/index.php/DAUM",
+			"idType": "URL",
+			"serviceContact": "danielle.pierre@univ-lorraine.fr"
+		},
+		{
+			"label": {
 				"en_GB": "DESI, Dark Energy Spectroscopic Instrument",
 				"fr_FR": "DESI, Dark Energy Spectroscopic Instrument"
 			},
@@ -457,6 +527,17 @@
 			"technicalResourceId": "https://cat.opidor.fr/index.php/DORIS",
 			"idType": "URL",
 			"serviceContact": "Arnaud Carlier (CNES)"
+		},
+		{
+			"label": {
+				"en_GB": "DiaPhen, DiaPhen. Plateforme de Phénotypage Haut Débit au Champ., DiaPhen. High Throughput Field Phenotyping Platform",
+				"fr_FR": "DiaPhen, DiaPhen. Plateforme de Phénotypage Haut Débit au Champ., DiaPhen. High Throughput Field Phenotyping Platform"
+			},
+			"title": "DiaPhen",
+			"technicalResourceId": "https://cat.opidor.fr/index.php/DiaPhen",
+			"idType": "URL",
+			"serviceContact": "romain.chapuis@inrae.fr",
+			"policyUrl": "https://dmp.opidor.fr/plans/36951/export.pdf?export[question_headings]=true"
 		},
 		{
 			"label": {
@@ -531,8 +612,8 @@
 		},
 		{
 			"label": {
-				"en_GB": "EGO-Virgo, Observatoire Européen Gravitationnel – VIRGO, European Gravitational Wave Observatory  - VIRGO",
-				"fr_FR": "EGO-Virgo, Observatoire Européen Gravitationnel – VIRGO, European Gravitational Wave Observatory  - VIRGO"
+				"en_GB": "EGO-Virgo, European Gravitational Wave Observatory  - VIRGO, Observatoire Européen Gravitationnel – VIRGO",
+				"fr_FR": "EGO-Virgo, European Gravitational Wave Observatory  - VIRGO, Observatoire Européen Gravitationnel – VIRGO"
 			},
 			"title": "EGO-Virgo",
 			"technicalResourceId": "https://cat.opidor.fr/index.php/EGO-Virgo",
@@ -549,6 +630,16 @@
 			"idType": "URL",
 			"serviceContact": "contact@elipss.fr",
 			"policyUrl": "https://www.sciencespo.fr/recherche/sites/sciencespo.fr.recherche/files/Déclaration_ScienceOuverte_vf.pdf"
+		},
+		{
+			"label": {
+				"en_GB": "ELYSE, Plateforme ELYSE",
+				"fr_FR": "ELYSE, Plateforme ELYSE"
+			},
+			"title": "ELYSE",
+			"technicalResourceId": "https://cat.opidor.fr/index.php/ELYSE",
+			"idType": "URL",
+			"serviceContact": "elyse-paris-saclay@hotmail.com"
 		},
 		{
 			"label": {
@@ -583,8 +674,8 @@
 		},
 		{
 			"label": {
-				"en_GB": "EPSI, Exercise, Health, Performance, Innovation platform, Plateforme Exercice Performance Santé Innovation, EPHI",
-				"fr_FR": "EPSI, Exercise, Health, Performance, Innovation platform, Plateforme Exercice Performance Santé Innovation, EPHI"
+				"en_GB": "EPSI, Plateforme Exercice Performance Santé Innovation, Exercise, Performance, Health, Innovation platform, EPHI",
+				"fr_FR": "EPSI, Plateforme Exercice Performance Santé Innovation, Exercise, Performance, Health, Innovation platform, EPHI"
 			},
 			"title": "EPSI",
 			"technicalResourceId": "https://cat.opidor.fr/index.php/EPSI",
@@ -678,8 +769,8 @@
 		},
 		{
 			"label": {
-				"en_GB": "Ecotron Ile de France, Centre de Recherche en Écologie Expérimentale et Prédictive  (CEREEP), CEREEP Ecotron IDF",
-				"fr_FR": "Ecotron Ile de France, Centre de Recherche en Écologie Expérimentale et Prédictive  (CEREEP), CEREEP Ecotron IDF"
+				"en_GB": "Ecotron Ile de France, Centre de Recherche en Écologie Expérimentale et Prédictive (CEREEP), CEREEP Ecotron IDF",
+				"fr_FR": "Ecotron Ile de France, Centre de Recherche en Écologie Expérimentale et Prédictive (CEREEP), CEREEP Ecotron IDF"
 			},
 			"title": "Ecotron Ile de France",
 			"technicalResourceId": "https://cat.opidor.fr/index.php/Ecotron Ile de France",
@@ -718,6 +809,56 @@
 			"idType": "URL",
 			"serviceContact": "maria.faury@cea.fr",
 			"policyUrl": "https://www.xfel.eu/sites/sites_custom/site_xfel/content/e51499/e141242/e141245/xfel_file141246/upex-scientific-data-policy[1]_eng.pdf"
+		},
+		{
+			"label": {
+				"en_GB": "FCMat : DRX, Plateforme de Diffraction des rayons X",
+				"fr_FR": "FCMat : DRX, Plateforme de Diffraction des rayons X"
+			},
+			"title": "FCMat : DRX",
+			"technicalResourceId": "https://cat.opidor.fr/index.php/FCMat : DRX",
+			"idType": "URL",
+			"serviceContact": "mohamed.selmane@sorbonne-universite.fr"
+		},
+		{
+			"label": {
+				"en_GB": "FCMat : MEB et EDS, Plateforme de Microscopie Electronique à Balayage et spectrométrie EDS, MEB et EDS",
+				"fr_FR": "FCMat : MEB et EDS, Plateforme de Microscopie Electronique à Balayage et spectrométrie EDS, MEB et EDS"
+			},
+			"title": "FCMat : MEB et EDS",
+			"technicalResourceId": "https://cat.opidor.fr/index.php/FCMat : MEB et EDS",
+			"idType": "URL",
+			"serviceContact": "david.montero@sorbonne-universite.fr"
+		},
+		{
+			"label": {
+				"en_GB": "FCMat : MET, Plateforme de microscopie électronique",
+				"fr_FR": "FCMat : MET, Plateforme de microscopie électronique"
+			},
+			"title": "FCMat : MET",
+			"technicalResourceId": "https://cat.opidor.fr/index.php/FCMat : MET",
+			"idType": "URL",
+			"serviceContact": "ferdaous.ben_romdhane@sorbonne-universite.fr"
+		},
+		{
+			"label": {
+				"en_GB": "FCMat : RMN",
+				"fr_FR": "FCMat : RMN"
+			},
+			"title": "FCMat : RMN",
+			"technicalResourceId": "https://cat.opidor.fr/index.php/FCMat : RMN",
+			"idType": "URL",
+			"serviceContact": "baptiste.rigaud@sorbonne-universite.fr"
+		},
+		{
+			"label": {
+				"en_GB": "FCMat : XPS, Plateforme de spectroscopie photoélectronique X",
+				"fr_FR": "FCMat : XPS, Plateforme de spectroscopie photoélectronique X"
+			},
+			"title": "FCMat : XPS",
+			"technicalResourceId": "https://cat.opidor.fr/index.php/FCMat : XPS",
+			"idType": "URL",
+			"serviceContact": "christophe.methivier@sorbonne-universite.fr"
 		},
 		{
 			"label": {
@@ -841,14 +982,24 @@
 		},
 		{
 			"label": {
-				"en_GB": "Fermi, Fermi Gamma Ray Space Telescope spacecraft, GLAST (ou Gamma-Ray Large Area Space Telescope),FGST",
-				"fr_FR": "Fermi, Fermi Gamma Ray Space Telescope spacecraft, GLAST (ou Gamma-Ray Large Area Space Telescope),FGST"
+				"en_GB": "Fermi, Fermi Gamma Ray Space Telescope, Fermi Gamma Ray Space Telescope spacecraft, GLAST (ou Gamma-Ray Large Area Space Telescope),FGST",
+				"fr_FR": "Fermi, Fermi Gamma Ray Space Telescope, Fermi Gamma Ray Space Telescope spacecraft, GLAST (ou Gamma-Ray Large Area Space Telescope),FGST"
 			},
 			"title": "Fermi",
 			"technicalResourceId": "https://cat.opidor.fr/index.php/Fermi",
 			"idType": "URL",
 			"serviceContact": "bruel@llr.in2p3.fr",
 			"policyUrl": "https://fermi.gsfc.nasa.gov/ssc/data/policy/"
+		},
+		{
+			"label": {
+				"en_GB": "Fédération de chimie Le Bel : Plateforme, Plateforme de la Fédération de Chimie Le Bel, Anastralyse",
+				"fr_FR": "Fédération de chimie Le Bel : Plateforme, Plateforme de la Fédération de Chimie Le Bel, Anastralyse"
+			},
+			"title": "Fédération de chimie Le Bel : Plateforme",
+			"technicalResourceId": "https://cat.opidor.fr/index.php/Fédération de chimie Le Bel : Plateforme",
+			"idType": "URL",
+			"serviceContact": "allouche@unistra.fr"
 		},
 		{
 			"label": {
@@ -902,8 +1053,8 @@
 		},
 		{
 			"label": {
-				"en_GB": "Gazel, Cohorte Gazel , Gazel cohort",
-				"fr_FR": "Gazel, Cohorte Gazel , Gazel cohort"
+				"en_GB": "Gazel, Cohorte Gazel, Gazel cohort",
+				"fr_FR": "Gazel, Cohorte Gazel, Gazel cohort"
 			},
 			"title": "Gazel",
 			"technicalResourceId": "https://cat.opidor.fr/index.php/Gazel",
@@ -960,7 +1111,7 @@
 			"technicalResourceId": "https://cat.opidor.fr/index.php/Gentyane",
 			"idType": "URL",
 			"serviceContact": "charles.poncet@inrae.fr",
-			"policyUrl": "http://PGD_de_structure_DMP_Opidor"
+			"policyUrl": "https://dmp.opidor.fr/plans/18789/export.pdf?export[question_headings]=true"
 		},
 		{
 			"label": {
@@ -994,8 +1145,8 @@
 		},
 		{
 			"label": {
-				"en_GB": "H+, Nework of hydrogeological research sites, Réseau National de sites Hydrogéologiques",
-				"fr_FR": "H+, Nework of hydrogeological research sites, Réseau National de sites Hydrogéologiques"
+				"en_GB": "H+, Réseau National de sites Hydrogéologiques, Nework of hydrogeological research sites",
+				"fr_FR": "H+, Réseau National de sites Hydrogéologiques, Nework of hydrogeological research sites"
 			},
 			"title": "H+",
 			"technicalResourceId": "https://cat.opidor.fr/index.php/H+",
@@ -1045,8 +1196,8 @@
 		},
 		{
 			"label": {
-				"en_GB": "IBIO, pIBIO, Bio-imagerie de Bordeaux, Institut de Bio-imagerie, UAR 3767",
-				"fr_FR": "IBIO, pIBIO, Bio-imagerie de Bordeaux, Institut de Bio-imagerie, UAR 3767"
+				"en_GB": "IBIO, Bio-imagerie de Bordeaux, pIBIO, Institut de Bio-imagerie, UAR 3767",
+				"fr_FR": "IBIO, Bio-imagerie de Bordeaux, pIBIO, Institut de Bio-imagerie, UAR 3767"
 			},
 			"title": "IBIO",
 			"technicalResourceId": "https://cat.opidor.fr/index.php/IBIO",
@@ -1065,8 +1216,8 @@
 		},
 		{
 			"label": {
-				"en_GB": "IC Strasbourg : POMAM, IC Strasbourg :Propriétés Optiques et Magnétiques des Architectures Moléculaires, Plateforme RPE de l'IC Strasbourg",
-				"fr_FR": "IC Strasbourg : POMAM, IC Strasbourg :Propriétés Optiques et Magnétiques des Architectures Moléculaires, Plateforme RPE de l'IC Strasbourg"
+				"en_GB": "IC Strasbourg : POMAM, IC Strasbourg : Propriétés Optiques et Magnétiques des Architectures Moléculaires, Plateforme RPE de l'IC Strasbourg",
+				"fr_FR": "IC Strasbourg : POMAM, IC Strasbourg : Propriétés Optiques et Magnétiques des Architectures Moléculaires, Plateforme RPE de l'IC Strasbourg"
 			},
 			"title": "IC Strasbourg : POMAM",
 			"technicalResourceId": "https://cat.opidor.fr/index.php/IC Strasbourg : POMAM",
@@ -1085,13 +1236,63 @@
 		},
 		{
 			"label": {
-				"en_GB": "ICP : Plateforme SMAS, Spectrométrie de Masse Analyse et Spectroscopies, Plateforme SMAS de l'ICP",
-				"fr_FR": "ICP : Plateforme SMAS, Spectrométrie de Masse Analyse et Spectroscopies, Plateforme SMAS de l'ICP"
+				"en_GB": "ICI, Plateforme de microscopie photonique de l’IGBMC, Imaging Centre of the IGBMC",
+				"fr_FR": "ICI, Plateforme de microscopie photonique de l’IGBMC, Imaging Centre of the IGBMC"
 			},
-			"title": "ICP : Plateforme SMAS",
-			"technicalResourceId": "https://cat.opidor.fr/index.php/ICP : Plateforme SMAS",
+			"title": "ICI",
+			"technicalResourceId": "https://cat.opidor.fr/index.php/ICI",
 			"idType": "URL",
-			"serviceContact": "estelle.loire@universite-paris-saclay.fr"
+			"serviceContact": "ici@igbmc.fr"
+		},
+		{
+			"label": {
+				"en_GB": "ICMPE : CAP, Chromatographie Analytique et Préparative",
+				"fr_FR": "ICMPE : CAP, Chromatographie Analytique et Préparative"
+			},
+			"title": "ICMPE : CAP",
+			"technicalResourceId": "https://cat.opidor.fr/index.php/ICMPE : CAP",
+			"idType": "URL",
+			"serviceContact": "isabelle.lachaise@cnrs.fr"
+		},
+		{
+			"label": {
+				"en_GB": "ICMPE : MIC, Plateforme de microscopie",
+				"fr_FR": "ICMPE : MIC, Plateforme de microscopie"
+			},
+			"title": "ICMPE : MIC",
+			"technicalResourceId": "https://cat.opidor.fr/index.php/ICMPE : MIC",
+			"idType": "URL",
+			"serviceContact": "remy.pires-brazuna@cnrs.fr"
+		},
+		{
+			"label": {
+				"en_GB": "ICMPE : SPS, Frittage Flash SPS",
+				"fr_FR": "ICMPE : SPS, Frittage Flash SPS"
+			},
+			"title": "ICMPE : SPS",
+			"technicalResourceId": "https://cat.opidor.fr/index.php/ICMPE : SPS",
+			"idType": "URL",
+			"serviceContact": "judith.monnier@cnrs.fr"
+		},
+		{
+			"label": {
+				"en_GB": "ICMPE : Spectroscopies, Plateforme Spectroscopies, SPE",
+				"fr_FR": "ICMPE : Spectroscopies, Plateforme Spectroscopies, SPE"
+			},
+			"title": "ICMPE : Spectroscopies",
+			"technicalResourceId": "https://cat.opidor.fr/index.php/ICMPE : Spectroscopies",
+			"idType": "URL",
+			"serviceContact": "tina.modjinou@cnrs.fr"
+		},
+		{
+			"label": {
+				"en_GB": "ICT : Plateforme, Plateforme de l'Institut de Chimie de Toulouse",
+				"fr_FR": "ICT : Plateforme, Plateforme de l'Institut de Chimie de Toulouse"
+			},
+			"title": "ICT : Plateforme",
+			"technicalResourceId": "https://cat.opidor.fr/index.php/ICT : Plateforme",
+			"idType": "URL",
+			"serviceContact": "ict.contact@univ-tlse3.fr"
 		},
 		{
 			"label": {
@@ -1135,8 +1336,8 @@
 		},
 		{
 			"label": {
-				"en_GB": "ILL, Institut Max Von Laue-Paul Langevin, Institut Laue Langevin",
-				"fr_FR": "ILL, Institut Max Von Laue-Paul Langevin, Institut Laue Langevin"
+				"en_GB": "ILL, Institut Laue Langevin, Institut Max Von Laue-Paul Langevin",
+				"fr_FR": "ILL, Institut Laue Langevin, Institut Max Von Laue-Paul Langevin"
 			},
 			"title": "ILL",
 			"technicalResourceId": "https://cat.opidor.fr/index.php/ILL",
@@ -1176,8 +1377,8 @@
 		},
 		{
 			"label": {
-				"en_GB": "IM2NP : MAG, IM2NP : Magnétisme,Plateforme RPE de IM2NP",
-				"fr_FR": "IM2NP : MAG, IM2NP : Magnétisme,Plateforme RPE de IM2NP"
+				"en_GB": "IM2NP : MAG, IM2NP : Magnétisme, Plateforme RPE de IM2NP",
+				"fr_FR": "IM2NP : MAG, IM2NP : Magnétisme, Plateforme RPE de IM2NP"
 			},
 			"title": "IM2NP : MAG",
 			"technicalResourceId": "https://cat.opidor.fr/index.php/IM2NP : MAG",
@@ -1246,13 +1447,33 @@
 		},
 		{
 			"label": {
-				"en_GB": "IPCMS : MET, IPCMS : Microscopie Electronique en Transmission",
-				"fr_FR": "IPCMS : MET, IPCMS : Microscopie Electronique en Transmission"
+				"en_GB": "IPCMS : MET, IPCMS : Microscopie Électronique en Transmission",
+				"fr_FR": "IPCMS : MET, IPCMS : Microscopie Électronique en Transmission"
 			},
 			"title": "IPCMS : MET",
 			"technicalResourceId": "https://cat.opidor.fr/index.php/IPCMS : MET",
 			"idType": "URL",
 			"serviceContact": "https://www.ipcms.fr/equipe/microscopie-electronique-en-transmission-met/"
+		},
+		{
+			"label": {
+				"en_GB": "IPREM : ECOMES, Plateforme ECOMES, Plateau ECOMES",
+				"fr_FR": "IPREM : ECOMES, Plateforme ECOMES, Plateau ECOMES"
+			},
+			"title": "IPREM : ECOMES",
+			"technicalResourceId": "https://cat.opidor.fr/index.php/IPREM : ECOMES",
+			"idType": "URL",
+			"serviceContact": "uppatech@univ-pau.fr"
+		},
+		{
+			"label": {
+				"en_GB": "IPREM : I3, Institut des Sciences Analytiques et de Physico-Chimie pour l'Environnement et les Matériaux",
+				"fr_FR": "IPREM : I3, Institut des Sciences Analytiques et de Physico-Chimie pour l'Environnement et les Matériaux"
+			},
+			"title": "IPREM : I3",
+			"technicalResourceId": "https://cat.opidor.fr/index.php/IPREM : I3",
+			"idType": "URL",
+			"serviceContact": "uppatech@univ-pau.fr"
 		},
 		{
 			"label": {
@@ -1264,6 +1485,26 @@
 			"idType": "URL",
 			"serviceContact": "schuster@iram.fr",
 			"policyUrl": "https://iram-institute.org/science-portal/proposals/data-policy/"
+		},
+		{
+			"label": {
+				"en_GB": "IRCATECH, Plateforme de caractérisation Ircatech",
+				"fr_FR": "IRCATECH, Plateforme de caractérisation Ircatech"
+			},
+			"title": "IRCATECH",
+			"technicalResourceId": "https://cat.opidor.fr/index.php/IRCATECH",
+			"idType": "URL",
+			"serviceContact": "mimoun.aouine@ircelyon.univ-lyon1.fr"
+		},
+		{
+			"label": {
+				"en_GB": "IS2M, Institut de Science des Matériaux de Mulhouse, UMR 7361",
+				"fr_FR": "IS2M, Institut de Science des Matériaux de Mulhouse, UMR 7361"
+			},
+			"title": "IS2M",
+			"technicalResourceId": "https://cat.opidor.fr/index.php/IS2M",
+			"idType": "URL",
+			"serviceContact": "plateforme.is2m@uha.fr"
 		},
 		{
 			"label": {
@@ -1358,8 +1599,8 @@
 		},
 		{
 			"label": {
-				"en_GB": "KM3NeT, Kilometer Cube Neutrino Telescope, Cubic KiloMetre Neutrino Telescope, KM3 Neutrino Telescope",
-				"fr_FR": "KM3NeT, Kilometer Cube Neutrino Telescope, Cubic KiloMetre Neutrino Telescope, KM3 Neutrino Telescope"
+				"en_GB": "KM3NeT, Kilometre Cube Neutrino Telescope, Kilometer Cube Neutrino Telescope, Cubic KiloMetre Neutrino Telescope, KM3 Neutrino Telescope",
+				"fr_FR": "KM3NeT, Kilometre Cube Neutrino Telescope, Kilometer Cube Neutrino Telescope, Cubic KiloMetre Neutrino Telescope, KM3 Neutrino Telescope"
 			},
 			"title": "KM3NeT",
 			"technicalResourceId": "https://cat.opidor.fr/index.php/KM3NeT",
@@ -1409,8 +1650,8 @@
 		},
 		{
 			"label": {
-				"en_GB": "LHC, CERN-LHC, Large Hadron Collider, Grand collisionneur de hadrons, Grand collisionneur hadronique",
-				"fr_FR": "LHC, CERN-LHC, Large Hadron Collider, Grand collisionneur de hadrons, Grand collisionneur hadronique"
+				"en_GB": "LHC, Large Hadron Collider, CERN-LHC, Grand collisionneur de hadrons, Grand collisionneur hadronique",
+				"fr_FR": "LHC, Large Hadron Collider, CERN-LHC, Grand collisionneur de hadrons, Grand collisionneur hadronique"
 			},
 			"title": "LHC",
 			"technicalResourceId": "https://cat.opidor.fr/index.php/LHC",
@@ -1441,8 +1682,8 @@
 		},
 		{
 			"label": {
-				"en_GB": "LIGAN-PM, FG LIGAN-PM, Plateforme de séquençage LIGAN, Lille Integrative Genomic Advanced Network Genomic Platform",
-				"fr_FR": "LIGAN-PM, FG LIGAN-PM, Plateforme de séquençage LIGAN, Lille Integrative Genomic Advanced Network Genomic Platform"
+				"en_GB": "LIGAN-PM, Lille Integrative Genomic Advanced Network Genomic Platform, FG LIGAN-PM, Plateforme de séquençage LIGAN",
+				"fr_FR": "LIGAN-PM, Lille Integrative Genomic Advanced Network Genomic Platform, FG LIGAN-PM, Plateforme de séquençage LIGAN"
 			},
 			"title": "LIGAN-PM",
 			"technicalResourceId": "https://cat.opidor.fr/index.php/LIGAN-PM",
@@ -1552,8 +1793,8 @@
 		},
 		{
 			"label": {
-				"en_GB": "Leen, Laboratoire d'Electroencéphalographie de Nanterre",
-				"fr_FR": "Leen, Laboratoire d'Electroencéphalographie de Nanterre"
+				"en_GB": "Leen, Laboratoire d’Électroencéphalographie de Nanterre",
+				"fr_FR": "Leen, Laboratoire d’Électroencéphalographie de Nanterre"
 			},
 			"title": "Leen",
 			"technicalResourceId": "https://cat.opidor.fr/index.php/Leen",
@@ -1562,8 +1803,8 @@
 		},
 		{
 			"label": {
-				"en_GB": "Leep, Le Laboratoire d’Économie Expérimentale de Paris",
-				"fr_FR": "Leep, Le Laboratoire d’Économie Expérimentale de Paris"
+				"en_GB": "Leep, Laboratoire d’Économie Expérimentale de Paris",
+				"fr_FR": "Leep, Laboratoire d’Économie Expérimentale de Paris"
 			},
 			"title": "Leep",
 			"technicalResourceId": "https://cat.opidor.fr/index.php/Leep",
@@ -1582,6 +1823,16 @@
 		},
 		{
 			"label": {
+				"en_GB": "MACLE-CVL, Microscopies, imAgeries et ressourCes anaLytiquEs en région Centre-Val de Loire, UAR 2590",
+				"fr_FR": "MACLE-CVL, Microscopies, imAgeries et ressourCes anaLytiquEs en région Centre-Val de Loire, UAR 2590"
+			},
+			"title": "MACLE-CVL",
+			"technicalResourceId": "https://cat.opidor.fr/index.php/MACLE-CVL",
+			"idType": "URL",
+			"serviceContact": "direction.macle@cnrs-orleans.fr"
+		},
+		{
+			"label": {
 				"en_GB": "MAPS, Imagerie des patrimoines et spatialisation",
 				"fr_FR": "MAPS, Imagerie des patrimoines et spatialisation"
 			},
@@ -1589,6 +1840,16 @@
 			"technicalResourceId": "https://cat.opidor.fr/index.php/MAPS",
 			"idType": "URL",
 			"serviceContact": "jerome.louvet[at]cnrs.fr"
+		},
+		{
+			"label": {
+				"en_GB": "MEB-Cro, Plateforme de Microscopie Electronique à Balayage",
+				"fr_FR": "MEB-Cro, Plateforme de Microscopie Electronique à Balayage"
+			},
+			"title": "MEB-Cro",
+			"technicalResourceId": "https://cat.opidor.fr/index.php/MEB-Cro",
+			"idType": "URL",
+			"serviceContact": "thierry.dintzer[at]unistra.fr"
 		},
 		{
 			"label": {
@@ -1623,13 +1884,33 @@
 		},
 		{
 			"label": {
-				"en_GB": "MIMENTO, Centrale de techologie MIMENTO, MIcrofabrication pour la MEcanique, les Nanosciences, la Thermique et l'Optique",
-				"fr_FR": "MIMENTO, Centrale de techologie MIMENTO, MIcrofabrication pour la MEcanique, les Nanosciences, la Thermique et l'Optique"
+				"en_GB": "MIMENTO, MIcrofabrication pour la MEcanique, les Nanosciences, la Thermique et l'Optique, Centrale de technologie MIMENTO",
+				"fr_FR": "MIMENTO, MIcrofabrication pour la MEcanique, les Nanosciences, la Thermique et l'Optique, Centrale de technologie MIMENTO"
 			},
 			"title": "MIMENTO",
 			"technicalResourceId": "https://cat.opidor.fr/index.php/MIMENTO",
 			"idType": "URL",
 			"serviceContact": "mimento@femto-st.fr"
+		},
+		{
+			"label": {
+				"en_GB": "MINaMec, Plateforme Micro et Nano Mécanique",
+				"fr_FR": "MINaMec, Plateforme Micro et Nano Mécanique"
+			},
+			"title": "MINaMec",
+			"technicalResourceId": "https://cat.opidor.fr/index.php/MINaMec",
+			"idType": "URL",
+			"serviceContact": "minamec@ics-cnrs.unistra.fr"
+		},
+		{
+			"label": {
+				"en_GB": "MO2VING, Plateforme MO2VING, From Molecular Organization to In Vivo ImagING",
+				"fr_FR": "MO2VING, Plateforme MO2VING, From Molecular Organization to In Vivo ImagING"
+			},
+			"title": "MO2VING",
+			"technicalResourceId": "https://cat.opidor.fr/index.php/MO2VING",
+			"idType": "URL",
+			"serviceContact": "mo2ving@cnrs-orleans.fr"
 		},
 		{
 			"label": {
@@ -1663,8 +1944,8 @@
 		},
 		{
 			"label": {
-				"en_GB": "MPRC, UAR 2018, MPRC Mediterranean Primate Research Center, Centre de Primatologie de la Méditerranée",
-				"fr_FR": "MPRC, UAR 2018, MPRC Mediterranean Primate Research Center, Centre de Primatologie de la Méditerranée"
+				"en_GB": "MPRC, MPRC Mediterranean Primate Research Center, UAR 2018, Centre de Primatologie de la Méditerranée",
+				"fr_FR": "MPRC, MPRC Mediterranean Primate Research Center, UAR 2018, Centre de Primatologie de la Méditerranée"
 			},
 			"title": "MPRC",
 			"technicalResourceId": "https://cat.opidor.fr/index.php/MPRC",
@@ -1693,13 +1974,23 @@
 		},
 		{
 			"label": {
+				"en_GB": "MagCryo, Centre de Compétences Magnétisme et Cryogénie, CC MAGCRYO",
+				"fr_FR": "MagCryo, Centre de Compétences Magnétisme et Cryogénie, CC MAGCRYO"
+			},
+			"title": "MagCryo",
+			"technicalResourceId": "https://cat.opidor.fr/index.php/MagCryo",
+			"idType": "URL",
+			"serviceContact": "luc.moreau@univ-lorraine.fr"
+		},
+		{
+			"label": {
 				"en_GB": "Maison de la télédétection, Maison de la télédétection de Montpellier",
 				"fr_FR": "Maison de la télédétection, Maison de la télédétection de Montpellier"
 			},
 			"title": "Maison de la télédétection",
 			"technicalResourceId": "https://cat.opidor.fr/index.php/Maison de la télédétection",
 			"idType": "URL",
-			"serviceContact": "Pas de contact mail"
+			"serviceContact": "https://www.teledetection.fr/index.php/fr/contact-fr"
 		},
 		{
 			"label": {
@@ -1931,8 +2222,8 @@
 		},
 		{
 			"label": {
-				"en_GB": "OHM Vallée du Rhône, OHM VR, Observatoire Hommes-Milieux Vallée du Rhône",
-				"fr_FR": "OHM Vallée du Rhône, OHM VR, Observatoire Hommes-Milieux Vallée du Rhône"
+				"en_GB": "OHM Vallée du Rhône, Observatoire Hommes-Milieux Vallée du Rhône, OHM VR",
+				"fr_FR": "OHM Vallée du Rhône, Observatoire Hommes-Milieux Vallée du Rhône, OHM VR"
 			},
 			"title": "OHM Vallée du Rhône",
 			"technicalResourceId": "https://cat.opidor.fr/index.php/OHM Vallée du Rhône",
@@ -2038,13 +2329,13 @@
 		},
 		{
 			"label": {
-				"en_GB": "ORACLE, Observatoire ORACLE, BVRE Orgeval (Bassin Versant Représentatif et Expérimental), GIS ORACLE",
-				"fr_FR": "ORACLE, Observatoire ORACLE, BVRE Orgeval (Bassin Versant Représentatif et Expérimental), GIS ORACLE"
+				"en_GB": "ORACLE, Observatoire de Recherche sur les bassins versants ruraux Aménagés, pour les Crues et Les Étiages, Observatoire ORACLE, BVRE Orgeval (Bassin Versant Représentatif et Expérimental), GIS ORACLE",
+				"fr_FR": "ORACLE, Observatoire de Recherche sur les bassins versants ruraux Aménagés, pour les Crues et Les Étiages, Observatoire ORACLE, BVRE Orgeval (Bassin Versant Représentatif et Expérimental), GIS ORACLE"
 			},
 			"title": "ORACLE",
 			"technicalResourceId": "https://cat.opidor.fr/index.php/ORACLE",
 			"idType": "URL",
-			"serviceContact": "https://gisoracle.inrae.fr/contactez-nous/"
+			"serviceContact": "arnaud.blanchouin@inrae.fr"
 		},
 		{
 			"label": {
@@ -2138,6 +2429,16 @@
 		},
 		{
 			"label": {
+				"en_GB": "PAC Chimie Balard, Plateforme d’Analyse et de Caractérisation du Pôle Chimie Balard",
+				"fr_FR": "PAC Chimie Balard, Plateforme d’Analyse et de Caractérisation du Pôle Chimie Balard"
+			},
+			"title": "PAC Chimie Balard",
+			"technicalResourceId": "https://cat.opidor.fr/index.php/PAC Chimie Balard",
+			"idType": "URL",
+			"serviceContact": "balard-pac@umontpellier.fr"
+		},
+		{
+			"label": {
 				"en_GB": "PACH, Plateforme d'Analyse du comportement humain",
 				"fr_FR": "PACH, Plateforme d'Analyse du comportement humain"
 			},
@@ -2158,14 +2459,24 @@
 		},
 		{
 			"label": {
-				"en_GB": "PAO, Pierre Auger Observatory,Observatoire Pierre Auger,Pierre Auger Cosmic Ray Observatory  ",
-				"fr_FR": "PAO, Pierre Auger Observatory,Observatoire Pierre Auger,Pierre Auger Cosmic Ray Observatory  "
+				"en_GB": "PAO, Pierre Auger Observatory, Observatoire Pierre Auger, Pierre Auger Cosmic Ray Observatory  ",
+				"fr_FR": "PAO, Pierre Auger Observatory, Observatoire Pierre Auger, Pierre Auger Cosmic Ray Observatory  "
 			},
 			"title": "PAO",
 			"technicalResourceId": "https://cat.opidor.fr/index.php/PAO",
 			"idType": "URL",
 			"serviceContact": "berat@lpsc.in2p3.fr",
 			"policyUrl": "https://opendata.auger.org/AugerOpenDataPolicy.pdf"
+		},
+		{
+			"label": {
+				"en_GB": "PBM, Plateforme de Biologie Moléculaire de Villefranche",
+				"fr_FR": "PBM, Plateforme de Biologie Moléculaire de Villefranche"
+			},
+			"title": "PBM",
+			"technicalResourceId": "https://cat.opidor.fr/index.php/PBM",
+			"idType": "URL",
+			"serviceContact": "alessandra.contento@imev-mer.fr"
 		},
 		{
 			"label": {
@@ -2259,6 +2570,16 @@
 		},
 		{
 			"label": {
+				"en_GB": "PICMO, Plateforme d’Imagerie Cellulaire et MOléculaire",
+				"fr_FR": "PICMO, Plateforme d’Imagerie Cellulaire et MOléculaire"
+			},
+			"title": "PICMO",
+			"technicalResourceId": "https://cat.opidor.fr/index.php/PICMO",
+			"idType": "URL",
+			"serviceContact": "bruno.saubamea@u-paris.fr"
+		},
+		{
+			"label": {
 				"en_GB": "PIME, Plateforme de microscopie électronique de l'Institut Cochin",
 				"fr_FR": "PIME, Plateforme de microscopie électronique de l'Institut Cochin"
 			},
@@ -2286,6 +2607,17 @@
 			"technicalResourceId": "https://cat.opidor.fr/index.php/PIRATA",
 			"idType": "URL",
 			"serviceContact": "bernard.bourles@ird.fr"
+		},
+		{
+			"label": {
+				"en_GB": "PIT, Plateforme d’Investigation Technologique, <span class=\"noglossary\">PIT</span>",
+				"fr_FR": "PIT, Plateforme d’Investigation Technologique, <span class=\"noglossary\">PIT</span>"
+			},
+			"title": "PIT",
+			"technicalResourceId": "https://cat.opidor.fr/index.php/PIT",
+			"idType": "URL",
+			"serviceContact": "pit@chu-dijon.fr",
+			"policyUrl": "https://www.chu-dijon.fr/protection-des-donnees-personnelles"
 		},
 		{
 			"label": {
@@ -2320,6 +2652,26 @@
 		},
 		{
 			"label": {
+				"en_GB": "PLASSMAT, Plateforme Ligérienne d’Analyse de la Structure et de la Surface des MATériaux",
+				"fr_FR": "PLASSMAT, Plateforme Ligérienne d’Analyse de la Structure et de la Surface des MATériaux"
+			},
+			"title": "PLASSMAT",
+			"technicalResourceId": "https://cat.opidor.fr/index.php/PLASSMAT",
+			"idType": "URL",
+			"serviceContact": "plassmat@cnrs-imn.fr"
+		},
+		{
+			"label": {
+				"en_GB": "PLAT, Plateforme Lyonnaise d’Analyse Thermique",
+				"fr_FR": "PLAT, Plateforme Lyonnaise d’Analyse Thermique"
+			},
+			"title": "PLAT",
+			"technicalResourceId": "https://cat.opidor.fr/index.php/PLAT",
+			"idType": "URL",
+			"serviceContact": "rodica.chiriac[at]univ-lyon1.fr"
+		},
+		{
+			"label": {
 				"en_GB": "PLATINOM, PLATeforme de technologie et d'INstrumentation pour l'Optique et les Microondes",
 				"fr_FR": "PLATINOM, PLATeforme de technologie et d'INstrumentation pour l'Optique et les Microondes"
 			},
@@ -2351,8 +2703,18 @@
 		},
 		{
 			"label": {
-				"en_GB": "PRISMM, Plateforme de recherche et d’innovation\nen spectrométrie de masse et métabolomique",
-				"fr_FR": "PRISMM, Plateforme de recherche et d’innovation\nen spectrométrie de masse et métabolomique"
+				"en_GB": "PRATIM, Plateforme de Recherche Analytique Technologique et Imagerie",
+				"fr_FR": "PRATIM, Plateforme de Recherche Analytique Technologique et Imagerie"
+			},
+			"title": "PRATIM",
+			"technicalResourceId": "https://cat.opidor.fr/index.php/PRATIM",
+			"idType": "URL",
+			"serviceContact": "alain.tonetto@univ-amu.fr"
+		},
+		{
+			"label": {
+				"en_GB": "PRISMM, Plateforme de recherche et d’innovation en spectrométrie de masse et métabolomique",
+				"fr_FR": "PRISMM, Plateforme de recherche et d’innovation en spectrométrie de masse et métabolomique"
 			},
 			"title": "PRISMM",
 			"technicalResourceId": "https://cat.opidor.fr/index.php/PRISMM",
@@ -2401,6 +2763,17 @@
 		},
 		{
 			"label": {
+				"en_GB": "PhotoNS, Plateforme PhotoNS",
+				"fr_FR": "PhotoNS, Plateforme PhotoNS"
+			},
+			"title": "PhotoNS",
+			"technicalResourceId": "https://cat.opidor.fr/index.php/PhotoNS",
+			"idType": "URL",
+			"serviceContact": "lue-photons@univ-lorraine.fr",
+			"policyUrl": "https://photons.univ-lorraine.fr/charte-photons/"
+		},
+		{
+			"label": {
 				"en_GB": "Pl@ntNet, PlantNet",
 				"fr_FR": "Pl@ntNet, PlantNet"
 			},
@@ -2418,6 +2791,36 @@
 			"technicalResourceId": "https://cat.opidor.fr/index.php/Plateforme ADN",
 			"idType": "URL",
 			"serviceContact": "adn.mshdijon@u-bourgogne.fr"
+		},
+		{
+			"label": {
+				"en_GB": "Plateforme GENOMER, Genomer - Plateforme de génomique",
+				"fr_FR": "Plateforme GENOMER, Genomer - Plateforme de génomique"
+			},
+			"title": "Plateforme GENOMER",
+			"technicalResourceId": "https://cat.opidor.fr/index.php/Plateforme GENOMER",
+			"idType": "URL",
+			"serviceContact": "pf-genomer@sb-roscoff.fr"
+		},
+		{
+			"label": {
+				"en_GB": "Plateforme OMICS, Plateforme OMICS",
+				"fr_FR": "Plateforme OMICS, Plateforme OMICS"
+			},
+			"title": "Plateforme OMICS",
+			"technicalResourceId": "https://cat.opidor.fr/index.php/Plateforme OMICS",
+			"idType": "URL",
+			"serviceContact": "sonia.bouchard@mio.osupytheas.fr"
+		},
+		{
+			"label": {
+				"en_GB": "Plateforme SMAS, Spectrométrie de Masse Analyse et Spectroscopies, Plateforme SMAS de l'ICP",
+				"fr_FR": "Plateforme SMAS, Spectrométrie de Masse Analyse et Spectroscopies, Plateforme SMAS de l'ICP"
+			},
+			"title": "Plateforme SMAS",
+			"technicalResourceId": "https://cat.opidor.fr/index.php/Plateforme SMAS",
+			"idType": "URL",
+			"serviceContact": "estelle.loire@universite-paris-saclay.fr"
 		},
 		{
 			"label": {
@@ -2452,8 +2855,8 @@
 		},
 		{
 			"label": {
-				"en_GB": "Pôle RMN Institut Chevreul, Pôle RMN IMEC, Pôle RMN de l'Institut Michel-Eugène Chevreul",
-				"fr_FR": "Pôle RMN Institut Chevreul, Pôle RMN IMEC, Pôle RMN de l'Institut Michel-Eugène Chevreul"
+				"en_GB": "Pôle RMN Institut Chevreul, Pôle RMN de l'Institut Michel-Eugène Chevreul, Pôle RMN IMEC",
+				"fr_FR": "Pôle RMN Institut Chevreul, Pôle RMN de l'Institut Michel-Eugène Chevreul, Pôle RMN IMEC"
 			},
 			"title": "Pôle RMN Institut Chevreul",
 			"technicalResourceId": "https://cat.opidor.fr/index.php/Pôle RMN Institut Chevreul",
@@ -2543,8 +2946,8 @@
 		},
 		{
 			"label": {
-				"en_GB": "SAFIRE, UAR 2859, UMS 2859, French facility for airborne research",
-				"fr_FR": "SAFIRE, UAR 2859, UMS 2859, French facility for airborne research"
+				"en_GB": "SAFIRE, Service des Avions Français Instrumentés pour la Recherche en Environnement, UAR 2859, UMS 2859, French facility for airborne research",
+				"fr_FR": "SAFIRE, Service des Avions Français Instrumentés pour la Recherche en Environnement, UAR 2859, UMS 2859, French facility for airborne research"
 			},
 			"title": "SAFIRE",
 			"technicalResourceId": "https://cat.opidor.fr/index.php/SAFIRE",
@@ -2563,8 +2966,8 @@
 		},
 		{
 			"label": {
-				"en_GB": "SEE de Moorea, Station d'écologie expérimentale du CRIOBE, Station internationale de recherche du CRIOBE",
-				"fr_FR": "SEE de Moorea, Station d'écologie expérimentale du CRIOBE, Station internationale de recherche du CRIOBE"
+				"en_GB": "SEE de Moorea, Station d'écologie expérimentale de Moorea,, Station internationale de recherche du CRIOBE",
+				"fr_FR": "SEE de Moorea, Station d'écologie expérimentale de Moorea,, Station internationale de recherche du CRIOBE"
 			},
 			"title": "SEE de Moorea",
 			"technicalResourceId": "https://cat.opidor.fr/index.php/SEE de Moorea",
@@ -2574,8 +2977,8 @@
 		},
 		{
 			"label": {
-				"en_GB": "SETE, Station d’Écologie Théorique et Expérimentale, Métatron, UPR 2001,USR 2936",
-				"fr_FR": "SETE, Station d’Écologie Théorique et Expérimentale, Métatron, UPR 2001,USR 2936"
+				"en_GB": "SETE, Station d’Écologie Théorique et Expérimentale",
+				"fr_FR": "SETE, Station d’Écologie Théorique et Expérimentale"
 			},
 			"title": "SETE",
 			"technicalResourceId": "https://cat.opidor.fr/index.php/SETE",
@@ -2605,8 +3008,8 @@
 		},
 		{
 			"label": {
-				"en_GB": "SIRTA, SIRTA Atmospheric Research Observatory, Site Instrumental de Recherche par télédection atmosphérique",
-				"fr_FR": "SIRTA, SIRTA Atmospheric Research Observatory, Site Instrumental de Recherche par télédection atmosphérique"
+				"en_GB": "SIRTA, Site Instrumental de Recherche par télédection atmosphérique, SIRTA Atmospheric Research Observatory",
+				"fr_FR": "SIRTA, Site Instrumental de Recherche par télédection atmosphérique, SIRTA Atmospheric Research Observatory"
 			},
 			"title": "SIRTA",
 			"technicalResourceId": "https://cat.opidor.fr/index.php/SIRTA",
@@ -2615,8 +3018,8 @@
 		},
 		{
 			"label": {
-				"en_GB": "SKAO, SKA Observatory, Square Kilometre Array Observatory",
-				"fr_FR": "SKAO, SKA Observatory, Square Kilometre Array Observatory"
+				"en_GB": "SKAO, Square Kilometre Array Observatory, SKA Observatory",
+				"fr_FR": "SKAO, Square Kilometre Array Observatory, SKA Observatory"
 			},
 			"title": "SKAO",
 			"technicalResourceId": "https://cat.opidor.fr/index.php/SKAO",
@@ -2645,8 +3048,8 @@
 		},
 		{
 			"label": {
-				"en_GB": "SOLEIL, Source Optimisée de Lumière d’Energie Intermédiaire du LURE, Synchrotron SOLEIL",
-				"fr_FR": "SOLEIL, Source Optimisée de Lumière d’Energie Intermédiaire du LURE, Synchrotron SOLEIL"
+				"en_GB": "SOLEIL, Source Optimisée de Lumière d’Énergie Intermédiaire du LURE, Synchrotron SOLEIL",
+				"fr_FR": "SOLEIL, Source Optimisée de Lumière d’Énergie Intermédiaire du LURE, Synchrotron SOLEIL"
 			},
 			"title": "SOLEIL",
 			"technicalResourceId": "https://cat.opidor.fr/index.php/SOLEIL",
@@ -2676,8 +3079,8 @@
 		},
 		{
 			"label": {
-				"en_GB": "SPIRAL2, GANIL-SPIRAL2, Grand Accélérateur National d’Ions Lourds – Système de production d’Ions Radioactifs en Ligne de 2e génération",
-				"fr_FR": "SPIRAL2, GANIL-SPIRAL2, Grand Accélérateur National d’Ions Lourds – Système de production d’Ions Radioactifs en Ligne de 2e génération"
+				"en_GB": "SPIRAL2, Grand Accélérateur National d’Ions Lourds – Système de production d’Ions Radioactifs en Ligne de 2e génération, GANIL-SPIRAL2",
+				"fr_FR": "SPIRAL2, Grand Accélérateur National d’Ions Lourds – Système de production d’Ions Radioactifs en Ligne de 2e génération, GANIL-SPIRAL2"
 			},
 			"title": "SPIRAL2",
 			"technicalResourceId": "https://cat.opidor.fr/index.php/SPIRAL2",
@@ -2687,8 +3090,8 @@
 		},
 		{
 			"label": {
-				"en_GB": "SSS, Salinité de la surface océanique, Sea Surface Salinity Observation Service",
-				"fr_FR": "SSS, Salinité de la surface océanique, Sea Surface Salinity Observation Service"
+				"en_GB": "SSS, Sea Surface Salinity Observation Service, Salinité de la surface océanique",
+				"fr_FR": "SSS, Sea Surface Salinity Observation Service, Salinité de la surface océanique"
 			},
 			"title": "SSS",
 			"technicalResourceId": "https://cat.opidor.fr/index.php/SSS",
@@ -2704,6 +3107,16 @@
 			"technicalResourceId": "https://cat.opidor.fr/index.php/SdP",
 			"idType": "URL",
 			"serviceContact": "christophe.arnoult@univ-grenoble-alpes.fr"
+		},
+		{
+			"label": {
+				"en_GB": "SeBiMER, Plateforme de bioinformatique, SeBiMER - Marine Bioinformatics Platform",
+				"fr_FR": "SeBiMER, Plateforme de bioinformatique, SeBiMER - Marine Bioinformatics Platform"
+			},
+			"title": "SeBiMER",
+			"technicalResourceId": "https://cat.opidor.fr/index.php/SeBiMER",
+			"idType": "URL",
+			"serviceContact": "https://forms.ifremer.fr/bioinfo/sebimer-contact-form"
 		},
 		{
 			"label": {
@@ -2725,6 +3138,16 @@
 			"technicalResourceId": "https://cat.opidor.fr/index.php/SonoRezé",
 			"idType": "URL",
 			"serviceContact": "info@sonoreze.fr"
+		},
+		{
+			"label": {
+				"en_GB": "Spectropole, Plateforme Spectropole",
+				"fr_FR": "Spectropole, Plateforme Spectropole"
+			},
+			"title": "Spectropole",
+			"technicalResourceId": "https://cat.opidor.fr/index.php/Spectropole",
+			"idType": "URL",
+			"serviceContact": "valerie.monnier@univ-amu.fr"
 		},
 		{
 			"label": {
@@ -2820,6 +3243,16 @@
 		},
 		{
 			"label": {
+				"en_GB": "TETRA, Techniques et Expertises TRAnsdisciplinaires du laboratoire EPOC UMR 5805",
+				"fr_FR": "TETRA, Techniques et Expertises TRAnsdisciplinaires du laboratoire EPOC UMR 5805"
+			},
+			"title": "TETRA",
+			"technicalResourceId": "https://cat.opidor.fr/index.php/TETRA",
+			"idType": "URL",
+			"serviceContact": "vincent.hanquiez@u-bordeaux.fr"
+		},
+		{
+			"label": {
 				"en_GB": "TIRREX, Infrastructure technologique pour la recherche d’excellence en robotique",
 				"fr_FR": "TIRREX, Infrastructure technologique pour la recherche d’excellence en robotique"
 			},
@@ -2890,8 +3323,8 @@
 		},
 		{
 			"label": {
-				"en_GB": "U3E, Unité Expérimentale d'Ecologie et d'Ecotoxicologie Aquatique, UE 1036 INRAE",
-				"fr_FR": "U3E, Unité Expérimentale d'Ecologie et d'Ecotoxicologie Aquatique, UE 1036 INRAE"
+				"en_GB": "U3E, Unité Expérimentale d'Ecologie et d'Ecotoxicologie Aquatique, UE 1036",
+				"fr_FR": "U3E, Unité Expérimentale d'Ecologie et d'Ecotoxicologie Aquatique, UE 1036"
 			},
 			"title": "U3E",
 			"technicalResourceId": "https://cat.opidor.fr/index.php/U3E",
@@ -2907,6 +3340,16 @@
 			"technicalResourceId": "https://cat.opidor.fr/index.php/UCA Genomix",
 			"idType": "URL",
 			"serviceContact": "plateforme@ipmc.cnrs.fr"
+		},
+		{
+			"label": {
+				"en_GB": "VISIO, VIbrationnal Spectroscopies for In situ and Operando",
+				"fr_FR": "VISIO, VIbrationnal Spectroscopies for In situ and Operando"
+			},
+			"title": "VISIO",
+			"technicalResourceId": "https://cat.opidor.fr/index.php/VISIO",
+			"idType": "URL",
+			"serviceContact": "philippe.bazin@ensicaen.fr"
 		},
 		{
 			"label": {
@@ -2931,11 +3374,11 @@
 		},
 		{
 			"label": {
-				"en_GB": "ZA Antarctique, ZA Antarctique et Subantarctique, ZATA, Zone Atelier Antarctique et Terres Australes, ZA Antarctique et Subantarctique",
-				"fr_FR": "ZA Antarctique, ZA Antarctique et Subantarctique, ZATA, Zone Atelier Antarctique et Terres Australes, ZA Antarctique et Subantarctique"
+				"en_GB": "ZA Antarctique et Terres australes, Zone Atelier Antarctique et Terres Australes, ZATA",
+				"fr_FR": "ZA Antarctique et Terres australes, Zone Atelier Antarctique et Terres Australes, ZATA"
 			},
-			"title": "ZA Antarctique",
-			"technicalResourceId": "https://cat.opidor.fr/index.php/ZA Antarctique",
+			"title": "ZA Antarctique et Terres australes",
+			"technicalResourceId": "https://cat.opidor.fr/index.php/ZA Antarctique et Terres australes",
 			"idType": "URL",
 			"serviceContact": "https://zaantarctique.org/programs/",
 			"policyUrl": "https://www.inee.cnrs.fr/fr/politique-des-donnees-des-dispositifs-et-infrastructures-de-linee"
@@ -2960,6 +3403,17 @@
 			"technicalResourceId": "https://cat.opidor.fr/index.php/ZA Armorique",
 			"idType": "URL",
 			"serviceContact": "Cendrine.Mony@univ-rennes1.fr",
+			"policyUrl": "https://www.inee.cnrs.fr/fr/politique-des-donnees-des-dispositifs-et-infrastructures-de-linee"
+		},
+		{
+			"label": {
+				"en_GB": "ZA Bassin de la Moselle, Zone Atelier Bassin de la Moselle, Zone Atelier Moselle, ZAM",
+				"fr_FR": "ZA Bassin de la Moselle, Zone Atelier Bassin de la Moselle, Zone Atelier Moselle, ZAM"
+			},
+			"title": "ZA Bassin de la Moselle",
+			"technicalResourceId": "https://cat.opidor.fr/index.php/ZA Bassin de la Moselle",
+			"idType": "URL",
+			"serviceContact": "sylvie.dousset@univ-lorraine.fr",
 			"policyUrl": "https://www.inee.cnrs.fr/fr/politique-des-donnees-des-dispositifs-et-infrastructures-de-linee"
 		},
 		{
@@ -3019,28 +3473,6 @@
 		},
 		{
 			"label": {
-				"en_GB": "ZA Moselle, Zone Atelier Moselle, ZAM, Zone Atelier Bassin de la Moselle",
-				"fr_FR": "ZA Moselle, Zone Atelier Moselle, ZAM, Zone Atelier Bassin de la Moselle"
-			},
-			"title": "ZA Moselle",
-			"technicalResourceId": "https://cat.opidor.fr/index.php/ZA Moselle",
-			"idType": "URL",
-			"serviceContact": "sylvie.dousset@univ-lorraine.fr",
-			"policyUrl": "https://www.inee.cnrs.fr/fr/politique-des-donnees-des-dispositifs-et-infrastructures-de-linee"
-		},
-		{
-			"label": {
-				"en_GB": "ZA PYGAR, Zone Atelier PYGAR, Zone Atelier Pyrénées-Garonne",
-				"fr_FR": "ZA PYGAR, Zone Atelier PYGAR, Zone Atelier Pyrénées-Garonne"
-			},
-			"title": "ZA PYGAR",
-			"technicalResourceId": "https://cat.opidor.fr/index.php/ZA PYGAR",
-			"idType": "URL",
-			"serviceContact": "jean-luc.probst@ensat.fr",
-			"policyUrl": "https://www.inee.cnrs.fr/fr/politique-des-donnees-des-dispositifs-et-infrastructures-de-linee"
-		},
-		{
-			"label": {
 				"en_GB": "ZA Plaine et Val de Sèvre, Zone Atelier Plaine et Val de Sèvre, Zone Atelier Plaine & Val de Sèvre, ZAPVS",
 				"fr_FR": "ZA Plaine et Val de Sèvre, Zone Atelier Plaine et Val de Sèvre, Zone Atelier Plaine & Val de Sèvre, ZAPVS"
 			},
@@ -3048,6 +3480,17 @@
 			"technicalResourceId": "https://cat.opidor.fr/index.php/ZA Plaine et Val de Sèvre",
 			"idType": "URL",
 			"serviceContact": "https://za-plaineetvaldesevre.com/contact/",
+			"policyUrl": "https://www.inee.cnrs.fr/fr/politique-des-donnees-des-dispositifs-et-infrastructures-de-linee"
+		},
+		{
+			"label": {
+				"en_GB": "ZA Pyrénées-Garonne, Zone Atelier Pyrénées-Garonne, PYGAR",
+				"fr_FR": "ZA Pyrénées-Garonne, Zone Atelier Pyrénées-Garonne, PYGAR"
+			},
+			"title": "ZA Pyrénées-Garonne",
+			"technicalResourceId": "https://cat.opidor.fr/index.php/ZA Pyrénées-Garonne",
+			"idType": "URL",
+			"serviceContact": "jean-luc.probst@ensat.fr",
 			"policyUrl": "https://www.inee.cnrs.fr/fr/politique-des-donnees-des-dispositifs-et-infrastructures-de-linee"
 		},
 		{
@@ -3085,13 +3528,13 @@
 		},
 		{
 			"label": {
-				"en_GB": "ZA environnementale rurale Argonne, ZARG, Zone Atelier environnementale rurale Argonne",
-				"fr_FR": "ZA environnementale rurale Argonne, ZARG, Zone Atelier environnementale rurale Argonne"
+				"en_GB": "ZA environnementale rurale Argonne, Zone Atelier environnementale rurale Argonne, ZARG",
+				"fr_FR": "ZA environnementale rurale Argonne, Zone Atelier environnementale rurale Argonne, ZARG"
 			},
 			"title": "ZA environnementale rurale Argonne",
 			"technicalResourceId": "https://cat.opidor.fr/index.php/ZA environnementale rurale Argonne",
 			"idType": "URL",
-			"serviceContact": "contact-zarg@univ-reims.fr",
+			"serviceContact": "emmanuel.guillon@univ-reims.fr",
 			"policyUrl": "https://www.inee.cnrs.fr/fr/politique-des-donnees-des-dispositifs-et-infrastructures-de-linee"
 		},
 		{

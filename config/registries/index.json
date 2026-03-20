@@ -4,14 +4,25 @@
             "software",
             "dataset"
         ],
+        "topics": null,
         "category": "AgentIdSystem",
         "path": "AgentIdSystem.json"
+    },
+    "AdemeProjects": {
+        "dataTypes": [
+            "software",
+            "dataset"
+        ],
+        "topics": null,
+        "category": "AdemeProjects",
+        "path": "AdemeProjects.json"
     },
     "AnrProjects": {
         "dataTypes": [
             "software",
             "dataset"
         ],
+        "topics": null,
         "category": "AnrProjects",
         "path": "AnrProjects.json"
     },
@@ -20,21 +31,25 @@
             "software",
             "dataset"
         ],
+        "topics": null,
         "category": "AnsesProjects",
         "path": "AnsesProjects.json"
     },
     "Archives": {
         "dataTypes": null,
+        "topics": null,
         "category": "Archive",
         "path": "Archives.json"
     },
     "BackupType": {
         "dataTypes": null,
+        "topics": null,
         "category": "BackupType",
         "path": "BackupType.json"
     },
     "Certification": {
         "dataTypes": null,
+        "topics": null,
         "category": "Certification",
         "path": "Certification.json"
     },
@@ -43,6 +58,7 @@
             "software",
             "dataset"
         ],
+        "topics": null,
         "category": "Subject",
         "path": "ClassificationOCDE.json"
     },
@@ -50,11 +66,13 @@
         "dataTypes": [
             "software"
         ],
+        "topics": null,
         "category": "CodeRepository",
         "path": "CodeRepositories.json"
     },
     "CollectionServices": {
         "dataTypes": null,
+        "topics": null,
         "category": "CollectionService",
         "path": "CollectionServices.json"
     },
@@ -63,6 +81,7 @@
             "software",
             "dataset"
         ],
+        "topics": null,
         "category": "CordisProjects",
         "path": "CordisProjects.json"
     },
@@ -71,21 +90,25 @@
             "software",
             "dataset"
         ],
+        "topics": null,
         "category": "CostType",
         "path": "CostType.json"
     },
     "DataAccess": {
         "dataTypes": null,
+        "topics": null,
         "category": "Access",
         "path": "DataAccess.json"
     },
     "DataLicenses": {
         "dataTypes": null,
+        "topics": null,
         "category": "License",
         "path": "DataLicenses.json"
     },
     "DataNature": {
         "dataTypes": null,
+        "topics": null,
         "category": "DataNature",
         "path": "DataNature.json"
     },
@@ -94,6 +117,7 @@
             "software",
             "dataset"
         ],
+        "topics": null,
         "category": "DMPLicense",
         "path": "DMPLicenses.json"
     },
@@ -102,14 +126,25 @@
             "software",
             "dataset"
         ],
+        "topics": null,
         "category": "DMPVersion",
         "path": "DMPVersion.json"
+    },
+    "FrmProjects": {
+        "dataTypes": [
+            "software",
+            "dataset"
+        ],
+        "topics": null,
+        "category": "FrmProjects",
+        "path": "FrmProjects.json"
     },
     "FundersWithImport": {
         "dataTypes": [
             "software",
             "dataset"
         ],
+        "topics": null,
         "category": "FundersWithImport",
         "path": "FundersWithImport.json"
     },
@@ -118,11 +153,13 @@
             "software",
             "dataset"
         ],
+        "topics": null,
         "category": "FundingStatus",
         "path": "FundingStatus.json"
     },
     "GEMET": {
         "dataTypes": null,
+        "topics": null,
         "category": "Keyword",
         "path": "GEMET.json"
     },
@@ -130,11 +167,13 @@
         "dataTypes": [
             "software"
         ],
+        "topics": null,
         "category": "IntegrationTool",
         "path": "IntegrationTools.json"
     },
     "ISO3166-alpha2": {
         "dataTypes": null,
+        "topics": null,
         "category": "ISO3166-alpha2",
         "path": "ISO3166-alpha2.json"
     },
@@ -143,11 +182,13 @@
             "software",
             "dataset"
         ],
+        "topics": null,
         "category": "ISO4217",
         "path": "ISO4217.json"
     },
     "ISO639-3": {
         "dataTypes": null,
+        "topics": null,
         "category": "ISO639-3",
         "path": "ISO639-3.json"
     },
@@ -156,46 +197,55 @@
             "software",
             "dataset"
         ],
+        "topics": null,
         "category": "ISO639-3_fra_eng",
         "path": "ISO639-3_fra_eng.json"
     },
     "MediaType": {
         "dataTypes": null,
+        "topics": null,
         "category": "MediaType",
         "path": "MediaType.json"
     },
     "MesoatLRServiceType": {
         "dataTypes": null,
+        "topics": null,
         "category": "MesoatLRServiceType",
         "path": "MesoatLRServiceType.json"
     },
     "MesoatLRStorageTime": {
         "dataTypes": null,
+        "topics": null,
         "category": "MesoatLRStorageTime",
         "path": "MesoatLRStorageTime.json"
     },
     "MesoUCACalculAgents": {
         "dataTypes": null,
+        "topics": null,
         "category": "MesoUCACalculAgent",
         "path": "MesoUCACalculAgents.json"
     },
     "MesoUCACalculTypes": {
         "dataTypes": null,
+        "topics": null,
         "category": "MesoUCACalculType",
         "path": "MesoUCACalculTypes.json"
     },
     "MesoUCAStorageAgents": {
         "dataTypes": null,
+        "topics": null,
         "category": "MesoUCAStorageAgent",
         "path": "MesoUCAStorageAgents.json"
     },
     "MesoUCAStorageTimes": {
         "dataTypes": null,
+        "topics": null,
         "category": "MesoUCAStorageTime",
         "path": "MesoUCAStorageTimes.json"
     },
     "MetadataTools": {
         "dataTypes": null,
+        "topics": null,
         "category": "MetadataTool",
         "path": "MetadataTools.json"
     },
@@ -204,6 +254,7 @@
             "software",
             "dataset"
         ],
+        "topics": null,
         "category": "NameTypeValue",
         "path": "NameTypeValues.json"
     },
@@ -211,6 +262,7 @@
         "dataTypes": [
             "software"
         ],
+        "topics": null,
         "category": "OperatingSystem",
         "path": "OperatingSystems.json"
     },
@@ -219,16 +271,19 @@
             "software",
             "dataset"
         ],
+        "topics": null,
         "category": "OrganizationIdSystem",
         "path": "OrganizationIdSystem.json"
     },
     "Pactols Lieux": {
         "dataTypes": null,
+        "topics": null,
         "category": "Keyword",
         "path": "Pactols Lieux.json"
     },
     "Pactols Sujets": {
         "dataTypes": null,
+        "topics": null,
         "category": "Keyword",
         "path": "Pactols Sujets.json"
     },
@@ -237,11 +292,13 @@
             "software",
             "dataset"
         ],
+        "topics": null,
         "category": "PIDSystem",
         "path": "PIDSystem.json"
     },
     "ProcessingServices": {
         "dataTypes": null,
+        "topics": null,
         "category": "ProcessingService",
         "path": "ProcessingServices.json"
     },
@@ -249,18 +306,13 @@
         "dataTypes": [
             "software"
         ],
+        "topics": null,
         "category": "ProgrammingLanguage",
         "path": "ProgrammingLanguages.json"
     },
-    "RelationType": {
-        "dataTypes": [
-            "software"
-        ],
-        "category": "RelationType",
-        "path": "RelationType.json"
-    },
     "Repositories": {
         "dataTypes": null,
+        "topics": null,
         "category": "Repository",
         "path": "Repositories.json"
     },
@@ -269,16 +321,13 @@
             "software",
             "dataset"
         ],
+        "topics": null,
         "category": "ResearchDataType",
         "path": "ResearchDataType.json"
     },
-    "ResourceIdSystem": {
-        "dataTypes": null,
-        "category": "ResourceIdSystem",
-        "path": "ResourceIdSystem.json"
-    },
     "Role": {
         "dataTypes": null,
+        "topics": null,
         "category": "Role",
         "path": "Role.json"
     },
@@ -286,6 +335,7 @@
         "dataTypes": [
             "software"
         ],
+        "topics": null,
         "category": "Access",
         "path": "SoftwareAccess.json"
     },
@@ -293,6 +343,7 @@
         "dataTypes": [
             "software"
         ],
+        "topics": null,
         "category": "Repository",
         "path": "SoftwareCatalogs.json"
     },
@@ -300,6 +351,7 @@
         "dataTypes": [
             "software"
         ],
+        "topics": null,
         "category": "SoftwareTypology",
         "path": "SoftwareTypologies.json"
     },
@@ -307,6 +359,7 @@
         "dataTypes": [
             "software"
         ],
+        "topics": null,
         "category": "SoftwareDocumentationAudience",
         "path": "SoftwareDocumentationAudience.json"
     },
@@ -314,6 +367,7 @@
         "dataTypes": [
             "software"
         ],
+        "topics": null,
         "category": "License",
         "path": "SoftwareLicenses.json"
     },
@@ -321,6 +375,7 @@
         "dataTypes": [
             "software"
         ],
+        "topics": null,
         "category": "Role",
         "path": "SoftwareRoles.json"
     },
@@ -328,41 +383,49 @@
         "dataTypes": [
             "software"
         ],
+        "topics": null,
         "category": "SoftwareTestType",
         "path": "SoftwareTestTypes.json"
     },
     "Standards": {
         "dataTypes": null,
+        "topics": null,
         "category": "Standard",
         "path": "Standards.json"
     },
     "StandardsShort": {
         "dataTypes": null,
+        "topics": null,
         "category": "StandardsShort",
         "path": "StandardsShort.json"
     },
     "StorageServices": {
         "dataTypes": null,
+        "topics": null,
         "category": "StorageService",
         "path": "StorageServices.json"
     },
     "StorageType": {
         "dataTypes": null,
+        "topics": null,
         "category": "StorageType",
         "path": "StorageType.json"
     },
     "Thésaurus Biodiversité Istex Loterre": {
         "dataTypes": null,
+        "topics": null,
         "category": "Keyword",
         "path": "Thésaurus Biodiversité Istex Loterre.json"
     },
     "Thésaurus INRAE": {
         "dataTypes": null,
+        "topics": null,
         "category": "Keyword",
         "path": "Thésaurus INRAE.json"
     },
     "Thésaurus MeSH Istex Loterre": {
         "dataTypes": null,
+        "topics": null,
         "category": "Keyword",
         "path": "Thésaurus MeSH Istex Loterre.json"
     },
@@ -370,17 +433,34 @@
         "dataTypes": [
             "software"
         ],
+        "topics": null,
         "category": "VersionControl",
         "path": "VersionControls.json"
     },
     "VolumeUnit": {
         "dataTypes": null,
+        "topics": null,
         "category": "VolumeUnit",
         "path": "VolumeUnit.json"
     },
     "YesNoUnknown": {
         "dataTypes": null,
+        "topics": null,
         "category": "YesNoUnknown",
         "path": "YesNoUnknown.json"
+    },
+    "OGCStandards": {
+        "dataTypes": null,
+        "topics": [
+            "earth observation - GEO"
+        ],
+        "category": "OGCStandard",
+        "path": "OGCStandards.json"
+    },
+    "Topics": {
+        "dataTypes": null,
+        "topics": null,
+        "category": "Topic",
+        "path": "Topics.json"
     }
 }

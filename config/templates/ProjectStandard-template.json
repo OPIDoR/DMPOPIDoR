@@ -13,7 +13,7 @@
     "properties": {
         "title": {
             "type": "string",
-            "description": "Titre du projet",
+            "description": "Project title",
             "label@fr_FR": "Titre du projet",
             "label@en_GB": "Project title",
             "tooltip": null,
@@ -22,7 +22,7 @@
         },
         "acronym": {
             "type": "string",
-            "description": "Acronyme du projet",
+            "description": "Project acronym",
             "label@fr_FR": "Acronyme",
             "label@en_GB": "Acronym",
             "tooltip": null,
@@ -31,7 +31,7 @@
         },
         "description": {
             "type": "string",
-            "description": "Description du projet",
+            "description": "Project description",
             "inputType": "textarea",
             "label@fr_FR": "Résumé",
             "label@en_GB": "Abstract",
@@ -57,7 +57,7 @@
                 ]
             },
             "minItems": 1,
-            "description": "Source(s) de financement d'un projet ou d'une activité de recherche",
+            "description": "Source(s) of funding for a research project or activity",
             "label@fr_FR": "Sources de financement",
             "label@en_GB": "Funding",
             "tooltip": null,
@@ -67,7 +67,7 @@
         "startDate": {
             "type": "string",
             "format": "date",
-            "description": "Début de projet",
+            "description": "Project start date",
             "label@fr_FR": "Date de début",
             "label@en_GB": "Start date",
             "tooltip": null,
@@ -77,7 +77,7 @@
         "endDate": {
             "type": "string",
             "format": "date",
-            "description": "Fin de projet",
+            "description": "Project end date",
             "label@fr_FR": "Date de fin",
             "label@en_GB": "End date",
             "tooltip": null,
@@ -101,7 +101,7 @@
                 ]
             },
             "minItems": 1,
-            "description": "Partenaires d'un projet ou d'une activité de recherche",
+            "description": "Partners in a research project or activity",
             "label@fr_FR": "Partenaires",
             "label@en_GB": "Partners",
             "tooltip@fr_FR": "Lister les organismes partenaires. L’organisme auquel le coordinateur du projet est affilié doit être ajouté.",
@@ -127,7 +127,7 @@
                 ]
             },
             "minItems": 1,
-            "description": "Coordinateur principal du projet",
+            "description": "Project principal investigator",
             "label@fr_FR": "Coordinateur du projet",
             "label@en_GB": "Project coordinator",
             "tooltip@fr_FR": "Aussi appelé Investigateur principal",

@@ -26,7 +26,7 @@
                     "dbid"
                 ]
             },
-            "description": "Scientific publications dedicated to software",
+            "description": "Scientific publications describing the software",
             "label@fr_FR": "Le logiciel a-t-il fait l'objet d’une publication scientifique dédiée ?",
             "label@en_GB": "Has information about this software already been published?",
             "tooltip@fr_FR": "Indiquer la publication revue par les pairs décrivant spécifiquement le logiciel, appelé Software paper, dans un journal dédié comme par exemple \"The Journal of Open Source Software\" (https://joss.theoj.org).",
@@ -50,7 +50,7 @@
                     "dbid"
                 ]
             },
-            "description": "References of possible scientific publications to be linked associated with the software",
+            "description": "References  to scientific publications related to the software",
             "label@fr_FR": "Le logiciel a-t-il été associé à des publications scientifiques ?",
             "label@en_GB": "Is this software associated with one or more scientific publications?",
             "tooltip@fr_FR": " Indiquer les principales publications liées au logiciel.",

@@ -10,7 +10,7 @@
     "properties": {
         "description": {
             "type": "string",
-            "description": "Description de la méthodologie appliquée pour assurer la qualité scientifique et documentaire des données",
+            "description": "Description of the methodology applied to ensure the scientific and documentary quality of the data",
             "inputType": "textarea",
             "label@fr_FR": "Description",
             "label@en_GB": "Description",
@@ -35,7 +35,7 @@
                     "dbid"
                 ]
             },
-            "description": "Référence(s) de protocole(s) d'assurance qualité",
+            "description": "Reference to a quality assurance protocol",
             "label@fr_FR": "Références associées",
             "label@en_GB": "Related references",
             "tooltip@fr_FR": "Par exemple : le plan d'assurance qualité des données",
@@ -60,7 +60,7 @@
                     "dbid"
                 ]
             },
-            "description": "Personne(s) impliquée(s) dans l'assurance qualité des données",
+            "description": "Person(s) involved in data quality assurance",
             "label@fr_FR": "Personnes impliquées dans la qualité des données",
             "label@en_GB": "Data quality managers",
             "tooltip@fr_FR": "Il peut s'agir d'une ou plusieurs personnes, d'une équipe, d'un service",

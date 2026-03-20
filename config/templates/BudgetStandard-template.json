@@ -13,7 +13,7 @@
     "properties": {
         "description": {
             "type": "string",
-            "description": "Description générale des coûts et des ressources (rôles, responsabilités, …) utilisés pour la gestion des données de la recherche",
+            "description": "General description of the costs and resources (roles, responsibilities, etc.) used to manage research data",
             "inputType": "textarea",
             "label@fr_FR": "Description",
             "label@en_GB": "Description",
@@ -38,7 +38,7 @@
                     "dbid"
                 ]
             },
-            "description": "Elément de description des coûts",
+            "description": "Resource allocated for data management",
             "label@fr_FR": "Liste des coûts, s'ils n'ont pas été détaillés dans les questions précédentes",
             "label@en_GB": "List of costs, if they have not been detailed in the previous questions",
             "tooltip": null,

@@ -210,9 +210,7 @@
         "path": "GeoLocationBox-template.json",
         "classname": "specific_data",
         "dataTypes": null,
-        "topics": [
-            "Earth observation"
-        ]
+        "topics": null
     },
     {
         "path": "GeoLocationPoint-template.json",
@@ -484,21 +482,31 @@
         "classname": "data_collection",
         "dataTypes": null,
         "topics": [
-            "Earth observation"
+            "Earth observation - GEO"
         ]
     },
     {
         "path": "DocumentationQualityGEO-template.json",
         "classname": "documentation_quality",
         "dataTypes": null,
-        "topics": null
+        "topics": [
+            "Earth observation - GEO"
+        ]
     },
     {
         "path": "DataProcessingGEO-template.json",
         "classname": "data_processing",
         "dataTypes": null,
         "topics": [
-            "Earth observation"
+            "Earth observation - GEO"
+        ]
+    },
+    {
+        "path": "DataStorageGEO-template.json",
+        "classname": "data_storage",
+        "dataTypes": null,
+        "topics": [
+            "Earth observation - GEO"
         ]
     },
     {
@@ -506,7 +514,7 @@
         "classname": "data_sharing",
         "dataTypes": null,
         "topics": [
-            "Earth observation"
+            "Earth observation - GEO"
         ]
     },
     {
@@ -514,7 +522,7 @@
         "classname": "data_preservation",
         "dataTypes": null,
         "topics": [
-            "Earth observation"
+            "Earth observation - GEO"
         ]
     },
     {
@@ -522,7 +530,7 @@
         "classname": "host",
         "dataTypes": null,
         "topics": [
-            "Earth observation"
+            "Earth observation - GEO"
         ]
     }
 ]

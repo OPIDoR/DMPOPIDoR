@@ -5,112 +5,130 @@
     "description": "HostGEO template",
     "dataTypes": null,
     "topics": [
-        "Earth observation"
+        "Earth observation - GEO"
     ],
     "type": "object",
     "class": "HostGEO",
     "properties": {
         "title": {
             "type": "string",
-            "description": "Intitulé de l'hôte",
+            "description": "Host title",
             "label@fr_FR": "Titre",
             "label@en_GB": "Title",
-            "tooltip": null
+            "tooltip": null,
+            "form_label@fr_FR": "Titre",
+            "form_label@en_GB": "Title"
         },
         "hostId": {
             "type": "string",
-            "description": "Identifiant pérenne ou Url de référence",
+            "description": "Persistent identifier or URL",
             "label@fr_FR": "Identifiant de l'entrepôt",
             "label@en_GB": "Repository ID",
-            "tooltip": null
+            "tooltip": null,
+            "form_label@fr_FR": "Identifiant de l'entrepôt",
+            "form_label@en_GB": "Repository ID"
         },
         "idType": {
             "type": "string",
-            "description": "Type d'identifiant",
+            "description": "Identification system",
             "inputType": "dropdown",
             "label@fr_FR": "Type d'identifiant",
             "label@en_GB": "Identifier type",
             "registryCategory": "PIDSystem",
             "overridable": true,
-            "tooltip": null
+            "tooltip": null,
+            "form_label@fr_FR": "Type d'identifiant",
+            "form_label@en_GB": "Identifier type"
         },
         "policyUrl": {
             "type": "string",
-            "description": "Politique de donnes de l'hôte",
+            "description": "Host data policy",
             "label@fr_FR": "Politique de données",
             "label@en_GB": "Data policy",
             "tooltip": null
         },
         "geoLocation": {
             "type": "string",
-            "description": "Code du pays de localisation de l'hôte",
+            "description": "Host country code",
             "inputType": "dropdown",
             "label@fr_FR": "Localisation géographique (pays)",
             "label@en_GB": "Geo location (country)",
             "registryCategory": "ISO3166-alpha2",
-            "tooltip": null
+            "tooltip": null,
+            "form_label@fr_FR": "Localisation géographique (pays)",
+            "form_label@en_GB": "Geo location (country)"
         },
         "certification": {
             "type": "array",
             "items": {
                 "type": "string"
             },
-            "description": "Certifications (CoreTrustSEal, DSA, WDS, ISO-9001, …)",
+            "description": "Certifications held by the host (CoreTrustSEal, DSA, WDS, ISO-9001, …)",
             "inputType": "dropdown",
             "label@fr_FR": "Certification",
             "label@en_GB": "Certification",
             "registryCategory": "Certification",
             "overridable": true,
-            "tooltip": null
+            "tooltip": null,
+            "form_label@fr_FR": "Certification/Label qualité",
+            "form_label@en_GB": "Certification/Quality label"
         },
         "pidSystem": {
             "type": "array",
             "items": {
                 "type": "string"
             },
-            "description": "Système d'identifiants pérennes utilisé par l'hôte",
+            "description": "System of persistent identifiers implemented by the host",
             "inputType": "dropdown",
             "label@fr_FR": "Système d'identifiants",
             "label@en_GB": "PID system",
             "registryCategory": "PIDSystem",
             "overridable": true,
-            "tooltip": null
+            "tooltip": null,
+            "form_label@fr_FR": "Système d'identifiants",
+            "form_label@en_GB": "PID system"
         },
         "hasVersioningPolicy": {
             "type": "string",
-            "description": "Contrôle des versions",
+            "description": "Versioning policy",
             "label@fr_FR": "Politique de gestion des versions",
             "label@en_GB": "Versioning policy",
             "tooltip": null,
-            "hidden": true
+            "hidden": true,
+            "form_label@fr_FR": "Politique de gestion des versions",
+            "form_label@en_GB": "Versioning policy"
         },
         "availability": {
             "type": "number",
-            "description": "Disponibilité/pérennité de l'hôte en années (jusqu'à quelle année?)",
+            "description": "Host availability/sustainability in years (until what year?)",
             "label@fr_FR": "Disponibilité (années)",
             "label@en_GB": "Availability (years)",
             "tooltip": null,
-            "hidden": true
+            "hidden": true,
+            "form_label@fr_FR": "Disponibilité (années)",
+            "form_label@en_GB": "Availability (years)"
         },
         "metadataStandard": {
             "type": "array",
             "items": {
                 "type": "string"
             },
-            "description": "Standard(s) de métadonnées disponible(s)",
+            "description": "Export formats compliant with metadata standards provided by the host.",
             "inputType": "dropdown",
             "label@fr_FR": "Standards de métadonnées disponibles",
             "label@en_GB": "Available metadata standards",
             "registryCategory": "StandardsShort",
             "overridable": true,
-            "tooltip": null
+            "tooltip": null,
+            "form_label@fr_FR": "Standards de métadonnées disponibles",
+            "form_label@en_GB": "Available metadata standards"
         },
         "apiStandard": {
             "type": "array",
             "items": {
                 "type": "string"
             },
-            "description": "API Standards",
+            "description": "API Standards implemented by the host",
             "inputType": "dropdown",
             "label@fr_FR": "Standard d'interoperabilité OGC",
             "label@en_GB": "OGC Interoperability Standard",

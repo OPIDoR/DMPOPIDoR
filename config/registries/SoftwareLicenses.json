@@ -258,6 +258,14 @@
 		},
 		{
 			"label": {
+				"en_GB": "EPL-2.0",
+				"fr_FR": "EPL-2.0"
+			},
+			"licenseName": "Eclipse Public License 2.0",
+			"licenseUrl": "https://spdx.org/licenses/EPL-2.0.json"
+		},
+		{
+			"label": {
 				"en_GB": "EUPL-1.0",
 				"fr_FR": "EUPL-1.0"
 			},
@@ -450,6 +458,14 @@
 		},
 		{
 			"label": {
+				"en_GB": "GPL-3.0-or-later",
+				"fr_FR": "GPL-3.0-or-later"
+			},
+			"licenseName": "GNU General Public License v3.0 or later",
+			"licenseUrl": "https://spdx.org/licenses/GPL-3.0-or-later.json"
+		},
+		{
+			"label": {
 				"en_GB": "LGPL-2.0",
 				"fr_FR": "LGPL-2.0"
 			},
@@ -607,6 +623,14 @@
 			},
 			"licenseName": "MIT +no-false-attribs license",
 			"licenseUrl": "http://spdx.org/licenses/MITNFA.json"
+		},
+				{
+			"label": {
+				"en_GB": "MPL-2.0",
+				"fr_FR": "MPL-2.0"
+			},
+			"licenseName": "Mozilla Public License 2.0",
+			"licenseUrl": "https://spdx.org/licenses/MPL-2.0.json"
 		}
 	]
 }

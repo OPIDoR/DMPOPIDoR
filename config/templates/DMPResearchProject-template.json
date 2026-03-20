@@ -13,7 +13,7 @@
     "properties": {
         "identifier": {
             "type": "number",
-            "description": "Identifiant interne à l'application DMP OPIDoR",
+            "description": "Local identifier",
             "tooltip": null
         },
         "meta": {
@@ -28,7 +28,7 @@
             "required": [
                 "dbid"
             ],
-            "description": "Ensemble des métadonnées concernant le plan de gestion de données",
+            "description": "Details about the data management plan",
             "label@fr_FR": "Métadonnées du plan",
             "label@en_GB": "Plan Metadata",
             "tooltip": null,
@@ -71,7 +71,7 @@
                 ]
             },
             "minItems": 1,
-            "description": "Ensemble des informations concernant les produits de recherche générés dans le cadre du projet ou activité de recherche",
+            "description": "Comprehensive information describing the project",
             "tooltip": null
         },
         "budget": {
@@ -86,7 +86,7 @@
             "required": [
                 "dbid"
             ],
-            "description": "Budget lié à la gestion des données de recherche",
+            "description": "Represents information on data management budget items not directly associated with a research product. This class supports the retrieval of such information when importing a Data Management Plan (DMP) compliant with the RDA DMP Common Standard",
             "tooltip": null
         }
     },
