@@ -10,7 +10,7 @@
     "properties": {
         "description": {
             "type": "string",
-            "description": "Description générale des aspects juridiques",
+            "description": "Free texte information on legal aspects",
             "inputType": "textarea",
             "label@fr_FR": "Description",
             "label@en_GB": "Description",
@@ -36,7 +36,7 @@
                 ]
             },
             "minItems": 1,
-            "description": "Référence(s) de document(s) en lien avec les aspects juridiques",
+            "description": "References to documents dealing with issues relating to protection, confidentiality, communication, reuse of data (intellectual property, professional secrecy, etc.) and information concerning data ownership.",
             "label@fr_FR": "Références associées",
             "label@en_GB": "Related references",
             "tooltip@fr_FR": "Par exemple, accord de consortium",
@@ -61,7 +61,7 @@
                     "dbid"
                 ]
             },
-            "description": "Personne(s) en charge des aspects juridiques",
+            "description": "Person reponsible for addressing legal aspects",
             "label@fr_FR": "Personnes impliquées dans les questions juridiques",
             "label@en_GB": "Legal experts",
             "tooltip@fr_FR": "Il peut s'agir d'une ou plusieurs personnes, d'une équipe, d'un service",

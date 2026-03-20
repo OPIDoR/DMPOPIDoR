@@ -10,7 +10,7 @@
     "properties": {
         "description": {
             "type": "string",
-            "description": "Description des mesures prises pour prendre en compte les enjeux éthiques.",
+            "description": "Description of the measures taken to take into account ethical issues.",
             "inputType": "textarea",
             "label@fr_FR": "Description",
             "label@en_GB": "Description",
@@ -34,7 +34,7 @@
                     "dbid"
                 ]
             },
-            "description": "Référence(s) de document(s) en lien avec les aspects éthiques à prendre en compte",
+            "description": "Identifier of a document related to the ethical aspects to be taken into account",
             "label@fr_FR": "Références associées",
             "label@en_GB": "Related references",
             "tooltip@fr_FR": "Par exemple, l’avis du Comité d’éthique de votre organisme",
@@ -59,7 +59,7 @@
                     "dbid"
                 ]
             },
-            "description": "Personne contact pour traiter/prendre en charge les aspects éthiques d'un projet",
+            "description": "Person responsible for addressing the ethical aspects of a project.",
             "label@fr_FR": "Personnes impliquées dans les questions éthiques",
             "label@en_GB": "Persons in charge of ethical issues",
             "tooltip@fr_FR": "Il peut s'agir d'une ou plusieurs personnes, d'une équipe, d'un service",

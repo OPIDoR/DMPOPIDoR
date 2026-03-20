@@ -10,7 +10,7 @@
     "properties": {
         "description": {
             "type": "string",
-            "description": "Description des besoins de stockage",
+            "description": "Information on data storage and backup, as well as the resources allocated during the project",
             "inputType": "textarea",
             "label@fr_FR": "Description",
             "label@en_GB": "Description",
@@ -34,7 +34,7 @@
                     "dbid"
                 ]
             },
-            "description": "Ressource/équipement utilisé pour le stockage et sauvegarde des données",
+            "description": "Description of storage requirements",
             "label@fr_FR": "Identification de la resource",
             "label@en_GB": "Resource identification",
             "tooltip": null,
@@ -59,7 +59,7 @@
                 ]
             },
             "minItems": 1,
-            "description": "Informations requises pour un espace de stockage auprès du Mésocentre Clermont-Auvergne",
+            "description": "Estimated data volume",
             "label@fr_FR": "Demande d'espace de stockage auprès du Mésocentre Clermont-Auvergne",
             "label@en_GB": "Request for storage space from Clermont-Auvergne Mesocentre",
             "tooltip": null,
@@ -82,7 +82,7 @@
                     "dbid"
                 ]
             },
-            "description": "Informations relatives à la politique de sauvegarde",
+            "description": "Unit of volume",
             "label@fr_FR": "Politique de sauvegarde",
             "label@en_GB": "Backup policy",
             "tooltip": null,
@@ -92,7 +92,7 @@
         },
         "securityMeasures": {
             "type": "string",
-            "description": "Description des mesures prises pour assurer la sécurité des données",
+            "description": "Use of a technical resource for data storage and backup",
             "inputType": "textarea",
             "label@fr_FR": "Mesures de sécurité",
             "label@en_GB": "Security measures",
@@ -118,7 +118,7 @@
                     "dbid"
                 ]
             },
-            "description": "Personne(s) responsable(s) du suivi du stockage des données",
+            "description": "Description of measures taken to ensure data security",
             "label@fr_FR": "Personnes impliquées dans le stockage des données",
             "label@en_GB": "Persons in charge of data storage",
             "tooltip@fr_FR": "Il peut s'agir d'une ou plusieurs personnes, d'une équipe, d'un service",
@@ -143,7 +143,7 @@
                     "dbid"
                 ]
             },
-            "description": "Coût total des données stockées au Mésocentre Clermont-Auvergne",
+            "description": "Information regarding the backup policy",
             "label@fr_FR": "Coût total de stockage (coût calculé automatiquement)",
             "label@en_GB": "Total cost of storage (automatically calculated cost)",
             "tooltip": null,
@@ -177,7 +177,8 @@
             "params": {
                 "recipients": [
                     "francoise.cosserat@inist.fr",
-                    "anne.busin@inist.fr"
+                    "anne.busin@inist.fr",
+                    "mesocentre@uca.fr"
                 ]
             }
         }

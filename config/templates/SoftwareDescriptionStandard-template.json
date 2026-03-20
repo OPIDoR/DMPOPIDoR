@@ -66,7 +66,7 @@
         "creationDate": {
             "type": "string",
             "format": "date",
-            "description": "Date of creation: Year of start of development",
+            "description": "Date of creation: Year development began",
             "label@fr_FR": "Date de début du développement",
             "label@en_GB": "Development start date",
             "tooltip": null,
@@ -89,7 +89,7 @@
                 "type": "string"
             },
             "minItems": 1,
-            "description": "Principal application fields",
+            "description": "Main fields of application",
             "inputType": "dropdown",
             "label@fr_FR": "Principaux domaines d'application",
             "label@en_GB": "Principal areas of application",
@@ -132,7 +132,7 @@
             "label@en_GB": "Keywords",
             "tooltip": null,
             "form_label@fr_FR": "Mots clés contrôlés (vocabulaire, thésaurus, lexique...)",
-            "form_label@en_GB": "Keywords (incude vocabulary, thesaurus or  lexicon)"
+            "form_label@en_GB": "Keywords (include vocabulary, thesaurus or  lexicon)"
         },
         "version": {
             "type": "string",
@@ -152,7 +152,7 @@
                 "type": "string"
             },
             "minItems": 1,
-            "description": "Software typologies",
+            "description": "Software categories",
             "inputType": "dropdown",
             "label@fr_FR": "Typologies du logiciel",
             "label@en_GB": "Software typologies",
@@ -178,9 +178,9 @@
                     "dbid"
                 ]
             },
-            "description": "Links to other research products in this plan",
-            "label@fr_FR": "Liens avec d’autres produits de recherche de ce plan",
-            "label@en_GB": "Links to other research products in this plan",
+            "description": "Links to other research objects (datasets, software, ...) that  are required to test, use the software",
+            "label@fr_FR": "Liens avec d’autres produits de recherche",
+            "label@en_GB": "Links to other research products",
             "tooltip@fr_FR": "Relier les autres produits, par exemple des jeux de données, nécessaires pour tester et/ou utiliser le logiciel. L’usage des identifiants pérennes est recommandé. S’il agit d’un autre produit du projet, il est possible d’indiquer son titre et URL interne.",
             "tooltip@en_GB": "Provide links to any other products, such as datasets, that are needed to test and/or use the software. The use of persistent identifiers for these links is recommended. If the link is to another product of the same project, its title and internal URL can be used.",
             "form_label@fr_FR": "Votre logiciel est-il lié à d'autres produits de recherche ?",

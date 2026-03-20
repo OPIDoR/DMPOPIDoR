@@ -34,11 +34,11 @@
         "identifier": {
             "type": "string",
             "description": "Resource persistent iD",
-            "label@fr_FR": "Identifiant pérenne (DOI, HAL Id…) ou l'URL du dépôt",
-            "label@en_GB": "Persistent identifier (DOI, HAL Id, etc.) or the URL of the repository",
+            "label@fr_FR": "Identifiant pérenne (DOI, HAL Id…)",
+            "label@en_GB": "Persistent identifier (DOI, HAL Id, etc.)",
             "tooltip": null,
-            "form_label@fr_FR": "Indiquer l'identifiant pérenne (DOI, HAL Id…) ou l'URL du dépôt",
-            "form_label@en_GB": "Indicate the persistent identifier (DOI, HAL Id, etc.) or the URL of the repository"
+            "form_label@fr_FR": "Indiquer l'identifiant pérenne (DOI, HAL Id…)",
+            "form_label@en_GB": "Indicate the persistent identifier (DOI, HAL Id, etc.)"
         },
         "idType": {
             "type": "string",

@@ -10,7 +10,7 @@
     "properties": {
         "name": {
             "type": "string",
-            "description": "Nom du standard",
+            "description": "Metadata standard name",
             "label@fr_FR": "Nom",
             "label@en_GB": "Name",
             "tooltip@fr_FR": "Enoncer le standard ou une liste de champs/attributs utilisé pour décrire les données, les représenter ou les annoter (Vocabulaires ",
@@ -22,7 +22,7 @@
         },
         "description": {
             "type": "string",
-            "description": "Description du modèle ou vocabulaire choisi pour représenter les métadonnées ou données",
+            "description": "Description of the model or vocabulary chosen to represent the metadata or data",
             "inputType": "textarea",
             "label@fr_FR": "Description",
             "label@en_GB": "Description",
@@ -32,7 +32,7 @@
         },
         "metadataStandardId": {
             "type": "string",
-            "description": "Identifiant du standard",
+            "description": "Metadata language code",
             "label@fr_FR": "Identifiant du standard utilisé",
             "label@en_GB": "Standard Identifier",
             "tooltip@fr_FR": "Identifiant d'un standard signalé dans un catalogue",
@@ -44,7 +44,7 @@
         },
         "idType": {
             "type": "string",
-            "description": "Type d'identifiant",
+            "description": "Metadata, data, or vocabulary standard identifier",
             "inputType": "dropdown",
             "label@fr_FR": "Type d'identifiant",
             "label@en_GB": "Identifier type",

@@ -5,51 +5,62 @@
     "description": "DataPreservationGEO template",
     "dataTypes": null,
     "topics": [
-        "Earth observation"
+        "Earth observation - GEO"
     ],
     "type": "object",
     "class": "DataPreservationGEO",
     "properties": {
         "description": {
             "type": "string",
-            "description": "Description des contraintes réglementaires à prendre en compte pour la conservation des données",
+            "description": "Description of the preservation procedure, retention requirements and compliance with regulations",
             "inputType": "textarea",
             "label@fr_FR": "Justification",
             "label@en_GB": "Justification",
-            "tooltip": null
+            "tooltip@fr_FR": "Préciser les raisons justifiant la conservation à long terme des données, critères de choix, valeur à long terme, contraintes réglementaires",
+            "tooltip@en_GB": "Specify the reasons justifying the long term preservation of data, selection criteria, long-term value, regulatory constraints",
+            "form_label@fr_FR": "Justifier la conservation à long terme",
+            "form_label@en_GB": "Long term preservation justification"
         },
         "dataSize": {
             "type": "number",
-            "description": "Volume des données concernées en octets",
+            "description": "Size of data",
             "label@fr_FR": "Volume estimé des données",
             "label@en_GB": "Estimated volume of data",
-            "tooltip": null
+            "tooltip": null,
+            "form_label@fr_FR": "Volume estimé des données",
+            "form_label@en_GB": "Estimated volume of data"
         },
         "volumeUnit": {
             "type": "string",
-            "description": "Unité de volume",
+            "description": "Unit for the size of data",
             "inputType": "dropdown",
             "label@fr_FR": "Unité",
             "label@en_GB": "Unit",
             "registryCategory": "VolumeUnit",
             "overridable": true,
-            "tooltip": null
+            "tooltip": null,
+            "form_label@fr_FR": "Unité",
+            "form_label@en_GB": "Unit"
         },
         "startDate": {
             "type": "string",
             "format": "date",
-            "description": "Début de conservation",
+            "description": "Preservation start date",
             "label@fr_FR": "Date de début",
             "label@en_GB": "Start date",
-            "tooltip": null
+            "tooltip": null,
+            "form_label@fr_FR": "Date de début",
+            "form_label@en_GB": "Start date"
         },
         "endDate": {
             "type": "string",
             "format": "date",
-            "description": "Fin de conservation",
+            "description": "Preservation end date",
             "label@fr_FR": "Date de fin",
             "label@en_GB": "End date",
-            "tooltip": null
+            "tooltip": null,
+            "form_label@fr_FR": "Date de fin",
+            "form_label@en_GB": "End date"
         },
         "host": {
             "type": "object",
@@ -63,19 +74,22 @@
             "required": [
                 "dbid"
             ],
-            "description": "Centre, entrepôt dans lequel les données seront archivées à long terme si nécessaire",
+            "description": "Repository or service that archives and manages the long-term storage of digital resources, according to regulation and/or long-term value of data",
             "label@fr_FR": "Archive",
             "label@en_GB": "Archive",
-            "tooltip": null
+            "tooltip": null,
+            "form_label@fr_FR": "Choisir une archive pour conserver les données à long terme",
+            "form_label@en_GB": "Choose an archive for long-term data preservation"
         },
         "finalDisposition": {
             "type": "string",
-            "description": "Sort final des données (destruction, pronumberation de la conservation, …)",
+            "description": "Decisions regarding data retention : data destruction, data review, extended data retention",
             "label@fr_FR": "Dispositions finales",
             "label@en_GB": "Final dispositions",
-            "tooltip": null,
-            "form_label@fr_FR": "Sort final : devenir des données à échéance de leur durée de conservation (élimination, conservation définitive, tri)",
-            "form_label@en_GB": "Final outcome: future of data at the end of their preservation period (elimination, definitive conservation, sorting)"
+            "tooltip@fr_FR": "Sort final : devenir des données à échéance de leur durée de conservation (élimination, conservation définitive, tri)",
+            "tooltip@en_GB": "Final outcome: future of data at the end of their preservation period (elimination, definitive conservation, sorting)",
+            "form_label@fr_FR": "Dispositions finales",
+            "form_label@en_GB": "Final dispositions"
         },
         "contributor": {
             "type": "array",
@@ -94,7 +108,7 @@
                     "dbid"
                 ]
             },
-            "description": "Personne(s) en charge de la conservation à long terme des données",
+            "description": "Person(s) responsible for the long-term preservation of the data",
             "label@fr_FR": "Personnes impliquées dans la conservation à long terme des données",
             "label@en_GB": "Persons in charge of long term data preservation",
             "tooltip@fr_FR": "Il peut s'agir d'une ou plusieurs personnes, d'une équipe, d'un service",
@@ -119,10 +133,12 @@
                     "dbid"
                 ]
             },
-            "description": "Coût(s) lié(s) à la conservation à long terme des données",
+            "description": "Costs associated with long-term preservation of the data",
             "label@fr_FR": "Coûts",
             "label@en_GB": "Costs",
-            "tooltip": null
+            "tooltip": null,
+            "form_label@fr_FR": "Coûts liés à la conservation à long terme des données",
+            "form_label@en_GB": "Long term data preservation associated costs"
         }
     },
     "required": [
