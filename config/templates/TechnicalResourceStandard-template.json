@@ -13,7 +13,7 @@
     "properties": {
         "title": {
             "type": "string",
-            "description": "Intitulé de la resource technique",
+            "description": "Technical resource name",
             "label@fr_FR": "Titre",
             "label@en_GB": "Title",
             "tooltip": null,
@@ -22,7 +22,7 @@
         },
         "technicalResourceId": {
             "type": "string",
-            "description": "Identifiant pérenne ou Url de référence",
+            "description": "Technical resource identifier",
             "label@fr_FR": "Identifiant",
             "label@en_GB": "Identifier",
             "tooltip": null,
@@ -31,7 +31,7 @@
         },
         "idType": {
             "type": "string",
-            "description": "Type d'identifiant",
+            "description": "Identification system",
             "inputType": "dropdown",
             "label@fr_FR": "Type d'identifiant",
             "label@en_GB": "Identifier type",
@@ -43,7 +43,7 @@
         },
         "serviceContact": {
             "type": "string",
-            "description": "Adresse contact d'un service",
+            "description": "Contact address for support",
             "label@fr_FR": "Contact",
             "label@en_GB": "Contact",
             "tooltip": null,
@@ -52,7 +52,7 @@
         },
         "policyUrl": {
             "type": "string",
-            "description": "Politique de gestion des données d'un service",
+            "description": "Data policy of the technical resource",
             "label@fr_FR": "Politique de données",
             "label@en_GB": "Data policy",
             "tooltip": null,

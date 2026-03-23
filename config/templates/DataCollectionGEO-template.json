@@ -5,50 +5,44 @@
     "description": "DataCollectionGEO template",
     "dataTypes": null,
     "topics": [
-        "Earth observation"
+        "Earth observation - GEO"
     ],
     "type": "object",
     "class": "DataCollectionGEO",
     "properties": {
         "title": {
             "type": "string",
-            "description": "Titre de la collecte",
+            "description": "Data collection title",
             "label@fr_FR": "Nom de la méthode",
             "label@en_GB": "Name of the method",
-            "tooltip": null,
-            "form_label@fr_FR": "Nom d'une méthode (ou étape) de collecte",
-            "form_label@en_GB": "Name of a data collection method (or step)"
+            "tooltip@fr_FR": "Nom d'une méthode (ou étape) de collecte",
+            "tooltip@en_GB": "Name of a data collection method (or step)",
+            "form_label@fr_FR": "Nom de la méthode",
+            "form_label@en_GB": "Name of the method"
         },
         "description": {
             "type": "string",
-            "description": "Description de la collecte des données",
+            "description": "Description of data collection",
             "inputType": "textarea",
             "label@fr_FR": "Description",
             "label@en_GB": "Description",
-            "tooltip": null,
-            "form_label@fr_FR": "Expliquer quelle méthodologie est utilisée pour produire, collecter les données. Préciser si besoin le contexte de production, la fréquence de collecte des données.",
-            "form_label@en_GB": "Explain the methodology used to produce and collect the data. Specify if necessary the context of production, the frequency of data collection."
+            "tooltip@fr_FR": "Expliquer quelle méthodologie est utilisée pour produire, collecter les données. Préciser si besoin le contexte de production, la fréquence de collecte des données.",
+            "tooltip@en_GB": "Explain the methodology used to produce and collect the data. Specify if necessary the context of production, the frequency of data collection.",
+            "form_label@fr_FR": "Décrire la méthode de collecte ou d'acquisition des données",
+            "form_label@en_GB": "Describe the method of data collection or acquisition"
         },
         "dataNature": {
             "type": "string",
-            "description": "Nature des données (observation, expérimentale, …)",
+            "description": "Data nature (observation, experiment, survey, …)",
             "inputType": "dropdown",
             "label@fr_FR": "Nature des données",
             "label@en_GB": "Data Nature",
             "registryCategory": "DataNature",
             "overridable": true,
-            "tooltip": null,
-            "form_label@fr_FR": "Sélectionner dans la liste déroulante la nature du produit de recherche",
-            "form_label@en_GB": "Choose in the dropdown the research output data nature"
-        },
-        "location": {
-            "type": "string",
-            "description": "Describe geographical location of Research Output",
-            "label@fr_FR": "Où se développe le produit de recherche?",
-            "label@en_GB": "Where does the research output localize?",
-            "tooltip": null,
-            "form_label@fr_FR": "Où se développe le produit de recherche?",
-            "form_label@en_GB": "Where does the research output localize?"
+            "tooltip@fr_FR": "Sélectionner dans la liste déroulante la nature du produit de recherche",
+            "tooltip@en_GB": "Choose in the dropdown the research output data nature",
+            "form_label@fr_FR": "Nature des données",
+            "form_label@en_GB": "Data Nature"
         },
         "facility": {
             "type": "array",
@@ -66,10 +60,12 @@
                     "dbid"
                 ]
             },
-            "description": "Usage d'une ressource technique pour acquérir les données",
+            "description": "Facility or instrument used to acquire data",
             "label@fr_FR": "Equipements, plateaux techniques utilisés",
             "label@en_GB": "Equipments, technical platforms used",
-            "tooltip": null
+            "tooltip": null,
+            "form_label@fr_FR": "Equipements, plateaux techniques utilisés pour la production ou l'acquisition de données",
+            "form_label@en_GB": "Equipments, technical platforms used for production or acquisition of data"
         },
         "methodReference": {
             "type": "array",
@@ -87,10 +83,12 @@
                     "dbid"
                 ]
             },
-            "description": "Référence(s) de protocoles /méthodes utilisées",
+            "description": "References of protocols/methods employed",
             "label@fr_FR": "Références associées",
             "label@en_GB": "Related references",
-            "tooltip": null
+            "tooltip": null,
+            "form_label@en_GB": "Indicate the reference(s) of the methods",
+            "form_label@fr_FR": "Indiquer la ou les références des méthodes/protocoles utilisés"
         },
         "contributor": {
             "type": "array",
@@ -109,7 +107,7 @@
                     "dbid"
                 ]
             },
-            "description": "Personne(s) impliquée(s) dans la collecte/acquisition des données",
+            "description": "Persons involved in the data collection procedure",
             "label@fr_FR": "Personnes impliquées dans la production ou la collecte des données",
             "label@en_GB": "Data producers or collectors",
             "tooltip@fr_FR": "Il peut s'agir d'une ou plusieurs personnes, d'une équipe, d'un service",
@@ -134,10 +132,12 @@
                     "dbid"
                 ]
             },
-            "description": "Coûts éventuels liés à la collecte des données",
+            "description": "Costs associated with data collection",
             "label@fr_FR": "Coûts",
             "label@en_GB": "Costs",
-            "tooltip": null
+            "tooltip": null,
+            "form_label@fr_FR": "Coûts liés à la collecte/production des données",
+            "form_label@en_GB": "Data collection/production associated costs"
         }
     },
     "required": [

@@ -17,7 +17,7 @@
     "properties": {
         "nameType": {
             "type": "string",
-            "description": "Type du nom",
+            "description": "Name type",
             "inputType": "dropdown",
             "label@fr_FR": "Type (personne ou organisation)",
             "label@en_GB": "Type (person or organisation)",
@@ -28,7 +28,7 @@
         },
         "lastName": {
             "type": "string",
-            "description": "Nom de famille",
+            "description": "Last name (family name)",
             "label@fr_FR": "Nom",
             "label@en_GB": "Last name",
             "tooltip": null,
@@ -39,7 +39,7 @@
         },
         "firstName": {
             "type": "string",
-            "description": "Prénom",
+            "description": "First name (given name)",
             "label@fr_FR": "Prénom",
             "label@en_GB": "First name",
             "tooltip@fr_FR": "Saisir un prénom, s'il s'agit d'une personne physique",
@@ -49,7 +49,7 @@
         },
         "personId": {
             "type": "string",
-            "description": "Valeur de l'identifiant",
+            "description": "Email address",
             "label@fr_FR": "Identifiant",
             "label@en_GB": "Identifier",
             "tooltip": null,
@@ -60,7 +60,7 @@
         },
         "idType": {
             "type": "string",
-            "description": "Type d'identifiant (ORCID id)",
+            "description": "Person identifier",
             "inputType": "dropdown",
             "label@fr_FR": "Type d'identifiant",
             "label@en_GB": "Identifier type",
@@ -73,7 +73,7 @@
         "mbox": {
             "type": "string",
             "format": "email",
-            "description": "Adresse mail de la personne",
+            "description": "Identification system",
             "label@fr_FR": "Email",
             "label@en_GB": "Email",
             "tooltip": null,
@@ -82,7 +82,7 @@
         },
         "affiliationName": {
             "type": "string",
-            "description": "Nom de l'affiliation",
+            "description": "Affiliation name",
             "label@fr_FR": "Nom de l'affiliation",
             "label@en_GB": "Affiliation name",
             "tooltip@fr_FR": "Dans le cas d'une personne, utiliser de préférence le nom de la structure enregistrée dans ROR (ou RNSR). Dans le cas d'une organisation, indiquer le nom de l'établissement de rattachement",
@@ -94,7 +94,7 @@
         },
         "affiliationId": {
             "type": "string",
-            "description": "Identifiant de l'affiliation",
+            "description": "Affiliation identifier",
             "label@fr_FR": "Identifiant de l'affiliation",
             "label@en_GB": "Affiliation identifier",
             "tooltip": null,
@@ -105,7 +105,7 @@
         },
         "affiliationIdType": {
             "type": "string",
-            "description": "Type d'identifiant",
+            "description": "Identification system",
             "inputType": "dropdown",
             "label@fr_FR": "Type d'identifiant de l'affiliation",
             "label@en_GB": "Affiliation identifier type",

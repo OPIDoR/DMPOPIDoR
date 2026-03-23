@@ -20,7 +20,7 @@
     "properties": {
         "name": {
             "type": "string",
-            "description": "Nom de la source de financement",
+            "description": "Funder name",
             "label@fr_FR": "Nom du financeur",
             "label@en_GB": "Funder name",
             "tooltip": null,
@@ -29,7 +29,7 @@
         },
         "funderId": {
             "type": "string",
-            "description": "Identifiant de l'agence/source de financement (CrossRef)",
+            "description": "Funder identifier",
             "label@fr_FR": "Identifiant",
             "label@en_GB": "Identifier",
             "tooltip": null,
@@ -38,7 +38,7 @@
         },
         "idType": {
             "type": "string",
-            "description": "Type d'identifiant",
+            "description": "Identification system",
             "inputType": "dropdown",
             "label@fr_FR": "Type d'identifiant",
             "label@en_GB": "Identifier type",

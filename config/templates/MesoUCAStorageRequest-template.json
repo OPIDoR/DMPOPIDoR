@@ -10,7 +10,7 @@
     "properties": {
         "agentType": {
             "type": "string",
-            "description": "Classification des utilisateurs du Mésocentre Clermont-Auvergne",
+            "description": "Classification by the organisation of the agent",
             "inputType": "dropdown",
             "label@fr_FR": "Agents",
             "label@en_GB": "Agents",
@@ -21,7 +21,7 @@
         },
         "justification": {
             "type": "string",
-            "description": "Justification du besoin",
+            "description": "Need justification",
             "inputType": "textarea",
             "label@fr_FR": "Justification",
             "label@en_GB": "justification",
@@ -31,7 +31,7 @@
         },
         "dataSize": {
             "type": "number",
-            "description": "Volume des données pour le stockage",
+            "description": "Data size",
             "label@fr_FR": "Taille des données pour le stockage",
             "label@en_GB": "Data size for storage",
             "tooltip@fr_FR": "Ex : Demande d'espace de stockage de 10 To pour 3 ans",
@@ -41,7 +41,7 @@
         },
         "volumeUnit": {
             "type": "string",
-            "description": "Unité de volume",
+            "description": "Size unit",
             "label@fr_FR": "Unité",
             "label@en_GB": "Unit",
             "tooltip": null,
@@ -51,7 +51,7 @@
         },
         "storageTime": {
             "type": "string",
-            "description": "Durée de stockage (en mois)",
+            "description": "Storage duration (in month)",
             "inputType": "dropdown",
             "label@fr_FR": "Durée de stockage en mois",
             "label@en_GB": "Storage time (in months)",
@@ -62,7 +62,7 @@
         },
         "timeUnit": {
             "type": "string",
-            "description": "Unité de temps",
+            "description": "Time unit",
             "label@fr_FR": "Unité",
             "label@en_GB": "Unit",
             "tooltip": null,
@@ -73,7 +73,7 @@
         "endStorageDate": {
             "type": "string",
             "format": "date",
-            "description": "Date de fin de stockage",
+            "description": "Storage end date",
             "label@fr_FR": "Date de fin du stockage",
             "label@en_GB": "End date of storage",
             "tooltip": null,

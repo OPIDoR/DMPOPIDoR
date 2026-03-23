@@ -22,7 +22,7 @@
             "required": [
                 "dbid"
             ],
-            "description": "Description of the software produced during the project",
+            "description": "Description of the software developed in the course of the research activity",
             "label@fr_FR": "Description des produits de recherche de type logiciel",
             "label@en_GB": "Description of software type research products",
             "tooltip": null,
@@ -41,7 +41,7 @@
             "required": [
                 "dbid"
             ],
-            "description": "Source code repository",
+            "description": "Information on the software development environment",
             "label@fr_FR": "Environnement de développement",
             "label@en_GB": "Development environment",
             "tooltip": null,
@@ -60,7 +60,7 @@
             "required": [
                 "dbid"
             ],
-            "description": "Information relating to the documentary quality of the software",
+            "description": "Information relating to the documentation of the software",
             "label@fr_FR": "Documentation du logiciel",
             "label@en_GB": "Software documentation",
             "tooltip": null,
@@ -79,7 +79,7 @@
             "required": [
                 "dbid"
             ],
-            "description": "Runtime environment",
+            "description": "Information on the runtime environment",
             "label@fr_FR": "Environnement d'éxécution",
             "label@en_GB": "Execution environment",
             "tooltip": null,
@@ -98,7 +98,7 @@
             "required": [
                 "dbid"
             ],
-            "description": "Informations about the software archiving",
+            "description": "Informations about the software preservation",
             "label@fr_FR": "Archivage pérenne du logiciel",
             "label@en_GB": "Software preservation",
             "tooltip": null,
@@ -117,7 +117,7 @@
             "required": [
                 "dbid"
             ],
-            "description": "Software indexing",
+            "description": "Information about the software registration",
             "label@fr_FR": "Référencement du logiciel",
             "label@en_GB": "Software registration",
             "tooltip": null,
@@ -136,7 +136,7 @@
             "required": [
                 "dbid"
             ],
-            "description": "Legal Issues of the software",
+            "description": "Legal considerations for the software",
             "label@fr_FR": "Aspects juriques du logiciel",
             "label@en_GB": "Software legal issues",
             "tooltip": null,
@@ -155,7 +155,7 @@
             "required": [
                 "dbid"
             ],
-            "description": "Software Valorisation",
+            "description": "Scientific impact of the software",
             "label@fr_FR": "Valorisation scientifique du logiciel",
             "label@en_GB": "Software scientific valorisation",
             "tooltip": null,
@@ -164,14 +164,7 @@
         }
     },
     "required": [
-        "softwareDescription",
-        "softwareDevelopment",
-        "softwareDocumentation",
-        "softwareRuntime",
-        "softwarePreservation",
-        "softwareSharing",
-        "softwareLegalIssues",
-        "softwareValorisation"
+        "softwareDescription"
     ],
     "to_string": []
 }

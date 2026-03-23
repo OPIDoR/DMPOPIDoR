@@ -222,6 +222,7 @@ class ResearchOutput < ApplicationRecord
         title: title,
         order: display_order,
         topic: topic,
+        topic_label: generate_topic_label,
         type: ro_fragment.research_output_description['data']['type'] || nil,
         configuration: ro_fragment.additional_info,
         answers: answers.map do |a|
@@ -257,6 +258,15 @@ class ResearchOutput < ApplicationRecord
 
   def module_id
     json_fragment.additional_info['moduleId'] || nil
+  end
+
+  def generate_topic_label
+    template_locale = plan.template.locale
+    Rails.cache.fetch("research_output_#{topic}_#{template_locale}_label", expires_in: 12.hours) do
+      Registry.find_by(name: 'Topics').values.find do |v|
+        v['value'].eql?(topic)
+      end.dig('label', LocaleService.to_gettext(locale: template_locale)) || topic
+    end
   end
 
   ##

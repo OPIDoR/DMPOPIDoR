@@ -165,7 +165,8 @@ function ResearchOutputInfobox({
           {displayedResearchOutput?.type &&
             displayTopics(displayedResearchOutput.type) && (
               <li>
-                {t("topic")} : <strong>{displayedResearchOutput.topic}</strong>
+                {t("topic")} :{" "}
+                <strong>{displayedResearchOutput.topic_label}</strong>
               </li>
             )}
           {displayedResearchOutput?.type &&

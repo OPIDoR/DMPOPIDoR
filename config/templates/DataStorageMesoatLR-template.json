@@ -10,7 +10,7 @@
     "properties": {
         "description": {
             "type": "string",
-            "description": "Description des besoins de stockage",
+            "description": "Description of storage requirements",
             "inputType": "textarea",
             "label@fr_FR": "Description",
             "label@en_GB": "Description",
@@ -34,7 +34,7 @@
                     "dbid"
                 ]
             },
-            "description": "Ressource/équipement utilisé pour le stockage et sauvegarde des données",
+            "description": "Estimated data volume",
             "label@fr_FR": "Identification de la ressource",
             "label@en_GB": "Resource identification",
             "tooltip": null,
@@ -54,7 +54,7 @@
             "required": [
                 "dbid"
             ],
-            "description": "Informations requises pour une demande de ressources de stockage et calcul auprès du MESO@LR",
+            "description": "Unit of volume",
             "label@fr_FR": "Demande de ressources de stockage et calcul à MESO@LR (en To)",
             "label@en_GB": "Request for storage and compute resources from MESO@LR (in TB)",
             "tooltip": null,
@@ -77,7 +77,7 @@
                     "dbid"
                 ]
             },
-            "description": "Informations relatives à la politique de sauvegarde",
+            "description": "Use of a technical resource for data storage and backup",
             "label@fr_FR": "Politique de sauvegarde",
             "label@en_GB": "Backup policy",
             "tooltip": null,
@@ -87,7 +87,7 @@
         },
         "securityMeasures": {
             "type": "string",
-            "description": "Description des mesures prises pour assurer la sécurité des données",
+            "description": "Description of measures taken to ensure data security",
             "inputType": "textarea",
             "label@fr_FR": "Mesures de sécurité",
             "label@en_GB": "Security measures",
@@ -113,7 +113,7 @@
                     "dbid"
                 ]
             },
-            "description": "Personne(s) responsable(s) du suivi du stockage des données",
+            "description": "Information regarding the backup policy",
             "label@fr_FR": "Personnes impliquées dans le stockage des données",
             "label@en_GB": "Persons in charge of data storage",
             "tooltip@fr_FR": "Il peut s'agir d'une ou plusieurs personnes, d'une équipe, d'un service",
@@ -138,7 +138,7 @@
                     "dbid"
                 ]
             },
-            "description": "Coût total des données stockées à MESO@LR",
+            "description": "Person(s) responsible for overseeing data storage",
             "label@fr_FR": "Coût total de stockage et/ou calcul (coût calculé automatiquement)",
             "label@en_GB": "Total cost of storage and/or computation (automatically calculated cost)",
             "tooltip": null,
@@ -172,7 +172,9 @@
             "params": {
                 "recipients": [
                     "francoise.cosserat@inist.fr",
-                    "anne.busin@inist.fr"
+                    "anne.busin@inist.fr",
+                    "isdm-stockage@umontpellier.fr",
+                    "sabine.avellaneda@umontpellier.fr"
                 ]
             }
         }

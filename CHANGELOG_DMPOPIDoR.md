@@ -2,6 +2,13 @@
 
 **Attention** Cette liste de changements concerne les déploiements sur nos serveurs de test en interne.
 
+## 19/03/2026
+- Ajout d'un système de mise en cache des Domaines de Recherche des plans publics (#14760)
+- Changement de l'icone Financeur dans la création de plan (#14681)
+- Affichage du libellé de la thématique dans l'infobox des PR (#14819)
+- Mise à jour des fichiers des templates et référentiels 
+
+
 ## 16/03/2026
 - Changement des URLS des pages de gestion des recommandations (#14797)
   - Afin de préparer la mise à jour des recommandations (voir #14141), le code et les urls de gestion des recommandations a été changé pour adopter une approche plus "REST". C'est en principe transparent pour l'utilisateur, tous les liens dans l'interface ont été mis à jour. Les nouvelles URL sont décrites ci dessous.

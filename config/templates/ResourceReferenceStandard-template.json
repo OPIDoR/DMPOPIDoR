@@ -13,7 +13,7 @@
     "properties": {
         "title": {
             "type": "string",
-            "description": "Titre d'une ressource",
+            "description": "Resource title",
             "label@fr_FR": "Titre",
             "label@en_GB": "Title",
             "tooltip": null,
@@ -22,7 +22,7 @@
         },
         "docIdentifier": {
             "type": "string",
-            "description": "Identifiant de la ressource",
+            "description": "Resource identifier",
             "label@fr_FR": "Identifiant",
             "label@en_GB": "Identifier",
             "tooltip": null,
@@ -31,7 +31,7 @@
         },
         "idType": {
             "type": "string",
-            "description": "Type d'identifiant ressource",
+            "description": "Identification system",
             "inputType": "dropdown",
             "label@fr_FR": "Type d'identifiant",
             "label@en_GB": "Identifier type",

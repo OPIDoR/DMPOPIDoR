@@ -101,7 +101,7 @@
             "items": {
                 "type": "string"
             },
-            "description": "Director(s) of the excavations",
+            "description": "Information about the director(s) of the excavations",
             "label@fr_FR": "Responsable(s) de l'opération archéologique",
             "label@en_GB": "Archaeological operation supervisor",
             "tooltip": null,
