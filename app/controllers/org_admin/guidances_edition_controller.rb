@@ -6,15 +6,17 @@ module OrgAdmin
     def index
       authorize Guidance
       guidances = Guidance.includes(:guidance_group, :themes)
-                          .by_org(current_user.org).page(1)
+                          .by_org(current_user.org)
       ensure_default_group(current_user.org)
       guidance_groups = GuidanceGroup.includes(:org)
-                                     .by_org(current_user.org).page(1)
+                                     .by_org(current_user.org)
 
       render json: {
-        guidances: guidances,
         guidance_groups: guidance_groups.map do |gg|
           GuidanceGroup.serialize_json_response(gg)
+        end,
+        guidances: guidances.map do |g|
+          Guidance.serialize_json_response(g)
         end
       }
     end

@@ -1,0 +1,8 @@
+.table_row {
+  text-align: center;
+}
+
+.admin_search_bar {
+  background-color: var(--rust);
+  color: white
+}

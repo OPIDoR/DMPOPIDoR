@@ -142,4 +142,23 @@ class Guidance < ApplicationRecord
 
     false
   end
+
+  def self.serialize_json_response(guidance)
+    {
+      id: guidance.id,
+      text: guidance.text,
+      published: guidance.published,
+      themes: guidance.themes.each do |th|  
+        theme = Theme.find_by(title: th.title)
+        theme&.translations[guidance.locale]&.fetch("title", nil) || th&.title
+      end,
+      guidance_group: guidance.guidance_group.name,
+      locale: if guidance.locale.present?
+                Language.find_by(abbreviation: guidance.locale)&.name || 'N/C'
+              else
+                'N/C'
+              end,
+      last_updated: guidance.updated_at.to_date.strftime('%d/%m/%Y')
+    }
+  end
 end
