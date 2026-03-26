@@ -10,10 +10,20 @@ function SavedGuidances() {
     savedGuidances,
   } = useContext(GlobalContext);
   return (
-    <>
-      {savedGuidances.length > 0 && (
-        <div style={{ paddingLeft: '20px', flex: 1 }}>
-          <h3 style={{fontWeight: "bold"}}>
+    <div
+      style={{
+        paddingLeft: "20px",
+        flex: 1,
+        marginBottom: "20px",
+        display: "flex",
+        flexDirection: "column",
+        justifyContent: "center",
+        alignItems: "center",
+      }}
+    >
+      {savedGuidances.length > 0 ? (
+        <>
+          <h3 style={{ fontWeight: "bold" }}>
             {t('followingGuidancesApplyToThisResearchOutput')}
             <ReactTooltip
               id="saved-guidances-info-tooltip"
@@ -39,9 +49,11 @@ function SavedGuidances() {
               </li>
             ))}
           </ul>
-        </div>
+        </>
+      ) : (
+        t('noGuidanceSelected')
       )}
-    </>
+    </div>
   );
 }
 
