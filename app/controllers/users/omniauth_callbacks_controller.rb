@@ -16,37 +16,53 @@ module Users
 
     def keycloak
       auth = request.env["omniauth.auth"]
-      kc_uid = auth.uid
-      email = auth.info.email
+
+      kc_uid     = auth.uid
+      email      = auth.info.email
       first_name = auth.info.first_name
-      last_name = auth.info.last_name
+      last_name  = auth.info.last_name
 
       token = auth.credentials.token
       decoded_token = JWT.decode(token, nil, false)
 
-      # TODO: manage roles by keycloak
-      # roles = decoded_token.first["resource_access"]["dmpopidor"]["roles"]
+      payload = decoded_token.first
 
-      @user = User.find_by(kc_uid: kc_uid) || User.find_by(email: email)
-      @user ||= User.new
+      # TODO: use keycloak roles ?
+      roles = payload.dig("resource_access", "dmpopidor", "roles")
 
-      @user.assign_attributes(
-        kc_uid: kc_uid,
-        email: email,
-        firstname: first_name,
-        surname: last_name
-      )
+      @user = User.find_by(kc_uid: kc_uid)
 
-      @user.password ||= Devise.friendly_token[0, 20] if @user.new_record?
+      if @user.nil?
+        @user = User.find_by(
+          email: email,
+          firstname: first_name,
+          surname: last_name
+        )
 
-      # TODO: org doit être null et séléctionné après authentification pour un nouvel utilisateur
-      @user.org = Org.find_by(abbreviation: Rails.configuration.x.organisation.abbreviation) if @user.new_record?
+        if @user.present?
+          @user.kc_uid = kc_uid
+        else
+          @user = User.new(
+            kc_uid: kc_uid,
+            email: email,
+            firstname: first_name,
+            surname: last_name
+          )
+
+          @user.password = Devise.friendly_token[0, 20]
+
+          # TODO: set nil and update after login
+          @user.org = Org.find_by(
+            abbreviation: Rails.configuration.x.organisation.abbreviation
+          )
+        end
+      end
 
       if @user.save
         sign_in_and_redirect @user, event: :authentication
         set_flash_message(:notice, :success, kind: "Keycloak") if is_navigational_format?
       else
-        Rails.logger.error("Impossible de sauvegarder l'utilisateur Keycloak : #{@user.errors.full_messages.join(', ')}")
+        Rails.logger.error("Unable to save the Keycloak user : #{@user.errors.full_messages.join(', ')}")
         session["devise.keycloak_data"] = auth.except(:extra)
         redirect_to new_user_registration_url
       end

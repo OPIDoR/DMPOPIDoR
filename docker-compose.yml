@@ -67,6 +67,11 @@ services:
       - DIRECTUS_PUBLIC_URL=http://${DMP_SERVER_NAME:-0.0.0.0}:${NGINX_PORT:-8080}/directus
       - ENABLE_GRAPHIQL=true
       - ENABLE_TOPICS=${ENABLE_TOPICS:-true}
+      # Keycloak
+      - ENABLE_KEYCLOAK=${ENABLE_KEYCLOAK:-true}
+      - KEYCLOAK_REALM_NAME=${KEYCLOAK_REALM_NAME:-dmpopidor}
+      - KEYCLOAK_CLIENT_NAME=${KEYCLOAK_CLIENT_NAME:-dmpopidor}
+      - KEYCLOAK_CLIENT_SECRET=${KEYCLOAK_CLIENT_SECRET:-changeme}
     working_dir: /app
     volumes:
       - ./log:/app/log
@@ -184,12 +189,10 @@ services:
       - KC_DB_PASSWORD=${DB_PASSWORD:-changeme}
       - KC_DB_SCHEMA=public
       - KC_HTTP_ENABLED=true
-      - KC_PROXY=edge
-      - KC_PROXY_HEADERS=xforwarded
       - KC_HOSTNAME_STRICT=false
       - KC_HOSTNAME=http://localhost:8080/keycloak
       - KC_HTTP_RELATIVE_PATH=/keycloak
-      - PROXY_ADDRESS_FORWARDING=true
+      - KC_PROXY_HEADERS=xforwarded
     command: start
     depends_on:
       postgres:

@@ -293,5 +293,6 @@ module DMPRoadmap
     config.x.directus.public_url = ENV.fetch('DIRECTUS_PUBLIC_URL', 'http://localhost:8080/directus')
     config.x.dmpopidor.redis_url = ENV.fetch('REDIS_URL', 'redis://default:changeme@localhost:6379/1')
     config.x.application.canalu_url = ENV.fetch('CANALU_URL', 'https://www.canal-u.tv/chaines/inist-cnrs/opidor')
+    config.x.keycloak.enabled = ENV.fetch('ENABLE_KEYCLOAK', false).to_s.casecmp('true').zero?
   end
 end
