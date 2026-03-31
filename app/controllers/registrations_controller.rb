@@ -130,10 +130,10 @@ class RegistrationsController < Devise::RegistrationsController
                                   your account with them.')
             end
           end
-          respond_with resource, location: after_sign_up_path_for(resource)
+          redirect_to plans_path(anchor: 'content')
         elsif is_navigational_format?
           set_flash_message :notice, :"signed_up_but_#{resource.inactive_message}"
-          respond_with resource, location: after_inactive_sign_up_path_for(resource)
+          redirect_to after_inactive_sign_up_path_for(resource)
         end
         # rubocop:enable Metrics/BlockNesting
       else

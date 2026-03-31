@@ -268,5 +268,6 @@
   "researchProject": "Projet de recherche",
   "availableGuidances": "Recommandations disponibles",
   "selectedGuidances": "Recommandations sélectionnées",
-  "savedGuidancesInfo": "Les recommandations sélectionnées s’affichent au niveau de chaque question en cliquant sur l’ampoule"
+  "savedGuidancesInfo": "Les recommandations sélectionnées s’affichent au niveau de chaque question en cliquant sur l’ampoule",
+  "noGuidanceSelected": "Aucune recommandation sélectionnée"
 }

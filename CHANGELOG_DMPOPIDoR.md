@@ -2,6 +2,12 @@
 
 **Attention** Cette liste de changements concerne les déploiements sur nos serveurs de test en interne.
 
+## 31/03/2026
+- Ajout d'une tache de convertion des fragments contributeurs utilisant le référentiel SoftwareRoles (#14371)
+- Ajout d'un message à coté de l'infobox indiquant qu'aucune recommandation n'est sélectionnée (#14852)
+- Correction du problème de création de compte (#14878)
+- Correction du problème d'affichage des thèmes lors de la création/edition d'une recommandation (#14897)
+
 ## 19/03/2026
 - Ajout d'un système de mise en cache des Domaines de Recherche des plans publics (#14760)
 - Changement de l'icone Financeur dans la création de plan (#14681)
