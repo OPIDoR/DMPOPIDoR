@@ -18,14 +18,17 @@ namespace :usercleaning do
     Rails.logger.info 'Anonymizing users who have not connected for the last 5 years'
 
     User.where('active = true and last_sign_in_at < ?', 5.years.ago - 1.month).each do |user|
+      last_sign_in = user.last_sign_in_at || 5.years.ago
       case Date.today
-      when (user.last_sign_in_at + 5.years - 1.month).to_date
+      when (last_sign_in + 5.years - 1.month).to_date
         UserMailer.anonymization_warning(user).deliver_now
-      when (user.last_sign_in_at + 5.years - 1.week).to_date
+      when (last_sign_in + 5.years - 1.week).to_date
         UserMailer.anonymization_warning(user).deliver_now
-      when (user.last_sign_in_at + 5.years - 1.day).to_date
+      when (last_sign_in + 5.years - 1.day).to_date
         UserMailer.anonymization_warning(user).deliver_now
-      else p user # user.archive # default should archive every other user : last log in > 5y
+      else
+        p user
+        user.archive # default should archive every other user : last log in > 5y
       end
     end
   end
