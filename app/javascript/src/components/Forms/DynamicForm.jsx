@@ -85,7 +85,7 @@ function DynamicForm({
       try {
         response = await service.saveFragment(fragmentId, data);
       } catch (error) {
-        toast.error(getErrorMessage(error));
+        handleError(error);
         return setLoading(false);
       }
       if (response?.data?.meta_fragment) {
@@ -136,7 +136,7 @@ function DynamicForm({
         setNewFragmentSaved(true);
         methods.reset(fragment);
       })
-      .catch(console.error)
+      .catch((error) => handleError(error))
       .finally(() => setLoading(false));
   };
 
@@ -162,6 +162,7 @@ function DynamicForm({
     methods.reset(data.fragment);
   };
 
+  const handleError = (error) => toast.error(getErrorMessage(error));
   /**
    * USE EFFECTS
    */
@@ -176,7 +177,7 @@ function DynamicForm({
           setLoadedTemplates((prev) => ({ ...prev, [tplt.name]: tplt }));
           if (res.data.fragment) handleFragmentData(res.data);
         })
-        .catch(console.error)
+        .catch((error) => handleError(error))
         .finally(() => setLoading(false));
       return;
     }
@@ -192,7 +193,7 @@ function DynamicForm({
           }));
           handleFragmentData(res.data);
         })
-        .catch(console.error)
+        .catch((error) => handleError(error))
         .finally(() => setLoading(false));
       return;
     }
@@ -207,7 +208,7 @@ function DynamicForm({
             [res.data.name]: res.data,
           }));
         })
-        .catch(console.error)
+        .catch((error) => handleError(error))
         .finally(() => setLoading(false));
       return;
     }
