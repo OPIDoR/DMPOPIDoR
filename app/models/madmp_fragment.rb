@@ -258,6 +258,11 @@ class MadmpFragment < ApplicationRecord
     editable_data = data
     # rubocop:disable Metrics/BlockLength
     editable_data.each do |prop, value|
+      if value.nil?
+        editable_data.delete(prop)
+        next
+      end
+
       if value.is_a?(Hash) && value['dbid'].present?
         child = if children.exists?(value['dbid'])
                   children.find(value['dbid'])

@@ -287,5 +287,6 @@
   "text": "Texte",
   "themes": "Thèmes",
   "guidanceGroup": "Groupe de recommandations",
-  "createGuidance": "Créer une recommandation"
+  "createGuidance": "Créer une recommandation",
+  "noGuidanceSelected": "Aucune recommandation sélectionnée"
 }
