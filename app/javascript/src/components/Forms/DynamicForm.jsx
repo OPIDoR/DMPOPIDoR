@@ -38,6 +38,8 @@ function DynamicForm({
   const methods = useForm({ defaultValues: {} });
   const [loading, setLoading] = useState(true);
   const [templateName, setTemplateName] = useState(null);
+  const [newFragmentSaved, setNewFragmentSaved] = useState(false);
+
   /**
    * Memoized values
    */
@@ -131,6 +133,8 @@ function DynamicForm({
         setResearchOutputs(
           unionBy(researchOutputs, [updatedResearchOutput], "id"),
         );
+        setNewFragmentSaved(true);
+        methods.reset(fragment);
       })
       .catch(console.error)
       .finally(() => setLoading(false));
@@ -229,7 +233,7 @@ function DynamicForm({
   }, [formData[fragmentId]]);
 
   useEffect(() => {
-    if (!fragmentId && template) {
+    if (!fragmentId && template && !newFragmentSaved) {
       const defaults = formatDefaultValues(template.schema.default?.[locale]);
       Object.keys(defaults).length > 0
         ? methods.reset(defaults)
