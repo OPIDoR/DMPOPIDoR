@@ -9,6 +9,7 @@ import { ExternalImport } from "../ExternalImport";
 import * as styles from "../assets/css/form.module.css";
 import FormBuilder from "./FormBuilder";
 import { formatDefaultValues } from "../../utils/GeneratorUtils";
+import { useFormValues } from "../../hooks/useFormValues.js";
 
 function NestedForm({
   propName,
@@ -23,6 +24,7 @@ function NestedForm({
   const { t } = useTranslation();
   const { locale } = useContext(GlobalContext);
   const methods = useForm({ defaultValues: data });
+  const { setValues } = useFormValues(methods);
 
   const externalImports = template?.schema?.externalImports || {};
 
@@ -38,11 +40,6 @@ function NestedForm({
     e.stopPropagation();
     methods.handleSubmit(onValid, onInvalid)(e);
   };
-
-  const setValues = (data) =>
-    Object.keys(data).forEach((k) =>
-      methods.setValue(k, data[k], { shouldDirty: true }),
-    );
 
   /**
    * USE EFFECTS

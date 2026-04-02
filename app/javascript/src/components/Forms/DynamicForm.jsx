@@ -18,6 +18,7 @@ import {
   formatDefaultValues,
   generateEmptyDefaults,
 } from "../../utils/GeneratorUtils.js";
+import { useFormValues } from "../../hooks/useFormValues.js";
 
 function DynamicForm({
   fragmentId,
@@ -36,6 +37,7 @@ function DynamicForm({
   const { displayedResearchOutput, researchOutputs, setResearchOutputs } =
     useContext(SectionsContext);
   const methods = useForm({ defaultValues: {} });
+  const { setValues } = useFormValues(methods);
   const [loading, setLoading] = useState(true);
   const [templateName, setTemplateName] = useState(null);
   const [newFragmentSaved, setNewFragmentSaved] = useState(false);
@@ -89,6 +91,7 @@ function DynamicForm({
         return setLoading(false);
       }
       if (response?.data?.meta_fragment) {
+        // updating title outsite of react components
         document.getElementById("plan-title").innerHTML =
           response?.data?.meta_fragment?.title;
         setFormData({
@@ -146,11 +149,6 @@ function DynamicForm({
       .finally(() => setLoading(false));
   };
 
-  const setValues = (data) =>
-    Object.keys(data).forEach((k) =>
-      methods.setValue(k, data[k], { shouldDirty: true }),
-    );
-
   const handleFragmentData = (data) => {
     const id = fragmentId ?? data.fragment.id;
     setFormData({ [id]: data.fragment });
@@ -189,7 +187,7 @@ function DynamicForm({
       })
       .catch((error) => handleError(error))
       .finally(() => setLoading(false));
-  }, [fragmentId, questionId, displayedResearchOutput.id]);
+  }, [fragmentId, questionId, displayedResearchOutput?.id]);
 
   // Case 2 : fragmentId is present but form data is not loaded, fetching fragment
   useEffect(() => {

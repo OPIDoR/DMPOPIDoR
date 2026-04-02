@@ -147,6 +147,7 @@ function FunderImport({
       [projectFragmentId]: response.data.fragment.project,
       [metaFragmentId]: response.data.fragment.meta,
     });
+    // updating title outsite of react components
     document.getElementById("plan-title").innerHTML =
       response.data.fragment.meta.title;
     setPersons(response.data.persons);

@@ -8,6 +8,7 @@ import { GlobalContext } from "../context/GlobalContext.jsx";
 import FormBuilder from "./FormBuilder";
 import { ExternalImport } from "../ExternalImport";
 import { formatDefaultValues } from "../../utils/GeneratorUtils";
+import { useFormValues } from "../../hooks/useFormValues.js";
 
 function ModalForm({
   data,
@@ -23,6 +24,7 @@ function ModalForm({
   const { t } = useTranslation();
   const { locale } = useContext(GlobalContext);
   const methods = useForm({ defaultValues: data });
+  const { setValues } = useFormValues(methods);
 
   const externalImports = template?.schema?.externalImports || {};
 
@@ -44,11 +46,6 @@ function ModalForm({
     handleClose();
     methods.reset();
   };
-
-  const setValues = (data) =>
-    Object.keys(data).forEach((k) =>
-      methods.setValue(k, data[k], { shouldDirty: true }),
-    );
 
   /**
    * USE EFFECTS
