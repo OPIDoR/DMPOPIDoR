@@ -112,7 +112,6 @@ function DynamicForm({
         displayedResearchOutput.id,
       )
       .then((res) => {
-        const updatedResearchOutput = { ...displayedResearchOutput };
         const fragment = res.data.fragment;
         const tplt = res.data.template;
         const answerId = res.data.answer_id;
@@ -125,11 +124,18 @@ function DynamicForm({
           fragment_id: fragment.id,
           madmp_schema_id: templateId,
         });
-        updatedResearchOutput.answers.push({
-          answer_id: answerId,
-          question_id: questionId,
-          fragment_id: fragment.id,
-        });
+
+        const updatedResearchOutput = {
+          ...displayedResearchOutput,
+          answers: [
+            ...displayedResearchOutput.answers,
+            {
+              answer_id: answerId,
+              question_id: questionId,
+              fragment_id: fragment.id,
+            },
+          ],
+        };
         setResearchOutputs(
           unionBy(researchOutputs, [updatedResearchOutput], "id"),
         );
@@ -146,7 +152,8 @@ function DynamicForm({
     );
 
   const handleFragmentData = (data) => {
-    setFormData({ [fragmentId]: data.fragment });
+    const id = fragmentId ?? data.fragment.id;
+    setFormData({ [id]: data.fragment });
     if (data.answer_id) {
       const {
         answer_id,
