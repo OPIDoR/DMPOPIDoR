@@ -211,6 +211,7 @@ function DynamicForm({
         .finally(() => setLoading(false));
       return;
     }
+    Promise.resolve().then(() => setLoading(false));
   }, []);
 
   useEffect(() => {
