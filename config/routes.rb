@@ -372,6 +372,10 @@ Rails.application.routes.draw do
   end
 
   # ORG ADMIN specific pages
+
+  resources :administration, only: [] do
+    get 'guidances', on: :collection
+  end
   namespace :org_admin do
     resources :guidances, only: %i[index new create edit update destroy] do
       post 'render_themes', on: :collection, constraints: { format: [:json] }
@@ -387,8 +391,6 @@ Rails.application.routes.draw do
         put 'unpublish'
       end
     end
-
-    resources :guidances_edition, only: [:index], controller: 'guidances_edition'
 
     resources :users, only: %i[edit update], controller: 'users' do
       member do

@@ -13,6 +13,20 @@ module OrgAdmin
       ensure_default_group(current_user.org)
       @guidance_groups = GuidanceGroup.includes(:org)
                                       .by_org(current_user.org).page(1)
+
+      respond_to do |format|
+        format.html
+        format.json do
+          render json: {
+            guidance_groups: @guidance_groups.map do |gg|
+              GuidanceGroup.serialize_json_response(gg)
+            end,
+            guidances: @guidances.map do |g|
+              Guidance.serialize_json_response(g)
+            end
+          }
+        end
+      end
     end
 
     # GET /org_admin/guidances/new
