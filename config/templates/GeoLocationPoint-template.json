@@ -4,12 +4,13 @@
     "title": "GeoLocationPoint",
     "description": "GeoLocationPoint template",
     "dataTypes": null,
+    "topics": null,
     "type": "object",
     "class": "GeoLocationPoint",
     "properties": {
         "pointLongitude": {
             "type": "string",
-            "description": "Longitude du point",
+            "description": "Longitudinal dimension of point",
             "label@fr_FR": "Longitude",
             "label@en_GB": "Longitude",
             "tooltip": null,
@@ -20,7 +21,7 @@
         },
         "pointLatitude": {
             "type": "string",
-            "description": "Latitude du point",
+            "description": "Latitudinal dimension of point.",
             "label@fr_FR": "Latitude",
             "label@en_GB": "Latitude",
             "tooltip": null,

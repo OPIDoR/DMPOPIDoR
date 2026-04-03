@@ -12,15 +12,15 @@ Rails.application.routes.draw do
 
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
 
-  devise_for(:users, controllers: {
+  devise_for :users,
+             controllers: {
                registrations: 'registrations',
                passwords: 'passwords',
                sessions: 'sessions',
                omniauth_callbacks: 'users/omniauth_callbacks',
                invitations: 'users/invitations'
-             }) do
-    get '/users/sign_out', to: 'devise/sessions#destroy'
-  end
+             }
+  get '/users/sign_out', to: 'devise/sessions#destroy'
 
   delete '/users/identifiers/:id', to: 'identifiers#destroy', as: 'destroy_user_identifier'
 
@@ -34,7 +34,7 @@ Rails.application.routes.draw do
 
     member do
       put 'update_email_preferences'
-      get 'refresh_token'
+      post 'refresh_token'
     end
 
     post '/acknowledge_notification', to: 'users#acknowledge_notification'
@@ -63,6 +63,7 @@ Rails.application.routes.draw do
   get 'terms', to: 'static/static_pages#show', name: 'termsuse'
   get 'privacy', to: 'static/static_pages#show', name: 'privacy'
   get 'roadmap', to: 'static/static_pages#show', name: 'roadmap'
+  get 'accessibility', to: 'static/static_pages#show', name: 'accessibility'
   get 'research_output_types', to: 'static/static_pages#show', name: 'research_output_types'
   get 'about_registries', to: 'static/static_pages#show', name: 'about_registries'
 
@@ -95,43 +96,6 @@ Rails.application.routes.draw do
     resources :departments, controller: 'org_admin/departments'
   end
 
-  # This should be made more restful and placed within the `org_admin` or a new
-  # `admin` namespace. For example:
-  #     namespace :admin
-  #       resources :guidances, except: %i[show]
-  #     end
-  resources :guidances, path: 'org/admin/guidance', only: [] do
-    post 'render_themes', on: :collection, constraints: { format: [:json] }
-    member do
-      get 'admin_index'
-      get 'admin_edit'
-      get 'admin_new'
-      delete 'admin_destroy'
-      post 'admin_create'
-      put 'admin_update'
-      put 'admin_publish'
-      put 'admin_unpublish'
-    end
-  end
-
-  # This should be made more restful and placed within the `org_admin` or a new
-  # `admin` namespace. For example:
-  #     namespace :admin
-  #       resources :guidance_groups, except: %i[show]
-  #     end
-  resources :guidance_groups, path: 'org/admin/guidancegroup', only: [] do
-    member do
-      get 'admin_show'
-      get 'admin_new'
-      get 'admin_edit'
-      delete 'admin_destroy'
-      post 'admin_create'
-      put 'admin_update'
-      put 'admin_update_publish'
-      put 'admin_update_unpublish'
-    end
-  end
-
   resources :answers, only: [] do
     post 'create_or_update', on: :collection
     post 'set_answers_as_common', on: :collection
@@ -142,7 +106,7 @@ Rails.application.routes.draw do
   # Question Formats controller, currently just the one action
   get 'question_formats/rda_api_address' => 'question_formats#rda_api_address'
 
-  resources :notes, only: %i[create update archive] do
+  resources :notes, only: %i[create update] do
     member do
       post 'create', constraints: { format: [:json] }
       patch 'archive', constraints: { format: [:json] }
@@ -157,7 +121,7 @@ Rails.application.routes.draw do
     post 'import', action: :import_plan, on: :collection
     resource :export, only: [:show], controller: 'plan_exports'
 
-    resources :contributors, except: %i[show]
+    resources :contributors, only: %i[index]
     member do
       get 'structured_edit'
       get 'answer'
@@ -180,6 +144,13 @@ Rails.application.routes.draw do
 
   resources :research_outputs, only: %i[show create destroy update], constraints: { format: [:json] } do
     post 'import', on: :collection, constraints: { format: [:json] }
+    member do
+      get 'guidances', action: :question_guidances, constraints: { format: [:json] }
+      get 'has_guidances', constraints: { format: [:json] }
+      get 'guidance_groups', constraints: { format: [:json] }
+      get 'reinit_guidance_groups', constraints: { format: [:json] }
+      post 'guidance_groups', action: :select_guidance_groups, constraints: { format: [:json] }
+    end
   end
 
   resources :classic_research_outputs, only: %i[index create edit destroy update],
@@ -218,14 +189,14 @@ Rails.application.routes.draw do
 
   get '/codebase/run', to: 'madmp_codebase#run', constraints: { format: [:json] }
   get '/codebase/project_search', to: 'madmp_codebase#project_search', constraints: { format: [:json] }
+  get '/codebase/share', to: 'madmp_codebase#share', constraints: { format: [:json] }
 
-  resources :guided_tour, only: %i[get_tour end_tour] do
+  resources :guided_tour do
     get ':tour', action: :get_tour, on: :collection, constraints: { format: [:json] }
     post ':tour', action: :end_tour, on: :collection, constraints: { format: [:json] }
   end
 
   resources :registries, only: %i[index] do
-    get 'load_values', action: :load_values, on: :collection
     get 'by_name/:name', action: :by_name, on: :collection
     get 'suggest', action: :suggest, on: :collection
   end
@@ -293,14 +264,15 @@ Rails.application.routes.draw do
         resources :madmp_fragments, only: %i[show update], controller: "madmp_fragments", path: "fragments"
         resources :madmp_schemas, only: %i[index show], controller: "madmp_schemas", path: "schemas"
         resources :registries, only: %i[index show], controller: "registries", param: :name
-        resources :plans, only: %i[show import] do
+        resources :plans, only: %i[show] do
           get 'research_outputs/:uuid', action: :show, on: :collection, as: :show
           collection do
             post :import
+            get :public
           end
         end
         resources :services do
-          resources :items, only: %i[ror orcid]
+          resources :items
           get 'ror', action: :ror, on: :collection, as: :ror
           get 'orcid', action: :orcid, on: :collection, as: :orcid
           get 'loterre/*path', action: :loterre, on: :collection, as: :loterre
@@ -401,6 +373,21 @@ Rails.application.routes.draw do
 
   # ORG ADMIN specific pages
   namespace :org_admin do
+    resources :guidances, only: %i[index new create edit update destroy] do
+      post 'render_themes', on: :collection, constraints: { format: [:json] }
+      member do
+        put 'publish'
+        put 'unpublish'
+      end
+    end
+
+    resources :guidance_groups, only: %i[index new create edit update destroy] do
+      member do
+        put 'publish'
+        put 'unpublish'
+      end
+    end
+
     resources :users, only: %i[edit update], controller: 'users' do
       member do
         get 'user_plans'
@@ -530,13 +517,12 @@ Rails.application.routes.draw do
 
     resources :api_clients do
       member do
-        get :email_credentials
-        get :refresh_credentials
+        post :email_credentials
+        post :refresh_credentials
       end
     end
 
     resources :registries do
-      post 'sort_values', on: :collection
       get 'download'
     end
     resources :madmp_schemas, only: %i[index new create edit update destroy]
@@ -551,6 +537,6 @@ Rails.application.routes.draw do
                                    controller: 'research_projects',
                                    constraints: { format: 'json' }
 
-  get "healthz" => "rails/health#show", as: :rails_health_check
+  get "/healthz", to: "health#show"
 end
 # rubocop:enable Metrics/BlockLength

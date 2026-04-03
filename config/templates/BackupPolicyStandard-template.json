@@ -4,12 +4,13 @@
     "title": "BackupPolicyStandard",
     "description": "BackupPolicyStandard template",
     "dataTypes": null,
+    "topics": null,
     "type": "object",
     "class": "BackupPolicyStandard",
     "properties": {
         "description": {
             "type": "string",
-            "description": "Description de la politique de sauvegarde appliquée",
+            "description": "Description of the backup policy applied",
             "inputType": "textarea",
             "label@fr_FR": "Description",
             "label@en_GB": "Description",
@@ -19,7 +20,7 @@
         },
         "backupFrequency": {
             "type": "string",
-            "description": "Fréquence de sauvegarde",
+            "description": "Backup frequency",
             "label@fr_FR": "Fréquence des sauvegardes",
             "label@en_GB": "Backup frequency",
             "tooltip": null,
@@ -28,13 +29,10 @@
         },
         "backupType": {
             "type": "string",
-            "description": "Mode de sauvegarde (incrémentale, différentielle, complète, miroir, …)",
+            "description": "Backup type (incremental, differential, full, mirroring, etc.)",
             "inputType": "dropdown",
             "label@fr_FR": "Type de sauvegarde",
             "label@en_GB": "Backup type",
-            "registries": [
-                "BackupType"
-            ],
             "registryCategory": "BackupType",
             "overridable": true,
             "tooltip": null,
@@ -46,13 +44,10 @@
             "items": {
                 "type": "string"
             },
-            "description": "Support de stockage des données",
+            "description": "Data storage medium",
             "inputType": "dropdown",
             "label@fr_FR": "Supports de stockage",
             "label@en_GB": "Storage types",
-            "registries": [
-                "StorageType"
-            ],
             "registryCategory": "StorageType",
             "overridable": true,
             "tooltip": null,

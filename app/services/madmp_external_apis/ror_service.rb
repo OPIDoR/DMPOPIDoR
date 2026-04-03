@@ -142,13 +142,15 @@ module MadmpExternalApis
 
         json['items']&.filter_map do |item|
           {
-            type: 'ROR ID',
+            type: 'ROR',
             ror: item['id'],
             name: get_name(item:),
-            links: item&.dig('links' || []),
+            links: (item&.dig('links') || [])
+              .select { |link| link&.dig('type') == 'website' }
+              .map { |link| link&.dig('value') },
             country: get_country(item:),
             addresses: get_addresses(item:),
-            acronyms: item.fetch('acronyms', []),
+            acronyms: get_acronyms(item:),
             external_ids: get_external_ids(item:)
           }
         end&.compact || []
@@ -161,50 +163,48 @@ module MadmpExternalApis
       end
 
       def get_country(item:)
+        location = item&.dig('locations')&.first
         {
-          name: item.dig('country', 'country_name').to_s,
-          code: item.dig('country', 'country_code').to_s
+          name: location&.dig('geonames_details', 'country_name').to_s,
+          code: location&.dig('geonames_details', 'country_code').to_s
         }
       end
 
-      # rubocop:disable Metrics/AbcSize
       def get_name(item:)
-        return '' unless item&.dig('name') && item.dig('country', 'country_code')
-
-        country_code = item&.dig('country', 'country_code').to_s
-
-        # This code extracts 'iso639' values from 'labels' in the 'item' object and constructs a new hash.
-        # Each 'iso639' is used as a symbol key, and 'name' from 'item' is the associated value.
-        # The resulting hash contains 'iso639' symbols as keys and 'name' values.
-        # This process aggregates data from 'labels' to achieve the desired result format.
-        labels = item&.dig('labels')&.each_with_object({}) do |label, hash|
-          iso639 = label['iso639'] || ''
-          hash[iso639.to_sym] = item['name'].to_s
-        end
-
-        labels[country_code.downcase.to_sym] = item['name']
-
-        labels
+        item&.dig('names')
+            &.select { |name| name&.dig('types')&.include?('label') && name&.dig('lang') }
+            &.map { |name| [name&.dig('lang')&.to_sym, name&.dig('value')] }
+            .to_h
       end
-      # rubocop:enable Metrics/AbcSize
 
       def get_addresses(item:)
-        return [] unless item&.dig('addresses')
+        return [] unless item&.dig('locations')
 
-        item['addresses'].map do |address|
+        item&.dig('locations')&.map do |location|
           {
-            city: address['city'].to_s,
-            department: address.dig('geonames_city', 'nuts_level3', 'name').to_s,
-            area: address.dig('geonames_city', 'nuts_level2', 'name').to_s
+            city: location&.dig('geonames_details', 'name'),
+            country: get_country(item:),
+            pos: {
+              lat: location&.dig('geonames_details', 'lat'),
+              lng: location&.dig('geonames_details', 'lng')
+            }
           }
         end
       end
 
+      def get_acronyms(item:)
+        item&.dig('names')
+            &.select { |name| name&.dig('types')&.include?('acronym') && name&.dig('value') }
+            &.map { |name| name&.dig('value') } || []
+      end
+
       def get_external_ids(item:)
-        # Transform the values of the 'external_ids' hash by retrieving the 'all' attribute from each value
-        item&.dig('external_ids')&.transform_values do |external_id|
-          external_id['all'].is_a?(Array) ? external_id['all'] : [external_id['all']]
-        end || {}
+        item&.dig('external_ids')
+            &.map do |external_id|
+              [external_id&.dig('type')&.to_sym,
+               external_id&.dig('preferred') ? [external_id&.dig('preferred')] : external_id&.dig('all')]
+        end
+            .to_h
       end
 
       # Org names are not unique, so include the Org URL if available or

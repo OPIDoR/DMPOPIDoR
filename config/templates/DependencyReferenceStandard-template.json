@@ -6,12 +6,13 @@
     "dataTypes": [
         "software"
     ],
+    "topics": null,
     "type": "object",
     "class": "DependencyReferenceStandard",
     "properties": {
         "title": {
             "type": "string",
-            "description": "Nom de la dépendance",
+            "description": "Dependency Name",
             "label@fr_FR": "Nom de la dépendance",
             "label@en_GB": "Dependency name",
             "tooltip": null,
@@ -20,7 +21,7 @@
         },
         "version": {
             "type": "string",
-            "description": "Version de la dépendance",
+            "description": "Dependency version",
             "label@fr_FR": "Version de la dépendance",
             "label@en_GB": "Dependency version",
             "tooltip": null,
@@ -29,8 +30,8 @@
         },
         "dependencyUrl": {
             "type": "string",
-            "format": "uri",
-            "description": "Lien URL de la dépendance",
+            "format": "url",
+            "description": "Dependency URL",
             "label@fr_FR": "URL de la dépendance",
             "label@en_GB": "Dependency URL",
             "tooltip": null,

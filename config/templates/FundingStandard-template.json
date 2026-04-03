@@ -7,6 +7,7 @@
         "software",
         "none"
     ],
+    "topics": null,
     "type": "object",
     "class": "FundingStandard",
     "properties": {
@@ -22,7 +23,7 @@
             "required": [
                 "dbid"
             ],
-            "description": "Source (agence) de financement",
+            "description": "Information about a funder",
             "label@fr_FR": "Financeur",
             "label@en_GB": "Funder",
             "tooltip": null,
@@ -31,7 +32,7 @@
         },
         "grantId": {
             "type": "string",
-            "description": "Identifiant du financement (convention de financement)",
+            "description": "Funding  identifier (financing agreement)",
             "label@fr_FR": "Identifiant du financement",
             "label@en_GB": "Grant Identifier",
             "tooltip@fr_FR": "Pour tout projet financé (ANR, Anses…), indiquer impérativement l’identifiant du financement",
@@ -43,13 +44,10 @@
         },
         "fundingStatus": {
             "type": "string",
-            "description": "Statut du financement: planifié, demandé, accepté, rejeté",
+            "description": "Funding status: planned, requested, accepted, rejected",
             "inputType": "dropdown",
             "label@fr_FR": "Statut du financement",
             "label@en_GB": "Funding status",
-            "registries": [
-                "FundingStatus"
-            ],
             "registryCategory": "FundingStatus",
             "tooltip": null,
             "form_label@fr_FR": "Statut du financement",
@@ -65,5 +63,8 @@
         "$.funder.custom_value",
         " : ",
         "$.grantId"
+    ],
+    "unicity": [
+        "grantId"
     ]
 }

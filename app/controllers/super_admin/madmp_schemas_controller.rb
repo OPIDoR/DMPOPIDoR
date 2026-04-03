@@ -14,6 +14,7 @@ module SuperAdmin
     def new
       authorize(MadmpSchema)
       @schema = MadmpSchema.new
+      @topics = Registry.find_by(name: 'Topics')&.values || []
     end
 
     # rubocop:disable Metrics/AbcSize
@@ -22,17 +23,18 @@ module SuperAdmin
       @schema = MadmpSchema.new(permitted_params.except(:schema))
       if @schema.save
         @schema.update(schema: JSON.parse(permitted_params[:schema]))
-        flash.now[:notice] = success_message(@schema, _('created'))
-        render :edit
+        flash[:notice] = success_message(@schema, _('created'))
+        redirect_to edit_super_admin_madmp_schema_path(@schema)
       else
-        flash.now[:alert] = failure_message(@schema, _('create'))
-        render :new
+        flash[:alert] = failure_message(@schema, _('create'))
+        redirect_to new_super_admin_madmp_schema_path(@schema)
       end
     end
     # rubocop:enable Metrics/AbcSize
 
     def edit
       authorize(MadmpSchema)
+      @topics = Registry.find_by(name: 'Topics')&.values || []
     end
 
     # rubocop:disable Metrics/AbcSize
@@ -40,11 +42,11 @@ module SuperAdmin
       authorize(MadmpSchema)
       if @schema.update(permitted_params.except(:schema))
         @schema.update_column(:schema, JSON.parse(permitted_params[:schema]))
-        flash.now[:notice] = success_message(@schema, _('updated'))
+        flash[:notice] = success_message(@schema, _('updated'))
       else
-        flash.now[:alert] = failure_message(@schema, _('update'))
+        flash[:alert] = failure_message(@schema, _('update'))
       end
-      render :edit
+      redirect_to edit_super_admin_madmp_schema_path(@schema)
     end
     # rubocop:enable Metrics/AbcSize
 
@@ -54,8 +56,8 @@ module SuperAdmin
         msg = success_message(@schema, _('deleted'))
         redirect_to super_admin_madmp_schemas_path, notice: msg
       else
-        flash.now[:alert] = failure_message(@schema, _('delete'))
-        render :edit
+        flash[:alert] = failure_message(@schema, _('delete'))
+        redirect_to edit_super_admin_madmp_schema_path(@schema)
       end
     end
 
@@ -82,7 +84,8 @@ module SuperAdmin
     end
 
     def permitted_params
-      params.require(:madmp_schema).permit(:label, :name, :version, :classname, :api_client_id, :schema, :data_type)
+      params.require(:madmp_schema).permit(:label, :name, :version, :classname, :api_client_id, :schema, :data_type,
+                                           topics: [])
     end
   end
 end

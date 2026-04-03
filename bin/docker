@@ -40,14 +40,12 @@ chdir APP_ROOT do
   puts '== Copying sample files =='
   cp 'config/database.yml.sample', 'config/database.yml'
   cp 'config/initializers/contact_us.rb.example', 'config/initializers/contact_us.rb'
-  cp 'config/initializers/wicked_pdf.rb.example', 'config/initializers/wicked_pdf.rb'
 
   puts '== Generate master.key file =='
   require 'rails/generators/app_base'
   require 'rails/generators/rails/credentials/credentials_generator'
   master_key_generator = Rails::Generators::MasterKeyGenerator.new([], quiet: true)
   master_key_generator.add_master_key_file_silently
-  master_key_generator.ignore_master_key_file_silently
 
   puts '== Generate credentials file =='
   db_username = {

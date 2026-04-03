@@ -8,29 +8,12 @@ import onChangeQuestionFormat, { onChangeQuestionClassname } from '../questions/
 import initQuestionOption from '../questionOptions/index';
 import updateConditions from '../conditions/updateConditions';
 
-$(() => {
-  Tinymce.init({ selector: '#phase_description' });
+document.addEventListener('turbo:load', () => {
   const parentSelector = '.section-group';
 
   const initQuestion = (context) => {
     const target = $(`#${context}`);
     if (isObject(target)) {
-      // For some reason the toolbar options are retained after the call to
-      // Tinymce.init() on the views/notifications/edit.js file. Tried 'Object.assign'
-      // instead of '$.extend' but it made no difference.
-      Tinymce.init({
-        selector: `#${context} .question`,
-        init_instance_callback(editor) {
-          // When the text editor changes to blank, set the corresponding destroy
-          // field to true (if present).
-          editor.on('Change', () => {
-            const $texteditor = $(editor.targetElm);
-            const $fieldset = $texteditor.parents('fieldset');
-            const $hiddenField = $fieldset.find('input[type=hidden][name$="[_destroy]"]');
-            $hiddenField.val(editor.getContent() === '');
-          });
-        },
-      });
       initQuestionOption(context);
       addAsterisks(`#${context}`);
       // Swap in the question_formats when the user selects an option based question type
@@ -60,30 +43,6 @@ $(() => {
   };
   const initSection = (selector) => {
     if (isString(selector)) {
-      // Wire up the section and its Questions
-      // For some reason the toolbar options are retained after the call to Tinymce.init() on
-      // the views/notifications/edit.js file. Tried 'Object.assign' instead of '$.extend' but it
-      // made no difference
-      const prefix = 'collapseSection';
-      let sectionId = selector;
-      if (sectionId.startsWith(prefix)) {
-        sectionId = `sc_${sectionId.replace(prefix, '')}_section_description`
-      }
-
-      Tinymce.init({
-        selector: `#${sectionId}`,
-        init_instance_callback: (editor) => {
-          // When the text editor changes to blank, set the corresponding destroy
-          // field to true (if present).
-          editor.on('Change', (ed) => {
-            const $texteditor = $(ed.getContentAreaContainer());
-            const $fieldset = $texteditor.parents('fieldset');
-            const $hiddenField = $fieldset.find('input[type=hidden][id$="_destroy"]');
-            $hiddenField.val(ed.getContent() === '');
-          });
-        },
-      });
-
       const questionForm = $(`#${selector}`).find('.question_form');
       if (questionForm.length > 0) {
         initQuestion(selector);
@@ -156,7 +115,4 @@ $(() => {
   if (currentUpdatedSection.length > 0) {
     initSection(`${currentUpdatedSection.attr('id')}`);
   }
-  // Handle the new section
-  // initSection('#new_section_section_description');
-  Tinymce.init({ selector: '#new_section_section_description' });
 });

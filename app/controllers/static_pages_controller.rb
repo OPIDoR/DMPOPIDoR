@@ -23,4 +23,6 @@ class StaticPagesController < ApplicationController
   def tutorials; end
 
   def optout; end
+
+  def accessibility; end
 end

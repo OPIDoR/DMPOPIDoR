@@ -12,7 +12,7 @@ module Api
 
         # rubocop:disable Metrics/AbcSize
         def show
-          @fragment = MadmpFragment.find(params[:id])
+          @fragment = MadmpFragment.includes(:madmp_schema).find(params[:id])
           # check if the user has permissions to use the API
           raise Pundit::NotAuthorizedError unless Api::V0::Madmp::MadmpFragmentPolicy.new(@user, @fragment).show?
 
@@ -33,7 +33,7 @@ module Api
         # rubocop:enable Metrics/AbcSize
 
         def update
-          @fragment = MadmpFragment.find(params[:id])
+          @fragment = MadmpFragment.includes(:madmp_schema).find(params[:id])
 
           # check if the user has permissions to use the API
           raise Pundit::NotAuthorizedError unless Api::V0::Madmp::MadmpFragmentPolicy.new(@user, @fragment).update?

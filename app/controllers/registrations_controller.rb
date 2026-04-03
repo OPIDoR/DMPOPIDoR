@@ -130,10 +130,10 @@ class RegistrationsController < Devise::RegistrationsController
                                   your account with them.')
             end
           end
-          respond_with resource, location: after_sign_up_path_for(resource)
+          redirect_to plans_path(anchor: 'content')
         elsif is_navigational_format?
           set_flash_message :notice, :"signed_up_but_#{resource.inactive_message}"
-          respond_with resource, location: after_inactive_sign_up_path_for(resource)
+          redirect_to after_inactive_sign_up_path_for(resource)
         end
         # rubocop:enable Metrics/BlockNesting
       else
@@ -262,14 +262,14 @@ class RegistrationsController < Devise::RegistrationsController
       set_locale
       set_flash_message :notice, success_message(current_user, _('saved'))
       # Sign in the user bypassing validation in case his password changed
-      sign_in current_user, bypass: true
+      bypass_sign_in(current_user)
       redirect_to "#{edit_user_registration_path}#personal-details",
                   notice: success_message(current_user, _('saved'))
 
     else
       flash[:alert] = message.blank? ? failure_message(current_user, _('save')) : message
       @orgs = Org.order('name')
-      render 'edit'
+      redirect_to edit_user_registration_path
     end
   end
   # rubocop:enable Metrics/AbcSize, Metrics/MethodLength
@@ -283,7 +283,7 @@ class RegistrationsController < Devise::RegistrationsController
     elsif args[:password_confirmation].blank?
       message = _('Please enter a password confirmation')
     elsif args[:password] != args[:password_confirmation]
-      message = _('Password and comfirmation must match')
+      message = _('Password and confirmation must match')
     else
       successfully_updated = current_user.update_with_password(args)
     end
@@ -293,7 +293,7 @@ class RegistrationsController < Devise::RegistrationsController
       # Method defined at controllers/application_controller.rb#set_locale
       set_flash_message :notice, success_message(current_user, _('saved'))
       # TODO: this method is deprecated
-      sign_in current_user, bypass: true
+      bypass_sign_in(current_user)
       redirect_to "#{edit_user_registration_path}#password-details",
                   notice: success_message(current_user, _('saved'))
 

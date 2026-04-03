@@ -13,14 +13,7 @@ module SuperAdmin
       authorize @user
       @departments = @user.org.departments.order(:name)
       @plans = Plan.active(@user).page(1)
-      # Start DMP OPIDoR Customization
-      # CHANGES :
-      #   - SuperAdmin should be able to change any org for a user
-      # --------------------------------
       @orgs = Org.includes(identifiers: [:identifier_scheme]).all
-      # --------------------------------
-      # End DMP OPIDoR Customization
-      # --------------------------------
       render 'super_admin/users/edit',
              locals: { user: @user,
                        departments: @departments,
@@ -59,11 +52,11 @@ module SuperAdmin
         end
         @user.update(org_id: lookup.id) if lookup.present?
 
-        flash.now[:notice] = success_message(@user, _('updated'))
+        flash[:notice] = success_message(@user, _('updated'))
       else
-        flash.now[:alert] = failure_message(@user, _('update'))
+        flash[:alert] = failure_message(@user, _('update'))
       end
-      render :edit
+      redirect_to edit_super_admin_user_path(@user)
     end
     # rubocop:enable Metrics/AbcSize, Metrics/MethodLength
 
@@ -74,7 +67,7 @@ module SuperAdmin
       authorize @user
 
       if params[:id] == params[:merge_id]
-        flash.now[:alert] = _("You attempted to merge 2 accounts with the same email address.
+        flash[:alert] = _("You attempted to merge 2 accounts with the same email address.
            Please merge with a different email address.")
       else
         merge_accounts
@@ -84,7 +77,7 @@ module SuperAdmin
       @departments = @user.org.departments.order(:name)
       @plans = Plan.active(@user).page(1)
 
-      render :edit
+      redirect_to edit_super_admin_user_path(@user)
     end
     # rubocop:enable Metrics/AbcSize
 
@@ -102,8 +95,8 @@ module SuperAdmin
           form: render_to_string(partial: 'super_admin/users/confirm_merge')
         }
       else # NO USER, re-render w/error?
-        flash.now[:alert] = 'Unable to find user'
-        render :edit # re-do as responding w/ json
+        flash[:alert] = 'Unable to find user'
+        redirect_to edit_super_admin_user_path(@user)
       end
     end
     # rubocop:enable Metrics/AbcSize
@@ -116,11 +109,11 @@ module SuperAdmin
       @departments = @user.org.departments.order(:name)
       @plans = Plan.active(@user).page(1)
       if @user.archive
-        flash.now[:notice] = success_message(@user, _('archived'))
+        flash[:notice] = success_message(@user, _('archived'))
       else
-        flash.now[:alert] = failure_message(@user, _('archive'))
+        flash[:alert] = failure_message(@user, _('archive'))
       end
-      render :edit
+      redirect_to edit_super_admin_user_path(@user)
     end
     # rubocop:enable Metrics/AbcSize
 
@@ -139,9 +132,9 @@ module SuperAdmin
     def merge_accounts
       remove = User.find(params[:merge_id])
       if @user.merge(remove)
-        flash.now[:notice] = success_message(@user, _('merged'))
+        flash[:notice] = success_message(@user, _('merged'))
       else
-        flash.now[:alert] = failure_message(@user, _('merge'))
+        flash[:alert] = failure_message(@user, _('merge'))
       end
     end
   end

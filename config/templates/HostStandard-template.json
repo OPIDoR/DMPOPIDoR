@@ -4,12 +4,13 @@
     "title": "HostStandard",
     "description": "HostStandard template",
     "dataTypes": null,
+    "topics": null,
     "type": "object",
     "class": "HostStandard",
     "properties": {
         "title": {
             "type": "string",
-            "description": "Intitulé de l'hôte",
+            "description": "Host title",
             "label@fr_FR": "Titre",
             "label@en_GB": "Title",
             "tooltip": null,
@@ -18,7 +19,7 @@
         },
         "hostId": {
             "type": "string",
-            "description": "Identifiant pérenne ou Url de référence",
+            "description": "Persistent identifier or URL",
             "label@fr_FR": "Identifiant de l'entrepôt",
             "label@en_GB": "Repository ID",
             "tooltip": null,
@@ -27,13 +28,10 @@
         },
         "idType": {
             "type": "string",
-            "description": "Type d'identifiant",
+            "description": "Identification system",
             "inputType": "dropdown",
             "label@fr_FR": "Type d'identifiant",
             "label@en_GB": "Identifier type",
-            "registries": [
-                "PIDSystem"
-            ],
             "registryCategory": "PIDSystem",
             "overridable": true,
             "tooltip": null,
@@ -42,20 +40,17 @@
         },
         "policyUrl": {
             "type": "string",
-            "description": "Politique de donnes de l'hôte",
+            "description": "Host data policy",
             "label@fr_FR": "Politique de données",
             "label@en_GB": "Data policy",
             "tooltip": null
         },
         "geoLocation": {
             "type": "string",
-            "description": "Code du pays de localisation de l'hôte",
+            "description": "Host country code",
             "inputType": "dropdown",
             "label@fr_FR": "Localisation géographique (pays)",
             "label@en_GB": "Geo location (country)",
-            "registries": [
-                "ISO3166-alpha2"
-            ],
             "registryCategory": "ISO3166-alpha2",
             "tooltip": null,
             "form_label@fr_FR": "Localisation géographique (pays)",
@@ -66,13 +61,10 @@
             "items": {
                 "type": "string"
             },
-            "description": "Certifications (CoreTrustSEal, DSA, WDS, ISO-9001, …)",
+            "description": "Certifications held by the host (CoreTrustSEal, DSA, WDS, ISO-9001, …)",
             "inputType": "dropdown",
             "label@fr_FR": "Certification",
             "label@en_GB": "Certification",
-            "registries": [
-                "Certification"
-            ],
             "registryCategory": "Certification",
             "overridable": true,
             "tooltip": null,
@@ -84,13 +76,10 @@
             "items": {
                 "type": "string"
             },
-            "description": "Système d'identifiants pérennes utilisé par l'hôte",
+            "description": "System of persistent identifiers implemented by the host",
             "inputType": "dropdown",
             "label@fr_FR": "Système d'identifiants",
             "label@en_GB": "PID system",
-            "registries": [
-                "PIDSystem"
-            ],
             "registryCategory": "PIDSystem",
             "overridable": true,
             "tooltip": null,
@@ -99,7 +88,7 @@
         },
         "hasVersioningPolicy": {
             "type": "string",
-            "description": "Contrôle des versions",
+            "description": "Versioning policy",
             "label@fr_FR": "Politique de gestion des versions",
             "label@en_GB": "Versioning policy",
             "tooltip": null,
@@ -109,7 +98,7 @@
         },
         "availability": {
             "type": "number",
-            "description": "Disponibilité/pérennité de l'hôte en années (jusqu'à quelle année?)",
+            "description": "Host availability/sustainability in years (until what year?)",
             "label@fr_FR": "Disponibilité (années)",
             "label@en_GB": "Availability (years)",
             "tooltip": null,
@@ -122,13 +111,10 @@
             "items": {
                 "type": "string"
             },
-            "description": "Standard(s) de métadonnées disponible(s)",
+            "description": "Export formats compliant with metadata standards provided by the host.",
             "inputType": "dropdown",
             "label@fr_FR": "Standards de métadonnées disponibles",
             "label@en_GB": "Available metadata standards",
-            "registries": [
-                "StandardsShort"
-            ],
             "registryCategory": "StandardsShort",
             "overridable": true,
             "tooltip": null,

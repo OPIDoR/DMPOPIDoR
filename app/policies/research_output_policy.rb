@@ -43,10 +43,30 @@ class ResearchOutputPolicy < ApplicationPolicy
   end
 
   def import?
-    @research_output.plan.editable_by?(@user.id)
+    @research_output.plan.readable_by?(@user.id)
   end
 
   def select_output_type?
     @research_output.plan.administerable_by?(@user.id)
+  end
+
+  def has_guidances? # rubocop:disable Naming/PredicatePrefix
+    @research_output.plan.readable_by?(@user.id)
+  end
+
+  def question_guidances?
+    @research_output.plan.readable_by?(@user.id)
+  end
+
+  def guidance_groups?
+    @research_output.plan.readable_by?(@user.id)
+  end
+
+  def select_guidance_groups?
+    @research_output.plan.editable_by?(@user.id)
+  end
+
+  def reinit_guidance_groups?
+    @research_output.plan.editable_by?(@user.id)
   end
 end

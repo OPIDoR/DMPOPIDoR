@@ -6,12 +6,12 @@
       <div class="row">
         <div class="col-md-12">
           <%= react("CommentList", props: { 
-            locale: locale,
-            planId: plan.id,
-            userId: @current_user.id,
             answerId:  answer.id,
+            researchOutputId: research_output.id,
+            planId: plan.id,
             questionId: question.id,
-            researchOutputId: research_output.id
+            userId: @current_user.id,
+            commentable: plan.commentable_by?(current_user.id)
           }) %>
         </div>
       </div>

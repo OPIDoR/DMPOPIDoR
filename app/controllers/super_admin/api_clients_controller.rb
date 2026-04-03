@@ -44,11 +44,11 @@ module SuperAdmin
         msg = success_message(@api_client, _('created'))
         msg += format(_('. The API credentials have been emailed to %{email}'),
                       email: @api_client.contact_email)
-        flash.now[:notice] = msg
-        render :edit
+        flash[:notice] = msg
+        redirect_to edit_super_admin_api_client_path(@api_client)
       else
-        flash.now[:alert] = failure_message(@api_client, _('create'))
-        render :new
+        flash[:alert] = failure_message(@api_client, _('create'))
+        redirect_to new_super_admin_api_client_path(@api_client)
       end
     end
     # rubocop:enable Metrics/AbcSize
@@ -65,11 +65,11 @@ module SuperAdmin
       attrs = remove_org_selection_params(params_in: api_client_params)
 
       if @api_client.update(attrs)
-        flash.now[:notice] = success_message(@api_client, _('updated'))
+        flash[:notice] = success_message(@api_client, _('updated'))
       else
-        flash.now[:alert] = failure_message(@api_client, _('update'))
+        flash[:alert] = failure_message(@api_client, _('update'))
       end
-      render :edit
+      redirect_to edit_super_admin_api_client_path(@api_client)
     end
     # rubocop:enable Metrics/AbcSize
 
@@ -81,8 +81,8 @@ module SuperAdmin
         msg = success_message(api_client, _('deleted'))
         redirect_to super_admin_api_clients_path, notice: msg
       else
-        flash.now[:alert] = failure_message(api_client, _('delete'))
-        render :edit
+        flash[:alert] = failure_message(api_client, _('delete'))
+        redirect_to edit_super_admin_api_client_path(@api_client)
       end
     end
 
@@ -95,12 +95,20 @@ module SuperAdmin
       @api_client.generate_credentials
       @api_client.save
       @success = original != @api_client.client_secret
+      respond_to do |format|
+        format.turbo_stream
+        format.html { redirect_to edit_super_admin_api_client_path(@api_client) }
+      end
     end
 
     # GET /api_clients/:id/email_credentials/
     def email_credentials
       @api_client = ApiClient.find(params[:id])
       UserMailer.api_credentials(@api_client).deliver_now if @api_client.present?
+      respond_to do |format|
+        format.turbo_stream
+        format.html { redirect_to edit_super_admin_api_client_path(@api_client) }
+      end
     end
 
     private

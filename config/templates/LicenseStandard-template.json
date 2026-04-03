@@ -7,12 +7,13 @@
         "software",
         "none"
     ],
+    "topics": null,
     "type": "object",
     "class": "LicenseStandard",
     "properties": {
         "licenseName": {
             "type": "string",
-            "description": "Nom de la licence",
+            "description": "License name",
             "label@fr_FR": "Nom",
             "label@en_GB": "Name",
             "tooltip": null,
@@ -23,8 +24,8 @@
         },
         "licenseUrl": {
             "type": "string",
-            "format": "uri",
-            "description": "Url de référence de la licence",
+            "format": "url",
+            "description": "License reference URL",
             "label@fr_FR": "URL",
             "label@en_GB": "URL",
             "tooltip": null,

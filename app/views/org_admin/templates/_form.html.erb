@@ -8,7 +8,12 @@
 <div class="form-control mb-3 col-xs-8" data-toggle="tooltip" title="<%=  description_tooltip %>">
   <em class="sr-only"><%= description_tooltip %></em>
   <%= f.label(:description, _('Description'), class: "form-label") %>
-  <%= f.text_area(:description, class: "template", spellcheck: true) %>
+  <%= f.text_area(:description, class: "template tinymce", spellcheck: true,
+                  data: {
+                    controller: "tinymce",
+                    tinymce_target: "input",
+                    tinymce_callback_value: "true"
+                  }) %>
 </div>
 
 <% if current_user.org.funder? && !current_user.org.funder_only? %>
@@ -38,6 +43,29 @@
 </div>
 
 <div class="form-control mb-3 col-xs-8">
+  <%= f.label(:contexts, _('Contexts'), class: "form-label") %>
+  <% if f.object.new_record? || current_user.can_super_admin? %>
+    <%= select_tag(:context,
+        options_for_select(
+          [["Research Project", "research_project"], ["Research Entity", "research_entity"]],
+          f.object.contexts
+        ),
+        multiple: true,
+        class: "form-select",
+        name: 'template[contexts][]') %>
+  <% else %>
+    <p class="form-control-static">
+      <% if f.object.research_entity? %>
+        <%= _('Research Entity') %> 
+      <% end %>
+      <% if f.object.research_project? %>
+        <%= _('Research Project') %>
+      <% end %>
+    </p>
+  <% end %>
+</div>
+
+<div class="form-control mb-3 col-xs-8">
   <%= f.label(:type, _('Type'), class: "form-label") %>
   <%= f.hidden_field :type, id: nil %>
   <p class="form-control-static">
@@ -49,28 +77,6 @@
       <%= _('Classic') %>
     <% end %>
   </p>
-</div>
-
-<div class="form-control mb-3 col-xs-8">
-  <%= f.label(:context, _('Context'), class: "form-label") %>
-  <% if f.object.new_record? %>
-    <%= select_tag(:context,
-        options_for_select(
-          [["Research Project", "research_project"], ["Research Entity", "research_entity"]],
-          f.object.context
-        ),
-        disabled: f.object.module?,
-        class: "form-select",
-        name: 'template[context]') %>
-  <% else %>
-    <p class="form-control-static">
-      <% if f.object.research_entity? %>
-        <%= _('Research Entity') %>
-      <% else %>
-        <%= _('Research Project') %>
-      <% end %>
-    </p>
-  <% end %>
 </div>
 
 <% if f.object.module? %>

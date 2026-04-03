@@ -8,11 +8,15 @@
 # Table name: guidance_groups
 #
 #  id              :integer          not null, primary key
+#  data_types      :string           default(["none"]), not null, is an Array
+#  description     :string
 #  name            :string
 #  optional_subset :boolean          default(TRUE), not null
 #  published       :boolean          default(FALSE), not null
+#  topics          :string           default(["generic"]), not null, is an Array
 #  created_at      :datetime         not null
 #  updated_at      :datetime         not null
+#  language_id     :integer          default(0)
 #  org_id          :integer
 #
 # Indexes
@@ -42,6 +46,8 @@ class GuidanceGroup < ApplicationRecord
 
   has_and_belongs_to_many :plans, join_table: :plans_guidance_groups
 
+  has_and_belongs_to_many :research_outputs, join_table: :guidance_groups_research_outputs
+
   # ===============
   # = Validations =
   # ===============
@@ -58,6 +64,8 @@ class GuidanceGroup < ApplicationRecord
 
   validates :published, inclusion: { in: BOOLEAN_VALUES,
                                      message: INCLUSION_MESSAGE }
+
+  validates :topics, presence: { message: PRESENCE_MESSAGE }
 
   # EVALUATE CLASS AND INSTANCE METHODS BELOW
   #

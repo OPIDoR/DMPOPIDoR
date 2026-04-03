@@ -19,6 +19,10 @@
 #
 #  index_madmp_fragments_on_answer_id        (answer_id)
 #  index_madmp_fragments_on_madmp_schema_id  (madmp_schema_id)
+#  madmp_fragments_dmp_id_idx                (dmp_id)
+#  madmp_fragments_parent_id_idx             (parent_id)
+#  madmp_fragments_plan_id_idx               (((data ->> 'plan_id'::text)))
+#  madmp_fragments_research_output_id_idx    (((data ->> 'research_output_id'::text)))
 #
 # Foreign Keys
 #
@@ -67,13 +71,13 @@ module Fragment
         end
         if include_ro_names
           if research_outputs.size.eql?(1)
-            roles_list.push(c.data['role'])
+            roles_list.push(c.data['role']) unless roles_list.include?(c.data['role'])
             next
           end
           ro = research_outputs.find(c.research_output_id)
-          if roles_aggregate[c.data['role']].nil?
-            roles_aggregate[c.data['role']] = [ro.abbreviation]
-          else
+
+          roles_aggregate[c.data['role']] = [ro.abbreviation] if roles_aggregate[c.data['role']].nil?
+          unless roles_aggregate[c.data['role']].include?(ro.abbreviation)
             roles_aggregate[c.data['role']].push(ro.abbreviation)
           end
         else

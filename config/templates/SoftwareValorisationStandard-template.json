@@ -6,6 +6,7 @@
     "dataTypes": [
         "software"
     ],
+    "topics": null,
     "type": "object",
     "class": "SoftwareValorisationStandard",
     "properties": {
@@ -25,12 +26,13 @@
                     "dbid"
                 ]
             },
-            "description": "Publications scientifiques dédiées au logiciel",
+            "description": "Scientific publications describing the software",
             "label@fr_FR": "Le logiciel a-t-il fait l'objet d’une publication scientifique dédiée ?",
-            "label@en_GB": "Has the software been the subject of a dedicated scientific publication?",
-            "tooltip": null,
+            "label@en_GB": "Has information about this software already been published?",
+            "tooltip@fr_FR": "Indiquer la publication revue par les pairs décrivant spécifiquement le logiciel, appelé Software paper, dans un journal dédié comme par exemple \"The Journal of Open Source Software\" (https://joss.theoj.org).",
+            "tooltip@en_GB": "Include here any published article that describes the software specifically. This is known as a software paper and it should appear in a peer-reviewed publication published in a dedicated journal, such as \"The Journal of Open Source Software\" (https://joss.theoj.org).",
             "form_label@fr_FR": "Le logiciel a-t-il fait l'objet d’une publication scientifique dédiée ?",
-            "form_label@en_GB": "Has the software been the subject of a dedicated scientific publication?"
+            "form_label@en_GB": "Has information about this software already been published?"
         },
         "resourceReference": {
             "type": "array",
@@ -48,38 +50,13 @@
                     "dbid"
                 ]
             },
-            "description": "Références de publications scientifiques éventuels à relier associées au logiciel",
+            "description": "References  to scientific publications related to the software",
             "label@fr_FR": "Le logiciel a-t-il été associé à des publications scientifiques ?",
-            "label@en_GB": "Has the software been associated with any scientific publications?",
-            "tooltip@fr_FR": "Indiquer les publications dans lesquelles votre logiciel a été cité",
-            "tooltip@en_GB": "Indicate the publications in which your software has been cited",
+            "label@en_GB": "Is this software associated with one or more scientific publications?",
+            "tooltip@fr_FR": " Indiquer les principales publications liées au logiciel.",
+            "tooltip@en_GB": "List the main publications related to the software.",
             "form_label@fr_FR": "Le logiciel a-t-il été associé à des publications scientifiques ?",
-            "form_label@en_GB": "Has the software been associated with any scientific publications?"
-        },
-        "cost": {
-            "type": "array",
-            "table_header@fr_FR": "Type de coût : montant",
-            "table_header@en_GB": "Cost type: amount",
-            "items": {
-                "type": "object",
-                "class": "Cost",
-                "properties": {
-                    "dbid": {
-                        "type": "number"
-                    }
-                },
-                "template_name": "CostStandard",
-                "required": [
-                    "dbid"
-                ]
-            },
-            "description": "Coûts éventuels liés à la valorisation scientifique",
-            "label@fr_FR": "Coûts",
-            "label@en_GB": "Costs",
-            "tooltip@fr_FR": "Par exemple, coûts liés aux APCs (frais publication)",
-            "tooltip@en_GB": "For example, costs related to APCs (Article Processing Charges)",
-            "form_label@fr_FR": "Coûts liés à la valorisation scientifique",
-            "form_label@en_GB": "Costs related to scientific development"
+            "form_label@en_GB": "Is this software associated with one or more scientific publications?"
         }
     },
     "required": [],

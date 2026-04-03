@@ -1,6 +1,12 @@
 <tr id="<%= dom_id(template) %>">
   <td>
-    <%= "#{template.is_default? ? '* ' : ''}#{template.title}" %>
+    <% if template.research_entity? %>
+      <i class="fa-solid fas fa-university"></i>
+    <% end %>
+    <% if template.research_project? %>
+      <i class="fa-solid fas fa-vial"></i>
+    <% end %>
+    <%= template.title %>
   </td>
   <td>
     <%= template.org.name %>
@@ -24,8 +30,12 @@
                                   aria: {
                                     label: "#{template.title} - recommended template flag"
                                   },
-                                  data: { remote: true, method: :post,
-                                          url: template_set_recommended_path(template) } %>
+                                  data: { 
+                                    checkbox_target: "checkbox", 
+                                    controller: 'checkbox',
+                                    action: "change->checkbox#toggle", 
+                                    checkbox_url: template_set_recommended_path(template) ,
+                                  } %>
       <label for="is_recommended_<%= template.id %>">
         <span class="visually-hidden"><%= _('Recommended template') %></span>
       </label>

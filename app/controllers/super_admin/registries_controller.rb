@@ -13,27 +13,38 @@ module SuperAdmin
     def new
       authorize(Registry)
       @registry = Registry.new
+      @topics = Registry.find_by(name: 'Topics')&.values || []
     end
 
-    # rubocop:disable Metrics/AbcSize
     def create
       authorize(Registry)
       attrs = permitted_params
       @registry = Registry.new(attrs.except(:values))
+
       if @registry.save
-        flash.now[:notice] = success_message(@registry, _('created'))
-        Registry.load_values(attrs[:values], @registry)
-        render :edit
+        result = Registry.load_values(attrs[:values], @registry)
+
+        case result
+        when :success
+          flash[:notice] = success_message(@registry, _('created'))
+        when :wrong_format
+          flash[:alert] = _('Wrong values file format')
+        when :invalid_json
+          flash[:alert] = _('File should contain JSON')
+        when :bad_file
+          flash[:alert] = _('Unrecognized file input')
+        end
+
+        redirect_to edit_super_admin_registry_path(@registry)
       else
-        flash.now[:alert] = failure_message(@registry, _('create'))
-        render :new
+        redirect_to edit_super_admin_registry_path(@registry), alert: success_message(@registry, _('create'))
       end
     end
-    # rubocop:enable Metrics/AbcSize
 
     def edit
       authorize(Registry)
       @registry = Registry.find(params[:id])
+      @topics = Registry.find_by(name: 'Topics')&.values || []
     end
 
     # rubocop:disable Metrics/AbcSize
@@ -42,13 +53,11 @@ module SuperAdmin
       attrs = permitted_params
       @registry = Registry.find(params[:id])
       if @registry.update(attrs.except(:values))
-        flash.now[:notice] = success_message(@registry, _('updated'))
+        Registry.load_values(attrs[:values], @registry)
+        redirect_to edit_super_admin_registry_path(@registry), notice: success_message(@registry, _('updated'))
       else
-        flash.now[:alert] = failure_message(@registry, _('update'))
+        redirect_to edit_super_admin_registry_path(@registry), alert: failure_message(@registry, _('update'))
       end
-      Registry.load_values(attrs[:values], @registry)
-
-      render :edit
     end
     # rubocop:enable Metrics/AbcSize
 
@@ -56,21 +65,10 @@ module SuperAdmin
       authorize(Registry)
       @registry = Registry.find(params[:id])
       if @registry.destroy
-        msg = success_message(@registry, _('deleted'))
-        redirect_to super_admin_registries_path, notice: msg
+        redirect_to super_admin_registries_path, notice: success_message(@registry, _('deleted'))
       else
-        flash.now[:alert] = failure_message(@registry, _('delete'))
-        render :edit
+        redirect_to edit_super_admin_registry_path(@registry), alert: failure_message(@registry, _('delete'))
       end
-    end
-
-    def sort_values
-      @registry = Registry.find(params[:id])
-      authorize @registry
-      params[:updated_order].each_with_index do |id, index|
-        RegistryValue.find(id).update!(order: index + 1)
-      end
-      head :ok
     end
 
     def download
@@ -89,7 +87,8 @@ module SuperAdmin
     private
 
     def permitted_params
-      params.require(:registry).permit(:name, :description, :uri, :category, :version, :values, data_types: [])
+      params.require(:registry).permit(:name, :description, :uri, :category, :version, :values, data_types: [],
+                                                                                                topics: [])
     end
   end
 end

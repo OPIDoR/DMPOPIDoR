@@ -1,4 +1,4 @@
-$(() => {
+document.addEventListener('turbo:load', () => {
   // Add the selected item to the selections section
   $('body').on('click', 'a.modal-search-result-selector', (e) => {
     e.preventDefault();

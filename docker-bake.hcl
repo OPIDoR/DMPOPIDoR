@@ -15,7 +15,7 @@ target "default" {
   inherits = ["_base"]
   target = "production"
   args = {
-    NODE_MAJOR = "22"
+    NODE_MAJOR = "24"
     DB_ADAPTER = "postgres"
     DB_USERNAME = "postgres"
     DB_PASSWORD = "changeme"

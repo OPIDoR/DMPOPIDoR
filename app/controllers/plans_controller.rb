@@ -6,7 +6,8 @@ class PlansController < ApplicationController
   include ConditionalUserMailer
   include OrgSelectable
 
-  helper ErrorHelper
+  include ErrorHelper
+
   helper PaginableHelper
   helper SettingsTemplateHelper
 
@@ -18,8 +19,8 @@ class PlansController < ApplicationController
   def index
     authorize Plan
     @plans = if request.format.json?
-               Plan.includes(:roles).owner_or_coowner(current_user)
-                   .where.not(visibility: Plan.visibilities[:is_test])
+               Plan.active(current_user).where.not(visibility: ::Plan.visibilities[:is_test])
+                   .or(Plan.publicly_visible_entity)
              else
                Plan.includes(:roles, api_client_roles: :api_client).active(current_user)
              end
@@ -31,12 +32,13 @@ class PlansController < ApplicationController
     respond_to do |format|
       format.html
       format.json do
-        # plans = @plans.zip(@organisationally_or_publicly_visible).flatten.compact
-        plans = @plans.order('updated_at desc').filter(&:structured?).compact
+        # Sort plans by updated_at desc and filter only structured plans
+        plans = @plans.filter(&:structured?).compact.sort_by(&:updated_at).reverse
         plans = plans.map do |plan|
           {
             id: plan.id,
             title: plan.title,
+            context: plan.context,
             research_outputs: plan.research_outputs
           }
         end.reject do |plan| # rubocop:disable Style/MultilineBlockChain
@@ -76,6 +78,8 @@ class PlansController < ApplicationController
       @plan.template = Template.find(plan_params[:template_id])
       # rubocop:disable Metrics/BlockLength
       I18n.with_locale @plan.template.locale do
+        @plan.context = plan_params[:context]
+
         @plan.visibility = Rails.configuration.x.plans.default_visibility
 
         @plan.template = Template.find(plan_params[:template_id])
@@ -88,14 +92,16 @@ class PlansController < ApplicationController
                         format(_("%{user_name}'s Plan"), user_name: current_user.firstname)
                       end
         if @plan.save
-          # pre-select org's guidance and the default org's guidance
-          ids = (::Org.default_orgs.pluck(:id) << current_user.org_id).flatten.uniq
+          # classic plans : pre-select org's guidance and the default org's guidance
+          if @plan.structured? == false
+            ids = (::Org.default_orgs.pluck(:id) << current_user.org_id).flatten.uniq
 
-          language = Language.find_by(abbreviation: @plan.template.locale)
+            language = Language.find_by(abbreviation: @plan.template.locale)
 
-          ggs = GuidanceGroup.where(org_id: ids, optional_subset: false, published: true, language_id: language.id)
+            ggs = GuidanceGroup.where(org_id: ids, optional_subset: false, published: true, language_id: language.id)
 
-          @plan.guidance_groups << ggs unless ggs.empty?
+            @plan.guidance_groups << ggs unless ggs.empty?
+          end
 
           default = Template.default
 
@@ -215,9 +221,9 @@ class PlansController < ApplicationController
   end
 
   # PUT /plans/1
-  # rubocop:disable Metrics/MethodLength
+  # rubocop:disable Metrics/MethodLength, Metrics/AbcSize
   def update
-    @plan = Plan.find(params[:id])
+    @plan = Plan.includes(:guidance_groups).find(params[:id])
     authorize @plan
     # rubocop:disable Metrics/BlockLength
     respond_to do |format|
@@ -261,8 +267,7 @@ class PlansController < ApplicationController
     end
     # rubocop:enable Metrics/BlockLength
   end
-
-  # rubocop:enable Metrics/MethodLength
+  # rubocop:enable Metrics/MethodLength, Metrics/AbcSize
 
   # GET /plans/:id/budget
   def budget
@@ -275,20 +280,12 @@ class PlansController < ApplicationController
 
   # GET /plans/:id/share
   def share
-    @plan = Plan.find(params[:id])
+    @plan = Plan.includes(:roles, :api_client_roles).find(params[:id])
     if @plan.present?
       authorize @plan
       @plan_roles = @plan.roles.where(active: true)
-      # --------------------------------
-      # Start DMP OPIDoR Customization
-      # --------------------------------
       @plan_client_roles = @plan.api_client_roles
-      @api_clients = ApiClient.all.select do |client|
-        client.org&.funder?
-      end
-      # --------------------------------
-      # End DMP OPIDoR Customization
-      # --------------------------------
+      @api_clients = ApiClient.all
     else
       redirect_to(plans_path)
     end
@@ -298,7 +295,7 @@ class PlansController < ApplicationController
   #       as a PUT verb?
   # GET /plans/:id/request_feedback
   def request_feedback
-    @plan = Plan.find(params[:id])
+    @plan = Plan.includes(:roles).find(params[:id])
     if @plan.present?
       authorize @plan
       @plan_roles = @plan.roles.where(active: true)
@@ -359,16 +356,10 @@ class PlansController < ApplicationController
 
   # GET /plans/:id/download
   def download
-    @plan = Plan.find(params[:id])
+    @plan = Plan.includes(:phases, :research_outputs).find(params[:id])
     authorize @plan
 
-    # --------------------------------
-    # Start DMP OPIDoR Customization
-    # --------------------------------
     @research_outputs = @plan.research_outputs
-    # --------------------------------
-    # End DMP OPIDoR Customization
-    # --------------------------------
 
     @phase_options = @plan.phases.order(:number).pluck(:title, :id)
     @phase_options.insert(0, ['All phases', 'All']) if @phase_options.length > 1
@@ -379,12 +370,16 @@ class PlansController < ApplicationController
   # POST /plans/:id/duplicate
   # rubocop:disable Metrics/AbcSize
   def duplicate
-    plan = Plan.find(params[:id])
+    plan = Plan.includes(:research_outputs).find(params[:id])
     authorize plan
-    @plan = plan.structured?.eql?(true) ? Plan.structured_deep_copy(plan) : Plan.deep_copy(plan)
+    @plan = if plan.structured?.eql?(true)
+              Plan.structured_deep_copy(plan,
+                                        current_user.id)
+            else
+              Plan.deep_copy(plan, current_user.id)
+            end
     respond_to do |format|
       if @plan.save
-        @plan.add_user!(current_user.id, :creator)
         format.html { redirect_to @plan, notice: success_message(@plan, _('copied')) }
       else
         format.html { redirect_to plans_path, alert: failure_message(@plan, _('copy')) }
@@ -433,7 +428,7 @@ class PlansController < ApplicationController
   def set_test
     plan = Plan.find(params[:id])
     authorize plan
-    plan.visibility = (params[:is_test] == '1' ? :is_test : :privately_visible)
+    plan.visibility = (params[:checked] ? :is_test : :privately_visible)
     if plan.save
       render json: {
         code: 1,
@@ -468,18 +463,11 @@ class PlansController < ApplicationController
   end
 
   # rubocop:disable Metrics/MethodLength, Metrics/AbcSize
-  # rubocop:disable Metrics/PerceivedComplexity, Metrics/CyclomaticComplexity
   def select_guidance_groups
-    @plan = Plan.find(params[:id])
-    template = @plan.template
+    @plan = Plan.includes(:template).find(params[:id])
     authorize @plan
 
     body = JSON.parse(request.raw_post)
-    if body['ro_id'].present?
-      research_output = ResearchOutput.find(body['ro_id'])
-      module_id = research_output.json_fragment.additional_info['moduleId']
-      template = module_id ? Template.find(module_id) : @plan.template
-    end
 
     selected_ids = body['guidance_group_ids']
 
@@ -491,18 +479,12 @@ class PlansController < ApplicationController
 
     @plan.guidance_groups = GuidanceGroup.where(id: guidance_group_ids)
 
-    guidance_presenter = GuidancePresenter.new(@plan)
-
     if @plan.save
       @all_ggs_grouped_by_org = get_guidances_groups(params[:id])
       render json: {
         status: 200,
         message: "Guidances updated for plan [#{params[:id]}]",
-        guidance_groups: @all_ggs_grouped_by_org,
-        questions_with_guidance: template.questions.select do |q|
-          question = Question.find(q.id)
-          guidance_presenter.any?(question:)
-        end.pluck(:id)
+        guidance_groups: @all_ggs_grouped_by_org
       }, status: :ok
     else
       Rails.logger.error("Plan [#{params[:id]}] not updated")
@@ -518,87 +500,7 @@ class PlansController < ApplicationController
     Rails.logger.error("Internal server error - #{e.message}")
     internal_server_error("Internal server error - #{e.message}")
   end
-  # rubocop:enable Metrics/PerceivedComplexity, Metrics/CyclomaticComplexity
   # rubocop:enable Metrics/MethodLength, Metrics/AbcSize
-
-  # rubocop:disable Metrics/AbcSize, Metrics/MethodLength
-  # rubocop:disable Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
-  def question_guidances
-    plan_id = params[:id]
-    unless plan_id&.to_i&.positive?
-      bad_request("Plan [#{plan_id}] id, must be present or positive value")
-      return
-    end
-
-    question_id = params[:question]
-    unless question_id&.to_i&.positive?
-      bad_request("Question [#{question_id}] id, must be present or positive value")
-      return
-    end
-
-    begin
-      @plan = Plan.find(plan_id)
-    rescue ActiveRecord::RecordNotFound => e
-      Rails.logger.error("Plan [#{plan_id}] not found")
-      Rails.logger.error(e.backtrace.join("\n"))
-      not_found('No plan found')
-      return
-    rescue StandardError => e
-      Rails.logger.error('An error occured during retriving plan data')
-      Rails.logger.error(e.backtrace.join("\n"))
-      internal_server_error(e.message)
-      return
-    end
-
-    begin
-      authorize @plan
-    rescue Pundit::NotAuthorizedError => e
-      Rails.logger.error('An error occurred while checking authorisations')
-      Rails.logger.error(e.backtrace.join("\n"))
-      forbidden
-      return
-    end
-
-    begin
-      question = Question.find(question_id)
-    rescue ActiveRecord::RecordNotFound => e
-      Rails.logger.error("Question [#{plan_id}] not found")
-      Rails.logger.error(e.backtrace.join("\n"))
-      not_found('No plan found')
-      return
-    rescue StandardError => e
-      Rails.logger.error('An error occured during retriving question data')
-      Rails.logger.error(e.backtrace.join("\n"))
-      internal_server_error(e.message)
-      return
-    end
-
-    begin
-      guidance_presenter = GuidancePresenter.new(@plan)
-      guidances = guidance_presenter.tablist(question)
-    rescue StandardError => e
-      Rails.logger.error('Cannot create guidance presenter')
-      Rails.logger.error(e.backtrace.join("\n"))
-      internal_server_error('An error occured during guidance presenter creation')
-      return
-    end
-
-    guidances = guidances.map do |guidance|
-      {
-        name: guidance[:name],
-        groups: guidance[:groups].to_a,
-        annotations: guidance[:annotations]
-      }
-    end
-
-    render json: {
-             status: 200, message: "Guidances for plan [#{plan_id}] and question [#{question_id}]",
-             guidances: guidances
-           },
-           status: :ok
-  end
-  # rubocop:enable Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
-  # rubocop:enable Metrics/AbcSize, Metrics/MethodLength
 
   # rubocop:disable Metrics/AbcSize
   def import_plan
@@ -620,17 +522,20 @@ class PlansController < ApplicationController
   end
   # rubocop:enable Metrics/AbcSize
 
+  # rubocop:disable Metrics/AbcSize
   def research_outputs_data
-    plan = Plan.find(params[:id])
+    plan = Plan.includes(:research_outputs, template: { phases: { sections: :questions } }).find(params[:id])
     authorize plan
 
     render json: {
       id: plan.id,
+      commentable: plan.commentable_by?(current_user.id),
       dmp_id: plan.json_fragment.id,
       template: plan.template.serialize_json,
       research_outputs: plan.research_outputs.order(:display_order).map(&:serialize_json)
     }
   end
+  # rubocop:enable Metrics/AbcSize
 
   # GET AJAX /plans/:id/contributors_data
   # rubocop:disable Metrics/MethodLength, Metrics/AbcSize
@@ -680,7 +585,7 @@ class PlansController < ApplicationController
           .permit(:template_id, :title, :visibility, :description, :identifier,
                   :start_date, :end_date, :org_id, :org_name, :org_crosswalk,
                   :ethical_issues, :ethical_issues_description, :ethical_issues_report,
-                  :funding_status,
+                  :funding_status, :context,
                   grant: %i[name value],
                   org: %i[id org_id org_name org_sources org_crosswalk],
                   funder: %i[id org_id org_name org_sources org_crosswalk])
@@ -698,12 +603,6 @@ class PlansController < ApplicationController
     end
     msg += '</ul>'
     msg
-  end
-
-  # Get the parameters corresponding to the schema
-  def schema_params(schema, form_prefix, flat: false)
-    s_params = schema.generate_strong_params(flat: flat)
-    params.require(:plan)[form_prefix].permit(s_params)
   end
 
   # different versions of the same template have the same family_id

@@ -6,6 +6,7 @@
     "dataTypes": [
         "software"
     ],
+    "topics": null,
     "type": "object",
     "class": "ResearchOutputSoftwareStandard",
     "properties": {
@@ -21,7 +22,7 @@
             "required": [
                 "dbid"
             ],
-            "description": "Description du logiciel produit pendant le projet",
+            "description": "Description of the software developed in the course of the research activity",
             "label@fr_FR": "Description des produits de recherche de type logiciel",
             "label@en_GB": "Description of software type research products",
             "tooltip": null,
@@ -40,7 +41,7 @@
             "required": [
                 "dbid"
             ],
-            "description": "Dépôt du code source",
+            "description": "Information on the software development environment",
             "label@fr_FR": "Environnement de développement",
             "label@en_GB": "Development environment",
             "tooltip": null,
@@ -59,7 +60,7 @@
             "required": [
                 "dbid"
             ],
-            "description": "Informations relatives à la qualité documentaire du logiciel",
+            "description": "Information relating to the documentation of the software",
             "label@fr_FR": "Documentation du logiciel",
             "label@en_GB": "Software documentation",
             "tooltip": null,
@@ -78,7 +79,7 @@
             "required": [
                 "dbid"
             ],
-            "description": "Environment d'exécution",
+            "description": "Information on the runtime environment",
             "label@fr_FR": "Environnement d'éxécution",
             "label@en_GB": "Execution environment",
             "tooltip": null,
@@ -97,7 +98,7 @@
             "required": [
                 "dbid"
             ],
-            "description": "Informations sur la préservation du logiciel",
+            "description": "Informations about the software preservation",
             "label@fr_FR": "Archivage pérenne du logiciel",
             "label@en_GB": "Software preservation",
             "tooltip": null,
@@ -116,7 +117,7 @@
             "required": [
                 "dbid"
             ],
-            "description": "Référencement du logiciel",
+            "description": "Information about the software registration",
             "label@fr_FR": "Référencement du logiciel",
             "label@en_GB": "Software registration",
             "tooltip": null,
@@ -135,7 +136,7 @@
             "required": [
                 "dbid"
             ],
-            "description": "Questions juridiques du logiciel",
+            "description": "Legal considerations for the software",
             "label@fr_FR": "Aspects juriques du logiciel",
             "label@en_GB": "Software legal issues",
             "tooltip": null,
@@ -154,7 +155,7 @@
             "required": [
                 "dbid"
             ],
-            "description": "Valorisation scientifique du logiciel",
+            "description": "Scientific impact of the software",
             "label@fr_FR": "Valorisation scientifique du logiciel",
             "label@en_GB": "Software scientific valorisation",
             "tooltip": null,
@@ -163,14 +164,7 @@
         }
     },
     "required": [
-        "softwareDescription",
-        "softwareDevelopment",
-        "softwareDocumentation",
-        "softwareRuntime",
-        "softwarePreservation",
-        "softwareSharing",
-        "softwareLegalIssues",
-        "softwareValorisation"
+        "softwareDescription"
     ],
     "to_string": []
 }

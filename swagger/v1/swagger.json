@@ -108,12 +108,63 @@
             }
         }
       },
+      "/api/v1/madmp/plans/public": {
+        "get": {
+          "tags": [
+            "Plans"
+          ],
+          "summary": "Returns public plans.",
+          "security": [],
+          "parameters": [
+            {
+              "name": "size",
+              "in": "query",
+              "description": "Number of items to retrieve per page (must be between 1 and 1000)",
+              "required": false,
+              "schema": {
+                "type": "integer",
+                "default": "10"
+              }
+            },
+            {
+              "name": "page",
+              "in": "query",
+              "description": "Page number for pagination (must be greater than 0)",
+              "required": false,
+              "schema": {
+                "type": "integer",
+                "default": "1"
+              }
+            },
+            {
+              "name": "order",
+              "in": "query",
+              "description": "Specifies sorting order (asc, desc)",
+              "required": false,
+              "schema": {
+                "type": "string",
+                "default": "desc",
+                "enum": [
+                  "asc",
+                  "desc"
+                ]
+              }
+            }
+          ],
+          "responses": {
+            "200": {
+              "description": "successful",
+              "content": {}
+            }
+          }
+        }
+      },
       "/api/v1/madmp/plans/import": {
         "post": {
           "tags": [
             "Plans"
           ],
-          "summary": "Allows for the import and creation of a new plan based on a DMP OPIDoR standard or RDA DMP Common Standard formats. Currently, only applicable if the plan is created in the context of a research project",
+          "summary": "Enables importing and creating a new plan from data compliant with the DMP OPIDoR standard or the RDA DMP Common Standard.",
           "security":[
             {
               "bearerAuth": []

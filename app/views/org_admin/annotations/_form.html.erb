@@ -5,7 +5,14 @@
     <div data-toggle="tooltip" title="<%= tooltip_for_annotation_text(f.object) %>">
       <em class="sr-only"><%= tooltip_for_annotation_text(f.object) %></em>
       <%= f.text_area(:text, class: 'question', spellcheck: true,
-          id: "question_annotations_attributes_#{unique_dom_id(f.object)}_text") %>
+          id: "question_annotations_attributes_#{unique_dom_id(f.object)}_text",
+          data: {
+            controller: "tinymce",
+            tinymce_target: "input",
+            tinymce_callback_value: "true",
+            tinymce_selector_value: "#question_annotations_attributes_#{unique_dom_id(f.object)}_text"
+          }
+        ) %>
     </div>
   </div>
   <%= f.hidden_field(:id) %>

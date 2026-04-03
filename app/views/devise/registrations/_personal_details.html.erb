@@ -70,26 +70,6 @@
       <p><%= (current_user.can_super_admin? ? _('Super Admin') : _('Organisational Admin')) %></p>
     </div>
   <% end %>
-
-  <% @identifier_schemes.each do |scheme| %>
-    <div class="form-group mb-3 col-sm-8">
-      <% if scheme.name.downcase == 'shibboleth' %>
-        <label class='form-label'>
-          <span class="aria-only" aria-hidden="false"><%= _('Institutional credentials') %></span>
-        </label>
-      <% elsif scheme.name.downcase == 'orcid' %>
-        <%= label_tag(:scheme_name, 'ORCID', class: 'form-label') %>
-      <% else %>
-        <%= label_tag(:scheme_name, scheme.name.capitalize, class: 'form-label') %>
-      <% end %>
-
-      <div class='identifier-scheme'>
-        <%= render partial: "external_identifier",
-                   locals: { scheme: scheme,
-                             id: current_user.identifier_for(scheme.name)} %>
-      </div>
-    </div>
-  <% end %>
   
   <div class="form-group mb-3 col-sm-8">
     <%= f.button(_('Save'), class: 'btn btn-secondary', type: "submit", id: "personal_details_registration_form_submit") %>
@@ -97,4 +77,25 @@
 
   <%= render partial: 'password_confirmation', locals: {f: f} %>
 
+<% end %>
+
+
+<% @identifier_schemes.each do |scheme| %>
+  <div class="form-group mb-3 col-sm-8">
+    <% if scheme.name.downcase == 'shibboleth' %>
+      <label class='form-label'>
+        <span class="aria-only" aria-hidden="false"><%= _('Institutional credentials') %></span>
+      </label>
+    <% elsif scheme.name.downcase == 'orcid' %>
+      <%= label_tag(:scheme_name, 'ORCID', class: 'form-label') %>
+    <% else %>
+      <%= label_tag(:scheme_name, scheme.name.capitalize, class: 'form-label') %>
+    <% end %>
+
+    <div class='identifier-scheme'>
+      <%= render partial: "external_identifier",
+                  locals: { scheme: scheme,
+                            id: current_user.identifier_for(scheme.name)} %>
+    </div>
+  </div>
 <% end %>

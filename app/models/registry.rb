@@ -5,9 +5,13 @@
 # Table name: registries
 #
 #  id          :integer          not null, primary key
+#  category    :string
+#  data_types  :string           default(["none"]), not null, is an Array
 #  description :string
 #  name        :string           not null
+#  topics      :string           default(["generic"]), not null, is an Array
 #  uri         :string
+#  values      :json
 #  version     :integer
 #  created_at  :datetime         not null
 #  updated_at  :datetime         not null
@@ -38,6 +42,10 @@ class Registry < ApplicationRecord
 
   validates :name, presence: { message: PRESENCE_MESSAGE }
 
+  validates :data_types, presence: { message: PRESENCE_MESSAGE }
+
+  validates :topics, presence: { message: PRESENCE_MESSAGE }
+
   # ==========
   # = Scopes =
   # ==========
@@ -51,12 +59,12 @@ class Registry < ApplicationRecord
   }
 
   scope :paginable, lambda {
-    select(:id, :name, :version, :description, :uri, :category, :data_types)
+    select(:id, :name, :version, :description, :uri, :category, :data_types, :topics)
   }
 
   # rubocop:disable Metrics/AbcSize
   def self.load_values(values_file, registry)
-    return if values_file.nil?
+    return :no_file if values_file.nil?
 
     if values_file.respond_to?(:read)
       values_data = values_file.read
@@ -64,16 +72,18 @@ class Registry < ApplicationRecord
       values_data = File.read(values_file.path)
     else
       logger.error "Bad values_file: #{values_file.class.name}: #{values_file.inspect}"
+      return :bad_file
     end
     begin
       json_values = JSON.parse(values_data)
       if json_values.key?(registry.name)
         registry.update(values: json_values[registry.name])
+        :success
       else
-        flash.now[:alert] = 'Wrong values file format'
+        :wrong_format
       end
     rescue JSON::ParserError
-      flash.now[:alert] = 'File should contain JSON'
+      :invalid_json
     end
   end
   # rubocop:enable Metrics/AbcSize

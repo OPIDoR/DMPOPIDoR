@@ -1,7 +1,7 @@
 import getConstant from '../utils/constants';
 
-$(() => {
-  $('#show_list').click((e) => {
+document.addEventListener('turbo:load', () => {
+  $('#show_list').on('click', (e) => {
     e.preventDefault();
     if ($('#full_list').is('.hidden')) {
       $('#full_list').removeClass('hidden').attr('aria-hidden', 'false');

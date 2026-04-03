@@ -6,8 +6,10 @@
 #
 #  id               :integer          not null, primary key
 #  archived         :boolean
-#  context          :integer          default("research_project"), not null
+#  context          :integer          default(0), not null
+#  contexts         :string           default(["research_project"]), not null, is an Array
 #  customization_of :integer
+#  data_type        :string           default("none"), not null
 #  description      :text
 #  is_default       :boolean
 #  is_recommended   :boolean          default(FALSE)
@@ -43,6 +45,10 @@ FactoryBot.define do
     is_default { false }
     published { false }
     archived { false }
+    is_recommended { false }
+    type { Template.types['structured'] }
+    data_type { 'none' }
+    context { 'research_project' }
     sequence(:version)
 
     trait :publicly_visible do
@@ -71,6 +77,10 @@ FactoryBot.define do
 
     trait :unpublished do
       published { false }
+    end
+
+    trait :is_recommended do
+      is_recommended { false }
     end
 
     transient do

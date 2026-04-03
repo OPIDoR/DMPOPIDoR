@@ -1,4 +1,4 @@
-$(() => {
+document.addEventListener('turbo:load', () => {
   $('body').on('click', '.copy-link', (e) => {
     const link = $(e.currentTarget).siblings('.direct-link');
     $('#link').val(link.attr('href'));

@@ -2,300 +2,17 @@
 # IF YOU UPDATE IT, YOUR CHANGES WILL BE LOST AT THE NEXT SYNC.
 #
 # To update this file, use this translation interface:
-# https://translation.io/dcc-user/roadmap/en-GB
+# https://translation.io/benjaminfaure/dmpopidor/en-GB
 #
 ---
 en-GB:
-  date:
-    day_names:
-    - Sunday
-    - Monday
-    - Tuesday
-    - Wednesday
-    - Thursday
-    - Friday
-    - Saturday
-    abbr_day_names:
-    - Sun
-    - Mon
-    - Tue
-    - Wed
-    - Thu
-    - Fri
-    - Sat
-    month_names:
-    -
-    - January
-    - February
-    - March
-    - April
-    - May
-    - June
-    - July
-    - August
-    - September
-    - October
-    - November
-    - December
-    abbr_month_names:
-    -
-    - Jan
-    - Feb
-    - Mar
-    - Apr
-    - May
-    - Jun
-    - Jul
-    - Aug
-    - Sep
-    - Oct
-    - Nov
-    - Dec
-  time:
-    am: am
-    pm: pm
-  number:
-    human:
-      storage_units:
-        units:
-          byte:
-            one: Byte
-            other: Bytes
-          kb: KB
-          mb: MB
-          gb: GB
-          tb: TB
-          pb: PB
-          eb: EB
-      decimal_units:
-        units:
-          thousand: Thousand
-          million: Million
-          billion: Billion
-          trillion: Trillion
-          quadrillion: Quadrillion
-  errors:
-    format: "%{attribute} %{message}"
-    messages:
-      inclusion: is not included in the list
-      exclusion: is reserved
-      invalid: is invalid
-      confirmation: doesn't match %{attribute}
-      accepted: must be accepted
-      empty: can't be empty
-      blank: can't be blank
-      present: must be blank
-      too_long:
-        one: is too long (maximum is 1 character)
-        other: is too long (maximum is %{count} characters)
-      too_short:
-        one: is too short (minimum is 1 character)
-        other: is too short (minimum is %{count} characters)
-      wrong_length:
-        one: is the wrong length (should be 1 character)
-        other: is the wrong length (should be %{count} characters)
-      not_a_number: is not a number
-      not_an_integer: must be an integer
-      greater_than: must be greater than %{count}
-      greater_than_or_equal_to: must be greater than or equal to %{count}
-      equal_to: must be equal to %{count}
-      less_than: must be less than %{count}
-      less_than_or_equal_to: must be less than or equal to %{count}
-      other_than: must be other than %{count}
-      odd: must be odd
-      even: must be even
-      taken: has already been taken
-      already_confirmed: was already confirmed, please try signing in
-      confirmation_period_expired: needs to be confirmed within %{period}, please
-        request a new one
-      expired: has expired, please request a new one
-      not_found: not found
-      not_locked: was not locked
-      not_saved:
-        one: '1 error prohibited this %{resource} from being saved:'
-        other: "%{count} errors prohibited this %{resource} from being saved:"
-      model_invalid: 'Validation failed: %{errors}'
-      required: must exist
-    unavailable_session:
-    unacceptable_request:
-    connection_refused:
-    template:
-      body: 'There were problems with the following fields:'
-      header:
-        one: 1 error prohibited this %{model} from being saved
-        other: "%{count} errors prohibited this %{model} from being saved"
   activerecord:
     errors:
       messages:
         record_invalid: 'Validation failed: %{errors}'
         restrict_dependent_destroy:
-          has_one: Cannot delete record because a dependent %{record} exists
           has_many: Cannot delete record because dependent %{record} exist
-  datetime:
-    distance_in_words:
-      half_a_minute: half a minute
-      less_than_x_seconds:
-        one: less than 1 second
-        other: less than %{count} seconds
-      x_seconds:
-        one: 1 second
-        other: "%{count} seconds"
-      less_than_x_minutes:
-        one: less than a minute
-        other: less than %{count} minutes
-      x_minutes:
-        one: 1 minute
-        other: "%{count} minutes"
-      about_x_hours:
-        one: about 1 hour
-        other: about %{count} hours
-      x_days:
-        one: 1 day
-        other: "%{count} days"
-      about_x_months:
-        one: about 1 month
-        other: about %{count} months
-      x_months:
-        one: 1 month
-        other: "%{count} months"
-      about_x_years:
-        one: about 1 year
-        other: about %{count} years
-      over_x_years:
-        one: over 1 year
-        other: over %{count} years
-      almost_x_years:
-        one: almost 1 year
-        other: almost %{count} years
-      x_years:
-        one: 1 year
-        other: "%{count} years"
-    prompts:
-      year: Year
-      month: Month
-      day: Day
-      hour: Hour
-      minute: Minute
-      second: Seconds
-  helpers:
-    select:
-      prompt: Please select
-    submit:
-      create: Create %{model}
-      update: Update %{model}
-      submit: Save %{model}
-    page_entries_info:
-      entry:
-        zero:
-        one:
-        other:
-      one_page:
-        display_entries:
-          zero: No %{entry_name} found
-          one: Displaying <b>%{count}</b> %{entry_name}
-          other: Displaying <b>all %{count}</b> %{entry_name}
-      more_pages:
-        display_entries: Displaying %{entry_name} <b>%{first}&nbsp;-&nbsp;%{last}</b>
-          of <b>%{total}</b> in total
-  flash:
-    actions:
-      create:
-        notice:
-      update:
-        notice:
-      destroy:
-        notice:
-        alert:
-  devise:
-    confirmations:
-      confirmed: Your account was successfully confirmed. Please sign in.
-      send_instructions: You will receive an email with instructions about how to
-        confirm your account in a few minutes.
-      send_paranoid_instructions: If your email address exists in our database, you
-        will receive an email with instructions about how to confirm your account
-        in a few minutes.
-    failure:
-      already_authenticated: You are already signed in.
-      inactive: Your account is no longer active. Please contact us to reactivate
-        your account.
-      invalid: Invalid email or password.
-      locked: Your account is locked.
-      last_attempt:
-      not_found_in_database: Invalid email or password.
-      timeout: Your session expired, please sign in again to continue.
-      unauthenticated: You need to sign in or sign up before continuing.
-      unconfirmed: You have to confirm your account before continuing.
-      invited: You have a pending invitation, accept it to finish creating your account.
-    mailer:
-      confirmation_instructions:
-        subject: Confirm your DMPonline account
-      reset_password_instructions:
-        subject: Reset password instructions
-      unlock_instructions:
-        subject: Unlock Instructions
-      email_changed:
-        subject:
-      password_change:
-        subject:
-      invitation_instructions:
-        subject: Invitation instructions
-        hello: "Hi \n%{email}"
-        someone_invited_you:
-        accept:
-        accept_until:
-        ignore:
-    omniauth_callbacks:
-      failure: Could not authenticate you from %{kind} because "%{reason}".
-      success: Successfully authenticated from %{kind} account.
-    passwords:
-      no_token: You can't access this page without coming from a password reset email.
-        If you do come from a password reset email, please make sure you used the
-        full URL provided.
-      send_instructions: You will receive an email with instructions about how to
-        reset your password in a few minutes.
-      send_paranoid_instructions: If your email address exists in our database, you
-        will receive a password recovery link at your email address in a few minutes.
-      updated: Your password was changed successfully. You are now signed in.
-      updated_not_active: Your password was changed successfully.
-    registrations:
-      destroyed: Bye! Your account was successfully cancelled. We hope to see you
-        again soon.
-      signed_up: Welcome! You have signed up successfully.
-      signed_up_but_inactive: You have signed up successfully. However, we could not
-        sign you in because your account is not yet activated.
-      signed_up_but_locked: You have signed up successfully. However, we could not
-        sign you in because your account is locked.
-      signed_up_but_unconfirmed: A message with a confirmation link has been sent
-        to your email address. Please open the link to activate your account. If you
-        do not receive the confirmation email, please check your spam filter.
-      update_needs_confirmation: You updated your account successfully, but we need
-        to verify your new email address. Please check your email and click on the
-        confirm link to finalize confirming your new email address.
-      updated: You updated your account successfully.
-      updated_but_not_signed_in:
-    sessions:
-      signed_in: Signed in successfully.
-      signed_out: Signed out successfully.
-      already_signed_out: Signed out successfully.
-    unlocks:
-      send_instructions: You will receive an email with instructions about how to
-        unlock your account in a few minutes.
-      send_paranoid_instructions: If your account exists, you will receive an email
-        with instructions about how to unlock it in a few minutes.
-      unlocked: Your account has been unlocked successfully. Please sign in to continue.
-    invitations:
-      send_instructions: An invitation email has been sent to %{email}.
-      invitation_token_invalid: The invitation token provided is not valid!
-      updated: Your password was set successfully. You are now signed in.
-      updated_not_active:
-      no_invitations_remaining: No invitations remaining
-      invitation_removed: Your invitation was removed.
-      new:
-        header: Send invitation
-        submit_button: Send an invitation
-      edit:
-        header: Set your password
-        submit_button: Set my password
+          has_one: Cannot delete record because a dependent %{record} exists
   contact_us:
     contact_mailer:
       contact_email:
@@ -327,14 +44,598 @@ en-GB:
     notices:
       error: You must enter both fields.
       success: Contact email was successfully sent.
+  date:
+    abbr_day_names:
+    - Sun
+    - Mon
+    - Tue
+    - Wed
+    - Thu
+    - Fri
+    - Sat
+    abbr_month_names:
+    -
+    - Jan
+    - Feb
+    - Mar
+    - Apr
+    - May
+    - Jun
+    - Jul
+    - Aug
+    - Sep
+    - Oct
+    - Nov
+    - Dec
+    day_names:
+    - Sunday
+    - Monday
+    - Tuesday
+    - Wednesday
+    - Thursday
+    - Friday
+    - Saturday
+    month_names:
+    -
+    - January
+    - February
+    - March
+    - April
+    - May
+    - June
+    - July
+    - August
+    - September
+    - October
+    - November
+    - December
+  datetime:
+    distance_in_words:
+      about_x_hours:
+        one: about 1 hour
+        other: about %{count} hours
+      about_x_months:
+        one: about 1 month
+        other: about %{count} months
+      about_x_years:
+        one: about 1 year
+        other: about %{count} years
+      almost_x_years:
+        one: almost 1 year
+        other: almost %{count} years
+      half_a_minute: half a minute
+      less_than_x_minutes:
+        one: less than a minute
+        other: less than %{count} minutes
+      less_than_x_seconds:
+        one: less than 1 second
+        other: less than %{count} seconds
+      over_x_years:
+        one: over 1 year
+        other: over %{count} years
+      x_days:
+        one: 1 day
+        other: "%{count} days"
+      x_minutes:
+        one: 1 minute
+        other: "%{count} minutes"
+      x_months:
+        one: 1 month
+        other: "%{count} months"
+      x_seconds:
+        one: 1 second
+        other: "%{count} seconds"
+    prompts:
+      day: Day
+      hour: Hour
+      minute: Minute
+      month: Month
+      second: Seconds
+      year: Year
+    relative:
+      future:
+      past:
+  devise:
+    confirmations:
+      confirmed: Your email address has been successfully confirmed.
+      send_instructions: You will receive an email with instructions for how to confirm
+        your email address in a few minutes.
+      send_paranoid_instructions: If your email address exists in our database, you
+        will receive an email with instructions for how to confirm your email address
+        in a few minutes.
+    failure:
+      already_authenticated: You are already signed in.
+      inactive: Your account is not activated yet.
+      invalid: Invalid %{authentication_keys} or password.
+      invited: You have a pending invitation, accept it to finish creating your account.
+      last_attempt: You have one more attempt before your account is locked.
+      locked: Your account is locked.
+      not_found_in_database: Invalid %{authentication_keys} or password.
+      timeout: Your session expired. Please sign in again to continue.
+      unauthenticated: You need to sign in or sign up before continuing.
+      unconfirmed: You have to confirm your email address before continuing.
+    invitations:
+      edit:
+        header: Set your password
+        submit_button: Set my password
+      invitation_removed: Your invitation was removed.
+      invitation_token_invalid: The invitation token provided is not valid!
+      new:
+        header: Send invitation
+        submit_button: Send an invitation
+      no_invitations_remaining: No invitations remaining
+      send_instructions: An invitation email has been sent to %{email}.
+      updated: Your password was set successfully. You are now signed in.
+      updated_not_active: Your password was set successfully.
+    mailer:
+      confirmation_instructions:
+        subject: Confirmation instructions
+      email_changed:
+        subject: Email Changed
+      invitation_instructions:
+        accept: Accept invitation
+        accept_until: This invitation will be due in %{due_date}.
+        hello: Hello %{email}
+        ignore: If you don't want to accept the invitation, please ignore this email.
+          Your account won't be created until you access the link above and set your
+          password.
+        someone_invited_you: Someone has invited you to %{url}, you can accept it
+          through the link below.
+        subject: Invitation instructions
+      password_change:
+        subject: Password Changed
+      reset_password_instructions:
+        subject: Reset password instructions
+      unlock_instructions:
+        subject: Unlock instructions
+    omniauth_callbacks:
+      failure: Could not authenticate you from %{kind} because "%{reason}".
+      success: Successfully authenticated from %{kind} account.
+    passwords:
+      no_token: You can't access this page without coming from a password reset email.
+        If you do come from a password reset email, please make sure you used the
+        full URL provided.
+      send_instructions: You will receive an email with instructions on how to reset
+        your password in a few minutes.
+      send_paranoid_instructions: If your email address exists in our database, you
+        will receive a password recovery link at your email address in a few minutes.
+      updated: Your password has been changed successfully. You are now signed in.
+      updated_not_active: Your password has been changed successfully.
+    registrations:
+      destroyed: Bye! Your account has been successfully cancelled. We hope to see
+        you again soon.
+      signed_up: Welcome! You have signed up successfully.
+      signed_up_but_inactive: You have signed up successfully. However, we could not
+        sign you in because your account is not yet activated.
+      signed_up_but_locked: You have signed up successfully. However, we could not
+        sign you in because your account is locked.
+      signed_up_but_unconfirmed: A message with a confirmation link has been sent
+        to your email address. Please follow the link to activate your account.
+      update_needs_confirmation: You updated your account successfully, but we need
+        to verify your new email address. Please check your email and follow the confirmation
+        link to confirm your new email address.
+      updated: Your account has been updated successfully.
+      updated_but_not_signed_in: Your account has been updated successfully, but since
+        your password was changed, you need to sign in again.
+    sessions:
+      already_signed_out: Signed out successfully.
+      signed_in: Signed in successfully.
+      signed_out: Signed out successfully.
+    unlocks:
+      send_instructions: You will receive an email with instructions for how to unlock
+        your account in a few minutes.
+      send_paranoid_instructions: If your account exists, you will receive an email
+        with instructions for how to unlock it in a few minutes.
+      unlocked: Your account has been unlocked successfully. Please sign in to continue.
+  errors:
+    connection_refused: |
+      Oops! Failed to connect to the Web Console middleware.
+      Please make sure a rails development server is running.
+    format: "%{attribute} %{message}"
+    messages:
+      accepted: must be accepted
+      already_confirmed: was already confirmed, please try signing in
+      blank: can't be blank
+      confirmation: doesn't match %{attribute}
+      confirmation_period_expired: needs to be confirmed within %{period}, please
+        request a new one
+      empty: can't be empty
+      equal_to: must be equal to %{count}
+      even: must be even
+      exclusion: is reserved
+      expired: has expired, please request a new one
+      greater_than: must be greater than %{count}
+      greater_than_or_equal_to: must be greater than or equal to %{count}
+      in: must be in %{count}
+      inclusion: is not included in the list
+      invalid: is invalid
+      less_than: must be less than %{count}
+      less_than_or_equal_to: must be less than or equal to %{count}
+      model_invalid: 'Validation failed: %{errors}'
+      not_a_number: is not a number
+      not_an_integer: must be an integer
+      not_found: not found
+      not_locked: was not locked
+      not_saved:
+        one: '1 error prohibited this %{resource} from being saved:'
+        other: "%{count} errors prohibited this %{resource} from being saved:"
+      odd: must be odd
+      other_than: must be other than %{count}
+      password_too_long: is too long
+      present: must be blank
+      required: must exist
+      taken: has already been taken
+      too_long:
+        one: is too long (maximum is 1 character)
+        other: is too long (maximum is %{count} characters)
+      too_short:
+        one: is too short (minimum is 1 character)
+        other: is too short (minimum is %{count} characters)
+      wrong_length:
+        one: is the wrong length (should be 1 character)
+        other: is the wrong length (should be %{count} characters)
+    unacceptable_request: 'A supported version is expected in the Accept header.
+
+      '
+    unavailable_session: |
+      Session %{id} is no longer available in memory.
+
+      If you happen to run on a multi-process server (like Unicorn or Puma) the process
+      this request hit doesn't store %{id} in memory. Consider turning the number of
+      processes/workers to one (1) or using a different server in development.
+  flash:
+    actions:
+      create:
+        notice: "%{resource_name} was successfully created."
+      destroy:
+        alert: "%{resource_name} could not be destroyed."
+        notice: "%{resource_name} was successfully destroyed."
+      update:
+        notice: "%{resource_name} was successfully updated."
+  good_job:
+    actions:
+      destroy: Destroy
+      discard:
+      force_discard:
+      inspect:
+      reschedule:
+      retry:
+    batches:
+      actions:
+        confirm_retry:
+        retry:
+      index:
+        older_batches:
+        title:
+      jobs:
+        actions:
+          confirm_destroy:
+          confirm_discard:
+          confirm_reschedule:
+          confirm_retry:
+          destroy:
+          discard:
+          reschedule:
+          retry:
+          title: Actions
+        no_jobs_found:
+      retry:
+        notice:
+      show:
+        attributes:
+        batched_jobs:
+        callback_jobs:
+      table:
+        no_batches_found:
+    cleaner:
+      index:
+        all: All
+        class:
+        exception:
+        grouped_by_class:
+        grouped_by_exception:
+        last_1_hour:
+        last_24_hours:
+        last_3_days:
+        last_3_hours:
+        last_7_days:
+        title:
+        total: Total
+    cron_entries:
+      actions:
+        confirm_disable:
+        confirm_enable:
+        confirm_enqueue:
+        disable:
+        enable:
+        enqueue:
+      disable:
+        notice:
+      enable:
+        notice:
+      enqueue:
+        notice:
+      index:
+        no_cron_schedules_found:
+        title:
+      show:
+        cron_entry_key:
+    datetime:
+      distance_in_words:
+        about_x_hours:
+          one: about 1 hour
+          other: about %{count} hours
+        about_x_months:
+          one: about 1 month
+          other: about %{count} months
+        about_x_years:
+          one: about 1 year
+          other: about %{count} years
+        almost_x_years:
+          one: almost 1 year
+          other: almost %{count} years
+        half_a_minute: half a minute
+        less_than_x_minutes:
+          one: less than a minute
+          other: less than %{count} minutes
+        less_than_x_seconds:
+          one: less than 1 second
+          other: less than %{count} seconds
+        over_x_years:
+          one: over 1 year
+          other: over %{count} years
+        x_days:
+          one: 1 day
+          other: "%{count} days"
+        x_minutes:
+          one: 1 minute
+          other: "%{count} minutes"
+        x_months:
+          one: 1 month
+          other: "%{count} months"
+        x_seconds:
+          one: 1 second
+          other: "%{count} seconds"
+        x_years:
+          one: 1 year
+          other: "%{count} years"
+    duration:
+      hours:
+      less_than_10_seconds:
+      milliseconds:
+      minutes:
+      seconds:
+    error_event:
+      discarded:
+      handled:
+      interrupted:
+      retried:
+      retry_stopped:
+      unhandled:
+    helpers:
+      relative_time:
+        future:
+        past:
+    jobs:
+      actions:
+        confirm_destroy:
+        confirm_discard:
+        confirm_force_discard:
+        confirm_reschedule:
+        confirm_retry:
+        destroy:
+        discard:
+        force_discard:
+        reschedule:
+        retry:
+      destroy:
+        notice:
+      discard:
+        notice:
+      executions:
+        application_trace:
+        full_trace:
+        in_queue:
+        runtime:
+        title:
+      force_discard:
+        notice:
+      index:
+        job_pagination:
+        older_jobs:
+      reschedule:
+        notice:
+      retry:
+        notice:
+      show:
+        jobs:
+      table:
+        actions:
+          apply_to_all:
+            one:
+            other:
+          confirm_destroy_all:
+          confirm_discard_all:
+          confirm_reschedule_all:
+          confirm_retry_all:
+          destroy_all:
+          discard_all:
+          reschedule_all:
+          retry_all:
+          title: Actions
+        no_jobs_found:
+        toggle_actions:
+        toggle_all_jobs:
+    models:
+      batch:
+        created: Created
+        created_at: Created at
+        discarded:
+        discarded_at:
+        enqueued:
+        enqueued_at:
+        finished:
+        finished_at:
+        jobs:
+        name: Name
+      cron:
+        class:
+        last_run:
+        next_scheduled:
+        schedule:
+        states:
+          active: Active
+          paused:
+        status: Status
+      job:
+        arguments:
+        attempts:
+        labels:
+        priority:
+        queue:
+    number:
+      format:
+        delimiter:
+        separator:
+      human:
+        decimal_units:
+          delimiter:
+          format:
+          separator:
+          units:
+            billion:
+            million:
+            quadrillion:
+            thousand:
+            trillion:
+    pauses:
+      index:
+        confirm_pause:
+        confirm_unpause:
+        disabled:
+        job_class:
+        label: Label
+        pause:
+        queue:
+        title:
+        type:
+        unpause:
+        value:
+    performance:
+      index:
+        average_duration:
+        chart_title:
+        executions:
+        job_class:
+        maximum_duration:
+        minimum_duration:
+        queue_name:
+        title:
+      show:
+        slow:
+        title:
+    processes:
+      index:
+        cron_enabled:
+        no_good_job_processes_found:
+        process:
+        schedulers:
+        started:
+        title:
+        updated: Updated
+    shared:
+      boolean:
+        'false': 'No'
+        'true': 'Yes'
+      error:
+      filter:
+        all: All
+        all_jobs:
+        all_queues:
+        clear:
+        job_name:
+        placeholder:
+        queue_name:
+        search: Search
+      navbar:
+        batches:
+        cleaner:
+        cron_schedules:
+        jobs:
+        live_poll:
+        name:
+        pauses:
+        performance:
+        processes:
+        theme:
+          auto:
+          dark:
+          light:
+          theme:
+      pending_migrations:
+      secondary_navbar:
+        inspiration:
+        last_updated: Last updated
+    status:
+      discarded:
+      queued:
+      retried:
+      running:
+      scheduled:
+      succeeded:
+  helpers:
+    page_entries_info:
+      entry:
+        one: entry
+        other: entries
+        zero: entries
+      more_pages:
+        display_entries: Displaying %{entry_name} <b>%{first}&nbsp;-&nbsp;%{last}</b>
+          of <b>%{total}</b> in total
+      one_page:
+        display_entries:
+          one: Displaying <b>1</b> %{entry_name}
+          other: Displaying <b>all %{count}</b> %{entry_name}
+          zero: No %{entry_name} found
+    select:
+      prompt: Please select
+    submit:
+      create: Create %{model}
+      submit: Save %{model}
+      update: Update %{model}
+  number:
+    human:
+      decimal_units:
+        units:
+          billion: Billion
+          million: Million
+          quadrillion: Quadrillion
+          thousand: Thousand
+          trillion: Trillion
+      storage_units:
+        units:
+          byte:
+            one: Byte
+            other: Bytes
+          eb: EB
+          gb: GB
+          kb: KB
+          mb: MB
+          pb: PB
+          tb: TB
+          zb: ZB
+  recaptcha:
+    errors:
+      recaptcha_unreachable: Oops, we failed to validate your reCAPTCHA response.
+        Please try again.
+      verification_failed: reCAPTCHA verification failed, please try again.
+  time:
+    am: am
+    pm: pm
   views:
     pagination:
       first: "&laquo; First"
       last: Last &raquo;
-      previous: "&lsaquo; Prev"
       next: Next &rsaquo;
+      previous: "&lsaquo; Prev"
       truncate: "&hellip;"
-  recaptcha:
-    errors:
-      verification_failed:
-      recaptcha_unreachable:

@@ -7,12 +7,13 @@
         "software",
         "none"
     ],
+    "topics": null,
     "type": "object",
     "class": "MetaStandard",
     "properties": {
         "title": {
             "type": "string",
-            "description": "Titre du plan de gestion de données",
+            "description": "Data Management Plan Title",
             "label@fr_FR": "Titre du plan",
             "label@en_GB": "Plan title",
             "tooltip@fr_FR": "Titre généré automatiquement à partir du titre du projet. Il est modifiable. Titre affiché dans le tableau de bord",
@@ -22,7 +23,7 @@
         },
         "deliverableNumber": {
             "type": "string",
-            "description": "Numéro du livrable auquel est rattaché le DMP",
+            "description": "Number of the deliverable to which the DMP is related",
             "label@fr_FR": "Livrable",
             "label@en_GB": "Deliverable",
             "tooltip": null,
@@ -33,13 +34,10 @@
         },
         "version": {
             "type": "string",
-            "description": "Version du DMP",
+            "description": "DMP version",
             "inputType": "dropdown",
             "label@fr_FR": "Version",
             "label@en_GB": "Version",
-            "registries": [
-                "DMPVersion"
-            ],
             "registryCategory": "DMPVersion",
             "overridable": true,
             "tooltip": null,
@@ -48,7 +46,7 @@
         },
         "description": {
             "type": "string",
-            "description": "Description de la portée du plan de gestion",
+            "description": "Description of the scope of the management plan",
             "inputType": "textarea",
             "label@fr_FR": "Objet/périmètre du plan",
             "label@en_GB": "Plan purpose/scope",
@@ -62,13 +60,10 @@
             "items": {
                 "type": "string"
             },
-            "description": "Mo(s)-clé(s) issu(s) de la classification de l'OCDE (Field of science and technology)",
+            "description": "Fields of science and technology from the OECD classification",
             "inputType": "dropdown",
             "label@fr_FR": "Domaines de recherche (selon classification de l'OCDE)",
             "label@en_GB": "Fields of science and technology (from OECD classification)",
-            "registries": [
-                "ClassificationOCDE"
-            ],
             "registryCategory": "Subject",
             "tooltip": null,
             "form_label@fr_FR": "Domaines de recherche (selon classification de l'OCDE)",
@@ -77,13 +72,10 @@
         "dmpLanguage": {
             "type": "string",
             "length": "3",
-            "description": "Langue utilisée pour rédiger le DMP (anglais ou français)",
+            "description": "DMP language (French or english)",
             "inputType": "dropdown",
             "label@fr_FR": "Langue",
             "label@en_GB": "Language",
-            "registries": [
-                "ISO639-3_fra_eng"
-            ],
             "registryCategory": "ISO639-3_fra_eng",
             "tooltip": null,
             "form_label@fr_FR": "Langue de rédaction du plan",
@@ -91,7 +83,8 @@
         },
         "contact": {
             "type": "array",
-            "table_header": null,
+            "table_header@fr_FR": "Nom",
+            "table_header@en_GB": "Name",
             "items": {
                 "type": "object",
                 "class": "Contributor",
@@ -105,7 +98,8 @@
                     "dbid"
                 ]
             },
-            "description": "Personne responsable de la réalisation et suivi du plan de gestion de données",
+            "minItems": 1,
+            "description": "Person responsible for implementing and monitoring the data management plan",
             "label@fr_FR": "Responsable du plan",
             "label@en_GB": "DMP manager",
             "tooltip@fr_FR": "Personne qui coordonne la planification de la gestion des données, aussi appelée auteur ou responsable du PGD. Par défaut, la personne qui crée le PGD sur DMP OPIDoR",
@@ -116,7 +110,7 @@
         "creationDate": {
             "type": "string",
             "format": "date",
-            "description": "Date de création du DMP",
+            "description": "DMP creation date",
             "label@fr_FR": "Date de création",
             "label@en_GB": "Creation date",
             "tooltip": null,
@@ -127,7 +121,7 @@
         "lastModifiedDate": {
             "type": "string",
             "format": "date",
-            "description": "Date de dernière modification du DMP",
+            "description": "DMP last modification date",
             "label@fr_FR": "Date de dernière modification",
             "label@en_GB": "Last modification date",
             "tooltip": null,
@@ -137,7 +131,7 @@
         },
         "dmpId": {
             "type": "string",
-            "description": "Identifiant pérenne attribué au plan de gestion de données",
+            "description": "Persistent identifier assigned to the data management plan",
             "label@fr_FR": "Identifiant",
             "label@en_GB": "Identifier",
             "tooltip": null,
@@ -148,13 +142,10 @@
         },
         "idType": {
             "type": "string",
-            "description": "Type d'identifiant ressource",
+            "description": "Identification system",
             "inputType": "dropdown",
             "label@fr_FR": "Type d'identifiant",
             "label@en_GB": "Identifier type",
-            "registries": [
-                "PIDSystem"
-            ],
             "registryCategory": "PIDSystem",
             "overridable": true,
             "tooltip": null,
@@ -173,13 +164,10 @@
             "required": [
                 "dbid"
             ],
-            "description": "Licence apposée au plan de gestion de données pour faciliter la réutilisation de son contenu",
+            "description": "License applied to the content of the Data Management Plan for sharing and reuse",
             "label@fr_FR": "Licence",
             "label@en_GB": "License",
             "inputType": "dropdown",
-            "registries": [
-                "DMPLicenses"
-            ],
             "registryCategory": "DMPLicense",
             "overridable": true,
             "tooltip@fr_FR": "Choisir une licence pour définir les conditions de réutilisation du PGD en cas de diffusion",
@@ -203,7 +191,7 @@
                     "dbid"
                 ]
             },
-            "description": "Références de documents éventuels à relier au plan de gestion de données (ex publications)",
+            "description": "References to any documents related to the data management plan (e.g. publications)",
             "label@fr_FR": "Documents (publications, rapports, brevets, plan expérimental….), sites web associés",
             "label@en_GB": "Associated documents (publications,reports, patents, experimental plan...), website",
             "tooltip": null,
@@ -226,7 +214,7 @@
                     "dbid"
                 ]
             },
-            "description": "Autres plans de gestion de données en lien avec le projet ou l'activité de l'entité",
+            "description": "Other data management plans related to the project or the entity's activities",
             "label@fr_FR": "Plans de gestion en lien avec le projet ou l'activité de l'entité",
             "label@en_GB": "Management plans related to the project or the entity's activity",
             "tooltip": null,

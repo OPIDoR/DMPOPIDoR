@@ -16,7 +16,7 @@ module DMPRoadmap
   # DMPRoadmap application
   class Application < Rails::Application
     # Initialize configuration defaults for originally generated Rails version.
-    config.load_defaults ENV.fetch('RAILS_LOAD_DEFAULTS', 7.0)
+    config.load_defaults ENV.fetch('RAILS_LOAD_DEFAULTS', 8.0)
 
     # Settings in config/environments/* take precedence over those specified here.
     # Application configuration can go into files in config/initializers
@@ -203,6 +203,11 @@ module DMPRoadmap
                         host
                       end
     end
+
+    config.active_job.queue_adapter = :good_job
+    config.good_job.execution_mode = :external
+    config.good_job.queues = '*'
+    config.good_job.max_threads = 5
   end
 end
 

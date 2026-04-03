@@ -1,5 +1,5 @@
 <p>
-  <%= _('Hello %{username}') %{ username: @username } %>
+  <%= _('Hello %{recipient}') % { recipient: @username } %>
 </p>
 <p>
   <%= _('The plan %{plan_title} had its visibility changed to %{plan_visibility}.') %{
@@ -11,7 +11,7 @@
     <li><%= _('Private: restricted to me and my collaborators') %></li>
     <li><%= _('Administrator: visible to me, specified collaborators and administrators at my organisation') %></li>
     <li><%= _('Organisation: anyone at my organisation can view') %></li>
-    <li><%= _('Public: anyone can view on the web') %></li>
+    <li><%= _('Public: anyone can view') %></li>
   </ul>
 </p>
 <%= render partial: 'email_signature' %>

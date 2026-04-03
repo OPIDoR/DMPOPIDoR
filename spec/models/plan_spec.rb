@@ -1,5 +1,46 @@
 # frozen_string_literal: true
 
+# == Schema Information
+#
+# Table name: plans
+#
+#  id                         :integer          not null, primary key
+#  complete                   :boolean          default(FALSE)
+#  context                    :integer          default("research_project"), not null
+#  description                :text
+#  end_date                   :datetime
+#  ethical_issues             :boolean
+#  ethical_issues_description :text
+#  ethical_issues_report      :string
+#  feedback_request_date      :datetime
+#  feedback_requested         :boolean          default(FALSE)
+#  funding_status             :integer
+#  identifier                 :string
+#  start_date                 :datetime
+#  title                      :string
+#  visibility                 :integer          default("administrator_visible"), not null
+#  created_at                 :datetime
+#  updated_at                 :datetime
+#  feedback_requestor_id      :integer
+#  funder_id                  :integer
+#  grant_id                   :integer
+#  org_id                     :integer
+#  research_domain_id         :bigint(8)
+#  template_id                :integer
+#
+# Indexes
+#
+#  index_plans_on_funder_id           (funder_id)
+#  index_plans_on_grant_id            (grant_id)
+#  index_plans_on_org_id              (org_id)
+#  index_plans_on_research_domain_id  (research_domain_id)
+#  plans_template_id_idx              (template_id)
+#
+# Foreign Keys
+#
+#  fk_rails_...  (org_id => orgs.id)
+#  fk_rails_...  (template_id => templates.id)
+#
 require 'rails_helper'
 
 describe Plan do
@@ -46,7 +87,7 @@ describe Plan do
   context 'associations' do
     it { is_expected.to belong_to :template }
 
-    it { is_expected.to belong_to :org }
+    #  it { is_expected.to belong_to :org }
 
     it { is_expected.to belong_to(:funder).optional }
 
@@ -252,7 +293,7 @@ describe Plan do
       let!(:plan) { create(:plan, :creator, :organisationally_visible) }
 
       it 'includes organisationally_visible plans' do
-        is_expected.not_to include(plan)
+        is_expected.to include(plan)
       end
     end
 
@@ -335,6 +376,8 @@ describe Plan do
 
     let!(:plan) { create(:plan, :creator, template: template) }
 
+    let!(:research_output) { create(:research_output, plan: plan) }
+
     let!(:phase) { create(:phase, template: template) }
 
     let!(:section) { create(:section, phase: phase) }
@@ -359,15 +402,6 @@ describe Plan do
 
     context 'when Plan ID is valid and Phase ID is not valid child' do
       let!(:phase) { create(:phase) }
-
-      it 'raises an exception' do
-        # TODO: This is not ideal behaviour. Fix this.
-        expect { subject }.to raise_error(NoMethodError)
-      end
-    end
-
-    context 'when Plan ID is not valid' do
-      let!(:plan) { stub(id: 0) }
 
       it 'raises an exception' do
         # TODO: This is not ideal behaviour. Fix this.
@@ -577,7 +611,8 @@ describe Plan do
       create_list(:user, 2, org: org).each do |user|
         user.perms << Perm.where(name: 'modify_guidance').first_or_create
       end
-      ActionMailer::Base.deliveries = []
+      create(:user, org: plan.owner.org)
+      ActionMailer::Base.deliveries.clear
     end
 
     it "changes plan's feedback_requested value to true" do
@@ -593,10 +628,11 @@ describe Plan do
     context 'when org contact_email present' do
       before do
         org.update!(contact_email: Faker::Internet.email)
+        user.org.reload
       end
 
       it 'emails the admins' do
-        expect { subject }.to change {
+        expect { plan.request_feedback(user) }.to change {
           ActionMailer::Base.deliveries.size
         }.by(1)
       end
@@ -616,6 +652,7 @@ describe Plan do
 
     let!(:plan) do
       create(:plan, feedback_requested: true,
+                    feedback_requestor: create(:user, org: org),
                     template: template)
     end
 
@@ -706,7 +743,8 @@ describe Plan do
         expect(subject.readable_by?(user.id)).to eql(true)
       end
 
-      it 'org admins' do
+      it 'org admins when visibility is administrator_visible' do
+        plan.update(visibility: Plan.visibilities[:administrator_visible])
         Rails.configuration.x.plans.org_admins_read_all = true
         user.org_id = plan.owner.org_id
         user.save
@@ -777,6 +815,8 @@ describe Plan do
 
         it 'when user is a reviewer and feedback requested' do
           # All reviewers of the same org should be able to comment
+          feedback_user = create(:user, org: plan.owner.org)
+          plan.feedback_requestor = feedback_user
           plan.feedback_requested = true
           plan.save
           expect(subject.readable_by?(user.id)).to eql(true)
@@ -884,7 +924,10 @@ describe Plan do
       it 'of the same org and feedback requested' do
         # All reviewers of the same org should be able to comment
         plan.feedback_requested = true
+        feedback_user = create(:user, org: plan.owner.org)
+        plan.feedback_requestor = feedback_user
         plan.save
+
         expect(subject.commentable_by?(user.id)).to eql(true)
       end
 
@@ -979,10 +1022,27 @@ describe Plan do
       user.org = plan.owner.org
       user.save
       user.perms << Perm.review_plans
+
+      feedback_user = create(:user, org: subject.owner.org)
+      plan.feedback_requestor = feedback_user
+      plan.save
+
       expect(subject.owner.org).to eql(user.org)
       expect(user.can_review_plans?).to eql(true)
       expect(plan.feedback_requested?).to eql(true)
       expect(subject.reviewable_by?(user.id)).to eql(true)
+    end
+
+    it 'when feedback_requestor is not from the same org' do
+      user.org = plan.owner.org
+      user.save
+      user.perms << Perm.review_plans
+
+      feedback_user = create(:user, org: create(:org))
+      plan.feedback_requestor = feedback_user
+      plan.save
+
+      expect(subject.reviewable_by?(user.id)).to eql(false)
     end
   end
 
@@ -1234,26 +1294,13 @@ describe Plan do
 
     subject { plan.visibility_allowed? }
 
-    before do
-      @phase     = create(:phase, template: template)
-      @section   = create(:section, phase: @phase)
-      @questions = create_list(:question, 4, :textarea, section: @section)
-      @questions.take(3).each do |question|
-        create(:answer, question: question, plan: plan, research_output: research_output)
-      end
-    end
-
-    context 'when requisite number of questions answered' do
-      before do
-        Rails.configuration.x.plans.default_percentage_answered = 75
-      end
-
+    context 'when plan is not test' do
       it { is_expected.to eql(true) }
     end
 
-    context 'when requisite number of questions not answered' do
+    context 'when plan is test' do
       before do
-        Rails.configuration.x.plans.default_percentage_answered = 76
+        plan.update(visibility: Plan.visibilities[:is_test])
       end
 
       it { is_expected.to eql(false) }

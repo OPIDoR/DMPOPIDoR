@@ -18,7 +18,7 @@ class TemplatesController < ApplicationController
     template = Template.find(params[:template_id])
 
     authorize template, policy_class: PublicTemplateInfoPolicy
-    template.is_recommended = params[:is_recommended] == '1'
+    template.is_recommended = params[:checked] == true
 
     if template.save
       render json: {

@@ -22,4 +22,4 @@ Rails.application.configure do
 end
 
 # Used by Rails' routes url_helpers (typically when including a link in an email)
-Rails.application.routes.default_url_options[:host] = Rails.configuration.x.server_host
+Rails.application.routes.default_url_options[:host] = ENV.fetch('DMPROADMAP_HOST', 'dmpopidor')

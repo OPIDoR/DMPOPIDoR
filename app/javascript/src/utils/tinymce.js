@@ -17,9 +17,10 @@ import 'tinymce/plugins/autoresize';
 import 'tinymce/plugins/link';
 import 'tinymce/plugins/advlist';
 import 'tinymce/plugins/autolink';
+import 'tinymce/plugins/charmap';
 
 // Other dependencies
-import { isObject, isString, isUndefined } from './isType';
+import { isObject, isString } from './isType';
 
 // // Configuration extracted from
 // // https://www.tinymce.com/docs/advanced/usage-with-module-loaders/
@@ -28,8 +29,8 @@ export const defaultOptions = {
   selector: '.tinymce',
   statusbar: true,
   menubar: false,
-  toolbar: 'bold italic underline | fontsizeselect forecolor | bullist numlist | link | table',
-  plugins: 'table autoresize link advlist lists autolink',
+  toolbar: 'bold italic underline | fontfamily fontsize | fontsizeselect forecolor | alignleft aligncenter alignright alignjustify | subscript superscript | bullist numlist indent outdent | link | table | charmap',
+  plugins: 'table autoresize link advlist lists autolink charmap',
   browser_spellcheck: true,
   advlist_bullet_styles: 'circle,disc,square', // Only disc bullets display on htmltoword
   target_list: false,
@@ -40,6 +41,7 @@ export const defaultOptions = {
   autoresize_bottom_margin: 10,
   branding: false,
   extended_valid_elements: 'iframe[tooltip] , a[href|target=_blank]',
+  invalid_elements: 'pre',
   paste_as_text: false,
   paste_block_drop: true,
   paste_merge_formats: true,

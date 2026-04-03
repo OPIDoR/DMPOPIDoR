@@ -3,7 +3,7 @@ import { isString } from '../../utils/isType';
 import { isValidPassword } from '../../utils/isValidInputType';
 import { addMatchingPasswordValidator, togglisePasswords } from '../../utils/passwordHelper';
 
-$(() => {
+document.addEventListener('turbo:load', () => {
   addMatchingPasswordValidator({ selector: '#password_details_registration_form' });
   togglisePasswords({ selector: '#password_details_registration_form' });
   initAutocomplete('#profile-org-controls .autocomplete');
@@ -44,19 +44,19 @@ $(() => {
 
   // If the user has changed their email address display the password
   // confirmation modal on form submission
-  $('#personal_details_registration_form').submit((e) => {
+  $('#personal_details_registration_form').on('submit', (e) => {
     sensitiveInfoCheck(e);
   });
 
   // Devise seems to require both the password and current_password so sync them
   // when the user enters their password in the modal
-  $('#password-confirmation input[name="user[current_password]"]').change((e) => {
+  $('#password-confirmation input[name="user[current_password]"]').on('change', (e) => {
     $('#password-confirmation input[name="user[password]"]')
       .val($(e.target).val());
   });
 
   // Submit the form when the user clicks the confirmation button on the modal
-  $('#pwd-confirmation').click((e) => {
-    $(e.target).closest('form').submit();
+  $('#pwd-confirmation').on('click', (e) => {
+    $(e.target).closest('form').trigger('submit');
   });
 });

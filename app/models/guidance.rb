@@ -9,6 +9,7 @@
 # Table name: guidances
 #
 #  id                :integer          not null, primary key
+#  locale            :string           default("fr-FR")
 #  published         :boolean
 #  text              :text
 #  created_at        :datetime         not null

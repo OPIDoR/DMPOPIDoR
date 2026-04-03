@@ -12,7 +12,7 @@ export default function updateConditions(id) {
     if (addLogicButton.attr('data-loaded').toString() === 'true') {
       // Get the native Dom element from the Jquery button element.
       // We are getting native DOM element by applying get() from the Jquery element (cf., https://api.jquery.com/get/).
-      addLogicButton.get(0).click();
+      addLogicButton.get(0).trigger('click');
     }
   }
 

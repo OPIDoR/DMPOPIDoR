@@ -1,11 +1,35 @@
 # frozen_string_literal: true
 
+# == Schema Information
+#
+# Table name: api_clients
+#
+#  id                :integer          not null, primary key
+#  client_secret     :string           not null
+#  contact_email     :string           not null
+#  contact_name      :string
+#  description       :string
+#  homepage          :string
+#  last_access       :datetime
+#  name              :string           not null
+#  send_notification :boolean          default(FALSE), not null
+#  created_at        :datetime         not null
+#  updated_at        :datetime         not null
+#  client_id         :string           not null
+#  org_id            :integer
+#
+# Indexes
+#
+#  index_api_clients_on_name  (name)
+#
 require 'rails_helper'
 
 RSpec.describe ApiClient, type: :model do
   context 'validations' do
     it { is_expected.to validate_presence_of(:name) }
     it { is_expected.to validate_presence_of(:contact_email) }
+    it { is_expected.to validate_presence_of(:client_id) }
+    it { is_expected.to validate_presence_of(:client_secret) }
 
     # Uniqueness validation
     it {
@@ -31,6 +55,9 @@ RSpec.describe ApiClient, type: :model do
 
   context 'Associations' do
     it { is_expected.to belong_to(:org).optional }
+    it { is_expected.to have_many(:plans) }
+    it { is_expected.to have_many(:roles) }
+    it { is_expected.to have_many(:madmp_schemas) }
   end
 
   context 'Instance Methods' do

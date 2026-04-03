@@ -61,7 +61,7 @@ module SuperAdmin
           msg = success_message(org, _('created'))
           redirect_to admin_edit_org_path(org.id), notice: msg
         else
-          flash.now[:alert] = failure_message(org, _('create'))
+          flash[:alert] = failure_message(org, _('create'))
           @org = org
           @org.links = { org: [] } unless org.links.present?
           render 'super_admin/orgs/new'
@@ -119,6 +119,11 @@ module SuperAdmin
                                  guidance_groups: [guidances: [:themes]],
                                  users: [identifiers: [:identifier_scheme]])
                        .find(lookup.id)
+      render turbo_stream: turbo_stream.replace(
+        'merge-analysis',
+        partial: 'super_admin/orgs/merge_analyze',
+        locals: { from_org: @org, to_org: @target_org }
+      )
     end
 
     # POST /super_admin/:id/merge_commit

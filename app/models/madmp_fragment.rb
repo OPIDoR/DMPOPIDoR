@@ -19,6 +19,10 @@
 #
 #  index_madmp_fragments_on_answer_id        (answer_id)
 #  index_madmp_fragments_on_madmp_schema_id  (madmp_schema_id)
+#  madmp_fragments_dmp_id_idx                (dmp_id)
+#  madmp_fragments_parent_id_idx             (parent_id)
+#  madmp_fragments_plan_id_idx               (((data ->> 'plan_id'::text)))
+#  madmp_fragments_research_output_id_idx    (((data ->> 'research_output_id'::text)))
 #
 # Foreign Keys
 #
@@ -121,7 +125,7 @@ class MadmpFragment < ApplicationRecord
 
   def plan
     if dmp.nil?
-      Plan.find(data['plan_id'])
+      Plan.includes(:template, :api_clients).find(data['plan_id'])
     else
       dmp.plan
     end
@@ -242,7 +246,8 @@ class MadmpFragment < ApplicationRecord
   # It integrates its children into the JSON
   # rubocop:disable Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
   # rubocop:disable Metrics/AbcSize, Metrics/MethodLength
-  def get_full_fragment(with_ids: false, with_template_name: false)
+  def get_full_fragment(with_ids: false, with_template_name: false, with_configuration: false,
+                        with_guidance_groups: false)
     if additional_info['custom_value'].present?
       {
         'custom_value' => additional_info['custom_value']
@@ -253,6 +258,11 @@ class MadmpFragment < ApplicationRecord
     editable_data = data
     # rubocop:disable Metrics/BlockLength
     editable_data.each do |prop, value|
+      if value.nil?
+        editable_data.delete(prop)
+        next
+      end
+
       if value.is_a?(Hash) && value['dbid'].present?
         child = if children.exists?(value['dbid'])
                   children.find(value['dbid'])
@@ -264,7 +274,9 @@ class MadmpFragment < ApplicationRecord
                      else
                        child.get_full_fragment(
                          with_ids:,
-                         with_template_name:
+                         with_template_name:,
+                         with_configuration:,
+                         with_guidance_groups:
                        )
                      end
         editable_data = editable_data.merge(prop => child_data)
@@ -287,7 +299,9 @@ class MadmpFragment < ApplicationRecord
             fragment_tab.push(
               child_data.get_full_fragment(
                 with_ids:,
-                with_template_name:
+                with_template_name:,
+                with_configuration:,
+                with_guidance_groups:
               )
             )
           else
@@ -302,82 +316,19 @@ class MadmpFragment < ApplicationRecord
     # rubocop:enable Metrics/BlockLength
     editable_data = { 'id' => id, 'schema_id' => madmp_schema_id }.merge(editable_data) if with_ids
     editable_data = { 'template_name' => madmp_schema.name }.merge(editable_data) if with_template_name
+    if with_configuration && classname.eql?('research_output')
+      editable_data = { 'configuration' => additional_info.except('moduleId', 'property_name') }.merge(editable_data)
+    end
+    if with_guidance_groups && classname.eql?('research_output')
+      editable_data = { 'guidance_groups' => research_output.guidance_groups.map do |gg|
+        { 'id' => gg.id, 'name' => gg.name }
+      end }.merge(editable_data)
+    end
 
     editable_data
   end
   # rubocop:enable Metrics/AbcSize, Metrics/MethodLength
   # rubocop:enable Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
-
-  # This method take a fragment and convert its data with the target schema
-  # rubocop:disable Metrics/AbcSize, Metrics/MethodLength
-  # rubocop:disable Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
-  def schema_conversion(target_schema, locale)
-    origin_schema_properties = madmp_schema.properties
-    target_schema_defaults = target_schema.defaults(locale)
-    converted_data = {}
-
-    # rubocop:disable Metrics/BlockLength
-    target_schema.properties.each do |key, target_prop|
-      origin_prop = origin_schema_properties[key]
-      next if origin_prop.nil?
-
-      if target_prop['type'].eql?('array')
-        converted_data[key] = if data[key].nil?
-                                []
-                              elsif data[key].is_a?(Array)
-                                data[key]
-                              else
-                                [data[key]]
-                              end
-        if target_prop['items']['type'].eql?('object')
-          next if converted_data[key].empty? || converted_data[key].first.nil?
-
-          target_sub_schema = MadmpSchema.find_by(name: target_prop['items']['template_name'])
-          converted_data[key].map { |v| MadmpFragment.find(v['dbid']).schema_conversion(target_sub_schema, locale) }
-        end
-      elsif origin_prop['type'].eql?('object')
-        converted_data[key] = data[key]
-        next if origin_prop['inputType'].present? && origin_prop['inputType'].eql?('pickOrCreate')
-
-        sub_fragment = MadmpFragment.find(data[key]['dbid'])
-        target_sub_schema = MadmpSchema.find_by(name: target_prop['template_name'])
-        sub_fragment.schema_conversion(target_sub_schema, locale)
-      elsif origin_prop['type'].eql?('array')
-        if target_prop['type'].eql?('object')
-          target_sub_schema = MadmpSchema.find_by(name: target_prop['template_name'])
-          data[key] = [] if data[key].nil?
-          if data[key].empty?
-            sub_fragment = MadmpFragment.new(
-              data: {},
-              answer_id: nil,
-              dmp_id: dmp.id,
-              parent_id: id,
-              madmp_schema: target_sub_schema,
-              additional_info: { property_name: key }
-            )
-            sub_fragment.assign_attributes(classname: sub_fragment.classname)
-            sub_fragment.instantiate
-          else
-            first_id = data[key].first['dbid']
-            MadmpFragment.find(first_id).schema_conversion(target_sub_schema, locale)
-            converted_data[key] = { 'dbid' => first_id }
-          end
-        else
-          converted_data[key] = data[key].first
-        end
-      else
-        converted_data[key] = data[key]
-      end
-    end
-    # rubocop:enable Metrics/BlockLength
-    update!(
-      data: converted_data,
-      madmp_schema_id: target_schema.id
-    )
-    handle_defaults(target_schema_defaults)
-  end
-  # rubocop:enable Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
-  # rubocop:enable Metrics/AbcSize, Metrics/MethodLength
 
   # This method is called when a form is opened for the first time
   # It creates the whole tree of sub_fragments
@@ -523,10 +474,14 @@ class MadmpFragment < ApplicationRecord
       classname:
     ).where.not(id: current_fragment_id)
 
-    filtered_incoming_data = data.to_h.delete_if { |_, v| v.nil? || v.empty? }.slice(*unicity_properties)
+    filtered_incoming_data = data.to_h.delete_if do |_, v|
+      v.nil? || v.is_a?(Integer) || v.empty?
+    end.slice(*unicity_properties)
 
     dmp_fragments.each do |fragment|
-      filtered_db_data = fragment.data.delete_if { |_, v| v.nil? || v.empty? }.slice(*unicity_properties)
+      filtered_db_data = fragment.data.delete_if do |_, v|
+        v.nil? || v.is_a?(Integer) || v.empty?
+      end.slice(*unicity_properties)
       next if filtered_db_data.nil? || filtered_db_data.empty?
 
       return fragment if filtered_db_data.eql?(filtered_incoming_data)

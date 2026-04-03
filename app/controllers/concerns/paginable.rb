@@ -3,7 +3,9 @@
 # Provides support for pagination/searching/sorting of table data
 # rubocop:disable Metrics/ModuleLength
 module Paginable
+  include ApplicationHelper
   extend ActiveSupport::Concern
+
   require 'sort_direction'
 
   ##
@@ -38,7 +40,7 @@ module Paginable
 
   # rubocop:disable Metrics/AbcSize, Metrics/MethodLength, Metrics/ParameterLists
   # rubocop:disable Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
-  def paginable_renderise(partial: nil, template: nil, controller: nil, action: nil,
+  def paginable_renderise(partial: nil, template: nil, controller: nil, action: 'index',
                           path_params: {}, query_params: {}, scope: nil,
                           locals: {}, **options)
     unless scope.is_a?(ActiveRecord::Relation)
@@ -62,6 +64,8 @@ module Paginable
     # Additional path_params passed to this function got special treatment
     # (e.g. it is taking into account when building base_url)
     @paginable_path_params = path_params.symbolize_keys
+
+    @context = locals[:context]
     if @args[:page] == 'ALL' &&
        @args[:search].blank? &&
        @paginable_options[:view_all] == false
@@ -72,6 +76,7 @@ module Paginable
     else
       @refined_scope = refine_query(scope)
       locals = locals.merge(
+        action: action,
         scope: @refined_scope,
         paginable_params: @args,
         search_term: @args[:search],
@@ -79,8 +84,10 @@ module Paginable
       )
       # If this was an ajax call then render as JSON
       if options[:format] == :json
-        render json: { html: render_to_string(layout: '/layouts/paginable',
-                                              partial: partial, locals: locals) }
+        render turbo_stream: turbo_stream.replace(turbo_id_for(@refined_scope, action),
+                                                  layout: '/layouts/paginable',
+                                                  partial: partial, locals: locals)
+
       elsif partial.present?
         render(layout: '/layouts/paginable', partial: partial, locals: locals)
       else

@@ -1,4 +1,4 @@
-$(() => {
+document.addEventListener('turbo:load', () => {
   // This bit of code currently only closes dropdown
   // menus in a table when the focus is no longer in the containing cell.
 
@@ -8,7 +8,7 @@ $(() => {
   focusables.each((i, el) => {
     const focusable = $(el); // JQuery object
     // On entrying a new focusable element we respond to event
-    focusable.focusin(() => {
+    focusable.on('focusin', () => {
       $('td').children('.dropdown.open').each((j, elj) => {
         const td = $(elj).parent(); // DOM Element
         const dropdownBtn = $(elj).find('.dropdown-toggle'); // JQuery object

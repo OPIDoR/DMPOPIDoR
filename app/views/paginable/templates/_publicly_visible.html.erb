@@ -1,12 +1,16 @@
+<p class="legend-inline">
+  <i class="fas fa-university"></i> <%= _('Research Entity') %>&nbsp;&nbsp;
+  <i class="fas fa-vial"></i> <%= _('Research Project') %>
+</p>
 <div class="table-responsive">
   <table class="table table-hover">
     <thead>
       <tr>
         <th scope="col"><%= _('Template Name') %>&nbsp;<%= paginable_sort_link('templates.title') %></th>
         <th scope="col"><%= _('Organisation Name') %>&nbsp;<%= paginable_sort_link('orgs.name') %></th>
-        <th scope="col"><%= _('Organisation Type') %>&nbsp;<%= paginable_sort_link('orgs.org_type') %></th>
+        <th scope="col"><%= _('Organisation Types') %>&nbsp;<%= paginable_sort_link('orgs.org_type') %></th>
         <th scope="col" class="sorter-false"><%= _('Description') %></th>
-        <th scope="col" class="date-column"><%= _('Last Updated') %>&nbsp;<%= paginable_sort_link('templates.updated_at') %></th>
+        <th scope="col" class="date-column"><%= _('Last updated') %>&nbsp;<%= paginable_sort_link('templates.updated_at') %></th>
         <th scope="col" class="sorter-false text-center download-column"><%= _('Download') %></th>
       </tr>
     </thead>
@@ -15,6 +19,12 @@
       <% scope.each do |template| %>
         <tr id="<%= dom_id(template) %>">
           <td>
+            <% if template.research_entity? %>
+              <i class="fa-solid fas fa-university"></i>
+            <% end %>
+            <% if template.research_project? %>
+              <i class="fa-solid fas fa-vial"></i>
+            <% end %>
             <%= template.title %>
             <% if template.customization_of.present? %>
                - <%= _('Customized') %>
@@ -25,7 +35,7 @@
           <td><%= raw template.description %></td>
           <td><%= l(template.updated_at.to_date, formats: :short) %></td>
           <td class="text-center">
-            <%= link_to template_export_path(template.family_id, format: :pdf), target: '_blank' do %>
+            <%= link_to template_export_path(template.family_id, format: :pdf), data: { turbo_frame: "_top" }, target: '_blank' do %>
                <i class="fas fa-file-pdf" aria-hidden="true"></i>
                <em class="sr-only"><%= _('(new window)') %></em>
             <% end %>

@@ -130,8 +130,8 @@ module OrgAdmin
         redirect_to phase.template&.module? ? new_super_admin_template_phase_path(template_id: phase.template.id) : new_org_admin_template_phase_path(template_id: phase.template.id)
       else
         redirect_to phase.template&.module? ? edit_super_admin_template_phase_path(template_id: phase.template.id,
-                                                                                 id: phase.id) : edit_org_admin_template_phase_path(template_id: phase.template.id,
-                                                       id: phase.id)
+                                                                                   id: phase.id) : edit_org_admin_template_phase_path(template_id: phase.template.id,
+                                                                                                                                      id: phase.id)
       end
     end
     # rubocop:enable Metrics/AbcSize, Metrics/MethodLength
@@ -154,8 +154,8 @@ module OrgAdmin
         flash[:alert] = "#{msg}<br>#{e.message}"
       end
       redirect_to phase.template&.module? ? edit_super_admin_template_phase_path(template_id: phase.template.id,
-                                                     id: phase.id) : edit_org_admin_template_phase_path(template_id: phase.template.id,
-                                                                                                        id: phase.id)
+                                                                                 id: phase.id) : edit_org_admin_template_phase_path(template_id: phase.template.id,
+                                                                                                                                    id: phase.id)
     end
     # rubocop:enable Metrics/AbcSize
 

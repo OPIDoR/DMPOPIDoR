@@ -7,6 +7,7 @@
         "software",
         "none"
     ],
+    "topics": null,
     "type": "object",
     "class": "ResearchEntityStandard",
     "externalImports": {
@@ -20,7 +21,7 @@
     "properties": {
         "name": {
             "type": "string",
-            "description": "Nom de l'entité (ou structure) ou d'un partenaire d'un projet de recherche",
+            "description": "Name of the entity",
             "label@fr_FR": "Nom de l'entité",
             "label@en_GB": "Entity's name",
             "tooltip": null,
@@ -29,7 +30,7 @@
         },
         "acronym": {
             "type": "string",
-            "description": "Acronyme de l'entité (ou structure) ou d'un partenaire d'un projet de recherche",
+            "description": "Acronym of the entity",
             "label@fr_FR": "Acronyme",
             "label@en_GB": "Acronym",
             "tooltip": null,
@@ -38,7 +39,7 @@
         },
         "orgId": {
             "type": "string",
-            "description": "Identifiant de l'entité (ou structure) ou d'un partenaire d'un projet de recherche",
+            "description": "Identifier of the entity",
             "label@fr_FR": "Identifiant",
             "label@en_GB": "Identifier",
             "tooltip": null,
@@ -47,13 +48,10 @@
         },
         "idType": {
             "type": "string",
-            "description": "Type d'identifiant (ROR) de l'organisation ou structure partenaire",
+            "description": "Identification system",
             "inputType": "dropdown",
             "label@fr_FR": "Type d'identifiant",
             "label@en_GB": "Identifier type",
-            "registries": [
-                "OrganizationIdSystem"
-            ],
             "registryCategory": "OrganizationIdSystem",
             "overridable": true,
             "tooltip": null,
@@ -62,7 +60,7 @@
         },
         "description": {
             "type": "string",
-            "description": "Description globale des activités de l'entité (ou structure) de recherche",
+            "description": "Description on the  research entity",
             "inputType": "textarea",
             "label@fr_FR": "Description",
             "label@en_GB": "Description",
@@ -71,7 +69,7 @@
         "startDate": {
             "type": "string",
             "format": "date",
-            "description": "Année de création de l'entité (ou structure) de recherche",
+            "description": "Creation date of the entity",
             "label@fr_FR": "Date de création",
             "label@en_GB": "Creation date",
             "tooltip": null
@@ -93,7 +91,7 @@
                 ]
             },
             "minItems": 1,
-            "description": "Etablissements tutelles de l'entité (ou structure) de recherche",
+            "description": "Supervising institutions of the research entity",
             "label@fr_FR": "Tutelle(s) de l'entité",
             "label@en_GB": "Entity's regulatory authority",
             "tooltip": null,
@@ -118,7 +116,7 @@
                 ]
             },
             "minItems": 1,
-            "description": "Source(s) de financement",
+            "description": "Funding source(s)",
             "label@fr_FR": "Source(s) de financement",
             "label@en_GB": "Funding(s)",
             "tooltip": null,
@@ -143,7 +141,7 @@
                 ]
             },
             "minItems": 1,
-            "description": "Responsable(s) de l'entité (ou structure) de recherche et/ou gestionnaire(s) de données",
+            "description": "Information about the head of the research entity  and/or data steward",
             "label@fr_FR": "Responsable(s) de l'entité de recherche et/ou gestionnaire(s) de données",
             "label@en_GB": "Entity's manager(s) and/or Data manager(s)",
             "tooltip@fr_FR": "Il peut s'agir d'une ou plusieurs personnes, d'une équipe, d'un service",

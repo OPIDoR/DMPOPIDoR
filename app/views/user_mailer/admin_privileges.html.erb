@@ -1,5 +1,5 @@
 <p>
-  <%= _('Hello %{username}') %{ username: @username } %>
+  <%= _('Hello %{recipient}') % { recipient: @username } %>
 </p>
 <% if @user.perms.size > 0 %>
   <p>

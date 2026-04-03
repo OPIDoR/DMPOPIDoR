@@ -4,6 +4,7 @@
     "title": "ResearchOutputStandard",
     "description": "ResearchOutputStandard template",
     "dataTypes": null,
+    "topics": null,
     "type": "object",
     "class": "ResearchOutputStandard",
     "properties": {
@@ -233,14 +234,7 @@
         }
     },
     "required": [
-        "researchOutputDescription",
-        "reuse",
-        "dataCollection",
-        "dataStorage",
-        "documentationQuality",
-        "qualityAssuranceMethod",
-        "sharing",
-        "preservationIssues"
+        "researchOutputDescription"
     ],
     "to_string": []
 }

@@ -36,14 +36,14 @@
                   <td>
                       <% if !user.name.nil? %>
                          <% if is_super_admin %>
-                          <%=  link_to(user.name(false), edit_super_admin_user_path(user)) %>
+                          <%=  link_to(user.name(false), edit_super_admin_user_path(user), data: { turbo_frame: "_top" }) %>
                          <% elsif is_org_admin %>
-                           <%=  link_to(user.name(false), edit_org_admin_user_path(user)) %>
+                           <%=  link_to(user.name(false), edit_org_admin_user_path(user), data: { turbo_frame: "_top" }) %>
                          <% else %>
                           <%= user.name(false) %>
                          <% end %>
                       <% else %>
-                          <%= is_super_admin ? link_to(_('Edit Profile'), edit_user_registration_path(user)) : '' %>
+                          <%= is_super_admin ? link_to(_('Edit Profile'), edit_user_registration_path(user), data: { turbo_frame: "_top" }) : '' %>
                       <% end %>
                   </td>
                   <td><%= user.email %></td>
@@ -64,7 +64,7 @@
                     <% if roles.any? %>
                       <% roles_length = roles.length %>
                       <% if is_super_admin || is_org_admin %>
-                        <%=  link_to(roles_length, user_plans_org_admin_user_path(user)) %>
+                        <%=  link_to(roles_length, user_plans_org_admin_user_path(user), data: { turbo_frame: "_top" }) %>
                       <% else %>
                         <%= roles_length %>
                       <% end %>
@@ -78,16 +78,15 @@
                     <br>
                     <%# Do not allow a user to change their own permissions or a super admin's permissions if they are not a super admin %>
                     <% unless current_user == user || !is_super_admin && user.can_super_admin? %>
-                      <%= link_to( _('Edit'), admin_grant_permissions_user_path(user)) %>
+                      <%= link_to( _('Edit'), admin_grant_permissions_user_path(user), data: { turbo_frame: "_top" }) %>
                     <% end %>
                   </td>
-                  <td class="text-center user-status">
+                  <td class="text-center user-status"  data-controller="checkbox" data-checkbox-url="<%= activate_user_path(user) %>" data-checkbox-method="PUT">
                     <% if is_super_admin %>
-                      <%= check_box_tag :is_test, "1", user.active,
+                      <%= check_box_tag :active, "1", user.active,
                                                   class: "activate-user",
                                                   authenticity_token: true,
-                                                  data: { remote: true, method: :put,
-                                                          url: activate_user_path(user) } %>
+                                                  data: { checkbox_target: "checkbox", action: "change->checkbox#toggle"} %>
                     <% else %>
                       <%= user.active? ? _('Yes') : _('No') %>
                     <% end %>

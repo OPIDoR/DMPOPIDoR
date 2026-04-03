@@ -44,7 +44,7 @@
         </div>
         <div class='research-output-field form-control mb-3 research-output-contact'>
           <%= f.label "contact_id", _('Contact'),  class: 'form-label' %>
-          <div class="edit">
+          <span class="d-flex justify-content-between">
             <%= select_tag "contact_id",
               options_for_select(
                 @persons.map {|p| [
@@ -64,7 +64,7 @@
               data-original-title="<%= _('Add a person in the Contributors tab. Please save before clicking on +') %>">
                 <i class="fas fa-plus"></i>
             </a>
-          </div>
+          </span>
         </div>
         <div class='research-output-field form-control mb-3 research-output-pid'>
           <%= f.label :pid, _('Persistent Identifier'),  class: 'form-label' %>

@@ -8,7 +8,7 @@ services:
         - DB_ADAPTER=${DB_ADAPTER:-postgres}
         - DB_USERNAME=${DB_USERNAME:-postgres}
         - DB_PASSWORD=${DB_PASSWORD:-changeme}
-        - NODE_MAJOR=${NODE_MAJOR:-22}
+        - NODE_MAJOR=${NODE_MAJOR:-24}
     depends_on:
       postgres:
         condition: service_healthy
@@ -34,7 +34,6 @@ services:
       - ENABLE_SHIBBOLETH=${ENABLE_SHIBBOLETH:-false}
       - WEB_CONCURRENCY=${WEB_CONCURRENCY:-2}
       - RAILS_MAX_THREADS=${RAILS_MAX_THREADS:-5}
-      - WICKED_PDF_PATH=${WICKED_PDF_PATH:-/usr/local/bin/wkhtmltopdf}
       - DRAGONFLY_AWS=${DRAGONFLY_AWS:-false}
       - SECRET_KEY_BASE=${SECRET_KEY_BASE:-my_secret_key}
       - SECRET_KEY=${SECRET_KEY:-my_secret_key}
@@ -56,6 +55,7 @@ services:
       - RAILS_RELATIVE_URL_ROOT
       - TRANSLATION_API_ROADMAP
       - TRANSLATION_API_CLIENT
+      - DEFAULT_LOCALE
       # MetaDoRe API
       - METADORE_LANDING_PAGE_URL
       - METADORE_API_BASE_URL
@@ -66,11 +66,12 @@ services:
       - DIRECTUS_URL=http://directus:8055
       - DIRECTUS_PUBLIC_URL=http://${DMP_SERVER_NAME:-0.0.0.0}:${NGINX_PORT:-8080}/directus
       - ENABLE_GRAPHIQL=true
+      - ENABLE_TOPICS=${ENABLE_TOPICS:-true}
     working_dir: /app
     volumes:
       - ./log:/app/log
     healthcheck:
-      test: ["CMD-SHELL", "curl -s -o /dev/null -w \"%{http_code}\" http://localhost:3000 | grep '200'"]
+      test: ["CMD-SHELL", "rails probe:liveness"]
       interval: ${DMPOPIDOR_HEALTHCHECK_INTERVAL:-30s}
       timeout: ${DMPOPIDOR_HEALTHCHECK_TIMEOUT:-30s}
       retries: ${DMPOPIDOR_HEALTHCHECK_RETRIES:-3}
@@ -79,7 +80,6 @@ services:
       - dmpopidor_network
 
   directus:
-    container_name: directus_app
     image: directus/directus:${DIRECTUS_VERSION:-11.0}
     restart: always
     depends_on:
@@ -100,6 +100,9 @@ services:
       - CORS_ENABLED=true
       - CORS_ORIGIN=true
       - CORS_METHODS=GET,POST
+      - CONTENT_SECURITY_POLICY_USE_DEFAULT=true
+      - CONTENT_SECURITY_POLICY_DIRECTIVES__FRAME_SRC=www.canal-u.tv
+      - TELEMETRY=false
     volumes:
       - directus_uploads:/directus/uploads
     healthcheck:
@@ -112,7 +115,7 @@ services:
       - dmpopidor_network
 
   nginx:
-    image: nginx:1.27.5-alpine-slim
+    image: nginx:1.29.3-alpine-slim
     ports:
       - ${NGINX_PORT:-8080}:80
     depends_on:
@@ -134,7 +137,7 @@ services:
       - dmpopidor_network
 
   postgres:
-    image: postgres:16.8-alpine3.21
+    image: postgres:17.7-alpine3.22
     environment:
       - POSTGRES_USER=${DB_USERNAME:-postgres}
       - POSTGRES_PASSWORD=${DB_PASSWORD:-changeme}
@@ -154,7 +157,7 @@ services:
       - dmpopidor_network
 
   valkey:
-    image: valkey/valkey:8.1.0-alpine3.21
+    image: valkey/valkey:8.1.4-alpine3.22
     command: "redis-server /etc/redis/redis.conf --requirepass ${REDIS_PASSWORD:-changeme}"
     volumes:
       - ./redis/sysctl.conf:/etc/sysctl.conf:ro

@@ -6,8 +6,13 @@ class MadmpSchemasController < ApplicationController
 
   def index
     data_type = params[:data_type] || 'none'
+    topics = [params[:topic], 'generic'].compact.uniq
     authorize(MadmpSchema)
-    render json: MadmpSchema.where(classname: params[:classname], data_type:).select(%w[id name label schema])
+    condition = Arel.sql("topics && ARRAY[#{topics.map { |t| "'#{t}'" }.join(',')}]::varchar[]")
+    render json: MadmpSchema.where(condition).where(data_type: data_type, classname: params[:classname])
+                            .select(%w[
+                                      id name label schema
+                                    ])
   end
 
   def show

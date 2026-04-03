@@ -29,50 +29,24 @@
       <% end %>
     <% end %>
     <!-- End Google Analytics -->
-    <title><%= content_for?(:title) ? yield(:title) : _('%{application_name}') % { :application_name => ApplicationService.application_name } %> 
+    <title><%= content_for?(:title) ? yield(:title) : _('%{application_name}') % { :application_name => ApplicationService.application_name } %>
     </title>
     <%= favicon_link_tag "favicon.ico" %>
-    <!--[ if lte IE 9]>
-      <script src="https://html5shim.googlecode.com/svn/trunk/html5.js" type="text/javascript"></script>
-         <script src="https://cdnjs.cloudflare.com/ajax/libs/respond.js/1.3.0/respond.js"></script>
-         <style type="text/css">
-           .navbar {
-             filter:none !important;
-           }
-         </style>
-    <![endif]-->
-
-    <!--[if gte IE 9]>
-        <style type="text/css">
-          .gradient {
-               filter: none;
-          }
-        </style>
-    <![endif]-->
-
-    <!--[if IE]>
-          <script>
-            $(function() {
-              // Invoke the plugin
-              $('input, textarea').placeholder();
-              $('input, iframe').placeholder();
-          });
-        </script>
-    <![endif]-->
-    <%= javascript_include_tag "application", "data-turbo-track": "reload", defer: true %>
-    <%= stylesheet_link_tag "application", "data-turbo-track": "reload" %>
+    <%= javascript_include_tag "application", "data-turbo-track": Rails.env.production? ? "reload" : "", defer: true %>
+    <%= stylesheet_link_tag "application", "data-turbo-track": Rails.env.production? ? "reload" : "" %>
     <%= csrf_meta_tags %>
     <%= action_cable_meta_tag %>
 
+    <meta name="turbo-prefetch" content="false">
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <meta name="keywords" content="plan de gestion de données, PGD, data management plan, DMP, OPIDoR, H2020, Horizon2020, CNRS, INIST, ANR, software management plan, SMP, CNRS">
-    <meta name="description" content="DDMP OPIDoR vous accompagne à travers l’élaboration et la mise en pratique de plans de gestion de données, logiciels et autres.">
+    <meta name="keywords" content="plan de gestion de données, PGD, data management plan, DMP, OPIDoR, H2020, Horizon2020, CNRS, INIST, ANR, software management plan, SMP, CNRS"/>
+    <meta name="description" content="DDMP OPIDoR vous accompagne à travers l’élaboration et la mise en pratique de plans de gestion de données, logiciels et autres."/>
 
   </head>
   <body>
     <div class="skip">
-      <a href="#maincontent"> _('Skip to main content') </a> 
+      <a href="#maincontent"> _('Skip to main content') </a>
     </div>
     <!-- header rendering -->
     <header class="dmpopidor-branding">
@@ -80,7 +54,7 @@
     </header>
 
     <!-- main page content rendering -->
-    <% 
+    <%
       user_access_class = if request.path.starts_with?('/super_admin')
                             "super-admin"
                           elsif request.path.starts_with?('/org_admin') ||
@@ -89,7 +63,7 @@
                             "org-admin"
                           else
                             ""
-                          end 
+                          end
     %>
     <main class="container dmpopidor-branding <%= user_access_class %>" id="maincontent">
       <%# <div class="ribbon">Version d'essai Bootstrap 5</div> %>
@@ -100,7 +74,7 @@
       <div class="spinner-border d-none" role="status">
         <span class="visually-hidden"><%spinner_msg = _("Loading...") %></span>
       </div>
-    
+
       <%= render "layouts/contact_icons" %>
     </main>
 
@@ -142,16 +116,17 @@
       NO_TEMPLATE_FOUND_ERROR: _('Unable to find a suitable template for the research organisation and funder you selected.'),
       NEW_PLAN_DISABLED_TOOLTIP: _('Please select a research organisation and funder to continue.'),
 
-      AJAX_LOADING: _('Loading ...'),
+      AJAX_LOADING: _('Loading...'),
       AJAX_UNABLE_TO_LOAD_TEMPLATE_SECTION: _('Unable to load the section\'s content at this time.'),
       AJAX_UNABLE_TO_LOAD_TEMPLATE_SECTION_QUESTION: _('Unable to load the question\'s content at this time.'),
-      OPENS_IN_A_NEW_WINDOW_TEXT: _('Opens in a new window'),
+      OPENS_IN_A_NEW_WINDOW_TEXT: _('Opens in new window'),
 
       AUTOCOMPLETE_ARIA_HELPER: _("%{n} results are available, use up and down arrows to navigate suggestions. Use the Enter key to select a suggestion or the Escape key to close the suggestions."),
       AUTOCOMPLETE_ARIA_HELPER_EMPTY: _("No results are available for your entry."),
       AUTOCOMPLETE_SEARCHING: _("Searching ..."),
 
       CURRENT_LOCALE: LocaleService.to_gettext(locale: @current_locale.to_s),
+      DEFAULT_LOCALE: LocaleService.to_gettext(locale: LocaleService.default_locale),
 
       MORE_INFO: _("More info"),
       LESS_INFO: _("Less info")

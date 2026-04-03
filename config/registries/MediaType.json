@@ -96,7 +96,7 @@
                 "fr_FR": "odt",
                 "en_GB": "odt"
             },
-            "value": "aapplication/vnd.oasis.opendocument.text"
+            "value": "application/vnd.oasis.opendocument.text"
         },
         {
             "label": {

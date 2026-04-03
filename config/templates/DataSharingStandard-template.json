@@ -4,12 +4,13 @@
     "title": "DataSharingStandard",
     "description": "DataSharingStandard template",
     "dataTypes": null,
+    "topics": null,
     "type": "object",
     "class": "DataSharingStandard",
     "properties": {
         "description": {
             "type": "string",
-            "description": "Aspects relatifs au partage des données",
+            "description": "Considerations regarding data sharing",
             "inputType": "textarea",
             "label@fr_FR": "Modalités de partage",
             "label@en_GB": "Modalities of sharing",
@@ -19,7 +20,7 @@
         },
         "reusability": {
             "type": "string",
-            "description": "Potentiel de réutilisation des données et/ou limites de réutilisation",
+            "description": "Data reuse potential and/ or reuse limitations",
             "label@fr_FR": "Potentiel de réutilisation",
             "label@en_GB": "Reusability",
             "tooltip": null,
@@ -44,13 +45,10 @@
                     "dbid"
                 ]
             },
-            "description": "Entrepôt ou autre hébergement dans lequel les données seront mises à disposition",
+            "description": "Data hosting through a technical platform (repository, data center…)",
             "label@fr_FR": "Entrepôt/Catalogue de données",
             "label@en_GB": "Data repository/catalogs",
             "inputType": "dropdown",
-            "registries": [
-                "Repositories"
-            ],
             "registryCategory": "Repository",
             "overridable": true,
             "substitutable": true,
@@ -76,7 +74,7 @@
                 ]
             },
             "minItems": 1,
-            "description": "Distribution physique des données",
+            "description": "Description of data distributions",
             "label@fr_FR": "Caractéristiques des fichiers déposés",
             "label@en_GB": "Uploaded files characteristics",
             "tooltip@fr_FR": "Un ensemble de données peut être composé de plusieurs fichiers, disponibles sous différents formats",
@@ -101,7 +99,7 @@
                     "dbid"
                 ]
             },
-            "description": "Personne(s) impliquée(s) dans la mise à disposition des données",
+            "description": "Person(s) contributing to the submission and/or curation of data",
             "label@fr_FR": "Personnes impliquées dans le depôt et la diffusion des données",
             "label@en_GB": "Persons in charge of data deposition and diffusion",
             "tooltip@fr_FR": "Il peut s'agir d'une ou plusieurs personnes, d'une équipe, d'un service",
@@ -126,7 +124,7 @@
                     "dbid"
                 ]
             },
-            "description": "Coûts éventuels liés au dépôt des données dans un entrepôt",
+            "description": "Costs associated with data deposit",
             "label@fr_FR": "Coûts",
             "label@en_GB": "Costs",
             "tooltip": null,

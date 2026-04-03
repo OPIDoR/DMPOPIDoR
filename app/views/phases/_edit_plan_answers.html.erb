@@ -6,22 +6,19 @@
     <div class="section-description">
       <div class="display-readonly-textarea-content">
         <%= sanitize phase.description %>
-        <%= _('This plan is based on the "%{template_title}" template provided by %{org_name}.') % { 
-          :template_title => template_title, 
-          :org_name => template.org.name 
+        <%= _('This plan is based on the "%{template_title}" template provided by %{org_name}.') % {
+          :template_title => template_title,
+          :org_name => template.org.name
         } %>
         <span class="bold">
-          <%= _('(version: %{template_version}, published: %{published_date})') % { 
+          <%= _('(version: %{template_version}, published: %{published_date})') % {
             :template_version => template.version,
-            :published_date =>  l(template.updated_at.to_date, format: :readable) 
+            :published_date =>  l(template.updated_at.to_date, format: :readable)
           } %>
         </span>
       </div>
     </div>
 
-    <div id="progress-data" data-sections="<%= sections_info(plan).to_json %>" data-remove="<%= remove_list(plan).to_json %>">
-    </div>
-    
     <div class="accordion" id="sections">
       <% phase.sections.sort {|a,b| a.number <=> b.number }.each do |section| %>
         <div class="card card-default section-panel">
@@ -54,9 +51,9 @@
               <% section_has_common_answers = plan.research_outputs.first.common_answers?(section.id) %>
               <% plan.research_outputs.each_with_index do |research_output, i| %>
                 <li class="research-outputs-tab nav-item <%= 'disabled' if section_has_common_answers %>">
-                  <a href="#section-panel-<%= section.id %>" data-bs-toggle="tab" 
+                  <a href="#section-panel-<%= section.id %>" data-bs-toggle="tab"
                                     class="nav-link <%= 'active' if research_output.main? %>"
-                                    data-research-output="<%= research_output.id %>" 
+                                    data-research-output="<%= research_output.id %>"
                                     data-bs-target="#research_output_<%= research_output.id %>_section_<%= section.id %>"
                   >
                     <%= research_output.abbreviation %>
@@ -67,13 +64,13 @@
             <% multiple_ro_class = plan.research_outputs.count > 1 ? "multiple-research-output" : "single-research-output" %>
             <div id="questions-accordion-<%= section.id %>" class="tab-content card research-output-content <%= multiple_ro_class %>">
               <% plan.research_outputs.each_with_index do |research_output, i| %>
-                <div id="research_output_<%= research_output.id %>_section_<%= section.id %>" 
+                <div id="research_output_<%= research_output.id %>_section_<%= section.id %>"
                     class="card-body research-output-panel tab-pane fade <%= 'show active main_research_output' if research_output.main? %>">
                   <% if research_output.main? && plan.research_outputs.count > 1 %>
                     <p>
-                      <input type="checkbox" class="is_common_cb" 
+                      <input type="checkbox" class="is_common_cb"
                             data-target-url="<%= set_answers_as_common_answers_path %>"
-                            title="<%= _("Please click to indicate that this section\'s answers are common to all research outputs" ) %>"
+                            title="<%= _("Please click to indicate that this section's answers are common to all research outputs" ) %>"
                             <%= 'checked=""' if section_has_common_answers %>> <%= _('This section\'s answers are common to all research outputs') %>
                     </p>
                     <span class="common_changed bg bg-info" style="display:none"><%= _('Changes saved.')%></span>
@@ -88,41 +85,41 @@
                       consolidated_id = "#{question.id}-research-output-#{research_output.id}"
                     %>
                     <div class="row question accordion-item w-100 my-3">
-                    
+
                       <h2 class="accordion-header" role="tab" id="heading-<%= consolidated_id %>">
                         <button class="accordion-button question-text collapsed" type="button" data-bs-toggle="collapse"
                           id="question-panel-<%= consolidated_id %>"
-                          data-bs-parent="sections-accordion"
+                          data-bs-parent="questions-accordion-<%= section.id %>"
                           href="#collapse-<%= consolidated_id %>"
                           aria-expanded="false"
                           aria-controls="collapse-<%= consolidated_id %>">
                             <div class="card-title float-start">
-                              <%= sanitize(question.text) %> 
+                              <%= sanitize(question.text) %>
                             </div>
                             <i class="fas fa-chevron-right float-end" aria-hidden="true"></i>
                             <div class="clearfix"></div>
                           </button>
-                
+
                       </h2>
-                      <div id="collapse-<%= consolidated_id %>" 
-                            class="accordion-collapse collapse question-content" 
-                            role="tabpanel" 
+                      <div id="collapse-<%= consolidated_id %>"
+                            class="accordion-collapse collapse question-content"
+                            role="tabpanel"
                             aria-labelledby="heading-<%= consolidated_id %>">
                         <div class="card-body question-body">
                           <div class="answer-section">
-                            <% 
+                            <%
                               guidance_comments_opened_by_default = Rails.configuration.x.application.guidance_comments_opened_by_default
                             %>
                             <% if Rails.configuration.x.application.guidance_comments_toggleable %>
                               <div class="toggle-guidance-section">
-                                <span class="fas fa-chevron-<%= guidance_comments_opened_by_default ? 'right': 'left' %>"></span> 
+                                <span class="fas fa-chevron-<%= guidance_comments_opened_by_default ? 'right': 'left' %>"></span>
                                 <span><%= _('Comments & Guidance') %></span>
                               </div>
                             <% end %>
                             <div class="question-form">
-                              <div id="<%= "answer-locking-#{consolidated_id}" %>" 
+                              <div id="<%= "answer-locking-#{consolidated_id}" %>"
                                   class="answer-locking"></div>
-                              <div id="<%= "answer-form-#{consolidated_id}" %>" class="answer-form"> 
+                              <div id="<%= "answer-form-#{consolidated_id}" %>" class="answer-form">
                                 <%= render(partial: '/answers/new_edit',
                                         locals: { template: template,
                                                   question: question,

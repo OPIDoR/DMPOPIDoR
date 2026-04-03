@@ -4,25 +4,32 @@
 class RegistriesController < ApplicationController
   after_action :verify_authorized
 
+  # rubocop:disable Metrics/AbcSize
   def index
     data_type = params[:data_type] || 'none'
+    topic = params[:topic] || 'generic'
     skip_authorization
     registries = Registry.where(Arel.sql("'#{data_type}' = ANY(data_types) AND category='#{params[:category]}'"))
+    registries = if registries.where(Arel.sql("'#{topic}' = ANY(topics)")).exists?
+                   registries.where(Arel.sql("'#{topic}' = ANY(topics)"))
+                 else
+                   registries.where(Arel.sql("'generic' = ANY(topics)"))
+                 end
     render json: registries.length > 1 ? registries.select(%w[id name]) : registries.select(%w[id name values])
   end
+  # rubocop:enable Metrics/AbcSize
 
   def show
     registry = Registry.find(params[:id])
-
     skip_authorization
-    render json: registry.values
+    render json: registry.present? ? registry.values : []
   end
 
   def by_name
     registry = Registry.find_by(name: params[:name])
-
+    values = registry.present? ? registry.values : []
     skip_authorization
-    render json: params[:page] ? registry.values.page(params[:page]) : registry.values
+    render json: params[:page] ? values.page(params[:page]) : values
   end
 
   def suggest
@@ -34,19 +41,4 @@ class RegistriesController < ApplicationController
       values: registry.values
     }
   end
-
-  # rubocop:disable Metrics/AbcSize
-  def load_values
-    registry = Registry.find(params[:id])
-    plan = Plan.find(params[:plan_id])
-    locale = plan.template.locale
-    search_term = params[:term] || ''
-    formatted_list = registry.values.select { |v| v.to_s(locale:).downcase.include?(search_term.downcase) }
-                             .map { |v| { 'id' => select_value(v, locale), 'text' => v.to_s(locale:) } }
-    authorize plan
-    render json: {
-      'results' => formatted_list
-    }
-  end
-  # rubocop:enable Metrics/AbcSize
 end

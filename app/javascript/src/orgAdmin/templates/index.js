@@ -1,6 +1,6 @@
 import { initAutocomplete, scrubOrgSelectionParamsOnSubmit } from '../../utils/autoComplete';
 
-$(() => {
+document.addEventListener('turbo:load', () => {
   // Update the contents of the table when user clicks on a scope link
   $('.template-scope').on('ajax:success', 'a[data-remote="true"]', (e) => {
     const data = e.detail[0];

@@ -2,6 +2,22 @@
 
 # rubocop:disable Naming/VariableNumber
 namespace :dmpopidor_upgrade do
+  desc 'Upgrade to 4.4.0'
+  task V4_4_0: :environment do
+    Rake::Task['dmpopidor_upgrade:migrate_context_to_plans'].execute
+    Rake::Task['dmpopidor_upgrade:migrate_template_context_to_contexts'].execute
+    Rake::Task['dmpopidor_upgrade:migrate_guidance_groups_to_research_outputs'].execute
+    Rake::Task['dmpopidor_upgrade:migrate_software_roles_registry_values'].execute
+    Rake::Task['dmpopidor_upgrade:migrate_software_roles_registry_all_roles_values'].execute
+  end
+  desc 'Upgrade to 4.3.7'
+  task V4_3_7: :environment do
+    Rake::Task['data_migration:V4_3_7'].execute
+  end
+  desc 'Upgrade to 4.3.4'
+  task V4_3_4: :environment do
+    Rake::Task['data_migration:V4_3_4'].execute
+  end
   desc 'Upgrade to 4.3.0'
   task V4_3_0: :environment do
     Rake::Task['dmpopidor_upgrade:add_default_data_type_to_research_outputs'].execute
@@ -29,6 +45,74 @@ namespace :dmpopidor_upgrade do
   desc 'Upgrade to 2.3.0'
   task v2_3_0: :environment do
     Rake::Task['dmpopidor_upgrade:close_existing_feedback_plans'].execute
+  end
+
+  desc 'Migrate SoftwareRoles registry values in contributor fragments'
+  task migrate_software_roles_registry_values: :environment do
+    p "Migration contributors with 'Débogage' value"
+    Fragment::Contributor.where("data ->> 'role' = 'Débogage'").each do |c|
+      c.update_column(:data, c.data.merge({ 'role' => 'Debugging' })) if c.plan.template.locale.eql?('en-GB')
+    end
+    p "Migration contributors with 'Développement' value"
+    Fragment::Contributor.where("data ->> 'role' = 'Développement'").each do |c|
+      c.update_column(:data, c.data.merge({ 'role' => 'Coding' })) if c.plan.template.locale.eql?('en-GB')
+    end
+    p "Migration contributors with 'Test' value"
+    Fragment::Contributor.where("data ->> 'role' = 'Test'").each do |c|
+      c.update_column(:data, c.data.merge({ 'role' => 'Testing' })) if c.plan.template.locale.eql?('en-GB')
+    end
+  end
+  desc 'Migrate SoftwareRoles registry values in contributor fragments with "Tous les roles"'
+  task migrate_software_roles_registry_all_roles_values: :environment do
+    p "Migration contributors with 'Tous les roles' value"
+    fr_roles = %w[Conception Débogage Développement Documentation Maintenance Management Support Test]
+    en_roles = %w[Conception Debugging Coding Documentation Maintenance Management Support Testing]
+    Fragment::Contributor.where("data ->> 'role' = 'Architecture, Conception, Débogage, Développement, Documentation, Maintenance, Management, Support, Test'").each do |c| # rubocop:disable Layout/LineLength
+      c.update_column(:data, c.data.merge({ 'role' => 'Architecture' }))
+      c_data = c.data
+      if c.plan.template.locale.eql?('en-GB')
+        en_roles.each do |r|
+          dupped = c.dup
+          dupped.data = c_data.merge({ 'role' => r })
+          dupped.save!
+        end
+      else
+        fr_roles.each do |r|
+          dupped = c.dup
+          dupped.data = c_data.merge({ 'role' => r })
+          dupped.save!
+        end
+      end
+    end
+  end
+
+  desc 'Migrate guidance groups from plans to research_outputs in structured plans'
+  task migrate_guidance_groups_to_research_outputs: :environment do
+    Plan.includes(:template, :research_outputs, :guidance_groups).all.each do |plan|
+      next unless plan.structured?
+
+      p "Migrating guidance groups for plan #{plan.id}"
+      plan.research_outputs.each do |ro|
+        ro.guidance_groups << plan.guidance_groups.all
+      end
+      plan.guidance_groups.destroy_all
+    end
+  end
+
+  desc 'Migrate from templates.context to template.contexts'
+  task migrate_template_context_to_contexts: :environment do
+    Template.all.each do |template|
+      p "Migrating template #{template.id}"
+      template.update_column(:contexts, [template.context.eql?(0) ? 'research_project' : 'research_entity'])
+    end
+  end
+
+  desc 'Migrate context from templates to plans'
+  task migrate_context_to_plans: :environment do
+    Plan.includes(:template).all.each do |plan|
+      p "Migrating plan #{plan.id}"
+      plan.update_column(:context, plan.template.context)
+    end
   end
 
   desc 'Add default data_type to research outputs'

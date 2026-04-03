@@ -5,6 +5,7 @@ class UsersController < ApplicationController
   helper PaginableHelper
   helper PermsHelper
   include ConditionalUserMailer
+
   after_action :verify_authorized
   respond_to :html
 
@@ -147,7 +148,7 @@ class UsersController < ApplicationController
     return unless user.present?
 
     begin
-      user.active = !user.active
+      user.active = params[:checked]
       user.save!
       render json: {
         code: 1,
@@ -180,6 +181,11 @@ class UsersController < ApplicationController
     original = current_user.api_token
     current_user.generate_token!
     @success = current_user.api_token != original
+
+    respond_to do |format|
+      format.turbo_stream
+      format.html { redirect_to edit_user_registration_path }
+    end
   end
 
   private

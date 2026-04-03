@@ -43,7 +43,7 @@ class MadmpFragmentsController < ApplicationController
   # rubocop:enable Metrics/AbcSize, Metrics/MethodLength
 
   def show
-    @fragment = MadmpFragment.find(params[:id])
+    @fragment = MadmpFragment.includes(:madmp_schema).find(params[:id])
     madmp_schema = @fragment.madmp_schema
     authorize @fragment
     render json: MadmpFragment.render_fragment_json(@fragment, madmp_schema)
@@ -52,7 +52,7 @@ class MadmpFragmentsController < ApplicationController
   # Needs some rework
   # rubocop:disable Metrics/AbcSize, Metrics/MethodLength
   def update
-    @fragment = MadmpFragment.find(params[:id])
+    @fragment = MadmpFragment.includes(:madmp_schema, :dmp, :parent).find(params[:id])
     form_data = JSON.parse(request.body.string)
     authorize @fragment
 
@@ -82,14 +82,14 @@ class MadmpFragmentsController < ApplicationController
 
   # rubocop:disable Metrics/AbcSize
   def load_fragments
-    @dmp_fragment = MadmpFragment.find(params[:dmp_id])
+    @dmp_fragment = MadmpFragment.includes(:madmp_schema).find(params[:dmp_id])
     search_term = params[:term] || ''
     where_params = if params[:classname].present?
                      { classname: params[:classname] }
                    else
                      { madmp_schema_id: params[:schema_id] }
                    end
-    fragment_list = MadmpFragment.where(dmp_id: @dmp_fragment.id, **where_params)
+    fragment_list = MadmpFragment.includes(:madmp_schema).where(dmp_id: @dmp_fragment.id, **where_params)
     formatted_list = fragment_list.select { |f| f.to_s.downcase.include?(search_term) }
                                   .map do |f|
                                     {
@@ -105,7 +105,7 @@ class MadmpFragmentsController < ApplicationController
   # rubocop:enable Metrics/AbcSize
 
   def destroy
-    @fragment = MadmpFragment.find(params[:id])
+    @fragment = MadmpFragment.includes(:parent).find(params[:id])
 
     authorize @fragment
     if @fragment.destroy
@@ -156,12 +156,6 @@ class MadmpFragmentsController < ApplicationController
     stale_data
   end
   # rubocop:enable Metrics/AbcSize,  Metrics/CyclomaticComplexity
-
-  # Get the parameters conresponding to the schema
-  def schema_params(schema, flat: false)
-    s_params = schema.generate_strong_params(flat:)
-    params.require(:madmp_fragment).permit(s_params)
-  end
 
   def permitted_params
     permit_arr = [:id, :dmp_id, :parent_id, :schema_id, :source, :template_locale,

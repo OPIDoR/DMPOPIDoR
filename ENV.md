@@ -120,7 +120,6 @@
 | APPLICATION_ACTION_DISPATCH_COOKIES_SERIZLIZER | Symbol | Application Action Dispatch cookies serializer ``(default: :json)`` |
 | PORT | Integer | Application port ``(default: 3000)`` |
 | WEB_CONCURRENCY | Integer | Application web concurrency ``(default: 2)`` |
-| WICKED_PDF_PATH | String | Application Wicked PDF path ``(default: /usr/local/bin/wkhtmltopdf)`` |
 | SERVER_TIMING | Boolean | Server timing for the application ``(default: true)`` |
 | SESSION_STORE_KEY | String | Session store key for the application ``(default: _dmp_roadmap_session)`` |
 | EAGER_LOAD | Boolean | Eager load for the application ``(default: false)`` |

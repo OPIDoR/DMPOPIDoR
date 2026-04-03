@@ -14,8 +14,8 @@ module OrgAdmin
       authorize Section.new
       phase = Phase.includes(:template, :sections).find(params[:phase_id])
       edit = phase.template.latest? &&
-             (current_user.can_modify_templates? &&
-             (phase.template.org_id == current_user.org_id))
+             current_user.can_modify_templates? &&
+             (phase.template.org_id == current_user.org_id)
       render partial: 'index',
              locals: {
                template: phase.template,
@@ -34,11 +34,14 @@ module OrgAdmin
     def show
       @section = Section.find(params[:id])
       authorize @section
-      @section = Section.includes(questions: %i[annotations question_options])
+      @section = Section.includes(:phase, questions: %i[annotations question_options])
                         .find(params[:id])
       @template = Template.find(params[:template_id])
-      render json: { html: render_to_string(partial: 'show',
-                                            locals: { template: @template, section: @section }) }
+      respond_to do |format|
+        format.html do
+          render partial: 'frame', locals: { template: @template, section: @section, phase: @section.phase }
+        end
+      end
     end
 
     # GET /org_admin/templates/[:template_id]/phases/[:phase_id]/sections/[:id]/edit
@@ -47,19 +50,11 @@ module OrgAdmin
                                  questions: [:question_options, { annotations: :org }])
                        .find(params[:id])
       authorize section
-      # User cannot edit a section if its not modifiable or the template is not the
-      # latest redirect to show
-      partial_name = if section.modifiable? && section.phase.template.latest?
-                       'edit'
-                     else
-                       'show'
-                     end
-      render json: { html: render_to_string(partial: partial_name,
-                                            locals: {
-                                              template: section.phase.template,
-                                              phase: section.phase,
-                                              section: section
-                                            }) }
+      respond_to do |format|
+        format.html do
+          render partial: 'frame', locals: { template: section.template, section: section, phase: section.phase }
+        end
+      end
     end
 
     # POST /org_admin/templates/[:template_id]/phases/[:phase_id]/sections
@@ -78,23 +73,23 @@ module OrgAdmin
       if @section.save
         flash[:notice] = success_message(@section, _('created'))
         redirect_to @phase.template&.module? ? edit_super_admin_template_phase_path(
-                      id: @section.phase_id,
-                      template_id: @phase.template_id,
-                      section: @section.id
-                    ) : edit_org_admin_template_phase_path(
-                      id: @section.phase_id,
-                      template_id: @phase.template_id,
-                      section: @section.id
-                    )
+          id: @section.phase_id,
+          template_id: @phase.template_id,
+          section: @section.id
+        ) : edit_org_admin_template_phase_path(
+          id: @section.phase_id,
+          template_id: @phase.template_id,
+          section: @section.id
+        )
       else
         flash[:alert] = failure_message(@section, _('create'))
         redirect_to @phase.template&.module? ? edit_super_admin_template_phase_path(
-                      template_id: @phase.template_id,
-                      id: @section.phase_id
-                    ) : edit_org_admin_template_phase_path(
-                      template_id: @phase.template_id,
-                      id: @section.phase_id
-                    )
+          template_id: @phase.template_id,
+          id: @section.phase_id
+        ) : edit_org_admin_template_phase_path(
+          template_id: @phase.template_id,
+          id: @section.phase_id
+        )
       end
     end
     # rubocop:enable Metrics/AbcSize, Metrics/MethodLength
@@ -117,12 +112,12 @@ module OrgAdmin
       end
 
       redirect_to section.phase.template&.module? ? edit_super_admin_template_phase_path(
-                    template_id: section.phase.template.id,
-                    id: section.phase.id, section: section.id
-                  ) : edit_org_admin_template_phase_path(
-                    template_id: section.phase.template.id,
-                    id: section.phase.id, section: section.id
-                  )
+        template_id: section.phase.template.id,
+        id: section.phase.id, section: section.id
+      ) : edit_org_admin_template_phase_path(
+        template_id: section.phase.template.id,
+        id: section.phase.id, section: section.id
+      )
     end
     # rubocop:enable Metrics/AbcSize
 
@@ -146,9 +141,8 @@ module OrgAdmin
 
       path_helper = phase.template&.module? ? :edit_super_admin_template_phase_path : :edit_org_admin_template_phase_path
       redirect_to send(path_helper,
-                    template_id: phase.template.id,
-                    id: phase.id
-                  )
+                       template_id: phase.template.id,
+                       id: phase.id)
     end
     # rubocop:enable Metrics/AbcSize
 

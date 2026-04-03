@@ -1,9 +1,9 @@
-$(() => {
-  $('#select_all').click(() => {
+document.addEventListener('turbo:load', () => {
+  $('#select_all').on('click', () => {
     $('.preferences').find('input[type="checkbox"]').prop('checked', true);
   });
 
-  $('#deselect_all').click(() => {
+  $('#deselect_all').on('click', () => {
     $('.preferences').find('input[type="checkbox"]').prop('checked', false);
   });
 

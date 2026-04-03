@@ -1,5 +1,13 @@
 # frozen_string_literal: true
 
+# == Schema Information
+#
+# Table name: prefs
+#
+#  id       :integer          not null, primary key
+#  settings :text
+#  user_id  :integer
+#
 require 'rails_helper'
 
 RSpec.describe Pref, type: :model do

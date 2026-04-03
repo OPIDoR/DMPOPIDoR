@@ -4,12 +4,13 @@
     "title": "DistributionStandard",
     "description": "DistributionStandard template",
     "dataTypes": null,
+    "topics": null,
     "type": "object",
     "class": "DistributionStandard",
     "properties": {
         "fileName": {
             "type": "string",
-            "description": "Nom du fichier",
+            "description": "File name",
             "label@fr_FR": "Nom du fichier",
             "label@en_GB": "Filename",
             "tooltip": null,
@@ -18,7 +19,7 @@
         },
         "description": {
             "type": "string",
-            "description": "Description succinte des données contenues dans le fichier",
+            "description": "A clear, concise and accurate description of the dataset file",
             "inputType": "textarea",
             "label@fr_FR": "Description",
             "label@en_GB": "Description",
@@ -30,7 +31,7 @@
         "releaseDate": {
             "type": "string",
             "format": "date",
-            "description": "Date à laquelle les donnés sont publiées",
+            "description": "Publication date of the distribution",
             "label@fr_FR": "Date de diffusion",
             "label@en_GB": "Release date",
             "tooltip@fr_FR": "Date à laquelle les données sont disponibles",
@@ -40,13 +41,10 @@
         },
         "dataAccess": {
             "type": "string",
-            "description": "Condition d'accès aux données (ouvert, restreint, fermé)",
+            "description": "Data access status (open, restricted, closed)",
             "inputType": "dropdown",
             "label@fr_FR": "Mode d'accès",
             "label@en_GB": "DataAccess",
-            "registries": [
-                "DataAccess"
-            ],
             "registryCategory": "Access",
             "tooltip": null,
             "form_label@fr_FR": "Mode d'accès",
@@ -54,13 +52,10 @@
         },
         "fileFormat": {
             "type": "string",
-            "description": "Format du fichier : MIME type recommandé",
+            "description": "File format (recommended MIME type)",
             "inputType": "dropdown",
             "label@fr_FR": "Format du fichier",
             "label@en_GB": "File format",
-            "registries": [
-                "MediaType"
-            ],
             "registryCategory": "MediaType",
             "overridable": true,
             "tooltip@fr_FR": "Format sous forme MIME type",
@@ -72,7 +67,7 @@
         },
         "application": {
             "type": "string",
-            "description": "Nom du logiciel permettant la lecture, la réutilisation des données",
+            "description": "Name of the software enabling data reading and reuse",
             "label@fr_FR": "Application",
             "label@en_GB": "Application",
             "tooltip@fr_FR": "Application permettant de lire le fichier",
@@ -82,7 +77,7 @@
         },
         "fileVolume": {
             "type": "number",
-            "description": "Nombre d'octets",
+            "description": "The size of a file in  bytes",
             "label@fr_FR": "Volume du fichier",
             "label@en_GB": "File volume",
             "tooltip": null,
@@ -91,13 +86,10 @@
         },
         "volumeUnit": {
             "type": "string",
-            "description": "Unité de volume",
+            "description": "Size unit",
             "inputType": "dropdown",
             "label@fr_FR": "Unité",
             "label@en_GB": "Unit",
-            "registries": [
-                "VolumeUnit"
-            ],
             "registryCategory": "VolumeUnit",
             "overridable": true,
             "tooltip": null,
@@ -107,7 +99,7 @@
         "availableUntil": {
             "type": "string",
             "format": "date",
-            "description": "Date jusqu'à laquelle les données sont disponibles chez cet hébergeur (entrepôt ou centre de calcul, …)",
+            "description": "Date until which the data remain available at this hosting service (repository or data center, etc.)",
             "label@fr_FR": "Disponible jusqu'à",
             "label@en_GB": "Available until",
             "tooltip": null,
@@ -116,8 +108,8 @@
         },
         "accessUrl": {
             "type": "string",
-            "format": "uri",
-            "description": "URL d'une ressource qui donne accès au fichier de données (landing page, SPARQL endpoint, feed)",
+            "format": "url",
+            "description": "URL for accessing the data file resource (landing page, SPARQL endpoint, feed)",
             "label@fr_FR": "URL d'accès",
             "label@en_GB": "Access URL",
             "tooltip@fr_FR": "URL d'un service ou d'un lieu qui peut donner accès à cette distribution, généralement par le biais d'un formulaire Web, d'une requête ou d'un appel API.",
@@ -127,8 +119,8 @@
         },
         "downloadUrl": {
             "type": "string",
-            "format": "uri",
-            "description": "URL du fichier à télécharger dans un format donné",
+            "format": "url",
+            "description": "Download URL of the file in a specified format",
             "label@fr_FR": "URL de téléchargement",
             "label@en_GB": "Download URL",
             "tooltip@fr_FR": "URL d'un fichier téléchargeable dans un format donné",
@@ -148,13 +140,10 @@
             "required": [
                 "dbid"
             ],
-            "description": "Licence apposée aux données",
+            "description": "License attached to the data",
             "label@fr_FR": "Licence",
             "label@en_GB": "License",
             "inputType": "dropdown",
-            "registries": [
-                "DataLicenses"
-            ],
             "registryCategory": "License",
             "overridable": true,
             "tooltip@fr_FR": "Choisir une licence pour définir les conditions de réutilisation des données",
@@ -165,7 +154,7 @@
         "licenseStartDate": {
             "type": "string",
             "format": "date",
-            "description": "Date de début de la licence correspond à la date de publication/mise à disposition des données (dct:issued dans Dcat). Si la date est dans le futur, cela indique qu'il y a un embargo.",
+            "description": "The license start date corresponds to the publication or release date of the data (dct:issued in DCAT). A future date indicates the presence of an embargo period.",
             "label@fr_FR": "Date de début de la licence",
             "label@en_GB": "License start date",
             "tooltip@fr_FR": "Date à laquelle la license s'applique. Si fixée dans le futur, elle indique un embargo",

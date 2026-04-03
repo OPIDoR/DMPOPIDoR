@@ -4,18 +4,20 @@
     "title": "DataCollectionMasa",
     "description": "DataCollectionMasa template",
     "dataTypes": null,
+    "topics": [
+        "Archeology"
+    ],
     "type": "object",
     "class": "DataCollectionMasa",
     "properties": {
         "title": {
             "type": "string",
-            "description": "Titre de la collecte",
+            "description": "Data collection title",
             "label@fr_FR": "Nom de la méthode",
-            "label@en_GB": "Name of the method",
-            "tooltip@fr_FR": "Nom d'une méthode (ou étape) de collecte",
-            "tooltip@en_GB": "Name of a data collection method (or step)",
+            "label@en_GB": "Name of the implemented method",
+            "tooltip": null,
             "form_label@fr_FR": "Nom de la méthode",
-            "form_label@en_GB": "Name of the method"
+            "form_label@en_GB": "Name of the implemented method"
         },
         "archeoOperation": {
             "type": "array",
@@ -33,17 +35,17 @@
                     "dbid"
                 ]
             },
-            "description": "Identification des opérations archéologiques associées (optionnel)",
+            "description": "Identification of associated archaeological operations (optional)",
             "label@fr_FR": "Opération(s) archéologique(s) associée(s) aux données (optionnel)",
-            "label@en_GB": "Archaeological operation(s) associated with data (optional)",
+            "label@en_GB": "Archaeological operation(s) associated with data set (optional)",
             "tooltip@fr_FR": "Cette section n'est à renseigner que si le projet de recherche est étroitement lié à une ou des opérations archéologiques : publication de sites, SIG, etc.",
             "tooltip@en_GB": "This section should only be completed if the research project is closely linked to one or more archaeological operations: publication of sites, GIS, etc.",
             "form_label@fr_FR": "Opération(s) archéologique(s) associée(s) aux données (optionnel)",
-            "form_label@en_GB": "Archaelological operation(s) associated with data (optional)"
+            "form_label@en_GB": "Archaelological operation(s) associated with data set (optional)"
         },
         "description": {
             "type": "string",
-            "description": "Description de la collecte des données",
+            "description": "Description of data collection",
             "inputType": "textarea",
             "label@fr_FR": "Description",
             "label@en_GB": "Description",
@@ -54,13 +56,10 @@
         },
         "dataNature": {
             "type": "string",
-            "description": "Nature des données (observation, expérimentale, …)",
+            "description": "Data nature (observation, experiment, survey, …)",
             "inputType": "dropdown",
             "label@fr_FR": "Nature des données",
             "label@en_GB": "Data Nature",
-            "registries": [
-                "DataNature"
-            ],
             "registryCategory": "DataNature",
             "overridable": true,
             "tooltip@fr_FR": "Sélectionner dans la liste déroulante la nature du produit de recherche",
@@ -84,13 +83,10 @@
                     "dbid"
                 ]
             },
-            "description": "Usage d'une ressource technique pour acquérir les données",
+            "description": "Facility or instrument used to acquire data",
             "label@fr_FR": "Equipements, plateaux techniques utilisés",
             "label@en_GB": "Equipments, technical platforms used",
             "inputType": "dropdown",
-            "registries": [
-                "CollectionServices"
-            ],
             "registryCategory": "CollectionService",
             "overridable": true,
             "tooltip": null,
@@ -113,7 +109,7 @@
                     "dbid"
                 ]
             },
-            "description": "Référence(s) de protocoles /méthodes utilisées",
+            "description": "References of protocols/methods employed",
             "label@fr_FR": "Références associées",
             "label@en_GB": "Related references",
             "tooltip": null,
@@ -137,7 +133,7 @@
                     "dbid"
                 ]
             },
-            "description": "Personne(s) impliquée(s) dans la collecte/acquisition des données",
+            "description": "Persons involved in the data collection procedure",
             "label@fr_FR": "Personnes impliquées dans la production ou la collecte des données",
             "label@en_GB": "Data producers or collectors",
             "tooltip@fr_FR": "Il peut s'agir d'une ou plusieurs personnes, d'une équipe, d'un service",
@@ -162,7 +158,7 @@
                     "dbid"
                 ]
             },
-            "description": "Coûts éventuels liés à la collecte des données",
+            "description": "Costs associated with data collection",
             "label@fr_FR": "Coûts",
             "label@en_GB": "Costs",
             "tooltip": null,

@@ -3,7 +3,7 @@
     <tr>
       <th scope="col"><%= _('Name') %>&nbsp;<%= paginable_sort_link('themes.title') %></th>
       <th scope="col"><%= _('Guidance') %>&nbsp;<%= paginable_sort_link('themes.description') %></th>
-      <th scope="col"><%= _('Data Type') %>&nbsp;<%= paginable_sort_link('themes.data_type') %></th>
+      <th scope="col"><%= _('Data type') %>&nbsp;<%= paginable_sort_link('themes.data_type') %></th>
       <th scope="col"><%= _('Languages') %></th>
       <th scope="col"></th>
     </tr>
@@ -11,7 +11,7 @@
   <tbody id="themes">
     <% scope.each do |theme| %>
       <tr class="theme">
-        <td><%= link_to(theme.title, edit_super_admin_theme_path(theme)) %></td>
+        <td><%= link_to(theme.title, edit_super_admin_theme_path(theme), data: { turbo_frame: "_top" }) %></td>
         <td><%= sanitize(theme.description) %></td>
         <td><%= theme.data_type %></td>
         <td>

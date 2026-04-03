@@ -4,8 +4,8 @@ require 'arel'
 
 module Resolvers
   class BaseResolver < GraphQL::Schema::Resolver
-    def self.apply(filter, dmp_id)
-      apply_filters(filter, dmp_id)
+    def self.apply(filter, dmps_id, order_by)
+      apply_filters(filter, dmps_id, order_by)
     end
 
     private
@@ -16,17 +16,21 @@ module Resolvers
       apply_single_filter(scope, filter)
     end
 
-    def self.apply_filters(filter, dmp_id)
+    def self.apply_filters(filter, dmps_id, order_by)
       return scope if filter.nil?
 
       if filter[:and].blank? && filter[:or].blank?
         raise GraphQL::ExecutionError, "The filter must contain at least one 'and', 'or' condition."
       end
 
-      apply_conditions(filter, dmp_id)
+      apply_conditions(filter, dmps_id, order_by)
     end
 
-    def self.apply_conditions(conditions, dmp_id)
+    def self.apply_conditions(conditions, dmps_id, order_by)
+      order_params = {
+        ("m1.#{order_by&.[](:field) || 'updated_at'}") => (order_by&.[](:order).presence || 'desc').to_sym
+      }
+
       and_operator_conditions = []
       or_operator_conditions = []
 
@@ -36,8 +40,8 @@ module Resolvers
       table_name = MadmpFragment.arel_table.name
 
       primary_alias = Arel::Table.new(table_name).alias("m1")
-      and_operator_conditions << primary_alias[:dmp_id].eq(dmp_id)
-      scope = MadmpFragment.from("#{table_name} m1").select("DISTINCT m1.dmp_id")
+      and_operator_conditions << primary_alias[:dmp_id].in(dmps_id)
+      scope = MadmpFragment.from("#{table_name} m1").select("DISTINCT ON (m1.dmp_id) m1.dmp_id, #{order_params.keys.join(", ")}")
 
       joins = []
       sub_joins = []
@@ -67,7 +71,7 @@ module Resolvers
 
                   if sub_class_conditions.any?
                     combined_condition = sub_class_conditions.reduce(&sub_operator)
-                    combined_condition = combined_condition.and(sub_table_alias[:dmp_id].eq(dmp_id)) if sub_operator == :or
+                    combined_condition = combined_condition.and(sub_table_alias[:dmp_id].in(dmps_id)) if sub_operator == :or
                     (sub_operator == :and ? sub_and_operator_conditions : sub_or_operator_conditions) << combined_condition
                   end
 
@@ -84,7 +88,7 @@ module Resolvers
             end
           end.compact.flatten
 
-          class_conditions << table_alias[:dmp_id].eq(dmp_id) if operator == :or
+          class_conditions << table_alias[:dmp_id].in(dmps_id) if operator == :or
 
           if class_conditions.any?
             (operator == :and ? and_operator_conditions : or_operator_conditions) << class_conditions.reduce(&:operator)
@@ -114,7 +118,7 @@ module Resolvers
       end
 
       scope = scope.joins(joins.join(" ")) unless joins.empty?
-      scope.where(final_operators)
+      scope.order(['m1.dmp_id', order_params]).where(final_operators)
     end
 
     def self.validate_conditions(conditions, operator)

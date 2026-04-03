@@ -2,12 +2,20 @@
   "FundersWithImport": [
     {
       "label": {
+        "fr_FR": "Agence de la transition écologique (ADEME)",
+        "en_GB": "French Agency for Ecological Transition (ADEME)"
+      },
+      "scriptName": "AdemeProjectsDataFetcher",
+      "registry": "AdemeProjects"
+    },
+    {
+      "label": {
         "fr_FR": "Agence Nationale de la Recherche (ANR)",
         "en_GB": "French National Research Agency (ANR)"
       },
       "scriptName": "AnrProjectDataFetcher",
       "registry": "AnrProjects",
-	  "apiClient" : "anr"
+      "apiClient": "ANR"
     },
     {
       "label": {
@@ -24,6 +32,14 @@
       },
       "scriptName": "CordisDataFetcher",
       "registry": "CordisProjects"
+    },
+    {
+      "label": {
+        "fr_FR": "Fondation pour la Recherche Médicale (FRM)",
+        "en_GB": "French Foundation for Medical Research (FRM)"
+      },
+      "scriptName": "FrmProjectsDataFetcher",
+      "registry": "FrmProjects"
     }
   ]
 }

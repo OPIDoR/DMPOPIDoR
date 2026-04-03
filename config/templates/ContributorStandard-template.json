@@ -7,6 +7,7 @@
         "software",
         "none"
     ],
+    "topics": null,
     "type": "object",
     "class": "ContributorStandard",
     "properties": {
@@ -22,19 +23,15 @@
             "required": [
                 "dbid"
             ],
-            "description": "Personnes impliquées dans la production et gestion des données",
+            "description": "Information on the person",
             "tooltip": null
         },
         "role": {
             "type": "string",
-            "description": "Rôle d'une personne dans la gestion et production des données",
+            "description": "Role of the person in data management and/or production",
             "inputType": "dropdown",
             "label@fr_FR": "Rôle",
             "label@en_GB": "Role",
-            "registries": [
-                "Role",
-                "SoftwareRoles"
-            ],
             "registryCategory": "Role",
             "tooltip@fr_FR": "Sélectionner dans la liste déroulante le rôle du contributeur",
             "tooltip@en_GB": "Choose in the dropdown the contributor's role",

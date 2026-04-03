@@ -32,7 +32,7 @@ module SuperAdmin
     private
 
     def permitted_params
-      params.require(:template).permit(:title, :description, :visibility, :links, :locale, :type, :context, :data_type)
+      params.require(:template).permit(:title, :description, :visibility, :links, :locale, :type, :data_type)
     end
   end
 end

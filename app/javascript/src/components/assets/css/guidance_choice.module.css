@@ -1,0 +1,54 @@
+.card {
+  margin: 20px 0;
+  position: relative;
+}
+
+.card_title {
+  text-align: center;
+  padding: 5px;
+}
+.label {
+  border-radius: 8px;
+  padding: 5px 10px 5px 10px;
+  box-sizing: border-box;
+  border: 1px solid grey;
+  font-family:  "Helvetica Neue", sans-serif;
+  color: var(--dark-blue);
+  font-size: 16px;
+  word-break: break-all;
+  hyphens: auto;
+  overflow-x: hidden;
+  word-break: normal;
+}
+
+.label:hover {
+  background-color: var(--blue);
+  color: white;
+  transition: 0.3s;
+}
+
+.label.checked {
+  color: white;
+  border-color: var(--dark-blue);
+  background-color: var(--dark-blue);
+}
+
+.new_guidance {
+  color: var(--rust) !important;
+}
+
+.checkboxes:hover {
+  color: var(--dark-blue)
+}
+
+.guidance_group_title {
+  font-family: "Helvetica Neue", sans-serif;
+  color: var(--dark-blue);
+  font-size: 14px;
+  transition: 0.3s;
+  text-decoration: underline;
+}
+
+.guidance_group_title:hover {
+  color: var(--blue);
+}

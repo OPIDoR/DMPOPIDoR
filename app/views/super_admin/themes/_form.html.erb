@@ -17,7 +17,11 @@
   </div>
   <div class="form-control mb-3">
     <%= f.label(:description, _('Guidance')) %>
-    <%= f.text_area(:description, class: "form-control", rows: 10, spellcheck: true) %>
+    <%= f.text_area(:description, class: "form-control tinymce", rows: 10, spellcheck: true,
+                    data: {
+                      controller: "tinymce",
+                      tinymce_target: "input"
+                    }) %>
   </div>
 
   <ul class="nav nav-tabs">
@@ -39,7 +43,11 @@
           </div>
           <div class="form-control mb-3">
             <%= tf.label(:description, _('Guidance')) %>
-            <%= tf.text_area(:description, class: "form-control", rows: 10, spellcheck: true, name: "theme[translations][#{locale.abbreviation}][description]", value: translation.present? ? translation['description'] : '') %>
+            <%= tf.text_area(:description, class: "form-control tinymce", rows: 10, spellcheck: true, name: "theme[translations][#{locale.abbreviation}][description]", value: translation.present? ? translation['description'] : '',
+                              data: {
+                                controller: "tinymce",
+                                tinymce_target: "input"
+                              }) %>
           </div>
         <% end %>
       </div>

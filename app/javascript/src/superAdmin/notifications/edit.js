@@ -1,17 +1,8 @@
-import { Tinymce } from '../../utils/tinymce.js';
-
 // add the info on selecting the check from notification suitable
 import { paginableSelector } from '../../utils/paginable';
 import * as notifier from '../../utils/notificationHelper';
 
-$(() => {
-  Tinymce.init({ selector: '#notification_body', forced_root_block: '' });
-
-  $(paginableSelector).on('click, change', '.enable_notification input[type="checkbox"]', (e) => {
-    const form = $(e.target).closest('form');
-    form.submit();
-  });
-
+document.addEventListener('turbo:load', () => {
   $(paginableSelector).on('ajax:success', '.enable_notification', (e) => {
     const data = e.detail[0];
     if (data.code === 1 && data.msg && data.msg !== '') {

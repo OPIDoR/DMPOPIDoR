@@ -47,4 +47,9 @@ module ApplicationHelper
     record_id = record_key_for_dom_id(record) || record.object_id
     "#{klass}_#{record_id}"
   end
+
+  def turbo_id_for(model, action = nil)
+    base = model.model_name.plural
+    action ? "#{base}_results-#{action}" : "#{base}_results"
+  end
 end

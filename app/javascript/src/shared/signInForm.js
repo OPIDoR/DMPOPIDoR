@@ -1,7 +1,7 @@
 import Cookies from 'js-cookie';
 import { isValidText } from '../utils/isValidInputType';
 
-$(() => {
+document.addEventListener('turbo:load', () => {
   // Constants and methods
   const rememberEmail = $('#sign_in_form input[name="remember_email"]');
   const userEmail = $('#sign_in_form input[name="user[email]"]');
@@ -15,14 +15,14 @@ $(() => {
     }
   };
   // Event handlers
-  rememberEmail.click(() => {
+  rememberEmail.on('click', () => {
     if (rememberEmail.is(':checked')) {
       setEmailCookie(userEmail.val());
     } else {
       setEmailCookie(null);
     }
   });
-  userEmail.change(() => {
+  userEmail.on('change', () => {
     if (rememberEmail.is(':checked')) {
       setEmailCookie(userEmail.val());
     }

@@ -11,31 +11,22 @@ class OrgsController < ApplicationController
 
   # Returns a list of active orgs in json
   # Removes current user's org from the list
-  # rubocop:disable Metrics/AbcSize
   def list
-    orgs_with_context = Org.joins(:templates).managed
-                           .where(
-                             active: true,
-                             templates: {
-                               published: true,
-                               archived: false,
-                               is_recommended: false,
-                               context: params[:context],
-                               locale: params[:locale],
-                               type: %w[classic structured]
-                             }
-                           )
-    @orgs = if params[:type] == 'org'
-              (orgs_with_context.organisation + orgs_with_context.institution + orgs_with_context.default_orgs)
-            else
-              [orgs_with_context.funder]
-            end
-    @orgs = @orgs.flatten.uniq.sort_by(&:name)
+    @orgs = Org.joins(:templates).managed
+               .where(
+                 active: true,
+                 templates: {
+                   published: true,
+                   archived: false,
+                   is_recommended: false,
+                   locale: params[:locale],
+                   type: %w[classic structured]
+                 }
+               ).where('templates.contexts @> ARRAY[?]::varchar[]', params[:context])
+               .to_a.flatten.uniq.sort_by(&:name)
     authorize Org.new, :list?
-    render json: @orgs.as_json(only: %i[id name])
+    render json: @orgs.as_json(only: %i[id name], methods: :org_type_to_s)
   end
-  # rubocop:enable Metrics/AbcSize
-
   # TODO: Refactor this one along with super_admin/orgs_controller. Consider moving
   #       to a new `admin` namespace, leaving public facing actions in here and
   #       moving all of the `admin_` ones to the `admin` namespaced controller
@@ -154,7 +145,7 @@ class OrgsController < ApplicationController
     # if the ``@orgs` array has items ... it renders the shibboleth_ds view
     # rubocop:disable Style/GuardClause, Style/RedundantReturn
     if @orgs.empty?
-      flash.now[:alert] = _('No organisations are currently registered.')
+      flash[:alert] = _('No organisations are currently registered.')
       redirect_to user_shibboleth_omniauth_authorize_path
       return
     end

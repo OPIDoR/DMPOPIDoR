@@ -2,6 +2,7 @@
 
 # config/initializers/jbuilder_prettify.rb
 require 'jbuilder'
+require 'json'
 
 # Helper for JBuilder that allows JSON to be output in human readable format
 class Jbuilder
@@ -25,6 +26,6 @@ class Jbuilder
   end
 
   def target!
-    @prettify ? JSON.pretty_generate(@attributes) : _original_target
+    @prettify ? ::JSON.pretty_generate(@attributes) : _original_target
   end
 end

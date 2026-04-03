@@ -68,7 +68,8 @@ node_modules
 /public/packs-test
 /public/tinymce
 /public/fonts
-/public/locales
+/public/system
+/public/webfonts
 
 spec/examples.txt
 .postcssrc.yml

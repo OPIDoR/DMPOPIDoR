@@ -4,12 +4,13 @@
     "title": "DataOrganizationReference",
     "description": "DataOrganizationReference template",
     "dataTypes": null,
+    "topics": null,
     "type": "object",
     "class": "DataOrganizationReference",
     "properties": {
         "title": {
             "type": "string",
-            "description": "Intitulé de l'aspect organisationnel",
+            "description": "Document title",
             "label@fr_FR": "Titre",
             "label@en_GB": "Title",
             "tooltip": null,
@@ -18,7 +19,7 @@
         },
         "documentIdentifier": {
             "type": "string",
-            "description": "Identification du document associé à cet aspect organisationnel",
+            "description": "Document identifier",
             "label@fr_FR": "Identifiant",
             "label@en_GB": "Identifier",
             "tooltip": null,
@@ -27,13 +28,10 @@
         },
         "idType": {
             "type": "string",
-            "description": "Type d'identifiant ressource",
+            "description": "Identification system",
             "inputType": "dropdown",
             "label@fr_FR": "Type d'identifiant",
             "label@en_GB": "Identifier type",
-            "registries": [
-                "PIDSystem"
-            ],
             "registryCategory": "PIDSystem",
             "overridable": true,
             "tooltip": null,

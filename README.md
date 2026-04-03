@@ -9,8 +9,8 @@ DMP Roadmap is a Data Management Planning tool. Management and development of DM
 
 ### Requirements
 
-- Ruby 3.2.x
-- Rails 7.1.x
+- Ruby 3.4.x
+- Rails 8.0.x
 - NodeJS LTS
 - PostgreSQL 12.x
 
@@ -18,15 +18,15 @@ Click here for the latest [releases](https://github.com/DMPRoadmap/roadmap/relea
 
 #### Pre-requisites
 Roadmap is a Ruby on Rails application and you will need to have:
-- Ruby >= 3.3
-- Rails = 7.2
+- Ruby >= 3.4
+- Rails = 8.0
 - PostgreSQL
 
 Further detail on how to install Ruby on Rails applications are available from the Ruby on Rails site: http://rubyonrails.org.
 
 L'application se lance par défaut en mode développement.
 
-## Developpment
+## Development
 
 #### Installation
 See the [Installation Guide](https://github.com/DMPRoadmap/roadmap/wiki/Installation) on the Wiki.
@@ -37,13 +37,6 @@ See the [Installation Guide](https://github.com/DMPRoadmap/roadmap/wiki/Installa
 - [Docker](https://www.docker.com/)
 - [Docker compose](https://docs.docker.com/compose/install/)
 
-#### Installation
-
-```bash
-# init submodule
-git clone https://github.com/OPIDoR/dmp_opidor_react.git app/javascript/dmp_opidor_react
-
-```
 
 ##### Directus
 

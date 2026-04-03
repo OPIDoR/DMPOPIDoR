@@ -25,14 +25,16 @@ identifier_schemes = [
     description: 'ORCID',
     active: true,
     logo_url:'http://orcid.org/sites/default/files/images/orcid_16x16.png',
-    identifier_prefix:'https://orcid.org'
+    identifier_prefix:'https://orcid.org',
+    context: 25,
   },
   {
     name: 'shibboleth',
     description: 'Your institutional credentials',
     active: true,
     logo_url: 'http://newsite.shibboleth.net/wp-content/uploads/2017/01/Shibboleth-logo_2000x1200-1.png',
-    identifier_prefix: "https://example.com"
+    identifier_prefix: "https://example.com",
+    context: 11,
   },
 ]
 identifier_schemes.each { |is| IdentifierScheme.find_or_create_by(is) }
@@ -402,9 +404,9 @@ phases = [
    template: Template.find_by(title: "My Curation Center's Default Template")},
 
   {title: "Detailed Overview",
-    number: 1,
-    modifiable: false,
-    template: Template.find_by(title: "OLD - Department of Testing Award")},
+   number: 1,
+   modifiable: false,
+   template: Template.find_by(title: "OLD - Department of Testing Award")},
 
   {title: "Preliminary Statement of Work",
    number: 1,
@@ -485,9 +487,9 @@ sections = [
    phase: funder_template_phase_2},
   {
     title: "Ethical Standards",
-   number: 4,
-   modifiable: false,
-   phase: funder_template_phase_2
+    number: 4,
+    modifiable: false,
+    phase: funder_template_phase_2
   },
   {
     title: "Preservation and Reuse Policies",
@@ -655,104 +657,104 @@ questions = [
 questions.each{ |q| Question.create!(q) unless Question.find_by(section: q[:section], text: q[:text]) }
 
 radio_button = Question.new(
-    text: "Please select the appropriate formats.",
-    number: 2,
-    section: Section.find_by(title: "Data Format and Storage"),
-    question_format: QuestionFormat.find_by(title: "Radio buttons"),
-    modifiable: false,
-    themes: [Theme.find_by(title: "Storage & Security"), Theme.find_by(title: 'Data Format')])
+  text: "Please select the appropriate formats.",
+  number: 2,
+  section: Section.find_by(title: "Data Format and Storage"),
+  question_format: QuestionFormat.find_by(title: "Radio buttons"),
+  modifiable: false,
+  themes: [Theme.find_by(title: "Storage & Security"), Theme.find_by(title: 'Data Format')])
 radio_button.question_options.build([
-  {
-    text: "csv files",
-    number: 1,
-    is_default: false
-  },
-  {
-    text: "database (e.g. mysql, redis)",
-    number: 2,
-    is_default: false
-  },
-  {
-    text: "archive files (e.g. tar, zip)",
-    number: 3,
-    is_default: false
-  }])
+                                      {
+                                        text: "csv files",
+                                        number: 1,
+                                        is_default: false
+                                      },
+                                      {
+                                        text: "database (e.g. mysql, redis)",
+                                        number: 2,
+                                        is_default: false
+                                      },
+                                      {
+                                        text: "archive files (e.g. tar, zip)",
+                                        number: 3,
+                                        is_default: false
+                                      }])
 radio_button.save!
 
 checkbox = Question.new(
-    text: "Will software accompany your dataset?",
-    number: 1,
-    section: Section.find_by(title: "Collection Process"),
-    question_format: QuestionFormat.find_by(title: "Check box"),
-    modifiable: false,
-    themes: [Theme.find_by(title: "Data Collection")])
+  text: "Will software accompany your dataset?",
+  number: 1,
+  section: Section.find_by(title: "Collection Process"),
+  question_format: QuestionFormat.find_by(title: "Check box"),
+  modifiable: false,
+  themes: [Theme.find_by(title: "Data Collection")])
 checkbox.question_options.build([
-  {
-    text: "local hard drive",
-    number: 1,
-    is_default: true
-  },
-  {
-    text: "personal cloud storage",
-    number: 2,
-    is_default: false
-  },
-  {
-    text: "institutional servers",
-    number: 3,
-    is_default: false
-  }])
+                                  {
+                                    text: "local hard drive",
+                                    number: 1,
+                                    is_default: true
+                                  },
+                                  {
+                                    text: "personal cloud storage",
+                                    number: 2,
+                                    is_default: false
+                                  },
+                                  {
+                                    text: "institutional servers",
+                                    number: 3,
+                                    is_default: false
+                                  }])
 checkbox.save!
 
 dropdown = Question.new(
-    text: "Where will you store your data during the research period?",
-    number: 2,
-    section: Section.find_by(title: "Collection Process"),
-    question_format: QuestionFormat.find_by(title: "Dropdown"),
-    modifiable: false,
-    themes: [Theme.find_by(title: "Data Collection")])
+  text: "Where will you store your data during the research period?",
+  number: 2,
+  section: Section.find_by(title: "Collection Process"),
+  question_format: QuestionFormat.find_by(title: "Dropdown"),
+  modifiable: false,
+  themes: [Theme.find_by(title: "Data Collection")])
 dropdown.question_options.build([
-  {
-    text: "In a database",
-    number: 1,
-    is_default: false
-  },
-  {
-    text: "In a pendrive",
-    number: 2,
-    is_default: false
-  }])
+                                  {
+                                    text: "In a database",
+                                    number: 1,
+                                    is_default: false
+                                  },
+                                  {
+                                    text: "In a pendrive",
+                                    number: 2,
+                                    is_default: false
+                                  }])
 dropdown.save!
 
 multi_select_box = Question.new(
-    text: "What type(s) of data will you collect?",
-    number: 3,
-    section: Section.find_by(title: "Collection Process"),
-    question_format: QuestionFormat.find_by(title: "Multi select box"),
-    option_comment_display: true,
-    modifiable: false,
-    themes: [Theme.find_by(title: "Data Collection")])
+  text: "What type(s) of data will you collect?",
+  number: 3,
+  section: Section.find_by(title: "Collection Process"),
+  question_format: QuestionFormat.find_by(title: "Multi select box"),
+  option_comment_display: true,
+  modifiable: false,
+  themes: [Theme.find_by(title: "Data Collection")])
 multi_select_box.question_options.build([
-  {
-    text: "statistical",
-    number: 1,
-    is_default: false
-  },
-  {
-    text: "image/video",
-    number: 2,
-    is_default: false
-  },
-  {
-    text: "geographical",
-    number: 3,
-    is_default: false
-  },
-  {
-    text: "other",
-    number: 4,
-    is_default: false
-  }])
+                                          {
+                                            text: "statistical",
+                                            number: 1,
+                                            is_default: false
+                                          },
+                                          {
+                                            text: "image/video",
+                                            number: 2,
+                                            is_default: false
+                                          },
+                                          {
+                                            text: "geographical",
+                                            number: 3,
+                                            is_default: false
+                                          },
+                                          {
+                                            text: "other",
+                                            number: 4,
+                                            is_default: false
+                                          }])
 multi_select_box.save!
 
 # Create suggested answers for a few questions

@@ -25,6 +25,11 @@
       <div class="form-control mb-3 col-xs-8" data-html="true">
         <%= f.label :feedback_msg, _('Message'), class: "form-label" %>
         <%= f.text_area :feedback_msg, class: "form-control", spellcheck: true,
+                        data: {
+                          controller: "tinymce",
+                          tinymce_target: "input",
+                          tinymce_selector_value: "#org_feedback_msg"
+                        },
                         "aria-required" => true %>
       </div>
       <div class="form-control mb-3 col-xs-4">

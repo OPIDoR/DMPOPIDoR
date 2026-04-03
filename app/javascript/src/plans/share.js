@@ -4,7 +4,7 @@ import * as notifier from '../utils/notificationHelper';
 // import { isObject, isString } from '../utils/isType';
 import { isObject, isString } from '../utils/isType';
 
-$(() => {
+document.addEventListener('turbo:load', () => {
   $('#set_visibility').on('ajax:success', (e) => {
     const data = e.detail[0];
     if (isObject(data) && isString(data.msg)) {

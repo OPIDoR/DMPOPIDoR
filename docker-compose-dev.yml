@@ -6,7 +6,7 @@ services:
       context: .
       target: dev
       args:
-        - NODE_MAJOR=${NODE_MAJOR:-22}
+        - NODE_MAJOR=${NODE_MAJOR:-24}
     depends_on:
       postgres:
         condition: service_healthy
@@ -32,6 +32,7 @@ services:
       - MADMP_ENABLE_ETHICAL_ISSUES=false
       - ACTION_MAILER_SMTP_HOST=maildev
       - ACTION_MAILER_SMTP_PORT=1025
+      - MADMP_CODEBASE_MOCK
     volumes:
       - ./:/app
     command:
@@ -62,7 +63,7 @@ services:
       - dmpopidor_network
 
   maildev:
-    image: maildev/maildev:2.1.0
+    image: maildev/maildev:2.2.1
     ports:
       - 1080:1080
     healthcheck:

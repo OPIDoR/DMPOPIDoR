@@ -6,6 +6,7 @@
         <th scope="col"><%= _('Name') %></th>
         <th scope="col" class="text-center"><%= _('Status') %>&nbsp;<%= paginable_sort_link('guidance_groups.published') %></th>
         <th scope="col" class="text-center"><%= _('Optional subset') %>&nbsp;<%= paginable_sort_link('guidance_groups.optional_subset') %></th>
+        <th scope="col" class="text-center"><%= "#{_('Data Types')} / #{_('Topics')}" %></th>
         <th scope="col"><%= _('Locale') %>&nbsp;<%= paginable_sort_link('guidances.locale') %></th>
         <th scope="col" class="text-center date-column"><%= _('Last updated') %>&nbsp;<%= paginable_sort_link('guidance_groups.updated_at') %></th>
         <th scope="col" class="sorter-false"><span aria-hidden="false" class="sr-only"><%= _('Actions') %></span></th>
@@ -34,6 +35,7 @@
                 <%= _('Yes')%>
             <% end %>
           </td>
+          <td class="text-center"><%= guidance_gr.data_types.join(', ') %> / <%= guidance_gr.topics.join(', ') %></td>
           <td><%= if guidance_gr.language_id.present?
                     Language.find_by(id: guidance_gr.language_id)&.name || 'N/C'
                   else
@@ -53,14 +55,14 @@
                 <%= _('Actions') %><span class="caret"></span>
               </button>
               <ul class="dropdown-menu" aria-labelledby="guidance_group-<%= guidance_gr.id %>-actions">
-                <li class="nav-item"><%= link_to _('Edit'), admin_edit_guidance_group_path(guidance_gr), class:'dropdown-item px-3' %></li>
+                <li class="nav-item"><%= link_to _('Edit'), edit_org_admin_guidance_group_path(guidance_gr), class:'dropdown-item px-3', data: { turbo_frame: "_top" } %></li>
                 <% if guidance_gr.published? %>
-                    <li class="nav-item"><%= link_to _('Unpublish'),  admin_update_unpublish_guidance_group_path(guidance_gr), data: { turbo_method: :put }, class:'dropdown-item px-3' %></li>
+                    <li class="nav-item"><%= link_to _('Unpublish'),  unpublish_org_admin_guidance_group_path(guidance_gr), data: { turbo_frame: "_top", turbo_method: :put }, class:'dropdown-item px-3' %></li>
                 <% else %>
-                    <li class="nav-item"><%= link_to _('Publish'),  admin_update_publish_guidance_group_path(guidance_gr), data: { turbo_method: :put }, class:'dropdown-item px-3' %></li>
+                    <li class="nav-item"><%= link_to _('Publish'),  publish_org_admin_guidance_group_path(guidance_gr), data: { turbo_frame: "_top", turbo_method: :put }, class:'dropdown-item px-3' %></li>
                 <% end %>
                 <% if allow_delete %>
-                  <li class="nav-item"><%= link_to _('Remove'), admin_destroy_guidance_group_path(guidance_gr), data: { turbo_confirm: _("You are about to delete '%{guidance_group_name}'. This will affect guidance. Are you sure?") % { :guidance_group_name => guidance_gr.name }, turbo_method: :delete }, class:'dropdown-item px-3' %></li>
+                  <li class="nav-item"><%= link_to _('Remove'), org_admin_guidance_group_path(guidance_gr), data: { turbo_frame: "_top", turbo_confirm: _("You are about to delete '%{guidance_group_name}'. This will affect guidance. Are you sure?") % { :guidance_group_name => guidance_gr.name }, turbo_method: :delete }, class:'dropdown-item px-3' %></li>
                 <% end %>
               </ul>
             </div>

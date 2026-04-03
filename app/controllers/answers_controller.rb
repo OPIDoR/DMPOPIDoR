@@ -4,9 +4,9 @@
 class AnswersController < ApplicationController
   respond_to :html
   include ConditionsHelper
-  helper ErrorHelper
+  include ErrorHelper
 
-  # rubocop:disable Metrics/AbcSize
+  # rubocop:disable Metrics/AbcSize, Metrics/MethodLength
   def new_form
     research_output = ResearchOutput.includes(:plan).find(params[:research_output_id])
     question = Question.includes(:madmp_schema).find(params[:question_id])
@@ -20,13 +20,20 @@ class AnswersController < ApplicationController
     render json: MadmpFragment.render_fragment_json(fragment, fragment.madmp_schema)
     nil
   rescue ActiveRecord::RecordNotFound
+    madmp_schema = if research_output.topic.eql?('generic')
+                     question.madmp_schema
+                   else
+                     MadmpSchema.suggest(question.madmp_schema.classname, question.template.data_type,
+                                         research_output.topic) || question.madmp_schema
+                   end
+
     authorize Answer.new(plan_id: research_output.plan_id)
     render json: {
-      template: MadmpSchema.serialize_json_response(question.madmp_schema)
+      template: MadmpSchema.serialize_json_response(madmp_schema)
     }
     nil
   end
-  # rubocop:enable Metrics/AbcSize
+  # rubocop:enable Metrics/AbcSize, Metrics/MethodLength
 
   # POST /answers/create_or_update
   # TODO: Why!? This method is overly complex. Needs a serious refactor!
@@ -297,12 +304,6 @@ class AnswersController < ApplicationController
   def json_schema
     question = Question.find(params['question_id'])
     question.madmp_schema
-  end
-
-  # Get the parameters corresponding to the schema
-  def schema_params(data, schema, flat: false)
-    s_params = schema.generate_strong_params(flat: flat)
-    data.require(:answer).permit(s_params)
   end
 
   # rubocop:disable Metrics/AbcSize

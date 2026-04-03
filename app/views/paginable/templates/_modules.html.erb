@@ -7,8 +7,8 @@
       <tr>
         <th scope="col"><%= _('Template Name') %>&nbsp;<%= paginable_sort_link('templates.title') %></th>
         <th scope="col"><%= _('Description') %>&nbsp;<%= paginable_sort_link('templates.description') %></th>
-        <th scope="col"><%= _('Type - Context') %></th>
-        <th scope="col"><%= _('Data Type') %></th>
+        <th scope="col"><%= _('Type') %></th>
+        <th scope="col"><%= _('Data type') %></th>
         <th scope="col"><%= _('Status') %></th>
         <th scope="col" class="date-column"><%= _('Edited Date') %>&nbsp;<%= paginable_sort_link('templates.updated_at') %></th>
         <th scope="col">&nbsp;</th>
@@ -19,7 +19,7 @@
       <tr id="<%= dom_id(template) %>">
         <td>
           <% if current_user.can_super_admin? %>
-            <%= link_to "#{template.title}", edit_super_admin_template_path(template.id) %>
+            <%= link_to "#{template.title}", edit_super_admin_template_path(template.id), data: { turbo_frame: "_top" } %>
           <% else %>
             <%= template.title %>
           <% end %>
@@ -28,7 +28,7 @@
             <%= sanitize(template.description) %>
           </td>
           <td>
-            <%= "#{template.type.humanize} - #{template.context.humanize}" %>
+            <%= template.type.humanize %>
           </td>
           <td>
             <%= template.data_type.humanize %>
@@ -58,22 +58,42 @@
                 <%= _('Actions') %><span class="caret"></span>
               </button>
               <ul class="dropdown-menu">
-                <li class="nav-item"><%= link_to _('Edit'), edit_super_admin_template_path(template.id), class: 'dropdown-item px-3' %></li>
-                <li class="nav-item"><%= link_to _('History'), history_super_admin_template_path(template.id), class: 'dropdown-item px-3' %></li>
+                <li class="nav-item"><%= link_to _('Edit'), edit_super_admin_template_path(template.id), class: 'dropdown-item px-3', data: { turbo_frame: "_top" } %></li>
+                <li class="nav-item"><%= link_to _('History'), history_super_admin_template_path(template.id), class: 'dropdown-item px-3', data: { turbo_frame: "_top" } %></li>
                 <% if template.draft? || template.published? %>
-                  <li class="nav-item"><%= link_to _('Unpublish'), unpublish_super_admin_template_path(template.id), 'data-turbo-method': 'patch', class: 'dropdown-item px-3' %></li>
+                  <li class="nav-item">
+                    <%= link_to _('Unpublish'), unpublish_super_admin_template_path(template.id),
+                        data: { turbo_frame: "_top", turbo_method: 'patch'},
+                        class: 'dropdown-item px-3' 
+                    %>
+                  </li>
                 <% end %>
                 <% if template.draft? %>
-                  <li class="nav-item"><%= link_to _('Publish changes'), publish_super_admin_template_path(template), 'data-turbo-method': 'patch', class: 'dropdown-item px-3' %></li>
+                  <li class="nav-item">
+                    <%= link_to _('Publish changes'), publish_super_admin_template_path(template),
+                        data: { turbo_frame: "_top", turbo_method: 'patch'},
+                        class: 'dropdown-item px-3'
+                    %>
+                  </li>
                 <% elsif !template.published? %>
-                  <li class="nav-item"><%= link_to _('Publish'), publish_super_admin_template_path(template.id), 'data-turbo-method': 'patch', class: 'dropdown-item px-3' %></li>
+                  <li class="nav-item">
+                    <%= link_to _('Publish'), publish_super_admin_template_path(template.id),
+                        data: { turbo_frame: "_top", turbo_method: 'patch'},
+                        class: 'dropdown-item px-3'
+                    %>
+                  </li>
                 <% end %>
                 <% if template.removable? %>
                   <li class="nav-item">
                     <%= link_to _('Remove'), super_admin_template_path(id: template.id),
+                                data: { 
+                                  turbo_frame: "_top",
+                                  turbo_method: 'delete',
+                                  turbo_confirm: _('Are you sure you want to remove "%{template_title}"? Any published versions will become unavailable to users.') % { template_title: template.title}
+                                },
                                 class: 'dropdown-item px-3',
-                                'data-turbo-method': 'delete', rel: 'nofollow',
-                                'data-turbo-confirm': _('Are you sure you want to remove "%{template_title}"? Any published versions will become unavailable to users.') % { template_title: template.title} %>
+                                rel: 'nofollow'
+                    %>
                   </li>
                 <% end %>
                 <li class="nav-item"><%= link_to template_export_super_admin_template_url(template, format: :pdf),

@@ -6,6 +6,7 @@
     "dataTypes": [
         "software"
     ],
+    "topics": null,
     "type": "object",
     "class": "SoftwareLegalIssuesStandard",
     "properties": {
@@ -21,16 +22,17 @@
                         "type": "number"
                     }
                 },
-                "template_name": "ContributorStandard",
+                "template_name": "ContributorConstantRole",
                 "required": [
                     "dbid"
                 ]
             },
             "minItems": 1,
-            "description": "Auteur(s) du logiciel : personnes qui ont le droit d'auteur sur le logiciel",
+            "description": "Software Author(s) : persons who own the copyright to the software",
             "label@fr_FR": "Auteurs du logiciel",
             "label@en_GB": "Software authors",
-            "tooltip": null,
+            "tooltip@fr_FR": "Un auteur est une personne ou une organisation qui a apporté une contribution significative et intellectuelle au développement du logiciel. Les contributeurs non auteurs sont les personnes ou organisation qui ont contribué de façon non substantielle à la version du code publié.",
+            "tooltip@en_GB": "An author is a person (or organisation) who made a significant intellectual contribution to the software development. Non-author contributors are those people (or organisations) whose input was a useful, but not considered to be substantial, contribution to the published version of the code.",
             "form_label@fr_FR": "Lister les auteurs du logiciel",
             "form_label@en_GB": "List the authors of the software"
         },
@@ -52,13 +54,13 @@
                 ]
             },
             "minItems": 1,
-            "description": "Principaux contributeurs du logiciel : autres collaborateurs",
+            "description": "Software Contributor(s) : others collaborators",
             "label@fr_FR": "Principaux contributeurs du logiciel et leurs rôles",
             "label@en_GB": "Principal software contributors and their roles",
-            "tooltip@fr_FR": "Il peut s'agir d'une ou plusieurs personnes, d'une équipe, d'un service",
-            "tooltip@en_GB": "It can be one or more people, a team, a department",
+            "tooltip@fr_FR": "Il peut s'agir d'une ou plusieurs personnes, d'une équipe, d'un service.",
+            "tooltip@en_GB": "This may involve one or more people, a team or a department.",
             "form_label@fr_FR": "Lister les principaux contributeurs du logiciel puis leur attribuer un rôle",
-            "form_label@en_GB": "List the main contributors of the software and then assign them a role"
+            "form_label@en_GB": "List the main contributors to the software and assign each one a role"
         },
         "license": {
             "type": "array",
@@ -77,55 +79,28 @@
                 ]
             },
             "minItems": 1,
-            "description": "Licences de diffusion du logiciel",
+            "description": "Software distribution licenses",
             "label@fr_FR": "Licences",
             "label@en_GB": "Licenses",
             "inputType": "dropdown",
-            "registries": [
-                "SoftwareLicenses"
-            ],
             "registryCategory": "License",
             "overridable": true,
-            "tooltip": null,
+            "tooltip@fr_FR": "L'usage de licences libres est recommandé. Une licence libre est une licence s’appliquant à un logiciel par laquelle l'auteur concède tous les droits ou une partie des droits que lui confère le droit d’auteur. Un logiciel sous licence libre (logiciel libre) fait référence à la liberté pour les utilisateurs d’exécuter, de copier, de distribuer, d’étudier, de modifier et d’améliorer le logiciel. Consulter le lien suivant : https://code.gouv.fr/fr/doc/licences-libres-dinum/.",
+            "tooltip@en_GB": "The use of free software licences is recommended to create. This creates free software which is where the author freely grants some or all of the rights conferred by copyright to the user, allowing them to run, copy, distribute, study, modify and/or improve the software. See https://code.gouv.fr/fr/doc/licences-libres-dinum (unavailable in English).",
             "form_label@fr_FR": "Sous quelles licences est ou sera diffusé le logiciel ?",
-            "form_label@en_GB": "Under what licenses is or will the software be distributed?"
-        },
-        "cost": {
-            "type": "array",
-            "table_header@fr_FR": "Type de coût : montant",
-            "table_header@en_GB": "Cost type: amount",
-            "items": {
-                "type": "object",
-                "class": "Cost",
-                "properties": {
-                    "dbid": {
-                        "type": "number"
-                    }
-                },
-                "template_name": "CostStandard",
-                "required": [
-                    "dbid"
-                ]
-            },
-            "description": "Coûts éventuels liés au conseil juridique pour le logiciel",
-            "label@fr_FR": "Coûts",
-            "label@en_GB": "Costs",
-            "tooltip@fr_FR": "Par exemple, recours à un conseil juridique",
-            "tooltip@en_GB": "For example, seeking legal advice",
-            "form_label@fr_FR": "Coûts liés aux aspects juridiques",
-            "form_label@en_GB": "Costs related to legal aspects"
+            "form_label@en_GB": "Under what licence(s) is, or will, the software be distributed?"
         },
         "description": {
             "type": "string",
-            "description": "Aspects relatifs à la sécurité juridique et titularité du logiciel",
+            "description": "Aspects relating to legal security and software ownership",
             "inputType": "textarea",
             "label@fr_FR": "Informations complémentaires",
-            "label@en_GB": "Additional informations",
+            "label@en_GB": "Additional information",
             "tooltip": null,
             "example@fr_FR": "Vous pouvez ajouter ici toutes informations complémentaires en lien avec les aspects juridiques comme par exemple l'accord de consortium, les droits de propriété intellectuelle...",
-            "example@en_GB": "You can add here any additional information related to legal aspects such as consortium agreement, intellectual property rights...",
+            "example@en_GB": "Include here any additional information related to legal aspects such as consortium agreements or intellectual property rights.",
             "form_label@fr_FR": "Informations complémentaires",
-            "form_label@en_GB": "Additional informations"
+            "form_label@en_GB": "Additional information"
         }
     },
     "required": [

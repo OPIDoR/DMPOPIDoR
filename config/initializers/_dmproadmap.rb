@@ -7,7 +7,7 @@ require 'json'
 #
 # This file is a consolidation of the old custom configuration previously spread
 # across the application.rb, branding.yml and the contact_us, devise, recaptcha,
-# constants and wicked_pdf initializers
+# constants
 #
 # It works in conjunction with the new Rails 5 config/credentials.yml.enc file
 # for information on how to use the credentials file see:
@@ -286,7 +286,9 @@ module DMPRoadmap
     # --------------------------------------------------- #
     # DMP OPIDoR Features #
     # --------------------------------------------------- #
-    config.x.dmpopidor.front = {}
+    config.x.dmpopidor.front = {
+      enableTopics: ENV.fetch('ENABLE_TOPICS', true).to_s.casecmp('true').zero?
+    }
     config.x.directus.url = ENV.fetch('DIRECTUS_URL', 'http://directus:8055')
     config.x.directus.public_url = ENV.fetch('DIRECTUS_PUBLIC_URL', 'http://localhost:8080/directus')
     config.x.dmpopidor.redis_url = ENV.fetch('REDIS_URL', 'redis://default:changeme@localhost:6379/1')

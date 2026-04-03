@@ -7,6 +7,7 @@
         "software",
         "none"
     ],
+    "topics": null,
     "type": "object",
     "class": "PartnerStandard",
     "externalImports": {
@@ -20,7 +21,7 @@
     "properties": {
         "name": {
             "type": "string",
-            "description": "Nom de l'entité (ou structure) ou d'un partenaire d'un projet de recherche",
+            "description": "Name of the partner",
             "label@fr_FR": "Nom",
             "label@en_GB": "Name",
             "tooltip": null,
@@ -29,7 +30,7 @@
         },
         "acronym": {
             "type": "string",
-            "description": "Acronyme de l'entité (ou structure) ou d'un partenaire d'un projet de recherche",
+            "description": "Acronym of the partner",
             "label@fr_FR": "Acronyme",
             "label@en_GB": "Acronym",
             "tooltip": null,
@@ -38,7 +39,7 @@
         },
         "orgId": {
             "type": "string",
-            "description": "Identifiant de l'entité (ou structure) ou d'un partenaire d'un projet de recherche",
+            "description": "Partner identifier",
             "label@fr_FR": "Identifiant",
             "label@en_GB": "Identifier",
             "tooltip": null,
@@ -47,13 +48,10 @@
         },
         "idType": {
             "type": "string",
-            "description": "Type d'identifiant (ROR) de l'organisation ou structure partenaire",
+            "description": "Identifier system (eg. ROR)",
             "inputType": "dropdown",
             "label@fr_FR": "Type d'identifiant",
             "label@en_GB": "Identifier type",
-            "registries": [
-                "OrganizationIdSystem"
-            ],
             "registryCategory": "OrganizationIdSystem",
             "overridable": true,
             "tooltip": null,
@@ -62,7 +60,7 @@
         },
         "rnsr": {
             "type": "string",
-            "description": "Identifiant RNSR de l'organisation ou structure partenaire",
+            "description": "RNSR identifier (Identifier for French research structures)",
             "label@fr_FR": "Identifiant RNSR",
             "label@en_GB": "RNSR identifier",
             "tooltip": null,

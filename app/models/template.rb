@@ -6,8 +6,10 @@
 #
 #  id               :integer          not null, primary key
 #  archived         :boolean
-#  context          :integer          default("research_project"), not null
+#  context          :integer          default(0), not null
+#  contexts         :string           default(["research_project"]), not null, is an Array
 #  customization_of :integer
+#  data_type        :string           default("none"), not null
 #  description      :text
 #  is_default       :boolean
 #  is_recommended   :boolean          default(FALSE)
@@ -58,13 +60,6 @@ class Template < ApplicationRecord
   # Module templates can only have one phase, have a data_type & can't be used by a plan
   self.inheritance_column = nil
   enum :type, %i[classic structured module]
-  # Context describes if the DMP is for a Research Project ou a Research Entity
-  # The Project Form is replaced by a Structure Form in the General information tab.
-  # New features might be added in the future
-  enum :context, %i[research_project research_entity]
-  # --------------------------------
-  # End DMP OPIDoR Customization
-  # --------------------------------
 
   # Stores links as an JSON object:
   # {funder: [{"link":"www.example.com","text":"foo"}, ...],
@@ -120,6 +115,10 @@ class Template < ApplicationRecord
   validates :visibility, presence: { message: PRESENCE_MESSAGE }
 
   validates :family_id, presence: { message: PRESENCE_MESSAGE }
+
+  validates :data_type, presence: { message: PRESENCE_MESSAGE }
+
+  validates :type, presence: { message: PRESENCE_MESSAGE }
 
   # =============
   # = Callbacks =
@@ -258,7 +257,9 @@ class Template < ApplicationRecord
   end
 
   def self.recommend(context: 'research_project', locale: 'fr-FR')
-    where(is_recommended: true, published: true, type: 'structured', context:, locale:).last
+    where(is_recommended: true, published: true, type: 'structured', locale:).where(
+      'templates.contexts @> ARRAY[?]::varchar[]', context
+    ).last
   end
 
   def self.module(data_type: nil, locale: 'fr-FR')
@@ -550,6 +551,14 @@ class Template < ApplicationRecord
       publishedDate: updated_at.to_date,
       sections: section_data
     }
+  end
+
+  def research_entity?
+    contexts.include?('research_entity')
+  end
+
+  def research_project?
+    contexts.include?('research_project')
   end
 
   private

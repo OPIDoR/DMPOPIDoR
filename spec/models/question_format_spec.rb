@@ -1,5 +1,18 @@
 # frozen_string_literal: true
 
+# == Schema Information
+#
+# Table name: question_formats
+#
+#  id           :integer          not null, primary key
+#  description  :text
+#  formattype   :integer          default("textarea")
+#  option_based :boolean          default(FALSE)
+#  structured   :boolean          default(FALSE), not null
+#  title        :string
+#  created_at   :datetime         not null
+#  updated_at   :datetime         not null
+#
 require 'rails_helper'
 
 RSpec.describe QuestionFormat, type: :model do

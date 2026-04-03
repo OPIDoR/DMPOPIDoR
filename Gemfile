@@ -2,20 +2,14 @@
 
 source 'https://rubygems.org'
 
-ruby '>= 3.3'
+ruby '>= 3.4'
 
 # ===========#
 # CORE RAILS #
 # ===========#
 
 # Full-stack web application framework. (http://rubyonrails.org)
-gem 'rails', '~> 7.2'
-
-# TODO: Remove this once Rails addresses the issue with its dependency on mimemagic. Mimemagic had
-#       an MIT license but was using some incompatible GPL license code.
-#       Versions of mimemagic that were yanked: https://rubygems.org/gems/mimemagic/versions
-#       Analysis of the issue: https://www.theregister.com/2021/03/25/ruby_rails_code/
-gem 'mimemagic'
+gem 'rails', '~> 8.0'
 
 # Use Puma as the app server
 gem 'puma', group: :puma, require: false
@@ -51,7 +45,7 @@ gem 'redis-actionpack'
 # gem "bcrypt", "~> 3.1.7"
 
 # Use Active Storage variant
-# gem "image_processing", "~> 1.2"
+gem 'image_processing'
 
 # Reduces boot times through caching; required in config/boot.rb
 gem 'bootsnap', require: false
@@ -290,9 +284,6 @@ group :test do
   # This gem brings back assigns to your controller tests as well as assert_template
   # to both controller and integration tests.
   gem 'rails-controller-testing'
-
-  # automating code review
-  gem 'danger'
 end
 
 group :ci, :development do
@@ -347,9 +338,8 @@ group :development do
   # Profiles loading speed for rack applications. (http://miniprofiler.com)
   gem 'rack-mini-profiler'
 
-  # Annotates Rails Models, routes, fixtures, and others based on the
-  # database schema. (http://github.com/ctran/annotate_models)
-  gem 'annotate'
+  # database schema. (https://github.com/drwl/annotaterb)
+  gem 'annotaterb'
 
   # Add comments to your Gemfile with each dependency's description.
   # (https://github.com/ivantsepp/annotate_gem)
@@ -365,6 +355,8 @@ group :development do
 
   # TomDoc for YARD (http://rubyworks.github.com/yard-tomdoc)
   gem 'yard-tomdoc'
+
+  gem 'hotwire-livereload', '~> 2.0'
 end
 
 # ======================#
@@ -378,4 +370,6 @@ end
 gem 'graphiql-rails', '~> 1.10'
 gem 'graphql', '~> 2.3'
 
-gem 'foreman', '~> 0.88.1'
+gem 'foreman'
+
+gem 'good_job'

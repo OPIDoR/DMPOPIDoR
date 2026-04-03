@@ -62,7 +62,7 @@ export const initializeCharts = () => {
 };
 
 export const createChart = (selector, data, appendTolabel = '', onClickHandler = null) => {
-  const chart = new Chart($(selector), { // eslint-disable-line no-new
+  const chart = new Chart($(selector), {
     type: 'bar',
     data: {
       labels: Object.keys(data),
@@ -96,7 +96,7 @@ export const createChart = (selector, data, appendTolabel = '', onClickHandler =
 
 export const drawHorizontalBar = (canvasSelector, data) => {
   const aspectRatio = getAspectRatio(data.labels.length);
-  const chart = new Chart(canvasSelector, { // eslint-disable-line no-new
+  const chart = new Chart(canvasSelector, {
     type: 'bar',
     data,
     options: {

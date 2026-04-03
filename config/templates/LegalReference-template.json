@@ -4,12 +4,13 @@
     "title": "LegalReference",
     "description": "LegalReference template",
     "dataTypes": null,
+    "topics": null,
     "type": "object",
     "class": "LegalReference",
     "properties": {
         "title": {
             "type": "string",
-            "description": "Intitulé de la ressource",
+            "description": "Document title",
             "label@fr_FR": "Titre",
             "label@en_GB": "Title",
             "tooltip": null,
@@ -18,7 +19,7 @@
         },
         "legalDocIdentifier": {
             "type": "string",
-            "description": "Identifiant de la ressource",
+            "description": "Document identifier",
             "label@fr_FR": "Identifiant",
             "label@en_GB": "Identifier",
             "tooltip": null,
@@ -27,13 +28,10 @@
         },
         "idType": {
             "type": "string",
-            "description": "Type d'identifiant",
+            "description": "Identification system",
             "inputType": "dropdown",
             "label@fr_FR": "Type d'identifiant",
             "label@en_GB": "Identifier type",
-            "registries": [
-                "PIDSystem"
-            ],
             "registryCategory": "PIDSystem",
             "overridable": true,
             "tooltip": null,

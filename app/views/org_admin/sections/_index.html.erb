@@ -32,7 +32,7 @@
                                panel_id: "baseline-sections",
                                modifiable: modifiable } %>
       <% end %>
-         <% suffix_sections.each do |s| %>
+      <% suffix_sections.each do |s| %>
         <%= render partial: "org_admin/sections/section_group",
                    locals: { sections: Array(s),
                              phase: phase,

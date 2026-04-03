@@ -18,6 +18,7 @@
   <div class="form-group mb-3 col-xs-8">
     <%= link_to _("Regenerate token"),
                 refresh_token_user_path(user),
-                class: "btn btn-secondary", remote: true %>
+                class: "btn btn-secondary",
+                data: { turbo_method: :post } %>
   </div>
 </div>

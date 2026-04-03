@@ -4,6 +4,7 @@
     "title": "ReusedDataStandard",
     "description": "ReusedDataStandard template",
     "dataTypes": null,
+    "topics": null,
     "type": "object",
     "class": "ReusedDataStandard",
     "externalImports": {
@@ -12,7 +13,7 @@
     "properties": {
         "title": {
             "type": "string",
-            "description": "Titre du produit de recherche réutilisé",
+            "description": "Research object title",
             "label@fr_FR": "Nom",
             "label@en_GB": "Name",
             "tooltip": null,
@@ -21,7 +22,7 @@
         },
         "description": {
             "type": "string",
-            "description": "Description de la provenance des données (ou absence de données réutilisables)",
+            "description": "Description of the context of production of the research object",
             "inputType": "textarea",
             "label@fr_FR": "Description",
             "label@en_GB": "Description",
@@ -32,7 +33,7 @@
         },
         "datasetId": {
             "type": "string",
-            "description": "Identifiant du produit réutilisé",
+            "description": "Research object identifier",
             "label@fr_FR": "Identifiant pérenne",
             "label@en_GB": "Persistent identifier",
             "tooltip": null,
@@ -41,13 +42,10 @@
         },
         "idType": {
             "type": "string",
-            "description": "Type d'identifiant",
+            "description": "Identification system",
             "inputType": "dropdown",
             "label@fr_FR": "Type d'identifiant",
             "label@en_GB": " Identifier type",
-            "registries": [
-                "PIDSystem"
-            ],
             "registryCategory": "PIDSystem",
             "overridable": true,
             "tooltip": null,
@@ -56,7 +54,7 @@
         },
         "versionNumber": {
             "type": "string",
-            "description": "Numéro de version des données réutilisées",
+            "description": "Version number",
             "label@fr_FR": "Numéro de version",
             "label@en_GB": "Version number",
             "tooltip": null,
@@ -75,14 +73,13 @@
             "required": [
                 "dbid"
             ],
-            "description": "Licence ou contrat déterminant les conditions de réutilisation",
+            "description": "License or contract determining the conditions of reuse",
             "label@fr_FR": "Licence",
             "label@en_GB": "License",
             "inputType": "dropdown",
             "registries": [
                 "DataLicenses"
             ],
-            "registryCategory": "License",
             "overridable": true,
             "tooltip": null,
             "form_label@fr_FR": "Licence",

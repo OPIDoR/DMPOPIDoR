@@ -4,12 +4,13 @@
     "title": "MethodReference",
     "description": "MethodReference template",
     "dataTypes": null,
+    "topics": null,
     "type": "object",
     "class": "MethodReference",
     "properties": {
         "title": {
             "type": "string",
-            "description": "Titre de la méthode",
+            "description": "Method title",
             "label@fr_FR": "Titre",
             "label@en_GB": "Title",
             "tooltip": null,
@@ -18,7 +19,7 @@
         },
         "methodIdentifier": {
             "type": "string",
-            "description": "Identifiant de la méthode",
+            "description": "Identifier",
             "label@fr_FR": "Identifiant",
             "label@en_GB": "Identifier",
             "tooltip": null,
@@ -27,13 +28,10 @@
         },
         "idType": {
             "type": "string",
-            "description": "Type d'identifiant",
+            "description": "Identification system",
             "inputType": "dropdown",
             "label@fr_FR": "Type d'identifiant",
             "label@en_GB": "Identifier type",
-            "registries": [
-                "PIDSystem"
-            ],
             "registryCategory": "PIDSystem",
             "overridable": true,
             "tooltip": null,

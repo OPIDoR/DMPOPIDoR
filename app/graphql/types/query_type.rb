@@ -3,21 +3,13 @@
 module Types
   # QueryType
   class QueryType < Types::BaseObject
-    SHARED_PLAN_ARGUMENTS = Proc.new do
-      argument :filter, Types::LogicalFilterInput, required: false, description: 'Optional filter to refine the list of plans'
-      argument :size, Integer, required: false, default_value: 10, description: 'Number of items to retrieve per page'
-      argument :page, Integer, required: false, default_value: 1, description: 'Page number for pagination'
-      argument :test, GraphQL::Types::Boolean, required: false, default_value: false, description: 'Display tests plans'
-      argument :order_by, Types::OrderByFilterInput, required: false, description: 'Specifies sorting order and field for the query'
-    end
-
     field :plans, Types::PlanResultType, null: false do
-      instance_eval(&SHARED_PLAN_ARGUMENTS)
+      instance_eval(&Types::SharedFields::SHARED_PLAN_ARGUMENTS)
       description 'Retrieve a paginated list of plans with optional filtering'
     end
 
     field :public_plans, Types::PlanResultType, null: false do
-      instance_eval(&SHARED_PLAN_ARGUMENTS)
+      instance_eval(&Types::SharedFields::SHARED_PLAN_ARGUMENTS)
       description 'Retrieve a paginated list of public plans with optional filtering'
     end
 
@@ -34,13 +26,7 @@ module Types
     private
 
     def get_plans(filter, size, page, order_by, test, plans_scope)
-      if size < 1 || size > 1000
-        raise GraphQL::ExecutionError, "Size must be between 1 and 1000. Current size: #{size}."
-      end
-
-      order_params = {
-        (order_by&.[](:field) || 'updated_at') => (order_by&.[](:order).presence || 'desc').to_sym
-      }
+      offset = (page - 1) * size
 
       plans_scope = plans_scope.where.not(
         visibility: [
@@ -48,46 +34,69 @@ module Types
         ]
       ) unless test
 
-      if filter.nil?
-        total_items = plans_scope.count
-        total_pages = (total_items.to_f / size).ceil
-        offset = (page - 1) * size
+      order_params = if order_by.nil? || order_by.empty?
+                       Arel.sql("jsonb_path_query_first(data, '$.meta.lastModifiedDate') DESC")
+                     else
+                       order_by.map do |p|
+                         Arel.sql("jsonb_path_query_first(data, '#{p.field}') #{p.order.to_s.upcase}")
+                       end
+                     end
 
-        return {
-          pageInfo: {
-            total: total_items,
-            totalPages: total_pages,
-            page: page,
-          },
-          items: plans_scope.order(order_params)
-                            .limit(size)
-                            .offset(offset)
-                            .map { |plan| plan.json_fragment.get_full_fragment }
-        }
-      end
+      results = JsonPlan
+                .yield_self { |rel| filter.present? ? rel.where(*build_jsonb_filters(filter)) : rel }
+                .where(plan_id: plans_scope.select(:id))
 
-      fragments_by_plan_id = MadmpFragment
-                               .where("(data->>'plan_id')::int IN (?)", plans_scope.select(:id))
-                               .order(order_params)
-
-      results = fragments_by_plan_id.flat_map do |fragment|
-        Resolvers::PlansFiltersResolver.apply(filter, fragment.id)[0]&.dmp&.get_full_fragment || []
-      end.compact # rubocop:disable Style/MultilineBlockChain
-
-      total_items = results.length
+      total_items = results.count
       total_pages = (total_items.to_f / size).ceil
-      offset = (page - 1) * size
 
-      paginated_results = results.slice(offset, size) || []
+      results = results.order(*order_params)
+                       .limit(size)
+                       .offset(offset)
+                       .pluck(:data)
 
       {
         pageInfo: {
           total: total_items,
           totalPages: total_pages,
-          page: page,
+          page: page
         },
-        items: paginated_results
+        items: results
       }
+    end
+
+    def build_jsonb_filters(filter)
+      return nil unless filter.present?
+
+      and_sql = build_conditions(filter[:and], "AND")
+      or_sql  = build_conditions(filter[:or],  "OR")
+
+      combined = [and_sql, or_sql].compact
+      ["(#{combined.join(" OR ")})"] unless combined.empty?
+    end
+
+    def build_conditions(conditions, operator)
+      return nil unless conditions.present?
+
+      conditions.map { |c|
+        jsonb_path_where(path: c[:field], value: c[:value], operator: c[:operator] || "eq")
+      }.join(" #{operator} ")
+    end
+
+    def jsonb_path_where(path:, value:, operator: "eq")
+      operator_map = {
+        "eq"   => "==",
+        "neq"  => "!=",
+        "like" => "like_regex",
+        "regex" => "like_regex",
+        "gt"   => ">",
+        "lt"   => "<",
+        "gte"  => ">=",
+        "lte"  => "<=",
+      }
+
+      op = operator_map[operator] || raise("Unsupported operator #{operator}")
+
+      "jsonb_path_exists(data, '#{path} ? (@ #{op} #{value.inspect})')"
     end
   end
 end

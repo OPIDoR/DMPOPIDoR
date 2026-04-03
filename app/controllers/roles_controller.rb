@@ -3,6 +3,7 @@
 # Controller that handles adding/updating/removing collaborators from a plan
 class RolesController < ApplicationController
   include ConditionalUserMailer
+
   respond_to :html
 
   after_action :verify_authorized
@@ -29,9 +30,7 @@ class RolesController < ApplicationController
       else
         user = User.where_case_insensitive('email', role_params[:user][:email]).first
         if user.present? &&
-           Role.where(plan: @role.plan, user: user, active: true)
-               .count
-               .positive? # role already exists
+           Role.where(plan: @role.plan, user: user, active: true).any?
 
           flash[:notice] = format(_('Plan is already shared with %{email}.'),
                                   email: role_params[:user][:email])
@@ -68,7 +67,7 @@ class RolesController < ApplicationController
         end
       end
     else
-      flash[:alert] = _('Please enter an email address')
+      flash[:alert] = _('Please enter an email address. ')
     end
     redirect_to controller: 'plans', action: 'share', id: @role.plan.id
   end

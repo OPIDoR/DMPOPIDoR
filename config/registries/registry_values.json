@@ -1,8 +1,8 @@
 {
     "AgentIdSystem": [
         {
-            "fr_FR": "ORCID iD",
-            "en_GB": "ORCID iD"
+            "fr_FR": "ORCID",
+            "en_GB": "ORCID"
         },
         {
             "fr_FR": "IdHAL",
@@ -101,6 +101,40 @@
             "en_GB": "Closed"
         }
     ],
+    "DataNature": [
+        {
+            "fr_FR": "Données agrégées",
+            "en_GB": "Aggregate data"
+        },
+        {
+            "fr_FR": "Données d'analyse",
+            "en_GB": "Analysis data"
+        },
+        {
+            "fr_FR": "Données d'enquête",
+            "en_GB": "Survey data"
+        },
+        {
+            "fr_FR": "Données d'observation",
+            "en_GB": "Observational data"
+        },
+        {
+            "fr_FR": "Données de simulation",
+            "en_GB": "Simulation data"
+        },
+        {
+            "fr_FR": "Données expérimentales",
+            "en_GB": "Experimental Data"
+        },
+        {
+            "fr_FR": "Corpus audiovisuel",
+            "en_GB": "Audiovisual corpus"
+        },
+        {
+            "fr_FR": "Corpus de textes",
+            "en_GB": "Text corpus"
+        }
+    ],
     "DMPVersion": [
         {
             "fr_FR": "Version initiale",
@@ -131,24 +165,6 @@
         {
             "fr_FR": "Rejeté",
             "en_GB": "Rejected"
-        }
-    ],
-    "GenOuestServiceType": [
-        {
-            "fr_FR": "Cluster",
-            "en_GB": "Cluster"
-        },
-        {
-            "fr_FR": "Projet sur cluster",
-            "en_GB": "Cluster project"
-        },
-        {
-            "fr_FR": "Cloud privé",
-            "en_GB": "Private cloud"
-        },
-        {
-            "fr_FR": "Portail web",
-            "en_GB": "Web portal"
         }
     ],
     "ISO3166-alpha2": [
@@ -278,20 +294,10 @@
             "en_GB": "36"
         }
     ],
-    "NameTypeValues": [
-        {
-            "fr_FR": "Personne",
-            "en_GB": "Personal"
-        },
-        {
-            "fr_FR": "Organisation (par ex : équipe, unité ou groupe de recherche)",
-            "en_GB": "Organizational (e.g. a research team, unit or group)"
-        }
-    ],
     "OrganizationIdSystem": [
         {
-            "fr_FR": "ROR ID",
-            "en_GB": "ROR ID"
+            "fr_FR": "ROR",
+            "en_GB": "ROR"
         },
         {
             "fr_FR": "Crossref funder ID",
@@ -341,7 +347,7 @@
         },
         {
             "fr_FR": "Identifiant local",
-            "en_GB": "Identifiant local"
+            "en_GB": "Local identifier"
         },
         {
             "fr_FR": "SWHID",
@@ -402,42 +408,164 @@
             "fr_FR": "Autre"
         }
     ],
-    "ResourceIdSystem": [
+    "Role": [
         {
-            "fr_FR": "DOI",
-            "en_GB": "DOI"
+            "fr_FR": "Collecteur de données",
+            "en_GB": "Data Collector"
         },
         {
-            "fr_FR": "ARK",
-            "en_GB": "ARK"
+            "fr_FR": "Curateur de données",
+            "en_GB": "Data Curator"
         },
         {
-            "fr_FR": "Handle",
-            "en_GB": "Handle"
+            "fr_FR": "Gestionnaire de données",
+            "en_GB": "Data Manager"
         },
         {
-            "fr_FR": "IGSN",
-            "en_GB": "IGSN"
+            "fr_FR": "Responsable de l'entité",
+            "en_GB": "Entity's Manager"
+        },
+        {
+            "fr_FR": "Délégué de protection des données (selon RGPD)",
+            "en_GB": "Data Protection Officer (from GDPR)"
+        },
+        {
+            "fr_FR": "Responsable conjoint du traitement (selon RGPD)",
+            "en_GB": "Joint Data controller (from GDPR)"
+        },
+        {
+            "fr_FR": "Responsable de traitement des données (selon RGPD)",
+            "en_GB": "Data Controller (from GDPR)"
+        },
+        {
+            "fr_FR": "Sous-traitant (selon RGPD)",
+            "en_GB": "Data Processor (from GDPR)"
+        },
+        {
+            "fr_FR": "Agence d'enregistrement",
+            "en_GB": "Registration Agency"
+        },
+        {
+            "fr_FR": "Autorité d'enregistrement",
+            "en_GB": "Registration Authority"
+        },
+        {
+            "fr_FR": "Chef de projet",
+            "en_GB": "Project Leader"
+        },
+        {
+            "fr_FR": "Chef de groupe de travail",
+            "en_GB": "Work Package Leader"
+        },
+        {
+            "fr_FR": "Chercheur",
+            "en_GB": "Researcher"
+        },
+        {
+            "fr_FR": "Détenteur des droits",
+            "en_GB": "Rights Holder"
+        },
+        {
+            "fr_FR": "Distributeur",
+            "en_GB": "Distributor"
+        },
+        {
+            "fr_FR": "Editeur",
+            "en_GB": "Editor"
+        },
+        {
+            "fr_FR": "Equipe de recherche",
+            "en_GB": "Research Group"
+        },
+        {
+            "fr_FR": "Gestionnaire de projet",
+            "en_GB": "Project Manager"
+        },
+        {
+            "fr_FR": "Institution d'accueil",
+            "en_GB": "Hosting Institution"
+        },
+        {
+            "fr_FR": "Membre du projet",
+            "en_GB": "Project Member"
+        },
+        {
+            "fr_FR": "Personne associée",
+            "en_GB": "Related Person"
+        },
+        {
+            "fr_FR": "Responsable",
+            "en_GB": "Supervisor"
+        },
+        {
+            "fr_FR": "Sponsor",
+            "en_GB": "Sponsor"
+        },
+        {
+            "fr_FR": "Traducteur",
+            "en_GB": "Translator"
+        },
+        {
+            "fr_FR": "Autre",
+            "en_GB": "Other"
         }
     ],
-    "SoftwareArchives": [
+    "SoftwareAccess": [
         {
-            "fr_FR": "Software Heritage",
-            "en_GB": "Software Heritage"
+            "fr_FR": "Public (ouvert)",
+            "en_GB": "Public (open)"
         },
         {
-            "fr_FR": "Aucune",
-            "en_GB": "None"
+            "fr_FR": "Privé (fermé ou propriétaire)",
+            "en_GB": "Private (closed or owner)"
         }
     ],
     "SoftwareDocumentationAudience": [
         {
             "fr_FR": "Développeur",
-            "en_GB": "Développer"
+            "en_GB": "Developer"
         },
         {
             "fr_FR": "Utilisateur",
             "en_GB": "User"
+        }
+    ],
+    "SoftwareRoles": [
+        {
+            "fr_FR": "Architecture",
+            "en_GB": "Architecture"
+        },
+        {
+            "fr_FR": "Conception",
+            "en_GB": "Conception"
+        },
+        {
+            "fr_FR": "Débogage",
+            "en_GB": "Debugging"
+        },
+        {
+            "fr_FR": "Développement",
+            "en_GB": "Coding"
+        },
+        {
+            "fr_FR": "Documentation",
+            "en_GB": "Documentation"
+        },
+        {
+            "fr_FR": "Maintenance",
+            "en_GB": "Maintenance"
+        },
+        {
+            "fr_FR": "Management",
+            "en_GB": "Management"
+        },
+        {
+            "fr_FR": "Support",
+            "en_GB": "Support"
+        },
+        {
+            "fr_FR": "Test",
+            "en_GB": "Testing"
         }
     ],
     "SoftwareTestTypes": [
@@ -546,6 +674,328 @@
         {
             "fr_FR": "Ne sais pas",
             "en_GB": "Unknown"
+        }
+    ],
+    "OGCStandards": [
+        {
+            "fr_FR": "3D Tiles",
+            "en_GB": "3D Tiles"
+        },
+        {
+            "fr_FR": "3dP",
+            "en_GB": "3dP"
+        },
+        {
+            "fr_FR": "ARML2.0",
+            "en_GB": "ARML2.0"
+        },
+        {
+            "fr_FR": "Cat: ebRIM App Profile: Earth Observation Products",
+            "en_GB": "Cat: ebRIM App Profile: Earth Observation Products"
+        },
+        {
+            "fr_FR": "Catalogue Service",
+            "en_GB": "Catalogue Service"
+        },
+        {
+            "fr_FR": "CDB",
+            "en_GB": "CDB"
+        },
+        {
+            "fr_FR": "CityGML",
+            "en_GB": "CityGML"
+        },
+        {
+            "fr_FR": "CityJSON",
+            "en_GB": "CityJSON"
+        },
+        {
+            "fr_FR": "COG",
+            "en_GB": "COG"
+        },
+        {
+            "fr_FR": "Coordinate Transformation",
+            "en_GB": "Coordinate Transformation"
+        },
+        {
+            "fr_FR": "CoverageJSON",
+            "en_GB": "CoverageJSON"
+        },
+        {
+            "fr_FR": "EO-GeoJSON",
+            "en_GB": "EO-GeoJSON"
+        },
+        {
+            "fr_FR": "Filter Encoding",
+            "en_GB": "Filter Encoding"
+        },
+        {
+            "fr_FR": "GML in JPEG 2000",
+            "en_GB": "GML in JPEG 2000"
+        },
+        {
+            "fr_FR": "GeoAPI",
+            "en_GB": "GeoAPI"
+        },
+        {
+            "fr_FR": "GeoPackage",
+            "en_GB": "GeoPackage"
+        },
+        {
+            "fr_FR": "GeoPose",
+            "en_GB": "GeoPose"
+        },
+        {
+            "fr_FR": "GeoSciML",
+            "en_GB": "GeoSciML"
+        },
+        {
+            "fr_FR": "GeoSPARQL",
+            "en_GB": "GeoSPARQL"
+        },
+        {
+            "fr_FR": "Geography Markup Language",
+            "en_GB": "Geography Markup Language"
+        },
+        {
+            "fr_FR": "GeoRSS",
+            "en_GB": "GeoRSS"
+        },
+        {
+            "fr_FR": "GeoXACML",
+            "en_GB": "GeoXACML"
+        },
+        {
+            "fr_FR": "Geospatial User Feedback (GUF)",
+            "en_GB": "Geospatial User Feedback (GUF)"
+        },
+        {
+            "fr_FR": "GeoTiff",
+            "en_GB": "GeoTiff"
+        },
+        {
+            "fr_FR": "GroundwaterML",
+            "en_GB": "GroundwaterML"
+        },
+        {
+            "fr_FR": "HDF5",
+            "en_GB": "HDF5"
+        },
+        {
+            "fr_FR": "I3S",
+            "en_GB": "I3S"
+        },
+        {
+            "fr_FR": "Indoor Mapping Data Format (IMDF)",
+            "en_GB": "Indoor Mapping Data Format (IMDF)"
+        },
+        {
+            "fr_FR": "IndoorGML",
+            "en_GB": "IndoorGML"
+        },
+        {
+            "fr_FR": "KML",
+            "en_GB": "KML"
+        },
+        {
+            "fr_FR": "LandInfra/InfraGML",
+            "en_GB": "LandInfra/InfraGML"
+        },
+        {
+            "fr_FR": "LAS",
+            "en_GB": "LAS"
+        },
+        {
+            "fr_FR": "Location Services (OpenLS)",
+            "en_GB": "Location Services (OpenLS)"
+        },
+        {
+            "fr_FR": "Moving Features",
+            "en_GB": "Moving Features"
+        },
+        {
+            "fr_FR": "NetCDF",
+            "en_GB": "NetCDF"
+        },
+        {
+            "fr_FR": "Observations, Measurements, and Samples",
+            "en_GB": "Observations, Measurements, and Samples"
+        },
+        {
+            "fr_FR": "OGC API – EDR",
+            "en_GB": "OGC API – EDR"
+        },
+        {
+            "fr_FR": "OGC API – Common",
+            "en_GB": "OGC API – Common"
+        },
+        {
+            "fr_FR": "OGC API – Features",
+            "en_GB": "OGC API – Features"
+        },
+        {
+            "fr_FR": "OGC API – Processes",
+            "en_GB": "OGC API – Processes"
+        },
+        {
+            "fr_FR": "OGC API – Tiles",
+            "en_GB": "OGC API – Tiles"
+        },
+        {
+            "fr_FR": "Open GeoSMS",
+            "en_GB": "Open GeoSMS"
+        },
+        {
+            "fr_FR": "OpenMI",
+            "en_GB": "OpenMI"
+        },
+        {
+            "fr_FR": "OpenSearch",
+            "en_GB": "OpenSearch"
+        },
+        {
+            "fr_FR": "Ordering Services Framework for Earth Observation Products",
+            "en_GB": "Ordering Services Framework for Earth Observation Products"
+        },
+        {
+            "fr_FR": "OWS Context",
+            "en_GB": "OWS Context"
+        },
+        {
+            "fr_FR": "OWS Security",
+            "en_GB": "OWS Security"
+        },
+        {
+            "fr_FR": "PipelineML",
+            "en_GB": "PipelineML"
+        },
+        {
+            "fr_FR": "PubSub",
+            "en_GB": "PubSub"
+        },
+        {
+            "fr_FR": "PUCK",
+            "en_GB": "PUCK"
+        },
+        {
+            "fr_FR": "SWE Common Data Model",
+            "en_GB": "SWE Common Data Model"
+        },
+        {
+            "fr_FR": "SWE Service Model",
+            "en_GB": "SWE Service Model"
+        },
+        {
+            "fr_FR": "Sensor Model Language",
+            "en_GB": "Sensor Model Language"
+        },
+        {
+            "fr_FR": "Sensor Observation Service",
+            "en_GB": "Sensor Observation Service"
+        },
+        {
+            "fr_FR": "Sensor Planning Service",
+            "en_GB": "Sensor Planning Service"
+        },
+        {
+            "fr_FR": "SensorThings",
+            "en_GB": "SensorThings"
+        },
+        {
+            "fr_FR": "Semantic Sensor Network (SSN)",
+            "en_GB": "Semantic Sensor Network (SSN)"
+        },
+        {
+            "fr_FR": "STAplus",
+            "en_GB": "STAplus"
+        },
+        {
+            "fr_FR": "Symbology Core",
+            "en_GB": "Symbology Core"
+        },
+        {
+            "fr_FR": "Simple Features",
+            "en_GB": "Simple Features"
+        },
+        {
+            "fr_FR": "Simple Features CORBA",
+            "en_GB": "Simple Features CORBA"
+        },
+        {
+            "fr_FR": "Simple Features OLE/COM",
+            "en_GB": "Simple Features OLE/COM"
+        },
+        {
+            "fr_FR": "Simple Features SQL",
+            "en_GB": "Simple Features SQL"
+        },
+        {
+            "fr_FR": "Styled Layer Descriptor",
+            "en_GB": "Styled Layer Descriptor"
+        },
+        {
+            "fr_FR": "Symbology Encoding",
+            "en_GB": "Symbology Encoding"
+        },
+        {
+            "fr_FR": "Table Joining Service",
+            "en_GB": "Table Joining Service"
+        },
+        {
+            "fr_FR": "Time Ontology in OWL",
+            "en_GB": "Time Ontology in OWL"
+        },
+        {
+            "fr_FR": "TimeseriesML (tsml)",
+            "en_GB": "TimeseriesML (tsml)"
+        },
+        {
+            "fr_FR": "TrainingDML for AI",
+            "en_GB": "TrainingDML for AI"
+        },
+        {
+            "fr_FR": "Two Dimensional Tile Matrix Set",
+            "en_GB": "Two Dimensional Tile Matrix Set"
+        },
+        {
+            "fr_FR": "WaterML",
+            "en_GB": "WaterML"
+        },
+        {
+            "fr_FR": "Web Coverage Processing Service",
+            "en_GB": "Web Coverage Processing Service"
+        },
+        {
+            "fr_FR": "Web Coverage Service",
+            "en_GB": "Web Coverage Service"
+        },
+        {
+            "fr_FR": "Web Feature Service",
+            "en_GB": "Web Feature Service"
+        },
+        {
+            "fr_FR": "Web Map Context",
+            "en_GB": "Web Map Context"
+        },
+        {
+            "fr_FR": "Web Map Service",
+            "en_GB": "Web Map Service"
+        },
+        {
+            "fr_FR": "Web Map Tile Service",
+            "en_GB": "Web Map Tile Service"
+        },
+        {
+            "fr_FR": "Web Processing Service",
+            "en_GB": "Web Processing Service"
+        },
+        {
+            "fr_FR": "Web Service Common",
+            "en_GB": "Web Service Common"
+        },
+        {
+            "fr_FR": "WKT CRS",
+            "en_GB": "WKT CRS"
         }
     ]
 }

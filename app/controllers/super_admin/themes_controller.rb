@@ -22,11 +22,11 @@ module SuperAdmin
       @theme = Theme.new(permitted_params)
       @locales = Language.where.not(abbreviation: 'fr-FR')
       if @theme.save
-        flash.now[:notice] = success_message(@theme, _('created'))
-        render :edit
+        flash[:notice] = success_message(@theme, _('created'))
+        redirect_to edit_super_admin_theme_path(@theme)
       else
-        flash.now[:alert] = failure_message(@theme, _('create'))
-        render :new
+        flash[:alert] = failure_message(@theme, _('create'))
+        redirect_to new_super_admin_theme_path(@theme)
       end
     end
     # rubocop:enable Metrics/AbcSize
@@ -44,11 +44,11 @@ module SuperAdmin
       @locales = Language.where.not(abbreviation: 'fr-FR')
 
       if @theme.update(permitted_params)
-        flash.now[:notice] = success_message(@theme, _('updated'))
+        flash[:notice] = success_message(@theme, _('updated'))
       else
-        flash.now[:alert] = failure_message(@theme, _('update'))
+        flash[:alert] = failure_message(@theme, _('update'))
       end
-      render :edit
+      redirect_to edit_super_admin_theme_path(@theme)
     end
     # rubocop:enable Metrics/AbcSize
 
@@ -59,8 +59,8 @@ module SuperAdmin
         msg = success_message(@theme, _('deleted'))
         redirect_to super_admin_themes_path, notice: msg
       else
-        flash.now[:alert] = failure_message(@theme, _('delete'))
-        render :edit
+        flash[:alert] = failure_message(@theme, _('delete'))
+        redirect_to edit_super_admin_theme_path(@theme)
       end
     end
 

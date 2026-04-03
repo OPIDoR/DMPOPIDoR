@@ -1,68 +1,69 @@
-const path = require('path');
-const webpack = require('webpack');
-const erbLoader = require('./loaders/erb');
+const path = require("path");
+const webpack = require("webpack");
+const { EsbuildPlugin } = require("esbuild-loader");
 
-const mode = process.env.NODE_ENV === 'development' ? 'development' : 'production';
+const mode =
+  process.env.NODE_ENV === "development" ? "development" : "production";
 
 module.exports = {
   mode,
-  devtool: mode === 'development' ? 'eval-cheap-module-source-map' : 'source-map',
+  devtool:
+    mode === "development" ? "eval-cheap-module-source-map" : "source-map",
   module: {
     rules: [
       {
-        test: /\.(js|jsx)$/,
-        exclude: /node_modules/,
-        use: [{
-          loader: 'babel-loader',
-          options: {
-            presets: [
-              ['@babel/preset-env', {
-                targets: 'defaults',
-              }],
-              '@babel/preset-react',
-            ],
-          },
-        }],
+        test: /\.[jt]sx?$/,
+        loader: "esbuild-loader",
+        options: {
+          target: "es2015",
+        },
       },
       {
         test: /\.css$/i,
-        use: ['style-loader', 'css-loader'],
+        use: ["style-loader", "css-loader"],
       },
       {
         test: /\.(png|jpe?g|gif|eot|woff2|woff|ttf|svg)$/i,
-        type: 'asset/resource',
+        type: "asset/resource",
       },
-      erbLoader,
+      {
+        test: /\.json$/,
+        type: 'json',
+      },
     ],
   },
   entry: {
-    application: './app/javascript/application.js',
+    application: "./app/javascript/application.js",
   },
   optimization: {
-    moduleIds: 'deterministic',
+    minimizer: [
+      new EsbuildPlugin({
+        target: "es2015",
+      }),
+    ],
   },
   output: {
-    filename: '[name].js',
-    sourceMapFilename: '[file].map',
-    path: path.resolve(__dirname, '..', '..', 'app/assets/builds'),
+    filename: "[name].js",
+    sourceMapFilename: "[file].map",
+    path: path.resolve(__dirname, "..", "..", "app/assets/builds"),
   },
   plugins: [
     new webpack.optimize.LimitChunkCountPlugin({
       maxChunks: 1,
     }),
     new webpack.ProvidePlugin({
-      $: 'jquery',
-      jQuery: 'jquery',
-      'window.jQuery': 'jquery',
-      'global.jQuery': 'jquery',
-      React: 'react',
-      ReactDOM: 'react-dom',
+      $: "jquery",
+      jQuery: "jquery",
+      "window.jQuery": "jquery",
+      "global.jQuery": "jquery",
+      React: "react",
+      ReactDOM: "react-dom",
     }),
   ],
   resolve: {
-    extensions: ['.*', '.js', '.jsx'],
+    extensions: [".*", ".js", ".jsx", ".json"],
     alias: {
-      react: path.resolve('./node_modules/react'),
+      react: path.resolve("./node_modules/react"),
     },
   },
 };

@@ -7,7 +7,7 @@ import { Tinymce } from '../utils/tinymce';
 // import debounce from '../utils/debounce';
 import { updateSectionProgress, getQuestionDiv } from '../utils/sectionUpdate';
 import datePicker from '../utils/datePicker';
-import TimeagoFactory from '../utils/timeagoFactory.js.erb';
+import { TimeAgo } from '../utils/timeago';
 
 const editorClass = 'tinymce_answer';
 const showSavingMessage = (jQuery) => jQuery.closest('.question-form').find('[data-status="saving"]').show();
@@ -30,7 +30,7 @@ const showOrHideQuestions = (data) => {
     getQuestionDiv(questionid).slideDown();
   });
 };
-const toolbar = 'bold italic underline | fontsizeselect forecolor | bullist numlist | link | table';
+const toolbar = 'bold italic underline | fontfamily fontsize | fontsizeselect forecolor | alignleft aligncenter alignright alignjustify | subscript superscript | bullist numlist indent outdent | link | table | charmap';
 /*
   * A map of debounced functions, one for each input, textarea or select change at any
   * form with class form-answer. The key represents a question id and the value holds
@@ -53,7 +53,7 @@ export const doneCallback = (data, jQuery) => {
       if (isNumber(data.question.id)) {
         if (isString(data.question.answer_status)) {
           $(`#answer-status-${data.question.id}-research-output-${data.research_output.id}`).html(data.question.answer_status);
-          TimeagoFactory.render($('time.timeago'));
+          TimeAgo.render($('time.timeago'));
         }
         if (isString(data.question.locking)) { // When an answer is stale...
           // Removes event handlers for the saved form
@@ -210,7 +210,7 @@ const attachEventHandlers = (jQueryForm) => {
   });
 };
 
-$(() => {
+document.addEventListener('turbo:load', () => {
   datePicker();
 
   // Example answer toggle
@@ -268,7 +268,7 @@ $(() => {
         $(el).removeClass('disabled');
       });
     }
-  }); // .click()
+  }); // .on('click', ...
   $('.question-content').on('show.bs.collapse', (e) => {
     const qId = $(e.target).attr('id');
     showLoadingOverlay($(`#${qId}`));
@@ -276,7 +276,7 @@ $(() => {
   $('.question-content').on('shown.bs.collapse', (e) => {
     const qId = $(e.target).attr('id');
     // Initial load
-    TimeagoFactory.render($('time.timeago'));
+    TimeAgo.render($('time.timeago'));
     Tinymce.init({
       selector: `#${qId} .${editorClass}`,
       toolbar,

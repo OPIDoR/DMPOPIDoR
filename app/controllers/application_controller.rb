@@ -14,10 +14,13 @@ class ApplicationController < ActionController::Base
 
   before_action :set_locale
 
+  before_action :store_redirect_location
+
   after_action :store_location
 
   include GlobalHelpers
   include Pundit::Authorization
+
   helper_method GlobalHelpers.instance_methods
 
   rescue_from Pundit::NotAuthorizedError, with: :user_not_authorized
@@ -66,8 +69,14 @@ class ApplicationController < ActionController::Base
     end
   end
 
+  def store_redirect_location
+    if params[:redirect_to].present?
+      session[:user_redirect_path] = params[:redirect_to]
+    end
+  end
+
   def after_sign_in_path_for(_resource)
-    plans_path(anchor: 'content')
+    session.delete(:user_redirect_path) || stored_location_for(_resource) || plans_path(anchor: 'content')
   end
 
   def after_sign_up_path_for(_resource)
@@ -131,8 +140,7 @@ class ApplicationController < ActionController::Base
       User: obj == current_user ? _('profile') : _('user'),
       QuestionOption: _('question option'),
       MadmpSchema: _('schema'),
-      Registry: _('registry'),
-      RegistryValue: _('registry value')
+      Registry: _('registry')
     }
     if obj.respond_to?(:customization_of) && obj.send(:customization_of).present?
       display_name[:Template] = 'customization'
@@ -201,6 +209,8 @@ class ApplicationController < ActionController::Base
   # rubocop:disable Metrics/AbcSize, Metrics/MethodLength
   def set_nav_static_pages
     @nav_static_pages = []
+
+    return if Rails.env.test?
 
     query = '
         query {

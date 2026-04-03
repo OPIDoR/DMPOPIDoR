@@ -4,5 +4,6 @@
    <%= link_to(_('View all API clients'), super_admin_api_clients_path,
        class: 'btn btn-secondary float-end', role: 'button') %>
  </h2>
-
-<%= render 'form' %>
+<div id="api-client-form">
+  <%= render 'form' %>
+</div>

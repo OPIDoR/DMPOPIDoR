@@ -137,14 +137,7 @@ module OrgAdmin
     # rubocop:disable Metrics/AbcSize, Metrics/MethodLength
     def edit
       template = Template.includes(:org, :phases).find(params[:id])
-      # --------------------------------
-      # Start DMP OPIDoR Customization
-      # CHANGES : Added Locales list
-      # --------------------------------
       @locales = Language.all
-      # --------------------------------
-      # End DMP OPIDoR Customization
-      # --------------------------------
       authorize template
       # Load the info needed for the overview section if the authorization check passes!
       phases = template.phases.includes(sections: { questions: :question_options })
@@ -175,21 +168,12 @@ module OrgAdmin
     # rubocop:disable Metrics/AbcSize
     def new
       authorize Template
-      # --------------------------------
-      # Start DMP OPIDoR Customization
-      # CHANGES : Added Locales list
-      # CHANGES : Added Type param
-      # CHANGES : Removed org if type is module
-      # --------------------------------
       @template = if params[:type].eql?('module')
                     Template.new(type: params[:type])
                   else
                     current_org.templates.new(type: params[:type])
                   end
       @locales = Language.all
-      # --------------------------------
-      # End DMP OPIDoR Customization
-      # --------------------------------
       # If the Org is a funder set the visibility to Public otherwise set to Organizational
       # for Orgs that are both, the admin will see controls on the page to let them choose.
       # The default is already 'organisationally_visible' so change it if this is a funder
@@ -207,16 +191,8 @@ module OrgAdmin
 
       # creates a new template with version 0 and new family_id
       @template = Template.new(args)
-      # --------------------------------
-      # Start DMP OPIDoR Customization
-      # CHANGES : Added Locales list
-      # CHANGES : Removed org if type is module
-      # --------------------------------
       @locales = Language.all
       @template.org_id = current_user.org.id unless @template.module?
-      # --------------------------------
-      # End DMP OPIDoR Customization
-      # --------------------------------
       @template.locale = current_org.language.abbreviation
       @template.links = if params['template-links'].present?
                           ActiveSupport::JSON.decode(params['template-links'])
@@ -228,7 +204,7 @@ module OrgAdmin
                     notice: success_message(@template, _('created'))
       else
         flash[:alert] = failure_message(@template, _('create'))
-        render :new
+        redirect_to new_org_admin_template_path(@template)
       end
     end
     # rubocop:enable Metrics/AbcSize
@@ -452,14 +428,8 @@ module OrgAdmin
       #         }
       # While this is working as-is we should consider folding these into
       # the template: :links context.
-      # --------------------------------
-      # Start DMP OPIDoR Customization
-      # CHANGES : Added Locale, Type, Context & DataType
-      # --------------------------------
-      params.require(:template).permit(:title, :description, :visibility, :links, :locale, :type, :context, :data_type)
-      # --------------------------------
-      # End DMP OPIDoR Customization
-      # --------------------------------
+      params.require(:template).permit(:title, :description, :visibility, :links, :locale, :type, :data_type,
+                                       contexts: [])
     end
 
     def parse_visibility(args, org)

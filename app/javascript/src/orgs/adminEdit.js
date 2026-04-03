@@ -5,7 +5,7 @@ import { Tinymce } from '../utils/tinymce.js';
 import { eachLinks } from '../utils/links';
 import { initAutocomplete, scrubOrgSelectionParamsOnSubmit } from '../utils/autoComplete';
 
-$(() => {
+document.addEventListener('turbo:load', () => {
   const toggleFeedback = () => {
     const editor = Tinymce.findEditorById('org_feedback_msg');
     if (isObject(editor)) {
@@ -17,13 +17,10 @@ $(() => {
     }
   };
 
-  $('#edit_org_feedback_form input[type="radio"]').click(() => {
+  $('#edit_org_feedback_form input[type="radio"]').on('click', () => {
     toggleFeedback();
   });
 
-  // Initialises tinymce for any target element with class tinymce_answer
-  Tinymce.init({ selector: '#org_feedback_msg' });
-  Tinymce.init({ selector: '#org_banner_text' });
   toggleFeedback();
 
   if ($('#org-details-org-controls').length > 0) {

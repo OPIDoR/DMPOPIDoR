@@ -4,18 +4,16 @@
     "title": "MesoUCAStorageRequest",
     "description": "MesoUCAStorageRequest template",
     "dataTypes": null,
+    "topics": null,
     "type": "object",
     "class": "MesoUCAStorageRequest",
     "properties": {
         "agentType": {
             "type": "string",
-            "description": "Classification des utilisateurs du Mésocentre Clermont-Auvergne",
+            "description": "Classification by the organisation of the agent",
             "inputType": "dropdown",
             "label@fr_FR": "Agents",
             "label@en_GB": "Agents",
-            "registries": [
-                "MesoUCAStorageAgents"
-            ],
             "registryCategory": "MesoUCAStorageAgent",
             "tooltip": null,
             "form_label@fr_FR": "Utilisateurs",
@@ -23,7 +21,7 @@
         },
         "justification": {
             "type": "string",
-            "description": "Justification du besoin",
+            "description": "Need justification",
             "inputType": "textarea",
             "label@fr_FR": "Justification",
             "label@en_GB": "justification",
@@ -33,17 +31,17 @@
         },
         "dataSize": {
             "type": "number",
-            "description": "Volume des données pour le stockage",
+            "description": "Data size",
             "label@fr_FR": "Taille des données pour le stockage",
             "label@en_GB": "Data size for storage",
             "tooltip@fr_FR": "Ex : Demande d'espace de stockage de 10 To pour 3 ans",
             "tooltip@en_GB": "Ex: Request for 10 TB storage space for 3 years",
             "form_label@fr_FR": "Volume de stockage (en To)",
-            "form_label@en_GB": "Storage volum (in Tb)"
+            "form_label@en_GB": "Storage volume (in Tb)"
         },
         "volumeUnit": {
             "type": "string",
-            "description": "Unité de volume",
+            "description": "Size unit",
             "label@fr_FR": "Unité",
             "label@en_GB": "Unit",
             "tooltip": null,
@@ -53,13 +51,10 @@
         },
         "storageTime": {
             "type": "string",
-            "description": "Durée de stockage (en mois)",
+            "description": "Storage duration (in month)",
             "inputType": "dropdown",
             "label@fr_FR": "Durée de stockage en mois",
             "label@en_GB": "Storage time (in months)",
-            "registries": [
-                "MesoUCAStorageTimes"
-            ],
             "registryCategory": "MesoUCAStorageTime",
             "tooltip": null,
             "form_label@fr_FR": "Durée de stockage (en mois)",
@@ -67,7 +62,7 @@
         },
         "timeUnit": {
             "type": "string",
-            "description": "Unité de temps",
+            "description": "Time unit",
             "label@fr_FR": "Unité",
             "label@en_GB": "Unit",
             "tooltip": null,
@@ -78,7 +73,7 @@
         "endStorageDate": {
             "type": "string",
             "format": "date",
-            "description": "Date de fin de stockage",
+            "description": "Storage end date",
             "label@fr_FR": "Date de fin du stockage",
             "label@en_GB": "End date of storage",
             "tooltip": null,

@@ -119,18 +119,6 @@ RSpec.describe ResearchOutputPresenter do
     end
   end
 
-  describe ':display_release' do
-    it "returns 'Unspecified' if :access has not been defined" do
-      presenter = described_class.new(research_output: build(:research_output, release_date: nil))
-      expect(presenter.display_release).to eql('Unspecified')
-    end
-    it 'returns a the release_date as a Date' do
-      now = Time.now
-      presenter = described_class.new(research_output: build(:research_output, release_date: now))
-      expect(presenter.display_release.is_a?(Date)).to eql(true)
-    end
-  end
-
   context 'class methods' do
     describe ':selectable_subjects' do
       it 'returns subjects' do
