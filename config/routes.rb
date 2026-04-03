@@ -374,7 +374,7 @@ Rails.application.routes.draw do
   # ORG ADMIN specific pages
 
   resources :administration, only: [] do
-    get 'guidances', on: :collection
+    get 'guidances_management', on: :collection
   end
   namespace :org_admin do
     resources :guidances, only: %i[index new create edit update destroy] do

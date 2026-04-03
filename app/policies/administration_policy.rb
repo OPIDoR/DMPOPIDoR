@@ -5,7 +5,7 @@
 class AdministrationPolicy < ApplicationPolicy
   # NOTE: @user is the signed_in_user and @record is an instance of Administration
 
-  def guidances?
+  def guidances_management?
     @user.can_modify_guidance?
   end
 end

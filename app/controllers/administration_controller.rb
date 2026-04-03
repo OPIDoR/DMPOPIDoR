@@ -2,7 +2,7 @@
 
 # Administration controller displaying pages for org admins
 class AdministrationController < ApplicationController
-  def guidances
+  def guidances_management
     authorize Guidance, policy_class: AdministrationPolicy
   end
 

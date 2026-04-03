@@ -12,7 +12,7 @@ import { guidancesEdition } from "../../../services";
 import CustomButton from "../../Styled/CustomButton";
 import GuidanceList from "./GuidanceList";
 
-function GuidanceEdition() {
+function GuidanceManagement() {
   const { t, i18n } = useTranslation();
   const { locale } = useContext(GlobalContext);
   const [guidanceGroups, setGuidanceGroups] = useState([]);
@@ -135,4 +135,4 @@ function GuidanceEdition() {
   );
 }
 
-export default GuidanceEdition;
+export default GuidanceManagement;

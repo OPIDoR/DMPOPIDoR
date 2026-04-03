@@ -14,7 +14,7 @@ import GlossaryLayout from "../src/components/Glossary/GlossaryLayout.jsx";
 import CookieConsent from "../src/components/CookieConsent/index.jsx";
 import BackToTop from "../src/components/BackToTop/index.jsx";
 import SharedLabelLayout from "../src/components/SharedLabel/SharedLabelLayout.jsx";
-import GuidanceEditionLayout from "../src/components/Administration/Guidances/GuidanceEditionLayout.jsx";
+import GuidanceManagementLayout from "../src/components/Administration/GuidancesManagement/GuidanceManagementLayout.jsx";
 
 const modules = {
   NewsPageLayout,
@@ -29,7 +29,7 @@ const modules = {
   CookieConsent,
   BackToTop,
   SharedLabelLayout,
-  GuidanceEditionLayout,
+  GuidanceManagementLayout,
 };
 
 export default class extends Controller {
