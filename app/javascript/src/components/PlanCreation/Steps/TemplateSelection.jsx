@@ -224,12 +224,8 @@ function TemplateSelection({
     const type = planTemplates?.[index].id;
 
     data = data.map(({
-      name, id, templates, selected, type: dataType,
+      name, id, templates, selected
     }) => {
-      const types = {
-        org: <HiOutlineBuildingOffice2 size="18" style={{ margin: '0 10px 0 0' }} />,
-        funder: <TbTaxEuro size="24" style={{ margin: '0 10px 0 0' }} />,
-      };
 
       const hasSelectedTemplate = templates.some(({ id }) => id === params.selectedTemplate);
 
@@ -239,7 +235,6 @@ function TemplateSelection({
         type,
         selected: hasSelectedTemplate || selected,
         templates,
-        prependIcon: types?.[dataType],
       };
     });
 
