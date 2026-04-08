@@ -2,11 +2,6 @@
 
 # rubocop:disable Naming/VariableNumber
 namespace :dmpopidor_upgrade do
-  desc 'Upgrade to 4.4.1'
-  task V4_4_1: :environment do
-    Rake::Task['dmpopidor_upgrade:migrate_default_data_type_values'].execute
-    Rake::Task['dmpopidor_upgrade:migrate_research_outputs_data_type'].execute
-  end
   desc 'Upgrade to 4.4.0'
   task V4_4_0: :environment do
     Rake::Task['dmpopidor_upgrade:migrate_context_to_plans'].execute
@@ -14,6 +9,8 @@ namespace :dmpopidor_upgrade do
     Rake::Task['dmpopidor_upgrade:migrate_guidance_groups_to_research_outputs'].execute
     Rake::Task['dmpopidor_upgrade:migrate_software_roles_registry_values'].execute
     Rake::Task['dmpopidor_upgrade:migrate_software_roles_registry_all_roles_values'].execute
+    Rake::Task['dmpopidor_upgrade:migrate_default_data_type_values'].execute
+    Rake::Task['dmpopidor_upgrade:migrate_research_outputs_data_type'].execute
   end
   desc 'Upgrade to 4.3.7'
   task V4_3_7: :environment do
