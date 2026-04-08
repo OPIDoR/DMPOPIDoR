@@ -17,6 +17,22 @@ import DynamicForm from "../Forms/DynamicForm";
 import FunderImport from "./FunderImport.jsx";
 import { getErrorMessage } from "../../utils/utils";
 
+const CARD_STYLE = {
+  borderRadius: "10px",
+  borderWidth: "2px",
+  borderColor: "var(--dark-blue)",
+};
+const HEADER_STYLE = {
+  background: "white",
+  borderRadius: "18px",
+  borderBottom: "none",
+};
+const BUTTON_STYLE = {
+  backgroundColor: "white",
+  width: "100%",
+  border: "none",
+};
+
 function GeneralInfo({
   planId,
   projectFragmentId,
@@ -48,6 +64,7 @@ function GeneralInfo({
     try {
       response = await generalInfo.saveIsTestPlan(planId, checked);
     } catch (error) {
+      setIsTestPlan(!checked);
       const errorMessage = getErrorMessage(error) || t("planStatusChangeError");
       return toast.error(errorMessage);
     }
@@ -79,27 +96,10 @@ function GeneralInfo({
             isClassic={isClassic}
           />
         )}
-        <Card
-          className={styles.card}
-          style={{
-            borderRadius: "10px",
-            borderWidth: "2px",
-            borderColor: "var(--dark-blue)",
-          }}
-        >
-          <Card.Header
-            style={{
-              background: "white",
-              borderRadius: "18px",
-              borderBottom: "none",
-            }}
-          >
+        <Card className={styles.card} style={CARD_STYLE}>
+          <Card.Header style={HEADER_STYLE}>
             <Button
-              style={{
-                backgroundColor: "white",
-                width: "100%",
-                border: "none",
-              }}
+              style={BUTTON_STYLE}
               onClick={() => setIsOpenProjectForm(!isOpenProjectForm)}
               aria-controls="project-form-collapse"
               aria-expanded={isOpenProjectForm}
@@ -142,27 +142,10 @@ function GeneralInfo({
             </div>
           </Collapse>
         </Card>
-        <Card
-          className={styles.card}
-          style={{
-            borderRadius: "10px",
-            borderWidth: "2px",
-            borderColor: "var(--dark-blue)",
-          }}
-        >
-          <Card.Header
-            style={{
-              background: "white",
-              borderRadius: "18px",
-              borderBottom: "none",
-            }}
-          >
+        <Card className={styles.card} style={CARD_STYLE}>
+          <Card.Header style={HEADER_STYLE}>
             <Button
-              style={{
-                backgroundColor: "white",
-                width: "100%",
-                border: "none",
-              }}
+              style={BUTTON_STYLE}
               onClick={() => setIsOpenMetaForm(!isOpenMetaForm)}
               aria-controls="meta-form-collapse"
               aria-expanded={isOpenMetaForm}
@@ -203,7 +186,6 @@ function GeneralInfo({
                     type="checkbox"
                     id="is_test"
                     checked={isTestPlan}
-                    onClick={() => setIsTestPlan(!isTestPlan)}
                     onChange={(e) => handleClickIsTestPlan(e)}
                     disabled={readonly}
                     style={{ marginRight: "10px" }}

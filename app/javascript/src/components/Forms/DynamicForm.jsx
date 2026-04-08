@@ -18,6 +18,7 @@ import {
   formatDefaultValues,
   generateEmptyDefaults,
 } from "../../utils/GeneratorUtils.js";
+import { useFormValues } from "../../hooks/useFormValues.js";
 
 function DynamicForm({
   fragmentId,
@@ -36,8 +37,11 @@ function DynamicForm({
   const { displayedResearchOutput, researchOutputs, setResearchOutputs } =
     useContext(SectionsContext);
   const methods = useForm({ defaultValues: {} });
+  const { setValues } = useFormValues(methods);
   const [loading, setLoading] = useState(true);
   const [templateName, setTemplateName] = useState(null);
+  const [newFragmentSaved, setNewFragmentSaved] = useState(false);
+
   /**
    * Memoized values
    */
@@ -83,10 +87,11 @@ function DynamicForm({
       try {
         response = await service.saveFragment(fragmentId, data);
       } catch (error) {
-        toast.error(getErrorMessage(error));
+        handleError(error);
         return setLoading(false);
       }
       if (response?.data?.meta_fragment) {
+        // updating title outsite of react components
         document.getElementById("plan-title").innerHTML =
           response?.data?.meta_fragment?.title;
         setFormData({
@@ -110,7 +115,6 @@ function DynamicForm({
         displayedResearchOutput.id,
       )
       .then((res) => {
-        const updatedResearchOutput = { ...displayedResearchOutput };
         const fragment = res.data.fragment;
         const tplt = res.data.template;
         const answerId = res.data.answer_id;
@@ -123,26 +127,31 @@ function DynamicForm({
           fragment_id: fragment.id,
           madmp_schema_id: templateId,
         });
-        updatedResearchOutput.answers.push({
-          answer_id: answerId,
-          question_id: questionId,
-          fragment_id: fragment.id,
-        });
+
+        const updatedResearchOutput = {
+          ...displayedResearchOutput,
+          answers: [
+            ...displayedResearchOutput.answers,
+            {
+              answer_id: answerId,
+              question_id: questionId,
+              fragment_id: fragment.id,
+            },
+          ],
+        };
         setResearchOutputs(
           unionBy(researchOutputs, [updatedResearchOutput], "id"),
         );
+        setNewFragmentSaved(true);
+        methods.reset(fragment);
       })
-      .catch(console.error)
+      .catch((error) => handleError(error))
       .finally(() => setLoading(false));
   };
 
-  const setValues = (data) =>
-    Object.keys(data).forEach((k) =>
-      methods.setValue(k, data[k], { shouldDirty: true }),
-    );
-
   const handleFragmentData = (data) => {
-    setFormData({ [fragmentId]: data.fragment });
+    const id = fragmentId ?? data.fragment.id;
+    setFormData({ [id]: data.fragment });
     if (data.answer_id) {
       const {
         answer_id,
@@ -158,56 +167,71 @@ function DynamicForm({
     methods.reset(data.fragment);
   };
 
+  const handleError = (error) => toast.error(getErrorMessage(error));
   /**
    * USE EFFECTS
    */
 
+  /*#################FORM DATA LOADING#####################*/
+  // Case 1 : new form (fragmentId is null)
   useEffect(() => {
-    if (!fragmentId) {
-      service
-        .getNewForm(questionId, displayedResearchOutput.id)
-        .then((res) => {
-          const tplt = res.data.template;
-          setTemplateName(tplt.name);
-          setLoadedTemplates((prev) => ({ ...prev, [tplt.name]: tplt }));
-          if (res.data.fragment) handleFragmentData(res.data);
-        })
-        .catch(console.error)
-        .finally(() => setLoading(false));
-      return;
-    }
-    if (!formData[fragmentId]) {
-      // no fragment data, fetch fragment (which includes template)
-      service
-        .getFragment(fragmentId)
-        .then((res) => {
-          setTemplateName(res.data.template.name);
-          setLoadedTemplates((prev) => ({
-            ...prev,
-            [res.data.template.name]: res.data.template,
-          }));
-          handleFragmentData(res.data);
-        })
-        .catch(console.error)
-        .finally(() => setLoading(false));
-      return;
-    }
-    if (!loadedTemplates[formData[fragmentId].template_name]) {
-      // fragment exists but template not loaded, fetch template
-      service
-        .getSchema(formData[fragmentId].schema_id)
-        .then((res) => {
-          setTemplateName(res.data.name);
-          setLoadedTemplates((prev) => ({
-            ...prev,
-            [res.data.name]: res.data,
-          }));
-        })
-        .catch(console.error)
-        .finally(() => setLoading(false));
-      return;
-    }
-  }, []);
+    if (fragmentId) return;
+
+    service
+      .getNewForm(questionId, displayedResearchOutput.id)
+      .then((res) => {
+        const tplt = res.data.template;
+        setTemplateName(tplt.name);
+        setLoadedTemplates((prev) => ({ ...prev, [tplt.name]: tplt }));
+        if (res.data.fragment) handleFragmentData(res.data);
+      })
+      .catch((error) => handleError(error))
+      .finally(() => setLoading(false));
+  }, [fragmentId, questionId, displayedResearchOutput?.id]);
+
+  // Case 2 : fragmentId is present but form data is not loaded, fetching fragment
+  useEffect(() => {
+    if (!fragmentId || formData[fragmentId]) return;
+
+    service
+      .getFragment(fragmentId)
+      .then((res) => {
+        setTemplateName(res.data.template.name);
+        setLoadedTemplates((prev) => ({
+          ...prev,
+          [res.data.template.name]: res.data.template,
+        }));
+        handleFragmentData(res.data);
+      })
+      .catch((error) => toast.error(getErrorMessage(error)))
+      .finally(() => setLoading(false));
+  }, [fragmentId, formData]);
+
+  // Case 3 : formData is loaded but template is not, fetching template
+  useEffect(() => {
+    if (!fragmentId) return;
+    if (!formData[fragmentId]) return;
+    if (loadedTemplates[formData[fragmentId].template_name]) return;
+
+    service
+      .getSchema(formData[fragmentId].schema_id)
+      .then((res) => {
+        setTemplateName(res.data.name);
+        setLoadedTemplates((prev) => ({ ...prev, [res.data.name]: res.data }));
+      })
+      .catch((error) => toast.error(getErrorMessage(error)))
+      .finally(() => setLoading(false));
+  }, [fragmentId, formData, loadedTemplates]);
+
+  // Case 4 : everything if loaded but we need to set loading to false
+  useEffect(() => {
+    if (!fragmentId) return;
+    if (!formData[fragmentId]) return;
+    if (!loadedTemplates[formData[fragmentId].template_name]) return;
+
+    Promise.resolve().then(() => setLoading(false));
+  }, [fragmentId, formData, loadedTemplates]);
+  /*#################FORM DATA LOADING#####################*/
 
   useEffect(() => {
     if (
@@ -229,7 +253,7 @@ function DynamicForm({
   }, [formData[fragmentId]]);
 
   useEffect(() => {
-    if (!fragmentId && template) {
+    if (!fragmentId && template && !newFragmentSaved) {
       const defaults = formatDefaultValues(template.schema.default?.[locale]);
       Object.keys(defaults).length > 0
         ? methods.reset(defaults)

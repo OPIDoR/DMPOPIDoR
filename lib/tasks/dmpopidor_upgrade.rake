@@ -12,6 +12,8 @@ namespace :dmpopidor_upgrade do
     Rake::Task['dmpopidor_upgrade:migrate_context_to_plans'].execute
     Rake::Task['dmpopidor_upgrade:migrate_template_context_to_contexts'].execute
     Rake::Task['dmpopidor_upgrade:migrate_guidance_groups_to_research_outputs'].execute
+    Rake::Task['dmpopidor_upgrade:migrate_software_roles_registry_values'].execute
+    Rake::Task['dmpopidor_upgrade:migrate_software_roles_registry_all_roles_values'].execute
   end
   desc 'Upgrade to 4.3.7'
   task V4_3_7: :environment do
@@ -70,6 +72,45 @@ namespace :dmpopidor_upgrade do
     Fragment::ResearchOutput.where(Arel.sql("additional_info->>'dataType' = 'none'")).map do |ro|
       new_ai = ro.additional_info.merge({ 'dataType' => 'dataset' })
       ro.update(additional_info: new_ai)
+    end
+  end
+
+  desc 'Migrate SoftwareRoles registry values in contributor fragments'
+  task migrate_software_roles_registry_values: :environment do
+    p "Migration contributors with 'Débogage' value"
+    Fragment::Contributor.where("data ->> 'role' = 'Débogage'").each do |c|
+      c.update_column(:data, c.data.merge({ 'role' => 'Debugging' })) if c.plan.template.locale.eql?('en-GB')
+    end
+    p "Migration contributors with 'Développement' value"
+    Fragment::Contributor.where("data ->> 'role' = 'Développement'").each do |c|
+      c.update_column(:data, c.data.merge({ 'role' => 'Coding' })) if c.plan.template.locale.eql?('en-GB')
+    end
+    p "Migration contributors with 'Test' value"
+    Fragment::Contributor.where("data ->> 'role' = 'Test'").each do |c|
+      c.update_column(:data, c.data.merge({ 'role' => 'Testing' })) if c.plan.template.locale.eql?('en-GB')
+    end
+  end
+  desc 'Migrate SoftwareRoles registry values in contributor fragments with "Tous les roles"'
+  task migrate_software_roles_registry_all_roles_values: :environment do
+    p "Migration contributors with 'Tous les roles' value"
+    fr_roles = %w[Conception Débogage Développement Documentation Maintenance Management Support Test]
+    en_roles = %w[Conception Debugging Coding Documentation Maintenance Management Support Testing]
+    Fragment::Contributor.where("data ->> 'role' = 'Architecture, Conception, Débogage, Développement, Documentation, Maintenance, Management, Support, Test'").each do |c| # rubocop:disable Layout/LineLength
+      c.update_column(:data, c.data.merge({ 'role' => 'Architecture' }))
+      c_data = c.data
+      if c.plan.template.locale.eql?('en-GB')
+        en_roles.each do |r|
+          dupped = c.dup
+          dupped.data = c_data.merge({ 'role' => r })
+          dupped.save!
+        end
+      else
+        fr_roles.each do |r|
+          dupped = c.dup
+          dupped.data = c_data.merge({ 'role' => r })
+          dupped.save!
+        end
+      end
     end
   end
 

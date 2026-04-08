@@ -53,33 +53,38 @@ document.addEventListener("turbo:load", () => {
         $("#modal-permissions").modal("show");
       });
   });
-  // Event delegation handler after a successful response is obtained
-  $("body").on("ajax:success", ".admin_update_permissions", (e) => {
-    const data = e.detail[0];
-    if (isObject(data)) {
-      if (isString(data.msg)) {
-        renderNotice(data.msg);
-        scrollTo("#notification-area");
-      }
-      if (isString(data.current_privileges) && currentPrivileges.length > 0) {
-        currentPrivileges.html(data.current_privileges);
-      }
-    }
-    $("#modal-permissions").modal("hide");
-  });
-  // Event delegation handler after an error response is obtained
-  $("body").on("ajax:error", ".admin_update_permissions", (e) => {
-    const xhr = e.detail[2];
-    if (isObject(xhr)) {
-      const error = xhr.responseJSON;
-      if (isObject(xhr) && isString(error.msg)) {
-        renderAlert(error.msg);
-        scrollTo("#notification-area");
-      }
-    }
-    $("#modal-permissions").modal("hide");
-  });
+  $("body").on("turbo:submit-end", ".admin_update_permissions", (e) => {
+    const { success, fetchResponse } = e.originalEvent.detail;
 
+    // fetchResponse.response est la vraie Response fetch standard
+    fetchResponse.response
+      .json()
+      .then((data) => {
+        if (success) {
+          if (isObject(data)) {
+            if (isString(data.msg)) {
+              renderNotice(data.msg);
+              scrollTo("#notification-area");
+            }
+            if (
+              isString(data.current_privileges) &&
+              currentPrivileges.length > 0
+            ) {
+              currentPrivileges.html(data.current_privileges);
+            }
+          }
+        } else {
+          if (isObject(data) && isString(data.msg)) {
+            renderAlert(data.msg);
+            scrollTo("#notification-area");
+          }
+        }
+        $("#modal-permissions").modal("hide");
+      })
+      .catch(() => {
+        $("#modal-permissions").modal("hide");
+      });
+  });
   $("body").on("click", "#org_admin_privileges", () => {
     if ($("#org_admin_privileges").prop("checked")) {
       $(".org_grant_privileges:checkbox").prop("checked", true);

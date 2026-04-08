@@ -8,9 +8,19 @@ function SavedGuidances() {
   const { t } = useTranslation();
   const { savedGuidances } = useContext(SectionsContext);
   return (
-    <>
-      {savedGuidances.length > 0 && (
-        <div style={{ paddingLeft: "20px", flex: 1 }}>
+    <div
+      style={{
+        paddingLeft: "20px",
+        flex: 1,
+        marginBottom: "20px",
+        display: "flex",
+        flexDirection: "column",
+        justifyContent: "center",
+        alignItems: "center",
+      }}
+    >
+      {savedGuidances.length > 0 ? (
+        <>
           <h3 style={{ fontWeight: "bold" }}>
             {t("followingGuidancesApplyToThisResearchOutput")}
             <ReactTooltip
@@ -41,9 +51,11 @@ function SavedGuidances() {
               </li>
             ))}
           </ul>
-        </div>
+        </>
+      ) : (
+        t("noGuidanceSelected")
       )}
-    </>
+    </div>
   );
 }
 
