@@ -14,7 +14,7 @@ module Types
     # field :templateName, String, null: true
     field :researchOutput, GraphQL::Types::JSON, null: true do
       description 'Fetch research outputs'
-      argument :filter, Types::LogicalFilterInput, required: false
+      argument :filter, -> { Types::LogicalFilterInput }, required: false, description: 'A nested filter to allow complex filtering conditions.'
       argument :with_query, GraphQL::Types::Boolean, required: false, default_value: false
     end
 
