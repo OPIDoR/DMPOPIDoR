@@ -4,7 +4,7 @@
 module RegistryInFormHelper
   def data_type_select_values
     [
-      [_('None'), 'none'],
+      [_('Dataset'), 'dataset'],
       [_('Software'), 'software']
     ]
   end

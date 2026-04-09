@@ -13,9 +13,9 @@ import { SectionsContext } from "../context/SectionsContext.jsx";
 import { researchOutput, service } from "../../services";
 import {
   createOptions,
+  dataTypeSelectValues,
   displayPersonalData,
   displayTopics,
-  researchOutputTypeToDataType,
 } from "../../utils/GeneratorUtils";
 import CustomSelect from "../Shared/CustomSelect";
 import { getErrorMessage, setUrlParams } from "../../utils/utils";
@@ -58,11 +58,17 @@ function AddResearchOutput({
     [pos, researchOutputs],
   );
 
+  const dataTypeOptions = useMemo(() => dataTypeSelectValues(t), [t]);
+
   /**
    * States
    */
-  const [typeOptions, setTypeOptions] = useState([{ value: "", label: "" }]);
   const [topicOptions, setTopicOptions] = useState([{ value: "", label: "" }]);
+  const [selectedDataType, setSelectedDataType] = useState({
+    value: "",
+    label: "",
+  });
+  const [selectedTopic, setSelectedTopic] = useState({ value: "", label: "" });
   const [abbreviation, setAbbreviation] = useState(() =>
     inEdition
       ? displayedResearchOutput?.abbreviation
@@ -73,22 +79,20 @@ function AddResearchOutput({
       ? displayedResearchOutput?.title
       : `${t("researchOutput")} ${nextOrder}`,
   );
-  const [type, setType] = useState(() =>
-    inEdition ? displayedResearchOutput?.type : null,
+  const [dataType, setDataType] = useState(() =>
+    inEdition ? displayedResearchOutput?.configuration.dataType : null,
   );
   const [hasPersonalData, setHasPersonalData] = useState(() =>
     inEdition ? displayedResearchOutput?.configuration.hasPersonalData : true,
   );
-  const [selectedType, setSelectedType] = useState({ value: "", label: "" });
-  const [selectedTopic, setSelectedTopic] = useState({ value: "", label: "" });
   const [loading, setLoading] = useState(false);
 
   /**
    * This is a function that handles the selection of a value and sets it as the type.
    */
   const handleSelectType = (e) => {
-    setSelectedType(typeOptions.find(({ value }) => value === e.value));
-    setType(e.value);
+    setSelectedDataType(dataTypeOptions.find(({ value }) => value === e.value));
+    setDataType(e.value);
 
     setHasPersonalData(displayPersonalData(e.value));
   };
@@ -101,25 +105,24 @@ function AddResearchOutput({
 
     setLoading(true);
 
-    if (!type || type.length === 0) {
+    if (!dataType || dataType.length === 0) {
       setLoading(false);
       return toast.error(t("typeRequiredToCreateResearchOutput"));
     }
 
     if (
-      displayTopics(type, configuration?.enableTopics) &&
+      displayTopics(dataType, configuration?.enableTopics) &&
       (!selectedTopic?.value || selectedTopic?.value.length === 0)
     ) {
       setLoading(false);
       return toast.error(t("topicRequiredToCreateResearchOutput"));
     }
 
-    const dataType = researchOutputTypeToDataType(type);
     const researchOutputInfo = {
       plan_id: planId,
       abbreviation,
       title,
-      type,
+      type: t(dataType || "-"),
       topic: selectedTopic.value ? selectedTopic.value : null,
       configuration: {
         hasPersonalData,
@@ -186,21 +189,16 @@ function AddResearchOutput({
    * USE EFFECTS
    */
   useEffect(() => {
-    const loadOptions = async () => {
-      const [typesRes, topicsRes] = await Promise.all([
-        service.getRegistryByName("ResearchDataType"),
-        service.getRegistryByName("Topics"),
-      ]);
-
-      const typeOpts = createOptions(typesRes.data, locale);
-      const topicsOpts = createOptions(topicsRes.data, locale);
-
-      setTypeOptions(typeOpts);
+    service.getRegistryByName("Topics").then((res) => {
+      const topicsOpts = createOptions(res.data, locale);
       setTopicOptions(topicsOpts);
 
       if (inEdition) {
-        setSelectedType(
-          typeOpts.find(({ value }) => value === displayedResearchOutput.type),
+        setSelectedDataType(
+          dataTypeOptions.find(
+            ({ value }) =>
+              value === displayedResearchOutput?.configuration?.dataType,
+          ),
         );
         setSelectedTopic(
           topicsOpts.find(
@@ -208,9 +206,7 @@ function AddResearchOutput({
           ),
         );
       }
-    };
-
-    loadOptions();
+    });
   }, []);
 
   /**
@@ -265,7 +261,7 @@ function AddResearchOutput({
             />
           </label>
         </div>
-        {type && !inEdition && (
+        {dataType && !inEdition && (
           <div
             style={{
               fontSize: "14px",
@@ -278,18 +274,18 @@ function AddResearchOutput({
             }}
           />
         )}
-        {typeOptions && (
+        {dataTypeOptions && (
           <CustomSelect
             onSelectChange={handleSelectType}
-            options={typeOptions}
-            selectedOption={selectedType}
+            options={dataTypeOptions}
+            selectedOption={selectedDataType}
             placeholder={t("selectValueFromList")}
             overridable={false}
             isDisabled={inEdition || loading}
           />
         )}
       </div>
-      {type && displayTopics(type, configuration?.enableTopics) && (
+      {dataType && displayTopics(dataType, configuration?.enableTopics) && (
         <div className="form-group">
           <div className={stylesForm.label_form}>
             <label data-tooltip-id={topicTooltipId}>
@@ -320,7 +316,7 @@ function AddResearchOutput({
           )}
         </div>
       )}
-      {type && displayPersonalData(type) && (
+      {dataType && displayPersonalData(dataType) && (
         <div className="form-group">
           <div className={stylesForm.label_form}>
             <label>{t("outputContainsPersonalData")}</label>

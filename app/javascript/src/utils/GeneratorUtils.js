@@ -144,25 +144,24 @@ export function generateEmptyDefaults(properties = {}) {
   return emptyDefaults;
 }
 
-export function researchOutputTypeToDataType(type) {
-  switch (type) {
-    case "Logiciel":
-    case "Software":
-      return "software";
-    default:
-      return "none";
-  }
+export function dataTypeSelectValues(t) {
+  return [
+    { label: t("dataset"), value: "dataset" },
+    { label: t("software"), value: "software" },
+  ];
 }
 
-export function displayPersonalData(researchOutputType) {
-  const typesWithoutPersonalData = ["software", "logiciel"];
+export function displayPersonalData(researchOutputDataType) {
+  const typesWithoutPersonalData = ["software"];
 
-  return !typesWithoutPersonalData.includes(researchOutputType?.toLowerCase());
+  return !typesWithoutPersonalData.includes(
+    researchOutputDataType?.toLowerCase(),
+  );
 }
 
-export function displayTopics(researchOutputType, enableTopics = true) {
+export function displayTopics(researchOutputDataType, enableTopics = true) {
   if (!enableTopics) return false;
 
-  const typesWithoutTopics = ["software", "logiciel"];
-  return !typesWithoutTopics.includes(researchOutputType?.toLowerCase());
+  const typesWithoutTopics = ["software"];
+  return !typesWithoutTopics.includes(researchOutputDataType?.toLowerCase());
 }

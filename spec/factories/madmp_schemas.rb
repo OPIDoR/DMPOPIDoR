@@ -6,7 +6,7 @@
 #
 #  id            :integer          not null, primary key
 #  classname     :string
-#  data_type     :string           default("none"), not null
+#  data_type     :string           default("dataset"), not null
 #  label         :string
 #  name          :string
 #  schema        :json
@@ -30,7 +30,7 @@
 FactoryBot.define do
   factory :madmp_schema do
     name { Faker::Lorem.sentence }
-    data_type { 'none' }
+    data_type { 'dataset' }
     topics { ['generic'] }
     schema { {} }
 

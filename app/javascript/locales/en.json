@@ -272,5 +272,7 @@
   "availableGuidances": "Available Guidances",
   "selectedGuidances": "Selected Guidances",
   "savedGuidancesInfo": "The selected guidances are displayed for each question when you click on the lightbulb",
+  "software": "Software",
+  "dataset": "Dataset",
   "noGuidanceSelected": "No guidance has been selected"
 }

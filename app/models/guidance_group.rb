@@ -8,7 +8,7 @@
 # Table name: guidance_groups
 #
 #  id              :integer          not null, primary key
-#  data_types      :string           default(["none"]), not null, is an Array
+#  data_types      :string           default(["dataset"]), not null, is an Array
 #  description     :string
 #  name            :string
 #  optional_subset :boolean          default(TRUE), not null

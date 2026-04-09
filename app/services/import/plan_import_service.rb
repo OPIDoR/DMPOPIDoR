@@ -41,7 +41,7 @@ module Import
               output_type: configuration['dataType'].eql?('software') ? 'software' : 'dataset',
               output_type_description: ro_data[description_prop_name]['type'] || _('Dataset'),
               title: ro_data[description_prop_name]['title'] || "#{_('Research output')} #{max_order}",
-              output_type: configuration['dataType'].eql?('none') ? 'dataset' : configuration['dataType'],
+              output_type: configuration['dataType'].eql?('dataset') ? 'dataset' : configuration['dataType'],
               output_type_description: ro_data[description_prop_name]['type'] || _('Dataset'),
               topic: configuration['topic'] || 'generic',
               is_default: idx.eql?(0),
