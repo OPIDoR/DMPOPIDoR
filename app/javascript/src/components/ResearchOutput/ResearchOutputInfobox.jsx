@@ -1,23 +1,26 @@
-import React, { useContext } from 'react';
-import Card from 'react-bootstrap/Card';
-import { Tooltip } from 'react-tooltip';
-import { AiOutlineEdit } from 'react-icons/ai';
-import { FaTrash } from 'react-icons/fa6';
-import { BiDuplicate } from 'react-icons/bi';
-import { useTranslation } from 'react-i18next';
-import { TailSpin } from 'react-loader-spinner';
+import { useContext } from "react";
+import Card from "react-bootstrap/Card";
+import { Tooltip } from "react-tooltip";
+import { AiOutlineEdit } from "react-icons/ai";
+import { FaTrash } from "react-icons/fa6";
+import { BiDuplicate } from "react-icons/bi";
+import { useTranslation } from "react-i18next";
+import { TailSpin } from "react-loader-spinner";
 
-import { GlobalContext } from '../context/Global';
-import { displayPersonalData, displayTopics } from '../../utils/GeneratorUtils';
+import { SectionsContext } from "../context/SectionsContext.jsx";
+import { displayPersonalData, displayTopics } from "../../utils/GeneratorUtils";
 
 function ResearchOutputInfobox({
-  handleEdit, handleDelete, onDelete, handleDuplicate, onDuplicate, readonly,
+  handleEdit,
+  handleDelete,
+  onDelete,
+  handleDuplicate,
+  onDuplicate,
+  readonly,
 }) {
   const { t } = useTranslation();
-  const {
-    researchOutputs,
-    displayedResearchOutput,
-  } = useContext(GlobalContext);
+  const { researchOutputs, displayedResearchOutput } =
+    useContext(SectionsContext);
 
   const tailSpin = (
     <TailSpin
@@ -28,7 +31,7 @@ function ResearchOutputInfobox({
       radius={1}
       strokeWidth={4}
       wrapperStyle={{
-        margin: '5px 5px 0 5px',
+        margin: "5px 5px 0 5px",
       }}
     />
   );
@@ -37,35 +40,49 @@ function ResearchOutputInfobox({
     <Card
       className="card-default col-md-6"
       style={{
-        height: 'fit-content',
-        borderRadius: '10px',
-        borderWidth: '2px',
-        borderColor: 'var(--dark-blue)',
+        height: "fit-content",
+        borderRadius: "10px",
+        borderWidth: "2px",
+        borderColor: "var(--dark-blue)",
         flex: 1,
       }}
     >
-      <Card.Header style={{
-        backgroundColor: 'var(--dark-blue)',
-        borderRadius: '5px 5px 0 0',
-      }}>
-        <Card.Title style={{
-          display: 'flex',
-          alignItems: 'center',
-          justifyContent: 'space-between',
-          color: '#fff',
-        }}>
+      <Card.Header
+        style={{
+          backgroundColor: "var(--dark-blue)",
+          borderRadius: "5px 5px 0 0",
+        }}
+      >
+        <Card.Title
+          style={{
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "space-between",
+            color: "#fff",
+          }}
+        >
           <strong>{displayedResearchOutput?.title}</strong>
-          <span id="actions" style={{ display: 'flex', width: '100px', justifyContent: 'space-between' }}>
+          <span
+            id="actions"
+            style={{
+              display: "flex",
+              width: "100px",
+              justifyContent: "space-between",
+            }}
+          >
             {!readonly && (
               <>
                 <Tooltip anchorSelect="#editBtn" place="bottom">
-                  {t('edit')}
+                  {t("edit")}
                 </Tooltip>
                 <button
                   type="button"
                   className="btn btn-link btn-sm m-0 p-0"
                   style={{
-                    outline: 'none', color: '#fff', padding: 0, margin: '2px 5px 0 5px',
+                    outline: "none",
+                    color: "#fff",
+                    padding: 0,
+                    margin: "2px 5px 0 5px",
                   }}
                   onClick={handleEdit}
                   id="editBtn"
@@ -79,13 +96,16 @@ function ResearchOutputInfobox({
                 {!onDuplicate && (
                   <>
                     <Tooltip anchorSelect="#duplicateBtn" place="bottom">
-                      {t('duplicate')}
+                      {t("duplicate")}
                     </Tooltip>
                     <button
                       type="button"
                       className="btn btn-link btn-sm m-0 p-0"
                       style={{
-                        outline: 'none', color: '#fff', padding: 0, margin: '2px 5px 0 5px',
+                        outline: "none",
+                        color: "#fff",
+                        padding: 0,
+                        margin: "2px 5px 0 5px",
                       }}
                       onClick={handleDuplicate}
                       id="duplicateBtn"
@@ -103,17 +123,17 @@ function ResearchOutputInfobox({
                 {!onDelete && (
                   <>
                     <Tooltip anchorSelect="#deleteBtn" place="bottom">
-                      {t('delete')}
+                      {t("delete")}
                     </Tooltip>
 
                     <button
                       type="button"
                       className="btn btn-link btn-sm m-0 p-0"
                       style={{
-                        outline: 'none',
-                        color: '#fff',
+                        outline: "none",
+                        color: "#fff",
                         padding: 0,
-                        margin: '2px 5px 0 5px',
+                        margin: "2px 5px 0 5px",
                       }}
                       onClick={handleDelete}
                       id="deleteBtn"
@@ -132,25 +152,34 @@ function ResearchOutputInfobox({
       <Card.Body>
         <ul>
           <li>
-            {t('shortName')} : <strong>{displayedResearchOutput.abbreviation}</strong>
+            {t("shortName")} :{" "}
+            <strong>{displayedResearchOutput.abbreviation}</strong>
           </li>
           <li>
-            {t('name')} : <strong>{displayedResearchOutput.title}</strong>
+            {t("name")} : <strong>{displayedResearchOutput.title}</strong>
           </li>
           <li>
-            {t('type')} : <strong>{t(displayedResearchOutput.type || '-')}</strong>
+            {t("type")} : <strong>{displayedResearchOutput.type || "-"}</strong>
           </li>
 
-          {displayedResearchOutput?.type && displayTopics(displayedResearchOutput.type) && (
-            <li>
-              {t('topic')} : <strong>{t(displayedResearchOutput.topic_label)}</strong>
-            </li>
-          )}
-          {displayedResearchOutput?.type && displayPersonalData(displayedResearchOutput.type) && (
-            <li>
-              {t('containsPersonalData')} : <strong>{displayedResearchOutput.configuration.hasPersonalData ? t('yes') : t('no')}</strong>
-            </li>
-          )}
+          {displayedResearchOutput?.type &&
+            displayTopics(displayedResearchOutput.type) && (
+              <li>
+                {t("topic")} :{" "}
+                <strong>{displayedResearchOutput.topic_label}</strong>
+              </li>
+            )}
+          {displayedResearchOutput?.type &&
+            displayPersonalData(displayedResearchOutput.type) && (
+              <li>
+                {t("containsPersonalData")} :{" "}
+                <strong>
+                  {displayedResearchOutput.configuration.hasPersonalData
+                    ? t("yes")
+                    : t("no")}
+                </strong>
+              </li>
+            )}
         </ul>
       </Card.Body>
     </Card>

@@ -522,23 +522,18 @@ class PlansController < ApplicationController
   end
   # rubocop:enable Metrics/AbcSize
 
-  # rubocop:disable Metrics/AbcSize
   def research_outputs_data
     plan = Plan.includes(:research_outputs, template: { phases: { sections: :questions } }).find(params[:id])
     authorize plan
 
     render json: {
       id: plan.id,
-      commentable: plan.commentable_by?(current_user.id),
-      dmp_id: plan.json_fragment.id,
       template: plan.template.serialize_json,
       research_outputs: plan.research_outputs.order(:display_order).map(&:serialize_json)
     }
   end
-  # rubocop:enable Metrics/AbcSize
 
   # GET AJAX /plans/:id/contributors_data
-  # rubocop:disable Metrics/MethodLength, Metrics/AbcSize
   def contributors_data
     plan = Plan.find(params[:id])
     authorize plan
@@ -549,7 +544,6 @@ class PlansController < ApplicationController
     )
     schema = MadmpSchema.find_by(name: 'PersonStandard')
     render json: {
-      dmp_id: plan.json_fragment.id,
       contributors: contributors.map do |contributor|
         {
           id: contributor.id,
@@ -563,7 +557,6 @@ class PlansController < ApplicationController
       }
     }
   end
-  # rubocop:enable Metrics/MethodLength, Metrics/AbcSize
 
   # ============================
   # = Private instance methods =

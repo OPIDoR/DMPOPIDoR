@@ -1,5 +1,5 @@
-import { initAutocomplete } from '../../utils/autoComplete';
+import { initAutocomplete } from "../../utils/autoComplete";
 
-document.addEventListener('turbo:load', () => {
-  initAutocomplete('#invite-org-controls .autocomplete');
+document.addEventListener("turbo:load", () => {
+  initAutocomplete("#invite-org-controls .autocomplete");
 });

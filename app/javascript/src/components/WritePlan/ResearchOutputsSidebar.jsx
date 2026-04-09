@@ -1,20 +1,20 @@
-import React, { useContext, useState, useEffect } from 'react';
-import styled from 'styled-components';
-import { MdAddCircleOutline, MdDragIndicator } from 'react-icons/md';
-import { useTranslation } from 'react-i18next';
-import chunk from 'lodash.chunk';
+import { useContext, useState, useEffect } from "react";
+import styled from "styled-components";
+import { MdAddCircleOutline, MdDragIndicator } from "react-icons/md";
+import { useTranslation } from "react-i18next";
+import chunk from "lodash.chunk";
 
-import { AnimatePresence, motion } from 'motion/react';
-import { DndContext } from '@dnd-kit/core';
-import { SortableContext, useSortable } from '@dnd-kit/sortable';
-import { CSS } from '@dnd-kit/utilities';
+import { AnimatePresence, motion } from "motion/react";
+import { DndContext } from "@dnd-kit/core";
+import { SortableContext, useSortable } from "@dnd-kit/sortable";
+import { CSS } from "@dnd-kit/utilities";
 
-import { GlobalContext } from '../context/Global';
-import ResearchOutputModal from '../ResearchOutput/ResearchOutputModal';
-import { RESEARCH_OUTPUTS_PER_PAGE } from '../../config';
-import * as styles from '../assets/css/sidebar.module.css';
-import { researchOutput } from '../../services';
-import ResearchOutputsSidebarItem from './ResearchOutputsSidebarItem';
+import { SectionsContext } from "../context/SectionsContext.jsx";
+import ResearchOutputModal from "../ResearchOutput/ResearchOutputModal";
+import { RESEARCH_OUTPUTS_PER_PAGE } from "../../config";
+import * as styles from "../assets/css/sidebar.module.css";
+import { researchOutput } from "../../services";
+import ResearchOutputsSidebarItem from "./ResearchOutputsSidebarItem";
 
 const AccordionContainer = styled.div`
   position: sticky;
@@ -65,7 +65,8 @@ const AccordionItem = styled.div`
   cursor: pointer;
   font-weight: bold;
 
-  &.active, &:hover {
+  &.active,
+  &:hover {
     background-color: #2c4473;
     transition: background-color 0.5s linear;
   }
@@ -88,31 +89,27 @@ const AccordionItem = styled.div`
 
 function ResearchOutputsSidebar({ planId, readonly, setLoading }) {
   const { t } = useTranslation();
-  const {
-    researchOutputs,
-    setResearchOutputs,
-    displayedResearchOutput,
-  } = useContext(GlobalContext);
+  const { researchOutputs, setResearchOutputs, displayedResearchOutput } =
+    useContext(SectionsContext);
   const [show, setShow] = useState(false);
   const [isDragging, setIsDragging] = useState(false);
 
-  const orderedResearchOutputs = [...researchOutputs].sort((a, b) => a.order - b.order);
+  const orderedResearchOutputs = [...researchOutputs].sort(
+    (a, b) => a.order - b.order,
+  );
 
-  const groups = orderedResearchOutputs.length > RESEARCH_OUTPUTS_PER_PAGE
-    ? chunk(orderedResearchOutputs, RESEARCH_OUTPUTS_PER_PAGE)
-    : [orderedResearchOutputs];
+  const groups =
+    orderedResearchOutputs.length > RESEARCH_OUTPUTS_PER_PAGE
+      ? chunk(orderedResearchOutputs, RESEARCH_OUTPUTS_PER_PAGE)
+      : [orderedResearchOutputs];
 
   const activeGroupIndex = displayedResearchOutput
-    ? groups.findIndex((group) => group.some((item) => item.id === displayedResearchOutput.id))
+    ? groups.findIndex((group) =>
+        group.some((item) => item.id === displayedResearchOutput.id),
+      )
     : 0;
 
   const [openGroups, setOpenGroups] = useState(new Set([activeGroupIndex]));
-
-  useEffect(() => {
-    if (activeGroupIndex !== -1) {
-      setOpenGroups((prev) => new Set([...prev, activeGroupIndex]));
-    }
-  }, [activeGroupIndex]);
 
   /**
    * The function handleClose sets the state of setShow to false.
@@ -135,7 +132,8 @@ function ResearchOutputsSidebar({ planId, readonly, setLoading }) {
           }}
         >
           <div className={styles.nav_title}>
-            <MdAddCircleOutline size={18} style={{ marginRight: '5px' }} /> {t('create')}
+            <MdAddCircleOutline size={18} style={{ marginRight: "5px" }} />{" "}
+            {t("create")}
           </div>
         </button>
       </AccordionBody>
@@ -157,12 +155,12 @@ function ResearchOutputsSidebar({ planId, readonly, setLoading }) {
   const itemBody = (group) => (
     <AccordionBody>
       {group.map((item) => (
-        <ResearchOutputsSidebarItem key={item.id} item={item} setLoading={setLoading}>
-          <SortableItem
-            key={item.id}
-            item={item}
-            readonly={readonly}
-          />
+        <ResearchOutputsSidebarItem
+          key={item.id}
+          item={item}
+          setLoading={setLoading}
+        >
+          <SortableItem key={item.id} item={item} readonly={readonly} />
         </ResearchOutputsSidebarItem>
       ))}
     </AccordionBody>
@@ -170,16 +168,21 @@ function ResearchOutputsSidebar({ planId, readonly, setLoading }) {
 
   function SortableItem({ item, readonly }) {
     const {
-      attributes, listeners, setNodeRef, transform, transition, isDragging,
+      attributes,
+      listeners,
+      setNodeRef,
+      transform,
+      transition,
+      isDragging,
     } = useSortable({ id: item.id });
 
     const style = {
       transform: CSS.Transform.toString(transform),
       transition,
-      zIndex: isDragging ? 9999 : 'auto',
+      zIndex: isDragging ? 9999 : "auto",
       opacity: isDragging ? 0.8 : 1,
-      width: '250px',
-      pointerEvents: isDragging ? 'none' : 'auto',
+      width: "250px",
+      pointerEvents: isDragging ? "none" : "auto",
     };
 
     return (
@@ -187,14 +190,18 @@ function ResearchOutputsSidebar({ planId, readonly, setLoading }) {
         ref={setNodeRef}
         style={style}
         className={[
-          isDragging ? 'dragging' : '',
-          displayedResearchOutput.id === item.id ? 'active' : '',
-        ].filter(Boolean).join(' ')}
+          isDragging ? "dragging" : "",
+          displayedResearchOutput.id === item.id ? "active" : "",
+        ]
+          .filter(Boolean)
+          .join(" ")}
       >
-        {item.abbreviation.length > 20 ? `${item.abbreviation.slice(0, 17)}...` : item.abbreviation}
+        {item.abbreviation.length > 20
+          ? `${item.abbreviation.slice(0, 17)}...`
+          : item.abbreviation}
         {!readonly && researchOutputs.length > 1 && (
           <div {...attributes} {...listeners}>
-            <MdDragIndicator size='18' />
+            <MdDragIndicator size="18" />
           </div>
         )}
       </AccordionItem>
@@ -205,7 +212,9 @@ function ResearchOutputsSidebar({ planId, readonly, setLoading }) {
     const { over } = event;
     if (!over) return;
 
-    const groupIndex = groups.findIndex((group) => group.some((item) => item.id === over.id));
+    const groupIndex = groups.findIndex((group) =>
+      group.some((item) => item.id === over.id),
+    );
 
     if (groupIndex !== -1) {
       setOpenGroups((prev) => {
@@ -233,13 +242,30 @@ function ResearchOutputsSidebar({ planId, readonly, setLoading }) {
     }));
 
     try {
-      researchOutput.sort(planId, updatedItems.map(({ id }) => id));
+      researchOutput.sort(
+        planId,
+        updatedItems.map(({ id }) => id),
+      );
     } catch {
       return;
     }
 
     return setResearchOutputs([...updatedItems]);
   };
+
+  /**
+   * USE EFFECTS
+   */
+
+  useEffect(() => {
+    if (activeGroupIndex !== -1) {
+      setOpenGroups((prev) => new Set([...prev, activeGroupIndex]));
+    }
+  }, [activeGroupIndex]);
+
+  /**
+   * RENDERING
+   */
 
   return (
     <>
@@ -254,23 +280,32 @@ function ResearchOutputsSidebar({ planId, readonly, setLoading }) {
         <AccordionContainer>
           <AccordionGroupWrapper>
             {groups.length > 1 ? (
-              <SortableContext items={orderedResearchOutputs.map((item) => item.id)}>
+              <SortableContext
+                items={orderedResearchOutputs.map((item) => item.id)}
+              >
                 {groups.map((group, i) => (
                   <AccordionGroup
-                    onMouseEnter={() => isDragging && !openGroups.has(i) && toggleGroup(i)}
+                    onMouseEnter={() =>
+                      isDragging && !openGroups.has(i) && toggleGroup(i)
+                    }
                     key={i}
                   >
                     <AccordionHeader onClick={() => toggleGroup(i)}>
-                      {i * RESEARCH_OUTPUTS_PER_PAGE + 1} -{' '}
-                      {(i * RESEARCH_OUTPUTS_PER_PAGE + RESEARCH_OUTPUTS_PER_PAGE)}
+                      {i * RESEARCH_OUTPUTS_PER_PAGE + 1} -{" "}
+                      {i * RESEARCH_OUTPUTS_PER_PAGE +
+                        RESEARCH_OUTPUTS_PER_PAGE}
                     </AccordionHeader>
                     <AnimatePresence mode="wait" initial={false}>
                       {openGroups.has(i) && (
                         <motion.div
                           initial={{ opacity: 0, y: -10, height: 0 }}
-                          animate={{ opacity: 1, y: 0, height: 'auto' }}
+                          animate={{ opacity: 1, y: 0, height: "auto" }}
                           exit={{ opacity: 0, y: -10, height: 0 }}
-                          transition={isDragging ? { duration: 0 } : { duration: 0.3, ease: 'easeInOut' }}
+                          transition={
+                            isDragging
+                              ? { duration: 0 }
+                              : { duration: 0.3, ease: "easeInOut" }
+                          }
                         >
                           {itemBody(group)}
                         </motion.div>
@@ -280,17 +315,25 @@ function ResearchOutputsSidebar({ planId, readonly, setLoading }) {
                 ))}
               </SortableContext>
             ) : (
-              <SortableContext key={'group-1'} items={groups.at(0).map((item) => item.id)}>
-                <AccordionGroup>
-                  {itemBody(groups.at(0))}
-                </AccordionGroup>
+              <SortableContext
+                key={"group-1"}
+                items={groups.at(0).map((item) => item.id)}
+              >
+                <AccordionGroup>{itemBody(groups.at(0))}</AccordionGroup>
               </SortableContext>
             )}
             {!readonly && createButton}
           </AccordionGroupWrapper>
         </AccordionContainer>
       </DndContext>
-      {show && <ResearchOutputModal planId={planId} handleClose={handleClose} show={show} edit={false} />}
+      {show && (
+        <ResearchOutputModal
+          planId={planId}
+          handleClose={handleClose}
+          show={show}
+          edit={false}
+        />
+      )}
     </>
   );
 }

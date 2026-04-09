@@ -1,60 +1,63 @@
 // TODO: we need to be able to swap in the appropriate locale here
-import 'number-to-text/converters/en-us';
-import { isObject } from '../utils/isType';
-import { Tinymce } from '../utils/tinymce.js';
-import { eachLinks } from '../utils/links';
-import { initAutocomplete, scrubOrgSelectionParamsOnSubmit } from '../utils/autoComplete';
+import "number-to-text/converters/en-us";
+import { isObject } from "../utils/isType";
+import { Tinymce } from "../utils/tinymce.js";
+import { eachLinks } from "../utils/links";
+import {
+  initAutocomplete,
+  scrubOrgSelectionParamsOnSubmit,
+} from "../utils/autoComplete";
 
-document.addEventListener('turbo:load', () => {
+document.addEventListener("turbo:load", () => {
   const toggleFeedback = () => {
-    const editor = Tinymce.findEditorById('org_feedback_msg');
+    const editor = Tinymce.findEditorById("org_feedback_msg");
     if (isObject(editor)) {
-      if ($('#org_feedback_enabled_true').is(':checked')) {
-        editor.mode.set('design');
+      if ($("#org_feedback_enabled_true").is(":checked")) {
+        editor.mode.set("design");
       } else {
-        editor.mode.set('readonly');
+        editor.mode.set("readonly");
       }
     }
   };
 
-  $('#edit_org_feedback_form input[type="radio"]').on('click', () => {
+  $('#edit_org_feedback_form input[type="radio"]').on("click", () => {
     toggleFeedback();
   });
 
   toggleFeedback();
 
-  if ($('#org-details-org-controls').length > 0) {
-    initAutocomplete('#org-details-org-controls .autocomplete');
+  if ($("#org-details-org-controls").length > 0) {
+    initAutocomplete("#org-details-org-controls .autocomplete");
     // Scrub out the large arrays of data used for the Org Selector JS so that they
     // are not a part of the form submissiomn
-    scrubOrgSelectionParamsOnSubmit('#edit_org_profile_form');
+    scrubOrgSelectionParamsOnSubmit("#edit_org_profile_form");
   }
 
   // update the hidden org_type field based on the checkboxes selected
   const calculateOrgType = () => {
     let orgType = 0;
-    $('input.org_types:checked').each((i, el) => {
+    $("input.org_types:checked").each((i, el) => {
       orgType += parseInt($(el).val(), 10);
     });
-    $('#org_org_type').val((orgType === 0 ? '' : orgType.toString()));
+    $("#org_org_type").val(orgType === 0 ? "" : orgType.toString());
   };
-  $('input.org_types').on('click', calculateOrgType);
+  $("input.org_types").on("click", calculateOrgType);
 
-  $('#edit_org_profile_form').on('submit', () => {
+  $("#edit_org_profile_form").on("submit", () => {
     // Collect links
     const links = {};
     eachLinks((ctx, value) => {
       links[ctx] = value;
     }).done(() => {
-      $('#org_links').val(JSON.stringify(links));
+      $("#org_links").val(JSON.stringify(links));
     });
   });
 
-  $('.links [data-toggle="tooltip"]').on('click', (e) => {
+  $('.links [data-toggle="tooltip"]').on("click", (e) => {
     e.preventDefault();
-    $(e.target).parent('a').tooltip('toggle');
+    $(e.target).parent("a").tooltip("toggle");
   });
 
-  initAutocomplete('#org-merge-controls .autocomplete');
-  scrubOrgSelectionParamsOnSubmit('form.edit_org');
+  initAutocomplete("#org-merge-controls .autocomplete");
+  scrubOrgSelectionParamsOnSubmit("form.edit_org");
 });

@@ -1,5 +1,3 @@
-import writePlanSteps from './WritePlan';
+import writePlanSteps from "./WritePlan";
 
-export {
-  writePlanSteps,
-};
+export { writePlanSteps };

@@ -1,13 +1,14 @@
-import React, { StrictMode } from 'react';
-import { Toaster } from 'react-hot-toast';
-import { useTranslation } from 'react-i18next';
+import { StrictMode } from "react";
+import { Toaster } from "react-hot-toast";
+import { useTranslation } from "react-i18next";
 
-import Global from '../context/Global.jsx';
-import WritePlan from './WritePlan.jsx';
-import '../../i18n.js';
+import Global from "../context/GlobalContext.jsx";
+import SectionsProvider from "../context/SectionsContext.jsx";
+import WritePlan from "./WritePlan.jsx";
+import "../../i18n.js";
 
-import Driver from '../Shared/Driver/index.jsx';
-import { writePlanSteps } from '../Shared/Tours';
+import Driver from "../Shared/Driver/index.jsx";
+import { writePlanSteps } from "../Shared/Tours";
 
 const toastOptions = {
   duration: 5000,
@@ -15,27 +16,42 @@ const toastOptions = {
 
 function WritePlanLayout({
   planId,
-  locale = 'en_GB',
+  dmpId,
+  locale = "en_GB",
   userId,
+  commentablePlan = false,
   readonly,
-  configuration = {}
+  configuration = {},
 }) {
   const { t } = useTranslation();
 
   return (
     <StrictMode>
-      <Global>
-        <Driver tourName="write_plan" steps={writePlanSteps(t)} locale={locale}>
-          <WritePlan
-            planId={planId}
+      <Global
+        initialLocale={locale}
+        initialDmpId={dmpId}
+        initialUserId={userId}
+        initialCommentablePlan={commentablePlan}
+      >
+        <SectionsProvider>
+          <Driver
+            tourName="write_plan"
+            steps={writePlanSteps(t)}
             locale={locale}
-            userId={userId}
-            readonly={readonly}
-            configuration={configuration}
-            className="research-outputs-tabs"
+          >
+            <WritePlan
+              planId={planId}
+              readonly={readonly}
+              configuration={configuration}
+              className="research-outputs-tabs"
+            />
+          </Driver>
+          <Toaster
+            position="bottom-right"
+            toastOptions={toastOptions}
+            reverseOrder={false}
           />
-        </Driver>
-        <Toaster position="bottom-right" toastOptions={toastOptions} reverseOrder={false} />
+        </SectionsProvider>
       </Global>
     </StrictMode>
   );

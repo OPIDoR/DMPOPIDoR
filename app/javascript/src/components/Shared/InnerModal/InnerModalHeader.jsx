@@ -1,20 +1,20 @@
-import React, { forwardRef, useState } from 'react';
-import { IoClose } from 'react-icons/io5';
-import { TbMinimize, TbMaximize } from 'react-icons/tb';
+import { forwardRef, useState } from "react";
+import { IoClose } from "react-icons/io5";
+import { TbMinimize, TbMaximize } from "react-icons/tb";
 
 const headerStyle = {
-  color: 'var(--white)',
-  backgroundColor: 'var(--dark-blue)',
-  display: 'flex',
-  justifyContent: 'space-between',
-  padding: '0 10px',
-  boxSizing: 'border-box',
-  verticalAlign: 'middle',
-  borderRadius: '10px 10px 0 0',
-  alignItems: 'center',
+  color: "var(--white)",
+  backgroundColor: "var(--dark-blue)",
+  display: "flex",
+  justifyContent: "space-between",
+  padding: "0 10px",
+  boxSizing: "border-box",
+  verticalAlign: "middle",
+  borderRadius: "10px 10px 0 0",
+  alignItems: "center",
 };
 
-const InnerModalHeader = forwardRef((props, ref) => {
+const InnerModalHeader = forwardRef((props, parentRef) => {
   const {
     closeButton = false,
     expandButton = false,
@@ -25,24 +25,24 @@ const InnerModalHeader = forwardRef((props, ref) => {
   } = props;
 
   const [isExpanded, setIsExpanded] = useState(false);
-  const parentRef = ref?.current || null;
 
   const expand = (value) => {
-    if (!parentRef) { return; }
+    if (!parentRef?.current) {
+      return;
+    }
 
     if (value) {
       setIsExpanded(true);
-      // eslint-disable-next-line react-compiler/react-compiler
-      return parentRef.style.width = 'calc(100% - 30px)';
+      return (parentRef.current.style.width = "calc(100% - 30px)");
     }
 
     setIsExpanded(false);
-    return parentRef.style.width = '540px';
+    return (parentRef.current.style.width = "540px");
   };
 
   return (
     <div
-      ref={ref}
+      ref={parentRef}
       style={{ ...headerStyle, ...style }}
       className={className}
     >
@@ -52,7 +52,7 @@ const InnerModalHeader = forwardRef((props, ref) => {
           <TbMinimize
             id="inner-modal-header-actions-minimize"
             size={24}
-            style={{ margin: '0 5px 0 5px', cursor: 'pointer' }}
+            style={{ margin: "0 5px 0 5px", cursor: "pointer" }}
             onClick={() => expand(false)}
           />
         )}
@@ -60,7 +60,7 @@ const InnerModalHeader = forwardRef((props, ref) => {
           <TbMaximize
             id="inner-modal-header-actions-maximize"
             size={24}
-            style={{ margin: '0 5px 0 5px', cursor: 'pointer' }}
+            style={{ margin: "0 5px 0 5px", cursor: "pointer" }}
             onClick={() => expand(true)}
           />
         )}
@@ -68,7 +68,7 @@ const InnerModalHeader = forwardRef((props, ref) => {
           <IoClose
             id="inner-modal-header-actions-close"
             size={24}
-            style={{ margin: '0 5px 0 5px', cursor: 'pointer' }}
+            style={{ margin: "0 5px 0 5px", cursor: "pointer" }}
             onClick={() => onClose()}
           />
         )}
@@ -76,5 +76,7 @@ const InnerModalHeader = forwardRef((props, ref) => {
     </div>
   );
 });
+
+InnerModalHeader.displayName = "InnerModalHeader";
 
 export default InnerModalHeader;

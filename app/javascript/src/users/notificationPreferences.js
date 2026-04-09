@@ -1,18 +1,20 @@
-document.addEventListener('turbo:load', () => {
-  $('#select_all').on('click', () => {
-    $('.preferences').find('input[type="checkbox"]').prop('checked', true);
+document.addEventListener("turbo:load", () => {
+  $("#select_all").on("click", () => {
+    $(".preferences").find('input[type="checkbox"]').prop("checked", true);
   });
 
-  $('#deselect_all').on('click', () => {
-    $('.preferences').find('input[type="checkbox"]').prop('checked', false);
+  $("#deselect_all").on("click", () => {
+    $(".preferences").find('input[type="checkbox"]').prop("checked", false);
   });
 
-  $('#preferences_registration_form').on('submit', (e) => {
+  $("#preferences_registration_form").on("submit", (e) => {
     const target = $(e.target);
     target.find('input[type="checkbox"]').each((i, el) => {
       const check = $(el);
-      if (!check.prop('checked')) {
-        target.append(`<input type="hidden" name="${check.attr('name')}" value="false">`);
+      if (!check.prop("checked")) {
+        target.append(
+          `<input type="hidden" name="${check.attr("name")}" value="false">`,
+        );
       }
     });
   });

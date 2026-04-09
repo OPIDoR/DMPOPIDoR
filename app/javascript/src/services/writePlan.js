@@ -1,4 +1,4 @@
-import axios from '../utils/AxiosClient';
+import axios from "../utils/AxiosClient";
 
 /**
  * The function retrieves data from session storage or sets it if it doesn't exist.
@@ -6,8 +6,10 @@ import axios from '../utils/AxiosClient';
  * @returns An object with a property "data" that contains either the parsed JSON data from sessionStorage if it exists, or the original dataObject if it
  * does not.
  */
-const getPlanData = async (planId) => axios.get(`/plans/${planId}/research_outputs_data`);
-const getSectionsData = async (templateId) => axios.get(`/templates/${templateId}`);
+const getPlanData = async (planId) =>
+  axios.get(`/plans/${planId}/research_outputs_data`);
+const getSectionsData = async (templateId) =>
+  axios.get(`/templates/${templateId}`);
 
 export default {
   getPlanData,

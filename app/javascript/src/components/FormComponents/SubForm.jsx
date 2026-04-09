@@ -1,20 +1,19 @@
-import React, { useContext, useEffect, useState } from 'react';
-import { Tooltip as ReactTooltip } from 'react-tooltip';
-import uniqueId from 'lodash.uniqueid';
-import { FaPenToSquare, FaEye, FaXmark } from 'react-icons/fa6';
-import Swal from 'sweetalert2';
+import { useCallback, useMemo, useState } from "react";
+import { Tooltip as ReactTooltip } from "react-tooltip";
+import uniqueId from "lodash.uniqueid";
+import { FaPenToSquare, FaEye, FaXmark } from "react-icons/fa6";
+import Swal from "sweetalert2";
 
-import { useTranslation } from 'react-i18next';
-import { useController, useFormContext } from 'react-hook-form';
-import { service } from '../../services/index.js';
-import * as styles from '../assets/css/form.module.css';
-import NestedForm from '../Forms/NestedForm.jsx';
-import { fragmentEmpty, getErrorMessage } from '../../utils/utils.js';
-import { parsePattern } from '../../utils/GeneratorUtils.js';
-import { GlobalContext } from '../context/Global.jsx';
-import CustomButton from '../Styled/CustomButton.jsx';
-import swalUtils from '../../utils/swalUtils.js';
-import TooltipInfoIcon from './TooltipInfoIcon.jsx';
+import { useTranslation } from "react-i18next";
+import { useController, useFormContext } from "react-hook-form";
+import * as styles from "../assets/css/form.module.css";
+import NestedForm from "../Forms/NestedForm.jsx";
+import { fragmentEmpty } from "../../utils/utils.js";
+import { parsePattern } from "../../utils/GeneratorUtils.js";
+import CustomButton from "../Styled/CustomButton.jsx";
+import swalUtils from "../../utils/swalUtils.js";
+import TooltipInfoIcon from "./TooltipInfoIcon.jsx";
+import useLoadTemplate from "../../hooks/useLoadTemplate.js";
 
 function SubForm({
   label,
@@ -28,82 +27,88 @@ function SubForm({
   const { t } = useTranslation();
   const { control } = useFormContext();
   const { field } = useController({ control, name: propName });
-  const {
-    loadedTemplates, setLoadedTemplates,
-  } = useContext(GlobalContext);
-  const [error, setError] = useState(null);
   const [showNestedForm, setShowNestedForm] = useState(false);
   const [editedFragment, setEditedFragment] = useState({});
-  const [template, setTemplate] = useState({});
 
-  const tooltipId = uniqueId('sub_form_tooltip_id_');
   const ViewEditComponent = readonly ? FaEye : FaPenToSquare;
 
-  useEffect(() => {
-    setEditedFragment(field.value || {});
-  }, [field.value]);
+  /** Memoized values */
+  const template = useLoadTemplate(templateName);
+  const tooltipId = useMemo(() => uniqueId("sub_form_tooltip_id_"), []);
 
-  useEffect(() => {
-    if (!loadedTemplates[templateName]) {
-      service.getSchemaByName(templateName).then((res) => {
-        setTemplate(res.data);
-        setLoadedTemplates({ ...loadedTemplates, [templateName]: res.data });
-      }).catch((error) => {
-        setError(getErrorMessage(error));
+  /**
+   * Callback functions
+   */
+
+  const handleSaveNestedForm = useCallback(
+    (data) => {
+      if (!data) return setShowNestedForm(false);
+      const newFragment = {
+        ...field.value,
+        ...data,
+        action: data.action || "create",
+      };
+      field.onChange(newFragment);
+
+      setEditedFragment({});
+      setShowNestedForm(false);
+    },
+    [field],
+  );
+
+  const handleDeleteList = useCallback(
+    (e) => {
+      e.preventDefault();
+      e.stopPropagation();
+      Swal.fire(swalUtils.defaultConfirmConfig(t)).then((result) => {
+        if (result.isConfirmed) {
+          field.onChange({ id: field.value.id, action: "delete" });
+
+          setEditedFragment({});
+          setShowNestedForm(false);
+        }
       });
-    } else {
-      setTemplate(loadedTemplates[templateName]);
-    }
-  }, [templateName]);
+    },
+    [t, field],
+  );
 
-  const handleSaveNestedForm = (data) => {
-    if (!data) return setShowNestedForm(false);
-    const newFragment = { ...field.value, ...data, action: data.action || 'create' };
-    field.onChange(newFragment);
-
+  const handleCloseNestedForm = useCallback(() => {
     setEditedFragment({});
     setShowNestedForm(false);
-  };
+  }, []);
 
-  const handleDeleteList = (e) => {
-    e.preventDefault();
-    e.stopPropagation();
-    Swal.fire(swalUtils.defaultConfirmConfig(t)).then((result) => {
-      if (result.isConfirmed) {
-        field.onChange({ id: field.value.id, action: 'delete' });
+  const handleEditFragment = useCallback(() => {
+    setEditedFragment({ ...field.value, action: "update" });
+    setShowNestedForm(true);
+  }, [field.value]);
 
-        setEditedFragment({});
-        setShowNestedForm(false);
-      }
-    });
-  };
+  /**
+   * RENDERING
+   */
 
   return (
     <div>
       <div className="form-group">
-        <span className={styles.errorMessage}>{error}</span>
         <div className={styles.label_form}>
           <label data-tooltip-id={tooltipId}>
             {label}
-            {tooltip && (<TooltipInfoIcon />)}
+            {tooltip && <TooltipInfoIcon />}
           </label>
-          {
-            tooltip && (
-              <ReactTooltip
-                id={tooltipId}
-                place="bottom"
-                effect="solid"
-                variant="info"
-                style={{ width: '300px', textAlign: 'center' }}
-                content={tooltip}
-              />
-            )
-          }
+          {tooltip && (
+            <ReactTooltip
+              id={tooltipId}
+              place="bottom"
+              effect="solid"
+              variant="info"
+              style={{ width: "300px", textAlign: "center" }}
+              content={tooltip}
+            />
+          )}
         </div>
         <div
           id={`nested-form-${propName}`}
           className={styles.nestedForm}
-          style={{ display: showNestedForm ? 'block' : 'none' }}
+          style={{ display: showNestedForm ? "block" : "none" }}
         ></div>
         {showNestedForm && (
           <NestedForm
@@ -114,15 +119,12 @@ function SubForm({
             mainFormDataType={dataType}
             mainFormTopic={topic}
             handleSave={handleSaveNestedForm}
-            handleClose={() => {
-              setShowNestedForm(false);
-              setEditedFragment(field.value);
-            }}
+            handleClose={handleCloseNestedForm}
           />
         )}
 
         {!fragmentEmpty(editedFragment) && !showNestedForm && (
-          <table style={{ marginTop: '20px' }} className="table">
+          <table style={{ marginTop: "20px" }} className="table">
             <thead>
               <tr>
                 <th scope="col"></th>
@@ -132,15 +134,12 @@ function SubForm({
             <tbody>
               {[editedFragment].map((el, idx) => (
                 <tr key={idx}>
-                  <td style={{ width: '90%' }}>
+                  <td style={{ width: "90%" }}>
                     {parsePattern(el, template?.schema?.to_string)}
                   </td>
-                  <td style={{ width: '10%' }}>
+                  <td style={{ width: "10%" }}>
                     <ViewEditComponent
-                      onClick={() => {
-                        setShowNestedForm(true);
-                        setEditedFragment({ ...field.value, action: 'update' });
-                      }}
+                      onClick={handleEditFragment}
                       className={styles.icon}
                     />
                     <FaXmark
@@ -160,7 +159,7 @@ function SubForm({
               setEditedFragment(null);
               setShowNestedForm(true);
             }}
-            title={t('addElement')}
+            title={t("addElement")}
             buttonColor="rust"
             position="start"
           ></CustomButton>

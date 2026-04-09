@@ -1,10 +1,9 @@
-import i18n from 'i18next';
-import { initReactI18next } from 'react-i18next';
-import LanguageDetector from 'i18next-browser-languagedetector';
+import i18n from "i18next";
+import { initReactI18next } from "react-i18next";
+import LanguageDetector from "i18next-browser-languagedetector";
 
-// Importez vos fichiers de traduction
-import enTranslations from '../locales/en.json';
-import frTranslations from '../locales/fr.json';
+import enTranslations from "../locales/en.json";
+import frTranslations from "../locales/fr.json";
 
 i18n
   .use(LanguageDetector)
@@ -18,10 +17,10 @@ i18n
         translation: frTranslations,
       },
     },
-    load: 'languageOnly',
-    fallbackLng: 'en',
-    debug: process.env.NODE_ENV === 'development',
-    supportedLngs: ['en', 'fr'],
+    load: "languageOnly",
+    fallbackLng: "en",
+    debug: process.env.NODE_ENV === "development",
+    supportedLngs: ["en", "fr"],
     interpolation: {
       escapeValue: false,
     },

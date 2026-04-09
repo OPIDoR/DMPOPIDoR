@@ -1,7 +1,7 @@
-import { toast } from 'react-hot-toast';
-import axios from '../utils/AxiosClient';
-import createHeaders from '../utils/HeaderBuilder';
-import { getErrorMessage } from '../utils/utils';
+import { toast } from "react-hot-toast";
+import axios from "../utils/AxiosClient";
+import createHeaders from "../utils/HeaderBuilder";
+import { getErrorMessage } from "../utils/utils";
 
 /**
  * This function sends a post request to a server with a JSON object and handles any errors that may occur.
@@ -9,9 +9,15 @@ import { getErrorMessage } from '../utils/utils';
  * @returns An object with a "data" property, which is not defined in the code snippet. The value of "data" is likely intended to be the response data
  * from the axios post request, but it is not currently being assigned or returned correctly.
  */
-const create = async (jsonObject) => axios.post('/research_outputs', jsonObject, { headers: createHeaders({}, true) });
+const create = async (jsonObject) =>
+  axios.post("/research_outputs", jsonObject, {
+    headers: createHeaders({}, true),
+  });
 
-const update = async (id, jsonObject) => axios.patch(`/research_outputs/${id}`, jsonObject, { headers: createHeaders({}, true) });
+const update = async (id, jsonObject) =>
+  axios.patch(`/research_outputs/${id}`, jsonObject, {
+    headers: createHeaders({}, true),
+  });
 
 const get = async (roId) => axios.get(`/research_outputs/${roId}`);
 
@@ -24,7 +30,11 @@ const get = async (roId) => axios.get(`/research_outputs/${roId}`);
 const importResearchOutput = async ({ planId, uuid, duplicate }) => {
   let res;
   try {
-    res = await axios.post(`/research_outputs/import?plan_id=${planId}`, { uuid, duplicate }, { headers: createHeaders({}, true) });
+    res = await axios.post(
+      `/research_outputs/import?plan_id=${planId}`,
+      { uuid, duplicate },
+      { headers: createHeaders({}, true) },
+    );
   } catch (error) {
     return toast.error(getErrorMessage(error));
   }
@@ -40,7 +50,9 @@ const importResearchOutput = async ({ planId, uuid, duplicate }) => {
 const deleteResearchOutput = async (researchOutputId) => {
   let response;
   try {
-    response = await axios.delete(`/research_outputs/${researchOutputId}`, { headers: createHeaders({}, true) });
+    response = await axios.delete(`/research_outputs/${researchOutputId}`, {
+      headers: createHeaders({}, true),
+    });
   } catch (error) {
     toast.error(getErrorMessage(error));
   }
@@ -55,9 +67,9 @@ const deleteResearchOutput = async (researchOutputId) => {
 const getPlans = async () => {
   let res;
   try {
-    res = await axios.get('/plans', {
+    res = await axios.get("/plans", {
       headers: {
-        Accept: 'application/json',
+        Accept: "application/json",
       },
     });
   } catch (error) {
@@ -69,10 +81,14 @@ const getPlans = async () => {
 const sort = async (planId, updatedOrder) => {
   let res;
   try {
-    res = await axios.post('/research_outputs/sort', {
-      plan_id: planId,
-      updated_order: updatedOrder,
-    }, { headers: createHeaders({}, true) });
+    res = await axios.post(
+      "/research_outputs/sort",
+      {
+        plan_id: planId,
+        updated_order: updatedOrder,
+      },
+      { headers: createHeaders({}, true) },
+    );
   } catch (error) {
     return error;
   }

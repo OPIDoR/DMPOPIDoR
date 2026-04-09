@@ -1,14 +1,12 @@
-import React, { useContext } from 'react';
-import { useTranslation } from 'react-i18next';
-import { FaEye, FaCircleInfo } from 'react-icons/fa6';
-import { Tooltip as ReactTooltip } from 'react-tooltip';
-import { GlobalContext } from '../context/Global';
+import { useContext } from "react";
+import { useTranslation } from "react-i18next";
+import { FaEye, FaCircleInfo } from "react-icons/fa6";
+import { Tooltip as ReactTooltip } from "react-tooltip";
+import { SectionsContext } from "../context/SectionsContext.jsx";
 
 function SavedGuidances() {
   const { t } = useTranslation();
-  const {
-    savedGuidances,
-  } = useContext(GlobalContext);
+  const { savedGuidances } = useContext(SectionsContext);
   return (
     <div
       style={{
@@ -24,7 +22,7 @@ function SavedGuidances() {
       {savedGuidances.length > 0 ? (
         <>
           <h3 style={{ fontWeight: "bold" }}>
-            {t('followingGuidancesApplyToThisResearchOutput')}
+            {t("followingGuidancesApplyToThisResearchOutput")}
             <ReactTooltip
               id="saved-guidances-info-tooltip"
               place="bottom"
@@ -42,16 +40,20 @@ function SavedGuidances() {
           <ul>
             {savedGuidances.map((guidance) => (
               <li key={guidance.id}>
-                {guidance.name} ({t('providedBy')} {guidance.orgName})
-                <a href={`/guidance_group_export/${guidance.id}.pdf`} target="_blank" rel="noopener noreferrer">
-                  <FaEye size={14} style={{ marginLeft: '5px' }} />
+                {guidance.name} ({t("providedBy")} {guidance.orgName})
+                <a
+                  href={`/guidance_group_export/${guidance.id}.pdf`}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  <FaEye size={14} style={{ marginLeft: "5px" }} />
                 </a>
               </li>
             ))}
           </ul>
         </>
       ) : (
-        t('noGuidanceSelected')
+        t("noGuidanceSelected")
       )}
     </div>
   );

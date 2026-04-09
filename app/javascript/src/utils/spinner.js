@@ -1,35 +1,35 @@
 // Will display a spinner at the start of any UJS/Ajax call and then hide it after the
 // controller responds.
 const toggleSpinner = (visible) => {
-  const spinnerBlock = $('.spinner-border');
+  const spinnerBlock = $(".spinner-border");
 
   if (spinnerBlock.length > 0) {
     if (visible) {
-      spinnerBlock.removeClass('d-none');
+      spinnerBlock.removeClass("d-none");
     } else {
-      spinnerBlock.addClass('d-none');
+      spinnerBlock.addClass("d-none");
     }
   }
 };
 
-document.addEventListener('turbo:load', () => {
-  $('body').on('ajax:beforeSend', () => {
+document.addEventListener("turbo:load", () => {
+  $("body").on("ajax:beforeSend", () => {
     toggleSpinner(true);
   });
 
-  $('body').on('ajax:complete', () => {
+  $("body").on("ajax:complete", () => {
     toggleSpinner(false);
   });
 
-  $('body').on('ajax:error', () => {
+  $("body").on("ajax:error", () => {
     toggleSpinner(false);
   });
 
-  $('body').on('ajax:stopped', () => {
+  $("body").on("ajax:stopped", () => {
     toggleSpinner(false);
   });
 
-  $('body').on('ajax:success', () => {
+  $("body").on("ajax:success", () => {
     toggleSpinner(false);
   });
 

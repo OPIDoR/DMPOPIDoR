@@ -1,9 +1,5 @@
-import React from 'react';
-
 function InnerModalSpacer() {
-  return (
-    <div></div>
-  );
+  return <div></div>;
 }
 
 export default InnerModalSpacer;

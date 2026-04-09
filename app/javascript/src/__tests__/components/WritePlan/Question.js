@@ -1,16 +1,16 @@
-import React from 'react';
-import { act, render, screen } from '@testing-library/react';
-import Question from '../../../components/WritePlan/Question';
-import Global from '../../../components/context/Global';
+import React from "react";
+import { act, render } from "@testing-library/react";
+import Question from "../../../components/WritePlan/Question";
+import Global from "../../../components/context/GlobalContext";
 
 const props = {
   planId: 1,
   question: {
     id: 1,
-    text: 'Question text',
+    text: "Question text",
     madmp_schema: {
       id: 1,
-      classname: 'my_classname',
+      classname: "my_classname",
     },
   },
   questionIdx: 0,
@@ -19,11 +19,15 @@ const props = {
   readonly: false,
 };
 
-describe('Question component', () => {
-  test('component rendering', async () => {
-    await act(async () => render(
-      <Global><Question {...props} /></Global>,
-    ));
+describe("Question component", () => {
+  test("component rendering", async () => {
+    await act(async () =>
+      render(
+        <Global>
+          <Question {...props} />
+        </Global>,
+      ),
+    );
     // expect(screen.getByTestId("question-text")).toBeInTheDocument();
     // expect(screen.getByTestId("question-number")).toBeInTheDocument();
   });

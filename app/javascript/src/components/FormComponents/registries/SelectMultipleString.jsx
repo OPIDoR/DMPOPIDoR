@@ -1,20 +1,24 @@
-import React, { useContext, useEffect, useState } from 'react';
-import { useFormContext, useController } from 'react-hook-form';
-import Swal from 'sweetalert2';
-import { useTranslation } from 'react-i18next';
-import { Tooltip as ReactTooltip } from 'react-tooltip';
-import uniqueId from 'lodash.uniqueid';
-import { FaXmark } from 'react-icons/fa6';
+import { useContext, useEffect, useMemo, useState } from "react";
+import { useFormContext, useController } from "react-hook-form";
+import Swal from "sweetalert2";
+import { useTranslation } from "react-i18next";
+import { Tooltip as ReactTooltip } from "react-tooltip";
+import uniqueId from "lodash.uniqueid";
+import { FaXmark } from "react-icons/fa6";
 
-import { GlobalContext } from '../../context/Global.jsx';
-import { service } from '../../../services/index.js';
-import { createOptions, createRegistryPlaceholder } from '../../../utils/GeneratorUtils.js';
-import * as styles from '../../assets/css/form.module.css';
-import CustomSelect from '../../Shared/CustomSelect.jsx';
-import { ASYNC_SELECT_OPTION_THRESHOLD } from '../../../config.js';
-import swalUtils from '../../../utils/swalUtils.js';
-import TooltipInfoIcon from '../TooltipInfoIcon.jsx';
-import { getErrorMessage } from '../../../utils/utils.js';
+import { GlobalContext } from "../../context/GlobalContext.jsx";
+import { service } from "../../../services/index.js";
+import {
+  createOptions,
+  createRegistryPlaceholder,
+} from "../../../utils/GeneratorUtils.js";
+import * as styles from "../../assets/css/form.module.css";
+import CustomSelect from "../../Shared/CustomSelect.jsx";
+import { ASYNC_SELECT_OPTION_THRESHOLD } from "../../../config.js";
+import swalUtils from "../../../utils/swalUtils.js";
+import TooltipInfoIcon from "../TooltipInfoIcon.jsx";
+import { getErrorMessage } from "../../../utils/utils.js";
+import useLoadRegistry from "../../../hooks/useLoadRegistry.js";
 
 function SelectMultipleString({
   label,
@@ -29,82 +33,46 @@ function SelectMultipleString({
   readonly = false,
 }) {
   const { t } = useTranslation();
+  const { locale } = useContext(GlobalContext);
   const { control } = useFormContext();
   const { field } = useController({ control, name: propName });
-  const [selectedValues, setSelectedValues] = useState([]);
-  const [options, setOptions] = useState([]);
   const [error, setError] = useState(null);
   const [selectedRegistry, setSelectedRegistry] = useState(null);
-  const [availableRegistries, setAvailableRegistries] = useState([]);
-  const tooltipId = uniqueId('select_multiple_list_tooltip_id_');
-  const inputId = uniqueId('select_multiple_list_id_');
+  const [availableRegistries, setAvailableRegistries] = useState(registries);
 
-  const {
-    locale, loadedRegistries, setLoadedRegistries,
-  } = useContext(GlobalContext);
+  /**
+   * Memoized values
+   */
+  const registryValues = useLoadRegistry(selectedRegistry);
+  const tooltipId = useMemo(
+    () => uniqueId("select_multiple_list_tooltip_id_"),
+    [],
+  );
+  const inputId = useMemo(() => uniqueId("select_multiple_list_id_"), []);
 
-  useEffect(() => {
-    if (category) {
-      service.getAvailableRegistries(category, dataType, topic)
-        .then((res) => {
-          const registriesData = Array?.isArray(res.data) ? res.data.map((r) => r.name) : [res.data.name]; setAvailableRegistries(registriesData);
-          if (registriesData.length === 1) {
-            const registry = res.data[0];
-            setSelectedRegistry(registry.name);
-            setLoadedRegistries({ ...loadedRegistries, [registry.name]: registry.values });
-            setOptions(createOptions(registry.values, locale));
-          }
-        })
-        .catch((error) => {
-          setError(getErrorMessage(error));
-        });
-    } else if (registries) {
-      setAvailableRegistries(registries);
-      if (registries.length === 1) {
-        setSelectedRegistry(registries[0]);
-      }
-    }
-  }, [category, dataType, topic, registries]);
+  const options = useMemo(
+    () =>
+      registryValues
+        ? createOptions(registryValues, locale)
+        : [{ value: "", label: "" }],
+    [registryValues, locale],
+  );
 
-  /* A hook that is called when the component is mounted.
-  It is used to set the options of the select list. */
-  useEffect(() => {
-    if (registries.length === 0 && availableRegistries.length === 1) return;
-
-    if (selectedRegistry) {
-      if (loadedRegistries[selectedRegistry]) {
-        setOptions(createOptions(loadedRegistries[selectedRegistry], locale));
-      } else if (selectedRegistry) {
-        service.getRegistryByName(selectedRegistry)
-          .then((res) => {
-            setLoadedRegistries({ ...loadedRegistries, [selectedRegistry]: res.data });
-            setOptions(createOptions(res.data, locale));
-          })
-          .catch((error) => {
-            setError(getErrorMessage(error));
-          });
-      }
-    }
-  }, [selectedRegistry]);
-
-  /* A hook that is called when the component is mounted.
-  It is used to set the options of the select list. */
-  useEffect(() => {
-    if (field.value) {
-      const value = Array.isArray(field.value) ? field.value : [field.value];
-      setSelectedValues(value);
-    } else {
-      setSelectedValues([]);
-    }
-  }, [field.value]);
-
+  const selectedValues = useMemo(
+    () =>
+      field.value
+        ? Array.isArray(field.value)
+          ? field.value
+          : [field.value]
+        : [],
+    [field.value],
+  );
   /**
    * It takes the value of the input field and adds it to the list array.
    * @param e - the event object
    */
   const handleSelectRegistryValue = (e) => {
     const newList = [...(selectedValues || []), e.value];
-    setSelectedValues(newList);
     field.onChange(newList);
   };
 
@@ -121,7 +89,6 @@ function SelectMultipleString({
         if (idx > -1) {
           newList.splice(idx, 1); // 2nd parameter means remove one item only
         }
-        setSelectedValues(newList);
         field.onChange(newList);
       }
     });
@@ -134,32 +101,66 @@ function SelectMultipleString({
     setSelectedRegistry(e.value);
   };
 
+  /**
+   * USE EFFECTS
+   */
+
+  useEffect(() => {
+    if (category) {
+      service
+        .getAvailableRegistries(category, dataType, topic)
+        .then((res) => {
+          const registriesData = Array?.isArray(res.data)
+            ? res.data.map((r) => r.name)
+            : [res.data.name];
+          setAvailableRegistries(registriesData);
+          if (registriesData.length === 1) {
+            const registry = res.data[0];
+            setSelectedRegistry(registry.name);
+          }
+        })
+        .catch((error) => {
+          setError(getErrorMessage(error));
+        });
+    }
+  }, [category, dataType, topic]);
+
+  /**
+   * RENDERING
+   */
+
   return (
     <div>
       <div className="form-group">
         <div className={styles.label_form}>
-          <label htmlFor={inputId} data-testid="select-multiple-string-label" data-tooltip-id={tooltipId}>
+          <label
+            htmlFor={inputId}
+            data-testid="select-multiple-string-label"
+            data-tooltip-id={tooltipId}
+          >
             {label}
-            {tooltip && (<TooltipInfoIcon />)}
+            {tooltip && <TooltipInfoIcon />}
           </label>
-          {
-            tooltip && (
-              <ReactTooltip
-                id={tooltipId}
-                place="bottom"
-                effect="solid"
-                variant="info" style={{ width: '300px', textAlign: 'center' }}
-                content={tooltip}
-              />
-            )
-          }
+          {tooltip && (
+            <ReactTooltip
+              id={tooltipId}
+              place="bottom"
+              effect="solid"
+              variant="info"
+              style={{ width: "300px", textAlign: "center" }}
+              content={tooltip}
+            />
+          )}
         </div>
 
         <span className={styles.errorMessage}>{error}</span>
         {/* ************Select registry************** */}
         <div className="row">
           {availableRegistries && availableRegistries.length > 1 && (
-            <div data-testid="select-multiple-string-registry-selector" className="col-md-6">
+            <div
+              data-testid="select-multiple-string-registry-selector"
+              className="col-md-6"
+            >
               <div className="row">
                 <div className={`col-md-11 ${styles.select_wrapper}`}>
                   <CustomSelect
@@ -171,17 +172,26 @@ function SelectMultipleString({
                     }))}
                     name={propName}
                     selectedOption={
-                      selectedRegistry ? { value: selectedRegistry, label: selectedRegistry } : null
+                      selectedRegistry
+                        ? { value: selectedRegistry, label: selectedRegistry }
+                        : null
                     }
                     isDisabled={readonly}
-                    placeholder={t('selectRegistry')}
+                    placeholder={t("selectRegistry")}
                   />
                 </div>
               </div>
             </div>
           )}
 
-          <div className={availableRegistries && availableRegistries.length > 1 ? 'col-md-6' : 'col-md-12'} data-testid="select-multiple-string-div">
+          <div
+            className={
+              availableRegistries && availableRegistries.length > 1
+                ? "col-md-6"
+                : "col-md-12"
+            }
+            data-testid="select-multiple-string-div"
+          >
             <div className="row">
               <div className={`col-md-11 ${styles.select_wrapper}`}>
                 {options && (
@@ -192,7 +202,13 @@ function SelectMultipleString({
                     name={propName}
                     isDisabled={readonly || !selectedRegistry}
                     async={options.length > ASYNC_SELECT_OPTION_THRESHOLD}
-                    placeholder={createRegistryPlaceholder(availableRegistries.length, true, overridable, 'simple', t)}
+                    placeholder={createRegistryPlaceholder(
+                      availableRegistries.length,
+                      true,
+                      overridable,
+                      "simple",
+                      t,
+                    )}
                     overridable={overridable}
                   />
                 )}
@@ -202,14 +218,20 @@ function SelectMultipleString({
         </div>
         {/* *************Select registry************* */}
 
-        <div style={{ margin: '20px 2px 20px 2px' }}>
+        <div style={{ margin: "20px 2px 20px 2px" }}>
           {selectedValues && (
-            <table style={{ marginTop: '0px' }} className="table">
-              {header && <thead><tr><th scope="col">{header}</th></tr></thead>}
+            <table style={{ marginTop: "0px" }} className="table">
+              {header && (
+                <thead>
+                  <tr>
+                    <th scope="col">{header}</th>
+                  </tr>
+                </thead>
+              )}
               <tbody>
                 {selectedValues.map((el, idx) => (
                   <tr key={idx}>
-                    <td style={{ width: '100%' }}>
+                    <td style={{ width: "100%" }}>
                       <div className={styles.cell_content}>
                         <div>{el} </div>
                         <div className={styles.table_container}>

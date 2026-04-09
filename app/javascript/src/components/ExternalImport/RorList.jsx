@@ -1,18 +1,16 @@
-import React, { useState } from 'react';
-import { Trans, useTranslation } from 'react-i18next';
-import set from 'lodash.set';
-import { FaLink } from 'react-icons/fa6';
-import { FaCheckCircle, FaPlusSquare } from 'react-icons/fa';
-import Select from 'react-select';
-import { externalServices } from '../../services';
-import CustomSpinner from '../Shared/CustomSpinner';
-import CustomError from '../Shared/CustomError';
-import Pagination from '../Shared/Pagination';
-import { flattenObject, normalize } from '../../utils/utils';
+import { useState } from "react";
+import { Trans, useTranslation } from "react-i18next";
+import set from "lodash.set";
+import { FaLink } from "react-icons/fa6";
+import { FaCheckCircle, FaPlusSquare } from "react-icons/fa";
+import Select from "react-select";
+import { externalServices } from "../../services";
+import CustomSpinner from "../Shared/CustomSpinner";
+import CustomError from "../Shared/CustomError";
+import Pagination from "../Shared/Pagination";
+import { flattenObject, normalize } from "../../utils/utils";
 
-function RorList({
-  fragment, setFragment, mapping = {}, locale,
-}) {
+function RorList({ fragment, setFragment, mapping = {}, locale }) {
   const { t } = useTranslation();
   const pageSize = 8;
   const [data, setData] = useState([]);
@@ -22,10 +20,10 @@ function RorList({
   const [currentData, setCurrentData] = useState([]);
   const [countries, setCountries] = useState([]);
   const [selectedOrg, setSelectedOrg] = useState(null);
-  const [text, setText] = useState('');
+  const [text, setText] = useState("");
   const [selectedCountry, setSelectedCountry] = useState(null);
 
-  const localeCode = locale.split('_').at(0);
+  const localeCode = locale.split("_").at(0);
 
   /**
    * The function `getData` makes an API call to get data, sets the retrieved data in state variables, and creates an array of distinct countries from the
@@ -45,7 +43,9 @@ function RorList({
     setData(response.data);
     setFilteredData(response.data);
 
-    if (response.data.length === 0) { setCurrentData([]); }
+    if (response.data.length === 0) {
+      setCurrentData([]);
+    }
 
     const options = response.data.map((option) => ({
       value: option.country.code,
@@ -80,22 +80,31 @@ function RorList({
     setSelectedOrg(selectedOrg === el.ror ? null : el.ror);
     const obj = {
       affiliationId: el.ror,
-      affiliationName: el?.name?.[localeCode || el?.country?.code.toLowerCase()] || el?.name[Object.keys(el?.name).at(0)],
+      affiliationName:
+        el?.name?.[localeCode || el?.country?.code.toLowerCase()] ||
+        el?.name[Object.keys(el?.name).at(0)],
       affiliationIdType: el?.type,
       acronyms: Array.isArray(el.acronyms) ? el.acronyms?.at(0) : el.acronyms,
     };
 
     if (mapping && Object.keys(mapping)?.length > 0) {
-      const matchData = data.find(({ ror }) => normalize(ror)?.includes(normalize(el.ror)));
+      const matchData = data.find(({ ror }) =>
+        normalize(ror)?.includes(normalize(el.ror)),
+      );
 
       if (matchData) {
         const flattenedMapping = flattenObject(mapping);
 
         for (const [key, value] of Object.entries(flattenedMapping)) {
-          if (key === 'name') {
-            set(obj, value, el?.name[el?.country?.code?.toLowerCase()] || el?.name?.[Object.keys(el?.name).at(0)]) || '';
+          if (key === "name") {
+            set(
+              obj,
+              value,
+              el?.name[el?.country?.code?.toLowerCase()] ||
+                el?.name?.[Object.keys(el?.name).at(0)],
+            ) || "";
           } else {
-            set(obj, value, matchData?.[key] || '');
+            set(obj, value, matchData?.[key] || "");
           }
         }
       }
@@ -113,7 +122,10 @@ function RorList({
 
     let response;
     try {
-      response = await externalServices.getRor(text, e ? `country.country_code:${e.value}` : null);
+      response = await externalServices.getRor(
+        text,
+        e ? `country.country_code:${e.value}` : null,
+      );
     } catch (error) {
       setError(error);
       return setLoading(false);
@@ -128,14 +140,21 @@ function RorList({
   /**
    * The handleSearchTerm function filters data based on a text input value and updates the state with the filtered results.
    */
-  const handleSearchTerm = () => getData(text, selectedCountry ? `country.country_code:${selectedCountry}` : null);
+  const handleSearchTerm = () =>
+    getData(
+      text,
+      selectedCountry ? `country.country_code:${selectedCountry}` : null,
+    );
 
   /**
    * The handleKeyDown function fetch the data when the user uses the Enter button in the search field.
    */
   const handleKeyDown = (e) => {
-    if (e.key === 'Enter') {
-      return getData(text, selectedCountry ? `country.country_code:${selectedCountry}` : null);
+    if (e.key === "Enter") {
+      return getData(
+        text,
+        selectedCountry ? `country.country_code:${selectedCountry}` : null,
+      );
     }
     return null;
   };
@@ -144,26 +163,36 @@ function RorList({
    * The function `handleDeleteText` clears the text and then retrieves data.
    */
   const handleDeleteText = () => {
-    setText('');
+    setText("");
     setData([]);
     setCurrentData([]);
     setSelectedCountry(null);
   };
 
   return (
-    <div style={{ position: 'relative' }}>
+    <div style={{ position: "relative" }}>
       {error && <CustomError error={error} />}
       {!error && (
         <>
-          <div className="row" style={{ margin: '10px' }}>
+          <div className="row" style={{ margin: "10px" }}>
             <div>
-              <div className="row" style={{ marginBottom: '10px' }}>
+              <div className="row" style={{ marginBottom: "10px" }}>
                 <div>
                   <i>
                     <Trans
                       t={t}
                       i18nKey="rorIdExplanation"
-                      components={[<a href="https://ror.org/" target="_blank" rel="noopener noreferrer" style={{ textDecoration: 'underline' }}>ROR</a>]}
+                      components={[
+                        // eslint-disable-next-line react/jsx-key
+                        <a
+                          href="https://ror.org/"
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          style={{ textDecoration: "underline" }}
+                        >
+                          ROR
+                        </a>,
+                      ]}
                     />
                   </i>
                 </div>
@@ -177,9 +206,12 @@ function RorList({
                       value={text}
                       onChange={(e) => setText(e.target.value)}
                       onKeyDown={(e) => handleKeyDown(e)}
-                      placeholder={t('searchOrg')}
+                      placeholder={t("searchOrg")}
                       style={{
-                        borderRadius: '8px 0 0 8px', borderWidth: '1px', borderColor: 'var(--dark-blue)', height: '43px',
+                        borderRadius: "8px 0 0 8px",
+                        borderWidth: "1px",
+                        borderColor: "var(--dark-blue)",
+                        height: "43px",
                       }}
                     />
                     <span className="input-group-btn">
@@ -188,10 +220,17 @@ function RorList({
                         type="button"
                         onClick={handleSearchTerm}
                         style={{
-                          borderRadius: '0', borderWidth: '1px', borderColor: 'var(--dark-blue)', height: '43px', margin: '0',
+                          borderRadius: "0",
+                          borderWidth: "1px",
+                          borderColor: "var(--dark-blue)",
+                          height: "43px",
+                          margin: "0",
                         }}
                       >
-                        <span className="fas fa-magnifying-glass" style={{ color: 'var(--dark-blue)' }} />
+                        <span
+                          className="fas fa-magnifying-glass"
+                          style={{ color: "var(--dark-blue)" }}
+                        />
                       </button>
                     </span>
                     <span className="input-group-btn">
@@ -200,7 +239,11 @@ function RorList({
                         type="button"
                         onClick={handleDeleteText}
                         style={{
-                          borderRadius: '0 8px 8px 0', borderWidth: '1px', borderColor: 'var(--dark-blue)', height: '43px', margin: '0',
+                          borderRadius: "0 8px 8px 0",
+                          borderWidth: "1px",
+                          borderColor: "var(--dark-blue)",
+                          height: "43px",
+                          margin: "0",
                         }}
                       >
                         <span className="fa fa-xmark" />
@@ -212,7 +255,7 @@ function RorList({
             </div>
           </div>
           {data.length > 0 && countries.length > 1 && (
-            <div className="row" style={{ margin: '10px' }}>
+            <div className="row" style={{ margin: "10px" }}>
               <div className="">
                 <div className="row">
                   <div>
@@ -222,14 +265,24 @@ function RorList({
                       isSearchable
                       styles={{
                         menuPortal: (base) => ({ ...base, zIndex: 9999 }),
-                        singleValue: (base) => ({ ...base, color: 'var(--dark-blue)' }),
+                        singleValue: (base) => ({
+                          ...base,
+                          color: "var(--dark-blue)",
+                        }),
                         control: (base) => ({
-                          ...base, borderRadius: '8px', borderWidth: '1px', borderColor: 'var(--dark-blue)', height: '43px',
+                          ...base,
+                          borderRadius: "8px",
+                          borderWidth: "1px",
+                          borderColor: "var(--dark-blue)",
+                          height: "43px",
                         }),
                       }}
-                      value={ countries.find((c) => c.value === selectedCountry) || null }
+                      value={
+                        countries.find((c) => c.value === selectedCountry) ||
+                        null
+                      }
                       onChange={handleChangeCountry}
-                      placeholder={t('selectCountry')}
+                      placeholder={t("selectCountry")}
                       options={countries}
                     />
                   </div>
@@ -242,43 +295,54 @@ function RorList({
             <thead className="thead-dark">
               <tr>
                 <th scope="col"></th>
-                <th scope="col">{t('orgName')}</th>
-                <th scope="col">{t('acronym')}</th>
-                <th scope="col">{t('country')}</th>
-                <th scope="col">{t('location')}</th>
+                <th scope="col">{t("orgName")}</th>
+                <th scope="col">{t("acronym")}</th>
+                <th scope="col">{t("country")}</th>
+                <th scope="col">{t("location")}</th>
               </tr>
             </thead>
             <tbody>
-              {currentData.length > 0 ? currentData.map((el, idx) => (
-                <tr key={idx}>
-                  <td>
-                    {selectedOrg === el.ror
-                      ? <FaCheckCircle
-                        className="text-center"
-                        style={{ color: 'green' }}
-                      />
-                      : <FaPlusSquare
-                        className="text-center"
-                        style={{ cursor: 'pointer' }}
-                        onClick={() => setSelectedValue(el)} />
-                    }
-                  </td>
-                  <td>
-                    {el?.name?.[localeCode] || el?.name?.[Object.keys(el.name).at(0)]}&nbsp;
-                    <a href={el.links[0]} target="_blank" rel="noopener noreferrer">
-                      <FaLink></FaLink>
-                    </a>
-                  </td>
-                  <td>{el.acronyms}</td>
-                  <td>{el.country.code}</td>
-                  <td>
-                    {el.addresses?.at(0)?.city}
-                  </td>
-                </tr>
-              )) : (
+              {currentData.length > 0 ? (
+                currentData.map((el, idx) => (
+                  <tr key={idx}>
+                    <td>
+                      {selectedOrg === el.ror ? (
+                        <FaCheckCircle
+                          className="text-center"
+                          style={{ color: "green" }}
+                        />
+                      ) : (
+                        <FaPlusSquare
+                          className="text-center"
+                          style={{ cursor: "pointer" }}
+                          onClick={() => setSelectedValue(el)}
+                        />
+                      )}
+                    </td>
+                    <td>
+                      {el?.name?.[localeCode] ||
+                        el?.name?.[Object.keys(el.name).at(0)]}
+                      &nbsp;
+                      <a
+                        href={el.links[0]}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                      >
+                        <FaLink></FaLink>
+                      </a>
+                    </td>
+                    <td>{el.acronyms}</td>
+                    <td>{el.country.code}</td>
+                    <td>{el.addresses?.at(0)?.city}</td>
+                  </tr>
+                ))
+              ) : (
                 <tr>
-                  <td colSpan="5" style={{ textAlign: loading ? 'center' : 'left' }}>
-                    { loading ? <CustomSpinner /> : t('noData') }
+                  <td
+                    colSpan="5"
+                    style={{ textAlign: loading ? "center" : "left" }}
+                  >
+                    {loading ? <CustomSpinner /> : t("noData")}
                   </td>
                 </tr>
               )}
@@ -289,7 +353,12 @@ function RorList({
             <div className="row text-center">
               <div className="mx-auto"></div>
               <div className="mx-auto">
-                <Pagination items={filteredData} onChangePage={onChangePage} pageSize={pageSize} />
+                <Pagination
+                  key={filteredData}
+                  items={filteredData}
+                  onChangePage={onChangePage}
+                  pageSize={pageSize}
+                />
               </div>
             </div>
           )}
