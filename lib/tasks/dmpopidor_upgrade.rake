@@ -53,11 +53,11 @@ namespace :dmpopidor_upgrade do
   task migrate_default_data_type_values: :environment do
     GuidanceGroup.where(Arel.sql("'none' = ANY(data_types)")).map do |gg|
       new_dt = gg.data_types.map { |dt| dt.eql?('none') ? 'dataset' : dt }
-      gg.update(data_types: new_dt)
+      gg.update_column(:data_types, new_dt)
     end
     Registry.where(Arel.sql("'none' = ANY(data_types)")).map do |r|
       new_dt = r.data_types.map { |dt| dt.eql?('none') ? 'dataset' : dt }
-      r.update(data_types: new_dt)
+      r.update_column(:data_types, new_dt)
     end
     Theme.where(data_type: 'none').update_all(data_type: 'dataset')
     Template.where(data_type: 'none').update_all(data_type: 'dataset')
@@ -68,7 +68,7 @@ namespace :dmpopidor_upgrade do
   task migrate_research_outputs_data_type: :environment do
     Fragment::ResearchOutput.where(Arel.sql("additional_info->>'dataType' = 'none'")).map do |ro|
       new_ai = ro.additional_info.merge({ 'dataType' => 'dataset' })
-      ro.update(additional_info: new_ai)
+      ro.update_column(:additional_info, new_ai)
     end
   end
 
