@@ -271,5 +271,6 @@
   "savedGuidancesInfo": "Les recommandations sélectionnées s’affichent au niveau de chaque question en cliquant sur l’ampoule",
   "software": "Logiciel",
   "dataset": "Jeu de données",
+  "physical_object": "Objet physique",
   "noGuidanceSelected": "Aucune recommandation sélectionnée"
 }
