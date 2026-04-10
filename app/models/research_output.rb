@@ -203,6 +203,7 @@ class ResearchOutput < ApplicationRecord
       title: description_fragment.data['title'],
       type: description_fragment.data['type'],
       configuration: {
+        dataType: json_fragment.additional_info['dataType'],
         hasPersonalData: personal_data?
       }
     }
