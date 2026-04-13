@@ -33,7 +33,7 @@ class ResearchOutputsController < ApplicationController
       )
       created_ro.create_json_fragments(params[:configuration])
 
-      created_ro.guidance_groups << default_guidance_groups(@plan, created_ro.topic)
+      created_ro.guidance_groups << default_guidance_groups(@plan, params[:configuration][:dataType], created_ro.topic)
 
       render json: {
         id: @plan.id, created_ro_id: created_ro.id, dmp_id: @plan.json_fragment.id,
@@ -157,7 +157,8 @@ class ResearchOutputsController < ApplicationController
 
       # If the RO is duplicated through the UI, copy the guidance groups associated to the target RO
 
-      research_output_copy.guidance_groups << default_guidance_groups(target_plan, research_output_copy.topic)
+      research_output_copy.guidance_groups << default_guidance_groups(target_plan, data_type,
+                                                                      research_output_copy.topic)
 
       render json: {
         id: target_plan.id,
@@ -320,7 +321,8 @@ class ResearchOutputsController < ApplicationController
     @research_output = ResearchOutput.includes(:plan).find(params[:id])
     authorize @research_output
     @research_output.guidance_groups.clear
-    @research_output.guidance_groups << default_guidance_groups(@research_output.plan, @research_output.topic)
+    @research_output.guidance_groups << default_guidance_groups(@research_output.plan, @research_output.data_type,
+                                                                @research_output.topic)
 
     if @research_output.save
       @all_ggs_grouped_by_org = get_guidances_groups(params[:id])
@@ -356,7 +358,7 @@ class ResearchOutputsController < ApplicationController
   # rubocop:disable Metrics/MethodLength, Metrics/AbcSize
   def get_guidances_groups(id)
     @research_output = ResearchOutput.includes(
-      :guidance_groups, plan: [template: [:phases]]
+      :guidance_groups, plan: [{ template: [:phases] }]
     ).find(id)
     research_output_fragment = @research_output.json_fragment
     data_type = research_output_fragment.additional_info['dataType']
@@ -395,12 +397,17 @@ class ResearchOutputsController < ApplicationController
   # rubocop:enable Metrics/MethodLength, Metrics/AbcSize
 
   # rubocop:disable Metrics/AbcSize
-  def default_guidance_groups(plan, topic)
+  def default_guidance_groups(plan, data_type, topic)
     language = Language.find_by(abbreviation: plan.template.locale)
     ggs = []
     # pre-select owner org's guidance and the default org's guidance
     ids = (::Org.default_orgs.pluck(:id) << plan.owner.org_id).flatten.uniq
     org_ggs = GuidanceGroup.where(org_id: ids, optional_subset: false, published: true, language_id: language.id)
+    type_ggs = if data_type.eql?('dataset')
+                 []
+               else
+                 GuidanceGroup.where(Arel.sql("'#{data_type}' = ANY(data_types) AND published=true AND language_id=#{language.id}"))
+               end
     topic_ggs = if topic.eql?('generic')
                   []
                 else
@@ -408,6 +415,7 @@ class ResearchOutputsController < ApplicationController
                 end
 
     ggs << org_ggs unless org_ggs.empty?
+    ggs << type_ggs unless type_ggs.empty?
     ggs << topic_ggs unless topic_ggs.empty?
     ggs
   end

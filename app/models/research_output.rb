@@ -118,6 +118,10 @@ class ResearchOutput < ApplicationRecord
     Fragment::ResearchOutput.where("(data->>'research_output_id')::int = ?", id).first
   end
 
+  def data_type
+    json_fragment.additional_info['dataType'] if json_fragment.present?
+  end
+
   def destroy_json_fragment
     Fragment::ResearchOutput.where("(data->>'research_output_id')::int = ?", id).destroy_all
   end
