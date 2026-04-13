@@ -2,6 +2,11 @@
 
 **Attention** Cette liste de changements concerne les déploiements sur nos serveurs de test en interne.
 
+## 13/04/2026
+- Correction du problème d'affichage de l'onglet Infos Générales après un import financeur
+- Correction d'un problème de redirection lorsque la création d'une recommandation ne se déroule pas avec succès
+- Les recommandations possédant un dataType différent de 'dataset' sont désormais sélectionnées par défaut (#14853)
+
 ## 10/04/2026
 - Retrait des icônes de la création de plan (#14681)
 - Correction du problème d'actualisation du tableau après la modification des droits d'administration (#13978)
