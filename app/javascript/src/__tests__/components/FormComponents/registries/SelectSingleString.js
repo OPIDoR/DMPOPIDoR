@@ -35,7 +35,7 @@ const props = {
   label: "Select Single String Label",
   propName: "mySelectSingleString",
   category: ["SingleRegistryCategory"],
-  dataType: "none",
+  dataType: "dataset",
   topic: "generic",
 };
 

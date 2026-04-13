@@ -269,17 +269,3 @@ describe('GeneratorUtils.generateEmptyDefaults', () => {
     expect(generatedDefaults).toStrictEqual(expectedDefaults);
   });
 });
-describe('GeneratorUtils.researchOutputTypeToDataType', () => {
-  test('researchOutputTypeToDataType should return "software" when "Software" is provided', () => {
-    const dataType = utils.researchOutputTypeToDataType('Software');
-    expect(dataType).toBe('software');
-  });
-  test('researchOutputTypeToDataType should return "software" when "Logiciel" is provided', () => {
-    const dataType = utils.researchOutputTypeToDataType('Logiciel');
-    expect(dataType).toBe('software');
-  });
-  test('researchOutputTypeToDataType should return "none" when "Something" is provided', () => {
-    const dataType = utils.researchOutputTypeToDataType('Something');
-    expect(dataType).toBe('none');
-  });
-});

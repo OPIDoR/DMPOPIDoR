@@ -288,5 +288,8 @@
   "themes": "Thèmes",
   "guidanceGroup": "Groupe de recommandations",
   "createGuidance": "Créer une recommandation",
+  "software": "Logiciel",
+  "dataset": "Jeu de données",
+  "physical_object": "Objet physique",
   "noGuidanceSelected": "Aucune recommandation sélectionnée"
 }

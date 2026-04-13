@@ -65,10 +65,11 @@ module OrgAdmin
           end
         end
         flash[:notice] = success_message(@guidance, _('created'))
+        redirect_to edit_org_admin_guidance_path(@guidance)
       else
         flash[:alert] = failure_message(@guidance, _('create'))
+        redirect_to new_org_admin_guidance_path(@guidance)
       end
-      redirect_to edit_org_admin_guidance_path(@guidance)
     end
     # rubocop:enable Metrics/AbcSize
     #

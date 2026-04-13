@@ -118,6 +118,10 @@ class ResearchOutput < ApplicationRecord
     Fragment::ResearchOutput.where("(data->>'research_output_id')::int = ?", id).first
   end
 
+  def data_type
+    json_fragment.additional_info['dataType'] if json_fragment.present?
+  end
+
   def destroy_json_fragment
     Fragment::ResearchOutput.where("(data->>'research_output_id')::int = ?", id).destroy_all
   end
@@ -143,7 +147,7 @@ class ResearchOutput < ApplicationRecord
           data: {
             'research_output_id' => id
           },
-          madmp_schema: MadmpSchema.find_by(classname: 'research_output', data_type: data_type || 'none'),
+          madmp_schema: MadmpSchema.find_by(classname: 'research_output', data_type: data_type || 'dataset'),
           dmp_id: dmp_fragment.id,
           parent_id: dmp_fragment.id,
           additional_info: ro_additional_info
@@ -203,6 +207,7 @@ class ResearchOutput < ApplicationRecord
       title: description_fragment.data['title'],
       type: description_fragment.data['type'],
       configuration: {
+        dataType: json_fragment.additional_info['dataType'],
         hasPersonalData: personal_data?
       }
     }
@@ -281,12 +286,19 @@ class ResearchOutput < ApplicationRecord
   # Returns an array containing the property name, description question & the madmpschema according to the
   # data_type in parameters
   #####
+  # rubocop:disable Metrics/AbcSize
   def self.data_type_to_schema_data(plan, data_type, locale)
     if data_type.eql?('software') && MadmpSchema.exists?(name: 'SoftwareDescriptionStandard')
       [
         'softwareDescription',
         Template.module(data_type:, locale:).questions.joins(:madmp_schema).find_by(madmp_schemas: { classname: 'software_description' }), # rubocop:disable Layout/LineLength
         MadmpSchema.find_by(name: 'SoftwareDescriptionStandard')
+      ]
+    elsif data_type.eql?('physical_object') && MadmpSchema.exists?(name: 'PhysicalObjectDescriptionStandard')
+      [
+        'physicalObjectDescription',
+        Template.module(data_type:, locale:).questions.joins(:madmp_schema).find_by(madmp_schemas: { classname: 'physical_object_description' }), # rubocop:disable Layout/LineLength
+        MadmpSchema.find_by(name: 'PhysicalObjectDescriptionStandard')
       ]
     else
       [
@@ -296,6 +308,7 @@ class ResearchOutput < ApplicationRecord
       ]
     end
   end
+  # rubocop:enable Metrics/AbcSize
 
   private
 
@@ -303,10 +316,10 @@ class ResearchOutput < ApplicationRecord
   # Returns an array containing the researchOutput fragment additional info and researchOutput description data
   # depending on the research output configuration in parameters
   #####
-  # rubocop:disable Metrics/MethodLength
+  # rubocop:disable Metrics/MethodLength, Metrics/AbcSize
   def configuration_to_additional_info_data(configuration, locale)
     case configuration[:dataType]
-    when 'software'
+    when 'software', 'physical_object'
       [
         {
           property_name: 'researchOutput',
@@ -326,7 +339,7 @@ class ResearchOutput < ApplicationRecord
           property_name: 'researchOutput',
           hasPersonalData: configuration[:hasPersonalData] || false,
           topic: topic,
-          dataType: 'none'
+          dataType: 'dataset'
         },
         {
           'title' => title,
@@ -337,5 +350,5 @@ class ResearchOutput < ApplicationRecord
       ]
     end
   end
-  # rubocop:enable Metrics/MethodLength
+  # rubocop:enable Metrics/MethodLength, Metrics/AbcSize
 end

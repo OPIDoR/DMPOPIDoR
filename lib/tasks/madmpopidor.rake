@@ -192,7 +192,7 @@ namespace :madmpopidor do
       json_schema = JSON.parse(File.read(schema_path))
       title = json_schema['title']
       classname = schema_desc['classname']
-      data_types = schema_desc['dataTypes'].present? ? schema_desc['dataTypes'] : 'none'
+      data_types = schema_desc['dataTypes'].present? ? schema_desc['dataTypes'] : 'dataset'
 
       begin
         schema = MadmpSchema.find_or_initialize_by(name: title) do |s|
@@ -201,7 +201,7 @@ namespace :madmpopidor do
           s.version = 1
           s.org_id = Org.first.id
           s.classname = classname
-          s.data_type = data_types.length.eql?(1) ? data_types[0] : 'none'
+          s.data_type = data_types.length.eql?(1) ? data_types[0] : 'dataset'
         end
         schema.update(schema: json_schema)
         p "#{schema.name} loaded"
@@ -224,7 +224,7 @@ namespace :madmpopidor do
       registry = Registry.create(
         name: registry_name,
         category: registry_data['category'],
-        data_types: registry_data['dataTypes'] || ['none'],
+        data_types: registry_data['dataTypes'] || ['dataset'],
         version: 1
       )
       if registry_data.is_a?(Array)

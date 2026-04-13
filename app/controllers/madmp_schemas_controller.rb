@@ -6,7 +6,7 @@ class MadmpSchemasController < ApplicationController
 
   # rubocop:disable Metrics/AbcSize
   def index
-    data_type = params[:data_type] || 'none'
+    data_type = params[:data_type] || 'dataset'
     topics = [params[:topic], 'generic'].compact.uniq
     authorize(MadmpSchema)
     condition = Arel.sql("topics && ARRAY[#{topics.map { |t| "'#{t}'" }.join(',')}]::varchar[]")

@@ -32,20 +32,29 @@ GraphiQL::Rails.config.initial_query = <<-'GRAPHQL'
 # {
 #   "Authorization": "Bearer <accessToken>"
 # }
-#
-# Authenticated queries/mutations:
-# - plans
-# - createPlan
 
 #########################
-# Authenticate as a User
+# Example Mutation: Authenticate as a User
+# Access: Public (before authentication)
+#
+# Description:
+# Authenticates a user using an authorization code and returns an access token.
+#
+# Features:
+# - Uses `grantType: authorization_code`
+# - Requires `email` and `code` (API key)
+# - Returns accessToken, token type, expiration, and creation timestamp
+#
+# Notes:
+# - The returned `accessToken` should be included in the Authorization header for subsequent requests:
+#   Authorization: Bearer <accessToken>
 #########################
 mutation authenticateAsUser {
   authenticate(
     input: {
       grantType: "authorization_code", # Auth type
-      email: "user@example.com", # User email
-      code: "abcd1234" # API Key
+      email: "user@example.com",       # User email
+      code: "abcd1234"                 # API Key
     }
   ) {
     accessToken
@@ -56,14 +65,27 @@ mutation authenticateAsUser {
 }
 
 #########################
-# Authenticate as a Client (API)
+# Example Mutation: Authenticate as API Client
+# Access: Public (before authentication)
+#
+# Description:
+# Authenticates a client using client credentials and returns an access token.
+#
+# Features:
+# - Uses `grantType: client_credentials`
+# - Requires `clientId` and `clientSecret`
+# - Returns accessToken, token type, expiration, and creation timestamp
+#
+# Notes:
+# - The returned `accessToken` should be used in the Authorization header for subsequent requests:
+#   Authorization: Bearer <accessToken>
 #########################
 mutation authenticateAsApiClient {
   authenticate(
     input: {
-      grantType: "client_credentials", # Auth type
-      clientId: "abcd1234", # Client API ID
-      clientSecret: "azerty1234" # Client Secret
+      grantType: "client_credentials",  # Auth type
+      clientId: "abcd1234",             # Client API ID
+      clientSecret: "azerty1234"        # Client Secret
     }
   ) {
     accessToken
@@ -75,50 +97,119 @@ mutation authenticateAsApiClient {
 
 #########################
 # Example Query: List Plans
+# Access: Authenticated
+#
+# Description:
+# Retrieves a paginated list of public plans, 
+# with optional filtering, sorting, and research output filtering.
 #########################
 query getPlans {
-  plans {
-    items {
-      planId
-      project
-      researchEntity
-      budget
-      meta
-      researchOutput
-    }
+  publicPlans {
     pageInfo {
-      page
       total
       totalPages
+      page
+    }
+    items {
+      planId
+      researchOutput
+    }
+  }
+}
+
+# Example: get plans by language (in french)
+query getPlansByLanguage {
+  plans(
+    size: 1000
+    page: 1
+    filter: {
+      and: [
+        {
+          field: "$.meta.dmpLanguage"
+          value: "fra"
+          operator: "eq"
+        }
+      ]
+    }
+  ) {
+    pageInfo {
+      total
+      totalPages
+      page
+    }
+    items {
+      planId
+      researchOutput
     }
   }
 }
 
 #########################
 # Example Query: List Public Plans
+# Access: Public
+# 
+# Description:
+# Retrieves a paginated list of plans belonging to the current user, 
+# with optional filtering, sorting, and research output filtering.
 #########################
 query getPublicPlans {
   publicPlans {
-    items {
-      planId
-      project
-      researchEntity
-      budget
-      meta
-      researchOutput
-    }
     pageInfo {
-      page
       total
       totalPages
+      page
+    }
+    items {
+      planId
+      researchOutput
+    }
+  }
+}
+
+# Example: get public plans by language (in french)
+query getPublicPlansByLanguage {
+  publicPlans(
+    size: 1000
+    page: 1
+    filter: {
+      and: [
+        {
+          field: "$.meta.dmpLanguage"
+          value: "fra"
+          operator: "eq"
+        }
+      ]
+    }
+  ) {
+    pageInfo {
+      total
+      totalPages
+      page
+    }
+    items {
+      planId
+      researchOutput
     }
   }
 }
 
 #########################
-# Example Mutation: Create a plan
+# Example Mutation: Create a Plan
+# Access: Authenticated
+#
+# Description:
+# Creates a new plan for the current user.
+#
+# Features:
+# - Requires authentication
+# - Specify locale, format, context, and plan data
+# - Returns a success status, message, and code
+#
+# Notes:
+# - `clientMutationId` is optional but useful for tracking
+# - `data` object must include at least project, researchEntity, and budget
 #########################
-mutation CreatePlan {
+mutation createPlan {
   createPlan(input: {
     clientMutationId: "plan-id",
     locale: EN,
@@ -137,7 +228,4 @@ mutation CreatePlan {
     }
   }
 }
-
-# Note: Use logical filters (AND/OR) to refine plan queries using `LogicalFilterInput`.
-# You can filter by className, field, value, and operator (eq, neq, gt, lt, etc.).
 GRAPHQL

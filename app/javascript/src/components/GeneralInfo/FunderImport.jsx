@@ -144,8 +144,14 @@ function FunderImport({
     triggerRefresh({ clients: response?.data?.clients || [] });
 
     setFormData({
-      [projectFragmentId]: response.data.fragment.project,
-      [metaFragmentId]: response.data.fragment.meta,
+      [projectFragmentId]: {
+        ...response.data.fragment.project,
+        template_name: "ProjectStandard",
+      },
+      [metaFragmentId]: {
+        ...response.data.fragment.meta,
+        template_name: "MetaStandard",
+      },
     });
     // updating title outsite of react components
     document.getElementById("plan-title").innerHTML =

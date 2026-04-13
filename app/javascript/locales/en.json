@@ -291,5 +291,8 @@
   "themes": "Themes",
   "guidanceGroup": "Guidance group",
   "createGuidance": "Create a guidance",
+  "software": "Software",
+  "dataset": "Dataset",
+  "physical_object": "Physical object",
   "noGuidanceSelected": "No guidance has been selected"
 }

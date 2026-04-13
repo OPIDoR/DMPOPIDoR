@@ -5,7 +5,7 @@
     "description": "ResearchEntityStandard template",
     "dataTypes": [
         "software",
-        "none"
+        "dataset"
     ],
     "topics": null,
     "type": "object",

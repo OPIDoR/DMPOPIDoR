@@ -2,6 +2,20 @@
 
 **Attention** Cette liste de changements concerne les déploiements sur nos serveurs de test en interne.
 
+## 13/04/2026
+- Correction du problème d'affichage de l'onglet Infos Générales après un import financeur
+- Correction d'un problème de redirection lorsque la création d'une recommandation ne se déroule pas avec succès
+- Les recommandations possédant un dataType différent de 'dataset' sont désormais sélectionnées par défaut (#14853)
+
+## 10/04/2026
+- Retrait des icônes de la création de plan (#14681)
+- Correction du problème d'actualisation du tableau après la modification des droits d'administration (#13978)
+- Refonte de la sélection du type de produit de recherche lors de la création (#14679)
+  - Le type est désormais limité Dataset et Software
+  - Le dataType par défaut est "dataset" au lieu de "none"
+  - Ajout du dataType "physical object" dans la partie administration
+- Syntaxe du code : refonte du code ReactJS. Gros travail de mise en conformité du code ReactJS. Ce travail ne devrait pas changer le fonctionnement mais apporte une meilleure gestion des référentiels chargés en mémoire, de l'affichage des composants et des variables.
+
 ## 31/03/2026
 - Ajout d'une tache de convertion des fragments contributeurs utilisant le référentiel SoftwareRoles (#14371)
 - Ajout d'un message à coté de l'infobox indiquant qu'aucune recommandation n'est sélectionnée (#14852)
