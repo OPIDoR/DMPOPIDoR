@@ -42,7 +42,7 @@ export function parsePattern(data, keys = []) {
  * @returns {Array} - An array of option objects, each object having a `value`, `label`, and `object` property.
  *                   The first option is an empty option with empty value and label.
  */
-export function createOptions(registryValues, locale) {
+export function createRegistryOptions(registryValues, locale) {
   return [
     ...registryValues.map((option) => {
       let { label, value, ...optionValue } = option;

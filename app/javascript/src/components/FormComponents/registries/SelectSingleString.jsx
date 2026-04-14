@@ -7,7 +7,7 @@ import { FaXmark } from "react-icons/fa6";
 
 import { service } from "../../../services/index.js";
 import {
-  createOptions,
+  createRegistryOptions,
   createRegistryPlaceholder,
 } from "../../../utils/GeneratorUtils.js";
 import { GlobalContext } from "../../context/GlobalContext.jsx";
@@ -55,7 +55,7 @@ function SelectSingleString({
   const options = useMemo(
     () =>
       registryValues.length > 0
-        ? createOptions(registryValues, locale)
+        ? createRegistryOptions(registryValues, locale)
         : [{ value: "", label: "" }],
     [registryValues, locale],
   );

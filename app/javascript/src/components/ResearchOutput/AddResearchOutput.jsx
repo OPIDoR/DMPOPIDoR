@@ -12,7 +12,7 @@ import { GlobalContext } from "../context/GlobalContext.jsx";
 import { SectionsContext } from "../context/SectionsContext.jsx";
 import { researchOutput, service } from "../../services";
 import {
-  createOptions,
+  createRegistryOptions,
   dataTypeSelectValues,
   displayPersonalData,
   displayTopics,
@@ -190,7 +190,7 @@ function AddResearchOutput({
    */
   useEffect(() => {
     service.getRegistryByName("Topics").then((res) => {
-      const topicsOpts = createOptions(res.data, locale);
+      const topicsOpts = createRegistryOptions(res.data, locale);
       setTopicOptions(topicsOpts);
 
       if (inEdition) {
