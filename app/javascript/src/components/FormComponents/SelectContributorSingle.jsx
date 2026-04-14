@@ -14,7 +14,7 @@ import {
 } from "../../utils/GeneratorUtils.js";
 import {
   checkFragmentExists,
-  createPersonsOptions,
+  createSelectOptions,
 } from "../../utils/JsonFragmentsUtils.js";
 import { GlobalContext } from "../context/GlobalContext.jsx";
 import { service } from "../../services/index.js";
@@ -52,7 +52,7 @@ function SelectContributorSingle({
     () => uniqueId("select_contributor_single_tooltip_id_"),
     [],
   );
-  const options = persons.length > 0 ? createPersonsOptions(persons) : null;
+  const options = persons.length > 0 ? createSelectOptions(persons) : null;
   const contributor = field.value.action === "delete" ? {} : field.value;
 
   /**

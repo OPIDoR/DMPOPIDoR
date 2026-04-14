@@ -94,7 +94,7 @@ class MadmpFragmentsController < ApplicationController
                                   .map do |f|
                                     {
                                       **f.get_full_fragment(with_ids: true),
-                                      'to_string' => f.to_s
+                                      'label' => f.to_s
                                     }
                                   end
     authorize @dmp_fragment

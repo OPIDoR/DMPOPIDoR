@@ -14,7 +14,7 @@ import {
 } from "../../utils/GeneratorUtils.js";
 import {
   checkFragmentExists,
-  createPersonsOptions,
+  createSelectOptions,
 } from "../../utils/JsonFragmentsUtils.js";
 import { GlobalContext } from "../context/GlobalContext.jsx";
 import { service } from "../../services/index.js";
@@ -57,7 +57,7 @@ function SelectContributorMultiple({
     () => uniqueId("select_contributor_multiple_tooltip_id_"),
     [],
   );
-  const options = persons.length > 0 ? createPersonsOptions(persons) : null;
+  const options = persons.length > 0 ? createSelectOptions(persons) : null;
 
   /**
    * Memoized values
