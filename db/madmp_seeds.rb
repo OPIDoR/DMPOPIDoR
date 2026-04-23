@@ -114,6 +114,30 @@ templates = [
     visibility: Template.visibilities[:organisationally_visible],
     links: { "funder": [], "sample_plan": [] },
     description: "<p>Modèle module pour les produits de recherche Logiciel.</p>"
+  },
+  {
+    title: "Module template for Physical Object research outputs",
+    published: true,
+    locale: "en-GB",
+    is_default: false,
+    type: 'module',
+    data_type: 'physical_object',
+    version: 0,
+    visibility: Template.visibilities[:organisationally_visible],
+    links: { "funder": [], "sample_plan": [] },
+    description: "<p>Module template for Physical Object research outputs.</p>"
+  },
+  {
+    title: "Modèle module pour les produits de recherche Objets physiques",
+    published: true,
+    locale: "fr-FR",
+    is_default: false,
+    type: 'module',
+    data_type: 'physical_object',
+    version: 0,
+    visibility: Template.visibilities[:organisationally_visible],
+    links: { "funder": [], "sample_plan": [] },
+    description: "<p>Modèle module pour les produits de recherche Objets physiques.</p>"
   }
 ]
 # Template creation calls defaults handler which sets is_default and
@@ -145,6 +169,18 @@ phases = [
     number: 1,
     modifiable: true,
     template: Template.find_by(title: "Modèle module pour les produits de recherche Logiciel")
+  },
+  {
+    title: "Module phase for Physical Object research outputs",
+    number: 1,
+    modifiable: true,
+    template: Template.find_by(title: "Module template for Physical Object research outputs")
+  },
+  {
+    title: "Phase module pour les produits de recherche Objets physiques",
+    number: 1,
+    modifiable: true,
+    template: Template.find_by(title: "Modèle module pour les produits de recherche Objets physiques")
   }
 ]
 
@@ -165,6 +201,14 @@ se_software_module_phase_en = Phase.find_by(
 se_software_module_phase_fr = Phase.find_by(
   title: "Phase module pour les produits de recherche Logiciel",
   template: Template.find_by(title: "Modèle module pour les produits de recherche Logiciel")
+)
+se_physical_object_module_phase_en = Phase.find_by(
+  title: "Module phase for Physical Object research outputs",
+  template: Template.find_by(title: "Module template for Physical Object research outputs")
+)
+se_physical_object_module_phase_fr = Phase.find_by(
+  title: "Phase module pour les produits de recherche Objets physiques",
+  template: Template.find_by(title: "Modèle module pour les produits de recherche Objets physiques")
 )
 
 # Create sections for SE detailed phase
@@ -268,6 +312,26 @@ sections = [
     number: 1,
     modifiable: true,
     phase: se_software_module_phase_fr
+  },
+  # Section for Physical Object research outputs
+  ####################################################
+  ##################### ENGLISH ######################
+  ####################################################
+  {
+    title: "Section for Physical Object research outputs",
+    number: 1,
+    modifiable: true,
+    phase: se_physical_object_module_phase_en
+  },
+  # Section pour produit de recherches Objets physiques
+  ####################################################
+  ##################### FRENCH #######################
+  ####################################################
+  {
+    title: "Section pour produit de recherches Objets physiques",
+    number: 1,
+    modifiable: true,
+    phase: se_physical_object_module_phase_fr
   }
 ]
 sections.map { |s| Section.create!(s) }
@@ -601,6 +665,38 @@ questions = [
     ),
     question_format: structured,
     madmp_schema: MadmpSchema.find_by(name: "SoftwareDescriptionStandard"),
+    modifiable: true,
+    themes: [Theme.find_by(title: "Data Description")]
+  },
+  # Questions for "Section for Software research outputs" Phase,
+  ####################################################
+  ##################### ENGLISH #######################
+  ####################################################
+  {
+    text: "Physical Object Description",
+    number: 1,
+    section: Section.find_by(
+      title: "Section for Physical Object research outputs",
+      phase: se_physical_object_module_phase_en
+    ),
+    question_format: structured,
+    madmp_schema: MadmpSchema.find_by(name: "PhysicalObjectDescriptionStandard"),
+    modifiable: true,
+    themes: [Theme.find_by(title: "Data Description")]
+  },
+  # Questions for "Section pour produit de recherches Logiciel" Phase,
+  ####################################################
+  ##################### FRENCH #######################
+  ####################################################
+  {
+    text: "Description de l'Objet physique",
+    number: 1,
+    section: Section.find_by(
+      title: "Section pour produit de recherches Objets physiques",
+      phase: se_physical_object_module_phase_fr
+    ),
+    question_format: structured,
+    madmp_schema: MadmpSchema.find_by(name: "PhysicalObjectDescriptionStandard"),
     modifiable: true,
     themes: [Theme.find_by(title: "Data Description")]
   },
