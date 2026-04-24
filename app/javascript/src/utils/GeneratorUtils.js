@@ -148,11 +148,12 @@ export function dataTypeSelectValues(t) {
   return [
     { label: t("dataset"), value: "dataset" },
     { label: t("software"), value: "software" },
+    { label: t("physical_object"), value: "physical_object" },
   ];
 }
 
 export function displayPersonalData(researchOutputDataType) {
-  const typesWithoutPersonalData = ["software"];
+  const typesWithoutPersonalData = ["software", "physical_object"];
 
   return !typesWithoutPersonalData.includes(
     researchOutputDataType?.toLowerCase(),
@@ -162,6 +163,6 @@ export function displayPersonalData(researchOutputDataType) {
 export function displayTopics(researchOutputDataType, enableTopics = true) {
   if (!enableTopics) return false;
 
-  const typesWithoutTopics = ["software"];
+  const typesWithoutTopics = ["software", "physical_object"];
   return !typesWithoutTopics.includes(researchOutputDataType?.toLowerCase());
 }

@@ -2,6 +2,10 @@
 
 **Attention** Cette liste de changements concerne les déploiements sur nos serveurs de test en interne.
 
+## 24/04/2026
+- Ajout de la possibilité de créer des produits de recherche avec le questionnaire Objet Physique
+- Ajout de la colonne `is_default` aux groupes de recommendation. Ces groupes sont sélectionnés par défaut à la création d'un produit de recherche en fonction du dataType, de la langue et du topic choisi (#14853)
+
 ## 13/04/2026
 - Correction du problème d'affichage de l'onglet Infos Générales après un import financeur
 - Correction d'un problème de redirection lorsque la création d'une recommandation ne se déroule pas avec succès

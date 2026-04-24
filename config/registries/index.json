@@ -2,7 +2,8 @@
     "AgentIdSystem": {
         "dataTypes": [
             "software",
-            "dataset"
+            "dataset", 
+            "physical_object"
         ],
         "topics": null,
         "category": "AgentIdSystem",
@@ -11,7 +12,8 @@
     "AdemeProjects": {
         "dataTypes": [
             "software",
-            "dataset"
+            "dataset", 
+            "physical_object"
         ],
         "topics": null,
         "category": "AdemeProjects",
@@ -20,7 +22,8 @@
     "AnrProjects": {
         "dataTypes": [
             "software",
-            "dataset"
+            "dataset", 
+            "physical_object"
         ],
         "topics": null,
         "category": "AnrProjects",
@@ -29,7 +32,8 @@
     "AnsesProjects": {
         "dataTypes": [
             "software",
-            "dataset"
+            "dataset", 
+            "physical_object"
         ],
         "topics": null,
         "category": "AnsesProjects",
@@ -56,7 +60,8 @@
     "ClassificationOCDE": {
         "dataTypes": [
             "software",
-            "dataset"
+            "dataset", 
+            "physical_object"
         ],
         "topics": null,
         "category": "Subject",
@@ -79,7 +84,8 @@
     "CordisProjects": {
         "dataTypes": [
             "software",
-            "dataset"
+            "dataset", 
+            "physical_object"
         ],
         "topics": null,
         "category": "CordisProjects",
@@ -88,7 +94,8 @@
     "CostType": {
         "dataTypes": [
             "software",
-            "dataset"
+            "dataset", 
+            "physical_object"
         ],
         "topics": null,
         "category": "CostType",
@@ -115,7 +122,8 @@
     "DMPLicenses": {
         "dataTypes": [
             "software",
-            "dataset"
+            "dataset", 
+            "physical_object"
         ],
         "topics": null,
         "category": "DMPLicense",
@@ -124,7 +132,8 @@
     "DMPVersion": {
         "dataTypes": [
             "software",
-            "dataset"
+            "dataset", 
+            "physical_object"
         ],
         "topics": null,
         "category": "DMPVersion",
@@ -133,7 +142,8 @@
     "FrmProjects": {
         "dataTypes": [
             "software",
-            "dataset"
+            "dataset", 
+            "physical_object" 
         ],
         "topics": null,
         "category": "FrmProjects",
@@ -142,7 +152,8 @@
     "FundersWithImport": {
         "dataTypes": [
             "software",
-            "dataset"
+            "dataset", 
+            "physical_object"
         ],
         "topics": null,
         "category": "FundersWithImport",
@@ -151,7 +162,8 @@
     "FundingStatus": {
         "dataTypes": [
             "software",
-            "dataset"
+            "dataset", 
+            "physical_object"
         ],
         "topics": null,
         "category": "FundingStatus",
@@ -180,7 +192,8 @@
     "ISO4217": {
         "dataTypes": [
             "software",
-            "dataset"
+            "dataset", 
+            "physical_object"
         ],
         "topics": null,
         "category": "ISO4217",
@@ -195,7 +208,8 @@
     "ISO639-3_fra_eng": {
         "dataTypes": [
             "software",
-            "dataset"
+            "dataset", 
+            "physical_object"
         ],
         "topics": null,
         "category": "ISO639-3_fra_eng",
@@ -252,7 +266,8 @@
     "NameTypeValues": {
         "dataTypes": [
             "software",
-            "dataset"
+            "dataset", 
+            "physical_object"
         ],
         "topics": null,
         "category": "NameTypeValue",
@@ -269,7 +284,8 @@
     "OrganizationIdSystem": {
         "dataTypes": [
             "software",
-            "dataset"
+            "dataset", 
+            "physical_object"
         ],
         "topics": null,
         "category": "OrganizationIdSystem",
@@ -290,7 +306,8 @@
     "PIDSystem": {
         "dataTypes": [
             "software",
-            "dataset"
+            "dataset", 
+            "physical_object"
         ],
         "topics": null,
         "category": "PIDSystem",
@@ -319,7 +336,8 @@
     "ResearchDataType": {
         "dataTypes": [
             "software",
-            "dataset"
+            "dataset", 
+            "physical_object"
         ],
         "topics": null,
         "category": "ResearchDataType",

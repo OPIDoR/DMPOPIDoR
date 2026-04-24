@@ -292,7 +292,7 @@
   "guidanceGroup": "Guidance group",
   "createGuidance": "Create a guidance",
   "software": "Software",
-  "dataset": "Dataset",
   "physical_object": "Physical object",
+  "dataset": "Dataset",
   "noGuidanceSelected": "No guidance has been selected"
 }
