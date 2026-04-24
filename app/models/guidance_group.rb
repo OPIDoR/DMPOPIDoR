@@ -10,6 +10,7 @@
 #  id              :integer          not null, primary key
 #  data_types      :string           default(["dataset"]), not null, is an Array
 #  description     :string
+#  is_default      :boolean          default(FALSE), not null
 #  name            :string
 #  optional_subset :boolean          default(TRUE), not null
 #  published       :boolean          default(FALSE), not null
