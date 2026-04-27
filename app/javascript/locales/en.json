@@ -294,5 +294,8 @@
   "software": "Software",
   "physical_object": "Physical object",
   "dataset": "Dataset",
-  "noGuidanceSelected": "No guidance has been selected"
+  "noGuidanceSelected": "No guidance has been selected",
+  "description": "Description",
+  "guidanceGroupNameTooltip": "Add an appropriate name for your guidance group. This name will tell the end user where the guidance has come from. We suggest you use the organisation or department name e.g. \"OU\" or \"Maths & Stats\"",
+  "guidanceGroupDescriptionTooltip": "Enter your description here. You can include links where needed."
 }

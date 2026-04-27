@@ -290,6 +290,8 @@
   "createGuidance": "Créer une recommandation",
   "software": "Logiciel",
   "physical_object": "Objet physique",
-  "dataset": "Jeu de données",
-  "noGuidanceSelected": "Aucune recommandation sélectionnée"
+  "noGuidanceSelected": "Aucune recommandation sélectionnée",
+  "description": "Description",
+  "guidanceGroupNameTooltip": "Ajouter un nom approprié à votre groupe de recommandations. Ce nom signalera à l'utilisateur d'où proviennent ces recommandations. Nous vous conseillons d'utiliser le nom de l'organisme ou du département par ex. \"OU\" ou \"Maths & Stats\"",
+  "guidanceGroupDescriptionTooltip": "Entrez votre description ici. Vous pouvez inclure des liens si nécessaire."
 }
