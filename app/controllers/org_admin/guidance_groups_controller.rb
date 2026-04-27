@@ -5,6 +5,19 @@ module OrgAdmin
   class GuidanceGroupsController < ApplicationController
     after_action :verify_authorized
 
+    # GET /org_admin/guidance_groups/:id
+    def show
+      @guidance_groups = GuidanceGroup.where(org_id: current_user.org.id)
+      @guidance_group = GuidanceGroup.find(params[:id])
+      @topics = Registry.find_by(name: 'Topics')&.values || []
+      authorize @guidance_group
+      @locales = Language.all
+      respond_to do |format|
+        format.html
+        format.json { render json: GuidanceGroup.serialize_json_response(@guidance_group) }
+      end
+    end
+
     # GET /org/admin/guidance_groups/new
     def new
       @guidance_groups = GuidanceGroup.where(org_id: current_user.org.id)
@@ -34,13 +47,17 @@ module OrgAdmin
     end
     # rubocop:enable Metrics/AbcSize
 
-    # GET /org_admin/guidance_groups/:id
+    # GET /org_admin/guidance_groups/:id/edit
     def edit
       @guidance_groups = GuidanceGroup.where(org_id: current_user.org.id)
       @guidance_group = GuidanceGroup.find(params[:id])
       @topics = Registry.find_by(name: 'Topics')&.values || []
       authorize @guidance_group
       @locales = Language.all
+      respond_to do |format|
+        format.html
+        format.json { render json: GuidanceGroup.serialize_json_response(@guidance_group) }
+      end
     end
 
     # PUT /org_admin/guidance_groups/:id

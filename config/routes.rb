@@ -384,7 +384,7 @@ Rails.application.routes.draw do
       end
     end
 
-    resources :guidance_groups, only: %i[index new create edit update destroy] do
+    resources :guidance_groups, only: %i[index show new create edit update destroy] do
       member do
         put 'publish'
         put 'unpublish'
