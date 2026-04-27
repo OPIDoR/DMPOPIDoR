@@ -1,6 +1,5 @@
 import { useTranslation } from "react-i18next";
 import Dropdown from "react-bootstrap/Dropdown";
-import DropdownButton from "react-bootstrap/DropdownButton";
 import Table from "react-bootstrap/Table";
 
 import * as tablesStyles from "../../assets/css/tables.module.css";
@@ -61,21 +60,35 @@ function GuidanceGroupList({
                 <td className={tablesStyles.table_row}>{group.locale}</td>
                 <td className={tablesStyles.table_row}>{group.last_updated}</td>
                 <td className={tablesStyles.table_row}>
-                  <DropdownButton
-                    id={`guidance_group-${group.id}-actions`}
-                    className={tablesStyles.dropdown_button}
-                    title={t("actions")}
-                  >
-                    <Dropdown.Item as="button" onClick={handleEdit}>
-                      {t("edit")}
-                    </Dropdown.Item>
-                    <Dropdown.Item as="button" onClick={handlePublication}>
-                      {group.published ? t("unpublish") : t("publish")}
-                    </Dropdown.Item>
-                    <Dropdown.Item as="button" onClick={handleDelete}>
-                      {t("delete")}
-                    </Dropdown.Item>
-                  </DropdownButton>
+                  <Dropdown>
+                    <Dropdown.Toggle
+                      id={`guidance_group-${group.id}-actions`}
+                      className={tablesStyles.dropdown_button}
+                    >
+                      {t("actions")}
+                    </Dropdown.Toggle>
+
+                    <Dropdown.Menu className={tablesStyles.dropdown_menu}>
+                      <Dropdown.Item
+                        as="button"
+                        onClick={() => handleEdit(group.id)}
+                      >
+                        {t("edit")}
+                      </Dropdown.Item>
+                      <Dropdown.Item
+                        as="button"
+                        onClick={() => handlePublication(group.id)}
+                      >
+                        {group.published ? t("unpublish") : t("publish")}
+                      </Dropdown.Item>
+                      <Dropdown.Item
+                        as="button"
+                        onClick={() => handleDelete(group.id)}
+                      >
+                        {t("delete")}
+                      </Dropdown.Item>
+                    </Dropdown.Menu>
+                  </Dropdown>
                 </td>
               </tr>
             ))

@@ -1,6 +1,7 @@
 import { useContext, useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { Col, Form, InputGroup, Row } from "react-bootstrap";
+import { useNavigate } from "react-router";
 import { FaSearch } from "react-icons/fa";
 
 import * as styles from "../../assets/css/guidance_edition.module.css";
@@ -14,6 +15,7 @@ import GuidanceList from "./GuidanceList";
 
 function GuidanceManagement() {
   const { t, i18n } = useTranslation();
+  const navigate = useNavigate();
   const { locale } = useContext(GlobalContext);
   const [guidanceGroups, setGuidanceGroups] = useState([]);
   const [guidances, setGuidances] = useState([]);
@@ -39,6 +41,16 @@ function GuidanceManagement() {
           .includes(guidanceSearchCriteria.toLowerCase()),
     );
     setDisplayedGuidances(filteredGuidances);
+  };
+
+  const handleGuidanceGroupEdit = (guidanceGroupId) => {
+    navigate(`guidance_groups/${guidanceGroupId}/edit`);
+  };
+  const handleGuidanceGroupDelete = (guidanceGroupId) => {
+    navigate(`guidance_groups/${guidanceGroupId}/delete`);
+  };
+  const handleGuidanceGroupPublication = (guidanceGroupId) => {
+    navigate(`guidance_groups/${guidanceGroupId}/edit`);
   };
 
   /**
@@ -84,9 +96,14 @@ function GuidanceManagement() {
       <Row>
         <Col md={12}>
           <h2>{t("guidanceGroupList")}</h2>
-          <GuidanceGroupList guidanceGroups={guidanceGroups} />
+          <GuidanceGroupList
+            guidanceGroups={guidanceGroups}
+            handleEdit={handleGuidanceGroupEdit}
+            handleDelete={handleGuidanceGroupDelete}
+            handlePublication={handleGuidanceGroupPublication}
+          />
           <CustomButton
-            handleClick={() => {}}
+            handleClick={() => navigate("guidance_groups/new")}
             title={t("createGuidanceGroup")}
             buttonColor="rust"
             position="start"
