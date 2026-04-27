@@ -183,15 +183,17 @@ class GuidanceGroup < ApplicationRecord
     {
       id: guidance_group.id,
       name: guidance_group.name,
+      description: guidance_group.description,
       optional_subset: guidance_group.optional_subset.nil? || guidance_group.optional_subset == false,
       published: guidance_group.published,
       topics: guidance_group.topics,
       data_types: guidance_group.data_types,
-      locale: if guidance_group.language_id.present?
-                Language.find_by(id: guidance_group.language_id)&.name || 'N/C'
-              else
-                'N/C'
-              end,
+      language: if guidance_group.language_id.present?
+                  { value: guidance_group.language_id, label: Language.find_by(id: guidance_group.language_id)&.name }
+                else
+                  { value: 0, label: 'N/C' }
+                end,
+      available_languages: Language.all.map { |language| { value: language.id, label: language.name } },
       last_updated: guidance_group.updated_at.to_date.strftime('%d/%m/%Y')
     }
   end
