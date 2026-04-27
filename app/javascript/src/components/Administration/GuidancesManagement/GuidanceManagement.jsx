@@ -8,7 +8,7 @@ import * as tablesStyles from "../../assets/css/tables.module.css";
 import { GlobalContext } from "../../context/GlobalContext";
 import GuidanceGroupList from "./GuidanceGroupList";
 import CustomSpinner from "../../Shared/CustomSpinner";
-import { guidancesEdition } from "../../../services";
+import { guidancesManagement } from "../../../services";
 import CustomButton from "../../Styled/CustomButton";
 import GuidanceList from "./GuidanceList";
 
@@ -54,7 +54,7 @@ function GuidanceManagement() {
   }, [guidances]);
 
   useEffect(() => {
-    guidancesEdition
+    guidancesManagement
       .getGuidancesData()
       .then((res) => {
         setGuidanceGroups(res.data.guidance_groups);
