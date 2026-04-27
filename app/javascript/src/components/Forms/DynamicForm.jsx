@@ -95,7 +95,10 @@ function DynamicForm({
         document.getElementById("plan-title").innerHTML =
           response?.data?.meta_fragment?.title;
         setFormData({
-          [response?.data?.meta_fragment?.id]: response.data.meta_fragment,
+          [response?.data?.meta_fragment?.id]: {
+            ...response.data.meta_fragment,
+            template_name: "MetaStandard",
+          },
         });
       }
       setFormData({ [fragmentId]: response.data.fragment });
