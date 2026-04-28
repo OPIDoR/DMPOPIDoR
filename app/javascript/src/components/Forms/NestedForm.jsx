@@ -89,7 +89,7 @@ function NestedForm({
         </form>
         <div className={styles.nestedFormFooter}>
           <Button onClick={handleClose} style={{ margin: "0 5px 0 5px" }}>
-            {t("cancelLabel")}
+            {t("cancel")}
           </Button>
           {!readonly && (
             <Button
