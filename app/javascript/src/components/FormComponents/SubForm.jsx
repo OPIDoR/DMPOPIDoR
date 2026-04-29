@@ -35,6 +35,9 @@ function SubForm({
   /** Memoized values */
   const template = useLoadTemplate(templateName);
   const tooltipId = useMemo(() => uniqueId("sub_form_tooltip_id_"), []);
+  const savedFragment = useMemo(() => {
+    return field?.value || null;
+  }, [field.value]);
 
   /**
    * Callback functions
@@ -50,7 +53,7 @@ function SubForm({
       };
       field.onChange(newFragment);
 
-      setEditedFragment({});
+      setEditedFragment(null);
       setShowNestedForm(false);
     },
     [field],
@@ -62,9 +65,9 @@ function SubForm({
       e.stopPropagation();
       Swal.fire(swalUtils.defaultConfirmConfig(t)).then((result) => {
         if (result.isConfirmed) {
-          field.onChange({ id: field.value.id, action: "delete" });
+          field.onChange({ id: savedFragment.id, action: "delete" });
 
-          setEditedFragment({});
+          setEditedFragment(null);
           setShowNestedForm(false);
         }
       });
@@ -73,12 +76,15 @@ function SubForm({
   );
 
   const handleCloseNestedForm = useCallback(() => {
-    setEditedFragment({});
+    setEditedFragment(null);
     setShowNestedForm(false);
   }, []);
 
   const handleEditFragment = useCallback(() => {
-    setEditedFragment({ ...field.value, action: "update" });
+    setEditedFragment({
+      ...savedFragment,
+      action: savedFragment.action || "update",
+    });
     setShowNestedForm(true);
   }, [field.value]);
 
@@ -123,7 +129,7 @@ function SubForm({
           />
         )}
 
-        {!fragmentEmpty(editedFragment) && !showNestedForm && (
+        {!fragmentEmpty(savedFragment) && !showNestedForm && (
           <table style={{ marginTop: "20px" }} className="table">
             <thead>
               <tr>
@@ -132,7 +138,7 @@ function SubForm({
               </tr>
             </thead>
             <tbody>
-              {[editedFragment].map((el, idx) => (
+              {[savedFragment].map((el, idx) => (
                 <tr key={idx}>
                   <td style={{ width: "90%" }}>
                     {parsePattern(el, template?.schema?.to_string)}
@@ -153,7 +159,7 @@ function SubForm({
           </table>
         )}
 
-        {!readonly && fragmentEmpty(editedFragment) && (
+        {!readonly && fragmentEmpty(savedFragment) && (
           <CustomButton
             handleClick={() => {
               setEditedFragment(null);

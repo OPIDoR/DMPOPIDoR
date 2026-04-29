@@ -46,14 +46,10 @@ function NestedForm({
    */
 
   useEffect(() => {
-    if (Object.keys(methods.formState.dirtyFields).length > 0) {
-      methods.reset(methods.formState.dirtyFields);
-    }
-  }, [data]);
-
-  useEffect(() => {
-    if (!data?.id && template) {
+    if (!data && template) {
       methods.reset(formatDefaultValues(template.schema.default?.[locale]));
+    } else {
+      methods.reset(data);
     }
   }, [template, data]);
 
