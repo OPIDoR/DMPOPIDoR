@@ -28,7 +28,7 @@ export const StyledLi = styled.li`
       ? `color-mix(in srgb, ${base} 80%, black)`
       : "var(--dark-blue)";
 
-    return $active === "true" ? activeColor : ;
+    return $active === "true" ? activeColor : base;
   }};
   cursor: pointer;
   margin: 0 4px 4px 0;
