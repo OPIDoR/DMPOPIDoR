@@ -14,7 +14,7 @@
         "ror": {
             "name": "name",
             "ror": "orgId",
-            "acronyms[0]": "acronym",
+            "acronym": "acronym",
             "type": "idType"
         }
     },

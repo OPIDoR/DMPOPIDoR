@@ -146,11 +146,11 @@ module MadmpExternalApis
             ror: item['id'],
             name: get_name(item:),
             links: (item&.dig('links') || [])
-              .select { |link| link&.dig('type') == 'website' }
-              .map { |link| link&.dig('value') },
+                   .select { |link| link&.dig('type') == 'website' }
+                   .map { |link| link&.dig('value') },
             country: get_country(item:),
             addresses: get_addresses(item:),
-            acronyms: get_acronyms(item:),
+            acronym: get_acronym(item:),
             external_ids: get_external_ids(item:)
           }
         end&.compact || []
@@ -192,17 +192,17 @@ module MadmpExternalApis
         end
       end
 
-      def get_acronyms(item:)
+      def get_acronym(item:)
         item&.dig('names')
             &.select { |name| name&.dig('types')&.include?('acronym') && name&.dig('value') }
-            &.map { |name| name&.dig('value') } || []
+            &.map { |name| name&.dig('value') }&.first
       end
 
       def get_external_ids(item:)
         item&.dig('external_ids')
             &.map do |external_id|
-              [external_id&.dig('type')&.to_sym,
-               external_id&.dig('preferred') ? [external_id&.dig('preferred')] : external_id&.dig('all')]
+          [external_id&.dig('type')&.to_sym,
+           external_id&.dig('preferred') ? [external_id&.dig('preferred')] : external_id&.dig('all')]
         end
             .to_h
       end
