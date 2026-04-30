@@ -50,6 +50,7 @@ module Settings
       ],
       'physical_object' => %w[
         physical_object_description
+        physical_object_collection
         physical_object_quality_documentation
         physical_object_storage
         physical_object_legal
