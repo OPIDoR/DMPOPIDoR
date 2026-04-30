@@ -2,6 +2,11 @@
 
 **Attention** Cette liste de changements concerne les déploiements sur nos serveurs de test en interne.
 
+## 30/04/2026
+- L'import RoR n'importe et n'affiche que le premier acronyme disponible (#14899)
+- Lors de la création d'un produit de recherche, seuls les groupes de recommandations de l'organisme correspondant à la thématique et au type choisit sont sélectionnés
+- Correction du problème de génération des informations JSON des produits de recherche Objet Physique lors d'un export JSON (#15086)
+
 ## 29/04/2025
 - Refonte de l'API GraphQL
 - Correction du filtre obligatoire pour les produits de recherche
