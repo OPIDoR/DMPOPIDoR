@@ -399,17 +399,13 @@ class ResearchOutputsController < ApplicationController
   # rubocop:disable Metrics/AbcSize
   def default_guidance_groups(plan, data_type, topic)
     language = Language.find_by(abbreviation: plan.template.locale)
-    ggs = []
     # pre-select owner org's guidance and the default org's guidance
-    ids = (::Org.default_orgs.pluck(:id) << plan.owner.org_id).flatten.uniq
-    org_ggs = GuidanceGroup.where(org_id: ids, optional_subset: false, published: true, language_id: language.id)
-    default_ggs = GuidanceGroup.where(
-      Arel.sql("'#{topic}' = ANY(topics) AND '#{data_type}' = ANY(data_types) AND published=true AND language_id=#{language.id} AND is_default=true")
-    )
+    ids = (Org.default_orgs.pluck(:id) << plan.owner.org_id).flatten.uniq
+    org_ggs_query = GuidanceGroup.where(org_id: ids, optional_subset: false, published: true, language_id: language.id)
+    default_ggs_query = GuidanceGroup.where(published: true, language_id: language.id, is_default: true)
 
-    ggs << org_ggs unless org_ggs.empty?
-    ggs << default_ggs unless default_ggs.empty?
-    ggs
+    GuidanceGroup.from("(#{org_ggs_query.to_sql} UNION #{default_ggs_query.to_sql}) AS guidance_groups")
+                 .where(Arel.sql("'#{topic}' = ANY(topics) AND '#{data_type}' = ANY(data_types)"))
   end
   # rubocop:enable Metrics/AbcSize
 end
