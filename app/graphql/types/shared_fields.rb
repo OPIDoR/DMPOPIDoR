@@ -7,7 +7,7 @@ module Types
         # argument :className, Types::ClassnameEnum, required: false, description: 'Specifies the class name of the fragment to filter.'
         argument :field, String, required: false, description: 'The field to apply the filter on.'
         argument :value, GraphQL::Types::JSON, required: false, description: 'The value to compare against the specified field.'
-        argument :operator, String, required: false, description: 'The comparison operator to use (e.g., eq for equals, neq for not equals, gt for greater than, lt for less than, etc.).'
+        argument :operator, Types::OperatorEnum, required: false, description: 'The comparison operator to use.'
         argument :filter, -> { Types::LogicalFilterInput }, required: false, description: 'A nested filter to allow complex filtering conditions.'
       end
     end

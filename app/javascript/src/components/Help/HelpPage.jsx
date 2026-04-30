@@ -3,9 +3,11 @@ import { useQuery } from "@tanstack/react-query";
 import { useTranslation } from "react-i18next";
 import DOMPurify from "dompurify";
 import { Alert } from "react-bootstrap";
+import { MdArrowRight } from "react-icons/md";
 
 import { CustomError, CustomSpinner } from "../Shared";
 import { directus } from "../../services/index.js";
+import { setUrlParams } from "../../utils/utils.js";
 
 import {
   FaqContainer,
@@ -23,7 +25,11 @@ const languagesCode = {
 
 export default function HelpPage({ locale, directusUrl }) {
   const { t } = useTranslation();
-  const [activeFaq, setActiveFaq] = useState(0);
+
+  const params = new URLSearchParams(window.location.search);
+  const initialTab = Number(params.get("tab")) || 0;
+
+  const [activeFaq, setActiveFaq] = useState(initialTab);
 
   const { isLoading, error, data } = useQuery({
     queryKey: ["help"],
@@ -63,16 +69,22 @@ export default function HelpPage({ locale, directusUrl }) {
     return <Alert variant="warning">{t("helpPageUnderDevelopment")}</Alert>;
   }
 
+  const handleChangeTab = (index) => {
+    setActiveFaq(index);
+    setUrlParams({ tab: index });
+  };
+
   return (
     <FaqContainer>
       <FaqCategories>
         <StyledUl>
-          {categories.map(({ title, icon }, index) => (
+          {categories.map(({ title, icon, color }, index) => (
             <StyledLi
               $onlyChild={(categories.length === 1).toString()}
               $active={(activeFaq === index).toString()}
+              $bg={color}
               key={`faq-category-${index}`}
-              onClick={() => setActiveFaq(index)}
+              onClick={() => handleChangeTab(index)}
             >
               {icon && (
                 <img
@@ -82,6 +94,9 @@ export default function HelpPage({ locale, directusUrl }) {
                 />
               )}
               <span className="text" key={`faq-category-title-${index}`}>
+                {activeFaq === index ? (
+                  <MdArrowRight style={{ marginTop: "-4px" }} size={24} />
+                ) : null}
                 {title[languagesCode[locale]]}
               </span>
             </StyledLi>

@@ -2,6 +2,11 @@
 
 **Attention** Cette liste de changements concerne les déploiements sur nos serveurs de test en interne.
 
+## 29/04/2025
+- Refonte de l'API GraphQL
+- Correction du filtre obligatoire pour les produits de recherche
+- Modification page d'aide, ajout de couleur aux onglets et de l'index de l'onglet dans l'URL
+
 ## 24/04/2026
 - Ajout de la possibilité de créer des produits de recherche avec le questionnaire Objet Physique
 - Ajout de la colonne `is_default` aux groupes de recommendation. Ces groupes sont sélectionnés par défaut à la création d'un produit de recherche en fonction du dataType, de la langue et du topic choisi (#14853)

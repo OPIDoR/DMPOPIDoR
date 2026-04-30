@@ -10,6 +10,7 @@ const getHelp = async (url) => {
   return client.query(`
     query {
       faq_categories(filter: { published: { _eq: true } }) {
+        color
         icon {
           id
           filename_download
