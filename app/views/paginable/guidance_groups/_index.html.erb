@@ -5,6 +5,7 @@
       <tr>
         <th scope="col"><%= _('Name') %></th>
         <th scope="col" class="text-center"><%= _('Status') %>&nbsp;<%= paginable_sort_link('guidance_groups.published') %></th>
+        <th scope="col" class="text-center"><%= _('Default') %>&nbsp;<%= paginable_sort_link('guidance_groups.is_default') %></th>
         <th scope="col" class="text-center"><%= "#{_('Data Types')} / #{_('Topics')}" %></th>
         <th scope="col"><%= _('Locale') %>&nbsp;<%= paginable_sort_link('guidances.locale') %></th>
         <th scope="col" class="text-center date-column"><%= _('Last updated') %>&nbsp;<%= paginable_sort_link('guidance_groups.updated_at') %></th>
@@ -23,6 +24,12 @@
                 <%= _('Unpublished')%>
             <% else %>
                 <%= _('Published')%>
+            <% end %>
+          </td><td class="text-center">
+            <% if guidance_gr.is_default.nil? || guidance_gr.is_default == false %>
+                <%= _('No')%>
+            <% else %>
+                <%= _('Yes')%>
             <% end %>
           </td>
           <td class="text-center"><%= guidance_gr.data_types.join(', ') %> / <%= guidance_gr.topics.join(', ') %></td>
