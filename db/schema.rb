@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.1].define(version: 2026_04_24_084936) do
+ActiveRecord::Schema[8.1].define(version: 2026_05_05_132729) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
   enable_extension "unaccent"
@@ -239,7 +239,6 @@ ActiveRecord::Schema[8.1].define(version: 2026_04_24_084936) do
     t.integer "org_id"
     t.datetime "created_at", precision: nil, null: false
     t.datetime "updated_at", precision: nil, null: false
-    t.boolean "optional_subset", default: false, null: false
     t.boolean "published", default: false, null: false
     t.string "description"
     t.integer "language_id", default: 0
