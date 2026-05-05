@@ -401,7 +401,7 @@ class ResearchOutputsController < ApplicationController
     language = Language.find_by(abbreviation: plan.template.locale)
     # pre-select owner org's guidance and the default org's guidance
     ids = (Org.default_orgs.pluck(:id) << plan.owner.org_id).flatten.uniq
-    org_ggs_query = GuidanceGroup.where(org_id: ids, optional_subset: false, published: true, language_id: language.id)
+    org_ggs_query = GuidanceGroup.where(org_id: ids, published: true, language_id: language.id)
     default_ggs_query = GuidanceGroup.where(published: true, language_id: language.id, is_default: true)
 
     GuidanceGroup.from("(#{org_ggs_query.to_sql} UNION #{default_ggs_query.to_sql}) AS guidance_groups")
