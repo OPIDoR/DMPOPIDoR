@@ -2,6 +2,13 @@
 
 **Attention** Cette liste de changements concerne les déploiements sur nos serveurs de test en interne.
 
+## 05/05/2026
+- Correction du problème d'affichage des notifications en lien avec les comptes utilisateurs (#14711)
+- Retrait de l'affichage des recommandations liées aux questions (#15091)
+- Correction du problème d'affichage des recommandations organismes (#15111)
+- Retrait de la colonne `optional_subset` de la table des groupes de recommandations et des vues associées
+- Ajout de l'information "Par défaut" dans le tableau des groupes de recommandations
+
 ## 30/04/2026
 - L'import RoR n'importe et n'affiche que le premier acronyme disponible (#14899)
 - Lors de la création d'un produit de recherche, seuls les groupes de recommandations de l'organisme correspondant à la thématique et au type choisit sont sélectionnés
