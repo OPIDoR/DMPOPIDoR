@@ -105,7 +105,7 @@ module OrgAdmin
     private
 
     def guidance_group_params
-      params.require(:guidance_group).permit(:org_id, :name, :description, :published, :optional_subset, :language_id,
+      params.require(:guidance_group).permit(:org_id, :name, :description, :published, :language_id,
                                              data_types: [],
                                              topics: [])
     end

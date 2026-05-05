@@ -5,7 +5,6 @@
       <tr>
         <th scope="col"><%= _('Name') %></th>
         <th scope="col" class="text-center"><%= _('Status') %>&nbsp;<%= paginable_sort_link('guidance_groups.published') %></th>
-        <th scope="col" class="text-center"><%= _('Optional subset') %>&nbsp;<%= paginable_sort_link('guidance_groups.optional_subset') %></th>
         <th scope="col" class="text-center"><%= "#{_('Data Types')} / #{_('Topics')}" %></th>
         <th scope="col"><%= _('Locale') %>&nbsp;<%= paginable_sort_link('guidances.locale') %></th>
         <th scope="col" class="text-center date-column"><%= _('Last updated') %>&nbsp;<%= paginable_sort_link('guidance_groups.updated_at') %></th>
@@ -14,10 +13,8 @@
     </thead>
     <tbody>
       <% scope.each do |guidance_gr| %>
-        <%# Don't allow the only non-optional_subset guidance group to be deleted! %>
         <%
-        allow_delete = guidance_gr.optional_subset?
-        allow_delete = scope.reject { |gg| gg.optional_subset? }.length > 1 unless allow_delete
+        allow_delete = scope.length.positive? 
         %>
         <tr>
           <td><%= guidance_gr.name %></td>
@@ -26,13 +23,6 @@
                 <%= _('Unpublished')%>
             <% else %>
                 <%= _('Published')%>
-            <% end %>
-          </td>
-          <td class="text-center">
-            <% if guidance_gr.optional_subset.nil? || guidance_gr.optional_subset == false %>
-                <%= _('No')%>
-            <% else %>
-                <%= _('Yes')%>
             <% end %>
           </td>
           <td class="text-center"><%= guidance_gr.data_types.join(', ') %> / <%= guidance_gr.topics.join(', ') %></td>

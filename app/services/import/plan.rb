@@ -13,7 +13,7 @@ module Import
 
         language = Language.find_by(abbreviation: plan.template.locale)
 
-        ggs = GuidanceGroup.where(org_id: ids, optional_subset: false, published: true, language_id: language.id)
+        ggs = GuidanceGroup.where(org_id: ids, published: true, language_id: language.id)
 
         plan.guidance_groups << ggs unless ggs.empty?
 

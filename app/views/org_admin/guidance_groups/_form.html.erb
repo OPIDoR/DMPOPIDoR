@@ -59,15 +59,6 @@ description_text_tooltip =  _('Enter your description here. You can include link
   <%= form.label(:published, _("Published"), class: "form-label") %>
 </div>
 
-<%# Only display the optional subset flag if allowed. Otherwise default to 'false' %>
-<% if allow_subset_flag %>
-  <div class='form-input col-xs-8'>
-    <%= form.check_box :optional_subset, data: { toggle: 'tooltip' }, title: subset_tip %>
-    <%= form.label(:optional_subset, _("Optional subset"), class: "form-label") %><%= _(' (e.g. School/ Department) ') %>
-  </div>
-<% else %>
-  <%= form.hidden_field :optional_subset, value: "0" %>
-<% end %>
 <div class="form-group mb-3 col-xs-8">
   <%= form.hidden_field :org_id %>
   <%= form.submit _('Save'), class: "btn btn-primary" %>

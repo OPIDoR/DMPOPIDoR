@@ -7,18 +7,17 @@
 #
 # Table name: guidance_groups
 #
-#  id              :integer          not null, primary key
-#  data_types      :string           default(["dataset"]), not null, is an Array
-#  description     :string
-#  is_default      :boolean          default(FALSE), not null
-#  name            :string
-#  optional_subset :boolean          default(TRUE), not null
-#  published       :boolean          default(FALSE), not null
-#  topics          :string           default(["generic"]), not null, is an Array
-#  created_at      :datetime         not null
-#  updated_at      :datetime         not null
-#  language_id     :integer          default(0)
-#  org_id          :integer
+#  id          :integer          not null, primary key
+#  data_types  :string           default(["dataset"]), not null, is an Array
+#  description :string
+#  is_default  :boolean          default(FALSE), not null
+#  name        :string
+#  published   :boolean          default(FALSE), not null
+#  topics      :string           default(["generic"]), not null, is an Array
+#  created_at  :datetime         not null
+#  updated_at  :datetime         not null
+#  language_id :integer          default(0)
+#  org_id      :integer
 #
 # Indexes
 #
@@ -31,7 +30,6 @@
 
 # Object that represents a grouping of themed guidance
 class GuidanceGroup < ApplicationRecord
-  attribute :optional_subset, :boolean, default: true
   attribute :published, :boolean, default: false
 
   # ================
@@ -59,9 +57,6 @@ class GuidanceGroup < ApplicationRecord
   validates :org, presence: { message: PRESENCE_MESSAGE }
 
   validates :language, presence: { message: PRESENCE_MESSAGE }
-
-  validates :optional_subset, inclusion: { in: BOOLEAN_VALUES,
-                                           message: INCLUSION_MESSAGE }
 
   validates :published, inclusion: { in: BOOLEAN_VALUES,
                                      message: INCLUSION_MESSAGE }
@@ -121,7 +116,7 @@ class GuidanceGroup < ApplicationRecord
   # Returns Array
   def self.all_viewable(user)
     # first find all groups owned by the Default Orgs
-    default_org_groups = Org.includes(guidance_groups: [guidances: :themes])
+    default_org_groups = Org.includes(guidance_groups: [{ guidances: :themes }])
                             .default_orgs.collect(&:guidance_groups)
 
     # find all groups owned by  a Funder organisation
@@ -143,8 +138,7 @@ class GuidanceGroup < ApplicationRecord
     GuidanceGroup.create!(
       name: org.abbreviation? ? org.abbreviation : org.name,
       language_id: Language.default.id,
-      org: org,
-      optional_subset: false
+      org: org
     )
   end
 

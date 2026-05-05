@@ -40,7 +40,6 @@ class GuidancePresenter
   #
   # Returns an array of tab hashes.  These
   # rubocop:disable Metrics/AbcSize
-  # rubocop:disable Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
   def tablist(question)
     # start with orgs
     # filter into hash with annotation_presence, main_group presence, and
@@ -50,22 +49,14 @@ class GuidancePresenter
       annotations = @research_output.present? ? [] : guidance_annotations(org: org, question: question)
       groups = guidance_groups_by_theme(org: org, question: question)
       groups = groups.select { |group| group.language_id == locale.id } unless locale.nil?
-      main_groups = groups.select { |group| group.optional_subset == false }
-      subsets = groups.reject { |group| group.optional_subset == false }
-      if annotations.present? || main_groups.present? # annotations and main group
-        # Tab with org.abbreviation
-        display_tabs << { name: org.abbreviation, groups: main_groups,
-                          annotations: annotations }
-      end
-      next unless subsets.present?
+      next unless annotations.present? || groups.present? # annotations and main group
 
-      subsets.each_pair do |group, theme|
-        display_tabs << { name: group.name, groups: { group => theme } }
-      end
+      # Tab with org.abbreviation
+      display_tabs << { name: org.abbreviation, groups: groups,
+                        annotations: annotations }
     end
     display_tabs
   end
-  # rubocop:enable Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
   # rubocop:enable Metrics/AbcSize
 
   private
