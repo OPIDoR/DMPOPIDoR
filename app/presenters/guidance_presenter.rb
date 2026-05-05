@@ -47,7 +47,7 @@ class GuidancePresenter
     display_tabs = []
     locale = Language.find_by(abbreviation: plan.template.locale)
     orgs.each do |org|
-      annotations = guidance_annotations(org: org, question: question)
+      annotations = @research_output.present? ? [] : guidance_annotations(org: org, question: question)
       groups = guidance_groups_by_theme(org: org, question: question)
       groups = groups.select { |group| group.language_id == locale.id } unless locale.nil?
       main_groups = groups.select { |group| group.optional_subset == false }

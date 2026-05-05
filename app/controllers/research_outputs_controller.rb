@@ -170,14 +170,11 @@ class ResearchOutputsController < ApplicationController
   end
   # rubocop:enable Metrics/AbcSize, Metrics/MethodLength
 
-  # rubocop:disable Metrics/AbcSize
   def has_guidances # rubocop:disable Naming/PredicatePrefix
     research_output = ResearchOutput.includes(:themes).find(params[:id])
     authorize research_output
     question = Question.includes(:annotations, :themes).find(params[:question])
-    has_guidances = if question.annotations.where(type: 'guidance').any?
-                      true
-                    elsif research_output.guidance_groups.any?
+    has_guidances = if research_output.guidance_groups.any?
                       research_output.theme_ids.intersect?(question.theme_ids.uniq)
                     else
                       false
@@ -186,7 +183,6 @@ class ResearchOutputsController < ApplicationController
       has_guidances:
     }, status: :ok
   end
-  # rubocop:enable Metrics/AbcSize
 
   # rubocop:disable Metrics/AbcSize, Metrics/MethodLength
   # rubocop:disable Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
