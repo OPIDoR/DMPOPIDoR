@@ -28,8 +28,8 @@ module Api
           export_format = params[:export_format]
           respond_to do |format|
             format.json
-            if export_format.eql?('rda')
-              render 'shared/export/madmp_export_templates/rda/plan', locals: {
+            if export_format.include?('rda')
+              render "shared/export/madmp_export_templates/#{export_format}/plan", locals: {
                 dmp: plan_fragment, selected_research_outputs:
               }
             else

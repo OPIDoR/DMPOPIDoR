@@ -132,7 +132,7 @@ class PlanExportsController < ApplicationController
 
     json_format = params[:json_format]
 
-    if json_format.eql?('rda')
+    if json_format.include?('rda')
       rendered_json = render_to_string(
         "shared/export/madmp_export_templates/#{json_format}/plan",
         locals: { dmp: @plan.json_fragment,
