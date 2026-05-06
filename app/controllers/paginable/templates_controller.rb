@@ -77,8 +77,7 @@ module Paginable
         templates = Template.latest_customizable.where.not(family_id: customizations.collect(&:customization_of))
       end
       paginable_renderise(
-        partial: 'customisable',
-        action: 'customisable',
+        partial: 'customisable', action: 'customisable',
         scope: templates.joins(:org).includes(:org),
         query_params: { sort_field: 'templates.title', sort_direction: :asc },
         locals: { action: 'customisable', customizations: customizations },

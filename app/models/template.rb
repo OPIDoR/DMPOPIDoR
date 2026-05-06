@@ -505,16 +505,16 @@ class Template < ApplicationRecord
       publishable = false
       # all phases must have atleast 1 section
     end
-    unless phases.map { |p| p.sections.count.positive? }.reduce(true) { |fin, val| fin && val }
+    unless phases.map { |p| p.sections.any? }.reduce(true) { |fin, val| fin && val }
       error += _('You can not publish a template without sections in a phase.  ')
       publishable = false
       # all sections must have atleast one question
     end
-    unless sections.map { |s| s.questions.count.positive? }.reduce(true) { |fin, val| fin && val }
+    unless sections.map { |s| s.questions.any? }.reduce(true) { |fin, val| fin && val }
       error += _('You can not publish a template without questions in a section.  ')
       publishable = false
     end
-    if invalid_condition_order
+    if invalid_condition_order?
       error += _('Conditions in the template refer backwards')
       publishable = false
     end
@@ -581,7 +581,7 @@ class Template < ApplicationRecord
             .update_all(published: false)
   end
 
-  def invalid_condition_order
+  def invalid_condition_order?
     questions.each do |question|
       next unless question.option_based?
 

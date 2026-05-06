@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
 # Controller to handle CRUD operations for the Research Outputs tab
+# rubocop:disable Metrics/ClassLength
 class ResearchOutputsController < ApplicationController
   include ErrorHelper
 
@@ -405,3 +406,4 @@ class ResearchOutputsController < ApplicationController
   end
   # rubocop:enable Metrics/AbcSize
 end
+# rubocop:enable Metrics/ClassLength

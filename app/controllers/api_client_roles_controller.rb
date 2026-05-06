@@ -7,7 +7,7 @@ class ApiClientRolesController < ApplicationController
   after_action :verify_authorized
 
   # POST /roles
-  # rubocop:disable Metrics/AbcSize
+  # rubocop:disable Metrics/AbcSize, Metrics/MethodLength
   def create
     @client_role = ApiClientRole.new(client_role_params)
     authorize @client_role
@@ -15,9 +15,7 @@ class ApiClientRolesController < ApplicationController
       api_client = ApiClient.find(client_role_params[:api_client_id])
       @client_role.api_client = api_client
       if ApiClientRole.exists?(plan: @client_role.plan, api_client:)
-
-        flash[:notice] = format(_('Plan is already shared with %{api_client}.'),
-                                api_client: api_client.name)
+        flash[:notice] = format(_('Plan is already shared with %{api_client}.'), api_client: api_client.name)
       elsif @client_role.save
         if api_client.send_notification
           UserMailer.client_sharing_notification(@client_role, current_user).deliver_now
@@ -33,7 +31,7 @@ class ApiClientRolesController < ApplicationController
     end
     redirect_to controller: 'plans', action: 'share', id: @client_role.plan.id
   end
-  # rubocop:enable Metrics/AbcSize
+  # rubocop:enable Metrics/AbcSize, Metrics/MethodLength
 
   # PUT /roles/:id
   def update

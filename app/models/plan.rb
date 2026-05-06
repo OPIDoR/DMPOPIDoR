@@ -392,23 +392,20 @@ class Plan < ApplicationRecord
   def self.structured_deep_copy(plan, creator_id)
     plan_copy = plan.dup
     I18n.with_locale plan.template.locale do
-      plan_copy.title = format(_('Copy of %{title}'), title: plan.title)
-      plan_copy.feedback_requested = false
-      plan_copy.visibility = Rails.configuration.x.plans.default_visibility
-      plan_copy.save!
+      plan_copy.update!(title: format(_('Copy of %{title}'), title: plan.title), feedback_requested: false,
+                        visibility: Rails.configuration.x.plans.default_visibility)
       plan_copy.add_user!(creator_id, :creator)
       plan_copy.copy_plan_fragments(plan)
       plan.research_outputs.each do |research_output|
         research_output_copy = ResearchOutput.deep_copy(research_output)
-        research_output_copy.title = research_output.title || format(_('Copy of %{title}'),
-                                                                     title: research_output.abbreviation)
-        research_output_copy.plan_id = plan_copy.id
+        research_output_copy.update!(
+          title: research_output.title || format(_('Copy of %{title}'), title: research_output.abbreviation),
+          plan_id: plan_copy.id
+        )
         research_output_copy.save!
         # Creates the main ResearchOutput fragment
         ro_fragment = Fragment::ResearchOutput.create(
-          data: {
-            'research_output_id' => research_output_copy.id
-          },
+          data: { 'research_output_id' => research_output_copy.id },
           madmp_schema: MadmpSchema.find_by(classname: 'research_output'),
           dmp_id: plan_copy.json_fragment.id,
           parent_id: plan_copy.json_fragment.id,
@@ -417,9 +414,7 @@ class Plan < ApplicationRecord
 
         research_output.answers.each do |answer|
           answer_copy = Answer.deep_copy(answer)
-          answer_copy.plan_id = plan_copy.id
-          answer_copy.research_output_id = research_output_copy.id
-          answer_copy.save!
+          answer_copy.update!(plan_id: plan_copy.id, research_output_id: research_output_copy.id)
           MadmpFragment.deep_copy(answer.madmp_fragment, answer_copy.id, ro_fragment) if plan.structured?
         end
       end

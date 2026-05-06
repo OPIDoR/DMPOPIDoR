@@ -644,7 +644,7 @@ class PlansController < ApplicationController
     # we create a hash whose keys are question id and value is the answer associated
     answers = plan.answers
                   .includes(:madmp_fragment)
-                  .each_with_object({}) { |a, m| m["#{a.question_id}_#{a.research_output_id}"] = a }
+                  .to_h { |a| ["#{a.question_id}_#{a.research_output_id}", a] }
     render('/phases/edit', locals: {
              base_template_org: phase.template.base_org,
              plan: plan,

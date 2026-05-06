@@ -3,7 +3,6 @@
 module Types
   #  LocaleEnum
   class LocaleEnum < Types::BaseEnum
-
     locales = Language.all.map do |locale|
       locale.abbreviation.split('-').first
     end.uniq

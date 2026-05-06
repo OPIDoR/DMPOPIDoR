@@ -16,6 +16,7 @@ module SuperAdmin
       @topics = Registry.find_by(name: 'Topics')&.values || []
     end
 
+    # rubocop:disable Metrics/AbcSize
     def create
       authorize(Registry)
       attrs = permitted_params
@@ -40,6 +41,7 @@ module SuperAdmin
         redirect_to edit_super_admin_registry_path(@registry), alert: success_message(@registry, _('create'))
       end
     end
+    # rubocop:enable Metrics/AbcSize
 
     def edit
       authorize(Registry)

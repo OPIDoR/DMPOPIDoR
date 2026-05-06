@@ -30,10 +30,6 @@ module ApplicationHelper
   end
   # rubocop:enable Style/OptionalBooleanParameter
 
-  alias isActivePage active_page?
-
-  deprecate :isActivePage, deprecator: Cleanup::Deprecators::PredicateDeprecator.new
-
   def fingerprinted_asset(name)
     Rails.env.production? ? "#{name}-#{ASSET_FINGERPRINT}" : name
   end

@@ -200,8 +200,8 @@ class GuidancePresenter
       org_guidance_groups = hashified_guidances.each_key.select do |gg|
         gg.org_id == org.id
       end
-      acc[org] = org_guidance_groups.each_with_object({}) do |gg, acc_inner|
-        acc_inner[gg] = hashified_guidances[gg]
+      acc[org] = org_guidance_groups.to_h do |gg|
+        [gg, hashified_guidances[gg]]
       end
     end
   end
@@ -214,8 +214,8 @@ class GuidancePresenter
       themes = Theme.includes(:guidances)
                     .joins(:guidances)
                     .merge(Guidance.where(guidance_group_id: gg.id, published: true))
-      acc[gg] = themes.each_with_object({}) do |theme, acc_inner|
-        acc_inner[theme] = theme.guidances
+      acc[gg] = themes.to_h do |theme|
+        [theme, theme.guidances]
       end
     end
   end

@@ -1,7 +1,7 @@
-
 # frozen_string_literal: true
 
 module Resolvers
+  # PlansResolver is responsible for resolving a paginated list of plans based on optional filters and sorting criteria.
   class PlansResolver < GraphQL::Schema::Resolver
     type Types::PlanResultType, null: false
     instance_eval(&Types::SharedFields::SHARED_PLAN_ARGUMENTS)
@@ -17,14 +17,17 @@ module Resolvers
       Api::V1::PlansPolicy::Scope.new(context[:current_user], Plan).resolve
     end
 
+    # rubocop:disable Metrics/AbcSize,Metrics/MethodLength,Metrics/ParameterLists
     def fetch_plans(filter, size, page, order_by, test, plans_scope)
       offset = (page - 1) * size
 
-      plans_scope = plans_scope.where.not(
-        visibility: [
-          Plan.visibilities[:is_test],
-        ]
-      ) unless test
+      unless test
+        plans_scope = plans_scope.where.not(
+          visibility: [
+            Plan.visibilities[:is_test]
+          ]
+        )
+      end
 
       order_params = if order_by.nil? || order_by.empty?
                        Arel.sql("jsonb_path_query_first(data, '$.meta.lastModifiedDate') DESC")
@@ -35,8 +38,8 @@ module Resolvers
                      end
 
       results = JsonPlan
-                  .yield_self { |rel| filter.present? ? rel.where(*Resolvers::JsonbResolver.build_jsonb_filters(filter, field: "data")) : rel }
-                  .where(plan_id: plans_scope.select(:id))
+                .then { |rel| filter.present? ? rel.where(*Resolvers::JsonbResolver.build_jsonb_filters(filter, field: 'data')) : rel }
+                .where(plan_id: plans_scope.select(:id))
 
       total_items = results.count
       total_pages = (total_items.to_f / size).ceil
@@ -55,5 +58,6 @@ module Resolvers
         items: results
       }
     end
+    # rubocop:enable Metrics/AbcSize,Metrics/MethodLength,Metrics/ParameterLists
   end
 end

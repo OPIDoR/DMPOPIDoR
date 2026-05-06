@@ -101,7 +101,7 @@ class Role < ApplicationRecord
 
   # Set the roles.active flag to false and deactivates the plan
   # if there are no other authors
-  def deactivate!
+  def deactivate! # rubocop:disable Naming/PredicateMethod
     self.active = false
     if save!
       # Set the org_id on the Plan before calling deactivate. The org_id should

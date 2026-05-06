@@ -42,7 +42,7 @@ module ExportsHelper
     "<strong>#{prefix}</strong> #{attribution.join(', ')}"
   end
 
-  def should_hide_question(question, research_output)
+  def should_hide_question?(question, research_output)
     return research_output.personal_data?.eql?(false) if question[:madmp_schema].classname.eql?('personal_data_issues')
 
     false

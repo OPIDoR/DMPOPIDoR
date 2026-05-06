@@ -11,12 +11,12 @@ RSpec.describe ExternalApis::RorService do
     it 'returns true if an HTTP 200 is returned' do
       stub_request(:get, @heartbeat).with(headers: @headers)
                                     .to_return(status: 200, body: '', headers: {})
-      expect(described_class.ping).to eql(true)
+      expect(described_class.ping?).to eql(true)
     end
     it 'returns false if an HTTP 200 is NOT returned' do
       stub_request(:get, @heartbeat).with(headers: @headers)
                                     .to_return(status: 404, body: '', headers: {})
-      expect(described_class.ping).to eql(false)
+      expect(described_class.ping?).to eql(false)
     end
   end
 

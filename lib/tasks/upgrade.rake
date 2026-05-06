@@ -910,7 +910,7 @@ namespace :upgrade do
     out = CSV.generate do |csv|
       csv << %w[org_id org_name ror_name ror_id fundref_id]
 
-      if ExternalApis::RorService.ping
+      if ExternalApis::RorService.ping?
         # rubocop:disable Layout/LineLength
         p 'Scanning ROR for each of your existing Orgs'
         p 'The results will be written to tmp/ror_fundref_ids.csv to facilitate review and any corrections that may need to be made.'
@@ -965,9 +965,10 @@ namespace :upgrade do
     end
 
     if out.present?
-      file = File.open('tmp/ror_fundref_ids.csv', 'w')
-      file.puts out
-      file.close
+      File.open('tmp/ror_fundref_ids.csv', 'w') do |f|
+        f.puts out
+        f.close
+      end
     end
   end
 

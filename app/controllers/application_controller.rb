@@ -70,13 +70,13 @@ class ApplicationController < ActionController::Base
   end
 
   def store_redirect_location
-    if params[:redirect_to].present?
-      session[:user_redirect_path] = params[:redirect_to]
-    end
+    return unless params[:redirect_to].present?
+
+    session[:user_redirect_path] = params[:redirect_to]
   end
 
-  def after_sign_in_path_for(_resource)
-    session.delete(:user_redirect_path) || stored_location_for(_resource) || plans_path(anchor: 'content')
+  def after_sign_in_path_for(resource)
+    session.delete(:user_redirect_path) || stored_location_for(resource) || plans_path(anchor: 'content')
   end
 
   def after_sign_up_path_for(_resource)
@@ -207,6 +207,7 @@ class ApplicationController < ActionController::Base
 
   # Set Static Pages collection to use in navigation
   # rubocop:disable Metrics/AbcSize, Metrics/MethodLength
+  # rubocop:disable Metrics/CyclomaticComplexity
   def set_nav_static_pages
     @nav_static_pages = []
 
@@ -252,6 +253,7 @@ class ApplicationController < ActionController::Base
 
     @nav_static_pages = pages
   end
+  # rubocop:enable Metrics/CyclomaticComplexity
   # rubocop:enable Metrics/AbcSize, Metrics/MethodLength
 
   def reduce_translations(translations, field)

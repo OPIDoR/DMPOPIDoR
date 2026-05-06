@@ -42,7 +42,7 @@ module ExternalApis
       # Ping the ROR API to determine if it is online
       #
       # @return true/false
-      def ping
+      def ping?
         return true unless active? && heartbeat_path.present?
 
         resp = http_get(uri: "#{api_base_url}#{heartbeat_path}")
@@ -61,7 +61,7 @@ module ExternalApis
       # }
       # The ROR limit appears to be 40 results (even with paging :/)
       def search(term:, filters: [])
-        return [] unless active? && term.present? && ping
+        return [] unless active? && term.present? && ping?
 
         process_pages(
           term: term,

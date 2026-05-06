@@ -44,7 +44,7 @@ module MadmpExternalApis
       # Ping the ROR API to determine if it is online
       #
       # @return true/false
-      def ping
+      def ping?
         return true unless active? && heartbeat_path.present?
 
         resp = http_get(uri: "#{api_base_url}#{heartbeat_path}")
@@ -63,7 +63,7 @@ module MadmpExternalApis
       # }
       # The ROR limit appears to be 40 results (even with paging :/)
       def search(term:, filters: [])
-        return [] unless active? && term.present? && ping
+        return [] unless active? && term.present? && ping?
 
         process_pages(
           term:,
@@ -137,6 +137,7 @@ module MadmpExternalApis
 
       # Convert the JSON items into a hash
       # rubocop:disable Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
+      # rubocop:disable Metrics/AbcSize
       def parse_results(json:)
         return [] unless json['items']&.any?
 
@@ -155,6 +156,7 @@ module MadmpExternalApis
           }
         end&.compact || []
       end
+      # rubocop:enable Metrics/AbcSize
       # rubocop:enable Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
 
       def get_ror_value(item:)
@@ -170,12 +172,13 @@ module MadmpExternalApis
         }
       end
 
+      # rubocop:disable Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
       def get_name(item:)
         item&.dig('names')
             &.select { |name| name&.dig('types')&.include?('label') && name&.dig('lang') }
-            &.map { |name| [name&.dig('lang')&.to_sym, name&.dig('value')] }
-            .to_h
+            .to_h { |name| [name&.dig('lang')&.to_sym, name&.dig('value')] }
       end
+      # rubocop:enable Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
 
       def get_addresses(item:)
         return [] unless item&.dig('locations')
@@ -192,19 +195,20 @@ module MadmpExternalApis
         end
       end
 
+      # rubocop:disable Metrics/PerceivedComplexity, Metrics/CyclomaticComplexity
       def get_acronym(item:)
         item&.dig('names')
             &.select { |name| name&.dig('types')&.include?('acronym') && name&.dig('value') }
             &.map { |name| name&.dig('value') }&.first
       end
+      # rubocop:enable Metrics/PerceivedComplexity, Metrics/CyclomaticComplexity
 
       def get_external_ids(item:)
         item&.dig('external_ids')
-            &.map do |external_id|
+            .to_h do |external_id|
           [external_id&.dig('type')&.to_sym,
            external_id&.dig('preferred') ? [external_id&.dig('preferred')] : external_id&.dig('all')]
         end
-            .to_h
       end
 
       # Org names are not unique, so include the Org URL if available or

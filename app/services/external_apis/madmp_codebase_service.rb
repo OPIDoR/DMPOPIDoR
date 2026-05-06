@@ -24,7 +24,7 @@ module ExternalApis
       # Ping the MadmpCodebase API to determine if it is online
       #
       # @return true/false
-      def ping
+      def ping?
         return true unless active?
 
         resp = http_get(uri: api_base_url)

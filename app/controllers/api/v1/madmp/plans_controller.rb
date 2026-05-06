@@ -9,6 +9,7 @@ module Api
         before_action :authorize_request, except: %i[public]
         include MadmpExportHelper
         include ErrorHelper
+
         # GET /api/v1/madmp/plans/:id(/research_outputs/:uuid)
         # GET /api/v1/madmp/plans/research_outputs/:uuid
         # rubocop:disable Metrics/AbcSize, Metrics/MethodLength
@@ -43,13 +44,14 @@ module Api
         end
         # rubocop:enable Metrics/AbcSize, Metrics/MethodLength
 
+        # rubocop:disable Metrics/AbcSize,Metrics/CyclomaticComplexity
+        # rubocop:disable Metrics/MethodLength,Metrics/PerceivedComplexity
         def public
           page = (params[:page] || 1).to_i
           size = (params[:size] || 10).to_i
           order_params = {
             'updated_at' => (params[:order].to_s.downcase.presence || 'desc').to_sym
           }
-          order_dir = params[:order].to_s.downcase == "asc" ? :asc : :desc
 
           return bad_request(_('Invalid page (must be >= 1)')) if page < 1
           return bad_request(_('Invalid size (must be between 1 and 1000)')) if size < 1 || size > 1000
@@ -72,11 +74,14 @@ module Api
             total: total_items,
             totalPages: total_pages,
             page: page,
-            size: size,
+            size: size
           } }, status: :ok
         end
+        # rubocop:enable Metrics/MethodLength,Metrics/PerceivedComplexity
+        # rubocop:enable Metrics/AbcSize,Metrics/CyclomaticComplexity
 
         # POST /api/v1/madmp/plans/import
+        # rubocop:disable Metrics/AbcSize,Metrics/MethodLength
         def import
           return forbidden(_('You are not allowed to create plan')) unless Api::V0::PlansPolicy.new(client,
                                                                                                     Plan).create?
@@ -100,9 +105,6 @@ module Api
                                         }, determine_owner(client: client, dmp: json['data']))
 
             render json: { status: 201, message: _('Plan imported successfully'), data: data }, status: :created
-          rescue StandardError => e
-            Rails.logger.error e.backtrace
-            bad_request(e)
           rescue IOError
             bad_request(_('Unvalid file'))
           rescue JSON::ParserError
@@ -112,6 +114,7 @@ module Api
             bad_request("#{_('An error has occured: ')} #{e.message}")
           end
         end
+        # rubocop:enable Metrics/AbcSize,Metrics/MethodLength
 
         # Get the Plan's owner
         def determine_owner(client:, dmp:)

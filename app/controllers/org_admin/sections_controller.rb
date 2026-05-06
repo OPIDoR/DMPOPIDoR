@@ -139,7 +139,7 @@ module OrgAdmin
         flash[:alert] = "#{msg}<br/>#{e.message}"
       end
 
-      path_helper = phase.template&.module? ? :edit_super_admin_template_phase_path : :edit_org_admin_template_phase_path
+      path_helper = phase.template&.module? ? :edit_super_admin_template_phase_path : :edit_org_admin_template_phase_path # rubocop:disable Layout/LineLength
       redirect_to send(path_helper,
                        template_id: phase.template.id,
                        id: phase.id)

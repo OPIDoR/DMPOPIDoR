@@ -77,15 +77,15 @@ RSpec.describe ApiClient, type: :model do
 
     describe '#authenticate' do
       it 'returns false if no secret is specified' do
-        expect(@client.authenticate(secret: nil)).to eql(false)
+        expect(@client.authenticate?(secret: nil)).to eql(false)
       end
 
       it 'returns false if the secrets do not match' do
-        expect(@client.authenticate(secret: SecureRandom.uuid)).to eql(false)
+        expect(@client.authenticate?(secret: SecureRandom.uuid)).to eql(false)
       end
 
       it 'returns true if the secrets match' do
-        expect(@client.authenticate(secret: @client.client_secret)).to eql(true)
+        expect(@client.authenticate?(secret: @client.client_secret)).to eql(true)
       end
     end
   end

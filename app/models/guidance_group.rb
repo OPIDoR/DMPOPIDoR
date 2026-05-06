@@ -72,7 +72,7 @@ class GuidanceGroup < ApplicationRecord
 
   scope :search, lambda { |term|
     search_pattern = "%#{term}%"
-    joins(:org).where('lower(guidance_groups.name) LIKE lower(?) OR lower(orgs.name) LIKE lower(?)', search_pattern, search_pattern)
+    joins(:org).where('lower(guidance_groups.name) LIKE lower(?) OR lower(orgs.name) LIKE lower(?)', search_pattern, search_pattern) # rubocop:disable Layout/LineLength
   }
 
   scope :published, -> { where(published: true) }

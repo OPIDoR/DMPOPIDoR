@@ -16,8 +16,8 @@ class PlanExportsController < ApplicationController
     JsonPlanJob.perform_now(plan_id: params[:plan_id])
 
     @plan = Plan.includes(:answers, {
-      research_outputs: :guidance_groups, template: { phases: { sections: :questions } }
-    }).find(params[:plan_id])
+                            research_outputs: :guidance_groups, template: { phases: { sections: :questions } }
+                          }).find(params[:plan_id])
 
     return show_json if request.format.json?
 
@@ -115,9 +115,7 @@ class PlanExportsController < ApplicationController
   end
   # rubocop:enable Metrics/AbcSize
 
-  # --------------------------------
-  # Start DMP OPIDoR Customization
-  # CHANGES: Changed JSON export to use madmp_fragments
+  # rubocop:disable Metrics/AbcSize,Metrics/CyclomaticComplexity
   def show_json
     skip_authorization
 
@@ -126,9 +124,9 @@ class PlanExportsController < ApplicationController
 
     json_data = json_plan.data
 
-    if params["research_outputs"].present?
-      json_data["researchOutput"] = json_data["researchOutput"].filter do |ro|
-        params["research_outputs"].include?(ro["research_output_id"].to_s)
+    if params['research_outputs'].present?
+      json_data['researchOutput'] = json_data['researchOutput'].filter do |ro|
+        params['research_outputs'].include?(ro['research_output_id'].to_s)
       end
     end
 
@@ -137,14 +135,15 @@ class PlanExportsController < ApplicationController
     if json_format.eql?('rda')
       rendered_json = render_to_string(
         "shared/export/madmp_export_templates/#{json_format}/plan",
-        locals: { dmp: @plan.json_fragment, selected_research_outputs: params[:research_outputs]&.map(&:to_i) || @plan.research_output_ids }
+        locals: { dmp: @plan.json_fragment,
+                  selected_research_outputs: params[:research_outputs]&.map(&:to_i) || @plan.research_output_ids }
       )
       return send_data rendered_json, filename: "#{file_name}_#{json_format}.json"
     end
 
-
     send_data json_data.to_json, filename: "#{file_name}_#{json_format}.json"
   end
+  # rubocop:enable Metrics/AbcSize,Metrics/CyclomaticComplexity
 
   def file_name
     # Sanitize bad characters and replace spaces with underscores

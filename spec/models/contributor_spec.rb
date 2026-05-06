@@ -34,7 +34,7 @@ RSpec.describe Contributor, type: :model do
         .with_message('You must specify at least one role.')
     end
 
-    describe '#name_or_email_presence' do
+    describe '#name_or_email_presence?' do
       before(:each) do
         @contributor = build(:contributor, plan: create(:plan), investigation: true)
       end
