@@ -2,6 +2,23 @@
 
 **Attention** Cette liste de changements concerne les déploiements sur nos serveurs de test en interne.
 
+## 05/05/2026
+- Correction du problème d'affichage des notifications en lien avec les comptes utilisateurs (#14711)
+- Retrait de l'affichage des recommandations liées aux questions (#15091)
+- Correction du problème d'affichage des recommandations organismes (#15111)
+- Retrait de la colonne `optional_subset` de la table des groupes de recommandations et des vues associées
+- Ajout de l'information "Par défaut" dans le tableau des groupes de recommandations
+
+## 30/04/2026
+- L'import RoR n'importe et n'affiche que le premier acronyme disponible (#14899)
+- Lors de la création d'un produit de recherche, seuls les groupes de recommandations de l'organisme correspondant à la thématique et au type choisit sont sélectionnés
+- Correction du problème de génération des informations JSON des produits de recherche Objet Physique lors d'un export JSON (#15086)
+
+## 29/04/2025
+- Refonte de l'API GraphQL
+- Correction du filtre obligatoire pour les produits de recherche
+- Modification page d'aide, ajout de couleur aux onglets et de l'index de l'onglet dans l'URL
+
 ## 24/04/2026
 - Ajout de la possibilité de créer des produits de recherche avec le questionnaire Objet Physique
 - Ajout de la colonne `is_default` aux groupes de recommendation. Ces groupes sont sélectionnés par défaut à la création d'un produit de recherche en fonction du dataType, de la langue et du topic choisi (#14853)

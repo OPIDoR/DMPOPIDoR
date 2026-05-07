@@ -30,7 +30,7 @@ module MadmpExternalApis
       # Ping the ORCiD API to determine if it is online
       #
       # @return true/false
-      def ping
+      def ping?
         return true unless active?
 
         resp = http_get(uri: "#{api_base_url}#{search_path}")
@@ -39,7 +39,7 @@ module MadmpExternalApis
 
       # Search the ORCiD API for the given string.
       def search(term:, rows:)
-        return [] unless active? && term.present? && ping
+        return [] unless active? && term.present? && ping?
 
         parse_expanded_result(json: query_orcid(term:, rows:), term:)
       # If a JSON parse error occurs then return results of a local table search

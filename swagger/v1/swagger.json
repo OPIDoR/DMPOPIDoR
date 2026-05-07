@@ -95,7 +95,7 @@
                 "default": "standard",
                 "enum": [
                   "standard",
-                  "rda"
+                  "rda/V1.1"
                 ]
               }
             }

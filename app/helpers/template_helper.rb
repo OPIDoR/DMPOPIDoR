@@ -2,6 +2,7 @@
 
 # Helper methods for Templates
 module TemplateHelper
+  # rubocop:disable Metrics/PerceivedComplexity
   def template_details_path(template)
     if template_modifiable?(template)
       template&.module? ? edit_super_admin_template_path(template) : edit_org_admin_template_path(template)
@@ -17,6 +18,7 @@ module TemplateHelper
       org_admin_templates_path
     end
   end
+  # rubocop:enable Metrics/PerceivedComplexity
 
   # Is this Template modifiable?
   #

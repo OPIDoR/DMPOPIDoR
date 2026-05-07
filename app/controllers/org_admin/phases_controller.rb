@@ -58,7 +58,7 @@ module OrgAdmin
                  phase: phase,
                  prefix_section: phase.prefix_section,
                  sections: phase.sections.order(:number)
-                                         .select(:id, :title, :modifiable, :phase_id),
+                           .select(:id, :title, :modifiable, :phase_id),
                  suffix_sections: phase.suffix_sections.order(:number),
                  current_section: Section.find_by(id: params[:section], phase_id: phase.id)
                })
@@ -110,6 +110,7 @@ module OrgAdmin
     # create a phase
     # POST /org_admin/templates/:template_id/phases
     # rubocop:disable Metrics/AbcSize, Metrics/MethodLength
+    # rubocop:disable Metrics/CyclomaticComplexity,Metrics/PerceivedComplexity
     def create
       phase = Phase.new(phase_params)
       phase.template = Template.find(params[:template_id])
@@ -127,13 +128,16 @@ module OrgAdmin
         flash[:alert] = "#{msg}<br>#{e.message}"
       end
       if flash[:alert].present?
-        redirect_to phase.template&.module? ? new_super_admin_template_phase_path(template_id: phase.template.id) : new_org_admin_template_phase_path(template_id: phase.template.id)
+        redirect_to phase.template&.module? ? new_super_admin_template_phase_path(template_id: phase.template.id) : new_org_admin_template_phase_path(template_id: phase.template.id) # rubocop:disable Layout/LineLength
       else
         redirect_to phase.template&.module? ? edit_super_admin_template_phase_path(template_id: phase.template.id,
-                                                                                   id: phase.id) : edit_org_admin_template_phase_path(template_id: phase.template.id,
-                                                                                                                                      id: phase.id)
+                                                                                   id: phase.id) : edit_org_admin_template_phase_path( # rubocop:disable Layout/LineLength
+                                                                                     template_id: phase.template.id,
+                                                                                     id: phase.id
+                                                                                   )
       end
     end
+    # rubocop:enable Metrics/CyclomaticComplexity,Metrics/PerceivedComplexity
     # rubocop:enable Metrics/AbcSize, Metrics/MethodLength
 
     # update a phase of a template
@@ -153,9 +157,11 @@ module OrgAdmin
         msg = _('Unable to create a new version of this template.')
         flash[:alert] = "#{msg}<br>#{e.message}"
       end
-      redirect_to phase.template&.module? ? edit_super_admin_template_phase_path(template_id: phase.template.id,
-                                                                                 id: phase.id) : edit_org_admin_template_phase_path(template_id: phase.template.id,
-                                                                                                                                    id: phase.id)
+      redirect_to phase.template&.module? ? edit_super_admin_template_phase_path(
+        template_id: phase.template.id,
+        id: phase.id
+      ) : edit_org_admin_template_phase_path(template_id: phase.template.id,
+                                             id: phase.id)
     end
     # rubocop:enable Metrics/AbcSize
 

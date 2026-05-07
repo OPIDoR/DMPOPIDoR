@@ -79,7 +79,14 @@ class MadmpSchema < ApplicationRecord
     'software_preservation' => 'softwarePreservation',
     'software_legal_issues' => 'softwareLegalIssues',
     'software_sharing' => 'softwareSharing',
-    'software_valorisation' => 'softwareValorisation'
+    'software_valorisation' => 'softwareValorisation',
+    # Physical object output
+    'physical_object_description' => 'physicalObjectDescription',
+    'physical_object_collection' => 'physicalObjectCollection',
+    'physical_object_quality_documentation' => 'physicalObjectQualityDocumentation',
+    'physical_object_storage' => 'physicalObjectStorage',
+    'physical_object_legal' => 'physicalObjectLegal',
+    'physical_object_sharing' => 'physicalObjectSharing'
   }.freeze
 
   # ==========

@@ -10,7 +10,7 @@ RSpec.describe 'api/v1/madmp/madmp_fragments', type: :request do
     get('Get a list of all the JSON fragment of a DMP') do
       tags 'MadmpFragments'
       produces 'application/json'
-      security [Bearer: []]
+      security [{ Bearer: [] }]
       response(200, 'successful') do
         let(:id) { '123' }
 
@@ -33,7 +33,7 @@ RSpec.describe 'api/v1/madmp/madmp_fragments', type: :request do
     get('Get a JSON fragment') do
       tags 'MadmpFragments'
       produces 'application/json'
-      security [Bearer: []]
+      security [{ Bearer: [] }]
       parameter name: 'mode',
                 in: :query,
                 type: :string,
@@ -59,7 +59,7 @@ RSpec.describe 'api/v1/madmp/madmp_fragments', type: :request do
       tags 'MadmpFragments'
       produces 'application/json'
       consumes 'application/json'
-      security [Bearer: []]
+      security [{ Bearer: [] }]
       parameter name: :data, in: :body, schema: {
         type: :object
       }
@@ -82,7 +82,7 @@ RSpec.describe 'api/v1/madmp/madmp_fragments', type: :request do
       tags 'MadmpFragments'
       produces 'application/json'
       consumes 'application/json'
-      security [Bearer: []]
+      security [{ Bearer: [] }]
       parameter name: :data, in: :body, schema: {
         type: :object
       }

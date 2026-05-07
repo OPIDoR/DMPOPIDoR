@@ -84,7 +84,7 @@ function RorList({ fragment, setFragment, mapping = {}, locale }) {
         el?.name?.[localeCode || el?.country?.code.toLowerCase()] ||
         el?.name[Object.keys(el?.name).at(0)],
       affiliationIdType: el?.type,
-      acronyms: Array.isArray(el.acronyms) ? el.acronyms?.at(0) : el.acronyms,
+      acronym: el.acronym || "",
     };
 
     if (mapping && Object.keys(mapping)?.length > 0) {
@@ -331,7 +331,7 @@ function RorList({ fragment, setFragment, mapping = {}, locale }) {
                         <FaLink></FaLink>
                       </a>
                     </td>
-                    <td>{el.acronyms}</td>
+                    <td>{el.acronym}</td>
                     <td>{el.country.code}</td>
                     <td>{el.addresses?.at(0)?.city}</td>
                   </tr>

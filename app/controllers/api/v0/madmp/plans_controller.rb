@@ -11,6 +11,7 @@ module Api
         # rubocop:disable Metrics/AbcSize
         def show
           plan = Plan.find(params[:id])
+          export_format = params[:export_format]
           plan_fragment = plan.json_fragment
           selected_research_outputs = query_params[:research_outputs]&.map(&:to_i) || plan.research_output_ids
           # check if the user has permissions to use the API
@@ -18,8 +19,8 @@ module Api
 
           respond_to do |format|
             format.json
-            if export_format.eql?('rda')
-              render 'shared/export/madmp_export_templates/rda/plan', locals: {
+            if export_format.include?('rda')
+              render "shared/export/madmp_export_templates/#{export_format}/plan", locals: {
                 dmp: plan_fragment, selected_research_outputs:
               }
             else

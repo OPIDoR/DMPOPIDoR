@@ -4,6 +4,7 @@
 class NotesController < ApplicationController
   include ConditionalUserMailer
   include ErrorHelper
+
   after_action :verify_authorized
   respond_to :html
 

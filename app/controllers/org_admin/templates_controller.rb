@@ -159,7 +159,7 @@ module OrgAdmin
           referrer: get_referrer(template, request.referrer)
         }
       else
-        redirect_to template&.module? ? super_admin_template_path(id: template.id) : org_admin_template_path(id: template.id)
+        redirect_to template&.module? ? super_admin_template_path(id: template.id) : org_admin_template_path(id: template.id) # rubocop:disable Layout/LineLength
       end
     end
     # rubocop:enable Metrics/AbcSize, Metrics/MethodLength
@@ -200,7 +200,7 @@ module OrgAdmin
                           { funder: [], sample_plan: [] }
                         end
       if @template.save
-        redirect_to @template&.module? ? edit_super_admin_template_path(@template) : edit_org_admin_template_path(@template),
+        redirect_to @template&.module? ? edit_super_admin_template_path(@template) : edit_org_admin_template_path(@template), # rubocop:disable Layout/LineLength
                     notice: success_message(@template, _('created'))
       else
         flash[:alert] = failure_message(@template, _('create'))

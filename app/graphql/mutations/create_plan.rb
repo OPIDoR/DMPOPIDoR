@@ -10,6 +10,7 @@ module Mutations
 
     field :result, Types::MutationResponseType
 
+    # rubocop:disable Metrics/AbcSize,Metrics/MethodLength
     def resolve(locale:, format:, context_param:, data:)
       raise GraphQL::ExecutionError, _('You are not allowed to create plan') unless Api::V0::PlansPolicy.new(
         context[:current_user], Plan
@@ -28,7 +29,9 @@ module Mutations
                                      format: format.downcase,
                                      context: context_param.downcase,
                                      json_file: file
-                                   }, Api::V1::Madmp::PlansController.new.determine_owner(client: context[:current_user], dmp: JSON.parse(data.to_json)))
+                                   }, Api::V1::Madmp::PlansController.new.determine_owner(
+                                        client: context[:current_user], dmp: JSON.parse(data.to_json)
+                                      ))
 
         {
           result: {
@@ -37,8 +40,6 @@ module Mutations
             success: true
           }
         }
-      rescue StandardError => e
-        raise GraphQL::ExecutionError, e.message
       rescue IOError
         raise GraphQL::ExecutionError, _('Unvalid file')
       rescue JSON::ParserError
@@ -47,5 +48,6 @@ module Mutations
         raise GraphQL::ExecutionError, "#{_('An error has occured: ')} #{e.message}"
       end
     end
+    # rubocop:enable Metrics/AbcSize,Metrics/MethodLength
   end
 end

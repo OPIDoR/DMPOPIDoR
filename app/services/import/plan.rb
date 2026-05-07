@@ -1,10 +1,13 @@
 # frozen_string_literal: true
 
 module Import
+  # Service to import a plan from a JSON file
   class Plan
+    # rubocop:disable Metrics/AbcSize, Metrics/MethodLength
+    # rubocop:disable Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
     def import(plan, import_params, current_user)
       import_format = import_params[:format].eql?('null') ? 'standard' : import_params[:format]
-      ::Plan.transaction do
+      ::Plan.transaction do # rubocop:disable Metrics/BlockLength
         recommended_template = Template.recommend(locale: import_params[:locale]) || Template.default
         plan.template = recommended_template
 
@@ -13,7 +16,7 @@ module Import
 
         language = Language.find_by(abbreviation: plan.template.locale)
 
-        ggs = GuidanceGroup.where(org_id: ids, optional_subset: false, published: true, language_id: language.id)
+        ggs = GuidanceGroup.where(org_id: ids, published: true, language_id: language.id)
 
         plan.guidance_groups << ggs unless ggs.empty?
 
@@ -47,5 +50,7 @@ module Import
         { planId: plan.id }
       end
     end
+    # rubocop:enable Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
+    # rubocop:enable Metrics/AbcSize, Metrics/MethodLength
   end
 end

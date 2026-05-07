@@ -1,4 +1,4 @@
-import { useContext, useEffect, useState } from "react";
+import { useContext, useMemo } from "react";
 import DOMPurify from "dompurify";
 import { useTranslation } from "react-i18next";
 
@@ -10,15 +10,9 @@ function Section({ planId, section, readonly }) {
   const { t } = useTranslation();
   const { openedQuestions, setOpenedQuestions, displayedResearchOutput } =
     useContext(SectionsContext);
-  const [sectionId, setSectionId] = useState(section.id);
 
-  /**
-   * USE EFFECTS
-   */
-
-  useEffect(() => {
-    setSectionId(section.id);
-  }, [section]);
+  /** Memoized values */
+  const sectionId = useMemo(() => section.id, [section]);
 
   /**
    * Toggle the state of questions within a section to the provided boolean value.

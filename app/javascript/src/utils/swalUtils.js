@@ -5,8 +5,8 @@ const defaultConfirmConfig = (t) => ({
   showCancelButton: true,
   confirmButtonColor: "#2c7dad",
   cancelButtonColor: "#c6503d",
-  cancelButtonText: t("Cancel"),
-  confirmButtonText: t("Yes"),
+  cancelButtonText: t("cancel"),
+  confirmButtonText: t("yes"),
 });
 
 const defaultDeleteErrorConfig = (t, recordName) => ({

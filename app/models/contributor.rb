@@ -51,7 +51,7 @@ class Contributor < ApplicationRecord
   validates :roles, numericality: { greater_than: 0,
                                     message: _('You must specify at least one role.') }
 
-  validate :name_or_email_presence
+  validate :name_or_email_presence?
 
   ONTOLOGY_NAME = 'CRediT - Contributor Roles Taxonomy'
   ONTOLOGY_LANDING_PAGE = 'https://credit.niso.org/'
@@ -124,7 +124,7 @@ class Contributor < ApplicationRecord
   private
 
   # rubocop:disable Metrics/AbcSize, Metrics/CyclomaticComplexity
-  def name_or_email_presence
+  def name_or_email_presence?
     errors.add(:name, _("can't be blank.")) if name.blank? && Rails.configuration.x.application.require_contributor_name
     if email.blank? && Rails.configuration.x.application.require_contributor_email
       errors.add(:email,

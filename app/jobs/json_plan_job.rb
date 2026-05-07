@@ -1,3 +1,6 @@
+# frozen_string_literal: true
+
+# Job to create/update the JsonPlan for a Plan
 class JsonPlanJob < ApplicationJob
   queue_as :default
 
