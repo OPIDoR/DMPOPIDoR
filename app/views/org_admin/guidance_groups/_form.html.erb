@@ -59,6 +59,13 @@ description_text_tooltip =  _('Enter your description here. You can include link
   <%= form.label(:published, _("Published"), class: "form-label") %>
 </div>
 
+<% if current_user.can_super_admin? %>
+  <div class='form-input col-xs-8'>
+    <%= form.check_box :is_default %>
+    <%= form.label(:is_default, _("Default"), class: "form-label") %>
+  </div>
+  <% end %>
+
 <div class="form-group mb-3 col-xs-8">
   <%= form.hidden_field :org_id %>
   <%= form.submit _('Save'), class: "btn btn-primary" %>
