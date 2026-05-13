@@ -280,6 +280,10 @@ Rails.application.routes.draw do
         end
       end
     end
+
+    namespace :v2 do
+      resources :dmps, only: %i[index]
+    end
   end
 
   namespace :paginable do
