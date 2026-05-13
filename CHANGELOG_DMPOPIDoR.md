@@ -2,6 +2,10 @@
 
 **Attention** Cette liste de changements concerne les déploiements sur nos serveurs de test en interne.
 
+## 13/05/2026
+- Correction du problème d'affichage de la question 1.1 apres la mise à jour de l'infobox d'un produit de recherche (#15156)
+- Correction du problème de choix du format d'import lors de l'import de plan (#15157)
+
 ## 05/05/2026
 - Correction du problème d'affichage des notifications en lien avec les comptes utilisateurs (#14711)
 - Retrait de l'affichage des recommandations liées aux questions (#15091)
