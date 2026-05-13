@@ -33,7 +33,6 @@ function ActionSelection({ nextStep, set, params }) {
           key={`first-step-${id}-container`}
           className={`${styles.step_list}  ${params.action === id ? styles.checked : ""}`}
           onClick={() => {
-            localStorage.setItem("action", id);
             set(id);
             return nextStep();
           }}

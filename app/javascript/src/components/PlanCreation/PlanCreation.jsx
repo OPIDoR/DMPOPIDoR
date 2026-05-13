@@ -26,11 +26,8 @@ function PlanCreation() {
   /**
    * States
    */
-  const [currentAction] = useState(
-    () => localStorage.getItem("action") || "create",
-  );
   const [params, setParams] = useState({
-    action: currentAction,
+    action: "create",
     researchContext: null,
     templateLanguage: null,
     selectedTemplate: null,
@@ -164,8 +161,8 @@ function PlanCreation() {
   );
 
   const visibleSteps = useMemo(
-    () => steps.filter(({ actions }) => actions.includes(currentAction)),
-    [steps, currentAction],
+    () => steps.filter(({ actions }) => actions.includes(params.action)),
+    [steps, params.action],
   );
 
   /**
