@@ -144,12 +144,17 @@ export function generateEmptyDefaults(properties = {}) {
   return emptyDefaults;
 }
 
-export function dataTypeSelectValues(t) {
-  return [
+export function dataTypeSelectValues(t, enablePhysicalObject = true) {
+  const options = [
     { label: t("dataset"), value: "dataset" },
     { label: t("software"), value: "software" },
-    { label: t("physical_object"), value: "physical_object" },
   ];
+
+  if (enablePhysicalObject) {
+    options.push({ label: t("physical_object"), value: "physical_object" });
+  }
+
+  return options;
 }
 
 export function displayPersonalData(researchOutputDataType) {

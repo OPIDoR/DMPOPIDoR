@@ -58,7 +58,10 @@ function AddResearchOutput({
     [pos, researchOutputs],
   );
 
-  const dataTypeOptions = useMemo(() => dataTypeSelectValues(t), [t]);
+  const dataTypeOptions = useMemo(
+    () => dataTypeSelectValues(t, configuration?.enablePhysicalObject),
+    [t],
+  );
 
   /**
    * States
