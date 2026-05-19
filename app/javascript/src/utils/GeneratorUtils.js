@@ -144,12 +144,26 @@ export function generateEmptyDefaults(properties = {}) {
   return emptyDefaults;
 }
 
-export function dataTypeSelectValues(t) {
-  return [
-    { label: t("dataset"), value: "dataset" },
-    { label: t("software"), value: "software" },
-    { label: t("physical_object"), value: "physical_object" },
+export const DATA_TYPE_LABELS = {
+  dataset: "datasetType",
+  software: "softwareType",
+  physical_object: "physicalObjectType",
+};
+
+export function dataTypeSelectValues(t, enablePhysicalObject = true) {
+  const options = [
+    { label: t(DATA_TYPE_LABELS.dataset), value: "dataset" },
+    { label: t(DATA_TYPE_LABELS.software), value: "software" },
   ];
+
+  if (enablePhysicalObject) {
+    options.push({
+      label: t(DATA_TYPE_LABELS.physical_object),
+      value: "physical_object",
+    });
+  }
+
+  return options;
 }
 
 export function displayPersonalData(researchOutputDataType) {

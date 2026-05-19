@@ -58,7 +58,10 @@ function AddResearchOutput({
     [pos, researchOutputs],
   );
 
-  const dataTypeOptions = useMemo(() => dataTypeSelectValues(t), [t]);
+  const dataTypeOptions = useMemo(
+    () => dataTypeSelectValues(t, configuration?.enablePhysicalObject),
+    [t],
+  );
 
   /**
    * States
@@ -185,6 +188,37 @@ function AddResearchOutput({
     return handleClose();
   };
 
+  function displayQuestionnaireTopicWarning() {
+    if (inEdition) return null;
+
+    const shouldDisplayTopics = displayTopics(
+      dataType,
+      configuration?.enableTopics,
+    );
+
+    let warningText = null;
+    if (shouldDisplayTopics && dataType && selectedTopic?.value) {
+      warningText = t("topicWarning");
+    }
+    if (!shouldDisplayTopics && dataType) {
+      warningText = t("outputTypeWarning");
+    }
+
+    return (
+      <div
+        style={{
+          fontSize: "14px",
+          fontWeight: 400,
+          marginBottom: "10px",
+          color: "var(--rust)",
+        }}
+        dangerouslySetInnerHTML={{
+          __html: DOMPurify.sanitize([warningText]),
+        }}
+      />
+    );
+  }
+
   /**
    * USE EFFECTS
    */
@@ -216,9 +250,7 @@ function AddResearchOutput({
   return (
     <div style={{ margin: "25px" }}>
       <div className="form-group">
-        <Alert variant="info">
-          {t("canCreateNewResearchOutputAndDisplayQuestionsBySelectingType")}
-        </Alert>
+        <Alert variant="info">{t("createResearchOutputInfo")}</Alert>
       </div>
       <div className="form-group">
         <div className={stylesForm.label_form}>
@@ -250,30 +282,17 @@ function AddResearchOutput({
       <div className="form-group">
         <div className={stylesForm.label_form}>
           <label data-tooltip-id={typeTooltipId}>
-            {t("type")}
+            {t("selectQuestionnaire")}
             <TooltipInfoIcon />
             <ReactTooltip
               id={typeTooltipId}
               place="bottom"
               effect="solid"
               variant="info"
-              content={<Trans t={t} i18nKey="learnMoreOutputTypes" />}
+              content={<Trans t={t} i18nKey="learnMoreQuestionnaires" />}
             />
           </label>
         </div>
-        {dataType && !inEdition && (
-          <div
-            style={{
-              fontSize: "14px",
-              fontWeight: 400,
-              marginBottom: "10px",
-              color: "var(--rust)",
-            }}
-            dangerouslySetInnerHTML={{
-              __html: DOMPurify.sanitize([t("outputTypeWarning")]),
-            }}
-          />
-        )}
         {dataTypeOptions && (
           <CustomSelect
             onSelectChange={handleSelectType}
@@ -289,14 +308,14 @@ function AddResearchOutput({
         <div className="form-group">
           <div className={stylesForm.label_form}>
             <label data-tooltip-id={topicTooltipId}>
-              {t("topic")}
+              {t("selectTopic")}
               <TooltipInfoIcon />
               <ReactTooltip
                 id={topicTooltipId}
                 place="bottom"
                 effect="solid"
                 variant="info"
-                content={<Trans t={t} defaults="Topic tooltip PLACEHOLDER" />}
+                content={<Trans t={t} i18nKey="topicTooltip" />}
               />
             </label>
           </div>
@@ -316,6 +335,7 @@ function AddResearchOutput({
           )}
         </div>
       )}
+      {displayQuestionnaireTopicWarning()}
       {dataType && displayPersonalData(dataType) && (
         <div className="form-group">
           <div className={stylesForm.label_form}>
