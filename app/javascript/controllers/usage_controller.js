@@ -1,10 +1,10 @@
-import { Controller } from '@hotwired/stimulus';
-import { drawHorizontalBar } from '../src/utils/charts';
+import { Controller } from "@hotwired/stimulus";
+import { drawHorizontalBar } from "../src/utils/charts";
 
 export default class extends Controller {
   static values = { data: Object };
 
-  static targets = ['canvas'];
+  static targets = ["canvas"];
 
   connect() {
     this.destroyChart();
@@ -24,9 +24,6 @@ export default class extends Controller {
   }
 
   drawChart() {
-    this.chart = drawHorizontalBar(
-      this.canvasTarget,
-      this.dataValue,
-    );
+    this.chart = drawHorizontalBar(this.canvasTarget, this.dataValue);
   }
 }

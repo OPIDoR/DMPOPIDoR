@@ -242,7 +242,7 @@ namespace :data_migration do
 
       if dmp_keywords.present? && dmp_keywords.length.positive?
         dmp_keywords.each do |kw|
-          /^\d\.\d /.match?(kw) ? updated_kw.push(kw[4..kw.length - 1]) : updated_kw.push(kw)
+          /^\d\.\d /.match?(kw) ? updated_kw.push(kw[4..]) : updated_kw.push(kw)
         end
       end
       meta_fragment.update_column(

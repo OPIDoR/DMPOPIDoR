@@ -36,8 +36,7 @@ module Api
         @items = paginate_response(results: templates)
         render '/api/v1/templates/index', status: :ok
       end
-      # rubocop:enable
+      # rubocop:enable Metrics/AbcSize
     end
-    # rubocop:enable Metrics/AbcSize
   end
 end

@@ -14,8 +14,6 @@
       <%= render partial: "form",
                  locals: {
                    form: f,
-                   # Don't display the optional subset if there is only one GuidanceGroup
-                   allow_subset_flag: @guidance_groups.length > 1
                  } %>
     <% end %>
   </div>

@@ -244,14 +244,12 @@ guidance_groups = [
     name: "Generic Guidance (provided by the example curation centre)",
     language_id: default_language.id,
     org: Org.find_by(abbreviation: Rails.configuration.x.organisation.abbreviation),
-    optional_subset: true,
     published: true
   },
   {
     name: "Government Agency Advice (Funder specific guidance)",
     language_id: default_language.id,
     org: Org.find_by(abbreviation: 'GA'),
-    optional_subset: false,
     published: true
   }
 ]

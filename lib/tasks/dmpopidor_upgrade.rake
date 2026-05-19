@@ -9,6 +9,8 @@ namespace :dmpopidor_upgrade do
     Rake::Task['dmpopidor_upgrade:migrate_guidance_groups_to_research_outputs'].execute
     Rake::Task['dmpopidor_upgrade:migrate_software_roles_registry_values'].execute
     Rake::Task['dmpopidor_upgrade:migrate_software_roles_registry_all_roles_values'].execute
+    Rake::Task['dmpopidor_upgrade:migrate_default_data_type_values'].execute
+    Rake::Task['dmpopidor_upgrade:migrate_research_outputs_data_type'].execute
   end
   desc 'Upgrade to 4.3.7'
   task V4_3_7: :environment do
@@ -45,6 +47,29 @@ namespace :dmpopidor_upgrade do
   desc 'Upgrade to 2.3.0'
   task v2_3_0: :environment do
     Rake::Task['dmpopidor_upgrade:close_existing_feedback_plans'].execute
+  end
+
+  desc 'Migrate default data type values for guidance groups, registries, themes, templates and madmp schemas'
+  task migrate_default_data_type_values: :environment do
+    GuidanceGroup.where(Arel.sql("'none' = ANY(data_types)")).map do |gg|
+      new_dt = gg.data_types.map { |dt| dt.eql?('none') ? 'dataset' : dt }
+      gg.update_column(:data_types, new_dt)
+    end
+    Registry.where(Arel.sql("'none' = ANY(data_types)")).map do |r|
+      new_dt = r.data_types.map { |dt| dt.eql?('none') ? 'dataset' : dt }
+      r.update_column(:data_types, new_dt)
+    end
+    Theme.where(data_type: 'none').update_all(data_type: 'dataset')
+    Template.where(data_type: 'none').update_all(data_type: 'dataset')
+    MadmpSchema.where(data_type: 'none').update_all(data_type: 'dataset')
+  end
+
+  desc 'Migrate research outputs with "none" data type to have "dataset" value'
+  task migrate_research_outputs_data_type: :environment do
+    Fragment::ResearchOutput.where(Arel.sql("additional_info->>'dataType' = 'none'")).map do |ro|
+      new_ai = ro.additional_info.merge({ 'dataType' => 'dataset' })
+      ro.update_column(:additional_info, new_ai)
+    end
   end
 
   desc 'Migrate SoftwareRoles registry values in contributor fragments'

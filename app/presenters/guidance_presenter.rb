@@ -40,32 +40,23 @@ class GuidancePresenter
   #
   # Returns an array of tab hashes.  These
   # rubocop:disable Metrics/AbcSize
-  # rubocop:disable Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
   def tablist(question)
     # start with orgs
     # filter into hash with annotation_presence, main_group presence, and
     display_tabs = []
     locale = Language.find_by(abbreviation: plan.template.locale)
     orgs.each do |org|
-      annotations = guidance_annotations(org: org, question: question)
+      annotations = @research_output.present? ? [] : guidance_annotations(org: org, question: question)
       groups = guidance_groups_by_theme(org: org, question: question)
       groups = groups.select { |group| group.language_id == locale.id } unless locale.nil?
-      main_groups = groups.select { |group| group.optional_subset == false }
-      subsets = groups.reject { |group| group.optional_subset == false }
-      if annotations.present? || main_groups.present? # annotations and main group
-        # Tab with org.abbreviation
-        display_tabs << { name: org.abbreviation, groups: main_groups,
-                          annotations: annotations }
-      end
-      next unless subsets.present?
+      next unless annotations.present? || groups.present? # annotations and main group
 
-      subsets.each_pair do |group, theme|
-        display_tabs << { name: group.name, groups: { group => theme } }
-      end
+      # Tab with org.abbreviation
+      display_tabs << { name: org.abbreviation, groups: groups,
+                        annotations: annotations }
     end
     display_tabs
   end
-  # rubocop:enable Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
   # rubocop:enable Metrics/AbcSize
 
   private
@@ -209,8 +200,8 @@ class GuidancePresenter
       org_guidance_groups = hashified_guidances.each_key.select do |gg|
         gg.org_id == org.id
       end
-      acc[org] = org_guidance_groups.each_with_object({}) do |gg, acc_inner|
-        acc_inner[gg] = hashified_guidances[gg]
+      acc[org] = org_guidance_groups.to_h do |gg|
+        [gg, hashified_guidances[gg]]
       end
     end
   end
@@ -223,8 +214,8 @@ class GuidancePresenter
       themes = Theme.includes(:guidances)
                     .joins(:guidances)
                     .merge(Guidance.where(guidance_group_id: gg.id, published: true))
-      acc[gg] = themes.each_with_object({}) do |theme, acc_inner|
-        acc_inner[theme] = theme.guidances
+      acc[gg] = themes.to_h do |theme|
+        [theme, theme.guidances]
       end
     end
   end

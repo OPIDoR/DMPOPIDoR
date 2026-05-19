@@ -1,25 +1,24 @@
-import React, { useContext, useEffect, useState } from 'react';
-import DOMPurify from 'dompurify';
-import { useTranslation } from 'react-i18next';
+import { useContext, useMemo } from "react";
+import DOMPurify from "dompurify";
+import { useTranslation } from "react-i18next";
 
-import { GlobalContext } from '../context/Global';
-import * as styles from '../assets/css/write_plan.module.css';
-import Question from './Question';
+import { SectionsContext } from "../context/SectionsContext.jsx";
+import * as styles from "../assets/css/write_plan.module.css";
+import Question from "./Question";
 
 function Section({ planId, section, readonly }) {
   const { t } = useTranslation();
-  const { openedQuestions, setOpenedQuestions, displayedResearchOutput } = useContext(GlobalContext);
-  const [sectionId, setSectionId] = useState(section.id);
+  const { openedQuestions, setOpenedQuestions, displayedResearchOutput } =
+    useContext(SectionsContext);
 
-  useEffect(() => {
-    setSectionId(section.id);
-  }, [section]);
+  /** Memoized values */
+  const sectionId = useMemo(() => section.id, [section]);
 
   /**
- * Toggle the state of questions within a section to the provided boolean value.
- *
- * @param {boolean} boolVal - The boolean value to set for all questions in the section.
- */
+   * Toggle the state of questions within a section to the provided boolean value.
+   *
+   * @param {boolean} boolVal - The boolean value to set for all questions in the section.
+   */
   const toggleQuestionsInSection = (boolVal) => {
     const updatedState = {
       ...openedQuestions[displayedResearchOutput.id],
@@ -34,6 +33,10 @@ function Section({ planId, section, readonly }) {
       [displayedResearchOutput.id]: updatedState,
     });
   };
+
+  /**
+   * RENDERING
+   */
 
   return (
     <>
@@ -51,7 +54,10 @@ function Section({ planId, section, readonly }) {
             type="button"
             className={`btn btn-link btn-sm m-0 p-0 ${styles.sub_title}`}
             style={{
-              outline: 'none', fontSize: '14px', padding: 0, color: '#1c5170',
+              outline: "none",
+              fontSize: "14px",
+              padding: 0,
+              color: "#1c5170",
             }}
             onClick={(e) => {
               e.preventDefault();
@@ -59,14 +65,17 @@ function Section({ planId, section, readonly }) {
               toggleQuestionsInSection(true);
             }}
           >
-            {t('expandAll')}
+            {t("expandAll")}
           </button>
           <span className={styles.sub_title}> | </span>
           <button
             type="button"
             className={`btn btn-link btn-sm m-0 p-0 ${styles.sub_title}`}
             style={{
-              outline: 'none', fontSize: '14px', padding: 0, color: '#1c5170',
+              outline: "none",
+              fontSize: "14px",
+              padding: 0,
+              color: "#1c5170",
             }}
             onClick={(e) => {
               e.preventDefault();
@@ -74,26 +83,28 @@ function Section({ planId, section, readonly }) {
               toggleQuestionsInSection(false);
             }}
           >
-            {t('collapseAll')}
+            {t("collapseAll")}
           </button>
         </div>
       </div>
-      {section.questions.filter((question) => {
-        if (question?.madmp_schema?.classname === 'personal_data_issues') {
-          return displayedResearchOutput.configuration.hasPersonalData;
-        }
-        return true;
-      }).map((question, idx) => (
-        <Question
-          key={question.id}
-          planId={planId}
-          question={question}
-          questionIdx={(idx + 1)}
-          sectionId={sectionId}
-          sectionNumber={section.number}
-          readonly={readonly}
-        />
-      ))}
+      {section.questions
+        .filter((question) => {
+          if (question?.madmp_schema?.classname === "personal_data_issues") {
+            return displayedResearchOutput.configuration.hasPersonalData;
+          }
+          return true;
+        })
+        .map((question, idx) => (
+          <Question
+            key={question.id}
+            planId={planId}
+            question={question}
+            questionIdx={idx + 1}
+            sectionId={sectionId}
+            sectionNumber={section.number}
+            readonly={readonly}
+          />
+        ))}
     </>
   );
 }

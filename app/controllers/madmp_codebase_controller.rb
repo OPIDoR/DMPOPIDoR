@@ -84,6 +84,7 @@ class MadmpCodebaseController < ApplicationController
   # rubocop:enable Metrics/PerceivedComplexity, Metrics/CyclomaticComplexity
   # rubocop:enable Metrics/AbcSize, Metrics/MethodLength
 
+  # rubocop:disable Metrics/AbcSize
   def share
     fragment = MadmpFragment.find(params[:fragment_id])
     plan = fragment.plan
@@ -108,8 +109,10 @@ class MadmpCodebaseController < ApplicationController
   rescue StandardError => e
     render json: { status: 500, message: e }, status: 500
   end
+  # rubocop:enable Metrics/AbcSize
 
   # rubocop:disable Metrics/AbcSize, Metrics/MethodLength
+  # rubocop:disable Metrics/CyclomaticComplexity,Metrics/PerceivedComplexity
   def project_search
     project_id = params[:project_id]
     fragment = MadmpFragment.includes(:dmp).find(params[:fragment_id])
@@ -137,7 +140,7 @@ class MadmpCodebaseController < ApplicationController
       if Rails.configuration.x.madmp_codebase.mock == true
         begin
           file_path = Rails.root.join('config/example_data/anr_example_data.json')
-          response = JSON.load(File.open(file_path))
+          response = JSON.parse(File.open(file_path))
           dmp_fragment.raw_import(response, dmp_fragment.madmp_schema)
           dmp_fragment.update_meta_fragment
 
@@ -199,6 +202,7 @@ class MadmpCodebaseController < ApplicationController
     end
     # rubocop:enable Metrics/BlockLength
   end
+  # rubocop:enable Metrics/CyclomaticComplexity,Metrics/PerceivedComplexity
   # rubocop:enable Metrics/AbcSize, Metrics/MethodLength
 
   private

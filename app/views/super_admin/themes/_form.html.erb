@@ -26,7 +26,7 @@
 
   <ul class="nav nav-tabs">
     <% @locales.each do |l| %>
-      <li class="<%= active_tab?(l.abbreviation) %>">
+      <li class="<%= active_tab(l.abbreviation) %>">
         <a data-toggle="tab" href="#<%= l.abbreviation %>"><%= l.name %></a>
       </li>
     <% end %>
@@ -35,7 +35,7 @@
   <div class="tab-content">
     <% @locales.each do |locale| %>
       <% translation = @theme.translations[locale.abbreviation] %>
-      <div id="<%= locale.abbreviation %>" class="tab-pane fade <%= active_tab?(locale.abbreviation, content: true) %>" style="width: 100%;">
+      <div id="<%= locale.abbreviation %>" class="tab-pane fade <%= active_tab(locale.abbreviation, content: true) %>" style="width: 100%;">
         <%= f.fields_for :translations, translation do |tf| %>
           <div class="form-control mb-3">
             <%= tf.label(:title, _('Title'), class: 'form-label') %>

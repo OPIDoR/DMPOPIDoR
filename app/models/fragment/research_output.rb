@@ -51,6 +51,8 @@ module Fragment
       data_type = additional_info['dataType']
       if data_type.eql?('software')
         Fragment::Software::SoftwareDescription.where(parent_id: id).first
+      elsif data_type.eql?('physical_object')
+        Fragment::PhysicalObject::PhysicalObjectDescription.where(parent_id: id).first
       else
         Fragment::ResearchOutputDescription.where(parent_id: id).first
       end

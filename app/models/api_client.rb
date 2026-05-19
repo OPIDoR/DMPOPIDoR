@@ -68,7 +68,7 @@ class ApiClient < ApplicationRecord
   end
 
   # Verify that the incoming secret matches
-  def authenticate(secret:)
+  def authenticate?(secret:)
     client_secret == secret
   end
 

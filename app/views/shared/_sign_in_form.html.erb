@@ -1,6 +1,6 @@
 <% if Rails.configuration.x.shibboleth.enabled %>
   <% target = (Rails.configuration.x.shibboleth.use_filtered_discovery_service ? shibboleth_ds_path : user_shibboleth_omniauth_authorize_path) %>
-  <%= form_tag(target, method: 'post') do %>
+  <%= form_tag(target, method: 'post', data: { turbo: false }) do %>
     <%= hidden_field_tag :authenticity_token, form_authenticity_token %>
     <p class="fontsize-h3"><%= _('Institutional Access')%></p>
     <% if session['devise.shibboleth_data'].nil? %>

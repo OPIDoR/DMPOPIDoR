@@ -10,7 +10,8 @@
         "classname": "budget",
         "dataTypes": [
             "software",
-            "none"
+            "dataset",
+            "physical_object"
         ],
         "topics": null
     },
@@ -19,7 +20,8 @@
         "classname": "contributor",
         "dataTypes": [
             "software",
-            "none"
+            "dataset",
+            "physical_object"
         ],
         "topics": null
     },
@@ -28,7 +30,8 @@
         "classname": "contributor",
         "dataTypes": [
             "software",
-            "none"
+            "dataset",
+            "physical_object"
         ],
         "topics": null
     },
@@ -37,7 +40,8 @@
         "classname": "controlled_keyword",
         "dataTypes": [
             "software",
-            "none"
+            "dataset",
+            "physical_object"
         ],
         "topics": null
     },
@@ -58,7 +62,8 @@
         "classname": "cost",
         "dataTypes": [
             "software",
-            "none"
+            "dataset",
+            "physical_object"
         ],
         "topics": null
     },
@@ -163,7 +168,8 @@
         "classname": "dmp",
         "dataTypes": [
             "software",
-            "none"
+            "dataset",
+            "physical_object"
         ],
         "topics": null
     },
@@ -172,7 +178,8 @@
         "classname": "dmp",
         "dataTypes": [
             "software",
-            "none"
+            "dataset",
+            "physical_object"
         ],
         "topics": null
     },
@@ -193,7 +200,8 @@
         "classname": "funder",
         "dataTypes": [
             "software",
-            "none"
+            "dataset",
+            "physical_object"
         ],
         "topics": null
     },
@@ -202,7 +210,8 @@
         "classname": "funding",
         "dataTypes": [
             "software",
-            "none"
+            "dataset",
+            "physical_object"
         ],
         "topics": null
     },
@@ -241,7 +250,7 @@
         "classname": "license",
         "dataTypes": [
             "software",
-            "none"
+            "dataset"
         ],
         "topics": null
     },
@@ -280,7 +289,7 @@
         "classname": "meta",
         "dataTypes": [
             "software",
-            "none"
+            "dataset"
         ],
         "topics": null
     },
@@ -295,7 +304,7 @@
         "classname": "partner",
         "dataTypes": [
             "software",
-            "none"
+            "dataset"
         ],
         "topics": null
     },
@@ -310,7 +319,7 @@
         "classname": "person",
         "dataTypes": [
             "software",
-            "none"
+            "dataset"
         ],
         "topics": null
     },
@@ -327,7 +336,8 @@
         "classname": "project",
         "dataTypes": [
             "software",
-            "none"
+            "dataset",
+            "physical_object"
         ],
         "topics": null
     },
@@ -342,7 +352,8 @@
         "classname": "research_entity",
         "dataTypes": [
             "software",
-            "none"
+            "dataset",
+            "physical_object"
         ],
         "topics": null
     },
@@ -371,7 +382,8 @@
         "classname": "resource_reference",
         "dataTypes": [
             "software",
-            "none"
+            "dataset",
+            "physical_object"
         ],
         "topics": null
     },
@@ -464,7 +476,8 @@
         "classname": "specific_data",
         "dataTypes": [
             "software",
-            "none"
+            "dataset",
+            "physical_object"
         ],
         "topics": null
     },
@@ -473,7 +486,8 @@
         "classname": "technical_resource",
         "dataTypes": [
             "software",
-            "none"
+            "dataset",
+            "physical_object"
         ],
         "topics": null
     },
@@ -532,5 +546,21 @@
         "topics": [
             "Earth observation - GEO"
         ]
+    },
+    {
+        "path": "ResearchOutputPhysicalObjectStandard-template.json",
+        "classname": "research_output",
+        "dataTypes": [
+            "physical_object"
+        ],
+        "topics": null
+    },
+    {
+        "path": "PhysicalObjectDescriptionStandard-template.json",
+        "classname": "physical_object_description",
+        "dataTypes": [
+            "physical_object"
+        ],
+        "topics": null
     }
 ]

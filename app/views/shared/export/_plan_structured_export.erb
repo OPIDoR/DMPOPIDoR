@@ -31,7 +31,7 @@
       <% blank = answer.present? ? answer.blank? : true %>
       <% fragment = answer.present? ? answer.madmp_fragment : nil %>
 
-      <% next if should_hide_question(question, research_output) %>
+      <% next if should_hide_question?(question, research_output) %>
 
       <% unless @show_unanswered == false && blank  %>
         <div class="question">

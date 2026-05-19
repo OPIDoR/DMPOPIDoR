@@ -5,7 +5,7 @@
     "description": "PartnerStandard template",
     "dataTypes": [
         "software",
-        "none"
+        "dataset"
     ],
     "topics": null,
     "type": "object",
@@ -14,7 +14,7 @@
         "ror": {
             "name": "name",
             "ror": "orgId",
-            "acronyms[0]": "acronym",
+            "acronym": "acronym",
             "type": "idType"
         }
     },

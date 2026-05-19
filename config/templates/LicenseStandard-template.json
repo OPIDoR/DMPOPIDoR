@@ -5,7 +5,7 @@
     "description": "LicenseStandard template",
     "dataTypes": [
         "software",
-        "none"
+        "dataset"
     ],
     "topics": null,
     "type": "object",

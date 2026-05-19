@@ -4,17 +4,17 @@
 #
 # Table name: guidance_groups
 #
-#  id              :integer          not null, primary key
-#  data_types      :string           default(["none"]), not null, is an Array
-#  description     :string
-#  name            :string
-#  optional_subset :boolean          default(TRUE), not null
-#  published       :boolean          default(FALSE), not null
-#  topics          :string           default(["generic"]), not null, is an Array
-#  created_at      :datetime         not null
-#  updated_at      :datetime         not null
-#  language_id     :integer          default(0)
-#  org_id          :integer
+#  id          :integer          not null, primary key
+#  data_types  :string           default(["dataset"]), not null, is an Array
+#  description :string
+#  is_default  :boolean          default(FALSE), not null
+#  name        :string
+#  published   :boolean          default(FALSE), not null
+#  topics      :string           default(["generic"]), not null, is an Array
+#  created_at  :datetime         not null
+#  updated_at  :datetime         not null
+#  language_id :integer          default(0)
+#  org_id      :integer
 #
 # Indexes
 #
@@ -31,7 +31,6 @@ FactoryBot.define do
     org
     language { Language.default }
     published { true }
-    optional_subset { false }
     trait :unpublished do
       published { false }
     end

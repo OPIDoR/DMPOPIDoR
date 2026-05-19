@@ -9,35 +9,39 @@ module Mutations
 
     field :result, Types::MutationResponseType
 
+    # rubocop:disable Metrics/AbcSize,Metrics/MethodLength
     def resolve(plan_id:, research_outputs:, format:)
       plan = Api::V1::PlansPolicy::Scope.new(context[:current_user], Plan).resolve.find(plan_id)
 
-
-      raise GraphQL::ExecutionError, 'You are not allowed to create research output(s)' unless ResearchOutputPolicy.new(context[:current_user], ResearchOutput.new(plan_id: plan.id)).create?
+      raise GraphQL::ExecutionError, 'You are not allowed to create research output(s)' unless ResearchOutputPolicy.new(
+        context[:current_user], ResearchOutput.new(plan_id: plan.id)
+      ).create?
 
       begin
         if format.eql?('rda')
-          research_outputs = Import::Converters::RdaToStandardConverter.convert_research_output(research_outputs, {
-            ethical_issues_exist: 'no',
-            ethical_issues_description: '',
-            ethical_issues_report: ''
-          })
+          research_outputs = Import::Converters::RdaToStandardConverter
+                             .convert_research_output(research_outputs, {
+                                                        ethical_issues_exist: 'no',
+                                                        ethical_issues_description: '',
+                                                        ethical_issues_report: ''
+                                                      })
         end
 
         Import::PlanImportService.handle_research_outputs(plan, research_outputs)
-      rescue => e
-          raise GraphQL::ExecutionError, e.message
+      rescue StandardError => e
+        raise GraphQL::ExecutionError, e.message
       end
 
       {
         result: {
           code: 200,
-          message: "Research output#{research_outputs.length > 1 ? "s" : ""} created successfully for plan #{plan_id}.",
+          message: "Research output#{'s' if research_outputs.length > 1} created successfully for plan #{plan_id}.",
           success: true
         }
       }
     rescue ActiveRecord::RecordNotFound
-      raise GraphQL::ExecutionError, "Plan not found or access denied for the current user."
+      raise GraphQL::ExecutionError, 'Plan not found or access denied for the current user.'
     end
+    # rubocop:enable Metrics/AbcSize,Metrics/MethodLength
   end
 end

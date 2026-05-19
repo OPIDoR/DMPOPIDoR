@@ -37,7 +37,7 @@ module ExternalApis
       # Ping the DOI API to determine if it is online
       #
       # @return true/false
-      def ping
+      def ping?
         return true unless active? && heartbeat_path.present?
 
         resp = http_get(uri: "#{api_base_url}#{heartbeat_path}")
@@ -45,7 +45,7 @@ module ExternalApis
       end
 
       # Implement the authentication for the DOI API
-      def auth
+      def auth?
         true
 
         # You should implement any necessary authentication step required by the

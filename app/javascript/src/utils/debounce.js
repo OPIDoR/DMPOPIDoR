@@ -1,4 +1,4 @@
-import { isFunction, isNumber } from './isType';
+import { isFunction, isNumber } from "./isType";
 
 export default function debounce(func, wait) {
   if (isFunction(func)) {

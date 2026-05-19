@@ -1,4 +1,4 @@
-import styled from 'styled-components';
+import styled from "styled-components";
 
 export const ButtonComment = styled.button`
   margin: 10px 2px 2px 0px;
@@ -21,7 +21,7 @@ export const NavBody = styled.div`
 export const NavBodyText = styled.div`
   padding: 0px 0px 0px 18px; // Add padding if needed
   border-radius: 0px 10px 10px 10px;
-  font-family:  "Helvetica Neue", sans-serif;
+  font-family: "Helvetica Neue", sans-serif;
   color: var(--dark-blue);
   min-height: 300px;
 `;
@@ -30,5 +30,5 @@ export const Description = styled.div`
   margin: 10px 0px 0px 10px;
   color: #fff;
   font-size: 16px;
-  font-family:  "Helvetica Neue", sans-serif;
+  font-family: "Helvetica Neue", sans-serif;
 `;

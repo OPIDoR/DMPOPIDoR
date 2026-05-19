@@ -5,7 +5,7 @@
     "description": "ContributorStandard template",
     "dataTypes": [
         "software",
-        "none"
+        "dataset"
     ],
     "topics": null,
     "type": "object",

@@ -1,23 +1,13 @@
-import React, { useContext, useEffect, useState } from 'react';
+import { useContext, useEffect, useState } from "react";
 
-import { GlobalContext } from '../context/Global';
-import { researchOutput } from '../../services';
+import { SectionsContext } from "../context/SectionsContext.jsx";
+import { researchOutput } from "../../services";
+import { setUrlParams } from "../../utils/utils.js";
 
 function ResearchOutputsSidebarItem({ item, setLoading, children }) {
-  const {
-    setDisplayedResearchOutput,
-    setUrlParams,
-  } = useContext(GlobalContext);
-  const [selectedResearchOutputId, setSelectedResearchOutputId] = useState(null);
-
-  useEffect(() => {
-    if (selectedResearchOutputId) {
-      setLoading(true);
-      researchOutput.get(selectedResearchOutputId).then((res) => {
-        setDisplayedResearchOutput(res.data);
-      }).finally(() => setLoading(false));
-    }
-  }, [selectedResearchOutputId]);
+  const { setDisplayedResearchOutput } = useContext(SectionsContext);
+  const [selectedResearchOutputId, setSelectedResearchOutputId] =
+    useState(null);
 
   /**
    * When the user clicks on a tab, the function sets the active index to the index of the tab that was clicked, and sets the research id to the id of the
@@ -28,6 +18,26 @@ function ResearchOutputsSidebarItem({ item, setLoading, children }) {
     setSelectedResearchOutputId(selectedResearchOutput.id);
     setUrlParams({ research_output: selectedResearchOutput.id });
   };
+
+  /**
+   * USE EFFECTS
+   */
+
+  useEffect(() => {
+    if (selectedResearchOutputId) {
+      setLoading(true);
+      researchOutput
+        .get(selectedResearchOutputId)
+        .then((res) => {
+          setDisplayedResearchOutput(res.data);
+        })
+        .finally(() => setLoading(false));
+    }
+  }, [selectedResearchOutputId]);
+
+  /**
+   * RENDERING
+   */
 
   return (
     <div onClick={(e) => handleShowResearchOutputClick(e, item, item.id)}>

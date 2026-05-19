@@ -36,7 +36,7 @@ class UsageController < ApplicationController
     # for global usage
     authorize :usage
 
-    args = { filtered: parse_filtered }
+    args = { filtered: parse_filtered? }
     data = Org::TotalCountStatService.call(**args) # TODO: Update
     sep = sep_param
     data_csvified = Csvable.from_array_of_hashes(data, true, sep)
@@ -48,7 +48,7 @@ class UsageController < ApplicationController
   def org_statistics
     authorize :usage
 
-    data = Org::MonthlyUsageService.call(current_user, filtered: parse_filtered)
+    data = Org::MonthlyUsageService.call(current_user, filtered: parse_filtered?)
     sep = sep_param
     data_csvified = Csvable.from_array_of_hashes(data, true, sep)
 
@@ -144,11 +144,11 @@ class UsageController < ApplicationController
       org: current_user.org,
       start_date: Date.today.months_ago(12).end_of_month.strftime('%Y-%m-%d'),
       end_date: Date.today.last_month.end_of_month.strftime('%Y-%m-%d'),
-      filtered: parse_filtered
+      filtered: parse_filtered?
     }
   end
 
-  def parse_filtered
+  def parse_filtered?
     params[:filtered].present? && params[:filtered] == 'true'
   end
 

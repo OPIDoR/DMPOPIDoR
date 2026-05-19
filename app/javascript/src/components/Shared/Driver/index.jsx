@@ -1,8 +1,10 @@
-import { DriverProvider } from './DriverContext.jsx';
-import Driver from './Driver.jsx';
+import { DriverProvider } from "./DriverContext.jsx";
+import Driver from "./Driver.jsx";
 
-export default (props) => (
+const DriverComponent = (props) => (
   <DriverProvider>
     <Driver {...props} />
   </DriverProvider>
 );
+
+export default DriverComponent;

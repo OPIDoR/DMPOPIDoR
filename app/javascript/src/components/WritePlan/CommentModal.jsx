@@ -1,11 +1,18 @@
-import React, { useRef, useContext, useState } from 'react';
-import { useTranslation } from 'react-i18next';
-import { GlobalContext } from '../context/Global';
-import InnerModal from '../Shared/InnerModal/InnerModal';
-import CommentList from '../Shared/CommentList';
+import { useRef, useContext, useState } from "react";
+import { useTranslation } from "react-i18next";
+import { GlobalContext } from "../context/GlobalContext.jsx";
+import InnerModal from "../Shared/InnerModal/InnerModal";
+import CommentList from "../Shared/CommentList";
 
 function CommentModal({
-  shown, hide, setAnswer, answerId, researchOutputId, planId, questionId, commentable,
+  shown,
+  hide,
+  setAnswer,
+  answerId,
+  researchOutputId,
+  planId,
+  questionId,
+  commentable,
 }) {
   const { t } = useTranslation();
   const [commentsNumber, setCommentsNumber] = useState(0);
@@ -22,11 +29,13 @@ function CommentModal({
           hide();
         }}
       >
-        <InnerModal.Title id={`#notes-title-${questionId}-research-output-${researchOutputId}`}>
-          {t('comments')} ({commentsNumber})
+        <InnerModal.Title
+          id={`#notes-title-${questionId}-research-output-${researchOutputId}`}
+        >
+          {t("comments")} ({commentsNumber})
         </InnerModal.Title>
       </InnerModal.Header>
-      <InnerModal.Body style={{ borderRadius: '0 0 10px 10px' }}>
+      <InnerModal.Body style={{ borderRadius: "0 0 10px 10px" }}>
         <CommentList
           answerId={answerId}
           researchOutputId={researchOutputId}

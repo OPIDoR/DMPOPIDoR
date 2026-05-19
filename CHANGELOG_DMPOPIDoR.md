@@ -2,6 +2,50 @@
 
 **Attention** Cette liste de changements concerne les déploiements sur nos serveurs de test en interne.
 
+## 19/05/2026
+- Ajout d'icônes indiquant le contexte d'un plan au niveau de la liste des plans accessibles par les Administrateurs
+- Ajout d'une option de configuration permettant de désactiver l'ajout de Produit de Recherche Objet Physique
+- Mise à jour des textes des libellés et des tooltips dans l'infobox et le formulaire Produit de Recherche.
+
+## 13/05/2026
+- Correction du problème d'affichage de la question 1.1 apres la mise à jour de l'infobox d'un produit de recherche (#15156)
+- Correction du problème de choix du format d'import lors de l'import de plan (#15157)
+
+## 05/05/2026
+- Correction du problème d'affichage des notifications en lien avec les comptes utilisateurs (#14711)
+- Retrait de l'affichage des recommandations liées aux questions (#15091)
+- Correction du problème d'affichage des recommandations organismes (#15111)
+- Retrait de la colonne `optional_subset` de la table des groupes de recommandations et des vues associées
+- Ajout de l'information "Par défaut" dans le tableau des groupes de recommandations
+
+## 30/04/2026
+- L'import RoR n'importe et n'affiche que le premier acronyme disponible (#14899)
+- Lors de la création d'un produit de recherche, seuls les groupes de recommandations de l'organisme correspondant à la thématique et au type choisit sont sélectionnés
+- Correction du problème de génération des informations JSON des produits de recherche Objet Physique lors d'un export JSON (#15086)
+
+## 29/04/2025
+- Refonte de l'API GraphQL
+- Correction du filtre obligatoire pour les produits de recherche
+- Modification page d'aide, ajout de couleur aux onglets et de l'index de l'onglet dans l'URL
+
+## 24/04/2026
+- Ajout de la possibilité de créer des produits de recherche avec le questionnaire Objet Physique
+- Ajout de la colonne `is_default` aux groupes de recommendation. Ces groupes sont sélectionnés par défaut à la création d'un produit de recherche en fonction du dataType, de la langue et du topic choisi (#14853)
+
+## 13/04/2026
+- Correction du problème d'affichage de l'onglet Infos Générales après un import financeur
+- Correction d'un problème de redirection lorsque la création d'une recommandation ne se déroule pas avec succès
+- Les recommandations possédant un dataType différent de 'dataset' sont désormais sélectionnées par défaut (#14853)
+
+## 10/04/2026
+- Retrait des icônes de la création de plan (#14681)
+- Correction du problème d'actualisation du tableau après la modification des droits d'administration (#13978)
+- Refonte de la sélection du type de produit de recherche lors de la création (#14679)
+  - Le type est désormais limité Dataset et Software
+  - Le dataType par défaut est "dataset" au lieu de "none"
+  - Ajout du dataType "physical object" dans la partie administration
+- Syntaxe du code : refonte du code ReactJS. Gros travail de mise en conformité du code ReactJS. Ce travail ne devrait pas changer le fonctionnement mais apporte une meilleure gestion des référentiels chargés en mémoire, de l'affichage des composants et des variables.
+
 ## 31/03/2026
 - Ajout d'une tache de convertion des fragments contributeurs utilisant le référentiel SoftwareRoles (#14371)
 - Ajout d'un message à coté de l'infobox indiquant qu'aucune recommandation n'est sélectionnée (#14852)

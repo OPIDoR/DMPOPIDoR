@@ -1,76 +1,91 @@
-import { isObject } from '../../utils/isType';
+import { isObject } from "../../utils/isType";
 
 // Attach handlers for changing the conditions of a question
 export default function updateConditions(id) {
   const parent = $(`#${id}.question_container`);
-  const content = parent.find('#content');
-  content.html('');
+  const content = parent.find("#content");
+  content.html("");
   const addLogicButton = parent.find('a.add-logic[data-remote="true"]');
 
   // display conditions already saved
   if (addLogicButton.length > 0) {
-    if (addLogicButton.attr('data-loaded').toString() === 'true') {
+    if (addLogicButton.attr("data-loaded").toString() === "true") {
       // Get the native Dom element from the Jquery button element.
       // We are getting native DOM element by applying get() from the Jquery element (cf., https://api.jquery.com/get/).
-      addLogicButton.get(0).trigger('click');
+      addLogicButton.get(0).trigger("click");
     }
   }
 
   // test if a webhook is selected and set up if so
-  const allowWebhook = (selectObject, webhook = false) => { // webhook false => new condition
-    const condition = $(selectObject).closest('.condition-partial');
+  const allowWebhook = (selectObject, webhook = false) => {
+    // webhook false => new condition
+    const condition = $(selectObject).closest(".condition-partial");
 
     if (webhook === false) {
-      if ($(selectObject).val() === 'add_webhook') { // condition type is webhook
+      if ($(selectObject).val() === "add_webhook") {
+        // condition type is webhook
         // Retreive 'data-bs-target' for modal and create Jquery element
-        const associatedModal = $(condition.find('.pseudo-webhook-btn').attr('data-bs-target'));
-        associatedModal.modal('show');
-      } else { // condition type is remove
-        condition.find('.remove-dropdown').show();
-        condition.find('.webhook-replacement').hide();
+        const associatedModal = $(
+          condition.find(".pseudo-webhook-btn").attr("data-bs-target"),
+        );
+        associatedModal.modal("show");
+      } else {
+        // condition type is remove
+        condition.find(".remove-dropdown").show();
+        condition.find(".webhook-replacement").hide();
       }
-    } else { // loading already saved conditions
+    } else {
+      // loading already saved conditions
       // populate webhook inputs
-      const nameString = condition.find('select.action-type').attr('name');
+      const nameString = condition.find("select.action-type").attr("name");
       const nameStart = nameString.substring(0, nameString.length - 13);
-      const fields = ['name', 'email', 'subject', 'message'];
+      const fields = ["name", "email", "subject", "message"];
       fields.forEach((field, idx) => {
-        let inputType = 'input';
+        let inputType = "input";
         if (idx === 3) {
-          inputType = 'textarea';
+          inputType = "textarea";
         }
-        condition.find(`${inputType}[name="${nameStart}[webhook-${field}]"]`).val(JSON.parse(webhook)[`${field}`]);
+        condition
+          .find(`${inputType}[name="${nameStart}[webhook-${field}]"]`)
+          .val(JSON.parse(webhook)[`${field}`]);
       });
-      $(selectObject).on('change', () => {
+      $(selectObject).on("change", () => {
         allowWebhook(selectObject, undefined);
       });
     }
     // allow discarding of webhook data on click of exit symbol
-    const exit = condition.find('.discard');
-    exit.on('click', () => {
-      exit.closest('.modal').find('.form-control').each((idx, field) => {
-        $(field).val('');
-      });
+    const exit = condition.find(".discard");
+    exit.on("click", () => {
+      exit
+        .closest(".modal")
+        .find(".form-control")
+        .each((idx, field) => {
+          $(field).val("");
+        });
     });
-    if ($(selectObject).val() === 'add_webhook') {
+    if ($(selectObject).val() === "add_webhook") {
       // display edit email section
-      condition.find('.remove-dropdown').hide();
-      condition.find('.webhook-replacement').show();
-      $(condition.find('.webhook-replacement')).on('click', (event) => {
+      condition.find(".remove-dropdown").hide();
+      condition.find(".webhook-replacement").show();
+      $(condition.find(".webhook-replacement")).on("click", (event) => {
         event.preventDefault();
         // Retreive 'data-bs-target' for modal and create Jquery element
-        const associatedModal1 = $(condition.find('.pseudo-webhook-btn').attr('data-bs-target'));
-        associatedModal1.modal('show');
+        const associatedModal1 = $(
+          condition.find(".pseudo-webhook-btn").attr("data-bs-target"),
+        );
+        associatedModal1.modal("show");
       });
     }
   };
 
   // setup when to test for a webhook selected
   const webhookSelected = (selectObject, webhook = false) => {
-    if (webhook) { // current list of conditions
+    if (webhook) {
+      // current list of conditions
       allowWebhook(selectObject, webhook);
-    } else { // new condition is added
-      $(selectObject).on('change', () => {
+    } else {
+      // new condition is added
+      $(selectObject).on("change", () => {
         allowWebhook(selectObject, undefined);
       });
     }
@@ -79,7 +94,7 @@ export default function updateConditions(id) {
   // webhook form
   const webhookForm = (webhooks = false, selectObject = false) => {
     if (selectObject === false) {
-      $('.form-select.action-type').each((idx, selectObject2) => {
+      $(".form-select.action-type").each((idx, selectObject2) => {
         webhookSelected(selectObject2, webhooks[idx]);
       });
     } else {
@@ -88,11 +103,11 @@ export default function updateConditions(id) {
   };
 
   // display conditions (editing) upon click of 'Add Logic'
-  parent.on('ajax:success', 'a.add-logic[data-remote="true"]', (e, data) => {
-    addLogicButton.attr('data-loaded', 'true');
-    addLogicButton.addClass('disabled');
+  parent.on("ajax:success", 'a.add-logic[data-remote="true"]', (e, data) => {
+    addLogicButton.attr("data-loaded", "true");
+    addLogicButton.addClass("disabled");
     addLogicButton.blur();
-    addLogicButton.text('Conditions');
+    addLogicButton.text("Conditions");
     if (isObject(content)) {
       content.html(data.container);
     }
@@ -100,23 +115,33 @@ export default function updateConditions(id) {
   });
 
   // add condition
-  parent.on('ajax:success', 'a.add-condition[data-remote="true"]', (e, data) => {
-    const conditionList = $(e.target).closest('#condition-container').find('.condition-list');
-    const addDiv = $(e.target).closest('#condition-container').find('.add-condition-div');
-    if (isObject(conditionList)) {
-      conditionList.attr('data-loaded', 'true');
-      conditionList.append(data.attachment_partial);
-      addDiv.html(data.add_link);
-      conditionList.attr('data-loaded', 'false');
-      const selectObject = conditionList.find('.form-select.action-type').last();
-      webhookForm(undefined, selectObject);
-    }
-  });
+  parent.on(
+    "ajax:success",
+    'a.add-condition[data-remote="true"]',
+    (e, data) => {
+      const conditionList = $(e.target)
+        .closest("#condition-container")
+        .find(".condition-list");
+      const addDiv = $(e.target)
+        .closest("#condition-container")
+        .find(".add-condition-div");
+      if (isObject(conditionList)) {
+        conditionList.attr("data-loaded", "true");
+        conditionList.append(data.attachment_partial);
+        addDiv.html(data.add_link);
+        conditionList.attr("data-loaded", "false");
+        const selectObject = conditionList
+          .find(".form-select.action-type")
+          .last();
+        webhookForm(undefined, selectObject);
+      }
+    },
+  );
 
   // remove condition
-  parent.on('click', '.delete-condition', (e) => {
+  parent.on("click", ".delete-condition", (e) => {
     e.preventDefault();
-    const source = $(e.target).closest('.condition-partial');
+    const source = $(e.target).closest(".condition-partial");
     source.empty();
   });
 }

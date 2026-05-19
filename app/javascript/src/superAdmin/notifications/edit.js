@@ -1,11 +1,11 @@
 // add the info on selecting the check from notification suitable
-import { paginableSelector } from '../../utils/paginable';
-import * as notifier from '../../utils/notificationHelper';
+import { paginableSelector } from "../../utils/paginable";
+import * as notifier from "../../utils/notificationHelper";
 
-document.addEventListener('turbo:load', () => {
-  $(paginableSelector).on('ajax:success', '.enable_notification', (e) => {
+document.addEventListener("turbo:load", () => {
+  $(paginableSelector).on("ajax:success", ".enable_notification", (e) => {
     const data = e.detail[0];
-    if (data.code === 1 && data.msg && data.msg !== '') {
+    if (data.code === 1 && data.msg && data.msg !== "") {
       notifier.renderNotice(data.msg);
     } else {
       notifier.renderAlert(data.msg);

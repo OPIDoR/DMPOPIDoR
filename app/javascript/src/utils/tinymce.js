@@ -1,47 +1,48 @@
 // Import TinyMCE
-import tinymce from 'tinymce/tinymce';
+import tinymce from "tinymce/tinymce";
 
 // TinyMCE DOM helpers
-import 'tinymce/models/dom/';
+import "tinymce/models/dom/";
 
 // TinyMCE toolbar icons
-import 'tinymce/icons/default';
+import "tinymce/icons/default";
 
 // TinyMCE theme
-import 'tinymce/themes/silver';
+import "tinymce/themes/silver";
 
 // TinyMCE Plugins
-import 'tinymce/plugins/table';
-import 'tinymce/plugins/lists';
-import 'tinymce/plugins/autoresize';
-import 'tinymce/plugins/link';
-import 'tinymce/plugins/advlist';
-import 'tinymce/plugins/autolink';
-import 'tinymce/plugins/charmap';
+import "tinymce/plugins/table";
+import "tinymce/plugins/lists";
+import "tinymce/plugins/autoresize";
+import "tinymce/plugins/link";
+import "tinymce/plugins/advlist";
+import "tinymce/plugins/autolink";
+import "tinymce/plugins/charmap";
 
 // Other dependencies
-import { isObject, isString } from './isType';
+import { isObject, isString } from "./isType";
 
 // // Configuration extracted from
 // // https://www.tinymce.com/docs/advanced/usage-with-module-loaders/
 export const defaultOptions = {
-  license_key: 'gpl',
-  selector: '.tinymce',
+  license_key: "gpl",
+  selector: ".tinymce",
   statusbar: true,
   menubar: false,
-  toolbar: 'bold italic underline | fontfamily fontsize | fontsizeselect forecolor | alignleft aligncenter alignright alignjustify | subscript superscript | bullist numlist indent outdent | link | table | charmap',
-  plugins: 'table autoresize link advlist lists autolink charmap',
+  toolbar:
+    "bold italic underline | fontfamily fontsize | fontsizeselect forecolor | alignleft aligncenter alignright alignjustify | subscript superscript | bullist numlist indent outdent | link | table | charmap",
+  plugins: "table autoresize link advlist lists autolink charmap",
   browser_spellcheck: true,
-  advlist_bullet_styles: 'circle,disc,square', // Only disc bullets display on htmltoword
+  advlist_bullet_styles: "circle,disc,square", // Only disc bullets display on htmltoword
   target_list: false,
   elementpath: false,
   resize: true,
   min_height: 230,
-  width: '100%',
+  width: "100%",
   autoresize_bottom_margin: 10,
   branding: false,
-  extended_valid_elements: 'iframe[tooltip] , a[href|target=_blank]',
-  invalid_elements: 'pre',
+  extended_valid_elements: "iframe[tooltip] , a[href|target=_blank]",
+  invalid_elements: "pre",
   paste_as_text: false,
   paste_block_drop: true,
   paste_merge_formats: true,
@@ -49,13 +50,13 @@ export const defaultOptions = {
   smart_paste: true,
   paste_data_images: true,
   paste_remove_styles_if_webkit: true,
-  paste_webkit_styles: 'none',
+  paste_webkit_styles: "none",
   table_default_attributes: {
     border: 1,
   },
   // editorManager.baseURL is not resolved properly for IE since document.currentScript
   // is not supported, see issue https://github.com/tinymce/tinymce/issues/358
-  skin_url: '/tinymce/skins/oxide',
+  skin_url: "/tinymce/skins/oxide",
   content_css: [],
 };
 
@@ -64,7 +65,10 @@ export const defaultOptions = {
  */
 const isTinymceEditor = (editor) => {
   if (isObject(editor)) {
-    return editor.hasOwnProperty('id') && typeof editor.getContainer === 'function';
+    return (
+      Object.prototype.hasOwnProperty.call(editor, "id") &&
+      typeof editor.getContainer === "function"
+    );
   } else {
     return false;
   }
@@ -78,12 +82,12 @@ const isTinymceEditor = (editor) => {
  */
 const attachLabelToIframe = (editor) => {
   if (isTinymceEditor(editor)) {
-    const iframe = editor.getContainer().querySelector('iframe');
+    const iframe = editor.getContainer().querySelector("iframe");
     const lbl = document.querySelector(`label[for="${editor.id}"]`);
 
     // If the iframe and label could be found, then set the label's 'for' attribute to the id of the iframe
     if (isObject(iframe) && isObject(lbl)) {
-      lbl.setAttribute('for', iframe.getAttribute('id'));
+      lbl.setAttribute("for", iframe.getAttribute("id"));
     }
   }
 };
@@ -105,7 +109,7 @@ export const Tinymce = {
       if (editors.length > 0) {
         for (const editor of editors) {
           // auto-resize the editor and connect the form label to the TinyMCE iframe
-          editor.execCommand('mceAutoResize');
+          editor.execCommand("mceAutoResize");
           attachLabelToIframe(editor, editor.id);
         }
       }
@@ -123,7 +127,7 @@ export const Tinymce = {
       const elements = Array.from(document.getElementsByClassName(className));
       // Fetch the textarea elements and then return the TinyMCE editors associated with the element ids
       return elements.map((el) => {
-        return Tinymce.findEditorById(el.getAttribute('id'));
+        return Tinymce.findEditorById(el.getAttribute("id"));
       });
     }
     return [];

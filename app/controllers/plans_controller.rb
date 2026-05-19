@@ -98,7 +98,7 @@ class PlansController < ApplicationController
 
             language = Language.find_by(abbreviation: @plan.template.locale)
 
-            ggs = GuidanceGroup.where(org_id: ids, optional_subset: false, published: true, language_id: language.id)
+            ggs = GuidanceGroup.where(org_id: ids, published: true, language_id: language.id)
 
             @plan.guidance_groups << ggs unless ggs.empty?
           end
@@ -522,23 +522,18 @@ class PlansController < ApplicationController
   end
   # rubocop:enable Metrics/AbcSize
 
-  # rubocop:disable Metrics/AbcSize
   def research_outputs_data
     plan = Plan.includes(:research_outputs, template: { phases: { sections: :questions } }).find(params[:id])
     authorize plan
 
     render json: {
       id: plan.id,
-      commentable: plan.commentable_by?(current_user.id),
-      dmp_id: plan.json_fragment.id,
       template: plan.template.serialize_json,
       research_outputs: plan.research_outputs.order(:display_order).map(&:serialize_json)
     }
   end
-  # rubocop:enable Metrics/AbcSize
 
   # GET AJAX /plans/:id/contributors_data
-  # rubocop:disable Metrics/MethodLength, Metrics/AbcSize
   def contributors_data
     plan = Plan.find(params[:id])
     authorize plan
@@ -549,7 +544,6 @@ class PlansController < ApplicationController
     )
     schema = MadmpSchema.find_by(name: 'PersonStandard')
     render json: {
-      dmp_id: plan.json_fragment.id,
       contributors: contributors.map do |contributor|
         {
           id: contributor.id,
@@ -563,7 +557,6 @@ class PlansController < ApplicationController
       }
     }
   end
-  # rubocop:enable Metrics/MethodLength, Metrics/AbcSize
 
   # ============================
   # = Private instance methods =
@@ -651,7 +644,7 @@ class PlansController < ApplicationController
     # we create a hash whose keys are question id and value is the answer associated
     answers = plan.answers
                   .includes(:madmp_fragment)
-                  .each_with_object({}) { |a, m| m["#{a.question_id}_#{a.research_output_id}"] = a }
+                  .to_h { |a| ["#{a.question_id}_#{a.research_output_id}", a] }
     render('/phases/edit', locals: {
              base_template_org: phase.template.base_org,
              plan: plan,

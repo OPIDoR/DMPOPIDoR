@@ -1,3 +1,6 @@
+# frozen_string_literal: true
+
+# JSONPlans job scheduler
 class JsonPlanJobScheduler
   class << self
     def enqueue_or_reschedule(plan_id, delay = 600)
@@ -8,7 +11,6 @@ class JsonPlanJobScheduler
       existing_job = GoodJob::Job.where("serialized_params->'arguments' @> ?", args.to_json)
                                  .where(finished_at: nil)
                                  .first
-
 
       if existing_job
         existing_job.update!(scheduled_at: delay_seconds.seconds.from_now)

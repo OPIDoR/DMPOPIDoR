@@ -287,7 +287,8 @@ module DMPRoadmap
     # DMP OPIDoR Features #
     # --------------------------------------------------- #
     config.x.dmpopidor.front = {
-      enableTopics: ENV.fetch('ENABLE_TOPICS', true).to_s.casecmp('true').zero?
+      enableTopics: ENV.fetch('ENABLE_TOPICS', true).to_s.casecmp('true').zero?,
+      enablePhysicalObject: ENV.fetch('ENABLE_PHYSICAL_OBJECT', true).to_s.casecmp('true').zero?
     }
     config.x.directus.url = ENV.fetch('DIRECTUS_URL', 'http://directus:8055')
     config.x.directus.public_url = ENV.fetch('DIRECTUS_PUBLIC_URL', 'http://localhost:8080/directus')

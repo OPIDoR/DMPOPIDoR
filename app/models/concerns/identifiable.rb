@@ -58,7 +58,7 @@ module Identifiable
     end
 
     # Combines the existing identifiers with the new ones
-    def consolidate_identifiers!(array:)
+    def consolidate_identifiers!(array:) # rubocop:disable Naming/PredicateMethod
       return false unless array.present? && array.any?
 
       array.each do |id|
