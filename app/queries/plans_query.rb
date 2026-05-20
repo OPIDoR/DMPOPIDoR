@@ -1,5 +1,7 @@
 # frozen_string_literal: true
 
+require 'jsonpath'
+
 # Query object for fetching plans based on various parameters
 class PlansQuery
   SORTABLE_COLUMNS = {
@@ -21,13 +23,13 @@ class PlansQuery
   end
 
   def call
-    scope = Plan.includes(:template).all
+    scope = Plan.includes(:template, :json_plans).all
     scope = apply_created_before(scope)
     scope = apply_created_after(scope)
     scope = apply_modified_before(scope)
     scope = apply_modified_after(scope)
     apply_languages(scope)
-    # scope = apply_contact_ids(scope)
+    # apply_contact_ids(scope)
 
     # plans = Plan.includes(:template, :org, :identifier, :users)
     # plans = plans.where(id: params[:id]) if params[:id].present?
@@ -67,14 +69,16 @@ class PlansQuery
     valid_languages = @params[:languages].select { |lang| AVAILABLE_LANGUAGES.key?(lang) }
     return plans if valid_languages.empty?
 
-    plans.where(template: { locale: valid_languages.map { |lang| AVAILABLE_LANGUAGES[lang] } })
+    plans.filter do |plan|
+      JsonPath.on(plan.json_plans.first.data, '$.meta.dmpLanguage').any? { |lang| valid_languages.include?(lang) }
+    end
   end
 
   # def apply_contact_ids(plans)
   #   return plans unless @params[:contact_ids].present?
 
-  #   dmp_ids = Plan.dmp_ids(plans)
-  #   contact_frags = MadmpFragment.where("additional_info ->> 'property_name' = 'contact' AND dmp_id IN (?)", dmp_ids)
-  #   # plans.joins(:users).where(users: { id: @params[:contact_ids] })
+  #   plans.filter do |plan|
+  #     JsonPath.on(plan.json_plans.first.data, '$.meta.contact[*].person').any?
+  #   end
   # end
 end
