@@ -249,7 +249,6 @@ class ResearchOutput < ApplicationRecord
     updated_data = research_output_description.data.merge({
                                                             title:,
                                                             shortName: abbreviation,
-                                                            type: output_type_description,
                                                             containsPersonalData: contains_personal_data ? _('Yes') : _('No') # rubocop:disable Layout/LineLength
                                                           })
     research_output_description.update(data: updated_data)
