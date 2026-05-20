@@ -276,5 +276,8 @@
   "softwareType": "Logiciel, code source",
   "physicalObjectType": "Collection d’objets physiques (ressources biologiques, artefacts archéologiques, échantillons de sol,...)",
   "datasetType": "Données (jeu de données, image, son, texte,...)",
+  "dataset": "Jeu de données",
+  "software": "Logiciel",
+  "physical_object": "Object physique",
   "noGuidanceSelected": "Aucune recommandation sélectionnée"
 }

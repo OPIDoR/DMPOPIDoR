@@ -278,6 +278,9 @@
   "savedGuidancesInfo": "The selected guidances are displayed for each question when you click on the lightbulb",
   "softwareType": "Software, source code",
   "physicalObjectType": "Collection of physical objects (biological resources, archaeological artefacts, soil samples, ...)",
+  "dataset": "Dataset",
+  "software": "Software",
+  "physicalObject": "Physical Object",
   "datasetType": "Data (dataset, image, sound, text, ...)",
   "noGuidanceSelected": "No guidance has been selected"
 }
