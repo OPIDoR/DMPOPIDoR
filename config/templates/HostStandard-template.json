@@ -3,7 +3,9 @@
     "$id": "../Documentation/Implementation/data_model/Json/",
     "title": "HostStandard",
     "description": "HostStandard template",
-    "dataTypes": null,
+    "dataTypes": [
+        "dataset"
+    ],
     "topics": null,
     "type": "object",
     "class": "HostStandard",

@@ -3,10 +3,10 @@
     "$id": "../Documentation/Implementation/data_model/Json/",
     "title": "DataPreservationGEO",
     "description": "DataPreservationGEO template",
-    "dataTypes": null,
-    "topics": [
-        "Earth observation - GEO"
+    "dataTypes": [
+        "dataset"
     ],
+    "topics": null,
     "type": "object",
     "class": "DataPreservationGEO",
     "properties": {

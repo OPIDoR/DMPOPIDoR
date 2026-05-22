@@ -5,7 +5,8 @@
     "description": "ResearchEntityStandard template",
     "dataTypes": [
         "software",
-        "dataset"
+        "dataset",
+        "physical_object"
     ],
     "topics": null,
     "type": "object",
@@ -14,7 +15,7 @@
         "ror": {
             "name": "name",
             "ror": "orgId",
-            "acronyms[0]": "acronym",
+            "acronyms": "acronym",
             "type": "idType"
         }
     },

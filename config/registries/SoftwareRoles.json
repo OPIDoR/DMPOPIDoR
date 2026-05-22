@@ -35,6 +35,10 @@
         {
             "fr_FR": "Test",
             "en_GB": "Testing"
+        },
+        {
+            "fr_FR": "Autre",
+            "en_GB": "Other"
         }
     ]
 }

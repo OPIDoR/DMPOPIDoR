@@ -3,7 +3,10 @@
     "$id": "../Documentation/Implementation/data_model/Json/",
     "title": "BackupPolicyStandard",
     "description": "BackupPolicyStandard template",
-    "dataTypes": null,
+    "dataTypes": [
+        "software",
+        "dataset"
+    ],
     "topics": null,
     "type": "object",
     "class": "BackupPolicyStandard",

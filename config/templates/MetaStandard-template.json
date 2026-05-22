@@ -4,8 +4,8 @@
     "title": "MetaStandard",
     "description": "MetaStandard template",
     "dataTypes": [
-        "software",
-        "dataset"
+        "dataset",
+        "physical_object"
     ],
     "topics": null,
     "type": "object",
