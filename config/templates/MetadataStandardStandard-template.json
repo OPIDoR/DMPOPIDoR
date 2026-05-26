@@ -3,7 +3,10 @@
     "$id": "../Documentation/Implementation/data_model/Json/",
     "title": "MetadataStandardStandard",
     "description": "MetadataStandardStandard template",
-    "dataTypes": null,
+    "dataTypes": [
+        "dataset",
+        "physical_object"
+    ],
     "topics": null,
     "type": "object",
     "class": "MetadataStandardStandard",

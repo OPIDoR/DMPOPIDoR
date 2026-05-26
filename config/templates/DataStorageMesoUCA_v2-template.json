@@ -3,7 +3,9 @@
     "$id": "../Documentation/Implementation/data_model/Json/",
     "title": "DataStorageMesoUCA_v2",
     "description": "DataStorageMesoUCA_v2 template",
-    "dataTypes": null,
+    "dataTypes": [
+        "dataset"
+    ],
     "topics": null,
     "type": "object",
     "class": "DataStorageMesoUCA_v2",

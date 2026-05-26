@@ -28,6 +28,7 @@ class ResearchOutputsController < ApplicationController
       created_ro = @plan.research_outputs.create!(
         abbreviation: attrs[:abbreviation] || "#{_('RO')} #{max_order}",
         title: attrs[:title] || "#{_('Research output')} #{max_order}",
+        output_type: params[:configuration][:dataType],
         output_type_description: params[:type],
         topic: attrs[:topic] || 'generic',
         is_default: false, display_order: max_order
@@ -59,8 +60,7 @@ class ResearchOutputsController < ApplicationController
 
       @research_output.update!(
         abbreviation: params[:abbreviation],
-        title: params[:title],
-        output_type_description: params[:type]
+        title: params[:title]
       )
       research_output_description = @research_output.update_description(
         contains_personal_data: params[:configuration][:hasPersonalData]
