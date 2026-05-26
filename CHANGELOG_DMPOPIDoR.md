@@ -2,6 +2,10 @@
 
 **Attention** Cette liste de changements concerne les déploiements sur nos serveurs de test en interne.
 
+## 20/05/2026
+- Correction d'un problème de perte du type de produit de recherche dans la description après l'import d'un PR (#15161)
+- Correction d'un problème de perte du type de produit de recherche la mise à jour de l'infobox (#15175)
+
 ## 19/05/2026
 - Ajout d'icônes indiquant le contexte d'un plan au niveau de la liste des plans accessibles par les Administrateurs
 - Ajout d'une option de configuration permettant de désactiver l'ajout de Produit de Recherche Objet Physique

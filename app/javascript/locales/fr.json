@@ -242,7 +242,7 @@
   "personalDataQuestionDisplayCondition": "Si la réponse est oui, une question spécifique à la protection des données personnelles est proposée. Si la réponse est non, cette question ne s'affiche pas.",
   "noPlansComplyWithImportRules": "Aucun plan ne respecte les règles d'imports (posséder au moins un produit de recherche ou un type de produit de recherche)",
   "canReuseResearchOutputInfoFromPlans": "Vous pouvez réutiliser les informations de produits de recherche provenant de plans auxquels vous collaborez et de plans entités publics.",
-  "createResearchOutputInfo": "Créez un nouveau produit de recherche en choisissant un questionnaire, et une thématique le cas échéant, pour afficher les questions et les recommandations adaptées.",
+  "createResearchOutputInfo": "Vous pouvez sélectionner ici :<br/> - le questionnaire le plus adapté au produit généré,<br/> - puis éventuellement une thématique si votre communauté scientifique a publié des recommandations et/ou des listes d’outils et de standards",
   "cookiePreferences": "Préférences des cookies",
   "backToTop": "Retour en haut de page",
   "noCommentsAddYourOwn": "Il ne semble pas y avoir de commentaire, ajoutez le vôtre !",
@@ -276,5 +276,8 @@
   "softwareType": "Logiciel, code source",
   "physicalObjectType": "Collection d’objets physiques (ressources biologiques, artefacts archéologiques, échantillons de sol,...)",
   "datasetType": "Données (jeu de données, image, son, texte,...)",
+  "dataset": "Jeu de données",
+  "software": "Logiciel",
+  "physical_object": "Object physique",
   "noGuidanceSelected": "Aucune recommandation sélectionnée"
 }

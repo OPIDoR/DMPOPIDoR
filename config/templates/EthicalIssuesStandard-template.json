@@ -3,7 +3,9 @@
     "$id": "../Documentation/Implementation/data_model/Json/",
     "title": "EthicalIssuesStandard",
     "description": "EthicalIssuesStandard template",
-    "dataTypes": null,
+    "dataTypes": [
+        "dataset"
+    ],
     "topics": null,
     "type": "object",
     "class": "EthicalIssuesStandard",
