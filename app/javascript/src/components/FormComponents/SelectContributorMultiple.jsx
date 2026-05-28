@@ -73,7 +73,6 @@ function SelectContributorMultiple({
   const roleCategory = useMemo(() => {
     return template?.schema?.properties?.role?.registryCategory || null;
   }, [template]);
-
   /**
    * It closes the modal and resets the state of the modal.
    */
@@ -115,7 +114,7 @@ function SelectContributorMultiple({
    * If the index is null, then just save the item.
    */
   const handleSave = (data) => {
-    if (checkFragmentExists(persons, data, template.schema.unicity)) {
+    if (checkFragmentExists(persons, data, personTemplate.schema.unicity)) {
       setError(t("recordAlreadyExists"));
     } else {
       if (index !== null) {
