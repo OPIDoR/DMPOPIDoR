@@ -436,6 +436,7 @@ en-GB:
         application_trace:
         full_trace:
         in_queue:
+        recovery:
         runtime:
         title:
       force_discard:
@@ -554,6 +555,7 @@ en-GB:
         all_queues:
         clear:
         job_name:
+        label: Label
         placeholder:
         queue_name:
         search: Search
