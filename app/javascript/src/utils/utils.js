@@ -9,7 +9,7 @@ export function pick(data, keys) {
 
 export function exists(data, list, keys) {
   return list.some((item) =>
-    keys.every((key) => item[key].toLowerCase() === data[key].toLowerCase()),
+    keys.every((key) => item[key]?.toLowerCase() === data[key]?.toLowerCase()),
   );
 }
 
