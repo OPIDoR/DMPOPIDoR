@@ -31,7 +31,7 @@ document.addEventListener("turbo:load", () => {
   // Initialize the draggable-sections element as a jQuery sortable.
   // Read the docs here for more info: http://api.jqueryui.com/sortable/
   $(".draggable-sections").sortable({
-    handle: "i.fa-up-down-left-right",
+    handle: "i.fa-arrows-alt",
     axis: "y",
     cursor: "move",
     // Remove the placeholder object from the DOM once the item has been placed
@@ -44,7 +44,7 @@ document.addEventListener("turbo:load", () => {
         $(this).sortable("cancel");
         renderAlert(
           `You can only place one section before the funder template.
-          Multiple can go afterwards.`,
+            Multiple can go afterwards.`,
           {
             floating: true,
             autoDismiss: true,
@@ -59,7 +59,7 @@ document.addEventListener("turbo:load", () => {
         .toArray();
 
       // Post the section IDs to the server in their new order on the page.
-      $.rails.ajax({
+      $.ajax({
         url: $(this).data("url"),
         type: "post",
         data: $.param({ "phase[sort_order]": sectionIds }),
