@@ -2,6 +2,16 @@
 
 **Attention** Cette liste de changements concerne les déploiements sur nos serveurs de test en interne.
 
+## 29/05/2026
+- Correction du problème de vérification de l'unicité lors de la création d'une nouveau contributeur
+- Correction du problème d'affichage de l'icone Scripts après la sauvegarde d'un formulaire en possédant.
+- Correction du problème de création des contributeurs dans l'onglet Contributeurs
+- Retrait du type de produit de recherche sélectionné par défaut dans la description des produits de recherche Data
+- Plans classiques : 
+  - Correction du problème d'affichage de l'onglet Infos Générales
+  - Correction du problème de la valeur du rôle Contact du produit de recherche
+  - Correction du problème de changement d'ordre des produits de recherche
+
 ## 20/05/2026
 - Correction d'un problème de perte du type de produit de recherche dans la description après l'import d'un PR (#15161)
 - Correction d'un problème de perte du type de produit de recherche la mise à jour de l'infobox (#15175)
