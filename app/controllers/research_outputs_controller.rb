@@ -345,6 +345,15 @@ class ResearchOutputsController < ApplicationController
   end
   # rubocop:enable Metrics/MethodLength, Metrics/AbcSize
 
+  def sort
+    @plan = Plan.find(params[:plan_id])
+    authorize @plan
+    params[:updated_order].each_with_index do |id, index|
+      ResearchOutput.find(id).update(display_order: index + 1)
+    end
+    head :ok
+  end
+
   private
 
   def research_output_params
