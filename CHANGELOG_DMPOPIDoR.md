@@ -6,6 +6,8 @@
 - Correction du problème de changement d'ordre des sections dans l'édition de modèle  (#15503)
 - Correction du problème de changement d'ordre des produits de recherche dans les plans structurés
 - Correction du problème d'ajout de la propriété `hasPersonalData` dans la configuration des produits de recherche non Dataset.
+- Correction du problème d'ajout de la propriété `containsPersonalData` dans la description des produits de recherche non Dataset suite à un import de produit de recherche.
+- Correction d'un problème de sauvegarde des formulaires Projet et Meta
 
 ## 29/05/2026
 - Correction du problème de vérification de l'unicité lors de la création d'une nouveau contributeur
