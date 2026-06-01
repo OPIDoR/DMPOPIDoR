@@ -2,6 +2,11 @@
 
 **Attention** Cette liste de changements concerne les déploiements sur nos serveurs de test en interne.
 
+## 01/06/2026
+- Correction du problème de changement d'ordre des sections dans l'édition de modèle  (#15503)
+- Correction du problème de changement d'ordre des produits de recherche dans les plans structurés
+- Correction du problème d'ajout de la propriété `hasPersonalData` dans la configuration des produits de recherche non Dataset.
+
 ## 29/05/2026
 - Correction du problème de vérification de l'unicité lors de la création d'une nouveau contributeur
 - Correction du problème d'affichage de l'icone Scripts après la sauvegarde d'un formulaire en possédant.
