@@ -220,25 +220,27 @@ class MadmpFragment < ApplicationRecord
   def update_research_output_parameters(skip_broadcast: false)
     return unless plan.structured?
 
-    case classname
-    when 'research_output_description', 'software_description', 'physical_object_description'
+    research_output.update(
+      abbreviation: data['shortName'],
+      title: data['title']
+    )
+    # update hasPersonalData config paramater only for research_output_description fragments
+    if classname.eql?('research_output_description')
       ro_fragment = parent
+
       new_additional_info = ro_fragment.additional_info.merge(
         hasPersonalData: %w[Oui Yes].include?(data['containsPersonalData'])
       )
-      research_output.update(
-        abbreviation: data['shortName'],
-        title: data['title']
-      )
       ro_fragment.update(additional_info: new_additional_info)
-      unless skip_broadcast
-        PlanChannel.broadcast_to(research_output.plan, {
-                                   target: 'research_output_infobox',
-                                   research_output_id: research_output.id,
-                                   payload: research_output.serialize_infobox_data
-                                 })
-      end
+
     end
+    return if skip_broadcast
+
+    PlanChannel.broadcast_to(research_output.plan, {
+                               target: 'research_output_infobox',
+                               research_output_id: research_output.id,
+                               payload: research_output.serialize_infobox_data
+                             })
   end
   # rubocop:enable Metrics/AbcSize
 
