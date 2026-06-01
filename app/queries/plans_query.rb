@@ -133,7 +133,7 @@ class PlansQuery
       ]
     end
     plans.filter do |plan|
-      metadata_standards = extract_json_path_data(plan, '$.researchOutput[*].documentationQuality.metadataStandard')
+      metadata_standards = extract_json_path_data(plan, '$.researchOutput[*].documentationQuality.metadataStandard[*]')
       metadata_standards.any? do |m|
         allowed_metadata_standard_ids.include?([m['idType'], m['metadataStandardId']])
       end
@@ -146,7 +146,9 @@ class PlansQuery
     allowed_dmp_ids = @params[:dmp_ids].map { |c| JSON.parse(c) }.to_set { |c| [c['type'], c['identifier']] }
     plans.filter do |plan|
       dmp_id = extract_json_path_data(plan, '$.meta')
-      allowed_dmp_ids.include?([dmp_id['idType'], dmp_id['dmpId']])
+      dmp_id.any? do |d|
+        allowed_dmp_ids.include?([d['idType'], d['dmpId']])
+      end
     end
   end
 
@@ -155,7 +157,7 @@ class PlansQuery
 
     allowed_funder_ids = @params[:funder_ids].map { |c| JSON.parse(c) }.to_set { |c| [c['type'], c['identifier']] }
     plans.filter do |plan|
-      funders = extract_json_path_data(plan, '$.meta.funding[*].funder')
+      funders = extract_json_path_data(plan, '$.project.funding[*].funder')
       funders.any? do |f|
         allowed_funder_ids.include?([f['idType'], f['funderId']])
       end
@@ -165,11 +167,11 @@ class PlansQuery
   def apply_grant_ids(plans)
     return plans unless @params[:grant_ids].present?
 
-    allowed_grant_ids = @params[:grant_ids].map { |c| JSON.parse(c) }.to_set { |c| [c['type'], c['identifier']] }
+    allowed_grant_ids = @params[:grant_ids].map { |c| JSON.parse(c) }.to_set { |c| [c['identifier']] }
     plans.filter do |plan|
-      fundings = extract_json_path_data(plan, '$.meta.funding')
+      fundings = extract_json_path_data(plan, '$.project.funding[*]')
       fundings.any? do |f|
-        allowed_grant_ids.include?([f['idType'], f['grantId']])
+        allowed_grant_ids.include?([f['grantId']])
       end
     end
   end
