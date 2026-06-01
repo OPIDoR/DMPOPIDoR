@@ -144,6 +144,7 @@ Rails.application.routes.draw do
 
   resources :research_outputs, only: %i[show create destroy update], constraints: { format: [:json] } do
     post 'import', on: :collection, constraints: { format: [:json] }
+    post 'sort', on: :collection, constraints: { format: [:json] }
     member do
       get 'guidances', action: :question_guidances, constraints: { format: [:json] }
       get 'has_guidances', constraints: { format: [:json] }

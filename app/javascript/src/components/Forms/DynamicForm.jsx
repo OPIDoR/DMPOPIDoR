@@ -34,8 +34,12 @@ function DynamicForm({
   const { dmpId, locale } = useContext(GlobalContext);
   const { formData, setFormData, loadedTemplates, setLoadedTemplates } =
     useContext(FormsContext);
-  const { displayedResearchOutput, researchOutputs, setResearchOutputs } =
-    useContext(SectionsContext);
+  const {
+    displayedResearchOutput,
+    setDisplayedResearchOutput,
+    researchOutputs,
+    setResearchOutputs,
+  } = useContext(SectionsContext);
   const methods = useForm({ defaultValues: {} });
   const { setValues } = useFormValues(methods);
   const [loading, setLoading] = useState(true);
@@ -145,6 +149,7 @@ function DynamicForm({
         setResearchOutputs(
           unionBy(researchOutputs, [updatedResearchOutput], "id"),
         );
+        setDisplayedResearchOutput(updatedResearchOutput);
         setNewFragmentSaved(true);
         methods.reset(fragment);
       })
