@@ -155,7 +155,7 @@ class ResearchOutputsController < ApplicationController
         target_plan,
         template
       )
-      research_output_copy.update_description
+      research_output_copy.update_description(contains_personal_data: research_output.personal_data?)
 
       # If the RO is duplicated through the UI, copy the guidance groups associated to the target RO
 
