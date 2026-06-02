@@ -22,12 +22,15 @@ class PlansQuery
   DEFAULT_SORT_BY = 'created'
   DEFAULT_SORT_DIRECTION = 'desc'
 
-  def initialize(params)
+  def initialize(client, params)
+    @user = client
     @params = params
   end
 
+  # rubocop:disable Metrics/AbcSize
   def call
-    scope = Plan.includes(:template, :json_plans).all
+    ids = @user.is_a?(ApiClient) ? plans_for_client : plans_for_user
+    scope = Plan.includes(:template, :json_plans).where(id: ids.uniq)
     scope = apply_created_before(scope)
     scope = apply_created_after(scope)
     scope = apply_modified_before(scope)
@@ -47,6 +50,7 @@ class PlansQuery
     scope = apply_limit_offset(scope)
     apply_sorting(scope)
   end
+  # rubocop:enable Metrics/AbcSize
 
   def apply_created_before(plans)
     return plans unless @params[:created_before].present?
@@ -211,5 +215,22 @@ class PlansQuery
 
   def extract_json_path_data(plan, path)
     JsonPath.on(plan.json_plans.first.data, path)
+  end
+
+  def plans_for_client
+    return [] unless @user.present?
+
+    ids = @user.plans.pluck(:id)
+    ids += @user.org.plans.pluck(:id) if @user.org.present?
+    ids.uniq
+  end
+
+  def plans_for_user
+    return [] unless @user.present?
+
+    ids = @user.org.plans.organisationally_visible.pluck(:id)
+    ids += @user.plans.pluck(:id)
+    ids += @user.org.plans.pluck(:id) if @user.can_org_admin?
+    ids.uniq
   end
 end
