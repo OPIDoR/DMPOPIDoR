@@ -144,8 +144,6 @@ class MadmpFragment < ApplicationRecord
   # rubocop:disable Metrics/AbcSize, Metrics/CyclomaticComplexity
   # rubocop:disable Metrics/MethodLength, Metrics/PerceivedComplexity
   def to_s
-    return additional_info['custom_value'] if additional_info['custom_value'].present?
-
     full_data = get_full_fragment
     displayable = ''
     if json_schema['to_string']
@@ -250,12 +248,6 @@ class MadmpFragment < ApplicationRecord
   # rubocop:disable Metrics/AbcSize, Metrics/MethodLength
   def get_full_fragment(with_ids: false, with_template_name: false, with_configuration: false,
                         with_guidance_groups: false)
-    if additional_info['custom_value'].present?
-      {
-        'custom_value' => additional_info['custom_value']
-      }
-    end
-
     children = self.children
     editable_data = data
     # rubocop:disable Metrics/BlockLength
@@ -271,16 +263,12 @@ class MadmpFragment < ApplicationRecord
                 else
                   MadmpFragment.find(value['dbid'])
                 end
-        child_data = if child.additional_info['custom_value'].present?
-                       { 'custom_value' => child.additional_info['custom_value'] }
-                     else
-                       child.get_full_fragment(
-                         with_ids:,
-                         with_template_name:,
-                         with_configuration:,
-                         with_guidance_groups:
-                       )
-                     end
+        child_data = child.get_full_fragment(
+          with_ids:,
+          with_template_name:,
+          with_configuration:,
+          with_guidance_groups:
+        )
         editable_data = editable_data.merge(prop => child_data)
         next
       end
