@@ -129,7 +129,7 @@ GraphiQL::Rails.config.initial_query = <<~GRAPHQL
           {
             field: "$.meta.dmpLanguage"
             value: "fra"
-            operator: "eq"
+            operator: EQ
           }
         ]
       }
@@ -178,7 +178,7 @@ GraphiQL::Rails.config.initial_query = <<~GRAPHQL
           {
             field: "$.meta.dmpLanguage"
             value: "fra"
-            operator: "eq"
+            operator: EQ
           }
         ]
       }
