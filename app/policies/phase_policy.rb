@@ -64,6 +64,10 @@ class PhasePolicy < ApplicationPolicy
   end
 
   def sort?
-    @user.can_modify_templates? && (@record.template.org_id == @user.org_id)
+    if @record.template.module?
+      @user.can_super_admin?
+    else
+      @user.can_modify_templates? && (@record.template.org_id == @user.org_id)
+    end
   end
 end

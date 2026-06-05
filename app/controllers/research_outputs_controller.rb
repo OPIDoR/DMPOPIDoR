@@ -155,7 +155,7 @@ class ResearchOutputsController < ApplicationController
         target_plan,
         template
       )
-      research_output_copy.update_description
+      research_output_copy.update_description(contains_personal_data: research_output.personal_data?)
 
       # If the RO is duplicated through the UI, copy the guidance groups associated to the target RO
 
@@ -344,6 +344,15 @@ class ResearchOutputsController < ApplicationController
     internal_server_error("Internal server error - #{e.message}")
   end
   # rubocop:enable Metrics/MethodLength, Metrics/AbcSize
+
+  def sort
+    @plan = Plan.find(params[:plan_id])
+    authorize @plan
+    params[:updated_order].each_with_index do |id, index|
+      ResearchOutput.find(id).update(display_order: index + 1)
+    end
+    head :ok
+  end
 
   private
 
