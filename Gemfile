@@ -2,14 +2,14 @@
 
 source 'https://rubygems.org'
 
-ruby '>= 3.4'
+ruby '>= 4.0'
 
 # ===========#
 # CORE RAILS #
 # ===========#
 
 # Full-stack web application framework. (http://rubyonrails.org)
-gem 'rails', '~> 8.0'
+gem 'rails', '~> 8.1'
 
 # Use Puma as the app server
 gem 'puma', group: :puma, require: false
@@ -232,7 +232,7 @@ gem 'net-smtp'
 
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
-  gem 'byebug', platforms: %i[mri mingw x64_mingw]
+  gem 'byebug', platforms: %i[mri windows]
 end
 
 group :test do
