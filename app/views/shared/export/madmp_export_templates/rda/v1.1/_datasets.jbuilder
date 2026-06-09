@@ -8,14 +8,14 @@ excluded_types = %w[software logiciel].freeze
 # rubocop:disable Metrics/BlockLength
 json.dataset research_outputs do |research_output|
   dataset = research_output.json_fragment
-  next if excluded_types.include?(dataset.research_output_description.data["type"].downcase)
+  next if excluded_types.include?(dataset.research_output_description.data["type"]&.downcase)
   next unless selected_datasets.include?(dataset.data["research_output_id"])
 
   dataset_title = dataset.research_output_description.data["title"]
   json.dataset_id do
     json.identifier dataset.research_output_description.data["datasetId"] || dataset.data["research_output_id"]
     if dataset.research_output_description.data["datasetId"].present?
-      json.type Export::Converters::RdaRegistryConverter.convert_pid_system(
+      json.type Export::RdaV11::Converters::RdaRegistryConverter.convert_pid_system(
         dataset.research_output_description.data["idType"]
       )
     else
@@ -26,7 +26,7 @@ json.dataset research_outputs do |research_output|
   json.issued                     dataset.research_output_description.data["issuedDate"]
   json.keyword                    extract_keywords(dataset.research_output_description)
   json.language                   dataset.research_output_description.data["language"]
-  json.personal_data              Export::Converters::RdaRegistryConverter.convert_yes_no(
+  json.personal_data              Export::RdaV11::Converters::RdaRegistryConverter.convert_yes_no(
     dataset.research_output_description.data["containsPersonalData"]
   )
   if dataset.preservation_issues.present?
@@ -36,7 +36,7 @@ json.dataset research_outputs do |research_output|
   end
   json.title                      dataset_title
   json.type                       dataset.research_output_description.data["type"]
-  json.sensitive_data             Export::Converters::RdaRegistryConverter.convert_yes_no(
+  json.sensitive_data             Export::RdaV11::Converters::RdaRegistryConverter.convert_yes_no(
     dataset.research_output_description.data["containsSensitiveData"]
   )
   if dataset.sharing.present?
@@ -50,9 +50,9 @@ json.dataset research_outputs do |research_output|
 
       json.access_url         distribution.data["accessUrl"]
       json.available_until    distribution.data["availableUntil"]
-      json.byte_size          Export::Converters::RdaRegistryConverter.convert_bytes(distribution.data["fileVolume"],
-                                                                                     distribution.data["volumeUnit"])
-      json.data_access        Export::Converters::RdaRegistryConverter.convert_data_access(
+      json.byte_size          Export::RdaV11::Converters::RdaRegistryConverter.convert_bytes(distribution.data["fileVolume"],
+                                                                                             distribution.data["volumeUnit"])
+      json.data_access        Export::RdaV11::Converters::RdaRegistryConverter.convert_data_access(
         distribution.data["dataAccess"]
       )
       json.description        exportable_description(distribution.data["description"])
@@ -67,17 +67,17 @@ json.dataset research_outputs do |research_output|
           json.storage_type           ""
           json.description            exportable_description(host.data["description"])
           json.availability           host.data["availability"]
-          json.certified_with         Export::Converters::RdaRegistryConverter.convert_certification(
+          json.certified_with         Export::RdaV11::Converters::RdaRegistryConverter.convert_certification(
             host.data["certification"]
           )
           json.geo_location host.data["geoLocation"]
           pid_system = if host.data["pidSystem"].present?
                          host.data["pidSystem"].map do |ps|
-                           Export::Converters::RdaRegistryConverter.convert_pid_system(ps)
+                           Export::RdaV11::Converters::RdaRegistryConverter.convert_pid_system(ps)
                          end
                        end
           json.pid_system             pid_system || []
-          json.support_versioning     Export::Converters::RdaRegistryConverter.convert_yes_no(
+          json.support_versioning     Export::RdaV11::Converters::RdaRegistryConverter.convert_yes_no(
             host.data["hasVersioningPolicy"]
           )
           json.title                  host.data["title"]
@@ -114,8 +114,8 @@ json.dataset research_outputs do |research_output|
       json.language           dataset.documentation_quality.data["metadataLanguage"]
       json.metadata_standard_id do
         json.identifier metadata_standard.data["metadataStandardId"]
-        json.type       Export::Converters::RdaRegistryConverter.convert_pid_system(metadata_standard.data["idType"],
-                                                                                    is_metadata_standard: true)
+        json.type       Export::RdaV11::Converters::RdaRegistryConverter.convert_pid_system(metadata_standard.data["idType"],
+                                                                                            is_metadata_standard: true)
       end
     end
   else
@@ -162,7 +162,7 @@ I18n.with_locale plan.template.locale do
            else
              _('No')
            end
-  json.ethical_issues_exist         Export::Converters::RdaRegistryConverter.convert_yes_no(exists)
+  json.ethical_issues_exist         Export::RdaV11::Converters::RdaRegistryConverter.convert_yes_no(exists)
   json.ethical_issues_description   ethical_issues_description.join(" / ")
   json.ethical_issues_report        ethical_issues_report.join(" / ")
 end
