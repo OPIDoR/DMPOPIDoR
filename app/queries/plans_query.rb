@@ -30,7 +30,7 @@ class PlansQuery
   # rubocop:disable Metrics/AbcSize
   def call
     ids = @user.is_a?(ApiClient) ? plans_for_client : plans_for_user
-    scope = Plan.includes(:template, :json_plans).where(id: ids.uniq)
+    scope = Plan.includes(:template, :research_outputs, :json_plans).where(id: ids.uniq)
     scope = apply_created_before(scope)
     scope = apply_created_after(scope)
     scope = apply_modified_before(scope)
