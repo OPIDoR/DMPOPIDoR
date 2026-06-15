@@ -9,7 +9,7 @@ module Export
       def initialize(plan, selected_research_outputs = [])
         @plan = plan
         @selected_research_outputs = selected_research_outputs
-        @ethical_issues_exist = ['pouet']
+        @ethical_issues_exist = []
         @ethical_issues_description = []
         @ethical_issues_report = []
       end

@@ -16,6 +16,21 @@ module Api
           end
         }
       end
+
+      def show
+        plan = PlansQuery.new(client, params, params[:id]).call.first
+
+        if plan.present?
+          render json: {
+            dmp: Export::RdaV11::StandardToRda.new(plan).call
+          }
+        else
+          render_error(errors: [{
+                         error_message: _('Plan not found'),
+                         error_code: 'dmp_not_found'
+                       }], status: :not_found)
+        end
+      end
     end
   end
 end

@@ -22,16 +22,25 @@ class PlansQuery
   DEFAULT_SORT_BY = 'created'
   DEFAULT_SORT_DIRECTION = 'desc'
 
-  def initialize(client, params)
+  def initialize(client, params, id = nil)
     @user = client
     @params = params
+    @id = id
+  end
+
+  def call
+    ids = @user.is_a?(ApiClient) ? plans_for_client : plans_for_user
+    plans = Plan.includes(:template, :research_outputs, :json_plans).where(id: ids.uniq)
+    if @id.present?
+      plans.where(id: @id)
+    else
+      apply_filters(plans)
+    end
   end
 
   # rubocop:disable Metrics/AbcSize
-  def call
-    ids = @user.is_a?(ApiClient) ? plans_for_client : plans_for_user
-    scope = Plan.includes(:template, :research_outputs, :json_plans).where(id: ids.uniq)
-    scope = apply_created_before(scope)
+  def apply_filters(plans)
+    scope = apply_created_before(plans)
     scope = apply_created_after(scope)
     scope = apply_modified_before(scope)
     scope = apply_modified_after(scope)
