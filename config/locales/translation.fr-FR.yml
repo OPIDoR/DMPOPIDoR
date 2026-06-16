@@ -442,6 +442,7 @@ fr-FR:
         application_trace:
         full_trace:
         in_queue:
+        recovery:
         runtime:
         title:
       force_discard:
@@ -560,6 +561,7 @@ fr-FR:
         all_queues:
         clear:
         job_name:
+        label: Libellé
         placeholder:
         queue_name:
         search: Rechercher

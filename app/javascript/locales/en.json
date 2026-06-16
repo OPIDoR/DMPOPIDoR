@@ -244,7 +244,8 @@
   "personalDataQuestionDisplayCondition": "If the answer is yes, a specific question on personal data protection is proposed. If the answer is no, this question is not displayed.",
   "noPlansComplyWithImportRules": "No plans comply with the import rules (at least one research output or type of research output).",
   "canReuseResearchOutputInfoFromPlans": "You can reuse a research output's information from plans you have access to and from public research entity plans.",
-  "createResearchOutputInfo": "You can create a new research output by choosing a questionnaire, and a topic if necessary, to display the adapted questions and recommendations.",
+  "createResearchOutputInfo": "You can select here :<br/> - the most appropriate questionnaire for the generated product",
+  "chooseTopicInfo": " - and optionally a topic if your scientific community has published guidances and/or lists of tools and standards",
   "cookiePreferences": "Cookie preferences",
   "backToTop": "Back to top",
   "eg": "e.g.:",
@@ -278,6 +279,9 @@
   "savedGuidancesInfo": "The selected guidances are displayed for each question when you click on the lightbulb",
   "softwareType": "Software, source code",
   "physicalObjectType": "Collection of physical objects (biological resources, archaeological artefacts, soil samples, ...)",
+  "dataset": "Dataset",
+  "software": "Software",
+  "physicalObject": "Physical Object",
   "datasetType": "Data (dataset, image, sound, text, ...)",
   "noGuidanceSelected": "No guidance has been selected"
 }

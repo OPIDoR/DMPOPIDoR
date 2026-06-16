@@ -61,6 +61,7 @@ class MadmpCodebaseController < ApplicationController
             fragment.import_with_instructions(response['data'], fragment.madmp_schema)
             render json: {
               'fragment' => fragment.get_full_fragment(with_ids: true),
+              'template_name' => fragment.madmp_schema.name,
               'clients' => plan.api_clients.pluck(:name),
               'needs_reload' => true
             }, status: 200

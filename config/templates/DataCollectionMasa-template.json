@@ -3,7 +3,9 @@
     "$id": "../Documentation/Implementation/data_model/Json/",
     "title": "DataCollectionMasa",
     "description": "DataCollectionMasa template",
-    "dataTypes": null,
+    "dataTypes": [
+        "dataset"
+    ],
     "topics": [
         "Archeology"
     ],

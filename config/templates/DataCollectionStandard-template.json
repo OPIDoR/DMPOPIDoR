@@ -3,7 +3,9 @@
     "$id": "../Documentation/Implementation/data_model/Json/",
     "title": "DataCollectionStandard",
     "description": "DataCollectionStandard template",
-    "dataTypes": null,
+    "dataTypes": [
+        "dataset"
+    ],
     "topics": null,
     "type": "object",
     "class": "DataCollectionStandard",

@@ -3,10 +3,10 @@
     "$id": "../Documentation/Implementation/data_model/Json/",
     "title": "DataSharingGEO",
     "description": "DataSharingGEO template",
-    "dataTypes": null,
-    "topics": [
-        "Earth observation - GEO"
+    "dataTypes": [
+        "dataset"
     ],
+    "topics": null,
     "type": "object",
     "class": "DataSharingGEO",
     "properties": {

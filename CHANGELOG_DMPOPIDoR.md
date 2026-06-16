@@ -2,6 +2,27 @@
 
 **Attention** Cette liste de changements concerne les déploiements sur nos serveurs de test en interne.
 
+## 01/06/2026
+- Correction du problème de changement d'ordre des sections dans l'édition de modèle  (#15503)
+- Correction du problème de changement d'ordre des produits de recherche dans les plans structurés
+- Correction du problème d'ajout de la propriété `hasPersonalData` dans la configuration des produits de recherche non Dataset.
+- Correction du problème d'ajout de la propriété `containsPersonalData` dans la description des produits de recherche non Dataset suite à un import de produit de recherche.
+- Correction d'un problème de sauvegarde des formulaires Projet et Meta
+
+## 29/05/2026
+- Correction du problème de vérification de l'unicité lors de la création d'une nouveau contributeur
+- Correction du problème d'affichage de l'icone Scripts après la sauvegarde d'un formulaire en possédant.
+- Correction du problème de création des contributeurs dans l'onglet Contributeurs
+- Retrait du type de produit de recherche sélectionné par défaut dans la description des produits de recherche Data
+- Plans classiques : 
+  - Correction du problème d'affichage de l'onglet Infos Générales
+  - Correction du problème de la valeur du rôle Contact du produit de recherche
+  - Correction du problème de changement d'ordre des produits de recherche
+
+## 20/05/2026
+- Correction d'un problème de perte du type de produit de recherche dans la description après l'import d'un PR (#15161)
+- Correction d'un problème de perte du type de produit de recherche la mise à jour de l'infobox (#15175)
+
 ## 19/05/2026
 - Ajout d'icônes indiquant le contexte d'un plan au niveau de la liste des plans accessibles par les Administrateurs
 - Ajout d'une option de configuration permettant de désactiver l'ajout de Produit de Recherche Objet Physique

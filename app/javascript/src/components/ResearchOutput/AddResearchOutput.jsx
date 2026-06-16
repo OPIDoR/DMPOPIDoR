@@ -250,7 +250,15 @@ function AddResearchOutput({
   return (
     <div style={{ margin: "25px" }}>
       <div className="form-group">
-        <Alert variant="info">{t("createResearchOutputInfo")}</Alert>
+        <Alert variant="info">
+          <Trans t={t} i18nKey="createResearchOutputInfo" />
+          {configuration?.enableTopics && (
+            <>
+              <br />
+              <Trans t={t} i18nKey="chooseTopicInfo" />
+            </>
+          )}
+        </Alert>
       </div>
       <div className="form-group">
         <div className={stylesForm.label_form}>
@@ -286,7 +294,7 @@ function AddResearchOutput({
             <TooltipInfoIcon />
             <ReactTooltip
               id={typeTooltipId}
-              place="bottom"
+              place="right"
               effect="solid"
               variant="info"
               content={<Trans t={t} i18nKey="learnMoreQuestionnaires" />}

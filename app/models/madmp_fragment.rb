@@ -144,8 +144,6 @@ class MadmpFragment < ApplicationRecord
   # rubocop:disable Metrics/AbcSize, Metrics/CyclomaticComplexity
   # rubocop:disable Metrics/MethodLength, Metrics/PerceivedComplexity
   def to_s
-    return additional_info['custom_value'] if additional_info['custom_value'].present?
-
     full_data = get_full_fragment
     displayable = ''
     if json_schema['to_string']
@@ -220,25 +218,27 @@ class MadmpFragment < ApplicationRecord
   def update_research_output_parameters(skip_broadcast: false)
     return unless plan.structured?
 
-    case classname
-    when 'research_output_description', 'software_description'
+    research_output.update(
+      abbreviation: data['shortName'],
+      title: data['title']
+    )
+    # update hasPersonalData config paramater only for research_output_description fragments
+    if classname.eql?('research_output_description')
       ro_fragment = parent
+
       new_additional_info = ro_fragment.additional_info.merge(
         hasPersonalData: %w[Oui Yes].include?(data['containsPersonalData'])
       )
-      research_output.update(
-        abbreviation: data['shortName'],
-        title: data['title']
-      )
       ro_fragment.update(additional_info: new_additional_info)
-      unless skip_broadcast
-        PlanChannel.broadcast_to(research_output.plan, {
-                                   target: 'research_output_infobox',
-                                   research_output_id: research_output.id,
-                                   payload: research_output.serialize_infobox_data
-                                 })
-      end
+
     end
+    return if skip_broadcast
+
+    PlanChannel.broadcast_to(research_output.plan, {
+                               target: 'research_output_infobox',
+                               research_output_id: research_output.id,
+                               payload: research_output.serialize_infobox_data
+                             })
   end
   # rubocop:enable Metrics/AbcSize
 
@@ -248,12 +248,6 @@ class MadmpFragment < ApplicationRecord
   # rubocop:disable Metrics/AbcSize, Metrics/MethodLength
   def get_full_fragment(with_ids: false, with_template_name: false, with_configuration: false,
                         with_guidance_groups: false)
-    if additional_info['custom_value'].present?
-      {
-        'custom_value' => additional_info['custom_value']
-      }
-    end
-
     children = self.children
     editable_data = data
     # rubocop:disable Metrics/BlockLength
@@ -269,16 +263,12 @@ class MadmpFragment < ApplicationRecord
                 else
                   MadmpFragment.find(value['dbid'])
                 end
-        child_data = if child.additional_info['custom_value'].present?
-                       { 'custom_value' => child.additional_info['custom_value'] }
-                     else
-                       child.get_full_fragment(
-                         with_ids:,
-                         with_template_name:,
-                         with_configuration:,
-                         with_guidance_groups:
-                       )
-                     end
+        child_data = child.get_full_fragment(
+          with_ids:,
+          with_template_name:,
+          with_configuration:,
+          with_guidance_groups:
+        )
         editable_data = editable_data.merge(prop => child_data)
         next
       end
