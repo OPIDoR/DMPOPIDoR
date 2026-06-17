@@ -130,7 +130,7 @@ class RegistrationsController < Devise::RegistrationsController
                                   your account with them.')
             end
           end
-          redirect_to plans_path(anchor: 'content')
+          redirect_to new_plan_path(anchor: 'content')
         elsif is_navigational_format?
           set_flash_message :notice, :"signed_up_but_#{resource.inactive_message}"
           redirect_to after_inactive_sign_up_path_for(resource)
