@@ -4,9 +4,9 @@
 module RegistryInFormHelper
   def data_type_select_values
     [
-      [_('Dataset'), 'dataset'],
-      [_('Software'), 'software'],
-      [_('Physical object'), 'physical_object']
+      [_('Data'), 'dataset'],
+      [_('Software, source code'), 'software'],
+      [_('Collection of physical objects'), 'physical_object']
     ]
   end
 

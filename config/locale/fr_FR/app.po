@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: app 1.0\n"
 "Report-Msgid-Bugs-To: contact@translation.io\n"
-"POT-Creation-Date: 2026-05-28 17:41+0200\n"
-"PO-Revision-Date: 2026-05-28 15:41+0000\n"
+"POT-Creation-Date: 2026-06-18 14:39+0200\n"
+"PO-Revision-Date: 2026-06-18 12:39+0000\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: French\n"
 "Language: fr_FR\n"
@@ -158,8 +158,8 @@ msgid "File should contain JSON"
 msgstr "Le fichier doit contenir du JSON"
 
 #: ../../app/controllers/api/v1/madmp/plans_controller.rb:114
-#: ../../app/controllers/madmp_codebase_controller.rb:72
-#: ../../app/controllers/madmp_codebase_controller.rb:194
+#: ../../app/controllers/madmp_codebase_controller.rb:73
+#: ../../app/controllers/madmp_codebase_controller.rb:195
 #: ../../app/controllers/plans_controller.rb:520
 #: ../../app/graphql/mutations/create_plan.rb:48
 msgid "An error has occured: "
@@ -477,34 +477,34 @@ msgstr "Impossible de délier votre compte de %{is}."
 msgid "Notification has been sent"
 msgstr "La notification a été envoyée"
 
-#: ../../app/controllers/madmp_codebase_controller.rb:156
+#: ../../app/controllers/madmp_codebase_controller.rb:157
 msgid "New data have been added to your plan, please click on the \"Reload\" button."
 msgstr ""
 "De nouvelles données ont été ajoutées à votre plan, veuillez cliquer sur le bo"
 "uton « Recharger »."
 
-#: ../../app/controllers/madmp_codebase_controller.rb:188
+#: ../../app/controllers/madmp_codebase_controller.rb:189
 msgid "Project data have successfully been imported."
 msgstr "Les données concernant le projet ont été importées avec succès"
 
-#: ../../app/controllers/madmp_fragments_controller.rb:73
+#: ../../app/controllers/madmp_fragments_controller.rb:74
 msgid "Form saved successfully."
 msgstr "Formulaire enregistré avec succès."
 
-#: ../../app/controllers/madmp_fragments_controller.rb:77
+#: ../../app/controllers/madmp_fragments_controller.rb:78
 msgid "Error when saving form."
 msgstr "Erreur lors de l'enregistrement du formulaire."
 
-#: ../../app/controllers/madmp_fragments_controller.rb:112
-#: ../../app/controllers/madmp_fragments_controller.rb:129
+#: ../../app/controllers/madmp_fragments_controller.rb:113
+#: ../../app/controllers/madmp_fragments_controller.rb:130
 #: ../../app/controllers/notes_controller.rb:251
 #: ../../app/controllers/org_admin/templates_controller.rb:261
 #: ../../app/controllers/super_admin/orgs_controller.rb:94
 msgid "removed"
 msgstr "supprimé(e)"
 
-#: ../../app/controllers/madmp_fragments_controller.rb:116
-#: ../../app/controllers/madmp_fragments_controller.rb:133
+#: ../../app/controllers/madmp_fragments_controller.rb:117
+#: ../../app/controllers/madmp_fragments_controller.rb:134
 #: ../../app/controllers/notes_controller.rb:255
 #: ../../app/controllers/org_admin/templates_controller.rb:263
 #: ../../app/controllers/super_admin/orgs_controller.rb:97
@@ -684,7 +684,7 @@ msgstr "Titre du projet"
 #: ../../app/views/paginable/plans/_administrator_visible.html.erb:6
 #: ../../app/views/paginable/plans/_index.html.erb:6
 #: ../../app/views/paginable/plans/_org_admin.html.erb:23
-#: ../../app/views/paginable/plans/_organisationally_or_publicly_visible.html.erb:13
+#: ../../app/views/paginable/plans/_organisationally_or_publicly_visible.html.erb:17
 #: ../../app/views/paginable/plans/_privately_visible.html.erb:11
 #: ../../app/views/paginable/plans/_publicly_visible.html.erb:11
 msgid "Template"
@@ -719,7 +719,7 @@ msgstr "Courriel du propriétaire"
 #: ../../app/controllers/org_admin/plans_controller.rb:63
 #: ../../app/views/paginable/plans/_index.html.erb:9
 #: ../../app/views/paginable/plans/_org_admin.html.erb:27
-#: ../../app/views/paginable/plans/_organisationally_or_publicly_visible.html.erb:18
+#: ../../app/views/paginable/plans/_organisationally_or_publicly_visible.html.erb:22
 msgid "Updated"
 msgstr "Mis à jour"
 
@@ -1354,7 +1354,7 @@ msgstr "Examiner les plans organisationnels"
 #: ../../app/views/paginable/plans/_administrator_visible.html.erb:9
 #: ../../app/views/paginable/plans/_index.html.erb:8
 #: ../../app/views/paginable/plans/_org_admin.html.erb:25
-#: ../../app/views/paginable/plans/_organisationally_or_publicly_visible.html.erb:16
+#: ../../app/views/paginable/plans/_organisationally_or_publicly_visible.html.erb:20
 #: ../../app/views/paginable/plans/_privately_visible.html.erb:14
 msgid "Owner"
 msgstr "Propriétaire"
@@ -1418,20 +1418,16 @@ msgid "You"
 msgstr "Vous"
 
 #: ../../app/helpers/registry_in_form_helper.rb:7
-#: ../../app/models/research_output.rb:192
-#: ../../app/services/import/plan_import_service.rb:42
-#: ../../app/views/org_admin/templates/_form.html.erb:98
-msgid "Dataset"
-msgstr "Jeu de données"
+msgid "Data"
+msgstr "Données"
 
 #: ../../app/helpers/registry_in_form_helper.rb:8
-#: ../../app/views/org_admin/templates/_form.html.erb:96
-msgid "Software"
-msgstr "Logiciel"
+msgid "Software, source code"
+msgstr "Logiciel, code source"
 
 #: ../../app/helpers/registry_in_form_helper.rb:9
-msgid "Physical object"
-msgstr "Objet physique"
+msgid "Collection of physical objects"
+msgstr "Collection d'objets physiques"
 
 #: ../../app/helpers/settings_template_helper.rb:8
 #: ../../app/helpers/settings_template_helper.rb:19
@@ -1813,11 +1809,11 @@ msgstr "Question sans réponse."
 msgid "already assigned a value"
 msgstr "a déjà une valeur attribuée"
 
-#: ../../app/models/madmp_fragment.rb:410
+#: ../../app/models/madmp_fragment.rb:400
 msgid "\"%{entity_name}\" entity DMP"
 msgstr "Plan de l'entité \"%{entity_name}\""
 
-#: ../../app/models/madmp_fragment.rb:418 ../../app/models/plan.rb:875
+#: ../../app/models/madmp_fragment.rb:408 ../../app/models/plan.rb:875
 msgid "\"%{project_title}\" project DMP"
 msgstr "PGD du projet \"%{project_title}\""
 
@@ -1875,7 +1871,7 @@ msgstr "Copie de %{title}"
 msgid "DMP manager"
 msgstr "Responsable du plan"
 
-#: ../../app/models/plan.rb:996
+#: ../../app/models/plan.rb:993
 msgid "must be after the start date"
 msgstr "doit être postérieur à la date de début"
 
@@ -1883,8 +1879,14 @@ msgstr "doit être postérieur à la date de début"
 msgid "guidance on"
 msgstr "recommandation concernant"
 
-#: ../../app/models/research_output.rb:252
-#: ../../app/models/research_output.rb:347
+#: ../../app/models/research_output.rb:192
+#: ../../app/services/import/plan_import_service.rb:42
+#: ../../app/views/org_admin/templates/_form.html.erb:98
+msgid "Dataset"
+msgstr "Jeu de données"
+
+#: ../../app/models/research_output.rb:253
+#: ../../app/models/research_output.rb:350
 #: ../../app/views/paginable/api_clients/_index.html.erb:34
 #: ../../app/views/paginable/guidance_groups/_index.html.erb:32
 #: ../../app/views/paginable/orgs/_index.html.erb:25
@@ -1899,8 +1901,8 @@ msgstr "recommandation concernant"
 msgid "Yes"
 msgstr "Oui"
 
-#: ../../app/models/research_output.rb:252
-#: ../../app/models/research_output.rb:347
+#: ../../app/models/research_output.rb:253
+#: ../../app/models/research_output.rb:350
 #: ../../app/views/paginable/api_clients/_index.html.erb:34
 #: ../../app/views/paginable/guidance_groups/_index.html.erb:30
 #: ../../app/views/paginable/orgs/_index.html.erb:25
@@ -2452,7 +2454,7 @@ msgstr ""
 #: ../../app/views/layouts/_footer.html.erb:74
 #: ../../app/views/layouts/_navigation.html.erb:5
 #: ../../app/views/layouts/application.html.erb:122
-#: ../../app/views/paginable/plans/_organisationally_or_publicly_visible.html.erb:36
+#: ../../app/views/paginable/plans/_organisationally_or_publicly_visible.html.erb:41
 #: ../../app/views/paginable/plans/_publicly_visible.html.erb:36
 #: ../../app/views/paginable/templates/_history.html.erb:26
 #: ../../app/views/paginable/templates/_modules.html.erb:105
@@ -3533,9 +3535,8 @@ msgid "Locale"
 msgstr "Langue"
 
 #: ../../app/views/org_admin/guidance_groups/_form.html.erb:35
-#: ../../app/views/paginable/guidance_groups/_index.html.erb:9
-msgid "Data Types"
-msgstr "Type de données"
+msgid "Questionnaires"
+msgstr "Questionnaires"
 
 #: ../../app/views/org_admin/guidance_groups/_form.html.erb:46
 #: ../../app/views/paginable/guidance_groups/_index.html.erb:9
@@ -4157,6 +4158,7 @@ msgstr "Contextes"
 
 #: ../../app/views/org_admin/templates/_form.html.erb:59
 #: ../../app/views/paginable/plans/_org_admin.html.erb:15
+#: ../../app/views/paginable/plans/_organisationally_or_publicly_visible.html.erb:5
 #: ../../app/views/paginable/plans/_privately_visible.html.erb:3
 #: ../../app/views/paginable/plans/_publicly_visible.html.erb:3
 #: ../../app/views/paginable/templates/_index.html.erb:2
@@ -4167,6 +4169,7 @@ msgstr "Entité de recherche"
 
 #: ../../app/views/org_admin/templates/_form.html.erb:62
 #: ../../app/views/paginable/plans/_org_admin.html.erb:16
+#: ../../app/views/paginable/plans/_organisationally_or_publicly_visible.html.erb:6
 #: ../../app/views/paginable/plans/_privately_visible.html.erb:4
 #: ../../app/views/paginable/plans/_publicly_visible.html.erb:4
 #: ../../app/views/paginable/templates/_index.html.erb:3
@@ -4195,6 +4198,10 @@ msgstr "Module"
 #: ../../app/views/org_admin/templates/_form.html.erb:77
 msgid "Classic"
 msgstr "Classique"
+
+#: ../../app/views/org_admin/templates/_form.html.erb:96
+msgid "Software"
+msgstr "Logiciel"
 
 #: ../../app/views/org_admin/templates/_form.html.erb:106
 #: ../../app/views/org_admin/templates/_show.html.erb:13
@@ -4707,6 +4714,10 @@ msgstr ""
 "Vous êtes sur le point de supprimer '%{department_name}'. Cela affectera les r"
 "ecommandations. Êtes-vous sûr "
 
+#: ../../app/views/paginable/guidance_groups/_index.html.erb:9
+msgid "Data Types"
+msgstr "Type de données"
+
 #: ../../app/views/paginable/guidance_groups/_index.html.erb:57
 #: ../../app/views/paginable/guidances/_index.html.erb:62
 #: ../../app/views/paginable/templates/_customisable.html.erb:59
@@ -4739,7 +4750,7 @@ msgstr "Nom de l'organisme"
 #: ../../app/views/paginable/guidance_groups/_publicly_visible.html.erb:9
 #: ../../app/views/paginable/plans/_administrator_visible.html.erb:65
 #: ../../app/views/paginable/plans/_administrator_visible.html.erb:71
-#: ../../app/views/paginable/plans/_organisationally_or_publicly_visible.html.erb:21
+#: ../../app/views/paginable/plans/_organisationally_or_publicly_visible.html.erb:25
 #: ../../app/views/paginable/plans/_privately_visible.html.erb:92
 #: ../../app/views/paginable/plans/_privately_visible.html.erb:98
 #: ../../app/views/paginable/plans/_publicly_visible.html.erb:18
@@ -4754,7 +4765,7 @@ msgid "Download"
 msgstr "Télécharger"
 
 #: ../../app/views/paginable/guidance_groups/_publicly_visible.html.erb:26
-#: ../../app/views/paginable/plans/_organisationally_or_publicly_visible.html.erb:38
+#: ../../app/views/paginable/plans/_organisationally_or_publicly_visible.html.erb:43
 #: ../../app/views/paginable/plans/_publicly_visible.html.erb:35
 #: ../../app/views/paginable/templates/_history.html.erb:28
 #: ../../app/views/paginable/templates/_modules.html.erb:104
@@ -4819,7 +4830,7 @@ msgstr "Vous êtes sur le point de supprimer '%{org_name}'. En êtes-vous sûr ?
 #: ../../app/views/paginable/plans/_administrator_visible.html.erb:5
 #: ../../app/views/paginable/plans/_index.html.erb:5
 #: ../../app/views/paginable/plans/_org_admin.html.erb:22
-#: ../../app/views/paginable/plans/_organisationally_or_publicly_visible.html.erb:9
+#: ../../app/views/paginable/plans/_organisationally_or_publicly_visible.html.erb:13
 msgid "Project Title"
 msgstr "Titre du projet"
 
@@ -4919,7 +4930,7 @@ msgid "Created"
 msgstr "Créé"
 
 #:
-#: ../../app/views/paginable/plans/_organisationally_or_publicly_visible.html.erb:31
+#: ../../app/views/paginable/plans/_organisationally_or_publicly_visible.html.erb:36
 msgid "Unknown"
 msgstr "Inconnu"
 
