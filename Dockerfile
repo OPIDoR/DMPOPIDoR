@@ -1,4 +1,4 @@
-FROM ruby:3.4.9-slim-trixie AS base
+FROM ruby:4.0.5-slim-trixie AS base
 WORKDIR /app
 RUN apt update -y && apt install -y --no-install-recommends \
   build-essential \
