@@ -318,7 +318,7 @@ class ResearchOutput < ApplicationRecord
   # Returns an array containing the researchOutput fragment additional info and researchOutput description data
   # depending on the research output configuration in parameters
   #####
-  # rubocop:disable Metrics/MethodLength
+  # rubocop:disable Metrics/MethodLength, Metrics/AbcSize
   def configuration_to_additional_info_data(configuration, locale)
     case configuration[:dataType]
     when 'software', 'physical_object'
@@ -346,10 +346,11 @@ class ResearchOutput < ApplicationRecord
         {
           'title' => title,
           'shortName' => abbreviation,
+          'type' => output_type_description,
           'containsPersonalData' => configuration[:hasPersonalData] ? _('Yes') : _('No')
         }
       ]
     end
   end
-  # rubocop:enable Metrics/MethodLength
+  # rubocop:enable Metrics/MethodLength, Metrics/AbcSize
 end
