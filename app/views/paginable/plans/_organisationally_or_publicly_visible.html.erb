@@ -1,6 +1,10 @@
 <% if current_user.org_id? %>
   <div class="row">
     <div class="col-md-12">
+      <p class="legend-inline">
+        <i class="fas fa-university"></i> <%= _('Research Entity') %>&nbsp;&nbsp;
+        <i class="fas fa-vial"></i> <%= _('Research Project') %>
+      </p>
       <div class="table-responsive">
         <table class="table table-hover">
           <thead>
@@ -25,6 +29,7 @@
             <% scope.each do |plan| %>
               <tr>
                 <td>
+                  <i class="fa-solid <%= plan.research_entity? ? "fas fa-university" : "fas fa-vial" %>"></i>
                   <%= truncate plan.title, length: 100 %>
                 </td>
                 <td><%= plan.template.title %></td>
