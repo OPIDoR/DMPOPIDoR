@@ -37,11 +37,11 @@ module OrgAdmin
       @section = Section.includes(:phase, questions: %i[annotations question_options])
                         .find(params[:id])
       @template = Template.find(params[:template_id])
-      respond_to do |format|
-        format.html do
-          render partial: 'frame', locals: { template: @template, section: @section, phase: @section.phase }
-        end
-      end
+      render turbo_stream: turbo_stream.replace("section_#{@section.id}", partial: 'frame', locals: {
+                                                  template: @section.template,
+                                                  section: @section,
+                                                  phase: @section.phase
+                                                })
     end
 
     # GET /org_admin/templates/[:template_id]/phases/[:phase_id]/sections/[:id]/edit
@@ -50,15 +50,15 @@ module OrgAdmin
                                  questions: [:question_options, { annotations: :org }])
                        .find(params[:id])
       authorize section
-      respond_to do |format|
-        format.html do
-          render partial: 'frame', locals: { template: section.template, section: section, phase: section.phase }
-        end
-      end
+      render turbo_stream: turbo_stream.replace("section_#{section.id}", partial: 'frame', locals: {
+                                                  template: section.template,
+                                                  section: section,
+                                                  phase: section.phase
+                                                })
     end
 
     # POST /org_admin/templates/[:template_id]/phases/[:phase_id]/sections
-    # rubocop:disable Metrics/AbcSize, Metrics/MethodLength
+    # rubocop:disable Metrics/AbcSize
     def create
       @phase = Phase.find_by(id: params[:phase_id])
       if @phase.nil?
@@ -72,27 +72,27 @@ module OrgAdmin
       @section = get_new(@section)
       if @section.save
         flash[:notice] = success_message(@section, _('created'))
-        redirect_to @phase.template&.module? ? edit_super_admin_template_phase_path(
+        redirect_to @phase.template&.module? ? super_admin_template_phase_path(
           id: @section.phase_id,
           template_id: @phase.template_id,
           section: @section.id
-        ) : edit_org_admin_template_phase_path(
+        ) : org_admin_template_phase_path(
           id: @section.phase_id,
           template_id: @phase.template_id,
           section: @section.id
-        )
+        ), status: :see_other
       else
         flash[:alert] = failure_message(@section, _('create'))
-        redirect_to @phase.template&.module? ? edit_super_admin_template_phase_path(
+        redirect_to @phase.template&.module? ? super_admin_template_phase_path(
           template_id: @phase.template_id,
           id: @section.phase_id
-        ) : edit_org_admin_template_phase_path(
+        ) : org_admin_template_phase_path(
           template_id: @phase.template_id,
           id: @section.phase_id
-        )
+        ), status: :see_other
       end
     end
-    # rubocop:enable Metrics/AbcSize, Metrics/MethodLength
+    # rubocop:enable Metrics/AbcSize
 
     # PUT /org_admin/templates/[:template_id]/phases/[:phase_id]/sections/[:id]
     # rubocop:disable Metrics/AbcSize
@@ -110,14 +110,11 @@ module OrgAdmin
         msg = _('Unable to create a new version of this template.')
         flash[:alert] = "#{msg}<br/>#{e.message}"
       end
-
-      redirect_to section.phase.template&.module? ? edit_super_admin_template_phase_path(
-        template_id: section.phase.template.id,
-        id: section.phase.id, section: section.id
-      ) : edit_org_admin_template_phase_path(
-        template_id: section.phase.template.id,
-        id: section.phase.id, section: section.id
-      )
+      render turbo_stream: turbo_stream.replace("section_#{section.id}", partial: 'frame', locals: {
+                                                  template: section.template,
+                                                  section: section,
+                                                  phase: section.phase
+                                                })
     end
     # rubocop:enable Metrics/AbcSize
 
@@ -139,7 +136,7 @@ module OrgAdmin
         flash[:alert] = "#{msg}<br/>#{e.message}"
       end
 
-      path_helper = phase.template&.module? ? :edit_super_admin_template_phase_path : :edit_org_admin_template_phase_path # rubocop:disable Layout/LineLength
+      path_helper = phase.template&.module? ? :super_admin_template_phase_path : :org_admin_template_phase_path
       redirect_to send(path_helper,
                        template_id: phase.template.id,
                        id: phase.id)

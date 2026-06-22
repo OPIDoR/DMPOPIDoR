@@ -58,7 +58,7 @@ function ModalForm({
   }, [data]);
 
   useEffect(() => {
-    if (!data?.id && template) {
+    if (!data && template) {
       methods.reset(formatDefaultValues(template.schema.default?.[locale]));
     }
   }, [template, data]);

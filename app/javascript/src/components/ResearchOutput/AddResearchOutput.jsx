@@ -252,6 +252,12 @@ function AddResearchOutput({
       <div className="form-group">
         <Alert variant="info">
           <Trans t={t} i18nKey="createResearchOutputInfo" />
+          {configuration?.enableTopics && (
+            <>
+              <br />
+              <Trans t={t} i18nKey="chooseTopicInfo" />
+            </>
+          )}
         </Alert>
       </div>
       <div className="form-group">

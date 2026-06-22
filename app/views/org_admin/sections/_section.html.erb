@@ -26,7 +26,14 @@
       role="tabpanel"
       aria-labelledby="<%= "headingSection#{section.id}" %>">
     <div class="accordion-body card card-body" data-loaded="<%= current_section.present? && section.id == current_section.id %>">
-      <turbo-frame id="section_<%= section.id %>"></turbo-frame>
+      <turbo-frame id="section_<%= section.id %>" 
+                   loading="eager"
+                   src="<%= edit_org_admin_template_phase_section_path(
+                    id: section.id,
+                    template_id: template.id,
+                    phase_id: phase.id
+                  ) %>">
+      </turbo-frame>
     </div>
   </div>
 </div>
