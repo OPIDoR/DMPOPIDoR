@@ -64,6 +64,20 @@ module Api
         end
       end
 
+      def destroy
+        plan = PlansQuery.new(client, params, params[:id]).call.first
+
+        if plan.present?
+          plan.destroy
+          head :no_content
+        else
+          render_error(errors: [{
+                         error_message: _('Plan not found'),
+                         error_code: 'dmp_not_found'
+                       }], status: :not_found)
+        end
+      end
+
       private
 
       # Get the Plan's owner

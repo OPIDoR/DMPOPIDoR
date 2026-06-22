@@ -283,7 +283,7 @@ Rails.application.routes.draw do
     end
 
     namespace :v2 do
-      resources :dmps, only: %i[index show create]
+      resources :dmps, only: %i[index show create destroy]
     end
   end
 
