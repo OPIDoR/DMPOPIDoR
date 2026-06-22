@@ -468,10 +468,10 @@ fr-FR:
           destroy_all:
           discard_all:
           reschedule_all:
-          retry_all:
+          retry_all: Réessayer tout
           title: Actions
-        no_jobs_found:
-        toggle_actions:
+        no_jobs_found: Aucun job trouvé
+        toggle_actions: Afficher/masquer les actions
         toggle_all_jobs:
     models:
       batch:
@@ -483,7 +483,7 @@ fr-FR:
         enqueued_at:
         finished:
         finished_at:
-        jobs:
+        jobs: Jobs
         name: Nom
       cron:
         class:
@@ -522,7 +522,7 @@ fr-FR:
         disabled:
         job_class:
         label: Libellé
-        pause:
+        pause: Pause
         queue:
         title:
         type:
