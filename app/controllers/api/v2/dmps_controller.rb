@@ -64,6 +64,10 @@ module Api
         end
       end
 
+      def update
+        head :not_implemented
+      end
+
       def destroy
         plan = PlansQuery.new(client, params, params[:id]).call.first
 
