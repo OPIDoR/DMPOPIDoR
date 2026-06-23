@@ -31,6 +31,7 @@ module OrgAdmin
     # rubocop:enable Metrics/AbcSize
 
     # GET /org_admin/templates/[:template_id]/phases/[:phase_id]/sections/[:id]
+    # rubocop:disable Metrics/AbcSize
     def show
       @section = Section.find(params[:id])
       authorize @section
@@ -43,6 +44,7 @@ module OrgAdmin
                                                   phase: @section.phase
                                                 })
     end
+    # rubocop:enable Metrics/AbcSize
 
     # GET /org_admin/templates/[:template_id]/phases/[:phase_id]/sections/[:id]/edit
     def edit
@@ -58,7 +60,7 @@ module OrgAdmin
     end
 
     # POST /org_admin/templates/[:template_id]/phases/[:phase_id]/sections
-    # rubocop:disable Metrics/AbcSize
+    # rubocop:disable Metrics/AbcSize, Metrics/MethodLength
     def create
       @phase = Phase.find_by(id: params[:phase_id])
       if @phase.nil?
@@ -92,7 +94,7 @@ module OrgAdmin
         ), status: :see_other
       end
     end
-    # rubocop:enable Metrics/AbcSize
+    # rubocop:enable Metrics/AbcSize, Metrics/MethodLength
 
     # PUT /org_admin/templates/[:template_id]/phases/[:phase_id]/sections/[:id]
     # rubocop:disable Metrics/AbcSize
@@ -110,11 +112,13 @@ module OrgAdmin
         msg = _('Unable to create a new version of this template.')
         flash[:alert] = "#{msg}<br/>#{e.message}"
       end
-      render turbo_stream: turbo_stream.replace("section_#{section.id}", partial: 'frame', locals: {
-                                                  template: section.template,
-                                                  section: section,
-                                                  phase: section.phase
-                                                })
+      redirect_to section.phase.template&.module? ? super_admin_template_phase_path(
+        template_id: section.phase.template.id,
+        id: section.phase.id, section: section.id
+      ) : org_admin_template_phase_path(
+        template_id: section.phase.template.id,
+        id: section.phase.id, section: section.id
+      ), status: :see_other
     end
     # rubocop:enable Metrics/AbcSize
 
@@ -125,7 +129,6 @@ module OrgAdmin
       authorize section
       begin
         section = get_modifiable(section)
-        phase = section.phase
         if section.destroy!
           flash[:notice] = success_message(section, _('deleted'))
         else
@@ -135,11 +138,13 @@ module OrgAdmin
         msg = _('Unable to delete this version of the template.')
         flash[:alert] = "#{msg}<br/>#{e.message}"
       end
-
-      path_helper = phase.template&.module? ? :super_admin_template_phase_path : :org_admin_template_phase_path
-      redirect_to send(path_helper,
-                       template_id: phase.template.id,
-                       id: phase.id)
+      redirect_to section.phase.template&.module? ? super_admin_template_phase_path(
+        template_id: section.phase.template.id,
+        id: section.phase.id, section: section.id
+      ) : org_admin_template_phase_path(
+        template_id: section.phase.template.id,
+        id: section.phase.id, section: section.id
+      ), status: :see_other
     end
     # rubocop:enable Metrics/AbcSize
 
