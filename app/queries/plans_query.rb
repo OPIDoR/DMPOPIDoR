@@ -30,7 +30,8 @@ class PlansQuery
 
   def call
     ids = @user.is_a?(ApiClient) ? plans_for_client : plans_for_user
-    plans = Plan.includes(:template, :research_outputs, :json_plans).where(id: ids.uniq)
+    plans = Plan.includes(:template, :research_outputs, :json_plans).where(id: ids.uniq,
+                                                                           template: { type: 'structured' })
     if @id.present?
       plans.where(id: @id)
     else
