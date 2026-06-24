@@ -65,6 +65,8 @@ namespace :dmpopidor_upgrade do
   desc 'Generate JSONPlan record for structured plans'
   task generate_structured_json_plans: :environment do
     Plan.includes(:template).where(template: { type: 'structured' }).each do |plan|
+      next if JsonPlan.exists?(plan_id: plan.id)
+
       p "########### Generating JSON plan for plan #{plan.id} ###########"
       JsonPlanJob.perform_now(plan_id: plan.id)
     end
