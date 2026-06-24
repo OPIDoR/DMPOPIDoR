@@ -1,6 +1,7 @@
 import { Application } from "@hotwired/stimulus";
 
 import CheckboxController from "./checkbox_controller.js";
+import MergeUserController from "./merge_user_controller.js";
 import ReactController from "./react_controller.js";
 import ResetFormController from "./reset_form_controller.js";
 import SelectController from "./select_controller.js";
@@ -11,6 +12,7 @@ import UsageController from "./usage_controller.js";
 window.Stimulus = Application.start();
 
 window.Stimulus.register("checkbox", CheckboxController);
+window.Stimulus.register("merge-user", MergeUserController);
 window.Stimulus.register("react", ReactController);
 window.Stimulus.register("resetForm", ResetFormController);
 window.Stimulus.register("select", SelectController);

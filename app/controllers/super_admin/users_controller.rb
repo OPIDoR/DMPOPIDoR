@@ -89,11 +89,10 @@ module SuperAdmin
       authorize @users
       @departments = @user.org.departments.order(:name)
       @plans = Plan.active(@user).page(1)
-      # WHAT TO RETURN!?!?!
+
       if @users.present? # found a user, or Users, submit for merge
-        render json: {
-          form: render_to_string(partial: 'super_admin/users/confirm_merge')
-        }
+        render turbo_stream: turbo_stream.update('merge_form_container', partial: 'super_admin/users/confirm_merge',
+                                                                         locals: { user: @user, users: @users })
       else # NO USER, re-render w/error?
         flash[:alert] = 'Unable to find user'
         redirect_to edit_super_admin_user_path(@user)
