@@ -2,6 +2,13 @@
 
 **Attention** Cette liste de changements concerne les déploiements sur nos serveurs de test en interne.
 
+## 24/06/2026
+- Ajout d'un tache de génération du JSON de tous les plans structurés
+- Correction de l'édition de modèle suite à la migration vers Turbo (#15094)
+- Correction du problème de mise à jour des contributeurs (#15356)
+- Migration de la fusion de compte vers Turbo (#15345)
+- Retrait de l'affichage de la thématique dans l'infobox des PR
+
 ## 22/06/2026
 - Mise à jour vers Ruby 4
 - Correction de l'édition de modèle suite à la migration vers Turbo (#15094)
