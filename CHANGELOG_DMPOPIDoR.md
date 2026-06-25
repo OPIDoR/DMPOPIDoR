@@ -2,6 +2,12 @@
 
 **Attention** Cette liste de changements concerne les déploiements sur nos serveurs de test en interne.
 
+## 25/06/2026
+- Mises à jour du forulaire Produit de Recherche des plans classiques (#15396 & #15395)
+- Mise à jour du référentiel utilisé par l'import Metadore
+- Correction d'un problème de mise à jour des organismes affichés dans l'import Ror lors du choix d'un pays
+- Amélioration de la requête utilisée par l'import RoR
+
 ## 24/06/2026
 - Ajout d'un tache de génération du JSON de tous les plans structurés
 - Correction de l'édition de modèle suite à la migration vers Turbo (#15094)
