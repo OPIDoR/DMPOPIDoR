@@ -167,7 +167,7 @@ function Metadore({ fragment, setFragment, mapping = {} }) {
     service
       .getRegistryByName("DataLicenses")
       .then(({ data }) => setRegistry(data));
-    service.getRegistryByName("ResearchDataType").then(({ data }) =>
+    service.getRegistryByName("DataCiteDataTypes").then(({ data }) =>
       setResearchDataTypes(
         data.map((type) => ({
           value: type.en_GB,
