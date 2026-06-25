@@ -2,16 +2,16 @@ import { useState, useRef, useContext } from "react";
 import { useTranslation } from "react-i18next";
 import Swal from "sweetalert2";
 
-import CustomError from "../Shared/CustomError";
-import CustomSpinner from "../Shared/CustomSpinner";
-import InnerModal from "../Shared/InnerModal/InnerModal";
-import { createFormLabel } from "../../utils/GeneratorUtils";
-import CustomButton from "../Styled/CustomButton";
+import CustomError from "../Shared/CustomError.jsx";
+import CustomSpinner from "../Shared/CustomSpinner.jsx";
+import InnerModal from "../Shared/InnerModal/InnerModal.jsx";
+import { createFormLabel } from "../../utils/GeneratorUtils.js";
+import CustomButton from "../Styled/CustomButton.jsx";
 import { GlobalContext } from "../context/GlobalContext.jsx";
-import { FormsContext } from "../context/FormsContext";
-import { service } from "../../services";
-import swalUtils from "../../utils/swalUtils";
-import { getErrorMessage } from "../../utils/utils";
+import { FormsContext } from "../context/FormsContext.jsx";
+import { service } from "../../services/index.js";
+import swalUtils from "../../utils/swalUtils.js";
+import { getErrorMessage } from "../../utils/utils.js";
 
 function RunsModal({ shown, hide, scriptsData, fragmentId }) {
   const { t } = useTranslation();

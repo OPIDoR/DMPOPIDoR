@@ -17,12 +17,12 @@ import { GlobalContext } from "../context/GlobalContext.jsx";
 import { SectionsContext } from "../context/SectionsContext.jsx";
 import { FormsContext } from "../context/FormsContext.jsx";
 import * as styles from "../assets/css/write_plan.module.css";
-import DynamicForm from "../Forms/DynamicForm";
-import GuidanceModal from "./GuidanceModal";
-import CommentModal from "./CommentModal";
-import RunsModal from "./RunsModal";
-import { guidances } from "../../services";
-import CommentSVG from "../Shared/CommentSVG";
+import DynamicForm from "../Forms/DynamicForm.jsx";
+import GuidanceModal from "./GuidanceModal.jsx";
+import CommentModal from "./CommentModal.jsx";
+import RunsModal from "./RunsModal.jsx";
+import { guidances } from "../../services/index.js";
+import CommentSVG from "../Shared/CommentSVG.jsx";
 
 const closedModalState = {
   guidance: false,
