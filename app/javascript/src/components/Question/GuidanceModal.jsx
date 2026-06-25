@@ -12,7 +12,7 @@ import {
   ScrollNav,
   Theme,
   SubTitle,
-} from "./styles/GuidanceModalStyles";
+} from "../WritePlan/styles/GuidanceModalStyles";
 import InnerModal from "../Shared/InnerModal/InnerModal";
 
 function GuidanceModal({ shown, hide, questionId, researchOutputId }) {
