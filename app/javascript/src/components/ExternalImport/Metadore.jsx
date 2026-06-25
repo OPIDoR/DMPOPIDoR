@@ -351,7 +351,7 @@ function Metadore({ fragment, setFragment, mapping = {} }) {
               <div className="mx-auto"></div>
               <div className="mx-auto">
                 <Pagination
-                  key={data}
+                  key={data.map((d) => d?.attributes?.doi).join(",")}
                   items={data}
                   onChangePage={onChangePage}
                   pageSize={pageSize}
