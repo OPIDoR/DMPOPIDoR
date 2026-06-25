@@ -218,6 +218,8 @@ class MadmpFragment < ApplicationRecord
   def update_research_output_parameters(skip_broadcast: false)
     return unless plan.structured?
 
+    return unless %w[research_output_description software_description physical_object_description].include?(classname)
+
     research_output.update(
       abbreviation: data['shortName'],
       title: data['title']

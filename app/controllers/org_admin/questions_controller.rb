@@ -110,7 +110,7 @@ module OrgAdmin
       authorize question
       begin
         question = get_new(question)
-        section = Section.includes(phase: :template).find(params[:section_id])
+        section = question.section
         if question.save
           flash[:notice] = success_message(question, _('created'))
         else
@@ -119,10 +119,13 @@ module OrgAdmin
       rescue StandardError
         flash[:alert] = _('Unable to create a new version of this template.')
       end
-      render turbo_stream: turbo_stream.replace(section,
-                                                partial: 'org_admin/sections/frame',
-                                                locals: { section: section, template: question.template,
-                                                          phase: question.phase })
+      redirect_to section.phase.template&.module? ? super_admin_template_phase_path(
+        template_id: section.phase.template.id,
+        id: section.phase.id, section: section.id
+      ) : org_admin_template_phase_path(
+        template_id: section.phase.template.id,
+        id: section.phase.id, section: section.id
+      ), status: :see_other
     end
     # rubocop:enable Metrics/AbcSize
 
@@ -201,10 +204,10 @@ module OrgAdmin
     # rubocop:disable Metrics/AbcSize
     def destroy
       question = Question.includes(section: { phase: :template }).find(params[:id])
-      section = question.section
       authorize question
       begin
         question = get_modifiable(question)
+        section = question.section
         if question.destroy!
           flash[:notice] = success_message(question, _('deleted'))
         else
@@ -213,10 +216,13 @@ module OrgAdmin
       rescue StandardError
         flash[:alert] = _('Unable to create a new version of this template.')
       end
-      render turbo_stream: turbo_stream.replace(section,
-                                                partial: 'org_admin/sections/frame',
-                                                locals: { section: section, template: question.template,
-                                                          phase: question.phase })
+      redirect_to section.phase.template&.module? ? super_admin_template_phase_path(
+        template_id: section.phase.template.id,
+        id: section.phase.id, section: section.id
+      ) : org_admin_template_phase_path(
+        template_id: section.phase.template.id,
+        id: section.phase.id, section: section.id
+      ), status: :see_other
     end
     # rubocop:enable Metrics/AbcSize
 

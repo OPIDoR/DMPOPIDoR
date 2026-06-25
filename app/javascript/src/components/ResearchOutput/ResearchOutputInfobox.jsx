@@ -8,6 +8,7 @@ import { useTranslation } from "react-i18next";
 import { TailSpin } from "react-loader-spinner";
 
 import { SectionsContext } from "../context/SectionsContext.jsx";
+import { GlobalContext } from "../context/GlobalContext.jsx";
 import {
   DATA_TYPE_LABELS,
   displayPersonalData,
@@ -23,6 +24,7 @@ function ResearchOutputInfobox({
   readonly,
 }) {
   const { t } = useTranslation();
+  const { configuration } = useContext(GlobalContext);
   const { researchOutputs, displayedResearchOutput } =
     useContext(SectionsContext);
 
@@ -180,7 +182,7 @@ function ResearchOutputInfobox({
             <strong>{t(DATA_TYPE_LABELS[dataType] || "-")}</strong>
           </li>
 
-          {dataType && displayTopics(dataType) && (
+          {dataType && displayTopics(dataType, configuration.enableTopics) && (
             <li>
               {t("topic")} :{" "}
               <strong>{displayedResearchOutput.topic_label}</strong>

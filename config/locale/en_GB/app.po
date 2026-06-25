@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: app 1.0\n"
 "Report-Msgid-Bugs-To: contact@translation.io\n"
-"POT-Creation-Date: 2026-06-18 14:39+0200\n"
-"PO-Revision-Date: 2026-06-18 12:39+0000\n"
+"POT-Creation-Date: 2026-06-25 10:48+0200\n"
+"PO-Revision-Date: 2026-06-25 08:48+0000\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: English\n"
 "Language: en_GB\n"
@@ -323,7 +323,7 @@ msgstr "Research output"
 #: ../../app/controllers/org_admin/guidances_controller.rb:99
 #: ../../app/controllers/org_admin/phases_controller.rb:187
 #: ../../app/controllers/org_admin/question_options_controller.rb:24
-#: ../../app/controllers/org_admin/questions_controller.rb:209
+#: ../../app/controllers/org_admin/questions_controller.rb:212
 #: ../../app/controllers/org_admin/sections_controller.rb:133
 #: ../../app/controllers/plans_controller.rb:325
 #: ../../app/controllers/super_admin/api_clients_controller.rb:81
@@ -340,7 +340,7 @@ msgstr "deleted"
 #: ../../app/controllers/org_admin/guidances_controller.rb:101
 #: ../../app/controllers/org_admin/phases_controller.rb:189
 #: ../../app/controllers/org_admin/question_options_controller.rb:26
-#: ../../app/controllers/org_admin/questions_controller.rb:211
+#: ../../app/controllers/org_admin/questions_controller.rb:214
 #: ../../app/controllers/org_admin/sections_controller.rb:135
 #: ../../app/controllers/plans_controller.rb:330
 #: ../../app/controllers/research_outputs_controller.rb:103
@@ -359,7 +359,7 @@ msgstr "Contact Person"
 
 #: ../../app/controllers/classic_research_outputs_controller.rb:91
 #: ../../app/controllers/org_admin/phases_controller.rb:154
-#: ../../app/controllers/org_admin/questions_controller.rb:190
+#: ../../app/controllers/org_admin/questions_controller.rb:193
 #: ../../app/controllers/org_admin/users_controller.rb:32
 #: ../../app/controllers/plans_controller.rb:409
 #: ../../app/controllers/super_admin/api_clients_controller.rb:70
@@ -510,7 +510,7 @@ msgstr "remove"
 #: ../../app/controllers/org_admin/guidances_controller.rb:53
 #: ../../app/controllers/org_admin/phases_controller.rb:122
 #: ../../app/controllers/org_admin/questions_controller.rb:115
-#: ../../app/controllers/org_admin/sections_controller.rb:74
+#: ../../app/controllers/org_admin/sections_controller.rb:76
 #: ../../app/controllers/org_admin/templates_controller.rb:204
 #: ../../app/controllers/plans_controller.rb:108
 #: ../../app/controllers/super_admin/api_clients_controller.rb:44
@@ -528,7 +528,7 @@ msgstr "created"
 #: ../../app/controllers/org_admin/guidances_controller.rb:56
 #: ../../app/controllers/org_admin/phases_controller.rb:124
 #: ../../app/controllers/org_admin/questions_controller.rb:117
-#: ../../app/controllers/org_admin/sections_controller.rb:85
+#: ../../app/controllers/org_admin/sections_controller.rb:87
 #: ../../app/controllers/org_admin/templates_controller.rb:206
 #: ../../app/controllers/plans_controller.rb:153
 #: ../../app/controllers/super_admin/api_clients_controller.rb:50
@@ -544,7 +544,7 @@ msgstr "create"
 #: ../../app/controllers/org_admin/departments_controller.rb:52
 #: ../../app/controllers/org_admin/guidance_groups_controller.rb:57
 #: ../../app/controllers/org_admin/guidances_controller.rb:82
-#: ../../app/controllers/org_admin/sections_controller.rb:107
+#: ../../app/controllers/org_admin/sections_controller.rb:109
 #: ../../app/controllers/org_admin/templates_controller.rb:233
 #: ../../app/controllers/orgs_controller.rb:122
 #: ../../app/controllers/plans_controller.rb:252
@@ -559,7 +559,7 @@ msgstr "save"
 #: ../../app/controllers/org_admin/departments_controller.rb:50
 #: ../../app/controllers/org_admin/guidance_groups_controller.rb:55
 #: ../../app/controllers/org_admin/guidances_controller.rb:80
-#: ../../app/controllers/org_admin/sections_controller.rb:105
+#: ../../app/controllers/org_admin/sections_controller.rb:107
 #: ../../app/controllers/org_admin/templates_controller.rb:228
 #: ../../app/controllers/orgs_controller.rb:120
 #: ../../app/controllers/plans_controller.rb:243
@@ -629,7 +629,7 @@ msgid "Unable to create a new version of this template.<br>"
 msgstr "Unable to create a new version of this template.<br>"
 
 #: ../../app/controllers/org_admin/phases_controller.rb:152
-#: ../../app/controllers/org_admin/questions_controller.rb:187
+#: ../../app/controllers/org_admin/questions_controller.rb:190
 #: ../../app/controllers/org_admin/users_controller.rb:30
 #: ../../app/controllers/plans_controller.rb:406
 #: ../../app/controllers/super_admin/api_clients_controller.rb:68
@@ -646,8 +646,8 @@ msgstr "updated"
 #: ../../app/controllers/org_admin/phases_controller.rb:192
 #: ../../app/controllers/org_admin/question_options_controller.rb:29
 #: ../../app/controllers/org_admin/questions_controller.rb:120
-#: ../../app/controllers/org_admin/questions_controller.rb:214
-#: ../../app/controllers/org_admin/sections_controller.rb:110
+#: ../../app/controllers/org_admin/questions_controller.rb:217
+#: ../../app/controllers/org_admin/sections_controller.rb:112
 msgid "Unable to create a new version of this template."
 msgstr "Unable to create a new version of this template."
 
@@ -717,7 +717,7 @@ msgstr "Updated"
 msgid "Visibility"
 msgstr "Visibility"
 
-#: ../../app/controllers/org_admin/sections_controller.rb:66
+#: ../../app/controllers/org_admin/sections_controller.rb:68
 msgid "Unable to create a new section. The phase you specified does not exist."
 msgstr "Unable to create a new section. The phase you specified does not exist."
 
@@ -1107,19 +1107,19 @@ msgstr ""
 "You attempted to merge 2 accounts with the same email address.\n"
 "           Please merge with a different email address."
 
-#: ../../app/controllers/super_admin/users_controller.rb:112
+#: ../../app/controllers/super_admin/users_controller.rb:111
 msgid "archived"
 msgstr "archived"
 
-#: ../../app/controllers/super_admin/users_controller.rb:114
+#: ../../app/controllers/super_admin/users_controller.rb:113
 msgid "archive"
 msgstr "archive"
 
-#: ../../app/controllers/super_admin/users_controller.rb:135
+#: ../../app/controllers/super_admin/users_controller.rb:134
 msgid "merged"
 msgstr "merged"
 
-#: ../../app/controllers/super_admin/users_controller.rb:137
+#: ../../app/controllers/super_admin/users_controller.rb:136
 msgid "merge"
 msgstr "merge"
 
@@ -1135,7 +1135,7 @@ msgstr "Unable to change the template's recommended status"
 msgid "No. Created Plans"
 msgstr "No. Created Plans"
 
-#: ../../app/controllers/users/invitations_controller.rb:33
+#: ../../app/controllers/users/invitations_controller.rb:40
 msgid ""
 "You are already signed in as another user. Please log out to activate your inv"
 "itation."
@@ -1787,11 +1787,11 @@ msgstr "Question not answered."
 msgid "already assigned a value"
 msgstr "already assigned a value"
 
-#: ../../app/models/madmp_fragment.rb:400
+#: ../../app/models/madmp_fragment.rb:402
 msgid "\"%{entity_name}\" entity DMP"
 msgstr "\"%{entity_name}\" entity DMP"
 
-#: ../../app/models/madmp_fragment.rb:408 ../../app/models/plan.rb:875
+#: ../../app/models/madmp_fragment.rb:410 ../../app/models/plan.rb:875
 msgid "\"%{project_title}\" project DMP"
 msgstr "\"%{project_title}\" project DMP"
 
@@ -2265,7 +2265,7 @@ msgstr "Please wait, Standards are loading"
 #: ../../app/views/org_admin/guidance_groups/_form.html.erb:71
 #: ../../app/views/org_admin/guidances/new_edit.html.erb:72
 #: ../../app/views/org_admin/phases/_form.html.erb:29
-#: ../../app/views/org_admin/questions/_form.html.erb:146
+#: ../../app/views/org_admin/questions/_form.html.erb:145
 #: ../../app/views/org_admin/questions/_show.html.erb:220
 #: ../../app/views/org_admin/sections/_form.html.erb:23
 #: ../../app/views/org_admin/templates/_form.html.erb:156
@@ -3328,8 +3328,8 @@ msgstr "%{topic} search"
 #: ../../app/views/org_admin/departments/new.html.erb:24
 #: ../../app/views/org_admin/guidance_groups/_form.html.erb:72
 #: ../../app/views/org_admin/guidances/new_edit.html.erb:73
-#: ../../app/views/org_admin/questions/_form.html.erb:151
-#: ../../app/views/org_admin/questions/_form.html.erb:153
+#: ../../app/views/org_admin/questions/_form.html.erb:150
+#: ../../app/views/org_admin/questions/_form.html.erb:152
 #: ../../app/views/research_outputs/_form.html.erb:76
 #: ../../app/views/shared/_copy_link_modal.html.erb:8
 #: ../../app/views/shared/_create_plan_modal.html.erb:8
@@ -3338,7 +3338,7 @@ msgstr "%{topic} search"
 #: ../../app/views/super_admin/notifications/_form.html.erb:82
 #: ../../app/views/super_admin/registries/_form.html.erb:57
 #: ../../app/views/super_admin/themes/_form.html.erb:64
-#: ../../app/views/super_admin/users/_confirm_merge.html.erb:15
+#: ../../app/views/super_admin/users/_confirm_merge.html.erb:33
 #: ../../app/views/users/_admin_grant_permissions.html.erb:73
 msgid "Cancel"
 msgstr "Cancel"
@@ -3927,7 +3927,7 @@ msgstr ""
 "similarly themed organisation-level guidance to appear alongside your question"
 "."
 
-#: ../../app/views/org_admin/questions/_form.html.erb:150
+#: ../../app/views/org_admin/questions/_form.html.erb:149
 #: ../../app/views/org_admin/sections/_form.html.erb:26
 #: ../../app/views/paginable/registries/_index.html.erb:37
 #: ../../app/views/super_admin/api_clients/_form.html.erb:110
@@ -3938,7 +3938,7 @@ msgstr ""
 msgid "Delete"
 msgstr "Delete"
 
-#: ../../app/views/org_admin/questions/_form.html.erb:150
+#: ../../app/views/org_admin/questions/_form.html.erb:149
 msgid "You are about to delete question #%{question_number}. Are you sure?"
 msgstr "You are about to delete question #%{question_number}. Are you sure?"
 
@@ -4573,7 +4573,7 @@ msgid "Schools/Departments"
 msgstr "Schools/Departments"
 
 #: ../../app/views/orgs/admin_edit.html.erb:31
-#: ../../app/views/super_admin/users/_confirm_merge.html.erb:14
+#: ../../app/views/super_admin/users/_confirm_merge.html.erb:29
 msgid "Merge"
 msgstr "Merge"
 
