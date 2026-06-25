@@ -17,7 +17,7 @@ import {
   NavBodyText,
   ScrollNav,
   CommentsCard,
-} from "../WritePlan/styles/CommentModalStyles.jsx";
+} from "../Question/styles/CommentModalStyles.jsx";
 import "../../i18n.js";
 import swalUtils from "../../utils/swalUtils.js";
 
