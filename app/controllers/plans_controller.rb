@@ -19,7 +19,8 @@ class PlansController < ApplicationController
   def index
     authorize Plan
     @plans = if request.format.json?
-               Plan.active(current_user).where.not(visibility: ::Plan.visibilities[:is_test])
+               Plan.includes(:research_outputs).active(current_user)
+                   .where.not(visibility: ::Plan.visibilities[:is_test])
                    .or(Plan.publicly_visible_entity)
              else
                Plan.includes(:roles, api_client_roles: :api_client).active(current_user)
