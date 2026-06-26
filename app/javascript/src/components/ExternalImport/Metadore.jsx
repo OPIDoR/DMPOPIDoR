@@ -167,7 +167,7 @@ function Metadore({ fragment, setFragment, mapping = {} }) {
     service
       .getRegistryByName("DataLicenses")
       .then(({ data }) => setRegistry(data));
-    service.getRegistryByName("ResearchDataType").then(({ data }) =>
+    service.getRegistryByName("DataCiteDataTypes").then(({ data }) =>
       setResearchDataTypes(
         data.map((type) => ({
           value: type.en_GB,
@@ -351,7 +351,7 @@ function Metadore({ fragment, setFragment, mapping = {} }) {
               <div className="mx-auto"></div>
               <div className="mx-auto">
                 <Pagination
-                  key={data}
+                  key={data.map((d) => d?.attributes?.doi).join(",")}
                   items={data}
                   onChangePage={onChangePage}
                   pageSize={pageSize}
