@@ -5,7 +5,7 @@ import { FaXmark } from "react-icons/fa6";
 
 import * as styles from "../assets/css/form_selector.module.css";
 import CustomSpinner from "../Shared/CustomSpinner";
-import service from "../../services/service";
+import service from "../../services/index.js";
 import { FormsContext } from "../context/FormsContext";
 import CustomSelect from "../Shared/CustomSelect";
 
