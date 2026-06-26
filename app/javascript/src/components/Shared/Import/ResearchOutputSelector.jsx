@@ -17,9 +17,12 @@ function ResearchOutputSelector({
   const { t } = useTranslation();
   const [selectedPlan, setSelectedPlan] = useState({});
 
+  /**
+   * Memoized values
+   */
   const plans = useMemo(() => {
-    if (data?.plans) {
-      return data?.plans?.map((plan) => ({
+    if (data) {
+      return data?.map((plan) => ({
         value: plan.id,
         prependIcon:
           plan.context === "research_entity" ? (
