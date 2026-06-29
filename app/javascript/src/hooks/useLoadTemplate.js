@@ -1,6 +1,6 @@
 import { useContext, useEffect, useRef } from "react";
 import { FormsContext } from "../components/context/FormsContext";
-import { service } from "../services";
+import { madmpFragment } from "../services";
 
 function useLoadTemplate(templateName) {
   const { loadedTemplates, setLoadedTemplates } = useContext(FormsContext);
@@ -17,7 +17,7 @@ function useLoadTemplate(templateName) {
 
     loadingRef.current.add(templateName);
 
-    service
+    madmpFragment
       .getSchemaByName(templateName)
       .then((res) => {
         setLoadedTemplates((prev) =>

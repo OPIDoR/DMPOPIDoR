@@ -4,7 +4,7 @@ import set from "lodash.set";
 import { FaCheckCircle, FaPlusSquare } from "react-icons/fa";
 import Select from "react-select";
 
-import { externalServices, service } from "../../services";
+import { externalServices, madmpFragment } from "../../services";
 import CustomSpinner from "../Shared/CustomSpinner";
 import CustomError from "../Shared/CustomError";
 import Pagination from "../Shared/Pagination";
@@ -164,10 +164,10 @@ function Metadore({ fragment, setFragment, mapping = {} }) {
    */
 
   useEffect(() => {
-    service
+    madmpFragment
       .getRegistryByName("DataLicenses")
       .then(({ data }) => setRegistry(data));
-    service.getRegistryByName("DataCiteDataTypes").then(({ data }) =>
+    madmpFragment.getRegistryByName("DataCiteDataTypes").then(({ data }) =>
       setResearchDataTypes(
         data.map((type) => ({
           value: type.en_GB,

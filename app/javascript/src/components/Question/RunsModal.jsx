@@ -9,7 +9,7 @@ import { createFormLabel } from "../../utils/GeneratorUtils.js";
 import CustomButton from "../Styled/CustomButton.jsx";
 import { GlobalContext } from "../context/GlobalContext.jsx";
 import { FormsContext } from "../context/FormsContext.jsx";
-import { service } from "../../services/index.js";
+import { madmpFragment } from "../../services/index.js";
 import swalUtils from "../../utils/swalUtils.js";
 import { getErrorMessage } from "../../utils/utils.js";
 
@@ -48,7 +48,7 @@ function RunsModal({ shown, hide, scriptsData, fragmentId }) {
 
   function executeScript(scriptName) {
     setLoading(true);
-    service
+    madmpFragment
       .runScript(fragmentId, scriptName)
       .then((res) => {
         if (res.data.needs_reload) {
