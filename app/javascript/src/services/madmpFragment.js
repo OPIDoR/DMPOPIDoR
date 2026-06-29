@@ -3,6 +3,11 @@ import createHeaders from "../utils/HeaderBuilder";
 
 const getFragment = async (id) => axios.get(`/madmp_fragments/${id}`);
 
+const getFragmentFromParameters = async (researchOutputId, classname) =>
+  axios.get(
+    `/madmp_fragments?research_output_id=${researchOutputId}&classname=${classname}`,
+  );
+
 const getNewForm = async (questionId, researchOutputId) =>
   axios.get(
     `/answers/new_form?question_id=${questionId}&research_output_id=${researchOutputId}`,
@@ -84,6 +89,7 @@ const runScript = async (fragmentId, scriptName) =>
 
 export default {
   getFragment,
+  getFragmentFromParameters,
   getNewForm,
   createFragment,
   destroyFragment,

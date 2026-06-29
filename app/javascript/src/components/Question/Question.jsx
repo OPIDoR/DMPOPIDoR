@@ -22,8 +22,10 @@ import CommentIcon from "./Icons/CommentIcon.jsx";
 import FormSelectorIcon from "./Icons/FormSelectorIcon.jsx";
 import GuidanceIcon from "./Icons/GuidanceIcon.jsx";
 import RunsIcon from "./Icons/RunsIcon.jsx";
+import AnswerImportIcon from "./Icons/AnswerImportIcon.jsx";
 
 import { guidances } from "../../services/index.js";
+import AnswerImportModal from "./AnswerImportModal.jsx";
 
 const closedModalState = {
   guidance: false,
@@ -55,6 +57,7 @@ function Question({
     comment: false,
     runs: false,
     formSelector: true,
+    import: false,
   });
 
   /**
@@ -232,6 +235,12 @@ function Question({
                       />
                     )}
 
+                    <AnswerImportIcon
+                      isQuestionOpened={isQuestionOpened}
+                      fillColor={getFillColor(showModals.import)}
+                      setModalOpened={setModalOpened}
+                    />
+
                     {isQuestionOpened ? (
                       <TfiAngleUp style={{ marginLeft: "5px" }} size={32} />
                     ) : (
@@ -282,6 +291,16 @@ function Question({
                         researchOutputId={displayedResearchOutput.id}
                       />
                     )}
+                    <AnswerImportModal
+                      shown={showModals.import === true}
+                      hide={(e) => setModalOpened(e, "import", false)}
+                      questionId={questionId}
+                      researchOutputId={displayedResearchOutput.id}
+                      dataType={
+                        displayedResearchOutput?.configuration?.dataType
+                      }
+                      className={question?.madmp_schema?.classname}
+                    />
                   </div>
                 )}
                 {isQuestionOpened ? (
