@@ -219,7 +219,7 @@ class ResearchOutput < ApplicationRecord
     module_id = ro_fragment.additional_info['moduleId']
     template = module_id ? Template.find(module_id) : plan.template
 
-    I18n.with_locale plan.template.locale do
+    I18n.with_locale plan.template.locale do # rubocop:disable Metrics/BlockLength
       return {
         id: id,
         uuid: uuid,
@@ -228,6 +228,7 @@ class ResearchOutput < ApplicationRecord
         order: display_order,
         topic: topic,
         topic_label: generate_topic_label,
+        output_type: output_type,
         type: ro_fragment.research_output_description['data']['type'] || nil,
         configuration: ro_fragment.additional_info,
         answers: if with_answers
@@ -236,7 +237,8 @@ class ResearchOutput < ApplicationRecord
                        id: a.id,
                        question_id: a.question_id,
                        fragment_id: a.madmp_fragment.id,
-                       madmp_schema_id: a.madmp_fragment.madmp_schema_id
+                       madmp_schema_id: a.madmp_fragment.madmp_schema_id,
+                       classname: a.madmp_fragment.classname
                      }
                    end
                  else

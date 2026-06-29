@@ -179,7 +179,7 @@ Rails.application.routes.draw do
     resources :plans, only: [:update]
   end
 
-  resources :madmp_fragments, only: %i[show create update destroy] do
+  resources :madmp_fragments, only: %i[index show create update destroy] do
     get 'load_fragments', action: :load_fragments, on: :collection
     delete 'destroy_contributor', action: :destroy_contributor, on: :collection, constraints: { format: [:json] }
   end
