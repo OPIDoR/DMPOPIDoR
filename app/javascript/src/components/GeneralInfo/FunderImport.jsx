@@ -12,7 +12,7 @@ import styled from "styled-components";
 
 import * as styles from "../assets/css/general_info.module.css";
 import { FormsContext } from "../context/FormsContext";
-import { generalInfo, service } from "../../services";
+import { generalInfo, madmpFragment } from "../../services";
 import CustomError from "../Shared/CustomError";
 import CustomSpinner from "../Shared/CustomSpinner";
 import CustomSelect from "../Shared/CustomSelect";
@@ -58,7 +58,7 @@ function FunderImport({
     }
 
     setLoading(true);
-    return service
+    return madmpFragment
       .getRegistryByName(e.registry)
       .then((res) => {
         const options = res.data.map((option) => ({
@@ -178,7 +178,7 @@ function FunderImport({
   /* This `useEffect` hook is fetching data for funding organizations and setting the options for a `Select` component. It runs only once when the
   component mounts, as the dependency array `[]` is empty. */
   useEffect(() => {
-    service.getRegistryByName("FundersWithImport").then(({ data }) => {
+    madmpFragment.getRegistryByName("FundersWithImport").then(({ data }) => {
       const options = data.map((funder, index) => ({
         value: funder.id || index,
         label: funder.label[locale],

@@ -7,7 +7,7 @@ import uniqueId from "lodash.uniqueid";
 import { FaXmark } from "react-icons/fa6";
 
 import { GlobalContext } from "../../context/GlobalContext.jsx";
-import { service } from "../../../services/index.js";
+import { madmpFragment } from "../../../services/index.js";
 import {
   createOptions,
   createRegistryPlaceholder,
@@ -107,7 +107,7 @@ function SelectMultipleString({
 
   useEffect(() => {
     if (category) {
-      service
+      madmpFragment
         .getAvailableRegistries(category, dataType, topic)
         .then((res) => {
           const registriesData = Array?.isArray(res.data)

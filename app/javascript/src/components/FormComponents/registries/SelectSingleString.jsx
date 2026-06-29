@@ -5,7 +5,7 @@ import { Tooltip as ReactTooltip } from "react-tooltip";
 import uniqueId from "lodash.uniqueid";
 import { FaXmark } from "react-icons/fa6";
 
-import { service } from "../../../services/index.js";
+import { madmpFragment } from "../../../services/index.js";
 import {
   createOptions,
   createRegistryPlaceholder,
@@ -99,7 +99,7 @@ function SelectSingleString({
    */
   useEffect(() => {
     if (category) {
-      service
+      madmpFragment
         .getAvailableRegistries(category, dataType, topic)
         .then((res) => {
           const registriesData = Array?.isArray(res.data)
