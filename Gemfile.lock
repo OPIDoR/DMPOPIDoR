@@ -79,6 +79,8 @@ GEM
       uri (>= 0.13.1)
     addressable (2.9.0)
       public_suffix (>= 2.0.2, < 8.0)
+    altcha-rails (0.1.0)
+      base64 (~> 0.2)
     annotate_gem (0.0.14)
       bundler (>= 1.1)
     annotaterb (4.22.0)
@@ -491,7 +493,6 @@ GEM
       erb
       psych (>= 4.0.0)
       tsort
-    recaptcha (5.21.2)
     redis (5.4.1)
       redis-client (>= 0.22.0)
     redis-actionpack (5.5.0)
@@ -641,6 +642,7 @@ PLATFORMS
 
 DEPENDENCIES
   activerecord-nulldb-adapter
+  altcha-rails
   annotate_gem
   annotaterb
   api-pagination
@@ -700,7 +702,6 @@ DEPENDENCIES
   rack-mini-profiler
   rails (~> 8.0)
   rails-controller-testing
-  recaptcha
   redis
   redis-actionpack
   rollbar

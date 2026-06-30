@@ -109,9 +109,17 @@ class RegistrationsController < Devise::RegistrationsController
         end
       end
 
-      # Determine if reCAPTCHA is enabled and if so verify it
-      use_recaptcha = Rails.configuration.x.recaptcha.enabled || false
-      if (!use_recaptcha || verify_recaptcha(action: 'create_account', model: resource)) && resource.save
+      # Determine if Altcha is enabled and if so verify it
+      use_altcha = Rails.configuration.x.altcha.enabled || false
+
+      submission =
+        if use_altcha
+          Altcha.verify(params[:altcha])
+        else
+          true
+        end
+
+      if submission && resource.save
         # rubocop:disable Metrics/BlockNesting
         if resource.active_for_authentication?
           set_flash_message :notice, :signed_up if is_navigational_format?
@@ -137,11 +145,9 @@ class RegistrationsController < Devise::RegistrationsController
         end
         # rubocop:enable Metrics/BlockNesting
       else
-        @show_checkbox_recaptcha = true
-        clean_up_passwords resource
-        redirect_to after_sign_up_error_path_for(resource),
-                    alert: _("Unable to create your account.#{errors_for_display(resource)}")
-
+        flash[:alert] = _('Captcha verification failed, please retry.')
+        render :new, status: :unprocessable_entity
+        return
       end
     end
   end
