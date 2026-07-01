@@ -1,7 +1,7 @@
 import { useEffect, useRef, useState } from "react";
 import styled from "styled-components";
-import { useTranslation } from "react-i18next";
-import { Button, Card, Placeholder, Spinner } from "react-bootstrap";
+import { Trans, useTranslation } from "react-i18next";
+import { Alert, Button, Card, Placeholder, Spinner } from "react-bootstrap";
 
 import InnerModal from "../Shared/InnerModal/InnerModal.jsx";
 import ImportAnswerPlaceholder from "./Placeholders/ImportAnswerPlaceholder.jsx";
