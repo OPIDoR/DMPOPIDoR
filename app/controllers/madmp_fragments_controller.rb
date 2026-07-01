@@ -170,7 +170,7 @@ class MadmpFragmentsController < ApplicationController
         imported_fragment.madmp_schema
       )
     end
-    render json: MadmpFragment.render_fragment_json(answer.madmp_fragment, answer.madmp_fragment.madmp_schema)
+    render json: MadmpFragment.render_fragment_json(answer.madmp_fragment, answer.madmp_fragment.madmp_schema).merge(answer_created: answer.previously_new_record?)
   end
   # rubocop:enable Metrics/AbcSize
 

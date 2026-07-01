@@ -32,6 +32,13 @@ const createFragment = async (
     { headers: createHeaders({}, true) },
   );
 
+const importFragment = async (researchOutputId, questionId, madmpFragmentId) =>
+  axios.post("/madmp_fragments/import", {
+    question_id: questionId,
+    research_output_id: researchOutputId,
+    madmp_fragment_id: madmpFragmentId,
+  });
+
 const destroyFragment = async (fragmentId) =>
   axios.delete(`/madmp_fragments/${fragmentId}`, {
     headers: createHeaders({}, true),
@@ -92,6 +99,7 @@ export default {
   getFragmentFromParameters,
   getNewForm,
   createFragment,
+  importFragment,
   destroyFragment,
   getSchema,
   getSchemaByName,

@@ -300,6 +300,9 @@ function Question({
                         displayedResearchOutput?.configuration?.dataType
                       }
                       className={question?.madmp_schema?.classname}
+                      setAnswer={(newAnswer) =>
+                        updateResearchOutputAnswer(questionId, newAnswer)
+                      }
                     />
                   </div>
                 )}

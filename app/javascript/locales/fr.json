@@ -280,5 +280,9 @@
   "dataset": "Jeu de données",
   "software": "Logiciel",
   "physical_object": "Object physique",
-  "noGuidanceSelected": "Aucune recommandation sélectionnée"
+  "noGuidanceSelected": "Aucune recommandation sélectionnée",
+  "importAnswer": "Importer une réponse",
+  "answerImportFormMessage": "Vous êtes sur le point d'importer une réponse utilisant le formulaire <strong>{{templateName}}</strong>",
+  "errorAnswerImport": "Un erreur s'est produite lors de l'import de la réponse",
+  "answerImportSuccess": "Réponse importée avec succès"
 }
