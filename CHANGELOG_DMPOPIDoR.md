@@ -2,6 +2,22 @@
 
 **Attention** Cette liste de changements concerne les déploiements sur nos serveurs de test en interne.
 
+## 01/07/2026
+- Migration de reCaptcha vers [https://altcha.org/](Altcha)  (#15110)
+  - Mot de passe oublié ? (formulaire de demande et formulaire de choix du mot de passe)
+  - Page: "Contacter le support technique"
+    - Désactivation de la vérification captcha si l'utilisateur est connecté
+  - Page de création de compte
+- Mise en place d'une variable d'environnement **ALTCHA_ENABLED** (par défaut ``true``)
+- Mise en place d'une variable d'environnement **ALTCHA_HMAC_KEY** pour définir la signature Altcha
+- Homogénéisation des libellés des sous formulaires (#15448)
+
+## 25/06/2026
+- Mises à jour du forulaire Produit de Recherche des plans classiques (#15396 & #15395)
+- Mise à jour du référentiel utilisé par l'import Metadore
+- Correction d'un problème de mise à jour des organismes affichés dans l'import Ror lors du choix d'un pays
+- Amélioration de la requête utilisée par l'import RoR
+
 ## 24/06/2026
 - Ajout d'un tache de génération du JSON de tous les plans structurés
 - Correction de l'édition de modèle suite à la migration vers Turbo (#15094)

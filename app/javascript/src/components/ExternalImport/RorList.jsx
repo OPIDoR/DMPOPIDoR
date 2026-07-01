@@ -78,9 +78,7 @@ function RorList({ fragment, setFragment, mapping = {}, locale }) {
     setSelectedOrg(selectedOrg === el.ror ? null : el.ror);
     const obj = {
       affiliationId: el.ror,
-      affiliationName:
-        el?.name?.[localeCode || el?.country?.code.toLowerCase()] ||
-        el?.name[Object.keys(el?.name).at(0)],
+      affiliationName: el?.name,
       affiliationIdType: el?.type,
       acronym: el.acronym || "",
     };
@@ -94,16 +92,7 @@ function RorList({ fragment, setFragment, mapping = {}, locale }) {
         const flattenedMapping = flattenObject(mapping);
 
         for (const [key, value] of Object.entries(flattenedMapping)) {
-          if (key === "name") {
-            set(
-              obj,
-              value,
-              el?.name[el?.country?.code?.toLowerCase()] ||
-                el?.name?.[Object.keys(el?.name).at(0)],
-            ) || "";
-          } else {
-            set(obj, value, matchData?.[key] || "");
-          }
+          set(obj, value, matchData?.[key] || "");
         }
       }
     }
@@ -318,8 +307,7 @@ function RorList({ fragment, setFragment, mapping = {}, locale }) {
                       )}
                     </td>
                     <td>
-                      {el?.name?.[localeCode] ||
-                        el?.name?.[Object.keys(el.name).at(0)]}
+                      {el?.name}
                       &nbsp;
                       <a
                         href={el.links[0]}

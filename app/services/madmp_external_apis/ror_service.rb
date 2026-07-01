@@ -175,8 +175,8 @@ module MadmpExternalApis
       # rubocop:disable Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
       def get_name(item:)
         item&.dig('names')
-            &.select { |name| name&.dig('types')&.include?('label') && name&.dig('lang') }
-            .to_h { |name| [name&.dig('lang')&.to_sym, name&.dig('value')] }
+            &.select { |name| name&.dig('types')&.include?('ror_display')}
+            &.map { |name| name&.dig('value') }&.first
       end
       # rubocop:enable Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
 
