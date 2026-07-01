@@ -22,6 +22,10 @@ class MadmpFragmentPolicy < ApplicationPolicy
     @record.plan.editable_by?(@user.id) || @user == @record.plan.owner
   end
 
+  def import?
+    @record.plan.editable_by?(@user.id) || @user == @record.plan.owner
+  end
+
   def destroy_contributor?
     @record.plan.editable_by?(@user.id) || @user == @record.plan.owner
   end

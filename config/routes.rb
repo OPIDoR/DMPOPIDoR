@@ -181,6 +181,7 @@ Rails.application.routes.draw do
 
   resources :madmp_fragments, only: %i[index show create update destroy] do
     get 'load_fragments', action: :load_fragments, on: :collection
+    post 'import', action: :import, on: :collection
     delete 'destroy_contributor', action: :destroy_contributor, on: :collection, constraints: { format: [:json] }
   end
 
