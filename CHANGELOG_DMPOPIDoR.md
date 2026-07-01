@@ -2,14 +2,15 @@
 
 **Attention** Cette liste de changements concerne les déploiements sur nos serveurs de test en interne.
 
-## 23/06/2026
-- Migration de reCaptcha vers [https://altcha.org/](Altcha)
+## 01/07/2026
+- Migration de reCaptcha vers [https://altcha.org/](Altcha)  (#15110)
   - Mot de passe oublié ? (formulaire de demande et formulaire de choix du mot de passe)
   - Page: "Contacter le support technique"
     - Désactivation de la vérification captcha si l'utilisateur est connecté
   - Page de création de compte
 - Mise en place d'une variable d'environnement **ALTCHA_ENABLED** (par défaut ``true``)
 - Mise en place d'une variable d'environnement **ALTCHA_HMAC_KEY** pour définir la signature Altcha
+- Homogénéisation des libellés des sous formulaires (#15448)
 
 ## 25/06/2026
 - Mises à jour du forulaire Produit de Recherche des plans classiques (#15396 & #15395)
