@@ -632,11 +632,6 @@ fr-FR:
           pb: Po
           tb: To
           zb: ZB
-  recaptcha:
-    errors:
-      recaptcha_unreachable: Oups, nous n'avons pas réussi à valider votre réponse
-        reCAPTCHA. Veuillez réessayer.
-      verification_failed: La vérification reCAPTCHA a échoué, veuillez réessayer.
   time:
     am: am
     pm: pm
