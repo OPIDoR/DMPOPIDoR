@@ -286,5 +286,9 @@
   "datasetType": "Data (dataset, image, sound, text, ...)",
   "noGuidanceSelected": "No guidance has been selected",
   "listOfPersons": "List of person responsible for research data management during a project and their roles.",
-  "assigningRoles": "Assigning a role to a person is done in the \"General information\" tab, in the \"Write Plan\" tab for the structured templates or in the \"Research Outputs\" tab for other templates."
+  "assigningRoles": "Assigning a role to a person is done in the \"General information\" tab, in the \"Write Plan\" tab for the structured templates or in the \"Research Outputs\" tab for other templates.",
+  "importAnswer": "Import an answer",
+  "answerImportFormMessage": "You're about to import a answer using the <strong>{{templateName}}</strong> form",
+  "errorAnswerImport": "An error occured when importing the answer",
+  "answerImportSuccess": "Answer succesfully imported"
 }
