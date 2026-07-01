@@ -25,7 +25,7 @@ function AnswerImportModal({
   const { t } = useTranslation();
   const { data, loading } = useFetchPlansData(dataType, className);
   const [selectedResearchOutput, setSelectedResearchOutput] = useState(null);
-  const [templateName, setTemplateName] = useState(null);
+  const [selectedAnswer, setSelectedAnswer] = useState(null);
   const [answerLoading, setAnswerLoading] = useState(true);
 
   const modalRef = useRef(null);
@@ -39,8 +39,7 @@ function AnswerImportModal({
     madmpFragment
       .getFragmentFromParameters(selectedResearchOutput.id, className)
       .then(({ data }) => {
-        console.log(data);
-        setTemplateName(data.template_name);
+        setSelectedAnswer(data);
         setAnswerLoading(false);
       })
       .catch((err) => {
@@ -92,9 +91,15 @@ function AnswerImportModal({
                   </Placeholder>
                 )}
                 {!answerLoading && (
-                  <div>
-                    {`You're about to import a answer using the ${templateName} form`}
-                  </div>
+                  <Alert variant="warning">
+                    <Trans
+                      t={t}
+                      i18nKey="answerImportFormMessage"
+                      values={{
+                        templateName: selectedAnswer.template_name,
+                      }}
+                    />
+                  </Alert>
                 )}
               </>
             )}
