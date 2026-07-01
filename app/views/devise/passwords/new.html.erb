@@ -4,7 +4,7 @@
     <% unless @user.errors[:email].empty? %>
       <div class="notification alert alert-error"><%= _('The email address you entered is not registered.') %></div>
     <% end %>
-    
+
     <h1><%= _('Forgot your password?') %></h1>
 
     <p class="start-indent"><%= _('Please enter your email below and we will send you instructions on how to reset your password.') %></p>
@@ -18,6 +18,16 @@
         <%= f.label(:email, _('Email'), class: 'form-label') %>
         <%= f.email_field(:email, class: 'form-control', "aria-required": true) %>
       </div>
+
+      <% if Rails.configuration.x.altcha.enabled %>
+        <div class="form-control mb-3">
+          <altcha-widget
+            challenge='<%= Altcha.create_challenge.to_json %>'
+            language="<%= (I18n.locale.to_s.split(/[-_]/).first.presence || "fr") %>"
+            workers="2"
+          ></altcha-widget>
+        </div>
+      <% end %>
 
       <%= f.button(_('Send'), class: "btn btn-secondary", type: "submit") %>
     <% end %>

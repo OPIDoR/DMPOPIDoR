@@ -69,6 +69,11 @@ import "./src/superAdmin/users/edit";
 import "./jquery.js";
 import "./controllers/index.js";
 
+// Altcha (reCaptcha alternative)
+import 'altcha';
+import "altcha/i18n/fr-fr";
+import "altcha/i18n/en";
+
 window.renderAlert = renderAlert;
 window.renderNotice = renderNotice;
 window.toggleSpinner = toggleSpinner;
