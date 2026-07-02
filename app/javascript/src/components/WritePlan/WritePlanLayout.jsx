@@ -9,6 +9,7 @@ import "../../i18n.js";
 
 import Driver from "../Shared/Driver/index.jsx";
 import { writePlanSteps } from "../Shared/Tours";
+import PlanTabLayout from "../Shared/Layouts/PlanTabLayout.jsx";
 
 const toastOptions = {
   duration: 5000,
@@ -16,12 +17,14 @@ const toastOptions = {
 
 function WritePlanLayout({
   planId,
+  planTitle,
   dmpId,
   locale = "en_GB",
   userId,
   commentablePlan = false,
   readonly,
   configuration = {},
+  clientsName = [],
 }) {
   const { t } = useTranslation();
 
@@ -32,6 +35,9 @@ function WritePlanLayout({
         initialDmpId={dmpId}
         initialUserId={userId}
         initialCommentablePlan={commentablePlan}
+        initialPlanTitle={planTitle}
+        initialPlanId={planId}
+        initialClients={clientsName}
       >
         <SectionsProvider>
           <Driver
@@ -39,12 +45,13 @@ function WritePlanLayout({
             steps={writePlanSteps(t)}
             locale={locale}
           >
-            <WritePlan
-              planId={planId}
-              readonly={readonly}
-              configuration={configuration}
-              className="research-outputs-tabs"
-            />
+            <PlanTabLayout>
+              <WritePlan
+                readonly={readonly}
+                configuration={configuration}
+                className="research-outputs-tabs"
+              />
+            </PlanTabLayout>
           </Driver>
           <Toaster
             position="bottom-right"

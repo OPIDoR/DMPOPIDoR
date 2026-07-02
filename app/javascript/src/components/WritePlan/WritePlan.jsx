@@ -17,9 +17,9 @@ import TooltipInfoIcon from "../FormComponents/TooltipInfoIcon";
 import ResearchOutputsSidebar from "./ResearchOutputsSidebar";
 import WritePlanPlaceholder from "./Placeholders/WritePlanPlaceholder";
 
-function WritePlan({ planId, readonly, configuration }) {
+function WritePlan({ readonly, configuration }) {
   const { t, i18n } = useTranslation();
-  const { locale, setConfiguration } = useContext(GlobalContext);
+  const { locale, setConfiguration, planId } = useContext(GlobalContext);
   const { setDisplayedResearchOutput, researchOutputs, setResearchOutputs } =
     useContext(SectionsContext);
   const [loading, setLoading] = useState(true);
