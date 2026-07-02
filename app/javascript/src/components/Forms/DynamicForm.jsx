@@ -31,7 +31,7 @@ function DynamicForm({
   readonly,
 }) {
   const { t } = useTranslation();
-  const { dmpId, locale } = useContext(GlobalContext);
+  const { dmpId, locale, setPlanTitle } = useContext(GlobalContext);
   const { formData, setFormData, loadedTemplates, setLoadedTemplates } =
     useContext(FormsContext);
   const { displayedResearchOutput } = useContext(SectionsContext);
@@ -91,9 +91,7 @@ function DynamicForm({
         return setLoading(false);
       }
       if (response?.data?.meta_fragment) {
-        // updating title outsite of react components
-        document.getElementById("plan-title").innerHTML =
-          response?.data?.meta_fragment?.title;
+        setPlanTitle(response?.data?.meta_fragment?.title);
         setFormData({
           [response?.data?.meta_fragment?.id]: {
             ...response.data.meta_fragment,
