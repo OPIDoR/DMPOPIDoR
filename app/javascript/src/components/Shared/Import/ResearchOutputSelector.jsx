@@ -8,6 +8,7 @@ import * as stylesForm from "../../assets/css/form.module.css";
 import CustomSelect from "../../Shared/CustomSelect";
 
 function ResearchOutputSelector({
+  planId = null,
   data,
   loading,
   selectedResearchOutput,
@@ -22,22 +23,24 @@ function ResearchOutputSelector({
    */
   const plans = useMemo(() => {
     if (data) {
-      return data?.map((plan) => ({
-        value: plan.id,
-        prependIcon:
-          plan.context === "research_entity" ? (
-            <FaUniversity style={{ marginRight: "8px" }} />
-          ) : (
-            <FaVial style={{ marginRight: "8px" }} />
-          ),
-        label: plan.title,
-        ...plan,
-        researchOutputs: plan.research_outputs.map((ro) => ({
-          value: ro.id,
-          label: ro.title,
-          ...ro,
-        })),
-      }));
+      return data
+        ?.filter((plan) => plan.id !== planId)
+        ?.map((plan) => ({
+          value: plan.id,
+          prependIcon:
+            plan.context === "research_entity" ? (
+              <FaUniversity style={{ marginRight: "8px" }} />
+            ) : (
+              <FaVial style={{ marginRight: "8px" }} />
+            ),
+          label: plan.title,
+          ...plan,
+          researchOutputs: plan.research_outputs.map((ro) => ({
+            value: ro.id,
+            label: ro.title,
+            ...ro,
+          })),
+        }));
     }
     return [];
   }, [data]);

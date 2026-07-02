@@ -294,6 +294,7 @@ function Question({
                     <AnswerImportModal
                       shown={showModals.import === true}
                       hide={(e) => setModalOpened(e, "import", false)}
+                      planId={planId}
                       questionId={questionId}
                       researchOutputId={displayedResearchOutput.id}
                       dataType={

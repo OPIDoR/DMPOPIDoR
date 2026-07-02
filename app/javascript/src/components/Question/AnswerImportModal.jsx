@@ -20,6 +20,7 @@ const EndButton = styled.div`
 function AnswerImportModal({
   shown,
   hide,
+  planId,
   questionId,
   researchOutputId,
   dataType = null,
@@ -113,6 +114,7 @@ function AnswerImportModal({
         {!loading && (
           <div style={{ margin: "25px" }}>
             <ResearchOutputSelector
+              planId={planId}
               data={data}
               loading={loading}
               selectedResearchOutput={selectedResearchOutput}
