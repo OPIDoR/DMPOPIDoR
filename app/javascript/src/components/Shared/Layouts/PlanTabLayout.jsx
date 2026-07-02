@@ -3,8 +3,8 @@ import { GlobalContext } from "../../context/GlobalContext";
 import { Card, Col, Row } from "react-bootstrap";
 import SharedLabelLayout from "../../SharedLabel/SharedLabelLayout";
 
-function PlanTabLayout({ children, planId, clientsName = [] }) {
-  const { planTitle } = useContext(GlobalContext);
+function PlanTabLayout({ children }) {
+  const { planTitle, planId, clients } = useContext(GlobalContext);
   return (
     <div style={{ display: "flex", flexDirection: "column" }}>
       <Row>
@@ -22,7 +22,7 @@ function PlanTabLayout({ children, planId, clientsName = [] }) {
           marginRight: "100px",
         }}
       >
-        <SharedLabelLayout planId={planId} clients={clientsName} />
+        <SharedLabelLayout planId={planId} clients={clients} />
       </div>
       <Row id="content">
         <Card style={{ border: "none", boxShadow: "none" }}>
