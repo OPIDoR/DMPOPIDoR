@@ -37,7 +37,7 @@ function FunderImport({
   isClassic,
 }) {
   const { t } = useTranslation();
-  const { setPlanTitle } = useContext(GlobalContext);
+  const { setPlanTitle, setClients } = useContext(GlobalContext);
   const { setFormData, setPersons } = useContext(FormsContext);
   const [isOpenFunderImport, setIsOpenFunderImport] = useState(true);
   const [funders, setFunders] = useState([]);
@@ -121,7 +121,7 @@ function FunderImport({
       return toast.error(errorMessage);
     }
 
-    triggerRefresh({ clients: response?.data?.clients || [] });
+    setClients(response?.data?.clients || []);
 
     toast.success(
       t("planSharedWithNames", { names: selectedFunder?.apiClient }),
@@ -143,7 +143,7 @@ function FunderImport({
       return toast.error(errorMessage);
     }
 
-    triggerRefresh({ clients: response?.data?.clients || [] });
+    setClients(response?.data?.clients || []);
 
     setFormData({
       [projectFragmentId]: {
@@ -163,13 +163,6 @@ function FunderImport({
     );
 
     setLoading(false);
-  };
-
-  const triggerRefresh = (message) => {
-    const event = new CustomEvent("trigger-refresh-shared-label", {
-      detail: { message },
-    });
-    window.dispatchEvent(event);
   };
 
   /**
