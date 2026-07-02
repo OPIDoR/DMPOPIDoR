@@ -34,7 +34,6 @@ const BUTTON_STYLE = {
 };
 
 function GeneralInfo({
-  planId,
   projectFragmentId,
   metaFragmentId,
   researchContext = "research_project",
@@ -43,7 +42,7 @@ function GeneralInfo({
   isClassic = false,
 }) {
   const { t, i18n } = useTranslation();
-  const { locale } = useContext(GlobalContext);
+  const { locale, planId } = useContext(GlobalContext);
 
   const [isTestPlan, setIsTestPlan] = useState(isTest);
 
