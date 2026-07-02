@@ -284,5 +284,7 @@
   "importAnswer": "Importer une réponse",
   "answerImportFormMessage": "Vous êtes sur le point d'importer une réponse utilisant le formulaire <strong>{{templateName}}</strong>",
   "errorAnswerImport": "Un erreur s'est produite lors de l'import de la réponse",
-  "answerImportSuccess": "Réponse importée avec succès"
+  "answerImportSuccess": "Réponse importée avec succès",
+  "listOfPersons": "Liste des personnes contribuant à la gestion des produits de recherche au cours d'un projet et leurs rôles.",
+  "assigningRoles": "L'attribution d'un rôle à une personne se fait dans l'onglet \"Informations générales\", dans l'onglet \"Rédiger\" pour les modèles structurés ou dans l'onglet \"Produits de recherche\" pour les autres modèles."
 }
