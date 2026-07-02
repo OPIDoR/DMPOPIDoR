@@ -284,5 +284,7 @@
   "software": "Software",
   "physicalObject": "Physical Object",
   "datasetType": "Data (dataset, image, sound, text, ...)",
-  "noGuidanceSelected": "No guidance has been selected"
+  "noGuidanceSelected": "No guidance has been selected",
+  "listOfPersons": "List of person responsible for research data management during a project and their roles.",
+  "assigningRoles": "Assigning a role to a person is done in the \"General information\" tab, in the \"Write Plan\" tab for the structured templates or in the \"Research Outputs\" tab for other templates."
 }
