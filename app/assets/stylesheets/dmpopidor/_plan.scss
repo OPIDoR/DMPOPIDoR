@@ -85,116 +85,6 @@
 }
 
 
-
-// ##################################
-// GENERAL INFOS 
-// ##################################
-.plan-details {
-
-  .anr-import {
-    border-radius: 20px;
-    background-color: $dark-blue;
-    padding: 20px;
-    margin-bottom: 20px;
-
-    .anr-import-heading {
-      background-color: $dark-blue;
-    }
-
-    .anr-import-content {
-      background-color: $dark-blue;
-      color: white;
-
-      .registry-info {
-        font-size: 15px;
-        color: white;
-      }
-
-      .error-zone {
-        font-weight: bold;
-        color: $rust;
-        display: none;
-      }
-    }
-  }
-
-  .project-meta {
-    @include dmpopidor-accordion-large;
-  }
-
-  .guidance-configuration {
-    border-left: 2px solid $rust;
-    border-bottom: 2px solid $very-very-light-blue;
-    border-top: 2px solid $very-very-light-blue;
-  }
-
-}
-
-// ##################################
-// PLAN DETAILS 
-// ##################################
-
-@media (min-width: 990px) and (max-width: 1450px) {
-
-  main#maincontent div.tab-content {
-    div {
-      div {
-        div.plan-details {
-          display: flex;
-          flex-direction: column;
-          align-items: center;
-
-          &>form {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-
-            &>div {
-              width: 100%;
-            }
-          }
-        }
-      }
-    }
-  }
-}
-
-@media (max-width: 767px) {
-
-  main#maincontent div.tab-content {
-    div {
-      div {
-        div.plan-details {
-          display: flex;
-          flex-direction: column;
-          align-items: center;
-
-          &>div {
-
-            &:first-of-type {
-              grid-template-rows: none;
-              grid-gap: 0;
-            }
-
-            .project-meta {
-              &:last-of-type {
-                grid-row-start: 3;
-                grid-row-end: 4;
-              }
-            }
-          }
-
-          &>form {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-          }
-        }
-      }
-    }
-  }
-}
-
 // ##################################
 // RESEARCH OUTPUTS 
 // ##################################
@@ -533,25 +423,6 @@
           h1 {
             margin: 30px;
           }
-
-          div.plan-details {
-            &>div {
-
-              &:first-of-type {
-                display: grid;
-                grid-gap: 20px;
-              }
-
-              .anr-import {
-                grid-column-start: 1;
-                grid-column-end: 3;
-              }
-
-              .project-meta {
-                height: max-content;
-              }
-            }
-          }
         }
       }
     }
@@ -565,65 +436,6 @@
   }
 }
 
-
-.plan-form {
-  .tab-content {
-    padding: 25px 25px 50px 25px;
-    border: 1px solid $dmpopidor-blue;
-  }
-
-  .form-tabs {
-    display: flex;
-    flex: 1;
-
-    li>span {
-      display: block;
-      padding: 10px 15px;
-      cursor: pointer;
-
-      i {
-        display: none;
-      }
-    }
-
-    li>span:hover,
-    li>span:focus,
-    li.active>span,
-    li.active>span:focus,
-    li.active>span:hover {
-      color: #fff;
-      border-bottom-color: transparent;
-      background-color: #fff;
-      color: $dmpopidor-blue;
-      border: 1px solid $dmpopidor-blue;
-      border-bottom-color: transparent;
-
-      i {
-        display: inline;
-      }
-    }
-  }
-
-  #no_org h3 {
-    color: $rust;
-  }
-}
-
-#available-templates {
-  .message-block {
-    color: $dmpopidor-blue;
-  }
-}
-
-// ##################################
-// REACT (TEMP) FIXES
-// ##################################
-
-#create-research-output-tabs {
-  .nav-tabs {
-    background-color: white;
-  }
-}
 
 // ##################################
 // Plan Download
