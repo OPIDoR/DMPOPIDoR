@@ -87,6 +87,7 @@ function AnswerImportModal({
       }));
     }
 
+    hide();
     return toast.success(t("answerImportSuccess"));
   };
 
