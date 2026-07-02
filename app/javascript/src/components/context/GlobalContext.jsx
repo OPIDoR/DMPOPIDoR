@@ -17,6 +17,7 @@ function Global({
   initialDmpId = null,
   initialUserId = -1,
   initialCommentablePlan = false,
+  initialPlanTitle = "",
 }) {
   const locale = initialLocale;
   const dmpId = initialDmpId;
@@ -24,6 +25,7 @@ function Global({
   const commentablePlan = initialCommentablePlan;
 
   const [configuration, setConfiguration] = useState({});
+  const [planTitle, setPlanTitle] = useState(initialPlanTitle);
 
   const contextValue = useMemo(
     () => ({
@@ -33,8 +35,10 @@ function Global({
       configuration,
       setConfiguration,
       commentablePlan,
+      planTitle,
+      setPlanTitle,
     }),
-    [locale, dmpId, userId, configuration, commentablePlan],
+    [locale, dmpId, userId, configuration, commentablePlan, planTitle],
   );
 
   return (
