@@ -2,44 +2,60 @@
 
 <% title "#{plan.title}" %>
 <% content_for :plan_tab_body do %>
-  <div class="row">
-    <div class="col-md-12">
-      <p>
-        <%= _("List of costs related to data management. Creating a cost is done in the \"Write Plan\" tab.") %>
-      </p>
+  <div class="tab-content">
+    <div class="row">
+      <div class="col-md-12">
+        <!-- render the project title -->
+        <h1 id="plan-title">
+          <%= plan.title %>
+        </h1>
+      </div>
     </div>
-    <div class="col-md-12">
-      <table class="table table-hover list-contributor linked-fragments-list">
-        <thead>
-          <tr>
-            <th scope="col"><%= _("Cost type (Title)") %></th>
-            <th scope="col" class="sorter-false"><%= _("Amount") %></th>
-            <th scope="col" class="sorter-false"><%= _("Lifecycle stage") %></th>
-          </tr>
-        </thead>
-        <tbody>
-        <% costs.each do |cost| %>
-          <% ro = ResearchOutput.where(id: cost.research_output_id).first %>
-          <% cost_title = cost.data["costType"] || "" %>
-          <% cost_title +=  " (#{cost.data["title"]})" if cost.data["title"].present?%>
-          <tr>
-            <td><%=  cost_title %></td>
-            <td><%= "#{cost.data["amount"]} #{cost.data["currency"]}"%></td>
-            <% if ro.present? %>
-              <% cost_label = form_label(
-                                cost.parent.madmp_schema.properties["cost"],
-                                LocaleService.to_gettext(locale: plan.template.locale),
-                                false
-                              ) %>
-              <td><%= "#{cost_label} - " %><b><%= ro.abbreviation %></b></td>
-            <% else %>
-              <td><%= _("General Budget") %></td>
-            <% end %>
-          </tr>
-        <% end %>
-        </tbody>
-      </table>
+    <div id="content" role="tabpanel" class="tab-pane active row col-md-12">
+      <div class="plan-content card card-default">
+        <div class="card-body">
+          <div class="row">
+            <div class="col-md-12">
+              <p>
+                <%= _("List of costs related to data management. Creating a cost is done in the \"Write Plan\" tab.") %>
+              </p>
+            </div>
+            <div class="col-md-12">
+              <table class="table table-hover list-contributor linked-fragments-list">
+                <thead>
+                  <tr>
+                    <th scope="col"><%= _("Cost type (Title)") %></th>
+                    <th scope="col" class="sorter-false"><%= _("Amount") %></th>
+                    <th scope="col" class="sorter-false"><%= _("Lifecycle stage") %></th>
+                  </tr>
+                </thead>
+                <tbody>
+                <% costs.each do |cost| %>
+                  <% ro = ResearchOutput.where(id: cost.research_output_id).first %>
+                  <% cost_title = cost.data["costType"] || "" %>
+                  <% cost_title +=  " (#{cost.data["title"]})" if cost.data["title"].present?%>
+                  <tr>
+                    <td><%=  cost_title %></td>
+                    <td><%= "#{cost.data["amount"]} #{cost.data["currency"]}"%></td>
+                    <% if ro.present? %>
+                      <% cost_label = form_label(
+                                        cost.parent.madmp_schema.properties["cost"],
+                                        LocaleService.to_gettext(locale: plan.template.locale),
+                                        false
+                                      ) %>
+                      <td><%= "#{cost_label} - " %><b><%= ro.abbreviation %></b></td>
+                    <% else %>
+                      <td><%= _("General Budget") %></td>
+                    <% end %>
+                  </tr>
+                <% end %>
+                </tbody>
+              </table>
 
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
   </div>
 <% end %>
