@@ -9,6 +9,14 @@ const getGuidancesData = async () =>
     },
   });
 
+const getNewGuidanceGroupData = async () =>
+  axios.get(`/org_admin/guidance_groups/new`, {
+    headers: {
+      Accept: "application/json",
+      "Content-Type": "application/json",
+    },
+  });
+
 const getGuidanceGroupData = async (guidanceGroupId) =>
   axios.get(`/org_admin/guidance_groups/${guidanceGroupId}`, {
     headers: {
@@ -19,5 +27,6 @@ const getGuidanceGroupData = async (guidanceGroupId) =>
 
 export default {
   getGuidancesData,
+  getNewGuidanceGroupData,
   getGuidanceGroupData,
 };

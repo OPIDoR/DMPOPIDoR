@@ -22,9 +22,13 @@ module OrgAdmin
     def new
       @guidance_groups = GuidanceGroup.where(org_id: current_user.org.id)
       @guidance_group = GuidanceGroup.new(org_id: current_user.org.id)
+      @topics = Registry.find_by(name: 'Topics')&.values || []
       authorize @guidance_group
       @locales = Language.all
-      @topics = Registry.find_by(name: 'Topics')&.values || []
+      respond_to do |format|
+        format.html
+        format.json { render json: GuidanceGroup.serialize_json_response(@guidance_group) }
+      end
     end
 
     # POST /org_admin/guidance_groups/create

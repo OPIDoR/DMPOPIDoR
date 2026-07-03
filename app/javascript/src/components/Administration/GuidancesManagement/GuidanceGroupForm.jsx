@@ -37,9 +37,11 @@ function GuidanceGroupForm() {
    * USE EFFECTS
    */
   useEffect(() => {
-    if (!isEditing) return;
+    const handleGetGuidanceGroupData = isEditing
+      ? guidancesManagement.getGuidanceGroupData(params.id)
+      : guidancesManagement.getNewGuidanceGroupData();
 
-    guidancesManagement.getGuidanceGroupData(params.id).then((res) => {
+    handleGetGuidanceGroupData.then((res) => {
       setGuidanceGroupData(res.data);
       methods.reset(res.data);
     });
