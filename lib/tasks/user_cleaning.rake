@@ -12,25 +12,28 @@ namespace :usercleaning do
     end
   end
 
-  # rubocop:disable Lint/DuplicateBranch
   desc 'Anonymize users who haven\'t been connected for five years.'
   task anonymize_users_after_5_years: :environment do
     Rails.logger.info 'Anonymizing users who have not connected for the last 5 years'
+    five_years_users = User.where('active = true and current_sign_in_at < ?', 5.years.ago - 1.month)
+    Rails.logger.info "#{five_years_users.count} users to anonymize"
 
-    User.where('active = true and last_sign_in_at < ?', 5.years.ago - 1.month).each do |user|
-      last_sign_in = user.last_sign_in_at || 5.years.ago
+    five_years_users.each do |user|
+      last_sign_in = user.current_sign_in_at || 5.years.ago
       case Date.today
       when (last_sign_in + 5.years - 1.month).to_date
+        p "Sending 1 month anonymization warning to #{user.email}"
         UserMailer.anonymization_warning(user).deliver_now
       when (last_sign_in + 5.years - 1.week).to_date
+        p "Sending 1 week anonymization warning to #{user.email}"
         UserMailer.anonymization_warning(user).deliver_now
       when (last_sign_in + 5.years - 1.day).to_date
+        p "Sending 1 day anonymization warning to #{user.email}"
         UserMailer.anonymization_warning(user).deliver_now
       else
-        p user
+        p "Archiving user: #{user.id} #{user.email}"
         user.archive # default should archive every other user : last log in > 5y
       end
     end
   end
-  # rubocop:enable Lint/DuplicateBranch
 end
