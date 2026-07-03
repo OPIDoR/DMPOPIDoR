@@ -178,7 +178,7 @@ class GuidanceGroup < ApplicationRecord
       id: guidance_group.id,
       name: guidance_group.name,
       description: guidance_group.description,
-      optional_subset: guidance_group.optional_subset.nil? || guidance_group.optional_subset == false,
+      is_default: guidance_group.is_default.nil? || guidance_group.is_default == false,
       published: guidance_group.published,
       topics: guidance_group.topics,
       data_types: guidance_group.data_types,
@@ -188,7 +188,7 @@ class GuidanceGroup < ApplicationRecord
                   { value: 0, label: 'N/C' }
                 end,
       available_languages: Language.all.map { |language| { value: language.id, label: language.name } },
-      last_updated: guidance_group.updated_at.to_date.strftime('%d/%m/%Y')
+      last_updated: guidance_group&.updated_at&.to_date&.strftime('%d/%m/%Y')
     }
   end
   # rubocop:enable Metrics/AbcSize

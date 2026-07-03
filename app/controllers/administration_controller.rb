@@ -10,7 +10,7 @@ class AdministrationController < ApplicationController
 
   def ensure_default_group(org)
     return unless org.managed?
-    return if org.guidance_groups.where(optional_subset: false).present?
+    return if org.guidance_groups.length.positive?
 
     GuidanceGroup.create_org_default(org)
   end

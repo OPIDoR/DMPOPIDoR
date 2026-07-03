@@ -36,7 +36,7 @@ function GuidanceGroupList({
           <tr>
             <th scope="col">{t("name")}</th>
             <th scope="col">{t("status")}</th>
-            <th scope="col">{t("optionalSubset")}</th>
+            <th scope="col">{t("default")}</th>
             <th scope="col">{t("dataTypesTopics")}</th>
             <th scope="col">{t("locale")}</th>
             <th scope="col">{t("lastUpdated")}</th>
@@ -52,7 +52,7 @@ function GuidanceGroupList({
                   {group.published ? t("published") : t("unpublished")}
                 </td>
                 <td className={tablesStyles.table_row}>
-                  {group.optional_subset ? t("yes") : t("no")}
+                  {group.is_default ? t("yes") : t("no")}
                 </td>
                 <td className={tablesStyles.table_row}>
                   {`${group.data_types.join(", ")} / ${group.topics.join(", ")}`}
