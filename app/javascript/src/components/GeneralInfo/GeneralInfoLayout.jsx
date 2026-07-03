@@ -1,6 +1,8 @@
 import { StrictMode } from "react";
 
 import Global from "../context/GlobalContext.jsx";
+import SectionsProvider from "../context/SectionsContext.jsx";
+
 import GeneralInfo from "./GeneralInfo.jsx";
 import GuidanceSelector from "../GuidanceSelection/GuidanceSelector.jsx";
 import "../../i18n.js";
@@ -25,7 +27,9 @@ function GeneralInfoLayout({
     <StrictMode>
       <Global initialLocale={locale} initialDmpId={dmpId}>
         {isClassic && !readonly && (
-          <GuidanceSelector planId={planId} context={"plan"} />
+          <SectionsProvider>
+            <GuidanceSelector planId={planId} context={"plan"} />
+          </SectionsProvider>
         )}
         <GeneralInfo
           planId={planId}

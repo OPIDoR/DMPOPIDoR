@@ -3,7 +3,9 @@
     "$id": "../Documentation/Implementation/data_model/Json/",
     "title": "LegalIssuesStandard",
     "description": "LegalIssuesStandard template",
-    "dataTypes": null,
+    "dataTypes": [
+        "dataset"
+    ],
     "topics": null,
     "type": "object",
     "class": "LegalIssuesStandard",

@@ -1,7 +1,7 @@
 GEM
   remote: https://rubygems.org/
   specs:
-    action_text-trix (2.1.18)
+    action_text-trix (2.1.19)
       railties
     actioncable (8.1.3)
       actionpack (= 8.1.3)
@@ -79,13 +79,19 @@ GEM
       uri (>= 0.13.1)
     addressable (2.9.0)
       public_suffix (>= 2.0.2, < 8.0)
+    altcha-rails (0.1.0)
+      base64 (~> 0.2)
     annotate_gem (0.0.14)
       bundler (>= 1.1)
     annotaterb (4.22.0)
       activerecord (>= 6.0.0)
       activesupport (>= 6.0.0)
+    anonymous_loader (0.1.2)
+      version_gem (~> 1.1, >= 1.1.13)
     api-pagination (7.1.0)
     ast (2.4.3)
+    auth-sanitizer (0.2.2)
+      version_gem (~> 1.1, >= 1.1.10)
     autoprefixer-rails (10.4.21.0)
       execjs (~> 2)
     base64 (0.3.0)
@@ -98,12 +104,12 @@ GEM
     bindex (0.8.1)
     binding_of_caller (2.0.0)
       debug_inspector (>= 1.2.0)
-    bootsnap (1.24.3)
+    bootsnap (1.24.6)
       msgpack (~> 1.2)
-    brakeman (8.0.4)
+    brakeman (8.0.5)
       racc
     builder (3.3.0)
-    bullet (8.1.1)
+    bullet (8.1.3)
       activesupport (>= 3.0.0)
       uniform_notifier (~> 1.11)
     bundle-audit (0.2.0)
@@ -123,7 +129,7 @@ GEM
       regexp_parser (>= 1.5, < 3.0)
       xpath (~> 3.2)
     coderay (1.1.3)
-    concurrent-ruby (1.3.6)
+    concurrent-ruby (1.3.7)
     connection_pool (3.0.2)
     contact_us (1.2.0)
       rails (>= 4.2.0)
@@ -139,16 +145,16 @@ GEM
     database_cleaner-active_record (2.2.2)
       activerecord (>= 5.a)
       database_cleaner-core (~> 2.0)
-    database_cleaner-core (2.0.1)
+    database_cleaner-core (2.1.0)
     date (3.5.1)
     debug_inspector (1.2.0)
-    devise (5.0.3)
+    devise (5.0.4)
       bcrypt (~> 3.0)
       orm_adapter (~> 0.1)
       railties (>= 7.0)
       responders
       warden (~> 1.2.3)
-    devise_invitable (2.0.11)
+    devise_invitable (2.0.12)
       actionmailer (>= 5.0)
       devise (>= 4.6)
     diff-lcs (1.6.2)
@@ -169,7 +175,7 @@ GEM
     erubi (1.13.1)
     et-orbi (1.4.0)
       tzinfo
-    excon (1.4.2)
+    excon (1.5.0)
       logger
     execjs (2.10.1)
     factory_bot (6.6.0)
@@ -179,16 +185,17 @@ GEM
       railties (>= 6.1.0)
     faker (3.8.0)
       i18n (>= 1.8.11, < 2)
-    faraday (2.14.1)
+    faraday (2.14.3)
       faraday-net_http (>= 2.0, < 3.5)
       json
       logger
-    faraday-net_http (3.4.2)
+    faraday-net_http (3.4.4)
       net-http (~> 0.5)
     ffi (1.17.4-x86_64-linux-gnu)
     fiber-storage (1.0.1)
     fiddle (1.1.8)
-    flag_shih_tzu (0.3.23)
+    flag_shih_tzu (1.0.2)
+      version_gem (~> 1.1, >= 1.1.11)
     fog-aws (3.33.2)
       base64 (>= 0.2, < 0.4)
       fog-core (~> 2.6)
@@ -210,7 +217,7 @@ GEM
     formatador (1.2.3)
       reline
     forwardable (1.4.0)
-    fugit (1.12.1)
+    fugit (1.12.2)
       et-orbi (~> 1.4)
       raabro (~> 1.4)
     fuubar (2.5.1)
@@ -222,9 +229,9 @@ GEM
       prime
       racc
       text (>= 1.3.0)
-    globalid (1.3.0)
+    globalid (1.4.0)
       activesupport (>= 6.1)
-    good_job (4.18.2)
+    good_job (4.19.0)
       activejob (>= 6.1.0)
       activerecord (>= 6.1.0)
       concurrent-ruby (>= 1.3.1)
@@ -233,7 +240,7 @@ GEM
       thor (>= 1.0.0)
     graphiql-rails (1.10.5)
       railties
-    graphql (2.6.1)
+    graphql (2.6.3)
       base64
       fiber-storage
       logger
@@ -265,11 +272,9 @@ GEM
       csv
       mini_mime (>= 1.0.0)
       multi_xml (>= 0.5.2)
-    i18n (1.14.8)
+    i18n (1.15.2)
       concurrent-ruby (~> 1.0)
-    image_processing (1.14.0)
-      mini_magick (>= 4.9.5, < 6)
-      ruby-vips (>= 2.0.17, < 3)
+    image_processing (2.0.2)
     inline_svg (1.10.0)
       activesupport (>= 3.0)
       nokogiri (>= 1.6)
@@ -279,12 +284,12 @@ GEM
       prism (>= 1.3.0)
       rdoc (>= 4.0.0)
       reline (>= 0.4.2)
-    jbuilder (2.14.1)
+    jbuilder (2.15.1)
       actionview (>= 7.0.0)
       activesupport (>= 7.0.0)
     jsbundling-rails (1.3.1)
       railties (>= 6.0.0)
-    json (2.19.5)
+    json (2.20.0)
     json_schemer (2.5.0)
       bigdecimal
       hana (~> 1.3)
@@ -292,7 +297,7 @@ GEM
       simpleidn (~> 0.2)
     jsonpath (1.1.5)
       multi_json
-    jwt (3.1.2)
+    jwt (3.2.0)
       base64
     kaminari (1.2.2)
       activesupport (>= 4.1.0)
@@ -327,29 +332,27 @@ GEM
       net-imap
       net-pop
       net-smtp
-    marcel (1.1.0)
+    marcel (1.2.1)
     matrix (0.4.3)
     method_source (1.1.0)
     mime-types (3.7.0)
       logger
       mime-types-data (~> 3.2025, >= 3.2025.0507)
     mime-types-data (3.2026.0414)
-    mini_magick (5.3.1)
-      logger
     mini_mime (1.1.5)
     minitest (6.0.6)
       drb (~> 2.0)
       prism (~> 1.5)
     mocha (3.1.0)
       ruby2_keywords (>= 0.0.5)
-    msgpack (1.8.0)
+    msgpack (1.8.3)
     multi_json (1.21.1)
     multi_xml (0.9.1)
       bigdecimal (>= 3.1, < 5)
     nenv (0.3.0)
     net-http (0.9.1)
       uri (>= 0.11.1)
-    net-imap (0.6.4)
+    net-imap (0.6.4.1)
       date
       net-protocol
     net-pop (0.1.2)
@@ -359,19 +362,21 @@ GEM
     net-smtp (0.5.1)
       net-protocol
     nio4r (2.7.5)
-    nokogiri (1.19.3-x86_64-linux-gnu)
+    nokogiri (1.19.4-x86_64-linux-gnu)
       racc (~> 1.4)
     notiffany (0.1.3)
       nenv (~> 0.1)
       shellany (~> 0.0)
-    oauth2 (2.0.18)
+    oauth2 (2.0.24)
+      anonymous_loader (~> 0.1, >= 0.1.1)
+      auth-sanitizer (~> 0.2, >= 0.2.2)
       faraday (>= 0.17.3, < 4.0)
       jwt (>= 1.0, < 4.0)
       logger (~> 1.2)
       multi_xml (~> 0.5)
       rack (>= 1.2, < 4)
-      snaky_hash (~> 2.0, >= 2.0.3)
-      version_gem (~> 1.1, >= 1.1.9)
+      snaky_hash (~> 2.0, >= 2.0.6)
+      version_gem (~> 1.1, >= 1.1.12)
     omniauth (2.1.4)
       hashie (>= 3.4.6)
       logger
@@ -396,7 +401,7 @@ GEM
       ast (~> 2.4.1)
       racc
     pg (1.6.3-x86_64-linux)
-    pp (0.6.3)
+    pp (0.6.4)
       prettyprint
     prettyprint (0.2.0)
     prime (0.1.4)
@@ -414,11 +419,11 @@ GEM
       coderay (~> 1.1)
       method_source (~> 1.0)
       reline (>= 0.6.0)
-    psych (5.3.1)
+    psych (5.4.0)
       date
       stringio
     public_suffix (7.0.5)
-    puma (8.0.1)
+    puma (8.0.2)
       nio4r (~> 2.0)
     pundit (2.5.2)
       activesupport (>= 3.0.0)
@@ -488,14 +493,13 @@ GEM
       erb
       psych (>= 4.0.0)
       tsort
-    recaptcha (5.21.2)
     redis (5.4.1)
       redis-client (>= 0.22.0)
     redis-actionpack (5.5.0)
       actionpack (>= 5)
       redis-rack (>= 2.1.0, < 4)
       redis-store (>= 1.1.0, < 2)
-    redis-client (0.28.0)
+    redis-client (0.30.0)
       connection_pool
     redis-rack (3.0.0)
       rack-session (>= 0.2.0)
@@ -509,8 +513,9 @@ GEM
       actionpack (>= 7.0)
       railties (>= 7.0)
     rexml (3.4.4)
-    rollbar (3.7.0)
-    rouge (4.7.0)
+    rollbar (3.8.0)
+    rouge (5.0.0)
+      strscan (~> 3.1)
     rspec-collection_matchers (1.2.1)
       rspec-expectations (>= 2.99.0.beta1)
     rspec-core (3.13.6)
@@ -536,7 +541,7 @@ GEM
     rswag-ui (2.17.0)
       actionpack (>= 5.2, < 8.2)
       railties (>= 5.2, < 8.2)
-    rubocop (1.86.1)
+    rubocop (1.88.0)
       json (~> 2.3)
       language_server-protocol (~> 3.17.0.2)
       lint_roller (~> 1.1.0)
@@ -558,34 +563,32 @@ GEM
       rubocop (>= 1.75.0, < 2.0)
       rubocop-ast (>= 1.47.1, < 2.0)
     ruby-progressbar (1.13.0)
-    ruby-vips (2.3.0)
-      ffi (~> 1.12)
-      logger
     ruby2_keywords (0.0.5)
     ruby_dig (0.0.2)
-    rubyzip (3.3.0)
+    rubyzip (3.4.0)
     securerandom (0.4.1)
-    selenium-webdriver (4.43.0)
+    selenium-webdriver (4.45.0)
       base64 (~> 0.2)
       logger (~> 1.4)
       rexml (~> 3.2, >= 3.2.5)
       rubyzip (>= 1.2.2, < 4.0)
       websocket (~> 1.0)
     shellany (0.0.1)
-    shoulda-matchers (7.0.1)
-      activesupport (>= 7.1)
+    shoulda-matchers (8.0.1)
+      activesupport (>= 7.2)
     simpleidn (0.2.3)
     singleton (0.3.0)
-    snaky_hash (2.0.3)
+    snaky_hash (2.0.6)
       hashie (>= 0.1.0, < 6)
       version_gem (>= 1.1.8, < 3)
-    spring (4.5.0)
+    spring (4.7.0)
     spring-commands-rspec (1.0.4)
       spring (>= 0.9.1)
     spring-watcher-listen (2.1.0)
       listen (>= 2.7, < 4.0)
       spring (>= 4)
     stringio (3.2.0)
+    strscan (3.1.8)
     text (1.3.1)
     thor (1.5.0)
     timeout (0.6.1)
@@ -606,7 +609,7 @@ GEM
     uniform_notifier (1.18.0)
     uri (1.1.1)
     useragent (0.16.11)
-    version_gem (1.1.9)
+    version_gem (1.1.13)
     warden (1.2.9)
       rack (>= 2.0.9)
     web-console (4.3.0)
@@ -618,7 +621,7 @@ GEM
       crack (>= 0.3.2)
       hashdiff (>= 0.4.0, < 2.0.0)
     websocket (1.2.11)
-    websocket-driver (0.8.0)
+    websocket-driver (0.8.2)
       base64
       websocket-extensions (>= 0.1.0)
     websocket-extensions (0.1.5)
@@ -628,17 +631,18 @@ GEM
     wkhtmltopdf-binary (0.12.6.10)
     xpath (3.2.0)
       nokogiri (~> 1.8)
-    yard (0.9.43)
+    yard (0.9.44)
     yard-tomdoc (0.7.1)
       tomparse (>= 0.4.0)
       yard
-    zeitwerk (2.7.5)
+    zeitwerk (2.8.2)
 
 PLATFORMS
   x86_64-linux
 
 DEPENDENCIES
   activerecord-nulldb-adapter
+  altcha-rails
   annotate_gem
   annotaterb
   api-pagination
@@ -698,7 +702,6 @@ DEPENDENCIES
   rack-mini-profiler
   rails (~> 8.0)
   rails-controller-testing
-  recaptcha
   redis
   redis-actionpack
   rollbar
@@ -727,7 +730,7 @@ DEPENDENCIES
   yard-tomdoc
 
 RUBY VERSION
-   ruby 3.4.4p34
+  ruby 4.0.5
 
 BUNDLED WITH
-   2.5.23
+  4.0.14

@@ -2,6 +2,11 @@
 
 # rubocop:disable Naming/VariableNumber
 namespace :dmpopidor_upgrade do
+  desc 'Upgrade to 4.4.1'
+  task V4_4_1: :environment do
+    Rake::Task['dmpopidor_upgrade:generate_public_json_plans'].execute
+    Rake::Task['dmpopidor_upgrade:generate_structured_json_plans'].execute
+  end
   desc 'Upgrade to 4.4.0'
   task V4_4_0: :environment do
     Rake::Task['dmpopidor_upgrade:migrate_context_to_plans'].execute
@@ -47,6 +52,24 @@ namespace :dmpopidor_upgrade do
   desc 'Upgrade to 2.3.0'
   task v2_3_0: :environment do
     Rake::Task['dmpopidor_upgrade:close_existing_feedback_plans'].execute
+  end
+
+  desc 'Generate JSONPlan record for public plans'
+  task generate_public_json_plans: :environment do
+    Plan.publicly_visible.each do |plan|
+      p "########### Generating JSON plan for plan #{plan.id} ###########"
+      JsonPlanJob.perform_now(plan_id: plan.id)
+    end
+  end
+
+  desc 'Generate JSONPlan record for structured plans'
+  task generate_structured_json_plans: :environment do
+    Plan.includes(:template).where(template: { type: 'structured' }).each do |plan|
+      next if JsonPlan.exists?(plan_id: plan.id)
+
+      p "########### Generating JSON plan for plan #{plan.id} ###########"
+      JsonPlanJob.perform_now(plan_id: plan.id)
+    end
   end
 
   desc 'Migrate default data type values for guidance groups, registries, themes, templates and madmp schemas'

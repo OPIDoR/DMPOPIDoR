@@ -442,6 +442,7 @@ fr-FR:
         application_trace:
         full_trace:
         in_queue:
+        recovery:
         runtime:
         title:
       force_discard:
@@ -467,10 +468,10 @@ fr-FR:
           destroy_all:
           discard_all:
           reschedule_all:
-          retry_all:
+          retry_all: Réessayer tout
           title: Actions
-        no_jobs_found:
-        toggle_actions:
+        no_jobs_found: Aucun job trouvé
+        toggle_actions: Afficher/masquer les actions
         toggle_all_jobs:
     models:
       batch:
@@ -482,7 +483,7 @@ fr-FR:
         enqueued_at:
         finished:
         finished_at:
-        jobs:
+        jobs: Jobs
         name: Nom
       cron:
         class:
@@ -521,7 +522,7 @@ fr-FR:
         disabled:
         job_class:
         label: Libellé
-        pause:
+        pause: Pause
         queue:
         title:
         type:
@@ -560,6 +561,7 @@ fr-FR:
         all_queues:
         clear:
         job_name:
+        label: Libellé
         placeholder:
         queue_name:
         search: Rechercher
@@ -630,11 +632,6 @@ fr-FR:
           pb: Po
           tb: To
           zb: ZB
-  recaptcha:
-    errors:
-      recaptcha_unreachable: Oups, nous n'avons pas réussi à valider votre réponse
-        reCAPTCHA. Veuillez réessayer.
-      verification_failed: La vérification reCAPTCHA a échoué, veuillez réessayer.
   time:
     am: am
     pm: pm

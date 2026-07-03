@@ -82,7 +82,7 @@ class ClassicResearchOutputsController < ApplicationController
       research_output_description.contact.update(
         data: {
           'person' => contact_id.present? ? { 'dbid' => contact_id } : nil,
-          'role' => _('Data contact')
+          'role' => _('Contact Person')
         }
       )
       render turbo_stream: turbo_stream.replace(@research_output, partial: 'research_outputs/research_output',

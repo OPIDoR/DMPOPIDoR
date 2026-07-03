@@ -246,12 +246,14 @@ class ResearchOutput < ApplicationRecord
 
   def update_description(contains_personal_data: true)
     research_output_description = json_fragment.research_output_description
-    updated_data = research_output_description.data.merge({
-                                                            title:,
-                                                            shortName: abbreviation,
-                                                            type: output_type_description,
-                                                            containsPersonalData: contains_personal_data ? _('Yes') : _('No') # rubocop:disable Layout/LineLength
-                                                          })
+    data_type = json_fragment.additional_info['dataType']
+    new_description_data = { title:, shortName: abbreviation }
+    if data_type.eql?('dataset')
+      new_description_data[:containsPersonalData] =
+        contains_personal_data ? _('Yes') : _('No')
+    end
+
+    updated_data = research_output_description.data.merge(new_description_data)
     research_output_description.update(data: updated_data)
     research_output_description.update_research_output_parameters(skip_broadcast: true)
     research_output_description

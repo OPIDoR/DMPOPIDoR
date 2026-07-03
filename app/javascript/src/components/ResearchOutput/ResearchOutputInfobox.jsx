@@ -8,7 +8,12 @@ import { useTranslation } from "react-i18next";
 import { TailSpin } from "react-loader-spinner";
 
 import { SectionsContext } from "../context/SectionsContext.jsx";
-import { displayPersonalData, displayTopics } from "../../utils/GeneratorUtils";
+import { GlobalContext } from "../context/GlobalContext.jsx";
+import {
+  DATA_TYPE_LABELS,
+  displayPersonalData,
+  displayTopics,
+} from "../../utils/GeneratorUtils";
 
 function ResearchOutputInfobox({
   handleEdit,
@@ -19,6 +24,7 @@ function ResearchOutputInfobox({
   readonly,
 }) {
   const { t } = useTranslation();
+  const { configuration } = useContext(GlobalContext);
   const { researchOutputs, displayedResearchOutput } =
     useContext(SectionsContext);
 
@@ -172,10 +178,11 @@ function ResearchOutputInfobox({
             {t("name")} : <strong>{displayedResearchOutput.title}</strong>
           </li>
           <li>
-            {t("type")} : <strong>{t(dataType || "-")}</strong>
+            {t("questionnaire")} :{" "}
+            <strong>{t(DATA_TYPE_LABELS[dataType] || "-")}</strong>
           </li>
 
-          {dataType && displayTopics(dataType) && (
+          {dataType && displayTopics(dataType, configuration.enableTopics) && (
             <li>
               {t("topic")} :{" "}
               <strong>{displayedResearchOutput.topic_label}</strong>

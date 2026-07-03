@@ -15,7 +15,6 @@ module FragmentImport
       next if sub_data.nil?
 
       schema_prop = schema.schema['properties'][prop]
-      fragmented_data = import_data if prop.eql?('custom_value')
       next if schema_prop&.dig('type').nil?
 
       if schema_prop['type'].eql?('object') &&
@@ -95,7 +94,7 @@ module FragmentImport
     fragmented_data.try(:permit!)
     update!(
       data: data.merge(fragmented_data),
-      additional_info: additional_info.except!('custom_value')
+      additional_info:
     )
 
     self # return self
@@ -172,7 +171,7 @@ module FragmentImport
     reload
     update!(
       data: data.merge(fragmented_data),
-      additional_info: additional_info.except!('custom_value')
+      additional_info:
     )
     self # return self
   end
@@ -265,7 +264,7 @@ module FragmentImport
     reload
     update!(
       data: data.merge(fragmented_data),
-      additional_info: additional_info.except!('custom_value')
+      additional_info:
     )
     self # return self
   end

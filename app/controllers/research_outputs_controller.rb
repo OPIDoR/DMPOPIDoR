@@ -28,6 +28,7 @@ class ResearchOutputsController < ApplicationController
       created_ro = @plan.research_outputs.create!(
         abbreviation: attrs[:abbreviation] || "#{_('RO')} #{max_order}",
         title: attrs[:title] || "#{_('Research output')} #{max_order}",
+        output_type: params[:configuration][:dataType],
         output_type_description: params[:type],
         topic: attrs[:topic] || 'generic',
         is_default: false, display_order: max_order
@@ -59,8 +60,7 @@ class ResearchOutputsController < ApplicationController
 
       @research_output.update!(
         abbreviation: params[:abbreviation],
-        title: params[:title],
-        output_type_description: params[:type]
+        title: params[:title]
       )
       research_output_description = @research_output.update_description(
         contains_personal_data: params[:configuration][:hasPersonalData]
@@ -68,7 +68,8 @@ class ResearchOutputsController < ApplicationController
       PlanChannel.broadcast_to(plan, {
                                  target: 'dynamic_form',
                                  fragment_id: research_output_description.id,
-                                 payload: research_output_description.get_full_fragment(with_ids: true)
+                                 payload: research_output_description.get_full_fragment(with_ids: true,
+                                                                                        with_template_name: true)
                                })
 
       render json: {
@@ -154,7 +155,7 @@ class ResearchOutputsController < ApplicationController
         target_plan,
         template
       )
-      research_output_copy.update_description
+      research_output_copy.update_description(contains_personal_data: research_output.personal_data?)
 
       # If the RO is duplicated through the UI, copy the guidance groups associated to the target RO
 
@@ -343,6 +344,15 @@ class ResearchOutputsController < ApplicationController
     internal_server_error("Internal server error - #{e.message}")
   end
   # rubocop:enable Metrics/MethodLength, Metrics/AbcSize
+
+  def sort
+    @plan = Plan.find(params[:plan_id])
+    authorize @plan
+    params[:updated_order].each_with_index do |id, index|
+      ResearchOutput.find(id).update(display_order: index + 1)
+    end
+    head :ok
+  end
 
   private
 

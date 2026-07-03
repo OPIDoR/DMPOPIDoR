@@ -43,6 +43,26 @@ namespace :data_migration do
     p '------------------------------------------------------------------------'
     p 'Upgrade complete'
   end
+
+  desc 'Clean unexistant metadataStandard in Host'
+  task clean_unexistant_metadatastandard: :environment do
+    p 'Cleaning unexistant metadataStandard in Host'
+    p '------------------------------------------------------------------------'
+    Fragment::Host.all.each do |h|
+      next if h.data['metadataStandard'].is_a?(Array)
+
+      updated_data = h.data.clone
+      metadata_standard_id = h.data.dig('metadataStandard', 'dbid')
+      next if metadata_standard_id.nil?
+
+      updated_data.delete('metadataStandard') unless MadmpFragment.exists?(metadata_standard_id)
+
+      h.update_column(:data, updated_data)
+    end
+    p '------------------------------------------------------------------------'
+    p 'Done'
+  end
+
   desc 'Update ORCID idTypes in Person fragments from "ORCID iD" to "ORCID"'
   task update_orcid_id_types: :environment do
     p 'Updating ORCID idTypes in Person fragments...'

@@ -480,5 +480,25 @@
         "topics": null,
         "category": "Topic",
         "path": "Topics.json"
+    },
+    "DataCiteDataTypes": {
+        "dataTypes": [
+            "dataset",
+            "software",
+            "physical_object"
+        ],
+        "topics": null,
+        "category": "DataCite",
+        "path": "DataCiteDataTypes.json"
+    },
+    "ClassicResearchDataTypes": {
+        "dataTypes": [
+            "dataset",
+            "software",
+            "physical_object"
+        ],
+        "topics": null,
+        "category": "ClassicResearchDataType",
+        "path": "ClassicResearchDataTypes.json"
     }
 }

@@ -52,7 +52,12 @@ function RunsModal({ shown, hide, scriptsData, fragmentId }) {
       .runScript(fragmentId, scriptName)
       .then((res) => {
         if (res.data.needs_reload) {
-          setFormData({ [fragmentId]: res.data.fragment });
+          setFormData({
+            [fragmentId]: {
+              ...res.data.fragment,
+              template_name: res.data.template_name,
+            },
+          });
           setSuccess(t("newDataAvailableInForm"));
         } else {
           setSuccess(res.data.message);

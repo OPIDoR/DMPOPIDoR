@@ -2,7 +2,7 @@
 
 source 'https://rubygems.org'
 
-ruby '>= 3.4'
+ruby '>= 4.0'
 
 # ===========#
 # CORE RAILS #
@@ -127,9 +127,6 @@ gem 'ledermann-rails-settings'
 # (https://github.com/jdutil/contact_us)
 gem 'contact_us' # COULD BE EASILY REPLACED WITH OUR OWN CODE
 
-# Helpers for the reCAPTCHA API (http://github.com/ambethia/recaptcha)
-gem 'recaptcha'
-
 # Ideal gem for handling attachments in Rails, Sinatra and Rack applications.
 # (http://github.com/markevans/dragonfly)
 gem 'dragonfly'
@@ -232,7 +229,7 @@ gem 'net-smtp'
 
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
-  gem 'byebug', platforms: %i[mri mingw x64_mingw]
+  gem 'byebug', platforms: %i[mri windows]
 end
 
 group :test do
@@ -373,3 +370,5 @@ gem 'graphql', '~> 2.3'
 gem 'foreman'
 
 gem 'good_job'
+
+gem 'altcha-rails'

@@ -360,10 +360,6 @@
             "fr_FR": "Jeu de données"
         },
         {
-            "en_GB": "Software",
-            "fr_FR": "Logiciel"
-        },
-        {
             "en_GB": "Model",
             "fr_FR": "Modèle"
         },
@@ -566,6 +562,10 @@
         {
             "fr_FR": "Test",
             "en_GB": "Testing"
+        },
+        {
+            "fr_FR": "Autre",
+            "en_GB": "Other"
         }
     ],
     "SoftwareTestTypes": [

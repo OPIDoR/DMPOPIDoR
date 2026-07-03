@@ -39,8 +39,6 @@ services:
       - SECRET_KEY=${SECRET_KEY:-my_secret_key}
       - DEVISE_PEPPER=${DEVISE_PEPPER:-my_pepper}
       - DRAGON_FLY_SECRET=${DRAGON_FLY_SECRET:-my_secret_key}
-      - RECAPTCHA_SITE_KEY=${RECAPTCHA_SITE_KEY:-11111}
-      - RECAPTCHA_SECRET_KEY=${RECAPTCHA_SECRET_KEY:-22222}
       - REDIS_URL=redis://${REDIS_USERNAME:-default}:${REDIS_PASSWORD:-changeme}@${REDIS_HOST:-valkey}:${REDIS_PORT:-6379}
       - REDIS_HOST=${REDIS_HOST:-valkey}
       - REDIS_PORT=${REDIS_PORT:-6379}
@@ -56,6 +54,7 @@ services:
       - TRANSLATION_API_ROADMAP
       - TRANSLATION_API_CLIENT
       - DEFAULT_LOCALE
+      - ALTCHA_HMAC_KEY
       # MetaDoRe API
       - METADORE_LANDING_PAGE_URL
       - METADORE_API_BASE_URL
@@ -67,6 +66,7 @@ services:
       - DIRECTUS_PUBLIC_URL=http://${DMP_SERVER_NAME:-0.0.0.0}:${NGINX_PORT:-8080}/directus
       - ENABLE_GRAPHIQL=true
       - ENABLE_TOPICS=${ENABLE_TOPICS:-true}
+      - ENABLE_PHYSICAL_OBJECT=${ENABLE_PHYSICAL_OBJECT:-true}
     working_dir: /app
     volumes:
       - ./log:/app/log

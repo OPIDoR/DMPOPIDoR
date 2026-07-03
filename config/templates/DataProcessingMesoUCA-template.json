@@ -3,7 +3,9 @@
     "$id": "../Documentation/Implementation/data_model/Json/",
     "title": "DataProcessingMesoUCA",
     "description": "DataProcessingMesoUCA template",
-    "dataTypes": null,
+    "dataTypes": [
+        "dataset"
+    ],
     "topics": null,
     "type": "object",
     "class": "DataProcessingMesoUCA",
