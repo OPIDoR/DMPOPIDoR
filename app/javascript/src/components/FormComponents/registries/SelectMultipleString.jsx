@@ -37,7 +37,7 @@ function SelectMultipleString({
   const { control } = useFormContext();
   const { field } = useController({ control, name: propName });
   const [error, setError] = useState(null);
-  const [selectedRegistry, setSelectedRegistry] = useState(null);
+  const [selectedRegistry, setSelectedRegistry] = useState(registries[0]);
   const [availableRegistries, setAvailableRegistries] = useState(registries);
 
   /**
@@ -72,6 +72,8 @@ function SelectMultipleString({
    * @param e - the event object
    */
   const handleSelectRegistryValue = (e) => {
+    if (selectedValues.includes(e.value)) return;
+
     const newList = [...(selectedValues || []), e.value];
     field.onChange(newList);
   };
