@@ -41,8 +41,6 @@ function SelectSingleString({
   const [selectedRegistry, setSelectedRegistry] = useState(null);
   const [availableRegistries, setAvailableRegistries] = useState(registries);
 
-  let selectedOption = { value: "", label: "" };
-
   /**
    * Memoized values
    */
@@ -60,6 +58,18 @@ function SelectSingleString({
     [registryValues, locale],
   );
 
+  const selectedOption = useMemo(() => {
+    if (!field.value) return null;
+    if (!options) return null;
+
+    const selectedOpt = options.find((o) => o.value === field.value) || null;
+    if (selectedOpt === null && overridable === true) {
+      return { value: field.value, label: field.value };
+    } else {
+      return selectedOpt;
+    }
+  }, [field.value, options, overridable]);
+
   /**
    * It takes the value of the input field and adds it to the list array.
    * @param e - the event object
@@ -76,23 +86,6 @@ function SelectSingleString({
   const handleSelectRegistry = (e) => {
     setSelectedRegistry(e.value);
   };
-
-  /**
-   * SET STATES
-   */
-
-  if (options) {
-    if (field.value) {
-      const selectedOpt = options.find((o) => o.value === field.value) || null;
-      if (selectedOpt === null && overridable === true) {
-        selectedOption = { value: field.value, label: field.value };
-      } else {
-        selectedOption = selectedOpt;
-      }
-    } else {
-      selectedOption = null;
-    }
-  }
 
   /**
    * USE EFFECTS
