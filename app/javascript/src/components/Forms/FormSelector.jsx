@@ -5,7 +5,7 @@ import { FaXmark } from "react-icons/fa6";
 
 import * as styles from "../assets/css/form_selector.module.css";
 import CustomSpinner from "../Shared/CustomSpinner";
-import service from "../../services/service";
+import { madmpFragment } from "../../services/index.js";
 import { FormsContext } from "../context/FormsContext";
 import CustomSelect from "../Shared/CustomSelect";
 
@@ -38,7 +38,7 @@ function FormSelector({
   const handleSelectTemplate = (e) => {
     setSelectedTemplate(e.object);
     setLoading(true);
-    service
+    madmpFragment
       .getSchemaByName(e.object.name)
       .then((res) => {
         setTemplateName(e.object.name);
@@ -53,7 +53,7 @@ function FormSelector({
    */
 
   useEffect(() => {
-    service
+    madmpFragment
       .getAvailableForms(classname, dataType, topic)
       .then(({ data }) => {
         setAvailableTemplates(data);

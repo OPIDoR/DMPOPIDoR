@@ -6,7 +6,7 @@ import uniqueId from "lodash.uniqueid";
 import { FaPenToSquare, FaPlus, FaEye, FaXmark } from "react-icons/fa6";
 import Swal from "sweetalert2";
 
-import { service } from "../../../services/index.js";
+import { madmpFragment } from "../../../services/index.js";
 import {
   createRegistryOptions,
   createRegistryPlaceholder,
@@ -162,7 +162,7 @@ function SelectSingleObject({
 
   useEffect(() => {
     if (category) {
-      service
+      madmpFragment
         .getAvailableRegistries(category, dataType, topic)
         .then((res) => {
           const registriesData = Array?.isArray(res.data)

@@ -19,7 +19,8 @@ class PlansController < ApplicationController
   def index
     authorize Plan
     @plans = if request.format.json?
-               Plan.active(current_user).where.not(visibility: ::Plan.visibilities[:is_test])
+               Plan.includes(research_outputs: { answers: %i[madmp_fragment] }).active(current_user)
+                   .where.not(visibility: ::Plan.visibilities[:is_test])
                    .or(Plan.publicly_visible_entity)
              else
                Plan.includes(:roles, api_client_roles: :api_client).active(current_user)
@@ -34,20 +35,14 @@ class PlansController < ApplicationController
       format.json do
         # Sort plans by updated_at desc and filter only structured plans
         plans = @plans.filter(&:structured?).compact.sort_by(&:updated_at).reverse
-        plans = plans.map do |plan|
-          {
-            id: plan.id,
-            title: plan.title,
-            context: plan.context,
-            research_outputs: plan.research_outputs
-          }
-        end.reject do |plan| # rubocop:disable Style/MultilineBlockChain
-          plan[:research_outputs].empty? ||
-            plan[:research_outputs].all? { |output| output[:title].nil? || output[:title].strip.empty? } ||
-            plan[:research_outputs].all? do |output|
-              output[:output_type].nil? || output[:output_type].strip.empty?
-            end
-        end
+        plans = plans.map(&:serialize_json)
+                     .reject do |plan|
+                       plan[:research_outputs].empty? ||
+                         plan[:research_outputs].all? { |output| output[:title].nil? || output[:title].strip.empty? } ||
+                         plan[:research_outputs].all? do |output|
+                           output[:output_type].nil? || output[:output_type].strip.empty?
+                         end
+                     end
         render json: { plans: plans }
       end
     end

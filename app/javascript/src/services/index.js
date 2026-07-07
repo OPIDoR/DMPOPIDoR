@@ -8,7 +8,7 @@ import guidedTour from "./guidedTour";
 import news from "./news";
 import planCreation from "./planCreation";
 import researchOutput from "./researchOutput";
-import service from "./service";
+import madmpFragment from "./madmpFragment";
 import writePlan from "./writePlan";
 
 export {
@@ -22,6 +22,6 @@ export {
   news,
   planCreation,
   researchOutput,
-  service,
+  madmpFragment,
   writePlan,
 };

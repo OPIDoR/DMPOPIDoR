@@ -7,22 +7,25 @@ import Button from "react-bootstrap/Button";
 import Card from "react-bootstrap/Card";
 import Collapse from "react-bootstrap/Collapse";
 
-import { Tooltip as ReactTooltip } from "react-tooltip";
 import { TfiAngleDown, TfiAngleUp } from "react-icons/tfi";
-import { BsGear } from "react-icons/bs";
-import { TbBulbFilled } from "react-icons/tb";
-import { IoShuffleOutline } from "react-icons/io5";
 
 import { GlobalContext } from "../context/GlobalContext.jsx";
 import { SectionsContext } from "../context/SectionsContext.jsx";
 import { FormsContext } from "../context/FormsContext.jsx";
 import * as styles from "../assets/css/write_plan.module.css";
-import DynamicForm from "../Forms/DynamicForm";
-import GuidanceModal from "./GuidanceModal";
-import CommentModal from "./CommentModal";
-import RunsModal from "./RunsModal";
-import { guidances } from "../../services";
-import CommentSVG from "../Shared/CommentSVG";
+
+import DynamicForm from "../Forms/DynamicForm.jsx";
+import GuidanceModal from "./GuidanceModal.jsx";
+import CommentModal from "./CommentModal.jsx";
+import RunsModal from "./RunsModal.jsx";
+import CommentIcon from "./Icons/CommentIcon.jsx";
+import FormSelectorIcon from "./Icons/FormSelectorIcon.jsx";
+import GuidanceIcon from "./Icons/GuidanceIcon.jsx";
+import RunsIcon from "./Icons/RunsIcon.jsx";
+import AnswerImportIcon from "./Icons/AnswerImportIcon.jsx";
+
+import { guidances } from "../../services/index.js";
+import AnswerImportModal from "./AnswerImportModal.jsx";
 
 const closedModalState = {
   guidance: false,
@@ -54,6 +57,7 @@ function Question({
     comment: false,
     runs: false,
     formSelector: true,
+    import: false,
   });
 
   /**
@@ -201,118 +205,41 @@ function Question({
                     }}
                   >
                     {hasGuidances && (
-                      <div>
-                        <ReactTooltip
-                          id="guidanceTip"
-                          place="bottom"
-                          effect="solid"
-                          variant="info"
-                          content={t("guidance")}
-                        />
-                        <div
-                          data-tooltip-id="guidanceTip"
-                          className={styles.card_icon}
-                          onClick={(e) => {
-                            setModalOpened(e, "guidance", true);
-                          }}
-                          style={{ marginLeft: "5px" }}
-                        >
-                          {isQuestionOpened && (
-                            <TbBulbFilled
-                              size={32}
-                              fill={getFillColor(showModals.guidance)}
-                              style={{
-                                color: getFillColor(showModals.guidance),
-                              }}
-                            />
-                          )}
-                        </div>
-                      </div>
+                      <GuidanceIcon
+                        isQuestionOpened={isQuestionOpened}
+                        fillColor={getFillColor(showModals.guidance)}
+                        setModalOpened={setModalOpened}
+                      />
                     )}
 
-                    <div>
-                      <ReactTooltip
-                        id="commentTip"
-                        place="bottom"
-                        effect="solid"
-                        variant="info"
-                        content={t("comments")}
-                      />
-                      <div
-                        data-tooltip-id="commentTip"
-                        className={styles.card_icon}
-                        onClick={(e) => {
-                          setModalOpened(e, "comment", true);
-                        }}
-                        style={{ marginLeft: "5px" }}
-                      >
-                        {isQuestionOpened && (
-                          <CommentSVG
-                            size={32}
-                            fill={getFillColor(showModals.comment)}
-                          />
-                        )}
-                      </div>
-                    </div>
+                    <CommentIcon
+                      isQuestionOpened={isQuestionOpened}
+                      fillColor={getFillColor(showModals.comment)}
+                      setModalOpened={setModalOpened}
+                    />
 
                     {isQuestionOpened &&
                       !answer &&
                       formSelectors[question?.madmp_schema?.classname] && (
-                        <div>
-                          <ReactTooltip
-                            id="form-changer-show-button"
-                            place="bottom"
-                            effect="solid"
-                            variant="info"
-                            content={t("listOfCustomizedForms")}
-                          />
-                          <div
-                            data-tooltip-id="form-changer-show-button"
-                            className={styles.card_icon}
-                            onClick={(e) => {
-                              setModalOpened(e, "formSelector", true);
-                            }}
-                            style={{ marginLeft: "5px" }}
-                          >
-                            <IoShuffleOutline
-                              data-tooltip-id="form-change-show-button"
-                              size={32}
-                              fill={getFillColor(showModals.formSelector)}
-                              style={{
-                                color: getFillColor(showModals.formSelector),
-                              }}
-                            />
-                          </div>
-                        </div>
+                        <FormSelectorIcon
+                          fillColor={getFillColor(showModals.formSelector)}
+                          setModalOpened={setModalOpened}
+                        />
                       )}
 
                     {scriptsData.scripts.length > 0 && answer && (
-                      <div>
-                        <ReactTooltip
-                          id="scriptTip"
-                          place="bottom"
-                          effect="solid"
-                          variant="info"
-                          content={t("tools")}
-                        />
-                        <div
-                          data-tooltip-id="scriptTip"
-                          className={styles.card_icon}
-                          onClick={(e) => {
-                            setModalOpened(e, "runs", true);
-                          }}
-                          style={{ marginLeft: "5px" }}
-                        >
-                          {isQuestionOpened && (
-                            <BsGear
-                              size={32}
-                              style={{ marginTop: "6px" }}
-                              fill={getFillColor(showModals.runs)}
-                            />
-                          )}
-                        </div>
-                      </div>
+                      <RunsIcon
+                        isQuestionOpened={isQuestionOpened}
+                        fillColor={getFillColor(showModals.runs)}
+                        setModalOpened={setModalOpened}
+                      />
                     )}
+
+                    <AnswerImportIcon
+                      isQuestionOpened={isQuestionOpened}
+                      fillColor={getFillColor(showModals.import)}
+                      setModalOpened={setModalOpened}
+                    />
 
                     {isQuestionOpened ? (
                       <TfiAngleUp style={{ marginLeft: "5px" }} size={32} />
@@ -364,6 +291,16 @@ function Question({
                         researchOutputId={displayedResearchOutput.id}
                       />
                     )}
+                    <AnswerImportModal
+                      shown={showModals.import === true}
+                      hide={(e) => setModalOpened(e, "import", false)}
+                      questionId={questionId}
+                      researchOutputId={displayedResearchOutput.id}
+                      dataType={
+                        displayedResearchOutput?.configuration?.dataType
+                      }
+                      className={question?.madmp_schema?.classname}
+                    />
                   </div>
                 )}
                 {isQuestionOpened ? (

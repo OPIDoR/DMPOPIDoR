@@ -8,7 +8,7 @@ import FormBuilder from "./FormBuilder.jsx";
 import { GlobalContext } from "../context/GlobalContext.jsx";
 import { FormsContext } from "../context/FormsContext.jsx";
 import { SectionsContext } from "../context/SectionsContext.jsx";
-import { service } from "../../services/index.js";
+import { madmpFragment } from "../../services/index.js";
 import CustomSpinner from "../Shared/CustomSpinner.jsx";
 import CustomButton from "../Styled/CustomButton.jsx";
 import FormSelector from "./FormSelector";
@@ -89,7 +89,7 @@ function DynamicForm({
     if (fragmentId) {
       let response;
       try {
-        response = await service.saveFragment(fragmentId, data);
+        response = await madmpFragment.saveFragment(fragmentId, data);
       } catch (error) {
         handleError(error);
         return setLoading(false);
@@ -113,7 +113,7 @@ function DynamicForm({
   };
 
   const handleSaveNew = (data) => {
-    service
+    madmpFragment
       .createFragment(
         data,
         templateId,
@@ -185,7 +185,7 @@ function DynamicForm({
   useEffect(() => {
     if (fragmentId) return;
 
-    service
+    madmpFragment
       .getNewForm(questionId, displayedResearchOutput.id)
       .then((res) => {
         const tplt = res.data.template;
@@ -201,7 +201,7 @@ function DynamicForm({
   useEffect(() => {
     if (!fragmentId || formData[fragmentId]) return;
 
-    service
+    madmpFragment
       .getFragment(fragmentId)
       .then((res) => {
         setTemplateName(res.data.template.name);
@@ -221,7 +221,7 @@ function DynamicForm({
     if (!formData[fragmentId]) return;
     if (loadedTemplates[formData[fragmentId].template_name]) return;
 
-    service
+    madmpFragment
       .getSchema(formData[fragmentId].schema_id)
       .then((res) => {
         setTemplateName(res.data.name);

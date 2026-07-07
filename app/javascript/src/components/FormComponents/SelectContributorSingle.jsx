@@ -17,7 +17,7 @@ import {
   createSelectOptions,
 } from "../../utils/JsonFragmentsUtils.js";
 import { GlobalContext } from "../context/GlobalContext.jsx";
-import { service } from "../../services/index.js";
+import { madmpFragment } from "../../services/index.js";
 import * as styles from "../assets/css/form.module.css";
 import CustomSelect from "../Shared/CustomSelect.jsx";
 import PersonsList from "./PersonsList.jsx";
@@ -121,7 +121,7 @@ function SelectContributorSingle({
       setError(t("recordAlreadyExists"));
     } else {
       if (index !== null) {
-        service
+        madmpFragment
           .saveFragment(editedPerson.id, data)
           .then((res) => {
             const savedFragment = res.data.fragment;
@@ -159,7 +159,7 @@ function SelectContributorSingle({
    * the modal and set the temporary person object to null.
    */
   const handleSaveNew = (data) => {
-    service
+    madmpFragment
       .createFragment(data, personTemplate.id, dmpId)
       .then((res) => {
         const savedFragment = res.data.fragment;
@@ -202,7 +202,7 @@ function SelectContributorSingle({
    */
   useEffect(() => {
     if (roleCategory && !isRoleConst) {
-      service.suggestRegistry(roleCategory, dataType).then((res) => {
+      madmpFragment.suggestRegistry(roleCategory, dataType).then((res) => {
         setLoadedRegistries({
           ...loadedRegistries,
           [res.data.name]: res.data.values,
@@ -214,7 +214,7 @@ function SelectContributorSingle({
   }, [roleCategory, isRoleConst, dataType]);
 
   useEffect(() => {
-    service.getPersons(dmpId).then((res) => {
+    madmpFragment.getPersons(dmpId).then((res) => {
       setPersons(res.data.results);
     });
   }, [dmpId, setPersons]);
