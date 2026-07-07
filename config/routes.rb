@@ -209,6 +209,8 @@ Rails.application.routes.draw do
     post 'set_recommended', action: :set_recommended
   end
 
+  resources :languages, only: %i[index], constraints: { format: [:json] }
+
   namespace :api, defaults: { format: :json } do
     post '/graphql', to: 'graphql#execute'
 
