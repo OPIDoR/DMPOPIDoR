@@ -36,9 +36,10 @@ module Import
             configuration = ro_data['configuration'] || {}
             description_prop_name, = ResearchOutput.data_type_to_schema_data(plan, configuration['dataType'],
                                                                              plan.template.locale)
+            output_type = configuration['dataType'].nil? || configuration['dataType'].eql?('dataset') ? 'dataset' : configuration['dataType'] # rubocop:disable Layout/LineLength
             research_output = plan.research_outputs.create!(
               abbreviation: ro_data[description_prop_name]['shortName'] || "#{_('RO')} #{max_order}",
-              output_type: configuration['dataType'].eql?('dataset') ? 'dataset' : configuration['dataType'],
+              output_type: output_type,
               output_type_description: ro_data[description_prop_name]['type'] || _('Dataset'),
               title: ro_data[description_prop_name]['title'] || "#{_('Research output')} #{max_order}",
               topic: configuration['topic'] || 'generic',
