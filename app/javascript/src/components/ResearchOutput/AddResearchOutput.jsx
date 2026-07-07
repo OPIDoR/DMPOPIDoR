@@ -10,7 +10,7 @@ import DOMPurify from "dompurify";
 import * as stylesForm from "../assets/css/form.module.css";
 import { GlobalContext } from "../context/GlobalContext.jsx";
 import { SectionsContext } from "../context/SectionsContext.jsx";
-import { researchOutput, service } from "../../services";
+import { researchOutput, madmpFragment } from "../../services";
 import {
   createOptions,
   dataTypeSelectValues,
@@ -223,7 +223,7 @@ function AddResearchOutput({
    * USE EFFECTS
    */
   useEffect(() => {
-    service.getRegistryByName("Topics").then((res) => {
+    madmpFragment.getRegistryByName("Topics").then((res) => {
       const topicsOpts = createOptions(res.data, locale);
       setTopicOptions(topicsOpts);
 

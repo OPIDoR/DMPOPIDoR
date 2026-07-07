@@ -983,6 +983,15 @@ class Plan < ApplicationRecord
     JsonPath.on(json_plans.first.data, '$.meta.dmpKeyword[*]').join('; ')
   end
 
+  def serialize_json
+    {
+      id: id,
+      title: title,
+      context: context,
+      research_outputs: research_outputs.map(&:serialize_json)
+    }
+  end
+
   private
 
   # Validation to prevent end date from coming before the start date

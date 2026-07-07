@@ -5,6 +5,18 @@ class MadmpFragmentsController < ApplicationController
   after_action :verify_authorized
   include ErrorHelper
 
+  def index
+    research_output = ResearchOutput.find(params[:research_output_id])
+    fragment = MadmpFragment.includes(:madmp_schema).find_by(parent_id: research_output.json_fragment.id,
+                                                             classname: params[:classname])
+
+    authorize fragment
+    render json: {
+      fragment_id: fragment.id,
+      template_name: fragment.madmp_schema.name
+    }
+  end
+
   # rubocop:disable Metrics/AbcSize, Metrics/MethodLength
   def create
     body = JSON.parse(request.body.string)
@@ -135,6 +147,32 @@ class MadmpFragmentsController < ApplicationController
       render bad_request(@notice)
     end
   end
+
+  # rubocop:disable Metrics/AbcSize
+  def import
+    research_output = ResearchOutput.find(params[:research_output_id])
+    research_output_fragment = research_output.json_fragment
+    imported_fragment = MadmpFragment.includes(:madmp_schema).find(params[:madmp_fragment_id])
+
+    authorize MadmpFragment.new(dmp_id: research_output_fragment.dmp_id)
+
+    answer = Answer.find_or_initialize_by(question_id: params[:question_id],
+                                          research_output_id: research_output.id)
+    if answer.new_record?
+      answer.plan_id = research_output.plan_id
+      answer.user_id = current_user.id
+      answer.save!
+
+      MadmpFragment.deep_copy(imported_fragment, answer.id, research_output_fragment)
+    else
+      answer.madmp_fragment.raw_import(
+        imported_fragment.get_full_fragment,
+        imported_fragment.madmp_schema
+      )
+    end
+    render json: MadmpFragment.render_fragment_json(answer.madmp_fragment, answer.madmp_fragment.madmp_schema)
+  end
+  # rubocop:enable Metrics/AbcSize
 
   # Since the StaleObjectError is triggered on the Answer we need to recover the
   # MadmpFragment data from the form, because the stale MadmpFragment has not yet been modified

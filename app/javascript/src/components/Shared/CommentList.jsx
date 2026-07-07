@@ -9,7 +9,7 @@ import { fr, enGB } from "date-fns/locale";
 import { BiEdit } from "react-icons/bi";
 import { FaTrash } from "react-icons/fa6";
 import Global from "../context/GlobalContext.jsx";
-import EditorComment from "../WritePlan/EditorComment.jsx";
+import EditorComment from "../Question/EditorComment.jsx";
 import CustomSpinner from "./CustomSpinner.jsx";
 import CustomError from "./CustomError.jsx";
 import { comments as commentsService } from "../../services/index.js";
@@ -17,7 +17,7 @@ import {
   NavBodyText,
   ScrollNav,
   CommentsCard,
-} from "../WritePlan/styles/CommentModalStyles.jsx";
+} from "../Question/styles/CommentModalStyles.jsx";
 import "../../i18n.js";
 import swalUtils from "../../utils/swalUtils.js";
 
