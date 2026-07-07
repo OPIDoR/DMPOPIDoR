@@ -177,7 +177,7 @@ class GuidanceGroup < ApplicationRecord
       id: guidance_group.id,
       name: guidance_group.name,
       description: guidance_group.description,
-      is_default: guidance_group.is_default.nil? || guidance_group.is_default == false,
+      is_default: guidance_group.is_default,
       published: guidance_group.published,
       topics: guidance_group.topics,
       data_types: guidance_group.data_types,
