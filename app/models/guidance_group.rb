@@ -172,7 +172,6 @@ class GuidanceGroup < ApplicationRecord
   end
   # rubocop:enable Metrics/AbcSize
 
-  # rubocop:disable Metrics/AbcSize
   def self.serialize_json_response(guidance_group)
     {
       id: guidance_group.id,
@@ -182,14 +181,8 @@ class GuidanceGroup < ApplicationRecord
       published: guidance_group.published,
       topics: guidance_group.topics,
       data_types: guidance_group.data_types,
-      language: if guidance_group.language_id.present?
-                  { value: guidance_group.language_id, label: Language.find_by(id: guidance_group.language_id)&.name }
-                else
-                  { value: 0, label: 'N/C' }
-                end,
-      available_languages: Language.all.map { |language| { value: language.id, label: language.name } },
+      language_id: guidance_group.language_id,
       last_updated: guidance_group&.updated_at&.to_date&.strftime('%d/%m/%Y')
     }
   end
-  # rubocop:enable Metrics/AbcSize
 end
