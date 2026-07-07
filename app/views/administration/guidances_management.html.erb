@@ -1,4 +1,4 @@
 <!-- Admin index page for Guidance Groups and Guidance -->
 <% title _('Guidance') %>
 
-<%= react("GuidanceManagementLayout", props: { locale: LocaleService.to_gettext(locale: locale) }) %>
+<%= react("GuidanceManagementLayout", props: { locale: LocaleService.to_gettext(locale: locale), isUserSuperAdmin: current_user.can_super_admin?  }) %>

@@ -10,10 +10,13 @@ const toastOptions = {
   duration: 5000,
 };
 
-function GuidanceManagementLayout({ locale = "en_GB" }) {
+function GuidanceManagementLayout({
+  locale = "en_GB",
+  isUserSuperAdmin = false,
+}) {
   return (
     <StrictMode>
-      <Global initialLocale={locale}>
+      <Global initialLocale={locale} isUserSuperAdmin={isUserSuperAdmin}>
         <BrowserRouter>
           <Routes>
             <Route path="administration/guidances_management">
