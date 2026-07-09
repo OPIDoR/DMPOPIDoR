@@ -21,13 +21,13 @@ namespace :usercleaning do
     five_years_users.each do |user|
       last_sign_in = user.current_sign_in_at || 5.years.ago
       case Date.today
-      when (last_sign_in + 5.years - 1.month).to_date
+      when (last_sign_in + 5.years + 1.month).to_date
         p "Sending 1 month anonymization warning to #{user.email}"
         UserMailer.anonymization_warning(user).deliver_now
-      when (last_sign_in + 5.years - 1.week).to_date
+      when (last_sign_in + 5.years + 1.week).to_date
         p "Sending 1 week anonymization warning to #{user.email}"
         UserMailer.anonymization_warning(user).deliver_now
-      when (last_sign_in + 5.years - 1.day).to_date
+      when (last_sign_in + 5.years + 1.day).to_date
         p "Sending 1 day anonymization warning to #{user.email}"
         UserMailer.anonymization_warning(user).deliver_now
       else
