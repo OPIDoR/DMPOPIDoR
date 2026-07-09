@@ -402,6 +402,7 @@ class PlansController < ApplicationController
                      key: 'owners_and_coowners.visibility_changed') do |r|
             UserMailer.plan_visibility(r, plan).deliver_now
           end
+          JsonPlanJob.perform_now(plan_id: plan.id) if plan.publicly_visible?
           render status: :ok,
                  json: { msg: success_message(plan, _('updated')) }
         else
