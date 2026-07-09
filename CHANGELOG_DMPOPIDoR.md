@@ -2,6 +2,15 @@
 
 **Attention** Cette liste de changements concerne les déploiements sur nos serveurs de test en interne.
 
+## 09/07/2026
+- Correction d'un problème de copie des plans entité (#15609)
+- Ajout de la génération json du plan dans la base lorsqu'un plan est mis en visibilité publique
+- Retrait du lien "Voir tout" de la liste des plans publics
+- Amélioration de la tache de nettoyage des comptes utilisateurs
+- Correction du problème de téléchargement de la liste des utilisateurs dans l'espace Admin (#15483)
+- Correction du problème de création et de mise à jour des Structures (#15484)
+- Correction du problème d'affichage de l'éditeur après la mise à jour d'un organisme (#15608)
+
 ## 01/07/2026
 - Migration de reCaptcha vers [https://altcha.org/](Altcha)  (#15110)
   - Mot de passe oublié ? (formulaire de demande et formulaire de choix du mot de passe)
