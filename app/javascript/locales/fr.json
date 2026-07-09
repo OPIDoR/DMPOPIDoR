@@ -46,8 +46,10 @@
   "title": "Titre",
   "type": "Type",
   "questionnaire": "Questionnaire",
+  "questionnaires": "Questionnaires",
   "selectQuestionnaire": "Sélectionner un questionnaire",
   "topic": "Thématique",
+  "topics": "Thématiques",
   "selectTopic": "Sélectionner une thématique",
   "topicTooltip": "Le choix de la thématique conditionne l’affichage de recommandations et de référentiels définis par la communauté scientifique porteuse de la thématique.<br/>Sélectionnez Générique si aucune thématique correspondant à vos données n’est proposée.<br/>Retrouvez les informations sur les communautés scientifiques dans En savoir plus.",
   "update": "Mise à jour",
@@ -296,11 +298,14 @@
   "description": "Description",
   "guidanceGroupNameTooltip": "Ajouter un nom approprié à votre groupe de recommandations. Ce nom signalera à l'utilisateur d'où proviennent ces recommandations. Nous vous conseillons d'utiliser le nom de l'organisme ou du département par ex. \"OU\" ou \"Maths & Stats\"",
   "guidanceGroupDescriptionTooltip": "Entrez votre description ici. Vous pouvez inclure des liens si nécessaire.",
+  "guidanceGroupPublishedTooltip": "Cochez cette case pour faire apparaître la recommandation associée à ce groupe dans les plans de l'utilisateur.",
+  "isDefault": "Par défaut",
   "softwareType": "Logiciel, code source",
   "physicalObjectType": "Collection d’objets physiques (ressources biologiques, artefacts archéologiques, échantillons de sol,...)",
   "datasetType": "Données (jeu de données, image, son, texte,...)",
   "dataset": "Jeu de données",
   "software": "Logiciel",
   "physical_object": "Object physique",
-  "noGuidanceSelected": "Aucune recommandation sélectionnée"
+  "noGuidanceSelected": "Aucune recommandation sélectionnée", 
+  "seeAllGuidances": "Voir toutes les recommandations"
 }

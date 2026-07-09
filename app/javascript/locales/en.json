@@ -46,8 +46,10 @@
   "title": "Title",
   "type": "Type",
   "questionnaire": "Questionnaire",
+  "questionnaires": "Questionnaires",
   "selectQuestionnaire": "Select a questionnaire",
   "topic": "Topic",
+  "topics": "Topics",
   "selectTopic": "Select a topic",
   "topicTooltip": "The choice of topic conditions the display of recommendations and registries defined by the scientific community carrying the topic.<br/>Select Generic if no topic corresponding to your data is proposed.<br/>Find information about scientific communities in Learn more.",
   "update": "Update",
@@ -300,11 +302,14 @@
   "description": "Description",
   "guidanceGroupNameTooltip": "Add an appropriate name for your guidance group. This name will tell the end user where the guidance has come from. We suggest you use the organisation or department name e.g. \"OU\" or \"Maths & Stats\"",
   "guidanceGroupDescriptionTooltip": "Enter your description here. You can include links where needed.",
+  "guidanceGroupPublishedTooltip": "Check this box when you are ready for guidance associated with this group to appear on user's plans.",
+  "isDefault": "Default",
   "softwareType": "Software, source code",
   "physicalObjectType": "Collection of physical objects (biological resources, archaeological artefacts, soil samples, ...)",
   "dataset": "Dataset",
   "software": "Software",
   "physicalObject": "Physical Object",
   "datasetType": "Data (dataset, image, sound, text, ...)",
-  "noGuidanceSelected": "No guidance has been selected"
+  "noGuidanceSelected": "No guidance has been selected", 
+  "seeAllGuidances": "See all guidances"
 }

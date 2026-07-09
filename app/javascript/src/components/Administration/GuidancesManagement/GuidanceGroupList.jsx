@@ -36,7 +36,7 @@ function GuidanceGroupList({
           <tr>
             <th scope="col">{t("name")}</th>
             <th scope="col">{t("status")}</th>
-            <th scope="col">{t("default")}</th>
+            <th scope="col">{t("isDefault")}</th>
             <th scope="col">{t("dataTypesTopics")}</th>
             <th scope="col">{t("locale")}</th>
             <th scope="col">{t("lastUpdated")}</th>

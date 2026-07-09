@@ -25,8 +25,35 @@ const getGuidanceGroupData = async (guidanceGroupId) =>
     },
   });
 
+const getLanguages = async () =>
+  axios.get(`/languages`, {
+    headers: {
+      Accept: "application/json",
+      "Content-Type": "application/json",
+    },
+  });
+
+const saveGuidanceGroup = async (id, guidanceGroupData) =>
+  axios.put(`/org_admin/guidance_groups/${id}`, guidanceGroupData, {
+    headers: {
+      Accept: "application/json",
+      "Content-Type": "application/json",
+    },
+  });
+
+const createGuidanceGroup = async (guidanceGroupData) =>
+  axios.post(`/org_admin/guidance_groups`, guidanceGroupData, {
+    headers: {
+      Accept: "application/json",
+      "Content-Type": "application/json",
+    },
+  });
+
 export default {
   getGuidancesData,
   getNewGuidanceGroupData,
   getGuidanceGroupData,
+  getLanguages,
+  saveGuidanceGroup,
+  createGuidanceGroup,
 };
