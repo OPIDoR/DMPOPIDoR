@@ -4,6 +4,7 @@ module OrgAdmin
   # Controller that handles guidance edition
   class GuidanceGroupsController < ApplicationController
     after_action :verify_authorized
+    include ErrorHelper
 
     # GET /org_admin/guidance_groups/:id
     def show
@@ -43,10 +44,13 @@ module OrgAdmin
 
       if @guidance_group.save
         flash[:notice] = success_message(@guidance_group, _('created'))
-        redirect_to edit_org_admin_guidance_group_path(@guidance_group)
+        respond_to do |format|
+          format.html { redirect_to edit_org_admin_guidance_group_path(@guidance_group) }
+          format.json { render json: GuidanceGroup.serialize_json_response(@guidance_group) }
+        end
       else
         flash[:alert] = failure_message(@guidance_group, _('create'))
-        redirect_to new_org_admin_guidance_group_path(@guidance_group)
+        bad_request(failure_message(@guidance_group, _('create')))
       end
     end
     # rubocop:enable Metrics/AbcSize
@@ -74,10 +78,14 @@ module OrgAdmin
 
       if @guidance_group.update(guidance_group_params)
         flash[:notice] = success_message(@guidance_group, _('saved'))
+        respond_to do |format|
+          format.html { redirect_to edit_org_admin_guidance_group_path(@guidance_group) }
+          format.json { render json: GuidanceGroup.serialize_json_response(@guidance_group) }
+        end
       else
         flash[:alert] = failure_message(@guidance_group, _('save'))
+        bad_request(failure_message(@guidance_group, _('create')))
       end
-      redirect_to edit_org_admin_guidance_group_path(@guidance_group)
     end
     # rubocop:enable Metrics/AbcSize
 
