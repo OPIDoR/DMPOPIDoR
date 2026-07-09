@@ -29,7 +29,7 @@ module OrgAdmin
       else
         flash[:alert] = failure_message(@department, _('create'))
       end
-      redirect_to new_org_department_path(@department)
+      redirect_to admin_edit_org_path(id: @org_id)
     end
 
     # GET /departments/1/edit
@@ -51,7 +51,7 @@ module OrgAdmin
       else
         flash[:alert] = failure_message(@department, _('save'))
       end
-      redirect_to edit_org_department_path(@department)
+      redirect_to admin_edit_org_path(id: @org_id)
     end
     # rubocop:enable Metrics/AbcSize
 
