@@ -930,7 +930,7 @@ class Plan < ApplicationRecord
 
     incoming_dmp = plan.json_fragment
     I18n.with_locale plan.template.locale do
-      raw_project = if plan.template.context == 'research_entity'
+      raw_project = if plan.context == 'research_entity'
                       incoming_dmp.research_entity.get_full_fragment
                     else
                       incoming_dmp.project.get_full_fragment
