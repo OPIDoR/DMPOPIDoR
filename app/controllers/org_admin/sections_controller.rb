@@ -76,20 +76,20 @@ module OrgAdmin
         flash[:notice] = success_message(@section, _('created'))
         redirect_to @phase.template&.module? ? super_admin_template_phase_path(
           id: @section.phase_id,
-          template_id: @phase.template_id,
+          template_id: @section.phase.template_id,
           section: @section.id
         ) : org_admin_template_phase_path(
           id: @section.phase_id,
-          template_id: @phase.template_id,
+          template_id: @section.phase.template_id,
           section: @section.id
         ), status: :see_other
       else
         flash[:alert] = failure_message(@section, _('create'))
         redirect_to @phase.template&.module? ? super_admin_template_phase_path(
-          template_id: @phase.template_id,
+          template_id: @section.phase.template_id,
           id: @section.phase_id
         ) : org_admin_template_phase_path(
-          template_id: @phase.template_id,
+          template_id: @section.phase.template_id,
           id: @section.phase_id
         ), status: :see_other
       end
