@@ -4,6 +4,7 @@ import { useTranslation } from "react-i18next";
 import { Col, Form, InputGroup, Row } from "react-bootstrap";
 import { useNavigate } from "react-router";
 import { FaSearch } from "react-icons/fa";
+import Swal from "sweetalert2";
 
 import * as styles from "../../assets/css/guidance_edition.module.css";
 import * as tablesStyles from "../../assets/css/tables.module.css";
@@ -13,6 +14,7 @@ import CustomSpinner from "../../Shared/CustomSpinner";
 import { guidancesManagement } from "../../../services";
 import CustomButton from "../../Styled/CustomButton";
 import GuidanceList from "./GuidanceList";
+import swalUtils from "../../../utils/swalUtils";
 
 function GuidanceManagement() {
   const { t, i18n } = useTranslation();
@@ -48,9 +50,27 @@ function GuidanceManagement() {
     navigate(`guidance_groups/${guidanceGroupId}/edit`);
   };
   const handleGuidanceGroupDelete = (guidanceGroupId) => {
-    navigate(`guidance_groups/${guidanceGroupId}/delete`);
+    Swal.fire(swalUtils.defaultConfirmConfig(t)).then((result) => {
+      if (result.isConfirmed) {
+        setLoading(true);
+        guidancesManagement
+          .deleteGuidanceGroup(guidanceGroupId)
+          .then((res) => {
+            setGuidanceGroups(res.data.guidance_groups);
+            toast.success(res.data.message);
+          })
+          .catch((error) => {
+            console.error(error);
+            toast.error(error.data.message);
+          })
+          .finally(() => {
+            setLoading(false);
+          });
+      }
+    });
   };
   const handleGuidanceGroupPublication = (guidanceGroupId, published) => {
+    setLoading(true);
     const handlePublicationMethod = published
       ? guidancesManagement.unpublishGuidanceGroup
       : guidancesManagement.publishGuidanceGroup;
@@ -69,6 +89,9 @@ function GuidanceManagement() {
       .catch((error) => {
         console.error(error);
         toast.error(t("publicationError"));
+      })
+      .finally(() => {
+        setLoading(false);
       });
   };
 

@@ -146,10 +146,19 @@ module OrgAdmin
       authorize @guidance_group
       if @guidance_group.destroy
         flash[:notice] = success_message(@guidance_group, _('deleted'))
+        @guidance_groups = GuidanceGroup.includes(:org, :language)
+                                        .by_org(current_user.org).page(1)
+
+        render json: {
+          message: success_message(@guidance_group, _('deleted')),
+          guidance_groups: @guidance_groups.map do |gg|
+            GuidanceGroup.serialize_json_response(gg)
+          end
+        }
       else
         flash[:alert] = failure_message(@guidance_group, _('delete'))
+        bad_request(failure_message(@guidance_group, _('delete')))
       end
-      redirect_to org_admin_guidances_path
     end
 
     private

@@ -7,12 +7,11 @@ import { useState } from "react";
 import Pagination from "../../Shared/Pagination";
 
 function GuidanceGroupList({
-  guidanceGroups,
+  guidanceGroups = [],
   handleEdit,
   handleDelete,
   handlePublication,
 }) {
-  console.log(guidanceGroups);
   const { t } = useTranslation();
   const pageSize = 10;
   const [displayedGuidanceGroups, setDisplayedGuidanceGroups] = useState([]);

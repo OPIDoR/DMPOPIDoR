@@ -1,16 +1,11 @@
 import axios from "../utils/AxiosClient";
 // import createHeaders from "../utils/HeaderBuilder";
 
+/**
+ * Guidance Groups
+ */
 const getGuidanceGroupsData = async () =>
   axios.get(`/org_admin/guidance_groups`, {
-    headers: {
-      Accept: "application/json",
-      "Content-Type": "application/json",
-    },
-  });
-
-const getGuidancesData = async () =>
-  axios.get(`/org_admin/guidances`, {
     headers: {
       Accept: "application/json",
       "Content-Type": "application/json",
@@ -27,14 +22,6 @@ const getNewGuidanceGroupData = async () =>
 
 const getGuidanceGroupData = async (guidanceGroupId) =>
   axios.get(`/org_admin/guidance_groups/${guidanceGroupId}`, {
-    headers: {
-      Accept: "application/json",
-      "Content-Type": "application/json",
-    },
-  });
-
-const getLanguages = async () =>
-  axios.get(`/languages`, {
     headers: {
       Accept: "application/json",
       "Content-Type": "application/json",
@@ -73,14 +60,42 @@ const unpublishGuidanceGroup = async (id) =>
     },
   });
 
+const deleteGuidanceGroup = async (id) =>
+  axios.delete(`/org_admin/guidance_groups/${id}`, null, {
+    headers: {
+      Accept: "application/json",
+      "Content-Type": "application/json",
+    },
+  });
+
+/**
+ * Guidances
+ */
+const getGuidancesData = async () =>
+  axios.get(`/org_admin/guidances`, {
+    headers: {
+      Accept: "application/json",
+      "Content-Type": "application/json",
+    },
+  });
+
+const getLanguages = async () =>
+  axios.get(`/languages`, {
+    headers: {
+      Accept: "application/json",
+      "Content-Type": "application/json",
+    },
+  });
+
 export default {
   getGuidanceGroupsData,
-  getGuidancesData,
   getNewGuidanceGroupData,
   getGuidanceGroupData,
-  getLanguages,
   saveGuidanceGroup,
   createGuidanceGroup,
   publishGuidanceGroup,
   unpublishGuidanceGroup,
+  deleteGuidanceGroup,
+  getLanguages,
+  getGuidancesData,
 };

@@ -8,7 +8,7 @@ import * as tablesStyles from "../../assets/css/tables.module.css";
 import Pagination from "../../Shared/Pagination";
 
 function GuidanceList({
-  guidances,
+  guidances = [],
   handleEdit,
   handleDelete,
   handlePublication,
