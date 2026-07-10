@@ -3,6 +3,11 @@
 **Attention** Cette liste de changements concerne les déploiements sur nos serveurs de test en interne.
 
 ## 09/07/2026
+- Correction de l'édition de modèle suite à la migration vers Turbo (#15094)
+- Correction du problème de mise à jour du profil utilisateur par un Org Admin (#15484)
+- Retrait des utilisateurs inactifs du téléchargement CSV de la liste des utilisateurs dans l'espace Admin  (#15483)
+
+## 09/07/2026
 - Correction d'un problème de copie des plans entité (#15609)
 - Ajout de la génération json du plan dans la base lorsqu'un plan est mis en visibilité publique
 - Retrait du lien "Voir tout" de la liste des plans publics
