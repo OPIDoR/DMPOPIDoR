@@ -36,7 +36,7 @@ class UsersController < ApplicationController
       end
 
       format.csv do
-        send_data User.to_csv(current_user.org.users.order(:surname)),
+        send_data User.to_csv(current_user.org.users.where(active: true).order(:surname)),
                   filename: "users-accounts-#{Date.today}.csv"
       end
     end
