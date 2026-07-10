@@ -18,9 +18,6 @@ module OrgAdmin
         format.html
         format.json do
           render json: {
-            guidance_groups: @guidance_groups.map do |gg|
-              GuidanceGroup.serialize_json_response(gg)
-            end,
             guidances: @guidances.map do |g|
               Guidance.serialize_json_response(g)
             end

@@ -86,9 +86,22 @@ function GuidanceManagement() {
 
   useEffect(() => {
     guidancesManagement
-      .getGuidancesData()
+      .getGuidanceGroupsData()
       .then((res) => {
         setGuidanceGroups(res.data.guidance_groups);
+      })
+      .catch((error) => {
+        console.error(error);
+      })
+      .finally(() => {
+        setLoading(false);
+      });
+  }, []);
+
+  useEffect(() => {
+    guidancesManagement
+      .getGuidancesData()
+      .then((res) => {
         setGuidances(res.data.guidances);
       })
       .catch((error) => {

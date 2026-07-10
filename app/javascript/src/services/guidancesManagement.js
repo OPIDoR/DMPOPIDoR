@@ -1,6 +1,14 @@
 import axios from "../utils/AxiosClient";
 // import createHeaders from "../utils/HeaderBuilder";
 
+const getGuidanceGroupsData = async () =>
+  axios.get(`/org_admin/guidance_groups`, {
+    headers: {
+      Accept: "application/json",
+      "Content-Type": "application/json",
+    },
+  });
+
 const getGuidancesData = async () =>
   axios.get(`/org_admin/guidances`, {
     headers: {
@@ -66,6 +74,7 @@ const unpublishGuidanceGroup = async (id) =>
   });
 
 export default {
+  getGuidanceGroupsData,
   getGuidancesData,
   getNewGuidanceGroupData,
   getGuidanceGroupData,
