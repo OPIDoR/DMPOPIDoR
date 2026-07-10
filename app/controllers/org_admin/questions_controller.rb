@@ -194,7 +194,7 @@ module OrgAdmin
       end
       render turbo_stream: turbo_stream.replace(section,
                                                 partial: 'org_admin/sections/frame',
-                                                locals: { section: section, template: question.template,
+                                                locals: { section: question.section, template: question.template,
                                                           phase: question.phase })
     end
     # rubocop:enable Metrics/AbcSize, Metrics/MethodLength
