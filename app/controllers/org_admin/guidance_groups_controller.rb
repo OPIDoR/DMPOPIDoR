@@ -97,11 +97,11 @@ module OrgAdmin
 
       if @guidance_group.update(published: true)
         flash[:notice] = _('Your guidance group has been published and is now available to users.')
-
+        render json: { status:200, message: _('Your guidance group has been published and is now available to users.')}
       else
         flash[:alert] = failure_message(@guidance_group, _('publish'))
+        bad_request(failure_message(@guidance_group, _('publish')))
       end
-      redirect_to org_admin_guidances_path
     end
 
     # PUT /org_admin/guidance_groups/:id/unpublish
@@ -112,10 +112,11 @@ module OrgAdmin
 
       if @guidance_group.update(published: false)
         flash[:notice] = _('Your guidance group is no longer published and will not be available to users.')
+        render json: { status:200, message: _('Your guidance group is no longer published and will not be available to users.')}
       else
         flash[:alert] = failure_message(@guidance_group, _('unpublish'))
+        bad_request(failure_message(@guidance_group, _('publish')))
       end
-      redirect_to org_admin_guidances_path
     end
 
     # DELETE /org_admin/guidance_groups/:id
