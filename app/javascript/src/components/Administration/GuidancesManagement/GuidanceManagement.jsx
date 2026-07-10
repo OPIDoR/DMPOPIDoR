@@ -1,4 +1,5 @@
 import { useContext, useEffect, useState } from "react";
+import toast from "react-hot-toast";
 import { useTranslation } from "react-i18next";
 import { Col, Form, InputGroup, Row } from "react-bootstrap";
 import { useNavigate } from "react-router";
@@ -49,8 +50,26 @@ function GuidanceManagement() {
   const handleGuidanceGroupDelete = (guidanceGroupId) => {
     navigate(`guidance_groups/${guidanceGroupId}/delete`);
   };
-  const handleGuidanceGroupPublication = (guidanceGroupId) => {
-    navigate(`guidance_groups/${guidanceGroupId}/edit`);
+  const handleGuidanceGroupPublication = (guidanceGroupId, published) => {
+    const handlePublicationMethod = published
+      ? guidancesManagement.unpublishGuidanceGroup
+      : guidancesManagement.publishGuidanceGroup;
+
+    handlePublicationMethod(guidanceGroupId)
+      .then((res) => {
+        setGuidanceGroups((prevGuidanceGroups) =>
+          prevGuidanceGroups.map((guidanceGroup) =>
+            guidanceGroup.id == guidanceGroupId
+              ? { ...guidanceGroup, published: !published }
+              : guidanceGroup,
+          ),
+        );
+        toast.success(res.data.message);
+      })
+      .catch((error) => {
+        console.error(error);
+        toast.error(t("publicationError"));
+      });
   };
 
   /**

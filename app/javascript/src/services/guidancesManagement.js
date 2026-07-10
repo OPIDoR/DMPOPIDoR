@@ -49,6 +49,22 @@ const createGuidanceGroup = async (guidanceGroupData) =>
     },
   });
 
+const publishGuidanceGroup = async (id) =>
+  axios.put(`/org_admin/guidance_groups/${id}/publish`, null, {
+    headers: {
+      Accept: "application/json",
+      "Content-Type": "application/json",
+    },
+  });
+
+const unpublishGuidanceGroup = async (id) =>
+  axios.put(`/org_admin/guidance_groups/${id}/unpublish`, null, {
+    headers: {
+      Accept: "application/json",
+      "Content-Type": "application/json",
+    },
+  });
+
 export default {
   getGuidancesData,
   getNewGuidanceGroupData,
@@ -56,4 +72,6 @@ export default {
   getLanguages,
   saveGuidanceGroup,
   createGuidanceGroup,
+  publishGuidanceGroup,
+  unpublishGuidanceGroup,
 };

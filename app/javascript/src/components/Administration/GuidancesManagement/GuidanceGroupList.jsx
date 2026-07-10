@@ -12,6 +12,7 @@ function GuidanceGroupList({
   handleDelete,
   handlePublication,
 }) {
+  console.log(guidanceGroups);
   const { t } = useTranslation();
   const pageSize = 10;
   const [displayedGuidanceGroups, setDisplayedGuidanceGroups] = useState([]);
@@ -77,7 +78,9 @@ function GuidanceGroupList({
                       </Dropdown.Item>
                       <Dropdown.Item
                         as="button"
-                        onClick={() => handlePublication(group.id)}
+                        onClick={() =>
+                          handlePublication(group.id, group.published)
+                        }
                       >
                         {group.published ? t("unpublish") : t("publish")}
                       </Dropdown.Item>
