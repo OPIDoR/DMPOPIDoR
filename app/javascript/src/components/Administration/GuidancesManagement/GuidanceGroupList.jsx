@@ -58,7 +58,7 @@ function GuidanceGroupList({
                 <td className={tablesStyles.table_row}>
                   {`${group.data_types.join(", ")} / ${group.topics.join(", ")}`}
                 </td>
-                <td className={tablesStyles.table_row}>{group.locale}</td>
+                <td className={tablesStyles.table_row}>{group.language}</td>
                 <td className={tablesStyles.table_row}>{group.last_updated}</td>
                 <td className={tablesStyles.table_row}>
                   <Dropdown>
