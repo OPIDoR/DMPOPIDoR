@@ -394,6 +394,7 @@ Rails.application.routes.draw do
         put 'unpublish'
       end
     end
+    resources :themes, only: [:index], constraints: { format: [:json] }
 
     resources :users, only: %i[edit update], controller: 'users' do
       member do
