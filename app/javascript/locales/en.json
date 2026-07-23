@@ -311,5 +311,7 @@
   "physicalObject": "Physical Object",
   "datasetType": "Data (dataset, image, sound, text, ...)",
   "noGuidanceSelected": "No guidance has been selected", 
-  "seeAllGuidances": "See all guidances"
+  "seeAllGuidances": "See all guidances",
+  "answerImportFormMessage": "You're about to import a answer using the \"{{templateName}}\" form",
+  "importAnswer": "Import answer"
 }

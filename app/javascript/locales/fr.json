@@ -307,5 +307,7 @@
   "software": "Logiciel",
   "physical_object": "Object physique",
   "noGuidanceSelected": "Aucune recommandation sélectionnée", 
-  "seeAllGuidances": "Voir toutes les recommandations"
+  "seeAllGuidances": "Voir toutes les recommandations",
+  "answerImportFormMessage": "Vous allez importer une réponse utilisant le formulaire \"{{templateName}}\"",
+  "importAnswer": "Import de réponse"
 }
