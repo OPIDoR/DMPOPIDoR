@@ -183,6 +183,7 @@ class GuidanceGroup < ApplicationRecord
       data_types: guidance_group.data_types,
       language_id: guidance_group.language_id,
       language: guidance_group.language&.name,
+      language_abbreviation: guidance_group.language&.abbreviation,
       last_updated: guidance_group&.updated_at&.to_date&.strftime('%d/%m/%Y')
     }
   end

@@ -96,6 +96,25 @@ function GuidanceManagement() {
   };
 
   /**
+   * Guidance Management Functions
+   */
+
+  const handleGuidanceEdit = (guidanceId) => {
+    navigate(`guidances/${guidanceId}/edit`, {
+      state: {
+        guidanceGroups: guidanceGroups.map((gg) => ({
+          ...gg,
+          label: gg.name,
+        })),
+        guidanceGroup: guidances.find((g) => g.id === guidanceId),
+      },
+    });
+  };
+
+  const handleGuidanceDelete = (guidanceId) => {};
+
+  const handleGuidancePublication = (guidanceId, published) => {};
+  /**
    * USE EFFECTS
    */
 
@@ -194,7 +213,12 @@ function GuidanceManagement() {
               />
             </Col>
           </Row>
-          <GuidanceList guidances={displayedGuidances} />
+          <GuidanceList
+            guidances={displayedGuidances}
+            handleEdit={handleGuidanceEdit}
+            handleDelete={handleGuidanceDelete}
+            handlePublication={handleGuidancePublication}
+          />
           <CustomButton
             handleClick={() => {}}
             title={t("createGuidance")}

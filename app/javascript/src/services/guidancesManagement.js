@@ -79,8 +79,32 @@ const getGuidancesData = async () =>
     },
   });
 
+const getNewGuidanceData = async () =>
+  axios.get(`/org_admin/guidances/new`, {
+    headers: {
+      Accept: "application/json",
+      "Content-Type": "application/json",
+    },
+  });
+
+const getGuidanceData = async (guidanceId) =>
+  axios.get(`/org_admin/guidances/${guidanceId}`, {
+    headers: {
+      Accept: "application/json",
+      "Content-Type": "application/json",
+    },
+  });
+
 const getLanguages = async () =>
   axios.get(`/languages`, {
+    headers: {
+      Accept: "application/json",
+      "Content-Type": "application/json",
+    },
+  });
+
+const getThemes = async (locale, dataTypes) =>
+  axios.get(`/org_admin/themes?locale=${locale}&data_types=${dataTypes}`, {
     headers: {
       Accept: "application/json",
       "Content-Type": "application/json",
@@ -98,4 +122,7 @@ export default {
   deleteGuidanceGroup,
   getLanguages,
   getGuidancesData,
+  getNewGuidanceData,
+  getGuidanceData,
+  getThemes,
 };

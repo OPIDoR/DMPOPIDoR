@@ -309,5 +309,7 @@
   "noGuidanceSelected": "Aucune recommandation sélectionnée", 
   "seeAllGuidances": "Voir toutes les recommandations",
   "answerImportFormMessage": "Vous allez importer une réponse utilisant le formulaire \"{{templateName}}\"",
-  "importAnswer": "Import de réponse"
+  "importAnswer": "Import de réponse",
+  "guidanceTextTooltip": "Saisissez vos recommandations ici. Vous pouvez ajouter des liens si nécessaire.",
+  "themesTooltip": "Sélectionnez un thème pertinent pour cette recommandation"
 }

@@ -313,5 +313,7 @@
   "noGuidanceSelected": "No guidance has been selected", 
   "seeAllGuidances": "See all guidances",
   "answerImportFormMessage": "You're about to import a answer using the \"{{templateName}}\" form",
-  "importAnswer": "Import answer"
+  "importAnswer": "Import answer",
+  "guidanceTextTooltip": "Enter your guidance here. You can include links where needed.",
+  "themesTooltip": "Select one theme that is relevant to this guidance."
 }

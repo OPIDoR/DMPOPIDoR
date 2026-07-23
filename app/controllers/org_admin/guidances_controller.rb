@@ -26,12 +26,26 @@ module OrgAdmin
       end
     end
 
+    # GET /org_admin/guidances/:id
+    def show
+      @guidance = Guidance.eager_load(:themes, :guidance_group)
+                          .find(params[:id])
+      authorize @guidance
+      respond_to do |format|
+        format.html
+        format.json { render json: Guidance.serialize_json_response(@guidance) }
+      end
+    end
+
     # GET /org_admin/guidances/new
     def new
       @guidance = Guidance.new
       authorize @guidance
       @locales = Language.all
-      render :new_edit
+      respond_to do |format|
+        format.html { render :new_edit }
+        format.json { render json: Guidance.serialize_json_response(@guidance) }
+      end
     end
 
     # GET /org_admin/guidances/:id/edit
@@ -42,7 +56,10 @@ module OrgAdmin
 
       @locales = Language.all
 
-      render :new_edit
+      respond_to do |format|
+        format.html { render :new_edit }
+        format.json { render json: Guidance.serialize_json_response(@guidance) }
+      end
     end
 
     # POST /org_admin/guidances

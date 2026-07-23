@@ -380,7 +380,7 @@ Rails.application.routes.draw do
   get '/administration/guidances_management(/*react)', to: "administration#guidances_management"
 
   namespace :org_admin do
-    resources :guidances, only: %i[index new create edit update destroy] do
+    resources :guidances, only: %i[index show new create edit update destroy] do
       post 'render_themes', on: :collection, constraints: { format: [:json] }
       member do
         put 'publish'

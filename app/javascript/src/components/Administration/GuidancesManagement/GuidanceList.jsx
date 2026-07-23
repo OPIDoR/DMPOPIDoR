@@ -63,7 +63,10 @@ function GuidanceList({
                     className={tablesStyles.dropdown_button}
                     title={t("actions")}
                   >
-                    <Dropdown.Item as="button" onClick={handleEdit}>
+                    <Dropdown.Item
+                      as="button"
+                      onClick={() => handleEdit(guidance.id)}
+                    >
                       {t("edit")}
                     </Dropdown.Item>
                     <Dropdown.Item as="button" onClick={handlePublication}>
