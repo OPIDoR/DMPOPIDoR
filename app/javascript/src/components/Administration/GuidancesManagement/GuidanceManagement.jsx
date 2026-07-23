@@ -34,7 +34,7 @@ function GuidanceManagement() {
   };
 
   const filterGuidances = () => {
-    const filteredGuidances = guidances.filter(
+    const filteredGuidances = guidances?.filter(
       (guidance) =>
         guidance.text
           .toLowerCase()
@@ -45,6 +45,10 @@ function GuidanceManagement() {
     );
     setDisplayedGuidances(filteredGuidances);
   };
+
+  /**
+   * Guidance Group Management Functions
+   */
 
   const handleGuidanceGroupEdit = (guidanceGroupId) => {
     navigate(`guidance_groups/${guidanceGroupId}/edit`);

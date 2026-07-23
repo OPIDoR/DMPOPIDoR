@@ -1,4 +1,5 @@
 import { useState } from "react";
+import DOMPurify from "dompurify";
 import { useTranslation } from "react-i18next";
 import Dropdown from "react-bootstrap/Dropdown";
 import DropdownButton from "react-bootstrap/DropdownButton";
@@ -43,7 +44,11 @@ function GuidanceList({
           {displayedGuidances.length > 0 ? (
             displayedGuidances.map((guidance) => (
               <tr key={guidance.id}>
-                <td>{guidance.text}</td>
+                <td
+                  dangerouslySetInnerHTML={{
+                    __html: DOMPurify.sanitize(guidance.text),
+                  }}
+                />
                 <td className={tablesStyles.table_row}>
                   {guidance.themes.map((theme) => theme.title).join(", ")}
                 </td>
@@ -53,7 +58,7 @@ function GuidanceList({
                 <td className={tablesStyles.table_row}>
                   {guidance.published ? t("published") : t("unpublished")}
                 </td>
-                <td className={tablesStyles.table_row}>{guidance.locale}</td>
+                <td className={tablesStyles.table_row}>{guidance.language}</td>
                 <td className={tablesStyles.table_row}>
                   {guidance.last_updated}
                 </td>
