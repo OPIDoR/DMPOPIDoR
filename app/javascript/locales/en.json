@@ -283,5 +283,7 @@
   "software": "Software",
   "physicalObject": "Physical Object",
   "datasetType": "Data (dataset, image, sound, text, ...)",
-  "noGuidanceSelected": "No guidance has been selected"
+  "noGuidanceSelected": "No guidance has been selected",
+  "answerImportFormMessage": "You're about to import a answer using the \"{{templateName}}\" form",
+  "importAnswer": "Import answer"
 }
