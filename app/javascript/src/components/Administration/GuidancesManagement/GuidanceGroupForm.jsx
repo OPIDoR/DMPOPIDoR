@@ -26,7 +26,6 @@ function GuidanceGroupForm() {
   const { t } = useTranslation();
   const methods = useForm({ defaultValues: {} });
   const [loading, setLoading] = useState(true);
-  const [guidanceGroupData, setGuidanceGroupData] = useState({});
   const [availableLanguages, setAvailableLanguages] = useState([]);
   const isEditing = Boolean(params.id);
 
@@ -88,15 +87,11 @@ function GuidanceGroupForm() {
 
     handleGetGuidanceGroupData
       .then((res) => {
-        setGuidanceGroupData(res.data);
+        methods.reset(res.data);
       })
       .catch((error) => handleError(error))
       .finally(() => setLoading(false));
   }, [params.id]);
-
-  useEffect(() => {
-    methods.reset(guidanceGroupData);
-  }, [guidanceGroupData]);
 
   useEffect(() => {
     guidancesManagement
