@@ -224,7 +224,7 @@ function GuidanceManagement() {
             handlePublication={handleGuidancePublication}
           />
           <CustomButton
-            handleClick={() => {}}
+            handleClick={() => navigate("guidances/new")}
             title={t("createGuidance")}
             buttonColor="rust"
             position="start"
