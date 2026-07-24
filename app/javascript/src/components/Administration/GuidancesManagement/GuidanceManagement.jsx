@@ -115,9 +115,51 @@ function GuidanceManagement() {
     });
   };
 
-  const handleGuidanceDelete = (guidanceId) => {};
+  const handleGuidanceDelete = (guidanceId) => {
+    Swal.fire(swalUtils.defaultConfirmConfig(t)).then((result) => {
+      if (result.isConfirmed) {
+        setLoading(true);
+        guidancesManagement
+          .deleteGuidance(guidanceId)
+          .then((res) => {
+            setGuidances(res.data.guidances);
+            toast.success(res.data.message);
+          })
+          .catch((error) => {
+            console.error(error);
+            toast.error(error.data.message);
+          })
+          .finally(() => {
+            setLoading(false);
+          });
+      }
+    });
+  };
+  const handleGuidancePublication = (guidanceId, published) => {
+    setLoading(true);
+    const handlePublicationMethod = published
+      ? guidancesManagement.unpublishGuidance
+      : guidancesManagement.publishGuidance;
 
-  const handleGuidancePublication = (guidanceId, published) => {};
+    handlePublicationMethod(guidanceId)
+      .then((res) => {
+        setGuidances((prevGuidances) =>
+          prevGuidances.map((guidance) =>
+            guidance.id == guidanceId
+              ? { ...guidance, published: !published }
+              : guidance,
+          ),
+        );
+        toast.success(res.data.message);
+      })
+      .catch((error) => {
+        console.error(error);
+        toast.error(t("publicationError"));
+      })
+      .finally(() => {
+        setLoading(false);
+      });
+  };
   /**
    * USE EFFECTS
    */

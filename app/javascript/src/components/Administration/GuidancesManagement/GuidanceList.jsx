@@ -74,10 +74,18 @@ function GuidanceList({
                     >
                       {t("edit")}
                     </Dropdown.Item>
-                    <Dropdown.Item as="button" onClick={handlePublication}>
+                    <Dropdown.Item
+                      as="button"
+                      onClick={() =>
+                        handlePublication(guidance.id, guidance.published)
+                      }
+                    >
                       {guidance.published ? t("unpublish") : t("publish")}
                     </Dropdown.Item>
-                    <Dropdown.Item as="button" onClick={handleDelete}>
+                    <Dropdown.Item
+                      as="button"
+                      onClick={() => handleDelete(guidance.id)}
+                    >
                       {t("delete")}
                     </Dropdown.Item>
                   </DropdownButton>

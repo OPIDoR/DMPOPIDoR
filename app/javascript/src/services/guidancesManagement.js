@@ -127,6 +127,30 @@ const saveGuidance = async (id, guidanceData) =>
     },
   );
 
+const publishGuidance = async (id) =>
+  axios.put(`/org_admin/guidances/${id}/publish`, null, {
+    headers: {
+      Accept: "application/json",
+      "Content-Type": "application/json",
+    },
+  });
+
+const unpublishGuidance = async (id) =>
+  axios.put(`/org_admin/guidances/${id}/unpublish`, null, {
+    headers: {
+      Accept: "application/json",
+      "Content-Type": "application/json",
+    },
+  });
+
+const deleteGuidance = async (id) =>
+  axios.delete(`/org_admin/guidances/${id}`, null, {
+    headers: {
+      Accept: "application/json",
+      "Content-Type": "application/json",
+    },
+  });
+
 const getLanguages = async () =>
   axios.get(`/languages`, {
     headers: {
@@ -158,5 +182,8 @@ export default {
   getGuidanceData,
   createGuidance,
   saveGuidance,
+  publishGuidance,
+  unpublishGuidance,
+  deleteGuidance,
   getThemes,
 };

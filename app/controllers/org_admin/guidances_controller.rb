@@ -132,10 +132,18 @@ module OrgAdmin
           guidance_group.save
         end
         flash[:notice] = success_message(@guidance, _('deleted'))
+        @guidances = guidance_group.guidances
+
+        render json: {
+          message: success_message(@guidance, _('deleted')),
+          guidances: @guidances.map do |guidance|
+            Guidance.serialize_json_response(guidance)
+          end
+        }
       else
         flash[:alert] = failure_message(@guidance, _('delete'))
+        bad_request(failure_message(@guidance, _('delete')))
       end
-      redirect_to(action: :index)
     end
     # rubocop:enable Metrics/AbcSize
 
@@ -148,11 +156,13 @@ module OrgAdmin
         guidance_group = GuidanceGroup.find(@guidance.guidance_group_id)
         guidance_group.update(published: true) if !guidance_group.published? || guidance_group.published.nil?
         flash[:notice] = _('Your guidance has been published and is now available to users.')
+        render json: { status: 200,
+                       message: _('Your guidance has been published and is now available to users.') }
 
       else
         flash[:alert] = failure_message(@guidance, _('publish'))
+        bad_request(failure_message(@guidance, _('publish')))
       end
-      redirect_to(action: :index)
     end
     # rubocop:enable Metrics/AbcSize
 
@@ -165,11 +175,13 @@ module OrgAdmin
         guidance_group = GuidanceGroup.find(@guidance.guidance_group_id)
         guidance_group.update(published: false) unless guidance_group.guidances.where(published: true).exists?
         flash[:notice] = _('Your guidance is no longer published and will not be available to users.')
+        render json: { status: 200,
+                       message: _('Your guidance is no longer published and will not be available to users.') }
 
       else
         flash[:alert] = failure_message(@guidance, _('unpublish'))
+        bad_request(failure_message(@guidance, _('unpublish')))
       end
-      redirect_to(action: :index)
     end
     # rubocop:enable Metrics/AbcSize
 
