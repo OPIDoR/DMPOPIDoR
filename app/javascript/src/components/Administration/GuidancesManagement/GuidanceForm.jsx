@@ -23,7 +23,7 @@ function GuidanceForm() {
   const navigate = useNavigate();
   const location = useLocation();
   const { t } = useTranslation();
-  const methods = useForm({ defaultValues: {} });
+  const methods = useForm({ defaultValues: { published: false } });
 
   const [loading, setLoading] = useState(false);
   const [availableGuidanceGroups, setAvailableGuidanceGroups] = useState(
@@ -61,6 +61,27 @@ function GuidanceForm() {
 
   const handleSaveForm = async (data) => {
     setLoading(true);
+    const guidanceData = { ...data, theme_ids: [data.theme_id] };
+    let response;
+    try {
+      if (isEditing) {
+        response = await guidancesManagement.saveGuidance(
+          params.id,
+          guidanceData,
+        );
+      } else {
+        response = await guidancesManagement.createGuidance(guidanceData);
+      }
+    } catch (error) {
+      handleError(error);
+      return setLoading(false);
+    }
+    toast.success(t("saveSuccess"));
+    setLoading(false);
+    navigate(
+      `/administration/guidances_management/guidances/${response.data.id}/edit`,
+      { replace: true },
+    );
   };
 
   /**
@@ -113,7 +134,6 @@ function GuidanceForm() {
       language_abbreviation: locale,
     } = selectedGuidanceGroupOption.object;
     methods.setValues({ locale: locale, language });
-    console.log(data_types);
     guidancesManagement
       .getThemes(locale, data_types)
       .then((res) => {
@@ -195,7 +215,7 @@ function GuidanceForm() {
             <RadioGroup
               label={t("themes")}
               items={availableThemes}
-              propName={"theme_ids"}
+              propName={"theme_id"}
               tooltip={t("themesTooltip")}
               hidden={false}
               readonly={false}

@@ -4,6 +4,7 @@ module OrgAdmin
   # Controller that handles guidance edition
   class GuidancesController < ApplicationController
     after_action :verify_authorized
+    include ErrorHelper
 
     # GET /org_admin/guidances
     def index
@@ -79,10 +80,13 @@ module OrgAdmin
           end
         end
         flash[:notice] = success_message(@guidance, _('created'))
-        redirect_to edit_org_admin_guidance_path(@guidance)
+        respond_to do |format|
+          format.html { redirect_to edit_org_admin_guidance_path(@guidance) }
+          format.json { render json: Guidance.serialize_json_response(@guidance) }
+        end
       else
         flash[:alert] = failure_message(@guidance, _('create'))
-        redirect_to new_org_admin_guidance_path(@guidance)
+        bad_request(failure_message(@guidance, _('create')))
       end
     end
     # rubocop:enable Metrics/AbcSize
@@ -96,7 +100,6 @@ module OrgAdmin
       authorize @guidance
 
       @locales = Language.all
-
       if @guidance.update(guidance_params)
         if @guidance.published?
           guidance_group = GuidanceGroup.find(@guidance.guidance_group_id)
@@ -106,10 +109,14 @@ module OrgAdmin
           end
         end
         flash[:notice] = success_message(@guidance, _('saved'))
+        respond_to do |format|
+          format.html { redirect_to edit_org_admin_guidance_path(@guidance) }
+          format.json { render json: Guidance.serialize_json_response(@guidance) }
+        end
       else
         flash[:alert] = failure_message(@guidance, _('save'))
+        bad_request(failure_message(@guidance, _('save')))
       end
-      redirect_to edit_org_admin_guidance_path(@guidance)
     end
     # rubocop:enable Metrics/AbcSize
 

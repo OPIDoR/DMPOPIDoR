@@ -95,6 +95,30 @@ const getGuidanceData = async (guidanceId) =>
     },
   });
 
+const createGuidance = async (guidanceData) =>
+  axios.post(
+    `/org_admin/guidances`,
+    { guidance: guidanceData },
+    {
+      headers: {
+        Accept: "application/json",
+        "Content-Type": "application/json",
+      },
+    },
+  );
+
+const saveGuidance = async (id, guidanceData) =>
+  axios.put(
+    `/org_admin/guidances/${id}`,
+    { guidance: guidanceData },
+    {
+      headers: {
+        Accept: "application/json",
+        "Content-Type": "application/json",
+      },
+    },
+  );
+
 const getLanguages = async () =>
   axios.get(`/languages`, {
     headers: {
@@ -124,5 +148,7 @@ export default {
   getGuidancesData,
   getNewGuidanceData,
   getGuidanceData,
+  createGuidance,
+  saveGuidance,
   getThemes,
 };
