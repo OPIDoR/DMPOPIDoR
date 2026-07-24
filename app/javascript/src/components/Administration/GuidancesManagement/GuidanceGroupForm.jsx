@@ -61,7 +61,7 @@ function GuidanceGroupForm() {
     let response;
     try {
       if (isEditing) {
-        await guidancesManagement.saveGuidanceGroup(params.id, data);
+        response = await guidancesManagement.saveGuidanceGroup(params.id, data);
       } else {
         response = await guidancesManagement.createGuidanceGroup(data);
       }
