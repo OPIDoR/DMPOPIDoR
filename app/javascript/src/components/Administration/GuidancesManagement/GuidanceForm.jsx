@@ -15,7 +15,7 @@ import { createSelectOptions } from "../../../utils/JsonFragmentsUtils";
 import { guidancesManagement } from "../../../services";
 import InputText from "../../FormComponents/InputText";
 import TinyArea from "../../FormComponents/TinyArea";
-import Checkbox from "../../FormComponents/Checkbox.";
+import Checkbox from "../../FormComponents/Checkbox";
 import RadioGroup from "../../FormComponents/RadioGroup";
 
 function GuidanceForm() {

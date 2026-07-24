@@ -14,7 +14,7 @@ import TinyArea from "../../FormComponents/TinyArea";
 import CustomSelect from "../../Shared/CustomSelect";
 import { createSelectOptions } from "../../../utils/JsonFragmentsUtils";
 import SelectMultipleString from "../../FormComponents/registries/SelectMultipleString";
-import Checkbox from "../../FormComponents/Checkbox.";
+import Checkbox from "../../FormComponents/Checkbox";
 import { GlobalContext } from "../../context/GlobalContext";
 import { getErrorMessage } from "../../../utils/utils";
 import CustomSpinner from "../../Shared/CustomSpinner";

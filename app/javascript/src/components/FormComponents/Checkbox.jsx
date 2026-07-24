@@ -1,10 +1,10 @@
-import { useFormContext } from "react-hook-form";
+import { Controller, useFormContext } from "react-hook-form";
 import { Tooltip as ReactTooltip } from "react-tooltip";
 import uniqueId from "lodash.uniqueid";
 
 import * as styles from "../assets/css/form.module.css";
 import TooltipInfoIcon from "./TooltipInfoIcon.jsx";
-import { useTranslation } from "react-i18next";
+import { FormCheck } from "react-bootstrap";
 
 /**
  * It's a function that takes in a bunch of props and returns
@@ -18,8 +18,7 @@ function Checkbox({
   hidden = false,
   readonly = false,
 }) {
-  const { t } = useTranslation();
-  const { register } = useFormContext();
+  const { control } = useFormContext();
   const inputId = uniqueId("checkbox_id_");
   const tooltipedLabelId = uniqueId("checkbox_tooltip_id_");
 
@@ -48,22 +47,22 @@ function Checkbox({
           )}
         </div>
       )}
-      <div className="form-check">
-        <label className={styles.switch}>
-          <input
-            type="checkbox"
-            id={inputId}
-            data-testid="checkbox"
-            {...register(propName, { value: false })}
-            readOnly={readonly === true}
+      <Controller
+        name={propName}
+        control={control}
+        render={({ field }) => (
+          <FormCheck
+            data-testid="switch"
+            key={propName}
+            type="switch"
+            id={propName}
+            name={field.name}
+            checked={field.value || false}
+            onChange={(e) => field.onChange(e.target.checked)}
             disabled={readonly === true}
           />
-          <div className={`${styles.switchSlider} ${styles.switchRound}`}>
-            <span className={styles.switchOn}>{t("yes")}</span>
-            <span className={styles.switchOff}>{t("no")}</span>
-          </div>
-        </label>
-      </div>
+        )}
+      />
     </div>
   );
 }
