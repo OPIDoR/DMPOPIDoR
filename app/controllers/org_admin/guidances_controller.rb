@@ -10,7 +10,7 @@ module OrgAdmin
     def index
       authorize Guidance
       @guidances = Guidance.includes(:guidance_group, :themes)
-                           .by_org(current_user.org).page(1)
+                           .by_org(current_user.org)
       ensure_default_group(current_user.org)
       @guidance_groups = GuidanceGroup.includes(:org)
                                       .by_org(current_user.org).page(1)

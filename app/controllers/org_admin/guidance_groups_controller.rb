@@ -10,7 +10,7 @@ module OrgAdmin
     def index
       authorize GuidanceGroup
       @guidance_groups = GuidanceGroup.includes(:org, :language)
-                                      .by_org(current_user.org).page(1)
+                                      .by_org(current_user.org)
 
       respond_to do |format|
         format.html
