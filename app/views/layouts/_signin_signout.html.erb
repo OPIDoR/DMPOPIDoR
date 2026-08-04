@@ -52,9 +52,6 @@
               </li>
             <% end %>
             <% if current_user.can_modify_guidance? %>
-              <li class="nav-item <%= ' active' if active_page?(org_admin_guidances_path) %>">
-                <%= link_to _('Guidance'), org_admin_guidances_path+"#content", class: 'nav-link' %>
-              </li>
               <li class="nav-item <%= ' active' if active_page?("/administration/guidances_management") %>">
                 <%= link_to _('Guidance'), "/administration/guidances_management#content", class: 'nav-link' %>
               </li>

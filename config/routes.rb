@@ -381,7 +381,6 @@ Rails.application.routes.draw do
 
   namespace :org_admin do
     resources :guidances, only: %i[index show new create edit update destroy] do
-      post 'render_themes', on: :collection, constraints: { format: [:json] }
       member do
         put 'publish'
         put 'unpublish'
