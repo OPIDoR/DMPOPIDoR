@@ -127,9 +127,6 @@ gem 'ledermann-rails-settings'
 # (https://github.com/jdutil/contact_us)
 gem 'contact_us' # COULD BE EASILY REPLACED WITH OUR OWN CODE
 
-# Helpers for the reCAPTCHA API (http://github.com/ambethia/recaptcha)
-gem 'recaptcha'
-
 # Ideal gem for handling attachments in Rails, Sinatra and Rack applications.
 # (http://github.com/markevans/dragonfly)
 gem 'dragonfly'
@@ -373,3 +370,5 @@ gem 'graphql', '~> 2.3'
 gem 'foreman'
 
 gem 'good_job'
+
+gem 'altcha-rails'

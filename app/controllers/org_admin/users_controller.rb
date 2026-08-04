@@ -31,7 +31,7 @@ module OrgAdmin
       else
         flash[:alert] = failure_message(@user, _('update'))
       end
-      redirect_to new_org_admin_user_path(@user)
+      redirect_to org_admin_user_path(@user)
     end
     # rubocop:enable Metrics/AbcSize
 

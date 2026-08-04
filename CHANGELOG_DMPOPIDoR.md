@@ -2,6 +2,30 @@
 
 **Attention** Cette liste de changements concerne les déploiements sur nos serveurs de test en interne.
 
+## 09/07/2026
+- Correction de l'édition de modèle suite à la migration vers Turbo (#15094)
+- Correction du problème de mise à jour du profil utilisateur par un Org Admin (#15484)
+- Retrait des utilisateurs inactifs du téléchargement CSV de la liste des utilisateurs dans l'espace Admin  (#15483)
+
+## 09/07/2026
+- Correction d'un problème de copie des plans entité (#15609)
+- Ajout de la génération json du plan dans la base lorsqu'un plan est mis en visibilité publique
+- Retrait du lien "Voir tout" de la liste des plans publics
+- Amélioration de la tache de nettoyage des comptes utilisateurs
+- Correction du problème de téléchargement de la liste des utilisateurs dans l'espace Admin (#15483)
+- Correction du problème de création et de mise à jour des Structures (#15484)
+- Correction du problème d'affichage de l'éditeur après la mise à jour d'un organisme (#15608)
+
+## 01/07/2026
+- Migration de reCaptcha vers [https://altcha.org/](Altcha)  (#15110)
+  - Mot de passe oublié ? (formulaire de demande et formulaire de choix du mot de passe)
+  - Page: "Contacter le support technique"
+    - Désactivation de la vérification captcha si l'utilisateur est connecté
+  - Page de création de compte
+- Mise en place d'une variable d'environnement **ALTCHA_ENABLED** (par défaut ``true``)
+- Mise en place d'une variable d'environnement **ALTCHA_HMAC_KEY** pour définir la signature Altcha
+- Homogénéisation des libellés des sous formulaires (#15448)
+
 ## 25/06/2026
 - Mises à jour du forulaire Produit de Recherche des plans classiques (#15396 & #15395)
 - Mise à jour du référentiel utilisé par l'import Metadore

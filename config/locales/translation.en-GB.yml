@@ -626,11 +626,6 @@ en-GB:
           pb: PB
           tb: TB
           zb: ZB
-  recaptcha:
-    errors:
-      recaptcha_unreachable: Oops, we failed to validate your reCAPTCHA response.
-        Please try again.
-      verification_failed: reCAPTCHA verification failed, please try again.
   time:
     am: am
     pm: pm
