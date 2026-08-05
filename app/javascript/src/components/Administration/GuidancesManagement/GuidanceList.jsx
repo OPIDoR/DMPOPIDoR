@@ -1,12 +1,10 @@
-import { useState } from "react";
 import DOMPurify from "dompurify";
 import { useTranslation } from "react-i18next";
 import Dropdown from "react-bootstrap/Dropdown";
 import DropdownButton from "react-bootstrap/DropdownButton";
-import Table from "react-bootstrap/Table";
 
 import * as tablesStyles from "../../assets/css/tables.module.css";
-import Pagination from "../../Shared/Pagination";
+import SortableTable from "../../Shared/SortableTable";
 
 function GuidanceList({
   guidances = [],
@@ -15,106 +13,69 @@ function GuidanceList({
   handlePublication,
 }) {
   const { t } = useTranslation();
-  const pageSize = 10;
-  const [displayedGuidances, setDisplayedGuidances] = useState([]);
-
-  const onChangePage = (pageOfItems) => {
-    setDisplayedGuidances(pageOfItems);
-  };
+  const columns = [
+    {
+      key: "text",
+      label: t("text"),
+      render: (text) => (
+        <span dangerouslySetInnerHTML={{ __html: DOMPurify.sanitize(text) }} />
+      ),
+    },
+    {
+      key: "themes",
+      label: t("themes"),
+      render: (themes) => themes.map((theme) => theme.title).join(", "),
+    },
+    { key: "guidance_group", label: t("guidanceGroup") },
+    {
+      key: "status",
+      label: t("status"),
+      render: (status) => (status ? t("published") : t("unpublished")),
+    },
+    { key: "language", label: t("locale") },
+    { key: "last_updated", label: t("lastUpdated"), sortable: true },
+    {
+      key: "actions",
+      label: t("actions"),
+      render: (guidance) => {
+        if (!guidance) return null;
+        return (
+          <DropdownButton
+            id={`guidance_group-${guidance.id}-actions`}
+            className={tablesStyles.dropdown_button}
+            title={t("actions")}
+          >
+            <Dropdown.Item as="button" onClick={() => handleEdit(guidance.id)}>
+              {t("edit")}
+            </Dropdown.Item>
+            <Dropdown.Item
+              as="button"
+              onClick={() => handlePublication(guidance.id, guidance.published)}
+            >
+              {guidance.published ? t("unpublish") : t("publish")}
+            </Dropdown.Item>
+            <Dropdown.Item
+              as="button"
+              onClick={() => handleDelete(guidance.id)}
+            >
+              {t("delete")}
+            </Dropdown.Item>
+          </DropdownButton>
+        );
+      },
+    },
+  ];
 
   /**
    * RENDERING
    */
 
   return (
-    <>
-      <Table hover striped>
-        <thead>
-          <tr>
-            <th scope="col">{t("text")}</th>
-            <th scope="col">{t("themes")}</th>
-            <th scope="col">{t("guidanceGroup")}</th>
-            <th scope="col">{t("status")}</th>
-            <th scope="col">{t("locale")}</th>
-            <th scope="col">{t("lastUpdated")}</th>
-            <th scope="col">{t("actions")}</th>
-          </tr>
-        </thead>
-        <tbody>
-          {displayedGuidances.length > 0 ? (
-            displayedGuidances.map((guidance) => (
-              <tr key={guidance.id}>
-                <td
-                  dangerouslySetInnerHTML={{
-                    __html: DOMPurify.sanitize(guidance.text),
-                  }}
-                />
-                <td className={tablesStyles.table_row}>
-                  {guidance.themes.map((theme) => theme.title).join(", ")}
-                </td>
-                <td className={tablesStyles.table_row}>
-                  {guidance.guidance_group}
-                </td>
-                <td className={tablesStyles.table_row}>
-                  {guidance.published ? t("published") : t("unpublished")}
-                </td>
-                <td className={tablesStyles.table_row}>{guidance.language}</td>
-                <td className={tablesStyles.table_row}>
-                  {guidance.last_updated}
-                </td>
-                <td className={tablesStyles.table_row}>
-                  <DropdownButton
-                    id={`guidance_group-${guidance.id}-actions`}
-                    className={tablesStyles.dropdown_button}
-                    title={t("actions")}
-                  >
-                    <Dropdown.Item
-                      as="button"
-                      onClick={() => handleEdit(guidance.id)}
-                    >
-                      {t("edit")}
-                    </Dropdown.Item>
-                    <Dropdown.Item
-                      as="button"
-                      onClick={() =>
-                        handlePublication(guidance.id, guidance.published)
-                      }
-                    >
-                      {guidance.published ? t("unpublish") : t("publish")}
-                    </Dropdown.Item>
-                    <Dropdown.Item
-                      as="button"
-                      onClick={() => handleDelete(guidance.id)}
-                    >
-                      {t("delete")}
-                    </Dropdown.Item>
-                  </DropdownButton>
-                </td>
-              </tr>
-            ))
-          ) : (
-            <tr>
-              <td colSpan="7" style={{ textAlign: "left" }}>
-                {t("noData")}
-              </td>
-            </tr>
-          )}
-        </tbody>
-      </Table>
-
-      {guidances.length > 0 && (
-        <div className="row text-right">
-          <div className="mx-auto">
-            <Pagination
-              key={guidances}
-              items={guidances}
-              onChangePage={onChangePage}
-              pageSize={pageSize}
-            />
-          </div>
-        </div>
-      )}
-    </>
+    <SortableTable
+      columns={columns}
+      data={guidances}
+      tableProps={{ hover: true, striped: true }}
+    />
   );
 }
 
