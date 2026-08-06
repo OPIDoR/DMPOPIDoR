@@ -22,7 +22,7 @@
               <th scope="col"><%= _('Structure') %>&nbsp;<%= paginable_sort_link('departments.name') %></th>
               <th scope="col"><%= _('Organisation') %>&nbsp;<%= paginable_sort_link('orgs.name') %></th>
               <th scope="col" class="text-center date-column"><%= _('Created date') %>&nbsp;<%= paginable_sort_link('users.created_at') %></th>
-              <th scope="col" class="text-center date-column"><%= _('Last activity') %>&nbsp;<%= paginable_sort_link('users.last_sign_in_at') %></th>
+              <th scope="col" class="text-center date-column"><%= _('Last activity') %>&nbsp;<%= paginable_sort_link('users.current_sign_in_at') %></th>
               <th scope="col" class="text-center sorter-false"><%= _('Plans') %></th>
               <th scope="col" class="text-center sorter-false"><%= _('Current Privileges') %></th>
               <th scope="col" class="text-center"><%= _('Active') %></th>
@@ -55,8 +55,8 @@
                       <% end %>
                   </td>
                   <td class="text-center">
-                      <% if !user.last_sign_in_at.nil? %>
-                      <%= l user.last_sign_in_at.to_date, :formats => :short %>
+                      <% if !user.current_sign_in_at.nil? %>
+                      <%= l user.current_sign_in_at.to_date, :formats => :short %>
                       <% end %>
                   </td>
                   <td class="text-center">

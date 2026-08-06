@@ -37,8 +37,10 @@ function SelectMultipleString({
   const { control } = useFormContext();
   const { field } = useController({ control, name: propName });
   const [error, setError] = useState(null);
-  const [selectedRegistry, setSelectedRegistry] = useState(registries[0]);
   const [availableRegistries, setAvailableRegistries] = useState(registries);
+  const [selectedRegistry, setSelectedRegistry] = useState(
+    availableRegistries[0],
+  );
 
   /**
    * Memoized values

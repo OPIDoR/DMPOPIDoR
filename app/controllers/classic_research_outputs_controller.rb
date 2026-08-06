@@ -56,6 +56,9 @@ class ClassicResearchOutputsController < ApplicationController
     @persons = @plan.json_fragment.persons
     authorize @plan
     if @research_output.destroy
+      @plan.research_outputs.each_with_index do |ro, index|
+        ro.update(display_order: index + 1)
+      end
       flash[:notice] = success_message(@research_output, _('deleted'))
     else
       flash[:alert] = failure_message(@research_output, _('delete'))

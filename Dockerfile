@@ -13,6 +13,7 @@ RUN apt update -y && apt install -y --no-install-recommends \
   libxext6 \
   libffi-dev \
   libfontconfig1 \
+  libvips42t64 \
   tzdata \
   gnupg2 && \
   apt-get clean && rm -rf /var/lib/apt/lists/* && \
