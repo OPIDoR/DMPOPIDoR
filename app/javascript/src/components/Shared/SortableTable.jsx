@@ -2,6 +2,7 @@ import { useMemo, useState } from "react";
 import { Table } from "react-bootstrap";
 import Pagination from "./Pagination";
 import { FaSort, FaSortUp, FaSortDown } from "react-icons/fa6";
+import { useTranslation } from "react-i18next";
 
 function SortableTable({
   columns = [],
@@ -9,6 +10,7 @@ function SortableTable({
   tableProps = {},
   pageSize = 10,
 }) {
+  const { t } = useTranslation();
   const [displayedData, setDisplayedData] = useState([]);
   const [sortedColumn, setSortedColumn] = useState({
     key: null,
@@ -78,17 +80,25 @@ function SortableTable({
           </tr>
         </thead>
         <tbody>
-          {sortedColumnData.map((row, rowIndex) => (
-            <tr key={row.id ?? rowIndex}>
-              {columns.map((column) =>
-                column.render ? (
-                  <td key={column.key}>{column.render(row)}</td>
-                ) : (
-                  <td key={column.key}>{row[column.key]}</td>
-                ),
-              )}
+          {sortedColumnData.length > 0 ? (
+            sortedColumnData.map((row, rowIndex) => (
+              <tr key={row.id ?? rowIndex}>
+                {columns.map((column) =>
+                  column.render ? (
+                    <td key={column.key}>{column.render(row)}</td>
+                  ) : (
+                    <td key={column.key}>{row[column.key]}</td>
+                  ),
+                )}
+              </tr>
+            ))
+          ) : (
+            <tr>
+              <td colSpan={columns.length} style={{ textAlign: "center" }}>
+                {t("noData")}
+              </td>
             </tr>
-          ))}
+          )}
         </tbody>
       </Table>
 
