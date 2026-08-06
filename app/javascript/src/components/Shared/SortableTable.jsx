@@ -3,13 +3,16 @@ import { Table } from "react-bootstrap";
 import Pagination from "./Pagination";
 import { FaSort, FaSortUp, FaSortDown } from "react-icons/fa6";
 import { useTranslation } from "react-i18next";
+import CustomSpinner from "./CustomSpinner";
 
 function SortableTable({
   columns = [],
   data = [],
   tableProps = {},
   pageSize = 10,
+  loading = false,
 }) {
+  console.log("loading", loading);
   const { t } = useTranslation();
   const [displayedData, setDisplayedData] = useState([]);
   const [sortedColumn, setSortedColumn] = useState({
@@ -62,7 +65,8 @@ function SortableTable({
   };
 
   return (
-    <>
+    <div style={{ position: "relative" }}>
+      {loading && <CustomSpinner isOverlay={true} />}
       <Table {...tableProps}>
         <thead>
           <tr>
@@ -114,7 +118,7 @@ function SortableTable({
           </div>
         </div>
       )}
-    </>
+    </div>
   );
 }
 
