@@ -17,20 +17,26 @@ function GuidanceList({
     {
       key: "text",
       label: t("text"),
-      render: (text) => (
-        <span dangerouslySetInnerHTML={{ __html: DOMPurify.sanitize(text) }} />
+      render: (guidance) => (
+        <span
+          dangerouslySetInnerHTML={{
+            __html: DOMPurify.sanitize(guidance.text),
+          }}
+        />
       ),
     },
     {
       key: "themes",
       label: t("themes"),
-      render: (themes) => themes.map((theme) => theme.title).join(", "),
+      render: (guidance) =>
+        guidance.themes.map((theme) => theme.title).join(", "),
     },
     { key: "guidance_group", label: t("guidanceGroup") },
     {
       key: "status",
       label: t("status"),
-      render: (status) => (status ? t("published") : t("unpublished")),
+      render: (guidance) =>
+        guidance.published ? t("published") : t("unpublished"),
     },
     { key: "language", label: t("locale") },
     { key: "last_updated", label: t("lastUpdated"), sortable: true },
