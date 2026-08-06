@@ -17,6 +17,7 @@ function GuidanceList({
     {
       key: "text",
       label: t("text"),
+      sortable: true,
       render: (guidance) => (
         <span
           dangerouslySetInnerHTML={{
@@ -31,14 +32,15 @@ function GuidanceList({
       render: (guidance) =>
         guidance.themes.map((theme) => theme.title).join(", "),
     },
-    { key: "guidance_group", label: t("guidanceGroup") },
+    { key: "guidance_group", label: t("guidanceGroup"), sortable: true },
     {
       key: "status",
       label: t("status"),
+      sortable: true,
       render: (guidance) =>
         guidance.published ? t("published") : t("unpublished"),
     },
-    { key: "language", label: t("locale") },
+    { key: "language", label: t("locale"), sortable: true },
     { key: "last_updated", label: t("lastUpdated"), sortable: true },
     {
       key: "actions",
