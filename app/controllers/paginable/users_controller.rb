@@ -27,8 +27,8 @@ module Paginable
 
       paginable_renderise(
         partial: 'index',
-        scope: scope.order('users.last_sign_in_at desc NULLS LAST'),
-        query_params: { sort_field: 'users.last_sign_in_at', sort_direction: :desc },
+        scope: scope.order('users.current_sign_in_at desc NULLS LAST'),
+        query_params: { sort_field: 'users.current_sign_in_at', sort_direction: :desc },
         format: :json,
         view_all: !current_user.can_super_admin?
       )

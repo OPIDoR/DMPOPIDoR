@@ -38,8 +38,10 @@ function SelectSingleString({
   const { field } = useController({ control, name: propName });
   const { locale } = useContext(GlobalContext);
   const [error, setError] = useState(null);
-  const [selectedRegistry, setSelectedRegistry] = useState(null);
   const [availableRegistries, setAvailableRegistries] = useState(registries);
+  const [selectedRegistry, setSelectedRegistry] = useState(
+    availableRegistries[0],
+  );
 
   let selectedOption = { value: "", label: "" };
 

@@ -23,12 +23,12 @@ class UsersController < ApplicationController
         @clicked_through = params[:click_through].present?
         @filter_admin = false
         if current_user.can_super_admin?
-          @users = User.order('last_sign_in_at desc NULLS LAST')
+          @users = User.order('current_sign_in_at desc NULLS LAST')
                        .includes(:department, :org, :perms, :roles, :identifiers).page(1)
           @total_active = User.where(active: true).count
           @total_users = User.count
         else
-          @users = current_user.org.users.order('last_sign_in_at desc NULLS LAST')
+          @users = current_user.org.users.order('current_sign_in_at desc NULLS LAST')
                                .includes(:department, :org, :perms, :roles, :identifiers).page(1)
           @total_active = current_user.org.users.where(active: true).count
           @total_users = current_user.org.users.count

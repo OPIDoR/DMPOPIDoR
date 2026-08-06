@@ -2,6 +2,12 @@
 
 **Attention** Cette liste de changements concerne les déploiements sur nos serveurs de test en interne.
 
+## 06/08/2026
+- Correction d'un problème d'édition des phases des modules (#15960)
+- Correction d'un problème d'affichage de la coche "réponses communes" dans les modèles classiques après la suppression du premier produit de recherche (#15941)
+- Correction d'un problème d'affichage des référentiels lorsque la propriété `registries` est renseignée.
+- Correction d'un problème d'affichage de l'info Derniere Activité dans la liste des utilisateurs (#15950)
+
 ## 09/07/2026
 - Correction de l'édition de modèle suite à la migration vers Turbo (#15094)
 - Correction du problème de mise à jour du profil utilisateur par un Org Admin (#15484)
