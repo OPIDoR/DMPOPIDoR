@@ -17,7 +17,6 @@ function ContributorsTab({ planId, readonly }) {
   const { t, i18n } = useTranslation();
   const { locale, dmpId } = useContext(GlobalContext);
   const [show, setShow] = useState(false);
-  const [index, setIndex] = useState(null);
   const [template, setTemplate] = useState(null);
   const [contributors, setContributors] = useState([]);
   const [fragmentId, setFragmentId] = useState(null);
@@ -26,7 +25,6 @@ function ContributorsTab({ planId, readonly }) {
   const [loading, setLoading] = useState(true);
 
   const handleSave = async (data) => {
-    const newContributorsList = [...contributors];
     setLoading(true);
     if (
       checkFragmentExists(
@@ -36,12 +34,15 @@ function ContributorsTab({ planId, readonly }) {
       )
     ) {
       setError(t("recordAlreadyExists"));
-    } else if (index !== null && fragmentId) {
+    } else if (fragmentId) {
       madmpFragment
         .saveFragment(fragmentId, data)
         .then((res) => {
-          newContributorsList[index].data = res.data.fragment;
-          setContributors(newContributorsList);
+          setContributors((prev) =>
+            prev.map((c) =>
+              c.id === fragmentId ? { ...c, data: res.data.fragment } : c,
+            ),
+          );
         })
         .catch((error) => {
           setError(error);
@@ -50,12 +51,14 @@ function ContributorsTab({ planId, readonly }) {
       madmpFragment
         .createFragment(data, template.id, dmpId)
         .then((res) => {
-          newContributorsList.unshift({
-            id: res.data.fragment.id,
-            data: res.data.fragment,
-            roles: [],
-          });
-          setContributors(newContributorsList);
+          setContributors((prev) => [
+            {
+              id: res.data.fragment.id,
+              data: res.data.fragment,
+              roles: [],
+            },
+            ...prev,
+          ]);
         })
         .catch((error) => {
           setError(error);
@@ -70,29 +73,25 @@ function ContributorsTab({ planId, readonly }) {
 
   const handleClose = () => {
     setShow(false);
-    setIndex(null);
     setEditedPerson({});
     setFragmentId(null);
   };
 
-  const handleEdit = (idx) => {
-    setIndex(idx);
-    setEditedPerson(contributors[idx].data);
-    setFragmentId(contributors[idx].id);
+  const handleEdit = (contributor) => {
+    setEditedPerson(contributor.data);
+    setFragmentId(contributor.id);
     setShow(true);
   };
 
-  const handleDelete = (idx) => {
-    const fragmentId = contributors[idx].id;
-    const newContributorsList = [...contributors];
+  const handleDelete = (contributor) => {
+    const fragmentId = contributor.id;
 
     Swal.fire(swalUtils.defaultConfirmConfig(t)).then((result) => {
       if (result.isConfirmed) {
         madmpFragment
           .destroyContributor(fragmentId)
           .then(() => {
-            newContributorsList.splice(idx, 1);
-            setContributors(newContributorsList);
+            setContributors(contributors.filter((c) => c.id !== fragmentId));
           })
           .catch(() => {
             Swal.fire(swalUtils.defaultDeleteErrorConfig(t, "contributor"));
@@ -154,7 +153,6 @@ function ContributorsTab({ planId, readonly }) {
           <CustomButton
             handleClick={() => {
               setShow(true);
-              setIndex(null);
             }}
             title={t("addPersonOrOrg")}
             buttonColor="rust"
