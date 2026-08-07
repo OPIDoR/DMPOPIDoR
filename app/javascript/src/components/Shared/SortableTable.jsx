@@ -12,7 +12,6 @@ function SortableTable({
   pageSize = 10,
   loading = false,
 }) {
-  console.log("loading", loading);
   const { t } = useTranslation();
   const [displayedData, setDisplayedData] = useState([]);
   const [sortedColumn, setSortedColumn] = useState({
