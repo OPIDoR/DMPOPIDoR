@@ -423,6 +423,10 @@ class Plan < ApplicationRecord
   end
   # rubocop:enable Metrics/AbcSize, Metrics/MethodLength
 
+  def self.dmp_ids(plans)
+    Fragment::Dmp.where('data ->> \'plan_id\' IN (?)', plans.pluck(:id)).pluck(:id).uniq
+  end
+
   # ===========================
   # = Public instance methods =
   # ===========================
