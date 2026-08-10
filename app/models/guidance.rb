@@ -142,4 +142,25 @@ class Guidance < ApplicationRecord
 
     false
   end
+
+  # rubocop:disable Metrics/AbcSize
+  def self.serialize_json_response(guidance)
+    language = guidance.locale.present? ? Language.find_by(abbreviation: guidance.locale) : nil
+    {
+      id: guidance.id,
+      text: guidance.text,
+      published: guidance.published,
+      theme_id: guidance.theme_ids.first,
+      themes: guidance.themes.each do |th|
+        theme = Theme.find_by(title: th.title)
+        theme&.translations&.[](guidance.locale)&.fetch('title', nil) || th&.title
+      end,
+      guidance_group_id: guidance.guidance_group_id,
+      guidance_group: guidance&.guidance_group&.name,
+      language: language&.name || 'N/C',
+      locale: language&.abbreviation,
+      last_updated: guidance&.updated_at&.to_date&.strftime('%d/%m/%Y')
+    }
+  end
+  # rubocop:enable Metrics/AbcSize
 end

@@ -9,7 +9,7 @@ import { FaPlus } from "react-icons/fa6";
 
 import { GlobalContext } from "../../context/GlobalContext.jsx";
 import {
-  createOptions,
+  createRegistryOptions,
   createRegistryPlaceholder,
 } from "../../../utils/GeneratorUtils.js";
 import { madmpFragment } from "../../../services/index.js";
@@ -73,7 +73,7 @@ function SelectMultipleObject({
   const options = useMemo(
     () =>
       registryValues
-        ? createOptions(registryValues, locale)
+        ? createRegistryOptions(registryValues, locale)
         : [{ value: "", label: "" }],
     [registryValues, locale],
   );

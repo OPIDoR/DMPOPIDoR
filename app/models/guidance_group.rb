@@ -171,4 +171,20 @@ class GuidanceGroup < ApplicationRecord
     end
   end
   # rubocop:enable Metrics/AbcSize
+
+  def self.serialize_json_response(guidance_group)
+    {
+      id: guidance_group.id,
+      name: guidance_group.name,
+      description: guidance_group.description,
+      is_default: guidance_group.is_default,
+      published: guidance_group.published,
+      topics: guidance_group.topics,
+      data_types: guidance_group.data_types,
+      language_id: guidance_group.language_id,
+      language: guidance_group.language&.name,
+      language_abbreviation: guidance_group.language&.abbreviation,
+      last_updated: guidance_group&.updated_at&.to_date&.strftime('%d/%m/%Y')
+    }
+  end
 end

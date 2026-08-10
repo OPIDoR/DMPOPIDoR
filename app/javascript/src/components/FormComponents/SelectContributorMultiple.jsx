@@ -8,13 +8,13 @@ import uniqueId from "lodash.uniqueid";
 import { FaPlus } from "react-icons/fa6";
 
 import {
-  createOptions,
+  createRegistryOptions,
   createRegistryPlaceholder,
   parsePattern,
 } from "../../utils/GeneratorUtils.js";
 import {
   checkFragmentExists,
-  createPersonsOptions,
+  createSelectOptions,
 } from "../../utils/JsonFragmentsUtils.js";
 import { GlobalContext } from "../context/GlobalContext.jsx";
 import { madmpFragment } from "../../services/index.js";
@@ -57,7 +57,7 @@ function SelectContributorMultiple({
     () => uniqueId("select_contributor_multiple_tooltip_id_"),
     [],
   );
-  const options = persons.length > 0 ? createPersonsOptions(persons) : null;
+  const options = persons.length > 0 ? createSelectOptions(persons) : null;
 
   /**
    * Memoized values
@@ -215,7 +215,7 @@ function SelectContributorMultiple({
           ...loadedRegistries,
           [res.data.name]: res.data.values,
         });
-        const options = createOptions(res.data.values, locale);
+        const options = createRegistryOptions(res.data.values, locale);
         setRoleOptions(options);
       });
     }

@@ -17,6 +17,7 @@ function Global({
   initialDmpId = null,
   initialUserId = -1,
   initialCommentablePlan = false,
+  isUserSuperAdmin = false,
 }) {
   const locale = initialLocale;
   const dmpId = initialDmpId;
@@ -33,6 +34,7 @@ function Global({
       configuration,
       setConfiguration,
       commentablePlan,
+      isUserSuperAdmin,
     }),
     [locale, dmpId, userId, configuration, commentablePlan],
   );

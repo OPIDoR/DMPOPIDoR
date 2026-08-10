@@ -8,13 +8,13 @@ import { FaPlus } from "react-icons/fa6";
 import Swal from "sweetalert2";
 
 import {
-  createOptions,
+  createRegistryOptions,
   createRegistryPlaceholder,
   parsePattern,
 } from "../../utils/GeneratorUtils.js";
 import {
   checkFragmentExists,
-  createPersonsOptions,
+  createSelectOptions,
 } from "../../utils/JsonFragmentsUtils.js";
 import { GlobalContext } from "../context/GlobalContext.jsx";
 import { madmpFragment } from "../../services/index.js";
@@ -52,7 +52,7 @@ function SelectContributorSingle({
     () => uniqueId("select_contributor_single_tooltip_id_"),
     [],
   );
-  const options = persons.length > 0 ? createPersonsOptions(persons) : null;
+  const options = persons.length > 0 ? createSelectOptions(persons) : null;
   const contributor = field.value.action === "delete" ? {} : field.value;
 
   /**
@@ -207,7 +207,7 @@ function SelectContributorSingle({
           ...loadedRegistries,
           [res.data.name]: res.data.values,
         });
-        const options = createOptions(res.data.values, locale);
+        const options = createRegistryOptions(res.data.values, locale);
         setRoleOptions(options);
       });
     }

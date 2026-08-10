@@ -7,7 +7,7 @@ import { FaXmark } from "react-icons/fa6";
 
 import { madmpFragment } from "../../../services/index.js";
 import {
-  createOptions,
+  createRegistryOptions,
   createRegistryPlaceholder,
 } from "../../../utils/GeneratorUtils.js";
 import { GlobalContext } from "../../context/GlobalContext.jsx";
@@ -43,8 +43,6 @@ function SelectSingleString({
     availableRegistries[0],
   );
 
-  let selectedOption = { value: "", label: "" };
-
   /**
    * Memoized values
    */
@@ -57,10 +55,22 @@ function SelectSingleString({
   const options = useMemo(
     () =>
       registryValues.length > 0
-        ? createOptions(registryValues, locale)
+        ? createRegistryOptions(registryValues, locale)
         : [{ value: "", label: "" }],
     [registryValues, locale],
   );
+
+  const selectedOption = useMemo(() => {
+    if (!field.value) return null;
+    if (!options) return null;
+
+    const selectedOpt = options.find((o) => o.value === field.value) || null;
+    if (selectedOpt === null && overridable === true) {
+      return { value: field.value, label: field.value };
+    } else {
+      return selectedOpt;
+    }
+  }, [field.value, options, overridable]);
 
   /**
    * It takes the value of the input field and adds it to the list array.
@@ -78,23 +88,6 @@ function SelectSingleString({
   const handleSelectRegistry = (e) => {
     setSelectedRegistry(e.value);
   };
-
-  /**
-   * SET STATES
-   */
-
-  if (options) {
-    if (field.value) {
-      const selectedOpt = options.find((o) => o.value === field.value) || null;
-      if (selectedOpt === null && overridable === true) {
-        selectedOption = { value: field.value, label: field.value };
-      } else {
-        selectedOption = selectedOpt;
-      }
-    } else {
-      selectedOption = null;
-    }
-  }
 
   /**
    * USE EFFECTS

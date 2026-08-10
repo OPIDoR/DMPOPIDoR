@@ -4,7 +4,7 @@ import Global from "../context/GlobalContext.jsx";
 import SectionsProvider from "../context/SectionsContext.jsx";
 
 import GeneralInfo from "./GeneralInfo.jsx";
-import GuidanceSelector from "../GuidanceChoice/GuidanceSelector.jsx";
+import GuidanceSelector from "../GuidanceSelection/GuidanceSelector.jsx";
 import "../../i18n.js";
 import { Toaster } from "react-hot-toast";
 

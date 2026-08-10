@@ -5,24 +5,67 @@ import { FaLink } from "react-icons/fa6";
 import { FaCheckCircle, FaPlusSquare } from "react-icons/fa";
 import Select from "react-select";
 import { externalServices } from "../../services";
-import CustomSpinner from "../Shared/CustomSpinner";
 import CustomError from "../Shared/CustomError";
-import Pagination from "../Shared/Pagination";
 import { flattenObject, normalize } from "../../utils/utils";
+import SortableTable from "../Shared/SortableTable";
 
-function RorList({ fragment, setFragment, mapping = {}, locale }) {
+function RorList({ fragment, setFragment, mapping = {} }) {
   const { t } = useTranslation();
-  const pageSize = 8;
   const [data, setData] = useState([]);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
-  const [currentData, setCurrentData] = useState([]);
   const [countries, setCountries] = useState([]);
   const [selectedOrg, setSelectedOrg] = useState(null);
   const [text, setText] = useState("");
   const [selectedCountry, setSelectedCountry] = useState(null);
 
-  const localeCode = locale.split("_").at(0);
+  const columns = [
+    {
+      key: "actions",
+      label: null,
+      render: (el) => (
+        <>
+          {selectedOrg === el.ror ? (
+            <FaCheckCircle className="text-center" style={{ color: "green" }} />
+          ) : (
+            <FaPlusSquare
+              className="text-center"
+              style={{ cursor: "pointer" }}
+              onClick={() => setSelectedValue(el)}
+            />
+          )}
+        </>
+      ),
+    },
+    {
+      key: "name",
+      label: t("orgName"),
+      render: (el) => (
+        <>
+          {el?.name}
+          &nbsp;
+          <a href={el.links[0]} target="_blank" rel="noopener noreferrer">
+            <FaLink></FaLink>
+          </a>
+        </>
+      ),
+    },
+    {
+      key: "acronym",
+      label: t("acronym"),
+      render: (el) => el.acronym,
+    },
+    {
+      key: "country",
+      label: t("country"),
+      render: (el) => el.country.code,
+    },
+    {
+      key: "location",
+      label: t("location"),
+      render: (el) => el.addresses?.at(0)?.city,
+    },
+  ];
 
   /**
    * The function `getData` makes an API call to get data, sets the retrieved data in state variables, and creates an array of distinct countries from the
@@ -42,7 +85,7 @@ function RorList({ fragment, setFragment, mapping = {}, locale }) {
     setData(response.data);
 
     if (response.data.length === 0) {
-      setCurrentData([]);
+      setData([]);
     }
 
     const options = response.data.map((option) => ({
@@ -61,14 +104,6 @@ function RorList({ fragment, setFragment, mapping = {}, locale }) {
     setCountries(distinctCountries);
 
     setLoading(false);
-  };
-
-  /**
-   * The onChangePage function updates the state with a new page of items.
-   */
-  const onChangePage = (pageOfItems) => {
-    // update state with new page of items
-    setCurrentData(pageOfItems);
   };
 
   /**
@@ -106,7 +141,7 @@ function RorList({ fragment, setFragment, mapping = {}, locale }) {
   const handleChangeCountry = async (e) => {
     setSelectedCountry(e?.value);
     setLoading(true);
-    setCurrentData([]);
+    setData([]);
 
     let response;
     try {
@@ -152,7 +187,7 @@ function RorList({ fragment, setFragment, mapping = {}, locale }) {
   const handleDeleteText = () => {
     setText("");
     setData([]);
-    setCurrentData([]);
+    setData([]);
     setSelectedCountry(null);
   };
 
@@ -278,76 +313,13 @@ function RorList({ fragment, setFragment, mapping = {}, locale }) {
             </div>
           )}
 
-          <table className="table table-bordered table-hover">
-            <thead className="thead-dark">
-              <tr>
-                <th scope="col"></th>
-                <th scope="col">{t("orgName")}</th>
-                <th scope="col">{t("acronym")}</th>
-                <th scope="col">{t("country")}</th>
-                <th scope="col">{t("location")}</th>
-              </tr>
-            </thead>
-            <tbody>
-              {currentData.length > 0 ? (
-                currentData.map((el, idx) => (
-                  <tr key={idx}>
-                    <td>
-                      {selectedOrg === el.ror ? (
-                        <FaCheckCircle
-                          className="text-center"
-                          style={{ color: "green" }}
-                        />
-                      ) : (
-                        <FaPlusSquare
-                          className="text-center"
-                          style={{ cursor: "pointer" }}
-                          onClick={() => setSelectedValue(el)}
-                        />
-                      )}
-                    </td>
-                    <td>
-                      {el?.name}
-                      &nbsp;
-                      <a
-                        href={el.links[0]}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                      >
-                        <FaLink></FaLink>
-                      </a>
-                    </td>
-                    <td>{el.acronym}</td>
-                    <td>{el.country.code}</td>
-                    <td>{el.addresses?.at(0)?.city}</td>
-                  </tr>
-                ))
-              ) : (
-                <tr>
-                  <td
-                    colSpan="5"
-                    style={{ textAlign: loading ? "center" : "left" }}
-                  >
-                    {loading ? <CustomSpinner /> : t("noData")}
-                  </td>
-                </tr>
-              )}
-            </tbody>
-          </table>
-
-          {data.length > 0 && (
-            <div className="row text-center">
-              <div className="mx-auto"></div>
-              <div className="mx-auto">
-                <Pagination
-                  key={data.map((d) => d?.ror).join(",")}
-                  items={data}
-                  onChangePage={onChangePage}
-                  pageSize={pageSize}
-                />
-              </div>
-            </div>
-          )}
+          <SortableTable
+            columns={columns}
+            data={data}
+            pageSize={8}
+            tableProps={{ hover: true, striped: true }}
+            loading={loading}
+          />
         </>
       )}
     </div>

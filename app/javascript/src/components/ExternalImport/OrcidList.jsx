@@ -4,22 +4,46 @@ import { FaCheckCircle, FaPlusSquare } from "react-icons/fa";
 import set from "lodash.set";
 import { externalServices } from "../../services";
 import CustomError from "../Shared/CustomError";
-import CustomSpinner from "../Shared/CustomSpinner";
-import Pagination from "../Shared/Pagination";
 import { flattenObject, normalize } from "../../utils/utils";
+import SortableTable from "../Shared/SortableTable";
 
 import { GlobalContext } from "../context/GlobalContext.jsx";
 
 function OrcidList({ fragment, setFragment, mapping = {} }) {
   const { t, i18n } = useTranslation();
-  const pageSize = 8;
   const [data, setData] = useState([]);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
-  const [currentData, setCurrentData] = useState([]);
   const [selectedPerson, setSelectedPerson] = useState(null);
   const [text, setText] = useState("");
   const { locale } = useContext(GlobalContext);
+
+  const columns = [
+    {
+      key: "actions",
+      label: null,
+      render: (el) =>
+        selectedPerson === el.orcid ? (
+          <FaCheckCircle className="text-center" style={{ color: "green" }} />
+        ) : (
+          <FaPlusSquare
+            className="text-center"
+            style={{ cursor: "pointer" }}
+            onClick={() => setSelectedValue(el)}
+          />
+        ),
+    },
+    {
+      key: "fullName",
+      label: t("fullName"),
+      render: (el) => `${el.familyNames} ${el.givenNames}`,
+    },
+    {
+      key: "orcidAffiliations",
+      label: t("orcidAffiliations"),
+      render: (el) => el?.institutionName.join(" / "),
+    },
+  ];
 
   /**
    * The function `getData` makes an API call to get data, sets the retrieved data in state variables, and creates an array of distinct countries from the
@@ -51,18 +75,10 @@ function OrcidList({ fragment, setFragment, mapping = {} }) {
     setData(response.data);
 
     if (response.data.length === 0) {
-      setCurrentData([]);
+      setData([]);
     }
 
     setLoading(false);
-  };
-
-  /**
-   * The onChangePage function updates the state with a new page of items.
-   */
-  const onChangePage = (pageOfItems) => {
-    // update state with new page of items
-    setCurrentData(pageOfItems);
   };
 
   /**
@@ -116,7 +132,6 @@ function OrcidList({ fragment, setFragment, mapping = {} }) {
   const handleDeleteText = () => {
     setText("");
     setData([]);
-    setCurrentData([]);
   };
 
   /**
@@ -216,63 +231,12 @@ function OrcidList({ fragment, setFragment, mapping = {} }) {
               </div>
             </div>
           </div>
-          <div>
-            <table className="table table-bordered table-hover">
-              <thead className="thead-dark">
-                <tr>
-                  <th scope="col"></th>
-                  <th scope="col">{t("fullName")}</th>
-                  <th scope="col">{t("orcidAffiliations")}</th>
-                </tr>
-              </thead>
-              <tbody>
-                {currentData.length > 0 ? (
-                  currentData.map((el, idx) => (
-                    <tr key={idx}>
-                      <td>
-                        {selectedPerson === el.orcid ? (
-                          <FaCheckCircle
-                            className="text-center"
-                            style={{ color: "green" }}
-                          />
-                        ) : (
-                          <FaPlusSquare
-                            className="text-center"
-                            style={{ cursor: "pointer" }}
-                            onClick={() => setSelectedValue(el)}
-                          />
-                        )}
-                      </td>
-                      <td>{`${el.familyNames} ${el.givenNames} `}</td>
-                      <td>{el?.institutionName.join(" / ")}</td>
-                    </tr>
-                  ))
-                ) : (
-                  <tr>
-                    <td
-                      colSpan="5"
-                      style={{ textAlign: loading ? "center" : "left" }}
-                    >
-                      {loading ? <CustomSpinner /> : t("noData")}
-                    </td>
-                  </tr>
-                )}
-              </tbody>
-            </table>
-          </div>
-          {data.length > 0 && (
-            <div className="row text-center">
-              <div className="mx-auto"></div>
-              <div className="mx-auto">
-                <Pagination
-                  key={data.map((d) => d?.orcid).join(",")}
-                  items={data}
-                  onChangePage={onChangePage}
-                  pageSize={pageSize}
-                />
-              </div>
-            </div>
-          )}
+          <SortableTable
+            data={data}
+            columns={columns}
+            loading={loading}
+            pageSize={8}
+          />
         </>
       )}
     </div>

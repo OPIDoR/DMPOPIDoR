@@ -1,0 +1,25 @@
+{
+	"Questionnaires": [
+		{
+			"label": {
+				"fr_FR": "Données (jeu de données, image, son, texte,...)",
+				"en_GB": "Data (dataset, image, sound, text, ...)"
+			},
+			"value": "dataset"
+		},
+		{
+			"label": {
+				"fr_FR": "Logiciel, code source",
+				"en_GB": "Software, source code"
+			},
+			"value": "software"
+		},
+		{
+			"label": {
+				"fr_FR": "Collection d’objets physiques (ressources biologiques, artefacts archéologiques, échantillons de sol,...)",
+				"en_GB": "Collection of physical objects (biological resources, archaeological artefacts, soil samples, ...)"
+			},
+			"value": "physical_object"
+		}
+	]
+}
