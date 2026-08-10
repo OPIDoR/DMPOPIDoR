@@ -33,12 +33,14 @@ class ClassicResearchOutputsController < ApplicationController
       reg_val = registry_values.find { |entry| entry['en_GB'] == 'Dataset' }
 
       @research_output = @plan.research_outputs.create(
-        abbreviation: "#{_('RO')} #{max_order}",
-        title: "#{_('Research output')} #{max_order}",
+        abbreviation: "#{_('RO')} 0",
+        title: "#{_('Research output')} 0",
         is_default: false,
         display_order: max_order,
         output_type_description: reg_val[@plan.template.locale.tr('-', '_')]
       )
+      @research_output.update_columns(abbreviation: "#{_('RO')} #{@research_output.id}",
+                                      title: "#{_('Research output')} #{@research_output.id}")
       @research_output.create_json_fragments
 
       @research_outputs = @plan.research_outputs
@@ -57,7 +59,7 @@ class ClassicResearchOutputsController < ApplicationController
     authorize @plan
     if @research_output.destroy
       @plan.research_outputs.each_with_index do |ro, index|
-        ro.update(display_order: index + 1)
+        ro.update_column(:display_order, index + 1)
       end
       flash[:notice] = success_message(@research_output, _('deleted'))
     else
