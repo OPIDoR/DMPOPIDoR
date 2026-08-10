@@ -225,7 +225,7 @@ class MadmpFragment < ApplicationRecord
       title: data['title']
     )
     # update hasPersonalData config paramater only for research_output_description fragments
-    if classname.eql?('research_output_description')
+    if %w[physical_object_description research_output_description].include?(classname)
       ro_fragment = parent
 
       new_additional_info = ro_fragment.additional_info.merge(
