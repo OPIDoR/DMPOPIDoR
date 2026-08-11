@@ -247,7 +247,7 @@ class ResearchOutput < ApplicationRecord
     research_output_description = json_fragment.research_output_description
     data_type = json_fragment.additional_info['dataType']
     new_description_data = { title:, shortName: abbreviation }
-    if data_type.eql?('dataset')
+    if %w[dataset physical_object].include?(data_type)
       new_description_data[:containsPersonalData] =
         contains_personal_data ? _('Yes') : _('No')
     end
