@@ -2,6 +2,10 @@
 
 **Attention** Cette liste de changements concerne les déploiements sur nos serveurs de test en interne.
 
+## 11/08/2026
+- Correction de création des produits de recherche dans les plans classiques & changement du nom par défaut généré (#15941)
+- Ajout de l'option sur les données personnelles aux Collections d'objets physique (#15972)
+
 ## 06/08/2026
 - Correction d'un problème d'édition des phases des modules (#15960)
 - Correction d'un problème d'affichage de la coche "réponses communes" dans les modèles classiques après la suppression du premier produit de recherche (#15941)
