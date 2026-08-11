@@ -6,7 +6,7 @@
     <% research_output_data = research_output_description.data if research_output_description.present?%>
     <% contact = research_output_description.contact%>
     <div class='research-output-element'>
-      <%= hidden_field_tag 'research-output-id', research_output.id, class: 'research-output-id' %>
+      <%= hidden_field_tag "research-output-#{research_output&.id}", research_output.id, class: 'research-output-id' %>
       <div class='research-output-fields'>
         <div class='research-output-field form-control mb-3 research-output-abbreviation'>
           <%= f.label :abbreviation, _('Abbreviated Name (20 chars max.)'), class: 'form-label' %>

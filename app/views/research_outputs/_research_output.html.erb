@@ -3,9 +3,9 @@
 <% research_output_data = research_output_description.data if research_output_description.present? %>
 <% contact = research_output_description.contact %>
 
-<%= turbo_frame_tag research_output do %>
-  <li class="research-output-element">
-    <%= hidden_field_tag 'research-output-id', research_output.id, class: 'research-output-id' %>
+<li class="research-output-element">
+  <%= turbo_frame_tag research_output do %>
+    <%= hidden_field_tag "research-output-#{research_output.id}", research_output.id, class: 'research-output-id' %>
     <div class='research-output-fields'>
       <div class='research-output-field form-control research-output-abbreviation'>
         <span class="fw-bold"><%= _('Abbreviated Name (20 chars max.)') %></span>
@@ -50,5 +50,5 @@
         <% end %>
       </div>
     <% end %>
-  </li>
-<% end %>
+  <% end %>
+</li>
