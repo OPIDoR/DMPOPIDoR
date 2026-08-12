@@ -8,7 +8,7 @@ namespace :probe do
     url = 'http://localhost:3000/healthz'
 
     response = HTTParty.get(url)
-    if response.code == 200 && response.parsed_response['status'] == 'Healthy'
+    if response.code == 200
       puts "✅ Liveness check passed: #{response.body}"
       exit 0
     else

@@ -539,6 +539,6 @@ Rails.application.routes.draw do
                                    controller: 'research_projects',
                                    constraints: { format: 'json' }
 
-  get "/healthz", to: "health#show"
+  get "healthz" => "rails/health#show", as: :rails_health_check
 end
 # rubocop:enable Metrics/BlockLength

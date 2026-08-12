@@ -9,6 +9,7 @@ services:
         - DB_USERNAME=${DB_USERNAME:-postgres}
         - DB_PASSWORD=${DB_PASSWORD:-changeme}
         - NODE_MAJOR=${NODE_MAJOR:-24}
+      target: production
     depends_on:
       postgres:
         condition: service_healthy
@@ -39,11 +40,7 @@ services:
       - SECRET_KEY=${SECRET_KEY:-my_secret_key}
       - DEVISE_PEPPER=${DEVISE_PEPPER:-my_pepper}
       - DRAGON_FLY_SECRET=${DRAGON_FLY_SECRET:-my_secret_key}
-      - REDIS_URL=redis://${REDIS_USERNAME:-default}:${REDIS_PASSWORD:-changeme}@${REDIS_HOST:-valkey}:${REDIS_PORT:-6379}
-      - REDIS_HOST=${REDIS_HOST:-valkey}
-      - REDIS_PORT=${REDIS_PORT:-6379}
-      - REDIS_USERNAME=${REDIS_USERNAME:-default}
-      - REDIS_PASSWORD=${REDIS_PASSWORD:-changeme}
+      - REDIS_URL=redis://${REDIS_USERNAME:-default}:${REDIS_PASSWORD:-changeme}@${REDIS_HOST:-valkey}:${REDIS_PORT:-6379}/1
       - AWS_REGION
       - AWS_BUCKET_NAME
       - BUNDLE_GEMFILE
@@ -67,6 +64,7 @@ services:
       - ENABLE_GRAPHIQL=true
       - ENABLE_TOPICS=${ENABLE_TOPICS:-true}
       - ENABLE_PHYSICAL_OBJECT=${ENABLE_PHYSICAL_OBJECT:-true}
+      - SESSION_COOKIE_SECURE=false # remove or set 'true' if https is used
     working_dir: /app
     volumes:
       - ./log:/app/log
@@ -76,6 +74,22 @@ services:
       timeout: ${DMPOPIDOR_HEALTHCHECK_TIMEOUT:-30s}
       retries: ${DMPOPIDOR_HEALTHCHECK_RETRIES:-3}
       start_period: ${POSTGRES_HEALTHCHECK_START_PERIOD:-0s}
+    networks:
+      - dmpopidor_network
+
+  maildev:
+    image: maildev/maildev:2.2.1
+    ports:
+      - 1080:1080
+    healthcheck:
+      test:
+        [
+          "CMD-SHELL",
+          "wget -q -S -O - http://0.0.0.0:1080 2>&1 | grep 'HTTP/1.1 200 OK'"
+        ]
+      interval: ${MAILDEV_HEALTHCHECK_INTERVAL:-30s}
+      timeout: ${MAILDEV_HEALTHCHECK_TIMEOUT:-10s}
+      retries: ${MAILDEV_HEALTHCHECK_RETRIES:-5}
     networks:
       - dmpopidor_network
 
@@ -93,7 +107,7 @@ services:
       - DB_CLIENT=pg
       - DB_HOST=${DB_HOST:-postgres}
       - DB_PORT=${DB_PORT:-5432}
-      - DB_USER=${DB_USERNAME:-postgres}
+      - DB_USERNAME=${DB_USERNAME:-postgres}
       - DB_PASSWORD=${DB_PASSWORD:-changeme}
       - DB_DATABASE=${DIRECTUS_DATABASE:-directus}
       - PUBLIC_URL=http://${DMP_SERVER_NAME:-0.0.0.0}:${NGINX_PORT:-8080}/directus
@@ -138,6 +152,8 @@ services:
 
   postgres:
     image: postgres:17.9-alpine3.23
+    ports:
+      - 5432:5432
     environment:
       - POSTGRES_USER=${DB_USERNAME:-postgres}
       - POSTGRES_PASSWORD=${DB_PASSWORD:-changeme}
