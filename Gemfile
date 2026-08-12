@@ -46,6 +46,7 @@ gem 'redis-actionpack'
 
 # Use Active Storage variant
 gem 'image_processing'
+gem 'ruby-vips'
 
 # Reduces boot times through caching; required in config/boot.rb
 gem 'bootsnap', require: false

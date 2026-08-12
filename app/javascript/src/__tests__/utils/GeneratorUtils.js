@@ -17,8 +17,8 @@ describe('GeneratorUtils.parsePattern', () => {
     expect(toStringValue).toBe(expectedValue);
   });
 });
-describe('GeneratorUtils.createOptions', () => {
-  test('createOptions on simple registry', () => {
+describe('GeneratorUtils.createRegistryOptions', () => {
+  test('createRegistryOptions on simple registry', () => {
     const registriesValues = [
       {
         fr_FR: 'Ouvert',
@@ -47,10 +47,10 @@ describe('GeneratorUtils.createOptions', () => {
         },
       },
     ];
-    const generatedOptions = utils.createOptions(registriesValues, 'fr_FR');
+    const generatedOptions = utils.createRegistryOptions(registriesValues, 'fr_FR');
     expect(generatedOptions).toStrictEqual(expectedOptions);
   });
-  test('createOptions on simple registry with value', () => {
+  test('createRegistryOptions on simple registry with value', () => {
     const registriesValues = [{
       label: {
         fr_FR: '1.1 Mathématiques',
@@ -65,10 +65,10 @@ describe('GeneratorUtils.createOptions', () => {
         object: {},
       },
     ];
-    const generatedOptions = utils.createOptions(registriesValues, 'fr_FR');
+    const generatedOptions = utils.createRegistryOptions(registriesValues, 'fr_FR');
     expect(generatedOptions).toStrictEqual(expectedOptions);
   });
-  test('createOptions on complex registry', () => {
+  test('createRegistryOptions on complex registry', () => {
     const registriesValues = [{
       label: {
         en_GB: 'CC-BY-4.0',
@@ -87,7 +87,7 @@ describe('GeneratorUtils.createOptions', () => {
         },
       },
     ];
-    const generatedOptions = utils.createOptions(registriesValues, 'fr_FR');
+    const generatedOptions = utils.createRegistryOptions(registriesValues, 'fr_FR');
     expect(generatedOptions).toStrictEqual(expectedOptions);
   });
 });

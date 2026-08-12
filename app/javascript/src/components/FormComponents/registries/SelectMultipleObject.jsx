@@ -9,7 +9,7 @@ import { FaPlus } from "react-icons/fa6";
 
 import { GlobalContext } from "../../context/GlobalContext.jsx";
 import {
-  createOptions,
+  createRegistryOptions,
   createRegistryPlaceholder,
 } from "../../../utils/GeneratorUtils.js";
 import { madmpFragment } from "../../../services/index.js";
@@ -52,8 +52,10 @@ function SelectMultipleObject({
   const [index, setIndex] = useState(null);
   const [error, setError] = useState(null);
   const [editedFragment, setEditedFragment] = useState({});
-  const [selectedRegistry, setSelectedRegistry] = useState(null);
   const [availableRegistries, setAvailableRegistries] = useState(registries);
+  const [selectedRegistry, setSelectedRegistry] = useState(
+    availableRegistries[0],
+  );
 
   const filteredFragmentList = fields.filter((el) => el.action !== "delete");
 
@@ -71,7 +73,7 @@ function SelectMultipleObject({
   const options = useMemo(
     () =>
       registryValues
-        ? createOptions(registryValues, locale)
+        ? createRegistryOptions(registryValues, locale)
         : [{ value: "", label: "" }],
     [registryValues, locale],
   );

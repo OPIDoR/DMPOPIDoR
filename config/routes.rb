@@ -209,6 +209,8 @@ Rails.application.routes.draw do
     post 'set_recommended', action: :set_recommended
   end
 
+  resources :languages, only: %i[index], constraints: { format: [:json] }
+
   namespace :api, defaults: { format: :json } do
     post '/graphql', to: 'graphql#execute'
 
@@ -281,6 +283,10 @@ Rails.application.routes.draw do
           get 'metadore', action: :metadore, on: :collection, as: :metadore
         end
       end
+    end
+
+    namespace :v2 do
+      resources :dmps, only: %i[index show create update destroy]
     end
   end
 
@@ -374,21 +380,24 @@ Rails.application.routes.draw do
   end
 
   # ORG ADMIN specific pages
+
+  get '/administration/guidances_management(/*react)', to: "administration#guidances_management"
+
   namespace :org_admin do
-    resources :guidances, only: %i[index new create edit update destroy] do
-      post 'render_themes', on: :collection, constraints: { format: [:json] }
+    resources :guidances, only: %i[index show new create edit update destroy] do
       member do
         put 'publish'
         put 'unpublish'
       end
     end
 
-    resources :guidance_groups, only: %i[index new create edit update destroy] do
+    resources :guidance_groups, only: %i[index show new create edit update destroy] do
       member do
         put 'publish'
         put 'unpublish'
       end
     end
+    resources :themes, only: [:index], constraints: { format: [:json] }
 
     resources :users, only: %i[edit update], controller: 'users' do
       member do

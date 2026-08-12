@@ -8,12 +8,12 @@ import { FormsContext } from "../context/FormsContext";
 import { SectionsContext } from "../context/SectionsContext.jsx";
 import CustomError from "../Shared/CustomError";
 import Section from "./Section";
-import GuidanceSelector from "../GuidanceChoice/GuidanceSelector";
+import GuidanceSelector from "../GuidanceSelection/GuidanceSelector";
+import SelectedGuidances from "../GuidanceSelection/SavedGuidances";
 import ResearchOutputModal from "../ResearchOutput/ResearchOutputModal";
 import ResearchOutputInfobox from "../ResearchOutput/ResearchOutputInfobox";
 import * as styles from "../assets/css/write_plan.module.css";
 import consumer from "../../utils/cable";
-import SelectedGuidances from "../GuidanceChoice/SavedGuidances";
 import { setUrlParams } from "../../utils/utils.js";
 
 function SectionsContent({ planId, readonly }) {
