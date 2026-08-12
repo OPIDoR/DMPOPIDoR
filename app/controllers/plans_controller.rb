@@ -139,6 +139,8 @@ class PlansController < ApplicationController
               display_order: 1,
               output_type_description: reg_val[@plan.template.locale.tr('-', '_')]
             )
+            created_ro.update_columns(abbreviation: "#{_('RO')} #{created_ro.id}",
+                                      title: "#{_('Research output')} #{created_ro.id}")
             created_ro.create_json_fragments({ hasPersonalData: true })
           end
 
