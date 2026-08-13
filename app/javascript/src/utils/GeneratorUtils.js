@@ -167,7 +167,7 @@ export function dataTypeSelectValues(t, enablePhysicalObject = true) {
 }
 
 export function displayPersonalData(researchOutputDataType) {
-  const typesWithoutPersonalData = ["software", "physical_object"];
+  const typesWithoutPersonalData = ["software"];
 
   return !typesWithoutPersonalData.includes(
     researchOutputDataType?.toLowerCase(),

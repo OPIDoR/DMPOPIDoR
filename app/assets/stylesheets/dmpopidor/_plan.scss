@@ -221,11 +221,13 @@
       }
     }
   }
+
   .add-research-output {
     display: block;
     margin: auto;
     width: 80%;
   }
+
   #research-outputs-list {
     width: 100%;
     padding: 20px;
@@ -235,89 +237,71 @@
     }
 
     .research-output-element {
-      display: flex;
-      margin-top: 10px;
-      padding: 20px;
-      border: 1px groove $dark-blue;
-      border-radius: 20px;
+      list-style-type: none;
 
-      .research-output-fields {
-        flex: 9;
+      turbo-frame {
+        display: flex;
+        margin-top: 10px;
+        padding: 20px;
+        border: 1px groove $dark-blue;
+        border-radius: 20px;
 
-        .research-output-field {
-          padding-top: 7px;
-          display: flex;
+        .research-output-fields {
+          flex: 9;
 
-          label {
-            flex: 1;
+          .research-output-field {
+            padding-top: 7px;
+            display: flex;
+
+            label {
+              flex: 1;
+            }
+
+            .action {
+              color: $dark-blue;
+              cursor: pointer;
+            }
+
+            &.form-control {
+              flex-direction: column;
+            }
+
+            select {
+              width: 90%;
+            }
+
+            .contributor-link {
+              align-self: center;
+            }
           }
+        }
 
-          .action {
-            color: $dark-blue;
+        .research-output-actions {
+          flex: 1;
+          display: flex;
+          align-items: center;
+          justify-content: space-around;
+          color: $dmpopidor-blue;
+
+          .handle,
+          .edit,
+          .cancel {
             cursor: pointer;
           }
 
-          &.form-control {
-            flex-direction: column;
-          }
-
-          select {
-            width: 90%;
-          }
-
-          .contributor-link {
-            align-self: center;
+          a {
+            color: $dmpopidor-blue;
           }
         }
-      }
 
-      .research-output-actions {
-        flex: 1;
-        display: flex;
-        align-items: center;
-        justify-content: space-around;
-        color: $dmpopidor-blue;
-
-        .handle,
-        .edit,
-        .cancel {
-          cursor: pointer;
-        }
-
-        a {
-          color: $dmpopidor-blue;
+        .edit_research_output {
+          width: 100%;
         }
       }
     }
 
     fieldset {
       width: 100%;
-    }
-  }
-
-  #show-research-outputs {
-    display: flex;
-    flex-direction: column;
-
-    .research-output-element {
-      margin-top: 10px;
-      padding: 20px;
-      border: 1px groove $dark-blue;
-      border-radius: 20px;
-
-      .research-output-value {
-        display: flex;
-
-        strong {
-          flex: 2;
-          text-align: right;
-        }
-
-        span {
-          padding-left: 20px;
-          flex: 8;
-        }
-      }
     }
   }
 }

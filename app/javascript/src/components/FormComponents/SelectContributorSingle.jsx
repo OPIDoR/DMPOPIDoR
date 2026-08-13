@@ -145,7 +145,7 @@ function SelectContributorSingle({
         // save new
         handleSaveNew(data);
       }
-      toast.success("Save was successful !");
+      toast.success(t("saveSuccess"));
       setError(null);
     }
     setEditedPerson({});

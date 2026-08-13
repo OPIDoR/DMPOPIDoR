@@ -143,7 +143,7 @@ function SelectContributorMultiple({
       } else {
         handleSaveNew(data);
       }
-      toast.success("Save was successful !");
+      toast.success(t("saveSuccess"));
     }
     setEditedPerson({});
     handleClose();

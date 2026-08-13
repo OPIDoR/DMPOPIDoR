@@ -107,6 +107,7 @@ function DynamicForm({
       }
       setFormData({ [fragmentId]: response.data.fragment });
       setLoading(false);
+      toast.success(t("saveSuccess"));
     } else {
       handleSaveNew(data);
     }
@@ -152,6 +153,7 @@ function DynamicForm({
         setDisplayedResearchOutput(updatedResearchOutput);
         setNewFragmentSaved(true);
         methods.reset(fragment);
+        toast.success(t("saveSuccess"));
       })
       .catch((error) => handleError(error))
       .finally(() => setLoading(false));
