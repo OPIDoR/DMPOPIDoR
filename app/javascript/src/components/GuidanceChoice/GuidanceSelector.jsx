@@ -124,7 +124,7 @@ function GuidanceSelector({
       behavior: "smooth",
     });
 
-    toast.success(t("registrationSuccess"));
+    toast.success(t("saveSuccess"));
   };
 
   const limitHasBeenReached = () =>
