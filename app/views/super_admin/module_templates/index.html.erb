@@ -1,12 +1,12 @@
 <%# Available locals: orgs %>
-<% title _('Module Templates') %>
+<% title _('Questionnaires') %>
 <div class="row">
   <div class="col-md-12">
     <h1>
-      <%= _('Module Templates') %>
+      <%= _('Questionnaires') %>
       <% link = request.path.include?('super_admin') ? new_super_admin_template_path(type: "module") : new_org_admin_template_path(type: "module") %>
       <a href="<%= link %>"
-         class="btn btn-primary float-end"><%= _('Create a module template') %></a>
+         class="btn btn-primary float-end"><%= _('Create a questionnaire') %></a>
     </h1>
   </div>
 </div>
