@@ -21,6 +21,7 @@ function InputText({
   hidden = false,
   readonly = false,
   min,
+  step = 1,
 }) {
   const { t } = useTranslation();
   const { register } = useFormContext();
@@ -70,6 +71,7 @@ function InputText({
         readOnly={readonly === true}
         disabled={readonly === true}
         min={min}
+        step={step}
       />
     </div>
   );
