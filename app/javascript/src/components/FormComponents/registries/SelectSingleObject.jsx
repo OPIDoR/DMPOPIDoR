@@ -27,10 +27,6 @@ import TooltipInfoIcon from "../TooltipInfoIcon.jsx";
 import useLoadTemplate from "../../../hooks/useLoadTemplate.js";
 import useLoadRegistry from "../../../hooks/useLoadRegistry.js";
 
-/* This is a functional component in JavaScript React that renders a select list with options fetched from a registry. It takes in several props such as
-label, name, changeValue, tooltip, registry, and schemaId. It uses the useState and useEffect hooks to manage the state of the options and to fetch
-the options from the registry when the component mounts. It also defines a handleChangeList function that is called when an option is selected from
-the list, and it updates the value of the input field accordingly. Finally, it returns the JSX code that renders the select list with the options. */
 function SelectSingleObject({
   label,
   propName,
@@ -207,7 +203,6 @@ function SelectSingleObject({
             />
           )}
         </div>
-
         <span className={styles.errorMessage}>{error}</span>
         {/* ************Select registry************** */}
         <div className="row">
@@ -254,7 +249,7 @@ function SelectSingleObject({
                     inputId={inputId}
                     onSelectChange={handleSelectRegistryValue}
                     options={options}
-                    selectedOption={{ value: "", label: "" }}
+                    name={propName}
                     isDisabled={showNestedForm || readonly || !selectedRegistry}
                     async={options.length > ASYNC_SELECT_OPTION_THRESHOLD}
                     placeholder={createRegistryPlaceholder(

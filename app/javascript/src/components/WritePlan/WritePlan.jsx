@@ -20,8 +20,12 @@ import WritePlanPlaceholder from "./Placeholders/WritePlanPlaceholder";
 function WritePlan({ planId, readonly, configuration }) {
   const { t, i18n } = useTranslation();
   const { locale, setConfiguration } = useContext(GlobalContext);
-  const { setDisplayedResearchOutput, researchOutputs, setResearchOutputs } =
-    useContext(SectionsContext);
+  const {
+    setOpenedQuestions,
+    setDisplayedResearchOutput,
+    researchOutputs,
+    setResearchOutputs,
+  } = useContext(SectionsContext);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const [template, setTemplate] = useState(null);
@@ -60,6 +64,15 @@ function WritePlan({ planId, readonly, configuration }) {
       e?.detail?.message?.roId || researchOutputId,
     );
   };
+
+  const handleQuestionParameter = (questionId, researchOutputId) => {
+    if (questionId) {
+      const updatedState = { [questionId]: true };
+      setOpenedQuestions({
+        [researchOutputId]: updatedState,
+      });
+    }
+  };
   /**
    * USE EFFECTS
    */
@@ -76,8 +89,10 @@ function WritePlan({ planId, readonly, configuration }) {
   // TODO update this , it can make error
   useEffect(() => {
     const queryParameters = new URLSearchParams(window.location.search);
+    const questionId = queryParameters.get("question");
     const researchOutputId = queryParameters.get("research_output");
     loadData(planId, researchOutputId);
+    handleQuestionParameter(questionId, researchOutputId);
 
     window.addEventListener("trigger-refresh-ro-data", (e) =>
       handleRefresh(e, researchOutputId),
