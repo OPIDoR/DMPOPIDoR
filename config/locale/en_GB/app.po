@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: app 1.0\n"
 "Report-Msgid-Bugs-To: contact@translation.io\n"
-"POT-Creation-Date: 2026-08-18 15:26+0200\n"
-"PO-Revision-Date: 2026-08-18 13:26+0000\n"
+"POT-Creation-Date: 2026-08-19 09:31+0200\n"
+"PO-Revision-Date: 2026-08-19 07:31+0000\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: English\n"
 "Language: en_GB\n"
@@ -6387,8 +6387,8 @@ msgid "Research output name: %{research_output_name}"
 msgstr "Research output name: %{research_output_name}"
 
 #: ../../app/views/user_mailer/new_comment.html.erb:30
-msgid "Question: %{question_number}"
-msgstr "Question: %{question_number}"
+msgid "Question: %{question_text}"
+msgstr ""
 
 #: ../../app/views/user_mailer/permissions_change_notification.html.erb:5
 msgid ""
