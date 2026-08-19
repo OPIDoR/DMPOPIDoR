@@ -2,6 +2,14 @@
 
 **Attention** Cette liste de changements concerne les déploiements sur nos serveurs de test en interne.
 
+## 19/08/2026
+- La question s'ouvre désormais automatiquement lorsqu'un utilisateur ouvre le lien présent dans la notification d'un nouveau commentaire.
+- Ajout de l'intitulé de la question dans la notification de nouveau commentaire
+- Homogénéisation des dates de dernière modification affichées dans les listes de plans (#14194)
+- Correction d'un problème d'affichage du placeholder dans la liste déroulante pour les référentiels complexes à choix unique (#15973)
+- Correction d'un problème d'import des produits de recherche Collection (#15983)
+- Ajout de la propriété step sur les champs nombre (#15978)
+
 ## 11/08/2026
 - Correction de création des produits de recherche dans les plans classiques & changement du nom par défaut généré (#15941)
 - Ajout de l'option sur les données personnelles aux Collections d'objets physique (#15972)
