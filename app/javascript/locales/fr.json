@@ -304,7 +304,7 @@
   "datasetType": "Données (jeu de données, image, son, texte,...)",
   "dataset": "Jeu de données",
   "software": "Logiciel",
-  "physical_object": "Object physique",
+  "physical_object": "Objet physique",
   "noGuidanceSelected": "Aucune recommandation sélectionnée", 
   "seeAllGuidances": "Voir toutes les recommandations",
   "answerImportFormMessage": "Vous allez importer une réponse utilisant le formulaire \"{{templateName}}\"",
