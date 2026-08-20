@@ -6,7 +6,7 @@
 #
 #  id             :integer          not null, primary key
 #  text           :text
-#  type           :integer          default(0), not null
+#  type           :integer          default("example_answer"), not null
 #  created_at     :datetime
 #  updated_at     :datetime
 #  org_id         :integer
