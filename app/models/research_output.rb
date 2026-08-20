@@ -213,7 +213,7 @@ class ResearchOutput < ApplicationRecord
   end
 
   # rubocop:disable Metrics/AbcSize, Metrics/MethodLength
-  def serialize_json
+  def serialize_json(with_answers: true)
     ro_fragment = json_fragment
     module_id = ro_fragment.additional_info['moduleId']
     template = module_id ? Template.find(module_id) : plan.template
@@ -229,14 +229,18 @@ class ResearchOutput < ApplicationRecord
         topic_label: generate_topic_label,
         type: ro_fragment.research_output_description['data']['type'] || nil,
         configuration: ro_fragment.additional_info,
-        answers: answers.map do |a|
-          {
-            id: a.id,
-            question_id: a.question_id,
-            fragment_id: a.madmp_fragment.id,
-            madmp_schema_id: a.madmp_fragment.madmp_schema_id
-          }
-        end,
+        answers: if with_answers
+                   answers.map do |a|
+                     {
+                       id: a.id,
+                       question_id: a.question_id,
+                       fragment_id: a.madmp_fragment.id,
+                       madmp_schema_id: a.madmp_fragment.madmp_schema_id
+                     }
+                   end
+                 else
+                   {}
+                 end,
         template: template.serialize_json
       }
     end

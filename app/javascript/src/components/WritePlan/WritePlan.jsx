@@ -33,7 +33,7 @@ function WritePlan({ planId, readonly, configuration }) {
 
   const loadData = (planId, researchOutputId) => {
     writePlan
-      .getPlanData(planId)
+      .getPlanData(planId, researchOutputId)
       .then((res) => {
         setTemplate(res.data.template);
 
