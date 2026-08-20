@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: app 1.0\n"
 "Report-Msgid-Bugs-To: contact@translation.io\n"
-"POT-Creation-Date: 2026-08-19 09:31+0200\n"
-"PO-Revision-Date: 2026-08-19 09:31+0200\n"
+"POT-Creation-Date: 2026-08-20 17:15+0200\n"
+"PO-Revision-Date: 2026-08-20 17:15+0200\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: English\n"
 "Language: en\n"
@@ -861,7 +861,7 @@ msgstr "Unable to change the plan's test status"
 msgid "imported"
 msgstr "imported"
 
-#: ../../app/controllers/plans_controller.rb:596
+#: ../../app/controllers/plans_controller.rb:605
 msgid "Invalid JSON: "
 msgstr "Invalid JSON: "
 
@@ -1865,8 +1865,8 @@ msgstr "guidance on"
 msgid "Dataset"
 msgstr "Dataset"
 
-#: ../../app/models/research_output.rb:252
-#: ../../app/models/research_output.rb:342
+#: ../../app/models/research_output.rb:256
+#: ../../app/models/research_output.rb:346
 #: ../../app/views/paginable/api_clients/_index.html.erb:34
 #: ../../app/views/paginable/guidance_groups/_index.html.erb:32
 #: ../../app/views/paginable/orgs/_index.html.erb:25
@@ -1881,8 +1881,8 @@ msgstr "Dataset"
 msgid "Yes"
 msgstr "Yes"
 
-#: ../../app/models/research_output.rb:252
-#: ../../app/models/research_output.rb:342
+#: ../../app/models/research_output.rb:256
+#: ../../app/models/research_output.rb:346
 #: ../../app/views/paginable/api_clients/_index.html.erb:34
 #: ../../app/views/paginable/guidance_groups/_index.html.erb:30
 #: ../../app/views/paginable/orgs/_index.html.erb:25
@@ -6376,20 +6376,20 @@ msgstr ""
 " page in %{tool_name}."
 
 #: ../../app/views/user_mailer/new_comment.html.erb:17
-msgid "Below the question, research output and section where the comment is located."
-msgstr "Below the question, research output and section where the comment is located."
+msgid "Below the research output, section and question where the comment is located."
+msgstr "Below the research output, section and question where the comment is located."
 
 #: ../../app/views/user_mailer/new_comment.html.erb:21
 msgid "DMP: %{phase_link}"
 msgstr "DMP: %{phase_link}"
 
 #: ../../app/views/user_mailer/new_comment.html.erb:24
-msgid "Section name: %{section_title}"
-msgstr "Section name: %{section_title}"
-
-#: ../../app/views/user_mailer/new_comment.html.erb:27
 msgid "Research output name: %{research_output_name}"
 msgstr "Research output name: %{research_output_name}"
+
+#: ../../app/views/user_mailer/new_comment.html.erb:27
+msgid "Section name: %{section_title}"
+msgstr "Section name: %{section_title}"
 
 #: ../../app/views/user_mailer/new_comment.html.erb:30
 msgid "Question: %{question_text}"

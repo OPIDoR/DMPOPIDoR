@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: app 1.0\n"
 "Report-Msgid-Bugs-To: contact@translation.io\n"
-"POT-Creation-Date: 2026-08-19 09:31+0200\n"
-"PO-Revision-Date: 2026-08-19 09:31+0200\n"
+"POT-Creation-Date: 2026-08-20 17:15+0200\n"
+"PO-Revision-Date: 2026-08-20 17:15+0200\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "Language: \n"
@@ -847,7 +847,7 @@ msgstr ""
 msgid "imported"
 msgstr ""
 
-#: ../../app/controllers/plans_controller.rb:596
+#: ../../app/controllers/plans_controller.rb:605
 msgid "Invalid JSON: "
 msgstr ""
 
@@ -1796,8 +1796,8 @@ msgstr ""
 msgid "Dataset"
 msgstr ""
 
-#: ../../app/models/research_output.rb:252
-#: ../../app/models/research_output.rb:342
+#: ../../app/models/research_output.rb:256
+#: ../../app/models/research_output.rb:346
 #: ../../app/views/paginable/api_clients/_index.html.erb:34
 #: ../../app/views/paginable/guidance_groups/_index.html.erb:32
 #: ../../app/views/paginable/orgs/_index.html.erb:25
@@ -1812,8 +1812,8 @@ msgstr ""
 msgid "Yes"
 msgstr ""
 
-#: ../../app/models/research_output.rb:252
-#: ../../app/models/research_output.rb:342
+#: ../../app/models/research_output.rb:256
+#: ../../app/models/research_output.rb:346
 #: ../../app/views/paginable/api_clients/_index.html.erb:34
 #: ../../app/views/paginable/guidance_groups/_index.html.erb:30
 #: ../../app/views/paginable/orgs/_index.html.erb:25
@@ -5979,7 +5979,7 @@ msgid ""
 msgstr ""
 
 #: ../../app/views/user_mailer/new_comment.html.erb:17
-msgid "Below the question, research output and section where the comment is located."
+msgid "Below the research output, section and question where the comment is located."
 msgstr ""
 
 #: ../../app/views/user_mailer/new_comment.html.erb:21
@@ -5987,11 +5987,11 @@ msgid "DMP: %{phase_link}"
 msgstr ""
 
 #: ../../app/views/user_mailer/new_comment.html.erb:24
-msgid "Section name: %{section_title}"
+msgid "Research output name: %{research_output_name}"
 msgstr ""
 
 #: ../../app/views/user_mailer/new_comment.html.erb:27
-msgid "Research output name: %{research_output_name}"
+msgid "Section name: %{section_title}"
 msgstr ""
 
 #: ../../app/views/user_mailer/new_comment.html.erb:30
