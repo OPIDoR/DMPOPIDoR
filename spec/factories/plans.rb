@@ -6,7 +6,7 @@
 #
 #  id                         :integer          not null, primary key
 #  complete                   :boolean          default(FALSE)
-#  context                    :integer          default("research_project"), not null
+#  context                    :integer          default(0), not null
 #  description                :text
 #  end_date                   :datetime
 #  ethical_issues             :boolean
@@ -18,7 +18,7 @@
 #  identifier                 :string
 #  start_date                 :datetime
 #  title                      :string
-#  visibility                 :integer          default("administrator_visible"), not null
+#  visibility                 :integer          default(3), not null
 #  created_at                 :datetime
 #  updated_at                 :datetime
 #  feedback_requestor_id      :integer
@@ -39,7 +39,7 @@
 # Foreign Keys
 #
 #  fk_rails_...  (org_id => orgs.id)
-#  fk_rails_...  (template_id => templates.id)
+#  fk_rails_...  (template_id => templates.id) DEFERRABLE INITIALLY DEFERRED
 #
 
 FactoryBot.define do

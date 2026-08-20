@@ -9,7 +9,7 @@
 #  description             :text
 #  display_order           :integer
 #  is_default              :boolean          default(FALSE)
-#  output_type             :integer          default("dataset"), not null
+#  output_type             :integer          default(3), not null
 #  output_type_description :string
 #  pid                     :string
 #  title                   :string

@@ -24,10 +24,10 @@
 #
 # Foreign Keys
 #
-#  fk_rails_...  (plan_id => plans.id)
-#  fk_rails_...  (question_id => questions.id)
+#  fk_rails_...  (plan_id => plans.id) DEFERRABLE INITIALLY DEFERRED
+#  fk_rails_...  (question_id => questions.id) DEFERRABLE INITIALLY DEFERRED
 #  fk_rails_...  (research_output_id => research_outputs.id)
-#  fk_rails_...  (user_id => users.id)
+#  fk_rails_...  (user_id => users.id) DEFERRABLE INITIALLY DEFERRED
 #
 
 # Object that represents an Answer to a Plan question
@@ -194,4 +194,11 @@ class Answer < ApplicationRecord
     nil
   end
   # rubocop:enable Metrics/AbcSize
+
+  def unread_comments_count_for(user)
+    mark = CommentReadMark.find_by(user: user, answer: self)
+    scope = notes.where.not(user_id: user.id) # on n'alerte pas sur ses propres commentaires
+    scope = scope.where('created_at > ?', mark.last_read_at) if mark
+    scope.count
+  end
 end

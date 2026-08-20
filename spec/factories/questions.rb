@@ -27,8 +27,8 @@
 # Foreign Keys
 #
 #  fk_rails_...  (madmp_schema_id => madmp_schemas.id)
-#  fk_rails_...  (question_format_id => question_formats.id)
-#  fk_rails_...  (section_id => sections.id)
+#  fk_rails_...  (question_format_id => question_formats.id) DEFERRABLE INITIALLY DEFERRED
+#  fk_rails_...  (section_id => sections.id) DEFERRABLE INITIALLY DEFERRED
 #
 
 FactoryBot.define do

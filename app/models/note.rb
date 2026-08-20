@@ -20,8 +20,8 @@
 #
 # Foreign Keys
 #
-#  fk_rails_...  (answer_id => answers.id)
-#  fk_rails_...  (user_id => users.id)
+#  fk_rails_...  (answer_id => answers.id) DEFERRABLE INITIALLY DEFERRED
+#  fk_rails_...  (user_id => users.id) DEFERRABLE INITIALLY DEFERRED
 #
 
 # Object that represents a comment on a Plan
