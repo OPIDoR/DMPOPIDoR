@@ -2,6 +2,11 @@
 
 **Attention** Cette liste de changements concerne les déploiements sur nos serveurs de test en interne.
 
+## 20/08/2026
+- Optimisation du chargement des données concernant les produits de recherche dans l'onglet Rédiger
+- Retrait des tags HTML dans l'intitulé de la question présent dans la notification de nouveau commentaire.
+- Correction du problème de sauvegarde de l'infobox et de la question Description (#15983)
+
 ## 19/08/2026
 - La question s'ouvre désormais automatiquement lorsqu'un utilisateur ouvre le lien présent dans la notification d'un nouveau commentaire.
 - Ajout de l'intitulé de la question dans la notification de nouveau commentaire
