@@ -278,6 +278,6 @@
   "datasetType": "Données (jeu de données, image, son, texte,...)",
   "dataset": "Jeu de données",
   "software": "Logiciel",
-  "physical_object": "Object physique",
+  "physical_object": "Objet physique",
   "noGuidanceSelected": "Aucune recommandation sélectionnée"
 }
