@@ -89,16 +89,6 @@ ActiveRecord::Schema[8.1].define(version: 2026_08_20_144911) do
   end
 
 
-  create_table "comment_read_marks", force: :cascade do |t|
-    t.bigint "user_id", null: false
-    t.bigint "answer_id", null: false
-    t.datetime "last_read_at", precision: nil, default: -> { "CURRENT_TIMESTAMP" }, null: false
-    t.index ["answer_id"], name: "index_comment_read_marks_on_answer_id"
-    t.index ["user_id", "answer_id"], name: "index_comment_read_marks_on_user_id_and_answer_id", unique: true
-    t.index ["user_id"], name: "index_comment_read_marks_on_user_id"
-  end
-
-
   create_table "conditions", id: :serial, force: :cascade do |t|
     t.integer "question_id"
     t.text "option_list"
@@ -771,6 +761,16 @@ ActiveRecord::Schema[8.1].define(version: 2026_08_20_144911) do
   end
 
 
+  create_table "viewed_comments", force: :cascade do |t|
+    t.bigint "user_id", null: false
+    t.bigint "answer_id", null: false
+    t.datetime "last_read_at", precision: nil, default: -> { "CURRENT_TIMESTAMP" }, null: false
+    t.index ["answer_id"], name: "index_viewed_comments_on_answer_id"
+    t.index ["user_id", "answer_id"], name: "index_viewed_comments_on_user_id_and_answer_id", unique: true
+    t.index ["user_id"], name: "index_viewed_comments_on_user_id"
+  end
+
+
   add_foreign_key "annotations", "orgs", deferrable: :deferred
   add_foreign_key "annotations", "questions", deferrable: :deferred
   add_foreign_key "answers", "plans", deferrable: :deferred
@@ -779,8 +779,6 @@ ActiveRecord::Schema[8.1].define(version: 2026_08_20_144911) do
   add_foreign_key "answers", "users", deferrable: :deferred
   add_foreign_key "answers_question_options", "answers", deferrable: :deferred
   add_foreign_key "answers_question_options", "question_options", deferrable: :deferred
-  add_foreign_key "comment_read_marks", "answers"
-  add_foreign_key "comment_read_marks", "users"
   add_foreign_key "conditions", "questions"
   add_foreign_key "guidance_groups", "orgs", deferrable: :deferred
   add_foreign_key "guidances", "guidance_groups", deferrable: :deferred
@@ -820,4 +818,6 @@ ActiveRecord::Schema[8.1].define(version: 2026_08_20_144911) do
   add_foreign_key "users", "orgs", deferrable: :deferred
   add_foreign_key "users_perms", "perms", deferrable: :deferred
   add_foreign_key "users_perms", "users", deferrable: :deferred
+  add_foreign_key "viewed_comments", "answers"
+  add_foreign_key "viewed_comments", "users"
 end

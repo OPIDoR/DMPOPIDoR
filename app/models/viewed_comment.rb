@@ -22,7 +22,7 @@
 #
 
 # Object that represents an Answer to a Plan question
-class CommentReadMark < ApplicationRecord
+class ViewedComment < ApplicationRecord
   # ================
   # = Associations =
   # ================
