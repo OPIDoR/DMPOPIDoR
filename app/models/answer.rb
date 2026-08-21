@@ -192,4 +192,11 @@ class Answer < ApplicationRecord
     end
     nil
   end
+
+  def unread_comments_count_for(user)
+    mark = ViewedComment.find_by(user: user, answer: self)
+    scope = notes.where.not(user_id: user.id) # on n'alerte pas sur ses propres commentaires
+    scope = scope.where('created_at > ?', mark.last_read_at) if mark
+    scope.count
+  end
 end
