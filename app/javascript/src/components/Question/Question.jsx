@@ -195,6 +195,7 @@ function Question({ planId, question, questionIdx, sectionNumber, readonly }) {
 
                     <CommentIcon
                       isQuestionOpened={isQuestionOpened}
+                      newCommentCount={answer?.new_comment_count || 0}
                       fillColor={getFillColor(showModals.comment)}
                       setModalOpened={setModalOpened}
                     />

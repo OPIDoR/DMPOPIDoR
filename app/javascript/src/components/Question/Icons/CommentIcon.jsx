@@ -4,7 +4,12 @@ import { useTranslation } from "react-i18next";
 import CommentSVG from "../../Shared/CommentSVG";
 import * as styles from "../../assets/css/write_plan.module.css";
 
-function CommentIcon({ isQuestionOpened, fillColor, setModalOpened }) {
+function CommentIcon({
+  isQuestionOpened,
+  newCommentCount,
+  fillColor,
+  setModalOpened,
+}) {
   const { t } = useTranslation();
   return (
     <div>
@@ -23,7 +28,13 @@ function CommentIcon({ isQuestionOpened, fillColor, setModalOpened }) {
         }}
         style={{ marginLeft: "5px" }}
       >
-        {isQuestionOpened && <CommentSVG size={32} fill={fillColor} />}
+        {(isQuestionOpened || newCommentCount > 0) && (
+          <CommentSVG
+            size={32}
+            fill={fillColor}
+            commentCount={newCommentCount}
+          />
+        )}
       </div>
     </div>
   );
