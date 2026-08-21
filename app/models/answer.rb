@@ -212,4 +212,11 @@ class Answer < ApplicationRecord
     scope = scope.where('created_at > ?', mark.last_read_at) if mark
     scope.count
   end
+
+  def mark_comments_as_read(user)
+    ViewedComment.upsert(
+      { user_id: user.id, answer_id: id, last_read_at: Time.current },
+      unique_by: %i[user_id answer_id]
+    )
+  end
 end
