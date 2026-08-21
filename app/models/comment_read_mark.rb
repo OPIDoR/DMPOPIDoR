@@ -6,17 +6,17 @@
 #
 #  id           :bigint(8)        not null, primary key
 #  last_read_at :datetime         not null
-#  note_id      :bigint(8)        not null
+#  answer_id    :bigint(8)        not null
 #  user_id      :bigint(8)        not null
 #
 # Indexes
 #
-#  index_comment_read_marks_on_note_id  (note_id)
-#  index_comment_read_marks_on_user_id  (user_id)
+#  index_comment_read_marks_on_answer_id  (answer_id)
+#  index_comment_read_marks_on_user_id    (user_id)
 #
 # Foreign Keys
 #
-#  fk_rails_...  (note_id => notes.id)
+#  fk_rails_...  (answer_id => answers.id)
 #  fk_rails_...  (user_id => users.id)
 #
 

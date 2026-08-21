@@ -91,11 +91,9 @@ ActiveRecord::Schema[8.1].define(version: 2026_08_20_144911) do
 
   create_table "comment_read_marks", force: :cascade do |t|
     t.bigint "user_id", null: false
-    t.bigint "note_id", null: false
+    t.bigint "answer_id", null: false
     t.datetime "last_read_at", precision: nil, default: -> { "CURRENT_TIMESTAMP" }, null: false
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index ["note_id"], name: "index_comment_read_marks_on_note_id"
+    t.index ["answer_id"], name: "index_comment_read_marks_on_answer_id"
     t.index ["user_id"], name: "index_comment_read_marks_on_user_id"
   end
 
@@ -763,6 +761,7 @@ ActiveRecord::Schema[8.1].define(version: 2026_08_20_144911) do
     t.index ["org_id"], name: "users_org_id_idx"
   end
 
+
   create_table "users_perms", id: false, force: :cascade do |t|
     t.integer "user_id"
     t.integer "perm_id"
@@ -779,7 +778,7 @@ ActiveRecord::Schema[8.1].define(version: 2026_08_20_144911) do
   add_foreign_key "answers", "users", deferrable: :deferred
   add_foreign_key "answers_question_options", "answers", deferrable: :deferred
   add_foreign_key "answers_question_options", "question_options", deferrable: :deferred
-  add_foreign_key "comment_read_marks", "notes"
+  add_foreign_key "comment_read_marks", "answers"
   add_foreign_key "comment_read_marks", "users"
   add_foreign_key "conditions", "questions"
   add_foreign_key "guidance_groups", "orgs", deferrable: :deferred
