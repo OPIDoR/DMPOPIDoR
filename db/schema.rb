@@ -94,6 +94,7 @@ ActiveRecord::Schema[8.1].define(version: 2026_08_20_144911) do
     t.bigint "answer_id", null: false
     t.datetime "last_read_at", precision: nil, default: -> { "CURRENT_TIMESTAMP" }, null: false
     t.index ["answer_id"], name: "index_comment_read_marks_on_answer_id"
+    t.index ["user_id", "answer_id"], name: "index_comment_read_marks_on_user_id_and_answer_id", unique: true
     t.index ["user_id"], name: "index_comment_read_marks_on_user_id"
   end
 

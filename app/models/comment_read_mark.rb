@@ -11,8 +11,9 @@
 #
 # Indexes
 #
-#  index_comment_read_marks_on_answer_id  (answer_id)
-#  index_comment_read_marks_on_user_id    (user_id)
+#  index_comment_read_marks_on_answer_id              (answer_id)
+#  index_comment_read_marks_on_user_id                (user_id)
+#  index_comment_read_marks_on_user_id_and_answer_id  (user_id,answer_id) UNIQUE
 #
 # Foreign Keys
 #

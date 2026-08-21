@@ -5,5 +5,6 @@ class CreateCommentReadMarks < ActiveRecord::Migration[8.1]
       t.references :answer, null: false, foreign_key: true
       t.timestamp :last_read_at, null: false, default: -> { 'CURRENT_TIMESTAMP' }
     end
+    add_index :comment_read_marks, [:user_id, :answer_id], unique: true
   end
 end
