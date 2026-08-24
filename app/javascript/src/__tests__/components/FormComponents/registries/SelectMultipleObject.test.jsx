@@ -13,7 +13,7 @@ import { Wrapper } from "../../../__utils__/reactHookFormHelpers";
 import Global from "../../../../components/context/GlobalContext";
 import { service } from "../../../../services/index";
 
-jest.mock("react-i18next", () => ({
+vi.mock("react-i18next", () => ({
   // this mock makes sure any components using the translate hook can use it without a warning being shown
   useTranslation: () => ({
     t: (str) => str,
@@ -28,7 +28,7 @@ jest.mock("react-i18next", () => ({
 }));
 
 // Mock out all top level functions, such as get, put, delete and post:
-jest.mock("axios");
+vi.mock("axios");
 
 const props = {
   label: "Select Multiple Object Label",
@@ -63,16 +63,16 @@ const mockedRegistriesData = [
 afterEach(() => {
   cleanup();
   // restore the spy created with spyOn
-  jest.restoreAllMocks();
+  vi.restoreAllMocks();
 });
 
 describe("SelectMultipleObject component", () => {
   test("component rendering", async () => {
-    const spy = jest.spyOn(service, "getAvailableRegistries");
+    const spy = vi.spyOn(service, "getAvailableRegistries");
     spy.mockImplementation((category, dataType, topic) =>
       Promise.resolve({ data: [mockedRegistriesData[0]] }),
     );
-    const spyGetRegistryByName = jest.spyOn(service, "getRegistryByName");
+    const spyGetRegistryByName = vi.spyOn(service, "getRegistryByName");
     render(
       <Global>
         <Wrapper propName={props.propName}>
@@ -97,11 +97,11 @@ describe("SelectMultipleObject component", () => {
     expect(spyGetRegistryByName).not.toHaveBeenCalled();
   });
   test("component rendering with multiple registries", async () => {
-    const spy = jest.spyOn(service, "getAvailableRegistries");
+    const spy = vi.spyOn(service, "getAvailableRegistries");
     spy.mockImplementation((category, dataType, topic) =>
       Promise.resolve({ data: mockedRegistriesData }),
     ); // replace implementation
-    const spyGetRegistryByName = jest.spyOn(service, "getRegistryByName");
+    const spyGetRegistryByName = vi.spyOn(service, "getRegistryByName");
     render(
       <Global>
         <Wrapper propName={props.propName}>
@@ -127,11 +127,11 @@ describe("SelectMultipleObject component", () => {
     expect(spyGetRegistryByName).not.toHaveBeenCalled();
   });
   test("component with multiple registry should call getRegistryByName when choosing a registry", async () => {
-    const spy = jest.spyOn(service, "getAvailableRegistries");
+    const spy = vi.spyOn(service, "getAvailableRegistries");
     spy.mockImplementation((category, dataType, topic) =>
       Promise.resolve({ data: mockedRegistriesData }),
     );
-    const spyGetRegistryByName = jest.spyOn(service, "getRegistryByName");
+    const spyGetRegistryByName = vi.spyOn(service, "getRegistryByName");
     render(
       <Global>
         <Wrapper propName={props.propName} data={[]}>

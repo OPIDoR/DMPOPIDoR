@@ -1,8 +1,8 @@
 import { cleanup, fireEvent, render, screen } from "@testing-library/react";
 import FragmentList from "../../../components/FormComponents/FragmentList";
 
-const mockHandleEdit = jest.fn();
-const mockHandleDelete = jest.fn();
+const mockHandleEdit = vi.fn();
+const mockHandleDelete = vi.fn();
 
 const fragmentListProps = {
   fragmentsList: [{ title: "First Line" }, { title: "Second Line" }],

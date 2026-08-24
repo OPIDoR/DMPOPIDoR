@@ -1,20 +1,20 @@
 import React from "react";
 import {
+  act,
   cleanup,
   fireEvent,
   render,
   screen,
   waitFor,
 } from "@testing-library/react";
-
 import selectEvent from "react-select-event";
-import SelectSingleString from "../../../../components/FormComponents/registries/SelectSingleString";
+import SelectMultipleString from "../../../../components/FormComponents/registries/SelectMultipleString";
 
 import { Wrapper } from "../../../__utils__/reactHookFormHelpers";
 import Global from "../../../../components/context/GlobalContext";
 import { service } from "../../../../services/index";
 
-jest.mock("react-i18next", () => ({
+vi.mock("react-i18next", () => ({
   // this mock makes sure any components using the translate hook can use it without a warning being shown
   useTranslation: () => ({
     t: (str) => str,
@@ -29,19 +29,20 @@ jest.mock("react-i18next", () => ({
 }));
 
 // Mock out all top level functions, such as get, put, delete and post:
-jest.mock("axios");
+vi.mock("axios");
 
 const props = {
-  label: "Select Single String Label",
-  propName: "mySelectSingleString",
-  category: ["SingleRegistryCategory"],
-  dataType: "dataset",
+  label: "Select Multiple String Label",
+  propName: "mySelectMultipleString",
+  header: "tableHeader",
+  tooltip: "my tooltip",
+  category: ["MultipleRegistryCategory"],
   topic: "generic",
 };
 
 const mockedRegistriesData = [
   {
-    name: "SingleRegistry1",
+    name: "MultipleRegistry1",
     values: [
       {
         fr_FR: "Bonjour",
@@ -50,7 +51,7 @@ const mockedRegistriesData = [
     ],
   },
   {
-    name: "SingleRegistry2",
+    name: "MultipleRegistry2",
     values: [
       {
         fr_FR: "Bonjour",
@@ -63,74 +64,81 @@ const mockedRegistriesData = [
 afterEach(() => {
   cleanup();
   // restore the spy created with spyOn
-  jest.restoreAllMocks();
+  vi.restoreAllMocks();
 });
 
-describe("SelectSingleString component", () => {
+describe("SelectMultipleString component", () => {
   test("component rendering", async () => {
-    const spy = jest.spyOn(service, "getAvailableRegistries");
+    const spy = vi.spyOn(service, "getAvailableRegistries");
     spy.mockImplementation((category, dataType, topic) =>
       Promise.resolve({ data: [mockedRegistriesData[0]] }),
     );
-    const spyGetRegistryByName = jest.spyOn(service, "getRegistryByName");
+    const spyGetRegistryByName = vi.spyOn(service, "getRegistryByName");
     render(
       <Global>
-        <Wrapper propName={props.propName}>
-          <SelectSingleString {...props} />
+        <Wrapper propName={props.propName} data={[]}>
+          <SelectMultipleString {...props} />
         </Wrapper>
       </Global>,
     );
     expect(
-      await screen.findByTestId("select-single-string-label"),
+      screen.getByTestId("select-multiple-string-label"),
     ).toHaveTextContent(props.label);
     expect(
-      screen.queryByTestId("select-single-string-registry-selector"),
+      screen.queryByTestId("select-multiple-string-registry-selector"),
     ).not.toBeInTheDocument();
-    expect(screen.getByTestId("select-single-string-div")).toBeInTheDocument();
-    expect(screen.getByTestId("select-single-string-div")).toHaveTextContent(
-      "Select a value from the list",
+    expect(screen.getByTestId(/tooltip_info_icon_[0-9]+/i)).toBeInTheDocument();
+    expect(
+      screen.getByTestId("select-multiple-string-div"),
+    ).toBeInTheDocument();
+    expect(screen.getByTestId("select-multiple-string-div")).toHaveTextContent(
+      "Select one or multiple values from the list",
     );
     expect(spy).toHaveBeenCalledWith(props.category, props.dataType);
     expect(spyGetRegistryByName).not.toHaveBeenCalled();
   });
   test("component rendering with multiple registries", async () => {
-    const spy = jest.spyOn(service, "getAvailableRegistries");
+    const spy = vi.spyOn(service, "getAvailableRegistries");
     spy.mockImplementation((category, dataType, topic) =>
       Promise.resolve({ data: mockedRegistriesData }),
     ); // replace implementation
-    const spyGetRegistryByName = jest.spyOn(service, "getRegistryByName");
-    render(
-      <Global>
-        <Wrapper propName={props.propName}>
-          <SelectSingleString {...props} />
-        </Wrapper>
-      </Global>,
+    const spyGetRegistryByName = vi.spyOn(service, "getRegistryByName");
+    await act(async () =>
+      render(
+        <Global>
+          <Wrapper propName={props.propName} data={[]}>
+            <SelectMultipleString {...props} />
+          </Wrapper>
+        </Global>,
+      ),
     );
-
     expect(
-      await screen.findByTestId("select-single-string-label"),
+      screen.getByTestId("select-multiple-string-label"),
     ).toHaveTextContent(props.label);
     expect(
-      screen.queryByTestId("select-single-string-registry-selector"),
+      screen.queryByTestId("select-multiple-string-registry-selector"),
     ).toBeInTheDocument();
     expect(screen.getByText("Select a registry")).toBeInTheDocument();
-    expect(screen.getByTestId("select-single-string-div")).toBeInTheDocument();
-    expect(screen.getByTestId("select-single-string-div")).toHaveTextContent(
-      "Then select a value from the list",
+    expect(screen.getByTestId(/tooltip_info_icon_[0-9]+/i)).toBeInTheDocument();
+    expect(
+      screen.getByTestId("select-multiple-string-div"),
+    ).toBeInTheDocument();
+    expect(screen.getByTestId("select-multiple-string-div")).toHaveTextContent(
+      "Then select one or multiple values from the list",
     );
     expect(spy).toHaveBeenCalledWith(props.category, props.dataType);
     expect(spyGetRegistryByName).not.toHaveBeenCalled();
   });
   test("component with multiple registry should call getRegistryByName when choosing a registry", async () => {
-    const spy = jest.spyOn(service, "getAvailableRegistries");
+    const spy = vi.spyOn(service, "getAvailableRegistries");
     spy.mockImplementation((category, dataType, topic) =>
       Promise.resolve({ data: mockedRegistriesData }),
     );
-    const spyGetRegistryByName = jest.spyOn(service, "getRegistryByName");
+    const spyGetRegistryByName = vi.spyOn(service, "getRegistryByName");
     const { findByText } = render(
       <Global>
-        <Wrapper propName={props.propName}>
-          <SelectSingleString {...props} />
+        <Wrapper propName={props.propName} data={[]}>
+          <SelectMultipleString {...props} />
         </Wrapper>
       </Global>,
     );
@@ -138,11 +146,11 @@ describe("SelectSingleString component", () => {
     expect(registrySelector).toBeInTheDocument();
     selectEvent.openMenu(registrySelector);
 
-    const registry = await findByText("SingleRegistry1");
+    const registry = await findByText("MultipleRegistry1");
     await waitFor(() => expect(registry).toBeInTheDocument());
-    fireEvent.click(registry);
+    fireEvent.click(screen.getByText("MultipleRegistry1"));
     await waitFor(() =>
-      expect(spyGetRegistryByName).toHaveBeenCalledWith("SingleRegistry1"),
+      expect(spyGetRegistryByName).toHaveBeenCalledWith("MultipleRegistry1"),
     );
   });
 });
