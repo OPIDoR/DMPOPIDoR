@@ -1,18 +1,18 @@
-import React from "react";
-import {
-  cleanup,
-  fireEvent,
-  render,
-  screen,
-  waitFor,
-} from "@testing-library/react";
+import { fireEvent, render, screen, waitFor } from "@testing-library/react";
 
 import selectEvent from "react-select-event";
 import SelectSingleString from "../../../../components/FormComponents/registries/SelectSingleString";
 
 import { Wrapper } from "../../../__utils__/reactHookFormHelpers";
 import Global from "../../../../components/context/GlobalContext";
-import { service } from "../../../../services/index";
+import Forms from "../../../../components/context/FormsContext";
+const { madmpFragment } = vi.hoisted(() => ({
+  madmpFragment: {
+    getAvailableRegistries: vi.fn(),
+    getRegistryByName: vi.fn(),
+  },
+}));
+vi.mock("../../../../services/index.js", () => ({ madmpFragment }));
 
 vi.mock("react-i18next", () => ({
   // this mock makes sure any components using the translate hook can use it without a warning being shown
@@ -34,7 +34,7 @@ vi.mock("axios");
 const props = {
   label: "Select Single String Label",
   propName: "mySelectSingleString",
-  category: ["SingleRegistryCategory"],
+  category: "SingleRegistryCategory",
   dataType: "dataset",
   topic: "generic",
 };
@@ -60,24 +60,21 @@ const mockedRegistriesData = [
   },
 ];
 
-afterEach(() => {
-  cleanup();
-  // restore the spy created with spyOn
-  vi.restoreAllMocks();
-});
-
 describe("SelectSingleString component", () => {
+  afterEach(() => {
+    vi.clearAllMocks();
+  });
   test("component rendering", async () => {
-    const spy = vi.spyOn(service, "getAvailableRegistries");
-    spy.mockImplementation((category, dataType, topic) =>
-      Promise.resolve({ data: [mockedRegistriesData[0]] }),
-    );
-    const spyGetRegistryByName = vi.spyOn(service, "getRegistryByName");
+    madmpFragment.getAvailableRegistries.mockResolvedValue({
+      data: mockedRegistriesData[0],
+    });
     render(
       <Global>
-        <Wrapper propName={props.propName}>
-          <SelectSingleString {...props} />
-        </Wrapper>
+        <Forms>
+          <Wrapper propName={props.propName}>
+            <SelectSingleString {...props} />
+          </Wrapper>
+        </Forms>
       </Global>,
     );
     expect(
@@ -88,22 +85,26 @@ describe("SelectSingleString component", () => {
     ).not.toBeInTheDocument();
     expect(screen.getByTestId("select-single-string-div")).toBeInTheDocument();
     expect(screen.getByTestId("select-single-string-div")).toHaveTextContent(
-      "Select a value from the list",
+      "select" + "selectOne",
     );
-    expect(spy).toHaveBeenCalledWith(props.category, props.dataType);
-    expect(spyGetRegistryByName).not.toHaveBeenCalled();
+    expect(madmpFragment.getAvailableRegistries).toHaveBeenCalledWith(
+      props.category,
+      props.dataType,
+      props.topic,
+    );
+    expect(madmpFragment.getRegistryByName).not.toHaveBeenCalled();
   });
   test("component rendering with multiple registries", async () => {
-    const spy = vi.spyOn(service, "getAvailableRegistries");
-    spy.mockImplementation((category, dataType, topic) =>
-      Promise.resolve({ data: mockedRegistriesData }),
-    ); // replace implementation
-    const spyGetRegistryByName = vi.spyOn(service, "getRegistryByName");
+    madmpFragment.getAvailableRegistries.mockResolvedValue({
+      data: mockedRegistriesData,
+    });
     render(
       <Global>
-        <Wrapper propName={props.propName}>
-          <SelectSingleString {...props} />
-        </Wrapper>
+        <Forms>
+          <Wrapper propName={props.propName}>
+            <SelectSingleString {...props} />
+          </Wrapper>
+        </Forms>
       </Global>,
     );
 
@@ -113,28 +114,32 @@ describe("SelectSingleString component", () => {
     expect(
       screen.queryByTestId("select-single-string-registry-selector"),
     ).toBeInTheDocument();
-    expect(screen.getByText("Select a registry")).toBeInTheDocument();
+    expect(screen.getByText("selectRegistry")).toBeInTheDocument();
     expect(screen.getByTestId("select-single-string-div")).toBeInTheDocument();
     expect(screen.getByTestId("select-single-string-div")).toHaveTextContent(
-      "Then select a value from the list",
+      "thenSelect" + "selectOne",
     );
-    expect(spy).toHaveBeenCalledWith(props.category, props.dataType);
-    expect(spyGetRegistryByName).not.toHaveBeenCalled();
+    expect(madmpFragment.getAvailableRegistries).toHaveBeenCalledWith(
+      props.category,
+      props.dataType,
+      props.topic,
+    );
+    expect(madmpFragment.getRegistryByName).not.toHaveBeenCalled();
   });
   test("component with multiple registry should call getRegistryByName when choosing a registry", async () => {
-    const spy = vi.spyOn(service, "getAvailableRegistries");
-    spy.mockImplementation((category, dataType, topic) =>
-      Promise.resolve({ data: mockedRegistriesData }),
-    );
-    const spyGetRegistryByName = vi.spyOn(service, "getRegistryByName");
+    madmpFragment.getRegistryByName.mockResolvedValue({
+      data: mockedRegistriesData[0].values,
+    });
     const { findByText } = render(
       <Global>
-        <Wrapper propName={props.propName}>
-          <SelectSingleString {...props} />
-        </Wrapper>
+        <Forms>
+          <Wrapper propName={props.propName}>
+            <SelectSingleString {...props} />
+          </Wrapper>
+        </Forms>
       </Global>,
     );
-    const registrySelector = await findByText("Select a registry");
+    const registrySelector = await findByText("selectRegistry");
     expect(registrySelector).toBeInTheDocument();
     selectEvent.openMenu(registrySelector);
 
@@ -142,7 +147,9 @@ describe("SelectSingleString component", () => {
     await waitFor(() => expect(registry).toBeInTheDocument());
     fireEvent.click(registry);
     await waitFor(() =>
-      expect(spyGetRegistryByName).toHaveBeenCalledWith("SingleRegistry1"),
+      expect(madmpFragment.getRegistryByName).toHaveBeenCalledWith(
+        "SingleRegistry1",
+      ),
     );
   });
 });

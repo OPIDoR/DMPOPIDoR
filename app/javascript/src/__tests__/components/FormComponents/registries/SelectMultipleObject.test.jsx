@@ -1,6 +1,5 @@
-import React from "react";
 import {
-  cleanup,
+  act,
   fireEvent,
   render,
   screen,
@@ -11,7 +10,14 @@ import SelectMultipleObject from "../../../../components/FormComponents/registri
 
 import { Wrapper } from "../../../__utils__/reactHookFormHelpers";
 import Global from "../../../../components/context/GlobalContext";
-import { service } from "../../../../services/index";
+import Forms from "../../../../components/context/FormsContext";
+const { madmpFragment } = vi.hoisted(() => ({
+  madmpFragment: {
+    getAvailableRegistries: vi.fn(),
+    getRegistryByName: vi.fn(),
+  },
+}));
+vi.mock("../../../../services/index.js", () => ({ madmpFragment }));
 
 vi.mock("react-i18next", () => ({
   // this mock makes sure any components using the translate hook can use it without a warning being shown
@@ -35,7 +41,7 @@ const props = {
   formLabel: "Select Multiple Object Form Label",
   propName: "mySelectMultipleObject",
   tooltip: "my tooltip",
-  category: ["MultipleRegistryCategory"],
+  category: "MultipleRegistryCategory",
   topic: "generic",
 };
 
@@ -60,24 +66,21 @@ const mockedRegistriesData = [
   },
 ];
 
-afterEach(() => {
-  cleanup();
-  // restore the spy created with spyOn
-  vi.restoreAllMocks();
-});
-
 describe("SelectMultipleObject component", () => {
+  afterEach(() => {
+    vi.clearAllMocks();
+  });
   test("component rendering", async () => {
-    const spy = vi.spyOn(service, "getAvailableRegistries");
-    spy.mockImplementation((category, dataType, topic) =>
-      Promise.resolve({ data: [mockedRegistriesData[0]] }),
-    );
-    const spyGetRegistryByName = vi.spyOn(service, "getRegistryByName");
+    madmpFragment.getAvailableRegistries.mockResolvedValue({
+      data: mockedRegistriesData[0],
+    });
     render(
       <Global>
-        <Wrapper propName={props.propName}>
-          <SelectMultipleObject {...props} />
-        </Wrapper>
+        <Forms>
+          <Wrapper propName={props.propName}>
+            <SelectMultipleObject {...props} />
+          </Wrapper>
+        </Forms>
       </Global>,
     );
     expect(
@@ -91,23 +94,29 @@ describe("SelectMultipleObject component", () => {
       screen.getByTestId("select-multiple-object-div"),
     ).toBeInTheDocument();
     expect(screen.getByTestId("select-multiple-object-div")).toHaveTextContent(
-      "Select one or multiple values from the list",
+      "select" + "selectMultiple",
     );
-    expect(spy).toHaveBeenCalledWith(props.category, props.dataType);
-    expect(spyGetRegistryByName).not.toHaveBeenCalled();
+    expect(madmpFragment.getAvailableRegistries).toHaveBeenCalledWith(
+      props.category,
+      props.dataType,
+      props.topic,
+    );
+    expect(madmpFragment.getRegistryByName).not.toHaveBeenCalled();
   });
   test("component rendering with multiple registries", async () => {
-    const spy = vi.spyOn(service, "getAvailableRegistries");
-    spy.mockImplementation((category, dataType, topic) =>
-      Promise.resolve({ data: mockedRegistriesData }),
-    ); // replace implementation
-    const spyGetRegistryByName = vi.spyOn(service, "getRegistryByName");
-    render(
-      <Global>
-        <Wrapper propName={props.propName}>
-          <SelectMultipleObject {...props} />
-        </Wrapper>
-      </Global>,
+    madmpFragment.getAvailableRegistries.mockResolvedValue({
+      data: mockedRegistriesData,
+    });
+    await act(async () =>
+      render(
+        <Global>
+          <Forms>
+            <Wrapper propName={props.propName} data={[]}>
+              <SelectMultipleObject {...props} />
+            </Wrapper>
+          </Forms>
+        </Global>,
+      ),
     );
     expect(
       screen.getByTestId("select-multiple-object-label"),
@@ -115,31 +124,37 @@ describe("SelectMultipleObject component", () => {
     expect(
       screen.queryByTestId("select-multiple-object-registry-selector"),
     ).toBeInTheDocument();
-    expect(screen.getByText("Select a registry")).toBeInTheDocument();
+    expect(screen.getByText("selectRegistry")).toBeInTheDocument();
     expect(screen.getByTestId(/tooltip_info_icon_[0-9]+/i)).toBeInTheDocument();
     expect(
       screen.getByTestId("select-multiple-object-div"),
     ).toBeInTheDocument();
     expect(screen.getByTestId("select-multiple-object-div")).toHaveTextContent(
-      "Then select one or multiple values from the list",
+      "thenSelect" + "selectMultiple",
     );
-    expect(spy).toHaveBeenCalledWith(props.category, props.dataType);
-    expect(spyGetRegistryByName).not.toHaveBeenCalled();
+    expect(madmpFragment.getAvailableRegistries).toHaveBeenCalledWith(
+      props.category,
+      props.dataType,
+      props.topic,
+    );
+    expect(madmpFragment.getRegistryByName).not.toHaveBeenCalled();
   });
   test("component with multiple registry should call getRegistryByName when choosing a registry", async () => {
-    const spy = vi.spyOn(service, "getAvailableRegistries");
-    spy.mockImplementation((category, dataType, topic) =>
-      Promise.resolve({ data: mockedRegistriesData }),
+    madmpFragment.getRegistryByName.mockResolvedValue({
+      data: mockedRegistriesData[0].values,
+    });
+    const { findByText } = await act(async () =>
+      render(
+        <Global>
+          <Forms>
+            <Wrapper propName={props.propName} data={[]}>
+              <SelectMultipleObject {...props} />
+            </Wrapper>
+          </Forms>
+        </Global>,
+      ),
     );
-    const spyGetRegistryByName = vi.spyOn(service, "getRegistryByName");
-    render(
-      <Global>
-        <Wrapper propName={props.propName} data={[]}>
-          <SelectMultipleObject {...props} />
-        </Wrapper>
-      </Global>,
-    );
-    const registrySelector = await screen.getByText("Select a registry");
+    const registrySelector = await screen.getByText("selectRegistry");
     expect(registrySelector).toBeInTheDocument();
     selectEvent.openMenu(registrySelector);
 
@@ -147,7 +162,9 @@ describe("SelectMultipleObject component", () => {
     await waitFor(() => expect(registry).toBeInTheDocument());
     fireEvent.click(screen.getByText("MultipleRegistry1"));
     await waitFor(() =>
-      expect(spyGetRegistryByName).toHaveBeenCalledWith("MultipleRegistry1"),
+      expect(madmpFragment.getRegistryByName).toHaveBeenCalledWith(
+        "MultipleRegistry1",
+      ),
     );
   });
 });

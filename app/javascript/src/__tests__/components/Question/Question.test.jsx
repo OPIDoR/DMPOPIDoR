@@ -1,7 +1,8 @@
-import React from "react";
 import { act, render } from "@testing-library/react";
-import Question from "../../../components/WritePlan/Question";
+import Question from "../../../components/Question/Question";
 import Global from "../../../components/context/GlobalContext";
+import Forms from "../../../components/context/FormsContext";
+import { SectionsContext } from "../../../components/context/SectionsContext";
 
 const props = {
   planId: 1,
@@ -24,7 +25,13 @@ describe("Question component", () => {
     await act(async () =>
       render(
         <Global>
-          <Question {...props} />
+          <Forms>
+            <SectionsContext.Provider
+              value={{ displayedResearchOutput: { id: 1, answers: [] } }}
+            >
+              <Question {...props} />
+            </SectionsContext.Provider>
+          </Forms>
         </Global>,
       ),
     );

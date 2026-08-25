@@ -47,7 +47,7 @@ describe("InputText component", () => {
     expect(screen.getByTestId("input-text")).toBeInTheDocument();
     expect(screen.getByTestId("input-text")).toHaveAttribute("type", "text");
     expect(
-      screen.getByPlaceholderText(`e.g. ${inputTextProps.placeholder}`),
+      screen.getByPlaceholderText(`eg ${inputTextProps.placeholder}`),
     ).toBeInTheDocument();
     expect(screen.getByTestId(/tooltip_info_icon_[0-9]+/i)).toBeInTheDocument();
   });

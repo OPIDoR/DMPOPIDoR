@@ -34,8 +34,12 @@ function PersonsList({
               tableHeader &&
               personsList.some((el) => el.action !== "delete") && (
                 <tr>
-                  <th scope="col">{tableHeader}</th>
-                  <th scope="col">{t("roles")}</th>
+                  <th data-testid="persons-list-table-header-text" scope="col">
+                    {tableHeader}
+                  </th>
+                  <th data-testid="persons-list-table-header-roles" scope="col">
+                    {t("roles")}
+                  </th>
                 </tr>
               )}
           </thead>
