@@ -1,4 +1,3 @@
-import React from "react";
 import { cleanup, render, screen } from "@testing-library/react";
 import PersonsList from "../../../components/FormComponents/PersonsList";
 
@@ -52,11 +51,11 @@ describe("PersonsList component", () => {
     const data = personsListProps.personsList;
     render(<PersonsList {...personsListProps} />);
 
-    expect(screen.getByTestId("persons-list-table-header")).toHaveTextContent(
+    expect(screen.getByTestId("persons-list-table-header-text")).toHaveTextContent(
       personsListProps.tableHeader,
     );
-    expect(screen.getByTestId("persons-list-table-header")).toHaveTextContent(
-      "Roles",
+    expect(screen.getByTestId("persons-list-table-header-roles")).toHaveTextContent(
+      "roles",
     );
     expect(screen.queryAllByTestId(/persons-list-row-[0-9]+/i)).toHaveLength(
       data.length,

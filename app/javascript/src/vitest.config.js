@@ -10,5 +10,10 @@ export default defineConfig({
     globals: true,
     setupFiles: "./setupTests.js",
     css: true,
+    server: {
+      deps: {
+        inline: ["react-loader-spinner"],
+      },
+    },
   },
 });

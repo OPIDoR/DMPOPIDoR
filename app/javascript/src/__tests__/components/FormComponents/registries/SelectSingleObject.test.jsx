@@ -1,7 +1,5 @@
-import React from "react";
 import {
   act,
-  cleanup,
   fireEvent,
   render,
   screen,
@@ -12,7 +10,14 @@ import SelectSingleObject from "../../../../components/FormComponents/registries
 
 import { Wrapper } from "../../../__utils__/reactHookFormHelpers";
 import Global from "../../../../components/context/GlobalContext";
-import { service } from "../../../../services/index";
+import Forms from "../../../../components/context/FormsContext";
+const { madmpFragment } = vi.hoisted(() => ({
+  madmpFragment: {
+    getAvailableRegistries: vi.fn(),
+    getRegistryByName: vi.fn(),
+  },
+}));
+vi.mock("../../../../services/index.js", () => ({ madmpFragment }));
 
 vi.mock("react-i18next", () => ({
   // this mock makes sure any components using the translate hook can use it without a warning being shown
@@ -35,7 +40,7 @@ const props = {
   label: "Select Single Object Label",
   propName: "mySelectSingleObject",
   tooltip: "my tooltip",
-  category: ["SingleRegistryCategory"],
+  category: "SingleRegistryCategory",
   topic: "generic",
 };
 
@@ -60,25 +65,22 @@ const mockedRegistriesData = [
   },
 ];
 
-afterEach(() => {
-  cleanup();
-  // restore the spy created with spyOn
-  vi.restoreAllMocks();
-});
-
 describe("SelectSingleObject component", () => {
+  afterEach(() => {
+    vi.clearAllMocks();
+  });
   test("component rendering", async () => {
-    const spy = vi.spyOn(service, "getAvailableRegistries");
-    spy.mockImplementation((category, dataType, topic) =>
-      Promise.resolve({ data: [mockedRegistriesData[0]] }),
-    );
-    const spyGetRegistryByName = vi.spyOn(service, "getRegistryByName");
+    madmpFragment.getAvailableRegistries.mockResolvedValue({
+      data: mockedRegistriesData[0],
+    });
     await act(async () =>
       render(
         <Global>
-          <Wrapper propName={props.propName}>
-            <SelectSingleObject {...props} />
-          </Wrapper>
+          <Forms>
+            <Wrapper propName={props.propName}>
+              <SelectSingleObject {...props} />
+            </Wrapper>
+          </Forms>
         </Global>,
       ),
     );
@@ -91,23 +93,27 @@ describe("SelectSingleObject component", () => {
     expect(screen.getByTestId(/tooltip_info_icon_[0-9]+/i)).toBeInTheDocument();
     expect(screen.getByTestId("select-single-object-div")).toBeInTheDocument();
     expect(screen.getByTestId("select-single-object-div")).toHaveTextContent(
-      "Select a value from the list",
+      "select" + "selectOne",
     );
-    expect(spy).toHaveBeenCalledWith(props.category, props.dataType);
-    expect(spyGetRegistryByName).not.toHaveBeenCalled();
+    expect(madmpFragment.getAvailableRegistries).toHaveBeenCalledWith(
+      props.category,
+      props.dataType,
+      props.topic,
+    );
+    expect(madmpFragment.getRegistryByName).not.toHaveBeenCalled();
   });
   test("component rendering with multiple registries", async () => {
-    const spy = vi.spyOn(service, "getAvailableRegistries");
-    spy.mockImplementation((category, dataType, topic) =>
-      Promise.resolve({ data: mockedRegistriesData }),
-    ); // replace implementation
-    const spyGetRegistryByName = vi.spyOn(service, "getRegistryByName");
+    madmpFragment.getAvailableRegistries.mockResolvedValue({
+      data: mockedRegistriesData,
+    });
     await act(async () =>
       render(
         <Global>
-          <Wrapper propName={props.propName}>
-            <SelectSingleObject {...props} />
-          </Wrapper>
+          <Forms>
+            <Wrapper propName={props.propName}>
+              <SelectSingleObject {...props} />
+            </Wrapper>
+          </Forms>
         </Global>,
       ),
     );
@@ -117,29 +123,33 @@ describe("SelectSingleObject component", () => {
     expect(
       screen.queryByTestId("select-single-object-registry-selector"),
     ).toBeInTheDocument();
-    expect(screen.getByText("Select a registry")).toBeInTheDocument();
+    expect(screen.getByText("selectRegistry")).toBeInTheDocument();
     expect(screen.getByTestId(/tooltip_info_icon_[0-9]+/i)).toBeInTheDocument();
     expect(screen.getByTestId("select-single-object-div")).toBeInTheDocument();
     expect(screen.getByTestId("select-single-object-div")).toHaveTextContent(
-      "Then select a value from the list",
+      "thenSelect" + "selectOne",
     );
-    expect(spy).toHaveBeenCalledWith(props.category, props.dataType);
-    expect(spyGetRegistryByName).not.toHaveBeenCalled();
+    expect(madmpFragment.getAvailableRegistries).toHaveBeenCalledWith(
+      props.category,
+      props.dataType,
+      props.topic,
+    );
+    expect(madmpFragment.getRegistryByName).not.toHaveBeenCalled();
   });
   test("component with multiple registry should call getRegistryByName when choosing a registry", async () => {
-    const spy = vi.spyOn(service, "getAvailableRegistries");
-    spy.mockImplementation((category, dataType, topic) =>
-      Promise.resolve({ data: mockedRegistriesData }),
-    );
-    const spyGetRegistryByName = vi.spyOn(service, "getRegistryByName");
+    madmpFragment.getRegistryByName.mockResolvedValue({
+      data: mockedRegistriesData[0].values,
+    });
     const { findByText } = render(
       <Global>
-        <Wrapper propName={props.propName}>
-          <SelectSingleObject {...props} />
-        </Wrapper>
+        <Forms>
+          <Wrapper propName={props.propName}>
+            <SelectSingleObject {...props} />
+          </Wrapper>
+        </Forms>
       </Global>,
     );
-    const registrySelector = await findByText("Select a registry");
+    const registrySelector = await findByText("selectRegistry");
     expect(registrySelector).toBeInTheDocument();
     selectEvent.openMenu(registrySelector);
 
@@ -147,7 +157,9 @@ describe("SelectSingleObject component", () => {
     await waitFor(() => expect(registry).toBeInTheDocument());
     fireEvent.click(registry);
     await waitFor(() =>
-      expect(spyGetRegistryByName).toHaveBeenCalledWith("SingleRegistry1"),
+      expect(madmpFragment.getRegistryByName).toHaveBeenCalledWith(
+        "SingleRegistry1",
+      ),
     );
   });
 });
