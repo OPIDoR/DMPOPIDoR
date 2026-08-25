@@ -149,6 +149,7 @@ function Question({ planId, question, questionIdx, sectionNumber, readonly }) {
               onClick={() => handleQuestionCollapse(!isQuestionOpened)}
               aria-controls={`card-collapse-${questionId}`}
               aria-expanded={isQuestionOpened}
+              data-testid="question-collapse"
             >
               <Card.Title>
                 <div className={styles.question_title}>
@@ -223,9 +224,17 @@ function Question({ planId, question, questionIdx, sectionNumber, readonly }) {
                     />
 
                     {isQuestionOpened ? (
-                      <TfiAngleUp style={{ marginLeft: "5px" }} size={32} />
+                      <TfiAngleUp
+                        data-testid="question-angle-up"
+                        style={{ marginLeft: "5px" }}
+                        size={32}
+                      />
                     ) : (
-                      <TfiAngleDown style={{ marginLeft: "5px" }} size={32} />
+                      <TfiAngleDown
+                        data-testid="question-angle-down"
+                        style={{ marginLeft: "5px" }}
+                        size={32}
+                      />
                     )}
                   </div>
                 </div>
