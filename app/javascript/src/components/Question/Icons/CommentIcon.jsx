@@ -7,7 +7,7 @@ import * as styles from "../../assets/css/write_plan.module.css";
 function CommentIcon({ isQuestionOpened, fillColor, setModalOpened }) {
   const { t } = useTranslation();
   return (
-    <div>
+    <div data-testid="comment-icon">
       <ReactTooltip
         id="commentTip"
         place="bottom"

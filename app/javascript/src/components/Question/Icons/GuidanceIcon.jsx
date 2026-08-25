@@ -8,7 +8,7 @@ function GuidanceIcon({ isQuestionOpened, fillColor, setModalOpened }) {
   const { t } = useTranslation();
 
   return (
-    <div>
+    <div data-testid="guidance-icon">
       <ReactTooltip
         id="guidanceTip"
         place="bottom"

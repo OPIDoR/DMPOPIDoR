@@ -296,7 +296,10 @@ function Question({ planId, question, questionIdx, sectionNumber, readonly }) {
                 {isQuestionOpened ? (
                   <>
                     {readonly && !answer?.id ? (
-                      <Badge variant="primary">
+                      <Badge
+                        variant="primary"
+                        data-testid="readonly-question-badge"
+                      >
                         {t("questionNotAnswered")}
                       </Badge>
                     ) : (
