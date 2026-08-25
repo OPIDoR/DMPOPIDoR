@@ -8,7 +8,7 @@ function RunsIcon({ isQuestionOpened, fillColor, setModalOpened }) {
   const { t } = useTranslation();
 
   return (
-    <div>
+    <div data-testid="runs-icon">
       <ReactTooltip
         id="scriptTip"
         place="bottom"
