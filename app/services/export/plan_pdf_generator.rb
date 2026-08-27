@@ -3,11 +3,11 @@
 module Export
   # Service used to generate a pdf from a plan
   class PlanPdfGenerator
-    def initialize(plan, user, options = {})
+    def initialize(plan, user, options = nil)
       @plan = plan
       @formatting = @plan.settings(:export).formatting
       @hash = @plan.as_pdf(user, true)
-      @options = options
+      @options = options || default_options
     end
 
     def call
@@ -43,6 +43,17 @@ module Export
       return unless license.present? && !license.data.compact.empty?
 
       "#{license.data['licenseName']} (#{license.data['licenseUrl']})"
+    end
+
+    def default_options
+      {
+        show_coversheet: true,
+        show_sections_questions: true,
+        show_unanswered: true,
+        show_custom_sections: true,
+        show_research_outputs: true,
+        public_plan: false
+      }
     end
   end
 end
