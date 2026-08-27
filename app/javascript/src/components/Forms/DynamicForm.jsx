@@ -155,7 +155,6 @@ function DynamicForm({
   // Case 1 : new form (fragmentId is null)
   useEffect(() => {
     if (fragmentId) return;
-
     madmpFragment
       .getNewForm(questionId, displayedResearchOutput.id)
       .then((res) => {
@@ -171,7 +170,6 @@ function DynamicForm({
   // Case 2 : fragmentId is present but form data is not loaded, fetching fragment
   useEffect(() => {
     if (!fragmentId || formData[fragmentId]) return;
-
     madmpFragment
       .getFragment(fragmentId)
       .then((res) => {
@@ -269,6 +267,7 @@ function DynamicForm({
           )}
           <FormProvider {...methods}>
             <form
+              data-testid="dynamic-form-tag"
               style={{ margin: "15px" }}
               onSubmit={methods.handleSubmit((data) => handleSaveForm(data))}
             >
