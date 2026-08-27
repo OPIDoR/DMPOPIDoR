@@ -1,6 +1,6 @@
 <%= "#{@plan.title}" %>
 <%= "----------------------------------------------------------\n" %>
-<% if @show_coversheet %>
+<% if @options[:show_coversheet] %>
 <%= Array(@hash[:attribution]).many? ? _("Creators: ") + Array(@hash[:attribution]).join(", ")  : _('Creator:') + @hash[:attribution] %>
 <%# Added contributors to coverage of plans. 
   # Users will see both roles and contributor names if the role is filled %>
@@ -41,8 +41,8 @@
 <% if @hash[:all_phases] || (@selected_phase.present? && phase[:title] == @selected_phase.title) %>
 <%= (@hash[:phases].length > 1 ? "#{phase[:title]}" : "") %>
   <% phase[:sections].each do |section| %>
-    <% if display_section?(@hash[:customization], section, @show_custom_sections) && num_section_questions(@plan, section, phase) > 0 %>
-      <% if @show_sections_questions %>
+    <% if display_section?(@hash[:customization], section, @options[:show_custom_sections]) && num_section_questions(@plan, section, phase) > 0 %>
+      <% if @options[:show_sections_questions] %>
         <%= "#{section[:title]}\n" %>
       <% end %>
       <% section[:questions].each do |question| %>
@@ -50,9 +50,9 @@
           <% next %>
         <% end %>
         <%# text in this case is an array to accomodate for option_based %>
-        <% if @show_sections_questions %>
+        <% if @options[:show_sections_questions] %>
           <% answer = @plan.answer(question[:id], false) %>
-          <% if @show_unanswered %>
+          <% if @options[:show_unanswered] %>
             <% if question[:text].respond_to?(:each) %>
               <% question[:text].each do |txt| %>
                 <%= "#{strip_tags(txt.gsub(/<br\/?>/, '\n'))}\n" %>
@@ -63,7 +63,7 @@
           <% end %>
         <% end %>
         <% blank = not(answer.present? && answer.answered?) %>
-        <% if blank && @show_unanswered %>
+        <% if blank && @options[:show_unanswered] %>
           <%= "    #{_("Question not answered.")}\n\n" %>
         <% elsif !blank %>
           <% if answer.question_options.length > 0 %>
