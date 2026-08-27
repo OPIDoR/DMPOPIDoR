@@ -51,12 +51,12 @@ describe("PersonsList component", () => {
     const data = personsListProps.personsList;
     render(<PersonsList {...personsListProps} />);
 
-    expect(screen.getByTestId("persons-list-table-header-text")).toHaveTextContent(
-      personsListProps.tableHeader,
-    );
-    expect(screen.getByTestId("persons-list-table-header-roles")).toHaveTextContent(
-      "roles",
-    );
+    expect(
+      screen.getByTestId("persons-list-table-header-text"),
+    ).toHaveTextContent(personsListProps.tableHeader);
+    expect(
+      screen.getByTestId("persons-list-table-header-roles"),
+    ).toHaveTextContent("roles");
     expect(screen.queryAllByTestId(/persons-list-row-[0-9]+/i)).toHaveLength(
       data.length,
     );
