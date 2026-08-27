@@ -12,7 +12,15 @@ module Export
     def call
       WickedPdf.new.pdf_from_string(
         html,
-        margin: @formatting[:margin]
+        margin: @formatting[:margin],
+        footer:
+             {
+               center: license_details,
+               font_size: 8,
+               spacing: (Integer(@formatting[:margin][:bottom]) / 2) - 4,
+               right: '[page] of [topage]',
+               encoding: 'utf8'
+             }
       )
     end
 
@@ -27,6 +35,13 @@ module Export
         partial: 'shared/export/plan',
         assigns: { plan: @plan, formatting: @formatting, hash: @hash }
       )
+    end
+
+    def license_details
+      license = @plan.json_fragment.meta.license if @plan.structured?
+      return unless license.present? && !license.data.compact.empty?
+
+      "#{license.data['licenseName']} (#{license.data['licenseUrl']})"
     end
   end
 end
