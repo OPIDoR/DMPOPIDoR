@@ -3,10 +3,11 @@
 module Export
   # Service used to generate a pdf from a plan
   class PlanPdfGenerator
-    def initialize(plan, user)
+    def initialize(plan, user, options = {})
       @plan = plan
       @formatting = @plan.settings(:export).formatting
       @hash = @plan.as_pdf(user, true)
+      @options = options
     end
 
     def call
@@ -33,7 +34,7 @@ module Export
     def html
       ApplicationController.render(
         partial: 'shared/export/plan',
-        assigns: { plan: @plan, formatting: @formatting, hash: @hash }
+        assigns: { plan: @plan, formatting: @formatting, hash: @hash, options: @options }
       )
     end
 
