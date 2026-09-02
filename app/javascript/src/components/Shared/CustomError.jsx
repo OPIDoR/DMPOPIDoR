@@ -80,7 +80,7 @@ function CustomError({ error, showWarning = true, handleClose }) {
   return (
     <ErrorContainer>
       <div className="text-center">
-        {showWarning && <BigText>Oops!</BigText>}
+        {showWarning && <BigText>{t("oops")}</BigText>}
         <SmallText>
           {error?.code || ""} {errorMessage ? `- ${errorMessage}` : ""}
         </SmallText>
