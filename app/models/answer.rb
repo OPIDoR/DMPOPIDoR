@@ -184,7 +184,7 @@ class Answer < ApplicationRecord
         madmp_schema: madmp_schema,
         classname: madmp_schema.classname,
         additional_info: {
-          'property_name' => madmp_schema.property_name_from_classname
+          'property_name' => madmp_schema.property_name_from_classname(research_output&.output_type || 'dataset')
         }
       )
       madmp_fragment.instantiate

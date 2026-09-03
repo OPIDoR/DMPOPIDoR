@@ -30,14 +30,7 @@ const closedModalState = {
   runs: false,
   formSelector: false,
 };
-function Question({
-  planId,
-  question,
-  questionIdx,
-  sectionId,
-  sectionNumber,
-  readonly,
-}) {
+function Question({ planId, question, questionIdx, sectionNumber, readonly }) {
   const { commentablePlan } = useContext(GlobalContext);
   const { formSelectors } = useContext(FormsContext);
   const {
@@ -61,10 +54,8 @@ function Question({
    */
   const questionId = useMemo(() => question.id, [question.id]);
   const isQuestionOpened = useMemo(() => {
-    return !!openedQuestions?.[displayedResearchOutput?.id]?.[sectionId]?.[
-      questionId
-    ];
-  }, [openedQuestions, displayedResearchOutput, sectionId, questionId]);
+    return !!openedQuestions?.[displayedResearchOutput?.id]?.[questionId];
+  }, [openedQuestions, displayedResearchOutput, questionId]);
 
   const answer = useMemo(() => {
     return (
@@ -81,17 +72,7 @@ function Question({
    */
   const handleQuestionCollapse = (expanded) => {
     const updatedState = { ...openedQuestions[displayedResearchOutput.id] };
-
-    if (!updatedState[sectionId]) {
-      updatedState[sectionId] = {
-        [questionId]: false,
-      };
-    }
-
-    updatedState[sectionId] = {
-      ...updatedState[sectionId],
-      [questionId]: expanded,
-    };
+    updatedState[questionId] = expanded;
 
     setOpenedQuestions({
       ...openedQuestions,

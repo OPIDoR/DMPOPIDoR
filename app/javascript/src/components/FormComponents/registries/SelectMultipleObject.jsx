@@ -52,8 +52,10 @@ function SelectMultipleObject({
   const [index, setIndex] = useState(null);
   const [error, setError] = useState(null);
   const [editedFragment, setEditedFragment] = useState({});
-  const [selectedRegistry, setSelectedRegistry] = useState(null);
   const [availableRegistries, setAvailableRegistries] = useState(registries);
+  const [selectedRegistry, setSelectedRegistry] = useState(
+    availableRegistries[0],
+  );
 
   const filteredFragmentList = fields.filter((el) => el.action !== "delete");
 

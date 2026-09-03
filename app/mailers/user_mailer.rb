@@ -199,7 +199,7 @@ class UserMailer < ActionMailer::Base
     @research_output_name = research_output_description.data['title']
     @phase_link = if plan.structured?
                     url_for(action: 'structured_edit', controller: 'plans', id: @plan.id, phase_id: @phase_id,
-                            research_output: research_output.id)
+                            research_output: research_output.id, question: @question.id)
                   else
                     url_for(action: 'edit', controller: 'plans', id: @plan.id, phase_id: @phase_id)
                   end
@@ -254,7 +254,7 @@ class UserMailer < ActionMailer::Base
   ##################
   def anonymization_warning(user)
     @user = user
-    @end_date = (@user.last_sign_in_at + 5.years).to_date
+    @end_date = (@user.current_sign_in_at + 5.years).to_date
     @helpdesk_email = helpdesk_email(org: @user.org)
     I18n.with_locale current_locale(@user) do
       mail(to: @user.email, subject:

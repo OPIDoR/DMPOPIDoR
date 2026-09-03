@@ -20,12 +20,13 @@ function Section({ planId, section, readonly }) {
    * @param {boolean} boolVal - The boolean value to set for all questions in the section.
    */
   const toggleQuestionsInSection = (boolVal) => {
+    const questionStates = [];
+    section.questions.map((question) => {
+      questionStates[question.id] = boolVal;
+    });
     const updatedState = {
       ...openedQuestions[displayedResearchOutput.id],
-      [sectionId]: section.questions.reduce((acc, question) => {
-        acc[question.id] = boolVal;
-        return acc;
-      }, {}),
+      ...questionStates,
     };
 
     setOpenedQuestions({

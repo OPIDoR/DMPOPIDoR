@@ -2,6 +2,29 @@
 
 **Attention** Cette liste de changements concerne les déploiements sur nos serveurs de test en interne.
 
+## 20/08/2026
+- Optimisation du chargement des données concernant les produits de recherche dans l'onglet Rédiger
+- Retrait des tags HTML dans l'intitulé de la question présent dans la notification de nouveau commentaire.
+- Correction du problème de sauvegarde de l'infobox et de la question Description (#15983)
+
+## 19/08/2026
+- La question s'ouvre désormais automatiquement lorsqu'un utilisateur ouvre le lien présent dans la notification d'un nouveau commentaire.
+- Ajout de l'intitulé de la question dans la notification de nouveau commentaire
+- Homogénéisation des dates de dernière modification affichées dans les listes de plans (#14194)
+- Correction d'un problème d'affichage du placeholder dans la liste déroulante pour les référentiels complexes à choix unique (#15973)
+- Correction d'un problème d'import des produits de recherche Collection (#15983)
+- Ajout de la propriété step sur les champs nombre (#15978)
+
+## 11/08/2026
+- Correction de création des produits de recherche dans les plans classiques & changement du nom par défaut généré (#15941)
+- Ajout de l'option sur les données personnelles aux Collections d'objets physique (#15972)
+
+## 06/08/2026
+- Correction d'un problème d'édition des phases des modules (#15960)
+- Correction d'un problème d'affichage de la coche "réponses communes" dans les modèles classiques après la suppression du premier produit de recherche (#15941)
+- Correction d'un problème d'affichage des référentiels lorsque la propriété `registries` est renseignée.
+- Correction d'un problème d'affichage de l'info Derniere Activité dans la liste des utilisateurs (#15950)
+
 ## 09/07/2026
 - Correction de l'édition de modèle suite à la migration vers Turbo (#15094)
 - Correction du problème de mise à jour du profil utilisateur par un Org Admin (#15484)

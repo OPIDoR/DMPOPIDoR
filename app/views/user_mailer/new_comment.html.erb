@@ -27,7 +27,7 @@
   <%= _('Research output name: %{research_output_name}') % { :research_output_name => @research_output_name } %>
 </p>
 <p>
-  <%= _('Question: %{question_number}') % { question_number: @question_number } %>
+  <%= _('Question: %{question_text}') % { question_text: strip_tags(@question.text) } %>
 </p>
 
 <%= render partial: 'email_signature' %>

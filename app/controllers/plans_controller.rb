@@ -139,6 +139,8 @@ class PlansController < ApplicationController
               display_order: 1,
               output_type_description: reg_val[@plan.template.locale.tr('-', '_')]
             )
+            created_ro.update_columns(abbreviation: "#{_('RO')} #{created_ro.id}",
+                                      title: "#{_('Research output')} #{created_ro.id}")
             created_ro.create_json_fragments({ hasPersonalData: true })
           end
 
@@ -523,16 +525,25 @@ class PlansController < ApplicationController
   end
   # rubocop:enable Metrics/AbcSize
 
+  # rubocop:disable Metrics/AbcSize
   def research_outputs_data
-    plan = Plan.includes(:research_outputs, template: { phases: { sections: :questions } }).find(params[:id])
+    plan = Plan.includes(research_outputs: :answers, template: { phases: { sections: :questions } }).find(params[:id])
+    research_output_id = params[:research_output_id] || 0
     authorize plan
 
     render json: {
       id: plan.id,
       template: plan.template.serialize_json,
-      research_outputs: plan.research_outputs.order(:display_order).map(&:serialize_json)
+      research_outputs: plan.research_outputs.order(:display_order).each_with_index.map do |ro, idx|
+        if research_output_id.eql?(ro.id.to_s) || (idx.zero? && research_output_id.eql?(0))
+          ro.serialize_json
+        else
+          ro.serialize_json(with_answers: false)
+        end
+      end
     }
   end
+  # rubocop:enable Metrics/AbcSize
 
   # GET AJAX /plans/:id/contributors_data
   def contributors_data

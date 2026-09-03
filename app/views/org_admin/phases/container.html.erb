@@ -8,7 +8,7 @@
     else
       template.customization_of.present? ? customisable_org_admin_templates_path : organisational_org_admin_templates_path
     end %>
-    <%= link_to _(template&.module? ? 'View all modules' : 'View all templates'), referrer, class: 'btn btn-secondary float-end' %>
+    <%= link_to _(template&.module? ? 'View all questionnaires' : 'View all templates'), referrer, class: 'btn btn-secondary float-end' %>
   </div>
 </div>
 <div class="row">
