@@ -77,7 +77,7 @@ namespace :dmpopidor_upgrade do
   desc 'Set current_sign_in_at to 5 years & 1 month ago for active users who have not signed in for 5 years'
   task update_current_sign_in_at_for_5_years_users: :environment do
     User.where('current_sign_in_at < ? and active = true',
-               5.years.ago - 1.month).update_all(current_sign_in_at: 5.years.ago - 1.month)
+               5.years.ago + 1.month).update_all(current_sign_in_at: 5.years.ago + 1.month)
   end
 
   desc 'Generate JSONPlan record for public plans'
