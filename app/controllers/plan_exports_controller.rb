@@ -10,8 +10,8 @@ class PlanExportsController < ApplicationController
   #   - Research outputs : added research output support with export mode
   #   - JSON export uses DMP OPIDoR JSON export (default & RDA)
   # --------------------------------
-  # rubocop:disable Metrics/AbcSize, Metrics/MethodLength
-  # rubocop:disable Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
+  # rubocop:disable-next Metrics/AbcSize, Metrics/MethodLength
+  # rubocop:disable-next Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
   def show
     JsonPlanJob.perform_now(plan_id: params[:plan_id])
 
@@ -65,8 +65,6 @@ class PlanExportsController < ApplicationController
       format.pdf  { show_pdf }
     end
   end
-  # rubocop:enable Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
-  # rubocop:enable Metrics/AbcSize, Metrics/MethodLength
 
   private
 
@@ -98,11 +96,17 @@ class PlanExportsController < ApplicationController
 
   # CHANGES: PDF footer now displays DMP licence
   def show_pdf
-    send_data Export::PlanPdfGenerator.new(@plan, current_user, @options).call,
+    pdf_binary = if @plan.pdf_data.present?
+                   @plan.pdf_data
+                 else
+                   Export::PlanPdfGenerator.new(@plan, current_user,
+                                                @options).call
+                 end
+    send_data pdf_binary,
               filename: "#{file_name}.pdf"
   end
 
-  # rubocop:disable Metrics/AbcSize,Metrics/CyclomaticComplexity
+  # rubocop:disable-next Metrics/AbcSize,Metrics/CyclomaticComplexity
   def show_json
     skip_authorization
 
@@ -130,7 +134,6 @@ class PlanExportsController < ApplicationController
 
     send_data json_data.to_json, filename: "#{file_name}_#{json_format}.json"
   end
-  # rubocop:enable Metrics/AbcSize,Metrics/CyclomaticComplexity
 
   def file_name
     # Sanitize bad characters and replace spaces with underscores

@@ -38,6 +38,9 @@ class ResearchOutput < ApplicationRecord
 
   after_destroy :destroy_json_fragment
 
+  after_create -> { PlanJobScheduler.enqueue_or_reschedule_pdf(plan_id) }
+  after_destroy -> { PlanJobScheduler.enqueue_or_reschedule_pdf(plan_id) }
+
   enum :output_type, %i[audiovisual collection data_paper dataset event image
                         interactive_resource model_representation physical_object
                         service software sound text workflow other]

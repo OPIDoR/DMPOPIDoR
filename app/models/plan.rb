@@ -302,7 +302,8 @@ class Plan < ApplicationRecord
     data.sanitize_fields(:title, :identifier, :description)
   }
 
-  after_save -> { JsonPlanJobScheduler.enqueue_or_reschedule(id) }
+  after_save -> { PlanJobScheduler.enqueue_or_reschedule_json(id) }
+  after_save -> { PlanJobScheduler.enqueue_or_reschedule_pdf(id) }
 
   # =================
   # = Class methods =
