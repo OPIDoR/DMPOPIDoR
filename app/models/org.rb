@@ -31,7 +31,7 @@
 #
 # Foreign Keys
 #
-#  fk_rails_...  (language_id => languages.id)
+#  fk_rails_...  (language_id => languages.id) DEFERRABLE INITIALLY DEFERRED
 #
 
 # Object that represents an Organization/Institution/Funder
