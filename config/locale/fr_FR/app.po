@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: app 1.0\n"
 "Report-Msgid-Bugs-To: contact@translation.io\n"
-"POT-Creation-Date: 2026-08-19 09:31+0200\n"
-"PO-Revision-Date: 2026-08-19 07:31+0000\n"
+"POT-Creation-Date: 2026-08-20 17:15+0200\n"
+"PO-Revision-Date: 2026-08-20 15:15+0000\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: French\n"
 "Language: fr_FR\n"
@@ -877,7 +877,7 @@ msgstr "Impossible de changer le statut du plan"
 msgid "imported"
 msgstr "importé"
 
-#: ../../app/controllers/plans_controller.rb:596
+#: ../../app/controllers/plans_controller.rb:605
 msgid "Invalid JSON: "
 msgstr "JSON non valide :"
 
@@ -1887,8 +1887,8 @@ msgstr "recommandation concernant"
 msgid "Dataset"
 msgstr "Jeu de données"
 
-#: ../../app/models/research_output.rb:252
-#: ../../app/models/research_output.rb:342
+#: ../../app/models/research_output.rb:256
+#: ../../app/models/research_output.rb:346
 #: ../../app/views/paginable/api_clients/_index.html.erb:34
 #: ../../app/views/paginable/guidance_groups/_index.html.erb:32
 #: ../../app/views/paginable/orgs/_index.html.erb:25
@@ -1903,8 +1903,8 @@ msgstr "Jeu de données"
 msgid "Yes"
 msgstr "Oui"
 
-#: ../../app/models/research_output.rb:252
-#: ../../app/models/research_output.rb:342
+#: ../../app/models/research_output.rb:256
+#: ../../app/models/research_output.rb:346
 #: ../../app/views/paginable/api_clients/_index.html.erb:34
 #: ../../app/views/paginable/guidance_groups/_index.html.erb:30
 #: ../../app/views/paginable/orgs/_index.html.erb:25
@@ -6467,12 +6467,12 @@ msgid ""
 msgstr ""
 "%{commenter_name} a commenté votre plan %{plan_title}. Pour afficher les comme"
 "ntaires, suivez le lien vers le PGD ci-dessous ou accédez au plan via la page "
-"Mon tableau de bord dans %{tool_name}."
+"Tableau de bord dans %{tool_name}."
 
 #: ../../app/views/user_mailer/new_comment.html.erb:17
-msgid "Below the question, research output and section where the comment is located."
+msgid "Below the research output, section and question where the comment is located."
 msgstr ""
-"Vous trouverez ci-dessous la question, le produit de recherche et la section o"
+"Vous trouverez ci-dessous le produit de recherche, la section et la question o"
 "ù le commentaire se trouve."
 
 #: ../../app/views/user_mailer/new_comment.html.erb:21
@@ -6480,12 +6480,12 @@ msgid "DMP: %{phase_link}"
 msgstr "PGD : %{phase_link}"
 
 #: ../../app/views/user_mailer/new_comment.html.erb:24
-msgid "Section name: %{section_title}"
-msgstr "Nom de section: %{section_title}"
-
-#: ../../app/views/user_mailer/new_comment.html.erb:27
 msgid "Research output name: %{research_output_name}"
 msgstr "Nom du produit de recherche : %{research_output_name}"
+
+#: ../../app/views/user_mailer/new_comment.html.erb:27
+msgid "Section name: %{section_title}"
+msgstr "Nom de section: %{section_title}"
 
 #: ../../app/views/user_mailer/new_comment.html.erb:30
 msgid "Question: %{question_text}"

@@ -9,7 +9,7 @@
 #  description             :text
 #  display_order           :integer
 #  is_default              :boolean          default(FALSE)
-#  output_type             :integer          default("dataset"), not null
+#  output_type             :integer          default(3), not null
 #  output_type_description :string
 #  pid                     :string
 #  title                   :string
@@ -37,6 +37,9 @@ class ResearchOutput < ApplicationRecord
   attribute :uuid, :string, default: -> { unique_uuid(field_name: 'uuid') }
 
   after_destroy :destroy_json_fragment
+
+  after_create -> { PlanJobScheduler.enqueue_or_reschedule_pdf(plan_id) }
+  after_destroy -> { PlanJobScheduler.enqueue_or_reschedule_pdf(plan_id) }
 
   enum :output_type, %i[audiovisual collection data_paper dataset event image
                         interactive_resource model_representation physical_object

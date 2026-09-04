@@ -18,7 +18,7 @@
 #
 # Foreign Keys
 #
-#  fk_rails_...  (guidance_group_id => guidance_groups.id)
+#  fk_rails_...  (guidance_group_id => guidance_groups.id) DEFERRABLE INITIALLY DEFERRED
 #
 require 'rails_helper'
 

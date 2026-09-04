@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.1].define(version: 2026_05_05_132729) do
+ActiveRecord::Schema[8.1].define(version: 2026_09_03_124009) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
   enable_extension "unaccent"
@@ -484,6 +484,7 @@ ActiveRecord::Schema[8.1].define(version: 2026_05_05_132729) do
     t.string "ethical_issues_report"
     t.integer "funding_status"
     t.integer "context", default: 0, null: false
+    t.binary "pdf_data"
     t.index ["funder_id"], name: "index_plans_on_funder_id"
     t.index ["grant_id"], name: "index_plans_on_grant_id"
     t.index ["org_id"], name: "index_plans_on_org_id"

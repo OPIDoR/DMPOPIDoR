@@ -6,7 +6,7 @@
 #
 #  id         :integer          not null, primary key
 #  access     :integer          default(0), not null
-#  active     :boolean          default(TRUE)
+#  active     :boolean          default(FALSE)
 #  created_at :datetime
 #  updated_at :datetime
 #  plan_id    :integer
@@ -19,8 +19,8 @@
 #
 # Foreign Keys
 #
-#  fk_rails_...  (plan_id => plans.id)
-#  fk_rails_...  (user_id => users.id)
+#  fk_rails_...  (plan_id => plans.id) DEFERRABLE INITIALLY DEFERRED
+#  fk_rails_...  (user_id => users.id) DEFERRABLE INITIALLY DEFERRED
 #
 
 FactoryBot.define do
