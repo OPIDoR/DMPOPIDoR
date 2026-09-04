@@ -15,7 +15,7 @@ namespace :usercleaning do
   desc 'Anonymize users who haven\'t been connected for five years.'
   task anonymize_users_after_5_years: :environment do
     Rails.logger.info 'Anonymizing users who have not connected for the last 5 years'
-    users_to_process = User.where('active = true and current_sign_in_at < ?', 5.years.ago - 1.month)
+    users_to_process = User.where('active = true and current_sign_in_at < ?', 5.years.ago + 1.month)
     Rails.logger.info "#{users_to_process.count} users to anonymize"
 
     users_to_process.find_each do |user|
