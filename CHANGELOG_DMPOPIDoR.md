@@ -2,6 +2,10 @@
 
 **Attention** Cette liste de changements concerne les déploiements sur nos serveurs de test en interne.
 
+## 04/09/2026
+- Correction des scripts de mise à jour de la date de connexion et d'anonymisation après 5 ans
+- Ajout de la prégénération des PDF pour les plans publics et les plans comportant plus de 15 produits de recherche
+
 ## 20/08/2026
 - Optimisation du chargement des données concernant les produits de recherche dans l'onglet Rédiger
 - Retrait des tags HTML dans l'intitulé de la question présent dans la notification de nouveau commentaire.
