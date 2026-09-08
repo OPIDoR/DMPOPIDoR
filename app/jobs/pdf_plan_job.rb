@@ -13,7 +13,7 @@ class PdfPlanJob < ApplicationJob
     if plan.research_outputs.count >= ENV.fetch('PLAN_MINIMUM_RESEARCH_OUTPUTS',
                                                 15).to_i || plan.publicly_visible?
 
-      pdf_binary = Export::PlanPdfGenerator.new(plan, user || plan.owner, generate_options(plan)).call
+      pdf_binary = Export::PlanPdfGenerator.new(plan, user || plan.owner, nil, nil, generate_options(plan)).call
       plan.update_column(:pdf_data, pdf_binary)
     else
       plan.update_column(:pdf_data, nil)

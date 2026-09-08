@@ -10,10 +10,6 @@ module Export
       @selected_phases = selected_phases
       @selected_research_outputs = selected_research_outputs
       @options = options || default_options
-      p '##################################'
-      p @selected_phases
-      p @selected_research_outputs
-      p '##################################'
     end
 
     def call
