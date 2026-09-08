@@ -62,11 +62,26 @@ document.addEventListener("turbo:load", () => {
       // Iterate each checkbox
       $(".research-output-checkbox").each(function check() {
         this.checked = true;
+        $(".download-btn").attr("disabled", false);
+        $(".download-btn-tooltip").hide();
       });
     } else {
       $(".research-output-checkbox").each(function check() {
         this.checked = false;
       });
+    }
+  });
+  $(".research-output-checkbox").on("click", () => {
+    const selectedCount = $(".research-output-checkbox:checked").length;
+    const totalCount = $(".research-output-checkbox").length;
+    if (selectedCount > 15) {
+      $(".download-btn").attr("disabled", true);
+      $(".download-btn-tooltip").show();
+    }
+
+    if (selectedCount <= 15 || selectedCount === totalCount) {
+      $(".download-btn").attr("disabled", false);
+      $(".download-btn-tooltip").hide();
     }
   });
 });
