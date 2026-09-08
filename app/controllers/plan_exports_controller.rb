@@ -44,6 +44,11 @@ class PlanExportsController < ApplicationController
       raise Pundit::NotAuthorizedError
     end
 
+    if request.format.pdf? && @plan.pdf_data.present?
+      && params.key?(:research_outputs).length.eql?(@plan.research_outputs.length)
+      return show_generated_pdf
+    end
+
     @hash           = @plan.as_pdf(current_user, @options[:show_coversheet])
     @formatting     = export_params[:formatting] || @plan.settings(:export).formatting
 
@@ -96,13 +101,12 @@ class PlanExportsController < ApplicationController
 
   # CHANGES: PDF footer now displays DMP licence
   def show_pdf
-    pdf_binary = if @plan.pdf_data.present?
-                   @plan.pdf_data
-                 else
-                   Export::PlanPdfGenerator.new(@plan, current_user,
-                                                @options).call
-                 end
-    send_data pdf_binary,
+    send_data Export::PlanPdfGenerator.new(@plan, current_user, @options).call,
+              filename: "#{file_name}.pdf"
+  end
+
+  def show_generated_pdf
+    send_data @plan.pdf_data,
               filename: "#{file_name}.pdf"
   end
 
