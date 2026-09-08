@@ -22,6 +22,8 @@ class PlanExportsController < ApplicationController
     return show_json if request.format.json?
 
     @options = {}
+    @selected_phases = params[:selected_phases]
+    @selected_research_outputs = params[:research_outputs]
     if privately_authorized? && export_params[:form].present?
       skip_authorization
       @options[:show_coversheet]         = export_params[:project_details].present?
@@ -45,22 +47,12 @@ class PlanExportsController < ApplicationController
     end
 
     if request.format.pdf? && @plan.pdf_data.present?
-      && params.key?(:research_outputs).length.eql?(@plan.research_outputs.length)
+      && @selected_research_outputs && @selected_research_outputs.length.eql?(@plan.research_outputs.length)
       return show_generated_pdf
     end
 
     @hash           = @plan.as_pdf(current_user, @options[:show_coversheet])
     @formatting     = export_params[:formatting] || @plan.settings(:export).formatting
-
-    if params.key?(:selected_phases)
-      @hash[:phases] = @hash[:phases].select { |p| params[:selected_phases].include?(p[:id].to_s) }
-    end
-
-    if params.key?(:research_outputs)
-      @hash[:research_outputs] = @hash[:research_outputs].order(display_order: :asc).select do |d|
-        params[:research_outputs].include?(d[:id].to_s)
-      end
-    end
 
     respond_to do |format|
       format.html { show_html }
@@ -74,7 +66,9 @@ class PlanExportsController < ApplicationController
   private
 
   def show_html
-    render layout: false
+    render html: Export::PlanPdfGenerator.new(
+      @plan, current_user, @selected_phases, @selected_research_outputs, @options
+    ).html
   end
 
   def show_csv
@@ -101,7 +95,9 @@ class PlanExportsController < ApplicationController
 
   # CHANGES: PDF footer now displays DMP licence
   def show_pdf
-    send_data Export::PlanPdfGenerator.new(@plan, current_user, @options).call,
+    send_data Export::PlanPdfGenerator.new(
+      @plan, current_user, @selected_phases, @selected_research_outputs, @options
+    ).call,
               filename: "#{file_name}.pdf"
   end
 
@@ -110,7 +106,7 @@ class PlanExportsController < ApplicationController
               filename: "#{file_name}.pdf"
   end
 
-  # rubocop:disable-next Metrics/AbcSize,Metrics/CyclomaticComplexity
+  # rubocop:disable-next Metrics/AbcSize
   def show_json
     skip_authorization
 
@@ -119,9 +115,9 @@ class PlanExportsController < ApplicationController
 
     json_data = json_plan.data
 
-    if params['research_outputs'].present?
+    if @selected_research_outputs
       json_data['researchOutput'] = json_data['researchOutput'].filter do |ro|
-        params['research_outputs'].include?(ro['research_output_id'].to_s)
+        @selected_research_outputs.include?(ro['research_output_id'].to_s)
       end
     end
 
@@ -131,7 +127,7 @@ class PlanExportsController < ApplicationController
       rendered_json = render_to_string(
         "shared/export/madmp_export_templates/#{json_format}/plan",
         locals: { dmp: @plan.json_fragment,
-                  selected_research_outputs: params[:research_outputs]&.map(&:to_i) || @plan.research_output_ids }
+                  selected_research_outputs: @selected_research_outputs || @plan.research_output_ids }
       )
       return send_data rendered_json, filename: "#{file_name}_#{json_format}.json"
     end

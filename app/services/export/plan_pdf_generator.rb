@@ -3,11 +3,17 @@
 module Export
   # Service used to generate a pdf from a plan
   class PlanPdfGenerator
-    def initialize(plan, user, options = nil)
+    def initialize(plan, user, selected_phases = nil, selected_research_outputs = nil, options = nil)
       @plan = plan
       @formatting = @plan.settings(:export).formatting
       @hash = @plan.as_pdf(user, true)
+      @selected_phases = selected_phases
+      @selected_research_outputs = selected_research_outputs
       @options = options || default_options
+      p '##################################'
+      p @selected_phases
+      p @selected_research_outputs
+      p '##################################'
     end
 
     def call
@@ -29,14 +35,21 @@ module Export
       Base64.strict_encode64(call)
     end
 
-    private
-
     def html
+      @hash[:phases] = @hash[:phases].select { |p| @selected_phases.include?(p[:id].to_s) } if @selected_phases
+
+      if @selected_research_outputs
+        @hash[:research_outputs] = @hash[:research_outputs].order(display_order: :asc).select do |d|
+          @selected_research_outputs.include?(d[:id].to_s)
+        end
+      end
       ApplicationController.render(
         partial: 'shared/export/plan',
         assigns: { plan: @plan, formatting: @formatting, hash: @hash, options: @options }
       )
     end
+
+    private
 
     def license_details
       license = @plan.json_fragment.meta.license if @plan.structured?
