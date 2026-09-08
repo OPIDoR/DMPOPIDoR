@@ -2,6 +2,11 @@
 
 **Attention** Cette liste de changements concerne les déploiements sur nos serveurs de test en interne.
 
+## 08/09/2026
+- La generation JSON d'un plan ne se fait que si le plan a été modifié
+- Export de plan : Mise à jour des textes concernant l'export de plan sur les plans avec beaucoup de produits de recherche et blocage de l'export PDF pour les plans avec plus de 15 produits
+- Ajout du support des phases et produits sélectionnés au générateur de plan PDF.
+
 ## 04/09/2026
 - Correction des scripts de mise à jour de la date de connexion et d'anonymisation après 5 ans
 - Ajout de la prégénération des PDF pour les plans publics et les plans comportant plus de 15 produits de recherche
