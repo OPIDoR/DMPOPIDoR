@@ -10,8 +10,8 @@ class PlanExportsController < ApplicationController
   #   - Research outputs : added research output support with export mode
   #   - JSON export uses DMP OPIDoR JSON export (default & RDA)
   # --------------------------------
-  # rubocop:disable Metrics/AbcSize, Metrics/MethodLength
-  # rubocop:disable Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
+  # rubocop:disable-next Metrics/AbcSize, Metrics/MethodLength
+  # rubocop:disable-next Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
   def show
     JsonPlanJob.perform_now(plan_id: params[:plan_id])
 
@@ -21,29 +21,30 @@ class PlanExportsController < ApplicationController
 
     return show_json if request.format.json?
 
+    @options = {}
     if privately_authorized? && export_params[:form].present?
       skip_authorization
-      @show_coversheet         = export_params[:project_details].present?
-      @show_sections_questions = export_params[:question_headings].present?
-      @show_unanswered         = export_params[:unanswered_questions].present?
-      @show_custom_sections    = export_params[:custom_sections].present?
-      @show_research_outputs   = true
-      @public_plan             = false
+      @options[:show_coversheet]         = export_params[:project_details].present?
+      @options[:show_sections_questions] = export_params[:question_headings].present?
+      @options[:show_unanswered]         = export_params[:unanswered_questions].present?
+      @options[:show_custom_sections]    = export_params[:custom_sections].present?
+      @options[:show_research_outputs]   = true
+      @options[:public_plan]             = false
 
     elsif publicly_authorized?
       skip_authorization
-      @show_coversheet         = true
-      @show_sections_questions = true
-      @show_unanswered         = true
-      @show_custom_sections    = true
-      @show_research_outputs   = true
-      @public_plan             = true
+      @options[:show_coversheet]         = true
+      @options[:show_sections_questions] = true
+      @options[:show_unanswered]         = true
+      @options[:show_custom_sections]    = true
+      @options[:show_research_outputs]   = true
+      @options[:public_plan]             = true
 
     else
       raise Pundit::NotAuthorizedError
     end
 
-    @hash           = @plan.as_pdf(current_user, @show_coversheet)
+    @hash           = @plan.as_pdf(current_user, @options[:show_coversheet])
     @formatting     = export_params[:formatting] || @plan.settings(:export).formatting
 
     if params.key?(:selected_phases)
@@ -64,8 +65,6 @@ class PlanExportsController < ApplicationController
       format.pdf  { show_pdf }
     end
   end
-  # rubocop:enable Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
-  # rubocop:enable Metrics/AbcSize, Metrics/MethodLength
 
   private
 
@@ -74,12 +73,12 @@ class PlanExportsController < ApplicationController
   end
 
   def show_csv
-    send_data @plan.as_csv(current_user, @show_sections_questions,
-                           @show_unanswered,
+    send_data @plan.as_csv(current_user, @options[:show_sections_questions],
+                           @options[:show_unanswered],
                            @selected_phase,
-                           @show_custom_sections,
-                           @show_coversheet,
-                           @show_research_outputs),
+                           @options[:show_custom_sections],
+                           @options[:show_coversheet],
+                           @options[:show_research_outputs]),
               filename: "#{file_name}.csv"
   end
 
@@ -96,26 +95,18 @@ class PlanExportsController < ApplicationController
   end
 
   # CHANGES: PDF footer now displays DMP licence
-  # rubocop:disable Metrics/AbcSize
   def show_pdf
-    license = @plan.json_fragment.meta.license if @plan.structured?
-    license_details = if license.present? && !license.data.compact.empty?
-                        "#{license.data['licenseName']} (#{license.data['licenseUrl']})"
-                      end
-    render pdf: file_name,
-           margin: @formatting[:margin],
-           footer:
-             {
-               center: license_details,
-               font_size: 8,
-               spacing: (Integer(@formatting[:margin][:bottom]) / 2) - 4,
-               right: '[page] of [topage]',
-               encoding: 'utf8'
-             }
+    pdf_binary = if @plan.pdf_data.present?
+                   @plan.pdf_data
+                 else
+                   Export::PlanPdfGenerator.new(@plan, current_user,
+                                                @options).call
+                 end
+    send_data pdf_binary,
+              filename: "#{file_name}.pdf"
   end
-  # rubocop:enable Metrics/AbcSize
 
-  # rubocop:disable Metrics/AbcSize,Metrics/CyclomaticComplexity
+  # rubocop:disable-next Metrics/AbcSize,Metrics/CyclomaticComplexity
   def show_json
     skip_authorization
 
@@ -143,7 +134,6 @@ class PlanExportsController < ApplicationController
 
     send_data json_data.to_json, filename: "#{file_name}_#{json_format}.json"
   end
-  # rubocop:enable Metrics/AbcSize,Metrics/CyclomaticComplexity
 
   def file_name
     # Sanitize bad characters and replace spaces with underscores

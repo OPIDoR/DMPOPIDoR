@@ -1,4 +1,3 @@
-import React from "react";
 import {
   cleanup,
   fireEvent,
@@ -10,7 +9,7 @@ import {
 import InputTextArray from "../../../components/FormComponents/InputTextArray";
 import { Wrapper } from "../../__utils__/reactHookFormHelpers";
 
-jest.mock("react-i18next", () => ({
+vi.mock("react-i18next", () => ({
   // this mock makes sure any components using the translate hook can use it without a warning being shown
   useTranslation: () => ({
     t: (str) => str,

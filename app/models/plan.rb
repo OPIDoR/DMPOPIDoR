@@ -19,6 +19,7 @@
 #  feedback_requested         :boolean          default(FALSE)
 #  funding_status             :integer
 #  identifier                 :string
+#  pdf_data                   :binary
 #  start_date                 :datetime
 #  title                      :string
 #  visibility                 :integer          default(3), not null
@@ -302,7 +303,8 @@ class Plan < ApplicationRecord
     data.sanitize_fields(:title, :identifier, :description)
   }
 
-  after_save -> { JsonPlanJobScheduler.enqueue_or_reschedule(id) }
+  after_save -> { PlanJobScheduler.enqueue_or_reschedule_json(id) }
+  after_save -> { PlanJobScheduler.enqueue_or_reschedule_pdf(id) }
 
   # =================
   # = Class methods =

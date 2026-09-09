@@ -1,11 +1,17 @@
 import { useEffect, useState } from "react";
 import { researchOutput } from "../services";
 
-function useFetchPlansData(dataType = null, className = null) {
+function useFetchPlansData(
+  dataType = null,
+  className = null,
+  shouldFetch = true,
+) {
   const [data, setData] = useState(null);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
+    if (!shouldFetch) return;
+
     researchOutput.getPlans().then(({ data }) => {
       /* filtering plans and research outputs based on dataType */
       const filteredPlans = filterWithClassName(
@@ -15,7 +21,7 @@ function useFetchPlansData(dataType = null, className = null) {
       setData(filteredPlans);
       setLoading(false);
     });
-  }, []);
+  }, [shouldFetch]);
 
   const filterWithDataType = (plans, dataType) => {
     if (!dataType) return plans;

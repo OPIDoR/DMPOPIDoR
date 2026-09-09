@@ -1,8 +1,7 @@
-import React from "react";
 import { cleanup, render, screen } from "@testing-library/react";
 import PersonsList from "../../../components/FormComponents/PersonsList";
 
-jest.mock("react-i18next", () => ({
+vi.mock("react-i18next", () => ({
   // this mock makes sure any components using the translate hook can use it without a warning being shown
   useTranslation: () => ({
     t: (str) => str,
@@ -16,8 +15,8 @@ jest.mock("react-i18next", () => ({
   },
 }));
 
-const mockHandleEdit = jest.fn();
-const mockHandleDelete = jest.fn();
+const mockHandleEdit = vi.fn();
+const mockHandleDelete = vi.fn();
 
 const personsListProps = {
   personsList: [
@@ -52,12 +51,12 @@ describe("PersonsList component", () => {
     const data = personsListProps.personsList;
     render(<PersonsList {...personsListProps} />);
 
-    expect(screen.getByTestId("persons-list-table-header")).toHaveTextContent(
-      personsListProps.tableHeader,
-    );
-    expect(screen.getByTestId("persons-list-table-header")).toHaveTextContent(
-      "Roles",
-    );
+    expect(
+      screen.getByTestId("persons-list-table-header-text"),
+    ).toHaveTextContent(personsListProps.tableHeader);
+    expect(
+      screen.getByTestId("persons-list-table-header-roles"),
+    ).toHaveTextContent("roles");
     expect(screen.queryAllByTestId(/persons-list-row-[0-9]+/i)).toHaveLength(
       data.length,
     );

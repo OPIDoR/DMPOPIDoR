@@ -5,6 +5,7 @@ import reactHooks from "eslint-plugin-react-hooks";
 import reactCompiler from "eslint-plugin-react-compiler";
 import prettier from "eslint-plugin-prettier";
 import eslintConfigPrettier from "eslint-config-prettier";
+import vitest from "eslint-plugin-vitest";
 
 export default [
   // Base Javascript configuration
@@ -93,6 +94,18 @@ export default [
     rules: {
       ...eslintConfigPrettier.rules,
       "prettier/prettier": "error",
+    },
+  },
+  {
+    files: ["**/*.test.{js,jsx}", "**/__tests__/**/*.{js,jsx}"],
+    plugins: { vitest },
+    rules: {
+      ...vitest.configs.recommended.rules,
+    },
+    languageOptions: {
+      globals: {
+        ...vitest.environments.env.globals,
+      },
     },
   },
 ];

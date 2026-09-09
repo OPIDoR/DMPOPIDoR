@@ -1,7 +1,11 @@
 # frozen_string_literal: true
 
-# rubocop:disable Naming/VariableNumber
+# rubocop:disable-next Naming/VariableNumber
 namespace :dmpopidor_upgrade do
+  desc 'Upgrade to 4.4.4'
+  task V4_4_4: :environment do
+    Rake::Task['dmpopidor_upgrade:generate_pdf_plans'].execute
+  end
   desc 'Upgrade to 4.4.2'
   task V4_4_2: :environment do
     Rake::Task['dmpopidor_upgrade:update_current_sign_in_at_for_5_years_users'].execute
@@ -59,10 +63,21 @@ namespace :dmpopidor_upgrade do
     Rake::Task['dmpopidor_upgrade:close_existing_feedback_plans'].execute
   end
 
+  desc 'Generate pdf binaries for publicly visible plans or plans with research outputs count >= 15'
+  task generate_pdf_plans: :environment do
+    Plan.includes(:research_outputs).all.each do |plan|
+      next unless plan.research_outputs.count >= ENV.fetch('PLAN_MINIMUM_RESEARCH_OUTPUTS',
+                                                           15).to_i || plan.publicly_visible?
+
+      p "########### Generating PDF plan for plan #{plan.id} ###########"
+      PdfPlanJob.perform_now(plan_id: plan.id)
+    end
+  end
+
   desc 'Set current_sign_in_at to 5 years & 1 month ago for active users who have not signed in for 5 years'
   task update_current_sign_in_at_for_5_years_users: :environment do
     User.where('current_sign_in_at < ? and active = true',
-               5.years.ago - 1.month).update_all(current_sign_in_at: 5.years.ago - 1.month)
+               5.years.ago + 1.month).update_all(current_sign_in_at: 5.years.ago + 1.month)
   end
 
   desc 'Generate JSONPlan record for public plans'
@@ -312,4 +327,3 @@ namespace :dmpopidor_upgrade do
     end
   end
 end
-# rubocop:enable Naming/VariableNumber

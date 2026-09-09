@@ -15,24 +15,28 @@ namespace :usercleaning do
   desc 'Anonymize users who haven\'t been connected for five years.'
   task anonymize_users_after_5_years: :environment do
     Rails.logger.info 'Anonymizing users who have not connected for the last 5 years'
-    five_years_users = User.where('active = true and current_sign_in_at < ?', 5.years.ago - 1.month)
-    Rails.logger.info "#{five_years_users.count} users to anonymize"
+    users_to_process = User.where('active = true and current_sign_in_at < ?', 5.years.ago + 1.month)
+    Rails.logger.info "#{users_to_process.count} users to anonymize"
 
-    five_years_users.each do |user|
-      last_sign_in = user.current_sign_in_at || 5.years.ago
+    users_to_process.find_each do |user|
+      next if user.current_sign_in_at.nil?
+
+      deletion_date = (user.current_sign_in_at + 5.years).to_date
       case Date.today
-      when (last_sign_in + 5.years + 1.month).to_date
+      when (deletion_date - 1.month)
         p "Sending 1 month anonymization warning to #{user.email}"
         UserMailer.anonymization_warning(user).deliver_now
-      when (last_sign_in + 5.years + 1.week).to_date
+      when (deletion_date - 1.week)
         p "Sending 1 week anonymization warning to #{user.email}"
         UserMailer.anonymization_warning(user).deliver_now
-      when (last_sign_in + 5.years + 1.day).to_date
+      when (deletion_date - 1.day)
         p "Sending 1 day anonymization warning to #{user.email}"
         UserMailer.anonymization_warning(user).deliver_now
       else
-        p "Archiving user: #{user.id} #{user.email}"
-        user.archive # default should archive every other user : last log in > 5y
+        if Date.today >= deletion_date
+          Rails.logger.info "Archiving user: #{user.id} #{user.email}"
+          user.archive
+        end
       end
     end
   end

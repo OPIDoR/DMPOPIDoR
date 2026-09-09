@@ -16,6 +16,7 @@
 #  feedback_requested         :boolean          default(FALSE)
 #  funding_status             :integer
 #  identifier                 :string
+#  pdf_data                   :binary
 #  start_date                 :datetime
 #  title                      :string
 #  visibility                 :integer          default(3), not null

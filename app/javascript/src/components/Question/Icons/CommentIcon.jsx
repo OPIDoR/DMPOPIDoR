@@ -12,7 +12,7 @@ function CommentIcon({
 }) {
   const { t } = useTranslation();
   return (
-    <div>
+    <div data-testid="comment-icon">
       <ReactTooltip
         id="commentTip"
         place="bottom"

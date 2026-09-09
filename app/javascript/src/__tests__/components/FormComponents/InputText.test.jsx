@@ -1,4 +1,3 @@
-import React from "react";
 import {
   cleanup,
   fireEvent,
@@ -10,7 +9,7 @@ import {
 import InputText from "../../../components/FormComponents/InputText";
 import { Wrapper } from "../../__utils__/reactHookFormHelpers";
 
-jest.mock("react-i18next", () => ({
+vi.mock("react-i18next", () => ({
   // this mock makes sure any components using the translate hook can use it without a warning being shown
   useTranslation: () => ({
     t: (str) => str,
@@ -47,7 +46,7 @@ describe("InputText component", () => {
     expect(screen.getByTestId("input-text")).toBeInTheDocument();
     expect(screen.getByTestId("input-text")).toHaveAttribute("type", "text");
     expect(
-      screen.getByPlaceholderText(`e.g. ${inputTextProps.placeholder}`),
+      screen.getByPlaceholderText(`eg ${inputTextProps.placeholder}`),
     ).toBeInTheDocument();
     expect(screen.getByTestId(/tooltip_info_icon_[0-9]+/i)).toBeInTheDocument();
   });

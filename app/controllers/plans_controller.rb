@@ -387,7 +387,8 @@ class PlansController < ApplicationController
 
   # TODO: This should probablly just be merged with the update route
   # POST /plans/:id/visibility
-  # rubocop:disable Metrics/AbcSize, Metrics/MethodLength
+  # rubocop:disable-next Metrics/AbcSize, Metrics/MethodLength
+  # rubocop:disable-next Metrics/PerceivedComplexity
   def visibility
     plan = Plan.find(params[:id])
     if plan.present?
@@ -400,6 +401,7 @@ class PlansController < ApplicationController
             UserMailer.plan_visibility(r, plan).deliver_now
           end
           JsonPlanJob.perform_now(plan_id: plan.id) if plan.publicly_visible?
+          PdfPlanJob.perform_now(plan.id, current_user) if plan.publicly_visible?
           render status: :ok,
                  json: { msg: success_message(plan, _('updated')) }
         else
@@ -407,11 +409,10 @@ class PlansController < ApplicationController
                  json: { msg: failure_message(plan, _('update')) }
         end
       else
-        # rubocop:disable Layout/LineLength
+        # rubocop:disable-next Layout/LineLength
         render status: :forbidden, json: {
           msg: format(_("Unable to change the plan's status since it is needed at least %{percentage} percentage responded"), percentage: Rails.configuration.x.plans.default_percentage_answered)
         }
-        # rubocop:enable Layout/LineLength
       end
     else
       render status: :not_found,
@@ -419,7 +420,6 @@ class PlansController < ApplicationController
                                  plan_id: params[:id]) }
     end
   end
-  # rubocop:enable Metrics/AbcSize, Metrics/MethodLength
 
   # TODO: This should probablly just be merged with the update route
   # POST /plans/:id/set_test

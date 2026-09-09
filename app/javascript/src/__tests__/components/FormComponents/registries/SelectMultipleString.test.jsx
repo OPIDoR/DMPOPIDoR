@@ -1,7 +1,5 @@
-import React from "react";
 import {
   act,
-  cleanup,
   fireEvent,
   render,
   screen,
@@ -12,9 +10,16 @@ import SelectMultipleString from "../../../../components/FormComponents/registri
 
 import { Wrapper } from "../../../__utils__/reactHookFormHelpers";
 import Global from "../../../../components/context/GlobalContext";
-import { service } from "../../../../services/index";
+import Forms from "../../../../components/context/FormsContext";
+const { madmpFragment } = vi.hoisted(() => ({
+  madmpFragment: {
+    getAvailableRegistries: vi.fn(),
+    getRegistryByName: vi.fn(),
+  },
+}));
+vi.mock("../../../../services/index.js", () => ({ madmpFragment }));
 
-jest.mock("react-i18next", () => ({
+vi.mock("react-i18next", () => ({
   // this mock makes sure any components using the translate hook can use it without a warning being shown
   useTranslation: () => ({
     t: (str) => str,
@@ -29,14 +34,14 @@ jest.mock("react-i18next", () => ({
 }));
 
 // Mock out all top level functions, such as get, put, delete and post:
-jest.mock("axios");
+vi.mock("axios");
 
 const props = {
   label: "Select Multiple String Label",
   propName: "mySelectMultipleString",
   header: "tableHeader",
   tooltip: "my tooltip",
-  category: ["MultipleRegistryCategory"],
+  category: "MultipleRegistryCategory",
   topic: "generic",
 };
 
@@ -61,28 +66,25 @@ const mockedRegistriesData = [
   },
 ];
 
-afterEach(() => {
-  cleanup();
-  // restore the spy created with spyOn
-  jest.restoreAllMocks();
-});
-
 describe("SelectMultipleString component", () => {
+  afterEach(() => {
+    vi.clearAllMocks();
+  });
   test("component rendering", async () => {
-    const spy = jest.spyOn(service, "getAvailableRegistries");
-    spy.mockImplementation((category, dataType, topic) =>
-      Promise.resolve({ data: [mockedRegistriesData[0]] }),
-    );
-    const spyGetRegistryByName = jest.spyOn(service, "getRegistryByName");
+    madmpFragment.getAvailableRegistries.mockResolvedValue({
+      data: mockedRegistriesData[0],
+    });
     render(
       <Global>
-        <Wrapper propName={props.propName} data={[]}>
-          <SelectMultipleString {...props} />
-        </Wrapper>
+        <Forms>
+          <Wrapper propName={props.propName} data={[]}>
+            <SelectMultipleString {...props} />
+          </Wrapper>
+        </Forms>
       </Global>,
     );
     expect(
-      screen.getByTestId("select-multiple-string-label"),
+      await screen.findByTestId("select-multiple-string-label"),
     ).toHaveTextContent(props.label);
     expect(
       screen.queryByTestId("select-multiple-string-registry-selector"),
@@ -92,23 +94,27 @@ describe("SelectMultipleString component", () => {
       screen.getByTestId("select-multiple-string-div"),
     ).toBeInTheDocument();
     expect(screen.getByTestId("select-multiple-string-div")).toHaveTextContent(
-      "Select one or multiple values from the list",
+      "select" + "selectMultiple",
     );
-    expect(spy).toHaveBeenCalledWith(props.category, props.dataType);
-    expect(spyGetRegistryByName).not.toHaveBeenCalled();
+    expect(madmpFragment.getAvailableRegistries).toHaveBeenCalledWith(
+      props.category,
+      props.dataType,
+      props.topic,
+    );
+    expect(madmpFragment.getRegistryByName).not.toHaveBeenCalled();
   });
   test("component rendering with multiple registries", async () => {
-    const spy = jest.spyOn(service, "getAvailableRegistries");
-    spy.mockImplementation((category, dataType, topic) =>
-      Promise.resolve({ data: mockedRegistriesData }),
-    ); // replace implementation
-    const spyGetRegistryByName = jest.spyOn(service, "getRegistryByName");
+    madmpFragment.getAvailableRegistries.mockResolvedValue({
+      data: mockedRegistriesData,
+    });
     await act(async () =>
       render(
         <Global>
-          <Wrapper propName={props.propName} data={[]}>
-            <SelectMultipleString {...props} />
-          </Wrapper>
+          <Forms>
+            <Wrapper propName={props.propName} data={[]}>
+              <SelectMultipleString {...props} />
+            </Wrapper>
+          </Forms>
         </Global>,
       ),
     );
@@ -118,31 +124,35 @@ describe("SelectMultipleString component", () => {
     expect(
       screen.queryByTestId("select-multiple-string-registry-selector"),
     ).toBeInTheDocument();
-    expect(screen.getByText("Select a registry")).toBeInTheDocument();
+    expect(screen.getByText("selectRegistry")).toBeInTheDocument();
     expect(screen.getByTestId(/tooltip_info_icon_[0-9]+/i)).toBeInTheDocument();
     expect(
       screen.getByTestId("select-multiple-string-div"),
     ).toBeInTheDocument();
     expect(screen.getByTestId("select-multiple-string-div")).toHaveTextContent(
-      "Then select one or multiple values from the list",
+      "thenSelect" + "selectMultiple",
     );
-    expect(spy).toHaveBeenCalledWith(props.category, props.dataType);
-    expect(spyGetRegistryByName).not.toHaveBeenCalled();
+    expect(madmpFragment.getAvailableRegistries).toHaveBeenCalledWith(
+      props.category,
+      props.dataType,
+      props.topic,
+    );
+    expect(madmpFragment.getRegistryByName).not.toHaveBeenCalled();
   });
   test("component with multiple registry should call getRegistryByName when choosing a registry", async () => {
-    const spy = jest.spyOn(service, "getAvailableRegistries");
-    spy.mockImplementation((category, dataType, topic) =>
-      Promise.resolve({ data: mockedRegistriesData }),
-    );
-    const spyGetRegistryByName = jest.spyOn(service, "getRegistryByName");
+    madmpFragment.getRegistryByName.mockResolvedValue({
+      data: mockedRegistriesData[0].values,
+    });
     const { findByText } = render(
       <Global>
-        <Wrapper propName={props.propName} data={[]}>
-          <SelectMultipleString {...props} />
-        </Wrapper>
+        <Forms>
+          <Wrapper propName={props.propName} data={[]}>
+            <SelectMultipleString {...props} />
+          </Wrapper>
+        </Forms>
       </Global>,
     );
-    const registrySelector = await findByText("Select a registry");
+    const registrySelector = await findByText("selectRegistry");
     expect(registrySelector).toBeInTheDocument();
     selectEvent.openMenu(registrySelector);
 
@@ -150,7 +160,9 @@ describe("SelectMultipleString component", () => {
     await waitFor(() => expect(registry).toBeInTheDocument());
     fireEvent.click(screen.getByText("MultipleRegistry1"));
     await waitFor(() =>
-      expect(spyGetRegistryByName).toHaveBeenCalledWith("MultipleRegistry1"),
+      expect(madmpFragment.getRegistryByName).toHaveBeenCalledWith(
+        "MultipleRegistry1",
+      ),
     );
   });
 });
