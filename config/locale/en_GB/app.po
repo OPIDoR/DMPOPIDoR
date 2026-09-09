@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: app 1.0\n"
 "Report-Msgid-Bugs-To: contact@translation.io\n"
-"POT-Creation-Date: 2026-08-20 17:15+0200\n"
-"PO-Revision-Date: 2026-08-20 15:15+0000\n"
+"POT-Creation-Date: 2026-09-08 14:24+0200\n"
+"PO-Revision-Date: 2026-09-08 12:24+0000\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: English\n"
 "Language: en_GB\n"
@@ -155,6 +155,8 @@ msgid "File should contain JSON"
 msgstr "File should contain JSON"
 
 #: ../../app/controllers/api/v1/madmp/plans_controller.rb:114
+#: ../../app/controllers/api/v1/madmp/research_outputs_controller.rb:40
+#: ../../app/controllers/api/v1/madmp/research_outputs_controller.rb:63
 #: ../../app/controllers/madmp_codebase_controller.rb:73
 #: ../../app/controllers/madmp_codebase_controller.rb:195
 #: ../../app/controllers/plans_controller.rb:523
@@ -165,6 +167,18 @@ msgstr "An error has occured: "
 #: ../../app/controllers/api/v1/madmp/registries_controller.rb:23
 msgid "Registry not found"
 msgstr "Registry not found"
+
+#: ../../app/controllers/api/v1/madmp/research_outputs_controller.rb:23
+msgid "Research Output not found"
+msgstr ""
+
+#: ../../app/controllers/api/v1/madmp/research_outputs_controller.rb:42
+msgid "Research output imported successfully"
+msgstr ""
+
+#: ../../app/controllers/api/v1/madmp/research_outputs_controller.rb:65
+msgid "Research output updated successfully"
+msgstr ""
 
 #: ../../app/controllers/api/v1/plans_controller.rb:36
 msgid "Unable to create your DMP"
@@ -357,7 +371,7 @@ msgid "delete"
 msgstr "delete"
 
 #: ../../app/controllers/classic_research_outputs_controller.rb:90
-#: ../../app/models/research_output.rb:166
+#: ../../app/models/research_output.rb:169
 msgid "Contact Person"
 msgstr "Contact Person"
 
@@ -365,7 +379,7 @@ msgstr "Contact Person"
 #: ../../app/controllers/org_admin/phases_controller.rb:154
 #: ../../app/controllers/org_admin/questions_controller.rb:193
 #: ../../app/controllers/org_admin/users_controller.rb:32
-#: ../../app/controllers/plans_controller.rb:412
+#: ../../app/controllers/plans_controller.rb:414
 #: ../../app/controllers/super_admin/api_clients_controller.rb:70
 #: ../../app/controllers/super_admin/madmp_schemas_controller.rb:47
 #: ../../app/controllers/super_admin/notifications_controller.rb:54
@@ -633,7 +647,7 @@ msgstr "Unable to create a new version of this template.<br>"
 #: ../../app/controllers/org_admin/phases_controller.rb:152
 #: ../../app/controllers/org_admin/questions_controller.rb:190
 #: ../../app/controllers/org_admin/users_controller.rb:30
-#: ../../app/controllers/plans_controller.rb:409
+#: ../../app/controllers/plans_controller.rb:411
 #: ../../app/controllers/super_admin/api_clients_controller.rb:68
 #: ../../app/controllers/super_admin/madmp_schemas_controller.rb:45
 #: ../../app/controllers/super_admin/notifications_controller.rb:52
@@ -833,7 +847,7 @@ msgstr ""
 msgid "copied"
 msgstr "copied"
 
-#: ../../app/controllers/plans_controller.rb:417
+#: ../../app/controllers/plans_controller.rb:419
 msgid ""
 "Unable to change the plan's status since it is needed at least %{percentage} p"
 "ercentage responded"
@@ -841,7 +855,7 @@ msgstr ""
 "Unable to change the plan's status since it is needed at least %{percentage} p"
 "ercentage responded"
 
-#: ../../app/controllers/plans_controller.rb:423
+#: ../../app/controllers/plans_controller.rb:424
 msgid "Unable to find plan id %{plan_id}"
 msgstr "Unable to find plan id %{plan_id}"
 
@@ -1793,7 +1807,7 @@ msgstr "already assigned a value"
 msgid "\"%{entity_name}\" entity DMP"
 msgstr "\"%{entity_name}\" entity DMP"
 
-#: ../../app/models/madmp_fragment.rb:410 ../../app/models/plan.rb:868
+#: ../../app/models/madmp_fragment.rb:410 ../../app/models/plan.rb:870
 msgid "\"%{project_title}\" project DMP"
 msgstr "\"%{project_title}\" project DMP"
 
@@ -1809,49 +1823,49 @@ msgstr "must be one of the following formats: jpeg, jpg, png, gif, bmp"
 msgid "can't be larger than 500KB"
 msgstr "can't be larger than 500KB"
 
-#: ../../app/models/plan.rb:65
+#: ../../app/models/plan.rb:66
 msgid "organisational"
 msgstr "organisational"
 
-#: ../../app/models/plan.rb:66
+#: ../../app/models/plan.rb:67
 msgid "public"
 msgstr "public"
 
-#: ../../app/models/plan.rb:67
+#: ../../app/models/plan.rb:68
 msgid "test"
 msgstr "test"
 
-#: ../../app/models/plan.rb:68
+#: ../../app/models/plan.rb:69
 msgid "administrator"
 msgstr "administrator"
 
-#: ../../app/models/plan.rb:69
+#: ../../app/models/plan.rb:70
 msgid "private"
 msgstr "private"
 
-#: ../../app/models/plan.rb:73
+#: ../../app/models/plan.rb:74
 msgid "Planned"
 msgstr "Planned"
 
-#: ../../app/models/plan.rb:74
+#: ../../app/models/plan.rb:75
 msgid "Funded"
 msgstr "Funded"
 
-#: ../../app/models/plan.rb:75
+#: ../../app/models/plan.rb:76
 msgid "Denied"
 msgstr "Denied"
 
-#: ../../app/models/plan.rb:346 ../../app/models/plan.rb:354
-#: ../../app/models/plan.rb:388 ../../app/models/plan.rb:395
-#: ../../app/models/plan.rb:933
+#: ../../app/models/plan.rb:348 ../../app/models/plan.rb:356
+#: ../../app/models/plan.rb:390 ../../app/models/plan.rb:397
+#: ../../app/models/plan.rb:935
 msgid "Copy of %{title}"
 msgstr "Copy of %{title}"
 
-#: ../../app/models/plan.rb:849
+#: ../../app/models/plan.rb:851
 msgid "DMP manager"
 msgstr "DMP manager"
 
-#: ../../app/models/plan.rb:986
+#: ../../app/models/plan.rb:988
 msgid "must be after the start date"
 msgstr "must be after the start date"
 
@@ -1859,14 +1873,14 @@ msgstr "must be after the start date"
 msgid "guidance on"
 msgstr "guidance on"
 
-#: ../../app/models/research_output.rb:191
+#: ../../app/models/research_output.rb:194
 #: ../../app/services/import/plan_import_service.rb:42
 #: ../../app/views/org_admin/templates/_form.html.erb:98
 msgid "Dataset"
 msgstr "Dataset"
 
-#: ../../app/models/research_output.rb:256
-#: ../../app/models/research_output.rb:346
+#: ../../app/models/research_output.rb:259
+#: ../../app/models/research_output.rb:349
 #: ../../app/views/paginable/api_clients/_index.html.erb:34
 #: ../../app/views/paginable/guidance_groups/_index.html.erb:32
 #: ../../app/views/paginable/orgs/_index.html.erb:25
@@ -1881,8 +1895,8 @@ msgstr "Dataset"
 msgid "Yes"
 msgstr "Yes"
 
-#: ../../app/models/research_output.rb:256
-#: ../../app/models/research_output.rb:346
+#: ../../app/models/research_output.rb:259
+#: ../../app/models/research_output.rb:349
 #: ../../app/views/paginable/api_clients/_index.html.erb:34
 #: ../../app/views/paginable/guidance_groups/_index.html.erb:30
 #: ../../app/views/paginable/orgs/_index.html.erb:25
@@ -2423,7 +2437,7 @@ msgstr ""
 #: ../../app/views/paginable/templates/_history.html.erb:26
 #: ../../app/views/paginable/templates/_modules.html.erb:105
 #: ../../app/views/paginable/templates/_organisational.html.erb:120
-#: ../../app/views/plans/_download_form.html.erb:184
+#: ../../app/views/plans/_download_form.html.erb:188
 msgid "Opens in new window"
 msgstr "Opens in new window"
 
@@ -5188,9 +5202,22 @@ msgstr "Left"
 msgid "Right"
 msgstr "Right"
 
-#: ../../app/views/plans/_download_form.html.erb:184
+#: ../../app/views/plans/_download_form.html.erb:185
+msgid ""
+"As your plan contains a large number of research outputs, the PDF document has"
+" been pre generated with every research output. Selecting a different format a"
+"nd/or research outputs number may take a long time to generate."
+msgstr ""
+
+#: ../../app/views/plans/_download_form.html.erb:188
 msgid "Download Plan"
 msgstr "Download Plan"
+
+#: ../../app/views/plans/_download_form.html.erb:192
+msgid ""
+"You have selected more than %{max} research outputs. Please select %{max} or f"
+"ewer to download."
+msgstr ""
 
 #: ../../app/views/plans/_navigation.html.erb:9
 msgid "General information"

@@ -180,10 +180,15 @@
         </div>
       </div>
     </div>
-
+    <% if @plan.research_outputs.count >= ENV.fetch('PLAN_MINIMUM_RESEARCH_OUTPUTS', 15).to_i %>
+      <div class="alert alert-warning large-plan-warning">
+        <%= _('As your plan contains a large number of research outputs, the PDF document has been pre generated with every research output. Selecting a different format and/or research outputs number may take a long time to generate.') %>
+      </div>
+    <% end %>
     <%= button_tag(sanitize(_("Download Plan") % { open_in_new_window_text: _('Opens in new window') },
           tags: %w{ span em }),
-        class: "btn btn-primary",
+        class: "btn btn-primary download-btn",
         type: "submit") %>
+    <span class="download-btn-tooltip" style="display: none;"><%= _('You have selected more than %{max} research outputs. Please select %{max} or fewer to download.') % { max: ENV.fetch('PLAN_MINIMUM_RESEARCH_OUTPUTS', 15).to_i } %></span>
   <% end %>
 <% end %>
