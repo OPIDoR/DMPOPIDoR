@@ -20,7 +20,7 @@ function SectionsProvider({ children }) {
     setDisplayedResearchOutput((prev) => ({
       ...prev,
       answers: prev.answers.map((a) =>
-        a.question_id === questionId ? newAnswer : a,
+        a.question_id === questionId ? { ...a, ...newAnswer } : a,
       ),
     }));
   }, []);

@@ -292,6 +292,7 @@ class AnswersController < ApplicationController
       internal_server_error(e.message)
       nil
     end
+    @answer.mark_comments_as_read(current_user)
 
     render json: { status: 200, message: "#{notes_with_users.length} notes found", notes: notes_with_users }
   end

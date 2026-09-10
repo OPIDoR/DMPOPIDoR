@@ -218,6 +218,7 @@ function CommentList({
       .get(answerId)
       .then(({ data }) => {
         setComments(data?.notes || []);
+        setAnswer({ new_comment_count: 0 });
       })
       .catch((error) =>
         setError({
