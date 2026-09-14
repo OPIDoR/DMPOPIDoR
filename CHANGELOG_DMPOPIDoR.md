@@ -2,6 +2,11 @@
 
 **Attention** Cette liste de changements concerne les déploiements sur nos serveurs de test en interne.
 
+## 14/09/2026
+- Ajout d'une traduction manquante (e.g./ex.)
+- Le bouton Télécharger n'est désormais bloqué que pour les exports PDF
+- Amélioration de l'affichage des notifications & correction du problème empéchant de les marquer comme lues (#18480)
+
 ## 08/09/2026
 - La generation JSON d'un plan ne se fait que si le plan a été modifié
 - Export de plan : Mise à jour des textes concernant l'export de plan sur les plans avec beaucoup de produits de recherche et blocage de l'export PDF pour les plans avec plus de 15 produits
