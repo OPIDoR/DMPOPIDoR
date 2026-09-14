@@ -9,7 +9,7 @@ class JsonPlanJob < ApplicationJob
     return unless plan
 
     json_plan = JsonPlan.find_or_initialize_by(plan_id:)
-    return if plan.updated_at <= json_plan.updated_at
+    return if json_plan.persisted? && plan.updated_at <= json_plan.updated_at
 
     json_plan.assign_attributes(
       dmp_id: plan.json_fragment.id,
