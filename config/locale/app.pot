@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: app 1.0\n"
 "Report-Msgid-Bugs-To: contact@translation.io\n"
-"POT-Creation-Date: 2026-09-08 14:24+0200\n"
-"PO-Revision-Date: 2026-09-08 14:24+0200\n"
+"POT-Creation-Date: 2026-09-14 16:12+0200\n"
+"PO-Revision-Date: 2026-09-14 16:12+0200\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "Language: \n"
@@ -580,8 +580,8 @@ msgstr ""
 #: ../../app/controllers/registrations_controller.rb:273
 #: ../../app/controllers/registrations_controller.rb:300
 #: ../../app/controllers/registrations_controller.rb:304
-#: ../../app/controllers/users_controller.rb:109
-#: ../../app/controllers/users_controller.rb:137
+#: ../../app/controllers/users_controller.rb:108
+#: ../../app/controllers/users_controller.rb:136
 msgid "saved"
 msgstr ""
 
@@ -644,7 +644,7 @@ msgstr ""
 #: ../../app/controllers/super_admin/registries_controller.rb:59
 #: ../../app/controllers/super_admin/themes_controller.rb:47
 #: ../../app/controllers/super_admin/users_controller.rb:55
-#: ../../app/controllers/users_controller.rb:114
+#: ../../app/controllers/users_controller.rb:113
 msgid "updated"
 msgstr ""
 
@@ -1034,7 +1034,7 @@ msgstr ""
 msgid "Unable to change the notification's active status"
 msgstr ""
 
-#: ../../app/controllers/super_admin/notifications_controller.rb:104
+#: ../../app/controllers/super_admin/notifications_controller.rb:98
 msgid "There is no notification associated with id  %{id}"
 msgstr ""
 
@@ -1128,27 +1128,27 @@ msgstr ""
 msgid "Unable to link your account to %{scheme}."
 msgstr ""
 
-#: ../../app/controllers/users_controller.rb:155
+#: ../../app/controllers/users_controller.rb:153
 msgid "Successfully %{action} %{username}'s account."
 msgstr ""
 
-#: ../../app/controllers/users_controller.rb:156
+#: ../../app/controllers/users_controller.rb:154
 msgid "activated"
 msgstr ""
 
-#: ../../app/controllers/users_controller.rb:156
+#: ../../app/controllers/users_controller.rb:154
 msgid "deactivated"
 msgstr ""
 
-#: ../../app/controllers/users_controller.rb:162
+#: ../../app/controllers/users_controller.rb:160
 msgid "Unable to %{action} %{username}"
 msgstr ""
 
-#: ../../app/controllers/users_controller.rb:163
+#: ../../app/controllers/users_controller.rb:161
 msgid "activate"
 msgstr ""
 
-#: ../../app/controllers/users_controller.rb:163
+#: ../../app/controllers/users_controller.rb:161
 msgid "deactivate"
 msgstr ""
 
