@@ -2,7 +2,7 @@
   <% unless a.acknowledged?(current_user) %>
     <div id="<%= dom_id(a) %>" class="notification alert alert-<%= a.level %>">
       <span class="fas <%= fa_classes(a) %>"></span>
-      <span><%= sanitize a.body %></span>
+      <span class="notification-body"><%= sanitize a.body %></span>
       <% if a.dismissable? %>
           <%= button_to user_acknowledge_notification_path(current_user, notification_id: a.id),
             method: :post,
