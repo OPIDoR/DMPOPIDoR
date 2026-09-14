@@ -3,7 +3,7 @@
 module SuperAdmin
   # Controller for managing system wide notifications
   class NotificationsController < ApplicationController
-    before_action :set_notification, only: %i[show edit update destroy acknowledge]
+    before_action :set_notification, only: %i[show edit update destroy]
     before_action :set_notifications, only: :index
 
     helper PaginableHelper
@@ -87,12 +87,6 @@ module SuperAdmin
         flash[:alert] = failure_message(@notification, _('delete'))
         redirect_to edit_super_admin_notification_path(@notification)
       end
-    end
-
-    # GET /notifications/1/acknowledge
-    def acknowledge
-      @notification.acknowledge
-      render nothing: true
     end
 
     private
