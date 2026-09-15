@@ -762,6 +762,16 @@ ActiveRecord::Schema[8.1].define(version: 2026_09_03_124009) do
   end
 
 
+  create_table "viewed_comments", force: :cascade do |t|
+    t.bigint "user_id", null: false
+    t.bigint "answer_id", null: false
+    t.datetime "last_read_at", precision: nil, default: -> { "CURRENT_TIMESTAMP" }, null: false
+    t.index ["answer_id"], name: "index_viewed_comments_on_answer_id"
+    t.index ["user_id", "answer_id"], name: "index_viewed_comments_on_user_id_and_answer_id", unique: true
+    t.index ["user_id"], name: "index_viewed_comments_on_user_id"
+  end
+
+
   add_foreign_key "annotations", "orgs", deferrable: :deferred
   add_foreign_key "annotations", "questions", deferrable: :deferred
   add_foreign_key "answers", "plans", deferrable: :deferred
@@ -809,4 +819,6 @@ ActiveRecord::Schema[8.1].define(version: 2026_09_03_124009) do
   add_foreign_key "users", "orgs", deferrable: :deferred
   add_foreign_key "users_perms", "perms", deferrable: :deferred
   add_foreign_key "users_perms", "users", deferrable: :deferred
+  add_foreign_key "viewed_comments", "answers"
+  add_foreign_key "viewed_comments", "users"
 end

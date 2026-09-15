@@ -531,9 +531,9 @@ class PlansController < ApplicationController
       template: plan.template.serialize_json,
       research_outputs: plan.research_outputs.order(:display_order).each_with_index.map do |ro, idx|
         if research_output_id.eql?(ro.id.to_s) || (idx.zero? && research_output_id.eql?(0))
-          ro.serialize_json
+          ro.serialize_json(current_user)
         else
-          ro.serialize_json(with_answers: false)
+          ro.serialize_json(current_user, with_answers: false)
         end
       end
     }
