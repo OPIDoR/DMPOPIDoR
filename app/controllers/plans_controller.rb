@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 # Controller for the Write plan and create plan pages
-# rubocop:disable Metrics/ClassLength
+# rubocop:disable-next Metrics/ClassLength
 class PlansController < ApplicationController
   include ConditionalUserMailer
   include OrgSelectable
@@ -14,8 +14,8 @@ class PlansController < ApplicationController
   after_action :verify_authorized, except: [:overview]
 
   # GET /plans
-  # rubocop:disable Metrics/AbcSize, Metrics/MethodLength
-  # rubocop:disable Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
+  # rubocop:disable-next Metrics/AbcSize, Metrics/MethodLength
+  # rubocop:disable-next Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
   def index
     authorize Plan
     @plans = if request.format.json?
@@ -52,8 +52,6 @@ class PlansController < ApplicationController
       end
     end
   end
-  # rubocop:enable Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
-  # rubocop:enable Metrics/AbcSize, Metrics/MethodLength
 
   # CHANGES:
   # - Emptied method as logic is now handled by ReactJS
@@ -63,8 +61,8 @@ class PlansController < ApplicationController
   end
 
   # POST /plans
-  # rubocop:disable Metrics/AbcSize, Metrics/MethodLength
-  # rubocop:disable Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
+  # rubocop:disable-next Metrics/AbcSize, Metrics/MethodLength
+  # rubocop:disable-next Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
   def create
     @plan = Plan.new
     authorize @plan
@@ -76,7 +74,7 @@ class PlansController < ApplicationController
       }, status: 400
     else
       @plan.template = Template.find(plan_params[:template_id])
-      # rubocop:disable Metrics/BlockLength
+      # rubocop:disable-next Metrics/BlockLength
       I18n.with_locale @plan.template.locale do
         @plan.context = plan_params[:context]
 
@@ -113,9 +111,8 @@ class PlansController < ApplicationController
 
           elsif !@plan.template.customization_of.nil?
             # We used a customized version of the the funder template
-            # rubocop:disable Layout/LineLength
+            # rubocop:disable-next Layout/LineLength
             msg += " #{_('This plan is based on the')} #{@plan.funder&.name}: '#{@plan.template.title}' #{_('template with customisations by the')} #{@plan.template.org.name}"
-            # rubocop:enable Layout/LineLength
           else
             # We used the specified org's or funder's template
             msg += format(_('This plan is based on the "%{template_title}" template provided by %{org_name}.'),
@@ -156,11 +153,8 @@ class PlansController < ApplicationController
           }, status: 400
         end
       end
-      # rubocop:enable Metrics/BlockLength
     end
   end
-  # rubocop:enable Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
-  # rubocop:enable Metrics/AbcSize, Metrics/MethodLength
 
   # GET /plans/show
   # CHANGES:
@@ -184,7 +178,7 @@ class PlansController < ApplicationController
   #       a non-namespaces phases_controller woulld make sense here. Consider
   #       doing this when we refactor the Plan editing UI
   # GET /plans/:plan_id/phases/:id/edit
-  # rubocop:disable Metrics/AbcSize
+  # rubocop:disable-next Metrics/AbcSize
   def edit
     plan = Plan.includes(
       { template: {
@@ -205,7 +199,6 @@ class PlansController < ApplicationController
     guidance_groups = GuidanceGroup.where(published: true, id: plan.guidance_group_ids)
     render_phases_edit(plan, phase, guidance_groups)
   end
-  # rubocop:enable Metrics/AbcSize
 
   def structured_edit
     plan = Plan.includes(
@@ -223,11 +216,11 @@ class PlansController < ApplicationController
   end
 
   # PUT /plans/1
-  # rubocop:disable Metrics/MethodLength, Metrics/AbcSize
+  # rubocop:disable-next Metrics/MethodLength, Metrics/AbcSize
   def update
     @plan = Plan.includes(:guidance_groups).find(params[:id])
     authorize @plan
-    # rubocop:disable Metrics/BlockLength
+    # rubocop:disable-next Metrics/BlockLength
     respond_to do |format|
       # TODO: See notes below on the pan_params definition. We should refactor
       #       this once the UI pages have been reworked
@@ -267,9 +260,7 @@ class PlansController < ApplicationController
         render json: { code: 0, msg: flash[:alert] }
       end
     end
-    # rubocop:enable Metrics/BlockLength
   end
-  # rubocop:enable Metrics/MethodLength, Metrics/AbcSize
 
   # GET /plans/:id/budget
   def budget
@@ -307,7 +298,7 @@ class PlansController < ApplicationController
   end
 
   # DELETE /plans/:id
-  # rubocop:disable Metrics/AbcSize
+  # rubocop:disable-next Metrics/AbcSize
   def destroy
     @plan = Plan.find(params[:id])
     authorize @plan
@@ -334,11 +325,10 @@ class PlansController < ApplicationController
       end
     end
   end
-  # rubocop:enable Metrics/AbcSize
 
   # TODO: Is this used? It seems like it belongs on the answers controller
   # GET /plans/:id/answer
-  # rubocop:disable Metrics/AbcSize
+  # rubocop:disable-next Metrics/AbcSize
   def answer
     @plan = Plan.find(params[:id])
     authorize @plan
@@ -354,11 +344,10 @@ class PlansController < ApplicationController
       end
     end
   end
-  # rubocop:enable Metrics/AbcSize
 
   # GET /plans/:id/download
   def download
-    @plan = Plan.includes(:phases, :research_outputs).find(params[:id])
+    @plan = Plan.eager_load(:phases, :research_outputs).find(params[:id])
     authorize @plan
 
     @research_outputs = @plan.research_outputs
@@ -370,7 +359,7 @@ class PlansController < ApplicationController
   end
 
   # POST /plans/:id/duplicate
-  # rubocop:disable Metrics/AbcSize
+  # rubocop:disable-next Metrics/AbcSize
   def duplicate
     plan = Plan.includes(:research_outputs).find(params[:id])
     authorize plan
@@ -388,7 +377,6 @@ class PlansController < ApplicationController
       end
     end
   end
-  # rubocop:enable Metrics/AbcSize
 
   # TODO: This should probablly just be merged with the update route
   # POST /plans/:id/visibility
@@ -465,7 +453,7 @@ class PlansController < ApplicationController
     }, status: :ok
   end
 
-  # rubocop:disable Metrics/MethodLength, Metrics/AbcSize
+  # rubocop:disable-next Metrics/MethodLength, Metrics/AbcSize
   def select_guidance_groups
     @plan = Plan.includes(:template).find(params[:id])
     authorize @plan
@@ -503,9 +491,8 @@ class PlansController < ApplicationController
     Rails.logger.error("Internal server error - #{e.message}")
     internal_server_error("Internal server error - #{e.message}")
   end
-  # rubocop:enable Metrics/MethodLength, Metrics/AbcSize
 
-  # rubocop:disable Metrics/AbcSize
+  # rubocop:disable-next Metrics/AbcSize
   def import_plan
     @plan = Plan.new
     authorize @plan
@@ -523,9 +510,8 @@ class PlansController < ApplicationController
       bad_request("#{_('An error has occured: ')} #{e.message}")
     end
   end
-  # rubocop:enable Metrics/AbcSize
 
-  # rubocop:disable Metrics/AbcSize
+  # rubocop:disable-next Metrics/AbcSize
   def research_outputs_data
     plan = Plan.includes(research_outputs: :answers, template: { phases: { sections: :questions } }).find(params[:id])
     research_output_id = params[:research_output_id] || 0
@@ -543,7 +529,6 @@ class PlansController < ApplicationController
       end
     }
   end
-  # rubocop:enable Metrics/AbcSize
 
   # GET AJAX /plans/:id/contributors_data
   def contributors_data
@@ -668,8 +653,8 @@ class PlansController < ApplicationController
            })
   end
 
-  # rubocop:disable Metrics/MethodLength, Metrics/AbcSize
-  # rubocop:disable Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
+  # rubocop:disable-next Metrics/MethodLength, Metrics/AbcSize
+  # rubocop:disable-next Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
   def get_guidances_groups(id)
     @plan = Plan.includes(
       :guidance_groups, template: [:phases]
@@ -710,7 +695,4 @@ class PlansController < ApplicationController
       }
     end
   end
-  # rubocop:enable Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
-  # rubocop:enable Metrics/MethodLength, Metrics/AbcSize
 end
-# rubocop:enable Metrics/ClassLength

@@ -291,7 +291,7 @@ class Org < ApplicationRecord
   def org_admin_plans
     combined_plan_ids = native_plan_ids + affiliated_plan_ids.flatten.uniq
 
-    Plan.includes(:template, :phases, :roles, :users).where(id: combined_plan_ids)
+    Plan.eager_load(:template, :phases, :roles, :users).where(id: combined_plan_ids)
         .where.not(visibility: Plan.visibilities[:privately_visible])
         .where.not(visibility: Plan.visibilities[:is_test])
         .where(roles: { active: true })
