@@ -18,6 +18,7 @@ function CommentSVG({ fill, size, commentCount = 0 }) {
       </svg>
       {commentCount > 0 && (
         <span
+          data-testid="comment-icon-count"
           style={{
             position: "absolute",
             top: -4,

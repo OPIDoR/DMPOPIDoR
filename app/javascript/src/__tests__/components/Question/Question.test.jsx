@@ -286,4 +286,27 @@ describe("Question component", () => {
       contextData.displayedResearchOutput.answers[0].fragment_id,
     );
   });
+  test("component should display comment icon when question is closed and there are new comments", async () => {
+    const contextData = {
+      ...baseSectionsContextData,
+      displayedResearchOutput: {
+        id: 1,
+        answers: [{ question_id: 1, fragment_id: 1, new_comment_count: 2 }],
+      },
+    };
+    await act(async () =>
+      render(
+        <Global>
+          <Forms>
+            <SectionsContext.Provider value={contextData}>
+              <Question {...props} />
+            </SectionsContext.Provider>
+          </Forms>
+        </Global>,
+      ),
+    );
+    expect(screen.getByTestId("comment-icon")).toBeInTheDocument();
+    expect(screen.getByTestId("comment-icon-count")).toBeInTheDocument();
+    expect(screen.getByTestId("comment-icon-count")).toHaveTextContent("2");
+  });
 });
