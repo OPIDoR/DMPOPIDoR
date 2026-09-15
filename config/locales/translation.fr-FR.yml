@@ -573,24 +573,24 @@ fr-FR:
         live_poll:
         name: "GoodJob \U0001F44D"
         pauses:
-        performance:
-        processes:
+        performance: Performance
+        processes: Processus
         theme:
-          auto:
-          dark:
-          light:
+          auto: Auto
+          dark: Sombre
+          light: Clair
           theme: Thème
-      pending_migrations:
+      pending_migrations: GoodJob a des migrations de base de données en attente.
       secondary_navbar:
         inspiration:
         last_updated: Dernière mise à jour
     status:
       discarded: Abandonné
       queued: En attente
-      retried:
-      running:
-      scheduled:
-      succeeded:
+      retried: Réessayé
+      running: En cours d'exécution
+      scheduled: Prévu
+      succeeded: Réussi
   helpers:
     page_entries_info:
       entry:
