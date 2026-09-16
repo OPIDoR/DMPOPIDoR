@@ -11,21 +11,27 @@ function OrgWithGuidanceGroups({
   const guidanceGroups = org.guidance_groups.filter((group) =>
     shouldGuidanceGroupDisplay(group),
   );
+  console.log("guidanceGroups", guidanceGroups);
   if (guidanceGroups.length === 0) {
     return null;
   }
 
   return (
-    <div key={`guidances-section-${org.id}`} style={{ paddingBottom: "5px" }}>
+    <div
+      data-testid={`org-section-${org.id}`}
+      key={`org-section-${org.id}`}
+      style={{ paddingBottom: "5px" }}
+    >
       <div
         style={{ display: "flex", flexDirection: "column" }}
-        key={`guidances-container-${org.id}`}
+        key={`org-container-${org.id}`}
       >
         <div
           style={{ display: "flex", alignItems: "center" }}
-          key={`guidances-container-${org.id}`}
+          key={`org-container-${org.id}`}
         >
           <label
+            data-testid={`org-${org.id}-label`}
             className={`${guidanceChoiceStyles.label}`}
             style={{ cursor: isLimitReached ? "not-allowed" : "pointer" }}
             onClick={() =>
@@ -33,18 +39,19 @@ function OrgWithGuidanceGroups({
                 ? null
                 : onSelect(guidanceGroups.map((group) => group.id))
             }
-            key={`label-${org.id}-guidance-group`}
+            key={`org-${org.id}-label`}
           >
             {org.name}
           </label>
         </div>
         <div
+          data-testid={`org-${org.id}-childs`}
           style={{
             display: "flex",
             flexDirection: "column",
             marginLeft: "26px",
           }}
-          key={`guidance-group-${org.id}-childs`}
+          key={`org-${org.id}-childs`}
         >
           {guidanceGroups.map((guidance_group, key) => (
             <GuidanceGroupItem
