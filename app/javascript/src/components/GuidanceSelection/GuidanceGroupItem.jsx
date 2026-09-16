@@ -23,11 +23,13 @@ function GuidanceGroupItem({
           }}
           key={`guidance-group-${guidance_group_id}-section`}
           id={`guidance-group-${guidance_group_id}-section`}
+          data-testid={`guidance-group-${guidance_group_id}-section`}
         >
           {guidance_group_description && (
             <ReactTooltip
               id={`guidance-group-${guidance_group_id}-tooltip`}
               key={`guidance-group-${guidance_group_id}-tooltip`}
+              data-testid={`guidance-group-${guidance_group_id}-tooltip`}
               style={{ width: "100%", backgroundColor: "#d4e5ee" }}
               place="bottom"
               effect="solid"
@@ -39,6 +41,7 @@ function GuidanceGroupItem({
             </ReactTooltip>
           )}
           <label
+            data-testid={`guidance-group-${guidance_group_id}-label`}
             data-tooltip-id={`guidance-group-${guidance_group_id}-tooltip`}
             className={`form-check-label ${level === 1 ? guidanceChoiceStyles.label : guidanceChoiceStyles.guidance_group_title} ${status === "new" ? guidanceChoiceStyles.new_guidance : ""}`}
             style={{ cursor: isLimitReached ? "not-allowed" : "pointer" }}

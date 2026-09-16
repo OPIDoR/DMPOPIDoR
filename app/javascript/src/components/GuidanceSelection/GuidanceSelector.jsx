@@ -197,6 +197,7 @@ function GuidanceSelector({
   if (guidancesData?.length === 0) {
     return (
       <div
+        data-testid="guidance-selector-no-guidances"
         style={{
           width: "100%",
           border: "1px solid #cccccc",
