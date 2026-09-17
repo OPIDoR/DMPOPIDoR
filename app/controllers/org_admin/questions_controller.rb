@@ -42,7 +42,7 @@ module OrgAdmin
 
     # GET /org_admin/templates/[:template_id]/phases/[:phase_id]/sections/[:id]/questions/[:question_id]/edit
     # CHANGES : Added  MadmpSchema list
-    # rubocop:disable Metrics/AbcSize
+    # rubocop:disable-next Metrics/AbcSize
     def edit
       question = Question.includes(:annotations,
                                    :question_options,
@@ -61,7 +61,6 @@ module OrgAdmin
                                                  conditions: question.conditions
                                                })
     end
-    # rubocop:enable Metrics/AbcSize
 
     # SEE MODULE
     # GET /org_admin/templates/:template_id/phases/:phase_id/sections/:section_id/questions/new
@@ -104,7 +103,7 @@ module OrgAdmin
     # rubocop:enable Metrics/AbcSize, Metrics/MethodLength
 
     # POST /org_admin/templates/:template_id/phases/:phase_id/sections/:section_id/questions
-    # rubocop:disable Metrics/AbcSize
+    # rubocop:disable-next Metrics/AbcSize
     def create
       question = Question.new(question_params.merge(section_id: params[:section_id]))
       authorize question
@@ -127,7 +126,6 @@ module OrgAdmin
         id: section.phase.id, section: section.id
       ), status: :see_other
     end
-    # rubocop:enable Metrics/AbcSize
 
     # PUT /org_admin/templates/:template_id/phases/:phase_id/sections/:section_id/questions/:id
     # rubocop:disable Metrics/AbcSize, Metrics/MethodLength
@@ -201,7 +199,7 @@ module OrgAdmin
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
 
     # DELETE /org_admin/templates/:template_id/phases/:phase_id/sections/:section_id/questions/:id
-    # rubocop:disable Metrics/AbcSize
+    # rubocop:disable-next Metrics/AbcSize
     def destroy
       question = Question.includes(section: { phase: :template }).find(params[:id])
       authorize question
@@ -224,7 +222,6 @@ module OrgAdmin
         id: section.phase.id, section: section.id
       ), status: :see_other
     end
-    # rubocop:enable Metrics/AbcSize
 
     private
 
@@ -294,7 +291,7 @@ module OrgAdmin
     # When a template gets versioned by changes to one of its questions we need to loop
     # through the incoming params and ensure that the annotations and question_options
     # get attached to the new question
-    # rubocop:disable Metrics/AbcSize
+    # rubocop:disable-next Metrics/AbcSize
     def transfer_associations(attrs, question)
       if attrs[:annotations_attributes].present?
         attrs[:annotations_attributes].each_pair do |_, value|
@@ -307,6 +304,5 @@ module OrgAdmin
       end
       attrs
     end
-    # rubocop:enable Metrics/AbcSize
   end
 end

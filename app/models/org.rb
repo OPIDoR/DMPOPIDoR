@@ -237,7 +237,7 @@ class Org < ApplicationRecord
   # Tests are setup currently to work with this issue.
   #
   # Returns String
-  # rubocop:disable Metrics/CyclomaticComplexity
+  # rubocop:disable-next Metrics/CyclomaticComplexity
   def org_type_to_s
     ret = []
     ret << 'Institution' if institution?
@@ -248,7 +248,6 @@ class Org < ApplicationRecord
     ret << 'School' if school?
     (ret.empty? ? 'None' : ret.join(', '))
   end
-  # rubocop:enable Metrics/CyclomaticComplexity
 
   def funder_only?
     org_type == Org.org_type_values_for(:funder).min
@@ -303,7 +302,7 @@ class Org < ApplicationRecord
   end
 
   # Merges the specified Org into this Org
-  # rubocop:disable Metrics/AbcSize
+  # rubocop:disable-next Metrics/AbcSize
   def merge!(to_be_merged:)
     return self unless to_be_merged.is_a?(Org)
 
@@ -341,7 +340,6 @@ class Org < ApplicationRecord
       reload
     end
   end
-  # rubocop:enable Metrics/AbcSize
 
   private
 
@@ -354,7 +352,7 @@ class Org < ApplicationRecord
     self.logo = logo.thumb('x100') # resize height and maintain aspect ratio
   end
 
-  # rubocop:disable Metrics/AbcSize, Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
+  # rubocop:disable-next Metrics/AbcSize, Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
   def merge_attributes!(to_be_merged:)
     return false unless to_be_merged.is_a?(Org)
 
@@ -368,9 +366,8 @@ class Org < ApplicationRecord
     self.feedback_enabled = to_be_merged.feedback_enabled unless feedback_enabled?
     self.feedback_msg = to_be_merged.feedback_msg unless feedback_msg.present?
   end
-  # rubocop:enable Metrics/AbcSize, Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
 
-  # rubocop:disable Metrics/AbcSize
+  # rubocop:disable-next Metrics/AbcSize
   def merge_departments!(to_be_merged:)
     return false unless to_be_merged.is_a?(Org) && to_be_merged.departments.any?
 
@@ -381,7 +378,6 @@ class Org < ApplicationRecord
       department.update(org_id: id) unless existing.include?(department.name.downcase)
     end
   end
-  # rubocop:enable Metrics/AbcSize
 
   def merge_guidance_groups!(to_be_merged:)
     return false unless to_be_merged.is_a?(Org) && to_be_merged.guidance_groups.any?

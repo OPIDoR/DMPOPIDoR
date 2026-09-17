@@ -9,7 +9,7 @@ module Mutations
 
     field :result, Types::MutationResponseType
 
-    # rubocop:disable Metrics/AbcSize,Metrics/MethodLength
+    # rubocop:disable-next Metrics/AbcSize,Metrics/MethodLength
     def resolve(plan_id:, research_outputs:, format:)
       plan = Api::V1::PlansPolicy::Scope.new(context[:current_user], Plan).resolve.find(plan_id)
 
@@ -42,6 +42,5 @@ module Mutations
     rescue ActiveRecord::RecordNotFound
       raise GraphQL::ExecutionError, 'Plan not found or access denied for the current user.'
     end
-    # rubocop:enable Metrics/AbcSize,Metrics/MethodLength
   end
 end

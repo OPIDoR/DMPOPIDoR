@@ -10,7 +10,7 @@ module Mutations
 
     field :result, Types::MutationResponseType
 
-    # rubocop:disable Metrics/AbcSize,Metrics/MethodLength
+    # rubocop:disable-next Metrics/AbcSize,Metrics/MethodLength
     def resolve(locale:, format:, context_param:, data:)
       raise GraphQL::ExecutionError, _('You are not allowed to create plan') unless Api::V0::PlansPolicy.new(
         context[:current_user], Plan
@@ -48,6 +48,5 @@ module Mutations
         raise GraphQL::ExecutionError, "#{_('An error has occured: ')} #{e.message}"
       end
     end
-    # rubocop:enable Metrics/AbcSize,Metrics/MethodLength
   end
 end

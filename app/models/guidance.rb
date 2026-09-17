@@ -85,7 +85,7 @@ class Guidance < ApplicationRecord
   # user - A User object
   #
   # Returns Boolean
-  # rubocop:disable Metrics/AbcSize
+  # rubocop:disable-next Metrics/AbcSize
   def self.can_view?(user, id)
     guidance = Guidance.find_by(id: id)
     viewable = false
@@ -102,7 +102,6 @@ class Guidance < ApplicationRecord
 
     viewable
   end
-  # rubocop:enable Metrics/AbcSize
 
   # Returns a list of all guidances which a specified user can view
   # we define guidances viewable to a user by those owned by a guidance group:

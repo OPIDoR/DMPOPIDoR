@@ -67,7 +67,7 @@ module Api
       end
 
       # Parse the body of the incoming request
-      # rubocop:disable Metrics/AbcSize
+      # rubocop:disable-next Metrics/AbcSize
       def parse_request
         return false unless request.present? && request.body.present?
 
@@ -81,7 +81,6 @@ module Api
           false
         end
       end
-      # rubocop:enable Metrics/AbcSize
 
       # ==========================
 

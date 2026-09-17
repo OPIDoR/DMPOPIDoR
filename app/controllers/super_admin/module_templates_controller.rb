@@ -3,7 +3,7 @@
 module SuperAdmin
   # Controller for creating and deleting Module Templates
   class ModuleTemplatesController < ApplicationController
-    # rubocop:disable Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:disable-next Metrics/AbcSize, Metrics/PerceivedComplexity
     def index
       authorize Template
       templates = Template.latest_module_version.where(customization_of: nil)
@@ -26,7 +26,6 @@ module SuperAdmin
                            end
       render :index
     end
-    # rubocop:enable Metrics/AbcSize, Metrics/PerceivedComplexity
 
     # Private instance methods
     private

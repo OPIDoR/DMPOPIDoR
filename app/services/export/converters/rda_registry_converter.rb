@@ -30,7 +30,7 @@ module Export
           end
         end
 
-        # rubocop:disable Metrics/CyclomaticComplexity
+        # rubocop:disable-next Metrics/CyclomaticComplexity
         def convert_bytes(val, unit)
           return nil if val.nil?
           return val if unit.nil?
@@ -50,7 +50,6 @@ module Export
             val
           end
         end
-        # rubocop:enable Metrics/CyclomaticComplexity
 
         def convert_certification(val)
           return nil if val.blank?

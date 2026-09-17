@@ -37,7 +37,7 @@
 #
 
 # Object that represents a DMP template
-# rubocop:disable Metrics/ClassLength
+# rubocop:disable-next Metrics/ClassLength
 class Template < ApplicationRecord
   include GlobalHelpers
   extend UniqueRandom
@@ -602,4 +602,3 @@ class Template < ApplicationRecord
       (question1.section.number == question2.section.number && question1.number < question2.number)
   end
 end
-# rubocop:enable Metrics/ClassLength

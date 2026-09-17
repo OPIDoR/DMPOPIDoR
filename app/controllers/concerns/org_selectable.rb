@@ -56,7 +56,7 @@
 module OrgSelectable
   extend ActiveSupport::Concern
 
-  # rubocop:disable Metrics/BlockLength
+  # rubocop:disable-next Metrics/BlockLength
   included do
     before_action :prep_org_partial
 
@@ -135,5 +135,4 @@ module OrgSelectable
                   end
     end
   end
-  # rubocop:enable Metrics/BlockLength
 end

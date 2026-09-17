@@ -29,19 +29,19 @@ module Api
           end
 
           if params[:template_id].present? && params[:template_id]
-            @answers =  @answers.where(plan_id: @user.plans.where(template_id: params[:template_id]).pluck(:id))
+            @answers = @answers.where(plan_id: @user.plans.where(template_id: params[:template_id]).pluck(:id))
           end
 
           if params[:question_id].present? && params[:question_id]
-            @answers =  @answers.where(question_id: params[:question_id])
+            @answers = @answers.where(question_id: params[:question_id])
           end
 
           if params[:start_date].present? && params[:start_date]
-            @answers =  @answers.where('answers.created_at >=?', params[:start_date])
+            @answers = @answers.where('answers.created_at >=?', params[:start_date])
           end
 
           if params[:end_date].present? && params[:end_date]
-            @answers =  @answers.where('answers.created_at <=?', params[:end_date])
+            @answers = @answers.where('answers.created_at <=?', params[:end_date])
           end
 
           @answers + org_answers + admin_answers

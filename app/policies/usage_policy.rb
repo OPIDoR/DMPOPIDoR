@@ -2,7 +2,7 @@
 
 # Disabling this rubocop check because this is the recommended approach to having
 # a policy that is not associated with a model (per the pundit README)
-# rubocop:disable Style/StructInheritance
+# rubocop:disable-next Style/StructInheritance
 class UsagePolicy < Struct.new(:user, :usage)
   attr_reader :user
 
@@ -45,4 +45,3 @@ class UsagePolicy < Struct.new(:user, :usage)
     @user.can_org_admin?
   end
 end
-# rubocop:enable Style/StructInheritance

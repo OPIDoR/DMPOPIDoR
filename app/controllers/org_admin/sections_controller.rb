@@ -9,7 +9,7 @@ module OrgAdmin
     after_action :verify_authorized
 
     # GET /org_admin/templates/[:template_id]/phases/[:phase_id]/sections
-    # rubocop:disable Metrics/AbcSize
+    # rubocop:disable-next Metrics/AbcSize
     def index
       authorize Section.new
       phase = Phase.includes(:template, :sections).find(params[:phase_id])
@@ -28,10 +28,9 @@ module OrgAdmin
                edit: edit
              }
     end
-    # rubocop:enable Metrics/AbcSize
 
     # GET /org_admin/templates/[:template_id]/phases/[:phase_id]/sections/[:id]
-    # rubocop:disable Metrics/AbcSize
+    # rubocop:disable-next Metrics/AbcSize
     def show
       @section = Section.find(params[:id])
       authorize @section
@@ -44,7 +43,6 @@ module OrgAdmin
                                                   phase: @section.phase
                                                 })
     end
-    # rubocop:enable Metrics/AbcSize
 
     # GET /org_admin/templates/[:template_id]/phases/[:phase_id]/sections/[:id]/edit
     def edit
@@ -60,7 +58,7 @@ module OrgAdmin
     end
 
     # POST /org_admin/templates/[:template_id]/phases/[:phase_id]/sections
-    # rubocop:disable Metrics/AbcSize, Metrics/MethodLength
+    # rubocop:disable-next Metrics/AbcSize, Metrics/MethodLength
     def create
       @phase = Phase.find_by(id: params[:phase_id])
       if @phase.nil?
@@ -94,10 +92,9 @@ module OrgAdmin
         ), status: :see_other
       end
     end
-    # rubocop:enable Metrics/AbcSize, Metrics/MethodLength
 
     # PUT /org_admin/templates/[:template_id]/phases/[:phase_id]/sections/[:id]
-    # rubocop:disable Metrics/AbcSize
+    # rubocop:disable-next Metrics/AbcSize
     def update
       section = Section.includes(phase: :template).find(params[:id])
       authorize section
@@ -120,10 +117,9 @@ module OrgAdmin
         id: section.phase.id, section: section.id
       ), status: :see_other
     end
-    # rubocop:enable Metrics/AbcSize
 
     # DELETE /org_admin/templates/[:template_id]/phases/[:phase_id]/sections/[:id]
-    # rubocop:disable Metrics/AbcSize
+    # rubocop:disable-next Metrics/AbcSize
     def destroy
       section = Section.includes(phase: :template).find(params[:id])
       authorize section
@@ -146,7 +142,6 @@ module OrgAdmin
         id: section.phase.id, section: section.id
       ), status: :see_other
     end
-    # rubocop:enable Metrics/AbcSize
 
     private
 

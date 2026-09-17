@@ -6,7 +6,7 @@ class IdentifiersController < ApplicationController
   after_action :verify_authorized
 
   # DELETE /users/identifiers
-  # rubocop:disable Metrics/AbcSize
+  # rubocop:disable-next Metrics/AbcSize
   def destroy
     authorize Identifier
     user = User.find(current_user.id)
@@ -24,5 +24,4 @@ class IdentifiersController < ApplicationController
 
     redirect_to edit_user_registration_path
   end
-  # rubocop:enable Metrics/AbcSize
 end

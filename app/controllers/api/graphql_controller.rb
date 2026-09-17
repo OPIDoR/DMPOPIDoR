@@ -7,7 +7,7 @@ module Api
 
     before_action :authorize_request, unless: -> { public_query?(params[:query]) }
 
-    # rubocop:disable Metrics/AbcSize
+    # rubocop:disable-next Metrics/AbcSize
     def execute
       if public_query?(params[:query])
         context = {}
@@ -27,7 +27,6 @@ module Api
 
       handle_error_in_development(e)
     end
-    # rubocop:enable Metrics/AbcSize
 
     private
 

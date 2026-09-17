@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-# rubocop:disable Layout/LineLength, Metrics/AbcSize
+# rubocop:disable-next Layout/LineLength, Metrics/AbcSize
 namespace :templates do
   desc 'Repair Templates whose descendents have NIL versionable_id values'
   task fix_templates_with_nil_versionable_ids: :environment do
@@ -210,9 +210,8 @@ namespace :templates do
 
   # Update all of the template's ccustomizations to use the specified versionable_id
   def update_related_versionable_ids(original:, related_records:, versionable_id:)
-    # rubocop:disable Style/NestedTernaryOperator
+    # rubocop:disable-next Style/NestedTernaryOperator
     spaces = original.is_a?(Phase) ? 4 : (original.is_a?(Section) ? 6 : (original.is_a?(Question) ? 8 : 10))
-    # rubocop:enable Style/NestedTernaryOperator
 
     related_records.each do |record|
       # Use the Number, Title and or Text to try and match the items
@@ -229,11 +228,10 @@ namespace :templates do
     end
   end
 
-  # rubocop:disable Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
+  # rubocop:disable-next Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
   def find_related_versionable_id(original_template:, record:)
-    # rubocop:disable Style/NestedTernaryOperator
+    # rubocop:disable-next Style/NestedTernaryOperator
     spaces = record.is_a?(Phase) ? 4 : (record.is_a?(Section) ? 6 : (record.is_a?(Question) ? 8 : 10))
-    # rubocop:enable Style/NestedTernaryOperator
     version = nil
 
     begin
@@ -255,6 +253,4 @@ namespace :templates do
     end
     version
   end
-  # rubocop:enable Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
 end
-# rubocop:enable Layout/LineLength, Metrics/AbcSize

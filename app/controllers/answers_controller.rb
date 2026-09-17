@@ -6,7 +6,7 @@ class AnswersController < ApplicationController
   include ConditionsHelper
   include ErrorHelper
 
-  # rubocop:disable Metrics/AbcSize, Metrics/MethodLength
+  # rubocop:disable-next Metrics/AbcSize, Metrics/MethodLength
   def new_form
     research_output = ResearchOutput.includes(:plan).find(params[:research_output_id])
     question = Question.includes(:madmp_schema).find(params[:question_id])
@@ -33,7 +33,6 @@ class AnswersController < ApplicationController
     }
     nil
   end
-  # rubocop:enable Metrics/AbcSize, Metrics/MethodLength
 
   # POST /answers/create_or_update
   # TODO: Why!? This method is overly complex. Needs a serious refactor!
@@ -43,7 +42,7 @@ class AnswersController < ApplicationController
   #       Consider using ActionCable for the progress bar(s)
   # Added Research outputs support
   # rubocop:disable Metrics/AbcSize, Metrics/MethodLength
-  # rubocop:disable Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
+  # rubocop:disable-next Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
   def create_or_update
     p_params = permitted_params
 
@@ -51,11 +50,10 @@ class AnswersController < ApplicationController
     begin
       p = Plan.find(p_params[:plan_id])
       unless p.question_exists?(p_params[:question_id])
-        # rubocop:disable Layout/LineLength
+        # rubocop:disable-next Layout/LineLength
         render(status: :not_found, json: {
                  msg: format(_('There is no question with id %{question_id} associated to plan id %{plan_id} for which to create or update an answer'), question_id: p_params[:question_id], plan_id: p_params[:plan_id])
                })
-        # rubocop:enable Layout/LineLength
         return
       end
     rescue ActiveRecord::RecordNotFound
@@ -67,7 +65,7 @@ class AnswersController < ApplicationController
     end
     q = Question.find(p_params[:question_id])
 
-    # rubocop:disable Metrics/BlockLength
+    # rubocop:disable-next Metrics/BlockLength
     Answer.transaction do
       args = p_params
       # Answer model does not understand :standards so remove it from the params
@@ -111,12 +109,11 @@ class AnswersController < ApplicationController
         research_output_id: args[:research_output_id]
       )
     end
-    # rubocop:enable Metrics/BlockLength
 
     # TODO: Seems really strange to do this check. If its false it returns an
     #      200 with an empty body. We should update to send back some JSON. The
     #      check should probably happen on create/update
-    # rubocop:disable Style/GuardClause
+    # rubocop:disable-next Style/GuardClause
     if @answer.present?
       @plan = Plan.includes(
         sections: {
@@ -198,9 +195,7 @@ class AnswersController < ApplicationController
         }
       }.to_json
     end
-    # rubocop:enable Style/GuardClause
   end
-  # rubocop:enable Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
   # rubocop:enable Metrics/AbcSize, Metrics/MethodLength
 
   def set_answers_as_common
@@ -235,7 +230,7 @@ class AnswersController < ApplicationController
   #   GET /answers/:answer_id/notes
   #
   #   Returns a JSON response with the notes and associated user information.
-  # rubocop:disable Metrics/AbcSize, Metrics/MethodLength
+  # rubocop:disable-next Metrics/AbcSize, Metrics/MethodLength
   def notes
     answer_id = params[:answer_id]
 
@@ -295,7 +290,6 @@ class AnswersController < ApplicationController
 
     render json: { status: 200, message: "#{notes_with_users.length} notes found", notes: notes_with_users }
   end
-  # rubocop:enable Metrics/AbcSize, Metrics/MethodLength
 
   private
 
@@ -306,7 +300,7 @@ class AnswersController < ApplicationController
     question.madmp_schema
   end
 
-  # rubocop:disable Metrics/AbcSize
+  # rubocop:disable-next Metrics/AbcSize
   def permitted_params
     permitted = params.require(:answer)
                       .permit(:id, :text, :plan_id, :user_id, :question_id,
@@ -323,7 +317,6 @@ class AnswersController < ApplicationController
     permitted[:question_option_ids] = [] if params[:answer][:question_option_ids].nil?
     permitted
   end
-  # rubocop:enable Metrics/AbcSize
 
   def check_answered(section, q_array, all_answers)
     n_qs = section.questions.count { |question| q_array.include?(question.id) }

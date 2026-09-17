@@ -28,7 +28,7 @@ module SuperAdmin
 
     # POST /notifications
     # POST /notifications.json
-    # rubocop:disable Metrics/AbcSize
+    # rubocop:disable-next Metrics/AbcSize
     def create
       authorize(Notification)
       @notification = Notification.new(notification_params)
@@ -42,7 +42,6 @@ module SuperAdmin
         redirect_to new_super_admin_notification_path(@notification)
       end
     end
-    # rubocop:enable Metrics/AbcSize
 
     # PATCH/PUT /notifications/1
     # PATCH/PUT /notifications/1.json
@@ -62,7 +61,7 @@ module SuperAdmin
       authorize(Notification)
       notification.enabled = params[:checked]
 
-      # rubocop:disable Layout/LineLength
+      # rubocop:disable-next Layout/LineLength
       if notification.save
         render json: {
           code: 1,
@@ -73,7 +72,6 @@ module SuperAdmin
           code: 0, msg: _("Unable to change the notification's active status")
         }
       end
-      # rubocop:enable Layout/LineLength
     end
 
     # DELETE /notifications/1

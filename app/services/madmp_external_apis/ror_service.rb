@@ -109,7 +109,7 @@ module MadmpExternalApis
       end
 
       # Recursive method that can handle multiple ROR result pages if necessary
-      # rubocop:disable Metrics/AbcSize
+      # rubocop:disable-next Metrics/AbcSize
       def process_pages(term:, json:, filters: [])
         return [] if json.blank?
 
@@ -133,11 +133,10 @@ module MadmpExternalApis
         log_error(method: 'ROR search', error: e)
         results || []
       end
-      # rubocop:enable Metrics/AbcSize
 
       # Convert the JSON items into a hash
       # rubocop:disable Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
-      # rubocop:disable Metrics/AbcSize
+      # rubocop:disable-next Metrics/AbcSize
       def parse_results(json:)
         return [] unless json['items']&.any?
 
@@ -156,7 +155,6 @@ module MadmpExternalApis
           }
         end&.compact || []
       end
-      # rubocop:enable Metrics/AbcSize
       # rubocop:enable Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
 
       def get_ror_value(item:)
@@ -172,13 +170,12 @@ module MadmpExternalApis
         }
       end
 
-      # rubocop:disable Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
+      # rubocop:disable-next Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
       def get_name(item:)
         item&.dig('names')
-            &.select { |name| name&.dig('types')&.include?('ror_display')}
+            &.select { |name| name&.dig('types')&.include?('ror_display') }
             &.map { |name| name&.dig('value') }&.first
       end
-      # rubocop:enable Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
 
       def get_addresses(item:)
         return [] unless item&.dig('locations')
@@ -195,13 +192,12 @@ module MadmpExternalApis
         end
       end
 
-      # rubocop:disable Metrics/PerceivedComplexity, Metrics/CyclomaticComplexity
+      # rubocop:disable-next Metrics/PerceivedComplexity, Metrics/CyclomaticComplexity
       def get_acronym(item:)
         item&.dig('names')
             &.select { |name| name&.dig('types')&.include?('acronym') && name&.dig('value') }
             &.map { |name| name&.dig('value') }&.first
       end
-      # rubocop:enable Metrics/PerceivedComplexity, Metrics/CyclomaticComplexity
 
       def get_external_ids(item:)
         item&.dig('external_ids')
@@ -236,7 +232,7 @@ module MadmpExternalApis
       end
 
       # Extracts the website domain from the item
-      # rubocop:disable Metrics/CyclomaticComplexity
+      # rubocop:disable-next Metrics/CyclomaticComplexity
       def org_website(item:)
         return nil unless item&.fetch('links', [])&.any?
 
@@ -244,7 +240,6 @@ module MadmpExternalApis
         website = item['links'].first&.match(%r{^(?:http://|www\.|https://)([^/]+)})&.captures&.first
         website&.sub('www.', '')
       end
-      # rubocop:enable Metrics/CyclomaticComplexity
 
       # Extracts the FundRef Id if available
       def fundref_id(item:)

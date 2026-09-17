@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-# rubocop:disable Naming/VariableNumber
+# rubocop:disable-next Naming/VariableNumber
 namespace :madmpopidor do
   desc 'Upgrade to v3.0.0'
   task v3_0_0: :environment do
@@ -238,4 +238,3 @@ namespace :madmpopidor do
     p 'Done.'
   end
 end
-# rubocop:enable Naming/VariableNumber

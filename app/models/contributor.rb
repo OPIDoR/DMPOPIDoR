@@ -89,7 +89,7 @@ class Contributor < ApplicationRecord
   end
 
   # Check for equality by matching on Plan, ORCID, email or name
-  # rubocop:disable Metrics/CyclomaticComplexity
+  # rubocop:disable-next Metrics/CyclomaticComplexity
   def ==(other)
     return false unless other.is_a?(Contributor) && plan == other.plan
 
@@ -99,11 +99,10 @@ class Contributor < ApplicationRecord
     email == other.email || name == other.name ||
       (current_orcid.present? && current_orcid == new_orcid)
   end
-  # rubocop:enable Metrics/CyclomaticComplexity
 
   # Merges the contents of the other Contributor into this one while retaining
   # any existing information
-  # rubocop:disable Metrics/AbcSize, Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
+  # rubocop:disable-next Metrics/AbcSize, Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
   def merge(other)
     self.org = other.org unless org.present?
     self.email = other.email unless email.present?
@@ -115,7 +114,6 @@ class Contributor < ApplicationRecord
     consolidate_identifiers!(array: other.identifiers.to_a)
     self
   end
-  # rubocop:enable Metrics/AbcSize, Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
 
   # ===================
   # = Private Methods =
@@ -123,7 +121,7 @@ class Contributor < ApplicationRecord
 
   private
 
-  # rubocop:disable Metrics/AbcSize, Metrics/CyclomaticComplexity
+  # rubocop:disable-next Metrics/AbcSize, Metrics/CyclomaticComplexity
   def name_or_email_presence?
     errors.add(:name, _("can't be blank.")) if name.blank? && Rails.configuration.x.application.require_contributor_name
     if email.blank? && Rails.configuration.x.application.require_contributor_email
@@ -138,5 +136,4 @@ class Contributor < ApplicationRecord
 
     errors.empty?
   end
-  # rubocop:enable Metrics/AbcSize, Metrics/CyclomaticComplexity
 end

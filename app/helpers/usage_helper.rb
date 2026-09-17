@@ -59,7 +59,7 @@ module UsageHelper
   # rubocop:enable Metrics/AbcSize, Metrics/MethodLength
   # rubocop:enable Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
 
-  # rubocop:disable Metrics/AbcSize
+  # rubocop:disable-next Metrics/AbcSize
   def plans_per_template_ranges
     [
       [_('Last month'), Date.today.last_month.end_of_month],
@@ -69,7 +69,6 @@ module UsageHelper
       [format(_('Last %{number} months'), number: 12), Date.today.months_ago(12).end_of_month]
     ]
   end
-  # rubocop:enable Metrics/AbcSize
 
   def default_chart_prep(data:)
     hash = {}

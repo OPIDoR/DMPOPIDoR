@@ -125,7 +125,7 @@ class ApplicationController < ActionController::Base
   end
 
   # Added Research output Support
-  # rubocop:disable Metrics/AbcSize
+  # rubocop:disable-next Metrics/AbcSize
   def obj_name_for_display(obj)
     display_name = {
       ApiClient: _('API client'),
@@ -147,7 +147,6 @@ class ApplicationController < ActionController::Base
     end
     display_name[obj.class.name.to_sym] || obj.class.name.downcase || 'record'
   end
-  # rubocop:enable Metrics/AbcSize
 
   # Override rails default render action to look for a branded version of a
   # template instead of using the default one. If no override exists, the
@@ -207,7 +206,7 @@ class ApplicationController < ActionController::Base
 
   # Set Static Pages collection to use in navigation
   # rubocop:disable Metrics/AbcSize, Metrics/MethodLength
-  # rubocop:disable Metrics/CyclomaticComplexity
+  # rubocop:disable-next Metrics/CyclomaticComplexity
   def set_nav_static_pages
     @nav_static_pages = []
 
@@ -253,7 +252,6 @@ class ApplicationController < ActionController::Base
 
     @nav_static_pages = pages
   end
-  # rubocop:enable Metrics/CyclomaticComplexity
   # rubocop:enable Metrics/AbcSize, Metrics/MethodLength
 
   def reduce_translations(translations, field)
