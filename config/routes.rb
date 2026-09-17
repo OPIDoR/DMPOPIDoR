@@ -281,6 +281,10 @@ Rails.application.routes.draw do
         end
       end
     end
+
+    namespace :v2 do
+      resources :dmps, only: %i[index show create update destroy]
+    end
   end
 
   namespace :paginable do
