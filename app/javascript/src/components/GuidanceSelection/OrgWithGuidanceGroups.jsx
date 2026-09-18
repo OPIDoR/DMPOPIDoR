@@ -11,7 +11,6 @@ function OrgWithGuidanceGroups({
   const guidanceGroups = org.guidance_groups.filter((group) =>
     shouldGuidanceGroupDisplay(group),
   );
-  console.log("guidanceGroups", guidanceGroups);
   if (guidanceGroups.length === 0) {
     return null;
   }

@@ -4,6 +4,20 @@ import Global from "../../../components/context/GlobalContext";
 import { SectionsContext } from "../../../components/context/SectionsContext";
 import SavedGuidances from "../../../components/GuidanceSelection/SavedGuidances";
 
+vi.mock("react-i18next", () => ({
+  // this mock makes sure any components using the translate hook can use it without a warning being shown
+  useTranslation: () => ({
+    t: (str) => str,
+    i18n: {
+      changeLanguage: () => new Promise(() => {}),
+    },
+  }),
+  initReactI18next: {
+    type: "3rdParty",
+    init: () => {},
+  },
+}));
+
 const baseSectionsContextData = {
   savedGuidances: [{ id: 1, name: "Guidance 1", orgName: "Org 1" }],
 };

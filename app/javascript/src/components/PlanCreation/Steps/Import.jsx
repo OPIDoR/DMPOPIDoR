@@ -69,8 +69,6 @@ function Import({ prevStep, params, set }) {
   const handleImport = async () => {
     setLoading(true);
 
-    console.log(params);
-
     const formData = new FormData();
     formData.append("import[template_id]", selectedTemplate.value);
     formData.append("import[format]", params.format);

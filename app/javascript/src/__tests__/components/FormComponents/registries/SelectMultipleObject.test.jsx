@@ -74,14 +74,16 @@ describe("SelectMultipleObject component", () => {
     madmpFragment.getAvailableRegistries.mockResolvedValue({
       data: mockedRegistriesData[0],
     });
-    render(
-      <Global>
-        <Forms>
-          <Wrapper propName={props.propName}>
-            <SelectMultipleObject {...props} />
-          </Wrapper>
-        </Forms>
-      </Global>,
+    await act(async () =>
+      render(
+        <Global>
+          <Forms>
+            <Wrapper propName={props.propName}>
+              <SelectMultipleObject {...props} />
+            </Wrapper>
+          </Forms>
+        </Global>,
+      ),
     );
     expect(
       screen.getByTestId("select-multiple-object-label"),
