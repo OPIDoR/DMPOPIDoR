@@ -27,7 +27,7 @@ module Api
       skip_before_action :authorize_request, only: %i[authenticate]
 
       # POST /api/v1/authenticate
-      # rubocop:disable Metrics/AbcSize
+      # rubocop:disable-next Metrics/AbcSize
       def authenticate
         body = request.body.read
         json = JSON.parse(body)
@@ -46,7 +46,6 @@ module Api
         Rails.logger.error request.body.read
         render_error errors: _('Missing or invalid JSON'), status: :bad_request
       end
-      # rubocop:enable Metrics/AbcSize
     end
   end
 end

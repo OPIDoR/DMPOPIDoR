@@ -7,7 +7,7 @@ class ApiClientRolesController < ApplicationController
   after_action :verify_authorized
 
   # POST /roles
-  # rubocop:disable Metrics/AbcSize, Metrics/MethodLength
+  # rubocop:disable-next Metrics/AbcSize, Metrics/MethodLength
   def create
     @client_role = ApiClientRole.new(client_role_params)
     authorize @client_role
@@ -31,7 +31,6 @@ class ApiClientRolesController < ApplicationController
     end
     redirect_to controller: 'plans', action: 'share', id: @client_role.plan.id
   end
-  # rubocop:enable Metrics/AbcSize, Metrics/MethodLength
 
   # PUT /roles/:id
   def update

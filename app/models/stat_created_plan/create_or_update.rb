@@ -5,7 +5,7 @@ class StatCreatedPlan
   # Usage statistics helper
   class CreateOrUpdate
     class << self
-      # rubocop:disable Metrics/MethodLength
+      # rubocop:disable-next Metrics/MethodLength
       def do(start_date:, end_date:, org:, filtered: false)
         count = count_plans(start_date: start_date, end_date: end_date, org: org,
                             filtered: filtered)
@@ -32,7 +32,6 @@ class StatCreatedPlan
           StatCreatedPlan.create(attrs)
         end
       end
-      # rubocop:enable Metrics/MethodLength
 
       private
 
@@ -60,7 +59,7 @@ class StatCreatedPlan
             .count
       end
 
-      # rubocop:disable Metrics/AbcSize
+      # rubocop:disable-next Metrics/AbcSize
       def plan_statistics(start_date:, end_date:, org:, filtered:, own_templates: false)
         roleable_plans = Role.joins(%i[plan user])
                              .administrator
@@ -84,7 +83,6 @@ class StatCreatedPlan
           { name: t[1], count: template_counts[t[0]] }
         end
       end
-      # rubocop:enable Metrics/AbcSize
     end
   end
 end

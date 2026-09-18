@@ -4,7 +4,7 @@
 class TemplateLinksValidator < ActiveModel::Validator
   include JsonLinkValidator
 
-  # rubocop:disable Metrics/AbcSize
+  # rubocop:disable-next Metrics/AbcSize
   def validate(record)
     links = record.links
     expected_keys = %w[funder sample_plan]
@@ -23,5 +23,4 @@ class TemplateLinksValidator < ActiveModel::Validator
       record.errors.add(:links, _('A hash is expected for links'))
     end
   end
-  # rubocop:enable Metrics/AbcSize
 end

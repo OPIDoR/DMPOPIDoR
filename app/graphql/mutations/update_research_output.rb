@@ -8,7 +8,7 @@ module Mutations
 
     field :result, Types::MutationResponseType
 
-    # rubocop:disable Metrics/AbcSize,Metrics/MethodLength
+    # rubocop:disable-next Metrics/AbcSize,Metrics/MethodLength
     def resolve(id:, data:)
       research_output = ResearchOutput.find(id)
 
@@ -40,6 +40,5 @@ module Mutations
     rescue ActiveRecord::RecordNotFound
       raise GraphQL::ExecutionError, 'Plan not found or access denied for the current user.'
     end
-    # rubocop:enable Metrics/AbcSize,Metrics/MethodLength
   end
 end

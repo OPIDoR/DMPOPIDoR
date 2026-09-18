@@ -41,7 +41,7 @@ module Users
     end
 
     # Handle the user's Org selection
-    # rubocop:disable Metrics/AbcSize
+    # rubocop:disable-next Metrics/AbcSize
     def handle_org
       attrs = update_resource_params
 
@@ -67,6 +67,5 @@ module Users
 
       resource.update(org_id: lookup.id)
     end
-    # rubocop:enable Metrics/AbcSize
   end
 end

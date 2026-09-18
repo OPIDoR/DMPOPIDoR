@@ -21,7 +21,7 @@
 #
 # Foreign Keys
 #
-#  fk_rails_...  (template_id => templates.id)
+#  fk_rails_...  (template_id => templates.id) DEFERRABLE INITIALLY DEFERRED
 #
 
 # [+Project:+] DMPRoadmap
@@ -140,9 +140,8 @@ class Phase < ApplicationRecord
   end
 
   # CHANGES : Research outputs support
-  # rubocop:disable Lint/UnusedMethodArgument
+  # rubocop:disable-next Lint/UnusedMethodArgument
   def visibility_allowed?(plan)
     true
   end
-  # rubocop:enable Lint/UnusedMethodArgument
 end

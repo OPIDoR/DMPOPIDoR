@@ -2,6 +2,20 @@
 
 **Attention** Cette liste de changements concerne les déploiements sur nos serveurs de test en interne.
 
+## 14/09/2026
+- Ajout d'une traduction manquante (e.g./ex.)
+- Le bouton Télécharger n'est désormais bloqué que pour les exports PDF
+- Amélioration de l'affichage des notifications & correction du problème empéchant de les marquer comme lues (#18480)
+
+## 08/09/2026
+- La generation JSON d'un plan ne se fait que si le plan a été modifié
+- Export de plan : Mise à jour des textes concernant l'export de plan sur les plans avec beaucoup de produits de recherche et blocage de l'export PDF pour les plans avec plus de 15 produits
+- Ajout du support des phases et produits sélectionnés au générateur de plan PDF.
+
+## 04/09/2026
+- Correction des scripts de mise à jour de la date de connexion et d'anonymisation après 5 ans
+- Ajout de la prégénération des PDF pour les plans publics et les plans comportant plus de 15 produits de recherche
+
 ## 20/08/2026
 - Optimisation du chargement des données concernant les produits de recherche dans l'onglet Rédiger
 - Retrait des tags HTML dans l'intitulé de la question présent dans la notification de nouveau commentaire.

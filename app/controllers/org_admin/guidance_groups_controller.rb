@@ -15,7 +15,7 @@ module OrgAdmin
     end
 
     # POST /org_admin/guidance_groups/create
-    # rubocop:disable Metrics/AbcSize
+    # rubocop:disable-next Metrics/AbcSize
     def create
       # Ensure that the user can only create GuidanceGroups for their Org
       args = guidance_group_params.to_h.merge({ org_id: current_user.org.id })
@@ -32,7 +32,6 @@ module OrgAdmin
         redirect_to new_org_admin_guidance_group_path(@guidance_group)
       end
     end
-    # rubocop:enable Metrics/AbcSize
 
     # GET /org_admin/guidance_groups/:id
     def edit
@@ -44,7 +43,7 @@ module OrgAdmin
     end
 
     # PUT /org_admin/guidance_groups/:id
-    # rubocop:disable Metrics/AbcSize
+    # rubocop:disable-next Metrics/AbcSize
     def update
       @guidance_groups = GuidanceGroup.where(org_id: current_user.org.id)
       @guidance_group = GuidanceGroup.find(params[:id])
@@ -58,7 +57,6 @@ module OrgAdmin
       end
       redirect_to edit_org_admin_guidance_group_path(@guidance_group)
     end
-    # rubocop:enable Metrics/AbcSize
 
     # PUT /org_admin/guidance_groups/:id/publish
     def publish

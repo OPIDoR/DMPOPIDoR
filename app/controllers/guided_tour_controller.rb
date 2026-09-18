@@ -14,7 +14,7 @@ class GuidedTourController < ApplicationController
     render json: { status: 200, tour: { name: tour_name, ended: @guided_tour.nil? ? false : @guided_tour.ended } }
   end
 
-  # rubocop:disable Metrics/AbcSize
+  # rubocop:disable-next Metrics/AbcSize
   def end_tour
     tour_name = params[:tour]
 
@@ -33,5 +33,4 @@ class GuidedTourController < ApplicationController
       internal_server_error('An error occurred during ending the guided tour')
     end
   end
-  # rubocop:enable Metrics/AbcSize
 end

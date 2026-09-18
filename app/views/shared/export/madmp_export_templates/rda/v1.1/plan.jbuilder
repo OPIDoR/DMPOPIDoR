@@ -6,7 +6,7 @@ research_outputs = dmp.plan.research_outputs.order(:display_order)
 
 json.prettify!
 
-# rubocop:disable Metrics/BlockLength
+# rubocop:disable-next Metrics/BlockLength
 json.dmp do
   json.created          Export::RdaV11::Converters::RdaRegistryConverter.convert_date_to_iso8601(meta.data["creationDate"])
   json.description      exportable_description(meta.data["description"])
@@ -29,8 +29,8 @@ json.dmp do
           contact.person.data["idType"], is_person: true
         )
       end
-      json.mbox   contact.person.data["mbox"]
-      json.name   contact.person.to_s
+      json.mbox contact.person.data["mbox"]
+      json.name contact.person.to_s
     end
   else
     json.contact({})
@@ -39,9 +39,9 @@ json.dmp do
     roles = person.roles
     next if roles.empty?
 
-    json.name       person.to_s
-    json.mbox       person.data["mbox"]
-    json.role       roles.uniq
+    json.name person.to_s
+    json.mbox person.data["mbox"]
+    json.role roles.uniq
     json.contributor_id do
       json.identifier     person.data["personId"]
       json.type           Export::RdaV11::Converters::RdaRegistryConverter.convert_agent_id_system(person.data["idType"],
@@ -82,4 +82,3 @@ json.dmp do
   json.partial! "shared/export/madmp_export_templates/rda/v1.1/datasets",
                 plan: dmp.plan, research_outputs: research_outputs, selected_datasets: selected_research_outputs
 end
-# rubocop:enable Metrics/BlockLength

@@ -16,7 +16,7 @@ module SuperAdmin
       @theme = Theme.new
     end
 
-    # rubocop:disable Metrics/AbcSize
+    # rubocop:disable-next Metrics/AbcSize
     def create
       authorize(Theme)
       @theme = Theme.new(permitted_params)
@@ -29,7 +29,6 @@ module SuperAdmin
         redirect_to new_super_admin_theme_path(@theme)
       end
     end
-    # rubocop:enable Metrics/AbcSize
 
     def edit
       authorize(Theme)
@@ -37,7 +36,7 @@ module SuperAdmin
       @theme = Theme.find(params[:id])
     end
 
-    # rubocop:disable Metrics/AbcSize
+    # rubocop:disable-next Metrics/AbcSize
     def update
       authorize(Theme)
       @theme = Theme.find(params[:id])
@@ -50,7 +49,6 @@ module SuperAdmin
       end
       redirect_to edit_super_admin_theme_path(@theme)
     end
-    # rubocop:enable Metrics/AbcSize
 
     def destroy
       authorize(Theme)

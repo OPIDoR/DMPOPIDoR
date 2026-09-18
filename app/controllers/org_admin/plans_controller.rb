@@ -4,7 +4,7 @@ module OrgAdmin
   # Controller that handles admin operations for plans
   class PlansController < ApplicationController
     # GET org_admin/plans
-    # rubocop:disable Metrics/AbcSize
+    # rubocop:disable-next Metrics/AbcSize
     def index
       # Test auth directly and throw Pundit error sincePundit
       # is unaware of namespacing
@@ -19,7 +19,6 @@ module OrgAdmin
       @clicked_through = params[:click_through].present?
       @plans = @super_admin ? Plan.all.page(1) : current_user.org.org_admin_plans.page(1)
     end
-    # rubocop:enable Metrics/AbcSize
 
     # GET org_admin/plans/:id/feedback_complete
     # CHANGES : Added feedback requestor to plan
@@ -33,10 +32,9 @@ module OrgAdmin
       raise Pundit::NotAuthorizedError unless plan.reviewable_by?(current_user.id)
 
       if plan.complete_feedback(current_user)
-        # rubocop:disable Layout/LineLength
+        # rubocop:disable-next Layout/LineLength
         redirect_to(org_admin_plans_path,
                     notice: format(_('%{plan_owner} has been notified that you have finished providing feedback'), plan_owner: requestor.name(false)))
-        # rubocop:enable Layout/LineLength
       else
         redirect_to org_admin_plans_path,
                     alert: _('Unable to notify user that you have finished providing feedback.')
@@ -45,7 +43,7 @@ module OrgAdmin
     end
 
     # GET /org_admin/download_plans
-    # rubocop:disable Metrics/AbcSize, Metrics/MethodLength, Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
+    # rubocop:disable-next Metrics/AbcSize, Metrics/MethodLength, Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
     def download_plans
       # Test auth directly and throw Pundit error sincePundit
       # is unaware of namespacing
@@ -83,6 +81,5 @@ module OrgAdmin
         format.csv  { send_data plans, filename: "#{file_name}.csv" }
       end
     end
-    # rubocop:enable Metrics/AbcSize, Metrics/MethodLength, Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
   end
 end

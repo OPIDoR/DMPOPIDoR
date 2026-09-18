@@ -14,7 +14,7 @@
     <% end %>
     <% phase[:sections].each do |section| %>
       <% section_has_common_answers = research_output.main().common_answers?(section[:id]) %>
-      <% if @show_sections_questions %>
+      <% if @options[:show_sections_questions] %>
         <br/>
         <h3><%= section[:title] %></h3>
         <p><%= sanitize section[:description] %></p>
@@ -27,9 +27,9 @@
         <% blank = answer.present? ? answer.blank? : true %>
         <% options = answer.present? ? answer.question_options : [] %>
 
-        <%  unless @show_unanswered == false && blank  %>
+        <%  unless @options[:show_unanswered] == false && blank  %>
           <div class="question">
-            <% if @show_sections_questions %>
+            <% if @options[:show_sections_questions] %>
               <p>
                 <%# Hack: for DOCX export - otherwise, bold highlighting of question inconsistent. %>
                 <% if local_assigns[:export_format] && export_format == 'docx' %>

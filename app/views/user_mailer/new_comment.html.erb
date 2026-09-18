@@ -14,17 +14,17 @@
   % { commenter_name: @commenter_name, plan_title: @plan_title, tool_name: tool_name } %>
 </p>
 <p>
-  <%=  _('Below the question, research output and section where the comment is located.') %>
+  <%=  _('Below the research output, section and question where the comment is located.') %>
   <%= comment_location_message %>
 </p>
 <p>
   <%= _('DMP: %{phase_link}') % { phase_link: @phase_link }  %>
 </p>
 <p>
-  <%= _('Section name: %{section_title}') % { section_title: @section_title } %>
+  <%= _('Research output name: %{research_output_name}') % { :research_output_name => @research_output_name } %>
 </p>
 <p>
-  <%= _('Research output name: %{research_output_name}') % { :research_output_name => @research_output_name } %>
+  <%= _('Section name: %{section_title}') % { section_title: @section_title } %>
 </p>
 <p>
   <%= _('Question: %{question_text}') % { question_text: strip_tags(@question.text) } %>

@@ -20,7 +20,7 @@
     <div class="research-output">
   <% end %>
   <% phase[:sections].each do |section| %>
-    <% if @show_sections_questions %>
+    <% if @options[:show_sections_questions] %>
       <br/>
       <h3><%= section[:title] %></h3>
       <p><%= sanitize section[:description] %></p>
@@ -33,9 +33,9 @@
 
       <% next if should_hide_question?(question, research_output) %>
 
-      <% unless @show_unanswered == false && blank  %>
+      <% unless @options[:show_unanswered] == false && blank  %>
         <div class="question">
-          <% if @show_sections_questions%>
+          <% if @options[:show_sections_questions]%>
             <p>
               <%# Hack: for DOCX export - otherwise, bold highlighting of question inconsistent. %>
               <% if local_assigns[:export_format] && export_format == 'docx' %>

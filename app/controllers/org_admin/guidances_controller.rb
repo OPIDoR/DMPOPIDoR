@@ -35,7 +35,7 @@ module OrgAdmin
     end
 
     # POST /org_admin/guidances
-    # rubocop:disable Metrics/AbcSize
+    # rubocop:disable-next Metrics/AbcSize
     def create
       @guidance = Guidance.new(guidance_params)
       authorize @guidance
@@ -57,12 +57,9 @@ module OrgAdmin
         redirect_to new_org_admin_guidance_path(@guidance)
       end
     end
-    # rubocop:enable Metrics/AbcSize
-    #
-    #
 
     # PUT /org_admin/guidances/:id
-    # rubocop:disable Metrics/AbcSize
+    # rubocop:disable-next Metrics/AbcSize
     def update
       @guidance = Guidance.find(params[:id])
       authorize @guidance
@@ -83,10 +80,9 @@ module OrgAdmin
       end
       redirect_to edit_org_admin_guidance_path(@guidance)
     end
-    # rubocop:enable Metrics/AbcSize
 
     # DELETE /org_admin/guidances/:id
-    # rubocop:disable Metrics/AbcSize
+    # rubocop:disable-next Metrics/AbcSize
     def destroy
       @guidance = Guidance.find(params[:id])
       authorize @guidance
@@ -102,10 +98,9 @@ module OrgAdmin
       end
       redirect_to(action: :index)
     end
-    # rubocop:enable Metrics/AbcSize
 
     # PUT /org_admin/guidances/:id/publish
-    # rubocop:disable Metrics/AbcSize
+    # rubocop:disable-next Metrics/AbcSize
     def publish
       @guidance = Guidance.find(params[:id])
       authorize @guidance
@@ -119,10 +114,9 @@ module OrgAdmin
       end
       redirect_to(action: :index)
     end
-    # rubocop:enable Metrics/AbcSize
 
     # PUT /org_admin/guidances/:id/unpublish
-    # rubocop:disable Metrics/AbcSize
+    # rubocop:disable-next Metrics/AbcSize
     def unpublish
       @guidance = Guidance.find(params[:id])
       authorize @guidance
@@ -136,10 +130,9 @@ module OrgAdmin
       end
       redirect_to(action: :index)
     end
-    # rubocop:enable Metrics/AbcSize
 
     # rubocop:disable Metrics/AbcSize, Metrics/MethodLength
-    # rubocop:disable Metrics/CyclomaticComplexity
+    # rubocop:disable-next Metrics/CyclomaticComplexity
     def render_themes
       authorize Guidance
       guidance_group = GuidanceGroup.find(params[:guidance_group_id])
@@ -171,7 +164,6 @@ module OrgAdmin
         locale: guidance_group.language.name
       } }, status: :ok
     end
-    # rubocop:enable Metrics/CyclomaticComplexity
     # rubocop:enable Metrics/AbcSize, Metrics/MethodLength
 
     def form_builder_for(object)

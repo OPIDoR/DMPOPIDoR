@@ -27,8 +27,8 @@
 # Foreign Keys
 #
 #  fk_rails_...  (madmp_schema_id => madmp_schemas.id)
-#  fk_rails_...  (question_format_id => question_formats.id)
-#  fk_rails_...  (section_id => sections.id)
+#  fk_rails_...  (question_format_id => question_formats.id) DEFERRABLE INITIALLY DEFERRED
+#  fk_rails_...  (section_id => sections.id) DEFERRABLE INITIALLY DEFERRED
 #
 
 # Object that represents a Template question
@@ -120,7 +120,7 @@ class Question < ApplicationRecord
   # ===========================
   # = Public instance methods =
   # ===========================
-  # rubocop:disable Metrics/AbcSize
+  # rubocop:disable-next Metrics/AbcSize
   def deep_copy(**options)
     copy = dup
     copy.modifiable = options.fetch(:modifiable, modifiable)
@@ -136,7 +136,6 @@ class Question < ApplicationRecord
     copy.conditions = copy.conditions.sort_by(&:number)
     copy
   end
-  # rubocop:enable Metrics/AbcSize
 
   # TODO: consider moving this to a view helper instead and use the built in
   # scopes for guidance. May need to add a new one for 'thematic_guidance'.
@@ -146,7 +145,7 @@ class Question < ApplicationRecord
   # org - The Org to find guidance for
   #
   # Returns Hash
-  # rubocop:disable Metrics/AbcSize
+  # rubocop:disable-next Metrics/AbcSize
   def guidance_for_org(org)
     # pulls together guidance from various sources for question
     guidances = {}
@@ -163,7 +162,6 @@ class Question < ApplicationRecord
 
     guidances
   end
-  # rubocop:enable Metrics/AbcSize
 
   # get example answer belonging to the currents user for this question
   #
@@ -220,7 +218,7 @@ class Question < ApplicationRecord
     end
   end
 
-  # rubocop:disable Metrics/MethodLength, Metrics/AbcSize
+  # rubocop:disable-next Metrics/MethodLength, Metrics/AbcSize
   def save_condition(value, opt_map, question_id_map)
     c = conditions.build
     c.action_type = value['action_type']
@@ -250,7 +248,6 @@ class Question < ApplicationRecord
     end
     c.save
   end
-  # rubocop:enable Metrics/MethodLength, Metrics/AbcSize
 
   private
 
@@ -262,7 +259,7 @@ class Question < ApplicationRecord
   # and condition's remove_data and also if that remove_data is empty
   # destroy the condition.
   # abort callback chain if we can't update the condition
-  # rubocop:disable Metrics/AbcSize
+  # rubocop:disable-next Metrics/AbcSize
   def check_remove_conditions
     id = self.id.to_s
     template.questions.each do |q|
@@ -276,5 +273,4 @@ class Question < ApplicationRecord
       end
     end
   end
-  # rubocop:enable Metrics/AbcSize
 end

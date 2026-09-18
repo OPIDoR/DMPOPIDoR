@@ -40,14 +40,14 @@ module Paginable
     end
 
     # GET /paginable/plans/org_admin/:page
-    # rubocop:disable Metrics/AbcSize
+    # rubocop:disable-next Metrics/AbcSize
     def org_admin
       raise Pundit::NotAuthorizedError unless current_user.present? && current_user.can_org_admin?
 
       # check if current user if super_admin
       @super_admin = current_user.can_super_admin?
       @clicked_through = params[:click_through].present?
-      plans = @super_admin ? Plan.all : current_user.org.org_admin_plans
+      plans = @super_admin ? Plan.eager_load(:template, :roles).all : current_user.org.org_admin_plans
       plans = plans.joins(:template, roles: [{ user: :org }]).where(Role.creator_condition)
 
       paginable_renderise(
@@ -59,7 +59,6 @@ module Paginable
         format: :json
       )
     end
-    # rubocop:enable Metrics/AbcSize
 
     # GET /paginable/users/:id/plans
     def index

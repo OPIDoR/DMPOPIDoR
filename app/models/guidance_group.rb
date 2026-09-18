@@ -25,7 +25,7 @@
 #
 # Foreign Keys
 #
-#  fk_rails_...  (org_id => orgs.id)
+#  fk_rails_...  (org_id => orgs.id) DEFERRABLE INITIALLY DEFERRED
 #
 
 # Object that represents a grouping of themed guidance
@@ -146,7 +146,7 @@ class GuidanceGroup < ApplicationRecord
   # = Instance methods =
   # ====================
 
-  # rubocop:disable Metrics/AbcSize
+  # rubocop:disable-next Metrics/AbcSize
   def merge!(to_be_merged:)
     return self unless to_be_merged.is_a?(GuidanceGroup)
 
@@ -170,5 +170,4 @@ class GuidanceGroup < ApplicationRecord
       reload
     end
   end
-  # rubocop:enable Metrics/AbcSize
 end

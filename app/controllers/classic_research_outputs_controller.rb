@@ -22,7 +22,7 @@ class ClassicResearchOutputsController < ApplicationController
     redirect_to(controller: 'plans', action: 'index')
   end
 
-  # rubocop:disable Metrics/AbcSize
+  # rubocop:disable-next Metrics/AbcSize, Metrics/MethodLength
   def create
     @plan = Plan.includes(:template).find(params[:plan_id])
     I18n.with_locale @plan.template.locale do
@@ -49,9 +49,8 @@ class ClassicResearchOutputsController < ApplicationController
                                                                    locals: { research_output: @research_output })
     end
   end
-  # rubocop:enable Metrics/AbcSize
 
-  # rubocop:disable Metrics/AbcSize
+  # rubocop:disable-next Metrics/AbcSize
   def destroy
     @plan = Plan.find(params[:plan_id])
     @research_output = ResearchOutput.find(params[:id])
@@ -69,9 +68,8 @@ class ClassicResearchOutputsController < ApplicationController
 
     render turbo_stream: turbo_stream.remove(@research_output)
   end
-  # rubocop:enable Metrics/AbcSize
 
-  # rubocop:disable Metrics/AbcSize, Metrics/MethodLength
+  # rubocop:disable-next Metrics/AbcSize, Metrics/MethodLength
   def update
     @plan = Plan.find(params[:plan_id])
     @research_output = ResearchOutput.find(params[:id])
@@ -97,7 +95,6 @@ class ClassicResearchOutputsController < ApplicationController
       redirect_to(action: 'index')
     end
   end
-  # rubocop:enable Metrics/AbcSize, Metrics/MethodLength
 
   # GET /plans/:plan_id/research_outputs/:id/edit
   def edit

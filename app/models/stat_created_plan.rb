@@ -48,7 +48,7 @@ class StatCreatedPlan < Stat
 
     private
 
-    # rubocop:disable Metrics/AbcSize, Metrics/MethodLength, Metrics/CyclomaticComplexity
+    # rubocop:disable-next Metrics/AbcSize, Metrics/MethodLength, Metrics/CyclomaticComplexity
     def to_csv_by_template(created_plans, sep = ',')
       template_names = lambda do |plns|
         unique = Set.new
@@ -73,6 +73,5 @@ class StatCreatedPlan < Stat
       end
       Csvable.from_array_of_hashes(data, false, sep)
     end
-    # rubocop:enable Metrics/AbcSize, Metrics/MethodLength, Metrics/CyclomaticComplexity
   end
 end

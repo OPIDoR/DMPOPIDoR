@@ -4,7 +4,7 @@ require 'json'
 
 # Use this hook to configure devise mailer, warden hooks and so forth.
 # Many of these configuration options can be set straight in your model.
-# rubocop:disable Metrics/BlockLength
+# rubocop:disable-next Metrics/BlockLength
 Devise.setup do |config|
   config.secret_key = ENV.fetch('DEVISE_SECRET_KEY', Rails.application.credentials.secret_key)
 
@@ -331,7 +331,6 @@ Devise.setup do |config|
     manager.failure_app = CustomFailure
   end
 end
-# rubocop:enable Metrics/BlockLength
 
 require 'omniauth/strategies/shibboleth'
 module OmniAuth

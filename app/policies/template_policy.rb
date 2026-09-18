@@ -58,20 +58,20 @@ class TemplatePolicy < ApplicationPolicy
   end
 
   def template_export?
-    @user.can_super_admin? || (@user.can_modify_templates?  &&  (@record.org_id == @user.org_id))
+    @user.can_super_admin? || (@user.can_modify_templates? && (@record.org_id == @user.org_id))
   end
 
   # AJAX Calls
   def copy?
-    @user.can_super_admin? || (@user.can_modify_templates?  &&  (@record.org_id == @user.org_id))
+    @user.can_super_admin? || (@user.can_modify_templates? && (@record.org_id == @user.org_id))
   end
 
   def publish?
-    @user.can_super_admin? || (@user.can_modify_templates?  &&  (@record.org_id == @user.org_id))
+    @user.can_super_admin? || (@user.can_modify_templates? && (@record.org_id == @user.org_id))
   end
 
   def unpublish?
-    @user.can_super_admin? || (@user.can_modify_templates?  &&  (@record.org_id == @user.org_id))
+    @user.can_super_admin? || (@user.can_modify_templates? && (@record.org_id == @user.org_id))
   end
 
   ##

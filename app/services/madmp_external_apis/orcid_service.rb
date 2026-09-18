@@ -71,7 +71,7 @@ module MadmpExternalApis
 
       # Convert the JSON items into a hash
       # rubocop:disable Metrics/AbcSize
-      # rubocop:disable Metrics/PerceivedComplexity, Metrics/CyclomaticComplexity
+      # rubocop:disable-next Metrics/PerceivedComplexity, Metrics/CyclomaticComplexity
       def parse_expanded_result(json:, term:)
         return [] unless json['expanded-result']&.any?
 
@@ -89,7 +89,6 @@ module MadmpExternalApis
           }
         end&.compact
       end
-      # rubocop:enable Metrics/PerceivedComplexity, Metrics/CyclomaticComplexity
       # rubocop:enable Metrics/AbcSize
     end
   end

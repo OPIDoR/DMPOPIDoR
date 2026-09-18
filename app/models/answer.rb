@@ -24,10 +24,10 @@
 #
 # Foreign Keys
 #
-#  fk_rails_...  (plan_id => plans.id)
-#  fk_rails_...  (question_id => questions.id)
+#  fk_rails_...  (plan_id => plans.id) DEFERRABLE INITIALLY DEFERRED
+#  fk_rails_...  (question_id => questions.id) DEFERRABLE INITIALLY DEFERRED
 #  fk_rails_...  (research_output_id => research_outputs.id)
-#  fk_rails_...  (user_id => users.id)
+#  fk_rails_...  (user_id => users.id) DEFERRABLE INITIALLY DEFERRED
 #
 
 # Object that represents an Answer to a Plan question
@@ -99,7 +99,7 @@ class Answer < ApplicationRecord
   # presence of text
   #
   # Returns Boolean
-  # rubocop:disable Metrics/AbcSize
+  # rubocop:disable-next Metrics/AbcSize
   def answered?
     return false unless question.present?
     # If the question is option based then see if any options were selected
@@ -116,7 +116,6 @@ class Answer < ApplicationRecord
 
     false
   end
-  # rubocop:enable Metrics/AbcSize
 
   # Answer notes whose archived is blank sorted by updated_at in descending order
   #
@@ -170,7 +169,7 @@ class Answer < ApplicationRecord
     end
   end
 
-  # rubocop:disable Metrics/AbcSize
+  # rubocop:disable-next Metrics/AbcSize
   def instantiate_fragment
     if plan.structured? && madmp_fragment.nil?
       dmp_id = plan.json_fragment.id
@@ -193,5 +192,4 @@ class Answer < ApplicationRecord
     end
     nil
   end
-  # rubocop:enable Metrics/AbcSize
 end

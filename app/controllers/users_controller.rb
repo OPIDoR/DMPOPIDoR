@@ -14,7 +14,7 @@ class UsersController < ApplicationController
   # Displays number of roles[was project_group], name, email, and last sign in
   # Added Total users count
   # CHANGES: Users without last_sign_in date should be displayed last
-  # rubocop:disable Metrics/AbcSize, Metrics/MethodLength
+  # rubocop:disable-next Metrics/AbcSize, Metrics/MethodLength
   def admin_index
     authorize User
 
@@ -41,7 +41,6 @@ class UsersController < ApplicationController
       end
     end
   end
-  # rubocop:enable Metrics/AbcSize, Metrics/MethodLength
 
   ##
   # GET - Displays the permissions available to the selected user
@@ -118,7 +117,7 @@ class UsersController < ApplicationController
   # rubocop:enable Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
 
   # PUT /users/:id/update_email_preferences
-  # rubocop:disable Metrics/AbcSize
+  # rubocop:disable-next Metrics/AbcSize
   def update_email_preferences
     prefs = preference_params
     authorize User
@@ -136,11 +135,10 @@ class UsersController < ApplicationController
     redirect_to "#{edit_user_registration_path}#notification-preferences",
                 notice: success_message(pref, _('saved'))
   end
-  # rubocop:enable Metrics/AbcSize
 
   # PUT /users/:id/activate
   # -----------------------------------------------------
-  # rubocop:disable Metrics/AbcSize
+  # rubocop:disable-next Metrics/AbcSize
   def activate
     authorize current_user
 
@@ -165,14 +163,16 @@ class UsersController < ApplicationController
       }
     end
   end
-  # rubocop:enable Metrics/AbcSize
 
   # POST /users/acknowledge_notification
   def acknowledge_notification
     authorize current_user
     @notification = Notification.find(notification_params[:notification_id])
     current_user.acknowledge(@notification)
-    render body: nil
+    respond_to do |format|
+      format.turbo_stream { render turbo_stream: turbo_stream.remove(@notification) }
+      format.html { head :no_content }
+    end
   end
 
   # GET /users/:id/refresh_token (accessed via JSON call from profile page)

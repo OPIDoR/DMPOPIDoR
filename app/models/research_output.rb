@@ -9,7 +9,7 @@
 #  description             :text
 #  display_order           :integer
 #  is_default              :boolean          default(FALSE)
-#  output_type             :integer          default("dataset"), not null
+#  output_type             :integer          default(3), not null
 #  output_type_description :string
 #  pid                     :string
 #  title                   :string
@@ -37,6 +37,9 @@ class ResearchOutput < ApplicationRecord
   attribute :uuid, :string, default: -> { unique_uuid(field_name: 'uuid') }
 
   after_destroy :destroy_json_fragment
+
+  after_create -> { PlanJobScheduler.enqueue_or_reschedule_pdf(plan_id) }
+  after_destroy -> { PlanJobScheduler.enqueue_or_reschedule_pdf(plan_id) }
 
   enum :output_type, %i[audiovisual collection data_paper dataset event image
                         interactive_resource model_representation physical_object
@@ -127,9 +130,9 @@ class ResearchOutput < ApplicationRecord
   end
 
   # rubocop:disable Metrics/AbcSize, Metrics/MethodLength
-  # rubocop:disable Metrics/CyclomaticComplexity,Metrics/PerceivedComplexity
+  # rubocop:disable-next Metrics/CyclomaticComplexity,Metrics/PerceivedComplexity
   def create_json_fragments(configuration = {}, duplicate: false)
-    # rubocop:disable Metrics/BlockLength
+    # rubocop:disable-next Metrics/BlockLength
     I18n.with_locale plan.template.locale do
       fragment = json_fragment
       dmp_fragment = plan.json_fragment
@@ -194,9 +197,7 @@ class ResearchOutput < ApplicationRecord
         fragment.research_output_description.update(data: data)
       end
     end
-    # rubocop:enable Metrics/BlockLength
   end
-  # rubocop:enable Metrics/CyclomaticComplexity,Metrics/PerceivedComplexity
   # rubocop:enable Metrics/AbcSize, Metrics/MethodLength
 
   def serialize_infobox_data
@@ -212,7 +213,7 @@ class ResearchOutput < ApplicationRecord
     }
   end
 
-  # rubocop:disable Metrics/AbcSize, Metrics/MethodLength
+  # rubocop:disable-next Metrics/AbcSize, Metrics/MethodLength
   def serialize_json(with_answers: true)
     ro_fragment = json_fragment
     module_id = ro_fragment.additional_info['moduleId']
@@ -245,7 +246,6 @@ class ResearchOutput < ApplicationRecord
       }
     end
   end
-  # rubocop:enable Metrics/AbcSize, Metrics/MethodLength
 
   def update_description(contains_personal_data: true)
     research_output_description = json_fragment.research_output_description
@@ -291,7 +291,7 @@ class ResearchOutput < ApplicationRecord
   # Returns an array containing the property name, description question & the madmpschema according to the
   # data_type in parameters
   #####
-  # rubocop:disable Metrics/AbcSize
+  # rubocop:disable-next Metrics/AbcSize
   def self.data_type_to_schema_data(plan, data_type, locale)
     if data_type.eql?('software') && MadmpSchema.exists?(name: 'SoftwareDescriptionStandard')
       [
@@ -313,7 +313,6 @@ class ResearchOutput < ApplicationRecord
       ]
     end
   end
-  # rubocop:enable Metrics/AbcSize
 
   private
 

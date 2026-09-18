@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-# rubocop:disable Metrics/BlockLength
+# rubocop:disable-next Metrics/BlockLength
 Rails.application.routes.draw do
   mount ActionCable.server => ENV.fetch('ACTON_CABLE_SERVER', '/cable')
   mount Rswag::Ui::Engine => ENV.fetch('RSWAG_UI', '/api-docs')
@@ -544,4 +544,3 @@ Rails.application.routes.draw do
 
   get "/healthz", to: "health#show"
 end
-# rubocop:enable Metrics/BlockLength

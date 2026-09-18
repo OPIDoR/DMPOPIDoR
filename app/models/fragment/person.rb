@@ -49,7 +49,7 @@ module Fragment
   class Person < MadmpFragment
     NON_RO_CLASSES = %w[meta project research_entity].freeze
     # rubocop:disable Metrics/AbcSize, Metrics/MethodLength
-    # rubocop:disable Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
+    # rubocop:disable-next Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
     def roles(selected_research_outputs = nil, include_ro_names: false)
       contributors_list = contributors
       roles_list = []
@@ -87,7 +87,6 @@ module Fragment
       roles_list += roles_aggregate.map { |k, v| "#{k} (#{v.join(', ')})" }
       roles_list.compact.sort
     end
-    # rubocop:enable Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
     # rubocop:enable Metrics/AbcSize, Metrics/MethodLength
 
     def contributors

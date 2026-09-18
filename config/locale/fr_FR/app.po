@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: app 1.0\n"
 "Report-Msgid-Bugs-To: contact@translation.io\n"
-"POT-Creation-Date: 2026-08-19 09:31+0200\n"
-"PO-Revision-Date: 2026-08-19 07:31+0000\n"
+"POT-Creation-Date: 2026-09-15 10:28+0200\n"
+"PO-Revision-Date: 2026-09-15 08:28+0000\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: French\n"
 "Language: fr_FR\n"
@@ -158,6 +158,8 @@ msgid "File should contain JSON"
 msgstr "Le fichier doit contenir du JSON"
 
 #: ../../app/controllers/api/v1/madmp/plans_controller.rb:114
+#: ../../app/controllers/api/v1/madmp/research_outputs_controller.rb:40
+#: ../../app/controllers/api/v1/madmp/research_outputs_controller.rb:63
 #: ../../app/controllers/madmp_codebase_controller.rb:73
 #: ../../app/controllers/madmp_codebase_controller.rb:195
 #: ../../app/controllers/plans_controller.rb:523
@@ -168,6 +170,19 @@ msgstr "Une erreur s'est produite :"
 #: ../../app/controllers/api/v1/madmp/registries_controller.rb:23
 msgid "Registry not found"
 msgstr "Référentiel introuvable"
+
+#: ../../app/controllers/api/v1/madmp/research_outputs_controller.rb:23
+msgid "Research Output not found"
+msgstr ""
+"Produit de recherche introuvable\n"
+
+#: ../../app/controllers/api/v1/madmp/research_outputs_controller.rb:42
+msgid "Research output imported successfully"
+msgstr "Produit de recherche importé avec succès"
+
+#: ../../app/controllers/api/v1/madmp/research_outputs_controller.rb:65
+msgid "Research output updated successfully"
+msgstr "Produit de recherche mis à jour avec succès"
 
 #: ../../app/controllers/api/v1/plans_controller.rb:36
 msgid "Unable to create your DMP"
@@ -360,7 +375,7 @@ msgid "delete"
 msgstr "effacer"
 
 #: ../../app/controllers/classic_research_outputs_controller.rb:90
-#: ../../app/models/research_output.rb:166
+#: ../../app/models/research_output.rb:169
 msgid "Contact Person"
 msgstr "Personne contact"
 
@@ -368,7 +383,7 @@ msgstr "Personne contact"
 #: ../../app/controllers/org_admin/phases_controller.rb:154
 #: ../../app/controllers/org_admin/questions_controller.rb:193
 #: ../../app/controllers/org_admin/users_controller.rb:32
-#: ../../app/controllers/plans_controller.rb:412
+#: ../../app/controllers/plans_controller.rb:414
 #: ../../app/controllers/super_admin/api_clients_controller.rb:70
 #: ../../app/controllers/super_admin/madmp_schemas_controller.rb:47
 #: ../../app/controllers/super_admin/notifications_controller.rb:54
@@ -577,8 +592,8 @@ msgstr "enregistrer"
 #: ../../app/controllers/registrations_controller.rb:273
 #: ../../app/controllers/registrations_controller.rb:300
 #: ../../app/controllers/registrations_controller.rb:304
-#: ../../app/controllers/users_controller.rb:109
-#: ../../app/controllers/users_controller.rb:137
+#: ../../app/controllers/users_controller.rb:108
+#: ../../app/controllers/users_controller.rb:136
 msgid "saved"
 msgstr "enregistré"
 
@@ -647,14 +662,14 @@ msgstr "Impossible de créer une nouvelle version de ce modèle.<br>"
 #: ../../app/controllers/org_admin/phases_controller.rb:152
 #: ../../app/controllers/org_admin/questions_controller.rb:190
 #: ../../app/controllers/org_admin/users_controller.rb:30
-#: ../../app/controllers/plans_controller.rb:409
+#: ../../app/controllers/plans_controller.rb:411
 #: ../../app/controllers/super_admin/api_clients_controller.rb:68
 #: ../../app/controllers/super_admin/madmp_schemas_controller.rb:45
 #: ../../app/controllers/super_admin/notifications_controller.rb:52
 #: ../../app/controllers/super_admin/registries_controller.rb:59
 #: ../../app/controllers/super_admin/themes_controller.rb:47
 #: ../../app/controllers/super_admin/users_controller.rb:55
-#: ../../app/controllers/users_controller.rb:114
+#: ../../app/controllers/users_controller.rb:113
 msgid "updated"
 msgstr "mis à jour"
 
@@ -849,7 +864,7 @@ msgstr "Ce plan est basé sur le modèle  \"%{template_title}\" fourni par %{org
 msgid "copied"
 msgstr "copié"
 
-#: ../../app/controllers/plans_controller.rb:417
+#: ../../app/controllers/plans_controller.rb:419
 msgid ""
 "Unable to change the plan's status since it is needed at least %{percentage} p"
 "ercentage responded"
@@ -857,7 +872,7 @@ msgstr ""
 "Impossible de changer le statut du plan, au moins %{percentage} % de questions"
 " répondues sont nécessaires"
 
-#: ../../app/controllers/plans_controller.rb:423
+#: ../../app/controllers/plans_controller.rb:424
 msgid "Unable to find plan id %{plan_id}"
 msgstr "Impossible de trouver le plan avec l'identifiant %{plan_id}"
 
@@ -877,7 +892,7 @@ msgstr "Impossible de changer le statut du plan"
 msgid "imported"
 msgstr "importé"
 
-#: ../../app/controllers/plans_controller.rb:596
+#: ../../app/controllers/plans_controller.rb:605
 msgid "Invalid JSON: "
 msgstr "JSON non valide :"
 
@@ -1075,7 +1090,7 @@ msgstr "Votre notification n'est plus active."
 msgid "Unable to change the notification's active status"
 msgstr "Impossible de modifier l'état actif de la notification"
 
-#: ../../app/controllers/super_admin/notifications_controller.rb:104
+#: ../../app/controllers/super_admin/notifications_controller.rb:98
 msgid "There is no notification associated with id  %{id}"
 msgstr "Il n'existe aucune notification associée à l'identifiant %{id}"
 
@@ -1175,27 +1190,27 @@ msgstr "Votre compte a été lié à %{scheme} avec succès."
 msgid "Unable to link your account to %{scheme}."
 msgstr "Impossible de lier votre compte avec %{scheme}."
 
-#: ../../app/controllers/users_controller.rb:155
+#: ../../app/controllers/users_controller.rb:153
 msgid "Successfully %{action} %{username}'s account."
 msgstr "Compte de %{username} %{action} avec succès."
 
-#: ../../app/controllers/users_controller.rb:156
+#: ../../app/controllers/users_controller.rb:154
 msgid "activated"
 msgstr "activé"
 
-#: ../../app/controllers/users_controller.rb:156
+#: ../../app/controllers/users_controller.rb:154
 msgid "deactivated"
 msgstr "désactivé"
 
-#: ../../app/controllers/users_controller.rb:162
+#: ../../app/controllers/users_controller.rb:160
 msgid "Unable to %{action} %{username}"
 msgstr "Impossible de %{action} %{username}"
 
-#: ../../app/controllers/users_controller.rb:163
+#: ../../app/controllers/users_controller.rb:161
 msgid "activate"
 msgstr "activer"
 
-#: ../../app/controllers/users_controller.rb:163
+#: ../../app/controllers/users_controller.rb:161
 msgid "deactivate"
 msgstr "désactiver"
 
@@ -1815,7 +1830,7 @@ msgstr "a déjà une valeur attribuée"
 msgid "\"%{entity_name}\" entity DMP"
 msgstr "Plan de l'entité \"%{entity_name}\""
 
-#: ../../app/models/madmp_fragment.rb:410 ../../app/models/plan.rb:868
+#: ../../app/models/madmp_fragment.rb:410 ../../app/models/plan.rb:870
 msgid "\"%{project_title}\" project DMP"
 msgstr "PGD du projet \"%{project_title}\""
 
@@ -1831,49 +1846,49 @@ msgstr "doit être dans l'un des formats suivants : jpeg, jpg, png, gif, bmp"
 msgid "can't be larger than 500KB"
 msgstr "ne peut peser plus de 500ko"
 
-#: ../../app/models/plan.rb:65
+#: ../../app/models/plan.rb:66
 msgid "organisational"
 msgstr "organisme"
 
-#: ../../app/models/plan.rb:66
+#: ../../app/models/plan.rb:67
 msgid "public"
 msgstr "public"
 
-#: ../../app/models/plan.rb:67
+#: ../../app/models/plan.rb:68
 msgid "test"
 msgstr "test"
 
-#: ../../app/models/plan.rb:68
+#: ../../app/models/plan.rb:69
 msgid "administrator"
 msgstr "administrateur"
 
-#: ../../app/models/plan.rb:69
+#: ../../app/models/plan.rb:70
 msgid "private"
 msgstr "privé"
 
-#: ../../app/models/plan.rb:73
+#: ../../app/models/plan.rb:74
 msgid "Planned"
 msgstr "Planifié"
 
-#: ../../app/models/plan.rb:74
+#: ../../app/models/plan.rb:75
 msgid "Funded"
 msgstr "Financé"
 
-#: ../../app/models/plan.rb:75
+#: ../../app/models/plan.rb:76
 msgid "Denied"
 msgstr "Refusé"
 
-#: ../../app/models/plan.rb:346 ../../app/models/plan.rb:354
-#: ../../app/models/plan.rb:388 ../../app/models/plan.rb:395
-#: ../../app/models/plan.rb:933
+#: ../../app/models/plan.rb:348 ../../app/models/plan.rb:356
+#: ../../app/models/plan.rb:390 ../../app/models/plan.rb:397
+#: ../../app/models/plan.rb:935
 msgid "Copy of %{title}"
 msgstr "Copie de %{title}"
 
-#: ../../app/models/plan.rb:849
+#: ../../app/models/plan.rb:851
 msgid "DMP manager"
 msgstr "Responsable du plan"
 
-#: ../../app/models/plan.rb:986
+#: ../../app/models/plan.rb:988
 msgid "must be after the start date"
 msgstr "doit être postérieur à la date de début"
 
@@ -1881,14 +1896,14 @@ msgstr "doit être postérieur à la date de début"
 msgid "guidance on"
 msgstr "recommandation concernant"
 
-#: ../../app/models/research_output.rb:191
+#: ../../app/models/research_output.rb:194
 #: ../../app/services/import/plan_import_service.rb:42
 #: ../../app/views/org_admin/templates/_form.html.erb:98
 msgid "Dataset"
 msgstr "Jeu de données"
 
-#: ../../app/models/research_output.rb:252
-#: ../../app/models/research_output.rb:342
+#: ../../app/models/research_output.rb:259
+#: ../../app/models/research_output.rb:349
 #: ../../app/views/paginable/api_clients/_index.html.erb:34
 #: ../../app/views/paginable/guidance_groups/_index.html.erb:32
 #: ../../app/views/paginable/orgs/_index.html.erb:25
@@ -1903,8 +1918,8 @@ msgstr "Jeu de données"
 msgid "Yes"
 msgstr "Oui"
 
-#: ../../app/models/research_output.rb:252
-#: ../../app/models/research_output.rb:342
+#: ../../app/models/research_output.rb:259
+#: ../../app/models/research_output.rb:349
 #: ../../app/views/paginable/api_clients/_index.html.erb:34
 #: ../../app/views/paginable/guidance_groups/_index.html.erb:30
 #: ../../app/views/paginable/orgs/_index.html.erb:25
@@ -2451,7 +2466,7 @@ msgstr ""
 #: ../../app/views/paginable/templates/_history.html.erb:26
 #: ../../app/views/paginable/templates/_modules.html.erb:105
 #: ../../app/views/paginable/templates/_organisational.html.erb:120
-#: ../../app/views/plans/_download_form.html.erb:184
+#: ../../app/views/plans/_download_form.html.erb:188
 msgid "Opens in new window"
 msgstr "Ouvre dans une nouvelle fenêtre"
 
@@ -5249,9 +5264,28 @@ msgstr "Gauche"
 msgid "Right"
 msgstr "Droite"
 
-#: ../../app/views/plans/_download_form.html.erb:184
+#: ../../app/views/plans/_download_form.html.erb:185
+msgid ""
+"Due to longer PDF generation times for plans with more than 15 research output"
+"s, you can download either the PDF of the full plan or the PDF of the plan for"
+" a selection of up to 15 research products."
+msgstr ""
+"En raison du délai de génération du PDF pour un plan contenant plus de 15 prod"
+"uits de recherche, vous pouvez télécharger soit le PDF du plan complet, soit l"
+"e PDF du plan pour une sélection de produits de recherche limitée à 15 maximum"
+". "
+
+#: ../../app/views/plans/_download_form.html.erb:188
 msgid "Download Plan"
 msgstr "Télécharger le plan"
+
+#: ../../app/views/plans/_download_form.html.erb:192
+msgid ""
+"You have selected more than %{max} research outputs. Please select %{max} or f"
+"ewer to download."
+msgstr ""
+"Vous avez sélectionné plus de %{max} produits de recherche. Veuillez en sélect"
+"ionner %{max} ou moins pour les télécharger."
 
 #: ../../app/views/plans/_navigation.html.erb:9
 msgid "General information"
@@ -6347,8 +6381,8 @@ msgstr ""
 #: ../../app/views/user_mailer/anonymization_notice.html.erb:5
 msgid "If you want to use DMP OPIDoR again, please create a new account."
 msgstr ""
-"Si vous souhaitez utiliser à nouveau le DMP OPIDoR, veuillez créer un nouveau "
-"compte."
+"Si vous souhaitez utiliser à nouveau DMP OPIDoR, veuillez créer un nouveau com"
+"pte."
 
 #: ../../app/views/user_mailer/anonymization_warning.html.erb:4
 msgid ""
@@ -6467,12 +6501,12 @@ msgid ""
 msgstr ""
 "%{commenter_name} a commenté votre plan %{plan_title}. Pour afficher les comme"
 "ntaires, suivez le lien vers le PGD ci-dessous ou accédez au plan via la page "
-"Mon tableau de bord dans %{tool_name}."
+"Tableau de bord dans %{tool_name}."
 
 #: ../../app/views/user_mailer/new_comment.html.erb:17
-msgid "Below the question, research output and section where the comment is located."
+msgid "Below the research output, section and question where the comment is located."
 msgstr ""
-"Vous trouverez ci-dessous la question, le produit de recherche et la section o"
+"Vous trouverez ci-dessous le produit de recherche, la section et la question o"
 "ù le commentaire se trouve."
 
 #: ../../app/views/user_mailer/new_comment.html.erb:21
@@ -6480,12 +6514,12 @@ msgid "DMP: %{phase_link}"
 msgstr "PGD : %{phase_link}"
 
 #: ../../app/views/user_mailer/new_comment.html.erb:24
-msgid "Section name: %{section_title}"
-msgstr "Nom de section: %{section_title}"
-
-#: ../../app/views/user_mailer/new_comment.html.erb:27
 msgid "Research output name: %{research_output_name}"
 msgstr "Nom du produit de recherche : %{research_output_name}"
+
+#: ../../app/views/user_mailer/new_comment.html.erb:27
+msgid "Section name: %{section_title}"
+msgstr "Nom de section: %{section_title}"
 
 #: ../../app/views/user_mailer/new_comment.html.erb:30
 msgid "Question: %{question_text}"

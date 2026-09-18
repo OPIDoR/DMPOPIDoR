@@ -67,9 +67,8 @@ module Users
         elsif user.id != current_user.id
           # If a user was found but does NOT match the current user then the identifier has
           # already been attached to another account (likely the user has 2 accounts)
-          # rubocop:disable Layout/LineLength
+          # rubocop:disable-next Layout/LineLength
           flash[:alert] = _("The current #{scheme.description} iD has been already linked to a user with email #{identifier.user.email}")
-          # rubocop:enable Layout/LineLength
         end
 
         # Redirect to the User Profile page

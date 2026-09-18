@@ -6,7 +6,7 @@
 #
 #  id             :integer          not null, primary key
 #  text           :text
-#  type           :integer          default("example_answer"), not null
+#  type           :integer          default(0), not null
 #  created_at     :datetime
 #  updated_at     :datetime
 #  org_id         :integer
@@ -21,8 +21,8 @@
 #
 # Foreign Keys
 #
-#  fk_rails_...  (org_id => orgs.id)
-#  fk_rails_...  (question_id => questions.id)
+#  fk_rails_...  (org_id => orgs.id) DEFERRABLE INITIALLY DEFERRED
+#  fk_rails_...  (question_id => questions.id) DEFERRABLE INITIALLY DEFERRED
 #
 require 'rails_helper'
 

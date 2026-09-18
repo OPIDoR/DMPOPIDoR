@@ -4,19 +4,18 @@
 #       ever use the functionality. It would be better to make it a Service.
 
 # Module that provides helper methods for exporting a Plan in various formats
-# rubocop:disable Metrics/ModuleLength
+# rubocop:disable-next Metrics/ModuleLength
 module ExportablePlan
   include ConditionsHelper
 
-  # rubocop:disable Style/OptionalBooleanParameter
+  # rubocop:disable-next Style/OptionalBooleanParameter
   def as_pdf(user, coversheet = false)
     prepare(user, coversheet)
   end
-  # rubocop:enable Style/OptionalBooleanParameter
 
   # rubocop:disable Metrics/AbcSize, Metrics/MethodLength, Metrics/ParameterLists
   # rubocop:disable Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
-  # rubocop:disable Style/OptionalBooleanParameter
+  # rubocop:disable-next Style/OptionalBooleanParameter
   def as_csv(user,
              headings = true,
              unanswered = true,
@@ -57,11 +56,10 @@ module ExportablePlan
       prepare_research_outputs_for_csv(csv, headings, hash) if show_research_outputs
     end
   end
-  # rubocop:enable Style/OptionalBooleanParameter
   # rubocop:enable Metrics/AbcSize, Metrics/MethodLength, Metrics/ParameterLists
   # rubocop:enable Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
 
-  # rubocop:disable Metrics/AbcSize, Metrics/MethodLength
+  # rubocop:disable-next Metrics/AbcSize, Metrics/MethodLength
   def prepare_template_phases(template)
     # add the relevant questions/answers
     phases = []
@@ -96,7 +94,6 @@ module ExportablePlan
     end
     phases
   end
-  # rubocop:enable Metrics/AbcSize, Metrics/MethodLength
 
   private
 
@@ -222,7 +219,7 @@ module ExportablePlan
   end
   # rubocop:enable Metrics/MethodLength, Metrics/AbcSize
 
-  # rubocop:disable Metrics/AbcSize
+  # rubocop:disable-next Metrics/AbcSize
   def prepare_research_outputs_for_csv(csv, _headings, hash)
     return false unless hash[:research_outputs].present? && hash[:research_outputs].any?
 
@@ -235,7 +232,6 @@ module ExportablePlan
     csv << []
     csv << []
   end
-  # rubocop:enable Metrics/AbcSize
 
   # rubocop:disable Metrics/AbcSize, Metrics/BlockLength, Metrics/MethodLength
   # rubocop:disable Metrics/ParameterLists
@@ -275,7 +271,7 @@ module ExportablePlan
   # rubocop:enable Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
   # rubocop:enable Metrics/ParameterLists
 
-  # rubocop:disable Metrics/AbcSize
+  # rubocop:disable-next Metrics/AbcSize
   def record_plan_export(user, format)
     # TODO: Re-evaluate how/why we are doing this. The only place it is used is in statistics
     #       generation as 'downloads' without any regard for the format (although we only call this
@@ -296,10 +292,8 @@ module ExportablePlan
     end
     exported_plan.save
   end
-  # rubocop:enable Metrics/AbcSize
 
   def sanitize_text(text)
     ActionView::Base.full_sanitizer.sanitize(text.to_s.gsub(/&nbsp;/i, ''))
   end
 end
-# rubocop:enable Metrics/ModuleLength

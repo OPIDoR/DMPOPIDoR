@@ -24,10 +24,10 @@
 #
 # Foreign Keys
 #
-#  fk_rails_...  (plan_id => plans.id)
-#  fk_rails_...  (question_id => questions.id)
+#  fk_rails_...  (plan_id => plans.id) DEFERRABLE INITIALLY DEFERRED
+#  fk_rails_...  (question_id => questions.id) DEFERRABLE INITIALLY DEFERRED
 #  fk_rails_...  (research_output_id => research_outputs.id)
-#  fk_rails_...  (user_id => users.id)
+#  fk_rails_...  (user_id => users.id) DEFERRABLE INITIALLY DEFERRED
 #
 
 FactoryBot.define do

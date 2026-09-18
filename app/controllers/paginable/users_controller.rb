@@ -9,7 +9,7 @@ module Paginable
     # Changes : Users without activity should not be displayed first
     # --------------------------------
     # /paginable/users/index/:page
-    # rubocop:disable Metrics/AbcSize
+    # rubocop:disable-next Metrics/AbcSize
     def index
       authorize User
       @clicked_through = params[:click_through].present?
@@ -33,6 +33,5 @@ module Paginable
         view_all: !current_user.can_super_admin?
       )
     end
-    # rubocop:enable Metrics/AbcSize
   end
 end

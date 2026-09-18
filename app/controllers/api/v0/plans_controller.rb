@@ -11,7 +11,7 @@ module Api
 
       ##
       # Creates a new plan based on the information passed in JSON to the API
-      # rubocop:disable Metrics/AbcSize, Metrics/MethodLength
+      # rubocop:disable-next Metrics/AbcSize, Metrics/MethodLength
       def create
         @template = Template.live(params[:template_id])
         raise Pundit::NotAuthorizedError unless Api::V0::PlansPolicy.new(@user, @template).create?
@@ -59,7 +59,6 @@ module Api
           render json: _('Bad Parameters'), status: 400
         end
       end
-      # rubocop:enable Metrics/AbcSize, Metrics/MethodLength
 
       # rubocop:disable Metrics/AbcSize, Metrics/MethodLength
       # rubocop:disable Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity

@@ -111,7 +111,7 @@ class ExportedPlan < ApplicationRecord
   # rubocop:disable Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
   def as_csv(sections, unanswered_questions, question_headings)
     CSV.generate do |csv|
-      # rubocop:disable Style/ConditionalAssignment
+      # rubocop:disable-next Style/ConditionalAssignment
       if question_headings
         csv << [_('Section'), _('Question'), _('Answer'), _('Selected option(s)'),
                 _('Answered by'), _('Answered at')]
@@ -119,7 +119,6 @@ class ExportedPlan < ApplicationRecord
         csv << [_('Section'), _('Answer'), _('Selected option(s)'), _('Answered by'),
                 _('Answered at')]
       end
-      # rubocop:enable Style/ConditionalAssignment
       sections.each do |section|
         section.questions.each do |question|
           answer = Answer.where(plan_id: plan_id, question_id: question.id).first

@@ -75,7 +75,7 @@ class RolesController < ApplicationController
   # rubocop:enable Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
 
   # PUT /roles/:id
-  # rubocop:disable Metrics/AbcSize
+  # rubocop:disable-next Metrics/AbcSize
   def update
     @role = Role.find(params[:id])
     authorize @role
@@ -93,10 +93,9 @@ class RolesController < ApplicationController
       render json: { code: 0, msg: flash[:alert] }
     end
   end
-  # rubocop:enable Metrics/AbcSize
 
   # DELETE /roles/:id
-  # rubocop:disable Metrics/AbcSize
+  # rubocop:disable-next Metrics/AbcSize
   def destroy
     @role = Role.find(params[:id])
     authorize @role
@@ -109,7 +108,6 @@ class RolesController < ApplicationController
     end
     redirect_to controller: 'plans', action: 'share', id: @role.plan.id
   end
-  # rubocop:enable Metrics/AbcSize
 
   # This function makes user's role on a plan inactive
   # i.e. "removes" this from their plans

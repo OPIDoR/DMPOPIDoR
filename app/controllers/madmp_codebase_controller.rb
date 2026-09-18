@@ -5,7 +5,7 @@ class MadmpCodebaseController < ApplicationController
   after_action :verify_authorized
 
   # rubocop:disable Metrics/AbcSize, Metrics/MethodLength
-  # rubocop:disable Metrics/PerceivedComplexity, Metrics/CyclomaticComplexity
+  # rubocop:disable-next Metrics/PerceivedComplexity, Metrics/CyclomaticComplexity
   def run
     fragment = MadmpFragment.includes(:madmp_schema).find(params[:fragment_id])
     plan = fragment.plan
@@ -16,7 +16,7 @@ class MadmpCodebaseController < ApplicationController
 
     authorize fragment
 
-    # rubocop:disable Metrics/BlockLength
+    # rubocop:disable-next Metrics/BlockLength
     I18n.with_locale plan.template.locale do
       # EXAMPLE DATA
       if Rails.configuration.x.madmp_codebase.mock == true
@@ -80,12 +80,10 @@ class MadmpCodebaseController < ApplicationController
         }, status: 500
       end
     end
-    # rubocop:enable Metrics/BlockLength
   end
-  # rubocop:enable Metrics/PerceivedComplexity, Metrics/CyclomaticComplexity
   # rubocop:enable Metrics/AbcSize, Metrics/MethodLength
 
-  # rubocop:disable Metrics/AbcSize
+  # rubocop:disable-next Metrics/AbcSize
   def share
     fragment = MadmpFragment.find(params[:fragment_id])
     plan = fragment.plan
@@ -110,10 +108,9 @@ class MadmpCodebaseController < ApplicationController
   rescue StandardError => e
     render json: { status: 500, message: e }, status: 500
   end
-  # rubocop:enable Metrics/AbcSize
 
   # rubocop:disable Metrics/AbcSize, Metrics/MethodLength
-  # rubocop:disable Metrics/CyclomaticComplexity,Metrics/PerceivedComplexity
+  # rubocop:disable-next Metrics/CyclomaticComplexity,Metrics/PerceivedComplexity
   def project_search
     project_id = params[:project_id]
     fragment = MadmpFragment.includes(:dmp).find(params[:fragment_id])
@@ -135,7 +132,7 @@ class MadmpCodebaseController < ApplicationController
 
     authorize fragment
 
-    # rubocop:disable Metrics/BlockLength
+    # rubocop:disable-next Metrics/BlockLength
     I18n.with_locale plan.template.locale do
       # EXAMPLE DATA
       if Rails.configuration.x.madmp_codebase.mock == true
@@ -201,9 +198,7 @@ class MadmpCodebaseController < ApplicationController
         'error' => "Internal Server error: #{e.message}"
       }, status: 500
     end
-    # rubocop:enable Metrics/BlockLength
   end
-  # rubocop:enable Metrics/CyclomaticComplexity,Metrics/PerceivedComplexity
   # rubocop:enable Metrics/AbcSize, Metrics/MethodLength
 
   private
