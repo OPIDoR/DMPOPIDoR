@@ -44,7 +44,7 @@ module OrgAdmin
     end
 
     # POST /org_admin/guidances
-    # rubocop:disable Metrics/AbcSize
+    # rubocop:disable-next Metrics/AbcSize
     def create
       guidance = Guidance.new(guidance_params)
       authorize guidance
@@ -62,12 +62,9 @@ module OrgAdmin
         bad_request(failure_message(guidance, _('create')))
       end
     end
-    # rubocop:enable Metrics/AbcSize
-    #
-    #
 
     # PUT /org_admin/guidances/:id
-    # rubocop:disable Metrics/AbcSize
+    # rubocop:disable-next Metrics/AbcSize
     def update
       guidance = Guidance.find(params[:id])
       authorize guidance
@@ -85,10 +82,9 @@ module OrgAdmin
         bad_request(failure_message(guidance, _('save')))
       end
     end
-    # rubocop:enable Metrics/AbcSize
 
     # DELETE /org_admin/guidances/:id
-    # rubocop:disable Metrics/AbcSize
+    # rubocop:disable-next Metrics/AbcSize
     def destroy
       guidance = Guidance.find(params[:id])
       authorize guidance
@@ -110,10 +106,9 @@ module OrgAdmin
         bad_request(failure_message(guidance, _('delete')))
       end
     end
-    # rubocop:enable Metrics/AbcSize
 
     # PUT /org_admin/guidances/:id/publish
-    # rubocop:disable Metrics/AbcSize
+    # rubocop:disable-next Metrics/AbcSize
     def publish
       guidance = Guidance.find(params[:id])
       authorize guidance
@@ -127,7 +122,6 @@ module OrgAdmin
         bad_request(failure_message(guidance, _('publish')))
       end
     end
-    # rubocop:enable Metrics/AbcSize
 
     # PUT /org_admin/guidances/:id/unpublish
     def unpublish

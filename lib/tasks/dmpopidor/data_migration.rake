@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-# rubocop:disable Naming/VariableNumber
+# rubocop:disable-next Naming/VariableNumber
 namespace :data_migration do
   desc 'Cleaning data'
   task V4_3_7: :environment do
@@ -285,4 +285,3 @@ namespace :data_migration do
     end
   end
 end
-# rubocop:enable Naming/VariableNumber

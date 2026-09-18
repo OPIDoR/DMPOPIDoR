@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 # Provides support for pagination/searching/sorting of table data
-# rubocop:disable Metrics/ModuleLength
+# rubocop:disable-next Metrics/ModuleLength
 module Paginable
   include ApplicationHelper
   extend ActiveSupport::Concern
@@ -133,7 +133,7 @@ module Paginable
 
   # Refine a scope passed to this concern if any of the params (search,
   # sort_field or page) are present
-  # rubocop:disable Metrics/AbcSize, Metrics/MethodLength
+  # rubocop:disable-next Metrics/AbcSize, Metrics/MethodLength
   def refine_query(scope)
     @args = @args.with_indifferent_access
     scope = scope.search(@args[:search]).distinct if @args[:search].present?
@@ -167,7 +167,6 @@ module Paginable
     end
     scope
   end
-  # rubocop:enable Metrics/AbcSize, Metrics/MethodLength
 
   def sort_direction
     @sort_direction ||= SortDirection.new(@args[:sort_direction])
@@ -194,7 +193,7 @@ module Paginable
   end
 
   # Returns the sort url for a given sort_field.
-  # rubocop:disable Metrics/AbcSize
+  # rubocop:disable-next Metrics/AbcSize
   def sort_link_url(sort_field)
     @args = @args.with_indifferent_access
     query_params = {}
@@ -211,7 +210,6 @@ module Paginable
     sort_url.to_s
     "#{sort_url}&#{stringify_nonpagination_query_params}"
   end
-  # rubocop:enable Metrics/AbcSize
 
   # Retrieve any query params that are not a part of the paginable concern
   def stringify_nonpagination_query_params
@@ -234,4 +232,3 @@ module Paginable
     params.permit(PAGINATION_QUERY_PARAMS)
   end
 end
-# rubocop:enable Metrics/ModuleLength

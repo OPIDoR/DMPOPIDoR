@@ -43,7 +43,7 @@ module DMPRoadmap
     # Your organisation's telephone number - used on the contact us page
     # config.x.organisation.telephone = "+1-123-123-1234"
     # Your organisation's address - used on the contact us page
-    # rubocop:disable Naming/VariableNumber
+    # rubocop:disable-next Naming/VariableNumber
     config.x.organisation.address = JSON.parse(ENV.fetch('ORGANISATION_ADDRESS', {
       line_1: 'Equipe Valorisation Données de la recherche',
       line_2: '2, rue Jean Zay',
@@ -51,7 +51,6 @@ module DMPRoadmap
       # line_4: "Polar Vortex, ABC-345",
       country: 'FRANCE'
     }.to_json), symbolize_names: true)
-    # rubocop:enable Naming/VariableNumber
 
     # The Google maps link to your organisation's location - used to display the
     # Google map on the contact us page.

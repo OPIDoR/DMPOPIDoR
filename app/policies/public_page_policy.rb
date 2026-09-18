@@ -3,12 +3,11 @@
 # Security rules for the public pages
 # Note the method names here correspond with controller actions
 class PublicPagePolicy < ApplicationPolicy
-  # rubocop:disable Lint/MissingSuper
+  # rubocop:disable-next Lint/MissingSuper
   def initialize(user, record = nil)
     @user = user
     @record = record
   end
-  # rubocop:enable Lint/MissingSuper
 
   def plan_index?
     true

@@ -11,7 +11,7 @@ module DataCleanup
       @model = model
     end
 
-    # rubocop:disable Metrics/AbcSize
+    # rubocop:disable-next Metrics/AbcSize
     def call
       return unless model.superclass == ActiveRecord::Base
 
@@ -29,6 +29,5 @@ module DataCleanup
       end
       DataCleanup.display ''
     end
-    # rubocop:enable Metrics/AbcSize
   end
 end

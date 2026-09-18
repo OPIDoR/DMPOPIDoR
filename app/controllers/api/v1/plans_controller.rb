@@ -131,7 +131,7 @@ module Api
         user
       end
 
-      # rubocop:disable Metrics/AbcSize
+      # rubocop:disable-next Metrics/AbcSize
       def invite_contributor(contributor:)
         return nil unless contributor.present?
 
@@ -151,7 +151,6 @@ module Api
         end
         user
       end
-      # rubocop:enable Metrics/AbcSize
     end
   end
 end

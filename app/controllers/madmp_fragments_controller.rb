@@ -17,7 +17,7 @@ class MadmpFragmentsController < ApplicationController
     }
   end
 
-  # rubocop:disable Metrics/AbcSize, Metrics/MethodLength
+  # rubocop:disable-next Metrics/AbcSize, Metrics/MethodLength
   def create
     body = JSON.parse(request.body.string)
     dmp = Fragment::Dmp.find(body['dmp_id'])
@@ -52,7 +52,6 @@ class MadmpFragmentsController < ApplicationController
 
     render json: MadmpFragment.render_fragment_json(@fragment, madmp_schema)
   end
-  # rubocop:enable Metrics/AbcSize, Metrics/MethodLength
 
   def show
     @fragment = MadmpFragment.includes(:madmp_schema).find(params[:id])
@@ -62,7 +61,7 @@ class MadmpFragmentsController < ApplicationController
   end
 
   # Needs some rework
-  # rubocop:disable Metrics/AbcSize, Metrics/MethodLength
+  # rubocop:disable-next Metrics/AbcSize, Metrics/MethodLength
   def update
     @fragment = MadmpFragment.includes(:madmp_schema, :dmp, :parent).find(params[:id])
     form_data = JSON.parse(request.body.string)
@@ -90,9 +89,8 @@ class MadmpFragmentsController < ApplicationController
       }, status: :internal_server_error
     end
   end
-  # rubocop:enable Metrics/AbcSize, Metrics/MethodLength
 
-  # rubocop:disable Metrics/AbcSize
+  # rubocop:disable-next Metrics/AbcSize
   def load_fragments
     @dmp_fragment = MadmpFragment.includes(:madmp_schema).find(params[:dmp_id])
     search_term = params[:term] || ''
@@ -114,7 +112,6 @@ class MadmpFragmentsController < ApplicationController
       'results' => formatted_list
     }
   end
-  # rubocop:enable Metrics/AbcSize
 
   def destroy
     @fragment = MadmpFragment.includes(:parent).find(params[:id])
@@ -177,7 +174,7 @@ class MadmpFragmentsController < ApplicationController
   # MadmpFragment data from the form, because the stale MadmpFragment has not yet been modified
   # This method takes the form data and remove every "sub fragment" data so it can be merged
   # to the real fragment data (with dbids)
-  # rubocop:disable Metrics/AbcSize,  Metrics/CyclomaticComplexity
+  # rubocop:disable-next Metrics/AbcSize,  Metrics/CyclomaticComplexity
   def stale_data(form_data, schema)
     stale_data = {}
     form_data.each do |prop, content|
@@ -193,7 +190,6 @@ class MadmpFragmentsController < ApplicationController
     end
     stale_data
   end
-  # rubocop:enable Metrics/AbcSize,  Metrics/CyclomaticComplexity
 
   def permitted_params
     permit_arr = [:id, :dmp_id, :parent_id, :schema_id, :source, :template_locale,

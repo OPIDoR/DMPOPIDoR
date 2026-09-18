@@ -156,7 +156,7 @@ module Api
       ##
       # Displays the number of DMPs using templates owned/create by the caller's Org
       # between the optional specified dates
-      # rubocop:disable Metrics/AbcSize
+      # rubocop:disable-next Metrics/AbcSize
       def using_template
         org_templates = @user.org.templates.where(customization_of: nil)
         raise Pundit::NotAuthorizedError unless Api::V0::StatisticsPolicy.new(@user,
@@ -178,14 +178,13 @@ module Api
         end
         respond_with @templates
       end
-      # rubocop:enable Metrics/AbcSize
 
       ##
       # GET
       # Renders a list of templates with their titles, ids, and uses between the optional
       # specified dates the uses are restricted to DMPs created by users of the same
       # organisation as the user who ititiated the call.
-      # rubocop:disable Metrics/AbcSize
+      # rubocop:disable-next Metrics/AbcSize
       def plans_by_template
         raise Pundit::NotAuthorizedError unless Api::V0::StatisticsPolicy.new(@user, :statistics).plans_by_template?
 
@@ -207,14 +206,13 @@ module Api
         end
         respond_with @templates
       end
-      # rubocop:enable Metrics/AbcSize
 
       # GET
       #
       # Renders a list of DMPs metadata, provided the DMPs were created between the
       # optional specified dates DMPs must be owned by a user who's organisation is the
       # same as the user who generates the call.
-      # rubocop:disable Metrics/AbcSize
+      # rubocop:disable-next Metrics/AbcSize
       def plans
         raise Pundit::NotAuthorizedError unless Api::V0::StatisticsPolicy.new(@user, :statistics).plans?
 
@@ -227,7 +225,6 @@ module Api
         end
         respond_with @org_plans
       end
-      # rubocop:enable Metrics/AbcSize
 
       private
 

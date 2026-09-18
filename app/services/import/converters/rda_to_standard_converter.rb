@@ -6,7 +6,7 @@ module Import
     # to Standard Format
     class RdaToStandardConverter
       class << self
-        # rubocop:disable Metrics/AbcSize, Metrics/MethodLength
+        # rubocop:disable-next Metrics/AbcSize, Metrics/MethodLength
         def convert(json)
           return {} unless json.present?
 
@@ -37,7 +37,6 @@ module Import
             'researchOutput' => convert_research_output(json['dataset'], json)
           }
         end
-        # rubocop:enable Metrics/AbcSize, Metrics/MethodLength
 
         def convert_project(projects)
           return {} if projects.nil? || projects.empty?
@@ -163,7 +162,7 @@ module Import
           hosts_list
         end
 
-        # rubocop:disable Metrics/MethodLength, Metrics/AbcSize
+        # rubocop:disable-next Metrics/MethodLength, Metrics/AbcSize
         def convert_distribution(distribution)
           return [] if distribution.nil?
 
@@ -191,7 +190,6 @@ module Import
           end
           distributions_list
         end
-        # rubocop:enable Metrics/MethodLength, Metrics/AbcSize
 
         def convert_security_measures(security_info)
           return '' if security_info.blank?
@@ -201,9 +199,9 @@ module Import
           title
         end
 
-        # rubocop:disable Metrics/AbcSize, Metrics/MethodLength
+        # rubocop:disable-next Metrics/AbcSize, Metrics/MethodLength
         def convert_research_output(research_output, full_dmp)
-          # rubocop:disable Metrics/BlockLength
+          # rubocop:disable-next Metrics/BlockLength
           research_output.map do |dataset|
             {
               'documentationQuality' => {
@@ -247,9 +245,7 @@ module Import
               }
             }
           end
-          # rubocop:enable Metrics/BlockLength
         end
-        # rubocop:enable Metrics/AbcSize, Metrics/MethodLength
       end
     end
   end

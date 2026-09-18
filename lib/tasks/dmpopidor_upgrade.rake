@@ -66,8 +66,8 @@ namespace :dmpopidor_upgrade do
   desc 'Generate pdf binaries for publicly visible plans or plans with research outputs count >= 15'
   task generate_pdf_plans: :environment do
     Plan.includes(:research_outputs).all.each do |plan|
-      next unless plan.research_outputs.count >= ENV.fetch('PLAN_MINIMUM_RESEARCH_OUTPUTS',
-                                                           15).to_i || plan.publicly_visible?
+      next unless plan.research_outputs.count > ENV.fetch('PLAN_MINIMUM_RESEARCH_OUTPUTS',
+                                                          15).to_i || plan.publicly_visible?
 
       p "########### Generating PDF plan for plan #{plan.id} ###########"
       PdfPlanJob.perform_now(plan_id: plan.id)

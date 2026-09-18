@@ -15,7 +15,7 @@ module Api
           #         "identifier": "https://ror.org/43y4g4"
           #       }
           #     }
-          # rubocop:disable Metrics/AbcSize
+          # rubocop:disable-next Metrics/AbcSize
           def deserialize(json: {})
             return nil unless Api::V1::JsonValidationService.org_valid?(json: json)
 
@@ -39,7 +39,6 @@ module Api
             # Attach the identifier
             Api::V1::DeserializationService.attach_identifier(object: org, json: id_json)
           end
-          # rubocop:enable Metrics/AbcSize
 
           # ===================
           # = PRIVATE METHODS =

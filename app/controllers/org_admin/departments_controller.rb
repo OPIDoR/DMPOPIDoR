@@ -40,7 +40,7 @@ module OrgAdmin
     end
 
     # PUT /departments/1
-    # rubocop:disable Metrics/AbcSize
+    # rubocop:disable-next Metrics/AbcSize
     def update
       @department = Department.find(params[:id])
       @org_id = org_id
@@ -53,7 +53,6 @@ module OrgAdmin
       end
       redirect_to admin_edit_org_path(id: @org_id)
     end
-    # rubocop:enable Metrics/AbcSize
 
     # DELETE /departments/1
     def destroy

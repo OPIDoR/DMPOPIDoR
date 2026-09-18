@@ -10,7 +10,7 @@ class GuidancePresenter
     @guidance_groups = obj.guidance_groups.where(published: true)
   end
 
-  # rubocop:disable Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
+  # rubocop:disable-next Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
   def any?(org: nil, question: nil)
     if org.nil?
       return hashified_annotations? || hashified_guidance_groups? unless question.present?
@@ -31,7 +31,6 @@ class GuidancePresenter
     guidance_annotations?(org: org, question: question) ||
       guidance_groups_by_theme?(org: org, question: question)
   end
-  # rubocop:enable Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
 
   # filters through the orgs with annotations and guidance groups to create a
   # set of tabs with display names and any guidance/annotations to show
@@ -39,7 +38,7 @@ class GuidancePresenter
   # question  - The question to which guidance pretains
   #
   # Returns an array of tab hashes.  These
-  # rubocop:disable Metrics/AbcSize
+  # rubocop:disable-next Metrics/AbcSize
   def tablist(question)
     # start with orgs
     # filter into hash with annotation_presence, main_group presence, and
@@ -57,7 +56,6 @@ class GuidancePresenter
     end
     display_tabs
   end
-  # rubocop:enable Metrics/AbcSize
 
   private
 
@@ -111,7 +109,7 @@ class GuidancePresenter
   # structure:
   # { guidance_group: { theme: [guidance, ...], ... }, ... }
   # rubocop:disable Metrics/AbcSize
-  # rubocop:disable Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
+  # rubocop:disable-next Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
   def guidance_groups_by_theme(org: nil, question: nil)
     raise ArgumentError unless question.is_a?(Question)
     raise ArgumentError unless org.is_a?(Org)
@@ -128,7 +126,6 @@ class GuidancePresenter
       acc[gg] = filtered_gg if filtered_gg.present?
     end
   end
-  # rubocop:enable Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
   # rubocop:enable Metrics/AbcSize
 
   # Returns a collection of annotations (type guidance) for an org and question passed

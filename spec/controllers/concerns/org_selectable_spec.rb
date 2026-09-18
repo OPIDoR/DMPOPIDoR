@@ -4,11 +4,10 @@ require 'rails_helper'
 
 RSpec.describe OrgSelectable do
   before(:each) do
-    # rubocop:disable Lint/ConstantDefinitionInBlock
+    # rubocop:disable-next Lint/ConstantDefinitionInBlock
     class StubController < ApplicationController
       include OrgSelectable
     end
-    # rubocop:enable Lint/ConstantDefinitionInBlock
 
     @controller = StubController.new
 

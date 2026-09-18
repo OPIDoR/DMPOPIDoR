@@ -10,7 +10,7 @@ module Paginable
 
     # GET /paginable/templates/:page  (AJAX)
     # -----------------------------------------------------
-    # rubocop:disable Metrics/AbcSize, Metrics/CyclomaticComplexity
+    # rubocop:disable-next Metrics/AbcSize, Metrics/CyclomaticComplexity
     def index
       authorize Template
       templates = Template.includes(:org).latest_version.where(customization_of: nil)
@@ -30,11 +30,10 @@ module Paginable
         format: :json
       )
     end
-    # rubocop:enable Metrics/AbcSize, Metrics/CyclomaticComplexity
 
     # GET /paginable/templates/organisational/:page  (AJAX)
     # -----------------------------------------------------
-    # rubocop:disable Metrics/AbcSize, Metrics/CyclomaticComplexity
+    # rubocop:disable-next Metrics/AbcSize, Metrics/CyclomaticComplexity
     def organisational
       authorize Template
       templates = Template.latest_version_per_org(current_user.org.id)
@@ -56,7 +55,6 @@ module Paginable
         format: :json
       )
     end
-    # rubocop:enable Metrics/AbcSize, Metrics/CyclomaticComplexity
 
     # GET /paginable/templates/customisable/:page  (AJAX)
     # -----------------------------------------------------
@@ -115,7 +113,7 @@ module Paginable
 
     # GET /paginable/templates/modules/:page  (AJAX)
     # -----------------------------------------------------
-    # rubocop:disable Metrics/AbcSize, Metrics/CyclomaticComplexity
+    # rubocop:disable-next Metrics/AbcSize, Metrics/CyclomaticComplexity
     def modules
       authorize Template
       templates = Template.latest_module_version.where(customization_of: nil)
@@ -136,6 +134,5 @@ module Paginable
         format: :json
       )
     end
-    # rubocop:enable Metrics/AbcSize, Metrics/CyclomaticComplexity
   end
 end

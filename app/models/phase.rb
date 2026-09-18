@@ -140,9 +140,8 @@ class Phase < ApplicationRecord
   end
 
   # CHANGES : Research outputs support
-  # rubocop:disable Lint/UnusedMethodArgument
+  # rubocop:disable-next Lint/UnusedMethodArgument
   def visibility_allowed?(plan)
     true
   end
-  # rubocop:enable Lint/UnusedMethodArgument
 end

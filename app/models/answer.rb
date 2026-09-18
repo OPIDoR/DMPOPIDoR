@@ -99,7 +99,7 @@ class Answer < ApplicationRecord
   # presence of text
   #
   # Returns Boolean
-  # rubocop:disable Metrics/AbcSize
+  # rubocop:disable-next Metrics/AbcSize
   def answered?
     return false unless question.present?
     # If the question is option based then see if any options were selected
@@ -116,7 +116,6 @@ class Answer < ApplicationRecord
 
     false
   end
-  # rubocop:enable Metrics/AbcSize
 
   # Answer notes whose archived is blank sorted by updated_at in descending order
   #
@@ -170,7 +169,7 @@ class Answer < ApplicationRecord
     end
   end
 
-  # rubocop:disable Metrics/AbcSize
+  # rubocop:disable-next Metrics/AbcSize
   def instantiate_fragment
     if plan.structured? && madmp_fragment.nil?
       dmp_id = plan.json_fragment.id
@@ -193,7 +192,6 @@ class Answer < ApplicationRecord
     end
     nil
   end
-  # rubocop:enable Metrics/AbcSize
 
   def serialize_json(user = nil)
     {

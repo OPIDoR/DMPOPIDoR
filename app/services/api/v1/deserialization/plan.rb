@@ -44,7 +44,7 @@ module Api
           #       }]
           #     }
           #   }
-          # rubocop:disable Metrics/AbcSize
+          # rubocop:disable-next Metrics/AbcSize
           def deserialize(json: {})
             return nil unless Api::V1::JsonValidationService.plan_valid?(json: json)
 
@@ -70,7 +70,6 @@ module Api
             plan = deserialize_contributors(plan: plan, json: json)
             deserialize_datasets(plan: plan, json: json)
           end
-          # rubocop:enable Metrics/AbcSize
 
           # ===================
           # = PRIVATE METHODS =
@@ -113,7 +112,7 @@ module Api
           end
 
           # Deserialize the project information and attach to Plan
-          # rubocop:disable Metrics/AbcSize
+          # rubocop:disable-next Metrics/AbcSize
           def deserialize_project(plan:, json: {})
             return plan unless json.present? &&
                                json[:project].present? &&
@@ -129,7 +128,6 @@ module Api
 
             Api::V1::Deserialization::Funding.deserialize(plan: plan, json: funding)
           end
-          # rubocop:enable Metrics/AbcSize
 
           # Deserialize the contact as a Contributor
           def deserialize_contact(plan:, json: {})

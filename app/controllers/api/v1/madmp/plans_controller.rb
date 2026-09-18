@@ -12,7 +12,7 @@ module Api
 
         # GET /api/v1/madmp/plans/:id(/research_outputs/:uuid)
         # GET /api/v1/madmp/plans/research_outputs/:uuid
-        # rubocop:disable Metrics/AbcSize, Metrics/MethodLength
+        # rubocop:disable-next Metrics/AbcSize, Metrics/MethodLength
         def show
           if params[:id].present?
             plan = Api::V1::PlansPolicy::Scope.new(client, Plan).resolve.find(params[:id])
@@ -42,10 +42,9 @@ module Api
         rescue ActiveRecord::RecordNotFound
           render_error(errors: [_('Plan not found')], status: :not_found)
         end
-        # rubocop:enable Metrics/AbcSize, Metrics/MethodLength
 
         # rubocop:disable Metrics/AbcSize,Metrics/CyclomaticComplexity
-        # rubocop:disable Metrics/MethodLength,Metrics/PerceivedComplexity
+        # rubocop:disable-next Metrics/MethodLength,Metrics/PerceivedComplexity
         def public
           page = (params[:page] || 1).to_i
           size = (params[:size] || 10).to_i
@@ -77,11 +76,10 @@ module Api
             size: size
           } }, status: :ok
         end
-        # rubocop:enable Metrics/MethodLength,Metrics/PerceivedComplexity
         # rubocop:enable Metrics/AbcSize,Metrics/CyclomaticComplexity
 
         # POST /api/v1/madmp/plans/import
-        # rubocop:disable Metrics/AbcSize,Metrics/MethodLength
+        # rubocop:disable-next Metrics/AbcSize,Metrics/MethodLength
         def import
           return forbidden(_('You are not allowed to create plan')) unless Api::V0::PlansPolicy.new(client,
                                                                                                     Plan).create?
@@ -114,7 +112,6 @@ module Api
             bad_request("#{_('An error has occured: ')} #{e.message}")
           end
         end
-        # rubocop:enable Metrics/AbcSize,Metrics/MethodLength
 
         # Get the Plan's owner
         def determine_owner(client:, dmp:)

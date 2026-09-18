@@ -8,14 +8,13 @@ module OrgAdmin
     after_action :verify_authorized
 
     # GET /org_admin/templates/:template_id/phases/:id
-    # rubocop:disable Metrics/AbcSize
+    # rubocop:disable-next Metrics/AbcSize
     def show
       phase = Phase.includes(:template, :sections).order(:number).find(params[:id])
       authorize phase
       unless phase.template.latest?
-        # rubocop:disable Layout/LineLength
+        # rubocop:disable-next Layout/LineLength
         flash[:notice] = _('You are viewing a historical version of this template. You will not be able to make changes.')
-        # rubocop:enable Layout/LineLength
       end
       sections = if phase.template.customization_of? && phase.template.latest?
                    # The user is working with the latest version so only use the modifiable sections
@@ -36,10 +35,9 @@ module OrgAdmin
                current_section: Section.find_by(id: params[:section], phase_id: phase.id)
              })
     end
-    # rubocop:enable Metrics/AbcSize
 
     # GET /org_admin/templates/:template_id/phases/:id/edit
-    # rubocop:disable Metrics/AbcSize, Metrics/MethodLength
+    # rubocop:disable-next Metrics/AbcSize, Metrics/MethodLength
     def edit
       phase = Phase.includes(:template).find(params[:id])
       authorize phase
@@ -58,13 +56,12 @@ module OrgAdmin
                  phase: phase,
                  prefix_section: phase.prefix_section,
                  sections: phase.sections.order(:number)
-                           .select(:id, :title, :modifiable, :phase_id),
+                                .select(:id, :title, :modifiable, :phase_id),
                  suffix_sections: phase.suffix_sections.order(:number),
                  current_section: Section.find_by(id: params[:section], phase_id: phase.id)
                })
       end
     end
-    # rubocop:enable Metrics/AbcSize, Metrics/MethodLength
 
     # preview a phase
     # GET /org_admin/templates/:template_id/phases/:id/preview
@@ -77,7 +74,7 @@ module OrgAdmin
 
     # add a new phase to a passed template
     # GET /org_admin/templates/:template_id/phases/new
-    # rubocop:disable Metrics/AbcSize, Metrics/MethodLength
+    # rubocop:disable-next Metrics/AbcSize, Metrics/MethodLength
     def new
       template = Template.includes(:phases).find(params[:template_id])
       if template.latest?
@@ -105,12 +102,11 @@ module OrgAdmin
                alert: _('You cannot add a phase to a historical version of a template.')
       end
     end
-    # rubocop:enable Metrics/AbcSize, Metrics/MethodLength
 
     # create a phase
     # POST /org_admin/templates/:template_id/phases
     # rubocop:disable Metrics/AbcSize, Metrics/MethodLength
-    # rubocop:disable Metrics/CyclomaticComplexity,Metrics/PerceivedComplexity
+    # rubocop:disable-next Metrics/CyclomaticComplexity,Metrics/PerceivedComplexity
     def create
       phase = Phase.new(phase_params)
       phase.template = Template.find(params[:template_id])
@@ -137,12 +133,11 @@ module OrgAdmin
                                                                                    )
       end
     end
-    # rubocop:enable Metrics/CyclomaticComplexity,Metrics/PerceivedComplexity
     # rubocop:enable Metrics/AbcSize, Metrics/MethodLength
 
     # update a phase of a template
     # PUT /org_admin/templates/:template_id/phases/:id
-    # rubocop:disable Metrics/AbcSize
+    # rubocop:disable-next Metrics/AbcSize
     def update
       phase = Phase.find(params[:id])
       authorize phase
@@ -163,7 +158,6 @@ module OrgAdmin
       ) : edit_org_admin_template_phase_path(template_id: phase.template.id,
                                              id: phase.id)
     end
-    # rubocop:enable Metrics/AbcSize
 
     # POST /org_admin/templates/:template_id/phases/:id/sort
     def sort
@@ -176,7 +170,7 @@ module OrgAdmin
 
     # delete a phase
     # DELETE /org_admin/templates/:template_id/phases/:id
-    # rubocop:disable Metrics/AbcSize
+    # rubocop:disable-next Metrics/AbcSize
     def destroy
       phase = Phase.includes(:template).find(params[:id])
       authorize phase
@@ -199,7 +193,6 @@ module OrgAdmin
         redirect_to edit_org_admin_template_path(template)
       end
     end
-    # rubocop:enable Metrics/AbcSize
 
     private
 

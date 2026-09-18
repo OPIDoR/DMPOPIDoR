@@ -220,7 +220,7 @@ class User < ApplicationRecord
   # user_email - Use the email if there is no firstname or surname (defaults: true)
   #
   # Returns String
-  # rubocop:disable Style/OptionalBooleanParameter
+  # rubocop:disable-next Style/OptionalBooleanParameter
   def name(use_email = true)
     if (firstname.blank? && surname.blank?) || use_email
       email
@@ -229,7 +229,6 @@ class User < ApplicationRecord
       name.strip
     end
   end
-  # rubocop:enable Style/OptionalBooleanParameter
 
   # The user's identifier for the specified scheme name
   #
@@ -252,7 +251,7 @@ class User < ApplicationRecord
   # requires them to see the org-admin pages then they are an org admin.
   #
   # Returns Boolean
-  # rubocop:disable Metrics/CyclomaticComplexity
+  # rubocop:disable-next Metrics/CyclomaticComplexity
   def can_org_admin?
     return true if can_super_admin?
 
@@ -263,7 +262,6 @@ class User < ApplicationRecord
       can_modify_templates? || can_modify_org_details? ||
       can_review_plans?
   end
-  # rubocop:enable Metrics/CyclomaticComplexity
 
   # Can the User add new organisations?
   #
@@ -359,7 +357,7 @@ class User < ApplicationRecord
   # The User's preferences for a given base key
   #
   # Returns Hash
-  # rubocop:disable Metrics/AbcSize
+  # rubocop:disable-next Metrics/AbcSize
   def get_preferences(key)
     defaults = Pref.default_settings[key.to_sym] || Pref.default_settings[key.to_s]
 
@@ -380,7 +378,6 @@ class User < ApplicationRecord
       defaults
     end
   end
-  # rubocop:enable Metrics/AbcSize
 
   # Override devise_invitable email title
   def deliver_invitation(options = {})
@@ -421,7 +418,7 @@ class User < ApplicationRecord
   #
   # Returns boolean
   # CHANGES : changed firstname & lastname, deleted user_identifiers & added some log
-  # rubocop:disable Metrics/AbcSize
+  # rubocop:disable-next Metrics/AbcSize
   def archive
     suffix = Rails.configuration.x.application.fetch(:archived_accounts_email_suffix, '@example.org')
     copy = dup
@@ -446,9 +443,8 @@ class User < ApplicationRecord
 
     save
   end
-  # rubocop:enable Metrics/AbcSize
 
-  # rubocop:disable Metrics/AbcSize
+  # rubocop:disable-next Metrics/AbcSize
   def merge(to_be_merged)
     scheme_ids = identifiers.pluck(:identifier_scheme_id)
     # merge logic
@@ -477,7 +473,6 @@ class User < ApplicationRecord
     # => ignore any perms the deleted user has
     to_be_merged.destroy
   end
-  # rubocop:enable Metrics/AbcSize
 
   private
 

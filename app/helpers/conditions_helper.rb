@@ -3,7 +3,7 @@
 DISPLAY_LENGTH = 50
 
 # Helper methods for Conditional Questions
-# rubocop:disable Metrics/ModuleLength
+# rubocop:disable-next Metrics/ModuleLength
 module ConditionsHelper
   # return a list of question ids to open/hide
   def remove_list(object)
@@ -18,7 +18,7 @@ module ConditionsHelper
 
   # returns an array of ids to remove based on the conditions associated with an answer
   # or trigger the email (TODO: combining these is a bit icky!)
-  # rubocop:disable Metrics/AbcSize, Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
+  # rubocop:disable-next Metrics/AbcSize, Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
   def answer_remove_list(answer, user = nil)
     id_list = []
     return id_list unless answer.question.option_based?
@@ -40,13 +40,12 @@ module ConditionsHelper
     # uniq because could get same remove id from diff conds
     id_list.uniq
   end
-  # rubocop:enable Metrics/AbcSize, Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
 
   def send_webhooks(user, answer)
     answer_remove_list(answer, user)
   end
 
-  # rubocop:disable Metrics/AbcSize
+  # rubocop:disable-next Metrics/AbcSize
   def email_trigger_list(answer)
     email_list = []
     return email_list unless answer.question.option_based?
@@ -62,7 +61,6 @@ module ConditionsHelper
     # uniq because could get same remove id from diff conds
     email_list.uniq.join(',')
   end
-  # rubocop:enable Metrics/AbcSize
 
   # number of answers in a section after answers updated with conditions
   def num_section_answers(plan, section)
@@ -80,7 +78,7 @@ module ConditionsHelper
   end
 
   # number of questions in a section after update with conditions
-  # rubocop:disable Metrics/AbcSize, Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
+  # rubocop:disable-next Metrics/AbcSize, Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
   def num_section_questions(plan, section, phase = nil)
     # when section and phase are a hash in exports
     if section.is_a?(Hash) &&
@@ -100,7 +98,6 @@ module ConditionsHelper
     end
     count
   end
-  # rubocop:enable Metrics/AbcSize, Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
 
   # returns an array of hashes of section_id, number of section questions, and
   # number of section answers
@@ -180,7 +177,7 @@ module ConditionsHelper
 
   # used when displaying a question while editing the template
   # converts condition into text
-  # rubocop:disable Metrics/AbcSize, Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
+  # rubocop:disable-next Metrics/AbcSize, Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
   def condition_to_text(conditions)
     return_string = ''
     conditions.each do |cond|
@@ -203,7 +200,6 @@ module ConditionsHelper
     end
     "#{return_string}</dd>"
   end
-  # rubocop:enable Metrics/AbcSize, Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
 
   def text_formatted(object)
     text = Question.find(object).text if object.is_a?(Integer)
@@ -217,7 +213,7 @@ module ConditionsHelper
   end
 
   # convert a set of conditions into multi-select form
-  # rubocop:disable Metrics/AbcSize, Metrics/MethodLength
+  # rubocop:disable-next Metrics/AbcSize, Metrics/MethodLength
   def conditions_to_param_form(conditions)
     param_conditions = {}
     conditions.each do |condition|
@@ -242,7 +238,6 @@ module ConditionsHelper
     end
     param_conditions
   end
-  # rubocop:enable Metrics/AbcSize, Metrics/MethodLength
 
   # returns an hash of hashes of webhook data given a condition array
   def webhook_hash(conditions)
@@ -254,4 +249,3 @@ module ConditionsHelper
     web_hash
   end
 end
-# rubocop:enable Metrics/ModuleLength

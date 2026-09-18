@@ -383,7 +383,7 @@ class Plan < ApplicationRecord
   # --------------------------------
   # rubocop:enable Metrics/AbcSize, Metrics/MethodLength
 
-  # rubocop:disable Metrics/AbcSize, Metrics/MethodLength
+  # rubocop:disable-next Metrics/AbcSize, Metrics/MethodLength
   def self.structured_deep_copy(plan, creator_id)
     plan_copy = plan.dup
     I18n.with_locale plan.template.locale do
@@ -416,7 +416,10 @@ class Plan < ApplicationRecord
     end
     plan_copy
   end
-  # rubocop:enable Metrics/AbcSize, Metrics/MethodLength
+
+  def self.dmp_ids(plans)
+    Fragment::Dmp.where('data ->> \'plan_id\' IN (?)', plans.pluck(:id)).pluck(:id).uniq
+  end
 
   def self.dmp_ids(plans)
     Fragment::Dmp.where('data ->> \'plan_id\' IN (?)', plans.pluck(:id)).pluck(:id).uniq
@@ -452,7 +455,7 @@ class Plan < ApplicationRecord
   # Returns nil
   # CHANGES : ADDED RESEARCH OUTPUT SUPPORT
   # rubocop:disable Metrics/AbcSize, Style/OptionalBooleanParameter
-  # rubocop:disable Metrics/CyclomaticComplexity
+  # rubocop:disable-next Metrics/CyclomaticComplexity
   def answer(qid, create_if_missing = true, roid = nil)
     answer = answers.select { |a| a.question_id == qid && a.research_output_id == roid }
                     .max_by(&:created_at)
@@ -470,7 +473,6 @@ class Plan < ApplicationRecord
     end
     answer
   end
-  # rubocop:enable Metrics/CyclomaticComplexity
   # rubocop:enable Metrics/AbcSize, Style/OptionalBooleanParameter
 
   alias get_guidance_group_options guidance_group_options
@@ -781,7 +783,7 @@ class Plan < ApplicationRecord
 
   # Helper method to convert the grant id value entered by the user into an Identifier
   # works with both controller params or an instance of Identifier
-  # rubocop:disable Metrics/AbcSize, Metrics/CyclomaticComplexity
+  # rubocop:disable-next Metrics/AbcSize, Metrics/CyclomaticComplexity
   def grant=(params)
     val = params.present? ? params[:value] : nil
     current = grant
@@ -797,7 +799,6 @@ class Plan < ApplicationRecord
     current = Identifier.create(identifiable: self, value: val)
     self.grant_id = current.id
   end
-  # rubocop:enable Metrics/AbcSize, Metrics/CyclomaticComplexity
 
   # Defines if an api client has a read access to the plan
   def readable_by_client?(client_id)
@@ -818,11 +819,11 @@ class Plan < ApplicationRecord
     Fragment::Dmp.where("(data->>'plan_id')::int = ?", id).first
   end
 
-  # rubocop:disable Metrics/AbcSize, Metrics/MethodLength
+  # rubocop:disable-next Metrics/AbcSize, Metrics/MethodLength
   def create_plan_fragments(json_data = nil)
     template_locale = template.locale.eql?('en-GB') ? 'eng' : 'fra'
     dmp_template_name = research_entity? ? 'DMPResearchEntity' : 'DMPResearchProject'
-    # rubocop:disable Metrics/BlockLength
+    # rubocop:disable-next Metrics/BlockLength
     I18n.with_locale template.locale do
       dmp_fragment = Fragment::Dmp.create!(
         data: {
@@ -886,9 +887,7 @@ class Plan < ApplicationRecord
 
       dmp_coordinator.update(parent_id: meta.id)
     end
-    # rubocop:enable Metrics/BlockLength
   end
-  # rubocop:enable Metrics/AbcSize, Metrics/MethodLength
 
   def handle_research_project(dmp_id)
     project_schema = MadmpSchema.find_by(name: 'ProjectStandard')
@@ -923,7 +922,7 @@ class Plan < ApplicationRecord
     )
   end
 
-  # rubocop:disable Metrics/AbcSize, Metrics/MethodLength
+  # rubocop:disable-next Metrics/AbcSize, Metrics/MethodLength
   def copy_plan_fragments(plan)
     create_plan_fragments if json_fragment.nil?
 
@@ -955,7 +954,6 @@ class Plan < ApplicationRecord
       json_fragment.meta.raw_import(raw_meta, json_fragment.meta.madmp_schema)
     end
   end
-  # rubocop:enable Metrics/AbcSize, Metrics/MethodLength
 
   def add_api_client!(api_client)
     return unless api_client.present? && api_client_roles.where(api_client_id: api_client.id).none?

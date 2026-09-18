@@ -19,9 +19,8 @@ RSpec.configure do |config|
       openapi: '3.0.1',
       info: {
         title: 'maDMP OPIDoR API V1',
-        # rubocop:disable Layout/LineLength
+        # rubocop:disable-next Layout/LineLength
         description: 'Please use the /authenticate route before using the API. You can paste the generated token in the prompt displayed by clicking on the "Authorize" button',
-        # rubocop:enable Layout/LineLength
         version: 'v1'
       },
       securityDefinitions: {

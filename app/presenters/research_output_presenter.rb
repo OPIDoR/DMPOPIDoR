@@ -26,7 +26,7 @@ class ResearchOutputPresenter
   end
 
   # Converts the byte_size into a more friendly value (e.g. 15.4 MB)
-  # rubocop:disable Metrics/AbcSize, Metrics/CyclomaticComplexity
+  # rubocop:disable-next Metrics/AbcSize, Metrics/CyclomaticComplexity
   def converted_file_size(size:)
     return { size: nil, unit: 'mb' } unless size.present? && size.is_a?(Numeric) && size.positive?
     return { size: size / 1.petabytes, unit: 'pb' } if size >= 1.petabytes
@@ -36,7 +36,6 @@ class ResearchOutputPresenter
 
     { size: size, unit: '' }
   end
-  # rubocop:enable Metrics/AbcSize, Metrics/CyclomaticComplexity
 
   # Returns the truncated title if it is greater than 50 characters
   def display_name

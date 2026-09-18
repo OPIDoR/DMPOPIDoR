@@ -130,9 +130,9 @@ class ResearchOutput < ApplicationRecord
   end
 
   # rubocop:disable Metrics/AbcSize, Metrics/MethodLength
-  # rubocop:disable Metrics/CyclomaticComplexity,Metrics/PerceivedComplexity
+  # rubocop:disable-next Metrics/CyclomaticComplexity,Metrics/PerceivedComplexity
   def create_json_fragments(configuration = {}, duplicate: false)
-    # rubocop:disable Metrics/BlockLength
+    # rubocop:disable-next Metrics/BlockLength
     I18n.with_locale plan.template.locale do
       fragment = json_fragment
       dmp_fragment = plan.json_fragment
@@ -197,9 +197,7 @@ class ResearchOutput < ApplicationRecord
         fragment.research_output_description.update(data: data)
       end
     end
-    # rubocop:enable Metrics/BlockLength
   end
-  # rubocop:enable Metrics/CyclomaticComplexity,Metrics/PerceivedComplexity
   # rubocop:enable Metrics/AbcSize, Metrics/MethodLength
 
   def serialize_infobox_data
@@ -215,7 +213,7 @@ class ResearchOutput < ApplicationRecord
     }
   end
 
-  # rubocop:disable Metrics/AbcSize, Metrics/MethodLength
+  # rubocop:disable-next Metrics/AbcSize, Metrics/MethodLength
   def serialize_json(user = nil, with_answers: true)
     ro_fragment = json_fragment
     module_id = ro_fragment.additional_info['moduleId']
@@ -242,7 +240,6 @@ class ResearchOutput < ApplicationRecord
       }
     end
   end
-  # rubocop:enable Metrics/AbcSize, Metrics/MethodLength
 
   def update_description(contains_personal_data: true)
     research_output_description = json_fragment.research_output_description
@@ -288,7 +285,7 @@ class ResearchOutput < ApplicationRecord
   # Returns an array containing the property name, description question & the madmpschema according to the
   # data_type in parameters
   #####
-  # rubocop:disable Metrics/AbcSize
+  # rubocop:disable-next Metrics/AbcSize
   def self.data_type_to_schema_data(plan, data_type, locale)
     if data_type.eql?('software') && MadmpSchema.exists?(name: 'SoftwareDescriptionStandard')
       [
@@ -310,7 +307,6 @@ class ResearchOutput < ApplicationRecord
       ]
     end
   end
-  # rubocop:enable Metrics/AbcSize
 
   private
 

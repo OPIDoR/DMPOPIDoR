@@ -28,7 +28,7 @@ module SuperAdmin
     end
 
     # POST /api_clients
-    # rubocop:disable Metrics/AbcSize
+    # rubocop:disable-next Metrics/AbcSize
     def create
       authorize(ApiClient)
 
@@ -51,10 +51,9 @@ module SuperAdmin
         redirect_to new_super_admin_api_client_path(@api_client)
       end
     end
-    # rubocop:enable Metrics/AbcSize
 
     # PATCH/PUT /api_clients/:id
-    # rubocop:disable Metrics/AbcSize
+    # rubocop:disable-next Metrics/AbcSize
     def update
       @api_client = ApiClient.find(params[:id])
       authorize(@api_client)
@@ -71,7 +70,6 @@ module SuperAdmin
       end
       redirect_to edit_super_admin_api_client_path(@api_client)
     end
-    # rubocop:enable Metrics/AbcSize
 
     # DELETE /api_clients/:id
     def destroy

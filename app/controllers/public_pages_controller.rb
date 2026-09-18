@@ -8,7 +8,7 @@ class PublicPagesController < ApplicationController
   # CHANGES :
   #   - Every published template is displayed in the Templates Public pages
   #   - the templates are sorted by org name
-  # rubocop:disable Metrics/AbcSize
+  # rubocop:disable-next Metrics/AbcSize
   def template_index
     @templates_query_params = {
       page: paginable_params.fetch(:page, 1),
@@ -24,11 +24,10 @@ class PublicPagesController < ApplicationController
                          .where(id: templates.uniq.flatten)
                          .unarchived.published.order('orgs.name asc')
   end
-  # rubocop:enable Metrics/AbcSize
 
   # GET template_export/:id
   # -----------------------------------------------------
-  # rubocop:disable Metrics/AbcSize, Metrics/MethodLength
+  # rubocop:disable-next Metrics/AbcSize, Metrics/MethodLength
   def template_export
     # only export live templates, id passed is family_id
     @template = Template.live(params[:id])
@@ -99,7 +98,6 @@ class PublicPagesController < ApplicationController
                   alert: _('Unable to download the DMP Template at this time.')
     end
   end
-  # rubocop:enable Metrics/AbcSize, Metrics/MethodLength
 
   # GET /plans_index
   # ------------------------------------------------------------------------------------
@@ -129,7 +127,7 @@ class PublicPagesController < ApplicationController
                                     .where(id: guidance_groups.uniq.flatten).order('orgs.name asc')
   end
 
-  # rubocop:disable Metrics/AbcSize
+  # rubocop:disable-next Metrics/AbcSize
   def guidance_group_export
     @guidance_group = GuidanceGroup.includes(guidances: :themes).find(params[:id])
     @guidances = @guidance_group.guidances.joins(:themes).where(published: true)
@@ -138,7 +136,7 @@ class PublicPagesController < ApplicationController
     file_name = @guidance_group.name.gsub(/[^a-zA-Z\d\s]/, '').tr(' ', '_')
     respond_to do |format|
       format.pdf do
-        # rubocop:disable Layout/LineLength
+        # rubocop:disable-next Layout/LineLength
         render pdf: file_name,
                template: 'guidance_group_exports/guidance_group_export',
                margin: @formatting[:margin],
@@ -149,11 +147,9 @@ class PublicPagesController < ApplicationController
                  right: '[page] of [topage]',
                  encoding: 'utf8'
                }
-        # rubocop:enable Layout/LineLength
       end
     end
   end
-  # rubocop:enable Metrics/AbcSize
 
   private
 
