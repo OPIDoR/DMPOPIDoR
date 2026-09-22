@@ -8,12 +8,10 @@ module ContactUs
     def create
       @contact = ContactUs::Contact.new(params[:contact_us_contact])
 
-      if !user_signed_in? && Rails.configuration.x.altcha.enabled
-        unless Altcha.verify(params.permit(:altcha)[:altcha])
-          flash[:alert]  = _('Captcha verification failed, please retry.')
-          render :new, status: :unprocessable_entity
-          return
-        end
+      if !user_signed_in? && Rails.configuration.x.altcha.enabled && !Altcha.verify(params.permit(:altcha)[:altcha])
+        flash[:alert] = _('Captcha verification failed, please retry.')
+        render :new, status: :unprocessable_entity
+        return
       end
 
       if @contact.save

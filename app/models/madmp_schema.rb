@@ -58,35 +58,42 @@ class MadmpSchema < ApplicationRecord
   # ==========
 
   CLASSNAME_TO_PROPERTY = {
-    'research_output_description' => 'researchOutputDescription',
-    'data_reuse' => 'reuse',
-    'personal_data_issues' => 'personalDataIssues',
-    'legal_issues' => 'legalIssues',
-    'ethical_issues' => 'ethicalIssues',
-    'data_collection' => 'dataCollection',
-    'data_processing' => 'dataProcessing',
-    'data_storage' => 'dataStorage',
-    'documentation_quality' => 'documentationQuality',
-    'quality_assurance_method' => 'qualityAssuranceMethod',
-    'data_sharing' => 'sharing',
-    'data_preservation' => 'preservationIssues',
-    'budget' => 'budget',
+    'dataset' => {
+      'research_output_description' => 'researchOutputDescription',
+      'data_reuse' => 'reuse',
+      'personal_data_issues' => 'personalDataIssues',
+      'legal_issues' => 'legalIssues',
+      'ethical_issues' => 'ethicalIssues',
+      'data_collection' => 'dataCollection',
+      'data_processing' => 'dataProcessing',
+      'data_storage' => 'dataStorage',
+      'documentation_quality' => 'documentationQuality',
+      'quality_assurance_method' => 'qualityAssuranceMethod',
+      'data_sharing' => 'sharing',
+      'data_preservation' => 'preservationIssues',
+      'budget' => 'budget'
+    },
     # Software output
-    'software_description' => 'softwareDescription',
-    'software_development' => 'softwareDevelopment',
-    'software_documentation' => 'softwareDocumentation',
-    'software_runtime' => 'softwareRuntime',
-    'software_preservation' => 'softwarePreservation',
-    'software_legal_issues' => 'softwareLegalIssues',
-    'software_sharing' => 'softwareSharing',
-    'software_valorisation' => 'softwareValorisation',
+    'software' => {
+      'software_description' => 'softwareDescription',
+      'software_development' => 'softwareDevelopment',
+      'software_documentation' => 'softwareDocumentation',
+      'software_runtime' => 'softwareRuntime',
+      'software_preservation' => 'softwarePreservation',
+      'software_legal_issues' => 'softwareLegalIssues',
+      'software_sharing' => 'softwareSharing',
+      'software_valorisation' => 'softwareValorisation'
+    },
     # Physical object output
-    'physical_object_description' => 'physicalObjectDescription',
-    'physical_object_collection' => 'physicalObjectCollection',
-    'physical_object_quality_documentation' => 'physicalObjectQualityDocumentation',
-    'physical_object_storage' => 'physicalObjectStorage',
-    'physical_object_legal' => 'physicalObjectLegal',
-    'physical_object_sharing' => 'physicalObjectSharing'
+    'physical_object' => {
+      'physical_object_description' => 'physicalObjectDescription',
+      'physical_object_collection' => 'physicalObjectCollection',
+      'physical_object_quality_documentation' => 'physicalObjectQualityDocumentation',
+      'physical_object_storage' => 'physicalObjectStorage',
+      'physical_object_legal' => 'physicalObjectLegal',
+      'physical_object_sharing' => 'physicalObjectSharing',
+      'personal_data_issues' => 'physicalObjectPersonalData'
+    }
   }.freeze
 
   # ==========
@@ -132,8 +139,8 @@ class MadmpSchema < ApplicationRecord
 
   # Used by "Write Plan" tab for determining the property_name of a new fragment
   # from the classname of the corresponding schema
-  def property_name_from_classname
-    CLASSNAME_TO_PROPERTY[classname]
+  def property_name_from_classname(data_type)
+    CLASSNAME_TO_PROPERTY[data_type][classname]
   end
 
   def extract_run_parameters(script_name: nil)

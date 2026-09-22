@@ -44,7 +44,7 @@ const Pagination = ({ items, onChangePage, initialPage = 1, pageSize = 9 }) => {
 
   const pager = useMemo(
     () => getPager(items.length, currentPage, pageSize),
-    [items.length, currentPage, pageSize],
+    [items, currentPage, pageSize],
   );
 
   const setPage = (page) => {

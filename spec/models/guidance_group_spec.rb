@@ -22,7 +22,7 @@
 #
 # Foreign Keys
 #
-#  fk_rails_...  (org_id => orgs.id)
+#  fk_rails_...  (org_id => orgs.id) DEFERRABLE INITIALLY DEFERRED
 #
 require 'rails_helper'
 
@@ -194,7 +194,7 @@ RSpec.describe GuidanceGroup, type: :model do
       end
     end
 
-    # rubocop:disable Performance/RedundantMerge
+    # rubocop:disable-next Performance/RedundantMerge
     context ':merge!(to_be_merged:)' do
       before(:each) do
         org = create(:org)
@@ -233,6 +233,5 @@ RSpec.describe GuidanceGroup, type: :model do
         expect(GuidanceGroup.find_by(id: original_id).present?).to eql(false)
       end
     end
-    # rubocop:enable Performance/RedundantMerge
   end
 end

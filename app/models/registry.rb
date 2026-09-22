@@ -62,7 +62,7 @@ class Registry < ApplicationRecord
     select(:id, :name, :version, :description, :uri, :category, :data_types, :topics)
   }
 
-  # rubocop:disable Metrics/AbcSize
+  # rubocop:disable-next Metrics/AbcSize
   def self.load_values(values_file, registry)
     return :no_file if values_file.nil?
 
@@ -86,5 +86,4 @@ class Registry < ApplicationRecord
       :invalid_json
     end
   end
-  # rubocop:enable Metrics/AbcSize
 end

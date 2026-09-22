@@ -17,7 +17,7 @@ module Resolvers
       Api::V1::PlansPolicy::Scope.new(context[:current_user], Plan).resolve
     end
 
-    # rubocop:disable Metrics/AbcSize,Metrics/MethodLength,Metrics/ParameterLists
+    # rubocop:disable-next Metrics/AbcSize,Metrics/MethodLength,Metrics/ParameterLists
     def fetch_plans(filter, size, page, order_by, test, plans_scope)
       offset = (page - 1) * size
 
@@ -58,6 +58,5 @@ module Resolvers
         items: results
       }
     end
-    # rubocop:enable Metrics/AbcSize,Metrics/MethodLength,Metrics/ParameterLists
   end
 end

@@ -5,10 +5,9 @@ import { FaCheckCircle, FaPlusSquare } from "react-icons/fa";
 import Select from "react-select";
 
 import { externalServices, madmpFragment } from "../../services";
-import CustomSpinner from "../Shared/CustomSpinner";
 import CustomError from "../Shared/CustomError";
-import Pagination from "../Shared/Pagination";
 import { flattenObject, normalize } from "../../utils/utils";
+import SortableTable from "../Shared/SortableTable";
 
 const locales = {
   en: "en_GB",
@@ -17,17 +16,51 @@ const locales = {
 
 function Metadore({ fragment, setFragment, mapping = {} }) {
   const { t, i18n } = useTranslation();
-  const pageSize = 8;
   const [data, setData] = useState([]);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
   const [selectedData, setSelectedData] = useState(null);
-  const [currentData, setCurrentData] = useState([]);
   const [text, setText] = useState("");
   const [registry, setRegistry] = useState(null);
   const [researchDataTypes, setResearchDataTypes] = useState(null);
   const [researchDataType, setResearchDataType] = useState(null);
 
+  const columns = [
+    {
+      key: "actions",
+      label: null,
+      render: (el) =>
+        selectedData === el?.attributes?.doi ? (
+          <FaCheckCircle className="text-center" style={{ color: "green" }} />
+        ) : (
+          <FaPlusSquare
+            className="text-center"
+            style={{ cursor: "pointer" }}
+            onClick={() => setSelectedValue(el)}
+          />
+        ),
+    },
+    {
+      key: "doi",
+      label: t("DOI"),
+      render: (el) => el.attributes.doi,
+    },
+    {
+      key: "title",
+      label: t("title"),
+      render: (el) => el.attributes.titles.at(0).title,
+    },
+    {
+      key: "publicationDate",
+      label: t("publicationDate"),
+      render: (el) => el.attributes.publicationYear,
+    },
+    {
+      key: "type",
+      label: t("type"),
+      render: (el) => el.attributes.types.resourceTypeGeneral || "-",
+    },
+  ];
   /**
    * The function `getData` makes an API call to get data, sets the retrieved data in state variables, and creates an array of distinct countries from the
    * data.
@@ -49,18 +82,10 @@ function Metadore({ fragment, setFragment, mapping = {} }) {
     setData(resData);
 
     if (resData.length === 0) {
-      setCurrentData([]);
+      setData([]);
     }
 
     return setLoading(false);
-  };
-
-  /**
-   * The onChangePage function updates the state with a new page of items.
-   */
-  const onChangePage = (pageOfItems) => {
-    // update state with new page of items
-    setCurrentData(pageOfItems);
   };
 
   /**
@@ -156,7 +181,6 @@ function Metadore({ fragment, setFragment, mapping = {} }) {
   const handleDeleteText = () => {
     setText("");
     setData([]);
-    setCurrentData([]);
   };
 
   /**
@@ -299,66 +323,12 @@ function Metadore({ fragment, setFragment, mapping = {} }) {
             </div>
           </div>
 
-          <table className="table table-bordered table-hover">
-            <thead className="thead-dark">
-              <tr>
-                <th scope="col"></th>
-                <th scope="col">{t("DOI")}</th>
-                <th scope="col">{t("title")}</th>
-                <th scope="col">{t("publicationDate")}</th>
-                <th scope="col">{t("type")}</th>
-              </tr>
-            </thead>
-            <tbody>
-              {currentData.length > 0 ? (
-                currentData.map((el, idx) => (
-                  <tr key={idx}>
-                    <td>
-                      {selectedData === el?.attributes?.doi ? (
-                        <FaCheckCircle
-                          className="text-center"
-                          style={{ color: "green" }}
-                        />
-                      ) : (
-                        <FaPlusSquare
-                          className="text-center"
-                          style={{ cursor: "pointer" }}
-                          onClick={() => setSelectedValue(el)}
-                        />
-                      )}
-                    </td>
-                    <td>{el.attributes.doi}</td>
-                    <td>{el.attributes.titles.at(0).title}</td>
-                    <td>{el.attributes.publicationYear}</td>
-                    <td>{el.attributes.types.resourceTypeGeneral || "-"}</td>
-                  </tr>
-                ))
-              ) : (
-                <tr>
-                  <td
-                    colSpan="5"
-                    style={{ textAlign: loading ? "center" : "left" }}
-                  >
-                    {loading ? <CustomSpinner /> : t("noData")}
-                  </td>
-                </tr>
-              )}
-            </tbody>
-          </table>
-
-          {data.length > 0 && (
-            <div className="row text-center">
-              <div className="mx-auto"></div>
-              <div className="mx-auto">
-                <Pagination
-                  key={data.map((d) => d?.attributes?.doi).join(",")}
-                  items={data}
-                  onChangePage={onChangePage}
-                  pageSize={pageSize}
-                />
-              </div>
-            </div>
-          )}
+          <SortableTable
+            columns={columns}
+            data={data}
+            loading={loading}
+            pageSize={8}
+          />
         </>
       )}
     </div>

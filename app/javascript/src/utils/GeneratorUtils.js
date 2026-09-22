@@ -42,7 +42,7 @@ export function parsePattern(data, keys = []) {
  * @returns {Array} - An array of option objects, each object having a `value`, `label`, and `object` property.
  *                   The first option is an empty option with empty value and label.
  */
-export function createOptions(registryValues, locale) {
+export function createRegistryOptions(registryValues, locale) {
   return [
     ...registryValues.map((option) => {
       let { label, value, ...optionValue } = option;
@@ -150,24 +150,8 @@ export const DATA_TYPE_LABELS = {
   physical_object: "physicalObjectType",
 };
 
-export function dataTypeSelectValues(t, enablePhysicalObject = true) {
-  const options = [
-    { label: t(DATA_TYPE_LABELS.dataset), value: "dataset" },
-    { label: t(DATA_TYPE_LABELS.software), value: "software" },
-  ];
-
-  if (enablePhysicalObject) {
-    options.push({
-      label: t(DATA_TYPE_LABELS.physical_object),
-      value: "physical_object",
-    });
-  }
-
-  return options;
-}
-
 export function displayPersonalData(researchOutputDataType) {
-  const typesWithoutPersonalData = ["software", "physical_object"];
+  const typesWithoutPersonalData = ["software"];
 
   return !typesWithoutPersonalData.includes(
     researchOutputDataType?.toLowerCase(),

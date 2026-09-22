@@ -253,7 +253,8 @@ function FormBuilder({ template, dataType, topic, readonly }) {
               tooltip={tooltip}
               hidden={prop.hidden}
               readonly={readonly || isConst}
-              min={prop.type === "number" ? 0 : undefined}
+              min={prop.minimum}
+              step={prop.step}
             ></InputText>,
           );
         }

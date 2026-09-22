@@ -24,8 +24,8 @@
                 <%= _('Actions') %><span class="caret"></span>
               </button>
               <ul class="dropdown-menu" aria-labelledby="department-<%= department.id %>-actions">
-                <li><%= link_to _('Edit'), edit_org_department_path(org_id: department.org_id, id: department.id), data: { turbo_frame: "_top" } %></li>
-                <li><%= link_to _('Remove'),  org_department_path(org_id: department.org_id, id: department.id),  data: { turbo_frame: "_top", turbo_method: :delete, turbo_confirm: _("You are about to delete '%{department_name}'. This will affect guidance. Are you sure?") % { :department_name => department.name }} %></li>
+                <li class="nav-item"><%= link_to _('Edit'), edit_org_department_path(org_id: department.org_id, id: department.id), class:'dropdown-item px-3', data: { turbo_frame: "_top" } %></li>
+                <li class="nav-item"><%= link_to _('Remove'),  org_department_path(org_id: department.org_id, id: department.id),  class:'dropdown-item px-3', data: { turbo_frame: "_top", turbo_method: :delete, turbo_confirm: _("You are about to delete '%{department_name}'. This will affect guidance. Are you sure?") % { :department_name => department.name }} %></li>
               </ul>
             </div>
           </td>

@@ -4,7 +4,7 @@ module Import
   # Service used to import a plan from a JSON document
   class PlanImportService
     class << self
-      # rubocop:disable Metrics/AbcSize
+      # rubocop:disable-next Metrics/AbcSize
       def import(plan, json_data, import_format)
         dmp_fragment = plan.json_fragment
         if import_format.eql?('rda')
@@ -25,10 +25,9 @@ module Import
 
         plan.update(title: plan_title)
       end
-      # rubocop:enable Metrics/AbcSize
 
       # rubocop:disable Metrics/AbcSize, Metrics/MethodLength
-      # rubocop:disable Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
+      # rubocop:disable-next Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
       def handle_research_outputs(plan, research_outputs)
         I18n.with_locale plan.template.locale do
           research_outputs.each_with_index do |ro_data, idx|
@@ -36,9 +35,10 @@ module Import
             configuration = ro_data['configuration'] || {}
             description_prop_name, = ResearchOutput.data_type_to_schema_data(plan, configuration['dataType'],
                                                                              plan.template.locale)
+            output_type = configuration['dataType'].nil? || configuration['dataType'].eql?('dataset') ? 'dataset' : configuration['dataType'] # rubocop:disable Layout/LineLength
             research_output = plan.research_outputs.create!(
               abbreviation: ro_data[description_prop_name]['shortName'] || "#{_('RO')} #{max_order}",
-              output_type: configuration['dataType'].eql?('dataset') ? 'dataset' : configuration['dataType'],
+              output_type: output_type,
               output_type_description: ro_data[description_prop_name]['type'] || _('Dataset'),
               title: ro_data[description_prop_name]['title'] || "#{_('Research output')} #{max_order}",
               topic: configuration['topic'] || 'generic',
@@ -54,7 +54,6 @@ module Import
           end
         end
       end
-      # rubocop:enable Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
       # rubocop:enable Metrics/AbcSize, Metrics/MethodLength
 
       def handle_contributors(dmp_fragment, contributors)
@@ -72,7 +71,7 @@ module Import
       end
 
       # rubocop:disable Metrics/AbcSize, Metrics/MethodLength
-      # rubocop:disable Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
+      # rubocop:disable-next Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
       def import_research_output(target_ro_fragment, imported_data, plan, template)
         dmp_id = target_ro_fragment.dmp_id
         imported_data.each do |prop, content| # rubocop:disable Metrics/BlockLength
@@ -111,7 +110,6 @@ module Import
           fragment.raw_import(content, fragment.madmp_schema, fragment.id)
         end
       end
-      # rubocop:enable Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
       # rubocop:enable Metrics/AbcSize, Metrics/MethodLength
 
       def validate(json_data, import_format, locale: I18n.default_locale)

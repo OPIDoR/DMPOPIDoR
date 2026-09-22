@@ -9,7 +9,7 @@ module SuperAdmin
                     :categories, :from_org_attributes, :to_org_attributes,
                     :mergeable_attributes
 
-      # rubocop:disable Metrics/AbcSize
+      # rubocop:disable-next Metrics/AbcSize
       def initialize(from_org:, to_org:)
         @from_org = from_org
         @to_org = to_org
@@ -29,7 +29,6 @@ module SuperAdmin
         @to_org_attributes = org_attributes(org: @to_org)
         @mergeable_attributes = mergeable_columns
       end
-      # rubocop:enable Metrics/AbcSize
 
       private
 
@@ -120,7 +119,7 @@ module SuperAdmin
         }
       end
 
-      # rubocop:disable Metrics/AbcSize
+      # rubocop:disable-next Metrics/AbcSize
       def mergeable_columns
         out = {}
         out[:target_url] = @from_org.target_url if mergeable_column?(column: :target_url)
@@ -141,7 +140,6 @@ module SuperAdmin
         end
         out
       end
-      # rubocop:enable Metrics/AbcSize
 
       # rubocop:disable Metrics/AbcSize
       # rubocop:disable Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity

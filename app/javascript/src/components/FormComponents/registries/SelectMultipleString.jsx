@@ -9,7 +9,7 @@ import { FaXmark } from "react-icons/fa6";
 import { GlobalContext } from "../../context/GlobalContext.jsx";
 import { madmpFragment } from "../../../services/index.js";
 import {
-  createOptions,
+  createRegistryOptions,
   createRegistryPlaceholder,
 } from "../../../utils/GeneratorUtils.js";
 import * as styles from "../../assets/css/form.module.css";
@@ -37,8 +37,10 @@ function SelectMultipleString({
   const { control } = useFormContext();
   const { field } = useController({ control, name: propName });
   const [error, setError] = useState(null);
-  const [selectedRegistry, setSelectedRegistry] = useState(null);
   const [availableRegistries, setAvailableRegistries] = useState(registries);
+  const [selectedRegistry, setSelectedRegistry] = useState(
+    availableRegistries[0],
+  );
 
   /**
    * Memoized values
@@ -53,7 +55,7 @@ function SelectMultipleString({
   const options = useMemo(
     () =>
       registryValues
-        ? createOptions(registryValues, locale)
+        ? createRegistryOptions(registryValues, locale)
         : [{ value: "", label: "" }],
     [registryValues, locale],
   );
@@ -72,6 +74,8 @@ function SelectMultipleString({
    * @param e - the event object
    */
   const handleSelectRegistryValue = (e) => {
+    if (selectedValues.includes(e.value)) return;
+
     const newList = [...(selectedValues || []), e.value];
     field.onChange(newList);
   };

@@ -55,6 +55,7 @@ module Settings
         physical_object_storage
         physical_object_legal
         physical_object_sharing
+        personal_data_issues
       ]
     }.freeze
   end

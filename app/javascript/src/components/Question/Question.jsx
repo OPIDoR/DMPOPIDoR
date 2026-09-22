@@ -33,14 +33,7 @@ const closedModalState = {
   runs: false,
   formSelector: false,
 };
-function Question({
-  planId,
-  question,
-  questionIdx,
-  sectionId,
-  sectionNumber,
-  readonly,
-}) {
+function Question({ planId, question, questionIdx, sectionNumber, readonly }) {
   const { commentablePlan } = useContext(GlobalContext);
   const { formSelectors } = useContext(FormsContext);
   const {
@@ -65,10 +58,8 @@ function Question({
    */
   const questionId = useMemo(() => question.id, [question.id]);
   const isQuestionOpened = useMemo(() => {
-    return !!openedQuestions?.[displayedResearchOutput?.id]?.[sectionId]?.[
-      questionId
-    ];
-  }, [openedQuestions, displayedResearchOutput, sectionId, questionId]);
+    return !!openedQuestions?.[displayedResearchOutput?.id]?.[questionId];
+  }, [openedQuestions, displayedResearchOutput, questionId]);
 
   const answer = useMemo(() => {
     return (
@@ -85,17 +76,7 @@ function Question({
    */
   const handleQuestionCollapse = (expanded) => {
     const updatedState = { ...openedQuestions[displayedResearchOutput.id] };
-
-    if (!updatedState[sectionId]) {
-      updatedState[sectionId] = {
-        [questionId]: false,
-      };
-    }
-
-    updatedState[sectionId] = {
-      ...updatedState[sectionId],
-      [questionId]: expanded,
-    };
+    updatedState[questionId] = expanded;
 
     setOpenedQuestions({
       ...openedQuestions,
@@ -168,6 +149,7 @@ function Question({
               onClick={() => handleQuestionCollapse(!isQuestionOpened)}
               aria-controls={`card-collapse-${questionId}`}
               aria-expanded={isQuestionOpened}
+              data-testid="question-collapse"
             >
               <Card.Title>
                 <div className={styles.question_title}>
@@ -214,6 +196,7 @@ function Question({
 
                     <CommentIcon
                       isQuestionOpened={isQuestionOpened}
+                      newCommentCount={answer?.new_comment_count || 0}
                       fillColor={getFillColor(showModals.comment)}
                       setModalOpened={setModalOpened}
                     />
@@ -242,9 +225,17 @@ function Question({
                     />
 
                     {isQuestionOpened ? (
-                      <TfiAngleUp style={{ marginLeft: "5px" }} size={32} />
+                      <TfiAngleUp
+                        data-testid="question-angle-up"
+                        style={{ marginLeft: "5px" }}
+                        size={32}
+                      />
                     ) : (
-                      <TfiAngleDown style={{ marginLeft: "5px" }} size={32} />
+                      <TfiAngleDown
+                        data-testid="question-angle-down"
+                        style={{ marginLeft: "5px" }}
+                        size={32}
+                      />
                     )}
                   </div>
                 </div>
@@ -310,7 +301,10 @@ function Question({
                 {isQuestionOpened ? (
                   <>
                     {readonly && !answer?.id ? (
-                      <Badge variant="primary">
+                      <Badge
+                        variant="primary"
+                        data-testid="readonly-question-badge"
+                      >
                         {t("questionNotAnswered")}
                       </Badge>
                     ) : (

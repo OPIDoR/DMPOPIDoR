@@ -36,7 +36,7 @@ gem 'propshaft'
 # Use Redis adapter to run Action Cable in production
 # A Ruby client that tries to match Redis' API one-to-one, while still providing an idiomatic interface
 # (https://github.com/redis/redis-rb)
-gem 'redis'
+gem 'redis', '~> 5.0'
 
 # redis-actionpack provides a session store for ActionPack, specifically for ActionDispatch.
 # (https://github.com/redis-store/redis-actionpack)
@@ -46,6 +46,7 @@ gem 'redis-actionpack'
 
 # Use Active Storage variant
 gem 'image_processing'
+gem 'ruby-vips'
 
 # Reduces boot times through caching; required in config/boot.rb
 gem 'bootsnap', require: false

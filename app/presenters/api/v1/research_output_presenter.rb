@@ -46,7 +46,7 @@ module Api
         fetch_q_and_a(themes: themes).collect { |item| item[:description] }.join('<br>')
       end
 
-      # rubocop:disable Metrics/AbcSize, Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
+      # rubocop:disable-next Metrics/AbcSize, Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
       def fetch_q_and_a(themes:)
         return [] unless themes.is_a?(Array) && themes.any?
 
@@ -62,7 +62,6 @@ module Api
         end
         ret.select { |item| item[:description].present? }
       end
-      # rubocop:enable Metrics/AbcSize, Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
     end
   end
 end

@@ -29,7 +29,7 @@ module OrgAdmin
       else
         flash[:alert] = failure_message(@department, _('create'))
       end
-      redirect_to new_org_department_path(@department)
+      redirect_to admin_edit_org_path(id: @org_id)
     end
 
     # GET /departments/1/edit
@@ -40,7 +40,7 @@ module OrgAdmin
     end
 
     # PUT /departments/1
-    # rubocop:disable Metrics/AbcSize
+    # rubocop:disable-next Metrics/AbcSize
     def update
       @department = Department.find(params[:id])
       @org_id = org_id
@@ -51,9 +51,8 @@ module OrgAdmin
       else
         flash[:alert] = failure_message(@department, _('save'))
       end
-      redirect_to edit_org_department_path(@department)
+      redirect_to admin_edit_org_path(id: @org_id)
     end
-    # rubocop:enable Metrics/AbcSize
 
     # DELETE /departments/1
     def destroy

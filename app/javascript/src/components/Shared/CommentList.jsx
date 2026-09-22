@@ -33,6 +33,7 @@ function CommentList({
   inModal = false,
   setAnswer,
   setCommentsNumber,
+  shown = true,
 }) {
   const { t, i18n } = useTranslation();
   const editorContentRef = useRef(null);
@@ -212,10 +213,12 @@ function CommentList({
    */
 
   useEffect(() => {
+    if (!shown) return;
     commentsService
       .get(answerId)
       .then(({ data }) => {
         setComments(data?.notes || []);
+        setAnswer({ new_comment_count: 0 });
       })
       .catch((error) =>
         setError({
@@ -226,7 +229,7 @@ function CommentList({
         }),
       )
       .finally(() => setLoading(false));
-  }, [answerId]);
+  }, [answerId, shown]);
 
   useEffect(() => {
     updateTitle(comments || []);

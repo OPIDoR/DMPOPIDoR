@@ -12,7 +12,7 @@ module Api
     class ContextualErrorService
       class << self
         # Process the plan's errors and any of its associations
-        # rubocop:disable Metrics/AbcSize
+        # rubocop:disable-next Metrics/AbcSize
         def process_plan_errors(plan:)
           return [] if !plan.is_a?(Plan) || valid_plan?(plan: plan)
 
@@ -27,10 +27,9 @@ module Api
           errs << contextualize(errors: plan.grant.errors, context: 'Grant')
           errs.flatten.compact.uniq
         end
-        # rubocop:enable Metrics/AbcSize
 
         # Add context to the standard error message
-        # rubocop:disable Metrics/AbcSize
+        # rubocop:disable-next Metrics/AbcSize
         def contextualize(errors:, context: 'DMP')
           errs = errors.is_a?(ActiveModel::Errors) ? errors.full_messages : []
           errs = errors if errors.is_a?(Array) && errs.empty?
@@ -46,7 +45,6 @@ module Api
                .gsub(/^Value/, "#{context.capitalize} value")
           end
         end
-        # rubocop:enable Metrics/AbcSize
 
         # Checks the plan and optional associations for validity
         def valid_plan?(plan:)

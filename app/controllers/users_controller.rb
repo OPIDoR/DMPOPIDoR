@@ -14,7 +14,7 @@ class UsersController < ApplicationController
   # Displays number of roles[was project_group], name, email, and last sign in
   # Added Total users count
   # CHANGES: Users without last_sign_in date should be displayed last
-  # rubocop:disable Metrics/AbcSize, Metrics/MethodLength
+  # rubocop:disable-next Metrics/AbcSize, Metrics/MethodLength
   def admin_index
     authorize User
 
@@ -23,12 +23,12 @@ class UsersController < ApplicationController
         @clicked_through = params[:click_through].present?
         @filter_admin = false
         if current_user.can_super_admin?
-          @users = User.order('last_sign_in_at desc NULLS LAST')
+          @users = User.order('current_sign_in_at desc NULLS LAST')
                        .includes(:department, :org, :perms, :roles, :identifiers).page(1)
           @total_active = User.where(active: true).count
           @total_users = User.count
         else
-          @users = current_user.org.users.order('last_sign_in_at desc NULLS LAST')
+          @users = current_user.org.users.order('current_sign_in_at desc NULLS LAST')
                                .includes(:department, :org, :perms, :roles, :identifiers).page(1)
           @total_active = current_user.org.users.where(active: true).count
           @total_users = current_user.org.users.count
@@ -36,12 +36,11 @@ class UsersController < ApplicationController
       end
 
       format.csv do
-        send_data User.to_csv(current_user.org.users.order(:surname)),
+        send_data User.to_csv(current_user.org.users.where(active: true).order(:surname)),
                   filename: "users-accounts-#{Date.today}.csv"
       end
     end
   end
-  # rubocop:enable Metrics/AbcSize, Metrics/MethodLength
 
   ##
   # GET - Displays the permissions available to the selected user
@@ -118,7 +117,7 @@ class UsersController < ApplicationController
   # rubocop:enable Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
 
   # PUT /users/:id/update_email_preferences
-  # rubocop:disable Metrics/AbcSize
+  # rubocop:disable-next Metrics/AbcSize
   def update_email_preferences
     prefs = preference_params
     authorize User
@@ -136,11 +135,10 @@ class UsersController < ApplicationController
     redirect_to "#{edit_user_registration_path}#notification-preferences",
                 notice: success_message(pref, _('saved'))
   end
-  # rubocop:enable Metrics/AbcSize
 
   # PUT /users/:id/activate
   # -----------------------------------------------------
-  # rubocop:disable Metrics/AbcSize
+  # rubocop:disable-next Metrics/AbcSize
   def activate
     authorize current_user
 
@@ -165,14 +163,16 @@ class UsersController < ApplicationController
       }
     end
   end
-  # rubocop:enable Metrics/AbcSize
 
   # POST /users/acknowledge_notification
   def acknowledge_notification
     authorize current_user
     @notification = Notification.find(notification_params[:notification_id])
     current_user.acknowledge(@notification)
-    render body: nil
+    respond_to do |format|
+      format.turbo_stream { render turbo_stream: turbo_stream.remove(@notification) }
+      format.html { head :no_content }
+    end
   end
 
   # GET /users/:id/refresh_token (accessed via JSON call from profile page)

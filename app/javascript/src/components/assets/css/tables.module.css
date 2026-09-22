@@ -1,0 +1,18 @@
+.table_row {
+  text-align: center;
+}
+
+.admin_search_bar {
+  background-color: var(--rust);
+  color: white
+}
+
+.dropdown_button {
+  background-color: transparent !important;
+  border: none;
+  text-decoration: underline;
+}
+.dropdown_menu {
+  background-color: white;
+  border: none;
+}

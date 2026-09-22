@@ -31,7 +31,7 @@
 #
 # Foreign Keys
 #
-#  fk_rails_...  (language_id => languages.id)
+#  fk_rails_...  (language_id => languages.id) DEFERRABLE INITIALLY DEFERRED
 #
 require 'rails_helper'
 
@@ -488,7 +488,7 @@ RSpec.describe Org, type: :model do
     end
   end
 
-  # rubocop:disable Performance/RedundantMerge
+  # rubocop:disable-next Performance/RedundantMerge
   context ':merge!(to_be_merged:)' do
     before(:each) do
       @scheme = create(:identifier_scheme)
@@ -579,7 +579,6 @@ RSpec.describe Org, type: :model do
       expect(Org.find_by(id: original_id).present?).to eql(false)
     end
   end
-  # rubocop:enable Performance/RedundantMerge
 
   context 'private methods' do
     describe ':merge_attributes!(to_be_merged:)' do

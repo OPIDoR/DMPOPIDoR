@@ -3,6 +3,7 @@ import directus from "./directus";
 import externalServices from "./externalServices";
 import generalInfo from "./generalInfo";
 import guidances from "./guidances";
+import guidancesManagement from "./guidancesManagement";
 import guidedTour from "./guidedTour";
 import news from "./news";
 import planCreation from "./planCreation";
@@ -16,6 +17,7 @@ export {
   externalServices,
   generalInfo,
   guidances,
+  guidancesManagement,
   guidedTour,
   news,
   planCreation,

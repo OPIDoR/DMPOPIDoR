@@ -21,7 +21,7 @@
 #
 # Foreign Keys
 #
-#  fk_rails_...  (template_id => templates.id)
+#  fk_rails_...  (template_id => templates.id) DEFERRABLE INITIALLY DEFERRED
 #
 require 'rails_helper'
 

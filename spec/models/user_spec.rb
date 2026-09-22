@@ -48,8 +48,8 @@
 # Foreign Keys
 #
 #  fk_rails_...  (department_id => departments.id)
-#  fk_rails_...  (language_id => languages.id)
-#  fk_rails_...  (org_id => orgs.id)
+#  fk_rails_...  (language_id => languages.id) DEFERRABLE INITIALLY DEFERRED
+#  fk_rails_...  (org_id => orgs.id) DEFERRABLE INITIALLY DEFERRED
 #
 require 'rails_helper'
 

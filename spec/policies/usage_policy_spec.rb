@@ -43,9 +43,8 @@ RSpec.describe UsagePolicy, type: :policy do
     let(:user) { nil }
     it 'not have access to any of the actions' do
       super_actions.each do |action|
-        # rubocop:disable Layout/LineLength
+        # rubocop:disable-next Layout/LineLength
         expect { is_expected.to permit_action(action) }.to raise_error(Pundit::NotAuthorizedError), "expected :#{action} to raise a NotAuthorizedError"
-        # rubocop:enable Layout/LineLength
       end
     end
   end

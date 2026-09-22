@@ -49,19 +49,20 @@ export default class extends Controller {
   connect() {
     this.initializeEditor();
 
-    document.addEventListener("turbo:render", this.reinitializeEditor);
+    //document.addEventListener("turbo:render", this.reinitializeEditor);
     document.addEventListener("turbo:frame-render", this.reinitializeEditor);
   }
 
   disconnect() {
     tinymce.remove();
 
-    document.removeEventListener("turbo:render", this.reinitializeEditor);
+    //document.removeEventListener("turbo:render", this.reinitializeEditor);
     document.removeEventListener("turbo:frame-render", this.reinitializeEditor);
   }
 
   initializeEditor() {
     const config = {
+      ...this.defaults,
       target: this.inputTarget,
       setup: (editor) => {
         editor.on("Change", () => {
@@ -70,7 +71,6 @@ export default class extends Controller {
           }
         });
       },
-      ...this.defaults,
     };
 
     tinymce.init(config);

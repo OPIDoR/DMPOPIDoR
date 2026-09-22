@@ -11,7 +11,7 @@ class UserMailer < ActionMailer::Base
 
   default from: Rails.configuration.x.organisation.email
 
-  # rubocop:disable Metrics/AbcSize
+  # rubocop:disable-next Metrics/AbcSize
   def welcome_notification(user)
     @user           = user
     @username       = @user.name
@@ -26,9 +26,8 @@ class UserMailer < ActionMailer::Base
            subject: format(_('Welcome to %{tool_name}'), tool_name: tool_name))
     end
   end
-  # rubocop:enable Metrics/AbcSize
 
-  # rubocop:disable Metrics/AbcSize
+  # rubocop:disable-next Metrics/AbcSize
   def question_answered(data, user, answer, _options_string)
     @user           = user
     @username       = @user.name
@@ -47,12 +46,11 @@ class UserMailer < ActionMailer::Base
            subject: data['subject'])
     end
   end
-  # rubocop:enable Metrics/AbcSize
 
   # CHANGES
   # Changed subject text
   # Mail is sent with user's locale
-  # rubocop:disable Metrics/AbcSize
+  # rubocop:disable-next Metrics/AbcSize
   def sharing_notification(role, user, inviter:)
     @role       = role
     @user       = user
@@ -68,11 +66,10 @@ class UserMailer < ActionMailer::Base
                            user_name: @inviter.name(false), tool_name: tool_name))
     end
   end
-  # rubocop:enable Metrics/AbcSize
 
   # CHANGES
   # Mail is sent with user's locale
-  # rubocop:disable Metrics/AbcSize
+  # rubocop:disable-next Metrics/AbcSize
   def permissions_change_notification(role, user)
     return unless user.active?
 
@@ -88,7 +85,6 @@ class UserMailer < ActionMailer::Base
            subject: format(_('Changed permissions on a Data Management Plan in %{tool_name}'), tool_name: tool_name))
     end
   end
-  # rubocop:enable Metrics/AbcSize
 
   # CHANGES
   # Mail is sent with user's locale
@@ -129,7 +125,7 @@ class UserMailer < ActionMailer::Base
   # CHANGES
   # Mail is sent with user's locale
   # sender is org's user contact email or no-reply
-  # rubocop:disable Metrics/AbcSize
+  # rubocop:disable-next Metrics/AbcSize
   def feedback_complete(recipient, plan, requestor)
     return unless recipient.active?
 
@@ -151,11 +147,10 @@ class UserMailer < ActionMailer::Base
                            tool_name: tool_name, plan_title: @plan.title))
     end
   end
-  # rubocop:enable Metrics/AbcSize
 
   # CHANGES
   # Mail is sent with user's locale
-  # rubocop:disable Metrics/AbcSize
+  # rubocop:disable-next Metrics/AbcSize
   def plan_visibility(user, plan)
     return unless user.active?
 
@@ -173,12 +168,11 @@ class UserMailer < ActionMailer::Base
            subject: format(_('DMP Visibility Changed: %{plan_title}'), plan_title: @plan.title))
     end
   end
-  # rubocop:enable Metrics/AbcSize
 
   # CHANGES
   # Mail is sent with user's locale
   # rubocop:disable Metrics/AbcSize, Metrics/MethodLength
-  # rubocop:disable Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
+  # rubocop:disable-next Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
   def new_comment(commenter, plan, answer, collaborator)
     return unless commenter.is_a?(User) && plan.is_a?(Plan)
 
@@ -199,7 +193,7 @@ class UserMailer < ActionMailer::Base
     @research_output_name = research_output_description.data['title']
     @phase_link = if plan.structured?
                     url_for(action: 'structured_edit', controller: 'plans', id: @plan.id, phase_id: @phase_id,
-                            research_output: research_output.id)
+                            research_output: research_output.id, question: @question.id)
                   else
                     url_for(action: 'edit', controller: 'plans', id: @plan.id, phase_id: @phase_id)
                   end
@@ -212,7 +206,6 @@ class UserMailer < ActionMailer::Base
                                                                                         plan_title: @plan.title))
     end
   end
-  # rubocop:enable Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
   # rubocop:enable Metrics/AbcSize, Metrics/MethodLength
 
   # CHANGES
@@ -231,7 +224,7 @@ class UserMailer < ActionMailer::Base
     end
   end
 
-  # rubocop:disable Metrics/AbcSize
+  # rubocop:disable-next Metrics/AbcSize
   def api_credentials(api_client)
     @api_client = api_client
     return unless @api_client.contact_email.present?
@@ -247,14 +240,13 @@ class UserMailer < ActionMailer::Base
            subject: format(_('%{tool_name} API client created/updated'), tool_name: tool_name))
     end
   end
-  # rubocop:enable Metrics/AbcSize
 
   ##################
   ## NEW METHODS ###
   ##################
   def anonymization_warning(user)
     @user = user
-    @end_date = (@user.last_sign_in_at + 5.years).to_date
+    @end_date = (@user.current_sign_in_at + 5.years).to_date
     @helpdesk_email = helpdesk_email(org: @user.org)
     I18n.with_locale current_locale(@user) do
       mail(to: @user.email, subject:
@@ -271,7 +263,7 @@ class UserMailer < ActionMailer::Base
     end
   end
 
-  # rubocop:disable Metrics/AbcSize
+  # rubocop:disable-next Metrics/AbcSize
   def client_sharing_notification(client_role, user)
     @api_client = client_role.api_client
     return unless @api_client.contact_email.present?
@@ -293,5 +285,4 @@ class UserMailer < ActionMailer::Base
                            username: @user.name(false), tool_name: tool_name))
     end
   end
-  # rubocop:enable Metrics/AbcSize
 end

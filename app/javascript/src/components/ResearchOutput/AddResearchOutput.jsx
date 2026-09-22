@@ -12,8 +12,7 @@ import { GlobalContext } from "../context/GlobalContext.jsx";
 import { SectionsContext } from "../context/SectionsContext.jsx";
 import { researchOutput, madmpFragment } from "../../services";
 import {
-  createOptions,
-  dataTypeSelectValues,
+  createRegistryOptions,
   displayPersonalData,
   displayTopics,
 } from "../../utils/GeneratorUtils";
@@ -58,15 +57,13 @@ function AddResearchOutput({
     [pos, researchOutputs],
   );
 
-  const dataTypeOptions = useMemo(
-    () => dataTypeSelectValues(t, configuration?.enablePhysicalObject),
-    [t],
-  );
-
   /**
    * States
    */
   const [topicOptions, setTopicOptions] = useState([{ value: "", label: "" }]);
+  const [dataTypeOptions, setDataTypeOptions] = useState([
+    { value: "", label: "" },
+  ]);
   const [selectedDataType, setSelectedDataType] = useState({
     value: "",
     label: "",
@@ -224,7 +221,7 @@ function AddResearchOutput({
    */
   useEffect(() => {
     madmpFragment.getRegistryByName("Topics").then((res) => {
-      const topicsOpts = createOptions(res.data, locale);
+      const topicsOpts = createRegistryOptions(res.data, locale);
       setTopicOptions(topicsOpts);
 
       if (inEdition) {
@@ -236,6 +233,27 @@ function AddResearchOutput({
         );
         setSelectedTopic(
           topicsOpts.find(
+            ({ value }) => value === displayedResearchOutput.topic,
+          ),
+        );
+      }
+    });
+  }, []);
+
+  useEffect(() => {
+    madmpFragment.getRegistryByName("Questionnaires").then((res) => {
+      const questOpts = createRegistryOptions(res.data, locale);
+      setDataTypeOptions(questOpts);
+
+      if (inEdition) {
+        setSelectedDataType(
+          dataTypeOptions.find(
+            ({ value }) =>
+              value === displayedResearchOutput?.configuration?.dataType,
+          ),
+        );
+        setSelectedDataType(
+          questOpts.find(
             ({ value }) => value === displayedResearchOutput.topic,
           ),
         );

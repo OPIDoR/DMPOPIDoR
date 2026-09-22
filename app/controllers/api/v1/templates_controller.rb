@@ -7,7 +7,7 @@ module Api
       respond_to :json
 
       # GET /api/v1/templates
-      # rubocop:disable Metrics/AbcSize
+      # rubocop:disable-next Metrics/AbcSize
       def index
         # If this is a User and not an ApiClient include the Org's
         # templates and customizations as well as the public ones
@@ -36,7 +36,6 @@ module Api
         @items = paginate_response(results: templates)
         render '/api/v1/templates/index', status: :ok
       end
-      # rubocop:enable Metrics/AbcSize
     end
   end
 end

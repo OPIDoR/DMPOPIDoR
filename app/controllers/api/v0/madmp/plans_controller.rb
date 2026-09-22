@@ -8,7 +8,7 @@ module Api
         before_action :authenticate
         include MadmpExportHelper
 
-        # rubocop:disable Metrics/AbcSize
+        # rubocop:disable-next Metrics/AbcSize
         def show
           plan = Plan.find(params[:id])
           export_format = params[:export_format]
@@ -31,7 +31,6 @@ module Api
             return
           end
         end
-        # rubocop:enable Metrics/AbcSize
 
         private
 

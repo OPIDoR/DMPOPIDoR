@@ -21,7 +21,7 @@ module Api
         end
 
         # Attach the identifier to the object if it does not already exist
-        # rubocop:disable Metrics/AbcSize, Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
+        # rubocop:disable-next Metrics/AbcSize, Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
         def attach_identifier(object:, json:)
           return object unless object.present? && object.respond_to?(:identifiers) &&
                                json.present? &&
@@ -37,7 +37,6 @@ module Api
           )
           object
         end
-        # rubocop:enable Metrics/AbcSize, Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
 
         # Translates the role in the json to a Contributor role
         def translate_role(role:)

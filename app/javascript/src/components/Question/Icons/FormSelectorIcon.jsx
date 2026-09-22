@@ -8,7 +8,7 @@ function FormSelectorIcon({ fillColor, setModalOpened }) {
   const { t } = useTranslation();
 
   return (
-    <div>
+    <div data-testid="form-selector-icon">
       <ReactTooltip
         id="form-changer-show-button"
         place="bottom"

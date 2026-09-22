@@ -49,7 +49,7 @@ class ContributorPresenter
       end
     end
 
-    # rubocop:disable Layout/LineLength
+    # rubocop:disable-next Layout/LineLength
     def role_tooltip(symbol:)
       case symbol
       when :data_curation
@@ -62,6 +62,5 @@ class ContributorPresenter
         ''
       end
     end
-    # rubocop:enable Layout/LineLength
   end
 end

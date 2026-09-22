@@ -11,7 +11,7 @@ module Api
         rescue_from ActiveRecord::RecordNotFound, with: :record_not_found
 
         # GET /api/v1/madmp/fragments/:id
-        # rubocop:disable Metrics/AbcSize
+        # rubocop:disable-next Metrics/AbcSize
         def show
           @fragment = MadmpFragment.includes(:madmp_schema).find(params[:id])
           # check if the user has permissions to use the API
@@ -33,10 +33,9 @@ module Api
             'schema' => @fragment.madmp_schema.schema
           }
         end
-        # rubocop:enable Metrics/AbcSize
 
         # GET /api/v1/madmp/dmp_fragments/:id
-        # rubocop:disable Metrics/AbcSize, Metrics/MethodLength
+        # rubocop:disable-next Metrics/AbcSize, Metrics/MethodLength
         def dmp_fragments
           @dmp_fragment = Fragment::Dmp.find(params[:id])
           # check if the user has permissions to use the API
@@ -65,7 +64,6 @@ module Api
             'schema' => @dmp_fragment.madmp_schema.schema
           }
         end
-        # rubocop:enable Metrics/AbcSize, Metrics/MethodLength
 
         # PUT/PATCH /api/v1/madmp/fragments/:id
         def update

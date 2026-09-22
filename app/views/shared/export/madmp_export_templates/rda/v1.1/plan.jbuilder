@@ -6,18 +6,18 @@ research_outputs = dmp.plan.research_outputs.order(:display_order)
 
 json.prettify!
 
-# rubocop:disable Metrics/BlockLength
+# rubocop:disable-next Metrics/BlockLength
 json.dmp do
-  json.created          Export::Converters::RdaRegistryConverter.convert_date_to_iso8601(meta.data["creationDate"])
+  json.created          Export::RdaV11::Converters::RdaRegistryConverter.convert_date_to_iso8601(meta.data["creationDate"])
   json.description      exportable_description(meta.data["description"])
   json.dmp_id do
     json.identifier     meta.data["dmpId"] || plan_url(id: dmp.data["plan_id"])
-    json.type           Export::Converters::RdaRegistryConverter.convert_pid_system(
+    json.type           Export::RdaV11::Converters::RdaRegistryConverter.convert_pid_system(
       meta.data["dmpId"] ? meta.data["idType"] : "URL"
     )
   end
   json.language meta.data["dmpLanguage"]
-  json.modified Export::Converters::RdaRegistryConverter.convert_date_to_iso8601(meta.data["lastModifiedDate"])
+  json.modified Export::RdaV11::Converters::RdaRegistryConverter.convert_date_to_iso8601(meta.data["lastModifiedDate"])
   json.title meta.data["title"]
 
   contact = meta.contact[0]
@@ -25,12 +25,12 @@ json.dmp do
     json.contact do
       json.contact_id do
         json.identifier     contact.person.data["personId"]
-        json.type           Export::Converters::RdaRegistryConverter.convert_agent_id_system(
+        json.type           Export::RdaV11::Converters::RdaRegistryConverter.convert_agent_id_system(
           contact.person.data["idType"], is_person: true
         )
       end
-      json.mbox   contact.person.data["mbox"]
-      json.name   contact.person.to_s
+      json.mbox contact.person.data["mbox"]
+      json.name contact.person.to_s
     end
   else
     json.contact({})
@@ -39,13 +39,13 @@ json.dmp do
     roles = person.roles
     next if roles.empty?
 
-    json.name       person.to_s
-    json.mbox       person.data["mbox"]
-    json.role       roles.uniq
+    json.name person.to_s
+    json.mbox person.data["mbox"]
+    json.role roles.uniq
     json.contributor_id do
       json.identifier     person.data["personId"]
-      json.type           Export::Converters::RdaRegistryConverter.convert_agent_id_system(person.data["idType"],
-                                                                                           is_person: true)
+      json.type           Export::RdaV11::Converters::RdaRegistryConverter.convert_agent_id_system(person.data["idType"],
+                                                                                                   is_person: true)
     end
   end
   json.cost dmp.costs do |cost|
@@ -65,11 +65,11 @@ json.dmp do
       json.funding project.fundings do |funding|
         json.funder_id do
           json.identifier     funding.funder.data["funderId"]
-          json.type           Export::Converters::RdaRegistryConverter.convert_agent_id_system(
+          json.type           Export::RdaV11::Converters::RdaRegistryConverter.convert_agent_id_system(
             funding.funder.data["idType"]
           )
         end
-        json.funding_status Export::Converters::RdaRegistryConverter.convert_funding_status(
+        json.funding_status Export::RdaV11::Converters::RdaRegistryConverter.convert_funding_status(
           funding.data["fundingStatus"]
         )
         json.grant_id do
@@ -82,4 +82,3 @@ json.dmp do
   json.partial! "shared/export/madmp_export_templates/rda/v1.1/datasets",
                 plan: dmp.plan, research_outputs: research_outputs, selected_datasets: selected_research_outputs
 end
-# rubocop:enable Metrics/BlockLength

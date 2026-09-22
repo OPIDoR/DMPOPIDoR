@@ -20,7 +20,7 @@
 #
 # Foreign Keys
 #
-#  fk_rails_...  (question_id => questions.id)
+#  fk_rails_...  (question_id => questions.id) DEFERRABLE INITIALLY DEFERRED
 #
 require 'rails_helper'
 

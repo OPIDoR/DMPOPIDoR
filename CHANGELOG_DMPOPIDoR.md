@@ -2,6 +2,57 @@
 
 **Attention** Cette liste de changements concerne les déploiements sur nos serveurs de test en interne.
 
+## 14/09/2026
+- Ajout d'une traduction manquante (e.g./ex.)
+- Le bouton Télécharger n'est désormais bloqué que pour les exports PDF
+- Amélioration de l'affichage des notifications & correction du problème empéchant de les marquer comme lues (#18480)
+
+## 08/09/2026
+- La generation JSON d'un plan ne se fait que si le plan a été modifié
+- Export de plan : Mise à jour des textes concernant l'export de plan sur les plans avec beaucoup de produits de recherche et blocage de l'export PDF pour les plans avec plus de 15 produits
+- Ajout du support des phases et produits sélectionnés au générateur de plan PDF.
+
+## 04/09/2026
+- Correction des scripts de mise à jour de la date de connexion et d'anonymisation après 5 ans
+- Ajout de la prégénération des PDF pour les plans publics et les plans comportant plus de 15 produits de recherche
+
+## 20/08/2026
+- Optimisation du chargement des données concernant les produits de recherche dans l'onglet Rédiger
+- Retrait des tags HTML dans l'intitulé de la question présent dans la notification de nouveau commentaire.
+- Correction du problème de sauvegarde de l'infobox et de la question Description (#15983)
+
+## 19/08/2026
+- La question s'ouvre désormais automatiquement lorsqu'un utilisateur ouvre le lien présent dans la notification d'un nouveau commentaire.
+- Ajout de l'intitulé de la question dans la notification de nouveau commentaire
+- Homogénéisation des dates de dernière modification affichées dans les listes de plans (#14194)
+- Correction d'un problème d'affichage du placeholder dans la liste déroulante pour les référentiels complexes à choix unique (#15973)
+- Correction d'un problème d'import des produits de recherche Collection (#15983)
+- Ajout de la propriété step sur les champs nombre (#15978)
+
+## 11/08/2026
+- Correction de création des produits de recherche dans les plans classiques & changement du nom par défaut généré (#15941)
+- Ajout de l'option sur les données personnelles aux Collections d'objets physique (#15972)
+
+## 06/08/2026
+- Correction d'un problème d'édition des phases des modules (#15960)
+- Correction d'un problème d'affichage de la coche "réponses communes" dans les modèles classiques après la suppression du premier produit de recherche (#15941)
+- Correction d'un problème d'affichage des référentiels lorsque la propriété `registries` est renseignée.
+- Correction d'un problème d'affichage de l'info Derniere Activité dans la liste des utilisateurs (#15950)
+
+## 09/07/2026
+- Correction de l'édition de modèle suite à la migration vers Turbo (#15094)
+- Correction du problème de mise à jour du profil utilisateur par un Org Admin (#15484)
+- Retrait des utilisateurs inactifs du téléchargement CSV de la liste des utilisateurs dans l'espace Admin  (#15483)
+
+## 09/07/2026
+- Correction d'un problème de copie des plans entité (#15609)
+- Ajout de la génération json du plan dans la base lorsqu'un plan est mis en visibilité publique
+- Retrait du lien "Voir tout" de la liste des plans publics
+- Amélioration de la tache de nettoyage des comptes utilisateurs
+- Correction du problème de téléchargement de la liste des utilisateurs dans l'espace Admin (#15483)
+- Correction du problème de création et de mise à jour des Structures (#15484)
+- Correction du problème d'affichage de l'éditeur après la mise à jour d'un organisme (#15608)
+
 ## 01/07/2026
 - Migration de reCaptcha vers [https://altcha.org/](Altcha)  (#15110)
   - Mot de passe oublié ? (formulaire de demande et formulaire de choix du mot de passe)

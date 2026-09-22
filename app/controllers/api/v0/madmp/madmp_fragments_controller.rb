@@ -10,7 +10,7 @@ module Api
         before_action :authenticate
         rescue_from ActiveRecord::RecordNotFound, with: :record_not_found
 
-        # rubocop:disable Metrics/AbcSize
+        # rubocop:disable-next Metrics/AbcSize
         def show
           @fragment = MadmpFragment.includes(:madmp_schema).find(params[:id])
           # check if the user has permissions to use the API
@@ -30,7 +30,6 @@ module Api
             'schema' => @fragment.madmp_schema.schema
           }
         end
-        # rubocop:enable Metrics/AbcSize
 
         def update
           @fragment = MadmpFragment.includes(:madmp_schema).find(params[:id])
@@ -48,7 +47,7 @@ module Api
         end
 
         ## NEEDS ERROR MANAGEMENT
-        # rubocop:disable Metrics/AbcSize
+        # rubocop:disable-next Metrics/AbcSize
         def dmp_fragments
           @dmp_fragment = Fragment::Dmp.find(params[:id])
           @dmp_fragments = MadmpFragment.where(dmp_id: @dmp_fragment.id).order(:id).map do |f|
@@ -71,7 +70,6 @@ module Api
             'schema' => @dmp_fragment.madmp_schema.schema
           }
         end
-        # rubocop:enable Metrics/AbcSize
 
         private
 

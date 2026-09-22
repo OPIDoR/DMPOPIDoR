@@ -46,6 +46,7 @@ function CommentModal({
           inModal={true}
           setAnswer={setAnswer}
           setCommentsNumber={setCommentsNumber}
+          shown={shown}
         />
       </InnerModal.Body>
     </InnerModal>

@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 # Controller to handle CRUD operations for the Research Outputs tab
-# rubocop:disable Metrics/ClassLength
+# rubocop:disable-next Metrics/ClassLength
 class ResearchOutputsController < ApplicationController
   include ErrorHelper
 
@@ -9,7 +9,7 @@ class ResearchOutputsController < ApplicationController
   after_action :verify_authorized
 
   def show
-    @research_output = ResearchOutput.includes(answers: [:madmp_schema],
+    @research_output = ResearchOutput.includes(answers: [:madmp_fragment],
                                                plan: { template: { phases: { sections: :questions } } })
                                      .find(params[:id])
     authorize @research_output
@@ -18,7 +18,7 @@ class ResearchOutputsController < ApplicationController
   end
 
   # POST /research_outputs
-  # rubocop:disable Metrics/AbcSize,Metrics/MethodLength
+  # rubocop:disable-next Metrics/AbcSize,Metrics/MethodLength
   def create
     @plan = Plan.includes(:template, :research_outputs, :roles).find_by(id: params[:plan_id])
     attrs = research_output_params
@@ -46,10 +46,9 @@ class ResearchOutputsController < ApplicationController
       internal_server_error(e.message)
     end
   end
-  # rubocop:enable Metrics/AbcSize,Metrics/MethodLength
 
   # PATCH/PUT /research_outputs/:id
-  # rubocop:disable Metrics/AbcSize, Metrics/MethodLength
+  # rubocop:disable-next Metrics/AbcSize, Metrics/MethodLength
   def update
     @research_output = ResearchOutput.includes(plan: %i[template research_outputs]).find(params[:id])
     plan = @research_output.plan
@@ -83,9 +82,8 @@ class ResearchOutputsController < ApplicationController
       internal_server_error(e.message)
     end
   end
-  # rubocop:enable Metrics/AbcSize, Metrics/MethodLength
 
-  # rubocop:disable Metrics/AbcSize
+  # rubocop:disable-next Metrics/AbcSize
   def destroy
     @research_output = ResearchOutput.find(params[:id])
     research_output_fragment = @research_output.json_fragment
@@ -104,9 +102,8 @@ class ResearchOutputsController < ApplicationController
       }, status: 500
     end
   end
-  # rubocop:enable Metrics/AbcSize
 
-  # rubocop:disable Metrics/AbcSize, Metrics/MethodLength
+  # rubocop:disable-next Metrics/AbcSize, Metrics/MethodLength
   def import
     body = JSON.parse(request.body.string)
     research_output = ResearchOutput.find_by(uuid: body['uuid'])
@@ -170,7 +167,6 @@ class ResearchOutputsController < ApplicationController
       }
     end
   end
-  # rubocop:enable Metrics/AbcSize, Metrics/MethodLength
 
   def has_guidances # rubocop:disable Naming/PredicatePrefix
     research_output = ResearchOutput.includes(:themes).find(params[:id])
@@ -187,7 +183,7 @@ class ResearchOutputsController < ApplicationController
   end
 
   # rubocop:disable Metrics/AbcSize, Metrics/MethodLength
-  # rubocop:disable Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
+  # rubocop:disable-next Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
   def question_guidances
     ro_id = params[:id]
     unless ro_id&.to_i&.positive?
@@ -262,7 +258,6 @@ class ResearchOutputsController < ApplicationController
            },
            status: :ok
   end
-  # rubocop:enable Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
   # rubocop:enable Metrics/AbcSize, Metrics/MethodLength
 
   def guidance_groups
@@ -274,7 +269,7 @@ class ResearchOutputsController < ApplicationController
     }, status: :ok
   end
 
-  # rubocop:disable Metrics/MethodLength, Metrics/AbcSize
+  # rubocop:disable-next Metrics/MethodLength, Metrics/AbcSize
   def select_guidance_groups
     @research_output = ResearchOutput.includes(:guidance_groups, plan: [:template]).find(params[:id])
     authorize @research_output
@@ -312,9 +307,8 @@ class ResearchOutputsController < ApplicationController
     Rails.logger.error("Internal server error - #{e.message}")
     internal_server_error("Internal server error - #{e.message}")
   end
-  # rubocop:enable Metrics/MethodLength, Metrics/AbcSize
 
-  # rubocop:disable Metrics/MethodLength, Metrics/AbcSize
+  # rubocop:disable-next Metrics/MethodLength, Metrics/AbcSize
   def reinit_guidance_groups
     @research_output = ResearchOutput.includes(:plan).find(params[:id])
     authorize @research_output
@@ -343,7 +337,6 @@ class ResearchOutputsController < ApplicationController
     Rails.logger.error("Internal server error - #{e.message}")
     internal_server_error("Internal server error - #{e.message}")
   end
-  # rubocop:enable Metrics/MethodLength, Metrics/AbcSize
 
   def sort
     @plan = Plan.find(params[:plan_id])
@@ -362,7 +355,7 @@ class ResearchOutputsController < ApplicationController
                   configuration: {})
   end
 
-  # rubocop:disable Metrics/MethodLength, Metrics/AbcSize
+  # rubocop:disable-next Metrics/MethodLength, Metrics/AbcSize
   def get_guidances_groups(id)
     @research_output = ResearchOutput.includes(
       :guidance_groups, plan: [{ template: [:phases] }]
@@ -401,9 +394,8 @@ class ResearchOutputsController < ApplicationController
       }
     end
   end
-  # rubocop:enable Metrics/MethodLength, Metrics/AbcSize
 
-  # rubocop:disable Metrics/AbcSize
+  # rubocop:disable-next Metrics/AbcSize
   def default_guidance_groups(plan, data_type, topic)
     language = Language.find_by(abbreviation: plan.template.locale)
     # pre-select owner org's guidance and the default org's guidance
@@ -414,6 +406,4 @@ class ResearchOutputsController < ApplicationController
     GuidanceGroup.from("(#{org_ggs_query.to_sql} UNION #{default_ggs_query.to_sql}) AS guidance_groups")
                  .where(Arel.sql("'#{topic}' = ANY(topics) AND '#{data_type}' = ANY(data_types)"))
   end
-  # rubocop:enable Metrics/AbcSize
 end
-# rubocop:enable Metrics/ClassLength

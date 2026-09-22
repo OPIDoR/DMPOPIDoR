@@ -8,7 +8,7 @@ function AnswerImportIcon({ isQuestionOpened, fillColor, setModalOpened }) {
   const { t } = useTranslation();
 
   return (
-    <div>
+    <div data-testid="answer-import-icon">
       <ReactTooltip
         id="importTip"
         place="bottom"

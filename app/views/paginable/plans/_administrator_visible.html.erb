@@ -17,13 +17,15 @@
     </thead>
     <tbody>
       <% scope.each do |plan| %>
+        <% dmp_fragment = plan.json_fragment %>
+        <% meta = dmp_fragment.meta %>
         <tr id="<%= dom_id(plan) %>">
           <td>
             <%= link_to "#{plan.title.length > 100 ? "#{plan.title[0..99]} ..." : plan.title}",
                 plan_path(plan), data: {turbo_frame: "_top"} %>
           </td>
           <td><%= plan.template.title %></td>
-          <td><%= l(plan.updated_at.to_date, formats: :short) %></td>
+          <td><%= l(meta.data['lastModifiedDate'].to_date, formats: :short) %></td>
           <td><%= display_role(plan.roles.find_by(user: current_user)) %></td>
           <td><%= display_owner(plan.owner) %></td>
           <td class="text-center">

@@ -104,9 +104,7 @@ function GuidanceModal({ shown, hide, questionId, researchOutputId }) {
    */
 
   useEffect(() => {
-    if (!questionId) {
-      return;
-    }
+    if (!questionId || !shown) return;
 
     guidances
       .getGuidances(researchOutputId, questionId)
@@ -145,7 +143,7 @@ function GuidanceModal({ shown, hide, questionId, researchOutputId }) {
       })
       .catch((error) => setError(error))
       .finally(() => setLoading(false));
-  }, [researchOutputId, questionId]);
+  }, [researchOutputId, questionId, shown]);
 
   /**
    * RENDERING

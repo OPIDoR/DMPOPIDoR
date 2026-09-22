@@ -5,7 +5,6 @@ import { madmpFragment } from "../services";
 function useLoadRegistry(registryName) {
   const { loadedRegistries, setLoadedRegistries } = useContext(FormsContext);
   const loadingRef = useRef(new Set());
-
   useEffect(() => {
     if (
       !registryName ||

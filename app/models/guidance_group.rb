@@ -25,7 +25,7 @@
 #
 # Foreign Keys
 #
-#  fk_rails_...  (org_id => orgs.id)
+#  fk_rails_...  (org_id => orgs.id) DEFERRABLE INITIALLY DEFERRED
 #
 
 # Object that represents a grouping of themed guidance
@@ -146,7 +146,7 @@ class GuidanceGroup < ApplicationRecord
   # = Instance methods =
   # ====================
 
-  # rubocop:disable Metrics/AbcSize
+  # rubocop:disable-next Metrics/AbcSize
   def merge!(to_be_merged:)
     return self unless to_be_merged.is_a?(GuidanceGroup)
 
@@ -170,5 +170,20 @@ class GuidanceGroup < ApplicationRecord
       reload
     end
   end
-  # rubocop:enable Metrics/AbcSize
+
+  def self.serialize_json_response(guidance_group)
+    {
+      id: guidance_group.id,
+      name: guidance_group.name,
+      description: guidance_group.description,
+      is_default: guidance_group.is_default,
+      published: guidance_group.published,
+      topics: guidance_group.topics,
+      data_types: guidance_group.data_types,
+      language_id: guidance_group.language_id,
+      language: guidance_group.language&.name,
+      language_abbreviation: guidance_group.language&.abbreviation,
+      last_updated: guidance_group&.updated_at&.to_date&.strftime('%d/%m/%Y')
+    }
+  end
 end

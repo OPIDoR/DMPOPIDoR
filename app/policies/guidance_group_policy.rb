@@ -5,6 +5,10 @@
 class GuidanceGroupPolicy < ApplicationPolicy
   # NOTE: @user is the signed_in_user and @record is an instance of GuidanceGroup
 
+  def index?
+    @user.can_modify_guidance?
+  end
+
   def show?
     @user.can_modify_guidance? && (@record.org_id == @user.org_id)
   end

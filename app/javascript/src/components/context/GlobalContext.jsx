@@ -20,6 +20,7 @@ function Global({
   initialCommentablePlan = false,
   initialPlanTitle = "",
   initialClients = [],
+  isUserSuperAdmin = false,
 }) {
   const locale = initialLocale;
   const dmpId = initialDmpId;
@@ -44,6 +45,7 @@ function Global({
       setPlanTitle,
       clients,
       setClients,
+      isUserSuperAdmin,
     }),
     [
       locale,

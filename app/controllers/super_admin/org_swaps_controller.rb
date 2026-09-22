@@ -7,7 +7,7 @@ module SuperAdmin
 
     after_action :verify_authorized
 
-    # rubocop:disable Metrics/AbcSize
+    # rubocop:disable-next Metrics/AbcSize
     def create
       # Allows the user to swap their org affiliation on the fly
       authorize(current_user, :org_swap?)
@@ -16,7 +16,7 @@ module SuperAdmin
       # convert it into an Org
       lookup = org_from_params(params_in: org_swap_params)
 
-      # rubocop:disable Layout/LineLength
+      # rubocop:disable-next Layout/LineLength
       if lookup.present? && !lookup.new_record?
         current_user.org = lookup
         if current_user.save
@@ -30,9 +30,7 @@ module SuperAdmin
       else
         redirect_back(fallback_location: root_path, alert: _('Unknown organisation.'))
       end
-      # rubocop:enable Layout/LineLength
     end
-    # rubocop:enable Metrics/AbcSize
 
     private
 

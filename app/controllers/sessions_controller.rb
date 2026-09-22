@@ -8,7 +8,7 @@ class SessionsController < Devise::SessionsController
 
   # Capture the user's shibboleth id if they're coming in from an IDP
   # ---------------------------------------------------------------------
-  # rubocop:disable Metrics/AbcSize
+  # rubocop:disable-next Metrics/AbcSize
   def create
     existing_user = User.find_by(email: params[:user][:email])
     unless existing_user.nil?
@@ -30,13 +30,11 @@ class SessionsController < Devise::SessionsController
 
     super do
       if !@ui.nil? && @ui.save
-        # rubocop:disable Layout/LineLength
+        # rubocop:disable-next Layout/LineLength
         flash[:notice] = _('Your account has been successfully linked to your institutional credentials. You will now be able to sign in with them.')
-        # rubocop:enable Layout/LineLength
       end
     end
   end
-  # rubocop:enable Metrics/AbcSize
 
   def destroy
     super
