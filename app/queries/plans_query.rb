@@ -217,8 +217,19 @@ class PlansQuery
     plans.drop(offset).take(limit)
   end
 
+  # rubocop:disable-next Metrics/CyclomaticComplexity
   def apply_sorting(plans)
-    plans
+    return plans unless @params[:sort].present?
+
+    sorted_plans = plans
+    sort_criteria = @params[:sort].map { |s| s.split(',') }
+    sort_criteria.each do |column, direction|
+      next unless SORTABLE_COLUMNS.key?(column) && SORT_DIRECTIONS.include?(direction)
+
+      sorted_plans = sorted_plans.sort_by { |plan| plan.send(SORTABLE_COLUMNS[column]) }
+      sorted_plans.reverse! if direction == 'desc'
+    end
+    sorted_plans
   end
 
   private
