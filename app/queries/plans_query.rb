@@ -39,7 +39,7 @@ class PlansQuery
     end
   end
 
-  # rubocop:disable Metrics/AbcSize
+  # rubocop:disable-next Metrics/AbcSize
   def apply_filters(plans)
     scope = apply_created_before(plans)
     scope = apply_created_after(scope)
@@ -56,11 +56,10 @@ class PlansQuery
     scope = apply_ethical_issues_exist(scope)
     scope = apply_embargo_before(scope)
     scope = apply_embargo_after(scope)
-
     scope = apply_limit_offset(scope)
+
     apply_sorting(scope)
   end
-  # rubocop:enable Metrics/AbcSize
 
   def apply_created_before(plans)
     return plans unless @params[:created_before].present?
@@ -193,12 +192,13 @@ class PlansQuery
   def apply_ethical_issues_exist(plans)
     return plans unless @params[:ethical_issues_exist].present?
 
-    yes_values = %w[Oui Yes]
-    no_values = %w[Non No "Ne sais pas" Unknown]
+    yes_values = %w[oui yes]
+    no_values = %w[non no "ne sais pas" unknown]
 
-    ethical_issues_exist = @params[:ethical_issues_exist] == 'true'
+    ethical_issues_exist = yes_values.include?(@params[:ethical_issues_exist])
     plans.filter do |plan|
       ethical_issues = extract_json_path_data(plan, '$.researchOutput[*].researchOutputDescription.hasEthicalIssues')
+                       .map(&:downcase)
       ethical_issues_exist ? yes_values.intersect?(ethical_issues) : no_values.intersect?(ethical_issues)
     end
   end
