@@ -2,6 +2,10 @@
 
 **Attention** Cette liste de changements concerne les déploiements sur nos serveurs de test en interne.
 
+## 22/09/2026
+- Correction d'un problème de modification des modèles personnalisés suite à la migration Turbo  (#18528)
+- API V2 DMPS : implémentation du sort & correction du filtre ethical_issues (#13649)
+
 ## 14/09/2026
 - Ajout d'une traduction manquante (e.g./ex.)
 - Le bouton Télécharger n'est désormais bloqué que pour les exports PDF
