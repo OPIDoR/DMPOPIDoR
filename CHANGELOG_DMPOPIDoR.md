@@ -2,6 +2,10 @@
 
 **Attention** Cette liste de changements concerne les déploiements sur nos serveurs de test en interne.
 
+## 24/09/2026
+- Exclusion de certains style lors du copier coller dans un éditeur afin d'éviter des problèmes d'affichages dans l'interface et les exports PDF
+- Correction des traductions des textes affichés dans les mails.
+
 ## 22/09/2026
 - Correction d'un problème de modification des modèles personnalisés suite à la migration Turbo  (#18528)
 - API V2 DMPS : implémentation du sort & correction du filtre ethical_issues (#13649)
