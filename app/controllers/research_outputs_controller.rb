@@ -9,7 +9,7 @@ class ResearchOutputsController < ApplicationController
   after_action :verify_authorized
 
   def show
-    @research_output = ResearchOutput.includes(answers: [:madmp_schema],
+    @research_output = ResearchOutput.includes(answers: %i[madmp_fragment viewed_comment],
                                                plan: { template: { phases: { sections: :questions } } })
                                      .find(params[:id])
     authorize @research_output
