@@ -12,6 +12,7 @@ import styled from "styled-components";
 
 import * as styles from "../assets/css/general_info.module.css";
 import { FormsContext } from "../context/FormsContext";
+import { GlobalContext } from "../context/GlobalContext";
 import { generalInfo, service } from "../../services";
 import CustomError from "../Shared/CustomError";
 import CustomSpinner from "../Shared/CustomSpinner";
@@ -36,6 +37,7 @@ function FunderImport({
   isClassic,
 }) {
   const { t } = useTranslation();
+  const { setPlanTitle, setClients } = useContext(GlobalContext);
   const { setFormData, setPersons } = useContext(FormsContext);
   const [isOpenFunderImport, setIsOpenFunderImport] = useState(true);
   const [funders, setFunders] = useState([]);
@@ -119,7 +121,7 @@ function FunderImport({
       return toast.error(errorMessage);
     }
 
-    triggerRefresh({ clients: response?.data?.clients || [] });
+    setClients(response?.data?.clients || []);
 
     toast.success(
       t("planSharedWithNames", { names: selectedFunder?.apiClient }),
@@ -141,7 +143,7 @@ function FunderImport({
       return toast.error(errorMessage);
     }
 
-    triggerRefresh({ clients: response?.data?.clients || [] });
+    setClients(response?.data?.clients || []);
 
     setFormData({
       [projectFragmentId]: {
@@ -153,9 +155,7 @@ function FunderImport({
         template_name: "MetaStandard",
       },
     });
-    // updating title outsite of react components
-    document.getElementById("plan-title").innerHTML =
-      response.data.fragment.meta.title;
+    setPlanTitle(response.data.fragment.meta.title);
     setPersons(response.data.persons);
     toast.success(
       t("importSuccessProject", { projectTitle: selectedProject.title }),
@@ -163,13 +163,6 @@ function FunderImport({
     );
 
     setLoading(false);
-  };
-
-  const triggerRefresh = (message) => {
-    const event = new CustomEvent("trigger-refresh-shared-label", {
-      detail: { message },
-    });
-    window.dispatchEvent(event);
   };
 
   /**

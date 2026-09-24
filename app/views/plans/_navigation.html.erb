@@ -90,24 +90,4 @@
   <% end %>
 </ul>
 
-<% write_plan_class = active_page?(edit_plan_path(plan.id)) && !plan.structured? ? "write-plan" : ""%>
-<div class="tab-content">
-  <div class="row">
-    <div class="col-md-12">
-      <!-- render the project title -->
-      <h1 id="plan-title">
-        <%= plan.title %>
-      </h1>
-    </div>
-  </div>
-  <div style="display: flex; justify-content: flex-end; align-items: flex-end; width: 100%; position: relative; margin-right: 100px;">
-    <%= react("SharedLabelLayout", props: { planId: plan.id, clients: plan.api_clients.pluck(:name) }) %>
-  </div>
-  <div id="content" role="tabpanel" class="tab-pane active row col-md-12">
-    <div class="plan-content card card-default">
-      <div class="card-body <%= write_plan_class %> ">
-        <%= yield :plan_tab_body %>
-      </div>
-    </div>
-  </div>
-</div>
+<%= yield :plan_tab_body %>
