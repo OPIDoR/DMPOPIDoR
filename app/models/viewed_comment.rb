@@ -2,7 +2,7 @@
 
 # == Schema Information
 #
-# Table name: comment_read_marks
+# Table name: viewed_comments
 #
 #  id           :bigint(8)        not null, primary key
 #  last_read_at :datetime         not null
@@ -11,9 +11,9 @@
 #
 # Indexes
 #
-#  index_comment_read_marks_on_answer_id              (answer_id)
-#  index_comment_read_marks_on_user_id                (user_id)
-#  index_comment_read_marks_on_user_id_and_answer_id  (user_id,answer_id) UNIQUE
+#  index_viewed_comments_on_answer_id              (answer_id)
+#  index_viewed_comments_on_user_id                (user_id)
+#  index_viewed_comments_on_user_id_and_answer_id  (user_id,answer_id) UNIQUE
 #
 # Foreign Keys
 #

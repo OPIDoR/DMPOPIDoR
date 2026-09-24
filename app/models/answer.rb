@@ -52,6 +52,8 @@ class Answer < ApplicationRecord
 
   has_one :madmp_fragment, class_name: 'MadmpFragment', dependent: :destroy
 
+  has_one :viewed_comment, class_name: 'ViewedComment', dependent: :destroy
+
   # ===============
   # = Validations =
   # ===============
