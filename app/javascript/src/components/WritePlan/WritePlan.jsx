@@ -25,6 +25,7 @@ function WritePlan({ planId, readonly, configuration }) {
     setDisplayedResearchOutput,
     researchOutputs,
     setResearchOutputs,
+    setResearchOutputsWithComments,
   } = useContext(SectionsContext);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
@@ -52,6 +53,7 @@ function WritePlan({ planId, readonly, configuration }) {
 
           setDisplayedResearchOutput(currentResearchOutput);
           researchOutputs.length === 0 && setResearchOutputs(research_outputs);
+          setResearchOutputsWithComments(res.data.has_new_comments);
         }
       })
       .catch((error) => setError(error))

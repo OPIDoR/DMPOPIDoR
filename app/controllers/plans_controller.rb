@@ -515,6 +515,7 @@ class PlansController < ApplicationController
     render json: {
       id: plan.id,
       template: plan.template.serialize_json,
+      has_new_comments: ResearchOutput.unread_comments_count_for(current_user.id, plan.id),
       research_outputs: plan.research_outputs.order(:display_order).each_with_index.map do |ro, idx|
         if research_output_id.eql?(ro.id.to_s) || (idx.zero? && research_output_id.eql?(0))
           ro.serialize_json(current_user)

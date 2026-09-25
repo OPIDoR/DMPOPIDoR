@@ -308,9 +308,14 @@
   "software": "Logiciel",
   "physical_object": "Objet physique",
   "noGuidanceSelected": "Aucune recommandation sélectionnée", 
+  "listOfPersons": "Liste des personnes contribuant à la gestion des produits de recherche au cours d'un projet et leurs rôles.",
+  "assigningRoles": "L'attribution d'un rôle à une personne se fait dans l'onglet \"Informations générales\", dans l'onglet \"Rédiger\" pour les modèles structurés ou dans l'onglet \"Produits de recherche\" pour les autres modèles.",
   "seeAllGuidances": "Voir toutes les recommandations",
   "answerImportFormMessage": "Vous allez importer une réponse utilisant le formulaire \"{{templateName}}\"",
   "importAnswer": "Import de réponse",
   "guidanceTextTooltip": "Saisissez vos recommandations ici. Vous pouvez ajouter des liens si nécessaire.",
-  "themesTooltip": "Sélectionnez un thème pertinent pour cette recommandation"
+  "themesTooltip": "Sélectionnez un thème pertinent pour cette recommandation",
+  "errorAnswerImport": "Un erreur s'est produite lors de l'import de la réponse",
+  "answerImportSuccess": "Réponse importée avec succès",
+  "researchOutputHasNewComments": "Ce produit de recherche a de nouveaux commentaires"
 }

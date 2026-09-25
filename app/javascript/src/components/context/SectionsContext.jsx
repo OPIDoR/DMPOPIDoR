@@ -15,6 +15,8 @@ function SectionsProvider({ children }) {
   const [openedQuestions, setOpenedQuestions] = useState(null);
   const [savedGuidances, setSavedGuidances] = useState([]);
   const [researchOutputs, setResearchOutputs] = useState([]);
+  const [researchOutputsWithComments, setResearchOutputsWithComments] =
+    useState([]);
   const [displayedResearchOutput, setDisplayedResearchOutput] = useState(null);
   const updateResearchOutputAnswer = useCallback((questionId, newAnswer) => {
     setDisplayedResearchOutput((prev) => ({
@@ -36,8 +38,16 @@ function SectionsProvider({ children }) {
       displayedResearchOutput,
       setDisplayedResearchOutput,
       updateResearchOutputAnswer,
+      researchOutputsWithComments,
+      setResearchOutputsWithComments,
     }),
-    [openedQuestions, savedGuidances, researchOutputs, displayedResearchOutput],
+    [
+      openedQuestions,
+      savedGuidances,
+      researchOutputs,
+      displayedResearchOutput,
+      researchOutputsWithComments,
+    ],
   );
 
   return (
