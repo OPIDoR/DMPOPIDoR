@@ -14,8 +14,11 @@ module Users
       end
     end
 
-    def keycloak
-      auth = request.env["omniauth.auth"]
+    # rubocop:disable Metrics/AbcSize,Metrics/MethodLength
+    def oidc
+      return unless Rails.configuration.x.oidc.enabled
+
+      auth = request.env['omniauth.auth']
 
       kc_uid     = auth.uid
       email      = auth.info.email
@@ -27,43 +30,40 @@ module Users
 
       payload = decoded_token.first
 
-      # TODO: use keycloak roles ?
-      roles = payload.dig("resource_access", "dmpopidor", "roles")
+      # TODO: use oidc roles ?
+      # roles = payload.dig('resource_access', 'dmpopidor', 'roles')
 
-      @user = User.find_by(kc_uid: kc_uid)
+      @user = User.find_by(kc_uid: kc_uid) || User.find_by(email: email)
 
-      if @user.nil?
-        @user = User.find_by(
+      if @user.present?
+        @user.assign_attributes(
+          kc_uid: kc_uid,
+          email: email,
+          firstname: first_name,
+          surname: last_name
+        )
+      else
+        @user = User.new(
+          kc_uid: kc_uid,
           email: email,
           firstname: first_name,
           surname: last_name
         )
 
-        if @user.present?
-          @user.kc_uid = kc_uid
-        else
-          @user = User.new(
-            kc_uid: kc_uid,
-            email: email,
-            firstname: first_name,
-            surname: last_name
-          )
+        @user.password = Devise.friendly_token[0, 20]
 
-          @user.password = Devise.friendly_token[0, 20]
-
-          # TODO: set nil and update after login
-          @user.org = Org.find_by(
-            abbreviation: Rails.configuration.x.organisation.abbreviation
-          )
-        end
+        # TODO: set nil and update after login
+        @user.org = Org.find_by(
+          abbreviation: Rails.configuration.x.organisation.abbreviation
+        )
       end
 
       if @user.save
         sign_in_and_redirect @user, event: :authentication
-        set_flash_message(:notice, :success, kind: "Keycloak") if is_navigational_format?
+        set_flash_message(:notice, :success, kind: 'OIDC') if is_navigational_format?
       else
-        Rails.logger.error("Unable to save the Keycloak user : #{@user.errors.full_messages.join(', ')}")
-        session["devise.keycloak_data"] = auth.except(:extra)
+        Rails.logger.error("Unable to save the OIDC user : #{@user.errors.full_messages.join(', ')}")
+        session['devise.oidcs_data'] = auth.except(:extra)
         redirect_to new_user_registration_url
       end
     end
@@ -77,9 +77,10 @@ module Users
     #
     # scheme - The IdentifierScheme for the provider
     #
-    # rubocop:disable Metrics/AbcSize, Metrics/MethodLength
     # rubocop:disable Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
     def handle_omniauth(scheme)
+      return if Rails.configuration.x.oidc.enabled
+
       user = if request.env['omniauth.auth'].nil?
                User.from_omniauth(request.env)
              else

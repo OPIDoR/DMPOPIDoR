@@ -8,5 +8,9 @@ class HomeController < ApplicationController
 
   def index; end
 
-  def login; end
+  def login
+    return unless Rails.configuration.x.oidc.enabled
+
+    redirect_to user_oidc_omniauth_authorize_path
+  end
 end

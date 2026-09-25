@@ -18,7 +18,6 @@ server {
   proxy_busy_buffers_size 256k;
   proxy_read_timeout 600s;
   proxy_connect_timeout 600s;
-  
 
   ## Configuration
   proxy_set_header X-Forwarded-Host $host;

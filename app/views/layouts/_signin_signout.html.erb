@@ -11,7 +11,7 @@
       </li>
 
       <li><hr class="dropdown-divider"></li>
-      
+
       <li class="nav-item <%= ' active' if I18n.locale.to_s == 'en-GB' %>">
         <%= link_to 'English (GB)', locale_path('en-GB'), data: { turbo_method: :patch }, class: 'nav-link' %>
       </li>
@@ -76,11 +76,11 @@
               <li class="nav-item <%= ' active' if active_page?(usage_index_path) %>">
                 <%= link_to _('Usage'), usage_index_path+"#content", class: 'nav-link' %>
               </li>
-            <% end %> 
+            <% end %>
           </ul>
         </div>
       <% end %>
-  
+
       <% if current_user.can_super_admin? %>
         <div>
           <h6 class="dropdown-header"><%= _('Super Admin') %></h6>
@@ -116,19 +116,26 @@
       <% end %>
     </div>
   <% else %>
-    <a href="<%= login_path %>?place=signin#content" class="dropdown-toggle nav-link" role="button" id="user-menu" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-      <%= _('My Account') %>
-    </a>
-    <div class="sign-in">
-      <div class="tab-content">
-        <div id="sign-in-form-menu" role="tabpanel" class="tab-pane active">
-          <div class="card card-default">
-            <div class="card-body" style="width: 400px">
-              <%= render :partial => 'shared/sign_in_form_header' %>
+    <% if Rails.configuration.x.oidc.enabled %>
+      <%= form_tag(user_oidc_omniauth_authorize_path, method: 'post') do %>
+        <%= hidden_field_tag :authenticity_token, form_authenticity_token %>
+        <button type='submit' class="btn"><%= _('My Account') %></button>
+      <% end %>
+    <% else %>
+      <a href="<%= login_path %>?place=signin#content" class="dropdown-toggle nav-link" role="button" id="user-menu" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+        <%= _('My Account') %>
+      </a>
+      <div class="sign-in">
+        <div class="tab-content">
+          <div id="sign-in-form-menu" role="tabpanel" class="tab-pane active">
+            <div class="card card-default">
+              <div class="card-body" style="width: 400px">
+                <%= render :partial => 'shared/sign_in_form_header' %>
+              </div>
             </div>
           </div>
         </div>
       </div>
-    </div>
+    <% end %>
   <% end %>
 </li>

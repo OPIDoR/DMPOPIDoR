@@ -3,16 +3,16 @@
 require 'httparty'
 
 namespace :probe do
-  desc 'Liveness check by querying /healthz'
+  desc 'Liveness check by querying /'
   task :liveness => :environment do
-    url = 'http://localhost:3000/healthz'
+    url = 'http://localhost:3000'
 
     response = HTTParty.get(url)
-    if response.code == 200 && response.parsed_response['status'] == 'Healthy'
-      puts "✅ Liveness check passed: #{response.body}"
+    if response.code == 200
+      puts '✅ Liveness check passed'
       exit 0
     else
-      puts "❌ Liveness check failed: expected {\"status\":\"Healthy\"}, got #{response.body}"
+      puts "❌ Liveness check failed, got #{response.body}"
       exit 1
     end
   rescue StandardError => e

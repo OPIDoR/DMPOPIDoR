@@ -263,6 +263,8 @@ Devise.setup do |config|
   # config.responder.error_status = :unprocessable_entity # for Rack 3.0 or lower
   config.responder.redirect_status = :see_other
 
+  enable_oidc = ENV.fetch('ENABLE_OIDC', false).to_s.casecmp('true').zero?
+
   # ==> OmniAuth
   # Add a new OmniAuth provider. Check the wiki for more information on setting
   # up on your models and hooks.
@@ -270,65 +272,84 @@ Devise.setup do |config|
 
   # Any entries here MUST match a corresponding entry in the identifier_schemes table as
   # well as an identifier_schemes.schemes section in each locale file!
+
   OmniAuth.config.full_host = ENV.fetch('OMNI_AUTH_FULL_HOST', 'https://my_service.hostname')
-  OmniAuth.config.allowed_request_methods = [ENV.fetch('DEVISE_ALLOWED_REQUEST_METHODS', :post)&.to_sym]
   OmniAuth.config.request_validation_phase = OmniAuth::AuthenticityTokenProtection.new(key: :_csrf_token)
+  OmniAuth.config.allowed_request_methods =
+    ENV.fetch('DEVISE_ALLOWED_REQUEST_METHODS', 'post,get')
+       .split(',')
+       .map(&:to_sym)
 
-  config.omniauth :orcid, ENV.fetch('DEVISE_ORCID_CLIENT_ID', 'client_id'),
-                  ENV.fetch('DEVISE_ORCID_CLIENT_SECRET', 'client_secret'), { sandbox: true, scope: '/authenticate' }
+  unless enable_oidc
+    config.omniauth :orcid, ENV.fetch('DEVISE_ORCID_CLIENT_ID', 'client_id'),
+                    ENV.fetch('DEVISE_ORCID_CLIENT_SECRET', 'client_secret'), { sandbox: true, scope: '/authenticate' }
 
-  shibboleth_request_type = ENV.fetch('DEVISE_SHIBBOLETH_REQUEST_TYPE', :header).to_sym
-  shibboleth_config = if ENV['DEVISE_SHIBBOLETH_CONFIG']&.present?
-                        JSON.parse(ENV['DEVISE_SHIBBOLETH_CONFIG'],
-                                   { symbolize_names: true })
-                      else
-                        {
-                          uid_field: "eppn",
-                          info_fields: {
-                            uid: "uid",
-                            eppn: "eppn",
-                            email: "mail",
-                            name: "displayName",
-                            last_name: "sn",
-                            first_name: "givenName",
-                            identity_provider: "shib_identity_provider"
-                          },
-                          debug: ENV.fetch('DEVISE_DEBUG', false).to_s.casecmp('true').zero?
-                        }
-                      end
-  shibboleth_extra_fields = JSON.parse(ENV.fetch('DEVISE_SHIBBOLETH_EXTRA_FIELDS',
-                                                 [:schacHomeOrganization].to_json)).map(&:to_sym)
-  config.omniauth :shibboleth, {
-    request_type: shibboleth_request_type,
-    **shibboleth_config,
-    extra_fields: shibboleth_extra_fields
-  }
-
-  keycloak_base_url = ENV.fetch('KEYCLOAK_BASE_URL', 'http://localhost:8080/keycloak').chomp('/')
-  keycloak_realm_name = ENV.fetch('KEYCLOAK_REALM_NAME', 'dmpopidor')
-  keycloak_client_name = ENV.fetch('KEYCLOAK_CLIENT_NAME', 'dmpopidor')
-  keycloak_client_secret = ENV.fetch('KEYCLOAK_CLIENT_SECRET', 'changeme')
-
-  config.omniauth :openid_connect, {
-    name: :keycloak,
-    scope: [:openid, :email, :profile],
-    response_type: :code,
-    discovery: false,
-    issuer: "#{keycloak_base_url}/realms/#{keycloak_realm_name}",
-    client_options: {
-      scheme: "http",
-      host: "keycloak",
-      port: 8080,
-      base_url: "/keycloak",
-      authorization_endpoint: "#{keycloak_base_url}/realms/#{keycloak_realm_name}/protocol/openid-connect/auth",
-      token_endpoint: "http://keycloak:8080/keycloak/realms/#{keycloak_realm_name}/protocol/openid-connect/token",
-      userinfo_endpoint: "http://keycloak:8080/keycloak/realms/#{keycloak_realm_name}/protocol/openid-connect/userinfo",
-      jwks_uri: "http://keycloak:8080/keycloak/realms/#{keycloak_realm_name}/protocol/openid-connect/certs",
-      identifier: keycloak_client_name,
-      secret: keycloak_client_secret,
-      redirect_uri: "http://localhost:8080/users/auth/keycloak/callback"
+    shibboleth_request_type = ENV.fetch('DEVISE_SHIBBOLETH_REQUEST_TYPE', :header).to_sym
+    shibboleth_config = if ENV['DEVISE_SHIBBOLETH_CONFIG']&.present?
+                          JSON.parse(ENV['DEVISE_SHIBBOLETH_CONFIG'],
+                                     { symbolize_names: true })
+                        else
+                          {
+                            uid_field: "eppn",
+                            info_fields: {
+                              uid: "uid",
+                              eppn: "eppn",
+                              email: "mail",
+                              name: "displayName",
+                              last_name: "sn",
+                              first_name: "givenName",
+                              identity_provider: "shib_identity_provider"
+                            },
+                            debug: ENV.fetch('DEVISE_DEBUG', false).to_s.casecmp('true').zero?
+                          }
+                        end
+    shibboleth_extra_fields = JSON.parse(ENV.fetch('DEVISE_SHIBBOLETH_EXTRA_FIELDS',
+                                                   [:schacHomeOrganization].to_json)).map(&:to_sym)
+    config.omniauth :shibboleth, {
+      request_type: shibboleth_request_type,
+      **shibboleth_config,
+      extra_fields: shibboleth_extra_fields
     }
-  }
+  end
+
+  if enable_oidc
+    oidc_base_url = ENV.fetch('OIDC_BASE_URL', 'http://localhost:8080').chomp('/')
+    oidc_external_url = ENV.fetch('OIDC_EXTERNAL_URL', 'http://localhost:8080/keycloak').chomp('/')
+    oidc_internal_url = ENV.fetch('OIDC_INTERNAL_URL', 'http://keycloak:8080/keycloak').chomp('/')
+    oidc_realm_name = ENV.fetch('OIDC_REALM_NAME', 'dmpopidor')
+    oidc_client_name = ENV.fetch('OIDC_CLIENT_NAME', 'dmpopidor')
+    oidc_client_secret = ENV.fetch('OIDC_CLIENT_SECRET', 'changeme')
+
+    oidc_external_realm_url =
+      "#{oidc_external_url}/realms/#{oidc_realm_name}"
+
+    oidc_internal_realm_url =
+      "#{oidc_internal_url}/realms/#{oidc_realm_name}"
+
+    config.omniauth :openid_connect, {
+      name: :oidc,
+      scope: %i[openid email profile],
+      response_type: :code,
+      discovery: false,
+      issuer: "#{oidc_external_url}/realms/#{oidc_realm_name}",
+      client_options: {
+        scheme: URI.parse(oidc_external_url).scheme,
+        host: URI.parse(oidc_external_url).host,
+        port: URI.parse(oidc_external_url).port,
+        base_url: URI.parse(oidc_external_url).path,
+
+        authorization_endpoint: "#{oidc_external_realm_url}/protocol/openid-connect/auth",
+        token_endpoint: "#{oidc_internal_realm_url}/protocol/openid-connect/token",
+        userinfo_endpoint: "#{oidc_internal_realm_url}/protocol/openid-connect/userinfo",
+        jwks_uri: "#{oidc_internal_realm_url}/protocol/openid-connect/certs",
+
+        identifier: oidc_client_name,
+        secret: oidc_client_secret,
+
+        redirect_uri: "#{oidc_base_url}/users/auth/oidc/callback"
+      }
+    }
+  end
 
   # ==> Warden configuration
   # If you want to use other strategies, that are not supported by Devise, or

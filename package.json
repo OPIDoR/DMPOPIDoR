@@ -3,7 +3,6 @@
   "version": "4.0.0",
   "description": "DMPOPIDoR javascript dependencies",
   "main": "null",
-  "type": "module",
   "scripts": {
     "lint": "eslint app/javascript --ignore-pattern 'locales/**' --ignore-pattern '**/__tests__/**'",
     "test": "karma start spec/karma/unit.js",
