@@ -287,5 +287,6 @@
   "importAnswer": "Importer une réponse",
   "answerImportFormMessage": "Vous êtes sur le point d'importer une réponse utilisant le formulaire <strong>{{templateName}}</strong>",
   "errorAnswerImport": "Un erreur s'est produite lors de l'import de la réponse",
-  "answerImportSuccess": "Réponse importée avec succès"
+  "answerImportSuccess": "Réponse importée avec succès",
+  "researchOutputHasNewComments": "Ce produit de recherche a de nouveaux commentaires"
 }

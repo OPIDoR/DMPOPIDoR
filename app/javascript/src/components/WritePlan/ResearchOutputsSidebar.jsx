@@ -3,6 +3,7 @@ import styled from "styled-components";
 import { MdAddCircleOutline, MdDragIndicator } from "react-icons/md";
 import { useTranslation } from "react-i18next";
 import chunk from "lodash.chunk";
+import Badge from "react-bootstrap/Badge";
 
 import { AnimatePresence, motion } from "motion/react";
 import { DndContext } from "@dnd-kit/core";
@@ -89,8 +90,12 @@ const AccordionItem = styled.div`
 
 function ResearchOutputsSidebar({ planId, readonly, setLoading }) {
   const { t } = useTranslation();
-  const { researchOutputs, setResearchOutputs, displayedResearchOutput } =
-    useContext(SectionsContext);
+  const {
+    researchOutputs,
+    setResearchOutputs,
+    displayedResearchOutput,
+    researchOutputsWithComments,
+  } = useContext(SectionsContext);
   const [show, setShow] = useState(false);
   const [isDragging, setIsDragging] = useState(false);
 
@@ -196,9 +201,23 @@ function ResearchOutputsSidebar({ planId, readonly, setLoading }) {
           .filter(Boolean)
           .join(" ")}
       >
-        {item.abbreviation.length > 20
-          ? `${item.abbreviation.slice(0, 17)}...`
-          : item.abbreviation}
+        {researchOutputsWithComments.includes(item.id) && (
+          <Badge
+            pill
+            bg="danger"
+            style={{
+              display: "inline-block",
+              backgroundColor: "var(--rust)",
+              padding: "7px",
+            }}
+            title={t("researchOutputHasNewComments")}
+          />
+        )}
+        <span style={{ width: "100%", marginLeft: "10px" }}>
+          {item.abbreviation.length > 20
+            ? `${item.abbreviation.slice(0, 17)}...`
+            : item.abbreviation}
+        </span>
         {!readonly && researchOutputs.length > 1 && (
           <div {...attributes} {...listeners}>
             <MdDragIndicator size="18" />

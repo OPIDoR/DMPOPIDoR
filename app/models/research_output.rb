@@ -308,6 +308,26 @@ class ResearchOutput < ApplicationRecord
     end
   end
 
+  def self.unread_comments_count_for(user_id, plan_id)
+    sql = <<~SQL
+      SELECT DISTINCT answers.research_output_id AS unread_comments_count
+      FROM notes
+      INNER JOIN answers on answers.id = notes.answer_id
+      INNER JOIN research_outputs on research_outputs.id = answers.research_output_id
+      LEFT JOIN viewed_comments vc
+        ON vc.answer_id = answers.id
+        AND vc.user_id = :user_id
+      WHERE notes.user_id != :user_id
+        AND research_outputs.plan_id = :plan_id
+        AND (vc.id IS NULL OR vc.last_read_at < notes.created_at)
+    SQL
+    result = ActiveRecord::Base.connection.exec_query(
+      ActiveRecord::Base.sanitize_sql([sql, { user_id: user_id, plan_id: plan_id }])
+    )
+
+    result.rows.flatten.map(&:to_i)
+  end
+
   private
 
   #####
