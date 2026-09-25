@@ -7,7 +7,7 @@ module OrgAdmin
 
     after_action :verify_authorized
 
-    # rubocop:disable Metrics/AbcSize, Metrics/MethodLength
+    # rubocop:disable-next Metrics/AbcSize, Metrics/MethodLength
     def destroy
       question_option = QuestionOption.find(params[:id])
       option_id_to_remove = question_option.id.to_s
@@ -34,6 +34,5 @@ module OrgAdmin
         section: section.id
       )
     end
-    # rubocop:enable Metrics/AbcSize, Metrics/MethodLength
   end
 end

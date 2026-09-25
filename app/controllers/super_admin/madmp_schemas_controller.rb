@@ -17,7 +17,7 @@ module SuperAdmin
       @topics = Registry.find_by(name: 'Topics')&.values || []
     end
 
-    # rubocop:disable Metrics/AbcSize
+    # rubocop:disable-next Metrics/AbcSize
     def create
       authorize(MadmpSchema)
       @schema = MadmpSchema.new(permitted_params.except(:schema))
@@ -30,14 +30,13 @@ module SuperAdmin
         redirect_to new_super_admin_madmp_schema_path(@schema)
       end
     end
-    # rubocop:enable Metrics/AbcSize
 
     def edit
       authorize(MadmpSchema)
       @topics = Registry.find_by(name: 'Topics')&.values || []
     end
 
-    # rubocop:disable Metrics/AbcSize
+    # rubocop:disable-next Metrics/AbcSize
     def update
       authorize(MadmpSchema)
       if @schema.update(permitted_params.except(:schema))
@@ -48,7 +47,6 @@ module SuperAdmin
       end
       redirect_to edit_super_admin_madmp_schema_path(@schema)
     end
-    # rubocop:enable Metrics/AbcSize
 
     def destroy
       authorize(MadmpSchema)

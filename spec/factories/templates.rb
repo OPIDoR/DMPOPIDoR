@@ -9,7 +9,7 @@
 #  context          :integer          default(0), not null
 #  contexts         :string           default(["research_project"]), not null, is an Array
 #  customization_of :integer
-#  data_type        :string           default("none"), not null
+#  data_type        :string           default("dataset"), not null
 #  description      :text
 #  is_default       :boolean
 #  is_recommended   :boolean          default(FALSE)
@@ -17,7 +17,7 @@
 #  locale           :string
 #  published        :boolean
 #  title            :string
-#  type             :integer          default("classic"), not null
+#  type             :integer          default(0), not null
 #  version          :integer
 #  visibility       :integer
 #  created_at       :datetime
@@ -33,7 +33,7 @@
 #
 # Foreign Keys
 #
-#  fk_rails_...  (org_id => orgs.id)
+#  fk_rails_...  (org_id => orgs.id) DEFERRABLE INITIALLY DEFERRED
 #
 
 FactoryBot.define do
@@ -47,7 +47,7 @@ FactoryBot.define do
     archived { false }
     is_recommended { false }
     type { Template.types['structured'] }
-    data_type { 'none' }
+    data_type { 'dataset' }
     context { 'research_project' }
     sequence(:version)
 

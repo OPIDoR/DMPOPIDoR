@@ -2,7 +2,7 @@
 
 module OrgAdmin
   # Controller that handles templates
-  # rubocop:disable Metrics/ClassLength
+  # rubocop:disable-next Metrics/ClassLength
   class TemplatesController < ApplicationController
     include Paginable
     include Versionable
@@ -12,7 +12,7 @@ module OrgAdmin
 
     # The root version of index which returns all templates
     # GET /org_admin/templates
-    # rubocop:disable Metrics/AbcSize
+    # rubocop:disable-next Metrics/AbcSize
     def index
       authorize Template
       templates = Template.latest_version.where(customization_of: nil)
@@ -31,12 +31,11 @@ module OrgAdmin
                            end
       render :index
     end
-    # rubocop:enable Metrics/AbcSize
 
     # A version of index that displays only templates that belong to the user's org
     # GET /org_admin/templates/organisational
     # -----------------------------------------------------
-    # rubocop:disable Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:disable-next Metrics/AbcSize, Metrics/PerceivedComplexity
     def organisational
       authorize Template
       templates = Template.latest_version_per_org(current_user.org.id)
@@ -60,7 +59,6 @@ module OrgAdmin
                            end
       render :index
     end
-    # rubocop:enable Metrics/AbcSize, Metrics/PerceivedComplexity
 
     # A version of index that displays only templates that are customizable
     # GET /org_admin/templates/customisable
@@ -121,9 +119,8 @@ module OrgAdmin
                        .select('phases.title', 'phases.description', 'phases.modifiable',
                                'sections.title', 'questions.text', 'question_options.text')
       unless template.latest?
-        # rubocop:disable Layout/LineLength
+        # rubocop:disable-next Layout/LineLength
         flash[:notice] = _('You are viewing a historical version of this template. You will not be able to make changes.')
-        # rubocop:enable Layout/LineLength
       end
       render 'container', locals: {
         partial_path: 'show',
@@ -134,7 +131,7 @@ module OrgAdmin
     end
 
     # GET /org_admin/templates/:id/edit
-    # rubocop:disable Metrics/AbcSize, Metrics/MethodLength
+    # rubocop:disable-next Metrics/AbcSize, Metrics/MethodLength
     def edit
       template = Template.includes(:org, :phases).find(params[:id])
       @locales = Language.all
@@ -159,13 +156,12 @@ module OrgAdmin
           referrer: get_referrer(template, request.referrer)
         }
       else
-        redirect_to template&.module? ? super_admin_template_path(id: template.id) : org_admin_template_path(id: template.id)
+        redirect_to template&.module? ? super_admin_template_path(id: template.id) : org_admin_template_path(id: template.id) # rubocop:disable Layout/LineLength
       end
     end
-    # rubocop:enable Metrics/AbcSize, Metrics/MethodLength
 
     # GET /org_admin/templates/new
-    # rubocop:disable Metrics/AbcSize
+    # rubocop:disable-next Metrics/AbcSize
     def new
       authorize Template
       @template = if params[:type].eql?('module')
@@ -179,10 +175,9 @@ module OrgAdmin
       # The default is already 'organisationally_visible' so change it if this is a funder
       @template.visibility = Template.visibilities[:publicly_visible] if current_org.funder?
     end
-    # rubocop:enable Metrics/AbcSize
 
     # POST /org_admin/templates
-    # rubocop:disable Metrics/AbcSize
+    # rubocop:disable-next Metrics/AbcSize
     def create
       authorize Template
       args = template_params
@@ -200,18 +195,17 @@ module OrgAdmin
                           { funder: [], sample_plan: [] }
                         end
       if @template.save
-        redirect_to @template&.module? ? edit_super_admin_template_path(@template) : edit_org_admin_template_path(@template),
+        redirect_to @template&.module? ? edit_super_admin_template_path(@template) : edit_org_admin_template_path(@template), # rubocop:disable Layout/LineLength
                     notice: success_message(@template, _('created'))
       else
         flash[:alert] = failure_message(@template, _('create'))
         redirect_to new_org_admin_template_path(@template)
       end
     end
-    # rubocop:enable Metrics/AbcSize
 
     # PUT /org_admin/templates/:id (AJAXable)
     # -----------------------------------------------------
-    # rubocop:disable Metrics/AbcSize, Metrics/MethodLength
+    # rubocop:disable-next Metrics/AbcSize, Metrics/MethodLength
     def update
       template = Template.find(params[:id])
       authorize template
@@ -247,10 +241,9 @@ module OrgAdmin
                }) and return
       end
     end
-    # rubocop:enable Metrics/AbcSize, Metrics/MethodLength
 
     # DELETE /org_admin/templates/:id
-    # rubocop:disable Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:disable-next Metrics/AbcSize, Metrics/PerceivedComplexity
     def destroy
       template = Template.find(params[:id])
       authorize template
@@ -272,7 +265,6 @@ module OrgAdmin
         redirect_to org_admin_templates_path
       end
     end
-    # rubocop:enable Metrics/AbcSize, Metrics/PerceivedComplexity
 
     # GET /org_admin/templates/:id/history
     def history
@@ -293,7 +285,7 @@ module OrgAdmin
     end
 
     # PATCH /org_admin/templates/:id/publish  (AJAX)
-    # rubocop:disable Metrics/AbcSize
+    # rubocop:disable-next Metrics/AbcSize
     def publish
       template = Template.find(params[:id])
       authorize template
@@ -309,10 +301,9 @@ module OrgAdmin
       end
       redirect_to request.referrer.present? ? request.referrer : org_admin_templates_path
     end
-    # rubocop:enable Metrics/AbcSize
 
     # PATCH /org_admin/templates/:id/unpublish  (AJAX)
-    # rubocop:disable Metrics/AbcSize
+    # rubocop:disable-next Metrics/AbcSize
     def unpublish
       template = Template.find(params[:id])
       authorize template
@@ -325,7 +316,6 @@ module OrgAdmin
       flash[:notice] = _("Successfully unpublished your #{template_type(template)}") unless flash[:alert].present?
       redirect_to request.referrer.present? ? request.referrer : org_admin_templates_path
     end
-    # rubocop:enable Metrics/AbcSize
 
     # GET template_export/:id
     # -----------------------------------------------------
@@ -359,7 +349,7 @@ module OrgAdmin
           end
 
           format.pdf do
-            # rubocop:disable Layout/LineLength
+            # rubocop:disable-next Layout/LineLength
             render pdf: file_name,
                    template: 'template_exports/template_export',
                    margin: @formatting[:margin],
@@ -370,7 +360,6 @@ module OrgAdmin
                      right: '[page] of [topage]',
                      encoding: 'utf8'
                    }
-            # rubocop:enable Layout/LineLength
           end
         end
       rescue ActiveRecord::RecordInvalid
@@ -385,7 +374,7 @@ module OrgAdmin
     # A version of index that displays only module templates
     # GET /org_admin/templates/modules
     # -----------------------------------------------------
-    # rubocop:disable Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:disable-next Metrics/AbcSize, Metrics/PerceivedComplexity
     def modules
       authorize Template
       templates = Template.latest_module_version.where(customization_of: nil)
@@ -408,7 +397,6 @@ module OrgAdmin
                            end
       render :index
     end
-    # rubocop:enable Metrics/AbcSize, Metrics/PerceivedComplexity
 
     private
 
@@ -464,5 +452,4 @@ module OrgAdmin
       end
     end
   end
-  # rubocop:enable Metrics/ClassLength
 end

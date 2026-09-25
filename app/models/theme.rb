@@ -5,7 +5,7 @@
 # Table name: themes
 #
 #  id           :integer          not null, primary key
-#  data_type    :string           default("none"), not null
+#  data_type    :string           default("dataset"), not null
 #  description  :text
 #  number       :integer
 #  slug         :string

@@ -5,7 +5,8 @@
     "description": "SpecificDataStandard template",
     "dataTypes": [
         "software",
-        "none"
+        "dataset",
+        "physical_object"
     ],
     "topics": null,
     "type": "object",

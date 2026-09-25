@@ -37,7 +37,7 @@ module ExternalApis
       # Ping the DOI API to determine if it is online
       #
       # @return true/false
-      def ping
+      def ping?
         return true unless active? && heartbeat_path.present?
 
         resp = http_get(uri: "#{api_base_url}#{heartbeat_path}")
@@ -45,7 +45,7 @@ module ExternalApis
       end
 
       # Implement the authentication for the DOI API
-      def auth
+      def auth?
         true
 
         # You should implement any necessary authentication step required by the
@@ -53,7 +53,7 @@ module ExternalApis
       end
 
       # Implement the call to retrieve/mint a new DOI
-      # rubocop:disable Lint/UnusedMethodArgument
+      # rubocop:disable-next Lint/UnusedMethodArgument
       def mint(plan:)
         SecureRandom.uuid
 
@@ -65,7 +65,6 @@ module ExternalApis
         # the link to the DOI will appear on the Project Details page, in plan
         # exports and will become the `dmp_id` in this system's API responses
       end
-      # rubocop:enable Lint/UnusedMethodArgument
     end
   end
 end

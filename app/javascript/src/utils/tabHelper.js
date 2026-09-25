@@ -1,14 +1,12 @@
-/* eslint-env browser */ // This allows us to reference 'window' below
-
-document.addEventListener('turbo:load', () => {
+document.addEventListener("turbo:load", () => {
   // If the URL contains a tab reference then show that tab
   const loc = window.location.hash;
   if (loc) {
-    $(`ul.nav a[href="${loc}"]`).tab('show');
+    $(`ul.nav a[href="${loc}"]`).tab("show");
   }
-  $('ul.nav a[data-toggle="tab"]').on('click', (e) => {
+  $('ul.nav a[data-toggle="tab"]').on("click", (e) => {
     const target = $(e.target);
-    $(target).tab('show');
+    $(target).tab("show");
     // Commented out because was causing screen to jump
     // window.location.hash = $(target).attr('href');
   });

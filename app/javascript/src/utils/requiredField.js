@@ -1,5 +1,5 @@
-import getConstant from './constants';
-import { isObject } from './isType';
+import getConstant from "./constants";
+import { isObject } from "./isType";
 
 var asterisk;
 
@@ -7,15 +7,21 @@ export const addAsterisk = (el) => {
   const target = $(el);
   if (isObject(target)) {
     // If the element is part of a Fieldset then place the asterisk before the <fieldset><legend>
-    if (target.closest('fieldset').length > 0 && target.closest('fieldset').find('legend').length > 0) {
-      const legend = target.closest('fieldset').find('legend');
+    if (
+      target.closest("fieldset").length > 0 &&
+      target.closest("fieldset").find("legend").length > 0
+    ) {
+      const legend = target.closest("fieldset").find("legend");
       legend.html(`${asterisk} ${legend.html()}`);
 
-    // If the element is a radio button or checkbox place the asterisk after the label
-    } else if (target.is('[input="checkbox"]') || target.is('[input="radio"]')) {
+      // If the element is a radio button or checkbox place the asterisk after the label
+    } else if (
+      target.is('[input="checkbox"]') ||
+      target.is('[input="radio"]')
+    ) {
       target.after(asterisk);
 
-    // Else place the asterisk before the corresponding label
+      // Else place the asterisk before the corresponding label
     } else {
       const label = target.prev();
       if (isObject(label)) {
@@ -26,12 +32,14 @@ export const addAsterisk = (el) => {
 };
 
 export const addAsterisks = (el) => {
-  $(el).find('[aria-required=true]').each((idx, jqObject) => {
-    addAsterisk(jqObject);
-  });
+  $(el)
+    .find("[aria-required=true]")
+    .each((idx, jqObject) => {
+      addAsterisk(jqObject);
+    });
 };
 
-document.addEventListener('turbo:load', () => {
-  asterisk = `<span class="red" title="${getConstant('REQUIRED_FIELD_TEXT')}">* </span>`;
-  addAsterisks('body');
+document.addEventListener("turbo:load", () => {
+  asterisk = `<span class="red" title="${getConstant("REQUIRED_FIELD_TEXT")}">* </span>`;
+  addAsterisks("body");
 });

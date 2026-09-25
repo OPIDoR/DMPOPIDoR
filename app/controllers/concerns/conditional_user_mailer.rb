@@ -11,7 +11,7 @@ module ConditionalUserMailer
   #              prefences.email (see dmproadmap.rb initializer)
   #
   # Returns Boolean
-  def deliver_if(key:, recipients: [], &block)
+  def deliver_if(key:, recipients: [], &block) # rubocop:disable Naming/PredicateMethod
     return false unless block
 
     Array(recipients).each do |recipient|

@@ -2,6 +2,7 @@
 
 # Helper methods for Templates
 module TemplateHelper
+  # rubocop:disable-next Metrics/PerceivedComplexity
   def template_details_path(template)
     if template_modifiable?(template)
       template&.module? ? edit_super_admin_template_path(template) : edit_org_admin_template_path(template)
@@ -43,7 +44,7 @@ module TemplateHelper
   # @param text [String] text for the link
   # @param id [String] id for the link element
   # rubocop:disable Style/OptionalBooleanParameter
-  # rubocop:disable Metrics/AbcSize, Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
+  # rubocop:disable-next Metrics/AbcSize, Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
   def direct_link(template, hidden = false, text = nil, id = nil)
     params = {
       org: { id: "{ \"id\": #{current_user&.org&.id}, \"name\": \"#{current_user&.org&.name}\" }" },
@@ -62,7 +63,6 @@ module TemplateHelper
       end
     end
   end
-  # rubocop:enable Metrics/AbcSize, Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
   # rubocop:enable Style/OptionalBooleanParameter
 
   # Method that determines if an admin can add a phase to a template

@@ -4,7 +4,7 @@
 module Identifiable
   extend ActiveSupport::Concern
 
-  # rubocop:disable Metrics/BlockLength
+  # rubocop:disable-next Metrics/BlockLength
   included do
     # ================
     # = Associations =
@@ -25,7 +25,7 @@ module Identifiable
     # Expects an array of `identifier_scheme.name` and `identifier.value`
     #   [{ name: "fundref", value: "12345" }, { name: "ror", value: "abc"} ]
     # Returns an instance of the model
-    # rubocop:disable Metrics/AbcSize, Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
+    # rubocop:disable-next Metrics/AbcSize, Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
     def self.from_identifiers(array:)
       return nil unless array.present? && array.any?
 
@@ -45,7 +45,6 @@ module Identifiable
 
       id.present? ? id.identifiable : nil
     end
-    # rubocop:enable Metrics/AbcSize, Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
 
     # ====================
     # = Instance Methods =
@@ -54,11 +53,11 @@ module Identifiable
     # gets the identifier for the scheme
     def identifier_for_scheme(scheme:)
       scheme = IdentifierScheme.by_name(scheme.downcase).first if scheme.is_a?(String)
-      identifiers.reverse.find { |id| id.identifier_scheme == scheme }
+      identifiers.rfind { |id| id.identifier_scheme == scheme }
     end
 
     # Combines the existing identifiers with the new ones
-    def consolidate_identifiers!(array:)
+    def consolidate_identifiers!(array:) # rubocop:disable Naming/PredicateMethod
       return false unless array.present? && array.any?
 
       array.each do |id|
@@ -75,5 +74,4 @@ module Identifiable
       true
     end
   end
-  # rubocop:enable Metrics/BlockLength
 end

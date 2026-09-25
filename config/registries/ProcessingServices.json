@@ -2,23 +2,13 @@
 	"ProcessingServices": [
 		{
 			"label": {
-				"en_GB": "ABiMS, Plateforme ABiMS, Analysis and Bioinformatics for Marine Science.",
-				"fr_FR": "ABiMS, Plateforme ABiMS, Analysis and Bioinformatics for Marine Science."
+				"en_GB": "ABiMS, Analysis and Bioinformatics for Marine Science, Plateforme ABiMS",
+				"fr_FR": "ABiMS, Analysis and Bioinformatics for Marine Science, Plateforme ABiMS"
 			},
 			"title": "ABiMS",
 			"technicalResourceId": "https://cat.opidor.fr/index.php/ABiMS",
 			"idType": "URL",
 			"serviceContact": "support.abims@sb-roscoff.fr"
-		},
-		{
-			"label": {
-				"en_GB": "ARTbio, Bioinformatics analyses platform",
-				"fr_FR": "ARTbio, Bioinformatics analyses platform"
-			},
-			"title": "ARTbio",
-			"technicalResourceId": "https://cat.opidor.fr/index.php/ARTbio",
-			"idType": "URL",
-			"serviceContact": "artbio@listes.upmc.fr"
 		},
 		{
 			"label": {
@@ -72,8 +62,8 @@
 		},
 		{
 			"label": {
-				"en_GB": "BiGR, IGR Bioinfo, Plateforme de Bioinformatique de l'institut Gustave Roussy",
-				"fr_FR": "BiGR, IGR Bioinfo, Plateforme de Bioinformatique de l'institut Gustave Roussy"
+				"en_GB": "BiGR, Plateforme de Bioinformatique de l'institut Gustave Roussy, IGR Bioinfo",
+				"fr_FR": "BiGR, Plateforme de Bioinformatique de l'institut Gustave Roussy, IGR Bioinfo"
 			},
 			"title": "BiGR",
 			"technicalResourceId": "https://cat.opidor.fr/index.php/BiGR",
@@ -82,8 +72,8 @@
 		},
 		{
 			"label": {
-				"en_GB": "BiP",
-				"fr_FR": "BiP"
+				"en_GB": "BiP, Bioinformatics Platform",
+				"fr_FR": "BiP, Bioinformatics Platform"
 			},
 			"title": "BiP",
 			"technicalResourceId": "https://cat.opidor.fr/index.php/BiP",
@@ -102,8 +92,8 @@
 		},
 		{
 			"label": {
-				"en_GB": "Bilille, Service en bio-informatique de Lille, Plateforme de bioinformatique de Lille",
-				"fr_FR": "Bilille, Service en bio-informatique de Lille, Plateforme de bioinformatique de Lille"
+				"en_GB": "Bilille, Plateforme de bioinformatique de Lille, Service en bio-informatique de Lille",
+				"fr_FR": "Bilille, Plateforme de bioinformatique de Lille, Service en bio-informatique de Lille"
 			},
 			"title": "Bilille",
 			"technicalResourceId": "https://cat.opidor.fr/index.php/Bilille",
@@ -142,8 +132,8 @@
 		},
 		{
 			"label": {
-				"en_GB": "C3I, Centre Commun de Calcul Intensif",
-				"fr_FR": "C3I, Centre Commun de Calcul Intensif"
+				"en_GB": "C3I",
+				"fr_FR": "C3I"
 			},
 			"title": "C3I",
 			"technicalResourceId": "https://cat.opidor.fr/index.php/C3I",
@@ -203,8 +193,8 @@
 		},
 		{
 			"label": {
-				"en_GB": "CC-IN2P3, Centre de calcul de l'IN2P3, Centre de calcul de CNRS Nucléaire & Particules, Centre de Calcul de l'Institut National de Physique Nucléaire et de Physique des Particules,Computing Centre of the National Institute of Nuclear Physics and Particle Physics, UAR 6402",
-				"fr_FR": "CC-IN2P3, Centre de calcul de l'IN2P3, Centre de calcul de CNRS Nucléaire & Particules, Centre de Calcul de l'Institut National de Physique Nucléaire et de Physique des Particules,Computing Centre of the National Institute of Nuclear Physics and Particle Physics, UAR 6402"
+				"en_GB": "CC-IN2P3, Centre de Calcul de l'Institut National de Physique Nucléaire et de Physique des Particules, Centre de calcul de l'IN2P3, Centre de calcul de CNRS Nucléaire & Particules, Computing Centre of the National Institute of Nuclear Physics and Particle Physics, UAR 6402",
+				"fr_FR": "CC-IN2P3, Centre de Calcul de l'Institut National de Physique Nucléaire et de Physique des Particules, Centre de calcul de l'IN2P3, Centre de calcul de CNRS Nucléaire & Particules, Computing Centre of the National Institute of Nuclear Physics and Particle Physics, UAR 6402"
 			},
 			"title": "CC-IN2P3",
 			"technicalResourceId": "https://cat.opidor.fr/index.php/CC-IN2P3",
@@ -283,16 +273,6 @@
 		},
 		{
 			"label": {
-				"en_GB": "CDC CY Cergy Paris Université, Centre De Calcul de CY Cergy Paris Université",
-				"fr_FR": "CDC CY Cergy Paris Université, Centre De Calcul de CY Cergy Paris Université"
-			},
-			"title": "CDC CY Cergy Paris Université",
-			"technicalResourceId": "https://cat.opidor.fr/index.php/CDC CY Cergy Paris Université",
-			"idType": "URL",
-			"serviceContact": "https://assistance.cyu.fr"
-		},
-		{
-			"label": {
 				"en_GB": "CID, Cochin Image Database",
 				"fr_FR": "CID, Cochin Image Database"
 			},
@@ -313,8 +293,8 @@
 		},
 		{
 			"label": {
-				"en_GB": "CNES Centre de calcul, Centre de calcul du CNES",
-				"fr_FR": "CNES Centre de calcul, Centre de calcul du CNES"
+				"en_GB": "CNES Centre de calcul",
+				"fr_FR": "CNES Centre de calcul"
 			},
 			"title": "CNES Centre de calcul",
 			"technicalResourceId": "https://cat.opidor.fr/index.php/CNES Centre de calcul",
@@ -350,6 +330,16 @@
 			"technicalResourceId": "https://cat.opidor.fr/index.php/CUBIC",
 			"idType": "URL",
 			"serviceContact": "emmanuel.barillot@curie.fr"
+		},
+		{
+			"label": {
+				"en_GB": "CY Cergy Paris Université : CDC, Centre De Calcul de CY Cergy Paris Université",
+				"fr_FR": "CY Cergy Paris Université : CDC, Centre De Calcul de CY Cergy Paris Université"
+			},
+			"title": "CY Cergy Paris Université : CDC",
+			"technicalResourceId": "https://cat.opidor.fr/index.php/CY Cergy Paris Université : CDC",
+			"idType": "URL",
+			"serviceContact": "https://assistance.cyu.fr"
 		},
 		{
 			"label": {
@@ -389,12 +379,13 @@
 			"title": "DAC",
 			"technicalResourceId": "https://cat.opidor.fr/index.php/DAC",
 			"idType": "URL",
-			"serviceContact": "dac@icm-institute.org"
+			"serviceContact": "dac@icm-institute.org",
+			"policyUrl": "https://institutducerveau.org/media/24/download"
 		},
 		{
 			"label": {
-				"en_GB": "EXPLOR, Mésocentre Explor, Ensemble de Calcul Scientifique Pour la Lorraine",
-				"fr_FR": "EXPLOR, Mésocentre Explor, Ensemble de Calcul Scientifique Pour la Lorraine"
+				"en_GB": "EXPLOR, Ensemble de Calcul Scientifique Pour la Lorraine, Mésocentre Explor",
+				"fr_FR": "EXPLOR, Ensemble de Calcul Scientifique Pour la Lorraine, Mésocentre Explor"
 			},
 			"title": "EXPLOR",
 			"technicalResourceId": "https://cat.opidor.fr/index.php/EXPLOR",
@@ -504,23 +495,13 @@
 		},
 		{
 			"label": {
-				"en_GB": "Galactica, Plateforme Galactica",
-				"fr_FR": "Galactica, Plateforme Galactica"
-			},
-			"title": "Galactica",
-			"technicalResourceId": "https://cat.opidor.fr/index.php/Galactica",
-			"idType": "URL",
-			"serviceContact": "https://galactica.isima.fr/contact/"
-		},
-		{
-			"label": {
 				"en_GB": "Galaxy-E, Galaxy-Ecology, Plateforme collaborative d’accès et analyse de données en écologie",
 				"fr_FR": "Galaxy-E, Galaxy-Ecology, Plateforme collaborative d’accès et analyse de données en écologie"
 			},
 			"title": "Galaxy-E",
 			"technicalResourceId": "https://cat.opidor.fr/index.php/Galaxy-E",
 			"idType": "URL",
-			"serviceContact": "Coline Royaux contact.pndb at mnhn.fr"
+			"serviceContact": "yvan.le-bras@mnhn.fr"
 		},
 		{
 			"label": {
@@ -534,13 +515,13 @@
 		},
 		{
 			"label": {
-				"en_GB": "GenoToul Bioinfo, GenoToul Bioinformatique, Plateforme Bioinformatique GenoToul, Genotoul Bioinformatics",
-				"fr_FR": "GenoToul Bioinfo, GenoToul Bioinformatique, Plateforme Bioinformatique GenoToul, Genotoul Bioinformatics"
+				"en_GB": "GenoToul Bioinfo, Genotoul Bioinformatics, GenoToul Bioinformatique, Plateforme Bioinformatique GenoToul",
+				"fr_FR": "GenoToul Bioinfo, Genotoul Bioinformatics, GenoToul Bioinformatique, Plateforme Bioinformatique GenoToul"
 			},
 			"title": "GenoToul Bioinfo",
 			"technicalResourceId": "https://cat.opidor.fr/index.php/GenoToul Bioinfo",
 			"idType": "URL",
-			"serviceContact": "http://bioinfo.genotoul.fr/index.php/about-us/contact-us/"
+			"serviceContact": "https://bioinfo.genotoul.fr/index.php/about-us/contact-us/"
 		},
 		{
 			"label": {
@@ -554,8 +535,8 @@
 		},
 		{
 			"label": {
-				"en_GB": "Grid'5000 Grenoble, Globalisation des Ressources Informatiques et des Données, Grid5000 Grenoble",
-				"fr_FR": "Grid'5000 Grenoble, Globalisation des Ressources Informatiques et des Données, Grid5000 Grenoble"
+				"en_GB": "Grid'5000 Grenoble, Globalisation des Ressources Informatiques et des Données Grenoble, Grid5000 Grenoble",
+				"fr_FR": "Grid'5000 Grenoble, Globalisation des Ressources Informatiques et des Données Grenoble, Grid5000 Grenoble"
 			},
 			"title": "Grid'5000 Grenoble",
 			"technicalResourceId": "https://cat.opidor.fr/index.php/Grid'5000 Grenoble",
@@ -564,8 +545,8 @@
 		},
 		{
 			"label": {
-				"en_GB": "Grid'5000 Lille, Globalisation des Ressources Informatiques et des Données, Grid5000 Lille",
-				"fr_FR": "Grid'5000 Lille, Globalisation des Ressources Informatiques et des Données, Grid5000 Lille"
+				"en_GB": "Grid'5000 Lille, Globalisation des Ressources Informatiques et des Données Lille, Grid5000 Lille",
+				"fr_FR": "Grid'5000 Lille, Globalisation des Ressources Informatiques et des Données Lille, Grid5000 Lille"
 			},
 			"title": "Grid'5000 Lille",
 			"technicalResourceId": "https://cat.opidor.fr/index.php/Grid'5000 Lille",
@@ -574,8 +555,8 @@
 		},
 		{
 			"label": {
-				"en_GB": "Grid'5000 Lyon, Globalisation des Ressources Informatiques et des Données, Grid5000 Lyon",
-				"fr_FR": "Grid'5000 Lyon, Globalisation des Ressources Informatiques et des Données, Grid5000 Lyon"
+				"en_GB": "Grid'5000 Lyon, Globalisation des Ressources Informatiques et des Données Lyon, Grid5000 Lyon",
+				"fr_FR": "Grid'5000 Lyon, Globalisation des Ressources Informatiques et des Données Lyon, Grid5000 Lyon"
 			},
 			"title": "Grid'5000 Lyon",
 			"technicalResourceId": "https://cat.opidor.fr/index.php/Grid'5000 Lyon",
@@ -584,8 +565,8 @@
 		},
 		{
 			"label": {
-				"en_GB": "Grid'5000 Nancy, Globalisation des Ressources Informatiques et des Données, Grid5000 Nancy",
-				"fr_FR": "Grid'5000 Nancy, Globalisation des Ressources Informatiques et des Données, Grid5000 Nancy"
+				"en_GB": "Grid'5000 Nancy, Globalisation des Ressources Informatiques et des Données Nancy, Grid5000 Nancy",
+				"fr_FR": "Grid'5000 Nancy, Globalisation des Ressources Informatiques et des Données Nancy, Grid5000 Nancy"
 			},
 			"title": "Grid'5000 Nancy",
 			"technicalResourceId": "https://cat.opidor.fr/index.php/Grid'5000 Nancy",
@@ -594,8 +575,8 @@
 		},
 		{
 			"label": {
-				"en_GB": "Grid'5000 Nantes, Globalisation des Ressources Informatiques et des Données, Grid5000 Nantes",
-				"fr_FR": "Grid'5000 Nantes, Globalisation des Ressources Informatiques et des Données, Grid5000 Nantes"
+				"en_GB": "Grid'5000 Nantes, Globalisation des Ressources Informatiques et des Données Nantes, Grid5000 Nantes",
+				"fr_FR": "Grid'5000 Nantes, Globalisation des Ressources Informatiques et des Données Nantes, Grid5000 Nantes"
 			},
 			"title": "Grid'5000 Nantes",
 			"technicalResourceId": "https://cat.opidor.fr/index.php/Grid'5000 Nantes",
@@ -604,8 +585,8 @@
 		},
 		{
 			"label": {
-				"en_GB": "Grid'5000 Rennes, Globalisation des Ressources Informatiques et des Données, Grid5000 Rennes",
-				"fr_FR": "Grid'5000 Rennes, Globalisation des Ressources Informatiques et des Données, Grid5000 Rennes"
+				"en_GB": "Grid'5000 Rennes, Globalisation des Ressources Informatiques et des Données Rennes, Grid5000 Rennes",
+				"fr_FR": "Grid'5000 Rennes, Globalisation des Ressources Informatiques et des Données Rennes, Grid5000 Rennes"
 			},
 			"title": "Grid'5000 Rennes",
 			"technicalResourceId": "https://cat.opidor.fr/index.php/Grid'5000 Rennes",
@@ -614,8 +595,8 @@
 		},
 		{
 			"label": {
-				"en_GB": "Grid'5000 Sophia-Antipolis, Globalisation des Ressources Informatiques et des Données, Grid5000 Sophia-Antipolis",
-				"fr_FR": "Grid'5000 Sophia-Antipolis, Globalisation des Ressources Informatiques et des Données, Grid5000 Sophia-Antipolis"
+				"en_GB": "Grid'5000 Sophia-Antipolis, Globalisation des Ressources Informatiques et des Données Sophia-Antipolis, Grid5000 Sophia-Antipolis",
+				"fr_FR": "Grid'5000 Sophia-Antipolis, Globalisation des Ressources Informatiques et des Données Sophia-Antipolis, Grid5000 Sophia-Antipolis"
 			},
 			"title": "Grid'5000 Sophia-Antipolis",
 			"technicalResourceId": "https://cat.opidor.fr/index.php/Grid'5000 Sophia-Antipolis",
@@ -642,16 +623,6 @@
 			"idType": "URL",
 			"serviceContact": "bioinfo@pasteur.fr\nbionfo-ask@pasteur.fr",
 			"policyUrl": "https://www.pasteur.fr/fr/file/40521/download"
-		},
-		{
-			"label": {
-				"en_GB": "ICONICS",
-				"fr_FR": "ICONICS"
-			},
-			"title": "ICONICS",
-			"technicalResourceId": "https://cat.opidor.fr/index.php/ICONICS",
-			"idType": "URL",
-			"serviceContact": "iconics@icm-institute.org"
 		},
 		{
 			"label": {
@@ -695,6 +666,16 @@
 		},
 		{
 			"label": {
+				"en_GB": "ISDM-MESO, Mésocentre de Montpellier, ISDM Meso",
+				"fr_FR": "ISDM-MESO, Mésocentre de Montpellier, ISDM Meso"
+			},
+			"title": "ISDM-MESO",
+			"technicalResourceId": "https://cat.opidor.fr/index.php/ISDM-MESO",
+			"idType": "URL",
+			"serviceContact": "isdm-meso@umontpellier.fr"
+		},
+		{
+			"label": {
 				"en_GB": "ISLANDe, Informatique Scientifique Locale et Analyses de Données",
 				"fr_FR": "ISLANDe, Informatique Scientifique Locale et Analyses de Données"
 			},
@@ -702,6 +683,16 @@
 			"technicalResourceId": "https://cat.opidor.fr/index.php/ISLANDe",
 			"idType": "URL",
 			"serviceContact": "https://islande.hub.inrae.fr/contact"
+		},
+		{
+			"label": {
+				"en_GB": "InforBio, Plateforme de bio-informatique InforBio",
+				"fr_FR": "InforBio, Plateforme de bio-informatique InforBio"
+			},
+			"title": "InforBio",
+			"technicalResourceId": "https://cat.opidor.fr/index.php/InforBio",
+			"idType": "URL",
+			"serviceContact": "inforbio@sorbonne-universite.fr"
 		},
 		{
 			"label": {
@@ -765,16 +756,6 @@
 		},
 		{
 			"label": {
-				"en_GB": "MESO@LR, Mesocentre Meso@LR",
-				"fr_FR": "MESO@LR, Mesocentre Meso@LR"
-			},
-			"title": "MESO@LR",
-			"technicalResourceId": "https://cat.opidor.fr/index.php/MESO@LR",
-			"idType": "URL",
-			"serviceContact": "meso-lr@umontpellier.fr"
-		},
-		{
-			"label": {
 				"en_GB": "METABOL'IC, Analyse du métabolisme chez le petit animal : Plateforme de l’Institut Cochin",
 				"fr_FR": "METABOL'IC, Analyse du métabolisme chez le petit animal : Plateforme de l’Institut Cochin"
 			},
@@ -805,8 +786,8 @@
 		},
 		{
 			"label": {
-				"en_GB": "MarsSI, PSUP/MarsSI",
-				"fr_FR": "MarsSI, PSUP/MarsSI"
+				"en_GB": "MarsSI, MARS Système d’Information, PSUP/MarsSI",
+				"fr_FR": "MarsSI, MARS Système d’Information, PSUP/MarsSI"
 			},
 			"title": "MarsSI",
 			"technicalResourceId": "https://cat.opidor.fr/index.php/MarsSI",
@@ -835,8 +816,8 @@
 		},
 		{
 			"label": {
-				"en_GB": "Meso@IP-PARIS, Mésocentre IP-PARIS, Mésocentre de l’Institut Polytechnique de Paris",
-				"fr_FR": "Meso@IP-PARIS, Mésocentre IP-PARIS, Mésocentre de l’Institut Polytechnique de Paris"
+				"en_GB": "Meso@IP-PARIS, Mésocentre de l’Institut Polytechnique de Paris, Mésocentre IP-PARIS",
+				"fr_FR": "Meso@IP-PARIS, Mésocentre de l’Institut Polytechnique de Paris, Mésocentre IP-PARIS"
 			},
 			"title": "Meso@IP-PARIS",
 			"technicalResourceId": "https://cat.opidor.fr/index.php/Meso@IP-PARIS",
@@ -955,16 +936,6 @@
 		},
 		{
 			"label": {
-				"en_GB": "NSBD, Networks and Systems Biology for Diseases, Biologie des systèmes et des réseaux pour les maladies",
-				"fr_FR": "NSBD, Networks and Systems Biology for Diseases, Biologie des systèmes et des réseaux pour les maladies"
-			},
-			"title": "NSBD",
-			"technicalResourceId": "https://cat.opidor.fr/index.php/NSBD",
-			"idType": "URL",
-			"serviceContact": "anais.baudot@univ-amu.fr"
-		},
-		{
-			"label": {
 				"en_GB": "OPAL, Observatoire Pluridisciplinaire des Alpes-Maritimes",
 				"fr_FR": "OPAL, Observatoire Pluridisciplinaire des Alpes-Maritimes"
 			},
@@ -975,13 +946,13 @@
 		},
 		{
 			"label": {
-				"en_GB": "OSIRIM, Observatoire des Systèmes d'Indexation et de Recherche d'Information Multimédia",
-				"fr_FR": "OSIRIM, Observatoire des Systèmes d'Indexation et de Recherche d'Information Multimédia"
+				"en_GB": "OcciData",
+				"fr_FR": "OcciData"
 			},
-			"title": "OSIRIM",
-			"technicalResourceId": "https://cat.opidor.fr/index.php/OSIRIM",
+			"title": "OcciData",
+			"technicalResourceId": "https://cat.opidor.fr/index.php/OcciData",
 			"idType": "URL",
-			"serviceContact": "osirim@irit.fr"
+			"serviceContact": "https://occidata.irit.fr/nous-contacter/"
 		},
 		{
 			"label": {
@@ -1075,8 +1046,8 @@
 		},
 		{
 			"label": {
-				"en_GB": "PRABI Lyon-Gerland, Pôle Rhônes-Alpes de Bioinformatique, PRABI site de Lyon-Gerland, Pôle Bio-Informatique Lyonnais, PBIL",
-				"fr_FR": "PRABI Lyon-Gerland, Pôle Rhônes-Alpes de Bioinformatique, PRABI site de Lyon-Gerland, Pôle Bio-Informatique Lyonnais, PBIL"
+				"en_GB": "PRABI Lyon-Gerland, Pôle Rhônes-Alpes de Bioinformatique Lyon-Gerland, PRABI site de Lyon-Gerland, Pôle Bio-Informatique Lyonnais, PBIL",
+				"fr_FR": "PRABI Lyon-Gerland, Pôle Rhônes-Alpes de Bioinformatique Lyon-Gerland, PRABI site de Lyon-Gerland, Pôle Bio-Informatique Lyonnais, PBIL"
 			},
 			"title": "PRABI Lyon-Gerland",
 			"technicalResourceId": "https://cat.opidor.fr/index.php/PRABI Lyon-Gerland",
@@ -1115,18 +1086,18 @@
 		},
 		{
 			"label": {
-				"en_GB": "PlantBioInfoPF, Plant Bioinformatics Facility, Plateforme de bioinformatique des plantes",
-				"fr_FR": "PlantBioInfoPF, Plant Bioinformatics Facility, Plateforme de bioinformatique des plantes"
+				"en_GB": "PTAL Plateforme Analytique (EDYTEM), Pôle Technique d’Analyses en Laboratoires (PTAL)",
+				"fr_FR": "PTAL Plateforme Analytique (EDYTEM), Pôle Technique d’Analyses en Laboratoires (PTAL)"
 			},
-			"title": "PlantBioInfoPF",
-			"technicalResourceId": "https://cat.opidor.fr/index.php/PlantBioInfoPF",
+			"title": "PTAL Plateforme Analytique (EDYTEM)",
+			"technicalResourceId": "https://cat.opidor.fr/index.php/PTAL Plateforme Analytique (EDYTEM)",
 			"idType": "URL",
-			"serviceContact": "urgi-contact@inrae.fr"
+			"serviceContact": "curateur-edytem@univ-savoie.fr"
 		},
 		{
 			"label": {
-				"en_GB": "Plateforme A2S, Plateforme A2S, Plateforme de calcul pour les Applications de Surveillance par Satellite, Applications for Satellite Survey, A2S platform",
-				"fr_FR": "Plateforme A2S, Plateforme A2S, Plateforme de calcul pour les Applications de Surveillance par Satellite, Applications for Satellite Survey, A2S platform"
+				"en_GB": "Plateforme A2S, Applications for Satellite Survey, Plateforme A2S, Plateforme de calcul pour les Applications de Surveillance par Satellite, A2S platform",
+				"fr_FR": "Plateforme A2S, Applications for Satellite Survey, Plateforme A2S, Plateforme de calcul pour les Applications de Surveillance par Satellite, A2S platform"
 			},
 			"title": "Plateforme A2S",
 			"technicalResourceId": "https://cat.opidor.fr/index.php/Plateforme A2S",
@@ -1145,8 +1116,8 @@
 		},
 		{
 			"label": {
-				"en_GB": "ROMEO, Centre de Calcul de Champagne-Ardenne ROMEO, Centre de Calcul Régional ROMEO",
-				"fr_FR": "ROMEO, Centre de Calcul de Champagne-Ardenne ROMEO, Centre de Calcul Régional ROMEO"
+				"en_GB": "ROMEO, Centre de Calcul Régional ROMEO, Centre de Calcul de Champagne-Ardenne ROMEO",
+				"fr_FR": "ROMEO, Centre de Calcul Régional ROMEO, Centre de Calcul de Champagne-Ardenne ROMEO"
 			},
 			"title": "ROMEO",
 			"technicalResourceId": "https://cat.opidor.fr/index.php/ROMEO",
@@ -1212,6 +1183,16 @@
 			"technicalResourceId": "https://cat.opidor.fr/index.php/South Green",
 			"idType": "URL",
 			"serviceContact": "admin.bioinfo@cirad.fr"
+		},
+		{
+			"label": {
+				"en_GB": "Systems Biomedicine, Biomédecine des systèmes",
+				"fr_FR": "Systems Biomedicine, Biomédecine des systèmes"
+			},
+			"title": "Systems Biomedicine",
+			"technicalResourceId": "https://cat.opidor.fr/index.php/Systems Biomedicine",
+			"idType": "URL",
+			"serviceContact": "anais.baudot@univ-amu.fr"
 		},
 		{
 			"label": {

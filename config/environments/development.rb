@@ -66,6 +66,5 @@ Rails.application.configure do
     *ENV.fetch('ALLOWED_HOSTS', 'dmpopidor').split(',') # Additional comma-separated hosts for development.
   ]
 
-
   config.good_job.execution_mode = :async
 end

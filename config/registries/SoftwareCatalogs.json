@@ -19,16 +19,6 @@
 			"technicalResourceId": "https://cat.opidor.fr/index.php/Zenodo",
 			"idType": "URL",
 			"serviceContact": "https://about.zenodo.org/contact/"
-		},
-		{
-			"label": {
-				"en_GB": "None",
-				"fr_FR": "Aucun"
-			},
-			"title": "Aucun",
-			"technicalResourceId": null,
-			"idType": null,
-			"serviceContact": null
 		}
 	]
 }

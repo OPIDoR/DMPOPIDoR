@@ -175,19 +175,18 @@ namespace :data_cleanup do
   # rubocop:enable Metrics/AbcSize, Metrics/MethodLength
   # rubocop:enable Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
 
-  # rubocop:disable Metrics/AbcSize
+  # rubocop:disable-next Metrics/AbcSize
   def check_uniqueness(klass, filter)
     instance = klass.new
-    group = [filter.attributes.map { |a| instance.respond_to?(:"#{a}_id") ? :"#{a}_id".to_sym : a }]
+    group = [filter.attributes.map { |a| instance.respond_to?(:"#{a}_id") ? :"#{a}_id" : a }]
 
     group << filter.options[:scope] if filter.options[:scope].present?
     group = group.flatten.uniq
     ids = klass.group(group).count.select { |_k, v| v > 1 }
     [ids, "  #{ids.count} records that are not unique per (#{group.join(', ')})"]
   end
-  # rubocop:enable Metrics/AbcSize
 
-  # rubocop:disable Metrics/AbcSize
+  # rubocop:disable-next Metrics/AbcSize
   def check_inclusion(klass, filter)
     ids = []
     msg = ''
@@ -196,15 +195,13 @@ namespace :data_cleanup do
         ids << klass.where.not(attr.to_sym => filter.options[:in]).pluck(:id)
       end
       ids = ids.flatten.uniq
-      # rubocop:disable Layout/LineLength
+      # rubocop:disable-next Layout/LineLength
       msg = "  #{ids.count} records that do not have a valid value for #{filter.attributes}, should be #{filter.options[:in]}"
-      # rubocop:enable Layout/LineLength
     end
     [ids, msg]
   end
-  # rubocop:enable Metrics/AbcSize
 
-  # rubocop:disable Metrics/AbcSize
+  # rubocop:disable-next Metrics/AbcSize
   def check_format(klass, filter)
     ids = []
     if filter.options[:with].present?
@@ -224,9 +221,8 @@ namespace :data_cleanup do
     end
     [ids.flatten.uniq, "  #{ids.count} records that do not have valid #{filter.attributes}"]
   end
-  # rubocop:enable Metrics/AbcSize
 
-  # rubocop:disable Metrics/AbcSize, Metrics/MethodLength
+  # rubocop:disable-next Metrics/AbcSize, Metrics/MethodLength
   def check_length(klass, filter)
     ids = []
     shoulda = ''
@@ -254,7 +250,6 @@ namespace :data_cleanup do
     ids = ids.flatten.uniq
     [ids, "  #{ids.count} records that are an invalid length for fields #{filter.attributes} should be #{shoulda}"]
   end
-  # rubocop:enable Metrics/AbcSize, Metrics/MethodLength
 
   # rubocop:disable Metrics/AbcSize, Metrics/MethodLength
   # rubocop:disable Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity

@@ -12,7 +12,7 @@
     "properties": {
         "codeRepository": {
             "type": "string",
-            "description": "Name of repository",
+            "description": "Name of the code repository",
             "inputType": "dropdown",
             "label@fr_FR": "Nom de la forge logicielle",
             "label@en_GB": "Name of the software forge",
@@ -26,7 +26,7 @@
         "codeRepositoryUrl": {
             "type": "string",
             "format": "url",
-            "description": "URL of the forge",
+            "description": "URL of the code repository",
             "label@fr_FR": "URL de la forge logicielle",
             "label@en_GB": "URL of the software forge",
             "tooltip": null,
@@ -49,19 +49,19 @@
             "description": "Using a version control tool",
             "inputType": "dropdown",
             "label@fr_FR": "Utilisez-vous un gestionnaire de version ?",
-            "label@en_GB": "Do you use a version manager?",
+            "label@en_GB": "Do you use a Version Control System (VCS)?",
             "registryCategory": "VersionControl",
             "overridable": true,
             "tooltip": null,
             "form_label@fr_FR": "Utilisez-vous un gestionnaire de version ?",
-            "form_label@en_GB": "Do you use a version manager?"
+            "form_label@en_GB": "Do you use a Version Control System (VCS)?"
         },
         "softwareTest": {
             "type": "array",
             "items": {
                 "type": "string"
             },
-            "description": "Type of test method used to ensure the quality of the code",
+            "description": "Types of test method used to ensure the quality of the code",
             "inputType": "dropdown",
             "label@fr_FR": "Quels types de tests utilisez-vous pour vérifier la qualité du code ?",
             "label@en_GB": "What tests were used to verify the code quality?",
@@ -72,7 +72,7 @@
         },
         "continuousIntegrationTool": {
             "type": "string",
-            "description": "Are you using a testing framework?",
+            "description": "Name of the continuous integration tool",
             "inputType": "dropdown",
             "label@fr_FR": "Utilisez-vous un framework d'intégration continue ?",
             "label@en_GB": "Do you use a continuous integration framework?",
@@ -85,7 +85,7 @@
         "continuousIntegrationUrl": {
             "type": "string",
             "format": "url",
-            "description": "URL of the testing framework if any",
+            "description": "URL to the continuous integration service",
             "label@fr_FR": "URL du framework d'intégration continue, s'il existe ?",
             "label@en_GB": "What, if any, is the URL of the continuous integration framework?",
             "tooltip": null,
@@ -94,7 +94,7 @@
         },
         "description": {
             "type": "string",
-            "description": "Additional informations about the description of the development environment",
+            "description": "Additional information on the choice of development tools and methods",
             "inputType": "textarea",
             "label@fr_FR": "Informations complémentaires",
             "label@en_GB": "Additional information",

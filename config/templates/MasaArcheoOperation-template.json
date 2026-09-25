@@ -3,7 +3,9 @@
     "$id": "../Documentation/Implementation/data_model/Json/",
     "title": "MasaArcheoOperation",
     "description": "MasaArcheoOperation template",
-    "dataTypes": null,
+    "dataTypes": [
+        "dataset"
+    ],
     "topics": null,
     "type": "object",
     "class": "MasaArcheoOperation",
@@ -101,7 +103,7 @@
             "items": {
                 "type": "string"
             },
-            "description": "Director(s) of the excavations",
+            "description": "Information about the director(s) of the excavations",
             "label@fr_FR": "Responsable(s) de l'opération archéologique",
             "label@en_GB": "Archaeological operation supervisor",
             "tooltip": null,

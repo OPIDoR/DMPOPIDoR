@@ -4,9 +4,9 @@
 class RegistriesController < ApplicationController
   after_action :verify_authorized
 
-  # rubocop:disable Metrics/AbcSize
+  # rubocop:disable-next Metrics/AbcSize
   def index
-    data_type = params[:data_type] || 'none'
+    data_type = params[:data_type] || 'dataset'
     topic = params[:topic] || 'generic'
     skip_authorization
     registries = Registry.where(Arel.sql("'#{data_type}' = ANY(data_types) AND category='#{params[:category]}'"))
@@ -17,7 +17,6 @@ class RegistriesController < ApplicationController
                  end
     render json: registries.length > 1 ? registries.select(%w[id name]) : registries.select(%w[id name values])
   end
-  # rubocop:enable Metrics/AbcSize
 
   def show
     registry = Registry.find(params[:id])
@@ -33,7 +32,7 @@ class RegistriesController < ApplicationController
   end
 
   def suggest
-    data_type = params[:data_type] || 'none'
+    data_type = params[:data_type] || 'dataset'
     registry = Registry.find_by(Arel.sql("'#{data_type}' = ANY(data_types) AND category='#{params[:category]}'"))
     skip_authorization
     render json: {

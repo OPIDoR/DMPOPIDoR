@@ -4,6 +4,7 @@
 class NotesController < ApplicationController
   include ConditionalUserMailer
   include ErrorHelper
+
   after_action :verify_authorized
   respond_to :html
 
@@ -12,7 +13,7 @@ class NotesController < ApplicationController
   # Delivered mail contains the name of the collaborator leaving the note
   # Added RESEARCH OUTPUT SUPPORT
   # rubocop:disable Metrics/AbcSize, Metrics/MethodLength
-  # rubocop:disable Metrics/PerceivedComplexity, Metrics/CyclomaticComplexity
+  # rubocop:disable-next Metrics/PerceivedComplexity, Metrics/CyclomaticComplexity
   def create
     user_id = note_params[:user_id] || current_user.id
     unless user_id.present? && user_id.to_i.positive?
@@ -136,14 +137,13 @@ class NotesController < ApplicationController
       internal_server_error("An unexpected error occurred: #{e.message}")
     end
   end
-  # rubocop:enable Metrics/PerceivedComplexity, Metrics/CyclomaticComplexity
   # rubocop:enable Metrics/AbcSize, Metrics/MethodLength
 
   # PUT /notes/:id
   # CHANGES
   # Research Output support
   # rubocop:disable Metrics/AbcSize, Metrics/MethodLength
-  # rubocop:disable Metrics/PerceivedComplexity, Metrics/CyclomaticComplexity
+  # rubocop:disable-next Metrics/PerceivedComplexity, Metrics/CyclomaticComplexity
   def update
     node_id = params[:id]
 
@@ -228,13 +228,12 @@ class NotesController < ApplicationController
       internal_server_error(e.message)
     end
   end
-  # rubocop:enable Metrics/PerceivedComplexity, Metrics/CyclomaticComplexity
   # rubocop:enable Metrics/AbcSize, Metrics/MethodLength
 
   # PATCH /notes/:id/archive
   # CHANGES
   # Research Output support
-  # rubocop:disable Metrics/AbcSize
+  # rubocop:disable-next Metrics/AbcSize
   def archive
     @note = Note.find(params[:id])
     authorize @note
@@ -255,7 +254,6 @@ class NotesController < ApplicationController
       render bad_request(@notice)
     end
   end
-  # rubocop:enable Metrics/AbcSize
 
   private
 

@@ -12,7 +12,7 @@
     "properties": {
         "name": {
             "type": "string",
-            "description": "Name of the programming languages ​​used in the software",
+            "description": "Name of the programming language ​​used in the software",
             "inputType": "dropdown",
             "label@fr_FR": "Nom du langage de programmation",
             "label@en_GB": "Name of the programming language",
@@ -24,7 +24,7 @@
         },
         "version": {
             "type": "string",
-            "description": "Version of the programming languages ​​used in the software",
+            "description": "Version of the programming language ​​used in the software",
             "label@fr_FR": "Version du langage de programmation",
             "label@en_GB": "Version of the programming language",
             "tooltip": null,

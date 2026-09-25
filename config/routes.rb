@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-# rubocop:disable Metrics/BlockLength
+# rubocop:disable-next Metrics/BlockLength
 Rails.application.routes.draw do
   mount ActionCable.server => ENV.fetch('ACTON_CABLE_SERVER', '/cable')
   mount Rswag::Ui::Engine => ENV.fetch('RSWAG_UI', '/api-docs')
@@ -144,6 +144,7 @@ Rails.application.routes.draw do
 
   resources :research_outputs, only: %i[show create destroy update], constraints: { format: [:json] } do
     post 'import', on: :collection, constraints: { format: [:json] }
+    post 'sort', on: :collection, constraints: { format: [:json] }
     member do
       get 'guidances', action: :question_guidances, constraints: { format: [:json] }
       get 'has_guidances', constraints: { format: [:json] }
@@ -178,8 +179,9 @@ Rails.application.routes.draw do
     resources :plans, only: [:update]
   end
 
-  resources :madmp_fragments, only: %i[show create update destroy] do
+  resources :madmp_fragments, only: %i[index show create update destroy] do
     get 'load_fragments', action: :load_fragments, on: :collection
+    post 'import', action: :import, on: :collection
     delete 'destroy_contributor', action: :destroy_contributor, on: :collection, constraints: { format: [:json] }
   end
 
@@ -206,6 +208,8 @@ Rails.application.routes.draw do
   resources :templates, only: %i[show], constraints: { format: [:json] } do
     post 'set_recommended', action: :set_recommended
   end
+
+  resources :languages, only: %i[index], constraints: { format: [:json] }
 
   namespace :api, defaults: { format: :json } do
     post '/graphql', to: 'graphql#execute'
@@ -279,6 +283,10 @@ Rails.application.routes.draw do
           get 'metadore', action: :metadore, on: :collection, as: :metadore
         end
       end
+    end
+
+    namespace :v2 do
+      resources :dmps, only: %i[index show create update destroy]
     end
   end
 
@@ -372,21 +380,24 @@ Rails.application.routes.draw do
   end
 
   # ORG ADMIN specific pages
+
+  get '/administration/guidances_management(/*react)', to: "administration#guidances_management"
+
   namespace :org_admin do
-    resources :guidances, only: %i[index new create edit update destroy] do
+    resources :guidances, only: %i[index show new create edit update destroy] do
       member do
-        post 'render_themes'
         put 'publish'
         put 'unpublish'
       end
     end
 
-    resources :guidance_groups, only: %i[index new create edit update destroy] do
+    resources :guidance_groups, only: %i[index show new create edit update destroy] do
       member do
         put 'publish'
         put 'unpublish'
       end
     end
+    resources :themes, only: [:index], constraints: { format: [:json] }
 
     resources :users, only: %i[edit update], controller: 'users' do
       member do
@@ -539,4 +550,3 @@ Rails.application.routes.draw do
 
   get "/healthz", to: "health#show"
 end
-# rubocop:enable Metrics/BlockLength

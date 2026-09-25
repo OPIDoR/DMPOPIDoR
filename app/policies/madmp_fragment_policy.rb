@@ -2,6 +2,10 @@
 
 # Security rules for madmpfragments
 class MadmpFragmentPolicy < ApplicationPolicy
+  def index?
+    @record.plan.readable_by?(@user.id) || @user == @record.plan.owner
+  end
+
   def show?
     @record.plan.readable_by?(@user.id) || @user == @record.plan.owner
   end
@@ -15,6 +19,10 @@ class MadmpFragmentPolicy < ApplicationPolicy
   end
 
   def destroy?
+    @record.plan.editable_by?(@user.id) || @user == @record.plan.owner
+  end
+
+  def import?
     @record.plan.editable_by?(@user.id) || @user == @record.plan.owner
   end
 

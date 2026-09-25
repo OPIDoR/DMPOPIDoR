@@ -10,7 +10,7 @@
         <% cookies[:show_shib_link] = { value: 'show_shib_link',
                                         expires: 3.hours.from_now } %>
 
-        <div class="col-md-6" style="border-top:1px solid black; border-bottom:1px solid black; border-left:1px solid black; display:table-cell; float:none">
+        <div class="col-md-6" style="border-top:1px solid black; border-bottom:1px solid black; border-left:1px solid black; display:table-cell; float:none; padding: 15px">
             <p class="text-center">
               <%= _("Do you have a %{application_name} account?") % {
                 application_name: ApplicationService.application_name} %>
@@ -28,7 +28,7 @@
         </div>
 
         <div class="col-md-6"
-             style="border:1px solid black; display:table-cell; float:none">
+             style="border:1px solid black; display:table-cell; float:none; padding: 15px">
 
           <p class="text-center fontsize-h3 color-heading-text">
             <%= _("No %{application_name} account?") % {
@@ -45,7 +45,7 @@
           <p class="text-center">
             <%= _("This will create an account and link it to your credentials.") %>
           </p>
-          <div id="create-account-form">
+          <div>
             <p >
             <%= render partial: 'shared/create_account_form', locals: {orgs: @all_orgs, org_partial: @org_partial} %>
               <br>

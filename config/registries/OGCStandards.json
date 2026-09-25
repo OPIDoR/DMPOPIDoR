@@ -1,0 +1,324 @@
+{
+    "OGCStandards": [
+        {
+            "fr_FR": "3D Tiles",
+            "en_GB": "3D Tiles"
+        },
+        {
+            "fr_FR": "3dP",
+            "en_GB": "3dP"
+        },
+        {
+            "fr_FR": "ARML2.0",
+            "en_GB": "ARML2.0"
+        },
+        {
+            "fr_FR": "Cat: ebRIM App Profile: Earth Observation Products",
+            "en_GB": "Cat: ebRIM App Profile: Earth Observation Products"
+        },
+        {
+            "fr_FR": "Catalogue Service",
+            "en_GB": "Catalogue Service"
+        },
+        {
+            "fr_FR": "CDB",
+            "en_GB": "CDB"
+        },
+        {
+            "fr_FR": "CityGML",
+            "en_GB": "CityGML"
+        },
+        {
+            "fr_FR": "CityJSON",
+            "en_GB": "CityJSON"
+        },
+        {
+            "fr_FR": "COG",
+            "en_GB": "COG"
+        },
+        {
+            "fr_FR": "Coordinate Transformation",
+            "en_GB": "Coordinate Transformation"
+        },
+        {
+            "fr_FR": "CoverageJSON",
+            "en_GB": "CoverageJSON"
+        },
+        {
+            "fr_FR": "EO-GeoJSON",
+            "en_GB": "EO-GeoJSON"
+        },
+        {
+            "fr_FR": "Filter Encoding",
+            "en_GB": "Filter Encoding"
+        },
+        {
+            "fr_FR": "GML in JPEG 2000",
+            "en_GB": "GML in JPEG 2000"
+        },
+        {
+            "fr_FR": "GeoAPI",
+            "en_GB": "GeoAPI"
+        },
+        {
+            "fr_FR": "GeoPackage",
+            "en_GB": "GeoPackage"
+        },
+        {
+            "fr_FR": "GeoPose",
+            "en_GB": "GeoPose"
+        },
+        {
+            "fr_FR": "GeoSciML",
+            "en_GB": "GeoSciML"
+        },
+        {
+            "fr_FR": "GeoSPARQL",
+            "en_GB": "GeoSPARQL"
+        },
+        {
+            "fr_FR": "Geography Markup Language",
+            "en_GB": "Geography Markup Language"
+        },
+        {
+            "fr_FR": "GeoRSS",
+            "en_GB": "GeoRSS"
+        },
+        {
+            "fr_FR": "GeoXACML",
+            "en_GB": "GeoXACML"
+        },
+        {
+            "fr_FR": "Geospatial User Feedback (GUF)",
+            "en_GB": "Geospatial User Feedback (GUF)"
+        },
+        {
+            "fr_FR": "GeoTiff",
+            "en_GB": "GeoTiff"
+        },
+        {
+            "fr_FR": "GroundwaterML",
+            "en_GB": "GroundwaterML"
+        },
+        {
+            "fr_FR": "HDF5",
+            "en_GB": "HDF5"
+        },
+        {
+            "fr_FR": "I3S",
+            "en_GB": "I3S"
+        },
+        {
+            "fr_FR": "Indoor Mapping Data Format (IMDF)",
+            "en_GB": "Indoor Mapping Data Format (IMDF)"
+        },
+        {
+            "fr_FR": "IndoorGML",
+            "en_GB": "IndoorGML"
+        },
+        {
+            "fr_FR": "KML",
+            "en_GB": "KML"
+        },
+        {
+            "fr_FR": "LandInfra/InfraGML",
+            "en_GB": "LandInfra/InfraGML"
+        },
+        {
+            "fr_FR": "LAS",
+            "en_GB": "LAS"
+        },
+        {
+            "fr_FR": "Location Services (OpenLS)",
+            "en_GB": "Location Services (OpenLS)"
+        },
+        {
+            "fr_FR": "Moving Features",
+            "en_GB": "Moving Features"
+        },
+        {
+            "fr_FR": "NetCDF",
+            "en_GB": "NetCDF"
+        },
+        {
+            "fr_FR": "Observations, Measurements, and Samples",
+            "en_GB": "Observations, Measurements, and Samples"
+        },
+        {
+            "fr_FR": "OGC API – EDR",
+            "en_GB": "OGC API – EDR"
+        },
+        {
+            "fr_FR": "OGC API – Common",
+            "en_GB": "OGC API – Common"
+        },
+        {
+            "fr_FR": "OGC API – Features",
+            "en_GB": "OGC API – Features"
+        },
+        {
+            "fr_FR": "OGC API – Processes",
+            "en_GB": "OGC API – Processes"
+        },
+        {
+            "fr_FR": "OGC API – Tiles",
+            "en_GB": "OGC API – Tiles"
+        },
+        {
+            "fr_FR": "Open GeoSMS",
+            "en_GB": "Open GeoSMS"
+        },
+        {
+            "fr_FR": "OpenMI",
+            "en_GB": "OpenMI"
+        },
+        {
+            "fr_FR": "OpenSearch",
+            "en_GB": "OpenSearch"
+        },
+        {
+            "fr_FR": "Ordering Services Framework for Earth Observation Products",
+            "en_GB": "Ordering Services Framework for Earth Observation Products"
+        },
+        {
+            "fr_FR": "OWS Context",
+            "en_GB": "OWS Context"
+        },
+        {
+            "fr_FR": "OWS Security",
+            "en_GB": "OWS Security"
+        },
+        {
+            "fr_FR": "PipelineML",
+            "en_GB": "PipelineML"
+        },
+        {
+            "fr_FR": "PubSub",
+            "en_GB": "PubSub"
+        },
+        {
+            "fr_FR": "PUCK",
+            "en_GB": "PUCK"
+        },
+        {
+            "fr_FR": "SWE Common Data Model",
+            "en_GB": "SWE Common Data Model"
+        },
+        {
+            "fr_FR": "SWE Service Model",
+            "en_GB": "SWE Service Model"
+        },
+        {
+            "fr_FR": "Sensor Model Language",
+            "en_GB": "Sensor Model Language"
+        },
+        {
+            "fr_FR": "Sensor Observation Service",
+            "en_GB": "Sensor Observation Service"
+        },
+        {
+            "fr_FR": "Sensor Planning Service",
+            "en_GB": "Sensor Planning Service"
+        },
+        {
+            "fr_FR": "SensorThings",
+            "en_GB": "SensorThings"
+        },
+        {
+            "fr_FR": "Semantic Sensor Network (SSN)",
+            "en_GB": "Semantic Sensor Network (SSN)"
+        },
+        {
+            "fr_FR": "STAplus",
+            "en_GB": "STAplus"
+        },
+        {
+            "fr_FR": "Symbology Core",
+            "en_GB": "Symbology Core"
+        },
+        {
+            "fr_FR": "Simple Features",
+            "en_GB": "Simple Features"
+        },
+        {
+            "fr_FR": "Simple Features CORBA",
+            "en_GB": "Simple Features CORBA"
+        },
+        {
+            "fr_FR": "Simple Features OLE/COM",
+            "en_GB": "Simple Features OLE/COM"
+        },
+        {
+            "fr_FR": "Simple Features SQL",
+            "en_GB": "Simple Features SQL"
+        },
+        {
+            "fr_FR": "Styled Layer Descriptor",
+            "en_GB": "Styled Layer Descriptor"
+        },
+        {
+            "fr_FR": "Symbology Encoding",
+            "en_GB": "Symbology Encoding"
+        },
+        {
+            "fr_FR": "Table Joining Service",
+            "en_GB": "Table Joining Service"
+        },
+        {
+            "fr_FR": "Time Ontology in OWL",
+            "en_GB": "Time Ontology in OWL"
+        },
+        {
+            "fr_FR": "TimeseriesML (tsml)",
+            "en_GB": "TimeseriesML (tsml)"
+        },
+        {
+            "fr_FR": "TrainingDML for AI",
+            "en_GB": "TrainingDML for AI"
+        },
+        {
+            "fr_FR": "Two Dimensional Tile Matrix Set",
+            "en_GB": "Two Dimensional Tile Matrix Set"
+        },
+        {
+            "fr_FR": "WaterML",
+            "en_GB": "WaterML"
+        },
+        {
+            "fr_FR": "Web Coverage Processing Service",
+            "en_GB": "Web Coverage Processing Service"
+        },
+        {
+            "fr_FR": "Web Coverage Service",
+            "en_GB": "Web Coverage Service"
+        },
+        {
+            "fr_FR": "Web Feature Service",
+            "en_GB": "Web Feature Service"
+        },
+        {
+            "fr_FR": "Web Map Context",
+            "en_GB": "Web Map Context"
+        },
+        {
+            "fr_FR": "Web Map Service",
+            "en_GB": "Web Map Service"
+        },
+        {
+            "fr_FR": "Web Map Tile Service",
+            "en_GB": "Web Map Tile Service"
+        },
+        {
+            "fr_FR": "Web Processing Service",
+            "en_GB": "Web Processing Service"
+        },
+        {
+            "fr_FR": "Web Service Common",
+            "en_GB": "Web Service Common"
+        },
+        {
+            "fr_FR": "WKT CRS",
+            "en_GB": "WKT CRS"
+        }
+    ]
+}

@@ -30,7 +30,7 @@
         },
         "idType": {
             "type": "string",
-            "description": "Resource's identifier type",
+            "description": "Identification system",
             "inputType": "dropdown",
             "label@fr_FR": "Type d'identifiant",
             "label@en_GB": "Identifier type",
@@ -42,7 +42,7 @@
         },
         "audience": {
             "type": "string",
-            "description": "Audience",
+            "description": "Target audience",
             "inputType": "dropdown",
             "label@fr_FR": "Audience",
             "label@en_GB": "Audience",

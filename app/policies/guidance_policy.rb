@@ -29,10 +29,6 @@ class GuidancePolicy < ApplicationPolicy
     @user.can_modify_guidance?
   end
 
-  def render_themes?
-    @user.can_modify_guidance?
-  end
-
   def destroy?
     @user.can_modify_guidance? && @record.in_group_belonging_to?(@user.org_id)
   end

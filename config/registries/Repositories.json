@@ -215,22 +215,11 @@
 		},
 		{
 			"label": {
-				"en_GB": "AnaEE-France entrepôt, Entrepôt de données AnaEE-France",
-				"fr_FR": "AnaEE-France entrepôt, Entrepôt de données AnaEE-France"
+				"en_GB": "ArchiMed, Plateforme ArchiMed",
+				"fr_FR": "ArchiMed, Plateforme ArchiMed"
 			},
-			"title": "AnaEE-France entrepôt",
-			"hostId": "https://cat.opidor.fr/index.php/AnaEE-France entrepôt",
-			"idType": "URL",
-			"geoLocation": "FR",
-			"policyUrl": "https://zenodo.org/records/5665344"
-		},
-		{
-			"label": {
-				"en_GB": "ArchiPolis catalogue, Archives des sciences sociales du politique",
-				"fr_FR": "ArchiPolis catalogue, Archives des sciences sociales du politique"
-			},
-			"title": "ArchiPolis catalogue",
-			"hostId": "https://cat.opidor.fr/index.php/ArchiPolis catalogue",
+			"title": "ArchiMed",
+			"hostId": "https://cat.opidor.fr/index.php/ArchiMed",
 			"idType": "URL",
 			"geoLocation": "FR"
 		},
@@ -241,7 +230,8 @@
 			},
 			"title": "Archipel",
 			"hostId": "https://cat.opidor.fr/index.php/Archipel",
-			"idType": "URL"
+			"idType": "URL",
+			"geoLocation": "FR"
 		},
 		{
 			"label": {
@@ -349,6 +339,16 @@
 			},
 			"title": "Atlas Mont-Blanc",
 			"hostId": "https://cat.opidor.fr/index.php/Atlas Mont-Blanc",
+			"idType": "URL",
+			"geoLocation": "FR"
+		},
+		{
+			"label": {
+				"en_GB": "Avignon Université : Entrepôt de données, Espace institutionnel d'Avignon Université",
+				"fr_FR": "Avignon Université : Entrepôt de données, Espace institutionnel d'Avignon Université"
+			},
+			"title": "Avignon Université : Entrepôt de données",
+			"hostId": "https://cat.opidor.fr/index.php/Avignon Université : Entrepôt de données",
 			"idType": "URL",
 			"geoLocation": "FR"
 		},
@@ -463,7 +463,10 @@
 			"metadataStandard": [
 				"Dublin Core"
 			],
-			"geoLocation": "FR"
+			"geoLocation": "FR",
+			"certification": [
+				"Collex-Persée"
+			]
 		},
 		{
 			"label": {
@@ -911,6 +914,16 @@
 		},
 		{
 			"label": {
+				"en_GB": "CY Cergy Paris Université : Data repository, Espace institutionnel de CY Cergy Paris Université",
+				"fr_FR": "CY Cergy Paris Université : Data repository, Espace institutionnel de CY Cergy Paris Université"
+			},
+			"title": "CY Cergy Paris Université : Data repository",
+			"hostId": "https://cat.opidor.fr/index.php/CY Cergy Paris Université : Data repository",
+			"idType": "URL",
+			"geoLocation": "FR"
+		},
+		{
+			"label": {
 				"en_GB": "Campagnes Océanographiques Françaises, French Oceanographic Cruise",
 				"fr_FR": "Campagnes Océanographiques Françaises, French Oceanographic Cruise"
 			},
@@ -1085,16 +1098,6 @@
 		},
 		{
 			"label": {
-				"en_GB": "CeremaData",
-				"fr_FR": "CeremaData"
-			},
-			"title": "CeremaData",
-			"hostId": "https://cat.opidor.fr/index.php/CeremaData",
-			"idType": "URL",
-			"geoLocation": "FR"
-		},
-		{
-			"label": {
 				"en_GB": "ChArMEx database, Chemistry-Aerosol Mediterranean eXperiment database",
 				"fr_FR": "ChArMEx database, Chemistry-Aerosol Mediterranean eXperiment database"
 			},
@@ -1134,16 +1137,6 @@
 			},
 			"title": "Chimiothèque Nationale",
 			"hostId": "https://cat.opidor.fr/index.php/Chimiothèque Nationale",
-			"idType": "URL",
-			"geoLocation": "FR"
-		},
-		{
-			"label": {
-				"en_GB": "Cid.curie.fr, Curie Image Database, iManage, OpenImadis",
-				"fr_FR": "Cid.curie.fr, Curie Image Database, iManage, OpenImadis"
-			},
-			"title": "Cid.curie.fr",
-			"hostId": "https://cat.opidor.fr/index.php/Cid.curie.fr",
 			"idType": "URL",
 			"geoLocation": "FR"
 		},
@@ -1270,6 +1263,16 @@
 			"hostId": "https://cat.opidor.fr/index.php/Cybergeo Dataverse",
 			"idType": "URL",
 			"geoLocation": "US"
+		},
+		{
+			"label": {
+				"en_GB": "Céreq : Datavisualisation, Datavisualisation du Centre d'études et de recherches sur les qualifications",
+				"fr_FR": "Céreq : Datavisualisation, Datavisualisation du Centre d'études et de recherches sur les qualifications"
+			},
+			"title": "Céreq : Datavisualisation",
+			"hostId": "https://cat.opidor.fr/index.php/Céreq : Datavisualisation",
+			"idType": "URL",
+			"geoLocation": "FR"
 		},
 		{
 			"label": {
@@ -1514,11 +1517,11 @@
 		},
 		{
 			"label": {
-				"en_GB": "Data UT3, Espace institutionnel de l'Université de Toulouse",
-				"fr_FR": "Data UT3, Espace institutionnel de l'Université de Toulouse"
+				"en_GB": "Data UToulouse, Espace institutionnel de l'Université de Toulouse",
+				"fr_FR": "Data UToulouse, Espace institutionnel de l'Université de Toulouse"
 			},
-			"title": "Data UT3",
-			"hostId": "https://cat.opidor.fr/index.php/Data UT3",
+			"title": "Data UToulouse",
+			"hostId": "https://cat.opidor.fr/index.php/Data UToulouse",
 			"idType": "URL",
 			"geoLocation": "FR"
 		},
@@ -1575,16 +1578,6 @@
 			"metadataStandard": [
 				"ISO 19115"
 			]
-		},
-		{
-			"label": {
-				"en_GB": "Data repository CY Cergy Paris Université, Espace institutionnel de CY Cergy Paris Université",
-				"fr_FR": "Data repository CY Cergy Paris Université, Espace institutionnel de CY Cergy Paris Université"
-			},
-			"title": "Data repository CY Cergy Paris Université",
-			"hostId": "https://cat.opidor.fr/index.php/Data repository CY Cergy Paris Université",
-			"idType": "URL",
-			"geoLocation": "FR"
 		},
 		{
 			"label": {
@@ -1689,16 +1682,6 @@
 		},
 		{
 			"label": {
-				"en_GB": "Datagora",
-				"fr_FR": "Datagora"
-			},
-			"title": "Datagora",
-			"hostId": "https://cat.opidor.fr/index.php/Datagora",
-			"idType": "URL",
-			"geoLocation": "FR"
-		},
-		{
-			"label": {
 				"en_GB": "DemoMed, L'Observatoire Démographique de la Méditerranée",
 				"fr_FR": "DemoMed, L'Observatoire Démographique de la Méditerranée"
 			},
@@ -1732,6 +1715,15 @@
 			"hostId": "https://cat.opidor.fr/index.php/Dinamis",
 			"idType": "URL",
 			"geoLocation": "FR"
+		},
+		{
+			"label": {
+				"en_GB": "Données de couleur de l’océan, Traitement de données de couleur de l’océan par ACRI-ST pour ODATIS",
+				"fr_FR": "Données de couleur de l’océan, Traitement de données de couleur de l’océan par ACRI-ST pour ODATIS"
+			},
+			"title": "Données de couleur de l’océan",
+			"hostId": "https://cat.opidor.fr/index.php/Données de couleur de l’océan",
+			"idType": "URL"
 		},
 		{
 			"label": {
@@ -2023,16 +2015,6 @@
 				"Dublin Core",
 				"OAI-ORE (Open Archives Initiative Object Reuse and Exchange)"
 			],
-			"geoLocation": "FR"
-		},
-		{
-			"label": {
-				"en_GB": "Entrepôt de données Avignon Université, Espace institutionnel d'Avignon Université",
-				"fr_FR": "Entrepôt de données Avignon Université, Espace institutionnel d'Avignon Université"
-			},
-			"title": "Entrepôt de données Avignon Université",
-			"hostId": "https://cat.opidor.fr/index.php/Entrepôt de données Avignon Université",
-			"idType": "URL",
 			"geoLocation": "FR"
 		},
 		{
@@ -2348,6 +2330,15 @@
 		},
 		{
 			"label": {
+				"en_GB": "GéoCatalogue",
+				"fr_FR": "GéoCatalogue"
+			},
+			"title": "GéoCatalogue",
+			"hostId": "https://cat.opidor.fr/index.php/GéoCatalogue",
+			"idType": "URL"
+		},
+		{
+			"label": {
 				"en_GB": "GéoSAS, Portail de l’information géographique de l’Unité Mixte de Recherche Sol Agro et hydrosystèmes, Spatialisation (UMR SAS) INRAE – Institut Agro sur les sites de Rennes et de Quimper",
 				"fr_FR": "GéoSAS, Portail de l’information géographique de l’Unité Mixte de Recherche Sol Agro et hydrosystèmes, Spatialisation (UMR SAS) INRAE – Institut Agro sur les sites de Rennes et de Quimper"
 			},
@@ -2446,6 +2437,16 @@
 			"certification": [
 				"CoSO"
 			]
+		},
+		{
+			"label": {
+				"en_GB": "HESS, High Energy Stereoscopic System, Système stéréoscopique de haute énergie",
+				"fr_FR": "HESS, High Energy Stereoscopic System, Système stéréoscopique de haute énergie"
+			},
+			"title": "HESS",
+			"hostId": "https://cat.opidor.fr/index.php/HESS",
+			"idType": "URL",
+			"geoLocation": "NA"
 		},
 		{
 			"label": {
@@ -3390,7 +3391,8 @@
 			],
 			"geoLocation": "FR",
 			"certification": [
-				"CoSO"
+				"CoSO",
+				"CoreTrustSeal"
 			]
 		},
 		{
@@ -3727,6 +3729,15 @@
 		},
 		{
 			"label": {
+				"en_GB": "Open-archeOcsean",
+				"fr_FR": "Open-archeOcsean"
+			},
+			"title": "Open-archeOcsean",
+			"hostId": "https://cat.opidor.fr/index.php/Open-archeOcsean",
+			"idType": "URL"
+		},
+		{
+			"label": {
 				"en_GB": "OpenArchaeo, Plateforme OpenArcheo",
 				"fr_FR": "OpenArchaeo, Plateforme OpenArcheo"
 			},
@@ -3790,10 +3801,10 @@
 			"geoLocation": "FR",
 			"certification": [
 				"ELIXIR Data Resources",
-				"IRDiRC Recognized Resources",
-				"ELIXIR Core Data Resources"
+				"ELIXIR Core Data Resources",
+				"IRDiRC Recognized Resources"
 			],
-			"policyUrl": "https://www.orpha.net/consor/cgi-bin/Education_Procedure.php?lng=FR"
+			"policyUrl": "https://www.orpha.net/fr/other-information/procedures"
 		},
 		{
 			"label": {
@@ -3951,11 +3962,11 @@
 		},
 		{
 			"label": {
-				"en_GB": "PNDB : Portail de données métadonnées, Portail de données du Pôle National de Données de Biodiversité, Metadata Portal of Biodiversity Research Observatories",
-				"fr_FR": "PNDB : Portail de données métadonnées, Portail de données du Pôle National de Données de Biodiversité, Metadata Portal of Biodiversity Research Observatories"
+				"en_GB": "PNDB : Catalogue de métadonnées, Catalogue de métadonnées du Pôle National de Données de Biodiversité, Metadata Portal of Biodiversity Research Observatories",
+				"fr_FR": "PNDB : Catalogue de métadonnées, Catalogue de métadonnées du Pôle National de Données de Biodiversité, Metadata Portal of Biodiversity Research Observatories"
 			},
-			"title": "PNDB : Portail de données métadonnées",
-			"hostId": "https://cat.opidor.fr/index.php/PNDB : Portail de données métadonnées",
+			"title": "PNDB : Catalogue de métadonnées",
+			"hostId": "https://cat.opidor.fr/index.php/PNDB : Catalogue de métadonnées",
 			"idType": "URL",
 			"metadataStandard": [
 				"EML (Ecological Metadata Language)"
@@ -4266,7 +4277,8 @@
 			],
 			"geoLocation": "US",
 			"certification": [
-				"CoSO"
+				"CoSO",
+				"CoreTrustSeal"
 			]
 		},
 		{
@@ -4324,16 +4336,6 @@
 			"metadataStandard": [
 				"Dublin Core"
 			],
-			"geoLocation": "FR"
-		},
-		{
-			"label": {
-				"en_GB": "REPAIRS Escalavage et Indemnités",
-				"fr_FR": "REPAIRS Escalavage et Indemnités"
-			},
-			"title": "REPAIRS Escalavage et Indemnités",
-			"hostId": "https://cat.opidor.fr/index.php/REPAIRS Escalavage et Indemnités",
-			"idType": "URL",
 			"geoLocation": "FR"
 		},
 		{
@@ -4734,12 +4736,13 @@
 		},
 		{
 			"label": {
-				"en_GB": "Serveurs virtuels administrés DSI Inrae",
-				"fr_FR": "Serveurs virtuels administrés DSI Inrae"
+				"en_GB": "Seatizen, Seatizen – Données d’imagerie des écosystèmes coralliens, Seatizen Monitoring",
+				"fr_FR": "Seatizen, Seatizen – Données d’imagerie des écosystèmes coralliens, Seatizen Monitoring"
 			},
-			"title": "Serveurs virtuels administrés DSI Inrae",
-			"hostId": "https://cat.opidor.fr/index.php/Serveurs virtuels administrés DSI Inrae",
-			"idType": "URL"
+			"title": "Seatizen",
+			"hostId": "https://cat.opidor.fr/index.php/Seatizen",
+			"idType": "URL",
+			"geoLocation": null
 		},
 		{
 			"label": {
@@ -4805,7 +4808,7 @@
 			"hostId": "https://cat.opidor.fr/index.php/Software Heritage",
 			"idType": "URL",
 			"pidSystem": [
-				"other"
+				"SWHID"
 			],
 			"geoLocation": "FR"
 		},
@@ -4987,16 +4990,6 @@
 		},
 		{
 			"label": {
-				"en_GB": "TerMEx database, Terra Mediterranean eXperiment database",
-				"fr_FR": "TerMEx database, Terra Mediterranean eXperiment database"
-			},
-			"title": "TerMEx database",
-			"hostId": "https://cat.opidor.fr/index.php/TerMEx database",
-			"idType": "URL",
-			"geoLocation": "FR"
-		},
-		{
-			"label": {
 				"en_GB": "Theia, Pôle de données et de services pour les surfaces continentales Theia, Pôle Theia, Pôle thématique surfaces continentales",
 				"fr_FR": "Theia, Pôle de données et de services pour les surfaces continentales Theia, Pôle Theia, Pôle thématique surfaces continentales"
 			},
@@ -5046,6 +5039,21 @@
 			"certification": [
 				"CoSO"
 			]
+		},
+		{
+			"label": {
+				"en_GB": "URGI, Unité Ressources Génomique-Info, URGI, US 1164",
+				"fr_FR": "URGI, Unité Ressources Génomique-Info, URGI, US 1164"
+			},
+			"title": "URGI",
+			"hostId": "https://cat.opidor.fr/index.php/URGI",
+			"idType": "URL",
+			"geoLocation": "FR",
+			"certification": [
+				"ISO 9001:2025",
+				"IBiSA"
+			],
+			"policyUrl": "https://doi.org/10.15454/9HM5UI"
 		},
 		{
 			"label": {
@@ -5144,6 +5152,16 @@
 			},
 			"title": "Université d'Artois : Entrepôt",
 			"hostId": "https://cat.opidor.fr/index.php/Université d'Artois : Entrepôt",
+			"idType": "URL",
+			"geoLocation": "FR"
+		},
+		{
+			"label": {
+				"en_GB": "Université de Bordeaux : Entrepôt, Espace institutionnel de l'Université de Bordeaux",
+				"fr_FR": "Université de Bordeaux : Entrepôt, Espace institutionnel de l'Université de Bordeaux"
+			},
+			"title": "Université de Bordeaux : Entrepôt",
+			"hostId": "https://cat.opidor.fr/index.php/Université de Bordeaux : Entrepôt",
 			"idType": "URL",
 			"geoLocation": "FR"
 		},

@@ -18,7 +18,6 @@ services:
       - RAKE_ENV=development
       - NODE_ENV=development
       - RAILS_SERVE_STATIC_FILES=${RAILS_SERVE_STATIC_FILES:-false}
-      - RECAPTCHA_ENABLED=false
       - CACHE_STORE=memory_store
       - 'PUBLIC_FILE_SERVER_HEADERS={ "Cache-Control": "public, max-age=172800" }'
       - CONSIDER_ALL_REQUESTS_LOCAL=true

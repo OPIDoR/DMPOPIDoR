@@ -15,14 +15,7 @@ development:
   <<: *defaults
 
 test:
-  adapter: <%= ENV.fetch('DB_ADAPTER', 'postgresql') %>
-  encoding: <%= '' %>
-  pool: <%= ENV.fetch('DB_POOL_SIZE', 16) %>
-  host: <%= ENV.fetch('DB_HOST', 'localhost') %>
-  port: <%= ENV.fetch('DB_PORT', '5432') %>
-  database: <%= ENV.fetch('DB_NAME', 'roadmap_test') %>
-  username: <%= ENV.fetch('DB_USERNAME', Rails.application.credentials.db_username) %>
-  password: <%= ENV.fetch('DB_PASSWORD', Rails.application.credentials.db_password) %>
+  <<: *defaults
 
 build:
   adapter: nulldb

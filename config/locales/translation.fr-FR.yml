@@ -352,20 +352,20 @@ fr-FR:
         confirm_disable:
         confirm_enable:
         confirm_enqueue:
-        disable:
-        enable:
-        enqueue:
+        disable: Désactiver une tâche cron
+        enable: Activer l'entrée cron
+        enqueue: Ajouter maintenant une tâche Cron à la file d'attente
       disable:
-        notice:
+        notice: L'entrée Cron a été désactivée.
       enable:
-        notice:
+        notice: L'entrée Cron a été activée.
       enqueue:
-        notice:
+        notice: L'entrée Cron a été mise en file d'attente.
       index:
-        no_cron_schedules_found:
-        title:
+        no_cron_schedules_found: Aucune planification cron n'a été trouvée.
+        title: Planifications Cron
       show:
-        cron_entry_key:
+        cron_entry_key: Clé d'entrée Cron
     datetime:
       distance_in_words:
         about_x_hours:
@@ -412,9 +412,9 @@ fr-FR:
       minutes: "%{min}m %{sec}s"
       seconds: "%{sec}s"
     error_event:
-      discarded:
-      handled:
-      interrupted:
+      discarded: Abandonné
+      handled: Traité
+      interrupted: Interrompu
       retried:
       retry_stopped:
       unhandled:
@@ -424,16 +424,16 @@ fr-FR:
         past: il y a %{time}
     jobs:
       actions:
-        confirm_destroy:
-        confirm_discard:
+        confirm_destroy: Êtes-vous sûr de vouloir détruire ce job ?
+        confirm_discard: Êtes-vous sûr de vouloir abandonner ce job ?
         confirm_force_discard:
         confirm_reschedule:
         confirm_retry:
-        destroy:
-        discard:
-        force_discard:
-        reschedule:
-        retry:
+        destroy: Détruire le job
+        discard: Abandonner le job
+        force_discard: Forcer l'abandon
+        reschedule: Reprogrammer le job
+        retry: Réessayer le job
       destroy:
         notice:
       discard:
@@ -442,6 +442,7 @@ fr-FR:
         application_trace:
         full_trace:
         in_queue:
+        recovery:
         runtime:
         title:
       force_discard:
@@ -454,7 +455,7 @@ fr-FR:
       retry:
         notice:
       show:
-        jobs:
+        jobs: Jobs
       table:
         actions:
           apply_to_all:
@@ -464,13 +465,13 @@ fr-FR:
           confirm_discard_all:
           confirm_reschedule_all:
           confirm_retry_all:
-          destroy_all:
+          destroy_all: Tout détruire
           discard_all:
-          reschedule_all:
-          retry_all:
+          reschedule_all: Reprogrammer tout
+          retry_all: Réessayer tout
           title: Actions
-        no_jobs_found:
-        toggle_actions:
+        no_jobs_found: Aucun job trouvé
+        toggle_actions: Afficher/masquer les actions
         toggle_all_jobs:
     models:
       batch:
@@ -482,7 +483,7 @@ fr-FR:
         enqueued_at:
         finished:
         finished_at:
-        jobs:
+        jobs: Jobs
         name: Nom
       cron:
         class:
@@ -521,7 +522,7 @@ fr-FR:
         disabled:
         job_class:
         label: Libellé
-        pause:
+        pause: Pause
         queue:
         title:
         type:
@@ -560,6 +561,7 @@ fr-FR:
         all_queues:
         clear:
         job_name:
+        label: Libellé
         placeholder:
         queue_name:
         search: Rechercher
@@ -571,24 +573,24 @@ fr-FR:
         live_poll:
         name: "GoodJob \U0001F44D"
         pauses:
-        performance:
-        processes:
+        performance: Performance
+        processes: Processus
         theme:
-          auto:
-          dark:
-          light:
+          auto: Auto
+          dark: Sombre
+          light: Clair
           theme: Thème
-      pending_migrations:
+      pending_migrations: GoodJob a des migrations de base de données en attente.
       secondary_navbar:
         inspiration:
         last_updated: Dernière mise à jour
     status:
       discarded: Abandonné
       queued: En attente
-      retried:
-      running:
-      scheduled:
-      succeeded:
+      retried: Réessayé
+      running: En cours d'exécution
+      scheduled: Prévu
+      succeeded: Réussi
   helpers:
     page_entries_info:
       entry:
@@ -630,11 +632,6 @@ fr-FR:
           pb: Po
           tb: To
           zb: ZB
-  recaptcha:
-    errors:
-      recaptcha_unreachable: Oups, nous n'avons pas réussi à valider votre réponse
-        reCAPTCHA. Veuillez réessayer.
-      verification_failed: La vérification reCAPTCHA a échoué, veuillez réessayer.
   time:
     am: am
     pm: pm

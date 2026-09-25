@@ -32,7 +32,6 @@
 - [Rails](#rails)
 - [RDAMSC](#rdamsc)
 - [Re3data](#re3data)
-- [Recaptcha](#recaptcha)
 - [Redis](#redis)
 - [Rollbar](#rollbar)
 - [Ror](#ror)
@@ -357,15 +356,6 @@
 | RAILS_SERVE_STATIC_FILES | Boolean | Serve Rails static files ``(default: false)`` |
 | RAILS_LOG_TO_STDOUT | Boolean | Rails logging to STDOUT ``(default: true)`` |
 | RAILS_LOG_LEVEL | Symbol | Rails logging level ``(default: :info)`` |
-
-### Recaptcha
-
-| Name | Type | Description |
-| ---- | ---- | ----------- |
-| RECAPTCHA_ENABLED | Boolean | Recaptcha enabled ``(default: true)`` |
-| RECAPTCHA_SITE_KEY | String | Recaptcha site key ``(default: 11111)`` |
-| RECAPTCHA_SECRET_KEY | String | Recaptcha secret key ``(default: 22222)`` |
-| RECAPTCHA_PROXY | String | Recaptcha proxy ``(default: '')`` |
 
 ### Redis
 

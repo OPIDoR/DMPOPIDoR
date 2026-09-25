@@ -7,8 +7,10 @@
     <%= react("WritePlanLayout", props: { 
       locale: locale,
       planId: plan.id,
+      dmpId: plan.json_fragment.id,
       userId: @current_user.id,
       readonly: !plan.editable_by?(current_user.id),
+      commentablePlan: plan.commentable_by?(current_user.id),
       configuration: Rails.configuration.x.dmpopidor.front
     }) %>
   <% else %>

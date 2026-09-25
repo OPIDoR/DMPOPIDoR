@@ -30,7 +30,7 @@ module MadmpExternalApis
       # Ping the ORCiD API to determine if it is online
       #
       # @return true/false
-      def ping
+      def ping?
         return true unless active?
 
         resp = http_get(uri: "#{api_base_url}#{search_path}")
@@ -39,7 +39,7 @@ module MadmpExternalApis
 
       # Search the ORCiD API for the given string.
       def search(term:, rows:)
-        return [] unless active? && term.present? && ping
+        return [] unless active? && term.present? && ping?
 
         parse_expanded_result(json: query_orcid(term:, rows:), term:)
       # If a JSON parse error occurs then return results of a local table search
@@ -71,7 +71,7 @@ module MadmpExternalApis
 
       # Convert the JSON items into a hash
       # rubocop:disable Metrics/AbcSize
-      # rubocop:disable Metrics/PerceivedComplexity, Metrics/CyclomaticComplexity
+      # rubocop:disable-next Metrics/PerceivedComplexity, Metrics/CyclomaticComplexity
       def parse_expanded_result(json:, term:)
         return [] unless json['expanded-result']&.any?
 
@@ -89,7 +89,6 @@ module MadmpExternalApis
           }
         end&.compact
       end
-      # rubocop:enable Metrics/PerceivedComplexity, Metrics/CyclomaticComplexity
       # rubocop:enable Metrics/AbcSize
     end
   end

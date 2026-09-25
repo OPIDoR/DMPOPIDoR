@@ -42,7 +42,7 @@ module OrgAdmin
 
     # GET /org_admin/templates/[:template_id]/phases/[:phase_id]/sections/[:id]/questions/[:question_id]/edit
     # CHANGES : Added  MadmpSchema list
-    # rubocop:disable Metrics/AbcSize
+    # rubocop:disable-next Metrics/AbcSize
     def edit
       question = Question.includes(:annotations,
                                    :question_options,
@@ -61,7 +61,6 @@ module OrgAdmin
                                                  conditions: question.conditions
                                                })
     end
-    # rubocop:enable Metrics/AbcSize
 
     # SEE MODULE
     # GET /org_admin/templates/:template_id/phases/:phase_id/sections/:section_id/questions/new
@@ -104,13 +103,13 @@ module OrgAdmin
     # rubocop:enable Metrics/AbcSize, Metrics/MethodLength
 
     # POST /org_admin/templates/:template_id/phases/:phase_id/sections/:section_id/questions
-    # rubocop:disable Metrics/AbcSize
+    # rubocop:disable-next Metrics/AbcSize
     def create
       question = Question.new(question_params.merge(section_id: params[:section_id]))
       authorize question
       begin
         question = get_new(question)
-        section = Section.includes(phase: :template).find(params[:section_id])
+        section = question.section
         if question.save
           flash[:notice] = success_message(question, _('created'))
         else
@@ -119,12 +118,14 @@ module OrgAdmin
       rescue StandardError
         flash[:alert] = _('Unable to create a new version of this template.')
       end
-      render turbo_stream: turbo_stream.replace(section,
-                                                partial: 'org_admin/sections/frame',
-                                                locals: { section: section, template: question.template,
-                                                          phase: question.phase })
+      redirect_to section.phase.template&.module? ? super_admin_template_phase_path(
+        template_id: section.phase.template.id,
+        id: section.phase.id, section: section.id
+      ) : org_admin_template_phase_path(
+        template_id: section.phase.template.id,
+        id: section.phase.id, section: section.id
+      ), status: :see_other
     end
-    # rubocop:enable Metrics/AbcSize
 
     # PUT /org_admin/templates/:template_id/phases/:phase_id/sections/:section_id/questions/:id
     # rubocop:disable Metrics/AbcSize, Metrics/MethodLength
@@ -191,20 +192,20 @@ module OrgAdmin
       end
       render turbo_stream: turbo_stream.replace(section,
                                                 partial: 'org_admin/sections/frame',
-                                                locals: { section: section, template: question.template,
+                                                locals: { section: question.section, template: question.template,
                                                           phase: question.phase })
     end
     # rubocop:enable Metrics/AbcSize, Metrics/MethodLength
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
 
     # DELETE /org_admin/templates/:template_id/phases/:phase_id/sections/:section_id/questions/:id
-    # rubocop:disable Metrics/AbcSize
+    # rubocop:disable-next Metrics/AbcSize
     def destroy
       question = Question.includes(section: { phase: :template }).find(params[:id])
-      section = question.section
       authorize question
       begin
         question = get_modifiable(question)
+        section = question.section
         if question.destroy!
           flash[:notice] = success_message(question, _('deleted'))
         else
@@ -213,12 +214,14 @@ module OrgAdmin
       rescue StandardError
         flash[:alert] = _('Unable to create a new version of this template.')
       end
-      render turbo_stream: turbo_stream.replace(section,
-                                                partial: 'org_admin/sections/frame',
-                                                locals: { section: section, template: question.template,
-                                                          phase: question.phase })
+      redirect_to section.phase.template&.module? ? super_admin_template_phase_path(
+        template_id: section.phase.template.id,
+        id: section.phase.id, section: section.id
+      ) : org_admin_template_phase_path(
+        template_id: section.phase.template.id,
+        id: section.phase.id, section: section.id
+      ), status: :see_other
     end
-    # rubocop:enable Metrics/AbcSize
 
     private
 
@@ -288,7 +291,7 @@ module OrgAdmin
     # When a template gets versioned by changes to one of its questions we need to loop
     # through the incoming params and ensure that the annotations and question_options
     # get attached to the new question
-    # rubocop:disable Metrics/AbcSize
+    # rubocop:disable-next Metrics/AbcSize
     def transfer_associations(attrs, question)
       if attrs[:annotations_attributes].present?
         attrs[:annotations_attributes].each_pair do |_, value|
@@ -301,6 +304,5 @@ module OrgAdmin
       end
       attrs
     end
-    # rubocop:enable Metrics/AbcSize
   end
 end

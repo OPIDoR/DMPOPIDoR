@@ -9,7 +9,7 @@
 #  context          :integer          default(0), not null
 #  contexts         :string           default(["research_project"]), not null, is an Array
 #  customization_of :integer
-#  data_type        :string           default("none"), not null
+#  data_type        :string           default("dataset"), not null
 #  description      :text
 #  is_default       :boolean
 #  is_recommended   :boolean          default(FALSE)
@@ -17,7 +17,7 @@
 #  locale           :string
 #  published        :boolean
 #  title            :string
-#  type             :integer          default("classic"), not null
+#  type             :integer          default(0), not null
 #  version          :integer
 #  visibility       :integer
 #  created_at       :datetime
@@ -33,11 +33,11 @@
 #
 # Foreign Keys
 #
-#  fk_rails_...  (org_id => orgs.id)
+#  fk_rails_...  (org_id => orgs.id) DEFERRABLE INITIALLY DEFERRED
 #
 
 # Object that represents a DMP template
-# rubocop:disable Metrics/ClassLength
+# rubocop:disable-next Metrics/ClassLength
 class Template < ApplicationRecord
   include GlobalHelpers
   extend UniqueRandom
@@ -505,16 +505,16 @@ class Template < ApplicationRecord
       publishable = false
       # all phases must have atleast 1 section
     end
-    unless phases.map { |p| p.sections.count.positive? }.reduce(true) { |fin, val| fin && val }
+    unless phases.map { |p| p.sections.any? }.reduce(true) { |fin, val| fin && val }
       error += _('You can not publish a template without sections in a phase.  ')
       publishable = false
       # all sections must have atleast one question
     end
-    unless sections.map { |s| s.questions.count.positive? }.reduce(true) { |fin, val| fin && val }
+    unless sections.map { |s| s.questions.any? }.reduce(true) { |fin, val| fin && val }
       error += _('You can not publish a template without questions in a section.  ')
       publishable = false
     end
-    if invalid_condition_order
+    if invalid_condition_order?
       error += _('Conditions in the template refer backwards')
       publishable = false
     end
@@ -581,7 +581,7 @@ class Template < ApplicationRecord
             .update_all(published: false)
   end
 
-  def invalid_condition_order
+  def invalid_condition_order?
     questions.each do |question|
       next unless question.option_based?
 
@@ -602,4 +602,3 @@ class Template < ApplicationRecord
       (question1.section.number == question2.section.number && question1.number < question2.number)
   end
 end
-# rubocop:enable Metrics/ClassLength

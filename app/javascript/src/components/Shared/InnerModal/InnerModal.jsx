@@ -1,10 +1,10 @@
-import React, { forwardRef } from 'react';
+import { forwardRef } from "react";
 
-import InnerModalHeader from './InnerModalHeader';
-import InnerModalTitle from './InnerModalTitle';
-import InnerModalBody from './InnerModalBody';
-import InnerModalFooter from './InnerModalFooter';
-import InnerModalSpacer from './InnerModalSpacer';
+import InnerModalHeader from "./InnerModalHeader";
+import InnerModalTitle from "./InnerModalTitle";
+import InnerModalBody from "./InnerModalBody";
+import InnerModalFooter from "./InnerModalFooter";
+import InnerModalSpacer from "./InnerModalSpacer";
 
 const InnerModal = forwardRef((props, ref) => {
   const {
@@ -18,18 +18,18 @@ const InnerModal = forwardRef((props, ref) => {
   } = props;
 
   const modalStyles = {
-    display: show ? 'block' : 'none',
-    position: 'absolute',
+    display: show ? "block" : "none",
+    position: "absolute",
     zIndex: 15,
-    background: 'var(--white)',
-    borderRadius: '10px',
-    boxShadow: '0 4px 6px rgba(0, 0, 0, 0.1)',
-    color: 'var(--white)',
-    width: '540px', // 'calc(100% - 30px)'
+    background: "var(--white)",
+    borderRadius: "10px",
+    boxShadow: "0 4px 6px rgba(0, 0, 0, 0.1)",
+    color: "var(--white)",
+    width: "540px", // 'calc(100% - 30px)'
     top: 15,
-    right: '15px',
-    border: '1px solid var(--dark-blue)',
-    paddingBottom: '10px',
+    right: "15px",
+    border: "1px solid var(--dark-blue)",
+    paddingBottom: "10px",
   };
 
   return (
@@ -45,6 +45,8 @@ const InnerModal = forwardRef((props, ref) => {
     </div>
   );
 });
+
+InnerModal.displayName = "InnerModal";
 
 export default Object.assign(InnerModal, {
   Header: InnerModalHeader,

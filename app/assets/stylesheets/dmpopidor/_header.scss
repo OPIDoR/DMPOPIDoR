@@ -597,6 +597,15 @@ header.dmpopidor-branding {
       p {
         margin: 0;
       }
+      .close {
+        background: none;
+        border: none;
+        color: white;
+        padding: 0;
+      }
+      .notification-body {
+        width: 100%;
+      }
     }
 
     #notification-area {

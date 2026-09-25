@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.1].define(version: 2026_03_10_144341) do
+ActiveRecord::Schema[8.1].define(version: 2026_09_03_124009) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
   enable_extension "unaccent"
@@ -239,12 +239,12 @@ ActiveRecord::Schema[8.1].define(version: 2026_03_10_144341) do
     t.integer "org_id"
     t.datetime "created_at", precision: nil, null: false
     t.datetime "updated_at", precision: nil, null: false
-    t.boolean "optional_subset", default: false, null: false
     t.boolean "published", default: false, null: false
     t.string "description"
     t.integer "language_id", default: 0
     t.string "topics", default: ["generic"], null: false, array: true
-    t.string "data_types", default: ["none"], null: false, array: true
+    t.string "data_types", default: ["dataset"], null: false, array: true
+    t.boolean "is_default", default: false, null: false
     t.index ["org_id"], name: "guidance_groups_org_id_idx"
   end
 
@@ -352,7 +352,7 @@ ActiveRecord::Schema[8.1].define(version: 2026_03_10_144341) do
     t.datetime "created_at", precision: nil, null: false
     t.datetime "updated_at", precision: nil, null: false
     t.bigint "api_client_id"
-    t.string "data_type", default: "none", null: false
+    t.string "data_type", default: "dataset", null: false
     t.string "topics", default: ["generic"], null: false, array: true
     t.index ["api_client_id"], name: "index_madmp_schemas_on_api_client_id"
     t.index ["org_id"], name: "index_madmp_schemas_on_org_id"
@@ -484,6 +484,7 @@ ActiveRecord::Schema[8.1].define(version: 2026_03_10_144341) do
     t.string "ethical_issues_report"
     t.integer "funding_status"
     t.integer "context", default: 0, null: false
+    t.binary "pdf_data"
     t.index ["funder_id"], name: "index_plans_on_funder_id"
     t.index ["grant_id"], name: "index_plans_on_grant_id"
     t.index ["org_id"], name: "index_plans_on_org_id"
@@ -565,7 +566,7 @@ ActiveRecord::Schema[8.1].define(version: 2026_03_10_144341) do
     t.integer "org_id"
     t.datetime "created_at", precision: nil, null: false
     t.datetime "updated_at", precision: nil, null: false
-    t.string "data_types", default: ["none"], null: false, array: true
+    t.string "data_types", default: ["dataset"], null: false, array: true
     t.string "category"
     t.json "values"
     t.string "topics", default: ["generic"], null: false, array: true
@@ -668,7 +669,7 @@ ActiveRecord::Schema[8.1].define(version: 2026_03_10_144341) do
     t.integer "type", default: 0, null: false
     t.integer "context", default: 0, null: false
     t.boolean "is_recommended", default: false
-    t.string "data_type", default: "none", null: false
+    t.string "data_type", default: "dataset", null: false
     t.string "contexts", default: ["research_project"], null: false, array: true
     t.index ["customization_of", "version", "org_id"], name: "templates_customization_of_version_org_id_key", unique: true
     t.index ["family_id", "version"], name: "templates_family_id_version_key", unique: true
@@ -684,7 +685,7 @@ ActiveRecord::Schema[8.1].define(version: 2026_03_10_144341) do
     t.string "slug"
     t.json "translations", default: {}
     t.integer "number"
-    t.string "data_type", default: "none", null: false
+    t.string "data_type", default: "dataset", null: false
   end
 
 
@@ -761,6 +762,16 @@ ActiveRecord::Schema[8.1].define(version: 2026_03_10_144341) do
   end
 
 
+  create_table "viewed_comments", force: :cascade do |t|
+    t.bigint "user_id", null: false
+    t.bigint "answer_id", null: false
+    t.datetime "last_read_at", precision: nil, default: -> { "CURRENT_TIMESTAMP" }, null: false
+    t.index ["answer_id"], name: "index_viewed_comments_on_answer_id"
+    t.index ["user_id", "answer_id"], name: "index_viewed_comments_on_user_id_and_answer_id", unique: true
+    t.index ["user_id"], name: "index_viewed_comments_on_user_id"
+  end
+
+
   add_foreign_key "annotations", "orgs", deferrable: :deferred
   add_foreign_key "annotations", "questions", deferrable: :deferred
   add_foreign_key "answers", "plans", deferrable: :deferred
@@ -808,4 +819,6 @@ ActiveRecord::Schema[8.1].define(version: 2026_03_10_144341) do
   add_foreign_key "users", "orgs", deferrable: :deferred
   add_foreign_key "users_perms", "perms", deferrable: :deferred
   add_foreign_key "users_perms", "users", deferrable: :deferred
+  add_foreign_key "viewed_comments", "answers"
+  add_foreign_key "viewed_comments", "users"
 end

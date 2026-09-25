@@ -44,7 +44,7 @@ module MadmpExternalApis
       # Ping the ROR API to determine if it is online
       #
       # @return true/false
-      def ping
+      def ping?
         return true unless active? && heartbeat_path.present?
 
         resp = http_get(uri: "#{api_base_url}#{heartbeat_path}")
@@ -63,7 +63,7 @@ module MadmpExternalApis
       # }
       # The ROR limit appears to be 40 results (even with paging :/)
       def search(term:, filters: [])
-        return [] unless active? && term.present? && ping
+        return [] unless active? && term.present? && ping?
 
         process_pages(
           term:,
@@ -109,7 +109,7 @@ module MadmpExternalApis
       end
 
       # Recursive method that can handle multiple ROR result pages if necessary
-      # rubocop:disable Metrics/AbcSize
+      # rubocop:disable-next Metrics/AbcSize
       def process_pages(term:, json:, filters: [])
         return [] if json.blank?
 
@@ -133,10 +133,10 @@ module MadmpExternalApis
         log_error(method: 'ROR search', error: e)
         results || []
       end
-      # rubocop:enable Metrics/AbcSize
 
       # Convert the JSON items into a hash
       # rubocop:disable Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
+      # rubocop:disable-next Metrics/AbcSize
       def parse_results(json:)
         return [] unless json['items']&.any?
 
@@ -146,11 +146,11 @@ module MadmpExternalApis
             ror: item['id'],
             name: get_name(item:),
             links: (item&.dig('links') || [])
-              .select { |link| link&.dig('type') == 'website' }
-              .map { |link| link&.dig('value') },
+                   .select { |link| link&.dig('type') == 'website' }
+                   .map { |link| link&.dig('value') },
             country: get_country(item:),
             addresses: get_addresses(item:),
-            acronyms: get_acronyms(item:),
+            acronym: get_acronym(item:),
             external_ids: get_external_ids(item:)
           }
         end&.compact || []
@@ -170,11 +170,11 @@ module MadmpExternalApis
         }
       end
 
+      # rubocop:disable-next Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
       def get_name(item:)
         item&.dig('names')
-            &.select { |name| name&.dig('types')&.include?('label') && name&.dig('lang') }
-            &.map { |name| [name&.dig('lang')&.to_sym, name&.dig('value')] }
-            .to_h
+            &.select { |name| name&.dig('types')&.include?('ror_display') }
+            &.map { |name| name&.dig('value') }&.first
       end
 
       def get_addresses(item:)
@@ -192,19 +192,19 @@ module MadmpExternalApis
         end
       end
 
-      def get_acronyms(item:)
+      # rubocop:disable-next Metrics/PerceivedComplexity, Metrics/CyclomaticComplexity
+      def get_acronym(item:)
         item&.dig('names')
             &.select { |name| name&.dig('types')&.include?('acronym') && name&.dig('value') }
-            &.map { |name| name&.dig('value') } || []
+            &.map { |name| name&.dig('value') }&.first
       end
 
       def get_external_ids(item:)
         item&.dig('external_ids')
-            &.map do |external_id|
-              [external_id&.dig('type')&.to_sym,
-               external_id&.dig('preferred') ? [external_id&.dig('preferred')] : external_id&.dig('all')]
+            .to_h do |external_id|
+          [external_id&.dig('type')&.to_sym,
+           external_id&.dig('preferred') ? [external_id&.dig('preferred')] : external_id&.dig('all')]
         end
-            .to_h
       end
 
       # Org names are not unique, so include the Org URL if available or
@@ -232,7 +232,7 @@ module MadmpExternalApis
       end
 
       # Extracts the website domain from the item
-      # rubocop:disable Metrics/CyclomaticComplexity
+      # rubocop:disable-next Metrics/CyclomaticComplexity
       def org_website(item:)
         return nil unless item&.fetch('links', [])&.any?
 
@@ -240,7 +240,6 @@ module MadmpExternalApis
         website = item['links'].first&.match(%r{^(?:http://|www\.|https://)([^/]+)})&.captures&.first
         website&.sub('www.', '')
       end
-      # rubocop:enable Metrics/CyclomaticComplexity
 
       # Extracts the FundRef Id if available
       def fundref_id(item:)

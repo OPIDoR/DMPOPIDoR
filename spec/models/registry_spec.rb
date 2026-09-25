@@ -1,10 +1,12 @@
+# frozen_string_literal: true
+
 # == Schema Information
 #
 # Table name: registries
 #
 #  id          :integer          not null, primary key
 #  category    :string
-#  data_types  :string           default(["none"]), not null, is an Array
+#  data_types  :string           default(["dataset"]), not null, is an Array
 #  description :string
 #  name        :string           not null
 #  topics      :string           default(["generic"]), not null, is an Array

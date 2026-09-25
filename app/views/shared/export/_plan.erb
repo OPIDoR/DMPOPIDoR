@@ -12,7 +12,7 @@
                } %>
   </head>
   <body>
-    <% if @show_coversheet %>
+    <% if @options[:show_coversheet] %>
       <%= render partial: 'shared/export/plan_coversheet' %>
     <% end %>
 

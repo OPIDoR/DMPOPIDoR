@@ -1,4 +1,4 @@
-import { isString, isNumber } from './isType';
+import { isString, isNumber } from "./isType";
 
 /*
   Scrolls browser window to the selector specified
@@ -7,9 +7,12 @@ import { isString, isNumber } from './isType';
 */
 export const scrollTo = (selector, duration) => {
   if (isString(selector)) {
-    $('html, body').animate({
-      scrollTop: $(selector).offset().top,
-    }, isNumber(duration) || isString(duration) ? duration : 500);
+    $("html, body").animate(
+      {
+        scrollTop: $(selector).offset().top,
+      },
+      isNumber(duration) || isString(duration) ? duration : 500,
+    );
   }
 };
 

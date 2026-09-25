@@ -3,10 +3,11 @@
     "$id": "../Documentation/Implementation/data_model/Json/",
     "title": "GeoLocationBox",
     "description": "GeoLocationBox template",
-    "dataTypes": null,
-    "topics": [
-        "Earth observation"
+    "dataTypes": [
+        "dataset",
+        "physical_object"
     ],
+    "topics": null,
     "type": "object",
     "class": "GeoLocationBox",
     "properties": {

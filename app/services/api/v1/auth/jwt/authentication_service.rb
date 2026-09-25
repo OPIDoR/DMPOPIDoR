@@ -78,7 +78,7 @@ module Api
             return nil unless clients.present? && clients.any?
 
             clnt = clients.first
-            clnt.authenticate(secret: @client_secret) ? clnt : nil
+            clnt.authenticate?(secret: @client_secret) ? clnt : nil
           end
 
           # Tries to find a User whose email matches the :client_id. If found

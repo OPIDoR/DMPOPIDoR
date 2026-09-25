@@ -42,7 +42,7 @@ module ExternalApis
       # Ping the ROR API to determine if it is online
       #
       # @return true/false
-      def ping
+      def ping?
         return true unless active? && heartbeat_path.present?
 
         resp = http_get(uri: "#{api_base_url}#{heartbeat_path}")
@@ -61,7 +61,7 @@ module ExternalApis
       # }
       # The ROR limit appears to be 40 results (even with paging :/)
       def search(term:, filters: [])
-        return [] unless active? && term.present? && ping
+        return [] unless active? && term.present? && ping?
 
         process_pages(
           term: term,
@@ -105,7 +105,7 @@ module ExternalApis
       end
 
       # Recursive method that can handle multiple ROR result pages if necessary
-      # rubocop:disable Metrics/AbcSize
+      # rubocop:disable-next Metrics/AbcSize
       def process_pages(term:, json:, filters: [])
         return [] if json.blank?
 
@@ -129,10 +129,9 @@ module ExternalApis
         log_error(method: 'ROR search', error: e)
         results || []
       end
-      # rubocop:enable Metrics/AbcSize
 
       # Convert the JSON items into a hash
-      # rubocop:disable Metrics/AbcSize
+      # rubocop:disable-next Metrics/AbcSize
       def parse_results(json:)
         results = []
         return results unless json.present? && json.fetch('items', []).any?
@@ -152,7 +151,6 @@ module ExternalApis
         end
         results
       end
-      # rubocop:enable Metrics/AbcSize
 
       # Org names are not unique, so include the Org URL if available or
       # the country. For example:

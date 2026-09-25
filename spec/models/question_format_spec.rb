@@ -6,7 +6,7 @@
 #
 #  id           :integer          not null, primary key
 #  description  :text
-#  formattype   :integer          default("textarea")
+#  formattype   :integer          default(0)
 #  option_based :boolean          default(FALSE)
 #  structured   :boolean          default(FALSE), not null
 #  title        :string

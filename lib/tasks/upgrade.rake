@@ -3,7 +3,7 @@
 # Upgrade tasks for versions < 3.0. See https://github.com/DMPRoadmap/roadmap/releases for information
 # on how and when to run each task.
 
-# rubocop:disable Naming/VariableNumber
+# rubocop:disable-next Naming/VariableNumber
 namespace :upgrade do
   desc 'upgrade to Rails 5, rename task after naming release'
   task v2_3_0: :environment do
@@ -190,11 +190,10 @@ namespace :upgrade do
   task remove_duplicate_answers: :environment do
     ## Concat Duplicate Answers
     ActiveRecord::Base.transaction do
-      # rubocop:disable Layout/LineLength
+      # rubocop:disable-next Layout/LineLength
       plan_ids = ActiveRecord::Base.connection.select_all('SELECT a1.plan_id as plan_id FROM Answers a1 INNER JOIN Answers a2 ON a1.plan_id = a2.plan_id AND a1.question_id = a2.question_id WHERE a1.id > a2.id').to_a.map do |h|
         h['plan_id']
       end.uniq
-      # rubocop:enable Layout/LineLength
       plans = Plan.where(id: plan_ids)
       plans.each do |plan|
         plan.answers.pluck(:question_id).uniq.each do |question_id|
@@ -387,7 +386,7 @@ namespace :upgrade do
         version_counter = nil
       end
       num_plans = Plan.where(template_id: template.id).count
-      # rubocop:disable Layout/LineLength
+      # rubocop:disable-next Layout/LineLength
       if num_plans.any?
         version_counter = version_counter.nil? ? -1 : version_counter - 1
         unsaved_template = Template.find(template.id)
@@ -403,7 +402,6 @@ namespace :upgrade do
         Template.destroy(template.id)
         puts "template with id: #{template.id} has been REMOVED since it had no plans associated"
       end
-      # rubocop:enable Layout/LineLength
     end
     puts 'remove_duplicated_non_customised_template_versions DONE'
   end
@@ -884,7 +882,7 @@ namespace :upgrade do
     end
     count = Identifier.where(identifiable_type: 'Org').length
     p "Transfer complete. Orginal org_identifier count #{identifiers.length}, new identifiers count #{count}"
-    # rubocop:disable Layout/LineLength
+    # rubocop:disable-next Layout/LineLength
     if identifiers.length > count
       p ''
       p "#{identifiers.length - count} records could not be transferred. Run the following query manually to identify them:"
@@ -894,7 +892,6 @@ namespace :upgrade do
       p '  );'
       p 'Then transfer them manually.'
     end
-    # rubocop:enable Layout/LineLength
   end
 
   desc 'Sets the new managed flag for all existing Orgs to managed = true'
@@ -910,7 +907,7 @@ namespace :upgrade do
     out = CSV.generate do |csv|
       csv << %w[org_id org_name ror_name ror_id fundref_id]
 
-      if ExternalApis::RorService.ping
+      if ExternalApis::RorService.ping?
         # rubocop:disable Layout/LineLength
         p 'Scanning ROR for each of your existing Orgs'
         p 'The results will be written to tmp/ror_fundref_ids.csv to facilitate review and any corrections that may need to be made.'
@@ -958,16 +955,16 @@ namespace :upgrade do
           end
         end
       else
-        # rubocop:disable Layout/LineLength
+        # rubocop:disable-next Layout/LineLength
         p 'ROR appears to be offline or your configuration is invalid. Heartbeat check failed. Refer to the log for more information.'
-        # rubocop:enable Layout/LineLength
       end
     end
 
     if out.present?
-      file = File.open('tmp/ror_fundref_ids.csv', 'w')
-      file.puts out
-      file.close
+      File.open('tmp/ror_fundref_ids.csv', 'w') do |f|
+        f.puts out
+        f.close
+      end
     end
   end
 
@@ -1342,4 +1339,3 @@ namespace :upgrade do
     number.to_s.reverse.gsub(/(\d{3})(?=\d)/, '\\1,').reverse
   end
 end
-# rubocop:enable Naming/VariableNumber

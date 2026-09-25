@@ -1,5 +1,5 @@
-import { isObject, isString, isNumber } from './isType';
-import getConstant from './constants';
+import { isObject, isString, isNumber } from "./isType";
+import getConstant from "./constants";
 /*
   Validates whether or not the value passed matches to a valid email
   @param value String to search for a match
@@ -19,7 +19,9 @@ export const isValidEmail = (value) => {
 */
 export const isValidUrl = (value) => {
   if (isString(value)) {
-    return /https?:\/\/[-a-zA-Z0-9@:%_+.~#?&=]{2,256}\.[a-z]{2,4}\b(\/[-a-zA-Z0-9@:%_+.~#?&=]*)?/.test(value);
+    return /https?:\/\/[-a-zA-Z0-9@:%_+.~#?&=]{2,256}\.[a-z]{2,4}\b(\/[-a-zA-Z0-9@:%_+.~#?&=]*)?/.test(
+      value,
+    );
   }
   return false;
 };
@@ -29,8 +31,8 @@ export const isValidUrl = (value) => {
   @param value Number to validate
 */
 export const isValidNumber = (value) => {
-  if (isString(value)
-  && value.trim().length > 0) { // Only if is non-empty string value we try to convert to Number
+  if (isString(value) && value.trim().length > 0) {
+    // Only if is non-empty string value we try to convert to Number
     // since Number([]), Number(new Date()), Number(null) are converted to zero
     return !Number.isNaN(Number(value));
   }
@@ -44,8 +46,8 @@ export const isValidNumber = (value) => {
   @return true or false
 */
 export const isValidPassword = (value) => {
-  const minLength = getConstant('PASSWORD_MIN_LENGTH') || 8;
-  const maxLength = getConstant('PASSWORD_MAX_LENGTH') || 128;
+  const minLength = getConstant("PASSWORD_MIN_LENGTH") || 8;
+  const maxLength = getConstant("PASSWORD_MAX_LENGTH") || 128;
   if (isString(value)) {
     const trimmed = value.trim();
     return trimmed.length >= minLength && trimmed.length <= maxLength;
@@ -67,14 +69,14 @@ export const isValidText = (value) => {
 
 export const isValidCheckbox = (el) => {
   if (isObject(el)) {
-    return el.is(':checked');
+    return el.is(":checked");
   }
   return false;
 };
 
 export const isValidMultiCheckbox = (el) => {
-  if (isObject(el) && isObject(el.closest('fieldset'))) {
-    return el.closest('fieldset').find('input:checked').length > 0;
+  if (isObject(el) && isObject(el.closest("fieldset"))) {
+    return el.closest("fieldset").find("input:checked").length > 0;
   }
   return false;
 };

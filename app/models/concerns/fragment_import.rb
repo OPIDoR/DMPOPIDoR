@@ -4,18 +4,17 @@
 # Module containing different ways of importing a fragment
 module FragmentImport
   # rubocop:disable Metrics/AbcSize, Metrics/MethodLength
-  # rubocop:disable Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
+  # rubocop:disable-next Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
   def raw_import(import_data, schema, parent_id = id)
     return if import_data.nil?
 
     fragmented_data = {}
 
-    # rubocop:disable Metrics/BlockLength
+    # rubocop:disable-next Metrics/BlockLength
     import_data.each do |prop, sub_data|
       next if sub_data.nil?
 
       schema_prop = schema.schema['properties'][prop]
-      fragmented_data = import_data if prop.eql?('custom_value')
       next if schema_prop&.dig('type').nil?
 
       if schema_prop['type'].eql?('object') &&
@@ -88,27 +87,25 @@ module FragmentImport
         fragmented_data[prop] = sub_data
       end
     end
-    # rubocop:enable Metrics/BlockLength
 
     # Object needs reloading after being modified by update_parent_references
     reload
     fragmented_data.try(:permit!)
     update!(
       data: data.merge(fragmented_data),
-      additional_info: additional_info.except!('custom_value')
+      additional_info:
     )
 
     self # return self
   end
-  # rubocop:enable Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
   # rubocop:enable Metrics/AbcSize, Metrics/MethodLength
 
   # rubocop:disable Metrics/AbcSize, Metrics/MethodLength
-  # rubocop:disable Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
+  # rubocop:disable-next Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
   def import_with_ids(import_data, schema)
     fragmented_data = {}
 
-    # rubocop:disable Metrics/BlockLength
+    # rubocop:disable-next Metrics/BlockLength
     import_data.each do |prop, sub_data|
       schema_prop = schema.properties[prop]
 
@@ -166,25 +163,23 @@ module FragmentImport
         fragmented_data[prop] = sub_data
       end
     end
-    # rubocop:enable Metrics/BlockLength
 
     # Object needs reloading after being modified by update_parent_references
     reload
     update!(
       data: data.merge(fragmented_data),
-      additional_info: additional_info.except!('custom_value')
+      additional_info:
     )
     self # return self
   end
-  # rubocop:enable Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
   # rubocop:enable Metrics/AbcSize, Metrics/MethodLength
 
   # rubocop:disable Metrics/AbcSize, Metrics/MethodLength
-  # rubocop:disable Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
+  # rubocop:disable-next Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
   def import_with_instructions(import_data, schema)
     fragmented_data = {}
 
-    # rubocop:disable Metrics/BlockLength
+    # rubocop:disable-next Metrics/BlockLength
     import_data.each do |prop, sub_data|
       schema_prop = schema.properties[prop]
 
@@ -259,17 +254,15 @@ module FragmentImport
         fragmented_data[prop] = sub_data
       end
     end
-    # rubocop:enable Metrics/BlockLength
 
     # Object needs reloading after being modified by update_parent_references
     reload
     update!(
       data: data.merge(fragmented_data),
-      additional_info: additional_info.except!('custom_value')
+      additional_info:
     )
     self # return self
   end
-  # rubocop:enable Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
   # rubocop:enable Metrics/AbcSize, Metrics/MethodLength
 end
 # rubocop:enable Metrics/ModuleLength

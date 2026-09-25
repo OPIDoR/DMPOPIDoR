@@ -2,7 +2,7 @@
 
 source 'https://rubygems.org'
 
-ruby '>= 3.4'
+ruby '>= 4.0'
 
 # ===========#
 # CORE RAILS #
@@ -36,7 +36,7 @@ gem 'propshaft'
 # Use Redis adapter to run Action Cable in production
 # A Ruby client that tries to match Redis' API one-to-one, while still providing an idiomatic interface
 # (https://github.com/redis/redis-rb)
-gem 'redis'
+gem 'redis', '~> 5.0'
 
 # redis-actionpack provides a session store for ActionPack, specifically for ActionDispatch.
 # (https://github.com/redis-store/redis-actionpack)
@@ -46,6 +46,7 @@ gem 'redis-actionpack'
 
 # Use Active Storage variant
 gem 'image_processing'
+gem 'ruby-vips'
 
 # Reduces boot times through caching; required in config/boot.rb
 gem 'bootsnap', require: false
@@ -128,9 +129,6 @@ gem 'ledermann-rails-settings'
 # Gem providing simple Contact Us functionality with a Rails 3+ Engine.
 # (https://github.com/jdutil/contact_us)
 gem 'contact_us' # COULD BE EASILY REPLACED WITH OUR OWN CODE
-
-# Helpers for the reCAPTCHA API (http://github.com/ambethia/recaptcha)
-gem 'recaptcha'
 
 # Ideal gem for handling attachments in Rails, Sinatra and Rack applications.
 # (http://github.com/markevans/dragonfly)
@@ -234,7 +232,7 @@ gem 'net-smtp'
 
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
-  gem 'byebug', platforms: %i[mri mingw x64_mingw]
+  gem 'byebug', platforms: %i[mri windows]
 end
 
 group :test do
@@ -375,3 +373,5 @@ gem 'graphql', '~> 2.3'
 gem 'foreman'
 
 gem 'good_job'
+
+gem 'altcha-rails'

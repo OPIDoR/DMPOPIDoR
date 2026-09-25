@@ -9,9 +9,10 @@ module Api
         before_action :authorize_request, except: %i[public]
         include MadmpExportHelper
         include ErrorHelper
+
         # GET /api/v1/madmp/plans/:id(/research_outputs/:uuid)
         # GET /api/v1/madmp/plans/research_outputs/:uuid
-        # rubocop:disable Metrics/AbcSize, Metrics/MethodLength
+        # rubocop:disable-next Metrics/AbcSize, Metrics/MethodLength
         def show
           if params[:id].present?
             plan = Api::V1::PlansPolicy::Scope.new(client, Plan).resolve.find(params[:id])
@@ -27,8 +28,8 @@ module Api
           export_format = params[:export_format]
           respond_to do |format|
             format.json
-            if export_format.eql?('rda')
-              render 'shared/export/madmp_export_templates/rda/plan', locals: {
+            if export_format.include?('rda')
+              render "shared/export/madmp_export_templates/#{export_format}/plan", locals: {
                 dmp: plan_fragment, selected_research_outputs:
               }
             else
@@ -41,15 +42,15 @@ module Api
         rescue ActiveRecord::RecordNotFound
           render_error(errors: [_('Plan not found')], status: :not_found)
         end
-        # rubocop:enable Metrics/AbcSize, Metrics/MethodLength
 
+        # rubocop:disable Metrics/AbcSize,Metrics/CyclomaticComplexity
+        # rubocop:disable-next Metrics/MethodLength,Metrics/PerceivedComplexity
         def public
           page = (params[:page] || 1).to_i
           size = (params[:size] || 10).to_i
           order_params = {
             'updated_at' => (params[:order].to_s.downcase.presence || 'desc').to_sym
           }
-          order_dir = params[:order].to_s.downcase == "asc" ? :asc : :desc
 
           return bad_request(_('Invalid page (must be >= 1)')) if page < 1
           return bad_request(_('Invalid size (must be between 1 and 1000)')) if size < 1 || size > 1000
@@ -72,11 +73,13 @@ module Api
             total: total_items,
             totalPages: total_pages,
             page: page,
-            size: size,
+            size: size
           } }, status: :ok
         end
+        # rubocop:enable Metrics/AbcSize,Metrics/CyclomaticComplexity
 
         # POST /api/v1/madmp/plans/import
+        # rubocop:disable-next Metrics/AbcSize,Metrics/MethodLength
         def import
           return forbidden(_('You are not allowed to create plan')) unless Api::V0::PlansPolicy.new(client,
                                                                                                     Plan).create?
@@ -100,9 +103,6 @@ module Api
                                         }, determine_owner(client: client, dmp: json['data']))
 
             render json: { status: 201, message: _('Plan imported successfully'), data: data }, status: :created
-          rescue StandardError => e
-            Rails.logger.error e.backtrace
-            bad_request(e)
           rescue IOError
             bad_request(_('Unvalid file'))
           rescue JSON::ParserError

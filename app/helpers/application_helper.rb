@@ -20,7 +20,7 @@ module ApplicationHelper
   # params) of the last URL requested. See
   # http://api.rubyonrails.org/classes/ActionDispatch/Request.html#method-i-fullpath
   # for details
-  # rubocop:disable Style/OptionalBooleanParameter
+  # rubocop:disable-next Style/OptionalBooleanParameter
   def active_page?(path, exact_match = false)
     if exact_match
       request.fullpath == path
@@ -28,11 +28,6 @@ module ApplicationHelper
       request.fullpath.include?(path)
     end
   end
-  # rubocop:enable Style/OptionalBooleanParameter
-
-  alias isActivePage active_page?
-
-  deprecate :isActivePage, deprecator: Cleanup::Deprecators::PredicateDeprecator.new
 
   def fingerprinted_asset(name)
     Rails.env.production? ? "#{name}-#{ASSET_FINGERPRINT}" : name

@@ -5,10 +5,11 @@ module OrgAdmin
   class TemplateCustomizationsController < ApplicationController
     include Paginable
     include Versionable
+
     after_action :verify_authorized
 
     # POST /org_admin/templates/:id/customize
-    # rubocop:disable Metrics/AbcSize
+    # rubocop:disable-next Metrics/AbcSize
     def create
       @template = Template.find(params[:template_id])
       authorize(@template, :customize?)
@@ -25,6 +26,5 @@ module OrgAdmin
       end
       redirect_back(fallback_location: org_admin_templates_path)
     end
-    # rubocop:enable Metrics/AbcSize
   end
 end

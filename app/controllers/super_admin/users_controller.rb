@@ -25,7 +25,7 @@ module SuperAdmin
     end
 
     # PUT /super_admin/users/:id
-    # rubocop:disable Metrics/AbcSize, Metrics/MethodLength
+    # rubocop:disable-next Metrics/AbcSize, Metrics/MethodLength
     def update
       @user = User.find(params[:id])
       authorize @user
@@ -58,10 +58,9 @@ module SuperAdmin
       end
       redirect_to edit_super_admin_user_path(@user)
     end
-    # rubocop:enable Metrics/AbcSize, Metrics/MethodLength
 
     # PUT /super_admin/users/:id/merge
-    # rubocop:disable Metrics/AbcSize
+    # rubocop:disable-next Metrics/AbcSize
     def merge
       @user = User.find(params[:id])
       authorize @user
@@ -79,30 +78,27 @@ module SuperAdmin
 
       redirect_to edit_super_admin_user_path(@user)
     end
-    # rubocop:enable Metrics/AbcSize
 
     # GET /super_admin/users/:id/search
-    # rubocop:disable Metrics/AbcSize
+    # rubocop:disable-next Metrics/AbcSize
     def search
       @user = User.find(params[:id])
       @users = User.where('email LIKE ?', "%#{params[:email]}%")
       authorize @users
       @departments = @user.org.departments.order(:name)
       @plans = Plan.active(@user).page(1)
-      # WHAT TO RETURN!?!?!
+
       if @users.present? # found a user, or Users, submit for merge
-        render json: {
-          form: render_to_string(partial: 'super_admin/users/confirm_merge')
-        }
+        render turbo_stream: turbo_stream.update('merge_form_container', partial: 'super_admin/users/confirm_merge',
+                                                                         locals: { user: @user, users: @users })
       else # NO USER, re-render w/error?
         flash[:alert] = 'Unable to find user'
         redirect_to edit_super_admin_user_path(@user)
       end
     end
-    # rubocop:enable Metrics/AbcSize
 
     # PUT /super_admin/users/:id/archive
-    # rubocop:disable Metrics/AbcSize
+    # rubocop:disable-next Metrics/AbcSize
     def archive
       @user = User.find(params[:id])
       authorize @user
@@ -115,7 +111,6 @@ module SuperAdmin
       end
       redirect_to edit_super_admin_user_path(@user)
     end
-    # rubocop:enable Metrics/AbcSize
 
     private
 

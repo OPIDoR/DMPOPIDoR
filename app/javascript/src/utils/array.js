@@ -1,9 +1,9 @@
-import { isFunction } from './isType';
+import { isFunction } from "./isType";
 
 if (!Array.prototype.find) {
-  Array.prototype.find = function (predicate) { // eslint-disable-line no-extend-native, func-names
+  Array.prototype.find = function (predicate) {
     if (!isFunction(predicate)) {
-      throw new TypeError('predicate must be a function');
+      throw new TypeError("predicate must be a function");
     }
     const array = Object(this);
     let i = 0;

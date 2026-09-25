@@ -7,7 +7,7 @@ module Mocks
   # One option might be to store them as .json files and then just load them here
   # but we would lose the use of Faker
 
-  # rubocop:disable Metrics/ModuleLength, Metrics/MethodLength
+  # rubocop:disable-next Metrics/ModuleLength, Metrics/MethodLength
   module ApiJsonSamples
     ROLES = %w[Investigation Project_administration Data_curation].freeze
 
@@ -59,10 +59,12 @@ module Mocks
                 title: Faker::Lorem.sentence
               }],
               extension: [
-                "#{ApplicationService.application_name.split('-').first}": {
-                  template: {
-                    id: Template.last.id,
-                    title: Faker::Lorem.sentence
+                {
+                  "#{ApplicationService.application_name.split('-').first}": {
+                    template: {
+                      id: Template.last.id,
+                      title: Faker::Lorem.sentence
+                    }
                   }
                 }
               ]
@@ -72,7 +74,7 @@ module Mocks
       }.to_json
     end
 
-    # rubocop:disable Metrics/AbcSize
+    # rubocop:disable-next Metrics/AbcSize
     def complete_create_json
       lang = Language.all.pluck(:abbreviation).sample || 'en-UK'
       contact = {
@@ -186,7 +188,5 @@ module Mocks
         ]
       }.to_json
     end
-    # rubocop:enable Metrics/AbcSize
   end
-  # rubocop:enable Metrics/ModuleLength, Metrics/MethodLength
 end

@@ -5,7 +5,8 @@
     "description": "LicenseStandard template",
     "dataTypes": [
         "software",
-        "none"
+        "dataset",
+        "physical_object"
     ],
     "topics": null,
     "type": "object",
@@ -13,7 +14,7 @@
     "properties": {
         "licenseName": {
             "type": "string",
-            "description": "Nom de la licence",
+            "description": "License name",
             "label@fr_FR": "Nom",
             "label@en_GB": "Name",
             "tooltip": null,
@@ -25,7 +26,7 @@
         "licenseUrl": {
             "type": "string",
             "format": "url",
-            "description": "Url de référence de la licence",
+            "description": "License reference URL",
             "label@fr_FR": "URL",
             "label@en_GB": "URL",
             "tooltip": null,

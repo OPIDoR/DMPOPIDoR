@@ -22,7 +22,7 @@ class ClassicResearchOutputsController < ApplicationController
     redirect_to(controller: 'plans', action: 'index')
   end
 
-  # rubocop:disable Metrics/AbcSize
+  # rubocop:disable-next Metrics/AbcSize, Metrics/MethodLength
   def create
     @plan = Plan.includes(:template).find(params[:plan_id])
     I18n.with_locale @plan.template.locale do
@@ -33,12 +33,14 @@ class ClassicResearchOutputsController < ApplicationController
       reg_val = registry_values.find { |entry| entry['en_GB'] == 'Dataset' }
 
       @research_output = @plan.research_outputs.create(
-        abbreviation: "#{_('RO')} #{max_order}",
-        title: "#{_('Research output')} #{max_order}",
+        abbreviation: "#{_('RO')} 0",
+        title: "#{_('Research output')} 0",
         is_default: false,
         display_order: max_order,
         output_type_description: reg_val[@plan.template.locale.tr('-', '_')]
       )
+      @research_output.update_columns(abbreviation: "#{_('RO')} #{@research_output.id}",
+                                      title: "#{_('Research output')} #{@research_output.id}")
       @research_output.create_json_fragments
 
       @research_outputs = @plan.research_outputs
@@ -47,15 +49,17 @@ class ClassicResearchOutputsController < ApplicationController
                                                                    locals: { research_output: @research_output })
     end
   end
-  # rubocop:enable Metrics/AbcSize
 
-  # rubocop:disable Metrics/AbcSize
+  # rubocop:disable-next Metrics/AbcSize
   def destroy
     @plan = Plan.find(params[:plan_id])
     @research_output = ResearchOutput.find(params[:id])
     @persons = @plan.json_fragment.persons
     authorize @plan
     if @research_output.destroy
+      @plan.research_outputs.each_with_index do |ro, index|
+        ro.update_column(:display_order, index + 1)
+      end
       flash[:notice] = success_message(@research_output, _('deleted'))
     else
       flash[:alert] = failure_message(@research_output, _('delete'))
@@ -64,9 +68,8 @@ class ClassicResearchOutputsController < ApplicationController
 
     render turbo_stream: turbo_stream.remove(@research_output)
   end
-  # rubocop:enable Metrics/AbcSize
 
-  # rubocop:disable Metrics/AbcSize, Metrics/MethodLength
+  # rubocop:disable-next Metrics/AbcSize, Metrics/MethodLength
   def update
     @plan = Plan.find(params[:plan_id])
     @research_output = ResearchOutput.find(params[:id])
@@ -82,7 +85,7 @@ class ClassicResearchOutputsController < ApplicationController
       research_output_description.contact.update(
         data: {
           'person' => contact_id.present? ? { 'dbid' => contact_id } : nil,
-          'role' => _('Data contact')
+          'role' => _('Contact Person')
         }
       )
       render turbo_stream: turbo_stream.replace(@research_output, partial: 'research_outputs/research_output',
@@ -92,7 +95,6 @@ class ClassicResearchOutputsController < ApplicationController
       redirect_to(action: 'index')
     end
   end
-  # rubocop:enable Metrics/AbcSize, Metrics/MethodLength
 
   # GET /plans/:plan_id/research_outputs/:id/edit
   def edit

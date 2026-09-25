@@ -1,6 +1,5 @@
 # frozen_string_literal: true
 
-# rubocop:disable Naming/VariableNumber
 namespace :json_plans do
   desc 'Adding full plans in JSON format in json_plans table'
   task job: :environment do
@@ -13,29 +12,26 @@ namespace :json_plans do
     errors = []
 
     plans.each do |plan|
-      begin
-        p "> Adding plan: #{plan.id}"
-        json_plan = JsonPlan.find_or_initialize_by(plan: plan)
-        json_plan.assign_attributes(
-          dmp_id: plan.json_fragment.id,
-          research_outputs_uuids: plan.research_outputs.pluck(:uuid),
-          data: plan.json_fragment.get_full_fragment
-        )
-        json_plan.save!
-      rescue StandardError => e
-        p "> ERROR for plan #{plan.id}: #{e.message}"
-        errors << { plan_id: plan.id, error: e.message }
-      end
+      p "> Adding plan: #{plan.id}"
+      json_plan = JsonPlan.find_or_initialize_by(plan: plan)
+      json_plan.assign_attributes(
+        dmp_id: plan.json_fragment.id,
+        research_outputs_uuids: plan.research_outputs.pluck(:uuid),
+        data: plan.json_fragment.get_full_fragment
+      )
+      json_plan.save!
+    rescue StandardError => e
+      p "> ERROR for plan #{plan.id}: #{e.message}"
+      errors << { plan_id: plan.id, error: e.message }
     end
 
     p '------------------------------------------------------------------------'
     p 'Task complete'
-    unless errors.empty?
+    if errors.empty?
+      p 'No errors encountered.'
+    else
       p "#{errors.size} error(s) encountered:"
       errors.each { |err| p "> Plan #{err[:plan_id]}: #{err[:error]}" }
-    else
-      p 'No errors encountered.'
     end
   end
 end
-# rubocop:enable Naming/VariableNumber

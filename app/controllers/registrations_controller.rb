@@ -4,7 +4,7 @@
 class RegistrationsController < Devise::RegistrationsController
   include OrgSelectable
 
-  # rubocop:disable Metrics/AbcSize
+  # rubocop:disable-next Metrics/AbcSize
   def edit
     @user = current_user
     @prefs = @user.get_preferences(:email)
@@ -28,10 +28,9 @@ class RegistrationsController < Devise::RegistrationsController
     msg = 'No default preferences found (should be in dmproadmap.rb initializer).'
     flash[:alert] = msg unless @prefs
   end
-  # rubocop:enable Metrics/AbcSize
 
   # GET /resource
-  # rubocop:disable Metrics/AbcSize
+  # rubocop:disable-next Metrics/AbcSize
   def new
     oauth = { provider: nil, uid: nil }
     IdentifierScheme.for_users.each do |scheme|
@@ -49,7 +48,6 @@ class RegistrationsController < Devise::RegistrationsController
                        you will be able to sign in directly with your
                        institutional credentials."), application_name: ApplicationService.application_name)
   end
-  # rubocop:enable Metrics/AbcSize
 
   # rubocop:disable Metrics/AbcSize, Metrics/MethodLength
   # rubocop:disable Metrics/PerceivedComplexity, Metrics/CyclomaticComplexity
@@ -109,10 +107,18 @@ class RegistrationsController < Devise::RegistrationsController
         end
       end
 
-      # Determine if reCAPTCHA is enabled and if so verify it
-      use_recaptcha = Rails.configuration.x.recaptcha.enabled || false
-      if (!use_recaptcha || verify_recaptcha(action: 'create_account', model: resource)) && resource.save
-        # rubocop:disable Metrics/BlockNesting
+      # Determine if Altcha is enabled and if so verify it
+      use_altcha = Rails.configuration.x.altcha.enabled || false
+
+      submission =
+        if use_altcha
+          Altcha.verify(params[:altcha])
+        else
+          true
+        end
+
+      if submission && resource.save
+        # rubocop:disable-next Metrics/BlockNesting
         if resource.active_for_authentication?
           set_flash_message :notice, :signed_up if is_navigational_format?
           sign_up(resource_name, resource)
@@ -130,25 +136,22 @@ class RegistrationsController < Devise::RegistrationsController
                                   your account with them.')
             end
           end
-          respond_with resource, location: after_sign_up_path_for(resource)
+          redirect_to new_plan_path(anchor: 'content')
         elsif is_navigational_format?
           set_flash_message :notice, :"signed_up_but_#{resource.inactive_message}"
-          respond_with resource, location: after_inactive_sign_up_path_for(resource)
+          redirect_to after_inactive_sign_up_path_for(resource)
         end
-        # rubocop:enable Metrics/BlockNesting
       else
-        @show_checkbox_recaptcha = true
-        clean_up_passwords resource
-        redirect_to after_sign_up_error_path_for(resource),
-                    alert: _("Unable to create your account.#{errors_for_display(resource)}")
-
+        flash[:alert] = _('Captcha verification failed, please retry.')
+        render :new, status: :unprocessable_entity
+        nil
       end
     end
   end
   # rubocop:enable Metrics/AbcSize, Metrics/MethodLength
   # rubocop:enable Metrics/PerceivedComplexity, Metrics/CyclomaticComplexity
 
-  # rubocop:disable Metrics/AbcSize
+  # rubocop:disable-next Metrics/AbcSize
   def update
     if user_signed_in?
       @prefs = @user.get_preferences(:email)
@@ -166,7 +169,6 @@ class RegistrationsController < Devise::RegistrationsController
       render(file: File.join(Rails.root, 'public/403.html'), status: 403, layout: false)
     end
   end
-  # rubocop:enable Metrics/AbcSize
 
   private
 
@@ -227,13 +229,12 @@ class RegistrationsController < Devise::RegistrationsController
           successfully_updated = false
         elsif current_user.valid_password?(attrs[:current_password])
           successfully_updated = current_user.update_with_password(attrs)
-          # rubocop:disable Metrics/BlockNesting
+          # rubocop:disable-next Metrics/BlockNesting
           unless successfully_updated
             message = _("Save unsuccessful. \
                 That email address is already registered. \
                 You must enter a unique email address.")
           end
-          # rubocop:enable Metrics/BlockNesting
         else
           message = _('Invalid password')
         end
@@ -276,7 +277,7 @@ class RegistrationsController < Devise::RegistrationsController
   # rubocop:enable Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
   # rubocop:enable Style/OptionalBooleanParameter
 
-  # rubocop:disable Metrics/AbcSize, Metrics/PerceivedComplexity
+  # rubocop:disable-next Metrics/AbcSize, Metrics/PerceivedComplexity
   def do_update_password(current_user, args)
     if args[:current_password].blank?
       message = _('Please enter your current password')
@@ -302,7 +303,6 @@ class RegistrationsController < Devise::RegistrationsController
       redirect_to "#{edit_user_registration_path}#password-details"
     end
   end
-  # rubocop:enable Metrics/AbcSize, Metrics/PerceivedComplexity
 
   def sign_up_params
     params.require(:user).permit(:email, :password, :password_confirmation,

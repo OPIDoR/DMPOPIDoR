@@ -67,7 +67,7 @@
                 ]
             },
             "minItems": 1,
-            "description": "Dépendencies",
+            "description": "Information about dependencies required to run the software",
             "label@fr_FR": "Dépendances",
             "label@en_GB": "Dependencies",
             "tooltip@fr_FR": "Si vous avez un fichier 'Requirements', ajoutez-le comme élément en précisant son lien URL ou lister les dépendances individuellement.",
@@ -77,7 +77,7 @@
         },
         "description": {
             "type": "string",
-            "description": "Additional informations about runtime environment",
+            "description": "Additional i nformations about runtime environment",
             "inputType": "textarea",
             "label@fr_FR": "Informations complémentaires",
             "label@en_GB": "Additional information",

@@ -13,7 +13,7 @@ class TemplateOptionsController < ApplicationController
   #   - Default template is displayed in the list
   #   - Customized funder templates are displayed in the list, with a 'Customized by' label
   # rubocop:disable Metrics/AbcSize, Metrics/MethodLength
-  # rubocop:disable Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
+  # rubocop:disable-next Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
   def index
     org_hash = plan_params.fetch(:research_org_id, {})
     funder_hash = plan_params.fetch(:funder_id, {})
@@ -37,13 +37,12 @@ class TemplateOptionsController < ApplicationController
                                                                org.id).first
             # Only provide the customized version if its still up to date with the
             # funder template!
-            # rubocop:disable Metrics/BlockNesting
+            # rubocop:disable-next Metrics/BlockNesting
             if customization.present? && !customization.upgrade_customization?
               customization
             else
               tmplt
             end
-            # rubocop:enable Metrics/BlockNesting
           end
         end
       end
@@ -83,7 +82,6 @@ class TemplateOptionsController < ApplicationController
     end.as_json
     render json: res
   end
-  # rubocop:enable Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
   # rubocop:enable Metrics/AbcSize, Metrics/MethodLength
 
   def recommend

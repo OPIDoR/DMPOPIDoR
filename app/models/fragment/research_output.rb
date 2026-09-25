@@ -51,6 +51,8 @@ module Fragment
       data_type = additional_info['dataType']
       if data_type.eql?('software')
         Fragment::Software::SoftwareDescription.where(parent_id: id).first
+      elsif data_type.eql?('physical_object')
+        Fragment::PhysicalObject::PhysicalObjectDescription.where(parent_id: id).first
       else
         Fragment::ResearchOutputDescription.where(parent_id: id).first
       end
@@ -111,9 +113,8 @@ module Fragment
     end
 
     def properties
-      # rubocop:disable Layout/LineLength
+      # rubocop:disable-next Layout/LineLength
       'research_output_description, reuse, personal_data_issues, legal_issues, ethical_issues, data_collection, data_processing, data_storage, documentation_quality, sharing, preservation_issues, budget'
-      # rubocop:enable Layout/LineLength
     end
 
     def self.sti_name

@@ -20,7 +20,7 @@ module OrgAdmin
                        default_org: @user.org }
     end
 
-    # rubocop:disable Metrics/AbcSize
+    # rubocop:disable-next Metrics/AbcSize
     def update
       @user = User.find(params[:id])
       authorize @user
@@ -31,9 +31,8 @@ module OrgAdmin
       else
         flash[:alert] = failure_message(@user, _('update'))
       end
-      redirect_to new_org_admin_user_path(@user)
+      redirect_to org_admin_user_path(@user)
     end
-    # rubocop:enable Metrics/AbcSize
 
     def user_plans
       @user = User.find(params[:id])

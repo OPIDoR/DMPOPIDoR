@@ -3,14 +3,16 @@
     "$id": "../Documentation/Implementation/data_model/Json/",
     "title": "DataStorageStandard",
     "description": "DataStorageStandard template",
-    "dataTypes": null,
+    "dataTypes": [
+        "dataset"
+    ],
     "topics": null,
     "type": "object",
     "class": "DataStorageStandard",
     "properties": {
         "description": {
             "type": "string",
-            "description": "Description des besoins de stockage",
+            "description": "Costs associated with data storage",
             "inputType": "textarea",
             "label@fr_FR": "Besoins de stockage",
             "label@en_GB": "Storage needs",
@@ -20,7 +22,7 @@
         },
         "estimatedVolume": {
             "type": "number",
-            "description": "Volume estimé des données",
+            "description": "Estimated data volume",
             "label@fr_FR": "Volume estimé des données",
             "label@en_GB": "Estimated volume of data",
             "tooltip": null,
@@ -29,7 +31,7 @@
         },
         "volumeUnit": {
             "type": "string",
-            "description": "Unité de volume",
+            "description": "Unit of volume",
             "inputType": "dropdown",
             "label@fr_FR": "Unité",
             "label@en_GB": "Unit",
@@ -55,7 +57,7 @@
                     "dbid"
                 ]
             },
-            "description": "Ressource/équipement utilisée pour le stockage et sauvegarde des données",
+            "description": "Use of a technical resource for data storage and backup",
             "label@fr_FR": "Equipements, plateaux techniques",
             "label@en_GB": "Equipments, technical platforms",
             "inputType": "dropdown",
@@ -81,7 +83,7 @@
                     "dbid"
                 ]
             },
-            "description": "Informations relatives à la politique de sauvegarde",
+            "description": "Description of measures taken to ensure data security",
             "label@fr_FR": "Politique de sauvegarde",
             "label@en_GB": "Backup policy",
             "tooltip": null,
@@ -90,7 +92,7 @@
         },
         "securityMeasures": {
             "type": "string",
-            "description": "Description des mesures prises pour assurer la sécurité des données",
+            "description": "Information regarding the backup policy",
             "inputType": "textarea",
             "label@fr_FR": "Mesures prises pour la sécurité des données",
             "label@en_GB": "Measures taken for data security",
@@ -117,7 +119,7 @@
                     "dbid"
                 ]
             },
-            "description": "Personne(s) responsable(s) du suivi du stockage des données",
+            "description": "Person(s) responsible for overseeing data storage",
             "label@fr_FR": "Personnes impliquées dans le stockage des données",
             "label@en_GB": "Persons in charge of data storage",
             "tooltip@fr_FR": "Il peut s'agir d'une ou plusieurs personnes, d'une équipe, d'un service",
@@ -142,7 +144,7 @@
                     "dbid"
                 ]
             },
-            "description": "Coûts éventuels liés au stockage des données",
+            "description": "Costs associated with data storage",
             "label@fr_FR": "Coûts",
             "label@en_GB": "Costs",
             "tooltip": null,

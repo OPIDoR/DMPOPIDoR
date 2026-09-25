@@ -16,7 +16,7 @@ RSpec.describe 'api/v1/madmp/plans', type: :request do
     get('Export Plan in the Standard or RDA format') do
       tags 'Plans'
       produces 'application/json'
-      security [Bearer: []]
+      security [{ Bearer: [] }]
       response(200, 'successful') do
         let(:id) { '123' }
         let(:export_format) { 'standard' }
@@ -46,7 +46,7 @@ RSpec.describe 'api/v1/madmp/plans', type: :request do
     get('Export Plan, for a given research_output, in the Standard or RDA format') do
       tags 'Plans'
       produces 'application/json'
-      security [Bearer: []]
+      security [{ Bearer: [] }]
       response(200, 'successful') do
         let(:uuid) { 'aa-22-aa-4444' }
         let(:export_format) { 'standard' }
@@ -79,7 +79,7 @@ RSpec.describe 'api/v1/madmp/plans', type: :request do
       tags 'Plans'
       produces 'application/json'
       consumes 'application/json'
-      security [Bearer: []]
+      security [{ Bearer: [] }]
       response(200, 'successful') do
         let(:import_format) { 'standard' }
         after do |example|

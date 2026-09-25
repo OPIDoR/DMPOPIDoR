@@ -1,5 +1,4 @@
-import React from 'react';
-import styled from 'styled-components';
+import styled from "styled-components";
 
 const CircleContent = styled.div`
   margin: 30px 0 0 10px;

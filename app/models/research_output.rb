@@ -9,7 +9,7 @@
 #  description             :text
 #  display_order           :integer
 #  is_default              :boolean          default(FALSE)
-#  output_type             :integer          default("dataset"), not null
+#  output_type             :integer          default(3), not null
 #  output_type_description :string
 #  pid                     :string
 #  title                   :string
@@ -37,6 +37,9 @@ class ResearchOutput < ApplicationRecord
   attribute :uuid, :string, default: -> { unique_uuid(field_name: 'uuid') }
 
   after_destroy :destroy_json_fragment
+
+  after_create -> { PlanJobScheduler.enqueue_or_reschedule_pdf(plan_id) }
+  after_destroy -> { PlanJobScheduler.enqueue_or_reschedule_pdf(plan_id) }
 
   enum :output_type, %i[audiovisual collection data_paper dataset event image
                         interactive_resource model_representation physical_object
@@ -118,14 +121,18 @@ class ResearchOutput < ApplicationRecord
     Fragment::ResearchOutput.where("(data->>'research_output_id')::int = ?", id).first
   end
 
+  def data_type
+    json_fragment.additional_info['dataType'] if json_fragment.present?
+  end
+
   def destroy_json_fragment
     Fragment::ResearchOutput.where("(data->>'research_output_id')::int = ?", id).destroy_all
   end
 
   # rubocop:disable Metrics/AbcSize, Metrics/MethodLength
-  # rubocop:disable Metrics/CyclomaticComplexity,Metrics/PerceivedComplexity
+  # rubocop:disable-next Metrics/CyclomaticComplexity,Metrics/PerceivedComplexity
   def create_json_fragments(configuration = {}, duplicate: false)
-    # rubocop:disable Metrics/BlockLength
+    # rubocop:disable-next Metrics/BlockLength
     I18n.with_locale plan.template.locale do
       fragment = json_fragment
       dmp_fragment = plan.json_fragment
@@ -137,13 +144,12 @@ class ResearchOutput < ApplicationRecord
           plan, data_type, locale
         )
         ro_additional_info, description_data = configuration_to_additional_info_data(configuration, locale)
-
         # Creates the main ResearchOutput fragment
-        fragment = Fragment::ResearchOutput.create(
+        fragment = Fragment::ResearchOutput.create!(
           data: {
             'research_output_id' => id
           },
-          madmp_schema: MadmpSchema.find_by(classname: 'research_output', data_type: data_type || 'none'),
+          madmp_schema: MadmpSchema.find_by(classname: 'research_output', data_type: data_type || 'dataset'),
           dmp_id: dmp_fragment.id,
           parent_id: dmp_fragment.id,
           additional_info: ro_additional_info
@@ -191,9 +197,7 @@ class ResearchOutput < ApplicationRecord
         fragment.research_output_description.update(data: data)
       end
     end
-    # rubocop:enable Metrics/BlockLength
   end
-  # rubocop:enable Metrics/CyclomaticComplexity,Metrics/PerceivedComplexity
   # rubocop:enable Metrics/AbcSize, Metrics/MethodLength
 
   def serialize_infobox_data
@@ -203,13 +207,14 @@ class ResearchOutput < ApplicationRecord
       title: description_fragment.data['title'],
       type: description_fragment.data['type'],
       configuration: {
+        dataType: json_fragment.additional_info['dataType'],
         hasPersonalData: personal_data?
       }
     }
   end
 
-  # rubocop:disable Metrics/AbcSize, Metrics/MethodLength
-  def serialize_json
+  # rubocop:disable-next Metrics/AbcSize, Metrics/MethodLength
+  def serialize_json(user = nil, with_answers: true)
     ro_fragment = json_fragment
     module_id = ro_fragment.additional_info['moduleId']
     template = module_id ? Template.find(module_id) : plan.template
@@ -222,30 +227,30 @@ class ResearchOutput < ApplicationRecord
         title: title,
         order: display_order,
         topic: topic,
+        topic_label: generate_topic_label,
+        output_type: output_type,
         type: ro_fragment.research_output_description['data']['type'] || nil,
         configuration: ro_fragment.additional_info,
-        answers: answers.map do |a|
-          {
-            id: a.id,
-            question_id: a.question_id,
-            fragment_id: a.madmp_fragment.id,
-            madmp_schema_id: a.madmp_fragment.madmp_schema_id
-          }
-        end,
+        answers: if with_answers
+                   answers.map { |a| a.serialize_json(user) }
+                 else
+                   {}
+                 end,
         template: template.serialize_json
       }
     end
   end
-  # rubocop:enable Metrics/AbcSize, Metrics/MethodLength
 
   def update_description(contains_personal_data: true)
     research_output_description = json_fragment.research_output_description
-    updated_data = research_output_description.data.merge({
-                                                            title:,
-                                                            shortName: abbreviation,
-                                                            type: output_type_description,
-                                                            containsPersonalData: contains_personal_data ? _('Yes') : _('No') # rubocop:disable Layout/LineLength
-                                                          })
+    data_type = json_fragment.additional_info['dataType']
+    new_description_data = { title:, shortName: abbreviation }
+    if %w[dataset physical_object].include?(data_type)
+      new_description_data[:containsPersonalData] =
+        contains_personal_data ? _('Yes') : _('No')
+    end
+
+    updated_data = research_output_description.data.merge(new_description_data)
     research_output_description.update(data: updated_data)
     research_output_description.update_research_output_parameters(skip_broadcast: true)
     research_output_description
@@ -257,6 +262,15 @@ class ResearchOutput < ApplicationRecord
 
   def module_id
     json_fragment.additional_info['moduleId'] || nil
+  end
+
+  def generate_topic_label
+    template_locale = plan.template.locale
+    Rails.cache.fetch("research_output_#{topic}_#{template_locale}_label", expires_in: 12.hours) do
+      Registry.find_by(name: 'Topics').values.find do |v|
+        v['value'].eql?(topic)
+      end.dig('label', LocaleService.to_gettext(locale: template_locale)) || topic
+    end
   end
 
   ##
@@ -271,12 +285,19 @@ class ResearchOutput < ApplicationRecord
   # Returns an array containing the property name, description question & the madmpschema according to the
   # data_type in parameters
   #####
+  # rubocop:disable-next Metrics/AbcSize
   def self.data_type_to_schema_data(plan, data_type, locale)
     if data_type.eql?('software') && MadmpSchema.exists?(name: 'SoftwareDescriptionStandard')
       [
         'softwareDescription',
         Template.module(data_type:, locale:).questions.joins(:madmp_schema).find_by(madmp_schemas: { classname: 'software_description' }), # rubocop:disable Layout/LineLength
         MadmpSchema.find_by(name: 'SoftwareDescriptionStandard')
+      ]
+    elsif data_type.eql?('physical_object') && MadmpSchema.exists?(name: 'PhysicalObjectDescriptionStandard')
+      [
+        'physicalObjectDescription',
+        Template.module(data_type:, locale:).questions.joins(:madmp_schema).find_by(madmp_schemas: { classname: 'physical_object_description' }), # rubocop:disable Layout/LineLength
+        MadmpSchema.find_by(name: 'PhysicalObjectDescriptionStandard')
       ]
     else
       [
@@ -293,39 +314,40 @@ class ResearchOutput < ApplicationRecord
   # Returns an array containing the researchOutput fragment additional info and researchOutput description data
   # depending on the research output configuration in parameters
   #####
-  # rubocop:disable Metrics/MethodLength
   def configuration_to_additional_info_data(configuration, locale)
-    case configuration[:dataType]
-    when 'software'
-      [
-        {
-          property_name: 'researchOutput',
-          dataType: configuration[:dataType],
-          topic: topic,
-          moduleId: Template.module(data_type: configuration[:dataType], locale:)&.id
-        },
-        {
-          'title' => title,
-          'shortName' => abbreviation,
-          'type' => output_type_description
-        }
-      ]
-    else
-      [
-        {
-          property_name: 'researchOutput',
-          hasPersonalData: configuration[:hasPersonalData] || false,
-          topic: topic,
-          dataType: 'none'
-        },
-        {
-          'title' => title,
-          'shortName' => abbreviation,
-          'type' => output_type_description,
-          'containsPersonalData' => configuration[:hasPersonalData] ? _('Yes') : _('No')
-        }
-      ]
-    end
+    fragment_data = {
+      'title' => title,
+      'shortName' => abbreviation,
+      'type' => output_type_description
+    }.merge(include_personal_data__data(configuration[:dataType], configuration))
+    fragment_additional_info = {
+      property_name: 'researchOutput',
+      dataType: configuration[:dataType],
+      topic: topic
+    }.merge(include_module_id(configuration[:dataType],
+                              locale), include_personal_data_configuration(configuration[:dataType], configuration))
+
+    [
+      fragment_additional_info,
+      fragment_data
+    ]
   end
-  # rubocop:enable Metrics/MethodLength
+
+  def include_personal_data__data(data_type, configuration)
+    return {} unless %w[physical_object dataset].include?(data_type)
+
+    { 'containsPersonalData' => configuration[:hasPersonalData] ? _('Yes') : _('No') }
+  end
+
+  def include_personal_data_configuration(data_type, configuration)
+    return {} unless %w[physical_object dataset].include?(data_type)
+
+    { hasPersonalData: configuration[:hasPersonalData] || false }
+  end
+
+  def include_module_id(data_type, locale)
+    return {} unless %w[software physical_object].include?(data_type)
+
+    { moduleId: Template.module(data_type: data_type, locale: locale)&.id }
+  end
 end

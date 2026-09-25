@@ -39,8 +39,6 @@ services:
       - SECRET_KEY=${SECRET_KEY:-my_secret_key}
       - DEVISE_PEPPER=${DEVISE_PEPPER:-my_pepper}
       - DRAGON_FLY_SECRET=${DRAGON_FLY_SECRET:-my_secret_key}
-      - RECAPTCHA_SITE_KEY=${RECAPTCHA_SITE_KEY:-11111}
-      - RECAPTCHA_SECRET_KEY=${RECAPTCHA_SECRET_KEY:-22222}
       - REDIS_URL=redis://${REDIS_USERNAME:-default}:${REDIS_PASSWORD:-changeme}@${REDIS_HOST:-valkey}:${REDIS_PORT:-6379}
       - REDIS_HOST=${REDIS_HOST:-valkey}
       - REDIS_PORT=${REDIS_PORT:-6379}
@@ -56,6 +54,7 @@ services:
       - TRANSLATION_API_ROADMAP
       - TRANSLATION_API_CLIENT
       - DEFAULT_LOCALE
+      - ALTCHA_HMAC_KEY
       # MetaDoRe API
       - METADORE_LANDING_PAGE_URL
       - METADORE_API_BASE_URL
@@ -67,11 +66,12 @@ services:
       - DIRECTUS_PUBLIC_URL=http://${DMP_SERVER_NAME:-0.0.0.0}:${NGINX_PORT:-8080}/directus
       - ENABLE_GRAPHIQL=true
       - ENABLE_TOPICS=${ENABLE_TOPICS:-true}
+      - ENABLE_PHYSICAL_OBJECT=${ENABLE_PHYSICAL_OBJECT:-true}
       # Keycloak
-      - ENABLE_KEYCLOAK=${ENABLE_KEYCLOAK:-true}
-      - KEYCLOAK_REALM_NAME=${KEYCLOAK_REALM_NAME:-dmpopidor}
-      - KEYCLOAK_CLIENT_NAME=${KEYCLOAK_CLIENT_NAME:-dmpopidor}
-      - KEYCLOAK_CLIENT_SECRET=${KEYCLOAK_CLIENT_SECRET:-changeme}
+      - ENABLE_OIDC=${ENABLE_OIDC:-false}
+      - OIDC_REALM_NAME=${OIDC_REALM_NAME:-dmpopidor}
+      - OIDC_CLIENT_NAME=${OIDC_CLIENT_NAME:-dmpopidor}
+      - OIDC_CLIENT_SECRET=${OIDC_CLIENT_SECRET:-changeme}
     working_dir: /app
     volumes:
       - ./log:/app/log
@@ -120,7 +120,7 @@ services:
       - dmpopidor_network
 
   nginx:
-    image: nginx:1.29.3-alpine-slim
+    image: nginx:1.29.8-alpine-slim
     ports:
       - ${NGINX_PORT:-8080}:80
     depends_on:
@@ -142,7 +142,7 @@ services:
       - dmpopidor_network
 
   postgres:
-    image: postgres:17.7-alpine3.22
+    image: postgres:17.9-alpine3.23
     environment:
       - POSTGRES_USER=${DB_USERNAME:-postgres}
       - POSTGRES_PASSWORD=${DB_PASSWORD:-changeme}
@@ -162,7 +162,7 @@ services:
       - dmpopidor_network
 
   valkey:
-    image: valkey/valkey:8.1.4-alpine3.22
+    image: valkey/valkey:8.1.6-alpine3.23
     command: "redis-server /etc/redis/redis.conf --requirepass ${REDIS_PASSWORD:-changeme}"
     volumes:
       - ./redis/sysctl.conf:/etc/sysctl.conf:ro

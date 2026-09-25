@@ -24,10 +24,10 @@
 #
 # Foreign Keys
 #
-#  fk_rails_...  (plan_id => plans.id)
-#  fk_rails_...  (question_id => questions.id)
+#  fk_rails_...  (plan_id => plans.id) DEFERRABLE INITIALLY DEFERRED
+#  fk_rails_...  (question_id => questions.id) DEFERRABLE INITIALLY DEFERRED
 #  fk_rails_...  (research_output_id => research_outputs.id)
-#  fk_rails_...  (user_id => users.id)
+#  fk_rails_...  (user_id => users.id) DEFERRABLE INITIALLY DEFERRED
 #
 
 # Object that represents an Answer to a Plan question
@@ -99,7 +99,7 @@ class Answer < ApplicationRecord
   # presence of text
   #
   # Returns Boolean
-  # rubocop:disable Metrics/AbcSize
+  # rubocop:disable-next Metrics/AbcSize
   def answered?
     return false unless question.present?
     # If the question is option based then see if any options were selected
@@ -116,7 +116,6 @@ class Answer < ApplicationRecord
 
     false
   end
-  # rubocop:enable Metrics/AbcSize
 
   # Answer notes whose archived is blank sorted by updated_at in descending order
   #
@@ -170,7 +169,7 @@ class Answer < ApplicationRecord
     end
   end
 
-  # rubocop:disable Metrics/AbcSize
+  # rubocop:disable-next Metrics/AbcSize
   def instantiate_fragment
     if plan.structured? && madmp_fragment.nil?
       dmp_id = plan.json_fragment.id
@@ -184,7 +183,7 @@ class Answer < ApplicationRecord
         madmp_schema: madmp_schema,
         classname: madmp_schema.classname,
         additional_info: {
-          'property_name' => madmp_schema.property_name_from_classname
+          'property_name' => madmp_schema.property_name_from_classname(research_output&.output_type || 'dataset')
         }
       )
       madmp_fragment.instantiate
@@ -193,5 +192,29 @@ class Answer < ApplicationRecord
     end
     nil
   end
-  # rubocop:enable Metrics/AbcSize
+
+  def serialize_json(user = nil)
+    {
+      id: id,
+      question_id: question_id,
+      fragment_id: madmp_fragment&.id,
+      madmp_schema_id: madmp_fragment&.madmp_schema_id,
+      classname: madmp_fragment&.classname,
+      new_comment_count: user ? unread_comments_count_for(user) : 0
+    }
+  end
+
+  def unread_comments_count_for(user)
+    mark = ViewedComment.find_by(user: user, answer: self)
+    scope = notes.where.not(user_id: user.id) # on n'alerte pas sur ses propres commentaires
+    scope = scope.where('created_at > ?', mark.last_read_at) if mark
+    scope.count
+  end
+
+  def mark_comments_as_read(user)
+    ViewedComment.upsert(
+      { user_id: user.id, answer_id: id, last_read_at: Time.current },
+      unique_by: %i[user_id answer_id]
+    )
+  end
 end

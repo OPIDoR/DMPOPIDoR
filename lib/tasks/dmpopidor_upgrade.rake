@@ -1,12 +1,30 @@
 # frozen_string_literal: true
 
-# rubocop:disable Naming/VariableNumber
+# rubocop:disable-next Naming/VariableNumber
 namespace :dmpopidor_upgrade do
+  desc 'Upgrade to 4.4.4'
+  task V4_4_4: :environment do
+    Rake::Task['dmpopidor_upgrade:generate_pdf_plans'].execute
+  end
+  desc 'Upgrade to 4.4.2'
+  task V4_4_2: :environment do
+    Rake::Task['dmpopidor_upgrade:update_current_sign_in_at_for_5_years_users'].execute
+    Rake::Task['usercleaning:anonymize_users_after_5_years'].execute
+  end
+  desc 'Upgrade to 4.4.1'
+  task V4_4_1: :environment do
+    Rake::Task['dmpopidor_upgrade:generate_public_json_plans'].execute
+    Rake::Task['dmpopidor_upgrade:generate_structured_json_plans'].execute
+  end
   desc 'Upgrade to 4.4.0'
   task V4_4_0: :environment do
     Rake::Task['dmpopidor_upgrade:migrate_context_to_plans'].execute
     Rake::Task['dmpopidor_upgrade:migrate_template_context_to_contexts'].execute
     Rake::Task['dmpopidor_upgrade:migrate_guidance_groups_to_research_outputs'].execute
+    Rake::Task['dmpopidor_upgrade:migrate_software_roles_registry_values'].execute
+    Rake::Task['dmpopidor_upgrade:migrate_software_roles_registry_all_roles_values'].execute
+    Rake::Task['dmpopidor_upgrade:migrate_default_data_type_values'].execute
+    Rake::Task['dmpopidor_upgrade:migrate_research_outputs_data_type'].execute
   end
   desc 'Upgrade to 4.3.7'
   task V4_3_7: :environment do
@@ -43,6 +61,103 @@ namespace :dmpopidor_upgrade do
   desc 'Upgrade to 2.3.0'
   task v2_3_0: :environment do
     Rake::Task['dmpopidor_upgrade:close_existing_feedback_plans'].execute
+  end
+
+  desc 'Generate pdf binaries for publicly visible plans or plans with research outputs count >= 15'
+  task generate_pdf_plans: :environment do
+    Plan.includes(:research_outputs).all.each do |plan|
+      next unless plan.research_outputs.count > ENV.fetch('PLAN_MINIMUM_RESEARCH_OUTPUTS',
+                                                          15).to_i || plan.publicly_visible?
+
+      p "########### Generating PDF plan for plan #{plan.id} ###########"
+      PdfPlanJob.perform_now(plan_id: plan.id)
+    end
+  end
+
+  desc 'Set current_sign_in_at to 5 years & 1 month ago for active users who have not signed in for 5 years'
+  task update_current_sign_in_at_for_5_years_users: :environment do
+    User.where('current_sign_in_at < ? and active = true',
+               5.years.ago + 1.month).update_all(current_sign_in_at: 5.years.ago + 1.month)
+  end
+
+  desc 'Generate JSONPlan record for public plans'
+  task generate_public_json_plans: :environment do
+    Plan.publicly_visible.each do |plan|
+      p "########### Generating JSON plan for plan #{plan.id} ###########"
+      JsonPlanJob.perform_now(plan_id: plan.id)
+    end
+  end
+
+  desc 'Generate JSONPlan record for structured plans'
+  task generate_structured_json_plans: :environment do
+    Plan.includes(:template).where(template: { type: 'structured' }).each do |plan|
+      next if JsonPlan.exists?(plan_id: plan.id)
+
+      p "########### Generating JSON plan for plan #{plan.id} ###########"
+      JsonPlanJob.perform_now(plan_id: plan.id)
+    end
+  end
+
+  desc 'Migrate default data type values for guidance groups, registries, themes, templates and madmp schemas'
+  task migrate_default_data_type_values: :environment do
+    GuidanceGroup.where(Arel.sql("'none' = ANY(data_types)")).map do |gg|
+      new_dt = gg.data_types.map { |dt| dt.eql?('none') ? 'dataset' : dt }
+      gg.update_column(:data_types, new_dt)
+    end
+    Registry.where(Arel.sql("'none' = ANY(data_types)")).map do |r|
+      new_dt = r.data_types.map { |dt| dt.eql?('none') ? 'dataset' : dt }
+      r.update_column(:data_types, new_dt)
+    end
+    Theme.where(data_type: 'none').update_all(data_type: 'dataset')
+    Template.where(data_type: 'none').update_all(data_type: 'dataset')
+    MadmpSchema.where(data_type: 'none').update_all(data_type: 'dataset')
+  end
+
+  desc 'Migrate research outputs with "none" data type to have "dataset" value'
+  task migrate_research_outputs_data_type: :environment do
+    Fragment::ResearchOutput.where(Arel.sql("additional_info->>'dataType' = 'none'")).map do |ro|
+      new_ai = ro.additional_info.merge({ 'dataType' => 'dataset' })
+      ro.update_column(:additional_info, new_ai)
+    end
+  end
+
+  desc 'Migrate SoftwareRoles registry values in contributor fragments'
+  task migrate_software_roles_registry_values: :environment do
+    p "Migration contributors with 'Débogage' value"
+    Fragment::Contributor.where("data ->> 'role' = 'Débogage'").each do |c|
+      c.update_column(:data, c.data.merge({ 'role' => 'Debugging' })) if c.plan.template.locale.eql?('en-GB')
+    end
+    p "Migration contributors with 'Développement' value"
+    Fragment::Contributor.where("data ->> 'role' = 'Développement'").each do |c|
+      c.update_column(:data, c.data.merge({ 'role' => 'Coding' })) if c.plan.template.locale.eql?('en-GB')
+    end
+    p "Migration contributors with 'Test' value"
+    Fragment::Contributor.where("data ->> 'role' = 'Test'").each do |c|
+      c.update_column(:data, c.data.merge({ 'role' => 'Testing' })) if c.plan.template.locale.eql?('en-GB')
+    end
+  end
+  desc 'Migrate SoftwareRoles registry values in contributor fragments with "Tous les roles"'
+  task migrate_software_roles_registry_all_roles_values: :environment do
+    p "Migration contributors with 'Tous les roles' value"
+    fr_roles = %w[Conception Débogage Développement Documentation Maintenance Management Support Test]
+    en_roles = %w[Conception Debugging Coding Documentation Maintenance Management Support Testing]
+    Fragment::Contributor.where("data ->> 'role' = 'Architecture, Conception, Débogage, Développement, Documentation, Maintenance, Management, Support, Test'").each do |c| # rubocop:disable Layout/LineLength
+      c.update_column(:data, c.data.merge({ 'role' => 'Architecture' }))
+      c_data = c.data
+      if c.plan.template.locale.eql?('en-GB')
+        en_roles.each do |r|
+          dupped = c.dup
+          dupped.data = c_data.merge({ 'role' => r })
+          dupped.save!
+        end
+      else
+        fr_roles.each do |r|
+          dupped = c.dup
+          dupped.data = c_data.merge({ 'role' => r })
+          dupped.save!
+        end
+      end
+    end
   end
 
   desc 'Migrate guidance groups from plans to research_outputs in structured plans'
@@ -212,4 +327,3 @@ namespace :dmpopidor_upgrade do
     end
   end
 end
-# rubocop:enable Naming/VariableNumber

@@ -26,7 +26,7 @@
                     "dbid"
                 ]
             },
-            "description": "Reference(s) of protocols/methods used",
+            "description": "Document reference",
             "label@fr_FR": "Références associées",
             "label@en_GB": "Linked references",
             "tooltip@fr_FR": "Penser à rédiger au minimum un fichier README avec les éléments permettant l’installation du code (dépendances, …) et la façon de l’utiliser. Idéalement, intégrer des exemples d’utilisation. Et si l’objectif est d’avoir des contributions externes, il est nécessaire de prévoir une documentation développeur.",
@@ -36,7 +36,7 @@
         },
         "description": {
             "type": "string",
-            "description": "Additional information related to code documentation and software usage",
+            "description": "Additional information conerning the documentation produced",
             "inputType": "textarea",
             "label@fr_FR": "Informations complémentaires",
             "label@en_GB": "Additional information",

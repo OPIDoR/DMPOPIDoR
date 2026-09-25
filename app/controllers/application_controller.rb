@@ -70,13 +70,13 @@ class ApplicationController < ActionController::Base
   end
 
   def store_redirect_location
-    if params[:redirect_to].present?
-      session[:user_redirect_path] = params[:redirect_to]
-    end
+    return unless params[:redirect_to].present?
+
+    session[:user_redirect_path] = params[:redirect_to]
   end
 
-  def after_sign_in_path_for(_resource)
-    session.delete(:user_redirect_path) || stored_location_for(_resource) || plans_path(anchor: 'content')
+  def after_sign_in_path_for(resource)
+    session.delete(:user_redirect_path) || stored_location_for(resource) || plans_path(anchor: 'content')
   end
 
   def after_sign_up_path_for(_resource)
@@ -125,7 +125,7 @@ class ApplicationController < ActionController::Base
   end
 
   # Added Research output Support
-  # rubocop:disable Metrics/AbcSize
+  # rubocop:disable-next Metrics/AbcSize
   def obj_name_for_display(obj)
     display_name = {
       ApiClient: _('API client'),
@@ -147,7 +147,6 @@ class ApplicationController < ActionController::Base
     end
     display_name[obj.class.name.to_sym] || obj.class.name.downcase || 'record'
   end
-  # rubocop:enable Metrics/AbcSize
 
   # Override rails default render action to look for a branded version of a
   # template instead of using the default one. If no override exists, the
@@ -207,6 +206,7 @@ class ApplicationController < ActionController::Base
 
   # Set Static Pages collection to use in navigation
   # rubocop:disable Metrics/AbcSize, Metrics/MethodLength
+  # rubocop:disable-next Metrics/CyclomaticComplexity
   def set_nav_static_pages
     @nav_static_pages = []
 

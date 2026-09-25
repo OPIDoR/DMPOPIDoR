@@ -1,9 +1,14 @@
-import axios from '../utils/AxiosClient';
-import createHeaders from '../utils/HeaderBuilder';
+import axios from "../utils/AxiosClient";
+import createHeaders from "../utils/HeaderBuilder";
 
 const commonHeaders = createHeaders({}, true);
 
-const saveIsTestPlan = async (planId, isTestPlan) => axios.post(`/plans/${planId}/set_test`, { checked: isTestPlan }, { headers: commonHeaders });
+const saveIsTestPlan = async (planId, isTestPlan) =>
+  axios.post(
+    `/plans/${planId}/set_test`,
+    { checked: isTestPlan },
+    { headers: commonHeaders },
+  );
 
 /**
  * The function `saveFunder` returns an empty array and catches any errors that occur during execution.
@@ -13,9 +18,15 @@ const saveIsTestPlan = async (planId, isTestPlan) => axios.post(`/plans/${planId
  * @param scriptName Script name
  * @returns An object with a "data" property that contains an empty array.
  */
-const importProject = async (grantId, projectFragmentId, scriptName) => axios.get(`/codebase/project_search?project_id=${grantId}&fragment_id=${projectFragmentId}&script_name=${scriptName}`);
+const importProject = async (grantId, projectFragmentId, scriptName) =>
+  axios.get(
+    `/codebase/project_search?project_id=${grantId}&fragment_id=${projectFragmentId}&script_name=${scriptName}`,
+  );
 
-const share = async (grantId, projectFragmentId, apiClient) => axios.get(`/codebase/share?project_id=${grantId}&fragment_id=${projectFragmentId}&api_client=${apiClient}`);
+const share = async (grantId, projectFragmentId, apiClient) =>
+  axios.get(
+    `/codebase/share?project_id=${grantId}&fragment_id=${projectFragmentId}&api_client=${apiClient}`,
+  );
 
 export default {
   saveIsTestPlan,

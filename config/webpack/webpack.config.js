@@ -28,7 +28,7 @@ module.exports = {
       },
       {
         test: /\.json$/,
-        type: 'json',
+        type: "json",
       },
     ],
   },

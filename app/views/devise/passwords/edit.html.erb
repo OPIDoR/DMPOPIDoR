@@ -25,16 +25,14 @@
               <%= label_tag('passwords_toggle', _('Show passwords'), class: 'form-check-label') %>
           </div>
       </div>
-      
-      
-      <% if Rails.configuration.x.recaptcha.enabled %>
+
+      <% if Rails.configuration.x.altcha.enabled %>
         <div class="form-control mb-3">
-          <% if @show_checkbox_recaptcha %>
-            <%= label_tag(nil, _('Security check'), class: 'form-label') %>
-            <%= recaptcha_tags %>
-          <% else %>
-            <%= recaptcha_v3(action: 'contact_us') %>
-          <% end %>
+          <altcha-widget
+            challenge='<%= Altcha.create_challenge.to_json %>'
+            language="<%= (I18n.locale.to_s.split(/[-_]/).first.presence || "fr") %>"
+            workers="2"
+          ></altcha-widget>
         </div>
       <% end %>
 

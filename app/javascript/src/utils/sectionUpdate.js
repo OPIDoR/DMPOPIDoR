@@ -1,6 +1,6 @@
 // update details in section progress panel
 export const updateSectionProgress = (id, numSecAnswers, numSecQuestions) => {
-  const progressDiv = $(`#section-panel-${id}`).find('.section-status');
+  const progressDiv = $(`#section-panel-${id}`).find(".section-status");
   progressDiv.html(`(${numSecAnswers} /  ${numSecQuestions})`);
 
   /**
@@ -24,4 +24,5 @@ export const updateSectionProgress = (id, numSecAnswers, numSecQuestions) => {
 
 // given a question id find the containing div
 // used inconditional questions
-export const getQuestionDiv = (id) => $(`#answer-form-${id}`).closest('.question-body');
+export const getQuestionDiv = (id) =>
+  $(`#answer-form-${id}`).closest(".question-body");

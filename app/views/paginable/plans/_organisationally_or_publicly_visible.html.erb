@@ -1,6 +1,10 @@
 <% if current_user.org_id? %>
   <div class="row">
     <div class="col-md-12">
+      <p class="legend-inline">
+        <i class="fas fa-university"></i> <%= _('Research Entity') %>&nbsp;&nbsp;
+        <i class="fas fa-vial"></i> <%= _('Research Project') %>
+      </p>
       <div class="table-responsive">
         <table class="table table-hover">
           <thead>
@@ -23,13 +27,16 @@
           </thead>
           <tbody>
             <% scope.each do |plan| %>
+              <% dmp_fragment = plan.json_fragment %>
+              <% meta = dmp_fragment.meta %>
               <tr>
                 <td>
+                  <i class="fa-solid <%= plan.research_entity? ? "fas fa-university" : "fas fa-vial" %>"></i>
                   <%= truncate plan.title, length: 100 %>
                 </td>
                 <td><%= plan.template.title %></td>
                 <td><%= plan.owner.present? ? plan.owner.name : _('Unknown') %></td>
-                <td><%= l(plan.updated_at.to_date, formats: :short) %></td>
+                <td><%= l(meta.data['lastModifiedDate'].to_date, formats: :short) %></td>
                 <td class="text-center">
                   <%= link_to plan_export_path(plan, format: :pdf, export: { question_headings: true }),
                       target: '_blank', 

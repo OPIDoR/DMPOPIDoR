@@ -20,6 +20,8 @@
     </thead>
     <tbody>
       <% scope.each do |plan| %>
+        <% dmp_fragment = plan.json_fragment %>
+        <% meta = dmp_fragment.meta %>
         <% my_plan_roles = plan.roles.select(&:active).select { |r| r.user_id == current_user.id } %>
         <tr id="<%= dom_id(plan) %>">
           <td>
@@ -28,7 +30,7 @@
                 plan_path(plan), data: {turbo_frame: "_top"}  %>
           </td>
           <td><%= plan.template.title %></td>
-          <td><%= l(plan.updated_at.to_date, formats: :short) %></td>
+          <td><%= l(meta.data['lastModifiedDate'].to_date, formats: :short) %></td>
           <td><%= display_role(my_plan_roles.first) %></td>
           <td><%= display_owner(plan.owner) %></td>
 

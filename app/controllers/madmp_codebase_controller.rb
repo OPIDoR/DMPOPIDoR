@@ -5,7 +5,7 @@ class MadmpCodebaseController < ApplicationController
   after_action :verify_authorized
 
   # rubocop:disable Metrics/AbcSize, Metrics/MethodLength
-  # rubocop:disable Metrics/PerceivedComplexity, Metrics/CyclomaticComplexity
+  # rubocop:disable-next Metrics/PerceivedComplexity, Metrics/CyclomaticComplexity
   def run
     fragment = MadmpFragment.includes(:madmp_schema).find(params[:fragment_id])
     plan = fragment.plan
@@ -16,7 +16,7 @@ class MadmpCodebaseController < ApplicationController
 
     authorize fragment
 
-    # rubocop:disable Metrics/BlockLength
+    # rubocop:disable-next Metrics/BlockLength
     I18n.with_locale plan.template.locale do
       # EXAMPLE DATA
       if Rails.configuration.x.madmp_codebase.mock == true
@@ -61,6 +61,7 @@ class MadmpCodebaseController < ApplicationController
             fragment.import_with_instructions(response['data'], fragment.madmp_schema)
             render json: {
               'fragment' => fragment.get_full_fragment(with_ids: true),
+              'template_name' => fragment.madmp_schema.name,
               'clients' => plan.api_clients.pluck(:name),
               'needs_reload' => true
             }, status: 200
@@ -79,11 +80,10 @@ class MadmpCodebaseController < ApplicationController
         }, status: 500
       end
     end
-    # rubocop:enable Metrics/BlockLength
   end
-  # rubocop:enable Metrics/PerceivedComplexity, Metrics/CyclomaticComplexity
   # rubocop:enable Metrics/AbcSize, Metrics/MethodLength
 
+  # rubocop:disable-next Metrics/AbcSize
   def share
     fragment = MadmpFragment.find(params[:fragment_id])
     plan = fragment.plan
@@ -110,6 +110,7 @@ class MadmpCodebaseController < ApplicationController
   end
 
   # rubocop:disable Metrics/AbcSize, Metrics/MethodLength
+  # rubocop:disable-next Metrics/CyclomaticComplexity,Metrics/PerceivedComplexity
   def project_search
     project_id = params[:project_id]
     fragment = MadmpFragment.includes(:dmp).find(params[:fragment_id])
@@ -131,13 +132,13 @@ class MadmpCodebaseController < ApplicationController
 
     authorize fragment
 
-    # rubocop:disable Metrics/BlockLength
+    # rubocop:disable-next Metrics/BlockLength
     I18n.with_locale plan.template.locale do
       # EXAMPLE DATA
       if Rails.configuration.x.madmp_codebase.mock == true
         begin
           file_path = Rails.root.join('config/example_data/anr_example_data.json')
-          response = JSON.load(File.open(file_path))
+          response = JSON.parse(File.open(file_path))
           dmp_fragment.raw_import(response, dmp_fragment.madmp_schema)
           dmp_fragment.update_meta_fragment
 
@@ -197,7 +198,6 @@ class MadmpCodebaseController < ApplicationController
         'error' => "Internal Server error: #{e.message}"
       }, status: 500
     end
-    # rubocop:enable Metrics/BlockLength
   end
   # rubocop:enable Metrics/AbcSize, Metrics/MethodLength
 

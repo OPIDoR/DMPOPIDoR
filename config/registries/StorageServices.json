@@ -2,23 +2,13 @@
 	"StorageServices": [
 		{
 			"label": {
-				"en_GB": "ABiMS, Plateforme ABiMS, Analysis and Bioinformatics for Marine Science.",
-				"fr_FR": "ABiMS, Plateforme ABiMS, Analysis and Bioinformatics for Marine Science."
+				"en_GB": "ABiMS, Analysis and Bioinformatics for Marine Science, Plateforme ABiMS",
+				"fr_FR": "ABiMS, Analysis and Bioinformatics for Marine Science, Plateforme ABiMS"
 			},
 			"title": "ABiMS",
 			"technicalResourceId": "https://cat.opidor.fr/index.php/ABiMS",
 			"idType": "URL",
 			"serviceContact": "support.abims@sb-roscoff.fr"
-		},
-		{
-			"label": {
-				"en_GB": "ARTbio, Bioinformatics analyses platform",
-				"fr_FR": "ARTbio, Bioinformatics analyses platform"
-			},
-			"title": "ARTbio",
-			"technicalResourceId": "https://cat.opidor.fr/index.php/ARTbio",
-			"idType": "URL",
-			"serviceContact": "artbio@listes.upmc.fr"
 		},
 		{
 			"label": {
@@ -42,14 +32,24 @@
 		},
 		{
 			"label": {
-				"en_GB": "Apollon, Laser Apollon",
-				"fr_FR": "Apollon, Laser Apollon"
+				"en_GB": "Apollon, Infrastructure laser Apollon, Laser Apollon, Apollon laser facility",
+				"fr_FR": "Apollon, Infrastructure laser Apollon, Laser Apollon, Apollon laser facility"
 			},
 			"title": "Apollon",
 			"technicalResourceId": "https://cat.opidor.fr/index.php/Apollon",
 			"idType": "URL",
 			"serviceContact": "https://apollonlaserfacility.cnrs.fr/contacts/",
 			"policyUrl": "https://apollonlaserfacility.cnrs.fr/wp-content/uploads/2022/06/APOLLON-data-policy.pdf"
+		},
+		{
+			"label": {
+				"en_GB": "ArchiMed, Plateforme ArchiMed",
+				"fr_FR": "ArchiMed, Plateforme ArchiMed"
+			},
+			"title": "ArchiMed",
+			"technicalResourceId": "https://cat.opidor.fr/index.php/ArchiMed",
+			"idType": "URL",
+			"serviceContact": "cic-it-nancy@chru-nancy.fr"
 		},
 		{
 			"label": {
@@ -123,8 +123,8 @@
 		},
 		{
 			"label": {
-				"en_GB": "BiP",
-				"fr_FR": "BiP"
+				"en_GB": "BiP, Bioinformatics Platform",
+				"fr_FR": "BiP, Bioinformatics Platform"
 			},
 			"title": "BiP",
 			"technicalResourceId": "https://cat.opidor.fr/index.php/BiP",
@@ -143,8 +143,8 @@
 		},
 		{
 			"label": {
-				"en_GB": "Bilille, Service en bio-informatique de Lille, Plateforme de bioinformatique de Lille",
-				"fr_FR": "Bilille, Service en bio-informatique de Lille, Plateforme de bioinformatique de Lille"
+				"en_GB": "Bilille, Plateforme de bioinformatique de Lille, Service en bio-informatique de Lille",
+				"fr_FR": "Bilille, Plateforme de bioinformatique de Lille, Service en bio-informatique de Lille"
 			},
 			"title": "Bilille",
 			"technicalResourceId": "https://cat.opidor.fr/index.php/Bilille",
@@ -183,8 +183,8 @@
 		},
 		{
 			"label": {
-				"en_GB": "C3I, Centre Commun de Calcul Intensif",
-				"fr_FR": "C3I, Centre Commun de Calcul Intensif"
+				"en_GB": "C3I",
+				"fr_FR": "C3I"
 			},
 			"title": "C3I",
 			"technicalResourceId": "https://cat.opidor.fr/index.php/C3I",
@@ -203,8 +203,8 @@
 		},
 		{
 			"label": {
-				"en_GB": "CALLISTO, CALmip Launches an Interface for Semantic Tollbox Online,",
-				"fr_FR": "CALLISTO, CALmip Launches an Interface for Semantic Tollbox Online,"
+				"en_GB": "CALLISTO, CALmip Launches an Interface for Semantic Tollbox Online",
+				"fr_FR": "CALLISTO, CALmip Launches an Interface for Semantic Tollbox Online"
 			},
 			"title": "CALLISTO",
 			"technicalResourceId": "https://cat.opidor.fr/index.php/CALLISTO",
@@ -254,8 +254,8 @@
 		},
 		{
 			"label": {
-				"en_GB": "CC-IN2P3, Centre de calcul de l'IN2P3, Centre de calcul de CNRS Nucléaire & Particules, Centre de Calcul de l'Institut National de Physique Nucléaire et de Physique des Particules,Computing Centre of the National Institute of Nuclear Physics and Particle Physics, UAR 6402",
-				"fr_FR": "CC-IN2P3, Centre de calcul de l'IN2P3, Centre de calcul de CNRS Nucléaire & Particules, Centre de Calcul de l'Institut National de Physique Nucléaire et de Physique des Particules,Computing Centre of the National Institute of Nuclear Physics and Particle Physics, UAR 6402"
+				"en_GB": "CC-IN2P3, Centre de Calcul de l'Institut National de Physique Nucléaire et de Physique des Particules, Centre de calcul de l'IN2P3, Centre de calcul de CNRS Nucléaire & Particules, Computing Centre of the National Institute of Nuclear Physics and Particle Physics, UAR 6402",
+				"fr_FR": "CC-IN2P3, Centre de Calcul de l'Institut National de Physique Nucléaire et de Physique des Particules, Centre de calcul de l'IN2P3, Centre de calcul de CNRS Nucléaire & Particules, Computing Centre of the National Institute of Nuclear Physics and Particle Physics, UAR 6402"
 			},
 			"title": "CC-IN2P3",
 			"technicalResourceId": "https://cat.opidor.fr/index.php/CC-IN2P3",
@@ -334,18 +334,8 @@
 		},
 		{
 			"label": {
-				"en_GB": "CDC CY Cergy Paris Université, Centre De Calcul de CY Cergy Paris Université",
-				"fr_FR": "CDC CY Cergy Paris Université, Centre De Calcul de CY Cergy Paris Université"
-			},
-			"title": "CDC CY Cergy Paris Université",
-			"technicalResourceId": "https://cat.opidor.fr/index.php/CDC CY Cergy Paris Université",
-			"idType": "URL",
-			"serviceContact": "https://assistance.cyu.fr"
-		},
-		{
-			"label": {
-				"en_GB": "CDOS OSUG, Centre de Données d’Observation et de Services de l’Observatoire des Sciences de l'Univers de Grenoble, Centre de données de l’OSUG, OSUG Data Centre, (OSUG-DC ancien nom)",
-				"fr_FR": "CDOS OSUG, Centre de Données d’Observation et de Services de l’Observatoire des Sciences de l'Univers de Grenoble, Centre de données de l’OSUG, OSUG Data Centre, (OSUG-DC ancien nom)"
+				"en_GB": "CDOS OSUG, Centre de Données d’Observation et de Services de l’Observatoire des Sciences de l'Univers de Grenoble, Centre de données de l’OSUG, OSUG Data Centre, OSUG-DC (ancien nom)",
+				"fr_FR": "CDOS OSUG, Centre de Données d’Observation et de Services de l’Observatoire des Sciences de l'Univers de Grenoble, Centre de données de l’OSUG, OSUG Data Centre, OSUG-DC (ancien nom)"
 			},
 			"title": "CDOS OSUG",
 			"technicalResourceId": "https://cat.opidor.fr/index.php/CDOS OSUG",
@@ -415,13 +405,23 @@
 		},
 		{
 			"label": {
-				"en_GB": "CNES Centre de calcul, Centre de calcul du CNES",
-				"fr_FR": "CNES Centre de calcul, Centre de calcul du CNES"
+				"en_GB": "CNES Centre de calcul",
+				"fr_FR": "CNES Centre de calcul"
 			},
 			"title": "CNES Centre de calcul",
 			"technicalResourceId": "https://cat.opidor.fr/index.php/CNES Centre de calcul",
 			"idType": "URL",
 			"serviceContact": "L-SIS-poleHPC@cnes.fr"
+		},
+		{
+			"label": {
+				"en_GB": "CRCM:CIBI, plateforme de Bioinformatique Integrative CIBI, CRCM Integrative Bioinformatics",
+				"fr_FR": "CRCM:CIBI, plateforme de Bioinformatique Integrative CIBI, CRCM Integrative Bioinformatics"
+			},
+			"title": "CRCM:CIBI",
+			"technicalResourceId": "https://cat.opidor.fr/index.php/CRCM:CIBI",
+			"idType": "URL",
+			"serviceContact": "ghislain.bidaut@inserm.fr"
 		},
 		{
 			"label": {
@@ -442,6 +442,16 @@
 			"technicalResourceId": "https://cat.opidor.fr/index.php/CUBIC",
 			"idType": "URL",
 			"serviceContact": "emmanuel.barillot@curie.fr"
+		},
+		{
+			"label": {
+				"en_GB": "CY Cergy Paris Université : CDC, Centre De Calcul de CY Cergy Paris Université",
+				"fr_FR": "CY Cergy Paris Université : CDC, Centre De Calcul de CY Cergy Paris Université"
+			},
+			"title": "CY Cergy Paris Université : CDC",
+			"technicalResourceId": "https://cat.opidor.fr/index.php/CY Cergy Paris Université : CDC",
+			"idType": "URL",
+			"serviceContact": "https://assistance.cyu.fr"
 		},
 		{
 			"label": {
@@ -496,18 +506,8 @@
 		},
 		{
 			"label": {
-				"en_GB": "Cid.curie.fr, Curie Image Database, iManage, OpenImadis",
-				"fr_FR": "Cid.curie.fr, Curie Image Database, iManage, OpenImadis"
-			},
-			"title": "Cid.curie.fr",
-			"technicalResourceId": "https://cat.opidor.fr/index.php/Cid.curie.fr",
-			"idType": "URL",
-			"serviceContact": "perrine.paul-gilloteaux@france-bioimaging.org"
-		},
-		{
-			"label": {
-				"en_GB": "CoCoON, Collections de Corpus Oraux Numériques - Centre de Ressources pour la Description de l'Oral (CRDO) - Groupe Gestion documentaire et réservoir de données",
-				"fr_FR": "CoCoON, Collections de Corpus Oraux Numériques - Centre de Ressources pour la Description de l'Oral (CRDO) - Groupe Gestion documentaire et réservoir de données"
+				"en_GB": "CoCoON, Collections de Corpus Oraux Numériques, Centre de Ressources pour la Description de l'Oral (ancien nom), Groupe Gestion documentaire et réservoir de données (ancien nom)",
+				"fr_FR": "CoCoON, Collections de Corpus Oraux Numériques, Centre de Ressources pour la Description de l'Oral (ancien nom), Groupe Gestion documentaire et réservoir de données (ancien nom)"
 			},
 			"title": "CoCoON",
 			"technicalResourceId": "https://cat.opidor.fr/index.php/CoCoON",
@@ -562,7 +562,8 @@
 			"title": "DAC",
 			"technicalResourceId": "https://cat.opidor.fr/index.php/DAC",
 			"idType": "URL",
-			"serviceContact": "dac@icm-institute.org"
+			"serviceContact": "dac@icm-institute.org",
+			"policyUrl": "https://institutducerveau.org/media/24/download"
 		},
 		{
 			"label": {
@@ -606,8 +607,8 @@
 		},
 		{
 			"label": {
-				"en_GB": "EELS Data Base, EELS DB, Electron Energy Loss Spectroscopy Data Base, Inner & Outer Shell Excitation Spectrum Repository",
-				"fr_FR": "EELS Data Base, EELS DB, Electron Energy Loss Spectroscopy Data Base, Inner & Outer Shell Excitation Spectrum Repository"
+				"en_GB": "EELS Data Base, Electron Energy Loss Spectroscopy Data Base, EELS DB, Inner & Outer Shell Excitation Spectrum Repository",
+				"fr_FR": "EELS Data Base, Electron Energy Loss Spectroscopy Data Base, EELS DB, Inner & Outer Shell Excitation Spectrum Repository"
 			},
 			"title": "EELS Data Base",
 			"technicalResourceId": "https://cat.opidor.fr/index.php/EELS Data Base",
@@ -616,8 +617,8 @@
 		},
 		{
 			"label": {
-				"en_GB": "EGO-Virgo, Observatoire Européen Gravitationnel – VIRGO, European Gravitational Wave Observatory  - VIRGO",
-				"fr_FR": "EGO-Virgo, Observatoire Européen Gravitationnel – VIRGO, European Gravitational Wave Observatory  - VIRGO"
+				"en_GB": "EGO-Virgo, European Gravitational Wave Observatory  - VIRGO, Observatoire Européen Gravitationnel – VIRGO",
+				"fr_FR": "EGO-Virgo, European Gravitational Wave Observatory  - VIRGO, Observatoire Européen Gravitationnel – VIRGO"
 			},
 			"title": "EGO-Virgo",
 			"technicalResourceId": "https://cat.opidor.fr/index.php/EGO-Virgo",
@@ -626,11 +627,21 @@
 		},
 		{
 			"label": {
-				"en_GB": "EHESS Pole Numérique Recherche",
-				"fr_FR": "EHESS Pole Numérique Recherche"
+				"en_GB": "EHESS : PGHN, Plateforme en géomatique et humanités numériques de l’EHESS",
+				"fr_FR": "EHESS : PGHN, Plateforme en géomatique et humanités numériques de l’EHESS"
 			},
-			"title": "EHESS Pole Numérique Recherche",
-			"technicalResourceId": "https://cat.opidor.fr/index.php/EHESS Pole Numérique Recherche",
+			"title": "EHESS : PGHN",
+			"technicalResourceId": "https://cat.opidor.fr/index.php/EHESS : PGHN",
+			"idType": "URL",
+			"serviceContact": "eric.mermet@ehess.fr"
+		},
+		{
+			"label": {
+				"en_GB": "EHESS : Pole Numérique Recherche",
+				"fr_FR": "EHESS : Pole Numérique Recherche"
+			},
+			"title": "EHESS : Pole Numérique Recherche",
+			"technicalResourceId": "https://cat.opidor.fr/index.php/EHESS : Pole Numérique Recherche",
 			"idType": "URL",
 			"serviceContact": "recherche.dsi@ehess.fr"
 		},
@@ -647,8 +658,8 @@
 		},
 		{
 			"label": {
-				"en_GB": "EPSI, Exercise, Health, Performance, Innovation platform, Plateforme Exercice Performance Santé Innovation, EPHI",
-				"fr_FR": "EPSI, Exercise, Health, Performance, Innovation platform, Plateforme Exercice Performance Santé Innovation, EPHI"
+				"en_GB": "EPSI, Plateforme Exercice Performance Santé Innovation, Exercise, Performance, Health, Innovation platform, EPHI",
+				"fr_FR": "EPSI, Plateforme Exercice Performance Santé Innovation, Exercise, Performance, Health, Innovation platform, EPHI"
 			},
 			"title": "EPSI",
 			"technicalResourceId": "https://cat.opidor.fr/index.php/EPSI",
@@ -657,8 +668,8 @@
 		},
 		{
 			"label": {
-				"en_GB": "ESPRI, Ensemble de Services Pour la Recherche à l'IPSL, Centre de données et de services ESPRI, CDS ESPRI, ex. Ether",
-				"fr_FR": "ESPRI, Ensemble de Services Pour la Recherche à l'IPSL, Centre de données et de services ESPRI, CDS ESPRI, ex. Ether"
+				"en_GB": "ESPRI, Ensemble de Services Pour la Recherche à l'IPSL, Centre de données et de services ESPRI, CDS ESPRI, Ether (ancien nom)",
+				"fr_FR": "ESPRI, Ensemble de Services Pour la Recherche à l'IPSL, Centre de données et de services ESPRI, CDS ESPRI, Ether (ancien nom)"
 			},
 			"title": "ESPRI",
 			"technicalResourceId": "https://cat.opidor.fr/index.php/ESPRI",
@@ -679,8 +690,8 @@
 		},
 		{
 			"label": {
-				"en_GB": "EXPLOR, Mésocentre Explor, Ensemble de Calcul Scientifique Pour la Lorraine",
-				"fr_FR": "EXPLOR, Mésocentre Explor, Ensemble de Calcul Scientifique Pour la Lorraine"
+				"en_GB": "EXPLOR, Ensemble de Calcul Scientifique Pour la Lorraine, Mésocentre Explor",
+				"fr_FR": "EXPLOR, Ensemble de Calcul Scientifique Pour la Lorraine, Mésocentre Explor"
 			},
 			"title": "EXPLOR",
 			"technicalResourceId": "https://cat.opidor.fr/index.php/EXPLOR",
@@ -872,16 +883,6 @@
 		},
 		{
 			"label": {
-				"en_GB": "Galactica, Plateforme Galactica",
-				"fr_FR": "Galactica, Plateforme Galactica"
-			},
-			"title": "Galactica",
-			"technicalResourceId": "https://cat.opidor.fr/index.php/Galactica",
-			"idType": "URL",
-			"serviceContact": "https://galactica.isima.fr/contact/"
-		},
-		{
-			"label": {
 				"en_GB": "GeOrchestra, geOrchestra Spatial Data Infrastructure",
 				"fr_FR": "GeOrchestra, geOrchestra Spatial Data Infrastructure"
 			},
@@ -902,13 +903,13 @@
 		},
 		{
 			"label": {
-				"en_GB": "GenoToul Bioinfo, GenoToul Bioinformatique, Plateforme Bioinformatique GenoToul, Genotoul Bioinformatics",
-				"fr_FR": "GenoToul Bioinfo, GenoToul Bioinformatique, Plateforme Bioinformatique GenoToul, Genotoul Bioinformatics"
+				"en_GB": "GenoToul Bioinfo, Genotoul Bioinformatics, GenoToul Bioinformatique, Plateforme Bioinformatique GenoToul",
+				"fr_FR": "GenoToul Bioinfo, Genotoul Bioinformatics, GenoToul Bioinformatique, Plateforme Bioinformatique GenoToul"
 			},
 			"title": "GenoToul Bioinfo",
 			"technicalResourceId": "https://cat.opidor.fr/index.php/GenoToul Bioinfo",
 			"idType": "URL",
-			"serviceContact": "http://bioinfo.genotoul.fr/index.php/about-us/contact-us/"
+			"serviceContact": "https://bioinfo.genotoul.fr/index.php/about-us/contact-us/"
 		},
 		{
 			"label": {
@@ -919,7 +920,7 @@
 			"technicalResourceId": "https://cat.opidor.fr/index.php/Gentyane",
 			"idType": "URL",
 			"serviceContact": "charles.poncet@inrae.fr",
-			"policyUrl": "http://PGD_de_structure_DMP_Opidor"
+			"policyUrl": "https://dmp.opidor.fr/plans/18789/export.pdf?export[question_headings]=true"
 		},
 		{
 			"label": {
@@ -943,18 +944,8 @@
 		},
 		{
 			"label": {
-				"en_GB": "GitLab Huma Num",
-				"fr_FR": "GitLab Huma Num"
-			},
-			"title": "GitLab Huma Num",
-			"technicalResourceId": "https://cat.opidor.fr/index.php/GitLab Huma Num",
-			"idType": "URL",
-			"serviceContact": "cogrid@huma-num.fr"
-		},
-		{
-			"label": {
-				"en_GB": "Grid'5000 Grenoble, Globalisation des Ressources Informatiques et des Données, Grid5000 Grenoble",
-				"fr_FR": "Grid'5000 Grenoble, Globalisation des Ressources Informatiques et des Données, Grid5000 Grenoble"
+				"en_GB": "Grid'5000 Grenoble, Globalisation des Ressources Informatiques et des Données Grenoble, Grid5000 Grenoble",
+				"fr_FR": "Grid'5000 Grenoble, Globalisation des Ressources Informatiques et des Données Grenoble, Grid5000 Grenoble"
 			},
 			"title": "Grid'5000 Grenoble",
 			"technicalResourceId": "https://cat.opidor.fr/index.php/Grid'5000 Grenoble",
@@ -963,8 +954,8 @@
 		},
 		{
 			"label": {
-				"en_GB": "Grid'5000 Lille, Globalisation des Ressources Informatiques et des Données, Grid5000 Lille",
-				"fr_FR": "Grid'5000 Lille, Globalisation des Ressources Informatiques et des Données, Grid5000 Lille"
+				"en_GB": "Grid'5000 Lille, Globalisation des Ressources Informatiques et des Données Lille, Grid5000 Lille",
+				"fr_FR": "Grid'5000 Lille, Globalisation des Ressources Informatiques et des Données Lille, Grid5000 Lille"
 			},
 			"title": "Grid'5000 Lille",
 			"technicalResourceId": "https://cat.opidor.fr/index.php/Grid'5000 Lille",
@@ -973,8 +964,8 @@
 		},
 		{
 			"label": {
-				"en_GB": "Grid'5000 Lyon, Globalisation des Ressources Informatiques et des Données, Grid5000 Lyon",
-				"fr_FR": "Grid'5000 Lyon, Globalisation des Ressources Informatiques et des Données, Grid5000 Lyon"
+				"en_GB": "Grid'5000 Lyon, Globalisation des Ressources Informatiques et des Données Lyon, Grid5000 Lyon",
+				"fr_FR": "Grid'5000 Lyon, Globalisation des Ressources Informatiques et des Données Lyon, Grid5000 Lyon"
 			},
 			"title": "Grid'5000 Lyon",
 			"technicalResourceId": "https://cat.opidor.fr/index.php/Grid'5000 Lyon",
@@ -983,8 +974,8 @@
 		},
 		{
 			"label": {
-				"en_GB": "Grid'5000 Nancy, Globalisation des Ressources Informatiques et des Données, Grid5000 Nancy",
-				"fr_FR": "Grid'5000 Nancy, Globalisation des Ressources Informatiques et des Données, Grid5000 Nancy"
+				"en_GB": "Grid'5000 Nancy, Globalisation des Ressources Informatiques et des Données Nancy, Grid5000 Nancy",
+				"fr_FR": "Grid'5000 Nancy, Globalisation des Ressources Informatiques et des Données Nancy, Grid5000 Nancy"
 			},
 			"title": "Grid'5000 Nancy",
 			"technicalResourceId": "https://cat.opidor.fr/index.php/Grid'5000 Nancy",
@@ -993,8 +984,8 @@
 		},
 		{
 			"label": {
-				"en_GB": "Grid'5000 Nantes, Globalisation des Ressources Informatiques et des Données, Grid5000 Nantes",
-				"fr_FR": "Grid'5000 Nantes, Globalisation des Ressources Informatiques et des Données, Grid5000 Nantes"
+				"en_GB": "Grid'5000 Nantes, Globalisation des Ressources Informatiques et des Données Nantes, Grid5000 Nantes",
+				"fr_FR": "Grid'5000 Nantes, Globalisation des Ressources Informatiques et des Données Nantes, Grid5000 Nantes"
 			},
 			"title": "Grid'5000 Nantes",
 			"technicalResourceId": "https://cat.opidor.fr/index.php/Grid'5000 Nantes",
@@ -1003,8 +994,8 @@
 		},
 		{
 			"label": {
-				"en_GB": "Grid'5000 Rennes, Globalisation des Ressources Informatiques et des Données, Grid5000 Rennes",
-				"fr_FR": "Grid'5000 Rennes, Globalisation des Ressources Informatiques et des Données, Grid5000 Rennes"
+				"en_GB": "Grid'5000 Rennes, Globalisation des Ressources Informatiques et des Données Rennes, Grid5000 Rennes",
+				"fr_FR": "Grid'5000 Rennes, Globalisation des Ressources Informatiques et des Données Rennes, Grid5000 Rennes"
 			},
 			"title": "Grid'5000 Rennes",
 			"technicalResourceId": "https://cat.opidor.fr/index.php/Grid'5000 Rennes",
@@ -1013,8 +1004,8 @@
 		},
 		{
 			"label": {
-				"en_GB": "Grid'5000 Sophia-Antipolis, Globalisation des Ressources Informatiques et des Données, Grid5000 Sophia-Antipolis",
-				"fr_FR": "Grid'5000 Sophia-Antipolis, Globalisation des Ressources Informatiques et des Données, Grid5000 Sophia-Antipolis"
+				"en_GB": "Grid'5000 Sophia-Antipolis, Globalisation des Ressources Informatiques et des Données Sophia-Antipolis, Grid5000 Sophia-Antipolis",
+				"fr_FR": "Grid'5000 Sophia-Antipolis, Globalisation des Ressources Informatiques et des Données Sophia-Antipolis, Grid5000 Sophia-Antipolis"
 			},
 			"title": "Grid'5000 Sophia-Antipolis",
 			"technicalResourceId": "https://cat.opidor.fr/index.php/Grid'5000 Sophia-Antipolis",
@@ -1043,8 +1034,8 @@
 		},
 		{
 			"label": {
-				"en_GB": "GéoSAS, Portail de l’information géographique de l’Unité Mixte de Recherche Sol Agro et hydrosystèmes, Spatialisation (UMR SAS) INRAE – Institut Agro sur les sites de Rennes et de Quimper.",
-				"fr_FR": "GéoSAS, Portail de l’information géographique de l’Unité Mixte de Recherche Sol Agro et hydrosystèmes, Spatialisation (UMR SAS) INRAE – Institut Agro sur les sites de Rennes et de Quimper."
+				"en_GB": "GéoSAS, Portail de l’information géographique de l’Unité Mixte de Recherche Sol Agro et hydrosystèmes, Spatialisation (UMR SAS) INRAE – Institut Agro sur les sites de Rennes et de Quimper",
+				"fr_FR": "GéoSAS, Portail de l’information géographique de l’Unité Mixte de Recherche Sol Agro et hydrosystèmes, Spatialisation (UMR SAS) INRAE – Institut Agro sur les sites de Rennes et de Quimper"
 			},
 			"title": "GéoSAS",
 			"technicalResourceId": "https://cat.opidor.fr/index.php/GéoSAS",
@@ -1074,16 +1065,6 @@
 		},
 		{
 			"label": {
-				"en_GB": "Hebergement Postgresql - Unité SILVA - INRAE",
-				"fr_FR": "Hebergement Postgresql - Unité SILVA - INRAE"
-			},
-			"title": "Hebergement Postgresql - Unité SILVA - INRAE",
-			"technicalResourceId": "https://cat.opidor.fr/index.php/Hebergement Postgresql - Unité SILVA - INRAE",
-			"idType": "URL",
-			"serviceContact": "serveurs_sioea@inra.fr"
-		},
-		{
-			"label": {
 				"en_GB": "Huma-Num Box",
 				"fr_FR": "Huma-Num Box"
 			},
@@ -1104,8 +1085,8 @@
 		},
 		{
 			"label": {
-				"en_GB": "ICARE, Centre de données et de services ICARE, Interaction Clouds Aerosols Radiations, CDS-ICARE,  UAR 2877",
-				"fr_FR": "ICARE, Centre de données et de services ICARE, Interaction Clouds Aerosols Radiations, CDS-ICARE,  UAR 2877"
+				"en_GB": "ICARE, Interaction Clouds Aerosols Radiations, Centre de données et de services ICARE, CDS-ICARE,  UAR 2877",
+				"fr_FR": "ICARE, Interaction Clouds Aerosols Radiations, Centre de données et de services ICARE, CDS-ICARE,  UAR 2877"
 			},
 			"title": "ICARE",
 			"technicalResourceId": "https://cat.opidor.fr/index.php/ICARE",
@@ -1115,8 +1096,8 @@
 		},
 		{
 			"label": {
-				"en_GB": "IDOC-DATA, IDOC-DATA, Integrated Data and Operation Center, OSUPS Data Centre, Centre de données des Sciences de l'Univers de Paris Saclay, Centre de données de l'OSUPS, OSUPS-DC",
-				"fr_FR": "IDOC-DATA, IDOC-DATA, Integrated Data and Operation Center, OSUPS Data Centre, Centre de données des Sciences de l'Univers de Paris Saclay, Centre de données de l'OSUPS, OSUPS-DC"
+				"en_GB": "IDOC-DATA, Integrated Data and Operation Center, IDOC-DATA, OSUPS Data Centre, Centre de données des Sciences de l'Univers de Paris Saclay, Centre de données de l'OSUPS, OSUPS-DC",
+				"fr_FR": "IDOC-DATA, Integrated Data and Operation Center, IDOC-DATA, OSUPS Data Centre, Centre de données des Sciences de l'Univers de Paris Saclay, Centre de données de l'OSUPS, OSUPS-DC"
 			},
 			"title": "IDOC-DATA",
 			"technicalResourceId": "https://cat.opidor.fr/index.php/IDOC-DATA",
@@ -1135,8 +1116,8 @@
 		},
 		{
 			"label": {
-				"en_GB": "ILL, Institut Max Von Laue-Paul Langevin, Institut Laue Langevin",
-				"fr_FR": "ILL, Institut Max Von Laue-Paul Langevin, Institut Laue Langevin"
+				"en_GB": "ILL, Institut Laue Langevin, Institut Max Von Laue-Paul Langevin",
+				"fr_FR": "ILL, Institut Laue Langevin, Institut Max Von Laue-Paul Langevin"
 			},
 			"title": "ILL",
 			"technicalResourceId": "https://cat.opidor.fr/index.php/ILL",
@@ -1157,13 +1138,23 @@
 		},
 		{
 			"label": {
-				"en_GB": "IPGP-DC, Centre de données de l'IPGP, IPGP Data Center",
-				"fr_FR": "IPGP-DC, Centre de données de l'IPGP, IPGP Data Center"
+				"en_GB": "IPGP-DC, IPGP Data Center, Centre de données de l'IPGP",
+				"fr_FR": "IPGP-DC, IPGP Data Center, Centre de données de l'IPGP"
 			},
 			"title": "IPGP-DC",
 			"technicalResourceId": "https://cat.opidor.fr/index.php/IPGP-DC",
 			"idType": "URL",
 			"serviceContact": "datacenter@ipgp.fr"
+		},
+		{
+			"label": {
+				"en_GB": "IRD : Drive, IRD Drive",
+				"fr_FR": "IRD : Drive, IRD Drive"
+			},
+			"title": "IRD : Drive",
+			"technicalResourceId": "https://cat.opidor.fr/index.php/IRD : Drive",
+			"idType": "URL",
+			"serviceContact": "assistance-informatique@ird.fr"
 		},
 		{
 			"label": {
@@ -1177,8 +1168,18 @@
 		},
 		{
 			"label": {
-				"en_GB": "ISGI, Service International des Indices Géomagnétiques, International Service of Geomagnetic Indices",
-				"fr_FR": "ISGI, Service International des Indices Géomagnétiques, International Service of Geomagnetic Indices"
+				"en_GB": "ISDM-MESO, Mésocentre de Montpellier, ISDM Meso",
+				"fr_FR": "ISDM-MESO, Mésocentre de Montpellier, ISDM Meso"
+			},
+			"title": "ISDM-MESO",
+			"technicalResourceId": "https://cat.opidor.fr/index.php/ISDM-MESO",
+			"idType": "URL",
+			"serviceContact": "isdm-meso@umontpellier.fr"
+		},
+		{
+			"label": {
+				"en_GB": "ISGI, International Service of Geomagnetic Indices, Service International des Indices Géomagnétiques",
+				"fr_FR": "ISGI, International Service of Geomagnetic Indices, Service International des Indices Géomagnétiques"
 			},
 			"title": "ISGI",
 			"technicalResourceId": "https://cat.opidor.fr/index.php/ISGI",
@@ -1194,6 +1195,16 @@
 			"technicalResourceId": "https://cat.opidor.fr/index.php/ISLANDe",
 			"idType": "URL",
 			"serviceContact": "https://islande.hub.inrae.fr/contact"
+		},
+		{
+			"label": {
+				"en_GB": "InforBio, Plateforme de bio-informatique InforBio",
+				"fr_FR": "InforBio, Plateforme de bio-informatique InforBio"
+			},
+			"title": "InforBio",
+			"technicalResourceId": "https://cat.opidor.fr/index.php/InforBio",
+			"idType": "URL",
+			"serviceContact": "inforbio@sorbonne-universite.fr"
 		},
 		{
 			"label": {
@@ -1247,8 +1258,8 @@
 		},
 		{
 			"label": {
-				"en_GB": "LIGAN-PM, FG LIGAN-PM, Plateforme de séquençage LIGAN, Lille Integrative Genomic Advanced Network Genomic Platform",
-				"fr_FR": "LIGAN-PM, FG LIGAN-PM, Plateforme de séquençage LIGAN, Lille Integrative Genomic Advanced Network Genomic Platform"
+				"en_GB": "LIGAN-PM, Lille Integrative Genomic Advanced Network Genomic Platform, FG LIGAN-PM, Plateforme de séquençage LIGAN",
+				"fr_FR": "LIGAN-PM, Lille Integrative Genomic Advanced Network Genomic Platform, FG LIGAN-PM, Plateforme de séquençage LIGAN"
 			},
 			"title": "LIGAN-PM",
 			"technicalResourceId": "https://cat.opidor.fr/index.php/LIGAN-PM",
@@ -1315,16 +1326,6 @@
 			"technicalResourceId": "https://cat.opidor.fr/index.php/MEP",
 			"idType": "URL",
 			"serviceContact": "https://centuri-livingsystems.org/multi-engineering-platform/#contact"
-		},
-		{
-			"label": {
-				"en_GB": "MESO@LR, Mesocentre Meso@LR",
-				"fr_FR": "MESO@LR, Mesocentre Meso@LR"
-			},
-			"title": "MESO@LR",
-			"technicalResourceId": "https://cat.opidor.fr/index.php/MESO@LR",
-			"idType": "URL",
-			"serviceContact": "meso-lr@umontpellier.fr"
 		},
 		{
 			"label": {
@@ -1415,17 +1416,27 @@
 			"title": "Maison de la télédétection",
 			"technicalResourceId": "https://cat.opidor.fr/index.php/Maison de la télédétection",
 			"idType": "URL",
-			"serviceContact": "Pas de contact mail"
+			"serviceContact": "https://www.teledetection.fr/index.php/fr/contact-fr"
 		},
 		{
 			"label": {
-				"en_GB": "MarsSI, PSUP/MarsSI",
-				"fr_FR": "MarsSI, PSUP/MarsSI"
+				"en_GB": "MarsSI, MARS Système d’Information, PSUP/MarsSI",
+				"fr_FR": "MarsSI, MARS Système d’Information, PSUP/MarsSI"
 			},
 			"title": "MarsSI",
 			"technicalResourceId": "https://cat.opidor.fr/index.php/MarsSI",
 			"idType": "URL",
 			"serviceContact": "cathy.quantin-nataf@univ-lyon1.fr"
+		},
+		{
+			"label": {
+				"en_GB": "Mathrice, Maths, Réseau interne de communications et d'échanges",
+				"fr_FR": "Mathrice, Maths, Réseau interne de communications et d'échanges"
+			},
+			"title": "Mathrice",
+			"technicalResourceId": "https://cat.opidor.fr/index.php/Mathrice",
+			"idType": "URL",
+			"serviceContact": "gestion-mathrice@math.u-bordeaux.fr"
 		},
 		{
 			"label": {
@@ -1449,8 +1460,8 @@
 		},
 		{
 			"label": {
-				"en_GB": "Meso@IP-PARIS, Mésocentre IP-PARIS, Mésocentre de l’Institut Polytechnique de Paris",
-				"fr_FR": "Meso@IP-PARIS, Mésocentre IP-PARIS, Mésocentre de l’Institut Polytechnique de Paris"
+				"en_GB": "Meso@IP-PARIS, Mésocentre de l’Institut Polytechnique de Paris, Mésocentre IP-PARIS",
+				"fr_FR": "Meso@IP-PARIS, Mésocentre de l’Institut Polytechnique de Paris, Mésocentre IP-PARIS"
 			},
 			"title": "Meso@IP-PARIS",
 			"technicalResourceId": "https://cat.opidor.fr/index.php/Meso@IP-PARIS",
@@ -1599,13 +1610,13 @@
 		},
 		{
 			"label": {
-				"en_GB": "NSBD, Networks and Systems Biology for Diseases, Biologie des systèmes et des réseaux pour les maladies",
-				"fr_FR": "NSBD, Networks and Systems Biology for Diseases, Biologie des systèmes et des réseaux pour les maladies"
+				"en_GB": "Notre-Dame de Paris Chantier scientifique",
+				"fr_FR": "Notre-Dame de Paris Chantier scientifique"
 			},
-			"title": "NSBD",
-			"technicalResourceId": "https://cat.opidor.fr/index.php/NSBD",
+			"title": "Notre-Dame de Paris Chantier scientifique",
+			"technicalResourceId": "https://cat.opidor.fr/index.php/Notre-Dame de Paris Chantier scientifique",
 			"idType": "URL",
-			"serviceContact": "anais.baudot@univ-amu.fr"
+			"serviceContact": "contact@notre-dame.science"
 		},
 		{
 			"label": {
@@ -1629,8 +1640,8 @@
 		},
 		{
 			"label": {
-				"en_GB": "OCA-DC (Domino), Centre de données de l'Observatoire des Sciences de l'Univers de la Côte d’Azur, Centre de données de l'OCA, OCA Data Centre (DOMINO)",
-				"fr_FR": "OCA-DC (Domino), Centre de données de l'Observatoire des Sciences de l'Univers de la Côte d’Azur, Centre de données de l'OCA, OCA Data Centre (DOMINO)"
+				"en_GB": "OCA-DC (Domino), OCA Data Centre (DOMINO), Centre de données de l'OCA, Centre de données de l'Observatoire des Sciences de l'Univers de la Côte d’Azur",
+				"fr_FR": "OCA-DC (Domino), OCA Data Centre (DOMINO), Centre de données de l'OCA, Centre de données de l'Observatoire des Sciences de l'Univers de la Côte d’Azur"
 			},
 			"title": "OCA-DC (Domino)",
 			"technicalResourceId": "https://cat.opidor.fr/index.php/OCA-DC (Domino)",
@@ -1679,11 +1690,11 @@
 		},
 		{
 			"label": {
-				"en_GB": "OPGC: Observatoire virtuel, Observatoire virtuel OPGC",
-				"fr_FR": "OPGC: Observatoire virtuel, Observatoire virtuel OPGC"
+				"en_GB": "OPGC : Observatoire virtuel, Observatoire virtuel OPGC",
+				"fr_FR": "OPGC : Observatoire virtuel, Observatoire virtuel OPGC"
 			},
-			"title": "OPGC: Observatoire virtuel",
-			"technicalResourceId": "https://cat.opidor.fr/index.php/OPGC: Observatoire virtuel",
+			"title": "OPGC : Observatoire virtuel",
+			"technicalResourceId": "https://cat.opidor.fr/index.php/OPGC : Observatoire virtuel",
 			"idType": "URL",
 			"serviceContact": "si@opgc.fr"
 		},
@@ -1699,13 +1710,13 @@
 		},
 		{
 			"label": {
-				"en_GB": "OSIRIM, Observatoire des Systèmes d'Indexation et de Recherche d'Information Multimédia",
-				"fr_FR": "OSIRIM, Observatoire des Systèmes d'Indexation et de Recherche d'Information Multimédia"
+				"en_GB": "OcciData",
+				"fr_FR": "OcciData"
 			},
-			"title": "OSIRIM",
-			"technicalResourceId": "https://cat.opidor.fr/index.php/OSIRIM",
+			"title": "OcciData",
+			"technicalResourceId": "https://cat.opidor.fr/index.php/OcciData",
 			"idType": "URL",
-			"serviceContact": "osirim@irit.fr"
+			"serviceContact": "https://occidata.irit.fr/nous-contacter/"
 		},
 		{
 			"label": {
@@ -1719,8 +1730,8 @@
 		},
 		{
 			"label": {
-				"en_GB": "OpenImadis, iManage Strandls, curie Image Data Management, Open Image Discovery: A paltform for Image Life Cycle Management",
-				"fr_FR": "OpenImadis, iManage Strandls, curie Image Data Management, Open Image Discovery: A paltform for Image Life Cycle Management"
+				"en_GB": "OpenImadis, Open Image Discovery: A paltform for Image Life Cycle Management, iManage Strandls, curie Image Data Management",
+				"fr_FR": "OpenImadis, Open Image Discovery: A paltform for Image Life Cycle Management, iManage Strandls, curie Image Data Management"
 			},
 			"title": "OpenImadis",
 			"technicalResourceId": "https://cat.opidor.fr/index.php/OpenImadis",
@@ -1829,6 +1840,16 @@
 		},
 		{
 			"label": {
+				"en_GB": "PTAL Plateforme Analytique (EDYTEM), Pôle Technique d’Analyses en Laboratoires (PTAL)",
+				"fr_FR": "PTAL Plateforme Analytique (EDYTEM), Pôle Technique d’Analyses en Laboratoires (PTAL)"
+			},
+			"title": "PTAL Plateforme Analytique (EDYTEM)",
+			"technicalResourceId": "https://cat.opidor.fr/index.php/PTAL Plateforme Analytique (EDYTEM)",
+			"idType": "URL",
+			"serviceContact": "curateur-edytem@univ-savoie.fr"
+		},
+		{
+			"label": {
 				"en_GB": "PUD-GA, Plateforme Universitaire de Données Grenoble Alpes",
 				"fr_FR": "PUD-GA, Plateforme Universitaire de Données Grenoble Alpes"
 			},
@@ -1839,8 +1860,8 @@
 		},
 		{
 			"label": {
-				"en_GB": "PUD-UP, PUD-Poitiers, Plateforme Universitaire de Données Université de Poitiers",
-				"fr_FR": "PUD-UP, PUD-Poitiers, Plateforme Universitaire de Données Université de Poitiers"
+				"en_GB": "PUD-UP, Plateforme Universitaire de Données Université de Poitiers, PUD-Poitiers",
+				"fr_FR": "PUD-UP, Plateforme Universitaire de Données Université de Poitiers, PUD-Poitiers"
 			},
 			"title": "PUD-UP",
 			"technicalResourceId": "https://cat.opidor.fr/index.php/PUD-UP",
@@ -1849,18 +1870,8 @@
 		},
 		{
 			"label": {
-				"en_GB": "PlantBioInfoPF, Plant Bioinformatics Facility, Plateforme de bioinformatique des plantes",
-				"fr_FR": "PlantBioInfoPF, Plant Bioinformatics Facility, Plateforme de bioinformatique des plantes"
-			},
-			"title": "PlantBioInfoPF",
-			"technicalResourceId": "https://cat.opidor.fr/index.php/PlantBioInfoPF",
-			"idType": "URL",
-			"serviceContact": "urgi-contact@inrae.fr"
-		},
-		{
-			"label": {
-				"en_GB": "Plateforme A2S, Plateforme A2S, Plateforme de calcul pour les Applications de Surveillance par Satellite, Applications for Satellite Survey, A2S platform",
-				"fr_FR": "Plateforme A2S, Plateforme A2S, Plateforme de calcul pour les Applications de Surveillance par Satellite, Applications for Satellite Survey, A2S platform"
+				"en_GB": "Plateforme A2S, Applications for Satellite Survey, Plateforme A2S, Plateforme de calcul pour les Applications de Surveillance par Satellite, A2S platform",
+				"fr_FR": "Plateforme A2S, Applications for Satellite Survey, Plateforme A2S, Plateforme de calcul pour les Applications de Surveillance par Satellite, A2S platform"
 			},
 			"title": "Plateforme A2S",
 			"technicalResourceId": "https://cat.opidor.fr/index.php/Plateforme A2S",
@@ -1879,16 +1890,6 @@
 		},
 		{
 			"label": {
-				"en_GB": "Plateforme géomatique de l’EHESS",
-				"fr_FR": "Plateforme géomatique de l’EHESS"
-			},
-			"title": "Plateforme géomatique de l’EHESS",
-			"technicalResourceId": "https://cat.opidor.fr/index.php/Plateforme géomatique de l’EHESS",
-			"idType": "URL",
-			"serviceContact": "eric.mermet@ehess.fr"
-		},
-		{
-			"label": {
 				"en_GB": "Progedo-Loire, PUD Nantes, PUD Progedo-Loire, Plateforme Universitaire de Données des Pays-de-la-Loire",
 				"fr_FR": "Progedo-Loire, PUD Nantes, PUD Progedo-Loire, Plateforme Universitaire de Données des Pays-de-la-Loire"
 			},
@@ -1899,8 +1900,8 @@
 		},
 		{
 			"label": {
-				"en_GB": "ROMEO, Centre de Calcul de Champagne-Ardenne ROMEO, Centre de Calcul Régional ROMEO",
-				"fr_FR": "ROMEO, Centre de Calcul de Champagne-Ardenne ROMEO, Centre de Calcul Régional ROMEO"
+				"en_GB": "ROMEO, Centre de Calcul Régional ROMEO, Centre de Calcul de Champagne-Ardenne ROMEO",
+				"fr_FR": "ROMEO, Centre de Calcul Régional ROMEO, Centre de Calcul de Champagne-Ardenne ROMEO"
 			},
 			"title": "ROMEO",
 			"technicalResourceId": "https://cat.opidor.fr/index.php/ROMEO",
@@ -1950,8 +1951,8 @@
 		},
 		{
 			"label": {
-				"en_GB": "SDC Epos-France, Centre de données Epos-France",
-				"fr_FR": "SDC Epos-France, Centre de données Epos-France"
+				"en_GB": "SDC Epos-France, Seismological Data Center Epos-France, Centre de données sismologiques Epos-France",
+				"fr_FR": "SDC Epos-France, Seismological Data Center Epos-France, Centre de données sismologiques Epos-France"
 			},
 			"title": "SDC Epos-France",
 			"technicalResourceId": "https://cat.opidor.fr/index.php/SDC Epos-France",
@@ -1991,8 +1992,8 @@
 		},
 		{
 			"label": {
-				"en_GB": "SOLEIL, Source Optimisée de Lumière d’Energie Intermédiaire du LURE, Synchrotron SOLEIL",
-				"fr_FR": "SOLEIL, Source Optimisée de Lumière d’Energie Intermédiaire du LURE, Synchrotron SOLEIL"
+				"en_GB": "SOLEIL, Source Optimisée de Lumière d’Énergie Intermédiaire du LURE, Synchrotron SOLEIL",
+				"fr_FR": "SOLEIL, Source Optimisée de Lumière d’Énergie Intermédiaire du LURE, Synchrotron SOLEIL"
 			},
 			"title": "SOLEIL",
 			"technicalResourceId": "https://cat.opidor.fr/index.php/SOLEIL",
@@ -2012,8 +2013,8 @@
 		},
 		{
 			"label": {
-				"en_GB": "SPIRAL2, GANIL-SPIRAL2, Grand Accélérateur National d’Ions Lourds – Système de production d’Ions Radioactifs en Ligne de 2e génération",
-				"fr_FR": "SPIRAL2, GANIL-SPIRAL2, Grand Accélérateur National d’Ions Lourds – Système de production d’Ions Radioactifs en Ligne de 2e génération"
+				"en_GB": "SPIRAL2, Grand Accélérateur National d’Ions Lourds – Système de production d’Ions Radioactifs en Ligne de 2e génération, GANIL-SPIRAL2",
+				"fr_FR": "SPIRAL2, Grand Accélérateur National d’Ions Lourds – Système de production d’Ions Radioactifs en Ligne de 2e génération, GANIL-SPIRAL2"
 			},
 			"title": "SPIRAL2",
 			"technicalResourceId": "https://cat.opidor.fr/index.php/SPIRAL2",
@@ -2033,8 +2034,8 @@
 		},
 		{
 			"label": {
-				"en_GB": "SUMMER, Stockage Unifié Mutualisé Massif Evolutif et Réparti",
-				"fr_FR": "SUMMER, Stockage Unifié Mutualisé Massif Evolutif et Réparti"
+				"en_GB": "SUMMER, Stockage Unifié Mutualisé Massif Évolutif et Réparti",
+				"fr_FR": "SUMMER, Stockage Unifié Mutualisé Massif Évolutif et Réparti"
 			},
 			"title": "SUMMER",
 			"technicalResourceId": "https://cat.opidor.fr/index.php/SUMMER",
@@ -2094,6 +2095,16 @@
 		},
 		{
 			"label": {
+				"en_GB": "Systems Biomedicine, Biomédecine des systèmes",
+				"fr_FR": "Systems Biomedicine, Biomédecine des systèmes"
+			},
+			"title": "Systems Biomedicine",
+			"technicalResourceId": "https://cat.opidor.fr/index.php/Systems Biomedicine",
+			"idType": "URL",
+			"serviceContact": "anais.baudot@univ-amu.fr"
+		},
+		{
+			"label": {
 				"en_GB": "TEFOR Paris Saclay, Trangénèse pour les Etudes Fonctionnelles chez les ORganismes modèles  Paris-Saclay, TPS",
 				"fr_FR": "TEFOR Paris Saclay, Trangénèse pour les Etudes Fonctionnelles chez les ORganismes modèles  Paris-Saclay, TPS"
 			},
@@ -2134,8 +2145,8 @@
 		},
 		{
 			"label": {
-				"en_GB": "Theia, Pôle de données et de services pour les surfaces continentales, Pôle Theia, Pôle thématique surfaces continentales",
-				"fr_FR": "Theia, Pôle de données et de services pour les surfaces continentales, Pôle Theia, Pôle thématique surfaces continentales"
+				"en_GB": "Theia, Pôle de données et de services pour les surfaces continentales Theia, Pôle Theia, Pôle thématique surfaces continentales",
+				"fr_FR": "Theia, Pôle de données et de services pour les surfaces continentales Theia, Pôle Theia, Pôle thématique surfaces continentales"
 			},
 			"title": "Theia",
 			"technicalResourceId": "https://cat.opidor.fr/index.php/Theia",
@@ -2164,8 +2175,8 @@
 		},
 		{
 			"label": {
-				"en_GB": "Vitam, Programme Vitam, Valeurs immatérielles transmises aux archives pour mémoire",
-				"fr_FR": "Vitam, Programme Vitam, Valeurs immatérielles transmises aux archives pour mémoire"
+				"en_GB": "Vitam, Valeurs immatérielles transmises aux archives pour mémoire, Programme Vitam",
+				"fr_FR": "Vitam, Valeurs immatérielles transmises aux archives pour mémoire, Programme Vitam"
 			},
 			"title": "Vitam",
 			"technicalResourceId": "https://cat.opidor.fr/index.php/Vitam",
@@ -2181,16 +2192,6 @@
 			"technicalResourceId": "https://cat.opidor.fr/index.php/Vocabulaires Ouverts @INRAE",
 			"idType": "URL",
 			"serviceContact": "digitalist@inrae.fr"
-		},
-		{
-			"label": {
-				"en_GB": "ALTAG3D, A Long Term Archive Generator for 3D",
-				"fr_FR": "ALTAG3D, A Long Term Archive Generator for 3D"
-			},
-			"title": "ALTAG3D",
-			"technicalResourceId": "https://cat.opidor.fr/index.php/ALTAG3D",
-			"idType": "URL",
-			"serviceContact": "consortium3d-coordination@services.cnrs.fr"
 		},
 		{
 			"label": {
@@ -2211,16 +2212,6 @@
 			"technicalResourceId": "https://cat.opidor.fr/index.php/E-RECOLNAT",
 			"idType": "URL",
 			"serviceContact": "marc.pignal@mnhn.fr"
-		},
-		{
-			"label": {
-				"en_GB": "ICONICS",
-				"fr_FR": "ICONICS"
-			},
-			"title": "ICONICS",
-			"technicalResourceId": "https://cat.opidor.fr/index.php/ICONICS",
-			"idType": "URL",
-			"serviceContact": "iconics@icm-institute.org"
 		}
 	]
 }

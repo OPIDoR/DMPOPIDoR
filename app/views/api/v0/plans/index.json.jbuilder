@@ -4,8 +4,8 @@
 
 json.prettify!
 
-# rubocop:disable Metrics/BlockLength
-json.array! @plans.each do |plan|
+# rubocop:disable-next Metrics/BlockLength
+json.array! @plans.each(plan {
   json.id             plan.id
   json.title          plan.title
   json.grant_number   plan.grant&.value
@@ -38,41 +38,40 @@ json.array! @plans.each do |plan|
     end
   end
 
-  json.users plan.roles.each do |role|
+  json.users plan.roles.each(role {
     json.email role.user.email
-  end
+  })
   json.description plan.description
-  json.plan_content plan.template.phases.each do |phase|
+  json.plan_content plan.template.phases.each(phase {
     json.title phase.title
     json.description phase.description
-    json.sections phase.sections.each do |section|
+    json.sections phase.sections.each(section {
       json.title        section.title
       json.description  section.description
       json.number       section.number
-      json.questions section.questions.each do |question|
+      json.questions section.questions.each(question {
         json.text       question.text
         json.number     question.number
         json.format     question.question_format.title
         json.option_based question.question_format.option_based
-        json.themes question.themes.each do |theme|
+        json.themes question.themes.each(theme {
           json.theme theme.title
-        end
+        })
         answer = plan.answers.find { |a| a.question_id == question.id }
         if answer.present?
           json.answered true
           json.answer do
             json.text answer.text
             if answer.question_options.present?
-              json.options answer.question_options.each do |option|
+              json.options answer.question_options.each(option {
                 json.text option.text
-              end
+              })
             end
           end
         else
           json.answered false
         end
-      end
-    end
-  end
-end
-# rubocop:enable Metrics/BlockLength
+      })
+    })
+  })
+})

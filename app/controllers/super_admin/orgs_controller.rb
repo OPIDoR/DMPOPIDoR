@@ -23,7 +23,7 @@ module SuperAdmin
     end
 
     # POST /super_admin/orgs
-    # rubocop:disable Metrics/AbcSize, Metrics/MethodLength, Metrics/PerceivedComplexity
+    # rubocop:disable-next Metrics/AbcSize, Metrics/MethodLength, Metrics/PerceivedComplexity
     def create
       authorize Org
       attrs = org_params
@@ -77,10 +77,9 @@ module SuperAdmin
         }
       end
     end
-    # rubocop:enable Metrics/AbcSize, Metrics/MethodLength, Metrics/PerceivedComplexity
 
     # DELETE /super_admin/orgs/:id
-    # rubocop:disable Metrics/AbcSize
+    # rubocop:disable-next Metrics/AbcSize
     def destroy
       org = Org.includes(:users, :templates, :guidance_groups).find(params[:id])
       authorize org
@@ -98,15 +97,14 @@ module SuperAdmin
         redirect_to super_admin_orgs_path, alert: failure
       end
     end
-    # rubocop:enable Metrics/AbcSize
 
     # POST /super_admin/:id/merge_analyze
     def merge_analyze
       @org = Org.includes(:templates, :annotations,
                           :departments, :token_permission_types, :funded_plans,
                           identifiers: [:identifier_scheme],
-                          guidance_groups: [guidances: [:themes]],
-                          users: [identifiers: [:identifier_scheme]])
+                          guidance_groups: [{ guidances: [:themes] }],
+                          users: [{ identifiers: [:identifier_scheme] }])
                 .find(params[:id])
       authorize @org
 
@@ -116,18 +114,17 @@ module SuperAdmin
       @target_org = Org.includes(:templates, :annotations,
                                  :departments, :token_permission_types, :funded_plans,
                                  identifiers: [:identifier_scheme],
-                                 guidance_groups: [guidances: [:themes]],
-                                 users: [identifiers: [:identifier_scheme]])
+                                 guidance_groups: [{ guidances: [:themes] }],
+                                 users: [{ identifiers: [:identifier_scheme] }])
                        .find(lookup.id)
       render turbo_stream: turbo_stream.replace(
-        'merge-analysis',
-        partial: 'super_admin/orgs/merge_analyze',
-        locals: { from_org: @org, to_org: @target_org }
+        'merge-analysis', partial: 'super_admin/orgs/merge_analyze',
+                          locals: { from_org: @org, to_org: @target_org }
       )
     end
 
     # POST /super_admin/:id/merge_commit
-    # rubocop:disable Metrics/AbcSize
+    # rubocop:disable-next Metrics/AbcSize
     def merge_commit
       @org = Org.find(params[:id])
       authorize @org
@@ -150,7 +147,6 @@ module SuperAdmin
       msg = _('Unable to determine what records need to be merged.')
       redirect_to admin_edit_org_path(@org), alert: msg
     end
-    # rubocop:enable Metrics/AbcSize
 
     private
 

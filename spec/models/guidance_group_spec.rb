@@ -4,17 +4,17 @@
 #
 # Table name: guidance_groups
 #
-#  id              :integer          not null, primary key
-#  data_types      :string           default(["none"]), not null, is an Array
-#  description     :string
-#  name            :string
-#  optional_subset :boolean          default(TRUE), not null
-#  published       :boolean          default(FALSE), not null
-#  topics          :string           default(["generic"]), not null, is an Array
-#  created_at      :datetime         not null
-#  updated_at      :datetime         not null
-#  language_id     :integer          default(0)
-#  org_id          :integer
+#  id          :integer          not null, primary key
+#  data_types  :string           default(["dataset"]), not null, is an Array
+#  description :string
+#  is_default  :boolean          default(FALSE), not null
+#  name        :string
+#  published   :boolean          default(FALSE), not null
+#  topics      :string           default(["generic"]), not null, is an Array
+#  created_at  :datetime         not null
+#  updated_at  :datetime         not null
+#  language_id :integer          default(0)
+#  org_id      :integer
 #
 # Indexes
 #
@@ -22,7 +22,7 @@
 #
 # Foreign Keys
 #
-#  fk_rails_...  (org_id => orgs.id)
+#  fk_rails_...  (org_id => orgs.id) DEFERRABLE INITIALLY DEFERRED
 #
 require 'rails_helper'
 
@@ -32,11 +32,7 @@ RSpec.describe GuidanceGroup, type: :model do
 
     it { is_expected.to validate_presence_of(:org) }
 
-    it { is_expected.to allow_value(true).for(:optional_subset) }
-
     it { is_expected.to allow_value(true).for(:published) }
-
-    it { is_expected.to allow_value(false).for(:optional_subset) }
 
     it { is_expected.to allow_value(false).for(:published) }
   end
@@ -198,7 +194,7 @@ RSpec.describe GuidanceGroup, type: :model do
       end
     end
 
-    # rubocop:disable Performance/RedundantMerge
+    # rubocop:disable-next Performance/RedundantMerge
     context ':merge!(to_be_merged:)' do
       before(:each) do
         org = create(:org)
@@ -237,6 +233,5 @@ RSpec.describe GuidanceGroup, type: :model do
         expect(GuidanceGroup.find_by(id: original_id).present?).to eql(false)
       end
     end
-    # rubocop:enable Performance/RedundantMerge
   end
 end

@@ -28,3 +28,5 @@ json.researchOutput research_outputs do |research_output|
   json.merge! research_output_fragment.get_full_fragment
 end
 json.dmp_id dmp.id
+
+json.pdf_base64 pdf_base64

@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 xml.instruct!
-# rubocop:disable Metrics/BlockLength
+# rubocop:disable-next Metrics/BlockLength
 xml.plan('id' => @plan.id) do
   xml.project(@plan.project.title, 'id' => @plan.project.id)
   xml.phase(@plan.version.phase.title, 'id' => @plan.version.phase.id)
@@ -49,4 +49,3 @@ xml.plan('id' => @plan.id) do
     end
   end
 end
-# rubocop:enable Metrics/BlockLength

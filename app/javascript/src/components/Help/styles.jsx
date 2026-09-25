@@ -1,4 +1,4 @@
-import styled from 'styled-components';
+import styled from "styled-components";
 
 export const FaqContainer = styled.div`
   color: var(--dark-blue);
@@ -22,21 +22,39 @@ export const StyledLi = styled.li`
   align-items: center;
   padding: 20px;
   color: var(--white);
-  background-color: ${({ $active }) => ($active === 'true' ? 'var(--dark-blue)' : 'var(--blue)')};
+  background-color: ${({ $active, $bg }) => {
+    const base = $bg || "var(--blue)";
+    const activeColor = $bg
+      ? `color-mix(in srgb, ${base} 80%, black)`
+      : "var(--dark-blue)";
+
+    return $active === "true" ? activeColor : base;
+  }};
   cursor: pointer;
   margin: 0 4px 4px 0;
-  border-radius: ${({ $onlyChild }) => ($onlyChild === 'true' ? '10px 0 0 10px' : '0')};
+  border-radius: ${({ $onlyChild }) =>
+    $onlyChild === "true" ? "10px 0 0 10px" : "0"};
 
   &:hover {
-    background-color: var(--dark-blue);
+    background-color: ${({ $active, $bg }) => {
+      const base = $bg || "var(--dark-blue)";
+
+      if ($active === "true") {
+        return `color-mix(in srgb, ${base} 80%, black)`;
+      }
+
+      return `color-mix(in srgb, ${base} 95%, black)`;
+    }};
   }
 
   &:first-child {
-    border-radius: ${({ $onlyChild }) => ($onlyChild === 'true' ? '10px 0 0 10px' : '10px 0 0 0')};
+    border-radius: ${({ $onlyChild }) =>
+      $onlyChild === "true" ? "10px 0 0 10px" : "10px 0 0 0"};
   }
 
   &:last-child {
-    border-radius: ${({ $onlyChild }) => ($onlyChild === 'true' ? '10px 0 0 10px' : '0 0 0 10px')};
+    border-radius: ${({ $onlyChild }) =>
+      $onlyChild === "true" ? "10px 0 0 10px" : "0 0 0 10px"};
   }
 
   img {

@@ -21,7 +21,7 @@
 #
 # Foreign Keys
 #
-#  fk_rails_...  (phase_id => phases.id)
+#  fk_rails_...  (phase_id => phases.id) DEFERRABLE INITIALLY DEFERRED
 #
 
 # Object that represents a Template section

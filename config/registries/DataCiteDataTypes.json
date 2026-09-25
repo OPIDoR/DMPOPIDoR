@@ -1,0 +1,141 @@
+{
+    "DataCiteDataTypes": [
+        {
+            "en_GB": "Audiovisual",
+            "fr_FR": "Audiovisual"
+        },
+        {
+            "en_GB": "Award",
+            "fr_FR": "Award"
+        },
+        {
+            "en_GB": "Book",
+            "fr_FR": "Book"
+        },
+        {
+            "en_GB": "BookChapter",
+            "fr_FR": "BookChapter"
+        },
+        {
+            "en_GB": "Collection",
+            "fr_FR": "Collection"
+        },
+        {
+            "en_GB": "ComputationalNotebook",
+            "fr_FR": "ComputationalNotebook"
+        },
+        {
+            "en_GB": "ConferencePaper",
+            "fr_FR": "ConferencePaper"
+        },
+        {
+            "en_GB": "ConferenceProceeding",
+            "fr_FR": "ConferenceProceeding"
+        },
+        {
+            "en_GB": "DataPaper",
+            "fr_FR": "DataPaper"
+        },
+        {
+            "en_GB": "Dataset",
+            "fr_FR": "Dataset"
+        },
+        {
+            "en_GB": "Dissertation",
+            "fr_FR": "Dissertation"
+        },
+        {
+            "en_GB": "Event",
+            "fr_FR": "Event"
+        },
+        {
+            "en_GB": "Image",
+            "fr_FR": "Image"
+        },
+        {
+            "en_GB": "InteractiveResource",
+            "fr_FR": "InteractiveResource"
+        },
+        {
+            "en_GB": "Instrument",
+            "fr_FR": "Instrument"
+        },
+        {
+            "en_GB": "Journal",
+            "fr_FR": "Journal"
+        },
+        {
+            "en_GB": "JournalArticle",
+            "fr_FR": "JournalArticle"
+        },
+        {
+            "en_GB": "Model",
+            "fr_FR": "Model"
+        },
+        {
+            "en_GB": "OutputManagementPlan",
+            "fr_FR": "OutputManagementPlan"
+        },
+        {
+            "en_GB": "PeerReview",
+            "fr_FR": "PeerReview"
+        },
+        {
+            "en_GB": "PhysicalObject",
+            "fr_FR": "PhysicalObject"
+        },
+        {
+            "en_GB": "Poster",
+            "fr_FR": "Poster"
+        },
+        {
+            "en_GB": "Preprint",
+            "fr_FR": "Preprint"
+        },
+        {
+            "en_GB": "Presentation",
+            "fr_FR": "Presentation"
+        },
+        {
+            "en_GB": "Project",
+            "fr_FR": "Project"
+        },
+        {
+            "en_GB": "Report",
+            "fr_FR": "Report"
+        },
+        {
+            "en_GB": "Service",
+            "fr_FR": "Service"
+        },
+        {
+            "en_GB": "Software",
+            "fr_FR": "Software"
+        },
+        {
+            "en_GB": "Sound",
+            "fr_FR": "Sound"
+        },
+        {
+            "en_GB": "Standard",
+            "fr_FR": "Standard"
+        },
+        {
+            "en_GB": "StudyRegistration",
+            "fr_FR": "StudyRegistration"
+        },
+        {
+            "en_GB": "Text",
+            "fr_FR": "Text"
+        },
+        {
+            "en_GB": "Workflow",
+            "fr_FR": "Workflow"
+        },
+        {
+            "en_GB": "Other",
+            "fr_FR": "Other"
+        }
+    ]
+}
+

@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-# rubocop:disable Naming/VariableNumber
+# rubocop:disable-next Naming/VariableNumber
 namespace :data_migration do
   desc 'Cleaning data'
   task V4_3_7: :environment do
@@ -43,6 +43,26 @@ namespace :data_migration do
     p '------------------------------------------------------------------------'
     p 'Upgrade complete'
   end
+
+  desc 'Clean unexistant metadataStandard in Host'
+  task clean_unexistant_metadatastandard: :environment do
+    p 'Cleaning unexistant metadataStandard in Host'
+    p '------------------------------------------------------------------------'
+    Fragment::Host.all.each do |h|
+      next if h.data['metadataStandard'].is_a?(Array)
+
+      updated_data = h.data.clone
+      metadata_standard_id = h.data.dig('metadataStandard', 'dbid')
+      next if metadata_standard_id.nil?
+
+      updated_data.delete('metadataStandard') unless MadmpFragment.exists?(metadata_standard_id)
+
+      h.update_column(:data, updated_data)
+    end
+    p '------------------------------------------------------------------------'
+    p 'Done'
+  end
+
   desc 'Update ORCID idTypes in Person fragments from "ORCID iD" to "ORCID"'
   task update_orcid_id_types: :environment do
     p 'Updating ORCID idTypes in Person fragments...'
@@ -242,7 +262,7 @@ namespace :data_migration do
 
       if dmp_keywords.present? && dmp_keywords.length.positive?
         dmp_keywords.each do |kw|
-          /^\d\.\d /.match?(kw) ? updated_kw.push(kw[4..kw.length - 1]) : updated_kw.push(kw)
+          /^\d\.\d /.match?(kw) ? updated_kw.push(kw[4..]) : updated_kw.push(kw)
         end
       end
       meta_fragment.update_column(
@@ -265,4 +285,3 @@ namespace :data_migration do
     end
   end
 end
-# rubocop:enable Naming/VariableNumber

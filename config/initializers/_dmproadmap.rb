@@ -6,7 +6,7 @@ require 'json'
 # DMPRoadmap constants
 #
 # This file is a consolidation of the old custom configuration previously spread
-# across the application.rb, branding.yml and the contact_us, devise, recaptcha,
+# across the application.rb, branding.yml and the contact_us, devise,
 # constants
 #
 # It works in conjunction with the new Rails 5 config/credentials.yml.enc file
@@ -43,7 +43,7 @@ module DMPRoadmap
     # Your organisation's telephone number - used on the contact us page
     # config.x.organisation.telephone = "+1-123-123-1234"
     # Your organisation's address - used on the contact us page
-    # rubocop:disable Naming/VariableNumber
+    # rubocop:disable-next Naming/VariableNumber
     config.x.organisation.address = JSON.parse(ENV.fetch('ORGANISATION_ADDRESS', {
       line_1: 'Equipe Valorisation Données de la recherche',
       line_2: '2, rue Jean Zay',
@@ -51,7 +51,6 @@ module DMPRoadmap
       # line_4: "Polar Vortex, ABC-345",
       country: 'FRANCE'
     }.to_json), symbolize_names: true)
-    # rubocop:enable Naming/VariableNumber
 
     # The Google maps link to your organisation's location - used to display the
     # Google map on the contact us page.
@@ -238,9 +237,9 @@ module DMPRoadmap
     config.x.google_analytics.tracker_root = ENV.fetch('GOOGLE_ANALYTICS_TRACKET_ROOT', '')
 
     # ------------------------------------------------------------------------ #
-    # reCAPTCHA - recaptcha appears on the create account and contact us forms #
+    # altcha - altcha appears on the create account and contact us forms #
     # ------------------------------------------------------------------------ #
-    config.x.recaptcha.enabled = ENV.fetch('RECAPTCHA_ENABLED', true).to_s.casecmp('true').zero?
+    config.x.altcha.enabled = ENV.fetch('ALTCHA_ENABLED', true).to_s.casecmp('true').zero?
 
     # --------------------------------------------------- #
     # Machine Actionable / Networked DMP Features (maDMP) #
@@ -287,7 +286,8 @@ module DMPRoadmap
     # DMP OPIDoR Features #
     # --------------------------------------------------- #
     config.x.dmpopidor.front = {
-      enableTopics: ENV.fetch('ENABLE_TOPICS', true).to_s.casecmp('true').zero?
+      enableTopics: ENV.fetch('ENABLE_TOPICS', true).to_s.casecmp('true').zero?,
+      enablePhysicalObject: ENV.fetch('ENABLE_PHYSICAL_OBJECT', true).to_s.casecmp('true').zero?
     }
     config.x.directus.url = ENV.fetch('DIRECTUS_URL', 'http://directus:8055')
     config.x.directus.public_url = ENV.fetch('DIRECTUS_PUBLIC_URL', 'http://localhost:8080/directus')

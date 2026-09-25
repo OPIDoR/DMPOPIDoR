@@ -2,7 +2,27 @@
 
 # Controller for password resets that is built on the Devise gem
 class PasswordsController < Devise::PasswordsController
+  prepend_before_action :verify_altcha, only: %i[create update]
+
   protected
+
+  # rubocop:disable-next Metrics/AbcSize
+  def verify_altcha
+    return unless Rails.configuration.x.altcha.enabled
+
+    return if Altcha.verify(params.permit(:altcha)[:altcha])
+
+    flash[:alert] = _('Captcha verification failed, please retry.')
+    if action_name == 'update'
+      redirect_to edit_password_path(
+        resource_name,
+        reset_password_token: params.dig(:user, :reset_password_token) || params[:reset_password_token]
+      )
+    else
+      redirect_to new_password_path(resource_name)
+    end
+    nil
+  end
 
   def after_resetting_password_path_for(_resource)
     root_path

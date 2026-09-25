@@ -63,14 +63,14 @@ class Identifier < ApplicationRecord
   # Ensure that the value of attrs is a hash
   # TODO: evaluate this vs the Serialize approach in condition.rb
   def attrs=(hash)
-    super(hash.is_a?(Hash) ? hash.to_json.to_s : '{}')
+    super(hash.is_a?(Hash) ? hash.to_json : '{}')
   end
 
   # Appends the identifier scheme's prefix to the identifier if necessary
   # For example:
   #   value   '0000-0000-0000-0001'
   #   becomes 'https://orcid.org/0000-0000-0000-0001'
-  # rubocop:disable Metrics/AbcSize
+  # rubocop:disable-next Metrics/AbcSize
   def value=(val)
     if identifier_scheme.present? &&
        identifier_scheme.identifier_prefix.present? &&
@@ -84,7 +84,6 @@ class Identifier < ApplicationRecord
       super
     end
   end
-  # rubocop:enable Metrics/AbcSize
 
   # ===========================
   # = Public instance methods =

@@ -36,7 +36,7 @@ class UsageController < ApplicationController
     # for global usage
     authorize :usage
 
-    args = { filtered: parse_filtered }
+    args = { filtered: parse_filtered? }
     data = Org::TotalCountStatService.call(**args) # TODO: Update
     sep = sep_param
     data_csvified = Csvable.from_array_of_hashes(data, true, sep)
@@ -48,7 +48,7 @@ class UsageController < ApplicationController
   def org_statistics
     authorize :usage
 
-    data = Org::MonthlyUsageService.call(current_user, filtered: parse_filtered)
+    data = Org::MonthlyUsageService.call(current_user, filtered: parse_filtered?)
     sep = sep_param
     data_csvified = Csvable.from_array_of_hashes(data, true, sep)
 
@@ -56,7 +56,7 @@ class UsageController < ApplicationController
   end
 
   # GET /usage_yearly_users
-  # rubocop:disable Metrics/AbcSize
+  # rubocop:disable-next Metrics/AbcSize
   def yearly_users
     # This action is triggered when a user clicks on the 'download csv' button
     # for the annual users chart
@@ -74,10 +74,9 @@ class UsageController < ApplicationController
       csv << [_('Total'), total]
     end, filename: 'users_joined.csv')
   end
-  # rubocop:enable Metrics/AbcSize
 
   # GET /usage_yearly_plans
-  # rubocop:disable Metrics/AbcSize
+  # rubocop:disable-next Metrics/AbcSize
   def yearly_plans
     # This action is triggered when a user clicks on the 'download csv' button
     # for the annual plans chart
@@ -95,7 +94,6 @@ class UsageController < ApplicationController
       csv << [_('Total'), total]
     end, filename: 'created_plans.csv')
   end
-  # rubocop:enable Metrics/AbcSize
 
   # GET /usage_all_plans_by_template
   def all_plans_by_template
@@ -119,7 +117,7 @@ class UsageController < ApplicationController
                                   :end_date, :topic, :filtered)
   end
 
-  # rubocop:disable Metrics/AbcSize
+  # rubocop:disable-next Metrics/AbcSize
   def args_from_params
     org = current_user.org
     org = Org.find_by(id: usage_params[:org_id]) if current_user.can_super_admin? && usage_params[:org_id].present?
@@ -133,7 +131,6 @@ class UsageController < ApplicationController
       end_date: end_date.present? ? end_date : Date.today.strftime('%Y-%m-%d')
     }
   end
-  # rubocop:enable Metrics/AbcSize
 
   def default_query_args
     # Stats are generated at the beginning of each month, so our reference
@@ -144,11 +141,11 @@ class UsageController < ApplicationController
       org: current_user.org,
       start_date: Date.today.months_ago(12).end_of_month.strftime('%Y-%m-%d'),
       end_date: Date.today.last_month.end_of_month.strftime('%Y-%m-%d'),
-      filtered: parse_filtered
+      filtered: parse_filtered?
     }
   end
 
-  def parse_filtered
+  def parse_filtered?
     params[:filtered].present? && params[:filtered] == 'true'
   end
 
@@ -185,7 +182,7 @@ class UsageController < ApplicationController
   end
 
   def first_plan_date
-    StatCreatedPlan.all.order(:date).limit(1).pluck(:date).first \
+    StatCreatedPlan.all.order(:date).limit(1).pluck(:date).first
     || Date.today.last_month.end_of_month
   end
 end

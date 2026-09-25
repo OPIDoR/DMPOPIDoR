@@ -10,51 +10,49 @@ class PlanExportsController < ApplicationController
   #   - Research outputs : added research output support with export mode
   #   - JSON export uses DMP OPIDoR JSON export (default & RDA)
   # --------------------------------
-  # rubocop:disable Metrics/AbcSize, Metrics/MethodLength
-  # rubocop:disable Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
+  # rubocop:disable-next Metrics/AbcSize, Metrics/MethodLength
+  # rubocop:disable-next Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
   def show
     JsonPlanJob.perform_now(plan_id: params[:plan_id])
 
     @plan = Plan.includes(:answers, {
-      research_outputs: :guidance_groups, template: { phases: { sections: :questions } }
-    }).find(params[:plan_id])
+                            research_outputs: :guidance_groups, template: { phases: { sections: :questions } }
+                          }).find(params[:plan_id])
 
     return show_json if request.format.json?
 
+    @options = {}
+    @selected_phases = params[:selected_phases]
+    @selected_research_outputs = params[:research_outputs]
     if privately_authorized? && export_params[:form].present?
       skip_authorization
-      @show_coversheet         = export_params[:project_details].present?
-      @show_sections_questions = export_params[:question_headings].present?
-      @show_unanswered         = export_params[:unanswered_questions].present?
-      @show_custom_sections    = export_params[:custom_sections].present?
-      @show_research_outputs   = true
-      @public_plan             = false
+      @options[:show_coversheet]         = export_params[:project_details].present?
+      @options[:show_sections_questions] = export_params[:question_headings].present?
+      @options[:show_unanswered]         = export_params[:unanswered_questions].present?
+      @options[:show_custom_sections]    = export_params[:custom_sections].present?
+      @options[:show_research_outputs]   = true
+      @options[:public_plan]             = false
 
     elsif publicly_authorized?
       skip_authorization
-      @show_coversheet         = true
-      @show_sections_questions = true
-      @show_unanswered         = true
-      @show_custom_sections    = true
-      @show_research_outputs   = true
-      @public_plan             = true
+      @options[:show_coversheet]         = true
+      @options[:show_sections_questions] = true
+      @options[:show_unanswered]         = true
+      @options[:show_custom_sections]    = true
+      @options[:show_research_outputs]   = true
+      @options[:public_plan]             = true
 
     else
       raise Pundit::NotAuthorizedError
     end
 
-    @hash           = @plan.as_pdf(current_user, @show_coversheet)
+    if request.format.pdf? && @plan.pdf_data.present?
+      && @selected_research_outputs && @selected_research_outputs.length.eql?(@plan.research_outputs.length)
+      return show_generated_pdf
+    end
+
+    @hash           = @plan.as_pdf(current_user, @options[:show_coversheet])
     @formatting     = export_params[:formatting] || @plan.settings(:export).formatting
-
-    if params.key?(:selected_phases)
-      @hash[:phases] = @hash[:phases].select { |p| params[:selected_phases].include?(p[:id].to_s) }
-    end
-
-    if params.key?(:research_outputs)
-      @hash[:research_outputs] = @hash[:research_outputs].order(display_order: :asc).select do |d|
-        params[:research_outputs].include?(d[:id].to_s)
-      end
-    end
 
     respond_to do |format|
       format.html { show_html }
@@ -64,22 +62,22 @@ class PlanExportsController < ApplicationController
       format.pdf  { show_pdf }
     end
   end
-  # rubocop:enable Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
-  # rubocop:enable Metrics/AbcSize, Metrics/MethodLength
 
   private
 
   def show_html
-    render layout: false
+    render html: Export::PlanPdfGenerator.new(
+      @plan, current_user, @selected_phases, @selected_research_outputs, @options
+    ).html
   end
 
   def show_csv
-    send_data @plan.as_csv(current_user, @show_sections_questions,
-                           @show_unanswered,
+    send_data @plan.as_csv(current_user, @options[:show_sections_questions],
+                           @options[:show_unanswered],
                            @selected_phase,
-                           @show_custom_sections,
-                           @show_coversheet,
-                           @show_research_outputs),
+                           @options[:show_custom_sections],
+                           @options[:show_coversheet],
+                           @options[:show_research_outputs]),
               filename: "#{file_name}.csv"
   end
 
@@ -96,28 +94,19 @@ class PlanExportsController < ApplicationController
   end
 
   # CHANGES: PDF footer now displays DMP licence
-  # rubocop:disable Metrics/AbcSize
   def show_pdf
-    license = @plan.json_fragment.meta.license if @plan.structured?
-    license_details = if license.present? && !license.data.compact.empty?
-                        "#{license.data['licenseName']} (#{license.data['licenseUrl']})"
-                      end
-    render pdf: file_name,
-           margin: @formatting[:margin],
-           footer:
-             {
-               center: license_details,
-               font_size: 8,
-               spacing: (Integer(@formatting[:margin][:bottom]) / 2) - 4,
-               right: '[page] of [topage]',
-               encoding: 'utf8'
-             }
+    send_data Export::PlanPdfGenerator.new(
+      @plan, current_user, @selected_phases, @selected_research_outputs, @options
+    ).call,
+              filename: "#{file_name}.pdf"
   end
-  # rubocop:enable Metrics/AbcSize
 
-  # --------------------------------
-  # Start DMP OPIDoR Customization
-  # CHANGES: Changed JSON export to use madmp_fragments
+  def show_generated_pdf
+    send_data @plan.pdf_data,
+              filename: "#{file_name}.pdf"
+  end
+
+  # rubocop:disable-next Metrics/AbcSize
   def show_json
     skip_authorization
 
@@ -126,22 +115,22 @@ class PlanExportsController < ApplicationController
 
     json_data = json_plan.data
 
-    if params["research_outputs"].present?
-      json_data["researchOutput"] = json_data["researchOutput"].filter do |ro|
-        params["research_outputs"].include?(ro["research_output_id"].to_s)
+    if @selected_research_outputs
+      json_data['researchOutput'] = json_data['researchOutput'].filter do |ro|
+        @selected_research_outputs.include?(ro['research_output_id'].to_s)
       end
     end
 
     json_format = params[:json_format]
 
-    if json_format.eql?('rda')
+    if json_format.include?('rda')
       rendered_json = render_to_string(
         "shared/export/madmp_export_templates/#{json_format}/plan",
-        locals: { dmp: @plan.json_fragment, selected_research_outputs: params[:research_outputs]&.map(&:to_i) || @plan.research_output_ids }
+        locals: { dmp: @plan.json_fragment,
+                  selected_research_outputs: @selected_research_outputs || @plan.research_output_ids }
       )
       return send_data rendered_json, filename: "#{file_name}_#{json_format}.json"
     end
-
 
     send_data json_data.to_json, filename: "#{file_name}_#{json_format}.json"
   end

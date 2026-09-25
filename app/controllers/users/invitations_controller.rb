@@ -12,6 +12,13 @@ module Users
 
     protected
 
+    def after_accept_path_for(resource)
+      role = resource.roles.order(created_at: :desc).first
+      return plans_path(anchor: 'content') unless role
+
+      plan_path(id: role.plan_id, anchor: 'content')
+    end
+
     def fix_org_params
       hash = org_hash_from_params(params_in: params[:user])
       org = OrgSelection::HashToOrgService.to_org(hash: hash,
@@ -34,7 +41,7 @@ module Users
     end
 
     # Handle the user's Org selection
-    # rubocop:disable Metrics/AbcSize
+    # rubocop:disable-next Metrics/AbcSize
     def handle_org
       attrs = update_resource_params
 
@@ -60,6 +67,5 @@ module Users
 
       resource.update(org_id: lookup.id)
     end
-    # rubocop:enable Metrics/AbcSize
   end
 end

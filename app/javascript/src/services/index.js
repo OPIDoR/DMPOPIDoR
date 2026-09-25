@@ -1,14 +1,15 @@
-import comments from './comments';
-import directus from './directus';
-import externalServices from './externalServices';
-import generalInfo from './generalInfo';
-import guidances from './guidances';
-import guidedTour from './guidedTour';
-import news from './news';
-import planCreation from './planCreation';
-import researchOutput from './researchOutput';
-import service from './service';
-import writePlan from './writePlan';
+import comments from "./comments";
+import directus from "./directus";
+import externalServices from "./externalServices";
+import generalInfo from "./generalInfo";
+import guidances from "./guidances";
+import guidancesManagement from "./guidancesManagement";
+import guidedTour from "./guidedTour";
+import news from "./news";
+import planCreation from "./planCreation";
+import researchOutput from "./researchOutput";
+import madmpFragment from "./madmpFragment";
+import writePlan from "./writePlan";
 
 export {
   comments,
@@ -16,10 +17,11 @@ export {
   externalServices,
   generalInfo,
   guidances,
+  guidancesManagement,
   guidedTour,
   news,
   planCreation,
   researchOutput,
-  service,
+  madmpFragment,
   writePlan,
 };

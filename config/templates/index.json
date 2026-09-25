@@ -2,7 +2,10 @@
     {
         "path": "BackupPolicyStandard-template.json",
         "classname": "backup_policy",
-        "dataTypes": null,
+        "dataTypes": [
+            "software",
+            "dataset"
+        ],
         "topics": null
     },
     {
@@ -10,7 +13,8 @@
         "classname": "budget",
         "dataTypes": [
             "software",
-            "none"
+            "dataset",
+            "physical_object"
         ],
         "topics": null
     },
@@ -19,7 +23,8 @@
         "classname": "contributor",
         "dataTypes": [
             "software",
-            "none"
+            "dataset",
+            "physical_object"
         ],
         "topics": null
     },
@@ -28,7 +33,8 @@
         "classname": "contributor",
         "dataTypes": [
             "software",
-            "none"
+            "dataset",
+            "physical_object"
         ],
         "topics": null
     },
@@ -37,20 +43,25 @@
         "classname": "controlled_keyword",
         "dataTypes": [
             "software",
-            "none"
+            "dataset",
+            "physical_object"
         ],
         "topics": null
     },
     {
         "path": "CostCalculMesoUCA-template.json",
         "classname": "cost",
-        "dataTypes": null,
+        "dataTypes": [
+            "dataset"
+        ],
         "topics": null
     },
     {
         "path": "CostMesoatLR-template.json",
         "classname": "cost",
-        "dataTypes": null,
+        "dataTypes": [
+            "dataset"
+        ],
         "topics": null
     },
     {
@@ -58,20 +69,25 @@
         "classname": "cost",
         "dataTypes": [
             "software",
-            "none"
+            "dataset",
+            "physical_object"
         ],
         "topics": null
     },
     {
         "path": "CostStorageMesoUCA-template.json",
         "classname": "cost",
-        "dataTypes": null,
+        "dataTypes": [
+            "dataset"
+        ],
         "topics": null
     },
     {
         "path": "DataCollectionMasa-template.json",
         "classname": "data_collection",
-        "dataTypes": null,
+        "dataTypes": [
+            "dataset"
+        ],
         "topics": [
             "Archeology"
         ]
@@ -79,37 +95,49 @@
     {
         "path": "DataCollectionStandard-template.json",
         "classname": "data_collection",
-        "dataTypes": null,
+        "dataTypes": [
+            "dataset"
+        ],
         "topics": null
     },
     {
         "path": "DataOrganizationReference-template.json",
         "classname": "resource_reference",
-        "dataTypes": null,
+        "dataTypes": [
+            "dataset"
+        ],
         "topics": null
     },
     {
         "path": "DataPreservationStandard-template.json",
         "classname": "data_preservation",
-        "dataTypes": null,
+        "dataTypes": [
+            "dataset"
+        ],
         "topics": null
     },
     {
         "path": "DataProcessingMesoUCA-template.json",
         "classname": "data_processing",
-        "dataTypes": null,
+        "dataTypes": [
+            "dataset"
+        ],
         "topics": null
     },
     {
         "path": "DataProcessingStandard-template.json",
         "classname": "data_processing",
-        "dataTypes": null,
+        "dataTypes": [
+            "dataset"
+        ],
         "topics": null
     },
     {
         "path": "DataReuseMasa-template.json",
         "classname": "data_reuse",
-        "dataTypes": null,
+        "dataTypes": [
+            "dataset"
+        ],
         "topics": [
             "Archeology"
         ]
@@ -117,31 +145,41 @@
     {
         "path": "DataReuseStandard-template.json",
         "classname": "data_reuse",
-        "dataTypes": null,
+        "dataTypes": [
+            "dataset"
+        ],
         "topics": null
     },
     {
         "path": "DataSharingStandard-template.json",
         "classname": "data_sharing",
-        "dataTypes": null,
+        "dataTypes": [
+            "dataset"
+        ],
         "topics": null
     },
     {
         "path": "DataStorageMesoatLR-template.json",
         "classname": "data_storage",
-        "dataTypes": null,
+        "dataTypes": [
+            "dataset"
+        ],
         "topics": null
     },
     {
         "path": "DataStorageMesoUCA_v2-template.json",
         "classname": "data_storage",
-        "dataTypes": null,
+        "dataTypes": [
+            "dataset"
+        ],
         "topics": null
     },
     {
         "path": "DataStorageStandard-template.json",
         "classname": "data_storage",
-        "dataTypes": null,
+        "dataTypes": [
+            "dataset"
+        ],
         "topics": null
     },
     {
@@ -155,7 +193,9 @@
     {
         "path": "DistributionStandard-template.json",
         "classname": "distribution",
-        "dataTypes": null,
+        "dataTypes": [
+            "dataset"
+        ],
         "topics": null
     },
     {
@@ -163,7 +203,8 @@
         "classname": "dmp",
         "dataTypes": [
             "software",
-            "none"
+            "dataset",
+            "physical_object"
         ],
         "topics": null
     },
@@ -172,20 +213,25 @@
         "classname": "dmp",
         "dataTypes": [
             "software",
-            "none"
+            "dataset",
+            "physical_object"
         ],
         "topics": null
     },
     {
         "path": "DocumentationQualityStandard-template.json",
         "classname": "documentation_quality",
-        "dataTypes": null,
+        "dataTypes": [
+            "dataset"
+        ],
         "topics": null
     },
     {
         "path": "EthicalIssuesStandard-template.json",
         "classname": "ethical_issues",
-        "dataTypes": null,
+        "dataTypes": [
+            "dataset"
+        ],
         "topics": null
     },
     {
@@ -193,7 +239,8 @@
         "classname": "funder",
         "dataTypes": [
             "software",
-            "none"
+            "dataset",
+            "physical_object"
         ],
         "topics": null
     },
@@ -202,40 +249,50 @@
         "classname": "funding",
         "dataTypes": [
             "software",
-            "none"
+            "dataset",
+            "physical_object"
         ],
         "topics": null
     },
     {
         "path": "GeoLocationBox-template.json",
         "classname": "specific_data",
-        "dataTypes": null,
-        "topics": [
-            "Earth observation"
-        ]
+        "dataTypes": [
+            "dataset",
+            "physical_object"
+        ],
+        "topics": null
     },
     {
         "path": "GeoLocationPoint-template.json",
         "classname": "specific_data",
-        "dataTypes": null,
+        "dataTypes": [
+            "dataset"
+        ],
         "topics": null
     },
     {
         "path": "HostStandard-template.json",
         "classname": "host",
-        "dataTypes": null,
+        "dataTypes": [
+            "dataset"
+        ],
         "topics": null
     },
     {
         "path": "LegalIssuesStandard-template.json",
         "classname": "legal_issues",
-        "dataTypes": null,
+        "dataTypes": [
+            "dataset"
+        ],
         "topics": null
     },
     {
         "path": "LegalReference-template.json",
         "classname": "resource_reference",
-        "dataTypes": null,
+        "dataTypes": [
+            "dataset"
+        ],
         "topics": null
     },
     {
@@ -243,53 +300,67 @@
         "classname": "license",
         "dataTypes": [
             "software",
-            "none"
+            "dataset",
+            "physical_object"
         ],
         "topics": null
     },
     {
         "path": "MasaArcheoOperation-template.json",
         "classname": "specific_data",
-        "dataTypes": null,
+        "dataTypes": [
+            "dataset"
+        ],
         "topics": null
     },
     {
         "path": "MesoatLRServiceRequest-template.json",
         "classname": "specific_data",
-        "dataTypes": null,
+        "dataTypes": [
+            "dataset"
+        ],
         "topics": null
     },
     {
         "path": "MesoUCACalculRequest-template.json",
         "classname": "specific_data",
-        "dataTypes": null,
+        "dataTypes": [
+            "dataset"
+        ],
         "topics": null
     },
     {
         "path": "MesoUCAStorageRequest-template.json",
         "classname": "specific_data",
-        "dataTypes": null,
+        "dataTypes": [
+            "dataset"
+        ],
         "topics": null
     },
     {
         "path": "MetadataStandardStandard-template.json",
         "classname": "metadata_standard",
-        "dataTypes": null,
+        "dataTypes": [
+            "dataset",
+            "physical_object"
+        ],
         "topics": null
     },
     {
         "path": "MetaStandard-template.json",
         "classname": "meta",
         "dataTypes": [
-            "software",
-            "none"
+            "dataset",
+            "physical_object"
         ],
         "topics": null
     },
     {
         "path": "MethodReference-template.json",
         "classname": "resource_reference",
-        "dataTypes": null,
+        "dataTypes": [
+            "dataset"
+        ],
         "topics": null
     },
     {
@@ -297,14 +368,17 @@
         "classname": "partner",
         "dataTypes": [
             "software",
-            "none"
+            "dataset",
+            "physical_object"
         ],
         "topics": null
     },
     {
         "path": "PersonalDataIssuesStandard-template.json",
         "classname": "personal_data_issues",
-        "dataTypes": null,
+        "dataTypes": [
+            "dataset"
+        ],
         "topics": null
     },
     {
@@ -312,7 +386,8 @@
         "classname": "person",
         "dataTypes": [
             "software",
-            "none"
+            "dataset",
+            "physical_object"
         ],
         "topics": null
     },
@@ -329,14 +404,17 @@
         "classname": "project",
         "dataTypes": [
             "software",
-            "none"
+            "dataset",
+            "physical_object"
         ],
         "topics": null
     },
     {
         "path": "QualityAssuranceMethodStandard-template.json",
         "classname": "quality_assurance_method",
-        "dataTypes": null,
+        "dataTypes": [
+            "dataset"
+        ],
         "topics": null
     },
     {
@@ -344,14 +422,17 @@
         "classname": "research_entity",
         "dataTypes": [
             "software",
-            "none"
+            "dataset",
+            "physical_object"
         ],
         "topics": null
     },
     {
         "path": "ResearchOutputDescriptionStandard-template.json",
         "classname": "research_output_description",
-        "dataTypes": null,
+        "dataTypes": [
+            "dataset"
+        ],
         "topics": null
     },
     {
@@ -365,7 +446,9 @@
     {
         "path": "ResearchOutputStandard-template.json",
         "classname": "research_output",
-        "dataTypes": null,
+        "dataTypes": [
+            "dataset"
+        ],
         "topics": null
     },
     {
@@ -373,14 +456,17 @@
         "classname": "resource_reference",
         "dataTypes": [
             "software",
-            "none"
+            "dataset",
+            "physical_object"
         ],
         "topics": null
     },
     {
         "path": "ReusedDataStandard-template.json",
         "classname": "reused_data",
-        "dataTypes": null,
+        "dataTypes": [
+            "dataset"
+        ],
         "topics": null
     },
     {
@@ -450,7 +536,9 @@
     {
         "path": "SoftwareRegistrationStandard-template.json",
         "classname": "software_registration",
-        "dataTypes": null,
+        "dataTypes": [
+            "software"
+        ],
         "topics": null
     },
     {
@@ -466,7 +554,8 @@
         "classname": "specific_data",
         "dataTypes": [
             "software",
-            "none"
+            "dataset",
+            "physical_object"
         ],
         "topics": null
     },
@@ -475,54 +564,65 @@
         "classname": "technical_resource",
         "dataTypes": [
             "software",
-            "none"
+            "dataset",
+            "physical_object"
         ],
         "topics": null
     },
     {
         "path": "DataCollectionGEO-template.json",
         "classname": "data_collection",
-        "dataTypes": null,
-        "topics": [
-            "Earth observation"
-        ]
+        "dataTypes": [
+            "dataset"
+        ],
+        "topics": null
     },
     {
         "path": "DocumentationQualityGEO-template.json",
         "classname": "documentation_quality",
-        "dataTypes": null,
+        "dataTypes": [
+            "dataset"
+        ],
         "topics": null
     },
     {
         "path": "DataProcessingGEO-template.json",
         "classname": "data_processing",
-        "dataTypes": null,
-        "topics": [
-            "Earth observation"
-        ]
+        "dataTypes": [
+            "dataset"
+        ],
+        "topics": null
+    },
+    {
+        "path": "DataStorageGEO-template.json",
+        "classname": "data_storage",
+        "dataTypes": [
+            "dataset"
+        ],
+        "topics": null
     },
     {
         "path": "DataSharingGEO-template.json",
         "classname": "data_sharing",
-        "dataTypes": null,
-        "topics": [
-            "Earth observation"
-        ]
+        "dataTypes": [
+            "dataset"
+        ],
+        "topics": null
     },
     {
         "path": "DataPreservationGEO-template.json",
         "classname": "data_preservation",
-        "dataTypes": null,
-        "topics": [
-            "Earth observation"
-        ]
+        "dataTypes": [
+            "dataset"
+        ],
+        "topics": null
     },
     {
         "path": "HostGEO-template.json",
         "classname": "host",
-        "dataTypes": null,
-        "topics": [
-            "Earth observation"
-        ]
+        "dataTypes": [
+            "dataset"
+        ],
+        "topics": null
     }
 ]

@@ -29,8 +29,7 @@ RSpec.describe OrgAdmin::GuidanceGroupsController, type: :controller do
 
   describe 'POST /org_admin/guidance_groups (:create)' do
     it 'succeeds' do
-      args = { name: Faker::Lorem.sentence, published: Faker::Boolean.boolean,
-               optional_subset: Faker::Boolean.boolean, org_id: @org.id }
+      args = { name: Faker::Lorem.sentence, published: Faker::Boolean.boolean, org_id: @org.id }
       post :create, params: { id: @org.id, guidance_group: args }
       expect(response).to render_template('org_admin/guidance_groups/edit')
       expect(flash[:notice].present?).to eql(true)
@@ -38,7 +37,6 @@ RSpec.describe OrgAdmin::GuidanceGroupsController, type: :controller do
       expect(gg.id).not_to eql(@guidance_group.id)
       expect(gg.name).to eql(args[:name])
       expect(gg.published).to eql(args[:published])
-      expect(gg.optional_subset).to eql(args[:optional_subset])
       expect(gg.org_id).to eql(args[:org_id])
     end
     it 'fails' do
@@ -51,8 +49,7 @@ RSpec.describe OrgAdmin::GuidanceGroupsController, type: :controller do
 
   describe 'PUT /org_admin/guidance_groups/:id (:update)' do
     it 'succeeds' do
-      args = { name: Faker::Lorem.sentence, published: Faker::Boolean.boolean,
-               optional_subset: Faker::Boolean.boolean }
+      args = { name: Faker::Lorem.sentence, published: Faker::Boolean.boolean }
       put :update, params: { id: @guidance_group.id, guidance_group: args }
       expect(response).to render_template('org_admin/guidance_groups/edit')
       expect(flash[:notice].present?).to eql(true)
@@ -60,7 +57,6 @@ RSpec.describe OrgAdmin::GuidanceGroupsController, type: :controller do
       expect(gg.id).to eql(@guidance_group.id)
       expect(gg.name).to eql(args[:name])
       expect(gg.published).to eql(args[:published])
-      expect(gg.optional_subset).to eql(args[:optional_subset])
       expect(gg.org_id).to eql(@org.id)
     end
     it 'fails' do
