@@ -14,7 +14,7 @@ class ResearchOutputsController < ApplicationController
                                      .find(params[:id])
     authorize @research_output
 
-    render json: @research_output.serialize_json
+    render json: @research_output.serialize_json(current_user)
   end
 
   # POST /research_outputs
