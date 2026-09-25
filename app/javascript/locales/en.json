@@ -312,9 +312,14 @@
   "physicalObject": "Physical Object",
   "datasetType": "Data (dataset, image, sound, text, ...)",
   "noGuidanceSelected": "No guidance has been selected", 
+  "listOfPersons": "List of person responsible for research data management during a project and their roles.",
+  "assigningRoles": "Assigning a role to a person is done in the \"General information\" tab, in the \"Write Plan\" tab for the structured templates or in the \"Research Outputs\" tab for other templates.",
   "seeAllGuidances": "See all guidances",
   "answerImportFormMessage": "You're about to import a answer using the \"{{templateName}}\" form",
   "importAnswer": "Import answer",
   "guidanceTextTooltip": "Enter your guidance here. You can include links where needed.",
-  "themesTooltip": "Select one theme that is relevant to this guidance."
+  "themesTooltip": "Select one theme that is relevant to this guidance.",
+  "errorAnswerImport": "An error occured when importing the answer",
+  "answerImportSuccess": "Answer succesfully imported",
+  "researchOutputHasNewComments": "This research output has new comments"
 }
