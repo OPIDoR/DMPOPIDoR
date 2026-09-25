@@ -95,6 +95,7 @@ function ResearchOutputsSidebar({ planId, readonly, setLoading }) {
     setResearchOutputs,
     displayedResearchOutput,
     researchOutputsWithComments,
+    setResearchOutputsWithComments,
   } = useContext(SectionsContext);
   const [show, setShow] = useState(false);
   const [isDragging, setIsDragging] = useState(false);
@@ -281,6 +282,20 @@ function ResearchOutputsSidebar({ planId, readonly, setLoading }) {
       setOpenGroups((prev) => new Set([...prev, activeGroupIndex]));
     }
   }, [activeGroupIndex]);
+
+  // when new_comment_count has been changed in currently displayed research output
+  // and no answers has new comments, remove displayed research output id from research output
+  // with comments
+  useEffect(() => {
+    if (
+      researchOutputsWithComments.includes(displayedResearchOutput?.id) &&
+      !displayedResearchOutput?.answers.some((a) => a.new_comment_count > 0)
+    ) {
+      setResearchOutputsWithComments((prev) =>
+        prev.filter((id) => id !== displayedResearchOutput.id),
+      );
+    }
+  }, [displayedResearchOutput]);
 
   /**
    * RENDERING
