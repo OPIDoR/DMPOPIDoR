@@ -17,6 +17,14 @@ const { guidances } = vi.hoisted(() => ({
     }),
   },
 }));
+
+const { researchOutput } = vi.hoisted(() => ({
+  researchOutput: {
+    getPlans: vi.fn().mockResolvedValue({
+      data: { plans: [] },
+    }),
+  },
+}));
 const { madmpFragment } = vi.hoisted(() => ({
   madmpFragment: {
     getNewForm: vi.fn().mockResolvedValue({
@@ -27,7 +35,11 @@ const { madmpFragment } = vi.hoisted(() => ({
     }),
   },
 }));
-vi.mock("../../../services/index.js", () => ({ guidances, madmpFragment }));
+vi.mock("../../../services/index.js", () => ({
+  guidances,
+  madmpFragment,
+  researchOutput,
+}));
 
 const props = {
   planId: 1,
