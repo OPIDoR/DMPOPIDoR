@@ -1,4 +1,4 @@
-import { useRef } from "react";
+import { useMemo, useRef } from "react";
 import { useFormContext, useController } from "react-hook-form";
 import { Editor } from "@tinymce/tinymce-react";
 import { Tooltip as ReactTooltip } from "react-tooltip";
@@ -39,6 +39,48 @@ function TinyArea({ label, propName, tooltip, placeholder, readonly = false }) {
   const tinyAreaLabelId = uniqueId("tiny_area_tooltip_id_");
   const editorRef = useRef(null);
 
+  const editorConfig = useMemo(
+    () => ({
+      placeholder: placeholder ? `${t("eg")} ${placeholder}` : null,
+      statusbar: true,
+      menubar: false,
+      toolbar:
+        "bold italic underline | fontfamily fontsize | fontsizeselect forecolor | alignleft aligncenter alignright alignjustify | subscript superscript | bullist numlist indent outdent | link | table | charmap",
+      plugins: "table autoresize link advlist lists autolink charmap",
+      browser_spellcheck: true,
+      advlist_bullet_styles: "circle,disc,square", // Only disc bullets display on htmltoword
+      target_list: false,
+      elementpath: false,
+      resize: true,
+      min_height: 230,
+      width: "100%",
+      autoresize_bottom_margin: 10,
+      branding: false,
+      extended_valid_elements: "iframe[tooltip] , a[href|target=_blank]",
+      invalid_elements: "pre",
+      paste_as_text: false,
+      paste_block_drop: true,
+      paste_merge_formats: true,
+      paste_tab_spaces: 4,
+      smart_paste: true,
+      paste_data_images: true,
+      paste_remove_styles_if_webkit: true,
+      paste_webkit_styles: "none",
+      table_default_attributes: {
+        border: 1,
+      },
+      // editorManager.baseURL is not resolved properly for IE since document.currentScript
+      // is not supported, see issue https://github.com/tinymce/tinymce/issues/358
+      skin_url: "/tinymce/skins/oxide",
+      content_css: [],
+      paste_preprocess: (plugin, args) => {
+        args.content = args.content.replace(/ style="[^"]*"/gi, "");
+      },
+      invalid_styles: "position left right bottom top width height z-index",
+    }),
+    [],
+  );
+
   return (
     <div className={"form-group ticket-summernote mr-4 ml-4"}>
       <div className="row">
@@ -65,41 +107,7 @@ function TinyArea({ label, propName, tooltip, placeholder, readonly = false }) {
               {...newField}
               onEditorChange={(newText) => onChange(newText)}
               licenseKey="gpl"
-              init={{
-                placeholder: placeholder ? `${t("eg")} ${placeholder}` : null,
-                statusbar: true,
-                menubar: false,
-                toolbar:
-                  "bold italic underline | fontfamily fontsize | fontsizeselect forecolor | alignleft aligncenter alignright alignjustify | subscript superscript | bullist numlist indent outdent | link | table | charmap",
-                plugins: "table autoresize link advlist lists autolink charmap",
-                browser_spellcheck: true,
-                advlist_bullet_styles: "circle,disc,square", // Only disc bullets display on htmltoword
-                target_list: false,
-                elementpath: false,
-                resize: true,
-                min_height: 230,
-                width: "100%",
-                autoresize_bottom_margin: 10,
-                branding: false,
-                extended_valid_elements:
-                  "iframe[tooltip] , a[href|target=_blank]",
-                invalid_elements: "pre",
-                paste_as_text: false,
-                paste_block_drop: true,
-                paste_merge_formats: true,
-                paste_tab_spaces: 4,
-                smart_paste: true,
-                paste_data_images: true,
-                paste_remove_styles_if_webkit: true,
-                paste_webkit_styles: "none",
-                table_default_attributes: {
-                  border: 1,
-                },
-                // editorManager.baseURL is not resolved properly for IE since document.currentScript
-                // is not supported, see issue https://github.com/tinymce/tinymce/issues/358
-                skin_url: "/tinymce/skins/oxide",
-                content_css: [],
-              }}
+              init={editorConfig}
             />
           )}
           {readonly && (

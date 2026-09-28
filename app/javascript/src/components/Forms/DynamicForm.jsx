@@ -2,7 +2,6 @@ import { useContext, useEffect, useMemo, useState } from "react";
 import toast from "react-hot-toast";
 import { useTranslation } from "react-i18next";
 import { useForm, FormProvider } from "react-hook-form";
-import unionBy from "lodash.unionby";
 
 import FormBuilder from "./FormBuilder.jsx";
 import { GlobalContext } from "../context/GlobalContext.jsx";
@@ -19,6 +18,7 @@ import {
   generateEmptyDefaults,
 } from "../../utils/GeneratorUtils.js";
 import { useFormValues } from "../../hooks/useFormValues.js";
+import useHandleNewAnswerResponse from "../../hooks/useHandleNewAnswerResponse.js";
 
 function DynamicForm({
   fragmentId,
@@ -31,15 +31,10 @@ function DynamicForm({
   readonly,
 }) {
   const { t } = useTranslation();
-  const { dmpId, locale } = useContext(GlobalContext);
+  const { dmpId, locale, setPlanTitle } = useContext(GlobalContext);
   const { formData, setFormData, loadedTemplates, setLoadedTemplates } =
     useContext(FormsContext);
-  const {
-    displayedResearchOutput,
-    setDisplayedResearchOutput,
-    researchOutputs,
-    setResearchOutputs,
-  } = useContext(SectionsContext);
+  const { displayedResearchOutput } = useContext(SectionsContext);
   const methods = useForm({ defaultValues: {} });
   const { setValues } = useFormValues(methods);
   const [loading, setLoading] = useState(true);
@@ -49,6 +44,7 @@ function DynamicForm({
   /**
    * Memoized values
    */
+  const handleNewAnswerResponse = useHandleNewAnswerResponse();
   const template = useMemo(() => {
     if (fragmentId && formData[fragmentId]) {
       return loadedTemplates[formData[fragmentId].template_name] ?? null;
@@ -95,9 +91,7 @@ function DynamicForm({
         return setLoading(false);
       }
       if (response?.data?.meta_fragment) {
-        // updating title outsite of react components
-        document.getElementById("plan-title").innerHTML =
-          response?.data?.meta_fragment?.title;
+        setPlanTitle(response?.data?.meta_fragment?.title);
         setFormData({
           [response?.data?.meta_fragment?.id]: {
             ...response.data.meta_fragment,
@@ -123,36 +117,11 @@ function DynamicForm({
         displayedResearchOutput.id,
       )
       .then((res) => {
-        const fragment = res.data.fragment;
         const tplt = res.data.template;
-        const answerId = res.data.answer_id;
         setTemplateName(tplt.name);
-        setLoadedTemplates((prev) => ({ ...prev, [tplt.name]: tplt }));
-        setFormData({ [fragment.id]: fragment });
-        setAnswer({
-          id: answerId,
-          question_id: questionId,
-          fragment_id: fragment.id,
-          madmp_schema_id: templateId,
-        });
-
-        const updatedResearchOutput = {
-          ...displayedResearchOutput,
-          answers: [
-            ...displayedResearchOutput.answers,
-            {
-              answer_id: answerId,
-              question_id: questionId,
-              fragment_id: fragment.id,
-            },
-          ],
-        };
-        setResearchOutputs(
-          unionBy(researchOutputs, [updatedResearchOutput], "id"),
-        );
-        setDisplayedResearchOutput(updatedResearchOutput);
+        handleNewAnswerResponse(res.data, questionId, setAnswer);
         setNewFragmentSaved(true);
-        methods.reset(fragment);
+        methods.reset(res.data.fragment);
         toast.success(t("saveSuccess"));
       })
       .catch((error) => handleError(error))

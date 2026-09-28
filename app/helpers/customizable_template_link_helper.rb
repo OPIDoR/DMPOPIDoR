@@ -4,8 +4,8 @@
 module CustomizableTemplateLinkHelper
   # Link to the appropriate customizable template.
   # Default link name set if name not set which can be overwritten.
-  # rubocop:disable Metrics/AbcSize, Metrics/PerceivedComplexity
-  # rubocop:todo-next Metrics/CyclomaticComplexity
+  # rubocop:disable-next Metrics/AbcSize, Metrics/PerceivedComplexity
+  # rubocop:disable-next Metrics/CyclomaticComplexity
   def link_to_customizable_template(name, customization, template, dropdown)
     name = nil unless name.present?
     link_css = dropdown ? 'dropdown-item px-3' : 'px-3'
@@ -20,15 +20,13 @@ module CustomizableTemplateLinkHelper
                 class: link_css
       else
         name = _('Edit customisation') if name.blank?
-        link_to name, org_admin_template_path(id: customization.id), class: link_css
+        link_to name, org_admin_template_path(id: customization.id), data: { turbo_frame: '_top' }, class: link_css
       end
     else
       name = _('Customise') if name.blank?
       link_to name,
-              org_admin_template_customizations_path(template.id),
-              'data-turbo-method': 'post',
-              class: link_css
+              org_admin_template_customizations_path(template.id), data: { turbo_method: 'post', turbo_frame: '_top' },
+                                                                   class: link_css
     end
   end
-  # rubocop:enable Metrics/AbcSize, Metrics/PerceivedComplexity
 end

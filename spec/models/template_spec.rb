@@ -17,7 +17,7 @@
 #  locale           :string
 #  published        :boolean
 #  title            :string
-#  type             :integer          default(0), not null
+#  type             :integer          default("classic"), not null
 #  version          :integer
 #  visibility       :integer
 #  created_at       :datetime

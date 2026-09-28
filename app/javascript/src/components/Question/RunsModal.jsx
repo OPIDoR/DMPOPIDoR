@@ -15,7 +15,7 @@ import { getErrorMessage } from "../../utils/utils.js";
 
 function RunsModal({ shown, hide, scriptsData, fragmentId }) {
   const { t } = useTranslation();
-  const { locale } = useContext(GlobalContext);
+  const { locale, setClients } = useContext(GlobalContext);
   const { setFormData } = useContext(FormsContext);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
@@ -62,7 +62,7 @@ function RunsModal({ shown, hide, scriptsData, fragmentId }) {
         } else {
           setSuccess(res.data.message);
         }
-        triggerRefresh({ clients: res?.data?.clients || [] });
+        setClients(res?.data?.clients || []);
       })
       .catch((error) => {
         const errorMessage = getErrorMessage(error);
@@ -77,12 +77,6 @@ function RunsModal({ shown, hide, scriptsData, fragmentId }) {
       });
   }
 
-  const triggerRefresh = (message) => {
-    const event = new CustomEvent("trigger-refresh-shared-label", {
-      detail: { message },
-    });
-    window.dispatchEvent(event);
-  };
   return (
     <InnerModal show={shown} ref={modalRef}>
       <InnerModal.Header

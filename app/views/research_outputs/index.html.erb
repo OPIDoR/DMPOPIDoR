@@ -2,34 +2,50 @@
 <% title "#{@plan.title}" %>
 
 <% content_for :plan_tab_body do %>
-  <% if @plan.template.classic? %>
-    <div id="research-outputs-container" class="fragment-<%= @plan.json_fragment.id%>">
-      <%= hidden_field_tag 'plan_id', @plan.id %>
-      <h2><%= _('Research outputs') %></h2>
-      <h3><%= _('Dataset, software, workflow, sample, protocol...') %></h3>
-      <div class="display-readonly-textarea-content">
-        <p><%= _('Please fill in separately for research outputs requireing a management specific to their nature or discipline.') %></p>
+  <div class="tab-content">
+    <div class="row">
+      <div class="col-md-12">
+        <!-- render the project title -->
+        <h1 id="plan-title">
+          <%= @plan.title %>
+        </h1>
       </div>
-      <% I18n.with_locale @plan.template.locale do %>
-        <ul id='research-outputs-list'>
-          <%= turbo_frame_tag "research_outputs" do %>
-            <%= render @research_outputs %>
-          <% end %>
-        </ul>
-      <% end %>
-      <% if @plan.editable_by?(current_user.id) %>
-          <%= form_with url: classic_research_outputs_url(plan_id: @plan.id), method: :post, data: { turbo: true }, html: { class: "d-inline" } do %>
-            <%= submit_tag _('Add a research output'), class: "add-research-output btn btn-primary", data: {
-              toggle: "tooltip",
-              'original-title': _("Click here to add a new research output")
-            } %>
-          <% end %>
-      <% end %>
     </div>
-  <% else %>
-    <div id="research-outputs" class="fragment-<%= @plan.json_fragment.id%>">
-      <%= _('This tab is used by classic plans, if you want to manage your research output, please go to the "Write Plan" tab.') %>
+    <div id="content" role="tabpanel" class="tab-pane active row col-md-12">
+      <div class="plan-content card card-default">
+        <div class="card-body">
+          <% if @plan.template.classic? %>
+            <div id="research-outputs-container" class="fragment-<%= @plan.json_fragment.id%>">
+              <%= hidden_field_tag 'plan_id', @plan.id %>
+              <h2><%= _('Research outputs') %></h2>
+              <h3><%= _('Dataset, software, workflow, sample, protocol...') %></h3>
+              <div class="display-readonly-textarea-content">
+                <p><%= _('Please fill in separately for research outputs requireing a management specific to their nature or discipline.') %></p>
+              </div>
+              <% I18n.with_locale @plan.template.locale do %>
+                <ul id='research-outputs-list'>
+                  <%= turbo_frame_tag "research_outputs" do %>
+                    <%= render @research_outputs %>
+                  <% end %>
+                </ul>
+              <% end %>
+              <% if @plan.editable_by?(current_user.id) %>
+                  <%= form_with url: classic_research_outputs_url(plan_id: @plan.id), method: :post, data: { turbo: true }, html: { class: "d-inline" } do %>
+                    <%= submit_tag _('Add a research output'), class: "add-research-output btn btn-primary", data: {
+                      toggle: "tooltip",
+                      'original-title': _("Click here to add a new research output")
+                    } %>
+                  <% end %>
+              <% end %>
+            </div>
+          <% else %>
+            <div id="research-outputs" class="fragment-<%= @plan.json_fragment.id%>">
+              <%= _('This tab is used by classic plans, if you want to manage your research output, please go to the "Write Plan" tab.') %>
+            </div>
+          <% end %>
+        </div>
+      </div>
     </div>
-  <% end %>
+  </div>
 <% end %>
 <%= render partial: "plans/navigation", locals: { plan: @plan } %>

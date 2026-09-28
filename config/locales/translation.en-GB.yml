@@ -530,8 +530,32 @@ en-GB:
         job_class:
         maximum_duration:
         minimum_duration:
+        no_executions:
         queue_name:
         title:
+      range:
+        bucket_size:
+          days:
+          hours:
+          minutes:
+          months:
+          seconds:
+          years:
+        chart_bucket_size:
+        custom_range:
+        custom_range_hint:
+        end_time:
+        open_time_ranges:
+        quick_ranges:
+        range_options:
+          1h:
+          24h:
+          6h:
+          7d:
+        reload_range:
+        start_time:
+        time_range:
+        time_zone:
       show:
         slow:
         title:

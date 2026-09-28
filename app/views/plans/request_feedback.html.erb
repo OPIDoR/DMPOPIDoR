@@ -1,3 +1,19 @@
 <% title _("#{@plan.title} - Request feedback") %>
-<%= render partial: 'request_feedback_form', layout: 'navigation', locals: { plan: @plan } %>
 
+<% content_for :plan_tab_body do %>
+  <div class="tab-content">
+    <div class="row">
+      <div class="col-md-12">
+        <!-- render the project title -->
+        <h1 id="plan-title">
+          <%= @plan.title %>
+        </h1>
+      </div>
+    </div>
+    <div style="display: flex; justify-content: flex-end; align-items: flex-end; width: 100%; position: relative; margin-right: 100px;">
+      <%= react("SharedLabelLayout", props: { planId: @plan.id, clients: @plan.api_clients.pluck(:name) }) %>
+    </div>  
+    <%= render partial: 'request_feedback_form', locals: { plan: @plan } %>
+  </div>
+<% end %>
+<%= render partial: "plans/navigation", locals: { plan: @plan } %>

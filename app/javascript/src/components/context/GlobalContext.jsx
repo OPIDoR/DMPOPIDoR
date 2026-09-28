@@ -15,28 +15,48 @@ function Global({
   children,
   initialLocale = "fr_FR",
   initialDmpId = null,
+  initialPlanId = null,
   initialUserId = -1,
   initialCommentablePlan = false,
   isUserSuperAdmin = false,
+  initialPlanTitle = "",
+  initialClients = [],
 }) {
   const locale = initialLocale;
   const dmpId = initialDmpId;
+  const planId = initialPlanId;
   const userId = initialUserId;
   const commentablePlan = initialCommentablePlan;
 
   const [configuration, setConfiguration] = useState({});
+  const [planTitle, setPlanTitle] = useState(initialPlanTitle);
+  const [clients, setClients] = useState(initialClients);
 
   const contextValue = useMemo(
     () => ({
       locale,
       dmpId,
+      planId,
       userId,
       configuration,
       setConfiguration,
       commentablePlan,
       isUserSuperAdmin,
+      planTitle,
+      setPlanTitle,
+      clients,
+      setClients,
     }),
-    [locale, dmpId, userId, configuration, commentablePlan],
+    [
+      locale,
+      dmpId,
+      planId,
+      userId,
+      configuration,
+      commentablePlan,
+      planTitle,
+      clients,
+    ],
   );
 
   return (
