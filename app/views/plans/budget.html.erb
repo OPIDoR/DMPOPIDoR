@@ -11,6 +11,9 @@
         </h1>
       </div>
     </div>
+    <div style="display: flex; justify-content: flex-end; align-items: flex-end; width: 100%; position: relative; margin-right: 100px;">
+      <%= react("SharedLabelLayout", props: { planId: plan.id, clients: plan.api_clients.pluck(:name) }) %>
+    </div>
     <div id="content" role="tabpanel" class="tab-pane active row col-md-12">
       <div class="plan-content card card-default">
         <div class="card-body">
