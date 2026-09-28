@@ -12,18 +12,18 @@ function PlanTabLayout({ children }) {
           <h1>{planTitle}</h1>
         </Col>
       </Row>
-      <div
-        style={{
-          display: "flex",
-          justifyContent: "flex-end",
-          alignItems: "flex-end",
-          width: "100%",
-          position: "relative",
-          marginRight: "100px",
-        }}
-      >
-        <SharedLabelLayout planId={planId} clients={clients} />
-      </div>
+      <Row>
+        <Col
+          md={12}
+          style={{
+            display: "flex",
+            justifyContent: "flex-end",
+            paddingRight: "30px",
+          }}
+        >
+          <SharedLabelLayout planId={planId} clients={clients} />
+        </Col>
+      </Row>
       <Row id="content">
         <Card style={{ border: "none", boxShadow: "none" }}>
           <Card.Body>{children}</Card.Body>
