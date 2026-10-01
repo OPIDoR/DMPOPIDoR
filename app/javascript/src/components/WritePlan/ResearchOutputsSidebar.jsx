@@ -3,7 +3,6 @@ import styled from "styled-components";
 import { MdAddCircleOutline, MdDragIndicator } from "react-icons/md";
 import { useTranslation } from "react-i18next";
 import chunk from "lodash.chunk";
-import Badge from "react-bootstrap/Badge";
 
 import { AnimatePresence, motion } from "motion/react";
 import { DndContext } from "@dnd-kit/core";
@@ -203,15 +202,12 @@ function ResearchOutputsSidebar({ planId, readonly, setLoading }) {
           .join(" ")}
       >
         {researchOutputsWithComments.includes(item.id) && (
-          <Badge
-            pill
-            bg="danger"
+          <span
             style={{
-              display: "inline-block",
               backgroundColor: "var(--rust)",
               padding: "7px",
+              borderRadius: "50%",
             }}
-            title={t("researchOutputHasNewComments")}
           />
         )}
         <span style={{ width: "100%", marginLeft: "10px" }}>
@@ -325,9 +321,26 @@ function ResearchOutputsSidebar({ planId, readonly, setLoading }) {
                     key={i}
                   >
                     <AccordionHeader onClick={() => toggleGroup(i)}>
-                      {i * RESEARCH_OUTPUTS_PER_PAGE + 1} -{" "}
-                      {i * RESEARCH_OUTPUTS_PER_PAGE +
-                        RESEARCH_OUTPUTS_PER_PAGE}
+                      {group
+                        .map((i) => i.id)
+                        .filter((i) => researchOutputsWithComments.includes(i))
+                        .length > 0 && (
+                        <span
+                          style={{
+                            backgroundColor: "var(--rust)",
+                            padding: "7px",
+                            marginRight: "10px",
+                            borderRadius: "50%",
+                            fontSize: 0,
+                            verticalAlign: "middle",
+                          }}
+                        />
+                      )}
+                      <span>
+                        {i * RESEARCH_OUTPUTS_PER_PAGE + 1} -{" "}
+                        {i * RESEARCH_OUTPUTS_PER_PAGE +
+                          RESEARCH_OUTPUTS_PER_PAGE}
+                      </span>
                     </AccordionHeader>
                     <AnimatePresence mode="wait" initial={false}>
                       {openGroups.has(i) && (
