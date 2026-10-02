@@ -318,6 +318,7 @@ class ResearchOutput < ApplicationRecord
         ON vc.answer_id = answers.id
         AND vc.user_id = :user_id
       WHERE notes.user_id != :user_id
+        AND notes.archived = false
         AND research_outputs.plan_id = :plan_id
         AND (vc.id IS NULL OR vc.last_read_at < notes.created_at)
     SQL
