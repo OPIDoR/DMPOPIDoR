@@ -2,6 +2,10 @@
 
 # rubocop:disable-next Naming/VariableNumber
 namespace :dmpopidor_upgrade do
+  desc 'Upgrade to 4.5.0'
+  task V4_5_0: :environment do
+    Rake::Task['dmpopidor_upgrade:init_viewed_comments'].execute
+  end
   desc 'Upgrade to 4.4.4'
   task V4_4_4: :environment do
     Rake::Task['dmpopidor_upgrade:generate_pdf_plans'].execute
@@ -61,6 +65,27 @@ namespace :dmpopidor_upgrade do
   desc 'Upgrade to 2.3.0'
   task v2_3_0: :environment do
     Rake::Task['dmpopidor_upgrade:close_existing_feedback_plans'].execute
+  end
+
+  desc 'Initialize viewed comments for all existing comments in structured plans'
+  task init_viewed_comments: :environment do
+    Plan.includes(:answers, :template).where(template: { type: 'structured' }).each do |plan|
+      plan.notes.each do |note|
+        plan.roles.map do |role|
+          next if role.user_id.eql?(note.user_id)
+
+          next if ViewedComment.exists?(user_id: role.user_id, answer_id: note.answer_id)
+
+          ViewedComment.upsert(
+            {
+              user_id: role.user_id,
+              answer_id: note.answer_id,
+              last_read_at: Time.current
+            }
+          )
+        end
+      end
+    end
   end
 
   desc 'Generate pdf binaries for publicly visible plans or plans with research outputs count >= 15'
