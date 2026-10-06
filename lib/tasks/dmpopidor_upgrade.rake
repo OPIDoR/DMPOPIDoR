@@ -69,7 +69,8 @@ namespace :dmpopidor_upgrade do
 
   desc 'Initialize viewed comments for all existing comments in structured plans'
   task init_viewed_comments: :environment do
-    Plan.includes(:answers, :template).where(template: { type: 'structured' }).each do |plan|
+    Plan.includes(:answers, :template, :roles,
+                  :notes).where(template: { type: 'structured' }).find_each(batch_size: 100) do |plan|
       plan.notes.each do |note|
         plan.roles.map do |role|
           next if role.user_id.eql?(note.user_id)
