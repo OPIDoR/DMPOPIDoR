@@ -230,22 +230,12 @@ class NotesController < ApplicationController
   end
   # rubocop:enable Metrics/AbcSize, Metrics/MethodLength
 
-  # PATCH /notes/:id/archive
-  # CHANGES
-  # Research Output support
-  # rubocop:disable-next Metrics/AbcSize
-  def archive
+  # DELETE /notes/:id
+  def destroy
     @note = Note.find(params[:id])
     authorize @note
-    @note.archived = true
-    @note.archived_by = params[:note][:archived_by]
 
-    @answer = @note.answer
-    @question = @answer.question
-    @plan = @answer.plan
-    @research_output = @answer.research_output
-
-    if @note.update(note_params)
+    if @note.destroy
       @notice = success_message(@note, _('removed'))
       render json: { status: 200, message: 'Note removed successsfully', note: @note }, status: :ok
 

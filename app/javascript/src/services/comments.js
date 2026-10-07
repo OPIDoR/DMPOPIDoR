@@ -40,18 +40,18 @@ const update = async (comment) => {
 };
 
 /**
- * Archives a comment by sending a PATCH request to the server with the 'archive' action.
+ * Destroys a comment by sending a DELETE request to the server.
  *
- * @param {string} id - The identifier of the comment to be archived.
- * @param {Object} comment - The comment data, including the 'archive' action if needed.
- * @returns {Promise} A promise that resolves with the server response for the archive request.
+ * @param {string} id - The identifier of the comment to be destroyed.
+ * @param {Object} comment - The comment data.
+ * @returns {Promise} A promise that resolves with the server response for the destroy request.
  */
-const archive = async (id, comment) =>
-  axios.patch(`/notes/${id}/archive`, comment, { headers: commonHeaders });
+const destroy = async (id) =>
+  axios.delete(`/notes/${id}`, { headers: commonHeaders });
 
 export default {
   get,
   create,
   update,
-  archive,
+  destroy,
 };
