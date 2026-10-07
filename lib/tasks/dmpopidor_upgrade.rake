@@ -4,6 +4,7 @@
 namespace :dmpopidor_upgrade do
   desc 'Upgrade to 4.5.0'
   task V4_5_0: :environment do
+    Rake::Task['dmpopidor_upgrade:remove_archived_comments'].execute
     Rake::Task['dmpopidor_upgrade:init_viewed_comments'].execute
   end
   desc 'Upgrade to 4.4.4'
@@ -102,6 +103,11 @@ namespace :dmpopidor_upgrade do
         end
       end
     end
+  end
+
+  desc 'Remove archived comments'
+  task remove_archived_comments: :environment do
+    Note.where(archived: true).destroy_all
   end
 
   desc 'Generate pdf binaries for publicly visible plans or plans with research outputs count >= 15'
