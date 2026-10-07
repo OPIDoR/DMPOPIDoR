@@ -9,7 +9,7 @@ function PlanTabLayout({ children }) {
     <div style={{ display: "flex", flexDirection: "column" }}>
       <Row>
         <Col md={12} style={{ textAlign: "center" }}>
-          <h1>{planTitle}</h1>
+          <h1 id="plan-title">{planTitle}</h1>
         </Col>
       </Row>
       <Row>
