@@ -67,6 +67,21 @@ namespace :dmpopidor_upgrade do
     Rake::Task['dmpopidor_upgrade:close_existing_feedback_plans'].execute
   end
 
+  desc 'Convert ANR grant ids to DOI grant ids'
+  task convert_anr_grant_ids: :environment do
+    excluded_grant_ids = Registry.find_by(name: 'ANRExcludedGrantIds')&.values || []
+    Fragment::Funding.where("data ->> 'grantId' ~ '^ANR-[0-9]{2}-[a-zA-Z0-9]{4}-[0-9]{4}$'")
+                     .find_each(batch_size: 100) do |funding|
+                       anr_grant_id = funding.data['grantId']
+                       next if excluded_grant_ids.include?(anr_grant_id)
+
+                       p "Converting ANR grant id #{anr_grant_id} to DOI grant id for funding fragment #{funding.id}"
+                       doi_grant_id = "10.67599/#{anr_grant_id}"
+                       funding.update_column(:data,
+                                             funding.data.merge({ 'grantId' => doi_grant_id, 'idType' => 'DOI' }))
+                     end
+  end
+
   desc 'Initialize viewed comments for all existing comments in structured plans'
   task init_viewed_comments: :environment do
     Plan.includes(:answers, :template, :roles,
