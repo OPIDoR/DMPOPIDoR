@@ -506,26 +506,6 @@ class PlansController < ApplicationController
     end
   end
 
-  # rubocop:disable-next Metrics/AbcSize
-  def research_outputs_data
-    plan = Plan.includes(research_outputs: :answers, template: { phases: { sections: :questions } }).find(params[:id])
-    research_output_id = params[:research_output_id] || 0
-    authorize plan
-
-    render json: {
-      id: plan.id,
-      template: plan.template.serialize_json,
-      has_new_comments: ResearchOutput.unread_comments_count_for(current_user.id, plan.id),
-      research_outputs: plan.research_outputs.order(:display_order).each_with_index.map do |ro, idx|
-        if research_output_id.eql?(ro.id.to_s) || (idx.zero? && research_output_id.eql?(0))
-          ro.serialize_json(current_user)
-        else
-          ro.serialize_json(current_user, with_answers: false)
-        end
-      end
-    }
-  end
-
   # GET AJAX /plans/:id/contributors_data
   def contributors_data
     plan = Plan.find(params[:id])

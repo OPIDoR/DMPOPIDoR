@@ -8,6 +8,34 @@ class ResearchOutputsController < ApplicationController
   helper PaginableHelper
   after_action :verify_authorized
 
+  # rubocop:disable-next Metrics/AbcSize, Metrics/MethodLength
+  # rubocop:disable-next Metrics/PerceivedComplexity
+  def index
+    plan = Plan.includes(:template, research_outputs: :answers).find(params[:plan_id])
+    research_output_id = params[:research_output_id] || 0
+
+    authorize plan
+    research_outputs = plan.research_outputs.order(:display_order)
+    render json: {
+      id: plan.id,
+      template: plan.template.serialize_json,
+      has_new_comments: if params[:include_new_comments].present?
+                          ResearchOutput.unread_comments_count_for(
+                            current_user.id, plan.id
+                          )
+                        else
+                          0
+                        end,
+      research_outputs: research_outputs.each_with_index.map do |ro, idx|
+        if research_output_id.eql?(ro.id.to_s) || (idx.zero? && research_output_id.eql?(0))
+          ro.serialize_json(current_user)
+        else
+          ro.serialize_json(current_user, with_answers: false)
+        end
+      end
+    }
+  end
+
   def show
     @research_output = ResearchOutput.includes(answers: %i[madmp_fragment viewed_comment],
                                                plan: { template: { phases: { sections: :questions } } })
