@@ -238,7 +238,7 @@ class ResearchOutput < ApplicationRecord
                  else
                    {}
                  end,
-        template: template.serialize_json
+        template: template.serialize_json(include_sections: true)
       }
     end
   end
