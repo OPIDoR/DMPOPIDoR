@@ -6,9 +6,13 @@ import axios from "../utils/AxiosClient";
  * @returns An object with a property "data" that contains either the parsed JSON data from sessionStorage if it exists, or the original dataObject if it
  * does not.
  */
-const getResearchOutputsData = async (planId, researchOutputId) =>
+const getResearchOutputsData = async (
+  planId,
+  researchOutputId,
+  includeNewComments = false,
+) =>
   axios.get(
-    `/research_outputs?plan_id=${planId}&${researchOutputId ? "research_output_id=" + researchOutputId : ""}`,
+    `/research_outputs?plan_id=${planId}${includeNewComments ? "&include_new_comments=true" : ""}${researchOutputId ? "&research_output_id=" + researchOutputId : ""}`,
   );
 const getSectionsData = async (templateId) =>
   axios.get(`/templates/${templateId}`);
