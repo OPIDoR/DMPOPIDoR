@@ -64,9 +64,7 @@ function CommentList({
     Swal.fire(swalUtils.defaultConfirmConfig(t)).then((result) => {
       if (result.isConfirmed) {
         commentsService
-          .archive(id, {
-            archived_by: userId,
-          })
+          .destroy(id)
           .then(() => {
             const index = comments.findIndex((el) => el.id === id);
 

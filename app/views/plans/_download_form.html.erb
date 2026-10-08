@@ -20,7 +20,7 @@
               <%= label_tag("research_outputs[]", nil, { for: "research_output_#{research_output.id}" }) do %>
                 <span class="sublist">└─ </span>
                 <%= check_box_tag("research_outputs[]", research_output.id, true, { class: "research-output-checkbox", id: "research_output_#{research_output.id}" }) %>
-                <%= "#{research_output_description.data['title']} (#{research_output_description.data['type']})" %>
+                <%= "#{research_output.title} (#{research_output.output_type_description})" %>
               <% end %>
             </li>
           <% end %>

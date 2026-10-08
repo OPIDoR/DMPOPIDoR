@@ -21,7 +21,7 @@ function useFetchPlansData(
       setData(filteredPlans);
       setLoading(false);
     });
-  }, [shouldFetch]);
+  }, [shouldFetch, dataType, className]);
 
   const filterWithDataType = (plans, dataType) => {
     if (!dataType) return plans;

@@ -216,6 +216,8 @@ class ResearchOutput < ApplicationRecord
   # rubocop:disable-next Metrics/AbcSize, Metrics/MethodLength
   def serialize_json(user = nil, with_answers: true)
     ro_fragment = json_fragment
+    return {} if ro_fragment.nil?
+
     module_id = ro_fragment.additional_info['moduleId']
     template = module_id ? Template.find(module_id) : plan.template
 
@@ -269,7 +271,7 @@ class ResearchOutput < ApplicationRecord
     Rails.cache.fetch("research_output_#{topic}_#{template_locale}_label", expires_in: 12.hours) do
       Registry.find_by(name: 'Topics').values.find do |v|
         v['value'].eql?(topic)
-      end.dig('label', LocaleService.to_gettext(locale: template_locale)) || topic
+      end&.dig('label', LocaleService.to_gettext(locale: template_locale)) || topic
     end
   end
 
@@ -318,6 +320,7 @@ class ResearchOutput < ApplicationRecord
         ON vc.answer_id = answers.id
         AND vc.user_id = :user_id
       WHERE notes.user_id != :user_id
+        AND notes.archived = false
         AND research_outputs.plan_id = :plan_id
         AND (vc.id IS NULL OR vc.last_read_at < notes.created_at)
     SQL

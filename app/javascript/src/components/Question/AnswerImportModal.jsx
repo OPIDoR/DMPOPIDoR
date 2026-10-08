@@ -29,7 +29,7 @@ function AnswerImportModal({
 }) {
   const { t } = useTranslation();
   const { setFormData, setLoadedTemplates } = useContext(FormsContext);
-  const { data, loading } = useFetchPlansData(dataType, className);
+  const { data, loading } = useFetchPlansData(dataType, className, shown);
   const [selectedResearchOutput, setSelectedResearchOutput] = useState(null);
   const [selectedAnswer, setSelectedAnswer] = useState(null);
   const [answerLoading, setAnswerLoading] = useState(true);

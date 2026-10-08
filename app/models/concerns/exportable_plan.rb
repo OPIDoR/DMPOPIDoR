@@ -207,13 +207,6 @@ module ExportablePlan
       csv << [_('Project abstract: '), format(_('%{description}'), description: Nokogiri::HTML(description).text)]
     end
     csv << [_('Last modified: '), format(_('%{date}'), date: updated_at.to_date.strftime('%d-%m-%Y'))]
-    csv << [_('Copyright information:'),
-            _("The above plan creator(s) have agreed that others may use as
-             much of the text of this plan as they would like in their own plans,
-             and customise it as necessary. You do not need to credit the creator(s)
-             as the source of the language used, but using any of the plan's text
-             does not imply that the creator(s) endorse, or have any relationship to,
-             your project or proposal")]
     csv << []
     csv << []
   end

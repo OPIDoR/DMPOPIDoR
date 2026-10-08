@@ -1,39 +1,37 @@
 <%= "#{@plan.title}" %>
 <%= "----------------------------------------------------------\n" %>
 <% if @options[:show_coversheet] %>
-<%= Array(@hash[:attribution]).many? ? _("Creators: ") + Array(@hash[:attribution]).join(", ")  : _('Creator:') + @hash[:attribution] %>
-<%# Added contributors to coverage of plans. 
-  # Users will see both roles and contributor names if the role is filled %>
-<%# Roles are ranked by PI -> DM -> PA -> Other (if any) %>
+  <%= Array(@hash[:attribution]).many? ? _("Creators: ") + Array(@hash[:attribution]).join(", ")  : _('Creator:') + @hash[:attribution] %>
+  <%# Added contributors to coverage of plans. 
+    # Users will see both roles and contributor names if the role is filled %>
+  <%# Roles are ranked by PI -> DM -> PA -> Other (if any) %>
   <% if @hash[:investigation].present? %>
-<%= _("Principal Investigator: ") + @hash[:investigation].map(&:name).join(', ') %>
+    <%= _("Principal Investigator: ") + @hash[:investigation].map(&:name).join(', ') %>
   <% end %>
   <% if @hash[:data_curation].present? %>
-<%= _("Data Manager: ") +  @hash[:data_curation].map(&:name).join(', ') %>
+    <%= _("Data Manager: ") +  @hash[:data_curation].map(&:name).join(', ') %>
   <% end %>
   <% if @hash[:pa].present? %>
-<%= _("Project Administrator: ") + @hash[:pa].map(&:name).join(', ') %>
+    <%= _("Project Administrator: ") + @hash[:pa].map(&:name).join(', ') %>
   <% end %>
   <% if @hash[:other].present? %>
-<%= _("Contributor: ") + @hash[:other].map(&:name).join(', ') %>
+    <%= _("Contributor: ") + @hash[:other].map(&:name).join(', ') %>
   <% end %>
-<%= _("Affiliation: ") + @hash[:affiliation] %>
+  <%= _("Affiliation: ") + @hash[:affiliation] %>
   <% if @hash[:funder].present? %>
-<%= _("Template: ") + @hash[:funder] %>
+    <%= _("Template: ") + @hash[:funder] %>
   <% else %>
-<%= _("Template: ") + @hash[:template] + @hash[:customizer] %>
+    <%= _("Template: ") + @hash[:template] + @hash[:customizer] %>
   <% end %>
   <% if @plan.grant&.value.present? %>
-<%= _("Grant number: ") + @plan.grant&.value %>
+    <%= _("Grant number: ") + @plan.grant&.value %>
   <% end %>
   <% if @plan.description.present? %>
-<%= _("Project abstract: ") %>
-<%= "\t" + strip_tags(@plan.description) + "\n" %>
+    <%= _("Project abstract: ") %>
+    <%= "\t" + strip_tags(@plan.description) + "\n" %>
   <% end %>
-<%= _("Last modified: ") + l(@plan.updated_at.to_date, formats: :short) %>
-<%= _("Copyright information:") %>
-<%= "\t" + _(" The above plan creator(s) have agreed that others may use as much of the text of this plan as they would like in their own plans, and customise it as necessary. You do not need to credit the creator(s) as the source of the language used, but using any of the plan's text does not imply that the creator(s) endorse, or have any relationship to, your project or proposal") %>
-<%= "----------------------------------------------------------\n" %>
+  <%= _("Last modified: ") + l(@plan.updated_at.to_date, formats: :short) %>
+  <%= "----------------------------------------------------------\n" %>
 <% end %>
 
 <% @hash[:phases].each do |phase| %>
