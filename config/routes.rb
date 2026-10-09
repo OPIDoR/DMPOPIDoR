@@ -20,6 +20,11 @@ Rails.application.routes.draw do
                omniauth_callbacks: 'users/omniauth_callbacks',
                invitations: 'users/invitations'
              }
+  devise_scope :user do
+    get '/auth/oidc/silent',
+        to: 'users/omniauth_callbacks#silent_oidc',
+        as: :silent_oidc
+  end
   get '/users/sign_out', to: 'devise/sessions#destroy'
 
   delete '/users/identifiers/:id', to: 'identifiers#destroy', as: 'destroy_user_identifier'

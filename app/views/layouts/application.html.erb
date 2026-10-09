@@ -43,6 +43,13 @@
     <meta name="keywords" content="plan de gestion de données, PGD, data management plan, DMP, OPIDoR, H2020, Horizon2020, CNRS, INIST, ANR, software management plan, SMP, CNRS"/>
     <meta name="description" content="DDMP OPIDoR vous accompagne à travers l’élaboration et la mise en pratique de plans de gestion de données, logiciels et autres."/>
 
+    <% unless user_signed_in? || session[:oidc_silent_check] %>
+      <script>
+        document.addEventListener("DOMContentLoaded", () => {
+          window.location.href = "<%= silent_oidc_path %>";
+        });
+      </script>
+    <% end %>
   </head>
   <body>
     <div class="skip">

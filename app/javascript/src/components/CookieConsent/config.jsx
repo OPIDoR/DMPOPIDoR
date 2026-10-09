@@ -47,7 +47,7 @@ export default {
     },
 
     functionality: {
-      enable: true,
+      enabled: true,
       readOnly: true,
 
       services: {
@@ -71,7 +71,7 @@ export default {
     },
 
     analytics: {
-      enable: true,
+      enabled: true,
       readOnly: false,
 
       autoClear: {

@@ -332,6 +332,7 @@ Devise.setup do |config|
       response_type: :code,
       discovery: false,
       issuer: "#{oidc_external_url}/realms/#{oidc_realm_name}",
+      allow_authorize_params: [:prompt],
       client_options: {
         scheme: URI.parse(oidc_external_url).scheme,
         host: URI.parse(oidc_external_url).host,

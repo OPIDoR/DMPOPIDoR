@@ -59,6 +59,7 @@ module Users
       end
 
       if @user.save
+        session[:oidc_id_token] = auth.credentials.id_token
         sign_in_and_redirect @user, event: :authentication
         set_flash_message(:notice, :success, kind: 'OIDC') if is_navigational_format?
       else
@@ -66,6 +67,11 @@ module Users
         session['devise.oidcs_data'] = auth.except(:extra)
         redirect_to new_user_registration_url
       end
+    end
+
+    def silent_oidc
+      session[:oidc_silent_check] = true
+      redirect_to user_oidc_omniauth_authorize_path(prompt: 'none')
     end
 
     # Processes callbacks from an omniauth provider and directs the user to
@@ -136,7 +142,11 @@ module Users
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
 
     def failure
-      redirect_to root_path
+      if session.delete(:oidc_silent_check)
+        redirect_to root_path
+      else
+        redirect_to new_user_session_path
+      end
     end
   end
 end

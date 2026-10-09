@@ -36,10 +36,36 @@ class SessionsController < Devise::SessionsController
     end
   end
 
-  def destroy
-    super
-    session[:locale] = nil
-    # Method defined at controllers/application_controller.rb
-    set_locale
+  def destroy # rubocop:disable Metrics/AbcSize,Metrics/MethodLength
+    oidc_enabled = Rails.configuration.x.oidc.enabled
+    id_token = session[:oidc_id_token] if oidc_enabled
+
+    if oidc_enabled && id_token.present?
+      sign_out(resource_name)
+
+      session.delete(:oidc_id_token)
+      session.delete(:locale)
+      set_locale
+
+      oidc_external_url =
+        ENV.fetch('OIDC_EXTERNAL_URL', 'http://localhost:8080/keycloak').chomp('/')
+      oidc_realm_name = ENV.fetch('OIDC_REALM_NAME', 'dmpopidor')
+
+      realm_url = "#{oidc_external_url}/realms/#{oidc_realm_name}"
+      logout_url = "#{realm_url}/protocol/openid-connect/logout"
+
+      params = {
+        id_token_hint: id_token,
+        post_logout_redirect_uri: root_url
+      }
+
+      redirect_to "#{logout_url}?#{params.to_query}",
+                  allow_other_host: true
+    else
+      super do
+        session[:locale] = nil
+        set_locale
+      end
+    end
   end
 end

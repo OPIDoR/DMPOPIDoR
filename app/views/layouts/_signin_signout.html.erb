@@ -117,7 +117,7 @@
     </div>
   <% else %>
     <% if Rails.configuration.x.oidc.enabled %>
-      <%= form_tag(user_oidc_omniauth_authorize_path, method: 'post') do %>
+      <%= form_tag(user_oidc_omniauth_authorize_path, method: 'post', data: { turbo: false }) do %>
         <%= hidden_field_tag :authenticity_token, form_authenticity_token %>
         <button type='submit' class="btn"><%= _('My Account') %></button>
       <% end %>
