@@ -11,13 +11,15 @@ import ChooseResearchOutputPlaceholder from "../../Question/Placeholders/ChooseR
 
 function ResearchOutputSelector({
   planId = null,
+  researchOutputId = null,
+  className = null,
+  dataType = null,
   plansData,
   loading,
+  excludeOwnPlan = false,
   selectedResearchOutput,
   setSelectedResearchOutput,
   infoMessage = null,
-  className = null,
-  dataType = null,
 }) {
   const { t } = useTranslation();
   const [selectedPlan, setSelectedPlan] = useState(null);
@@ -29,30 +31,33 @@ function ResearchOutputSelector({
    */
   const plans = useMemo(() => {
     if (plansData) {
-      return plansData
-        ?.filter((plan) => plan.id !== planId)
-        ?.map((plan) => ({
-          value: plan.id,
-          prependIcon:
-            plan.context === "research_entity" ? (
-              <FaUniversity style={{ marginRight: "8px" }} />
-            ) : (
-              <FaVial style={{ marginRight: "8px" }} />
-            ),
-          label: plan.title,
-          ...plan,
-        }));
+      const filteredPlans = excludeOwnPlan
+        ? plansData?.filter((plan) => plan.id !== planId)
+        : plansData;
+      return filteredPlans?.map((plan) => ({
+        value: plan.id,
+        prependIcon:
+          plan.context === "research_entity" ? (
+            <FaUniversity style={{ marginRight: "8px" }} />
+          ) : (
+            <FaVial style={{ marginRight: "8px" }} />
+          ),
+        label: plan.title,
+        ...plan,
+      }));
     }
     return [];
   }, [plansData]);
 
   const researchOutputs = useMemo(() => {
     if (researchOutputsData) {
-      return researchOutputsData?.map((ro) => ({
-        value: ro.id,
-        label: ro.title,
-        ...ro,
-      }));
+      return researchOutputsData
+        ?.filter((ro) => ro.id !== researchOutputId)
+        ?.map((ro) => ({
+          value: ro.id,
+          label: ro.title,
+          ...ro,
+        }));
     }
     return [];
   }, [researchOutputsData]);

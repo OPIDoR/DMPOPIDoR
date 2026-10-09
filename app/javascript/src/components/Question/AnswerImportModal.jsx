@@ -20,7 +20,6 @@ const EndButton = styled.div`
 function AnswerImportModal({
   shown,
   hide,
-  planId,
   questionId,
   researchOutputId,
   dataType = null,
@@ -118,9 +117,10 @@ function AnswerImportModal({
         {!loading && (
           <div style={{ margin: "25px" }}>
             <ResearchOutputSelector
-              planId={planId}
+              researchOutputId={researchOutputId}
               plansData={plansData}
               loading={loading}
+              excludeOwnPlan={false}
               selectedResearchOutput={selectedResearchOutput}
               setSelectedResearchOutput={setSelectedResearchOutput}
               infoMessage={t("canReuseResearchOutputInfoFromPlans")}

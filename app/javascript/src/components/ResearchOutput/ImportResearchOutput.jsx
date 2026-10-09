@@ -63,8 +63,10 @@ function ImportResearchOutput({ planId, handleClose }) {
       {!loading && (
         <div style={{ margin: "25px" }}>
           <ResearchOutputSelector
+            planId={planId}
             plansData={plansData}
             loading={plansLoading}
+            excludeOwnPlan={true}
             selectedResearchOutput={selectedResearchOutput}
             setSelectedResearchOutput={setSelectedResearchOutput}
             infoMessage={t("canReuseResearchOutputInfoFromPlans")}
