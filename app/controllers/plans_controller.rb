@@ -45,7 +45,7 @@ class PlansController < ApplicationController
         # Sort plans by updated_at desc and filter only structured plans
         plans = @plans.filter(&:structured?).compact.sort_by(&:updated_at).reverse
         plans = filter_with_classname(plans, classname)
-        plans = filter_with_data_type(plans, data_type)
+        plans = filter_with_data_type_topic(plans, data_type, params[:topic])
         render json: { plans: plans.map(&:serialize_json) }
       end
     end
@@ -687,12 +687,13 @@ class PlansController < ApplicationController
     end
   end
 
-  def filter_with_data_type(plans, data_type)
-    return plans if data_type.blank?
+  def filter_with_data_type_topic(plans, data_type, topic = 'generic')
+    return plans if data_type.blank? || topic.blank?
 
     plans.select do |plan|
       plan.research_outputs.any? do |ro|
         ro.output_type == data_type
+        && ro.topic == topic
       end
     end
   end

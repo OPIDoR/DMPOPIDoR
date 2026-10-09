@@ -17,9 +17,9 @@ class ResearchOutputsController < ApplicationController
 
     authorize(ResearchOutput.new(plan: plan))
     research_outputs = plan.research_outputs.order(:display_order)
-    if params[:classname].present? && params[:data_type].present?
+    if params[:classname].present? && params[:data_type].present? && params[:topic].present?
       research_outputs = filter_with_classname(research_outputs, params[:classname])
-      research_outputs = filter_with_data_type(research_outputs, params[:data_type])
+      research_outputs = filter_with_data_type_topic(research_outputs, params[:data_type], params[:topic])
     end
     render json: {
       id: plan.id,
@@ -459,11 +459,11 @@ class ResearchOutputsController < ApplicationController
     end
   end
 
-  def filter_with_data_type(research_outputs, data_type)
-    return research_outputs if data_type.blank?
+  def filter_with_data_type_topic(research_outputs, data_type, topic)
+    return research_outputs if data_type.blank? || topic.blank?
 
     research_outputs.select do |ro|
-      ro.output_type == data_type
+      ro.output_type == data_type && ro.topic == topic
     end
   end
 end

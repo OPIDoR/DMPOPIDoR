@@ -281,6 +281,7 @@ function Question({ planId, question, questionIdx, sectionNumber, readonly }) {
                       dataType={
                         displayedResearchOutput?.configuration?.dataType
                       }
+                      topic={displayedResearchOutput?.topic}
                       className={question?.madmp_schema?.classname}
                       setAnswer={(newAnswer) =>
                         updateResearchOutputAnswer(questionId, newAnswer)
