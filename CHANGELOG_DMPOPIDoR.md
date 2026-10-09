@@ -2,6 +2,10 @@
 
 **Attention** Cette liste de changements concerne les déploiements sur nos serveurs de test en interne.
 
+## 09/10/2026
+- Amélioration du chargement des plans et des produits de recherche dans l'import de produits et de réponses. 
+- Ajout de l'exclusion du plan actuel dans l'import de produit de recherche
+
 ## 08/10/2026
 - Ajout du bouton Voir tout sur la liste des plans publics (#18651)
 - Ajout de la tache de conversion des grandId ANR en DOI (#18695)
