@@ -227,7 +227,7 @@ class MadmpFragment < ApplicationRecord
       ro_fragment = parent
 
       new_additional_info = ro_fragment.additional_info.merge(
-        hasPersonalData: %w[Oui Yes].include?(data['containsPersonalData'])
+        'hasPersonalData' => %w[Oui Yes].include?(data['containsPersonalData'])
       )
       ro_fragment.update(additional_info: new_additional_info)
 
