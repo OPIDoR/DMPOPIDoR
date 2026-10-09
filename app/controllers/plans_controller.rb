@@ -15,7 +15,7 @@ class PlansController < ApplicationController
 
   # GET /plans
   # rubocop:disable-next Metrics/AbcSize, Metrics/MethodLength
-  # rubocop:disable-next Metrics/PerceivedComplexity, Metrics/CyclomaticComplexity
+  # rubocop:disable-next Metrics/PerceivedComplexity
   def index
     authorize Plan
     @plans = if request.format.json?
@@ -35,8 +35,8 @@ class PlansController < ApplicationController
       format.json do
         classname = params[:classname]
         data_type = params[:data_type]
-
-        if classname.blank? || data_type.blank?
+        # both are present of both are absent
+        unless classname.present? == data_type.present?
           render json: {
             message: _('Error fetching plans: Missing required parameters "classname" and/or "data_type".')
           }, status: 400

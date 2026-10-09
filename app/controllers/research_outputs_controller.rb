@@ -441,7 +441,8 @@ class ResearchOutputsController < ApplicationController
   end
 
   def validate_classname_and_data_type
-    return unless params[:classname].present? ^ params[:data_type].present?
+    # both are present of both are absent
+    return if params[:classname].present? == params[:data_type].present?
 
     render json: {
       message: _('Error fetching plans: Missing required parameters "classname" and/or "data_type".')
