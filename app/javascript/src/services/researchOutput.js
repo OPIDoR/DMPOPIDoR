@@ -64,12 +64,39 @@ const deleteResearchOutput = async (researchOutputId) => {
  * @returns An object with a "data" property that contains the "plans" data. However, the "plans" variable is not defined in the code snippet, so it is
  * unclear what data is being returned.
  */
-const getPlans = async () => {
+const getPlans = async (className = null, dataType = null) => {
   let res;
   try {
     res = await axios.get("/plans", {
       headers: {
         Accept: "application/json",
+      },
+      params: {
+        classname: className,
+        data_type: dataType,
+      },
+    });
+  } catch (error) {
+    return error;
+  }
+  return res;
+};
+
+const getResearchOutputs = async (
+  planId,
+  className = null,
+  dataType = null,
+) => {
+  let res;
+  try {
+    res = await axios.get("/research_outputs", {
+      headers: {
+        Accept: "application/json",
+      },
+      params: {
+        plan_id: planId,
+        classname: className,
+        data_type: dataType,
       },
     });
   } catch (error) {
@@ -102,5 +129,6 @@ export default {
   importResearchOutput,
   deleteResearchOutput,
   getPlans,
+  getResearchOutputs,
   sort,
 };

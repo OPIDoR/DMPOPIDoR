@@ -20,7 +20,7 @@ function ImportResearchOutput({ planId, handleClose }) {
   const { setResearchOutputs, setDisplayedResearchOutput } =
     useContext(SectionsContext);
   const { t } = useTranslation();
-  const { data, loading: plansLoading } = useFetchPlansData();
+  const { data: plansData, loading: plansLoading } = useFetchPlansData();
   const [selectedResearchOutput, setSelectedResearchOutput] = useState({});
   const [importLoading, setImportLoading] = useState(false);
 
@@ -63,7 +63,7 @@ function ImportResearchOutput({ planId, handleClose }) {
       {!loading && (
         <div style={{ margin: "25px" }}>
           <ResearchOutputSelector
-            data={data}
+            plansData={plansData}
             loading={plansLoading}
             selectedResearchOutput={selectedResearchOutput}
             setSelectedResearchOutput={setSelectedResearchOutput}

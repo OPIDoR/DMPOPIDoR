@@ -981,7 +981,14 @@ class Plan < ApplicationRecord
       id: id,
       title: title,
       context: context,
-      research_outputs: research_outputs.map(&:serialize_json)
+      research_outputs: research_outputs.map do |ro|
+        {
+          id: ro.id,
+          uuid: ro.uuid,
+          abbreviation: ro.abbreviation,
+          title: ro.title
+        }
+      end
     }
   end
 

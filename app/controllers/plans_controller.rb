@@ -15,7 +15,7 @@ class PlansController < ApplicationController
 
   # GET /plans
   # rubocop:disable-next Metrics/AbcSize, Metrics/MethodLength
-  # rubocop:disable-next Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
+  # rubocop:disable-next Metrics/PerceivedComplexity, Metrics/CyclomaticComplexity
   def index
     authorize Plan
     @plans = if request.format.json?
@@ -33,17 +33,20 @@ class PlansController < ApplicationController
     respond_to do |format|
       format.html
       format.json do
+        classname = params[:classname]
+        data_type = params[:data_type]
+
+        if classname.blank? || data_type.blank?
+          render json: {
+            message: _('Error fetching plans: Missing required parameters "classname" and/or "data_type".')
+          }, status: 400
+          return
+        end
         # Sort plans by updated_at desc and filter only structured plans
         plans = @plans.filter(&:structured?).compact.sort_by(&:updated_at).reverse
-        plans = plans.map(&:serialize_json)
-                     .reject do |plan|
-                       plan[:research_outputs].empty? ||
-                         plan[:research_outputs].all? { |output| output[:title].nil? || output[:title].strip.empty? } ||
-                         plan[:research_outputs].all? do |output|
-                           output[:output_type].nil? || output[:output_type].strip.empty?
-                         end
-                     end
-        render json: { plans: plans }
+        plans = filter_with_classname(plans, classname)
+        plans = filter_with_data_type(plans, data_type)
+        render json: { plans: plans.map(&:serialize_json) }
       end
     end
   end
@@ -669,6 +672,28 @@ class PlansController < ApplicationController
           }
         end
       }
+    end
+  end
+
+  def filter_with_classname(plans, classname)
+    return plans if classname.blank?
+
+    plans.select do |plan|
+      plan.research_outputs.any? do |ro|
+        ro.answers.any? do |a|
+          a.madmp_fragment.classname == classname
+        end
+      end
+    end
+  end
+
+  def filter_with_data_type(plans, data_type)
+    return plans if data_type.blank?
+
+    plans.select do |plan|
+      plan.research_outputs.any? do |ro|
+        ro.output_type == data_type
+      end
     end
   end
 end

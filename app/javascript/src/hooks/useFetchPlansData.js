@@ -8,47 +8,11 @@ function useFetchPlansData(dataType = null, className = null, shown = true) {
   useEffect(() => {
     if (!shown) return;
 
-    researchOutput.getPlans().then(({ data }) => {
-      /* filtering plans and research outputs based on dataType */
-      const filteredPlans = filterWithClassName(
-        filterWithDataType(data.plans, dataType),
-        className,
-      );
-      setData(filteredPlans);
+    researchOutput.getPlans(className, dataType).then(({ data }) => {
+      setData(data.plans);
       setLoading(false);
     });
   }, [shown, dataType, className]);
-
-  const filterWithDataType = (plans, dataType) => {
-    if (!dataType) return plans;
-    return plans
-      .filter((p) =>
-        p.research_outputs.some((pr) => pr.output_type == dataType),
-      )
-      .map((p) => ({
-        ...p,
-        research_outputs: p.research_outputs.filter(
-          (pr) => pr.output_type == dataType,
-        ),
-      }));
-  };
-
-  const filterWithClassName = (plans, className) => {
-    if (!className) return plans;
-
-    return plans
-      .filter((p) =>
-        p.research_outputs.some((pr) =>
-          pr.answers.some((a) => a.classname == className),
-        ),
-      )
-      .map((p) => ({
-        ...p,
-        research_outputs: p.research_outputs.filter((pr) =>
-          pr.answers.some((a) => a.classname == className),
-        ),
-      }));
-  };
 
   return { data, loading };
 }

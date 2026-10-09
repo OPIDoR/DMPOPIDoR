@@ -7,15 +7,20 @@ class ResearchOutputsController < ApplicationController
 
   helper PaginableHelper
   after_action :verify_authorized
+  before_action :validate_classname_and_data_type, only: :index
 
   # rubocop:disable-next Metrics/AbcSize, Metrics/MethodLength
-  # rubocop:disable-next Metrics/PerceivedComplexity
+  # rubocop:disable-next Metrics/PerceivedComplexity, Metrics/CyclomaticComplexity
   def index
     plan = Plan.includes(:template, research_outputs: :answers).find(params[:plan_id])
     research_output_id = params[:research_output_id] || 0
 
-    authorize plan
+    authorize(ResearchOutput.new(plan: plan))
     research_outputs = plan.research_outputs.order(:display_order)
+    if params[:classname].present? && params[:data_type].present?
+      research_outputs = filter_with_classname(research_outputs, params[:classname])
+      research_outputs = filter_with_data_type(research_outputs, params[:data_type])
+    end
     render json: {
       id: plan.id,
       template: params[:include_template].present? ? plan.template.serialize_json : nil,
@@ -433,5 +438,31 @@ class ResearchOutputsController < ApplicationController
 
     GuidanceGroup.from("(#{org_ggs_query.to_sql} UNION #{default_ggs_query.to_sql}) AS guidance_groups")
                  .where(Arel.sql("'#{topic}' = ANY(topics) AND '#{data_type}' = ANY(data_types)"))
+  end
+
+  def validate_classname_and_data_type
+    return unless params[:classname].present? ^ params[:data_type].present?
+
+    render json: {
+      message: _('Error fetching plans: Missing required parameters "classname" and/or "data_type".')
+    }, status: 400
+  end
+
+  def filter_with_classname(research_outputs, classname)
+    return research_outputs if classname.blank?
+
+    research_outputs.select do |ro|
+      ro.answers.any? do |a|
+        a.madmp_fragment.classname == classname
+      end
+    end
+  end
+
+  def filter_with_data_type(research_outputs, data_type)
+    return research_outputs if data_type.blank?
+
+    research_outputs.select do |ro|
+      ro.output_type == data_type
+    end
   end
 end

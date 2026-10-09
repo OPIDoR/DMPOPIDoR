@@ -6,24 +6,30 @@ import { FaUniversity } from "react-icons/fa";
 
 import * as stylesForm from "../../assets/css/form.module.css";
 import CustomSelect from "../../Shared/CustomSelect";
+import useFetchResearchOutputsData from "../../../hooks/useFetchResearchOutputsData";
+import ChooseResearchOutputPlaceholder from "../../Question/Placeholders/ChooseResearchOutputPlaceholder";
 
 function ResearchOutputSelector({
   planId = null,
-  data,
+  plansData,
   loading,
   selectedResearchOutput,
   setSelectedResearchOutput,
   infoMessage = null,
+  className = null,
+  dataType = null,
 }) {
   const { t } = useTranslation();
-  const [selectedPlan, setSelectedPlan] = useState({});
+  const [selectedPlan, setSelectedPlan] = useState(null);
+  const { data: researchOutputsData, loading: researchOutputsLoading } =
+    useFetchResearchOutputsData(selectedPlan?.id, dataType, className);
 
   /**
    * Memoized values
    */
   const plans = useMemo(() => {
-    if (data) {
-      return data
+    if (plansData) {
+      return plansData
         ?.filter((plan) => plan.id !== planId)
         ?.map((plan) => ({
           value: plan.id,
@@ -35,15 +41,21 @@ function ResearchOutputSelector({
             ),
           label: plan.title,
           ...plan,
-          researchOutputs: plan.research_outputs.map((ro) => ({
-            value: ro.id,
-            label: ro.title,
-            ...ro,
-          })),
         }));
     }
     return [];
-  }, [data]);
+  }, [plansData]);
+
+  const researchOutputs = useMemo(() => {
+    if (researchOutputsData) {
+      return researchOutputsData?.map((ro) => ({
+        value: ro.id,
+        label: ro.title,
+        ...ro,
+      }));
+    }
+    return [];
+  }, [researchOutputsData]);
   /**
    * This is a function that handles the selection of a value and sets it as the type.
    */
@@ -88,14 +100,17 @@ function ResearchOutputSelector({
         </div>
       )}
 
-      {selectedPlan?.researchOutputs?.length > 0 && (
+      {researchOutputsLoading && selectedPlan && (
+        <ChooseResearchOutputPlaceholder />
+      )}
+      {researchOutputsData?.length > 0 && (
         <div className="form-group">
           <div className={stylesForm.label_form}>
             <label>{t("chooseOutput")}</label>
           </div>
           <CustomSelect
             onSelectChange={(e) => handleSelectResearchOutput(e)}
-            options={selectedPlan.researchOutputs}
+            options={researchOutputs}
             selectedOption={selectedResearchOutput}
             isDisabled={loading}
             placeholder={t("selectValueFromList")}

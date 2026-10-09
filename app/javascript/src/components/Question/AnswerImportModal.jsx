@@ -29,7 +29,11 @@ function AnswerImportModal({
 }) {
   const { t } = useTranslation();
   const { setFormData, setLoadedTemplates } = useContext(FormsContext);
-  const { data, loading } = useFetchPlansData(dataType, className, shown);
+  const { data: plansData, loading } = useFetchPlansData(
+    dataType,
+    className,
+    shown,
+  );
   const [selectedResearchOutput, setSelectedResearchOutput] = useState(null);
   const [selectedAnswer, setSelectedAnswer] = useState(null);
   const [answerLoading, setAnswerLoading] = useState(true);
@@ -115,11 +119,13 @@ function AnswerImportModal({
           <div style={{ margin: "25px" }}>
             <ResearchOutputSelector
               planId={planId}
-              data={data}
+              plansData={plansData}
               loading={loading}
               selectedResearchOutput={selectedResearchOutput}
               setSelectedResearchOutput={setSelectedResearchOutput}
               infoMessage={t("canReuseResearchOutputInfoFromPlans")}
+              className={className}
+              dataType={dataType}
             />
             {selectedResearchOutput && (
               <>
