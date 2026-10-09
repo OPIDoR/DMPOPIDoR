@@ -10,9 +10,10 @@ const getResearchOutputsData = async (
   planId,
   researchOutputId,
   includeNewComments = false,
+  includeTemplate = false,
 ) =>
   axios.get(
-    `/research_outputs?plan_id=${planId}${includeNewComments ? "&include_new_comments=true" : ""}${researchOutputId ? "&research_output_id=" + researchOutputId : ""}`,
+    `/research_outputs?plan_id=${planId}${includeNewComments ? "&include_new_comments=true" : ""}${includeTemplate ? "&include_template=true" : ""}${researchOutputId ? "&research_output_id=" + researchOutputId : ""}`,
   );
 const getSectionsData = async (templateId) =>
   axios.get(`/templates/${templateId}`);

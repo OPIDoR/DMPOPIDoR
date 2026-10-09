@@ -18,7 +18,7 @@ class ResearchOutputsController < ApplicationController
     research_outputs = plan.research_outputs.order(:display_order)
     render json: {
       id: plan.id,
-      template: plan.template.serialize_json,
+      template: params[:include_template].present? ? plan.template.serialize_json : nil,
       has_new_comments: if params[:include_new_comments].present?
                           ResearchOutput.unread_comments_count_for(
                             current_user.id, plan.id
