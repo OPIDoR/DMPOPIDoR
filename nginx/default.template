@@ -1,3 +1,25 @@
+resolver ${NGINX_RESOLVER};
+
+upstream rails_backend {
+  zone rails_backend 64k;
+  server dmpopidor:3000 resolve;
+}
+
+upstream cable_backend {
+  zone cable_backend 64k;
+  server dmpopidor:28080 resolve;
+}
+
+upstream directus_backend {
+  zone directus_backend 64k;
+  server directus:8055 resolve;
+}
+
+upstream keycloak_backend {
+  zone keycloak_backend 64k;
+  server keycloak:8080 resolve;
+}
+
 server {
   server_name ${NGINX_HOST};
 
@@ -7,19 +29,19 @@ server {
   root /var/www/html/public;
   index index.html;
 
-  # fastcgi buffers for php-fpm #
+  # Buffers PHP-FPM
   fastcgi_buffers 16 32k;
   fastcgi_buffer_size 64k;
   fastcgi_busy_buffers_size 64k;
 
-  # nginx buffers #
+  # Buffers proxy
   proxy_buffer_size 128k;
   proxy_buffers 4 256k;
   proxy_busy_buffers_size 256k;
   proxy_read_timeout 600s;
   proxy_connect_timeout 600s;
 
-  ## Configuration
+  # Headers communs
   proxy_set_header X-Forwarded-Host $host;
   proxy_set_header X-Forwarded-Server $host;
   proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
@@ -39,64 +61,57 @@ server {
     try_files $uri @rails;
 
     access_log off;
-    gzip_static on; # to serve pre-gzipped version
-
+    gzip_static on;
     expires max;
     add_header Cache-Control public;
-
     add_header Last-Modified "";
     add_header ETag "";
     break;
   }
 
-  ## client
   location / {
-    try_files $uri @rails;
+    if ($http_user_agent ~* "^(Scrapy/2\.11\.2|Turnitin|GPTBot|AhrefsBot|SemrushBot)") {
+        return 403;
+    }
 
-    if ($http_user_agent ~* "^Scrapy/2\.11\.2.*$"){
-      return 403;
-    }
-    if ($http_user_agent ~* "^Turnitin.*$"){
-      return 403;
-    }
-    if ($http_user_agent ~* "GPTBot"){
-      return 403;
-    }
-    if ($http_user_agent ~* "AhrefsBot"){
-      return 403;
-    }
-    if ($http_user_agent ~* "SemrushBot"){
-      return 403;
-    }
+    try_files $uri @rails;
   }
 
   location @rails {
+    proxy_http_version 1.1;
+    proxy_set_header Connection "";
+
     proxy_set_header X-Real-IP $remote_addr;
     proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
     proxy_set_header X-Forwarded-Proto $scheme;
     proxy_set_header Host $http_host;
-    proxy_redirect off;
-    proxy_pass http://dmpopidor:3000;
-  }
 
-  # Enables WS support
+    proxy_redirect off;
+    proxy_pass http://rails_backend;
+}
+
+  # WebSocket
   location /cable {
-    proxy_pass http://dmpopidor:3000;
+    proxy_pass http://cable_backend;
+
     proxy_http_version 1.1;
     proxy_set_header Upgrade $http_upgrade;
-    proxy_set_header Connection "Upgrade";
+    proxy_set_header Connection "upgrade";
     proxy_set_header Host $host;
     proxy_set_header X-Real-IP $remote_addr;
     proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
     proxy_set_header X-Forwarded-Proto $scheme;
   }
 
+  # Directus
   location /directus/ {
-    proxy_pass http://directus:8055/;
+    proxy_pass http://directus_backend/;
   }
 
+  # Keycloak
   location /keycloak/ {
-    proxy_pass http://keycloak:8080/keycloak/;
+    proxy_pass http://keycloak_backend/keycloak/;
+
     proxy_set_header Host $host;
     proxy_set_header X-Real-IP $remote_addr;
     proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
