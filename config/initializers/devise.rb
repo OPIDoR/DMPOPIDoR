@@ -326,6 +326,11 @@ Devise.setup do |config|
     oidc_internal_realm_url =
       "#{oidc_internal_url}/realms/#{oidc_realm_name}"
 
+    to_internal = ->(url) { url&.sub(oidc_external_url, oidc_internal_url) }
+
+    discovery_uri = URI("#{oidc_internal_realm_url}/.well-known/openid-configuration")
+    doc = JSON.parse(Net::HTTP.get(discovery_uri))
+
     config.omniauth :openid_connect, {
       name: :oidc,
       scope: %i[openid email profile],
@@ -333,6 +338,9 @@ Devise.setup do |config|
       discovery: false,
       issuer: "#{oidc_external_url}/realms/#{oidc_realm_name}",
       allow_authorize_params: [:prompt],
+      setup: lambda { |env|
+        strategy.options[:prompt] = 'none' if Rack::Request.new(env).params['prompt'] == 'none'
+      },
       client_options: {
         scheme: URI.parse(oidc_external_url).scheme,
         host: URI.parse(oidc_external_url).host,
