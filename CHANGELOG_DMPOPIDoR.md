@@ -2,6 +2,12 @@
 
 **Attention** Cette liste de changements concerne les déploiements sur nos serveurs de test en interne.
 
+## 12/10/2026
+- Correction d'un problème d'affichage des symboles HTML dans les titres et corps des actualités (#18700)
+- Retrait de la création et modification des contributeurs dans l'onglet Contributeurs des plans structurés (#18652)
+- Ajout de la licence Etalab par défaut lors de la création d'un plan (#18659)
+- Ajout du support de la thématique pour filtrer les plans et les produits de recherche lors de l'import de réponses et de produits
+
 ## 09/10/2026
 - Amélioration du chargement des plans et des produits de recherche dans l'import de produits et de réponses. 
 - Ajout de l'exclusion du plan actuel dans l'import de produit de recherche
