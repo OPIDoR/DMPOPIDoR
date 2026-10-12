@@ -1,5 +1,7 @@
 #!/usr/bin/env sh
 
+service cron start
+
 procfile="Procfile"
 [ -z "$RAILS_ENV" ] || [ "$RAILS_ENV" = "development" ] && procfile="${procfile}.dev"
 exec foreman start -f "$procfile" "$@"

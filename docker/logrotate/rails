@@ -1,0 +1,12 @@
+/app/log/*.log {
+  daily
+  rotate 14
+  maxage 14
+  dateext
+  dateformat -%Y%m%d
+  missingok
+  notifempty
+  compress
+  delaycompress
+  copytruncate
+}

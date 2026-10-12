@@ -171,14 +171,17 @@ module DMPRoadmap
     allowed_origins = ENV.fetch('ACTION_CABLE_ALLOWED_REQUEST_ORIGINS', 'dmpopidor').split(',')
     config.action_cable.allowed_request_origins = allowed_origins.is_a?(Array) ? allowed_origins : [allowed_origins]
 
-    # Use default logging formatter so that PID and timestamp are not suppressed.
+    # Configure logging
     config.log_formatter = Logger::Formatter.new
 
-    if ENV['RAILS_LOG_TO_STDOUT'].present?
-      logger           = ActiveSupport::Logger.new($stdout)
-      logger.formatter = config.log_formatter
-      config.logger    = ActiveSupport::TaggedLogging.new(logger)
-    end
+    logger = if ENV.fetch('RAILS_LOG_TO_STDOUT', true).to_s.casecmp('true').zero?
+               ActiveSupport::Logger.new($stdout)
+             else
+               ActiveSupport::Logger.new(Rails.root.join('log', "#{Rails.env}.log"))
+             end
+
+    logger.formatter = config.log_formatter
+    config.logger = ActiveSupport::TaggedLogging.new(logger)
 
     # Error notifications by email
     if ENV['ERROR_NOTIFICATION_EMAIL'].present?

@@ -34,6 +34,8 @@ services:
       - MADMP_CODEBASE_MOCK
     volumes:
       - ./:/app
+      - ./docker/logrotate/rails:/etc/logrotate.d/rails:ro
+      - ./docker/cron/rails-logrotate:/etc/cron.d/rails-logrotate:ro
     command:
       - /bin/sh
       - -c

@@ -15,9 +15,17 @@ RUN apt update -y && apt install -y --no-install-recommends \
   libfontconfig1 \
   libvips42t64 \
   tzdata \
+  logrotate \
+  cron \
   gnupg2 && \
   apt-get clean && rm -rf /var/lib/apt/lists/* && \
   ln -sf /usr/share/zoneinfo/Europe/Paris /etc/localtime
+COPY docker/logrotate/rails /etc/logrotate.d/rails
+COPY docker/cron/rails-logrotate /etc/cron.d/rails-logrotate
+RUN chown root:root /etc/cron.d/rails-logrotate && \
+  chmod 644 /etc/cron.d/rails-logrotate && \
+  chown root:root /etc/logrotate.d/rails && \
+  chmod 644 /etc/logrotate.d/rails
 
 FROM base AS dev
 ARG NODE_MAJOR=24
