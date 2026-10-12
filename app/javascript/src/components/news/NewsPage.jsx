@@ -2,6 +2,7 @@ import { useQuery } from "@tanstack/react-query";
 import { format } from "date-fns";
 import { fr, enGB } from "date-fns/locale";
 import { useTranslation } from "react-i18next";
+import DOMPurify from "dompurify";
 
 import Button from "react-bootstrap/Button";
 import Card from "react-bootstrap/Card";
@@ -34,8 +35,8 @@ export default function NewsPage({ locale, size }) {
       {data
         .map((r) => ({
           id: r.id,
-          title: r.title.rendered,
-          content: r.content.rendered,
+          title: DOMPurify.sanitize(r.title.rendered),
+          content: DOMPurify.sanitize(r.content.rendered),
           link: r.link,
           date: format(new Date(r.date), "dd/MM/yyyy", {
             locale: locales[i18n.resolvedLanguage || locale],
@@ -61,9 +62,10 @@ export default function NewsPage({ locale, size }) {
                     style={{ backgroundColor: "white", textDecoration: "none" }}
                     key={`link-${n.id}`}
                     href={n.link}
-                  >
-                    {n.title}
-                  </Card.Link>
+                    dangerouslySetInnerHTML={{
+                      __html: n.title,
+                    }}
+                  />
                 </Card.Title>
                 <Card.Text
                   style={{
