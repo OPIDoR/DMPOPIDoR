@@ -20,7 +20,7 @@ function ImportResearchOutput({ planId, handleClose }) {
   const { setResearchOutputs, setDisplayedResearchOutput } =
     useContext(SectionsContext);
   const { t } = useTranslation();
-  const { data, loading: plansLoading } = useFetchPlansData();
+  const { data: plansData, loading: plansLoading } = useFetchPlansData();
   const [selectedResearchOutput, setSelectedResearchOutput] = useState({});
   const [importLoading, setImportLoading] = useState(false);
 
@@ -63,8 +63,10 @@ function ImportResearchOutput({ planId, handleClose }) {
       {!loading && (
         <div style={{ margin: "25px" }}>
           <ResearchOutputSelector
-            data={data}
+            planId={planId}
+            plansData={plansData}
             loading={plansLoading}
+            excludeOwnPlan={true}
             selectedResearchOutput={selectedResearchOutput}
             setSelectedResearchOutput={setSelectedResearchOutput}
             infoMessage={t("canReuseResearchOutputInfoFromPlans")}

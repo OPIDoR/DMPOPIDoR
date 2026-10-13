@@ -220,7 +220,8 @@ module DMPRoadmap
     # Check download of a plan coversheet tickbox
     config.x.plans.download_coversheet_tickbox_checked = ENV.fetch('PLANS_DOWNLOAD_COVERSHEET_TICKBOX_CHECKED',
                                                                    false).to_s.casecmp('true').zero?
-
+    # Default license for plans
+    config.x.plans.default_license = ENV.fetch('PLANS_DEFAULT_LICENSE', 'Etalab Open License 2.0')
     # ---------------------------------------------------- #
     # CACHING - all values are in seconds (86400 == 1 Day) #
     # ---------------------------------------------------- #

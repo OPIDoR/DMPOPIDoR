@@ -7,6 +7,7 @@
     planTitle: @plan.title,
     dmpId: @plan.json_fragment.id,
     readonly: !@plan.editable_by?(current_user.id),
+    isClassic: @plan.template.classic?,
     clientsName: @plan.api_clients.pluck("name")
   }) %>
 <% end %>

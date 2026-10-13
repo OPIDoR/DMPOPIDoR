@@ -4,7 +4,8 @@ import { researchOutput } from "../services";
 function useFetchPlansData(
   dataType = null,
   className = null,
-  shouldFetch = true,
+  shown = true,
+  topic = null,
 ) {
   const [data, setData] = useState(null);
   const [loading, setLoading] = useState(true);
@@ -12,47 +13,11 @@ function useFetchPlansData(
   useEffect(() => {
     if (!shouldFetch) return;
 
-    researchOutput.getPlans().then(({ data }) => {
-      /* filtering plans and research outputs based on dataType */
-      const filteredPlans = filterWithClassName(
-        filterWithDataType(data.plans, dataType),
-        className,
-      );
-      setData(filteredPlans);
+    researchOutput.getPlans(className, dataType, topic).then(({ data }) => {
+      setData(data.plans);
       setLoading(false);
     });
-  }, [shouldFetch, dataType, className]);
-
-  const filterWithDataType = (plans, dataType) => {
-    if (!dataType) return plans;
-    return plans
-      .filter((p) =>
-        p.research_outputs.some((pr) => pr.output_type == dataType),
-      )
-      .map((p) => ({
-        ...p,
-        research_outputs: p.research_outputs.filter(
-          (pr) => pr.output_type == dataType,
-        ),
-      }));
-  };
-
-  const filterWithClassName = (plans, className) => {
-    if (!className) return plans;
-
-    return plans
-      .filter((p) =>
-        p.research_outputs.some((pr) =>
-          pr.answers.some((a) => a.classname == className),
-        ),
-      )
-      .map((p) => ({
-        ...p,
-        research_outputs: p.research_outputs.filter((pr) =>
-          pr.answers.some((a) => a.classname == className),
-        ),
-      }));
-  };
+  }, [shown, dataType, className, topic]);
 
   return { data, loading };
 }

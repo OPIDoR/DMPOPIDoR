@@ -15,7 +15,8 @@ function ContributorsTabLayout({
   planTitle,
   dmpId,
   locale,
-  readonly,
+  readonly = false,
+  isClassic = false,
   clientsName = [],
 }) {
   return (
@@ -28,7 +29,7 @@ function ContributorsTabLayout({
         initialClients={clientsName}
       >
         <PlanTabLayout>
-          <ContributorsTab readonly={readonly} />
+          <ContributorsTab readonly={!isClassic ? true : readonly} />
           <Toaster
             position="bottom-right"
             toastOptions={toastOptions}

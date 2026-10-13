@@ -11,7 +11,7 @@ class TemplatesController < ApplicationController
 
     authorize template, policy_class: PublicTemplateInfoPolicy
 
-    render json: template.serialize_json
+    render json: template.serialize_json(include_sections: true)
   end
 
   def set_recommended

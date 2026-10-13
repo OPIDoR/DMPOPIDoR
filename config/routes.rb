@@ -126,7 +126,6 @@ Rails.application.routes.draw do
       get 'guidance_groups', constraints: { format: [:json] }
       post 'guidance_groups', action: :select_guidance_groups, constraints: { format: [:json] }
       get 'guidances', action: :question_guidances, constraints: { format: [:json] }
-      get 'research_outputs_data', constraints: { format: [:json] }
       get 'contributors_data', constraints: { format: [:json] }
       post 'duplicate'
       post 'visibility', constraints: { format: [:json] }
@@ -136,7 +135,7 @@ Rails.application.routes.draw do
     resources :research_outputs, only: %i[index], controller: 'classic_research_outputs'
   end
 
-  resources :research_outputs, only: %i[show create destroy update], constraints: { format: [:json] } do
+  resources :research_outputs, only: %i[index show create destroy update], constraints: { format: [:json] } do
     post 'import', on: :collection, constraints: { format: [:json] }
     post 'sort', on: :collection, constraints: { format: [:json] }
     member do

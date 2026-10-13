@@ -15,7 +15,7 @@ class PlansController < ApplicationController
 
   # GET /plans
   # rubocop:disable-next Metrics/AbcSize, Metrics/MethodLength
-  # rubocop:disable-next Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
+  # rubocop:disable-next Metrics/PerceivedComplexity
   def index
     authorize Plan
     @plans = if request.format.json?
@@ -33,17 +33,20 @@ class PlansController < ApplicationController
     respond_to do |format|
       format.html
       format.json do
+        classname = params[:classname]
+        data_type = params[:data_type]
+        # both are present of both are absent
+        unless classname.present? == data_type.present?
+          render json: {
+            message: _('Error fetching plans: Missing required parameters "classname" and/or "data_type".')
+          }, status: 400
+          return
+        end
         # Sort plans by updated_at desc and filter only structured plans
         plans = @plans.filter(&:structured?).compact.sort_by(&:updated_at).reverse
-        plans = plans.map(&:serialize_json)
-                     .reject do |plan|
-                       plan[:research_outputs].empty? ||
-                         plan[:research_outputs].all? { |output| output[:title].nil? || output[:title].strip.empty? } ||
-                         plan[:research_outputs].all? do |output|
-                           output[:output_type].nil? || output[:output_type].strip.empty?
-                         end
-                     end
-        render json: { plans: plans }
+        plans = filter_with_classname(plans, classname)
+        plans = filter_with_data_type_topic(plans, data_type, params[:topic])
+        render json: { plans: plans.map(&:serialize_json) }
       end
     end
   end
@@ -506,26 +509,6 @@ class PlansController < ApplicationController
     end
   end
 
-  # rubocop:disable-next Metrics/AbcSize
-  def research_outputs_data
-    plan = Plan.includes(research_outputs: :answers, template: { phases: { sections: :questions } }).find(params[:id])
-    research_output_id = params[:research_output_id] || 0
-    authorize plan
-
-    render json: {
-      id: plan.id,
-      template: plan.template.serialize_json,
-      has_new_comments: ResearchOutput.unread_comments_count_for(current_user.id, plan.id),
-      research_outputs: plan.research_outputs.order(:display_order).each_with_index.map do |ro, idx|
-        if research_output_id.eql?(ro.id.to_s) || (idx.zero? && research_output_id.eql?(0))
-          ro.serialize_json(current_user)
-        else
-          ro.serialize_json(current_user, with_answers: false)
-        end
-      end
-    }
-  end
-
   # GET AJAX /plans/:id/contributors_data
   def contributors_data
     plan = Plan.find(params[:id])
@@ -689,6 +672,29 @@ class PlansController < ApplicationController
           }
         end
       }
+    end
+  end
+
+  def filter_with_classname(plans, classname)
+    return plans if classname.blank?
+
+    plans.select do |plan|
+      plan.research_outputs.any? do |ro|
+        ro.answers.any? do |a|
+          a.madmp_fragment.classname == classname
+        end
+      end
+    end
+  end
+
+  def filter_with_data_type_topic(plans, data_type, topic = 'generic')
+    return plans if data_type.blank? || topic.blank?
+
+    plans.select do |plan|
+      plan.research_outputs.any? do |ro|
+        ro.output_type == data_type
+        && ro.topic == topic
+      end
     end
   end
 end

@@ -884,7 +884,7 @@ class Plan < ApplicationRecord
         madmp_schema: MadmpSchema.find_by(name: 'MetaStandard'),
         additional_info: { property_name: 'meta' }
       )
-
+      handle_dmp_license(dmp_fragment.id, meta.id)
       dmp_coordinator.update(parent_id: meta.id)
     end
   end
@@ -919,6 +919,19 @@ class Plan < ApplicationRecord
       parent_id: dmp_id,
       madmp_schema: entity_schema,
       additional_info: { property_name: 'researchEntity' }
+    )
+  end
+
+  def handle_dmp_license(dmp_id, parent_id)
+    etalab_license_data = Registry.find_by(name: 'DMPLicenses').values.find do |license|
+      license['licenseName'].downcase.eql?(Rails.configuration.x.plans.default_license.downcase)
+    end || {}
+    Fragment::License.create!(
+      data: etalab_license_data.except('label'),
+      dmp_id: dmp_id,
+      parent_id: parent_id,
+      madmp_schema: MadmpSchema.find_by(name: 'LicenseStandard'),
+      additional_info: { property_name: 'license' }
     )
   end
 
@@ -985,7 +998,14 @@ class Plan < ApplicationRecord
       id: id,
       title: title,
       context: context,
-      research_outputs: research_outputs.map(&:serialize_json)
+      research_outputs: research_outputs.map do |ro|
+        {
+          id: ro.id,
+          uuid: ro.uuid,
+          abbreviation: ro.abbreviation,
+          title: ro.title
+        }
+      end
     }
   end
 

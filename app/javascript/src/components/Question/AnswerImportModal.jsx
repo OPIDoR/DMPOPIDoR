@@ -20,16 +20,21 @@ const EndButton = styled.div`
 function AnswerImportModal({
   shown,
   hide,
-  planId,
   questionId,
   researchOutputId,
+  className = null,
   dataType = null,
-  className,
+  topic = null,
   setAnswer,
 }) {
   const { t } = useTranslation();
   const { setFormData, setLoadedTemplates } = useContext(FormsContext);
-  const { data, loading } = useFetchPlansData(dataType, className, shown);
+  const { data: plansData, loading } = useFetchPlansData(
+    dataType,
+    className,
+    topic,
+    shown,
+  );
   const [selectedResearchOutput, setSelectedResearchOutput] = useState(null);
   const [selectedAnswer, setSelectedAnswer] = useState(null);
   const [answerLoading, setAnswerLoading] = useState(true);
@@ -114,12 +119,16 @@ function AnswerImportModal({
         {!loading && (
           <div style={{ margin: "25px" }}>
             <ResearchOutputSelector
-              planId={planId}
-              data={data}
+              researchOutputId={researchOutputId}
+              plansData={plansData}
               loading={loading}
+              excludeOwnPlan={false}
               selectedResearchOutput={selectedResearchOutput}
               setSelectedResearchOutput={setSelectedResearchOutput}
               infoMessage={t("canReuseResearchOutputInfoFromPlans")}
+              className={className}
+              dataType={dataType}
+              topic={topic}
             />
             {selectedResearchOutput && (
               <>

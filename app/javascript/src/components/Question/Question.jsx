@@ -285,12 +285,12 @@ function Question({ planId, question, questionIdx, sectionNumber, readonly }) {
                     <AnswerImportModal
                       shown={showModals.import === true}
                       hide={(e) => setModalOpened(e, "import", false)}
-                      planId={planId}
                       questionId={questionId}
                       researchOutputId={displayedResearchOutput.id}
                       dataType={
                         displayedResearchOutput?.configuration?.dataType
                       }
+                      topic={displayedResearchOutput?.topic}
                       className={question?.madmp_schema?.classname}
                       setAnswer={(newAnswer) =>
                         updateResearchOutputAnswer(questionId, newAnswer)

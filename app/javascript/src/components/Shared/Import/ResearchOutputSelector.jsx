@@ -6,44 +6,62 @@ import { FaUniversity } from "react-icons/fa";
 
 import * as stylesForm from "../../assets/css/form.module.css";
 import CustomSelect from "../../Shared/CustomSelect";
+import useFetchResearchOutputsData from "../../../hooks/useFetchResearchOutputsData";
+import ChooseResearchOutputPlaceholder from "../../Question/Placeholders/ChooseResearchOutputPlaceholder";
 
 function ResearchOutputSelector({
   planId = null,
-  data,
+  researchOutputId = null,
+  className = null,
+  dataType = null,
+  topic = null,
+  plansData,
   loading,
+  excludeOwnPlan = false,
   selectedResearchOutput,
   setSelectedResearchOutput,
   infoMessage = null,
 }) {
   const { t } = useTranslation();
-  const [selectedPlan, setSelectedPlan] = useState({});
+  const [selectedPlan, setSelectedPlan] = useState(null);
+  const { data: researchOutputsData, loading: researchOutputsLoading } =
+    useFetchResearchOutputsData(selectedPlan?.id, dataType, className, topic);
 
   /**
    * Memoized values
    */
   const plans = useMemo(() => {
-    if (data) {
-      return data
-        ?.filter((plan) => plan.id !== planId)
-        ?.map((plan) => ({
-          value: plan.id,
-          prependIcon:
-            plan.context === "research_entity" ? (
-              <FaUniversity style={{ marginRight: "8px" }} />
-            ) : (
-              <FaVial style={{ marginRight: "8px" }} />
-            ),
-          label: plan.title,
-          ...plan,
-          researchOutputs: plan.research_outputs.map((ro) => ({
-            value: ro.id,
-            label: ro.title,
-            ...ro,
-          })),
+    if (plansData) {
+      const filteredPlans = excludeOwnPlan
+        ? plansData?.filter((plan) => plan.id !== planId)
+        : plansData;
+      return filteredPlans?.map((plan) => ({
+        value: plan.id,
+        prependIcon:
+          plan.context === "research_entity" ? (
+            <FaUniversity style={{ marginRight: "8px" }} />
+          ) : (
+            <FaVial style={{ marginRight: "8px" }} />
+          ),
+        label: plan.title,
+        ...plan,
+      }));
+    }
+    return [];
+  }, [plansData]);
+
+  const researchOutputs = useMemo(() => {
+    if (researchOutputsData) {
+      return researchOutputsData
+        ?.filter((ro) => ro.id !== researchOutputId)
+        ?.map((ro) => ({
+          value: ro.id,
+          label: ro.title,
+          ...ro,
         }));
     }
     return [];
-  }, [data]);
+  }, [researchOutputsData]);
   /**
    * This is a function that handles the selection of a value and sets it as the type.
    */
@@ -88,14 +106,17 @@ function ResearchOutputSelector({
         </div>
       )}
 
-      {selectedPlan?.researchOutputs?.length > 0 && (
+      {researchOutputsLoading && selectedPlan && (
+        <ChooseResearchOutputPlaceholder />
+      )}
+      {researchOutputsData?.length > 0 && (
         <div className="form-group">
           <div className={stylesForm.label_form}>
             <label>{t("chooseOutput")}</label>
           </div>
           <CustomSelect
             onSelectChange={(e) => handleSelectResearchOutput(e)}
-            options={selectedPlan.researchOutputs}
+            options={researchOutputs}
             selectedOption={selectedResearchOutput}
             isDisabled={loading}
             placeholder={t("selectValueFromList")}

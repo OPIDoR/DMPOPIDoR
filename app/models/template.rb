@@ -532,15 +532,20 @@ class Template < ApplicationRecord
     end
   end
 
-  def serialize_json
-    section_data = sections.as_json(
-      include: {
-        questions: {
-          only: %w[id text number default_value question_format_id],
-          include: { madmp_schema: { only: %w[id classname] } }
-        }
-      }
-    )
+  # rubocop:disable-next Metrics/MethodLength
+  def serialize_json(include_sections: false)
+    section_data = if include_sections
+                     sections.as_json(
+                       include: {
+                         questions: {
+                           only: %w[id text number default_value question_format_id],
+                           include: { madmp_schema: { only: %w[id classname] } }
+                         }
+                       }
+                     )
+                   else
+                     []
+                   end
     {
       id: id,
       locale: locale,

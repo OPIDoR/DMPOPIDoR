@@ -27,7 +27,7 @@
   },
   "homepage": "https://github.com/OPIDoR/DMPOPIDoR#readme",
   "dependencies": {
-    "@directus/sdk": "^25.0.0",
+    "@directus/sdk": "^27.0.0",
     "@dnd-kit/core": "^6.3.1",
     "@dnd-kit/sortable": "^10.0.0",
     "@dnd-kit/utilities": "^3.2.2",
@@ -61,7 +61,7 @@
     "lodash.set": "^4.3.2",
     "lodash.unionby": "^4.8.0",
     "lodash.uniqueid": "^4.0.1",
-    "motion": "^13.0.0",
+    "motion": "^14.0.0",
     "number-to-text": "^0.4.1",
     "pretty-bytes": "^7.0.0",
     "react": "^19.1.0",

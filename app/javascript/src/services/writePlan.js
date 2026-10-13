@@ -2,18 +2,23 @@ import axios from "../utils/AxiosClient";
 
 /**
  * The function retrieves data from session storage or sets it if it doesn't exist.
- * @param token - The `token` parameter is not used in the `getPlanData` function. It is not necessary for the function to work properly.
+ * @param token - The `token` parameter is not used in the `getResearchOutputsData` function. It is not necessary for the function to work properly.
  * @returns An object with a property "data" that contains either the parsed JSON data from sessionStorage if it exists, or the original dataObject if it
  * does not.
  */
-const getPlanData = async (planId, researchOutputId) =>
+const getResearchOutputsData = async (
+  planId,
+  researchOutputId,
+  includeNewComments = false,
+  includeTemplate = false,
+) =>
   axios.get(
-    `/plans/${planId}/research_outputs_data?${researchOutputId ? "research_output_id=" + researchOutputId : ""}`,
+    `/research_outputs?plan_id=${planId}${includeNewComments ? "&include_new_comments=true" : ""}${includeTemplate ? "&include_template=true" : ""}${researchOutputId ? "&research_output_id=" + researchOutputId : ""}`,
   );
 const getSectionsData = async (templateId) =>
   axios.get(`/templates/${templateId}`);
 
 export default {
-  getPlanData,
+  getResearchOutputsData,
   getSectionsData,
 };

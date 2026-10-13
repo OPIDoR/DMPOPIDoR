@@ -130,10 +130,6 @@ class PlanPolicy < ApplicationPolicy
     @user.present?
   end
 
-  def research_outputs_data?
-    @record.readable_by?(@user.id)
-  end
-
   def contributors_data?
     @record.readable_by?(@user.id)
   end

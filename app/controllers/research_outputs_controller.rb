@@ -7,6 +7,39 @@ class ResearchOutputsController < ApplicationController
 
   helper PaginableHelper
   after_action :verify_authorized
+  before_action :validate_classname_and_data_type, only: :index
+
+  # rubocop:disable-next Metrics/AbcSize, Metrics/MethodLength
+  # rubocop:disable-next Metrics/PerceivedComplexity, Metrics/CyclomaticComplexity
+  def index
+    plan = Plan.includes(:template, research_outputs: :answers).find(params[:plan_id])
+    research_output_id = params[:research_output_id] || 0
+
+    authorize(ResearchOutput.new(plan: plan))
+    research_outputs = plan.research_outputs.order(:display_order)
+    if params[:classname].present? && params[:data_type].present? && params[:topic].present?
+      research_outputs = filter_with_classname(research_outputs, params[:classname])
+      research_outputs = filter_with_data_type_topic(research_outputs, params[:data_type], params[:topic])
+    end
+    render json: {
+      id: plan.id,
+      template: params[:include_template].present? ? plan.template.serialize_json : nil,
+      has_new_comments: if params[:include_new_comments].present?
+                          ResearchOutput.unread_comments_count_for(
+                            current_user.id, plan.id
+                          )
+                        else
+                          0
+                        end,
+      research_outputs: research_outputs.each_with_index.map do |ro, idx|
+        if research_output_id.eql?(ro.id.to_s) || (idx.zero? && research_output_id.eql?(0))
+          ro.serialize_json(current_user)
+        else
+          ro.serialize_json(current_user, with_answers: false)
+        end
+      end
+    }
+  end
 
   def show
     @research_output = ResearchOutput.includes(answers: %i[madmp_fragment viewed_comment],
@@ -405,5 +438,32 @@ class ResearchOutputsController < ApplicationController
 
     GuidanceGroup.from("(#{org_ggs_query.to_sql} UNION #{default_ggs_query.to_sql}) AS guidance_groups")
                  .where(Arel.sql("'#{topic}' = ANY(topics) AND '#{data_type}' = ANY(data_types)"))
+  end
+
+  def validate_classname_and_data_type
+    # both are present of both are absent
+    return if params[:classname].present? == params[:data_type].present?
+
+    render json: {
+      message: _('Error fetching plans: Missing required parameters "classname" and/or "data_type".')
+    }, status: 400
+  end
+
+  def filter_with_classname(research_outputs, classname)
+    return research_outputs if classname.blank?
+
+    research_outputs.select do |ro|
+      ro.answers.any? do |a|
+        a.madmp_fragment.classname == classname
+      end
+    end
+  end
+
+  def filter_with_data_type_topic(research_outputs, data_type, topic)
+    return research_outputs if data_type.blank? || topic.blank?
+
+    research_outputs.select do |ro|
+      ro.output_type == data_type && ro.topic == topic
+    end
   end
 end
