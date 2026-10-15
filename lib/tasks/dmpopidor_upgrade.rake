@@ -117,7 +117,7 @@ namespace :dmpopidor_upgrade do
                                                           15).to_i || plan.publicly_visible?
 
       p "########### Generating PDF plan for plan #{plan.id} ###########"
-      PdfPlanJob.perform_now(plan_id: plan.id)
+      PdfPlanJob.perform_now(plan.id)
     end
   end
 
@@ -131,7 +131,7 @@ namespace :dmpopidor_upgrade do
   task generate_public_json_plans: :environment do
     Plan.publicly_visible.each do |plan|
       p "########### Generating JSON plan for plan #{plan.id} ###########"
-      JsonPlanJob.perform_now(plan_id: plan.id)
+      JsonPlanJob.perform_now(plan.id)
     end
   end
 
