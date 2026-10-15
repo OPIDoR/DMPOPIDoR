@@ -14,7 +14,7 @@ import * as styles from "../assets/css/form.module.css";
 import { checkFragmentExists } from "../../utils/JsonFragmentsUtils";
 import { Col, Row } from "react-bootstrap";
 
-function ContributorsTab({ readonly }) {
+function ContributorsTab({ readonly, isClassic }) {
   const { t, i18n } = useTranslation();
   const { locale, dmpId, planId } = useContext(GlobalContext);
   const [show, setShow] = useState(false);
@@ -157,7 +157,7 @@ function ContributorsTab({ readonly }) {
                 handleClose={handleClose}
               />
             )}
-            {!readonly && (
+            {!readonly && isClassic ? (
               <CustomButton
                 handleClick={() => {
                   setShow(true);
@@ -167,7 +167,7 @@ function ContributorsTab({ readonly }) {
                 buttonColor="rust"
                 position="start"
               ></CustomButton>
-            )}
+            ) : null}
           </div>
         </Forms>
       </Col>

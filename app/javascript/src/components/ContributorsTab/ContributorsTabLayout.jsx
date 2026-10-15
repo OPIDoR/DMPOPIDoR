@@ -29,7 +29,7 @@ function ContributorsTabLayout({
         initialClients={clientsName}
       >
         <PlanTabLayout>
-          <ContributorsTab readonly={!isClassic ? true : readonly} />
+          <ContributorsTab readonly={readonly} isClassic={isClassic} />
           <Toaster
             position="bottom-right"
             toastOptions={toastOptions}
