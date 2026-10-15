@@ -2,6 +2,11 @@
 
 **Attention** Cette liste de changements concerne les déploiements sur nos serveurs de test en interne.
 
+## 15/10/2026
+- Correction d'un problème avec le script de génération des PDF (#18650)
+- Retrait de la création des contributeurs dans l'onglet Contributeurs des plans structurés (#18652)
+- Correction d'un problème de génération du contact du plan
+
 ## 12/10/2026
 - Correction d'un problème d'affichage des symboles HTML dans les titres et corps des actualités (#18700)
 - Retrait de la création et modification des contributeurs dans l'onglet Contributeurs des plans structurés (#18652)
