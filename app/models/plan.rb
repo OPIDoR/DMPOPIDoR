@@ -830,34 +830,6 @@ class Plan < ApplicationRecord
       )
 
       #################################
-      # PERSON & CONTRIBUTORS FRAGMENTS
-      #################################
-      if owner.present?
-        person = Fragment::Person.create!(
-          data: {
-            'nameType' => 'Personal',
-            'lastName' => owner.surname,
-            'firstName' => owner.firstname,
-            'mbox' => owner.email
-          },
-          dmp_id: dmp_fragment.id,
-          madmp_schema: MadmpSchema.find_by(name: 'PersonStandard'),
-          additional_info: { property_name: 'person' }
-        )
-      end
-
-      dmp_coordinator = Fragment::Contributor.create!(
-        data: {
-          'person' => person.present? ? { 'dbid' => person.id } : nil,
-          'role' => _('DMP manager')
-        },
-        dmp_id: dmp_fragment.id,
-        parent_id: nil,
-        madmp_schema: MadmpSchema.find_by(name: 'ContributorConstantRole'),
-        additional_info: { property_name: 'contact' }
-      )
-
-      #################################
       # META & PROJECT FRAGMENTS
       #################################
       if research_entity?
@@ -872,8 +844,7 @@ class Plan < ApplicationRecord
           'creationDate' => created_at.strftime('%F'),
           'lastModifiedDate' => updated_at.strftime('%F'),
           'dmpLanguage' => template_locale,
-          'dmpId' => identifier,
-          'contact' => [{ 'dbid' => dmp_coordinator.id }]
+          'dmpId' => identifier
         },
         dmp_id: dmp_fragment.id,
         parent_id: dmp_fragment.id,
@@ -881,7 +852,7 @@ class Plan < ApplicationRecord
         additional_info: { property_name: 'meta' }
       )
       handle_dmp_license(dmp_fragment.id, meta.id)
-      dmp_coordinator.update(parent_id: meta.id)
+      handle_dmp_coordinator(dmp_fragment.id, meta.id)
     end
   end
 
@@ -928,6 +899,34 @@ class Plan < ApplicationRecord
       parent_id: parent_id,
       madmp_schema: MadmpSchema.find_by(name: 'LicenseStandard'),
       additional_info: { property_name: 'license' }
+    )
+  end
+
+  # rubocop:disable-next Metrics/MethodLength
+  def handle_dmp_coordinator(dmp_id, parent_id)
+    if owner.present?
+      person = Fragment::Person.create!(
+        data: {
+          'nameType' => 'Personal',
+          'lastName' => owner.surname,
+          'firstName' => owner.firstname,
+          'mbox' => owner.email
+        },
+        dmp_id: dmp_id,
+        madmp_schema: MadmpSchema.find_by(name: 'PersonStandard'),
+        additional_info: { property_name: 'person' }
+      )
+    end
+
+    Fragment::Contributor.create!(
+      data: {
+        'person' => person.present? ? { 'dbid' => person.id } : nil,
+        'role' => _('DMP manager')
+      },
+      dmp_id: dmp_id,
+      parent_id: parent_id,
+      madmp_schema: MadmpSchema.find_by(name: 'ContributorConstantRole'),
+      additional_info: { property_name: 'contact' }
     )
   end
 
