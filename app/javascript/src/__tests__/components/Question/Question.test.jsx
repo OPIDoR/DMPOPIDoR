@@ -15,6 +15,9 @@ const { guidances } = vi.hoisted(() => ({
     hasQuestionGuidances: vi.fn().mockResolvedValue({
       data: { has_guidances: false },
     }),
+    getGuidances: vi.fn().mockResolvedValue({
+      data: { guidances: [] },
+    }),
   },
 }));
 
