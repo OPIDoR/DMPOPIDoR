@@ -1,6 +1,6 @@
 import { act, render, screen, waitFor } from "@testing-library/react";
 import { SectionsContext } from "../../../components/context/SectionsContext";
-import GuidanceSelector from "../../../components/GuidanceSelection/GuidanceSelector";
+import GuidanceSelector from "../../../components/GuidanceChoice/GuidanceSelector";
 
 const { guidances } = vi.hoisted(() => ({
   guidances: {

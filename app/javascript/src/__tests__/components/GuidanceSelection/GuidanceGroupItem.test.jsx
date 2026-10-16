@@ -1,5 +1,5 @@
 import { render, screen } from "@testing-library/react";
-import GuidanceGroupItem from "../../../components/GuidanceSelection/GuidanceGroupItem";
+import GuidanceGroupItem from "../../../components/GuidanceChoice/GuidanceGroupItem";
 
 const props = {
   guidance_group_id: 1,

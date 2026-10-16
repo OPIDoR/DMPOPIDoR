@@ -1,5 +1,5 @@
 import { render, screen } from "@testing-library/react";
-import OrgWithGuidanceGroups from "../../../components/GuidanceSelection/OrgWithGuidanceGroups";
+import OrgWithGuidanceGroups from "../../../components/GuidanceChoice/OrgWithGuidanceGroups";
 
 const props = {
   org: {

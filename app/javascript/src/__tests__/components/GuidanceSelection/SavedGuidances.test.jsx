@@ -2,7 +2,8 @@ import { act, render, screen } from "@testing-library/react";
 
 import Global from "../../../components/context/GlobalContext";
 import { SectionsContext } from "../../../components/context/SectionsContext";
-import SavedGuidances from "../../../components/GuidanceSelection/SavedGuidances";
+import SavedGuidances from "../../../components/GuidanceChoice/SavedGuidances";
+
 
 vi.mock("react-i18next", () => ({
   // this mock makes sure any components using the translate hook can use it without a warning being shown
