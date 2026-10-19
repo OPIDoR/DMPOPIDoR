@@ -1,14 +1,14 @@
 import { TfiAngleDown, TfiAngleUp } from "react-icons/tfi";
 
-import * as styles from "../assets/css/write_plan.module.css";
+import * as styles from "../../assets/css/write_plan.module.css";
 
-import AnswerImportIcon from "./Icons/AnswerImportIcon";
-import CommentIcon from "./Icons/CommentIcon";
-import FormSelectorIcon from "./Icons/FormSelectorIcon";
-import GuidanceIcon from "./Icons/GuidanceIcon";
-import RunsIcon from "./Icons/RunsIcon";
+import AnswerImportIcon from "./AnswerImportIcon";
+import CommentIcon from "./CommentIcon";
+import FormSelectorIcon from "./FormSelectorIcon";
+import GuidanceIcon from "./GuidanceIcon";
+import RunsIcon from "./RunsIcon";
 
-function IconsContainer({
+function Container({
   answer,
   isQuestionOpened,
   showIcons,
@@ -85,4 +85,4 @@ function IconsContainer({
   );
 }
 
-export default IconsContainer;
+export default Container;

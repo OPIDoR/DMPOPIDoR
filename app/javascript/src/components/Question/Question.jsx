@@ -19,7 +19,7 @@ import RunsModal from "./RunsModal.jsx";
 
 import { guidances } from "../../services/index.js";
 import AnswerImportModal from "./AnswerImportModal.jsx";
-import IconsContainer from "./IconsContainer.jsx";
+import IconsContainer from "./Icons/Container.jsx";
 
 const closedModalState = {
   guidance: false,
