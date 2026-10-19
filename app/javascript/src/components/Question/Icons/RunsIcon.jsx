@@ -24,6 +24,7 @@ function RunsIcon({ isQuestionOpened, fillColor, setModalOpened }) {
           onClick={(e) => {
             setModalOpened(e, "runs", true);
           }}
+          style={{ color: fillColor }}
           size={32}
           fill={fillColor}
         />
