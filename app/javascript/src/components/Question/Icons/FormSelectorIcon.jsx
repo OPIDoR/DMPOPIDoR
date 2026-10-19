@@ -1,4 +1,3 @@
-import { Fragment } from "react";
 import { useTranslation } from "react-i18next";
 import { Tooltip as ReactTooltip } from "react-tooltip";
 
@@ -10,7 +9,7 @@ function FormSelectorIcon({ fillColor, setModalOpened, isQuestionOpened }) {
 
   return (
     isQuestionOpened && (
-      <Fragment data-testid="form-selector-icon-container">
+      <>
         <ReactTooltip
           id="formSelectorTooltip"
           place="bottom"
@@ -29,7 +28,7 @@ function FormSelectorIcon({ fillColor, setModalOpened, isQuestionOpened }) {
           fill={fillColor}
           style={{ color: fillColor }}
         />
-      </Fragment>
+      </>
     )
   );
 }

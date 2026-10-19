@@ -1,4 +1,3 @@
-import { Fragment } from "react";
 import { useTranslation } from "react-i18next";
 import { Tooltip as ReactTooltip } from "react-tooltip";
 
@@ -10,7 +9,7 @@ function AnswerImportIcon({ isQuestionOpened, fillColor, setModalOpened }) {
 
   return (
     isQuestionOpened && (
-      <Fragment data-testid="answer-import-icon-container">
+      <>
         <ReactTooltip
           id="importTooltip"
           place="bottom"
@@ -29,7 +28,7 @@ function AnswerImportIcon({ isQuestionOpened, fillColor, setModalOpened }) {
           size={32}
           fill={fillColor}
         />
-      </Fragment>
+      </>
     )
   );
 }

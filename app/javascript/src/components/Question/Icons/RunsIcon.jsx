@@ -1,4 +1,3 @@
-import { Fragment } from "react";
 import { useTranslation } from "react-i18next";
 import { Tooltip as ReactTooltip } from "react-tooltip";
 
@@ -10,7 +9,7 @@ function RunsIcon({ isQuestionOpened, fillColor, setModalOpened }) {
 
   return (
     isQuestionOpened && (
-      <Fragment data-testid="runs-icon-container">
+      <>
         <ReactTooltip
           id="scriptTooltip"
           place="bottom"
@@ -28,7 +27,7 @@ function RunsIcon({ isQuestionOpened, fillColor, setModalOpened }) {
           size={32}
           fill={fillColor}
         />
-      </Fragment>
+      </>
     )
   );
 }

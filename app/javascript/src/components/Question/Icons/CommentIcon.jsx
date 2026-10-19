@@ -1,4 +1,3 @@
-import { Fragment } from "react";
 import { Tooltip as ReactTooltip } from "react-tooltip";
 import { useTranslation } from "react-i18next";
 
@@ -13,7 +12,7 @@ function CommentIcon({
   const { t } = useTranslation();
   return (
     (isQuestionOpened || newCommentCount > 0) && (
-      <Fragment data-testid="comment-icon-container">
+      <>
         <ReactTooltip
           id="commentTooltip"
           place="bottom"
@@ -27,7 +26,7 @@ function CommentIcon({
           fill={fillColor}
           commentCount={newCommentCount}
         />
-      </Fragment>
+      </>
     )
   );
 }

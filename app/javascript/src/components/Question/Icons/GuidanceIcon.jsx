@@ -1,4 +1,3 @@
-import { Fragment } from "react";
 import { useTranslation } from "react-i18next";
 import { Tooltip as ReactTooltip } from "react-tooltip";
 
@@ -10,7 +9,7 @@ function GuidanceIcon({ isQuestionOpened, fillColor, setModalOpened }) {
 
   return (
     isQuestionOpened && (
-      <Fragment data-testid="guidance-icon-container">
+      <>
         <ReactTooltip
           id="guidanceTooltip"
           place="bottom"
@@ -29,7 +28,7 @@ function GuidanceIcon({ isQuestionOpened, fillColor, setModalOpened }) {
           fill={fillColor}
           style={{ color: fillColor }}
         />
-      </Fragment>
+      </>
     )
   );
 }
