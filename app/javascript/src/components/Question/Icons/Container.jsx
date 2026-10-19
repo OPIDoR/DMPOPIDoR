@@ -47,6 +47,7 @@ function Container({
 
       {showIcons.formSelectorIcon && (
         <FormSelectorIcon
+          isQuestionOpened={isQuestionOpened}
           fillColor={getFillColor(showModals.formSelector)}
           setModalOpened={setModalOpened}
         />

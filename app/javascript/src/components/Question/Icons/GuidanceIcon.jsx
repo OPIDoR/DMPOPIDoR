@@ -1,3 +1,4 @@
+import { Fragment } from "react";
 import { useTranslation } from "react-i18next";
 import { Tooltip as ReactTooltip } from "react-tooltip";
 
@@ -8,33 +9,28 @@ function GuidanceIcon({ isQuestionOpened, fillColor, setModalOpened }) {
   const { t } = useTranslation();
 
   return (
-    <div data-testid="guidance-icon">
-      <ReactTooltip
-        id="guidanceTip"
-        place="bottom"
-        effect="solid"
-        variant="info"
-        content={t("guidance")}
-      />
-      <div
-        data-tooltip-id="guidanceTip"
-        className={styles.card_icon}
-        onClick={(e) => {
-          setModalOpened(e, "guidance", true);
-        }}
-        style={{ marginLeft: "5px" }}
-      >
-        {isQuestionOpened && (
-          <TbBulbFilled
-            size={32}
-            fill={fillColor}
-            style={{
-              color: fillColor,
-            }}
-          />
-        )}
-      </div>
-    </div>
+    isQuestionOpened && (
+      <Fragment data-testid="guidance-icon-container">
+        <ReactTooltip
+          id="guidanceTooltip"
+          place="bottom"
+          effect="solid"
+          variant="info"
+          content={t("guidance")}
+        />
+        <TbBulbFilled
+          data-testid="guidance-icon"
+          data-tooltip-id="guidanceTooltip"
+          className={styles.card_icon}
+          onClick={(e) => {
+            setModalOpened(e, "guidance", true);
+          }}
+          size={32}
+          fill={fillColor}
+          style={{ color: fillColor }}
+        />
+      </Fragment>
+    )
   );
 }
 

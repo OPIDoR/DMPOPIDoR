@@ -1,3 +1,4 @@
+import { Fragment } from "react";
 import { useTranslation } from "react-i18next";
 import { Tooltip as ReactTooltip } from "react-tooltip";
 
@@ -8,27 +9,27 @@ function RunsIcon({ isQuestionOpened, fillColor, setModalOpened }) {
   const { t } = useTranslation();
 
   return (
-    <div data-testid="runs-icon">
-      <ReactTooltip
-        id="scriptTip"
-        place="bottom"
-        effect="solid"
-        variant="info"
-        content={t("tools")}
-      />
-      <div
-        data-tooltip-id="scriptTip"
-        className={styles.card_icon}
-        onClick={(e) => {
-          setModalOpened(e, "runs", true);
-        }}
-        style={{ marginLeft: "5px" }}
-      >
-        {isQuestionOpened && (
-          <BsGear size={32} style={{ marginTop: "6px" }} fill={fillColor} />
-        )}
-      </div>
-    </div>
+    isQuestionOpened && (
+      <Fragment data-testid="runs-icon-container">
+        <ReactTooltip
+          id="scriptTooltip"
+          place="bottom"
+          effect="solid"
+          variant="info"
+          content={t("tools")}
+        />
+        <BsGear
+          data-testid="runs-icon"
+          data-tooltip-id="scriptTooltip"
+          className={styles.card_icon}
+          onClick={(e) => {
+            setModalOpened(e, "runs", true);
+          }}
+          size={32}
+          fill={fillColor}
+        />
+      </Fragment>
+    )
   );
 }
 

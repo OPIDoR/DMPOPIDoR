@@ -1,3 +1,4 @@
+import { Fragment } from "react";
 import { useTranslation } from "react-i18next";
 import { Tooltip as ReactTooltip } from "react-tooltip";
 
@@ -8,33 +9,28 @@ function AnswerImportIcon({ isQuestionOpened, fillColor, setModalOpened }) {
   const { t } = useTranslation();
 
   return (
-    <div data-testid="answer-import-icon">
-      <ReactTooltip
-        id="importTip"
-        place="bottom"
-        effect="solid"
-        variant="info"
-        content={t("importAnswer")}
-      />
-      <div
-        data-tooltip-id="importTip"
-        className={styles.card_icon}
-        onClick={(e) => {
-          setModalOpened(e, "import", true);
-        }}
-        style={{ marginLeft: "5px" }}
-      >
-        {isQuestionOpened && (
-          <CiImport
-            size={32}
-            fill={fillColor}
-            style={{
-              color: fillColor,
-            }}
-          />
-        )}
-      </div>
-    </div>
+    isQuestionOpened && (
+      <Fragment data-testid="answer-import-icon-container">
+        <ReactTooltip
+          id="importTooltip"
+          place="bottom"
+          effect="solid"
+          variant="info"
+          content={t("importAnswer")}
+        />
+        <CiImport
+          data-testid="answer-import-icon"
+          data-tooltip-id="importTooltip"
+          className={styles.card_icon}
+          onClick={(e) => {
+            setModalOpened(e, "import", true);
+          }}
+          style={{ color: fillColor }}
+          size={32}
+          fill={fillColor}
+        />
+      </Fragment>
+    )
   );
 }
 
