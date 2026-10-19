@@ -150,8 +150,9 @@ describe("Question component", () => {
     );
     expect(screen.getByTestId("question-angle-up")).toBeInTheDocument();
     expect(screen.getByTestId("comment-icon")).toBeInTheDocument();
-    // expect(screen.getByTestId("form-selector-icon")).not.toBeInTheDocument();
-    // expect(screen.getByTestId("runs-icon")).not.toBeInTheDocument();
+    expect(screen.getByTestId("answer-import-icon")).toBeInTheDocument();
+    expect(screen.queryByTestId("form-selector-icon")).not.toBeInTheDocument();
+    expect(screen.queryByTestId("runs-icon")).not.toBeInTheDocument();
     expect(screen.queryByTestId("guidance-icon")).not.toBeInTheDocument();
   });
 
@@ -323,5 +324,68 @@ describe("Question component", () => {
     expect(screen.getByTestId("comment-icon")).toBeInTheDocument();
     expect(screen.getByTestId("comment-icon-count")).toBeInTheDocument();
     expect(screen.getByTestId("comment-icon-count")).toHaveTextContent("2");
+  });
+  test("component should display form selector icon when question is not answred and has available forms", async () => {
+    const contextData = {
+      ...baseSectionsContextData,
+      openedQuestions: {
+        [baseSectionsContextData.displayedResearchOutput.id]: {
+          [props.question.id]: true,
+        },
+      },
+      setOpenedQuestions: vi.fn(),
+    };
+    await act(async () =>
+      render(
+        <Global>
+          <FormsContext.Provider
+            value={{ formSelectors: { my_classname: true }, formData: {} }}
+          >
+            <SectionsContext.Provider value={contextData}>
+              <Question {...props} />
+            </SectionsContext.Provider>
+          </FormsContext.Provider>
+        </Global>,
+      ),
+    );
+    expect(screen.getByTestId("form-selector-icon")).toBeInTheDocument();
+  });
+  test("component should display runs icon when question is answered and has available scripts to be run", async () => {
+    const contextData = {
+      ...baseSectionsContextData,
+      openedQuestions: {
+        [baseSectionsContextData.displayedResearchOutput.id]: {
+          [props.question.id]: true,
+        },
+      },
+      displayedResearchOutput: {
+        id: 1,
+        answers: [{ question_id: 1, fragment_id: 1 }],
+      },
+      setOpenedQuestions: vi.fn(),
+    };
+    await act(async () =>
+      render(
+        <Global>
+          <FormsContext.Provider
+            value={{
+              formData: { 1: { template_name: "my_template", schema_id: 1 } },
+              loadedTemplates: {
+                my_template: {
+                  name: "my_template",
+                  api_client: "my_api_client",
+                  schema: { run: ["script1", "script2"] },
+                },
+              },
+            }}
+          >
+            <SectionsContext.Provider value={contextData}>
+              <Question {...props} />
+            </SectionsContext.Provider>
+          </FormsContext.Provider>
+        </Global>,
+      ),
+    );
+    expect(screen.getByTestId("runs-icon")).toBeInTheDocument();
   });
 });

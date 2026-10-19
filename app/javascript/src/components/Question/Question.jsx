@@ -237,7 +237,6 @@ function Question({ planId, question, questionIdx, sectionNumber, readonly }) {
                         size={32}
                       />
                     )}
-
                   </div>
                 </div>
               </Card.Title>
