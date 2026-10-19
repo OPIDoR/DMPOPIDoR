@@ -674,10 +674,10 @@ class PlansController < ApplicationController
     end
   end
 
+  # rubocop:disable-next Metrics/AbcSize
   # rubocop:disable-next Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
   def filter_plans(plans, classname, data_type, topic = 'generic')
-    return plans if classname.blank?
-    return plans if data_type.blank? || topic.blank?
+    return plans.filter { |plan| plan.research_outputs.any? } if classname.blank? || data_type.blank? || topic.blank?
 
     plans.select do |plan|
       plan.research_outputs.any? do |ro|
