@@ -341,6 +341,11 @@ en-GB:
         last_7_days:
         title:
         total: Total
+    concurrency_claims:
+      states:
+        granted:
+        promoted:
+        waiting:
     cron_entries:
       actions:
         confirm_disable:
@@ -491,6 +496,7 @@ en-GB:
       job:
         arguments:
         attempts:
+        concurrency_claims:
         labels:
         priority:
         queue:
@@ -524,15 +530,28 @@ en-GB:
         value:
     performance:
       index:
-        average_duration:
         chart_title:
+        chart_title_queue:
+        chart_title_total:
+        execution_latency:
         executions:
         job_class:
-        maximum_duration:
-        minimum_duration:
+        jobs:
         no_executions:
+        queue_latency:
         queue_name:
         title:
+        total_latency:
+      latency:
+        average:
+        maximum:
+        minimum:
+      metric:
+        chart_metric:
+        metric_options:
+          execution:
+          queue:
+          total:
       range:
         bucket_size:
           days:
@@ -557,8 +576,11 @@ en-GB:
         time_range:
         time_zone:
       show:
+        execution_chart_title:
+        queue_chart_title:
         slow:
         title:
+        total_chart_title:
     processes:
       index:
         cron_enabled:
