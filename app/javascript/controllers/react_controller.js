@@ -3,7 +3,7 @@ import React from "react";
 import ReactDOM from "react-dom/client";
 
 import NewsPageLayout from "../src/components/news/NewsPageLayout.jsx";
-import CommentList from "../src/components/Shared/CommentList.jsx";
+import CommentsList from "../src/components/Comments/CommentsList.jsx";
 import ContributorsTabLayout from "../src/components/ContributorsTab/ContributorsTabLayout.jsx";
 import GeneralInfoLayout from "../src/components/GeneralInfo/GeneralInfoLayout.jsx";
 import PlanCreationLayout from "../src/components/PlanCreation/PlanCreationLayout.jsx";
@@ -20,7 +20,7 @@ const modules = {
   GeneralInfoLayout,
   PlanCreationLayout,
   WritePlanLayout,
-  CommentList,
+  CommentsList,
   ContributorsTabLayout,
   HelpLayout,
   StaticPagesLayout,

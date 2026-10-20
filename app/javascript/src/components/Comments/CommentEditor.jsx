@@ -4,7 +4,7 @@ import { Editor } from "@tinymce/tinymce-react";
 /**
  * A function that takes in an argument called content and then calls the updateParentText function with the content as the argument.
  */
-const EditorComment = ({ initialValue, updateParentText }) => {
+const CommentEditor = ({ initialValue, updateParentText }) => {
   const handleEditorChange = (content) => {
     updateParentText(content);
   };
@@ -32,4 +32,4 @@ const EditorComment = ({ initialValue, updateParentText }) => {
   );
 };
 
-export default React.memo(EditorComment);
+export default React.memo(CommentEditor);
