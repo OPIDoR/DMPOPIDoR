@@ -97,7 +97,7 @@ function ResearchOutputSelector({
             options={plans}
             selectedOption={selectedPlan}
             isDisabled={loading}
-            placeholder={t("selectValueFromList")}
+            placeholder={t("selectPlanFromList")}
           />
         </div>
       ) : (
@@ -128,7 +128,7 @@ function ResearchOutputSelector({
             options={researchOutputs}
             selectedOption={selectedResearchOutput}
             isDisabled={loading}
-            placeholder={t("selectValueFromList")}
+            placeholder={t("selectResearchOutputFromList")}
           />
         </div>
       )}
