@@ -42,12 +42,16 @@ const InnerModalHeader = forwardRef((props, parentRef) => {
 
   return (
     <div
+      data-testid="inner-modal-header"
       ref={parentRef}
       style={{ ...headerStyle, ...style }}
       className={className}
     >
       <div>{children}</div>
-      <div id="inner-modal-header-actions">
+      <div
+        id="inner-modal-header-actions"
+        data-testid="inner-modal-header-actions"
+      >
         {expandButton && isExpanded && (
           <TbMinimize
             id="inner-modal-header-actions-minimize"

@@ -145,7 +145,10 @@ function AnswerImportModal({
                   </Placeholder>
                 )}
                 {!answerLoading && (
-                  <Alert variant="warning">
+                  <Alert
+                    variant="warning"
+                    data-testid="answer-import-selected-import-message"
+                  >
                     <Trans
                       t={t}
                       i18nKey="answerImportFormMessage"
@@ -159,6 +162,7 @@ function AnswerImportModal({
             )}
             <EndButton>
               <Button
+                data-testid="answer-import-button"
                 variant="primary"
                 style={{ backgroundColor: "var(--rust)", color: "white" }}
                 onClick={(e) => handleAnswerImport(e)}
