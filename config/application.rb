@@ -174,14 +174,15 @@ module DMPRoadmap
     # Configure logging
     config.log_formatter = Logger::Formatter.new
 
-    logger = if ENV.fetch('RAILS_LOG_TO_STDOUT', true).to_s.casecmp('true').zero?
-               ActiveSupport::Logger.new($stdout)
-             else
-               ActiveSupport::Logger.new(Rails.root.join('log', "#{Rails.env}.log"))
-             end
+    loggers = [ActiveSupport::Logger.new($stdout)]
 
-    logger.formatter = config.log_formatter
-    config.logger = ActiveSupport::TaggedLogging.new(logger)
+    if ENV.fetch('RAILS_LOG_TO_FILE', 'true').casecmp('true').zero?
+      loggers << ActiveSupport::Logger.new(Rails.root.join('log', "#{Rails.env}.log"))
+    end
+
+    loggers.each { |l| l.formatter = config.log_formatter }
+
+    config.logger = ActiveSupport::BroadcastLogger.new(*loggers)
 
     # Error notifications by email
     if ENV['ERROR_NOTIFICATION_EMAIL'].present?

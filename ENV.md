@@ -354,7 +354,7 @@
 | RAILS_MAX_THREADS | Integer | Maximum Rails threads ``(default: 5)`` |
 | RAILS_RELATIVE_URL_ROOT | String | Rails relative URL root ``(default: /)`` |
 | RAILS_SERVE_STATIC_FILES | Boolean | Serve Rails static files ``(default: false)`` |
-| RAILS_LOG_TO_STDOUT | Boolean | Rails logging to STDOUT ``(default: true)`` |
+| RAILS_LOG_TO_FILE | Boolean | Rails logging to STDOUT ``(default: true)`` |
 | RAILS_LOG_LEVEL | Symbol | Rails logging level ``(default: :info)`` |
 
 ### Redis

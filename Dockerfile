@@ -15,17 +15,9 @@ RUN apt update -y && apt install -y --no-install-recommends \
   libfontconfig1 \
   libvips42t64 \
   tzdata \
-  logrotate \
-  cron \
   gnupg2 && \
   apt-get clean && rm -rf /var/lib/apt/lists/* && \
   ln -sf /usr/share/zoneinfo/Europe/Paris /etc/localtime
-COPY docker/logrotate/rails /etc/logrotate.d/rails
-COPY docker/cron/rails-logrotate /etc/cron.d/rails-logrotate
-RUN chown root:root /etc/cron.d/rails-logrotate && \
-  chmod 644 /etc/cron.d/rails-logrotate && \
-  chown root:root /etc/logrotate.d/rails && \
-  chmod 644 /etc/logrotate.d/rails
 
 FROM base AS dev
 ARG NODE_MAJOR=24
@@ -55,7 +47,7 @@ RUN bin/docker ${DB_ADAPTER:-postgres} && \
 FROM base AS production
 COPY . .
 RUN groupadd -r dmpopidor && useradd -r -g dmpopidor -d /app -s /bin/bash dmpopidor && \
-    chown -R dmpopidor:dmpopidor /app
+  chown -R dmpopidor:dmpopidor /app
 COPY --chown=dmpopidor:dmpopidor --from=production-builder /app/public ./public
 COPY --chown=dmpopidor:dmpopidor --from=production-builder /app/config ./config
 COPY --chown=dmpopidor:dmpopidor --from=production-builder /usr/local/bundle /usr/local/bundle
