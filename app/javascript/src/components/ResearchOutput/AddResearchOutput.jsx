@@ -12,7 +12,7 @@ import { GlobalContext } from "../context/GlobalContext.jsx";
 import { SectionsContext } from "../context/SectionsContext.jsx";
 import { researchOutput, madmpFragment } from "../../services";
 import {
-  createRegistryOptions,
+  createOptions,
   displayPersonalData,
   displayTopics,
 } from "../../utils/GeneratorUtils";
@@ -221,7 +221,7 @@ function AddResearchOutput({
    */
   useEffect(() => {
     madmpFragment.getRegistryByName("Topics").then((res) => {
-      const topicsOpts = createRegistryOptions(res.data, locale);
+      const topicsOpts = createOptions(res.data, locale);
       setTopicOptions(topicsOpts);
 
       if (inEdition) {
@@ -242,7 +242,7 @@ function AddResearchOutput({
 
   useEffect(() => {
     madmpFragment.getRegistryByName("Questionnaires").then((res) => {
-      const questOpts = createRegistryOptions(res.data, locale);
+      const questOpts = createOptions(res.data, locale);
       setDataTypeOptions(questOpts);
 
       if (inEdition) {

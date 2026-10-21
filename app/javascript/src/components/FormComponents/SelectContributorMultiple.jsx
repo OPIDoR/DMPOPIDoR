@@ -8,7 +8,7 @@ import uniqueId from "lodash.uniqueid";
 import { FaPlus } from "react-icons/fa6";
 
 import {
-  createRegistryOptions,
+  createOptions,
   createRegistryPlaceholder,
   parsePattern,
 } from "../../utils/GeneratorUtils.js";
@@ -215,7 +215,7 @@ function SelectContributorMultiple({
           ...loadedRegistries,
           [res.data.name]: res.data.values,
         });
-        const options = createRegistryOptions(res.data.values, locale);
+        const options = createOptions(res.data.values, locale);
         setRoleOptions(options);
       });
     }

@@ -47,10 +47,7 @@ describe("GeneratorUtils.createOptions", () => {
         },
       },
     ];
-    const generatedOptions = utils.createOptions(
-      registriesValues,
-      "fr_FR",
-    );
+    const generatedOptions = utils.createOptions(registriesValues, "fr_FR");
     expect(generatedOptions).toStrictEqual(expectedOptions);
   });
   test("createOptions on simple registry with value", () => {
@@ -70,10 +67,7 @@ describe("GeneratorUtils.createOptions", () => {
         object: {},
       },
     ];
-    const generatedOptions = utils.createOptions(
-      registriesValues,
-      "fr_FR",
-    );
+    const generatedOptions = utils.createOptions(registriesValues, "fr_FR");
     expect(generatedOptions).toStrictEqual(expectedOptions);
   });
   test("createOptions on complex registry", () => {
@@ -97,10 +91,7 @@ describe("GeneratorUtils.createOptions", () => {
         },
       },
     ];
-    const generatedOptions = utils.createOptions(
-      registriesValues,
-      "fr_FR",
-    );
+    const generatedOptions = utils.createOptions(registriesValues, "fr_FR");
     expect(generatedOptions).toStrictEqual(expectedOptions);
   });
 });

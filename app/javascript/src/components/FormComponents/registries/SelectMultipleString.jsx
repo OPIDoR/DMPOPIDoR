@@ -9,7 +9,7 @@ import { FaXmark } from "react-icons/fa6";
 import { GlobalContext } from "../../context/GlobalContext.jsx";
 import { madmpFragment } from "../../../services/index.js";
 import {
-  createRegistryOptions,
+  createOptions,
   createRegistryPlaceholder,
 } from "../../../utils/GeneratorUtils.js";
 import * as styles from "../../assets/css/form.module.css";
@@ -55,7 +55,7 @@ function SelectMultipleString({
   const options = useMemo(
     () =>
       registryValues
-        ? createRegistryOptions(registryValues, locale)
+        ? createOptions(registryValues, locale)
         : [{ value: "", label: "" }],
     [registryValues, locale],
   );

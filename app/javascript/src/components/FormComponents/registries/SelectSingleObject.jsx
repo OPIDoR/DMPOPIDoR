@@ -8,7 +8,7 @@ import Swal from "sweetalert2";
 
 import { madmpFragment } from "../../../services/index.js";
 import {
-  createRegistryOptions,
+  createOptions,
   createRegistryPlaceholder,
   parsePattern,
 } from "../../../utils/GeneratorUtils.js";
@@ -68,7 +68,7 @@ function SelectSingleObject({
   const options = useMemo(
     () =>
       registryValues
-        ? createRegistryOptions(registryValues, locale)
+        ? createOptions(registryValues, locale)
         : [{ value: "", label: "" }],
     [registryValues, locale],
   );

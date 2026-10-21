@@ -4,8 +4,8 @@ import { researchOutput } from "../services";
 function useFetchPlansData(
   dataType = null,
   className = null,
-  shown = true,
   topic = null,
+  shouldFetch = true,
 ) {
   const [data, setData] = useState(null);
   const [loading, setLoading] = useState(true);
@@ -17,7 +17,7 @@ function useFetchPlansData(
       setData(data.plans);
       setLoading(false);
     });
-  }, [shown, dataType, className, topic]);
+  }, [shouldFetch, dataType, className, topic]);
 
   return { data, loading };
 }

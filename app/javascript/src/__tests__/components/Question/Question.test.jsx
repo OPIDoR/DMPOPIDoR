@@ -150,14 +150,9 @@ describe("Question component", () => {
     );
     expect(screen.getByTestId("question-angle-up")).toBeInTheDocument();
     expect(screen.getByTestId("comment-icon")).toBeInTheDocument();
-<<<<<<< HEAD
-    // expect(screen.getByTestId("form-selector-icon")).not.toBeInTheDocument();
-    // expect(screen.getByTestId("runs-icon")).not.toBeInTheDocument();
-=======
     expect(screen.getByTestId("answer-import-icon")).toBeInTheDocument();
     expect(screen.queryByTestId("form-selector-icon")).not.toBeInTheDocument();
     expect(screen.queryByTestId("runs-icon")).not.toBeInTheDocument();
->>>>>>> release/4.5
     expect(screen.queryByTestId("guidance-icon")).not.toBeInTheDocument();
   });
 
