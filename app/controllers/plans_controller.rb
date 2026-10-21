@@ -44,8 +44,7 @@ class PlansController < ApplicationController
         end
         # Sort plans by updated_at desc and filter only structured plans
         plans = @plans.filter(&:structured?).compact.sort_by(&:updated_at).reverse
-        plans = filter_with_classname(plans, classname)
-        plans = filter_with_data_type_topic(plans, data_type, params[:topic])
+        plans = filter_plans(plans, classname, data_type, params[:topic])
         render json: { plans: plans.map(&:serialize_json) }
       end
     end
@@ -675,25 +674,18 @@ class PlansController < ApplicationController
     end
   end
 
-  def filter_with_classname(plans, classname)
-    return plans if classname.blank?
-
-    plans.select do |plan|
-      plan.research_outputs.any? do |ro|
-        ro.answers.any? do |a|
-          a.madmp_fragment.classname == classname
-        end
-      end
-    end
-  end
-
-  def filter_with_data_type_topic(plans, data_type, topic = 'generic')
-    return plans if data_type.blank? || topic.blank?
+  # rubocop:disable-next Metrics/AbcSize
+  # rubocop:disable-next Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
+  def filter_plans(plans, classname, data_type, topic = 'generic')
+    return plans.filter { |plan| plan.research_outputs.any? } if classname.blank? || data_type.blank? || topic.blank?
 
     plans.select do |plan|
       plan.research_outputs.any? do |ro|
         ro.output_type == data_type
         && ro.topic == topic
+        && ro.answers.any? do |a|
+          a.madmp_fragment.classname == classname
+        end
       end
     end
   end

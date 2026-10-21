@@ -2,6 +2,18 @@
 
 **Attention** Cette liste de changements concerne les déploiements sur nos serveurs de test en interne.
 
+## 19/10/2026
+- Mise à jour de changement de plan en visibilité publique (#18739)
+- Correction d'un problème empéchant l'affichage de la liste des produits de recherche lors de l'import d'une réponse.
+- Améliorations de l'import de réponse et de produits de recherche : 
+  - exclusion des plans sans produit de recherche
+  - ajout d'un message lorsqu'aucun produit de recherche ne correspond aux critères d'import dans le plan sélectionné"
+
+## 15/10/2026
+- Correction d'un problème avec le script de génération des PDF (#18650)
+- Retrait de la création des contributeurs dans l'onglet Contributeurs des plans structurés (#18652)
+- Correction d'un problème de génération du contact du plan
+
 ## 12/10/2026
 - Correction d'un problème d'affichage des symboles HTML dans les titres et corps des actualités (#18700)
 - Retrait de la création et modification des contributeurs dans l'onglet Contributeurs des plans structurés (#18652)

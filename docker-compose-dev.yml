@@ -62,14 +62,14 @@ services:
       - dmpopidor_network
 
   maildev:
-    image: maildev/maildev:2.2.1
+    image: maildev/maildev:3.0.0
     ports:
       - 1080:1080
     healthcheck:
       test:
         [
           "CMD-SHELL",
-          "wget -q -S -O - http://0.0.0.0:1080 2>&1 | grep 'HTTP/1.1 200 OK'"
+          "wget -q -S -O - http://0.0.0.0:1080/api/healthz 2>&1 | grep 'HTTP/1.1 200 OK'"
         ]
       interval: ${MAILDEV_HEALTHCHECK_INTERVAL:-30s}
       timeout: ${MAILDEV_HEALTHCHECK_TIMEOUT:-10s}

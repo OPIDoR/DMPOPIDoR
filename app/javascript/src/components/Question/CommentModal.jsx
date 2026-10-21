@@ -2,7 +2,7 @@ import { useRef, useContext, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { GlobalContext } from "../context/GlobalContext.jsx";
 import InnerModal from "../Shared/InnerModal/InnerModal.jsx";
-import CommentList from "../Shared/CommentList.jsx";
+import CommentsList from "../Comments/CommentsList.jsx";
 
 function CommentModal({
   shown,
@@ -36,7 +36,7 @@ function CommentModal({
         </InnerModal.Title>
       </InnerModal.Header>
       <InnerModal.Body style={{ borderRadius: "0 0 10px 10px" }}>
-        <CommentList
+        <CommentsList
           answerId={answerId}
           researchOutputId={researchOutputId}
           planId={planId}

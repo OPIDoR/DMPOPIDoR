@@ -18,8 +18,8 @@ class ResearchOutputsController < ApplicationController
     authorize(ResearchOutput.new(plan: plan))
     research_outputs = plan.research_outputs.order(:display_order)
     if params[:classname].present? && params[:data_type].present? && params[:topic].present?
-      research_outputs = filter_with_classname(research_outputs, params[:classname])
-      research_outputs = filter_with_data_type_topic(research_outputs, params[:data_type], params[:topic])
+      research_outputs = filter_research_outputs(research_outputs, params[:classname], params[:data_type],
+                                                 params[:topic])
     end
     render json: {
       id: plan.id,
@@ -449,21 +449,17 @@ class ResearchOutputsController < ApplicationController
     }, status: 400
   end
 
-  def filter_with_classname(research_outputs, classname)
+  # rubocop:disable-next Metrics/CyclomaticComplexity
+  def filter_research_outputs(research_outputs, classname, data_type, topic = 'generic')
     return research_outputs if classname.blank?
-
-    research_outputs.select do |ro|
-      ro.answers.any? do |a|
-        a.madmp_fragment.classname == classname
-      end
-    end
-  end
-
-  def filter_with_data_type_topic(research_outputs, data_type, topic)
     return research_outputs if data_type.blank? || topic.blank?
 
     research_outputs.select do |ro|
-      ro.output_type == data_type && ro.topic == topic
+      ro.output_type == data_type
+      && ro.topic == topic
+      && ro.answers.any? do |a|
+        a.madmp_fragment.classname == classname
+      end
     end
   end
 end

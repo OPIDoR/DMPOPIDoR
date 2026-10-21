@@ -41,7 +41,7 @@
 
 .card_icon {
   color: var(--dark-blue);
-  margin: 0px 5px 0px 0px;
+  margin: 0px 5px;
 }
 
 .question_number {

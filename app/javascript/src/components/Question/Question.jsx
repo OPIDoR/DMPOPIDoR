@@ -7,8 +7,6 @@ import Button from "react-bootstrap/Button";
 import Card from "react-bootstrap/Card";
 import Collapse from "react-bootstrap/Collapse";
 
-import { TfiAngleDown, TfiAngleUp } from "react-icons/tfi";
-
 import { GlobalContext } from "../context/GlobalContext.jsx";
 import { SectionsContext } from "../context/SectionsContext.jsx";
 import { FormsContext } from "../context/FormsContext.jsx";
@@ -18,14 +16,10 @@ import DynamicForm from "../Forms/DynamicForm.jsx";
 import GuidanceModal from "./GuidanceModal.jsx";
 import CommentModal from "./CommentModal.jsx";
 import RunsModal from "./RunsModal.jsx";
-import CommentIcon from "./Icons/CommentIcon.jsx";
-import FormSelectorIcon from "./Icons/FormSelectorIcon.jsx";
-import GuidanceIcon from "./Icons/GuidanceIcon.jsx";
-import RunsIcon from "./Icons/RunsIcon.jsx";
-import AnswerImportIcon from "./Icons/AnswerImportIcon.jsx";
 
 import { guidances } from "../../services/index.js";
 import AnswerImportModal from "./AnswerImportModal.jsx";
+import IconsContainer from "./Icons/Container.jsx";
 
 const closedModalState = {
   guidance: false,
@@ -69,6 +63,19 @@ function Question({ planId, question, questionIdx, sectionNumber, readonly }) {
     );
   }, [displayedResearchOutput.answers, questionId]);
 
+  const showIcons = useMemo(() => {
+    return {
+      guidanceIcon: hasGuidances,
+      commentIcon: true,
+      formSelectorIcon:
+        isQuestionOpened &&
+        !answer &&
+        formSelectors[question?.madmp_schema?.classname],
+      runsIcon: scriptsData.scripts.length > 0 && !!answer,
+      answerImportIcon: true,
+    };
+  }, [hasGuidances, answer, formSelectors, question, scriptsData]);
+
   /**
    * Handles toggling the open/collapse state of a question.
    * This function is called when a question is collapsed or expanded.
@@ -83,9 +90,6 @@ function Question({ planId, question, questionIdx, sectionNumber, readonly }) {
       [displayedResearchOutput.id]: updatedState,
     });
   };
-
-  const getFillColor = (isOpened) =>
-    isOpened ? "var(--rust)" : "var(--dark-blue)";
 
   /**
    * Handles a given modal state according to the modalType & the state
@@ -177,67 +181,13 @@ function Question({ planId, question, questionIdx, sectionNumber, readonly }) {
                     />
                   </div>
 
-                  <div
-                    id="icons-container"
-                    className={styles.question_icons}
-                    style={{
-                      display: "flex",
-                      justifyContent: "flex-end",
-                      maxWidth: "200px",
-                    }}
-                  >
-                    {hasGuidances && (
-                      <GuidanceIcon
-                        isQuestionOpened={isQuestionOpened}
-                        fillColor={getFillColor(showModals.guidance)}
-                        setModalOpened={setModalOpened}
-                      />
-                    )}
-
-                    <CommentIcon
-                      isQuestionOpened={isQuestionOpened}
-                      newCommentCount={answer?.new_comment_count || 0}
-                      fillColor={getFillColor(showModals.comment)}
-                      setModalOpened={setModalOpened}
-                    />
-
-                    {isQuestionOpened &&
-                      !answer &&
-                      formSelectors[question?.madmp_schema?.classname] && (
-                        <FormSelectorIcon
-                          fillColor={getFillColor(showModals.formSelector)}
-                          setModalOpened={setModalOpened}
-                        />
-                      )}
-
-                    {scriptsData.scripts.length > 0 && answer && (
-                      <RunsIcon
-                        isQuestionOpened={isQuestionOpened}
-                        fillColor={getFillColor(showModals.runs)}
-                        setModalOpened={setModalOpened}
-                      />
-                    )}
-
-                    <AnswerImportIcon
-                      isQuestionOpened={isQuestionOpened}
-                      fillColor={getFillColor(showModals.import)}
-                      setModalOpened={setModalOpened}
-                    />
-
-                    {isQuestionOpened ? (
-                      <TfiAngleUp
-                        data-testid="question-angle-up"
-                        style={{ marginLeft: "5px" }}
-                        size={32}
-                      />
-                    ) : (
-                      <TfiAngleDown
-                        data-testid="question-angle-down"
-                        style={{ marginLeft: "5px" }}
-                        size={32}
-                      />
-                    )}
-                  </div>
+                  <IconsContainer
+                    answer={answer}
+                    isQuestionOpened={isQuestionOpened}
+                    showIcons={showIcons}
+                    showModals={showModals}
+                    setModalOpened={setModalOpened}
+                  />
                 </div>
               </Card.Title>
             </Button>

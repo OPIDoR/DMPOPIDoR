@@ -9,21 +9,21 @@ import { fr, enGB } from "date-fns/locale";
 import { BiEdit } from "react-icons/bi";
 import { FaTrash } from "react-icons/fa6";
 import Global from "../context/GlobalContext.jsx";
-import EditorComment from "../Question/EditorComment.jsx";
-import CustomSpinner from "./CustomSpinner.jsx";
-import CustomError from "./CustomError.jsx";
+import CommentEditor from "./CommentEditor.jsx";
+import CustomSpinner from "../Shared/CustomSpinner.jsx";
+import CustomError from "../Shared/CustomError.jsx";
 import { comments as commentsService } from "../../services/index.js";
 import {
   NavBodyText,
   ScrollNav,
   CommentsCard,
-} from "../Question/styles/CommentModalStyles.jsx";
+} from "./styles/CommentsStyles.jsx";
 import "../../i18n.js";
 import swalUtils from "../../utils/swalUtils.js";
 
 const locales = { fr, en: enGB };
 
-function CommentList({
+function CommentsList({
   answerId,
   researchOutputId,
   planId,
@@ -170,7 +170,7 @@ function CommentList({
     updateTitle([newNote, ...comments]);
     setComments([newNote, ...comments]);
 
-    if (data.answer_created) {
+    if (data.answer_created && setAnswer) {
       setAnswer(data.answer);
     }
 
@@ -216,7 +216,9 @@ function CommentList({
       .get(answerId)
       .then(({ data }) => {
         setComments(data?.notes || []);
-        setAnswer({ new_comment_count: 0 });
+        if (setAnswer) {
+          setAnswer({ new_comment_count: 0 });
+        }
       })
       .catch((error) =>
         setError({
@@ -313,7 +315,7 @@ function CommentList({
               >
                 {t("addComment")}
               </p>
-              <EditorComment
+              <CommentEditor
                 initialValue={text}
                 updateParentText={updateParentText}
               />
@@ -338,4 +340,4 @@ function CommentList({
   );
 }
 
-export default CommentList;
+export default CommentsList;

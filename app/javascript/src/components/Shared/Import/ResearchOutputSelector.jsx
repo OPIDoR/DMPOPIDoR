@@ -97,7 +97,7 @@ function ResearchOutputSelector({
             options={plans}
             selectedOption={selectedPlan}
             isDisabled={loading}
-            placeholder={t("selectValueFromList")}
+            placeholder={t("selectPlanFromList")}
           />
         </div>
       ) : (
@@ -109,7 +109,16 @@ function ResearchOutputSelector({
       {researchOutputsLoading && selectedPlan && (
         <ChooseResearchOutputPlaceholder />
       )}
-      {researchOutputsData?.length > 0 && (
+      {!researchOutputsLoading &&
+        selectedPlan &&
+        researchOutputs?.length == 0 && (
+          <div className="form-group">
+            <Alert variant="warning">
+              {t("noResearchOutputsComplyWithImportRules")}
+            </Alert>
+          </div>
+        )}
+      {researchOutputs?.length > 0 && (
         <div className="form-group">
           <div className={stylesForm.label_form}>
             <label>{t("chooseOutput")}</label>
@@ -119,7 +128,7 @@ function ResearchOutputSelector({
             options={researchOutputs}
             selectedOption={selectedResearchOutput}
             isDisabled={loading}
-            placeholder={t("selectValueFromList")}
+            placeholder={t("selectResearchOutputFromList")}
           />
         </div>
       )}

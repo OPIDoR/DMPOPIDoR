@@ -6,7 +6,11 @@ const titleStyle = {
 
 function InnerModalTitle({ className, style, children }) {
   return (
-    <div style={{ ...titleStyle, ...style }} className={className}>
+    <div
+      data-testid="inner-modal-title"
+      style={{ ...titleStyle, ...style }}
+      className={className}
+    >
       {children}
     </div>
   );

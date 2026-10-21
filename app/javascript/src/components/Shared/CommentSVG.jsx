@@ -1,6 +1,18 @@
-function CommentSVG({ fill, size, commentCount = 0 }) {
+function CommentSVG({ fill, size, commentCount = 0, setModalOpened }) {
   return (
-    <div style={{ position: "relative", display: "inline-block" }}>
+    <div
+      data-testid="comment-icon"
+      data-tooltip-id="commentTooltip"
+      style={{
+        position: "relative",
+        display: "inline-block",
+        margin: "0 5px",
+        color: fill,
+      }}
+      onClick={(e) => {
+        setModalOpened(e, "comment", true);
+      }}
+    >
       <svg
         width={size ? `${size}px` : "40px"}
         height={size ? `${size}px` : "40px"}

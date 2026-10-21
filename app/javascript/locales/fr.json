@@ -243,6 +243,7 @@
   "yesDuplicate": "Oui, dupliquer !",
   "personalDataQuestionDisplayCondition": "Si la réponse est oui, une question spécifique à la protection des données personnelles est proposée. Si la réponse est non, cette question ne s'affiche pas.",
   "noPlansComplyWithImportRules": "Aucun plan ne respecte les règles d'imports (posséder au moins un produit de recherche ou un type de produit de recherche)",
+  "noResearchOutputsComplyWithImportRules": "Aucun produit de recherche n'est disponible pour l'import",
   "canReuseResearchOutputInfoFromPlans": "Vous pouvez réutiliser les informations de produits de recherche provenant de plans auxquels vous collaborez et de plans entités publics.",
   "createResearchOutputInfo": "Vous pouvez sélectionner ici :<br/> - le questionnaire le plus adapté au produit généré",
   "chooseTopicInfo": " - puis éventuellement une thématique si votre communauté scientifique a publié des recommandations et/ou des listes d’outils et de standards",
@@ -317,5 +318,7 @@
   "themesTooltip": "Sélectionnez un thème pertinent pour cette recommandation",
   "errorAnswerImport": "Un erreur s'est produite lors de l'import de la réponse",
   "answerImportSuccess": "Réponse importée avec succès",
-  "researchOutputHasNewComments": "Ce produit de recherche a de nouveaux commentaires"
+  "researchOutputHasNewComments": "Ce produit de recherche a de nouveaux commentaires",
+  "selectPlanFromList": "Sélectionnez un plan dans la liste",
+  "selectResearchOutputFromList": "Sélectionnez un produit de recherche dans la liste"
 }
