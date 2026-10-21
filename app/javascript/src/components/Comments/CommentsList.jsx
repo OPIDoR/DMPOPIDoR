@@ -170,7 +170,7 @@ function CommentsList({
     updateTitle([newNote, ...comments]);
     setComments([newNote, ...comments]);
 
-    if (data.answer_created) {
+    if (data.answer_created && setAnswer) {
       setAnswer(data.answer);
     }
 
@@ -216,7 +216,9 @@ function CommentsList({
       .get(answerId)
       .then(({ data }) => {
         setComments(data?.notes || []);
-        setAnswer({ new_comment_count: 0 });
+        if (setAnswer) {
+          setAnswer({ new_comment_count: 0 });
+        }
       })
       .catch((error) =>
         setError({
