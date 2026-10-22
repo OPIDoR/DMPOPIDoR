@@ -22,6 +22,7 @@ function RunsModal({ shown, hide, scriptsData, fragmentId }) {
   const [success, setSuccess] = useState(null);
   const modalRef = useRef(null);
 
+  console.log("locale", locale, "setClients", setClients);
   const handleRunScript = (scriptName) => {
     if (
       scriptsData?.apiClient &&
@@ -103,14 +104,16 @@ function RunsModal({ shown, hide, scriptsData, fragmentId }) {
         {!error && (
           <>
             {scriptsData.scripts.map((script, idx) => (
-              <div key={idx}>
+              <div key={idx} data-testid={`script-${idx}`}>
                 <CustomButton
                   handleClick={() => handleRunScript(script.name)}
                   title={createFormLabel(script, locale)}
                   buttonColor={"white"}
                   position="center"
                 />
-                <span>{script?.[`tooltip@${locale}`]}</span>
+                <span data-testid={`script-tooltip-${idx}`}>
+                  {script?.[`tooltip@${locale}`]}
+                </span>
               </div>
             ))}
           </>
