@@ -347,7 +347,7 @@ class PlansController < ApplicationController
     @plan = Plan.eager_load(:phases, :research_outputs).find(params[:id])
     authorize @plan
 
-    @research_outputs = @plan.research_outputs
+    @research_outputs = @plan.research_outputs.order(:display_order)
 
     @phase_options = @plan.phases.order(:number).pluck(:title, :id)
     @phase_options.insert(0, ['All phases', 'All']) if @phase_options.length > 1
