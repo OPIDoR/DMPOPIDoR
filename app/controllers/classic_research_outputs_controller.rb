@@ -12,7 +12,7 @@ class ClassicResearchOutputsController < ApplicationController
 
   # GET /plans/:plan_id/research_outputs
   def index
-    @research_outputs = @plan.research_outputs
+    @research_outputs = @plan.research_outputs.order(:display_order)
     @persons = @plan.json_fragment.persons
     authorize @research_outputs.first
 
@@ -22,7 +22,7 @@ class ClassicResearchOutputsController < ApplicationController
     redirect_to(controller: 'plans', action: 'index')
   end
 
-  # rubocop:disable-next Metrics/AbcSize, Metrics/MethodLength
+  # rubocop:disable-next Metrics/AbcSize
   def create
     @plan = Plan.includes(:template).find(params[:plan_id])
     I18n.with_locale @plan.template.locale do
@@ -43,10 +43,12 @@ class ClassicResearchOutputsController < ApplicationController
                                       title: "#{_('Research output')} #{@research_output.id}")
       @research_output.create_json_fragments
 
-      @research_outputs = @plan.research_outputs
+      @research_outputs = @plan.research_outputs.order(:display_order)
       authorize @plan
-      render turbo_stream: turbo_stream.append('research_outputs', partial: 'research_outputs/research_output',
-                                                                   locals: { research_output: @research_output })
+
+      render turbo_stream: turbo_stream.replace('research-outputs-list',
+                                                partial: 'research_outputs/list',
+                                                locals: { research_outputs: @research_outputs, plan: @plan })
     end
   end
 
@@ -57,16 +59,18 @@ class ClassicResearchOutputsController < ApplicationController
     @persons = @plan.json_fragment.persons
     authorize @plan
     if @research_output.destroy
-      @plan.research_outputs.each_with_index do |ro, index|
+      @plan.research_outputs.order(:display_order).each_with_index do |ro, index|
         ro.update_column(:display_order, index + 1)
       end
       flash[:notice] = success_message(@research_output, _('deleted'))
     else
       flash[:alert] = failure_message(@research_output, _('delete'))
     end
-    @research_outputs = @plan.research_outputs
+    @research_outputs = @plan.research_outputs.order(:display_order)
 
-    render turbo_stream: turbo_stream.remove(@research_output)
+    render turbo_stream: turbo_stream.replace('research-outputs-list',
+                                              partial: 'research_outputs/list',
+                                              locals: { research_outputs: @research_outputs, plan: @plan })
   end
 
   # rubocop:disable-next Metrics/AbcSize, Metrics/MethodLength
