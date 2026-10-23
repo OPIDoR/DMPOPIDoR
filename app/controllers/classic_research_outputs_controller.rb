@@ -22,9 +22,9 @@ class ClassicResearchOutputsController < ApplicationController
     redirect_to(controller: 'plans', action: 'index')
   end
 
-  # rubocop:disable-next Metrics/AbcSize
+  # rubocop:disable-next Metrics/AbcSize, Metrics/MethodLength
   def create
-    @plan = Plan.includes(:template).find(params[:plan_id])
+    @plan = Plan.includes(:template, :research_outputs).find(params[:plan_id])
     I18n.with_locale @plan.template.locale do
       @persons = @plan.json_fragment.persons
       max_order = @plan.research_outputs.maximum('display_order') + 1
@@ -54,11 +54,11 @@ class ClassicResearchOutputsController < ApplicationController
 
   # rubocop:disable-next Metrics/AbcSize
   def destroy
-    @plan = Plan.find(params[:plan_id])
+    @plan = Plan.includes(:research_outputs).find(params[:plan_id])
     @research_output = ResearchOutput.find(params[:id])
     @persons = @plan.json_fragment.persons
     authorize @plan
-    if @research_output.destroy
+    if @plan.research_outputs.length > 1 && @research_output.destroy
       @plan.research_outputs.order(:display_order).each_with_index do |ro, index|
         ro.update_column(:display_order, index + 1)
       end
