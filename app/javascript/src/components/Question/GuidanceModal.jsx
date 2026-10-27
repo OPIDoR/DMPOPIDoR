@@ -178,6 +178,7 @@ function GuidanceModal({ shown, hide, questionId, researchOutputId }) {
             >
               {data.map((el, idx) => (
                 <span
+                  data-testid={`guidance-tab-${idx}`}
                   key={`guidance-tab-${idx}`}
                   onClick={(e) => {
                     e.stopPropagation();
@@ -206,6 +207,7 @@ function GuidanceModal({ shown, hide, questionId, researchOutputId }) {
                     content={el.name}
                   />
                   <span
+                    data-testid={`guidance-tab-title-${idx}`}
                     key={`guidance-tab-title-${idx}`}
                     data-tooltip-id={`guidance-tab-title-${idx}`}
                     alt={el.name}
@@ -217,7 +219,9 @@ function GuidanceModal({ shown, hide, questionId, researchOutputId }) {
                 </span>
               ))}
             </nav>
-            <div id="guidances-content">{data && getContent()}</div>
+            <div id="guidances-content" data-testid="guidances-content">
+              {data && getContent()}
+            </div>
           </>
         )}
       </InnerModal.Body>

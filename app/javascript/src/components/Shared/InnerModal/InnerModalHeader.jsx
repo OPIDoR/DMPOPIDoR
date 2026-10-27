@@ -47,7 +47,7 @@ const InnerModalHeader = forwardRef((props, parentRef) => {
       style={{ ...headerStyle, ...style }}
       className={className}
     >
-      <div>{children}</div>
+      <>{children}</>
       <div
         id="inner-modal-header-actions"
         data-testid="inner-modal-header-actions"

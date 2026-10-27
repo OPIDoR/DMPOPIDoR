@@ -136,130 +136,120 @@ function OrcidList({ fragment, setFragment, mapping = {} }) {
       {error && <CustomError error={error} />}
       {!error && (
         <>
-          <div className="row" style={{ margin: "10px" }}>
-            <div>
-              <div className="row" style={{ marginBottom: "10px" }}>
-                <div>
-                  <i>
-                    <Trans
-                      t={t}
-                      i18nKey="orcidIdExplanation"
-                      components={[
-                        // eslint-disable-next-line react/jsx-key
-                        <a
-                          href="https://orcid.org/"
-                          target="_blank"
-                          rel="noopener noreferrer"
-                          style={{ textDecoration: "underline" }}
-                        >
-                          ORCID
-                        </a>,
-                      ]}
-                    />
-                  </i>
-                </div>
-              </div>
-              <div className="row">
-                <div>
-                  <div className="input-group">
-                    <input
-                      type="text"
-                      className="form-control"
-                      value={text}
-                      placeholder={t("searchPerson")}
-                      onChange={(e) => setText(e.target.value)}
-                      onKeyDown={(e) => handleKeyDown(e)}
-                      style={{
-                        borderRadius: "8px 0 0 8px",
-                        borderWidth: "1px",
-                        borderColor: "var(--dark-blue)",
-                        height: "43px",
-                      }}
-                    />
-                    <span className="input-group-btn">
-                      <button
-                        className="btn btn-default"
-                        type="button"
-                        onClick={handleSearchTerm}
-                        style={{
-                          borderRadius: "0",
-                          borderWidth: "1px",
-                          borderColor: "var(--dark-blue)",
-                          height: "43px",
-                          margin: "0",
-                        }}
-                      >
-                        <span
-                          className="fas fa-magnifying-glass"
-                          style={{ color: "var(--dark-blue)" }}
-                        />
-                      </button>
-                    </span>
-                    <span className="input-group-btn">
-                      <button
-                        onClick={handleDeleteText}
-                        className="btn btn-default"
-                        type="button"
-                        style={{
-                          borderRadius: "0 8px 8px 0",
-                          borderWidth: "1px",
-                          borderColor: "var(--dark-blue)",
-                          height: "43px",
-                          margin: "0",
-                        }}
-                      >
-                        <span className="fa fa-xmark" />
-                      </button>
-                    </span>
-                  </div>
-                </div>
-              </div>
+          <div className="row" style={{ marginBottom: "10px" }}>
+            <span style={{ marginBottom: "10px" }}>
+              <i>
+                <Trans
+                  t={t}
+                  i18nKey="orcidIdExplanation"
+                  components={[
+                    // eslint-disable-next-line react/jsx-key
+                    <a
+                      href="https://orcid.org/"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      style={{ textDecoration: "underline" }}
+                    >
+                      ORCID
+                    </a>,
+                  ]}
+                />
+              </i>
+            </span>
+            <div className="input-group">
+              <input
+                type="text"
+                className="form-control"
+                value={text}
+                placeholder={t("searchPerson")}
+                onChange={(e) => setText(e.target.value)}
+                onKeyDown={(e) => handleKeyDown(e)}
+                style={{
+                  borderRadius: "8px 0 0 8px",
+                  borderWidth: "1px",
+                  borderColor: "var(--dark-blue)",
+                  height: "43px",
+                }}
+              />
+              <span className="input-group-btn">
+                <button
+                  className="btn btn-default"
+                  type="button"
+                  onClick={handleSearchTerm}
+                  style={{
+                    borderRadius: "0",
+                    borderWidth: "1px",
+                    borderColor: "var(--dark-blue)",
+                    height: "43px",
+                    margin: "0",
+                  }}
+                >
+                  <span
+                    className="fas fa-magnifying-glass"
+                    style={{ color: "var(--dark-blue)" }}
+                  />
+                </button>
+              </span>
+              <span className="input-group-btn">
+                <button
+                  onClick={handleDeleteText}
+                  className="btn btn-default"
+                  type="button"
+                  style={{
+                    borderRadius: "0 8px 8px 0",
+                    borderWidth: "1px",
+                    borderColor: "var(--dark-blue)",
+                    height: "43px",
+                    margin: "0",
+                  }}
+                >
+                  <span className="fa fa-xmark" />
+                </button>
+              </span>
             </div>
           </div>
-          <div>
-            <table className="table table-bordered table-hover">
-              <thead className="thead-dark">
-                <tr>
-                  <th scope="col"></th>
-                  <th scope="col">{t("fullName")}</th>
-                  <th scope="col">{t("orcidAffiliations")}</th>
-                </tr>
-              </thead>
-              <tbody>
-                {currentData.length > 0 ? (
-                  currentData.map((el, idx) => (
-                    <tr key={idx}>
-                      <td>
-                        {selectedPerson === el.orcid ? (
-                          <FaCheckCircle
-                            className="text-center"
-                            style={{ color: "green" }}
-                          />
-                        ) : (
-                          <FaPlusSquare
-                            className="text-center"
-                            style={{ cursor: "pointer" }}
-                            onClick={() => setSelectedValue(el)}
-                          />
-                        )}
-                      </td>
-                      <td>{`${el.familyNames} ${el.givenNames} `}</td>
-                      <td>{el?.institutionName.join(" / ")}</td>
-                    </tr>
-                  ))
-                ) : (
-                  <tr>
-                    <td
-                      colSpan="5"
-                      style={{ textAlign: loading ? "center" : "left" }}
-                    >
-                      {loading ? <CustomSpinner /> : t("noData")}
+          <table className="table table-bordered table-hover">
+            <thead className="thead-dark">
+              <tr>
+                <th scope="col"></th>
+                <th scope="col">{t("fullName")}</th>
+                <th scope="col">{t("orcidAffiliations")}</th>
+              </tr>
+            </thead>
+            <tbody>
+              {currentData.length > 0 ? (
+                currentData.map((el, idx) => (
+                  <tr key={idx}>
+                    <td>
+                      {selectedPerson === el.orcid ? (
+                        <FaCheckCircle
+                          className="text-center"
+                          style={{ color: "green" }}
+                        />
+                      ) : (
+                        <FaPlusSquare
+                          className="text-center"
+                          style={{ cursor: "pointer" }}
+                          onClick={() => setSelectedValue(el)}
+                        />
+                      )}
                     </td>
+                    <td>{`${el.familyNames} ${el.givenNames} `}</td>
+                    <td>{el?.institutionName.join(" / ")}</td>
                   </tr>
-                )}
-              </tbody>
-            </table>
-          </div>
+                ))
+              ) : (
+                <tr>
+                  <td
+                    colSpan="5"
+                    style={{ textAlign: loading ? "center" : "left" }}
+                  >
+                    {loading ? <CustomSpinner /> : t("noData")}
+                  </td>
+                </tr>
+              )}
+            </tbody>
+          </table>
           {data.length > 0 && (
             <div className="row text-center">
               <div className="mx-auto"></div>

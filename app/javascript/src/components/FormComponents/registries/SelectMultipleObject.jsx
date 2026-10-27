@@ -189,7 +189,7 @@ function SelectMultipleObject({
    */
 
   return (
-    <div>
+    <>
       <div className="form-group">
         <div className={styles.label_form}>
           <label
@@ -324,7 +324,7 @@ function SelectMultipleObject({
           handleClose={handleClose}
         />
       )}
-    </div>
+    </>
   );
 }
 

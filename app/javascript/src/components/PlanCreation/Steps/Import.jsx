@@ -145,7 +145,7 @@ function Import({ prevStep, params, set }) {
    */
 
   return (
-    <div>
+    <>
       {loading && <CustomSpinner />}
       {!loading && templates.length === 0 && (
         <h2>{t("noTemplatesMeetCriteria")}</h2>
@@ -209,7 +209,7 @@ function Import({ prevStep, params, set }) {
           </div>
         </>
       )}
-    </div>
+    </>
   );
 }
 

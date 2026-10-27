@@ -247,7 +247,7 @@ function CommentsList({
       {loading && <CustomSpinner />}
       {!loading && error && <CustomError error={error} />}
       {!loading && !error && comments && (
-        <div>
+        <>
           {comments.length === 0 && (
             <NavBodyText>
               <CommentsCard style={{ margin: 0 }}>
@@ -334,7 +334,7 @@ function CommentsList({
               )}
             </>
           )}
-        </div>
+        </>
       )}
     </Global>
   );
