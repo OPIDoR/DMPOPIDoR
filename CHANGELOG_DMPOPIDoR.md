@@ -2,6 +2,10 @@
 
 **Attention** Cette liste de changements concerne les déploiements sur nos serveurs de test en interne.
 
+## 28/10/2026
+- Correction d'un problème autorisant la suppression de tous les produits de recherche dans les plans classiques (#18758)
+- Correction de l'ordre des produits de recherche dans l'onglet Télécharger
+
 ## 19/10/2026
 - Mise à jour de changement de plan en visibilité publique (#18739)
 - Correction d'un problème empéchant l'affichage de la liste des produits de recherche lors de l'import d'une réponse.
