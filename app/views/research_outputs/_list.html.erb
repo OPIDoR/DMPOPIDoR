@@ -1,7 +1,9 @@
 <% I18n.with_locale plan.template.locale do %>
   <%= turbo_frame_tag "research_outputs" do %>
     <ul id='research-outputs-list'>
-      <%= render research_outputs %>
+      <%= render partial: "research_outputs/research_output",
+                 collection: research_outputs,
+                 locals: { can_delete: research_outputs.length > 1 } %>
     </ul>
   <% end %>
 <% end %>
