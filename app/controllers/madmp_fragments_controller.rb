@@ -13,7 +13,7 @@ class MadmpFragmentsController < ApplicationController
     authorize fragment
     render json: {
       fragment_id: fragment.id,
-      template_name: fragment.madmp_schema.name
+      template_name: fragment.madmp_schema.label
     }
   end
 
@@ -166,7 +166,8 @@ class MadmpFragmentsController < ApplicationController
         imported_fragment.madmp_schema
       )
     end
-    render json: MadmpFragment.render_fragment_json(answer.madmp_fragment, answer.madmp_fragment.madmp_schema).merge(answer_created: answer.previously_new_record?)
+    render json: MadmpFragment.render_fragment_json(answer.madmp_fragment,
+                                                    answer.madmp_fragment.madmp_schema).merge(answer_created: answer.previously_new_record?)
   end
 
   # Since the StaleObjectError is triggered on the Answer we need to recover the
