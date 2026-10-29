@@ -2,12 +2,7 @@ import { useState } from "react";
 import { useTranslation } from "react-i18next";
 import { OrcidList, RorList, Metadore } from ".";
 
-function ImportExternal({
-  fragment,
-  setFragment,
-  externalImports = {},
-  locale,
-}) {
+function ImportExternal({ fragment, setFragment, externalImports = {} }) {
   const { t } = useTranslation();
 
   const [importsState, setImportsState] = useState(
@@ -36,7 +31,6 @@ function ImportExternal({
           fragment={fragment}
           setFragment={setFragment}
           mapping={mapping}
-          locale={locale}
         />
       ),
       orcid: (fragment, setFragment, mapping) => (

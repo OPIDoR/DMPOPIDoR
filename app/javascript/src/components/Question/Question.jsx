@@ -121,169 +121,163 @@ function Question({ planId, question, questionIdx, sectionNumber, readonly }) {
    */
 
   return (
-    <>
-      {
-        <Card
-          id={`question-card-${questionId}`}
+    <Card
+      id={`question-card-${questionId}`}
+      style={{
+        borderRadius: "10px",
+        borderWidth: "2px",
+        borderColor: "var(--dark-blue)",
+        marginBottom: "20px",
+      }}
+    >
+      <Card.Header
+        style={{
+          background: "white",
+          borderRadius: "18px",
+          borderBottom: "none",
+          paddingBottom: "0",
+        }}
+      >
+        <Button
           style={{
-            borderRadius: "10px",
-            borderWidth: "2px",
-            borderColor: "var(--dark-blue)",
-            marginBottom: "20px",
+            backgroundColor: "white",
+            width: "100%",
+            border: "none",
+            margin: "0",
+            padding: "0",
+            borderBottom: "1px solid #ddd",
+            borderRadius: "0",
           }}
+          onClick={() => handleQuestionCollapse(!isQuestionOpened)}
+          aria-controls={`card-collapse-${questionId}`}
+          aria-expanded={isQuestionOpened}
+          data-testid="question-collapse"
         >
-          <Card.Header
-            style={{
-              background: "white",
-              borderRadius: "18px",
-              borderBottom: "none",
-              paddingBottom: "0",
-            }}
-          >
-            <Button
-              style={{
-                backgroundColor: "white",
-                width: "100%",
-                border: "none",
-                margin: "0",
-                padding: "0",
-                borderBottom: "1px solid #ddd",
-                borderRadius: "0",
-              }}
-              onClick={() => handleQuestionCollapse(!isQuestionOpened)}
-              aria-controls={`card-collapse-${questionId}`}
-              aria-expanded={isQuestionOpened}
-              data-testid="question-collapse"
-            >
-              <Card.Title>
-                <div className={styles.question_title}>
-                  <div className={styles.question_text}>
-                    <div
-                      className={styles.question_number}
-                      data-testid="question-number"
-                    >
-                      {sectionNumber}.{questionIdx}
-                    </div>
-                    <div
-                      className={styles.card_title}
-                      data-testid="question-text"
-                      style={{
-                        fontSize: "18px",
-                        fontWeight: "bold",
-                        whiteSpace: "break-spaces",
-                        textAlign: "justify",
-                        hyphens: "auto",
-                        paddingRight: "20px",
-                      }}
-                      dangerouslySetInnerHTML={{
-                        __html: DOMPurify.sanitize([question.text]),
-                      }}
-                    />
-                  </div>
-
-                  <IconsContainer
-                    answer={answer}
-                    isQuestionOpened={isQuestionOpened}
-                    showIcons={showIcons}
-                    showModals={showModals}
-                    setModalOpened={setModalOpened}
-                  />
+          <Card.Title>
+            <div className={styles.question_title}>
+              <div className={styles.question_text}>
+                <div
+                  className={styles.question_number}
+                  data-testid="question-number"
+                >
+                  {sectionNumber}.{questionIdx}
                 </div>
-              </Card.Title>
-            </Button>
-          </Card.Header>
-          <Collapse in={isQuestionOpened}>
-            <div id={`card-collapse-${questionId}`}>
-              <Card.Body
-                id={`card-body-${questionId}`}
-                style={{ position: "relative", paddingTop: "0" }}
-              >
-                {isQuestionOpened && (
-                  <div>
-                    {answer && (
-                      <>
-                        {!readonly && scriptsData.scripts.length > 0 && (
-                          <RunsModal
-                            shown={showModals.runs === true}
-                            hide={(e) => setModalOpened(e, "runs", false)}
-                            scriptsData={scriptsData}
-                            fragmentId={answer?.fragment_id}
-                          />
-                        )}
-                      </>
-                    )}
-                    <CommentModal
-                      shown={showModals.comment === true}
-                      hide={(e) => setModalOpened(e, "comment", false)}
-                      answerId={answer?.id}
-                      setAnswer={(newAnswer) =>
-                        updateResearchOutputAnswer(questionId, newAnswer)
-                      }
-                      researchOutputId={displayedResearchOutput.id}
-                      planId={planId}
-                      questionId={questionId}
-                      commentable={commentablePlan}
-                    />
-                    {hasGuidances && (
-                      <GuidanceModal
-                        shown={showModals.guidance === true}
-                        hide={(e) => setModalOpened(e, "guidance", false)}
-                        questionId={questionId}
-                        researchOutputId={displayedResearchOutput.id}
-                      />
-                    )}
-                    <AnswerImportModal
-                      shown={showModals.import === true}
-                      hide={(e) => setModalOpened(e, "import", false)}
-                      questionId={questionId}
-                      researchOutputId={displayedResearchOutput.id}
-                      dataType={
-                        displayedResearchOutput?.configuration?.dataType
-                      }
-                      topic={displayedResearchOutput?.topic}
-                      className={question?.madmp_schema?.classname}
-                      setAnswer={(newAnswer) =>
-                        updateResearchOutputAnswer(questionId, newAnswer)
-                      }
-                    />
-                  </div>
-                )}
-                {isQuestionOpened ? (
+                <div
+                  className={styles.card_title}
+                  data-testid="question-text"
+                  style={{
+                    fontSize: "18px",
+                    fontWeight: "bold",
+                    whiteSpace: "break-spaces",
+                    textAlign: "justify",
+                    hyphens: "auto",
+                    paddingRight: "20px",
+                  }}
+                  dangerouslySetInnerHTML={{
+                    __html: DOMPurify.sanitize([question.text]),
+                  }}
+                />
+              </div>
+
+              <IconsContainer
+                answer={answer}
+                isQuestionOpened={isQuestionOpened}
+                showIcons={showIcons}
+                showModals={showModals}
+                setModalOpened={setModalOpened}
+              />
+            </div>
+          </Card.Title>
+        </Button>
+      </Card.Header>
+      <Collapse in={isQuestionOpened}>
+        <div id={`card-collapse-${questionId}`}>
+          <Card.Body
+            id={`card-body-${questionId}`}
+            style={{ position: "relative", paddingTop: "0" }}
+          >
+            {isQuestionOpened && (
+              <>
+                {answer && (
                   <>
-                    {readonly && !answer?.id ? (
-                      <Badge
-                        variant="primary"
-                        data-testid="readonly-question-badge"
-                      >
-                        {t("questionNotAnswered")}
-                      </Badge>
-                    ) : (
-                      <DynamicForm
+                    {!readonly && scriptsData.scripts.length > 0 && (
+                      <RunsModal
+                        shown={showModals.runs === true}
+                        hide={(e) => setModalOpened(e, "runs", false)}
+                        scriptsData={scriptsData}
                         fragmentId={answer?.fragment_id}
-                        className={question?.madmp_schema?.classname}
-                        setScriptsData={setScriptsData}
-                        questionId={questionId}
-                        madmpSchemaId={question.madmp_schema?.id}
-                        setAnswer={(newAnswer) =>
-                          updateResearchOutputAnswer(questionId, newAnswer)
-                        }
-                        readonly={readonly}
-                        formSelector={{
-                          shown: showModals.formSelector === true,
-                          hide: (e) => setModalOpened(e, "formSelector", false),
-                        }}
                       />
                     )}
                   </>
-                ) : (
-                  <></>
                 )}
-              </Card.Body>
-            </div>
-          </Collapse>
-        </Card>
-      }
-    </>
+                <CommentModal
+                  shown={showModals.comment === true}
+                  hide={(e) => setModalOpened(e, "comment", false)}
+                  answerId={answer?.id}
+                  setAnswer={(newAnswer) =>
+                    updateResearchOutputAnswer(questionId, newAnswer)
+                  }
+                  researchOutputId={displayedResearchOutput.id}
+                  planId={planId}
+                  questionId={questionId}
+                  commentable={commentablePlan}
+                />
+                {hasGuidances && (
+                  <GuidanceModal
+                    shown={showModals.guidance === true}
+                    hide={(e) => setModalOpened(e, "guidance", false)}
+                    questionId={questionId}
+                    researchOutputId={displayedResearchOutput.id}
+                  />
+                )}
+                <AnswerImportModal
+                  shown={showModals.import === true}
+                  hide={(e) => setModalOpened(e, "import", false)}
+                  questionId={questionId}
+                  researchOutputId={displayedResearchOutput.id}
+                  dataType={displayedResearchOutput?.configuration?.dataType}
+                  topic={displayedResearchOutput?.topic}
+                  className={question?.madmp_schema?.classname}
+                  setAnswer={(newAnswer) =>
+                    updateResearchOutputAnswer(questionId, newAnswer)
+                  }
+                />
+              </>
+            )}
+            {isQuestionOpened ? (
+              <>
+                {readonly && !answer?.id ? (
+                  <Badge
+                    variant="primary"
+                    data-testid="readonly-question-badge"
+                  >
+                    {t("questionNotAnswered")}
+                  </Badge>
+                ) : (
+                  <DynamicForm
+                    fragmentId={answer?.fragment_id}
+                    className={question?.madmp_schema?.classname}
+                    setScriptsData={setScriptsData}
+                    questionId={questionId}
+                    madmpSchemaId={question.madmp_schema?.id}
+                    setAnswer={(newAnswer) =>
+                      updateResearchOutputAnswer(questionId, newAnswer)
+                    }
+                    readonly={readonly}
+                    formSelector={{
+                      shown: showModals.formSelector === true,
+                      hide: (e) => setModalOpened(e, "formSelector", false),
+                    }}
+                  />
+                )}
+              </>
+            ) : (
+              <></>
+            )}
+          </Card.Body>
+        </div>
+      </Collapse>
+    </Card>
   );
 }
 

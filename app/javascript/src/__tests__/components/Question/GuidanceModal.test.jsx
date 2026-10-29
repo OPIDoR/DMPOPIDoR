@@ -4,7 +4,20 @@ import GuidanceModal from "../../../components/Question/GuidanceModal";
 const { guidances } = vi.hoisted(() => ({
   guidances: {
     getGuidances: vi.fn().mockResolvedValue({
-      data: { guidances: [] },
+      data: {
+        guidances: [
+          {
+            id: 1,
+            name: "My first Org",
+            groups: [],
+          },
+          {
+            id: 2,
+            name: "My second Org with a long name",
+            groups: [],
+          },
+        ],
+      },
     }),
   },
 }));
@@ -52,5 +65,17 @@ describe("GuidanceModal component", () => {
       props.researchOutputId,
       props.questionId,
     );
+    expect(screen.getByTestId("guidance-tab-0")).toBeInTheDocument();
+    expect(screen.getByTestId("guidance-tab-1")).toBeInTheDocument();
+    expect(screen.getByTestId("guidance-tab-title-0")).toBeInTheDocument();
+    expect(screen.getByTestId("guidance-tab-title-1")).toBeInTheDocument();
+    expect(screen.getByTestId("guidance-tab-title-0")).toHaveTextContent(
+      "My first Org",
+    );
+    expect(screen.getByTestId("guidance-tab-title-1")).toHaveTextContent(
+      `${"My second Org with a long name".substring(0, 15)}...`,
+    );
+
+    expect(screen.getByTestId("guidances-content")).toBeInTheDocument();
   });
 });

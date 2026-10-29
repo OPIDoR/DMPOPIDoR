@@ -252,7 +252,6 @@ function DynamicForm({
               fragment={methods}
               setFragment={setValues}
               externalImports={externalImports}
-              locale={locale}
             />
           )}
           {!readonly && !fragmentId && topics.includes("generic") && (

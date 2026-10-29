@@ -134,127 +134,125 @@ function SelectMultipleString({
    */
 
   return (
-    <div>
-      <div className="form-group">
-        <div className={styles.label_form}>
-          <label
-            htmlFor={inputId}
-            data-testid="select-multiple-string-label"
-            data-tooltip-id={tooltipId}
-          >
-            {label}
-            {tooltip && <TooltipInfoIcon />}
-          </label>
-          {tooltip && (
-            <ReactTooltip
-              id={tooltipId}
-              place="bottom"
-              effect="solid"
-              variant="info"
-              style={{ width: "300px", textAlign: "center" }}
-              content={tooltip}
-            />
-          )}
-        </div>
+    <div className="form-group">
+      <div className={styles.label_form}>
+        <label
+          htmlFor={inputId}
+          data-testid="select-multiple-string-label"
+          data-tooltip-id={tooltipId}
+        >
+          {label}
+          {tooltip && <TooltipInfoIcon />}
+        </label>
+        {tooltip && (
+          <ReactTooltip
+            id={tooltipId}
+            place="bottom"
+            effect="solid"
+            variant="info"
+            style={{ width: "300px", textAlign: "center" }}
+            content={tooltip}
+          />
+        )}
+      </div>
 
-        <span className={styles.errorMessage}>{error}</span>
-        {/* ************Select registry************** */}
-        <div className="row">
-          {availableRegistries && availableRegistries.length > 1 && (
-            <div
-              data-testid="select-multiple-string-registry-selector"
-              className="col-md-6"
-            >
-              <div className="row">
-                <div className={`col-md-11 ${styles.select_wrapper}`}>
-                  <CustomSelect
-                    inputId={`${propName}-registry-selector`}
-                    onSelectChange={handleSelectRegistry}
-                    options={availableRegistries.map((registry) => ({
-                      value: registry,
-                      label: registry,
-                    }))}
-                    name={propName}
-                    selectedOption={
-                      selectedRegistry
-                        ? { value: selectedRegistry, label: selectedRegistry }
-                        : null
-                    }
-                    isDisabled={readonly}
-                    placeholder={t("selectRegistry")}
-                  />
-                </div>
-              </div>
-            </div>
-          )}
-
+      <span className={styles.errorMessage}>{error}</span>
+      {/* ************Select registry************** */}
+      <div className="row">
+        {availableRegistries && availableRegistries.length > 1 && (
           <div
-            className={
-              availableRegistries && availableRegistries.length > 1
-                ? "col-md-6"
-                : "col-md-12"
-            }
-            data-testid="select-multiple-string-div"
+            data-testid="select-multiple-string-registry-selector"
+            className="col-md-6"
           >
             <div className="row">
               <div className={`col-md-11 ${styles.select_wrapper}`}>
-                {options && (
-                  <CustomSelect
-                    inputId={inputId}
-                    onSelectChange={handleSelectRegistryValue}
-                    options={options}
-                    name={propName}
-                    isDisabled={readonly || !selectedRegistry}
-                    async={options.length > ASYNC_SELECT_OPTION_THRESHOLD}
-                    placeholder={createRegistryPlaceholder(
-                      availableRegistries.length,
-                      true,
-                      overridable,
-                      "simple",
-                      t,
-                    )}
-                    overridable={overridable}
-                  />
-                )}
+                <CustomSelect
+                  inputId={`${propName}-registry-selector`}
+                  onSelectChange={handleSelectRegistry}
+                  options={availableRegistries.map((registry) => ({
+                    value: registry,
+                    label: registry,
+                  }))}
+                  name={propName}
+                  selectedOption={
+                    selectedRegistry
+                      ? { value: selectedRegistry, label: selectedRegistry }
+                      : null
+                  }
+                  isDisabled={readonly}
+                  placeholder={t("selectRegistry")}
+                />
               </div>
             </div>
           </div>
-        </div>
-        {/* *************Select registry************* */}
+        )}
 
-        <div style={{ margin: "20px 2px 20px 2px" }}>
-          {selectedValues && (
-            <table style={{ marginTop: "0px" }} className="table">
-              {header && (
-                <thead>
-                  <tr>
-                    <th scope="col">{header}</th>
-                  </tr>
-                </thead>
+        <div
+          className={
+            availableRegistries && availableRegistries.length > 1
+              ? "col-md-6"
+              : "col-md-12"
+          }
+          data-testid="select-multiple-string-div"
+        >
+          <div className="row">
+            <div className={`col-md-11 ${styles.select_wrapper}`}>
+              {options && (
+                <CustomSelect
+                  inputId={inputId}
+                  onSelectChange={handleSelectRegistryValue}
+                  options={options}
+                  name={propName}
+                  isDisabled={readonly || !selectedRegistry}
+                  async={options.length > ASYNC_SELECT_OPTION_THRESHOLD}
+                  placeholder={createRegistryPlaceholder(
+                    availableRegistries.length,
+                    true,
+                    overridable,
+                    "simple",
+                    t,
+                  )}
+                  overridable={overridable}
+                />
               )}
-              <tbody>
-                {selectedValues.map((el, idx) => (
-                  <tr key={idx}>
-                    <td style={{ width: "100%" }}>
-                      <div className={styles.cell_content}>
-                        <div>{el} </div>
-                        <div className={styles.table_container}>
-                          {!readonly && (
-                            <FaXmark
-                              onClick={(e) => handleDeleteList(e, idx)}
-                              size={18}
-                              className={styles.icon}
-                            />
-                          )}
-                        </div>
-                      </div>
-                    </td>
-                  </tr>
-                ))}
-              </tbody>
-            </table>
-          )}
+            </div>
+          </div>
         </div>
+      </div>
+      {/* *************Select registry************* */}
+
+      <div style={{ margin: "20px 2px 20px 2px" }}>
+        {selectedValues && (
+          <table style={{ marginTop: "0px" }} className="table">
+            {header && (
+              <thead>
+                <tr>
+                  <th scope="col">{header}</th>
+                </tr>
+              </thead>
+            )}
+            <tbody>
+              {selectedValues.map((el, idx) => (
+                <tr key={idx}>
+                  <td style={{ width: "100%" }}>
+                    <div className={styles.cell_content}>
+                      <div>{el} </div>
+                      <div className={styles.table_container}>
+                        {!readonly && (
+                          <FaXmark
+                            onClick={(e) => handleDeleteList(e, idx)}
+                            size={18}
+                            className={styles.icon}
+                          />
+                        )}
+                      </div>
+                    </div>
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        )}
       </div>
     </div>
   );

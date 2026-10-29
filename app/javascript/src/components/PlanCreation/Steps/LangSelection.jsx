@@ -19,7 +19,7 @@ function LangSelection({ prevStep, nextStep, set, params }) {
   ];
 
   return (
-    <div>
+    <>
       <h2>{t("selectPlanLanguage")}</h2>
       {languages.map(({ label, value, description }, index) => (
         <div
@@ -43,7 +43,7 @@ function LangSelection({ prevStep, nextStep, set, params }) {
       <div style={{ display: "flex", justifyContent: "space-between" }}>
         {prevStep}
       </div>
-    </div>
+    </>
   );
 }
 

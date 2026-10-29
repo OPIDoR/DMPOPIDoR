@@ -181,156 +181,154 @@ function SelectSingleObject({
    */
 
   return (
-    <div>
-      <div className="form-group">
-        <div className={styles.label_form}>
-          <label
-            htmlFor={inputId}
-            data-testid="select-single-object-label"
-            data-tooltip-id={tooltipId}
-          >
-            {label}
-            {tooltip && <TooltipInfoIcon />}
-          </label>
-          {tooltip && (
-            <ReactTooltip
-              id={tooltipId}
-              place="bottom"
-              effect="solid"
-              variant="info"
-              style={{ width: "300px", textAlign: "center" }}
-              content={tooltip}
-            />
-          )}
-        </div>
-        <span className={styles.errorMessage}>{error}</span>
-        {/* ************Select registry************** */}
-        <div className="row">
-          {availableRegistries && availableRegistries.length > 1 && (
-            <div
-              data-testid="select-single-object-registry-selector"
-              className="col-md-6"
-            >
-              <div className="row">
-                <div className={`col-md-11 ${styles.select_wrapper}`}>
-                  <CustomSelect
-                    inputId={`${propName}-registry-selector`}
-                    onSelectChange={handleSelectRegistry}
-                    options={availableRegistries.map((registry) => ({
-                      value: registry,
-                      label: registry,
-                    }))}
-                    name={propName}
-                    selectedOption={
-                      selectedRegistry
-                        ? { value: selectedRegistry, label: selectedRegistry }
-                        : null
-                    }
-                    isDisabled={readonly}
-                    placeholder={t("selectRegistry")}
-                  />
-                </div>
-              </div>
-            </div>
-          )}
-
+    <div className="form-group">
+      <div className={styles.label_form}>
+        <label
+          htmlFor={inputId}
+          data-testid="select-single-object-label"
+          data-tooltip-id={tooltipId}
+        >
+          {label}
+          {tooltip && <TooltipInfoIcon />}
+        </label>
+        {tooltip && (
+          <ReactTooltip
+            id={tooltipId}
+            place="bottom"
+            effect="solid"
+            variant="info"
+            style={{ width: "300px", textAlign: "center" }}
+            content={tooltip}
+          />
+        )}
+      </div>
+      <span className={styles.errorMessage}>{error}</span>
+      {/* ************Select registry************** */}
+      <div className="row">
+        {availableRegistries && availableRegistries.length > 1 && (
           <div
-            className={
-              availableRegistries && availableRegistries.length > 1
-                ? "col-md-6"
-                : "col-md-12"
-            }
-            data-testid="select-single-object-div"
+            data-testid="select-single-object-registry-selector"
+            className="col-md-6"
           >
             <div className="row">
               <div className={`col-md-11 ${styles.select_wrapper}`}>
-                {options && (
-                  <CustomSelect
-                    inputId={inputId}
-                    onSelectChange={handleSelectRegistryValue}
-                    options={options}
-                    name={propName}
-                    isDisabled={showNestedForm || readonly || !selectedRegistry}
-                    async={options.length > ASYNC_SELECT_OPTION_THRESHOLD}
-                    placeholder={createRegistryPlaceholder(
-                      availableRegistries.length,
-                      false,
-                      overridable,
-                      "complex",
-                      t,
-                    )}
-                    overridable={false}
-                  />
-                )}
+                <CustomSelect
+                  inputId={`${propName}-registry-selector`}
+                  onSelectChange={handleSelectRegistry}
+                  options={availableRegistries.map((registry) => ({
+                    value: registry,
+                    label: registry,
+                  }))}
+                  name={propName}
+                  selectedOption={
+                    selectedRegistry
+                      ? { value: selectedRegistry, label: selectedRegistry }
+                      : null
+                  }
+                  isDisabled={readonly}
+                  placeholder={t("selectRegistry")}
+                />
               </div>
-              {!readonly && overridable && !showNestedForm && (
-                <div className="col-md-1">
-                  <ReactTooltip
-                    id="select-single-list-add-button"
-                    place="bottom"
-                    effect="solid"
-                    variant="info"
-                    content={t("add")}
-                  />
-                  <FaPlus
-                    data-tooltip-id="select-single-list-add-button"
-                    onClick={handleAddFragment}
-                    className={styles.icon}
-                  />
-                </div>
-              )}
             </div>
           </div>
-        </div>
-        <div
-          id={`nested-form-${propName}`}
-          className={styles.nestedForm}
-          style={{ display: showNestedForm ? "block" : "none" }}
-        ></div>
-        {showNestedForm && (
-          <NestedForm
-            propName={propName}
-            data={editedFragment}
-            template={template}
-            mainFormDataType={dataType}
-            mainFormTopic={topic}
-            readonly={readonly}
-            handleSave={handleSaveNestedForm}
-            handleClose={handleCloseNestedForm}
-          />
         )}
 
-        {!fragmentEmpty(selectedValue) && !showNestedForm && (
-          <table style={{ marginTop: "20px" }} className="table">
-            <thead>
-              <tr>
-                <th scope="col">{t("selectedValue")}</th>
-                <th scope="col"></th>
-              </tr>
-            </thead>
-            <tbody>
-              {[selectedValue].map((el, idx) => (
-                <tr key={idx}>
-                  <td style={{ width: "90%" }}>
-                    {parsePattern(el, template?.schema?.to_string)}
-                  </td>
-                  <td style={{ width: "10%" }}>
-                    <ViewEditComponent
-                      onClick={handleEditFragment}
-                      className={styles.icon}
-                    />
-                    <FaXmark
-                      onClick={(e) => handleDeleteList(e)}
-                      className={styles.icon}
-                    />
-                  </td>
-                </tr>
-              ))}
-            </tbody>
-          </table>
-        )}
-        {/* *************Select registry************* */}
+        <div
+          className={
+            availableRegistries && availableRegistries.length > 1
+              ? "col-md-6"
+              : "col-md-12"
+          }
+          data-testid="select-single-object-div"
+        >
+          <div className="row">
+            <div className={`col-md-11 ${styles.select_wrapper}`}>
+              {options && (
+                <CustomSelect
+                  inputId={inputId}
+                  onSelectChange={handleSelectRegistryValue}
+                  options={options}
+                  name={propName}
+                  isDisabled={showNestedForm || readonly || !selectedRegistry}
+                  async={options.length > ASYNC_SELECT_OPTION_THRESHOLD}
+                  placeholder={createRegistryPlaceholder(
+                    availableRegistries.length,
+                    false,
+                    overridable,
+                    "complex",
+                    t,
+                  )}
+                  overridable={false}
+                />
+              )}
+            </div>
+            {!readonly && overridable && !showNestedForm && (
+              <div className="col-md-1">
+                <ReactTooltip
+                  id="select-single-list-add-button"
+                  place="bottom"
+                  effect="solid"
+                  variant="info"
+                  content={t("add")}
+                />
+                <FaPlus
+                  data-tooltip-id="select-single-list-add-button"
+                  onClick={handleAddFragment}
+                  className={styles.icon}
+                />
+              </div>
+            )}
+          </div>
+        </div>
       </div>
+      <div
+        id={`nested-form-${propName}`}
+        className={styles.nestedForm}
+        style={{ display: showNestedForm ? "block" : "none" }}
+      ></div>
+      {showNestedForm && (
+        <NestedForm
+          propName={propName}
+          data={editedFragment}
+          template={template}
+          mainFormDataType={dataType}
+          mainFormTopic={topic}
+          readonly={readonly}
+          handleSave={handleSaveNestedForm}
+          handleClose={handleCloseNestedForm}
+        />
+      )}
+
+      {!fragmentEmpty(selectedValue) && !showNestedForm && (
+        <table style={{ marginTop: "20px" }} className="table">
+          <thead>
+            <tr>
+              <th scope="col">{t("selectedValue")}</th>
+              <th scope="col"></th>
+            </tr>
+          </thead>
+          <tbody>
+            {[selectedValue].map((el, idx) => (
+              <tr key={idx}>
+                <td style={{ width: "90%" }}>
+                  {parsePattern(el, template?.schema?.to_string)}
+                </td>
+                <td style={{ width: "10%" }}>
+                  <ViewEditComponent
+                    onClick={handleEditFragment}
+                    className={styles.icon}
+                  />
+                  <FaXmark
+                    onClick={(e) => handleDeleteList(e)}
+                    className={styles.icon}
+                  />
+                </td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      )}
+      {/* *************Select registry************* */}
     </div>
   );
 }
