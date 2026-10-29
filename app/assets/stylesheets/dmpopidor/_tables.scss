@@ -159,10 +159,14 @@
       // Cells borders
       tbody>tr {
         &>td {
-          border: none;
+          border: 1px solid $rust;
+          border-top: none;
 
           &:not(:last-child) {
             border-right: 1px solid $rust;
+          }
+          &:not(:first-child) {
+            border-left: none;
           }
         }
 
@@ -189,6 +193,10 @@
           }
         }
       }
+
+        tbody>tr:first-child>td {
+          border-top: 1px solid $rust;
+        }
 
       // Cells hovering
       &.table-hover tbody tr:hover td,
