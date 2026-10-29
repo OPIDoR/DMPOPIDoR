@@ -1,7 +1,6 @@
 import DOMPurify from "dompurify";
 import { useTranslation } from "react-i18next";
 import Dropdown from "react-bootstrap/Dropdown";
-import DropdownButton from "react-bootstrap/DropdownButton";
 
 import * as tablesStyles from "../../assets/css/tables.module.css";
 import SortableTable from "../../Shared/SortableTable";
@@ -48,27 +47,40 @@ function GuidanceList({
       render: (guidance) => {
         if (!guidance) return null;
         return (
-          <DropdownButton
-            id={`guidance_group-${guidance.id}-actions`}
-            className={tablesStyles.dropdown_button}
-            title={t("actions")}
-          >
-            <Dropdown.Item as="button" onClick={() => handleEdit(guidance.id)}>
-              {t("edit")}
-            </Dropdown.Item>
-            <Dropdown.Item
-              as="button"
-              onClick={() => handlePublication(guidance.id, guidance.published)}
+          <Dropdown>
+            <Dropdown.Toggle
+              id={`guidance_group-${guidance.id}-actions`}
+              className={tablesStyles.dropdown_button}
             >
-              {guidance.published ? t("unpublish") : t("publish")}
-            </Dropdown.Item>
-            <Dropdown.Item
-              as="button"
-              onClick={() => handleDelete(guidance.id)}
-            >
-              {t("delete")}
-            </Dropdown.Item>
-          </DropdownButton>
+              {t("actions")}
+            </Dropdown.Toggle>
+
+            <Dropdown.Menu className={tablesStyles.dropdown_menu}>
+              <Dropdown.Item
+                as="button"
+                onClick={() => handleEdit(guidance.id)}
+                className={tablesStyles.dropdown_item}
+              >
+                {t("edit")}
+              </Dropdown.Item>
+              <Dropdown.Item
+                as="button"
+                onClick={() =>
+                  handlePublication(guidance.id, guidance.published)
+                }
+                className={tablesStyles.dropdown_item}
+              >
+                {guidance.published ? t("unpublish") : t("publish")}
+              </Dropdown.Item>
+              <Dropdown.Item
+                as="button"
+                onClick={() => handleDelete(guidance.id)}
+                className={tablesStyles.dropdown_item}
+              >
+                {t("delete")}
+              </Dropdown.Item>
+            </Dropdown.Menu>
+          </Dropdown>
         );
       },
     },

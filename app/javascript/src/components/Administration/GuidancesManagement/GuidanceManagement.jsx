@@ -237,7 +237,10 @@ function GuidanceManagement() {
           <p className={styles.paragraph}>{t("guidanceForFunders")}</p>
 
           <Row className="mb-3">
-            <InputGroup className="col-md-4">
+            <InputGroup
+              className="col-md-4"
+              style={{ height: "50px", marginTop: "5px" }}
+            >
               <InputGroup.Text className={tablesStyles.admin_search_bar}>
                 <FaSearch />
               </InputGroup.Text>
@@ -249,13 +252,16 @@ function GuidanceManagement() {
                 aria-describedby="search-addon"
               />
             </InputGroup>
-            <Col md={8} className="text-right">
+            <Col
+              md={8}
+              className="text-right"
+              style={{ paddingLeft: "10px", height: "50px" }}
+            >
               <CustomButton
                 handleClick={filterGuidances}
                 title={t("search")}
                 buttonColor="rust"
                 position="start"
-                style={{ margin: "0", paddingLeft: "10px" }}
               />
             </Col>
           </Row>

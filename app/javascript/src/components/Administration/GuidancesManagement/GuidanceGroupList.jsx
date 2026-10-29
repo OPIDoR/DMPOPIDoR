@@ -49,16 +49,25 @@ function GuidanceGroupList({
             </Dropdown.Toggle>
 
             <Dropdown.Menu className={tablesStyles.dropdown_menu}>
-              <Dropdown.Item as="button" onClick={() => handleEdit(group.id)}>
+              <Dropdown.Item
+                as="button"
+                onClick={() => handleEdit(group.id)}
+                className={tablesStyles.dropdown_item}
+              >
                 {t("edit")}
               </Dropdown.Item>
               <Dropdown.Item
                 as="button"
                 onClick={() => handlePublication(group.id, group.published)}
+                className={tablesStyles.dropdown_item}
               >
                 {group.published ? t("unpublish") : t("publish")}
               </Dropdown.Item>
-              <Dropdown.Item as="button" onClick={() => handleDelete(group.id)}>
+              <Dropdown.Item
+                as="button"
+                onClick={() => handleDelete(group.id)}
+                className={tablesStyles.dropdown_item}
+              >
                 {t("delete")}
               </Dropdown.Item>
             </Dropdown.Menu>

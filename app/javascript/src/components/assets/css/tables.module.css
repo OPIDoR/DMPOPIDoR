@@ -4,7 +4,7 @@
 
 .admin_search_bar {
   background-color: var(--rust);
-  color: white
+  color: white;
 }
 
 .dropdown_button {
@@ -15,4 +15,10 @@
 .dropdown_menu {
   background-color: white;
   border: none;
+  box-shadow: rgba(0, 0, 0, 0.3) 0px 2px 5px;
+}
+.dropdown_item {
+  background-color: white;
+  color: black !important;
+  text-decoration: underline;
 }
