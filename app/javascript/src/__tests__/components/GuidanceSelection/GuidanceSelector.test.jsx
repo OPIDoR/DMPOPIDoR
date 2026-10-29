@@ -24,6 +24,20 @@ vi.mock("react-i18next", () => ({
   },
 }));
 
+vi.mock("../../../components/GuidanceChoice/GuidanceGroupItem.jsx", () => ({
+  default: ({ guidance_group_id, onSelect }) => (
+    <button onClick={() => onSelect(guidance_group_id)}>
+      onSelect GuidanceGroupItem
+    </button>
+  ),
+}));
+vi.mock("../../../components/GuidanceChoice/OrgWithGuidanceGroups.jsx", () => ({
+  default: ({ guidance_group_id, onSelect }) => (
+    <button onClick={() => onSelect(guidance_group_id)}>
+      onSelect OrgWithGuidanceGroups
+    </button>
+  ),
+}));
 const props = {
   planId: 1,
   researchOutputId: 1,
@@ -97,5 +111,18 @@ describe("GuidanceSelector component", () => {
         screen.getByTestId("guidance-choice-collapse-content"),
       ).toHaveTextContent("guidanceListInfo");
     });
+  });
+  test("component should call getPlanGuidanceGroups in plan context", async () => {
+    guidances.getPlanGuidanceGroups.mockResolvedValue({
+      data: [],
+    });
+    await act(async () =>
+      render(
+        <SectionsContext.Provider value={baseSectionsContextData}>
+          <GuidanceSelector {...{ ...props, context: "plan" }} />
+        </SectionsContext.Provider>,
+      ),
+    );
+    expect(guidances.getPlanGuidanceGroups).toHaveBeenCalledWith(props.planId);
   });
 });
