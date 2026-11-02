@@ -289,7 +289,7 @@
   "listOfPersons": "List of person responsible for research data management during a project and their roles.",
   "assigningRoles": "Assigning a role to a person is done in the \"General information\" tab, in the \"Write Plan\" tab for the structured templates or in the \"Research Outputs\" tab for other templates.",
   "importAnswer": "Import an answer",
-  "answerImportFormMessage": "You're about to import a answer using <strong>{{templateName}}</strong>",
+  "answerImportFormMessage": "You're about to import an answer using <strong>{{templateName}}</strong>",
   "errorAnswerImport": "An error occured when importing the answer",
   "answerImportSuccess": "Answer succesfully imported",
   "researchOutputHasNewComments": "This research output has new comments",
