@@ -2,6 +2,11 @@
 
 **Attention** Cette liste de changements concerne les déploiements sur nos serveurs de test en interne.
 
+## 29/10/2026
+- Changement de l'icône d'import de réponse
+- Changement des textes de l'import de réponse (#18783)
+- Correction du chargement des éditeurs dans les plans classiques (#18757)
+
 ## 28/10/2026
 - Correction d'un problème autorisant la suppression de tous les produits de recherche dans les plans classiques (#18758)
 - Correction de l'ordre des produits de recherche dans l'onglet Télécharger

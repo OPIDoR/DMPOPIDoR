@@ -2,7 +2,7 @@ import { useTranslation } from "react-i18next";
 import { Tooltip as ReactTooltip } from "react-tooltip";
 
 import * as styles from "../../assets/css/write_plan.module.css";
-import { CiImport } from "react-icons/ci";
+import { BiDownload } from "react-icons/bi";
 
 function AnswerImportIcon({ isQuestionOpened, fillColor, setModalOpened }) {
   const { t } = useTranslation();
@@ -17,7 +17,7 @@ function AnswerImportIcon({ isQuestionOpened, fillColor, setModalOpened }) {
           variant="info"
           content={t("importAnswer")}
         />
-        <CiImport
+        <BiDownload
           data-testid="answer-import-icon"
           data-tooltip-id="importTooltip"
           className={styles.card_icon}

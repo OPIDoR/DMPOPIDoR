@@ -238,6 +238,9 @@ const attachEventHandlers = (jQueryForm) => {
   });
 };
 
+document.addEventListener("turbo:before-cache", () => {
+  tinymce.remove();
+});
 document.addEventListener("turbo:load", () => {
   datePicker();
 

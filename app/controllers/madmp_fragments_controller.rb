@@ -13,7 +13,7 @@ class MadmpFragmentsController < ApplicationController
     authorize fragment
     render json: {
       fragment_id: fragment.id,
-      template_name: fragment.madmp_schema.name
+      template_name: fragment.madmp_schema.label
     }
   end
 
