@@ -15,15 +15,16 @@ module Export
     def call
       WickedPdf.new.pdf_from_string(
         html,
-        margin: @formatting[:margin],
-        footer:
-             {
-               center: license_details,
-               font_size: 8,
-               spacing: (Integer(@formatting[:margin][:bottom]) / 2) - 4,
-               right: '[page] of [topage]',
-               encoding: 'utf8'
-             }
+        enable_local_file_access: true,
+        footer: {
+          content: ApplicationController.render(
+            template: 'shared/export/plan_footer',
+            formats: [:html],
+            layout: false,
+            locals: { licence: license_details }
+          ),
+          spacing: 5
+        }
       )
     end
 
@@ -49,9 +50,13 @@ module Export
 
     def license_details
       license = @plan.json_fragment.meta.license if @plan.structured?
-      return unless license.present? && !license.data.compact.empty?
+      if license.present? && !license.data.compact.empty?
+        return "#{license.data['licenseName']} (#{license.data['licenseUrl']})"
+      end
 
-      "#{license.data['licenseName']} (#{license.data['licenseUrl']})"
+      return unless @options[:public_plan]
+
+      _("Copyright information: The above plan creator(s) have agreed that others may use as much of the text of this plan as they would like in their own plans, and customise it as necessary. You do not need to credit the creator(s) as the source of the language used, but using any of the plan's text does not imply that the creator(s) endorse, or have any relationship to, your project or proposal") # rubocop:disable Layout/LineLength
     end
 
     def default_options
