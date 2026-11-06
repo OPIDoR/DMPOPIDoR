@@ -24,7 +24,6 @@ function AnswerImportModal({
   researchOutputId,
   className = null,
   dataType = null,
-  topic = null,
   setAnswer,
 }) {
   const { t } = useTranslation();
@@ -32,7 +31,6 @@ function AnswerImportModal({
   const { data: plansData, loading } = useFetchPlansData(
     dataType,
     className,
-    topic,
     shown,
   );
   const [selectedResearchOutput, setSelectedResearchOutput] = useState(null);
@@ -128,7 +126,6 @@ function AnswerImportModal({
               infoMessage={t("canReuseResearchOutputInfoFromPlans")}
               className={className}
               dataType={dataType}
-              topic={topic}
             />
             {selectedResearchOutput && (
               <>

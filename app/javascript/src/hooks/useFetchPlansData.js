@@ -1,23 +1,18 @@
 import { useEffect, useState } from "react";
 import { researchOutput } from "../services";
 
-function useFetchPlansData(
-  dataType = null,
-  className = null,
-  topic = null,
-  shown = true,
-) {
+function useFetchPlansData(dataType = null, className = null, shown = true) {
   const [data, setData] = useState(null);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     if (!shown) return;
 
-    researchOutput.getPlans(className, dataType, topic).then(({ data }) => {
+    researchOutput.getPlans(className, dataType).then(({ data }) => {
       setData(data.plans);
       setLoading(false);
     });
-  }, [shown, dataType, className, topic]);
+  }, [shown, dataType, className]);
 
   return { data, loading };
 }
