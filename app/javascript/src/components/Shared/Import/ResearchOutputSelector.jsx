@@ -14,7 +14,6 @@ function ResearchOutputSelector({
   researchOutputId = null,
   className = null,
   dataType = null,
-  topic = null,
   plansData,
   loading,
   excludeOwnPlan = false,
@@ -25,7 +24,7 @@ function ResearchOutputSelector({
   const { t } = useTranslation();
   const [selectedPlan, setSelectedPlan] = useState(null);
   const { data: researchOutputsData, loading: researchOutputsLoading } =
-    useFetchResearchOutputsData(selectedPlan?.id, dataType, className, topic);
+    useFetchResearchOutputsData(selectedPlan?.id, dataType, className);
 
   /**
    * Memoized values
