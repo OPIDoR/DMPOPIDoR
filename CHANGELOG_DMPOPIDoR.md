@@ -2,6 +2,9 @@
 
 **Attention** Cette liste de changements concerne les déploiements sur nos serveurs de test en interne.
 
+## 06/11/2026
+- Refonte de l'affichage du pied de page, ajout d'une licence par défaut pour les plans publics et organismes (#18811)
+
 ## 29/10/2026
 - Changement de l'icône d'import de réponse
 - Changement des textes de l'import de réponse (#18783)
