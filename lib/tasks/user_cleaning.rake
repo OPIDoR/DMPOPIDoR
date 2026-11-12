@@ -3,12 +3,12 @@
 namespace :usercleaning do
   desc 'Remove users who haven\'t accepted invitation after 1 month.'
   task non_accepted_invitations: :environment do
-    Rails.logger.info 'Deleting user uncomfirmed users invited over a month ago'
-    User
-      .where('invitation_sent_at < ? AND invitation_accepted_at IS NULL AND current_sign_in_at IS NULL', 1.month.ago)
-      .each do |user|
+    Rails.logger.info 'Deleting users with pending invitations older than 1 month'
+    DeviseInvitable::Invitation.pending.where('invitation_sent_at < ?', 1.month.ago).each do |invitation|
+      user = invitation.invitable
       p "#{user.email}  deleted"
       user.destroy
+      invitation.destroy
     end
   end
 

@@ -154,9 +154,9 @@ GEM
       railties (>= 7.0)
       responders
       warden (~> 1.2.3)
-    devise_invitable (2.0.14)
-      actionmailer (>= 5.0)
-      devise (>= 4.6)
+    devise_invitable (3.1.0)
+      actionmailer (>= 7.0)
+      devise (>= 5.0)
     diff-lcs (1.6.2)
     dotenv (3.2.0)
     dotenv-rails (3.2.0)
@@ -663,7 +663,7 @@ DEPENDENCIES
   cssbundling-rails
   database_cleaner
   devise
-  devise_invitable (~> 2.0)
+  devise_invitable
   dotenv-rails
   dragonfly
   dragonfly-s3_data_store

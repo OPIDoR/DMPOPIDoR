@@ -17,11 +17,6 @@
 #  email                  :string(80)       default(""), not null
 #  encrypted_password     :string           default("")
 #  firstname              :string
-#  invitation_accepted_at :datetime
-#  invitation_created_at  :datetime
-#  invitation_sent_at     :datetime
-#  invitation_token       :string
-#  invited_by_type        :string
 #  last_api_access        :datetime
 #  last_sign_in_at        :datetime
 #  last_sign_in_ip        :string
@@ -35,7 +30,6 @@
 #  created_at             :datetime         not null
 #  updated_at             :datetime         not null
 #  department_id          :integer
-#  invited_by_id          :integer
 #  language_id            :integer
 #  org_id                 :integer
 #
