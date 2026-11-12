@@ -99,7 +99,7 @@ function DynamicForm({
           },
         });
       }
-      setFormData({ [fragmentId]: response.data.fragment });
+      handleFragmentData(response.data);
       setLoading(false);
       toast.success(t("saveSuccess"));
     } else {
@@ -121,7 +121,7 @@ function DynamicForm({
         setTemplateName(tplt.name);
         handleNewAnswerResponse(res.data, questionId, setAnswer);
         setNewFragmentSaved(true);
-        methods.reset(res.data.fragment);
+        methods.reset({ ...emptyDefaults, ...res.data.fragment });
         toast.success(t("saveSuccess"));
       })
       .catch((error) => handleError(error))
@@ -143,7 +143,7 @@ function DynamicForm({
         madmp_schema_id,
       });
     }
-    methods.reset(data.fragment);
+    methods.reset({ ...emptyDefaults, ...data.fragment });
   };
 
   const handleError = (error) => toast.error(getErrorMessage(error));
@@ -224,10 +224,6 @@ function DynamicForm({
       setScriptsData({ scripts: [] });
     }
   }, [template]);
-
-  useEffect(() => {
-    methods.reset({ ...emptyDefaults, ...formData[fragmentId] });
-  }, [formData[fragmentId]]);
 
   useEffect(() => {
     if (!fragmentId && template && !newFragmentSaved) {
