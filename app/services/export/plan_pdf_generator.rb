@@ -49,7 +49,7 @@ module Export
     private
 
     def license_details
-      license = @plan.json_fragment.meta.license if @plan.structured?
+      license = @plan.json_fragment.meta.license
       if license.present? && !license.data.compact.empty?
         return "#{license.data['licenseName']} (#{license.data['licenseUrl']})"
       end
