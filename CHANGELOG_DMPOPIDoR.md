@@ -2,6 +2,12 @@
 
 **Attention** Cette liste de changements concerne les déploiements sur nos serveurs de test en interne.
 
+## 12/11/2026
+- Correction du problème de suppression de la licence (#18821)
+- Mise à jour du texte des droits d'auteur dans les plans sans licence dans le pied de page de l'export PDF (#18822)
+- Ajout de la licence dans le pied de page de l'export PDF des plans classiques (#18823)
+- Correction du problème d'ouverture de la zone recommandations/commentaires dans les plans classiques (#18824)
+
 ## 06/11/2026
 - Refonte de l'affichage du pied de page, ajout d'une licence par défaut pour les plans publics et organismes (#18811)
 
