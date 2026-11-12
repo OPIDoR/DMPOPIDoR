@@ -163,16 +163,19 @@ class ResearchOutput < ApplicationRecord
           additional_info: { property_name: description_prop_name }
         )
         fragment_description.instantiate
-        Fragment::Contributor.create!(
-          data: {
-            'person' => contact_person.present? ? { 'dbid' => contact_person.id } : nil,
-            'role' => _('Contact Person')
-          },
-          dmp_id: dmp_fragment.id,
-          parent_id: fragment_description.id,
-          madmp_schema: MadmpSchema.find_by(name: 'ContributorConstantRole'),
-          additional_info: { property_name: 'contact' }
-        )
+        # Contact person is not needed for physical_object research_outputs
+        unless %w[physical_object].include?(data_type)
+          Fragment::Contributor.create!(
+            data: {
+              'person' => contact_person.present? ? { 'dbid' => contact_person.id } : nil,
+              'role' => _('Contact Person')
+            },
+            dmp_id: dmp_fragment.id,
+            parent_id: fragment_description.id,
+            madmp_schema: MadmpSchema.find_by(name: 'ContributorConstantRole'),
+            additional_info: { property_name: 'contact' }
+          )
+        end
 
         if description_question.present? && plan.structured? && !duplicate
           # Create a new answer for the ResearchOutputDescription Question
