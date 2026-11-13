@@ -271,7 +271,6 @@ class AnswersController < ApplicationController
 
     notes_with_users = begin
       @answer.notes
-             .where(archived: false)
              .order(created_at: :desc)
              .includes(:user)
              .as_json(

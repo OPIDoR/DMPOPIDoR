@@ -249,7 +249,7 @@ class NotesController < ApplicationController
 
   def note_params
     params.require(:note)
-          .permit(:text, :archived_by, :user_id, :answer_id, :plan_id,
+          .permit(:text, :user_id, :answer_id, :plan_id,
                   :question_id, :research_output_id)
   end
 end
