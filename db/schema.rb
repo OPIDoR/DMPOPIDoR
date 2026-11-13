@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.1].define(version: 2026_11_12_151732) do
+ActiveRecord::Schema[8.1].define(version: 2026_11_13_110134) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
   enable_extension "unaccent"
@@ -386,9 +386,7 @@ ActiveRecord::Schema[8.1].define(version: 2026_11_12_151732) do
   create_table "notes", id: :serial, force: :cascade do |t|
     t.integer "user_id"
     t.text "text"
-    t.boolean "archived", default: false, null: false
     t.integer "answer_id"
-    t.integer "archived_by"
     t.datetime "created_at", precision: nil
     t.datetime "updated_at", precision: nil
     t.index ["answer_id"], name: "notes_answer_id_idx"
