@@ -39,7 +39,6 @@ RSpec.describe NotesController, type: :controller do
       expect(note.text).to eql(@args[:text])
       expect(note.user_id).to eql(@user.id)
       expect(note.answer_id).to eql(@answer.id)
-      expect(note.archived).to eql(false)
     end
     it 'fails' do
       Note.any_instance.stubs(:save).returns(false)
@@ -81,31 +80,6 @@ RSpec.describe NotesController, type: :controller do
     it 'fails' do
       Note.any_instance.stubs(:update).returns(false)
       put :update, params: { id: @note.id, note: @args }
-      json = JSON.parse(response.body).with_indifferent_access
-      expect(json[:msg].present?).to eql(true)
-    end
-  end
-
-  describe 'PATCH /notes/:id/archive', js: true do
-    before(:each) do
-      @note = create(:note, user: @user, answer: @answer)
-      @args = { archived_by: @user }
-    end
-
-    it 'succeeds' do
-      @controller.expects(:render_to_string).at_least(2)
-      put :archive, params: { id: @note.id, note: @args }
-      json = JSON.parse(response.body).with_indifferent_access
-      expect(json[:notes].present?).to eql(true)
-      expect(json[:title].present?).to eql(true)
-      expect(json[:notes][:id]).to eql(@question.id.to_s)
-      expect(json[:title][:id]).to eql(@question.id.to_s)
-      expect(@note.reload.archived).to eql(true)
-      expect(@note.reload.archived_by).to eql(@user.id)
-    end
-    it 'fails' do
-      Note.any_instance.stubs(:update).returns(false)
-      put :archive, params: { id: @note.id, note: @args }
       json = JSON.parse(response.body).with_indifferent_access
       expect(json[:msg].present?).to eql(true)
     end

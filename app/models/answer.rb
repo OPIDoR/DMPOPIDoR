@@ -119,13 +119,6 @@ class Answer < ApplicationRecord
     false
   end
 
-  # Answer notes whose archived is blank sorted by updated_at in descending order
-  #
-  # Returns Array
-  def non_archived_notes
-    notes.select { |n| n.archived.blank? }.sort_by!(&:created_at)
-  end
-
   # The parsed JSON hash for the current answer object. Generates a new hash if none
   # exists for rda_questions.
   #
@@ -209,7 +202,7 @@ class Answer < ApplicationRecord
   def unread_comments_count_for(user)
     mark = ViewedComment.find_by(user: user, answer: self)
     # exluding user's own comment
-    scope = notes.where.not(user_id: user.id).where(archived: false)
+    scope = notes.where.not(user_id: user.id)
     scope = scope.where('created_at > ?', mark.last_read_at) if mark
     scope.count
   end
