@@ -2,6 +2,11 @@
 
 **Attention** Cette liste de changements concerne les déploiements sur nos serveurs de test en interne.
 
+## 16/11/2026
+- Ajout de la licence dans les critères nécessaires au changement de visibilité d'un plan
+- Ajout d'une checklist indiquant les raisons du blocage de changement de visibilité
+- Mise à jour des textes en lien avec le changement de visibilité
+
 ## 12/11/2026
 - Correction du problème de suppression de la licence (#18821)
 - Mise à jour du texte des droits d'auteur dans les plans sans licence dans le pied de page de l'export PDF (#18822)
