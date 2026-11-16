@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: app 1.0\n"
 "Report-Msgid-Bugs-To: contact@translation.io\n"
-"POT-Creation-Date: 2026-11-16 15:22+0100\n"
-"PO-Revision-Date: 2026-11-16 14:22+0000\n"
+"POT-Creation-Date: 2026-11-16 16:08+0100\n"
+"PO-Revision-Date: 2026-11-16 15:08+0000\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: English\n"
 "Language: en_GB\n"
@@ -1845,15 +1845,15 @@ msgid "Copy of %{title}"
 msgstr "Copy of %{title}"
 
 #: ../../app/models/plan.rb:732
-msgid "Plan is marked as a test project"
+msgid "Plan is marked as a test project (General information tab)"
 msgstr ""
 
 #: ../../app/models/plan.rb:733
-msgid "Plan has no research outputs"
+msgid "Plan has no research outputs (Write Plan tab)"
 msgstr ""
 
 #: ../../app/models/plan.rb:734
-msgid "Plan has no license"
+msgid "Plan has no license (General Information tab)"
 msgstr ""
 
 #: ../../app/models/plan.rb:936
@@ -5361,7 +5361,8 @@ msgstr "Organisation: anyone at my organisation can view"
 #: ../../app/views/plans/_share_form.html.erb:156
 msgid ""
 "You have chosen to make your plan public. Before confirming, please ensure tha"
-"t your plan is complete. Click OK if you want to confirm your choice."
+"t your plan is complete. Click OK and then click Update if you want to confirm"
+" your choice."
 msgstr ""
 
 #: ../../app/views/plans/_share_third_party.html.erb:5

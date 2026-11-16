@@ -729,11 +729,11 @@ class Plan < ApplicationRecord
 
   def visibility_checklist
     checklist = []
-    checklist << _('Plan is marked as a test project') if is_test?
-    checklist << _('Plan has no research outputs') if research_outputs.empty?
-    checklist << _('Plan has no license') unless MadmpFragment.exists?(dmp_id: json_fragment.id,
-                                                                       parent_id: json_fragment.meta.id,
-                                                                       classname: 'license')
+    checklist << _('Plan is marked as a test project (General information tab)') if is_test?
+    checklist << _('Plan has no research outputs (Write Plan tab)') if research_outputs.empty?
+    checklist << _('Plan has no license (General Information tab)') unless MadmpFragment.exists?(dmp_id: json_fragment.id,
+                                                                                                 parent_id: json_fragment.meta.id,
+                                                                                                 classname: 'license')
     checklist
   end
 

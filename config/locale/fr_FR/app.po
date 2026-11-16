@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: app 1.0\n"
 "Report-Msgid-Bugs-To: contact@translation.io\n"
-"POT-Creation-Date: 2026-11-16 15:22+0100\n"
-"PO-Revision-Date: 2026-11-16 14:22+0000\n"
+"POT-Creation-Date: 2026-11-16 16:08+0100\n"
+"PO-Revision-Date: 2026-11-16 15:08+0000\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: French\n"
 "Language: fr_FR\n"
@@ -1869,16 +1869,16 @@ msgid "Copy of %{title}"
 msgstr "Copie de %{title}"
 
 #: ../../app/models/plan.rb:732
-msgid "Plan is marked as a test project"
-msgstr "Le plan est marqué comme projet test"
+msgid "Plan is marked as a test project (General information tab)"
+msgstr "Le plan est marqué comme projet test (Onglet Informations Générales)"
 
 #: ../../app/models/plan.rb:733
-msgid "Plan has no research outputs"
-msgstr "Le plan n'a aucun produit de recherche"
+msgid "Plan has no research outputs (Write Plan tab)"
+msgstr "Le plan n'a aucun produit de recherche (Onglet Rédiger)"
 
 #: ../../app/models/plan.rb:734
-msgid "Plan has no license"
-msgstr "Le plan n'a pas de licence"
+msgid "Plan has no license (General Information tab)"
+msgstr "Le plan n'a pas de licence (Onglet Informations Générales)"
 
 #: ../../app/models/plan.rb:936
 msgid "DMP manager"
@@ -5442,11 +5442,12 @@ msgstr "Organisme : toute personne de mon organisme peut consulter mon plan"
 #: ../../app/views/plans/_share_form.html.erb:156
 msgid ""
 "You have chosen to make your plan public. Before confirming, please ensure tha"
-"t your plan is complete. Click OK if you want to confirm your choice."
+"t your plan is complete. Click OK and then click Update if you want to confirm"
+" your choice."
 msgstr ""
 "Vous avez choisi de rendre votre plan public. Avant de confirmer, veuillez vou"
-"s assurer que votre plan est complet. Cliquez OK si vous souhaitez confirmer v"
-"otre choix."
+"s assurer que votre plan est complet. Cliquez OK puis Mettre à jour si vous so"
+"uhaitez confirmer votre choix."
 
 #: ../../app/views/plans/_share_third_party.html.erb:5
 msgid "Authorize third-party organizations"
