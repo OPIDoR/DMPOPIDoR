@@ -116,6 +116,17 @@
       <%= _('Make fully or partially completed plans visible to administrators and the organization. They can also be made public. Plans marked as test projects and plans without research outputs remain private.') %>
     </p>
     <% allow_visibility = @plan.visibility_allowed? %>
+
+    <% if !allow_visibility %>
+      <div class="alert alert-warning" role="alert">
+        <%= _('The plan cannot be made visible because:') %>
+        <ul>
+          <% @plan.visibility_checklist.each do |item| %>
+            <li><%= item %></li>
+          <% end %>
+        </ul>
+      </div>
+    <% end %>
     <%= form_for(@plan, url: visibility_plan_path, method: :post, remote: true, html: { id: 'set_visibility' }) do |f| %>
       <fieldset <%= (allow_visibility ? '' : ' disabled') %>>
         <div class="form-control mb-3 col-xs-8">

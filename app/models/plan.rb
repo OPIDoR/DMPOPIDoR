@@ -727,6 +727,16 @@ class Plan < ApplicationRecord
                                                                             classname: 'license')
   end
 
+  def visibility_checklist
+    checklist = []
+    checklist << _('Plan is marked as a test project') if is_test?
+    checklist << _('Plan has no research outputs') if research_outputs.empty?
+    checklist << _('Plan has no license') unless MadmpFragment.exists?(dmp_id: json_fragment.id,
+                                                                       parent_id: json_fragment.meta.id,
+                                                                       classname: 'license')
+    checklist
+  end
+
   # Determines whether or not a question (given its id) exists for the self plan
   #
   # Returns Boolean
