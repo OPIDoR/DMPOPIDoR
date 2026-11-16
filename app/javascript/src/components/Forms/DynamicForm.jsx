@@ -234,6 +234,10 @@ function DynamicForm({
     }
   }, [template, fragmentId]);
 
+  useEffect(() => {
+    methods.reset({ ...emptyDefaults, ...formData[fragmentId] });
+  }, [formData[fragmentId]]);
+
   /**
    * RENDERING
    */
