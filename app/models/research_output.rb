@@ -136,7 +136,6 @@ class ResearchOutput < ApplicationRecord
     I18n.with_locale plan.template.locale do
       fragment = json_fragment
       dmp_fragment = plan.json_fragment
-      contact_person = dmp_fragment.persons.first
       data_type = configuration[:dataType]
       locale = plan.template.locale
       if fragment.nil?
@@ -165,6 +164,7 @@ class ResearchOutput < ApplicationRecord
         fragment_description.instantiate
         # Contact person is not needed for physical_object research_outputs
         unless %w[physical_object].include?(data_type)
+          contact_person = dmp_fragment.persons.first
           Fragment::Contributor.create!(
             data: {
               'person' => contact_person.present? ? { 'dbid' => contact_person.id } : nil,
