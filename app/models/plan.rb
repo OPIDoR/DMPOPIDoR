@@ -722,7 +722,9 @@ class Plan < ApplicationRecord
   #
   # Returns Boolean
   def visibility_allowed?
-    !is_test? && research_outputs.length.positive?
+    !is_test? && research_outputs.length.positive? && MadmpFragment.exists?(dmp_id: json_fragment.id,
+                                                                            parent_id: json_fragment.meta.id,
+                                                                            classname: 'license')
   end
 
   # Determines whether or not a question (given its id) exists for the self plan
