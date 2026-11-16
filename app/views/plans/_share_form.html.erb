@@ -119,7 +119,7 @@
 
     <% if !allow_visibility %>
       <div class="alert alert-warning" role="alert">
-        <%= _('The plan cannot be made visible because:') %>
+        <%= _('The plan visibility cannot be changed because:') %>
         <ul>
           <% @plan.visibility_checklist.each do |item| %>
             <li><%= item %></li>
