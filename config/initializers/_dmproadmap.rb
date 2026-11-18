@@ -204,12 +204,6 @@ module DMPRoadmap
     # options: 'privately_visible', 'organisationally_visible' and 'publicly_visibile'
     config.x.plans.default_visibility = ENV.fetch('PLANS_DEFAULT_VISIBLITY', 'privately_visible')
 
-    # The percentage of answers that have been filled out that determine if a plan
-    # will be marked as complete. Plan completion has implications on whether or
-    # not plan visibility settings are editable by the user and whether or not the
-    # plan can be submitted for feedback
-    config.x.plans.default_percentage_answered = ENV.fetch('PLANS_DEFAULT_PERCENTAGE_ANSWERED', 0)&.to_i
-
     # Whether or not Super adminis can read all of the user's plans regardless of
     # the plans visibility and whether or not the plan has been shared
     config.x.plans.org_admins_read_all = ENV.fetch('PLANS_ORG_ADMIN_READ_ALL', true).to_s.casecmp('true').zero?

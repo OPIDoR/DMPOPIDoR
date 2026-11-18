@@ -331,7 +331,6 @@
 | Name | Type | Description |
 | ---- | ---- | ----------- |
 | PAGINATION_TOTAL_HEADER | String | Total header for pagination ``(default: X-Total)`` |
-| PLANS_DEFAULT_PERCENTAGE_ANSWERED | Integer | Default percentage answered in plans ``(default: 0)`` |
 | PLANS_DEFAULT_VISIBLITY | String | Default visibility of plans ``(default: privately_visible)`` |
 | PLANS_ORG_ADMIN_READ_ALL | Boolean | Organization administrators can read everything in plans ``(default: true)`` |
 | PLANS_SUPER_ADMINS_READ_ALL | Boolean | Super administrators can read everything in plans ``(default: true)`` |

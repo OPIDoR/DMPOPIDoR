@@ -68,12 +68,6 @@ class Answer < ApplicationRecord
 
   validates :research_output, presence: { message: PRESENCE_MESSAGE }
 
-  # =============
-  # = Callbacks =
-  # =============
-
-  after_save :set_plan_complete
-
   ##
   # deep copy the given answer
   #
@@ -146,22 +140,6 @@ class Answer < ApplicationRecord
     h['standards'] = standards
     h['text'] = text
     self.text = h.to_json
-  end
-
-  def set_plan_complete
-    # Remove guard? this is an after-save so unreachable if there is no plan
-    return unless plan_id?
-
-    # Retrieve the percentage of answered questions that determines if a plan can
-    # be considered complete. If this answer completes the plan then update the Plan
-    target_percentage = Rails.configuration.x.plans.default_percentage_answered || 50.0
-    if plan.percent_answered > target_percentage && !plan.complete
-      plan.update!(complete: true)
-    else
-      # Force updated_at changes if nothing changed since save only saves if changes
-      # were made to the record
-      plan.touch
-    end
   end
 
   # rubocop:disable-next Metrics/AbcSize
