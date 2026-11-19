@@ -158,16 +158,18 @@ class MadmpFragmentsController < ApplicationController
       answer.plan_id = research_output.plan_id
       answer.user_id = current_user.id
       answer.save!
-
-      MadmpFragment.deep_copy(imported_fragment, answer.id, research_output_fragment)
-    else
-      answer.madmp_fragment.raw_import(
-        imported_fragment.get_full_fragment,
-        imported_fragment.madmp_schema
-      )
+      answer.instantiate_fragment
     end
+    answer.reload
+    # Using the schema of the existing fragment to avoid creating specific sub data from imported fragment
+    answer.madmp_fragment.raw_import(
+      imported_fragment.get_full_fragment,
+      answer.madmp_fragment.madmp_schema
+    )
+
     render json: MadmpFragment.render_fragment_json(answer.madmp_fragment,
-                                                    answer.madmp_fragment.madmp_schema).merge(answer_created: answer.previously_new_record?)
+                                                    answer.madmp_fragment.madmp_schema)
+                              .merge(answer_created: answer.previously_new_record?)
   end
 
   # Since the StaleObjectError is triggered on the Answer we need to recover the

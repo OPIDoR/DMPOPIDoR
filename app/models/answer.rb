@@ -142,11 +142,12 @@ class Answer < ApplicationRecord
     self.text = h.to_json
   end
 
-  # rubocop:disable-next Metrics/AbcSize
+  # rubocop:disable-next Metrics/AbcSize, Metrics/MethodLength
   def instantiate_fragment
     if plan.structured? && madmp_fragment.nil?
       dmp_id = plan.json_fragment.id
-      madmp_schema = MadmpSchema.find(question.madmp_schema_id)
+      madmp_schema = MadmpSchema.suggest(question.madmp_schema.classname, question.template.data_type,
+                                         research_output.topic) || MadmpSchema.find(question.madmp_schema_id)
       defaults = madmp_schema.defaults(plan.template.locale)
       madmp_fragment = MadmpFragment.create!(
         data: {},
