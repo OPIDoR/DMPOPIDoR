@@ -41,7 +41,4 @@ class Note < ApplicationRecord
   validates :answer, presence: { message: PRESENCE_MESSAGE }
 
   validates :user, presence: { message: PRESENCE_MESSAGE }
-
-  validates :archived, inclusion: { in: BOOLEAN_VALUES,
-                                    message: INCLUSION_MESSAGE }
 end
