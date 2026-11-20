@@ -16,6 +16,7 @@ module Export
       WickedPdf.new.pdf_from_string(
         html,
         enable_local_file_access: true,
+        margin: @formatting[:margin],
         footer: {
           content: ApplicationController.render(
             template: 'shared/export/plan_footer',
