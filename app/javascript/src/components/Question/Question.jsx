@@ -34,7 +34,7 @@ function Question({ planId, question, questionIdx, sectionNumber, readonly }) {
     openedQuestions,
     setOpenedQuestions,
     displayedResearchOutput,
-    updateResearchOutputAnswer,
+    upsertResearchOutputAnswer,
   } = useContext(SectionsContext);
   const { t } = useTranslation();
   const [hasGuidances, setHasGuidances] = useState(false);
@@ -215,7 +215,7 @@ function Question({ planId, question, questionIdx, sectionNumber, readonly }) {
                   hide={(e) => setModalOpened(e, "comment", false)}
                   answerId={answer?.id}
                   setAnswer={(newAnswer) =>
-                    updateResearchOutputAnswer(questionId, newAnswer)
+                    upsertResearchOutputAnswer(questionId, newAnswer)
                   }
                   researchOutputId={displayedResearchOutput.id}
                   planId={planId}
@@ -238,7 +238,7 @@ function Question({ planId, question, questionIdx, sectionNumber, readonly }) {
                   dataType={displayedResearchOutput?.configuration?.dataType}
                   className={question?.madmp_schema?.classname}
                   setAnswer={(newAnswer) =>
-                    updateResearchOutputAnswer(questionId, newAnswer)
+                    upsertResearchOutputAnswer(questionId, newAnswer)
                   }
                 />
               </>
@@ -260,7 +260,7 @@ function Question({ planId, question, questionIdx, sectionNumber, readonly }) {
                     questionId={questionId}
                     madmpSchemaId={question.madmp_schema?.id}
                     setAnswer={(newAnswer) =>
-                      updateResearchOutputAnswer(questionId, newAnswer)
+                      upsertResearchOutputAnswer(questionId, newAnswer)
                     }
                     readonly={readonly}
                     formSelector={{
