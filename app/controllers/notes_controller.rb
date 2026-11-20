@@ -42,7 +42,7 @@ class NotesController < ApplicationController
     begin
       @note = Note.new
       @note.user_id = user_id
-
+      answer_created = false
       Answer.transaction do
         @answer = Answer.find_by(
           plan_id: plan_id,
@@ -56,9 +56,11 @@ class NotesController < ApplicationController
           @answer.user_id     = @note.user_id
           @answer.research_output_id = note_params[:research_output_id]
           @answer.save!
-          @madmp_schema_id = @answer.instantiate_fragment
+          @answer.instantiate_fragment
+          answer_created = true
         end
       end
+      @answer.reload
     rescue ActiveRecord::RecordInvalid => e
       Rails.logger.error(e.backtrace.join("\n"))
       internal_server_error(e.message)
@@ -113,14 +115,9 @@ class NotesController < ApplicationController
               }
             }
           ),
-          answer_created: @answer.previously_new_record?,
-          answer: {
-            id: @answer.id,
-            question_id: @answer.question_id,
-            fragment_id: @madmp_schema_id
-            # madmp_schema_id: a.madmp_fragment.madmp_schema_id
-          }
-        }, status: :created
+          answer_created:
+        }.merge(MadmpFragment.render_fragment_json(answer.madmp_fragment,
+                                                   answer.madmp_fragment.madmp_schema)), status: :created
       else
         @status = false
         @notice = failure_message(@note, _('create'))
