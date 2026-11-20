@@ -7,8 +7,7 @@ const mode =
 
 module.exports = {
   mode,
-  devtool:
-    mode === "development" ? "eval-cheap-module-source-map" : "source-map",
+  devtool: mode === "development" ? "cheap-module-source-map" : "source-map",
   module: {
     rules: [
       {
