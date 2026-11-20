@@ -222,7 +222,7 @@ function CommentsList({
       .get(answerId)
       .then(({ data }) => {
         setComments(data?.notes || []);
-        if (setAnswer) {
+        if (setAnswer && answerId) {
           setAnswer({ new_comment_count: 0 });
         }
       })

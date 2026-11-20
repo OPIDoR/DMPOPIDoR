@@ -30,7 +30,7 @@ function useHandleNewAnswerResponse() {
       answers: [
         ...displayedResearchOutput.answers,
         {
-          answer_id: answerId,
+          id: answerId,
           question_id: questionId,
           fragment_id: fragment.id,
         },
