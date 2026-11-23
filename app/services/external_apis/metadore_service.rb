@@ -2,9 +2,9 @@
 
 require 'uri'
 
-module MadmpExternalApis
+module ExternalApis
   # This service provides an interface to MetaDoRe API
-  class MetadoreService < ExternalApis::BaseService
+  class MetadoreService < BaseService
     class << self
       # Retrieve the config settings from the initializer
       def landing_page_url

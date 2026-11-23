@@ -2,9 +2,9 @@
 
 require 'uri'
 
-module MadmpExternalApis
+module ExternalApis
   # This service provides an interface to Loterre API
-  class LoterreService < ExternalApis::BaseService
+  class LoterreService < BaseService
     class << self
       # Retrieve the config settings from the initializer
       def landing_page_url

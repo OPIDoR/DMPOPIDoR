@@ -2,9 +2,9 @@
 
 require 'cgi'
 
-module MadmpExternalApis
+module ExternalApis
   # This service provides an interface to ORCiD API
-  class OrcidService < ExternalApis::BaseService
+  class OrcidService < BaseService
     class << self
       # Retrieve the config settings from the initializer
       def landing_page_url
