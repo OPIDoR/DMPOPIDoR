@@ -1,10 +1,12 @@
 # frozen_string_literal: true
 
+require 'cgi'
+
 module ExternalApis
   # This service provides an interface to the Research Organization Registry (ROR)
   # API.
   # For more information: https://github.com/ror-community/ror-api
-  class RorService < BaseService
+  class RorService < ExternalApis::BaseService
     class << self
       # Retrieve the config settings from the initializer
       def landing_page_url
@@ -46,7 +48,7 @@ module ExternalApis
         return true unless active? && heartbeat_path.present?
 
         resp = http_get(uri: "#{api_base_url}#{heartbeat_path}")
-        resp.present? && resp.code == 200
+        resp&.code == 200
       end
 
       # Search the ROR API for the given string.
@@ -64,9 +66,9 @@ module ExternalApis
         return [] unless active? && term.present? && ping?
 
         process_pages(
-          term: term,
-          json: query_ror(term: term, filters: filters),
-          filters: filters
+          term:,
+          json: query_ror(term:, filters:),
+          filters:
         )
 
       # If a JSON parse error occurs then return results of a local table search
@@ -79,29 +81,31 @@ module ExternalApis
 
       # Queries the ROR API for the sepcified name and page
       def query_ror(term:, page: 1, filters: [])
-        return [] unless term.present?
+        return [] unless term
 
-        # build the URL
+        # Build the URL
         target = "#{api_base_url}#{search_path}"
-        query = query_string(term: term, page: page, filters: filters)
+        query = query_string(term:, page:, filters:)
 
         # Call the ROR API and log any errors
-        resp = http_get(uri: "#{target}?#{query}", additional_headers: {},
-                        debug: false)
+        resp = http_get(uri: "#{target}?#{query}", additional_headers: {}, debug: false)
 
-        unless resp.present? && resp.code == 200
-          handle_http_failure(method: 'ROR search', http_response: resp)
-          return []
-        end
+        return [] unless resp&.code == 200
+
         JSON.parse(resp.body)
+      rescue StandardError
+        handle_http_failure(method: 'ROR search', http_response: resp)
+        []
       end
 
       # Build the query string using the search term, current page and any
       # filters specified
       def query_string(term:, page: 1, filters: [])
-        query_string = ["query=#{term}", "page=#{page}"]
-        query_string << "filter=#{filters.join(',')}" if filters.any?
-        query_string.join('&')
+        [
+          "query=#{CGI.escape(term)}",
+          "page=#{page}",
+          ("filter=#{CGI.escape(filters&.join(','))}" unless filters.nil?)
+        ].compact&.join('&')
       end
 
       # Recursive method that can handle multiple ROR result pages if necessary
@@ -109,7 +113,7 @@ module ExternalApis
       def process_pages(term:, json:, filters: [])
         return [] if json.blank?
 
-        results = parse_results(json: json)
+        results = parse_results(json:)
         num_of_results = json.fetch('number_of_results', 1).to_i
 
         # Determine if there are multiple pages of results
@@ -118,8 +122,8 @@ module ExternalApis
 
         # Gather the results from the additional page (only up to the max)
         (2..([pages, max_pages].min)).each do |page|
-          json = query_ror(term: term, page: page, filters: filters)
-          results += parse_results(json: json)
+          json = query_ror(term:, page:, filters:)
+          results += parse_results(json:)
         end
         results || []
 
@@ -131,25 +135,76 @@ module ExternalApis
       end
 
       # Convert the JSON items into a hash
+      # rubocop:disable Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
       # rubocop:disable-next Metrics/AbcSize
       def parse_results(json:)
-        results = []
-        return results unless json.present? && json.fetch('items', []).any?
+        return [] unless json['items']&.any?
 
-        json['items'].each do |item|
-          next unless item['id'].present? && item['name'].present?
+        json['items']&.filter_map do |item|
+          {
+            type: 'ROR',
+            ror: item['id'],
+            name: get_name(item:),
+            links: (item&.dig('links') || [])
+                   .select { |link| link&.dig('type') == 'website' }
+                   .map { |link| link&.dig('value') },
+            country: get_country(item:),
+            addresses: get_addresses(item:),
+            acronym: get_acronym(item:),
+            external_ids: get_external_ids(item:)
+          }
+        end&.compact || []
+      end
+      # rubocop:enable Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
 
-          results << {
-            ror: item['id'].gsub(/^#{landing_page_url}/, ''),
-            name: org_name(item: item),
-            sort_name: item['name'],
-            url: item.fetch('links', []).first,
-            language: org_language(item: item),
-            fundref: fundref_id(item: item),
-            abbreviation: item.fetch('acronyms', []).first
+      def get_ror_value(item:)
+        # Remove the 'landing_page_url' from the beginning of the 'id' value
+        item['id'].to_s.gsub(/^#{landing_page_url}/, '')
+      end
+
+      def get_country(item:)
+        location = item&.dig('locations')&.first
+        {
+          name: location&.dig('geonames_details', 'country_name').to_s,
+          code: location&.dig('geonames_details', 'country_code').to_s
+        }
+      end
+
+      # rubocop:disable-next Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
+      def get_name(item:)
+        item&.dig('names')
+            &.select { |name| name&.dig('types')&.include?('ror_display') }
+            &.map { |name| name&.dig('value') }&.first
+      end
+
+      def get_addresses(item:)
+        return [] unless item&.dig('locations')
+
+        item&.dig('locations')&.map do |location|
+          {
+            city: location&.dig('geonames_details', 'name'),
+            country: get_country(item:),
+            pos: {
+              lat: location&.dig('geonames_details', 'lat'),
+              lng: location&.dig('geonames_details', 'lng')
+            }
           }
         end
-        results
+      end
+
+      # rubocop:disable-next Metrics/PerceivedComplexity, Metrics/CyclomaticComplexity
+      def get_acronym(item:)
+        item&.dig('names')
+            &.select { |name| name&.dig('types')&.include?('acronym') && name&.dig('value') }
+            &.map { |name| name&.dig('value') }&.first
+      end
+
+      def get_external_ids(item:)
+        item&.dig('external_ids')
+            .to_h do |external_id|
+          [external_id&.dig('type')&.to_sym,
+           external_id&.dig('preferred') ? [external_id&.dig('preferred')] : external_id&.dig('all')]
+        end
       end
 
       # Org names are not unique, so include the Org URL if available or
@@ -157,10 +212,10 @@ module ExternalApis
       #    "Example College (example.edu)"
       #    "Example College (Brazil)"
       def org_name(item:)
-        return '' unless item.present? && item['name'].present?
+        return '' unless item&.dig('name')
 
-        country = item.fetch('country', {}).fetch('country_name', '')
-        website = org_website(item: item)
+        country = item.dig('country', 'country_name').to_s
+        website = org_website(item:)
         # If no website or country then just return the name
         return item['name'] unless website.present? || country.present?
 
@@ -171,34 +226,31 @@ module ExternalApis
       # Extracts the org's ISO639 if available
       def org_language(item:)
         dflt = I18n.default_locale || 'en'
-        return dflt unless item.present?
+        return dflt unless item&.fetch('labels', [])&.first&.fetch('iso639')
 
-        labels = item.fetch('labels', [{ iso639: dflt }])
-        labels.first&.fetch('iso639', I18n.default_locale) || dflt
+        item['labels'].first['iso639']
       end
 
       # Extracts the website domain from the item
+      # rubocop:disable-next Metrics/CyclomaticComplexity
       def org_website(item:)
-        return nil unless item.present? && item.fetch('links', [])&.any?
-        return nil if item['links'].first.blank?
+        return nil unless item&.fetch('links', [])&.any?
 
         # A website was found, so extract just the domain without the www
-        domain_regex = %r{^(?:http://|www\.|https://)([^/]+)}
-        website = item['links'].first.scan(domain_regex).last.first
-        website.gsub('www.', '')
+        website = item['links'].first&.match(%r{^(?:http://|www\.|https://)([^/]+)})&.captures&.first
+        website&.sub('www.', '')
       end
 
       # Extracts the FundRef Id if available
       def fundref_id(item:)
-        return '' unless item.present? && item['external_ids'].present?
-        return '' unless item['external_ids'].fetch('FundRef', {}).any?
+        return '' unless item&.fetch('external_ids', {})&.fetch('FundRef', [])&.any?
 
         # If a preferred Id was specified then use it
-        ret = item['external_ids'].fetch('FundRef', {}).fetch('preferred', '')
-        return ret if ret.present?
+        preferred_id = item.dig('external_ids', 'FundRef', 'preferred')
+        return preferred_id if preferred_id.present?
 
         # Otherwise take the first one listed
-        item['external_ids'].fetch('FundRef', {}).fetch('all', []).first
+        item.dig('external_ids', 'FundRef', 'all')&.first.to_s
       end
     end
   end

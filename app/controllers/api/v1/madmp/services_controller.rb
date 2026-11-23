@@ -13,7 +13,7 @@ module Api
 
         # GET /api/v1/service/ror?query=:query&filter=:filter
         def ror
-          render json: MadmpExternalApis::RorService.search(
+          render json: ExternalApis::RorService.search(
             term: params[:query],
             filters: params[:filter]&.split(',')
           )
@@ -22,7 +22,7 @@ module Api
         # GET /api/v1/service/orcid?search=:search&rows=:rows
         # :search can be an orcid id or name
         def orcid
-          render json: MadmpExternalApis::OrcidService.search(
+          render json: ExternalApis::OrcidService.search(
             term: params[:search],
             rows: params[:rows]
           )
@@ -32,7 +32,7 @@ module Api
         # :endpoint Loterre endpoint
         # :query_parameters query parameters
         def loterre
-          render json: MadmpExternalApis::LoterreService.request(
+          render json: ExternalApis::LoterreService.request(
             query_params: request.query_parameters,
             params:
           )
@@ -42,7 +42,7 @@ module Api
         # :query query (string)
         # e.g: api/v1/madmp/services/metadore?query=10.5281/zenodo.10348077
         def metadore
-          render json: MadmpExternalApis::MetadoreService.search(query_params: request.query_parameters)
+          render json: ExternalApis::MetadoreService.search(query_params: request.query_parameters)
         end
       end
     end
