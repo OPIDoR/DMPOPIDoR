@@ -20,7 +20,7 @@ class AnswersController < ApplicationController
     render json: MadmpFragment.render_fragment_json(fragment, fragment.madmp_schema)
     nil
   rescue ActiveRecord::RecordNotFound
-    madmp_schema = if research_output.topic.eql?('generic')
+    madmp_schema = if research_output&.output_type.eql?('dataset') && research_output&.topic.eql?('generic')
                      question.madmp_schema
                    else
                      MadmpSchema.suggest(question.madmp_schema.classname, question.template.data_type,

@@ -143,11 +143,18 @@ class Answer < ApplicationRecord
   end
 
   # rubocop:disable-next Metrics/AbcSize, Metrics/MethodLength
+  # rubocop:disable-next Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
   def instantiate_fragment
     if plan.structured? && madmp_fragment.nil?
+      classname = question.madmp_schema.classname
+      data_type = research_output&.output_type || 'dataset'
+      topic = research_output&.topic
       dmp_id = plan.json_fragment.id
-      madmp_schema = MadmpSchema.suggest(question.madmp_schema.classname, question.template.data_type,
-                                         research_output.topic) || MadmpSchema.find(question.madmp_schema_id)
+      madmp_schema = if data_type.eql?('dataset') && topic.eql?('generic')
+                       MadmpSchema.find(question.madmp_schema_id)
+                     else
+                       MadmpSchema.suggest(classname, data_type, topic) || MadmpSchema.find(question.madmp_schema_id)
+                     end
       defaults = madmp_schema.defaults(plan.template.locale)
       madmp_fragment = MadmpFragment.create!(
         data: {},
@@ -155,9 +162,9 @@ class Answer < ApplicationRecord
         parent_id: research_output.present? ? research_output.json_fragment.id : nil,
         dmp_id:,
         madmp_schema: madmp_schema,
-        classname: madmp_schema.classname,
+        classname: classname,
         additional_info: {
-          'property_name' => madmp_schema.property_name_from_classname(research_output&.output_type || 'dataset')
+          'property_name' => madmp_schema.property_name_from_classname(data_type)
         }
       )
       madmp_fragment.instantiate
