@@ -20,6 +20,7 @@ import {
 } from "./styles/CommentsStyles.jsx";
 import "../../i18n.js";
 import swalUtils from "../../utils/swalUtils.js";
+import useHandleNewAnswerResponse from "../../hooks/useHandleNewAnswerResponse.js";
 
 const locales = { fr, en: enGB };
 
@@ -43,6 +44,11 @@ function CommentsList({
   const [error, setError] = useState(null);
   const [isUpdate, setIsUpdate] = useState(false);
   const [comment, setComment] = useState(null);
+
+  /**
+   * Memoized values
+   */
+  const handleNewAnswerResponse = useHandleNewAnswerResponse();
 
   /**
    * "updateParentText" is a function that takes in a parameter called "updatedText" and then sets the value of "editorContentRef.current" to
@@ -171,7 +177,7 @@ function CommentsList({
     setComments([newNote, ...comments]);
 
     if (data.answer_created && setAnswer) {
-      setAnswer(data.answer);
+      handleNewAnswerResponse(data, questionId, setAnswer);
     }
 
     return toast.success(t("commentSuccess"));
@@ -216,7 +222,7 @@ function CommentsList({
       .get(answerId)
       .then(({ data }) => {
         setComments(data?.notes || []);
-        if (setAnswer) {
+        if (setAnswer && answerId) {
           setAnswer({ new_comment_count: 0 });
         }
       })

@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <script>
+      function substitutePdfVariables() {
+        var vars = {};
+        var query = document.location.search.substring(1).split('&');
+        for (var i = 0; i < query.length; i++) {
+          var pair = query[i].split('=', 2);
+          vars[pair[0]] = decodeURIComponent(pair[1]);
+        }
+        ['page', 'topage'].forEach(function(cls) {
+          var els = document.getElementsByClassName(cls);
+          for (var j = 0; j < els.length; j++) {
+            els[j].textContent = vars[cls];
+          }
+        });
+      }
+    </script>
+    <style>
+      body { font-size: 10px; margin: 0; text-align: center; color: #555; }
+      .line { margin: 0; line-height: 1.4; }
+    </style>
+  </head>
+  <body onload="substitutePdfVariables()">
+    <p class="line"><%= licence %></p>
+    <p class="line">Page <span class="page"></span> / <span class="topage"></span></p>
+  </body>
+</html>

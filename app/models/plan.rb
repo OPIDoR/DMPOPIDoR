@@ -726,7 +726,19 @@ class Plan < ApplicationRecord
   #
   # Returns Boolean
   def visibility_allowed?
-    !is_test? && research_outputs.length.positive?
+    !is_test? && research_outputs.length.positive? && MadmpFragment.exists?(dmp_id: json_fragment.id,
+                                                                            parent_id: json_fragment.meta.id,
+                                                                            classname: 'license')
+  end
+
+  def visibility_checklist
+    checklist = []
+    checklist << _('Plan is marked as a test project (General information tab)') if is_test?
+    checklist << _('Plan has no research outputs (Write Plan tab)') if research_outputs.empty?
+    checklist << _('Plan has no license (General Information tab)') unless MadmpFragment.exists?(dmp_id: json_fragment.id,
+                                                                                                 parent_id: json_fragment.meta.id,
+                                                                                                 classname: 'license')
+    checklist
   end
 
   # Determines whether or not a question (given its id) exists for the self plan

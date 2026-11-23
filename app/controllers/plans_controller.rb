@@ -44,7 +44,7 @@ class PlansController < ApplicationController
         end
         # Sort plans by updated_at desc and filter only structured plans
         plans = @plans.filter(&:structured?).compact.sort_by(&:updated_at).reverse
-        plans = filter_plans(plans, classname, data_type, params[:topic])
+        plans = filter_plans(plans, classname, data_type)
         render json: { plans: plans.map(&:serialize_json) }
       end
     end
@@ -399,9 +399,8 @@ class PlansController < ApplicationController
                  json: { msg: failure_message(plan, _('update')) }
         end
       else
-        # rubocop:disable-next Layout/LineLength
         render status: :forbidden, json: {
-          msg: format(_("Unable to change the plan's status since it is needed at least %{percentage} percentage responded"), percentage: Rails.configuration.x.plans.default_percentage_answered)
+          msg: format(_("Unable to change the plan's status"))
         }
       end
     else
@@ -674,15 +673,13 @@ class PlansController < ApplicationController
     end
   end
 
-  # rubocop:disable-next Metrics/AbcSize
-  # rubocop:disable-next Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
-  def filter_plans(plans, classname, data_type, topic = 'generic')
-    return plans.filter { |plan| plan.research_outputs.any? } if classname.blank? || data_type.blank? || topic.blank?
+  # rubocop:disable-next Metrics/CyclomaticComplexity
+  def filter_plans(plans, classname, data_type)
+    return plans.filter { |plan| plan.research_outputs.any? } if classname.blank? || data_type.blank?
 
     plans.select do |plan|
       plan.research_outputs.any? do |ro|
         ro.output_type == data_type
-        && ro.topic == topic
         && ro.answers.any? do |a|
           a.madmp_fragment.classname == classname
         end

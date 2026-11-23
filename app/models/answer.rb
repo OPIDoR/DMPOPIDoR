@@ -68,12 +68,6 @@ class Answer < ApplicationRecord
 
   validates :research_output, presence: { message: PRESENCE_MESSAGE }
 
-  # =============
-  # = Callbacks =
-  # =============
-
-  after_save :set_plan_complete
-
   ##
   # deep copy the given answer
   #
@@ -119,13 +113,6 @@ class Answer < ApplicationRecord
     false
   end
 
-  # Answer notes whose archived is blank sorted by updated_at in descending order
-  #
-  # Returns Array
-  def non_archived_notes
-    notes.select { |n| n.archived.blank? }.sort_by!(&:created_at)
-  end
-
   # The parsed JSON hash for the current answer object. Generates a new hash if none
   # exists for rda_questions.
   #
@@ -155,27 +142,19 @@ class Answer < ApplicationRecord
     self.text = h.to_json
   end
 
-  def set_plan_complete
-    # Remove guard? this is an after-save so unreachable if there is no plan
-    return unless plan_id?
-
-    # Retrieve the percentage of answered questions that determines if a plan can
-    # be considered complete. If this answer completes the plan then update the Plan
-    target_percentage = Rails.configuration.x.plans.default_percentage_answered || 50.0
-    if plan.percent_answered > target_percentage && !plan.complete
-      plan.update!(complete: true)
-    else
-      # Force updated_at changes if nothing changed since save only saves if changes
-      # were made to the record
-      plan.touch
-    end
-  end
-
-  # rubocop:disable-next Metrics/AbcSize
+  # rubocop:disable-next Metrics/AbcSize, Metrics/MethodLength
+  # rubocop:disable-next Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
   def instantiate_fragment
     if plan.structured? && madmp_fragment.nil?
+      classname = question.madmp_schema.classname
+      data_type = research_output&.output_type || 'dataset'
+      topic = research_output&.topic
       dmp_id = plan.json_fragment.id
-      madmp_schema = MadmpSchema.find(question.madmp_schema_id)
+      madmp_schema = if data_type.eql?('dataset') && topic.eql?('generic')
+                       MadmpSchema.find(question.madmp_schema_id)
+                     else
+                       MadmpSchema.suggest(classname, data_type, topic) || MadmpSchema.find(question.madmp_schema_id)
+                     end
       defaults = madmp_schema.defaults(plan.template.locale)
       madmp_fragment = MadmpFragment.create!(
         data: {},
@@ -183,9 +162,9 @@ class Answer < ApplicationRecord
         parent_id: research_output.present? ? research_output.json_fragment.id : nil,
         dmp_id:,
         madmp_schema: madmp_schema,
-        classname: madmp_schema.classname,
+        classname: classname,
         additional_info: {
-          'property_name' => madmp_schema.property_name_from_classname(research_output&.output_type || 'dataset')
+          'property_name' => madmp_schema.property_name_from_classname(data_type)
         }
       )
       madmp_fragment.instantiate
@@ -209,7 +188,7 @@ class Answer < ApplicationRecord
   def unread_comments_count_for(user)
     mark = ViewedComment.find_by(user: user, answer: self)
     # exluding user's own comment
-    scope = notes.where.not(user_id: user.id).where(archived: false)
+    scope = notes.where.not(user_id: user.id)
     scope = scope.where('created_at > ?', mark.last_read_at) if mark
     scope.count
   end

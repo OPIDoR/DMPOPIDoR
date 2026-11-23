@@ -4,14 +4,12 @@
 #
 # Table name: notes
 #
-#  id          :integer          not null, primary key
-#  archived    :boolean          default(FALSE), not null
-#  archived_by :integer
-#  text        :text
-#  created_at  :datetime
-#  updated_at  :datetime
-#  answer_id   :integer
-#  user_id     :integer
+#  id         :integer          not null, primary key
+#  text       :text
+#  created_at :datetime
+#  updated_at :datetime
+#  answer_id  :integer
+#  user_id    :integer
 #
 # Indexes
 #
@@ -43,7 +41,4 @@ class Note < ApplicationRecord
   validates :answer, presence: { message: PRESENCE_MESSAGE }
 
   validates :user, presence: { message: PRESENCE_MESSAGE }
-
-  validates :archived, inclusion: { in: BOOLEAN_VALUES,
-                                    message: INCLUSION_MESSAGE }
 end

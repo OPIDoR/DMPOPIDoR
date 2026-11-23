@@ -1,5 +1,5 @@
 import { useCallback, useContext, useEffect, useMemo, useState } from "react";
-import { useFormContext, useController } from "react-hook-form";
+import { useFormContext, useController, useWatch } from "react-hook-form";
 import { useTranslation } from "react-i18next";
 import { Tooltip as ReactTooltip } from "react-tooltip";
 import uniqueId from "lodash.uniqueid";
@@ -17,11 +17,7 @@ import * as styles from "../../assets/css/form.module.css";
 import CustomSelect from "../../Shared/CustomSelect.jsx";
 import { ASYNC_SELECT_OPTION_THRESHOLD } from "../../../config.js";
 import NestedForm from "../../Forms/NestedForm.jsx";
-import {
-  except,
-  fragmentEmpty,
-  getErrorMessage,
-} from "../../../utils/utils.js";
+import { fragmentEmpty, getErrorMessage } from "../../../utils/utils.js";
 import swalUtils from "../../../utils/swalUtils.js";
 import TooltipInfoIcon from "../TooltipInfoIcon.jsx";
 import useLoadTemplate from "../../../hooks/useLoadTemplate.js";
@@ -46,6 +42,7 @@ function SelectSingleObject({
   const [error, setError] = useState(null);
   const [editedFragment, setEditedFragment] = useState({});
   const [availableRegistries, setAvailableRegistries] = useState(registries);
+  const selectedValue = useWatch({ control, name: propName });
   const [selectedRegistry, setSelectedRegistry] = useState(
     availableRegistries[0],
   );
@@ -60,11 +57,6 @@ function SelectSingleObject({
     [],
   );
   const inputId = useMemo(() => uniqueId("select_single_object_id_"), []);
-
-  const selectedValue = useMemo(
-    () => except(field.value, ["template_name", "id", "schema_id"]) || null,
-    [field.value],
-  );
   const options = useMemo(
     () =>
       registryValues

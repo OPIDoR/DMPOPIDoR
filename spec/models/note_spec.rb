@@ -4,14 +4,12 @@
 #
 # Table name: notes
 #
-#  id          :integer          not null, primary key
-#  archived    :boolean          default(FALSE), not null
-#  archived_by :integer
-#  text        :text
-#  created_at  :datetime
-#  updated_at  :datetime
-#  answer_id   :integer
-#  user_id     :integer
+#  id         :integer          not null, primary key
+#  text       :text
+#  created_at :datetime
+#  updated_at :datetime
+#  answer_id  :integer
+#  user_id    :integer
 #
 # Indexes
 #
@@ -32,10 +30,6 @@ RSpec.describe Note, type: :model do
     it { is_expected.to validate_presence_of(:answer) }
 
     it { is_expected.to validate_presence_of(:user) }
-
-    it { is_expected.to allow_values(true, false).for(:archived) }
-
-    it { is_expected.not_to allow_value(nil).for(:archived) }
   end
 
   context 'associations' do

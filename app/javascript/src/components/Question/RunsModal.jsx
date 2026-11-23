@@ -22,7 +22,6 @@ function RunsModal({ shown, hide, scriptsData, fragmentId }) {
   const [success, setSuccess] = useState(null);
   const modalRef = useRef(null);
 
-  console.log("locale", locale, "setClients", setClients);
   const handleRunScript = (scriptName) => {
     if (
       scriptsData?.apiClient &&

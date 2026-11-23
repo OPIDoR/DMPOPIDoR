@@ -5,7 +5,6 @@ function useFetchResearchOutputsData(
   planId,
   dataType = null,
   className = null,
-  topic = null,
 ) {
   const [data, setData] = useState(null);
   const [loading, setLoading] = useState(true);
@@ -14,12 +13,12 @@ function useFetchResearchOutputsData(
     if (!planId) return;
 
     researchOutput
-      .getResearchOutputs(planId, className, dataType, topic)
+      .getResearchOutputs(planId, className, dataType)
       .then(({ data }) => {
         setData(data.research_outputs);
         setLoading(false);
       });
-  }, [planId, dataType, className, topic]);
+  }, [planId, dataType, className]);
 
   return { data, loading };
 }

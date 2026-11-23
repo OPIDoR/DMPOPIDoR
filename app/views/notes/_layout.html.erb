@@ -1,5 +1,5 @@
 <%# locals: { plan, question, answer, research_output } %>
-<% notes = answer.non_archived_notes %>
+<% notes = answer.notes %>
 <div class="card card-default">
   <div class="card-body">
     <% if plan.commentable_by?(current_user.id) %>

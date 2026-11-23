@@ -18,13 +18,19 @@ function SectionsProvider({ children }) {
   const [researchOutputsWithComments, setResearchOutputsWithComments] =
     useState([]);
   const [displayedResearchOutput, setDisplayedResearchOutput] = useState(null);
-  const updateResearchOutputAnswer = useCallback((questionId, newAnswer) => {
-    setDisplayedResearchOutput((prev) => ({
-      ...prev,
-      answers: prev.answers.map((a) =>
-        a.question_id === questionId ? { ...a, ...newAnswer } : a,
-      ),
-    }));
+  const upsertResearchOutputAnswer = useCallback((questionId, newAnswer) => {
+    setDisplayedResearchOutput((prev) => {
+      if (!prev) return prev;
+      const exists = prev.answers?.some((a) => a.question_id === questionId);
+      return {
+        ...prev,
+        answers: exists
+          ? prev.answers.map((b) =>
+              b.question_id === questionId ? { ...b, ...newAnswer } : b,
+            )
+          : [...(prev.answers ?? []), newAnswer],
+      };
+    });
   }, []);
 
   const contextValue = useMemo(
@@ -37,7 +43,7 @@ function SectionsProvider({ children }) {
       setResearchOutputs,
       displayedResearchOutput,
       setDisplayedResearchOutput,
-      updateResearchOutputAnswer,
+      upsertResearchOutputAnswer,
       researchOutputsWithComments,
       setResearchOutputsWithComments,
     }),

@@ -190,35 +190,6 @@ RSpec.describe Answer, type: :model do
     end
   end
 
-  describe '#non_archived_notes' do
-    before do
-      @answer         = create(:answer)
-      @notes          = create_list(:note, 3, answer: @answer, archived: false)
-      @archived_notes = create_list(:note, 3, answer: @answer, archived: true)
-      @other_notes    = create_list(:note, 3)
-    end
-
-    subject { @answer.non_archived_notes }
-
-    it 'includes the non-archived notes' do
-      @notes.each do |note|
-        expect(subject).to include(note)
-      end
-    end
-
-    it 'excludes the archived notes' do
-      @archived_notes.each do |note|
-        expect(subject).not_to include(note)
-      end
-    end
-
-    it 'excludes notes belonging to other Answers' do
-      @other_notes.each do |note|
-        expect(subject).not_to include(note)
-      end
-    end
-  end
-
   describe '#answer_hash' do
     let!(:answer) { build(:answer) }
 

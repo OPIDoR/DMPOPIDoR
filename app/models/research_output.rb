@@ -136,7 +136,6 @@ class ResearchOutput < ApplicationRecord
     I18n.with_locale plan.template.locale do
       fragment = json_fragment
       dmp_fragment = plan.json_fragment
-      contact_person = dmp_fragment.persons.first
       data_type = configuration[:dataType]
       locale = plan.template.locale
       if fragment.nil?
@@ -163,16 +162,20 @@ class ResearchOutput < ApplicationRecord
           additional_info: { property_name: description_prop_name }
         )
         fragment_description.instantiate
-        Fragment::Contributor.create!(
-          data: {
-            'person' => contact_person.present? ? { 'dbid' => contact_person.id } : nil,
-            'role' => _('Contact Person')
-          },
-          dmp_id: dmp_fragment.id,
-          parent_id: fragment_description.id,
-          madmp_schema: MadmpSchema.find_by(name: 'ContributorConstantRole'),
-          additional_info: { property_name: 'contact' }
-        )
+        # Contact person is not needed for physical_object research_outputs
+        unless %w[physical_object].include?(data_type)
+          contact_person = dmp_fragment.persons.first
+          Fragment::Contributor.create!(
+            data: {
+              'person' => contact_person.present? ? { 'dbid' => contact_person.id } : nil,
+              'role' => _('Contact Person')
+            },
+            dmp_id: dmp_fragment.id,
+            parent_id: fragment_description.id,
+            madmp_schema: MadmpSchema.find_by(name: 'ContributorConstantRole'),
+            additional_info: { property_name: 'contact' }
+          )
+        end
 
         if description_question.present? && plan.structured? && !duplicate
           # Create a new answer for the ResearchOutputDescription Question
@@ -320,7 +323,6 @@ class ResearchOutput < ApplicationRecord
         ON vc.answer_id = answers.id
         AND vc.user_id = :user_id
       WHERE notes.user_id != :user_id
-        AND notes.archived = false
         AND research_outputs.plan_id = :plan_id
         AND (vc.id IS NULL OR vc.last_read_at < notes.created_at)
     SQL
