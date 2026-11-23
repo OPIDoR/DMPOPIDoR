@@ -2,6 +2,17 @@
 
 **Attention** Cette liste de changements concerne les déploiements sur nos serveurs de test en interne.
 
+## 23/11/2026
+- Retrait de la thématique des critères de tri de l'import de réponse (#18807)
+- Mise à jour vers devise_invitable V3 (librairie gérant les invitations de comptes) (#18776)
+- Retrait de la création par défaut du contact d'un produit de recherche Collections d'objets physique (#18754)
+- Suppression des colonnes archived & archived_by de la table des commentaires (#18658)
+- Correction de l'affichage des marges dans les export PDF (#18848)
+- Correction d'un problème de rafraichissement du formulaire après la création d'un commentaire sur une question non répondue (#18860)
+- Amélioration de l'attribution du formulaire utilisé lors de l'import d'une réponse dans une question non répondue ou la création d'un commentaire sur une question non répondue : 
+  - Attribution du formulaire lié à la question (Formulaire Standard) pour un produit de recherche dataset/generic
+  - Attribution d'un formulaire correspondont au questionnaire et à la thématique choisie autrement
+
 ## 16/11/2026
 - Ajout de la licence dans les critères nécessaires au changement de visibilité d'un plan
 - Ajout d'une checklist indiquant les raisons du blocage de changement de visibilité
