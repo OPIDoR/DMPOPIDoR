@@ -69,8 +69,6 @@ function Import({ prevStep, params, set }) {
   const handleImport = async () => {
     setLoading(true);
 
-    console.log(params);
-
     const formData = new FormData();
     formData.append("import[template_id]", selectedTemplate.value);
     formData.append("import[format]", params.format);
@@ -147,7 +145,7 @@ function Import({ prevStep, params, set }) {
    */
 
   return (
-    <div>
+    <>
       {loading && <CustomSpinner />}
       {!loading && templates.length === 0 && (
         <h2>{t("noTemplatesMeetCriteria")}</h2>
@@ -211,7 +209,7 @@ function Import({ prevStep, params, set }) {
           </div>
         </>
       )}
-    </div>
+    </>
   );
 }
 

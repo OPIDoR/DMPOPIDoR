@@ -2,94 +2,61 @@
 
 **Attention** Cette liste de changements concerne les déploiements sur nos serveurs de test en interne.
 
-## 24/09/2026
-- Exclusion de certains style lors du copier coller dans un éditeur afin d'éviter des problèmes d'affichages dans l'interface et les exports PDF
-- Correction des traductions des textes affichés dans les mails.
+## 16/11/2026
+- Ajout de la licence dans les critères nécessaires au changement de visibilité d'un plan
+- Ajout d'une checklist indiquant les raisons du blocage de changement de visibilité
+- Mise à jour des textes en lien avec le changement de visibilité
 
-## 22/09/2026
-- Correction d'un problème de modification des modèles personnalisés suite à la migration Turbo  (#18528)
-- API V2 DMPS : implémentation du sort & correction du filtre ethical_issues (#13649)
+## 12/11/2026
+- Correction du problème de suppression de la licence (#18821)
+- Mise à jour du texte des droits d'auteur dans les plans sans licence dans le pied de page de l'export PDF (#18822)
+- Ajout de la licence dans le pied de page de l'export PDF des plans classiques (#18823)
+- Correction du problème d'ouverture de la zone recommandations/commentaires dans les plans classiques (#18824)
 
-## 14/09/2026
-- Ajout d'une traduction manquante (e.g./ex.)
-- Le bouton Télécharger n'est désormais bloqué que pour les exports PDF
-- Amélioration de l'affichage des notifications & correction du problème empéchant de les marquer comme lues (#18480)
+## 06/11/2026
+- Refonte de l'affichage du pied de page, ajout d'une licence par défaut pour les plans publics et organismes (#18811)
 
-## 08/09/2026
-- La generation JSON d'un plan ne se fait que si le plan a été modifié
-- Export de plan : Mise à jour des textes concernant l'export de plan sur les plans avec beaucoup de produits de recherche et blocage de l'export PDF pour les plans avec plus de 15 produits
-- Ajout du support des phases et produits sélectionnés au générateur de plan PDF.
+## 29/10/2026
+- Changement de l'icône d'import de réponse
+- Changement des textes de l'import de réponse (#18783)
+- Correction du chargement des éditeurs dans les plans classiques (#18757)
 
-## 04/09/2026
-- Correction des scripts de mise à jour de la date de connexion et d'anonymisation après 5 ans
-- Ajout de la prégénération des PDF pour les plans publics et les plans comportant plus de 15 produits de recherche
+## 28/10/2026
+- Correction d'un problème autorisant la suppression de tous les produits de recherche dans les plans classiques (#18758)
+- Correction de l'ordre des produits de recherche dans l'onglet Télécharger
 
-## 20/08/2026
-- Optimisation du chargement des données concernant les produits de recherche dans l'onglet Rédiger
-- Retrait des tags HTML dans l'intitulé de la question présent dans la notification de nouveau commentaire.
-- Correction du problème de sauvegarde de l'infobox et de la question Description (#15983)
+## 19/10/2026
+- Mise à jour de changement de plan en visibilité publique (#18739)
+- Correction d'un problème empéchant l'affichage de la liste des produits de recherche lors de l'import d'une réponse.
+- Améliorations de l'import de réponse et de produits de recherche : 
+  - exclusion des plans sans produit de recherche
+  - ajout d'un message lorsqu'aucun produit de recherche ne correspond aux critères d'import dans le plan sélectionné"
 
-## 19/08/2026
-- La question s'ouvre désormais automatiquement lorsqu'un utilisateur ouvre le lien présent dans la notification d'un nouveau commentaire.
-- Ajout de l'intitulé de la question dans la notification de nouveau commentaire
-- Homogénéisation des dates de dernière modification affichées dans les listes de plans (#14194)
-- Correction d'un problème d'affichage du placeholder dans la liste déroulante pour les référentiels complexes à choix unique (#15973)
-- Correction d'un problème d'import des produits de recherche Collection (#15983)
-- Ajout de la propriété step sur les champs nombre (#15978)
+## 15/10/2026
+- Correction d'un problème avec le script de génération des PDF (#18650)
+- Retrait de la création des contributeurs dans l'onglet Contributeurs des plans structurés (#18652)
+- Correction d'un problème de génération du contact du plan
 
-## 11/08/2026
-- Correction de création des produits de recherche dans les plans classiques & changement du nom par défaut généré (#15941)
-- Ajout de l'option sur les données personnelles aux Collections d'objets physique (#15972)
+## 12/10/2026
+- Correction d'un problème d'affichage des symboles HTML dans les titres et corps des actualités (#18700)
+- Retrait de la création et modification des contributeurs dans l'onglet Contributeurs des plans structurés (#18652)
+- Ajout de la licence Etalab par défaut lors de la création d'un plan (#18659)
+- Ajout du support de la thématique pour filtrer les plans et les produits de recherche lors de l'import de réponses et de produits
 
-## 06/08/2026
-- Correction d'un problème d'édition des phases des modules (#15960)
-- Correction d'un problème d'affichage de la coche "réponses communes" dans les modèles classiques après la suppression du premier produit de recherche (#15941)
-- Correction d'un problème d'affichage des référentiels lorsque la propriété `registries` est renseignée.
-- Correction d'un problème d'affichage de l'info Derniere Activité dans la liste des utilisateurs (#15950)
+## 09/10/2026
+- Amélioration du chargement des plans et des produits de recherche dans l'import de produits et de réponses. 
+- Ajout de l'exclusion du plan actuel dans l'import de produit de recherche
 
-## 09/07/2026
-- Correction de l'édition de modèle suite à la migration vers Turbo (#15094)
-- Correction du problème de mise à jour du profil utilisateur par un Org Admin (#15484)
-- Retrait des utilisateurs inactifs du téléchargement CSV de la liste des utilisateurs dans l'espace Admin  (#15483)
+## 08/10/2026
+- Ajout du bouton Voir tout sur la liste des plans publics (#18651)
+- Ajout de la tache de conversion des grandId ANR en DOI (#18695)
+- Retrait du message de copyright dans les PDF des plans publics (#18618)
+- Refonte de l'archivage des commentaires : les commentaires sont désormais supprimés et ajout d'un script de supression des commentaires archivés (#18616)
 
-## 09/07/2026
-- Correction d'un problème de copie des plans entité (#15609)
-- Ajout de la génération json du plan dans la base lorsqu'un plan est mis en visibilité publique
-- Retrait du lien "Voir tout" de la liste des plans publics
-- Amélioration de la tache de nettoyage des comptes utilisateurs
-- Correction du problème de téléchargement de la liste des utilisateurs dans l'espace Admin (#15483)
-- Correction du problème de création et de mise à jour des Structures (#15484)
-- Correction du problème d'affichage de l'éditeur après la mise à jour d'un organisme (#15608)
+## 06/10/2026
+- Ajout d'un script d'initialisation de la table des commentaires lus afin d'éviter un trop grand nombre de notifications sur les plans comportant des commentaires présents avant la mise à jour.
+- Exclusion des commentaires archivés de la notification des commentaires non lus
 
-## 01/07/2026
-- Migration de reCaptcha vers [https://altcha.org/](Altcha)  (#15110)
-  - Mot de passe oublié ? (formulaire de demande et formulaire de choix du mot de passe)
-  - Page: "Contacter le support technique"
-    - Désactivation de la vérification captcha si l'utilisateur est connecté
-  - Page de création de compte
-- Mise en place d'une variable d'environnement **ALTCHA_ENABLED** (par défaut ``true``)
-- Mise en place d'une variable d'environnement **ALTCHA_HMAC_KEY** pour définir la signature Altcha
-- Homogénéisation des libellés des sous formulaires (#15448)
-
-## 25/06/2026
-- Mises à jour du forulaire Produit de Recherche des plans classiques (#15396 & #15395)
-- Mise à jour du référentiel utilisé par l'import Metadore
-- Correction d'un problème de mise à jour des organismes affichés dans l'import Ror lors du choix d'un pays
-- Amélioration de la requête utilisée par l'import RoR
-
-## 24/06/2026
-- Ajout d'un tache de génération du JSON de tous les plans structurés
-- Correction de l'édition de modèle suite à la migration vers Turbo (#15094)
-- Correction du problème de mise à jour des contributeurs (#15356)
-- Migration de la fusion de compte vers Turbo (#15345)
-- Retrait de l'affichage de la thématique dans l'infobox des PR
-
-## 22/06/2026
-- Mise à jour vers Ruby 4
-- Correction de l'édition de modèle suite à la migration vers Turbo (#15094)
-- Correction du problème d'affichage des valeurs sélectionnées dans un référentiel complexe avant l'enregistrement du formulaire principal (#15256)
-- Mise à jour du formulaire des Groupes de Recommandations
-- Amélioration des performances d'affichage des plans publics (#14752)
-- Le type Jeu de Données est sélectionné par défaut dans la description d'un PR Données (#15276)
-- Ajout des icones entité/projet dans la liste des plans en visibilité Organisme (#15318)
-- Redirection vers parcours de création de plan après avoir créé un compte  (#15317)
+## 01/10/2026
+- Ajout de l'import d'un réponse depuis un plan et un produit de recherche choisi
+- Ajout d'indicateurs de commentaires non lus au niveau des questions et des produits de recherche

@@ -9,7 +9,7 @@
 #
 #  id                         :integer          not null, primary key
 #  complete                   :boolean          default(FALSE)
-#  context                    :integer          default(0), not null
+#  context                    :integer          default("research_project"), not null
 #  description                :text
 #  end_date                   :datetime
 #  ethical_issues             :boolean
@@ -22,7 +22,7 @@
 #  pdf_data                   :binary
 #  start_date                 :datetime
 #  title                      :string
-#  visibility                 :integer          default(3), not null
+#  visibility                 :integer          default("administrator_visible"), not null
 #  created_at                 :datetime
 #  updated_at                 :datetime
 #  feedback_requestor_id      :integer
@@ -722,7 +722,19 @@ class Plan < ApplicationRecord
   #
   # Returns Boolean
   def visibility_allowed?
-    !is_test? && research_outputs.length.positive?
+    !is_test? && research_outputs.length.positive? && MadmpFragment.exists?(dmp_id: json_fragment.id,
+                                                                            parent_id: json_fragment.meta.id,
+                                                                            classname: 'license')
+  end
+
+  def visibility_checklist
+    checklist = []
+    checklist << _('Plan is marked as a test project (General information tab)') if is_test?
+    checklist << _('Plan has no research outputs (Write Plan tab)') if research_outputs.empty?
+    checklist << _('Plan has no license (General Information tab)') unless MadmpFragment.exists?(dmp_id: json_fragment.id,
+                                                                                                 parent_id: json_fragment.meta.id,
+                                                                                                 classname: 'license')
+    checklist
   end
 
   # Determines whether or not a question (given its id) exists for the self plan
@@ -830,34 +842,6 @@ class Plan < ApplicationRecord
       )
 
       #################################
-      # PERSON & CONTRIBUTORS FRAGMENTS
-      #################################
-      if owner.present?
-        person = Fragment::Person.create!(
-          data: {
-            'nameType' => 'Personal',
-            'lastName' => owner.surname,
-            'firstName' => owner.firstname,
-            'mbox' => owner.email
-          },
-          dmp_id: dmp_fragment.id,
-          madmp_schema: MadmpSchema.find_by(name: 'PersonStandard'),
-          additional_info: { property_name: 'person' }
-        )
-      end
-
-      dmp_coordinator = Fragment::Contributor.create!(
-        data: {
-          'person' => person.present? ? { 'dbid' => person.id } : nil,
-          'role' => _('DMP manager')
-        },
-        dmp_id: dmp_fragment.id,
-        parent_id: nil,
-        madmp_schema: MadmpSchema.find_by(name: 'ContributorConstantRole'),
-        additional_info: { property_name: 'contact' }
-      )
-
-      #################################
       # META & PROJECT FRAGMENTS
       #################################
       if research_entity?
@@ -872,16 +856,15 @@ class Plan < ApplicationRecord
           'creationDate' => created_at.strftime('%F'),
           'lastModifiedDate' => updated_at.strftime('%F'),
           'dmpLanguage' => template_locale,
-          'dmpId' => identifier,
-          'contact' => [{ 'dbid' => dmp_coordinator.id }]
+          'dmpId' => identifier
         },
         dmp_id: dmp_fragment.id,
         parent_id: dmp_fragment.id,
         madmp_schema: MadmpSchema.find_by(name: 'MetaStandard'),
         additional_info: { property_name: 'meta' }
       )
-
-      dmp_coordinator.update(parent_id: meta.id)
+      handle_dmp_license(dmp_fragment.id, meta.id)
+      handle_dmp_coordinator(dmp_fragment.id, meta.id)
     end
   end
 
@@ -915,6 +898,47 @@ class Plan < ApplicationRecord
       parent_id: dmp_id,
       madmp_schema: entity_schema,
       additional_info: { property_name: 'researchEntity' }
+    )
+  end
+
+  def handle_dmp_license(dmp_id, parent_id)
+    etalab_license_data = Registry.find_by(name: 'DMPLicenses').values.find do |license|
+      license['licenseName'].downcase.eql?(Rails.configuration.x.plans.default_license.downcase)
+    end || {}
+    Fragment::License.create!(
+      data: etalab_license_data.except('label'),
+      dmp_id: dmp_id,
+      parent_id: parent_id,
+      madmp_schema: MadmpSchema.find_by(name: 'LicenseStandard'),
+      additional_info: { property_name: 'license' }
+    )
+  end
+
+  # rubocop:disable-next Metrics/MethodLength
+  def handle_dmp_coordinator(dmp_id, parent_id)
+    if owner.present?
+      person = Fragment::Person.create!(
+        data: {
+          'nameType' => 'Personal',
+          'lastName' => owner.surname,
+          'firstName' => owner.firstname,
+          'mbox' => owner.email
+        },
+        dmp_id: dmp_id,
+        madmp_schema: MadmpSchema.find_by(name: 'PersonStandard'),
+        additional_info: { property_name: 'person' }
+      )
+    end
+
+    Fragment::Contributor.create!(
+      data: {
+        'person' => person.present? ? { 'dbid' => person.id } : nil,
+        'role' => _('DMP manager')
+      },
+      dmp_id: dmp_id,
+      parent_id: parent_id,
+      madmp_schema: MadmpSchema.find_by(name: 'ContributorConstantRole'),
+      additional_info: { property_name: 'contact' }
     )
   end
 
@@ -974,6 +998,22 @@ class Plan < ApplicationRecord
 
   def research_domains
     JsonPath.on(json_plans.first.data, '$.meta.dmpKeyword[*]').join('; ')
+  end
+
+  def serialize_json
+    {
+      id: id,
+      title: title,
+      context: context,
+      research_outputs: research_outputs.map do |ro|
+        {
+          id: ro.id,
+          uuid: ro.uuid,
+          abbreviation: ro.abbreviation,
+          title: ro.title
+        }
+      end
+    }
   end
 
   private

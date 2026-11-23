@@ -298,7 +298,7 @@ function TemplateSelection({ prevStep, set, params: selectionData }) {
    */
 
   return (
-    <div>
+    <>
       <h2>{t("chooseTemplate")}</h2>
       {loading && <CustomSpinner />}
       {!loading && error && <CustomError error={error} />}
@@ -355,7 +355,7 @@ function TemplateSelection({ prevStep, set, params: selectionData }) {
           </div>
         </>
       )}
-    </div>
+    </>
   );
 }
 

@@ -22,13 +22,7 @@
               <div class="display-readonly-textarea-content">
                 <p><%= _('Please fill in separately for research outputs requireing a management specific to their nature or discipline.') %></p>
               </div>
-              <% I18n.with_locale @plan.template.locale do %>
-                <ul id='research-outputs-list'>
-                  <%= turbo_frame_tag "research_outputs" do %>
-                    <%= render @research_outputs %>
-                  <% end %>
-                </ul>
-              <% end %>
+              <%= render "research_outputs/list", research_outputs: @research_outputs, plan: @plan %>
               <% if @plan.editable_by?(current_user.id) %>
                   <%= form_with url: classic_research_outputs_url(plan_id: @plan.id), method: :post, data: { turbo: true }, html: { class: "d-inline" } do %>
                     <%= submit_tag _('Add a research output'), class: "add-research-output btn btn-primary", data: {

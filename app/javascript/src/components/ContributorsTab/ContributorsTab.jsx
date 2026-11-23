@@ -2,7 +2,7 @@ import { useEffect, useState, useContext } from "react";
 import { useTranslation } from "react-i18next";
 import Swal from "sweetalert2";
 
-import { service } from "../../services";
+import { madmpFragment } from "../../services";
 import CustomButton from "../Styled/CustomButton";
 import ContributorsList from "./ContributorsList";
 import ModalForm from "../Forms/ModalForm";
@@ -14,7 +14,7 @@ import * as styles from "../assets/css/form.module.css";
 import { checkFragmentExists } from "../../utils/JsonFragmentsUtils";
 import { Col, Row } from "react-bootstrap";
 
-function ContributorsTab({ readonly }) {
+function ContributorsTab({ readonly, isClassic }) {
   const { t, i18n } = useTranslation();
   const { locale, dmpId, planId } = useContext(GlobalContext);
   const [show, setShow] = useState(false);
@@ -38,7 +38,7 @@ function ContributorsTab({ readonly }) {
     ) {
       setError(t("recordAlreadyExists"));
     } else if (index !== null && fragmentId) {
-      service
+      madmpFragment
         .saveFragment(fragmentId, data)
         .then((res) => {
           newContributorsList[index].data = res.data.fragment;
@@ -48,7 +48,7 @@ function ContributorsTab({ readonly }) {
           setError(error);
         });
     } else {
-      service
+      madmpFragment
         .createFragment(data, template.id, dmpId)
         .then((res) => {
           newContributorsList.unshift({
@@ -89,7 +89,7 @@ function ContributorsTab({ readonly }) {
 
     Swal.fire(swalUtils.defaultConfirmConfig(t)).then((result) => {
       if (result.isConfirmed) {
-        service
+        madmpFragment
           .destroyContributor(fragmentId)
           .then(() => {
             newContributorsList.splice(idx, 1);
@@ -107,7 +107,7 @@ function ContributorsTab({ readonly }) {
    */
 
   useEffect(() => {
-    service
+    madmpFragment
       .getContributors(planId)
       .then((res) => {
         setContributors(res.data.contributors);
@@ -157,7 +157,7 @@ function ContributorsTab({ readonly }) {
                 handleClose={handleClose}
               />
             )}
-            {!readonly && (
+            {!readonly && isClassic ? (
               <CustomButton
                 handleClick={() => {
                   setShow(true);
@@ -167,7 +167,7 @@ function ContributorsTab({ readonly }) {
                 buttonColor="rust"
                 position="start"
               ></CustomButton>
-            )}
+            ) : null}
           </div>
         </Forms>
       </Col>

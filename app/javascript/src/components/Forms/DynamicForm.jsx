@@ -2,13 +2,12 @@ import { useContext, useEffect, useMemo, useState } from "react";
 import toast from "react-hot-toast";
 import { useTranslation } from "react-i18next";
 import { useForm, FormProvider } from "react-hook-form";
-import unionBy from "lodash.unionby";
 
 import FormBuilder from "./FormBuilder.jsx";
 import { GlobalContext } from "../context/GlobalContext.jsx";
 import { FormsContext } from "../context/FormsContext.jsx";
 import { SectionsContext } from "../context/SectionsContext.jsx";
-import { service } from "../../services/index.js";
+import { madmpFragment } from "../../services/index.js";
 import CustomSpinner from "../Shared/CustomSpinner.jsx";
 import CustomButton from "../Styled/CustomButton.jsx";
 import FormSelector from "./FormSelector";
@@ -19,6 +18,7 @@ import {
   generateEmptyDefaults,
 } from "../../utils/GeneratorUtils.js";
 import { useFormValues } from "../../hooks/useFormValues.js";
+import useHandleNewAnswerResponse from "../../hooks/useHandleNewAnswerResponse.js";
 
 function DynamicForm({
   fragmentId,
@@ -34,12 +34,7 @@ function DynamicForm({
   const { dmpId, locale, setPlanTitle } = useContext(GlobalContext);
   const { formData, setFormData, loadedTemplates, setLoadedTemplates } =
     useContext(FormsContext);
-  const {
-    displayedResearchOutput,
-    setDisplayedResearchOutput,
-    researchOutputs,
-    setResearchOutputs,
-  } = useContext(SectionsContext);
+  const { displayedResearchOutput } = useContext(SectionsContext);
   const methods = useForm({ defaultValues: {} });
   const { setValues } = useFormValues(methods);
   const [loading, setLoading] = useState(true);
@@ -49,6 +44,7 @@ function DynamicForm({
   /**
    * Memoized values
    */
+  const handleNewAnswerResponse = useHandleNewAnswerResponse();
   const template = useMemo(() => {
     if (fragmentId && formData[fragmentId]) {
       return loadedTemplates[formData[fragmentId].template_name] ?? null;
@@ -89,7 +85,7 @@ function DynamicForm({
     if (fragmentId) {
       let response;
       try {
-        response = await service.saveFragment(fragmentId, data);
+        response = await madmpFragment.saveFragment(fragmentId, data);
       } catch (error) {
         handleError(error);
         return setLoading(false);
@@ -103,7 +99,7 @@ function DynamicForm({
           },
         });
       }
-      setFormData({ [fragmentId]: response.data.fragment });
+      handleFragmentData(response.data);
       setLoading(false);
       toast.success(t("saveSuccess"));
     } else {
@@ -112,7 +108,7 @@ function DynamicForm({
   };
 
   const handleSaveNew = (data) => {
-    service
+    madmpFragment
       .createFragment(
         data,
         templateId,
@@ -121,36 +117,11 @@ function DynamicForm({
         displayedResearchOutput.id,
       )
       .then((res) => {
-        const fragment = res.data.fragment;
         const tplt = res.data.template;
-        const answerId = res.data.answer_id;
         setTemplateName(tplt.name);
-        setLoadedTemplates((prev) => ({ ...prev, [tplt.name]: tplt }));
-        setFormData({ [fragment.id]: fragment });
-        setAnswer({
-          id: answerId,
-          question_id: questionId,
-          fragment_id: fragment.id,
-          madmp_schema_id: templateId,
-        });
-
-        const updatedResearchOutput = {
-          ...displayedResearchOutput,
-          answers: [
-            ...displayedResearchOutput.answers,
-            {
-              answer_id: answerId,
-              question_id: questionId,
-              fragment_id: fragment.id,
-            },
-          ],
-        };
-        setResearchOutputs(
-          unionBy(researchOutputs, [updatedResearchOutput], "id"),
-        );
-        setDisplayedResearchOutput(updatedResearchOutput);
+        handleNewAnswerResponse(res.data, questionId, setAnswer);
         setNewFragmentSaved(true);
-        methods.reset(fragment);
+        methods.reset({ ...emptyDefaults, ...res.data.fragment });
         toast.success(t("saveSuccess"));
       })
       .catch((error) => handleError(error))
@@ -172,7 +143,7 @@ function DynamicForm({
         madmp_schema_id,
       });
     }
-    methods.reset(data.fragment);
+    methods.reset({ ...emptyDefaults, ...data.fragment });
   };
 
   const handleError = (error) => toast.error(getErrorMessage(error));
@@ -184,8 +155,7 @@ function DynamicForm({
   // Case 1 : new form (fragmentId is null)
   useEffect(() => {
     if (fragmentId) return;
-
-    service
+    madmpFragment
       .getNewForm(questionId, displayedResearchOutput.id)
       .then((res) => {
         const tplt = res.data.template;
@@ -200,8 +170,7 @@ function DynamicForm({
   // Case 2 : fragmentId is present but form data is not loaded, fetching fragment
   useEffect(() => {
     if (!fragmentId || formData[fragmentId]) return;
-
-    service
+    madmpFragment
       .getFragment(fragmentId)
       .then((res) => {
         setTemplateName(res.data.template.name);
@@ -221,7 +190,7 @@ function DynamicForm({
     if (!formData[fragmentId]) return;
     if (loadedTemplates[formData[fragmentId].template_name]) return;
 
-    service
+    madmpFragment
       .getSchema(formData[fragmentId].schema_id)
       .then((res) => {
         setTemplateName(res.data.name);
@@ -257,10 +226,6 @@ function DynamicForm({
   }, [template]);
 
   useEffect(() => {
-    methods.reset({ ...emptyDefaults, ...formData[fragmentId] });
-  }, [formData[fragmentId]]);
-
-  useEffect(() => {
     if (!fragmentId && template && !newFragmentSaved) {
       const defaults = formatDefaultValues(template.schema.default?.[locale]);
       Object.keys(defaults).length > 0
@@ -268,6 +233,10 @@ function DynamicForm({
         : methods.reset(generateEmptyDefaults(template.schema.properties));
     }
   }, [template, fragmentId]);
+
+  useEffect(() => {
+    methods.reset({ ...emptyDefaults, ...formData[fragmentId] });
+  }, [formData[fragmentId]]);
 
   /**
    * RENDERING
@@ -283,7 +252,6 @@ function DynamicForm({
               fragment={methods}
               setFragment={setValues}
               externalImports={externalImports}
-              locale={locale}
             />
           )}
           {!readonly && !fragmentId && topics.includes("generic") && (
@@ -298,6 +266,7 @@ function DynamicForm({
           )}
           <FormProvider {...methods}>
             <form
+              data-testid="dynamic-form-tag"
               style={{ margin: "15px" }}
               onSubmit={methods.handleSubmit((data) => handleSaveForm(data))}
             >

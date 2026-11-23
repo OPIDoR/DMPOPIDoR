@@ -93,7 +93,7 @@ function SubForm({
    */
 
   return (
-    <div>
+    <>
       <div className="form-group">
         <div className={styles.label_form}>
           <label data-tooltip-id={tooltipId}>
@@ -171,7 +171,7 @@ function SubForm({
           ></CustomButton>
         )}
       </div>
-    </div>
+    </>
   );
 }
 

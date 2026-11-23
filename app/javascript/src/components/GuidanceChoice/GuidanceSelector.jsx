@@ -197,6 +197,7 @@ function GuidanceSelector({
   if (guidancesData?.length === 0) {
     return (
       <div
+        data-testid="guidance-selector-no-guidances"
         style={{
           width: "100%",
           border: "1px solid #cccccc",
@@ -217,7 +218,7 @@ function GuidanceSelector({
 
   return (
     <Card
-      id="accordion-guidance-choice"
+      id="guidance-choice-collapse"
       className={guidanceChoiceStyles.card}
       style={{
         border: "2px solid var(--dark-blue)",
@@ -264,7 +265,10 @@ function GuidanceSelector({
                   size={38}
                   style={{ marginRight: "10px", color: "var(--rust)" }}
                 />
-                <span style={{ color: "var(--white)", marginTop: "3px" }}>
+                <span
+                  id="guidance-choice-collapse-text"
+                  style={{ color: "var(--white)", marginTop: "3px" }}
+                >
                   {context === "plan"
                     ? t("selectGuidancePlan")
                     : t("selectGuidanceOutput")}
@@ -282,7 +286,7 @@ function GuidanceSelector({
         </Button>
       </Card.Header>
       <Collapse in={isOpen}>
-        <div id="guidance-choice-collapse">
+        <div id="guidance-choice-collapse-content">
           <Card.Body>
             <div style={description}>
               <div style={{ textAlign: "justify" }}>

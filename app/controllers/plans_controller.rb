@@ -15,11 +15,12 @@ class PlansController < ApplicationController
 
   # GET /plans
   # rubocop:disable-next Metrics/AbcSize, Metrics/MethodLength
-  # rubocop:disable-next Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
+  # rubocop:disable-next Metrics/PerceivedComplexity
   def index
     authorize Plan
     @plans = if request.format.json?
-               Plan.active(current_user).where.not(visibility: ::Plan.visibilities[:is_test])
+               Plan.includes(research_outputs: { answers: %i[madmp_fragment] }).active(current_user)
+                   .where.not(visibility: ::Plan.visibilities[:is_test])
                    .or(Plan.publicly_visible_entity)
              else
                Plan.includes(:roles, api_client_roles: :api_client).active(current_user)
@@ -32,23 +33,19 @@ class PlansController < ApplicationController
     respond_to do |format|
       format.html
       format.json do
+        classname = params[:classname]
+        data_type = params[:data_type]
+        # both are present of both are absent
+        unless classname.present? == data_type.present?
+          render json: {
+            message: _('Error fetching plans: Missing required parameters "classname" and/or "data_type".')
+          }, status: 400
+          return
+        end
         # Sort plans by updated_at desc and filter only structured plans
         plans = @plans.filter(&:structured?).compact.sort_by(&:updated_at).reverse
-        plans = plans.map do |plan|
-          {
-            id: plan.id,
-            title: plan.title,
-            context: plan.context,
-            research_outputs: plan.research_outputs
-          }
-        end.reject do |plan| # rubocop:disable Style/MultilineBlockChain
-          plan[:research_outputs].empty? ||
-            plan[:research_outputs].all? { |output| output[:title].nil? || output[:title].strip.empty? } ||
-            plan[:research_outputs].all? do |output|
-              output[:output_type].nil? || output[:output_type].strip.empty?
-            end
-        end
-        render json: { plans: plans }
+        plans = filter_plans(plans, classname, data_type, params[:topic])
+        render json: { plans: plans.map(&:serialize_json) }
       end
     end
   end
@@ -350,7 +347,7 @@ class PlansController < ApplicationController
     @plan = Plan.eager_load(:phases, :research_outputs).find(params[:id])
     authorize @plan
 
-    @research_outputs = @plan.research_outputs
+    @research_outputs = @plan.research_outputs.order(:display_order)
 
     @phase_options = @plan.phases.order(:number).pluck(:title, :id)
     @phase_options.insert(0, ['All phases', 'All']) if @phase_options.length > 1
@@ -509,25 +506,6 @@ class PlansController < ApplicationController
       Rails.logger.error e.backtrace
       bad_request("#{_('An error has occured: ')} #{e.message}")
     end
-  end
-
-  # rubocop:disable-next Metrics/AbcSize
-  def research_outputs_data
-    plan = Plan.includes(research_outputs: :answers, template: { phases: { sections: :questions } }).find(params[:id])
-    research_output_id = params[:research_output_id] || 0
-    authorize plan
-
-    render json: {
-      id: plan.id,
-      template: plan.template.serialize_json,
-      research_outputs: plan.research_outputs.order(:display_order).each_with_index.map do |ro, idx|
-        if research_output_id.eql?(ro.id.to_s) || (idx.zero? && research_output_id.eql?(0))
-          ro.serialize_json
-        else
-          ro.serialize_json(with_answers: false)
-        end
-      end
-    }
   end
 
   # GET AJAX /plans/:id/contributors_data
@@ -693,6 +671,22 @@ class PlansController < ApplicationController
           }
         end
       }
+    end
+  end
+
+  # rubocop:disable-next Metrics/AbcSize
+  # rubocop:disable-next Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
+  def filter_plans(plans, classname, data_type, topic = 'generic')
+    return plans.filter { |plan| plan.research_outputs.any? } if classname.blank? || data_type.blank? || topic.blank?
+
+    plans.select do |plan|
+      plan.research_outputs.any? do |ro|
+        ro.output_type == data_type
+        && ro.topic == topic
+        && ro.answers.any? do |a|
+          a.madmp_fragment.classname == classname
+        end
+      end
     end
   end
 end

@@ -238,6 +238,9 @@ const attachEventHandlers = (jQueryForm) => {
   });
 };
 
+document.addEventListener("turbo:before-cache", () => {
+  tinymce.remove();
+});
 document.addEventListener("turbo:load", () => {
   datePicker();
 
@@ -357,13 +360,13 @@ document.addEventListener("turbo:load", () => {
       }
     });
   });
+});
 
-  $(document).on("click", ".toggle-guidance-section:not(.disabled)", (e) => {
-    const target = $(e.currentTarget);
-    target.parents(".question-body").find(".guidance-section").toggle();
-    target
-      .find("span.fa-chevron-right, span.fa-chevron-left")
-      .toggleClass("fa-chevron-right")
-      .toggleClass("fa-chevron-left");
-  });
+$(document).on("click", ".toggle-guidance-section:not(.disabled)", (e) => {
+  const target = $(e.currentTarget);
+  target.parents(".question-body").find(".guidance-section").toggle();
+  target
+    .find("span.fa-chevron-right, span.fa-chevron-left")
+    .toggleClass("fa-chevron-right")
+    .toggleClass("fa-chevron-left");
 });

@@ -65,7 +65,6 @@ function NestedForm({
             fragment={methods}
             setFragment={setValues}
             externalImports={externalImports}
-            locale={locale}
           />
         </div>
       )}

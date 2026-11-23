@@ -4,7 +4,7 @@ import { useTranslation } from "react-i18next";
 
 import { SectionsContext } from "../context/SectionsContext.jsx";
 import * as styles from "../assets/css/write_plan.module.css";
-import Question from "./Question";
+import Question from "../Question/Question";
 
 function Section({ planId, section, readonly }) {
   const { t } = useTranslation();

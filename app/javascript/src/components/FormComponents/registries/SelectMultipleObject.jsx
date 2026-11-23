@@ -12,7 +12,7 @@ import {
   createOptions,
   createRegistryPlaceholder,
 } from "../../../utils/GeneratorUtils.js";
-import { service } from "../../../services/index.js";
+import { madmpFragment } from "../../../services/index.js";
 import * as styles from "../../assets/css/form.module.css";
 import CustomSelect from "../../Shared/CustomSelect.jsx";
 import FragmentList from "../FragmentList.jsx";
@@ -166,7 +166,7 @@ function SelectMultipleObject({
 
   useEffect(() => {
     if (category) {
-      service
+      madmpFragment
         .getAvailableRegistries(category, dataType, topic)
         .then((res) => {
           const registriesData = Array?.isArray(res.data)
@@ -189,7 +189,7 @@ function SelectMultipleObject({
    */
 
   return (
-    <div>
+    <>
       <div className="form-group">
         <div className={styles.label_form}>
           <label
@@ -324,7 +324,7 @@ function SelectMultipleObject({
           handleClose={handleClose}
         />
       )}
-    </div>
+    </>
   );
 }
 

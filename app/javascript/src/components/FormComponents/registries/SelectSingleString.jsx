@@ -5,7 +5,7 @@ import { Tooltip as ReactTooltip } from "react-tooltip";
 import uniqueId from "lodash.uniqueid";
 import { FaXmark } from "react-icons/fa6";
 
-import { service } from "../../../services/index.js";
+import { madmpFragment } from "../../../services/index.js";
 import {
   createOptions,
   createRegistryPlaceholder,
@@ -101,7 +101,7 @@ function SelectSingleString({
    */
   useEffect(() => {
     if (category) {
-      service
+      madmpFragment
         .getAvailableRegistries(category, dataType, topic)
         .then((res) => {
           const registriesData = Array?.isArray(res.data)
@@ -124,103 +124,101 @@ function SelectSingleString({
    */
 
   return (
-    <div>
-      <div className="form-group">
-        <div className={styles.label_form}>
-          <label
-            htmlFor={inputId}
-            data-testid="select-single-string-label"
-            data-tooltip-id={tooltipId}
-          >
-            {label}
-            {tooltip && <TooltipInfoIcon />}
-          </label>
-          {tooltip && (
-            <ReactTooltip
-              id={tooltipId}
-              place="bottom"
-              effect="solid"
-              variant="info"
-              style={{ width: "300px", textAlign: "center" }}
-              content={tooltip}
-            />
-          )}
-        </div>
+    <div className="form-group">
+      <div className={styles.label_form}>
+        <label
+          htmlFor={inputId}
+          data-testid="select-single-string-label"
+          data-tooltip-id={tooltipId}
+        >
+          {label}
+          {tooltip && <TooltipInfoIcon />}
+        </label>
+        {tooltip && (
+          <ReactTooltip
+            id={tooltipId}
+            place="bottom"
+            effect="solid"
+            variant="info"
+            style={{ width: "300px", textAlign: "center" }}
+            content={tooltip}
+          />
+        )}
+      </div>
 
-        <span className={styles.errorMessage}>{error}</span>
-        {/* ************Select registry************** */}
-        <div className="row">
-          {availableRegistries && availableRegistries.length > 1 && (
-            <div
-              data-testid="select-single-string-registry-selector"
-              className="col-md-6"
-            >
-              <div className="row">
-                <div className={`col-md-11 ${styles.select_wrapper}`}>
-                  <CustomSelect
-                    inputId={`${propName}-registry-selector`}
-                    onSelectChange={handleSelectRegistry}
-                    options={availableRegistries.map((registry) => ({
-                      value: registry,
-                      label: registry,
-                    }))}
-                    name={propName}
-                    selectedOption={
-                      selectedRegistry
-                        ? { value: selectedRegistry, label: selectedRegistry }
-                        : null
-                    }
-                    isDisabled={readonly}
-                    placeholder={t("selectRegistry")}
-                  />
-                </div>
-              </div>
-            </div>
-          )}
-
+      <span className={styles.errorMessage}>{error}</span>
+      {/* ************Select registry************** */}
+      <div className="row">
+        {availableRegistries && availableRegistries.length > 1 && (
           <div
-            className={
-              availableRegistries && availableRegistries.length > 1
-                ? "col-md-6"
-                : "col-md-12"
-            }
-            data-testid="select-single-string-div"
+            data-testid="select-single-string-registry-selector"
+            className="col-md-6"
           >
             <div className="row">
               <div className={`col-md-11 ${styles.select_wrapper}`}>
-                {options && (
-                  <CustomSelect
-                    inputId={inputId}
-                    propName={propName}
-                    onSelectChange={handleSelectRegistryValue}
-                    options={options}
-                    selectedOption={selectedOption}
-                    isDisabled={readonly || !selectedRegistry}
-                    async={options.length > ASYNC_SELECT_OPTION_THRESHOLD}
-                    placeholder={createRegistryPlaceholder(
-                      availableRegistries.length,
-                      false,
-                      overridable,
-                      "simple",
-                      t,
-                    )}
-                    overridable={overridable}
-                  />
-                )}
+                <CustomSelect
+                  inputId={`${propName}-registry-selector`}
+                  onSelectChange={handleSelectRegistry}
+                  options={availableRegistries.map((registry) => ({
+                    value: registry,
+                    label: registry,
+                  }))}
+                  name={propName}
+                  selectedOption={
+                    selectedRegistry
+                      ? { value: selectedRegistry, label: selectedRegistry }
+                      : null
+                  }
+                  isDisabled={readonly}
+                  placeholder={t("selectRegistry")}
+                />
               </div>
-              {!readonly && selectedOption && (
-                <div className="col-md-1">
-                  <FaXmark
-                    onClick={() => field.onChange(null)}
-                    className={styles.icon}
-                  />
-                </div>
-              )}
             </div>
           </div>
+        )}
+
+        <div
+          className={
+            availableRegistries && availableRegistries.length > 1
+              ? "col-md-6"
+              : "col-md-12"
+          }
+          data-testid="select-single-string-div"
+        >
+          <div className="row">
+            <div className={`col-md-11 ${styles.select_wrapper}`}>
+              {options && (
+                <CustomSelect
+                  inputId={inputId}
+                  propName={propName}
+                  onSelectChange={handleSelectRegistryValue}
+                  options={options}
+                  selectedOption={selectedOption}
+                  isDisabled={readonly || !selectedRegistry}
+                  async={options.length > ASYNC_SELECT_OPTION_THRESHOLD}
+                  placeholder={createRegistryPlaceholder(
+                    availableRegistries.length,
+                    false,
+                    overridable,
+                    "simple",
+                    t,
+                  )}
+                  overridable={overridable}
+                />
+              )}
+            </div>
+            {!readonly && selectedOption && (
+              <div className="col-md-1">
+                <FaXmark
+                  onClick={() => field.onChange(null)}
+                  className={styles.icon}
+                />
+              </div>
+            )}
+          </div>
         </div>
-        {/* *************Select registry************* */}
       </div>
+      {/* *************Select registry************* */}
     </div>
   );
 }

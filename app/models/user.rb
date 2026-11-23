@@ -98,6 +98,8 @@ class User < ApplicationRecord
 
   has_many :roles, dependent: :destroy
 
+  has_many :viewed_comments, dependent: :destroy
+
   has_many :plans, through: :roles
 
   has_and_belongs_to_many :notifications, dependent: :destroy,

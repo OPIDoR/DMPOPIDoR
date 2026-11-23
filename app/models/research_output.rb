@@ -9,7 +9,7 @@
 #  description             :text
 #  display_order           :integer
 #  is_default              :boolean          default(FALSE)
-#  output_type             :integer          default(3), not null
+#  output_type             :integer          default("dataset"), not null
 #  output_type_description :string
 #  pid                     :string
 #  title                   :string
@@ -214,8 +214,10 @@ class ResearchOutput < ApplicationRecord
   end
 
   # rubocop:disable-next Metrics/AbcSize, Metrics/MethodLength
-  def serialize_json(with_answers: true)
+  def serialize_json(user = nil, with_answers: true)
     ro_fragment = json_fragment
+    return {} if ro_fragment.nil?
+
     module_id = ro_fragment.additional_info['moduleId']
     template = module_id ? Template.find(module_id) : plan.template
 
@@ -228,21 +230,15 @@ class ResearchOutput < ApplicationRecord
         order: display_order,
         topic: topic,
         topic_label: generate_topic_label,
+        output_type: output_type,
         type: ro_fragment.research_output_description['data']['type'] || nil,
         configuration: ro_fragment.additional_info,
         answers: if with_answers
-                   answers.map do |a|
-                     {
-                       id: a.id,
-                       question_id: a.question_id,
-                       fragment_id: a.madmp_fragment.id,
-                       madmp_schema_id: a.madmp_fragment.madmp_schema_id
-                     }
-                   end
+                   answers.map { |a| a.serialize_json(user) }
                  else
                    {}
                  end,
-        template: template.serialize_json
+        template: template.serialize_json(include_sections: true)
       }
     end
   end
@@ -250,9 +246,9 @@ class ResearchOutput < ApplicationRecord
   def update_description(contains_personal_data: true)
     research_output_description = json_fragment.research_output_description
     data_type = json_fragment.additional_info['dataType']
-    new_description_data = { title:, shortName: abbreviation }
+    new_description_data = { 'title' => title, 'shortName' => abbreviation }
     if %w[dataset physical_object].include?(data_type)
-      new_description_data[:containsPersonalData] =
+      new_description_data['containsPersonalData'] =
         contains_personal_data ? _('Yes') : _('No')
     end
 
@@ -275,7 +271,7 @@ class ResearchOutput < ApplicationRecord
     Rails.cache.fetch("research_output_#{topic}_#{template_locale}_label", expires_in: 12.hours) do
       Registry.find_by(name: 'Topics').values.find do |v|
         v['value'].eql?(topic)
-      end.dig('label', LocaleService.to_gettext(locale: template_locale)) || topic
+      end&.dig('label', LocaleService.to_gettext(locale: template_locale)) || topic
     end
   end
 
@@ -312,6 +308,27 @@ class ResearchOutput < ApplicationRecord
         MadmpSchema.find_by(name: 'ResearchOutputDescriptionStandard')
       ]
     end
+  end
+
+  def self.unread_comments_count_for(user_id, plan_id)
+    sql = <<~SQL
+      SELECT DISTINCT answers.research_output_id AS unread_comments_count
+      FROM notes
+      INNER JOIN answers on answers.id = notes.answer_id
+      INNER JOIN research_outputs on research_outputs.id = answers.research_output_id
+      LEFT JOIN viewed_comments vc
+        ON vc.answer_id = answers.id
+        AND vc.user_id = :user_id
+      WHERE notes.user_id != :user_id
+        AND notes.archived = false
+        AND research_outputs.plan_id = :plan_id
+        AND (vc.id IS NULL OR vc.last_read_at < notes.created_at)
+    SQL
+    result = ActiveRecord::Base.connection.exec_query(
+      ActiveRecord::Base.sanitize_sql([sql, { user_id: user_id, plan_id: plan_id }])
+    )
+
+    result.rows.flatten.map(&:to_i)
   end
 
   private

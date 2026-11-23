@@ -2,6 +2,11 @@
 
 # rubocop:disable-next Naming/VariableNumber
 namespace :dmpopidor_upgrade do
+  desc 'Upgrade to 4.5.0'
+  task V4_5_0: :environment do
+    Rake::Task['dmpopidor_upgrade:remove_archived_comments'].execute
+    Rake::Task['dmpopidor_upgrade:init_viewed_comments'].execute
+  end
   desc 'Upgrade to 4.4.4'
   task V4_4_4: :environment do
     Rake::Task['dmpopidor_upgrade:generate_pdf_plans'].execute
@@ -63,6 +68,48 @@ namespace :dmpopidor_upgrade do
     Rake::Task['dmpopidor_upgrade:close_existing_feedback_plans'].execute
   end
 
+  desc 'Convert ANR grant ids to DOI grant ids'
+  task convert_anr_grant_ids: :environment do
+    excluded_grant_ids = Registry.find_by(name: 'ANRExcludedGrantIds')&.values || []
+    Fragment::Funding.where("data ->> 'grantId' ~ '^ANR-[0-9]{2}-[a-zA-Z0-9]{4}-[0-9]{4}$'")
+                     .find_each(batch_size: 100) do |funding|
+                       anr_grant_id = funding.data['grantId']
+                       next if excluded_grant_ids.include?(anr_grant_id)
+
+                       p "Converting ANR grant id #{anr_grant_id} to DOI grant id for funding fragment #{funding.id}"
+                       doi_grant_id = "10.67599/#{anr_grant_id}"
+                       funding.update_column(:data,
+                                             funding.data.merge({ 'grantId' => doi_grant_id, 'idType' => 'DOI' }))
+                     end
+  end
+
+  desc 'Initialize viewed comments for all existing comments in structured plans'
+  task init_viewed_comments: :environment do
+    Plan.includes(:answers, :template, :roles,
+                  :notes).where(template: { type: 'structured' }).find_each(batch_size: 100) do |plan|
+      plan.notes.each do |note|
+        plan.roles.map do |role|
+          next if role.user_id.eql?(note.user_id)
+
+          next if ViewedComment.exists?(user_id: role.user_id, answer_id: note.answer_id)
+
+          ViewedComment.upsert(
+            {
+              user_id: role.user_id,
+              answer_id: note.answer_id,
+              last_read_at: Time.current
+            }
+          )
+        end
+      end
+    end
+  end
+
+  desc 'Remove archived comments'
+  task remove_archived_comments: :environment do
+    Note.where(archived: true).destroy_all
+  end
+
   desc 'Generate pdf binaries for publicly visible plans or plans with research outputs count >= 15'
   task generate_pdf_plans: :environment do
     Plan.includes(:research_outputs).all.each do |plan|
@@ -70,7 +117,7 @@ namespace :dmpopidor_upgrade do
                                                           15).to_i || plan.publicly_visible?
 
       p "########### Generating PDF plan for plan #{plan.id} ###########"
-      PdfPlanJob.perform_now(plan_id: plan.id)
+      PdfPlanJob.perform_now(plan.id)
     end
   end
 
@@ -84,7 +131,7 @@ namespace :dmpopidor_upgrade do
   task generate_public_json_plans: :environment do
     Plan.publicly_visible.each do |plan|
       p "########### Generating JSON plan for plan #{plan.id} ###########"
-      JsonPlanJob.perform_now(plan_id: plan.id)
+      JsonPlanJob.perform_now(plan.id)
     end
   end
 

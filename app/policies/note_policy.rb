@@ -13,7 +13,7 @@ class NotePolicy < ApplicationPolicy
     Plan.find(@record.answer.plan_id).commentable_by?(@user.id) && @record.user_id == @user.id
   end
 
-  def archive?
-    Plan.find(@record.answer.plan_id).commentable_by?(@user.id)
+  def destroy?
+    Plan.find(@record.answer.plan_id).commentable_by?(@user.id) && @record.user_id == @user.id
   end
 end

@@ -1,11 +1,10 @@
 import { useContext, useEffect, useRef } from "react";
 import { FormsContext } from "../components/context/FormsContext";
-import { service } from "../services";
+import { madmpFragment } from "../services";
 
 function useLoadRegistry(registryName) {
   const { loadedRegistries, setLoadedRegistries } = useContext(FormsContext);
   const loadingRef = useRef(new Set());
-
   useEffect(() => {
     if (
       !registryName ||
@@ -17,7 +16,7 @@ function useLoadRegistry(registryName) {
 
     loadingRef.current.add(registryName);
 
-    service
+    madmpFragment
       .getRegistryByName(registryName)
       .then((res) => {
         setLoadedRegistries((prev) =>

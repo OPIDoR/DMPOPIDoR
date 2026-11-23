@@ -89,8 +89,13 @@ const AccordionItem = styled.div`
 
 function ResearchOutputsSidebar({ planId, readonly, setLoading }) {
   const { t } = useTranslation();
-  const { researchOutputs, setResearchOutputs, displayedResearchOutput } =
-    useContext(SectionsContext);
+  const {
+    researchOutputs,
+    setResearchOutputs,
+    displayedResearchOutput,
+    researchOutputsWithComments,
+    setResearchOutputsWithComments,
+  } = useContext(SectionsContext);
   const [show, setShow] = useState(false);
   const [isDragging, setIsDragging] = useState(false);
 
@@ -196,9 +201,20 @@ function ResearchOutputsSidebar({ planId, readonly, setLoading }) {
           .filter(Boolean)
           .join(" ")}
       >
-        {item.abbreviation.length > 20
-          ? `${item.abbreviation.slice(0, 17)}...`
-          : item.abbreviation}
+        {researchOutputsWithComments.includes(item.id) && (
+          <span
+            style={{
+              backgroundColor: "var(--rust)",
+              padding: "7px",
+              borderRadius: "50%",
+            }}
+          />
+        )}
+        <span style={{ width: "100%", marginLeft: "10px" }}>
+          {item.abbreviation.length > 20
+            ? `${item.abbreviation.slice(0, 17)}...`
+            : item.abbreviation}
+        </span>
         {!readonly && researchOutputs.length > 1 && (
           <div {...attributes} {...listeners}>
             <MdDragIndicator size="18" />
@@ -263,6 +279,20 @@ function ResearchOutputsSidebar({ planId, readonly, setLoading }) {
     }
   }, [activeGroupIndex]);
 
+  // when new_comment_count has been changed in currently displayed research output
+  // and no answers has new comments, remove displayed research output id from research output
+  // with comments
+  useEffect(() => {
+    if (
+      researchOutputsWithComments.includes(displayedResearchOutput?.id) &&
+      !displayedResearchOutput?.answers.some((a) => a.new_comment_count > 0)
+    ) {
+      setResearchOutputsWithComments((prev) =>
+        prev.filter((id) => id !== displayedResearchOutput.id),
+      );
+    }
+  }, [displayedResearchOutput]);
+
   /**
    * RENDERING
    */
@@ -291,9 +321,26 @@ function ResearchOutputsSidebar({ planId, readonly, setLoading }) {
                     key={i}
                   >
                     <AccordionHeader onClick={() => toggleGroup(i)}>
-                      {i * RESEARCH_OUTPUTS_PER_PAGE + 1} -{" "}
-                      {i * RESEARCH_OUTPUTS_PER_PAGE +
-                        RESEARCH_OUTPUTS_PER_PAGE}
+                      {group
+                        .map((i) => i.id)
+                        .filter((i) => researchOutputsWithComments.includes(i))
+                        .length > 0 && (
+                        <span
+                          style={{
+                            backgroundColor: "var(--rust)",
+                            padding: "7px",
+                            marginRight: "10px",
+                            borderRadius: "50%",
+                            fontSize: 0,
+                            verticalAlign: "middle",
+                          }}
+                        />
+                      )}
+                      <span>
+                        {i * RESEARCH_OUTPUTS_PER_PAGE + 1} -{" "}
+                        {i * RESEARCH_OUTPUTS_PER_PAGE +
+                          RESEARCH_OUTPUTS_PER_PAGE}
+                      </span>
                     </AccordionHeader>
                     <AnimatePresence mode="wait" initial={false}>
                       {openGroups.has(i) && (

@@ -347,11 +347,17 @@ fr-FR:
         last_7_days: 7 derniers jours
         title:
         total: Total
+    concurrency_claims:
+      states:
+        granted:
+        promoted:
+        waiting:
     cron_entries:
       actions:
-        confirm_disable:
-        confirm_enable:
-        confirm_enqueue:
+        confirm_disable: Êtes-vous sûr de vouloir désactiver cette tâche cron ?
+        confirm_enable: Êtes-vous sûr de vouloir activer cette tâche cron ?
+        confirm_enqueue: Êtes-vous sûr de vouloir ajouter cette tâche cron à la file
+          d'attente ?
         disable: Désactiver une tâche cron
         enable: Activer l'entrée cron
         enqueue: Ajouter maintenant une tâche Cron à la file d'attente
@@ -497,6 +503,7 @@ fr-FR:
       job:
         arguments:
         attempts:
+        concurrency_claims:
         labels:
         priority:
         queue:
@@ -530,15 +537,28 @@ fr-FR:
         value:
     performance:
       index:
-        average_duration:
         chart_title:
+        chart_title_queue:
+        chart_title_total:
+        execution_latency:
         executions:
         job_class:
-        maximum_duration:
-        minimum_duration:
+        jobs: Jobs
         no_executions:
+        queue_latency:
         queue_name:
         title:
+        total_latency:
+      latency:
+        average:
+        maximum:
+        minimum:
+      metric:
+        chart_metric:
+        metric_options:
+          execution:
+          queue:
+          total:
       range:
         bucket_size:
           days:
@@ -563,8 +583,11 @@ fr-FR:
         time_range:
         time_zone:
       show:
+        execution_chart_title:
+        queue_chart_title:
         slow:
         title:
+        total_chart_title:
     processes:
       index:
         cron_enabled:

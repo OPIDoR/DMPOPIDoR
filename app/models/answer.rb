@@ -52,6 +52,8 @@ class Answer < ApplicationRecord
 
   has_one :madmp_fragment, class_name: 'MadmpFragment', dependent: :destroy
 
+  has_one :viewed_comment, class_name: 'ViewedComment', dependent: :destroy
+
   # ===============
   # = Validations =
   # ===============
@@ -191,5 +193,31 @@ class Answer < ApplicationRecord
       madmp_fragment.id
     end
     nil
+  end
+
+  def serialize_json(user = nil)
+    {
+      id: id,
+      question_id: question_id,
+      fragment_id: madmp_fragment&.id,
+      madmp_schema_id: madmp_fragment&.madmp_schema_id,
+      classname: madmp_fragment&.classname,
+      new_comment_count: user ? unread_comments_count_for(user) : 0
+    }
+  end
+
+  def unread_comments_count_for(user)
+    mark = ViewedComment.find_by(user: user, answer: self)
+    # exluding user's own comment
+    scope = notes.where.not(user_id: user.id).where(archived: false)
+    scope = scope.where('created_at > ?', mark.last_read_at) if mark
+    scope.count
+  end
+
+  def mark_comments_as_read(user)
+    ViewedComment.upsert(
+      { user_id: user.id, answer_id: id, last_read_at: Time.current },
+      unique_by: %i[user_id answer_id]
+    )
   end
 end

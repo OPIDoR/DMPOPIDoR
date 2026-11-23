@@ -82,42 +82,40 @@ function TinyArea({ label, propName, tooltip, placeholder, readonly = false }) {
   );
 
   return (
-    <div className={"form-group ticket-summernote mr-4 ml-4"}>
-      <div className="row">
-        <div className={styles.label_form}>
-          <label data-tooltip-id={tinyAreaLabelId}>
-            {label}
-            {tooltip && <TooltipInfoIcon />}
-          </label>
-          {tooltip && (
-            <ReactTooltip
-              id={tinyAreaLabelId}
-              place="bottom"
-              effect="solid"
-              variant="info"
-              style={{ width: "300px", textAlign: "center" }}
-              content={tooltip}
-            />
-          )}
-        </div>
+    <div className="form-group ticket-summernote mr-4 ml-4">
+      <div className={styles.label_form}>
+        <label data-tooltip-id={tinyAreaLabelId}>
+          {label}
+          {tooltip && <TooltipInfoIcon />}
+        </label>
+        {tooltip && (
+          <ReactTooltip
+            id={tinyAreaLabelId}
+            place="bottom"
+            effect="solid"
+            variant="info"
+            style={{ width: "300px", textAlign: "center" }}
+            content={tooltip}
+          />
+        )}
+      </div>
 
-        <div style={{ marginTop: "10px" }} key={field.id} ref={editorRef}>
-          {!readonly && (
-            <Editor
-              {...newField}
-              onEditorChange={(newText) => onChange(newText)}
-              licenseKey="gpl"
-              init={editorConfig}
-            />
-          )}
-          {readonly && (
-            <ReadDiv
-              dangerouslySetInnerHTML={{
-                __html: DOMPurify.sanitize([field.value]),
-              }}
-            />
-          )}
-        </div>
+      <div style={{ marginTop: "10px" }} key={field.id} ref={editorRef}>
+        {!readonly && (
+          <Editor
+            {...newField}
+            onEditorChange={(newText) => onChange(newText)}
+            licenseKey="gpl"
+            init={editorConfig}
+          />
+        )}
+        {readonly && (
+          <ReadDiv
+            dangerouslySetInnerHTML={{
+              __html: DOMPurify.sanitize([field.value]),
+            }}
+          />
+        )}
       </div>
     </div>
   );

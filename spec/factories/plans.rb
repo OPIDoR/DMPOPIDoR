@@ -6,7 +6,7 @@
 #
 #  id                         :integer          not null, primary key
 #  complete                   :boolean          default(FALSE)
-#  context                    :integer          default(0), not null
+#  context                    :integer          default("research_project"), not null
 #  description                :text
 #  end_date                   :datetime
 #  ethical_issues             :boolean
@@ -19,7 +19,7 @@
 #  pdf_data                   :binary
 #  start_date                 :datetime
 #  title                      :string
-#  visibility                 :integer          default(3), not null
+#  visibility                 :integer          default("administrator_visible"), not null
 #  created_at                 :datetime
 #  updated_at                 :datetime
 #  feedback_requestor_id      :integer

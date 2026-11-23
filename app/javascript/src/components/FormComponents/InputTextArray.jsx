@@ -27,7 +27,7 @@ function InputTextArray({
   });
   const inputTextTooltipId = uniqueId("input_text_dynamicaly_tooltip_id_");
   return (
-    <div>
+    <>
       <div className={styles.label_form}>
         <label
           data-testid="input-text-array-label"
@@ -106,7 +106,7 @@ function InputTextArray({
           position="start"
         ></CustomButton>
       )}
-    </div>
+    </>
   );
 }
 

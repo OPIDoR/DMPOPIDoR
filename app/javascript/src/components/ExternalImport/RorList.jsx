@@ -10,7 +10,7 @@ import CustomError from "../Shared/CustomError";
 import Pagination from "../Shared/Pagination";
 import { flattenObject, normalize } from "../../utils/utils";
 
-function RorList({ fragment, setFragment, mapping = {}, locale }) {
+function RorList({ fragment, setFragment, mapping = {} }) {
   const { t } = useTranslation();
   const pageSize = 8;
   const [data, setData] = useState([]);
@@ -21,8 +21,6 @@ function RorList({ fragment, setFragment, mapping = {}, locale }) {
   const [selectedOrg, setSelectedOrg] = useState(null);
   const [text, setText] = useState("");
   const [selectedCountry, setSelectedCountry] = useState(null);
-
-  const localeCode = locale.split("_").at(0);
 
   /**
    * The function `getData` makes an API call to get data, sets the retrieved data in state variables, and creates an array of distinct countries from the
@@ -161,120 +159,105 @@ function RorList({ fragment, setFragment, mapping = {}, locale }) {
       {error && <CustomError error={error} />}
       {!error && (
         <>
-          <div className="row" style={{ margin: "10px" }}>
-            <div>
-              <div className="row" style={{ marginBottom: "10px" }}>
-                <div>
-                  <i>
-                    <Trans
-                      t={t}
-                      i18nKey="rorIdExplanation"
-                      components={[
-                        // eslint-disable-next-line react/jsx-key
-                        <a
-                          href="https://ror.org/"
-                          target="_blank"
-                          rel="noopener noreferrer"
-                          style={{ textDecoration: "underline" }}
-                        >
-                          ROR
-                        </a>,
-                      ]}
-                    />
-                  </i>
-                </div>
-              </div>
-              <div className="row">
-                <div>
-                  <div className="input-group">
-                    <input
-                      type="text"
-                      className="form-control"
-                      value={text}
-                      onChange={(e) => setText(e.target.value)}
-                      onKeyDown={(e) => handleKeyDown(e)}
-                      placeholder={t("searchOrg")}
-                      style={{
-                        borderRadius: "8px 0 0 8px",
-                        borderWidth: "1px",
-                        borderColor: "var(--dark-blue)",
-                        height: "43px",
-                      }}
-                    />
-                    <span className="input-group-btn">
-                      <button
-                        className="btn btn-default"
-                        type="button"
-                        onClick={handleSearchTerm}
-                        style={{
-                          borderRadius: "0",
-                          borderWidth: "1px",
-                          borderColor: "var(--dark-blue)",
-                          height: "43px",
-                          margin: "0",
-                        }}
-                      >
-                        <span
-                          className="fas fa-magnifying-glass"
-                          style={{ color: "var(--dark-blue)" }}
-                        />
-                      </button>
-                    </span>
-                    <span className="input-group-btn">
-                      <button
-                        className="btn btn-default"
-                        type="button"
-                        onClick={handleDeleteText}
-                        style={{
-                          borderRadius: "0 8px 8px 0",
-                          borderWidth: "1px",
-                          borderColor: "var(--dark-blue)",
-                          height: "43px",
-                          margin: "0",
-                        }}
-                      >
-                        <span className="fa fa-xmark" />
-                      </button>
-                    </span>
-                  </div>
-                </div>
-              </div>
+          <div className="row" style={{ marginBottom: "10px" }}>
+            <span style={{ marginBottom: "10px" }}>
+              <i>
+                <Trans
+                  t={t}
+                  i18nKey="rorIdExplanation"
+                  components={[
+                    // eslint-disable-next-line react/jsx-key
+                    <a
+                      href="https://ror.org/"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      style={{ textDecoration: "underline" }}
+                    >
+                      ROR
+                    </a>,
+                  ]}
+                />
+              </i>
+            </span>
+            <div className="input-group">
+              <input
+                type="text"
+                className="form-control"
+                value={text}
+                onChange={(e) => setText(e.target.value)}
+                onKeyDown={(e) => handleKeyDown(e)}
+                placeholder={t("searchOrg")}
+                style={{
+                  borderRadius: "8px 0 0 8px",
+                  borderWidth: "1px",
+                  borderColor: "var(--dark-blue)",
+                  height: "43px",
+                }}
+              />
+              <span className="input-group-btn">
+                <button
+                  className="btn btn-default"
+                  type="button"
+                  onClick={handleSearchTerm}
+                  style={{
+                    borderRadius: "0",
+                    borderWidth: "1px",
+                    borderColor: "var(--dark-blue)",
+                    height: "43px",
+                    margin: "0",
+                  }}
+                >
+                  <span
+                    className="fas fa-magnifying-glass"
+                    style={{ color: "var(--dark-blue)" }}
+                  />
+                </button>
+              </span>
+              <span className="input-group-btn">
+                <button
+                  className="btn btn-default"
+                  type="button"
+                  onClick={handleDeleteText}
+                  style={{
+                    borderRadius: "0 8px 8px 0",
+                    borderWidth: "1px",
+                    borderColor: "var(--dark-blue)",
+                    height: "43px",
+                    margin: "0",
+                  }}
+                >
+                  <span className="fa fa-xmark" />
+                </button>
+              </span>
             </div>
           </div>
           {data.length > 0 && countries.length > 1 && (
             <div className="row" style={{ margin: "10px" }}>
-              <div className="">
-                <div className="row">
-                  <div>
-                    <Select
-                      menuPortalTarget={document.body}
-                      isClearable
-                      isSearchable
-                      styles={{
-                        menuPortal: (base) => ({ ...base, zIndex: 9999 }),
-                        singleValue: (base) => ({
-                          ...base,
-                          color: "var(--dark-blue)",
-                        }),
-                        control: (base) => ({
-                          ...base,
-                          borderRadius: "8px",
-                          borderWidth: "1px",
-                          borderColor: "var(--dark-blue)",
-                          height: "43px",
-                        }),
-                      }}
-                      value={
-                        countries.find((c) => c.value === selectedCountry) ||
-                        null
-                      }
-                      onChange={handleChangeCountry}
-                      placeholder={t("selectCountry")}
-                      options={countries}
-                    />
-                  </div>
-                </div>
-              </div>
+              <Select
+                menuPortalTarget={document.body}
+                isClearable
+                isSearchable
+                styles={{
+                  menuPortal: (base) => ({ ...base, zIndex: 9999 }),
+                  singleValue: (base) => ({
+                    ...base,
+                    color: "var(--dark-blue)",
+                  }),
+                  control: (base) => ({
+                    ...base,
+                    borderRadius: "8px",
+                    borderWidth: "1px",
+                    borderColor: "var(--dark-blue)",
+                    height: "43px",
+                  }),
+                }}
+                value={
+                  countries.find((c) => c.value === selectedCountry) || null
+                }
+                onChange={handleChangeCountry}
+                placeholder={t("selectCountry")}
+                options={countries}
+              />
             </div>
           )}
 

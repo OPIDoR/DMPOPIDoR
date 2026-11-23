@@ -87,7 +87,6 @@ function ModalForm({
             fragment={methods}
             setFragment={setValues}
             externalImports={externalImports}
-            locale={locale}
           />
         )}
         <FormProvider {...methods}>

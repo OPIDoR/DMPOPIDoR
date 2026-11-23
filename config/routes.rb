@@ -106,13 +106,7 @@ Rails.application.routes.draw do
   # Question Formats controller, currently just the one action
   get 'question_formats/rda_api_address' => 'question_formats#rda_api_address'
 
-  resources :notes, only: %i[create update] do
-    member do
-      post 'create', constraints: { format: [:json] }
-      patch 'archive', constraints: { format: [:json] }
-      put 'update', constraints: { format: [:json] }
-    end
-  end
+  resources :notes, only: %i[create update destroy], constraints: { format: [:json] }
 
   resources :feedback_requests, only: [:create]
 
@@ -132,7 +126,6 @@ Rails.application.routes.draw do
       get 'guidance_groups', constraints: { format: [:json] }
       post 'guidance_groups', action: :select_guidance_groups, constraints: { format: [:json] }
       get 'guidances', action: :question_guidances, constraints: { format: [:json] }
-      get 'research_outputs_data', constraints: { format: [:json] }
       get 'contributors_data', constraints: { format: [:json] }
       post 'duplicate'
       post 'visibility', constraints: { format: [:json] }
@@ -142,7 +135,7 @@ Rails.application.routes.draw do
     resources :research_outputs, only: %i[index], controller: 'classic_research_outputs'
   end
 
-  resources :research_outputs, only: %i[show create destroy update], constraints: { format: [:json] } do
+  resources :research_outputs, only: %i[index show create destroy update], constraints: { format: [:json] } do
     post 'import', on: :collection, constraints: { format: [:json] }
     post 'sort', on: :collection, constraints: { format: [:json] }
     member do
@@ -179,8 +172,9 @@ Rails.application.routes.draw do
     resources :plans, only: [:update]
   end
 
-  resources :madmp_fragments, only: %i[show create update destroy] do
+  resources :madmp_fragments, only: %i[index show create update destroy] do
     get 'load_fragments', action: :load_fragments, on: :collection
+    post 'import', action: :import, on: :collection
     delete 'destroy_contributor', action: :destroy_contributor, on: :collection, constraints: { format: [:json] }
   end
 
