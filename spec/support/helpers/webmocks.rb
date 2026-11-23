@@ -26,13 +26,6 @@ module Webmocks
       .to_return(status: successful ? 200 : 500, body: response_body, headers: {})
   end
 
-  def stub_openaire
-    url = ExternalApis::OpenAireService.api_base_url
-    url = "#{url}#{ExternalApis::OpenAireService.search_path}"
-    url %= ExternalApis::OpenAireService.default_funder
-    stub_request(:get, url).to_return(status: 200, body: '', headers: {})
-  end
-
   def mocked_ror_response
     body = { number_of_results: 10, time_taken: 10, items: [] }
     10.times.each do

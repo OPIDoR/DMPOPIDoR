@@ -222,8 +222,6 @@ module DMPRoadmap
 
     # Determines how long to cache results for OrgSelection::SearchService
     config.x.cache.org_selection_expiration = ENV.fetch('CACHE_ORG_SELECTION_EXPIRATION', 86_400)&.to_i
-    # Determines how long to cache results for the ResearchProjectsController
-    config.x.cache.research_projects_expiration = ENV.fetch('CACHE_RESEARCH_PROJECTS_EXPIRATION', 86_400)&.to_i
 
     # ---------------- #
     # Google Analytics #

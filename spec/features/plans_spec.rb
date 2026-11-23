@@ -15,8 +15,6 @@ RSpec.describe 'Plans', type: :feature do
     @user         = create(:user, org: @org)
     sign_in(@user)
 
-    stub_openaire
-
     #     OpenURI.expects(:open_uri).returns(<<~XML
     #       <form-value-pairs>
     #         <value-pairs value-pairs-name="H2020projects" dc-term="relation">

@@ -529,13 +529,5 @@ Rails.application.routes.draw do
     resources :module_templates, only: %i[index]
   end
 
-  get 'research_projects/search', action: 'search',
-                                  controller: 'research_projects',
-                                  constraints: { format: 'json' }
-
-  get 'research_projects/(:type)', action: 'index',
-                                   controller: 'research_projects',
-                                   constraints: { format: 'json' }
-
   get "/healthz", to: "health#show"
 end
