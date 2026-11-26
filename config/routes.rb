@@ -168,10 +168,6 @@ Rails.application.routes.draw do
     end
   end
 
-  namespace :settings do
-    resources :plans, only: [:update]
-  end
-
   resources :madmp_fragments, only: %i[index show create update destroy] do
     get 'load_fragments', action: :load_fragments, on: :collection
     post 'import', action: :import, on: :collection

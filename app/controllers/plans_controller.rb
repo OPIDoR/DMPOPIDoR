@@ -351,7 +351,6 @@ class PlansController < ApplicationController
 
     @phase_options = @plan.phases.order(:number).pluck(:title, :id)
     @phase_options.insert(0, ['All phases', 'All']) if @phase_options.length > 1
-    @export_settings = @plan.settings(:export)
     render 'download'
   end
 
