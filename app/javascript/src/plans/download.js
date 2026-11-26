@@ -31,14 +31,12 @@ document.addEventListener("turbo:load", () => {
       }
 
       if (downloadFormat === "pdf") {
-        $("#pdf-formatting").show();
         $("#large-plan-warning").show();
         checkSelectedCount();
       } else {
         $("#pdf-formatting").hide();
         $(".download-btn").attr("disabled", false);
         $(".download-btn-tooltip").hide();
-        $("#large-plan-warning").hide();
       }
 
       if (downloadFormat === "json") {

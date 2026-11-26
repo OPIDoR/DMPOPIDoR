@@ -52,7 +52,7 @@ class PlanExportsController < ApplicationController
     end
 
     @hash           = @plan.as_pdf(current_user, @options[:show_coversheet])
-    @formatting     = export_params[:formatting] || @plan.settings(:export).formatting
+    @formatting     = @plan.settings(:export).formatting
 
     respond_to do |format|
       format.html { show_html }
