@@ -46,8 +46,15 @@ class PlanExportsController < ApplicationController
       raise Pundit::NotAuthorizedError
     end
 
-    if request.format.pdf? && @plan.pdf_data.present?
-      && @selected_research_outputs && @selected_research_outputs.length.eql?(@plan.research_outputs.length)
+    # pdf_data is present AND
+    # downloading from the download page when having selected every research output OR
+    # downloading from the public plans page
+    if @plan.pdf_data.present? && (
+      (request.format.pdf?
+      && @selected_research_outputs
+      && @selected_research_outputs.length.eql?(@plan.research_outputs.length))
+       || @options[:public_plan]
+    )
       return show_generated_pdf
     end
 
