@@ -19,11 +19,11 @@ class PlanExportsController < ApplicationController
                             research_outputs: :guidance_groups, template: { phases: { sections: :questions } }
                           }).find(params[:plan_id])
 
+    @selected_research_outputs = params[:research_outputs]
     return show_json if request.format.json?
 
     @options = {}
     @selected_phases = params[:selected_phases]
-    @selected_research_outputs = params[:research_outputs]
     if privately_authorized? && export_params[:form].present?
       skip_authorization
       @options[:show_coversheet]         = export_params[:project_details].present?
