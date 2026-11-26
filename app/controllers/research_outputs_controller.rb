@@ -17,7 +17,7 @@ class ResearchOutputsController < ApplicationController
 
     authorize(ResearchOutput.new(plan: plan))
     research_outputs = plan.research_outputs.order(:display_order)
-    if params[:classname].present? && params[:data_type].present? && params[:topic].present?
+    if params[:classname].present? && params[:data_type].present?
       research_outputs = filter_research_outputs(research_outputs, params[:classname], params[:data_type])
     end
     render json: {
