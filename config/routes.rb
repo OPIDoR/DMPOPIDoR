@@ -270,6 +270,7 @@ Rails.application.routes.draw do
           get 'orcid', action: :orcid, on: :collection, as: :orcid
           get 'loterre/*path', action: :loterre, on: :collection, as: :loterre
           get 'metadore', action: :metadore, on: :collection, as: :metadore
+          get 'proteidor/formats', action: :proteidor_formats, on: :collection, as: :proteidor_formats
         end
       end
     end
