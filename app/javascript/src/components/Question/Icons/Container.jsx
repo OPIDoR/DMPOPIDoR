@@ -41,7 +41,7 @@ function Container({
           isQuestionOpened={isQuestionOpened}
           newCommentCount={answer?.new_comment_count || 0}
           fillColor={getFillColor(showModals.comment)}
-          setModalOpened={setModalOpened}
+          setModalOpened={isQuestionOpened ? setModalOpened : null}
         />
       )}
 
