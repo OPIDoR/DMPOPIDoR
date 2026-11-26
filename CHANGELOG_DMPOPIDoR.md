@@ -6,6 +6,8 @@
 - Correction d'un problème de filtrage des produits de recherche lors de l'import de réponse
 - Suppression des options de formatage pour l'export PDF (#18887)
 - Correction du problème de choix des produits de recherche lors de l'export JSON (#18901)
+- Correction du problème d'ouverture de la question lorsque l'utilisateur clique sur l'icone de commentaire dans une question fermée (#18903)
+- Correction du problème de téléchargement des PDF pré-générés pour les plans publics 
 
 ## 23/11/2026
 - Retrait de la thématique des critères de tri de l'import de réponse (#18807)
