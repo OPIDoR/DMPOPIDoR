@@ -2,6 +2,11 @@
 
 **Attention** Cette liste de changements concerne les déploiements sur nos serveurs de test en interne.
 
+## 26/11/2026
+- Correction d'un problème de filtrage des produits de recherche lors de l'import de réponse
+- Suppression des options de formatage pour l'export PDF (#18887)
+- Correction du problème de choix des produits de recherche lors de l'export JSON (#18901)
+
 ## 23/11/2026
 - Retrait de la thématique des critères de tri de l'import de réponse (#18807)
 - Mise à jour vers devise_invitable V3 (librairie gérant les invitations de comptes) (#18776)
