@@ -450,7 +450,7 @@ class ResearchOutputsController < ApplicationController
 
   def filter_research_outputs(research_outputs, classname, data_type)
     return research_outputs if classname.blank?
-    return research_outputs if data_type.blank? || topic.blank?
+    return research_outputs if data_type.blank?
 
     research_outputs.select do |ro|
       ro.output_type == data_type
