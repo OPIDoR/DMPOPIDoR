@@ -19,11 +19,11 @@ class PlanExportsController < ApplicationController
                             research_outputs: :guidance_groups, template: { phases: { sections: :questions } }
                           }).find(params[:plan_id])
 
+    @selected_research_outputs = params[:research_outputs]
     return show_json if request.format.json?
 
     @options = {}
     @selected_phases = params[:selected_phases]
-    @selected_research_outputs = params[:research_outputs]
     if privately_authorized? && export_params[:form].present?
       skip_authorization
       @options[:show_coversheet]         = export_params[:project_details].present?
@@ -46,13 +46,20 @@ class PlanExportsController < ApplicationController
       raise Pundit::NotAuthorizedError
     end
 
-    if request.format.pdf? && @plan.pdf_data.present?
-      && @selected_research_outputs && @selected_research_outputs.length.eql?(@plan.research_outputs.length)
+    # pdf_data is present AND
+    # downloading from the download page when having selected every research output OR
+    # downloading from the public plans page
+    if @plan.pdf_data.present? && (
+      (request.format.pdf?
+      && @selected_research_outputs
+      && @selected_research_outputs.length.eql?(@plan.research_outputs.length))
+       || @options[:public_plan]
+    )
       return show_generated_pdf
     end
 
     @hash           = @plan.as_pdf(current_user, @options[:show_coversheet])
-    @formatting     = export_params[:formatting] || @plan.settings(:export).formatting
+    @formatting     = @plan.settings(:export).formatting
 
     respond_to do |format|
       format.html { show_html }
