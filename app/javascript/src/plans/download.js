@@ -17,9 +17,29 @@ document.addEventListener("turbo:load", () => {
       $(".download-btn-tooltip").hide();
     }
   };
+  const handleExportTemplatesDisplay = (downloadFormat) => {
+    const exportTemplates = $("#export-templates");
+    exportTemplates
+      .find(`li[data-format="none"] input[type="radio"]`)
+      .prop("checked", true);
+    if (
+      exportTemplates.find(
+        `li.proteidor-format[data-format="${downloadFormat}"]`,
+      ).length > 0
+    ) {
+      exportTemplates.show();
+      exportTemplates.find("li.proteidor-format").hide();
+      exportTemplates
+        .find(`li.proteidor-format[data-format="${downloadFormat}"]`)
+        .show();
+    } else {
+      exportTemplates.hide();
+    }
+  };
   $("#download_form select#format")
     .on("change", () => {
       downloadFormat = $("#download_form select#format").val();
+      handleExportTemplatesDisplay(downloadFormat);
       if (
         downloadFormat === "pdf" ||
         downloadFormat === "html" ||

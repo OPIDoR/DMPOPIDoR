@@ -351,6 +351,10 @@ class PlansController < ApplicationController
 
     @phase_options = @plan.phases.order(:number).pluck(:title, :id)
     @phase_options.insert(0, ['All phases', 'All']) if @phase_options.length > 1
+
+    if Rails.configuration.x.dmpopidor.front[:enable_proteidor_exports]
+      @export_templates = ExternalApis::ProteidorService.formats
+    end
     render 'download'
   end
 

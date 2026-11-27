@@ -115,6 +115,29 @@
       </ul>
     </fieldset>
 
+    <% if Rails.configuration.x.dmpopidor.front[:enable_proteidor_exports] %>
+      <fieldset id="export-templates">
+        <legend><%= _("Export Templates") %></legend>
+        <ul>
+          <% @export_templates.map do |format, templates| %>
+            <% templates.each do |template| %>
+              <li class="form-check proteidor-format" data-format="<%= format.downcase %>">
+                <%= label_tag do %>
+                  <%= radio_button_tag("export_template", template['id'], false) %>
+                  <%= "#{template["name"]} (#{format.downcase})" %>
+                <% end %>
+              </li>
+            <% end %>
+          <% end %>
+          <li class="form-check" data-format="none">
+            <%= label_tag do %>
+              <%= radio_button_tag("export_template", "none", true) %>
+              <%= _('None') %>
+            <% end %>
+          </li>
+        </ul>
+      </fieldset>
+    <% end %>
     <% if @plan.research_outputs.count > ENV.fetch('PLAN_MINIMUM_RESEARCH_OUTPUTS', 15).to_i %>
       <div id="large-plan-warning" class="alert alert-warning">
         <%= _('Due to longer PDF generation times for plans with more than 15 research outputs, you can download either the PDF of the full plan or the PDF of the plan for a selection of up to 15 research products.') %>

@@ -67,6 +67,7 @@ services:
       - ENABLE_GRAPHIQL=true
       - ENABLE_TOPICS=${ENABLE_TOPICS:-true}
       - ENABLE_PHYSICAL_OBJECT=${ENABLE_PHYSICAL_OBJECT:-true}
+      - ENABLE_PROTEIDOR_EXPORTS=${ENABLE_PROTEIDOR_EXPORTS:-true}
     working_dir: /app
     volumes:
       - ./log:/app/log

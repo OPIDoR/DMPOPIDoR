@@ -20,6 +20,10 @@ class PlanExportsController < ApplicationController
                           }).find(params[:plan_id])
 
     @selected_research_outputs = params[:research_outputs]
+    if params[:export_template].present? && !params[:export_template].eql?('none')
+      return show_with_export_template(params[:plan_id], params[:export_template],
+                                       request.format.symbol.to_s)
+    end
     return show_json if request.format.json?
 
     @options = {}
@@ -113,20 +117,10 @@ class PlanExportsController < ApplicationController
               filename: "#{file_name}.pdf"
   end
 
-  # rubocop:disable-next Metrics/AbcSize
   def show_json
     skip_authorization
 
-    json_plan = JsonPlan.find_by(plan_id: params[:plan_id])
-    return head :not_found unless json_plan
-
-    json_data = json_plan.data
-
-    if @selected_research_outputs
-      json_data['researchOutput'] = json_data['researchOutput'].filter do |ro|
-        @selected_research_outputs.include?(ro['research_output_id'].to_s)
-      end
-    end
+    json_data = fetch_json_data(params[:plan_id], @selected_research_outputs)
 
     json_format = params[:json_format]
 
@@ -140,6 +134,31 @@ class PlanExportsController < ApplicationController
     end
 
     send_data json_data.to_json, filename: "#{file_name}_#{json_format}.json"
+  end
+
+  def show_with_export_template(plan_id, export_template, format)
+    skip_authorization
+
+    json_data = fetch_json_data(plan_id, @selected_research_outputs)
+
+    ExternalApis::ProteidorService.export(json_data, export_template, format)
+
+    send_data ExternalApis::ProteidorService.export(json_data, export_template, format),
+              filename: "#{file_name}.#{format}"
+  end
+
+  def fetch_json_data(plan_id, selected_research_outputs)
+    json_plan = JsonPlan.find_by(plan_id:)
+    return head :not_found unless json_plan
+
+    json_data = json_plan.data
+
+    return {} unless selected_research_outputs
+
+    json_data['researchOutput'] = json_data['researchOutput'].filter do |ro|
+      selected_research_outputs.include?(ro['research_output_id'].to_s)
+    end
+    json_data
   end
 
   def file_name
