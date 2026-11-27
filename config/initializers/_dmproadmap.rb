@@ -211,9 +211,6 @@ module DMPRoadmap
     # regardless of the plans visibility and whether or not the plan has been shared
     config.x.plans.super_admins_read_all = ENV.fetch('PLANS_SUPER_ADMINS_READ_ALL', true).to_s.casecmp('true').zero?
 
-    # Check download of a plan coversheet tickbox
-    config.x.plans.download_coversheet_tickbox_checked = ENV.fetch('PLANS_DOWNLOAD_COVERSHEET_TICKBOX_CHECKED',
-                                                                   false).to_s.casecmp('true').zero?
     # Default license for plans
     config.x.plans.default_license = ENV.fetch('PLANS_DEFAULT_LICENSE', 'Etalab Open License 2.0')
     # ---------------------------------------------------- #
@@ -237,8 +234,6 @@ module DMPRoadmap
     # --------------------------------------------------- #
     # Machine Actionable / Networked DMP Features (maDMP) #
     # --------------------------------------------------- #
-    # Enable/disable functionality on the Project Details tab
-    config.x.madmp.enable_ethical_issues = ENV.fetch('MADMP_ENABLE_ETHICAL_ISSUES', true).to_s.casecmp('true').zero?
 
     # The following flags will allow the system to include the question and answer in the JSON output
     #   - questions with a theme equal to 'Preservation'
